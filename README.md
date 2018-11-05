@@ -1,36 +1,29 @@
 # The JavaScript Tutorial
 
-This repository hosts the content of the Modern JavaScript Tutorial, published at [https://javascript.info](https://javascript.info).
+이 저장소는 [https://javascript.info](https://javascript.info)에 배포된 Mordern JavaScript Tutorial의 문서를 담고 있습니다. 
 
-## Translations
+## 한국어 번역 
 
-(In alphabetical order):
+현재 번역이 진행되고 있습니다. 아무나 번역에 참여할 수 있으며 언제라도 함께하고 싶다면 환영합니다.
 
-| Language | Github | Translation leads | Translated (%) | Published |
-|----------|--------|-------------------|-----------------|-----------|
-| Chinese | https://github.com/xitu/javascript-tutorial-zh | @leviding | ![](http://translate-hook.javascript.info/stats/zh.svg) | - |
-| Japanese | https://github.com/KenjiI/javascript-tutorial-ja | @KenjiI | ![](http://translate-hook.javascript.info/stats/ja.svg) | - |
-| Russian | https://github.com/iliakan/javascript-tutorial-ru | @iliakan | * | https://learn.javascript.ru |
-| Turkish | https://github.com/sahinyanlik/javascript-tutorial-tr | @sahinyanlik | ![](http://translate-hook.javascript.info/stats/tr.svg) | - |
+번역에 참여하고 싶다면 먼저 이슈를 확인하여 번역이 혹시 진행 중인지 파악한 뒤에 파일명 또는 해당 article의 소제목 등 자신이 번역할 부분을 미리 등록해 주시기 바랍니다(이슈 등록양식은 아직 따로 없습니다).
 
-`*` – the previous version is published in Russian, need to backport/translate the new one from English.
+이렇게 함으로써 중복으로 번역하는 수고를 덜고자 합니다. 변역 완료 후 pull request 주시면 빠른 시일 내에 확인하여 commit 하겠습니다. 번역이 30% 이상 완료되면 [메인 저장소](https://javascript.info)에 추가 요청할 예정 입니다.
 
-If you'd like to translate it into your language, please clone the repository, change its name to `javascript-tutorial-...` (by the language) and [create an issue](https://github.com/iliakan/javascript-tutoria-en/issues/new) for me to add you to the list.
+번역 시에는 마크다운 문법이 가능한 에디터를 사용하시기 바랍니다. 실제 사이트에서 어떻게 보일지 확인하고 싶다면 또는 사이트 서버를 로컬에서 실행시켜보고 싶다면 <https://github.com/iliakan/javascript-tutorial-server> 여기를 확인해 보시기 바랍니다.
 
-You can edit the text in any editor (markdown-like syntax). The server to run the tutorial locally and see how it looks is at <https://github.com/iliakan/javascript-tutorial-server>.  
+## 번역 컨벤션
 
+ - 경어체를 사용합니다.
 
+## 구조
 
-## Structure
+모든 쳅터, 기사 또는 문제는 해당 폴더를 각각 가집니다.  
+`N-url`식으로 명명된 폴더에서 `N`은 이후 정렬목적으로 사용되 `url`은 URL뒤에 쓰여질 자료의 제목입니다.  
+자료의 형태는 폴더며 안에 파일명으로 정의됩니다.  
 
-Every chapter, article or a task has its folder.
+ - `index.md` 쳅터를 의미합니다.
+ - `article.md` 기사를 의미합니다.
+ - `task.md` 의미합니다. (해답은 `solution.md`파일 안에 제공됩니다.)
 
-The folder is named like `N-url`, where `N` is a number for the sorting purposes and `url` is the URL part with title of the material.
-
-The type of the material is defined by the file inside the folder:
-
-  - `index.md` stands for a chapter
-  - `article.md` stands for an article
-  - `task.md` stands for a task (solution must be provided in `solution.md` file aswell)
-
-Each of these files starts from the `# Main header`.
+각 파일은 `#` 마크다운 요소부터 시작합니다. 
