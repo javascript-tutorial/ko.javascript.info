@@ -1,4 +1,4 @@
-# Prototypal inheritance
+# 원형 상속 Prototypal inheritance
 
 우리는 종종 프로그래밍을 하다 보면 확장을 하기를 원하죠. 
 
@@ -13,7 +13,6 @@
 ![prototype](object-prototype-empty.png)
 
 `[[Prototype]]`은 "마법의" 의미를 가지고 있습니다. `객체`에서 속성을 읽을 때 만약 해당 속성이 없다면, 자바스크립트는 자동으로 해당 객체의 원형에서 그것을 읽어 옵니다. 프로그래밍에서 그런 것을 "원형 상속 Prototypal inheritance"이라고 부릅니다. 많은 간지나는 언어들과 프로그래밍 기술의 토대가 되는 언어 특징입니다.
-
 `[[prototype]]`속성은 내부적으로 숨겨져있습니다. 하지만 설정할 수 있는 많은 방법이 있죠.
 
 그중 하나가 `__proto__`입니다, 이렇게 사용하죠:
