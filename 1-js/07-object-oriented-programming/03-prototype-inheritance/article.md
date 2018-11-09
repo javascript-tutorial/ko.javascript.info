@@ -63,7 +63,7 @@ alert( rabbit.jumps ); // true
 
 그래서 만약 `animal`이 많은 유용한 객체와 메소드를 가지고 있다면, `rabbit`에서 자동으로 사용할 수 있게 됩니다. 그런 속성들을 "상속됬다"라고 표현하죠.
 
-만약 우리가 `animal`에 어떤 메소드를 가지고 있다면, `rabbit`에서도 호촐할 수 있습니다.
+만약 우리가 `animal`에 어떤 메소드를 가지고 있다면, `rabbit`에서도 호출할 수 있습니다.
 
 ```js run
 let animal = {
