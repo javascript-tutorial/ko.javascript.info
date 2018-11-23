@@ -9,7 +9,6 @@
 | Russian | https://github.com/iliakan/javascript-tutorial-ru | @iliakan | * | https://learn.javascript.ru |
 | Turkish | https://github.com/sahinyanlik/javascript-tutorial-tr | @sahinyanlik | ![](http://translate-hook.javascript.info/stats/tr.svg?1) | - |
 
-
 ## 한국어 번역 
 
 현재 번역이 진행되고 있습니다. 아무나 번역에 참여할 수 있으며 언제라도 함께하고 싶다면 환영합니다.
