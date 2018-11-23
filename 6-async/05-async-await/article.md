@@ -47,7 +47,7 @@ let value = await promise;
 
 The keyword `await` makes JavaScript wait until that promise settles and returns its result.
 
-Here's example with a promise that resolves in 1 second:
+Here's an example with a promise that resolves in 1 second:
 ```js run
 async function f() {
 
@@ -183,7 +183,7 @@ The meaning is the same: it ensures that the returned value is a promise and ena
 ````
 ## Error handling
 
-If a promise resolves normally, then `await promise` returns the result. But in case of a rejection, it throws the error, just if there were a `throw` statement at that line.
+If a promise resolves normally, then `await promise` returns the result. But in case of a rejection, it throws the error, just as if there were a `throw` statement at that line.
 
 This code:
 
