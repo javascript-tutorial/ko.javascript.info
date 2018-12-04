@@ -1,6 +1,6 @@
 # 속성과 프로퍼티
 
-브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 *파싱*이라고 부른다) DOM 객체를 생성한다. 요소 노드(Element node)에서 대부분의 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 된다.
+브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 *파싱*이라고 부른다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 대부분의 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
 
 예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체를 이용해 `body.id="page"`로 가지고 올 수 있습니다.
 
