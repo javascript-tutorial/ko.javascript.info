@@ -1,12 +1,12 @@
-# Attributes and properties
+# 속성과 프로퍼티
 
-When the browser loads the page, it "reads" (another word: "parses") the HTML and generates DOM objects from it. For element nodes, most standard HTML attributes automatically become properties of DOM objects.
+브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 *파싱*이라고 부른다) DOM 객체를 생성한다. 요소 노드(Element node)에서 대부분의 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 된다.
 
-For instance, if the tag is `<body id="page">`, then the DOM object has `body.id="page"`.
+예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체를 이용해 `body.id="page"`로 가지고 올 수 있습니다.
 
-But the attribute-property mapping is not one-to-one! In this chapter we'll pay attention to separate these two notions, to see how to work with them, when they are the same, and when they are different.
+하지만 속성-프로퍼티는 일대일의 관계가 아닙니다. 이 장에선 속성과 프로퍼티가 어떻게 함께 작동하는지, 언제 같은지, 언제 다른지 주의하여 두 개념을 알아보겠습니다.
 
-## DOM properties
+## DOM 프로퍼티
 
 We've already seen built-in DOM properties. There's a lot. But technically no one limits us, and if it's not enough -- we can add our own.
 
