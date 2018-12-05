@@ -1,6 +1,6 @@
 # 속성과 프로퍼티
 
-브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 *파싱*이라고 부른다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 대부분의 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
+브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 *파싱*이라고 부릅니다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 대부분의 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
 
 예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체를 이용해 `body.id="page"`로 가지고 올 수 있습니다.
 
@@ -8,11 +8,11 @@
 
 ## DOM 프로퍼티
 
-We've already seen built-in DOM properties. There's a lot. But technically no one limits us, and if it's not enough -- we can add our own.
+이미 내장(built-in) DOM 프로퍼티에 대해 살펴 본 바 있습니다. DOM 프로퍼티는 엄청나게 많습니다. 하지만 이런 내장 프로퍼티만으로 충분하지 않은 경우 자기만의 프로퍼티를 만들수도 있습니다.
 
-DOM nodes are regular JavaScript objects. We can alter them.
+DOM 노드(DOM node)는 자바스크립트 객체입니다. 이걸 한번 바꿔보도록 하겠습니다.
 
-For instance, let's create a new property in `document.body`:
+예를들어 새로운 프로퍼티를 `document.body`에 만들어보겠습니다:
 
 ```js run
 document.body.myData = {
@@ -23,17 +23,17 @@ document.body.myData = {
 alert(document.body.myData.title); // Imperator
 ```
 
-We can add a method as well:
+여기에 메서드도 하나 더해보겠습니다:
 
 ```js run
 document.body.sayTagName = function() {
   alert(this.tagName);
 };
 
-document.body.sayTagName(); // BODY (the value of "this" in the method is document.body)
+document.body.sayTagName(); // BODY (메서드에서 사용된 "this" 가 기리키는건 document.body입니다)
 ```
 
-We can also modify built-in prototypes like `Element.prototype` and add new methods to all elements:
+`Element.prototype`와 같은 내장 프로퍼티를 수정하면 모든 요소가 새로운 메서드를 사용할 수 있도록 할 수도 있습니다:
 
 ```js run
 Element.prototype.sayHi = function() {
@@ -44,10 +44,10 @@ document.documentElement.sayHi(); // Hello, I'm HTML
 document.body.sayHi(); // Hello, I'm BODY
 ```
 
-So, DOM properties and methods behave just like those of regular JavaScript objects:
+DOM 프로퍼티와 메서드는 일반적인 자바스크립트 객체처럼 행동합니다:
 
-- They can have any value.
-- They are case-sensitive (write `elem.nodeType`, not `elem.NoDeTyPe`).
+- 어떤 값이든 가질 수 있습니다.
+- 대소문자를 가립니다(이렇게 써야 작동하고`elem.nodeType`, 이렇게 쓰면 작동하지 않습니다`elem.NoDeTyPe`).
 
 ## HTML attributes
 
