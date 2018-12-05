@@ -29,3 +29,11 @@
   - `task.md` 이/가 있는 폴더는 `과제`입니다. (해당 과제의 해답은 같은 폴더 내에 `solution.md`으로 제공됩니다)
 
 각 파일은 `# Main header`로 시작합니다.
+
+## 번역어
+번역어는 출판된 도서를 기준으로 하겠습니다. 주 참고도서는 다음과 같습니다
+* 프론트엔드 개발자를 위한 자바스크립트 프로그래밍(링크)[https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=]
+* 인사이드 자바스크립트(링크)[https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652]
+* 러닝 자바스크립트(링크)[https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387]
+
+번역어는 다음 시트에서 확인할 수 있습니다(링크)[https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing]
