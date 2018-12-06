@@ -1,14 +1,14 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Animate a plane (CSS)
+# 비행기에 애니메이션 효과주기 (CSS)
 
-Show the animation like on the picture below (click the plane):
+아래 사진의 애니메이션 효과 보기 (비행기를 클릭해보세요):
 
 [iframe src="solution" height=300]
 
-- The picture grows on click from `40x24px` to `400x240px` (10 times larger).
-- The animation takes 3 seconds.
-- At the end output: "Done!".
-- During the animation process, there may be more clicks on the plane. They shouldn't "break" anything.
+- 사진을 클릭하면 `40x24px` 에서 `400x240px`로 확대됩니다. (10배 확대)
+- 해당 효과는 3초가 소요됩니다.
+- 다음 메시지가 출력됩니다.: "Done!"
+- 애니메이션이 실행되는 동안에는 사진을 클릭해도 애니메이션이 중단되지 않습니다.
