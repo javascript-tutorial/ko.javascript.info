@@ -4,8 +4,9 @@
 
 | Language | Github | Translation leads | Translated (%) | Published |
 |----------|--------|-------------------|-----------------|-----------|
-| Chinese | https://github.com/xitu/javascript-tutorial-zh | @leviding | ![](http://translate-hook.javascript.info/stats/zh.svg?1) | - |
-| Japanese | https://github.com/KenjiI/javascript-tutorial-ja | @KenjiI | ![](http://translate-hook.javascript.info/stats/ja.svg?1) | - |
+| Chinese | https://github.com/xitu/javascript-tutorial-zh | @leviding | ![](http://translate-hook.javascript.info/stats/zh.svg?1) | https://zh.javascript.info |
+| Japanese | https://github.com/KenjiI/javascript-tutorial-ja | @KenjiI | ![](http://translate-hook.javascript.info/stats/ja.svg?1) | https://ja.javascript.info |
+| Romanian | https://github.com/lighthousand/javascript-tutorial-ro | @lighthousand | started | - |
 | Russian | https://github.com/iliakan/javascript-tutorial-ru | @iliakan | * | https://learn.javascript.ru |
 | Turkish | https://github.com/sahinyanlik/javascript-tutorial-tr | @sahinyanlik | ![](http://translate-hook.javascript.info/stats/tr.svg?1) | - |
 
@@ -13,8 +14,11 @@
 
 현재 번역이 진행되고 있습니다. 아무나 번역에 참여할 수 있으며 언제라도 함께하고 싶다면 환영합니다.
 
+
 번역에 참여하고 싶다면 먼저 이슈를 확인하여 번역이 혹시 진행 중인지 파악한 뒤에 파일명 또는 해당 article의 소제목 등 자신이 번역할 부분을 미리 등록해 주시기 바랍니다.
 이슈를 확인할 때에는 close 된 이슈도 꼭 확인해 주세요. 이슈 등록 후 완료된 번역은 close 됩니다.
+=======
+
 
 이렇게 함으로써 중복으로 번역하는 수고를 덜고자 합니다. 변역 완료 후 pull request 주시면 이른 시일 내에 확인하여 commit 하겠습니다. 번역이 30% 이상 완료되면 [메인 저장소](https://javascript.info)에 추가 요청할 예정입니다.
 
