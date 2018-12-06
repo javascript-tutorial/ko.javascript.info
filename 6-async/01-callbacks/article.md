@@ -266,8 +266,7 @@ function step3(error, script) {
 
  작동은 합니다. 하지만 코드는 찢어진 종잇조각 같이 보일 것입니다. 읽기도 불편하고 코드를 읽기 위해 눈을 이리저리 왔다 갔다해야 한다는 것을 알아챘을 겁니다. 불편하죠. 특히 읽는 사람이 코드를 잘 모르거나 어디로 눈을 옮겨야 할지 모르면 더옥 그렇습니다. 
 
-Also, the functions named `step*` are all of single use, they are created only to avoid the "pyramid of doom." No one is going to reuse them outside of the action chain. So there's a bit of a namespace cluttering here.
-또한, `step*`이라는 이름의 함수들은 모두 단일 사용입니다. 그것들은 "멸망의 피라미드pyramid of doom"를 피하기 위해서 만들어 졌습니다. 아무도 이런 연쇄 동작action chain 외부에서 그것들을 사용하지 않을 것입니다. 그래서 좀 난잡한 네임스페이스가 있는 것이죠.
+또한, `step*`이라고 명명한 함수들은 단일로 사용합니다, 이것들은 단지 "멸망의 피라미드pyramid of doom"을 피하고자 만들어졌습니다. 아무도 이것들을 이 연쇄 동작 밖에서 재사용하지는 않을 겁니다. 그래서 좀 난잡한 네임스페이스가 있는 것이죠.
 
 우리는 더 나은 무언가를 원합니다.
 
