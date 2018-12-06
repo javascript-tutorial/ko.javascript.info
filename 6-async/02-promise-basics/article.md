@@ -1,14 +1,19 @@
 # Promise
 
 Imagine that you're a top singer, and fans ask day and night for your upcoming single.
+당신이 탑 가수라고 상상해 보세요, 그리고 곧 나올 싱글 엘범에 대해 밤낮으로 물어 보는 팬들을 상상해 보세요. 
 
 To get some relief, you promise to send it to them when it's published. You give your fans a list to which they can subscribe for updates. They can fill in their email addresses, so that when the song becomes available, all subscribed parties instantly receive it. And even if something goes very wrong, say, if plans to publish the song are cancelled, they will still be notified.
+당신은 안심을 시키기위해, 엘범이 출시 될 때 그들에게 보내겠다고 약속을 합니다. 당신은 업데이트을 구독할 수 있는 리스트를 팬들에게 건냅니다. 팬들의 이메일을 적을 수 있어서 노래가 나오면 모든 구독자들이 즉시로 이것을 받을 수 있도록 합니다. 그리고 뭔가 심하게 잘 못 되어도, 말하자면, 노래 출시가 취소되더라도 여전히 팬들은 알림을 받을 수 있을 것 입니다.
 
 Everyone is happy, because the people don't crowd you any more, and fans, because they won't miss the single.
+더 이상 당신에게 많은 인파가 몰리지도 않고 팬들은 앨범을 놓치지도 않을 것이기에 모두가 행복합니다. 
 
 This is a real-life analogy for things we often have in programming:
+이것이 다음과 같이 프로그래밍에서 주로 겪는 것들의 실생활 비유입니다: 
 
 1. A "producing code" that does something and takes time. For instance, the code loads a remote script. That's a "singer".
+1. 
 2. A "consuming code" that wants the result of the "producing code" once it's ready. Many functions  may need that result. These are the "fans".
 3. A *promise* is a special JavaScript object that links the "producing code" and the "consuming code" together. In terms of our analogy: this is the "subscription list". The "producing code" takes whatever time it needs to produce the promised result, and the "promise" makes that result available to all of the subscribed code when it's ready.
 
