@@ -51,7 +51,7 @@ DOM 프로퍼티와 메서드는 일반적인 자바스크립트 객체처럼 �
 
 ## HTML 속성
 
-HTML에서 태그(tag)는 복수개의 속성(attribute)를 가질 수도 있습니다. 브라우저는 HTML을 파싱해 DOM 객체를 만들때 HTML *표준* 속성을 인식하고 이 표준 속성을 가지고 DOM 프로퍼티를 만듭니다.
+HTML에서 태그(tag)는 복수개의 속성(attribute)를 가질 수 있습니다. 브라우저는 HTML을 파싱해 DOM 객체를 만들때 HTML *표준* 속성을 인식하고, 이 표준 속성을 이용해 DOM 프로퍼티를 만듭니다.
 
 HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, 이에 해당하는 프로퍼티가 자연스레 만들어집니다. 하지만 표준이 아닌 속성이 사용된 경우는 조금 다릅니다.
 
@@ -68,7 +68,7 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 </body>
 ```
 
-특정 요소에서 표준인 속성이 다른 요소에선 표준이 아닐 수 있다는 점에 주의해야 합니다. 예를들어 `<input>`요소에서 `"type"`은 표준이지만([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), `<body>`에선 아닙니다([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). 표준 속성(standard attribute)은 해당 요소(HTML element)의 명세서에 가면 찾아볼 수 있습니다.
+한 요소에선 표준인 속성이 다른 요소에선 표준이 아닐 수 있다는 점에 주의해야 합니다. 예를들어 `<input>`요소에서 `"type"`은 표준이지만([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), `<body>`에선 아닙니다([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). 표준 속성(standard attribute)은 해당 요소(HTML element)의 명세서에 가면 찾아볼 수 있습니다.
 
 
 다음을 확인해 보세요:
@@ -93,11 +93,10 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 - `elem.removeAttribute(name)` -- 속성 값을 제거함.
 
 위 메서드는 HTML에 명시된 속성을 변화시킵니다.
-These methods operate exactly with what's written in HTML.
 
-여기에 더하여 `elem.attributes`을 사용하면 모든 속성값을 읽을 수도 있습니다. 내장 클래스 [Attr](https://dom.spec.whatwg.org/#attr)를 구현한 `name` and `value` 프로퍼티를 가진 객체를 반환합니다.
+여기에 더하여 `elem.attributes`을 사용하면 모든 속성값을 읽을 수도 있습니다. `elem.attributes`은 내장 클래스 [Attr](https://dom.spec.whatwg.org/#attr)를 구현한 `name` and `value` 프로퍼티를 가진 객체를 반환합니다.
 
-비표준 프로퍼티를 읽는 방법:
+아래는 비표준 프로퍼티를 읽는 데모 코드입니다:
 
 ```html run
 <body something="non-standard">
@@ -114,7 +113,7 @@ HTML 속성은 다음과 같은 특징이 있습니다:
 - 대/소문자를 구분하지 않습니다 (`id`와 `ID`가 같습니다).
 - 값은 항상 문자열입니다.
 
-HTML 속성에 관한 또다른 데모를 살펴보세요:
+HTML 속성에 관한 또다른 데모 코드를 살펴보세요:
 
 ```html run
 <body>
@@ -144,7 +143,7 @@ HTML 속성에 관한 또다른 데모를 살펴보세요:
 
 ## 프로퍼티-속성 동기화(synchronization)
 
-표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트 되고, 몇몇 경우를 제외하고 그 반대도 마찬가지로 업데이트 됩니다.
+표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트 되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트 되면 속성도 마찬가지로 업데이트 됩니다.
 
 아래 예시에서 속성으로써의 `id`가 수정되었고, 이에 대응하는 프로퍼티가 업데이트 되었음을 확인할 수 있습니다. 그 반대도 마찬가지 입니다.
 
@@ -190,7 +189,7 @@ HTML 속성에 관한 또다른 데모를 살펴보세요:
 
 이런 특징은 유용하게 사용될 수도 있습니다. 만약 유저가 `value`를 수정하고 난다음 어떤 이유 때문에 수정 전의 value를 가지고 오고 싶어하는 경우, 기존 값을 속성에서 그대로 가지고 오면 되기 때문입니다.
 
-## DOM properties are typed
+## DOM 프로퍼티의 타입
 
 DOM 프로퍼티는 항상 문자열이 아닙니다. 예를들어 `input.checked` 프로퍼티(체크박스에서 사용됨)의 경우 불린(boolean)값을 가집니다:
 
@@ -242,10 +241,7 @@ HTML에 내에 사용된 `href`값과 같이 정확한 속성 값을 얻고 싶�
 
 HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합니다. 하지만 표준이 아닌 속성도 있을 수 있습니다. 이런 비표준(non-standard) 속성을 언제 사용해야 유용하고 언제 사용하면 유용하지 않은지, 그리고 언제 이 비표준 속성을 사용하는지 알아봅시다.
 
-When writing HTML, we use a lot of standard attributes. But what about non-standard, custom ones? First, let’s see whether they are useful or not? What for?
-
 비표준 속성은 커스텀 데이터를 HTML에서 자바스크림트로 넘기고 싶은 경우나 HTML-요소를 "mark(표시)"하기 위해 사용될 수 있습니다. 
-Sometimes non-standard attributes are used to pass custom data from HTML to JavaScript, or to "mark" HTML-elements for JavaScript.
 
 예시:
 
@@ -270,7 +266,7 @@ Sometimes non-standard attributes are used to pass custom data from HTML to Java
 </script>
 ```
 
-요소에 스타일을 적용할 때 사용될 수도 있습니다.Also they can be used to style an element.
+요소에 스타일을 적용할 때 사용될 수도 있습니다.
 
 주문(order) 상태(state)를 나타내는 커스텀 속성 `order-state`의 스타일을 꾸미는 예제:
 
