@@ -1,201 +1,200 @@
-# Bezier curve
+# 베지어 곡선(Bezier curve)
 
-Bezier curves are used in computer graphics to draw shapes, for CSS animation and in many other places.
+베지어 곡선은 CSS 애니메이션과 다른 많은 곳들에서 도형을 그리기 위한 컴퓨터 그래픽스에 사용됩니다.
 
-They are actually a very simple thing, worth to study once and then feel comfortable in the world of vector graphics and advanced animations.
+베지어 곡선은 사실 매우 간단하며, 한번 공부해두면 가치가 있고 그러면 벡터 그래픽스와 고급 애니메이션 세계를 편하게 느껴질 겁니다.
 
-## Control points
+## 제어 점(Control points)
 
-A [bezier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve) is defined by control points.
+[베지어 곡선](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)은 제어점으로 정의됩니다.
 
-There may be 2, 3, 4 or more.
+제어점은 2, 3, 4 혹은 더 많이 존재 할 수 있습니다.
 
-For instance, two points curve:
+예를 들어, 두 점의 곡선은:
 
 ![](bezier2.png)
 
-Three points curve:
+세 점의 곡선은:
 
 ![](bezier3.png)
 
-Four points curve:
+네 점의 곡선은:
 
 ![](bezier4.png)
 
-If you look closely at these curves, you can immediately notice:
+이 곡선들을 깊게 들여다 본다면, 즉시 알아차릴 수 있습니다.
 
-1. **Points are not always on curve.** That's perfectly normal, later we'll see how the curve is built.
-2. **The curve order equals the number of points minus one**.
-For two points we have a linear curve (that's a straight line), for three points -- quadratic curve (parabolic), for four points -- cubic curve.
-3. **A curve is always inside the [convex hull](https://en.wikipedia.org/wiki/Convex_hull) of control points:**
+1. **점들은 항상 곡선과 닿지 않습니다.** 그것은 완전히 일반적으로, 후에 곡선이 어떻게 만들어지는 지 볼 수 있을 것입니다.
+2. **곡선의 차원은 점의 갯수에서 하나 뺀 숫자와 같습니다.**
+두 점으로 선형의 곡선(직선입니다.), 세점으로 -- 2차 곡선을, 네점으로 3차 곡선을 가집니다.
+3. **곡선은 항상 제어점의 [컨벡스 헐(convex hull)](https://en.wikipedia.org/wiki/Convex_hull)안에 존재합니다:**
 
     ![](bezier4-e.png) ![](bezier3-e.png)
 
-Because of that last property, in computer graphics it's possible to optimize intersection tests. If convex hulls do not intersect, then curves do not either. So checking for the convex hulls intersection first can give a very fast "no intersection" result. Checking the intersection or convex hulls is much easier, because they are rectangles, triangles and so on (see the picture above), much simpler figures than the curve.
+마지막 속성 때문에, 컴퓨터 그래픽스에서는 교차 검사(intersection tests)를 최적화하는 것이 가능합니다. 컨벡스 헐(convex hulls)은 교차가 아니라면, 곡선은 같지 않습니다. 그래서 먼저 컨벡스 헐(convex hulls)의 교차를 검사하는 것은 가장 빠르게 "교차 없음" 결과를 도출할 수 있습니다. 교차를 검사하는 것 또는 컨벡스 헐(convex hulls)은 더욱 쉽습니다, 사각형, 삼각형 그리고 기타 등등 (위에 그림을 보세요), 곡선보다 더욱 간단한 도형이기 때문입니다.
 
-**The main value of Bezier curves for drawing -- by moving the points the curve is changing *in intuitively obvious way*.**
+**베지어 곡선(Bezier curves)을 그리는 가장 중요한 속성은 곡선은 *직감적으로 명백한 방법으로* 변화하는 점을 옮기는 것입니다.**
 
-Try to move control points using a mouse in the example below:
+아래 예제에서 제어 점을 마우스로 옮기면서 시도해보세요:
 
 [iframe src="demo.svg?nocpath=1&p=0,0,0.5,0,0.5,1,1,1" height=370]
 
-**As you can notice, the curve stretches along the tangential lines 1 -> 2 and 3 -> 4.**
+**당신이 알고 있는 것처럼, 곡선은 접선 사이로 1 -> 2 and 3 -> 4. 뻗습니다.**
 
-After some practice it becomes obvious how to place points to get the needed curve. And by connecting several curves we can get practically anything.
+조금의 연습 후에 필요한 곡선을 얻으려면 점을 어디에 두어야 하는지 명백하게 알 수 있습니다. 몇몇의 곡선을 연결하는 것은 연습할 수도 있습니다.
 
-Here are some examples:
+아래 예제가 있습니다:
 
 ![](bezier-car.png) ![](bezier-letter.png) ![](bezier-vase.png)
 
-## De Casteljau's algorithm
+## 카스텔조 알고리즘(De Casteljau's algorithm)
 
-There's a mathematical formula for Bezier curves, but let's cover it a bit later, because
-[De Casteljau's algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm) it is identical to the mathematical definition and visually shows how it is constructed.
+베지어 곡선(Bezier curves)을 위한 수학공식이 있는데, 나중에 설명하겠습니다,
+[카스텔조 알고리즘(De Casteljau's algorithm)](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm)과 동일한 수학적 정의와 시각적으로 어떻게 구성되었는지 보여주기 때문입니다.
 
-First let's see the 3-points example.
+먼저 세 점의 예를 보시죠.
 
-Here's the demo, and the explanation follow.
+설명을 해주는 데모가 있습니다.
 
-Control points (1,2 and 3) can be moved by the mouse. Press the "play" button to run it.
+제어 점(1,2 그리고 3)은 마우스로 움직일 수 있습니다. "play"버튼을 누르고 실행해보세요.
 
 [iframe src="demo.svg?p=0,0,0.5,1,1,0&animate=1" height=370]
 
-**De Casteljau's algorithm of building the 3-point bezier curve:**
+**3-점 베지어 곡선(bezier curve)를 만드는 카스텔조 알고리즘(De Casteljau's algorithm)**
 
-1. Draw control points. In the demo above they are labeled: `1`, `2`, `3`.
-2. Build segments between control points 1 -> 2 -> 3. In the demo above they are <span style="color:#825E28">brown</span>.
-3. The parameter `t` moves from `0` to `1`. In the example above the step `0.05` is used: the loop goes over `0, 0.05, 0.1, 0.15, ... 0.95, 1`.
+1. 제어 점을 그리세요. 데모 위에서 '1', '2', '3'으로 이름지어집니다.
+2. 제어 점 1 -> 2 -> 3 사이에 선분을 만드세요. 데모 위에서 <span style="color:#825E28">갈색</span>입니다.
+3. 파라미터 't'는 '0'에서 '1'로 움직입니다. 예를 들어 위의 '0.05'단계는 `0, 0.05, 0.1, 0.15, ... 0.95, 1'로 나아갑니다.
 
-    For each of these values of `t`:
+    각 `t`의 속성은:
 
-    - On each <span style="color:#825E28">brown</span> segment we take a point located on the distance proportional to `t` from its beginning. As there are two segments, we have two points.
+    각 <span style="color:#825E28">갈색</span> 선분의 시작점에서 `t`와 비례하는 거리만큼의 위치에 점을 가져다 놓습니다. 두 선분이 있는 만큼, 두 점이 있습니다.
 
-        For instance, for `t=0` -- both points will be at the beginning of segments, and for `t=0.25` -- on the 25% of segment length from the beginning, for `t=0.5` -- 50%(the middle), for `t=1` -- in the end of segments.
+        예를 들어, `t=0` -- 두 점 모두 선분의 시작에 위치할 것이다, `t=0.25` -- 시작에서 25% 길이에, `t=0.5` -- 50%(가운데), `t=1` -- 선분의 마지막.
 
-    - Connect the points. On the picture below the connecting segment is painted <span style="color:#167490">blue</span>.
+    - 점을 연결하세요. 그림에서 연결된 선분은 <span style="color:#167490">파란색</span>으로 칠해졌습니다.
 
 
-| For `t=0.25`             | For `t=0.5`            |
+| `t=0.25`                 | `t=0.5`                |
 | ------------------------ | ---------------------- |
 | ![](bezier3-draw1.png)   | ![](bezier3-draw2.png) |
 
-4. Now in the <span style="color:#167490">blue</span> segment take a point on the distance proportional to the same value of `t`. That is, for `t=0.25` (the left picture) we have a point at the end of the left quarter of the segment, and for `t=0.5` (the right picture) -- in the middle of the segment. On pictures above that point is <span style="color:red">red</span>.
+4. <span style="color:#167490">파란색</span> 선분 안에서 `t`의 값과 동일하게 비례하는 거리만큼 점을 가져다 놓습니다. `t=0.25`(왼쪽 그림)은 선분의 4분의 1지점에 위치하고, `t=0.5`(오른쪽 그림) -- 선분의 가운데에 위치. 위 그림에서 점은 <span style="color:red">빨간색</span>입니다. 
 
-5. As `t` runs from `0` to `1`, every value of `t` adds a point to the curve. The set of such points forms the Bezier curve. It's red and parabolic on the pictures above.
+5. `t`가 `0`에서 `1` 달리듯, 모든 `t` 값은 곡선의 점으로 추가됩니다. 이 같은 점의 집합은 베지어 곡선(Bezier curve)를 형성합니다. 위 그림에서 빨간색 포물선입니다.
 
-That was a process for 3 points. But the same is for 4 points.
+세 점의 프로세스였습니다. 그래도 4점의 프로세스 역시 같습니다.
 
-The demo for 4 points (points can be moved by a mouse):
+네 점의 데모입니다(점은 마우스로 움직일 수 있습니다):
 
 [iframe src="demo.svg?p=0,0,0.5,0,0.5,1,1,1&animate=1" height=370]
 
-The algorithm for 4 points:
+네 점 알고리즘:
 
-- Connect control points by segments: 1 -> 2, 2 -> 3, 3 -> 4. There will be 3 <span style="color:#825E28">brown</span> segments.
-- For each `t` in the interval from `0` to `1`:
-    - We take points on these segments on the distance proportional to `t` from the beginning. These points are connected, so that we have two <span style="color:#0A0">green segments</span>.
-    - On these segments we take points proportional to `t`. We get one <span style="color:#167490">blue segment</span>.
-    - On the blue segment we take a point proportional to `t`. On the example above it's <span style="color:red">red</span>.
-- These points together form the curve.
+- 선분으로 제어 점을 연결합니다: 1 -> 2, 2 -> 3, 3 -> 4. 3개의 <span style="color:#825E28">갈색</span> 선분이 있습니다.
+- 각 `t`의 `0`에서 `1`까지 간격:
+    - 시작점으로부터 `t`만큼 거리 비레적으로 이 선분에 점을 가져다 놓습니다.
+    - 이 선분들에 `t`만큼 비례적으로 점을 가져다 놓습니다. <span style="color:#167490">파란색 선분</span>을 얻습니다.
+    - 파란색 선분에서는 `t`만큼 비례적으로 점을 가져다 놓습니다. 위 예에서는 <span style="color:red">빨간색</span>입니다. 
+- 이 점들은 곡선을 형성합니다.
 
-The algorithm is recursive and can be generalized for any number of control points.
+알고리즘은 재귀적이고 몇 개의 제어점이든 일반화 할 수 있습니다.
 
-Given N of control points:
+N개의 제어점이 주어질 경우:
 
-1. We connect them to get initially N-1 segments.
-2. Then for each `t` from `0` to `1`, we take a point on each segment on the distance proportional to `t` and connect them. There will be N-2 segments.
-3. Repeat step 2 until there is only one point.
+1. 기본적으로 N-1개의 선분을 얻기 위해 연결합니다.
+2. 각 `t`는 `0`에서 `1`까지, 거리 비례적인 각 선분에 `t`만큼 점을 놓고 연결합니다. N-2 선분이 나올 것 입니다.
+3. 하나의 점만 남을때까지 2번을 반복합니다.
 
-These points make the curve.
+이 점들은 곡선을 만듭니다.
 
-```online
-**Run and pause examples to clearly see the segments and how the curve is built.**
+```온라인
+**선분을 분명히 보고 어떻게 만들어지는 지 예제를 실행 하고 정지해 보세요.**
 ```
 
-
-A curve that looks like `y=1/t`:
+`y=1/t`와 같은 곡선:
 
 [iframe src="demo.svg?p=0,0,0,0.75,0.25,1,1,1&animate=1" height=370]
 
-Zig-zag control points also work fine:
+지그재그 제어 점도 제대로 동작함:
 
 [iframe src="demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1" height=370]
 
-Making a loop is possible:
+루프를 만드는 것도 가능함:
 
 [iframe src="demo.svg?p=0,0,1,0.5,0,1,0.5,0&animate=1" height=370]
 
-A non-smooth Bezier curve (yeah, that's possible too):
+부드럽지 않은 베지어 곡선(Bezier curve)(이것 역시 가능함):
 
 [iframe src="demo.svg?p=0,0,1,1,0,1,1,0&animate=1" height=370]
 
-```online
-If there's anything unclear in the algorithm description, then live examples above show how
-the curve is built.
+
+```온라인
+알고리즘 설명에 불확실한 어떤 것이 있었다면, 위의 예제에서 곡선이 어떻게 만들어지는 지 보여줍니다.
 ```
 
-As the algorithm is recursive, we can build Bezier curves of any order, that is: using 5, 6 or more control points. But in practice many points are less useful. Usually we take 2-3 points, and for complex lines glue several curves together. That's simpler to develop and calculate.
+알고리즘은 재귀적이어서, 5, 6 혹은 더 많은 제어 점을 사용하여 어떤 차수의 베지어 곡선(Bezier curves)이든지 만들 수 있습니다. 그러나 연습에서 많은 점을 사용하는 것은 불필요합니다. 보통 우리는 2-3개의 점을 가지고, 복잡한 선은 여러 곡선을 함께 붙입니다. 그것이 계산하고 개발하기 보다 간단합니다.
 
-```smart header="How to draw a curve *through* given points?"
-We use control points for a Bezier curve. As we can see, they are not on the curve, except the first and the last ones.
+```smart header="어떻게 주어진 점을 *통하여* 곡선을 그리나요?"
+우리는 베지어 곡선(Bezier curve)를 제어점을 사용합니다. 우리가 볼 수 있듯이, 첫번째와 마지막 점을 제외하고 곡선이 아닙니다. 
 
-Sometimes we have another task: to draw a curve *through several points*, so that all of them are on a single smooth curve. That task is called  [interpolation](https://en.wikipedia.org/wiki/Interpolation), and here we don't cover it.
+때때로 우리는 또다른 업무를 가집니다: *몇몇의 점을 통하는 곡선*을 그리기 위한, 단독의 부드러운 곡선을. 그것은 [보간법(interpolation)](https://en.wikipedia.org/wiki/Interpolation)이라고 불리며, 우리는 다루지는 않습니다.
 
-There are mathematical formulas for such curves, for instance [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial). In computer graphics [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) is often used to build smooth curves that connect many points.
+이 같은 곡선을 위한 수학적 공식이 있습니다. 예를들어 [라그랑즈 다항식(Lagrange polynomial)](https://en.wikipedia.org/wiki/Lagrange_polynomial)이 있습니다. 컴퓨터 그래픽스에서는 [스플라인 보간법(spline interpolation)](https://en.wikipedia.org/wiki/Spline_interpolation)이 많은 점을 이어주는 부드러운 곡선을 만들기 위해 사용되곤 합니다.
 ```
 
 
-## Maths
+## 수학(Maths)
 
-A Bezier curve can be described using a mathematical formula.
+베지어 곡선(Bezier curve)은 수학공식을 사용하여 설명할 수 있습니다.
 
-As we saw -- there's actually no need to know it, most people just draw the curve by moving points with a mouse. But if you're into maths -- here it is.
+우리가 보았 듯이 -- 사실 이것을 아는것은 필요하지는 않습니다, 대부분의 사람들은 단지 마우스로 점을 옮기면서 곡선을 그립니다. 그러나 수학이 필요하다면, 여기에서 보세요.
 
-Given the coordinates of control points <code>P<sub>i</sub></code>: the first control point has coordinates <code>P<sub>1</sub> = (x<sub>1</sub>, y<sub>1</sub>)</code>, the second: <code>P<sub>2</sub> = (x<sub>2</sub>, y<sub>2</sub>)</code>, and so on, the curve coordinates are described by the equation that depends on the parameter `t` from the segment `[0,1]`.
+제어 점의 좌표는 <code>P<sub>i</sub></code>: 첫번째 제어 점은 <code>P<sub>1</sub> = (x<sub>1</sub>, y<sub>1</sub>)</code>, 두번째는: <code>P<sub>2</sub> = (x<sub>2</sub>, y<sub>2</sub>)</code>, 그리고 기타 등등의 좌표를 가집니다, 곡선 좌표는 선분 `[0,1]`에서 부터 파라미터 `t`에 의존하는 방정식으로 설명됩니다.
 
-- The formula for a 2-points curve:
+- 2-점 곡선의 공식:
 
     <code>P = (1-t)P<sub>1</sub> + tP<sub>2</sub></code>
-- For 3 control points:
+- 3 제어 점:
 
     <code>P = (1−t)<sup>2</sup>P<sub>1</sub> + 2(1−t)tP<sub>2</sub> + t<sup>2</sup>P<sub>3</sub></code>
-- For 4 control points:
+- 4 제어 점:
 
     <code>P = (1−t)<sup>3</sup>P<sub>1</sub> + 3(1−t)<sup>2</sup>tP<sub>2</sub>  +3(1−t)t<sup>2</sup>P<sub>3</sub> + t<sup>3</sup>P<sub>4</sub></code>
 
 
-These are vector equations. In other words, we can put `x` and `y` instead of `P` to get corresponding coordinates.
+이것들은 백터 방정식들입니다. 다른말로, 일치하는 좌표를 얻기 위해 `P` 대신에 `x`와 `y`를 넣을 수 있습니다.
 
-For instance, the 3-point curve is formed by points `(x,y)` calculated as:
+예를 들어, 3-점 곡선은 계산된 `(x,y)` 점들로 만들어 집니다:
 
 - <code>x = (1−t)<sup>2</sup>x<sub>1</sub> + 2(1−t)tx<sub>2</sub> + t<sup>2</sup>x<sub>3</sub></code>
 - <code>y = (1−t)<sup>2</sup>y<sub>1</sub> + 2(1−t)ty<sub>2</sub> + t<sup>2</sup>y<sub>3</sub></code>
 
-Instead of <code>x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub></code> we should put coordinates of 3 control points, and then as `t` moves from `0` to `1`, for each value of `t` we'll have `(x,y)` of the curve.
+<code>x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub></code> 대신에 우리는 3 제어 점의 좌표를 넣습니다, 그러면 `t`가 `0` 에서 `1`로 옮겨가면서, 각 `t`의 값은 곡선의 `(x,y)`을 가질 것입니다.
 
-For instance, if control points are  `(0,0)`, `(0.5, 1)` and `(1, 0)`, the equations become:
+예를 들어, 제어 점이 `(0,0)`, `(0.5, 1)` 그리고 `(1, 0)`이라면, 방정식은:
 
 - <code>x = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 0.5 + t<sup>2</sup> * 1 = (1-t)t + t<sup>2</sup> = t</code>
 - <code>y = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 1 + t<sup>2</sup> * 0 = 2(1-t)t = –t<sup>2</sup> + 2t</code>
 
-Now as `t` runs from `0` to `1`, the set of values `(x,y)` for each `t` forms the curve for such control points.
+이제 `t`를 `0`부터 `1`까지 돌리면서, 각 `t`를 위한 `(x,y)`값의 집합은 제어 점과 같은 곡선을 구성합니다.
 
-## Summary
+## 요약(Summary)
 
-Bezier curves are defined by their control points.
+베지어 곡선(Bezier curves)은 제어점으로 정의됩니다.
 
-We saw two definitions of Bezier curves:
+우리는 베지어 곡선(Bezier curves)의 두가지 정의를 보았습니다:
 
-1. Using a mathematical formulas.
-2. Using a drawing process: De Casteljau's algorithm
+1. 수학 공식을 사용하여
+2. 그리기 과정을 통해서: 카스탈조 알고리즘(De Casteljau's algorithm)
 
-Good properties of Bezier curves:
+베지어 곡선의 좋은 점:
 
-- We can draw smooth lines with a mouse by moving around control points.
-- Complex shapes can be made of several Bezier curves.
+- 제어 점을 마우스로 움직이면서 선을 부드럽게 그릴 수 있습니다.
+- 복잡한 도형은 몇개의 베지어 곡선(Bezier curves)으로 만들 수 있습니다. 
 
-Usage:
+사용법:
 
-- In computer graphics, modeling, vector graphic editors. Fonts are described by Bezier curves.
-- In web development -- for graphics on Canvas and in the SVG format. By the way, "live" examples above are written in SVG. They are actually a single SVG document that is given different points as parameters. You can open it in a separate window and see the source: [demo.svg](demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1).
-- In CSS animation to describe the path and speed of animation.
+- 컴퓨터 그래픽스, 모델링, 벡터 그래픽 편집기에서. 폰트는 베지어 곡선(Bezier curves)으로 설명됩니다.
+- 웹 개발에서 -- 캔버스의 그래픽 그리고 SVG 포맷에서. 그러나, 위의 "살아있는" 예제는 SVG로 작성되었습니다. 그것들은 사실 파라미터로 다른 점이 주어진 단독 SVG 문서입니다. 당신은 새로운 창으로 링크를 열 수 있고 소스를 볼 수 있습니다:[demo.svg](demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1).
+- 애니메이션의 경로와 속도를 설명하기 위한 CSS 애니메이션.
