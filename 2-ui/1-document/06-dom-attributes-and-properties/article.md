@@ -8,11 +8,11 @@
 
 ## DOM 프로퍼티
 
-이미 내장(built-in) DOM 프로퍼티에 대해 살펴 본 바 있습니다. DOM 프로퍼티는 엄청나게 많습니다. 하지만 이런 내장 프로퍼티만으로 충분하지 않은 경우 자신만의 프로퍼티를 만들수도 있습니다.
+이미 내장(built-in) DOM 프로퍼티에 대해 살펴본 바 있습니다. DOM 프로퍼티는 엄청나게 많습니다. 하지만 이런 내장 프로퍼티만으로 충분하지 않은 경우 자신만의 프로퍼티를 만들 수도 있습니다.
 
 DOM 노드(DOM node)는 자바스크립트 객체입니다. 이걸 한번 바꿔보도록 하겠습니다.
 
-예를들어 새로운 프로퍼티를 `document.body`에 만들어보겠습니다:
+예를 들어 새로운 프로퍼티를 `document.body`에 만들어보겠습니다:
 
 ```js run
 document.body.myData = {
@@ -47,11 +47,11 @@ document.body.sayHi(); // Hello, I'm BODY
 DOM 프로퍼티와 메서드는 일반적인 자바스크립트 객체처럼 행동합니다:
 
 - 어떤 값이든 가질 수 있습니다.
-- 대소문자를 가립니다(이렇게 써야 작동하고`elem.nodeType`, 이렇게 쓰면 작동하지 않습니다`elem.NoDeTyPe`).
+- 대소문자를 가립니다(이렇게 써야 작동하고 `elem.nodeType`, 이렇게 쓰면 작동하지 않습니다 `elem.NoDeTyPe`).
 
 ## HTML 속성
 
-HTML에서 태그(tag)는 복수개의 속성(attribute)를 가질 수 있습니다. 브라우저는 HTML을 파싱해 DOM 객체를 만들때 HTML *표준* 속성을 인식하고, 이 표준 속성을 이용해 DOM 프로퍼티를 만듭니다.
+HTML에서 태그(tag)는 복수의 속성(attribute)를 가질 수 있습니다. 브라우저는 HTML을 파싱해 DOM 객체를 만들 때 HTML *표준* 속성을 인식하고, 이 표준 속성을 이용해 DOM 프로퍼티를 만듭니다.
 
 HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, 이에 해당하는 프로퍼티가 자연스레 만들어집니다. 하지만 표준이 아닌 속성이 사용된 경우는 조금 다릅니다.
 
@@ -88,9 +88,9 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 물론 있습니다. 모든 속성은 아래의 메서드로 접근가능합니다.
 
 - `elem.hasAttribute(name)` -- 속성의 존재 확인.
-- `elem.getAttribute(name)` -- 속성 값을 가져옴.
-- `elem.setAttribute(name, value)` -- 속성 값을 변경함.
-- `elem.removeAttribute(name)` -- 속성 값을 제거함.
+- `elem.getAttribute(name)` -- 속성값을 가져옴.
+- `elem.setAttribute(name, value)` -- 속성값을 변경함.
+- `elem.removeAttribute(name)` -- 속성값을 제거함.
 
 위 메서드는 HTML에 명시된 속성을 변화시킵니다.
 
@@ -110,10 +110,10 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 
 HTML 속성은 다음과 같은 특징이 있습니다:
 
-- 대/소문자를 구분하지 않습니다 (`id`와 `ID`가 같습니다).
+- 대/소문자를 구분하지 않습니다(`id`와 `ID`가 같습니다).
 - 값은 항상 문자열입니다.
 
-HTML 속성에 관한 또다른 데모 코드를 살펴보세요:
+HTML 속성에 관한 또 다른 데모 코드를 살펴보세요:
 
 ```html run
 <body>
@@ -136,16 +136,16 @@ HTML 속성에 관한 또다른 데모 코드를 살펴보세요:
 주의해서 볼 점은 다음과 같습니다:
 
 1. `getAttribute('About')` -- 첫 번째 글자가 대문자 A이지만, HTML 안에는 모두 소문자로 작성되어 있습니다. 이렇게 대/소문자가 다름에도 불구하고 정상적으로 값이 출력되었습니다. 속성은 대/소문자를 구분하지 않습니다.
-2. 어떤 값이든 속성에 대입할 수 있습니다. 하지만 최종적으론 문자열로 바뀌어집니다. 숫자 123이 문자열 `"123"` 으로 바뀌었습니다.
+2. 어떤 값이든 속성에 대입할 수 있습니다. 하지만 최종적으론 문자열로 바뀝니다. 숫자 123이 문자열 `"123"` 으로 바뀌었습니다.
 3. `outerHTML`을 사용하면 모든 속성을 볼 수 있습니다.
-4. `attributes` 컬렉션은 iterable합니다. 그리고 표준, 비표준 요소의 속성을 `name` 과 `value` 프로퍼티로 접근할 수 있게 해줍니다.
+4. `attributes` 컬렉션은 iterable 합니다. 그리고 표준, 비표준 요소의 속성을 `name` 과 `value` 프로퍼티로 접근할 수 있게 해줍니다.
 
 
 ## 프로퍼티-속성 동기화(synchronization)
 
-표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트 되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트 되면 속성도 마찬가지로 업데이트 됩니다.
+표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트 되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트되면 속성도 마찬가지로 업데이트됩니다.
 
-아래 예시에서 속성으로써의 `id`가 수정되었고, 이에 대응하는 프로퍼티가 업데이트 되었음을 확인할 수 있습니다. 그 반대도 마찬가지 입니다.
+아래 예시에서 속성으로써의 `id`가 수정되었고, 이에 대응하는 프로퍼티가 업데이트되었음을 확인할 수 있습니다. 그 반대도 마찬가지입니다.
 
 ```html run
 <input>
@@ -187,11 +187,11 @@ HTML 속성에 관한 또다른 데모 코드를 살펴보세요:
 - 속성 `value`를 수정하면 프로퍼티도 수정된다.
 - 하지만 프로퍼티를 수정해도 속성은 수정되지 않는다.
 
-이런 특징은 유용하게 사용될 수도 있습니다. 만약 유저가 `value`를 수정하고 난다음 어떤 이유 때문에 수정 전의 value를 가지고 오고 싶어하는 경우, 기존 값을 속성에서 그대로 가지고 오면 되기 때문입니다.
+이런 특징은 유용하게 사용될 수도 있습니다. 만약 유저가 `value`를 수정하고 난 다음 어떤 이유로 수정 전의 value를 가지고 오고 싶어 하는 경우, 기존 값을 속성에서 그대로 가지고 오면 되기 때문입니다.
 
 ## DOM 프로퍼티의 타입
 
-DOM 프로퍼티는 항상 문자열이 아닙니다. 예를들어 `input.checked` 프로퍼티(체크박스에서 사용됨)의 경우 불린(boolean)값을 가집니다:
+DOM 프로퍼티는 항상 문자열이 아닙니다. 예를 들어 `input.checked` 프로퍼티(체크박스에서 사용됨)의 경우 불린(boolean) 값을 가집니다:
 
 ```html run
 <input id="input" type="checkbox" checked> checkbox
@@ -202,7 +202,7 @@ DOM 프로퍼티는 항상 문자열이 아닙니다. 예를들어 `input.checke
 </script>
 ```
 
-몇가지 다른 예를 보여드리겠습니다. `style` 속성의 경우 문자열 이지만, `style` 프로퍼티의 경우 객체입니다:
+몇 가지 다른 예를 보여드리겠습니다. `style` 속성의 경우 문자열이지만, `style` 프로퍼티의 경우 객체입니다:
 
 ```html run
 <div id="div" style="color:red;font-size:120%">Hello</div>
@@ -217,9 +217,9 @@ DOM 프로퍼티는 항상 문자열이 아닙니다. 예를들어 `input.checke
 </script>
 ```
 
-속성과 프로퍼티의 중요한 차이점이 바로 이것입니다. 한편, DOM 프로퍼티의 타입이 문자열임에도 불구하고 속성과는 전혀 다른 값을 가지는 경우도 있습니다.
+속성과 프로퍼티의 중요한 차이점이 바로 이것입니다. 한편, DOM 프로퍼티의 타입이 문자열임에도 불구하고 속성과는 전혀 다른 값을 가질 수도 있습니다.
 
-a태그의 href 속성이 상대 URL이나 `#hash`와 같이 URL 조각이더라도, `href` DOM 프로퍼티의 경우 항상 *전체* URL 값을 가지는 경우가 대표적인 예시 입니다.
+a 태그의 href 속성이 상대 URL이나 `#hash`와 같이 URL 조각이더라도, `href` DOM 프로퍼티의 경우 항상 *전체* URL 값을 가지는 경우가 대표적인 예시입니다.
 
 예제 코드를 살펴봅시다:
 
@@ -234,14 +234,14 @@ a태그의 href 속성이 상대 URL이나 `#hash`와 같이 URL 조각이더라
 </script>
 ```
 
-HTML에 내에 사용된 `href`값과 같이 정확한 속성 값을 얻고 싶다면 `getAttribute`을 사용하면 됩니다.
+HTML에 내에 사용된 `href` 값과 같이 정확한 속성값을 얻고 싶다면 `getAttribute`을 사용하면 됩니다.
 
 
 ## 비표준 속성, dataset
 
-HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합니다. 하지만 표준이 아닌 속성도 있을 수 있습니다. 이런 비표준(non-standard) 속성을 언제 사용해야 유용하고 언제 사용하면 유용하지 않은지, 그리고 언제 이 비표준 속성을 사용하는지 알아봅시다.
+HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합니다. 하지만 표준이 아닌 속성도 있을 수 있습니다. 이런 비표준(non-standard) 속성을 언제 사용해야 유용하고 언제 사용하면 유용하지 않은 지, 그리고 언제 이 비표준 속성을 사용하는지 알아봅시다.
 
-비표준 속성은 커스텀 데이터를 HTML에서 자바스크림트로 넘기고 싶은 경우나 HTML-요소를 "mark(표시)"하기 위해 사용될 수 있습니다. 
+비표준 속성은 커스텀 데이터를 HTML에서 자바스크립트로 넘기고 싶은 경우나 HTML-요소를 "mark(표시)" 하기 위해 사용될 수 있습니다. 
 
 예시:
 
@@ -259,7 +259,7 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   };
 
   for(let div of document.querySelectorAll('[show-info]')) {
-    // 해당하는 정보를 필드값에 입력해 줌
+    // 해당하는 정보를 필드 값에 입력해 줌
     let field = div.getAttribute('show-info');
     div.innerHTML = user[field]; // Pete, then age
   }
@@ -272,7 +272,7 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
 
 ```html run
 <style>
-  /* styles rely on the custom attribute "order-state" */
+  /* 스타일이 커스텀 속성인 "order-state"에 따라 결정됩니다 */
   .order[order-state="new"] {
     color: green;
   }
@@ -298,25 +298,24 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   A canceled order.
 </div>
 ```
+`.order-state-new`, `.order-state-pending`, `order-state-canceled`와 같은 클래스를 만들어도 되는데 왜 위의 방식을 쓰는걸까요?
 
-Why the attribute may be preferable to classes like `.order-state-new`, `.order-state-pending`, `order-state-canceled`?
-
-That's because an attribute is more convenient to manage. The state can be changed as easy as:
+이는 속성이 다루기 쉽다는 장점 때문입니다. 상태(state)를 이렇게 쉽게 바꿀 수 있습니다:
 
 ```js
-// a bit simpler than removing old/adding a new class
+// 새 클래스를 추가하거나 지우는 것보다 더 쉽게 상태(state)를 바꿀 수 있습니다
 div.setAttribute('order-state', 'canceled');
 ```
 
-But there may be a possible problem with custom attributes. What if we use a non-standard attribute for our purposes and later the standard introduces it and makes it do something? The HTML language is alive, it grows, more attributes appear to suit the needs of developers. There may be unexpected effects in such case.
+하지만 커스텀 속성을 사용하게 되면 몇 가지 문제가 발생할 수 있습니다. 비표준 속성을 사용해 코드를 작성했는데 나중에 그 속성이 표준으로 등록되게 되면 어떨까요? HTML은 살아있는 언어입니다. 개발자들의 요구를 반영하기 위해 지속해서 발전하고 있죠. 그래서 앞에서 언급한 경우에 예기치 못한 부작용이 생기기도 합니다.
 
-To avoid conflicts, there exist [data-*](https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes) attributes.
+이런 충돌상황을 방지하기 위해 [data-*](https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes) 속성이 도입되었습니다.
 
-**All attributes starting with "data-" are reserved for programmers' use. They are available in the `dataset` property.**
+**"data-"로 시작하는 모든 속성은 개발자가 등록한 속성입니다. 이 속성들은 `dataset` 프로퍼티를 통해 사용할 수 있습니다.**
 
-For instance, if an `elem` has an attribute named `"data-about"`, it's available as `elem.dataset.about`.
+예를 들어 `elem`이 `"data-about"`이라는 속성을 가지고 있다면, 우리는 `elem.dataset.about`이라는 문법을 쓸 수 있습니다
 
-Like this:
+이렇게 말이죠:
 
 ```html run
 <body data-about="Elephants">
@@ -325,9 +324,9 @@ Like this:
 </script>
 ```
 
-Multiword attributes like `data-order-state` become camel-cased: `dataset.orderState`.
+`data-order-state`와 같이 여러 단어로 구성된 속성의 경우는 카멜 표기법(camel-cased)을 사용해 `dataset.orderState`으로 변환됩니다.
 
-Here's a rewritten "order state" example:
+주문 상태(order state)에 관한 예제를 다시 살펴보죠:
 
 ```html run
 <style>
@@ -357,31 +356,31 @@ Here's a rewritten "order state" example:
 </script>
 ```
 
-Using `data-*` attributes is a valid, safe way to pass custom data.
+`data-*` 속성은 커스텀 데이터를 전달하기 위해 안전하고 유효한 방법입니다.
 
-Please note that we can not only read, but also modify data-attributes. Then CSS updates the view accordingly: in the example above the last line `(*)` changes the color to blue.
+data-속성을 읽을 수 있을 뿐만 아니라 수정할 수도 있다는 점을 기억하세요. 속성이 수정되면 CSS가 해당 뷰를 자동으로 업데이트해 줍니다. 위의 주문상태 예시에서 `(*)` 표시가 된 마지막 라인은 색을 파란색으로 바꿔줍니다.
 
-## Summary
+## 요약
 
-- Attributes -- is what's written in HTML.
-- Properties -- is what's in DOM objects.
+- 속성(Attributes) -- HTML 안에 쓰임.
+- 프로퍼티(Properties) -- DOM 객체 안에 쓰임.
 
-A small comparison:
+비교표:
 
-|            | Properties | Attributes |
+|            | 프로퍼티 | 속성 |
 |------------|------------|------------|
-|Type|Any value, standard properties have types described in the spec|A string|
-|Name|Name is case-sensitive|Name is not case-sensitive|
+|타입|모든 타입 가능, 표준 프로퍼티의 경우 spec에 타입이 명시되어 있음|문자열|
+|이름|대/소문자 구분|대/소문자 구분하지 않음|
 
-Methods to work with attributes are:
+속성과 함께 쓰이는 메서드:
 
-- `elem.hasAttribute(name)` -- to check for existence.
-- `elem.getAttribute(name)` -- to get the value.
-- `elem.setAttribute(name, value)` -- to set the value.
-- `elem.removeAttribute(name)` -- to remove the attribute.
-- `elem.attributes` is a collection of all attributes.
+- `elem.hasAttribute(name)` -- 속성의 존재 확인.
+- `elem.getAttribute(name)` -- 속성값을 가져옴.
+- `elem.setAttribute(name, value)` -- 속성값을 변경함.
+- `elem.removeAttribute(name)` -- 속성값을 제거함.
+- `elem.attributes` 은 속성의 모음(collection)을 반환함.
 
-For most needs, DOM properties can serve us well. We should refer to attributes only when DOM properties do not suit us, when we need exactly attributes, for instance:
+대부분의 경우에 DOM 프로퍼티를 사용하면 원하는 작업을 할 수 있습니다. DOM 속성의 정확한 값이 필요한 다음의 사례는 프로퍼티를 사용하기에 적절치 않은 경우이므로 속성을 사용해야 합니다:
 
-- We need a non-standard attribute. But if it starts with `data-`, then we should use `dataset`.
-- We want to read the value "as written" in HTML. The value of the DOM property may be different, for instance the `href` property is always a full URL, and we may want to get the "original" value.
+- 비표준 속성이 필요한 경우. 다만 속성이 `data-`로 시작하는 경우, `dataset`을 사용합니다.
+- HTML에 적힌 문자 그대로의 값을 읽고 싶은 경우. 원본값과 DOM 프로퍼티의 값이 다른데, 원본값이 필요한 경우에 사용합니다. `href` 프로퍼티의 경우 항상 전체 URL 값을 가지기 때문에 이 경우가 예시가 될 수 있습니다.
