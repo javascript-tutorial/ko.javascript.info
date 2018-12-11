@@ -37,9 +37,11 @@
 
 ## 번역어(번역 컨벤션)
 * 경어체를 사용합니다.
-* 번역어는 출판된 도서를 기준으로 하겠습니다. 주 참고도서는 다음과 같습니다
+* 번역어는 출판된 도서, 국립국어원의 외래어 표기법 용례, 한글라이즈 사이트를 기준으로 하겠습니다. 주 참고자료는 다음과 같습니다
   * 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
   * 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
   * 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
+  * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
+  * 한글라이즈([링크](https://hangulize.org/))
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property))`를 하였습니다.
-* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing)). 새롭게 작업을 시작하는 분들이 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다.
+* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 이슈를 등록해주시면 편집 권한을 드리겠습니다. 
