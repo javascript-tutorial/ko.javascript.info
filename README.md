@@ -16,6 +16,11 @@
 
 만약 자신만의 번역 저장소(repository)를 만들고 싶다면 원본 저장소를 클론 한 다음, 이름을 `javascript-tutorial-...`로 바꿔주세요. 한국어의 경우 `...`에는 ko가 들어가면 됩니다. 그 후 이곳에 [이슈](https://github.com/iliakan/javascript-tutoria-en/issues/new)를 등록하여 당신의 언어가 번역 진행 사항에 등록되도록 알리면 됩니다.
 
+## 한국어 번역
+한국어 번역을 진행하고 있는 저장소는 당 저장소와 [@Yeonjj님의 저장소](https://github.com/Yeonjj/javascript-tutorial-ko)가 있습니다. 번역어를 제외한 다른 컨벤션들은 Yeonjj님의 저장소를 기준으로 진행하고 있습니다. 많은 분들이 이 저장소와 Yeonjj님의 저장소에서 한국어 번역에 참여해주셨으면 좋겠습니다.
+
+번역을 시작하기 전에 Yeonjj님의 저장소 이슈를 확인하시어 번역작업이 진행되거나 종료된 주제인지 확인해 주시기 바랍니다.
+
 ## 저장소 구조
 
 모든 장(chapter), 주제(article), 과제(task)는 각각의 폴더 안에 구성되어 있습니다.
@@ -30,10 +35,11 @@
 
 각 파일은 `# Main header`로 시작합니다.
 
-## 번역어
-번역어는 출판된 도서를 기준으로 하겠습니다. 주 참고도서는 다음과 같습니다
-* 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
-* 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
-* 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
-
-주제에서 새롭게 등장하는 키워드는 한-영 병기를 하였습니다. 사용된 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing))
+## 번역어(번역 컨벤션)
+* 경어체를 사용합니다.
+* 번역어는 출판된 도서를 기준으로 하겠습니다. 주 참고도서는 다음과 같습니다
+  * 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
+  * 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
+  * 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
+* 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property))`를 하였습니다.
+* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing)). 새롭게 작업을 시작하는 분들이 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다.
