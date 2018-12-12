@@ -2,7 +2,7 @@
 
 이 저장소는 [https://javascript.info](https://javascript.info)에 배포된 Mordern JavaScript Tutorial의 문서를 담고 있습니다. 
 
-현제 master브랜치에 있습니다. 번역된 글을 보시려면 korean-translation 브랜치로 옮겨 주세요.
+현제 master브랜치에 있습니다. 번역된 글을 보시려면 [korean-translation 브랜치](https://github.com/Yeonjj/javascript-tutorial-ko/tree/korean-translation)로 옮겨 주세요.
 
 | Language | Github | Translation leads | Translated (%) | Published |
 |----------|--------|-------------------|-----------------|-----------|
