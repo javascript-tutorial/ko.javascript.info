@@ -2,6 +2,8 @@
 
 이 저장소는 [https://javascript.info](https://javascript.info)에 배포된 Mordern JavaScript Tutorial의 문서를 담고 있습니다. 
 
+현제 master브랜치에 있습니다. 번역된 글을 보시려면 korean-translation 브랜치로 옮겨 주세요.
+
 | Language | Github | Translation leads | Translated (%) | Published |
 |----------|--------|-------------------|-----------------|-----------|
 | Chinese | https://github.com/xitu/javascript-tutorial-zh | @leviding | ![](http://translate-hook.javascript.info/stats/zh.svg?1) | https://zh.javascript.info |
@@ -48,3 +50,4 @@
  - `task.md` 의미합니다. (해답은 `solution.md`파일 안에 제공됩니다.)
 
 각 파일은 `#` 마크다운 요소부터 시작합니다. 
+
