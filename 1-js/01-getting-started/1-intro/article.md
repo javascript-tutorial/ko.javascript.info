@@ -15,7 +15,7 @@
 ```smart header="왜 <u>자바</u>스크립트인가?"
 자바스크립트가 처음 만들어졌을 때는 "LiveScript"라는 다른 이름을 갖고 있었습니다. 하지만 당시 Java는 매우 유명한 언어였기 때문에, 자바스크립트는 Java의 동생 격인 언어로 자리를 잡고자 했습니다.
 
-그러나 자바스크립트가 발전함에 따라 [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript)라는 고유한 명세를 갖춘 완전히 독립적인 언어가 되었습니다. 이제 자바스크립트는 Java와 아무런 연관이 없습니다. 
+그러나 자바스크립트가 발전함에 따라 [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript) 라는 고유한 명세를 갖춘 완전히 독립적인 언어가 되었습니다. 이제 자바스크립트는 Java와 아무런 연관이 없습니다. 
 ```
 
 현재 자바스크립트는 브라우저뿐만 아니라 서버 또는 [자바스크립트 엔진(the JavaScript engine)](https://en.wikipedia.org/wiki/javascript_engine)이라는 특별한 엔진을 갖춘 어느 디바이스에서나 작동할 수 있습니다. 
