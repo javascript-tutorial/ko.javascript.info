@@ -13,9 +13,9 @@
 이러한 점에서, 자바스크립트는 [자바(Java)](https://en.wikipedia.org/wiki/Java_(programming_language))와는 매우 다른 언어라고 할 수 있습니다.
 
 ```smart header="왜 <u>자바</u>스크립트인가?"
-자바스크립트가 처음 만들어졌을 때는 "LiveScript"라는 다른 이름을 갖고 있었습니다. 하지만 당시 Java는 매우 유명한 언어였기 때문에, 자바스크립트는 Java의 동생 격인 언어로 자리를 잡고자 했습니다.
+자바스크립트가 처음 만들어졌을 때는 "LiveScript"라는 다른 이름을 갖고 있었습니다. 하지만 당시 자바는 매우 유명한 언어였기 때문에, 자바스크립트는 자바의 동생 격인 언어로 자리를 잡고자 했습니다.
 
-그러나 자바스크립트가 발전함에 따라 [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript) 라는 고유한 명세를 갖춘 완전히 독립적인 언어가 되었습니다. 이제 자바스크립트는 Java와 아무런 연관이 없습니다. 
+그러나 자바스크립트가 발전함에 따라 [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript) 라는 고유한 명세를 갖춘 완전히 독립적인 언어가 되었습니다. 이제 자바스크립트는 자바와 아무런 연관이 없습니다. 
 ```
 
 현재 자바스크립트는 브라우저뿐만 아니라 서버 또는 [자바스크립트 엔진(the JavaScript engine)](https://en.wikipedia.org/wiki/javascript_engine)이라는 특별한 엔진을 갖춘 어느 디바이스에서나 작동할 수 있습니다. 
@@ -24,7 +24,7 @@
 
 각 엔진은 각자의 코드네임을 갖고 있습니다. 예를 들어:
 
-- [V8](https://en.wikipedia.org/wiki/V8_(자바스크립트_engine)) -- 크롬과 오페라
+- [V8](https://en.wikipedia.org/wiki/V8_(javascript_engine)) -- 크롬과 오페라
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- 파이어폭스
 - IE의 버전에 따라 "Trident"나 "Chakra"와 같은 엔진도 존재합니다. 또한 "ChakraCore"는 마이크로소프트 엣지에 사용되며, "SquirrelFish"는 사파리에 사용됩니다.
 
