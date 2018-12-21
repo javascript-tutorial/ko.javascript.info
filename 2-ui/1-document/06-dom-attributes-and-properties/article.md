@@ -1,6 +1,6 @@
 # 속성과 프로퍼티
 
-브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 파싱(parsing)이라고 부릅니다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
+브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 파싱(parsing, 구문분석)이라고 부릅니다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
 
 예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체 프로퍼티로 전환 돼 `body.id="page"`로 접근할 수 있습니다.
 
@@ -30,7 +30,7 @@ document.body.sayTagName = function() {
   alert(this.tagName);
 };
 
-document.body.sayTagName(); // BODY (메서드에서 사용된 "this" 가 기리키는건 document.body입니다)
+document.body.sayTagName(); // BODY (메서드에서 사용된 "this" 가 가리키는건 document.body입니다)
 ```
 
 `Element.prototype`와 같은 내장 프로토타입을 수정해 모든 요소가 이 메서드를 사용하게 할 수도 있습니다:
@@ -55,7 +55,7 @@ HTML에서 태그(tag)는 복수의 속성(attribute)를 가질 수 있습니다
 
 HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, 이에 해당하는 프로퍼티가 자연스레 만들어집니다. 하지만 표준이 아닌 속성이 사용된 경우는 조금 다릅니다.
 
-예를들어 다음과 같은 html이 있다고 합시다:
+예를 들어 다음과 같은 html이 있다고 합시다:
 ```html run
 <body id="test" something="non-standard">
   <script>
@@ -68,7 +68,7 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 </body>
 ```
 
-한 요소에선 표준인 속성이 다른 요소에선 표준이 아닐 수 있다는 점에 주의해야 합니다. 예를들어 `<input>`요소에서 `"type"`은 표준이지만([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), `<body>`에선 아닙니다([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). 표준 속성(standard attribute)은 해당 요소(HTML element)의 명세서에 가면 찾아볼 수 있습니다.
+한 요소에선 표준인 속성이 다른 요소에선 표준이 아닐 수 있다는 점에 주의해야 합니다. 예를 들어 `<input>`요소에서 `"type"`은 표준이지만([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), `<body>`에선 아닙니다([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). 표준 속성(standard attribute)은 해당 요소(HTML element)의 명세서에 가면 찾아볼 수 있습니다.
 
 
 다음을 확인해 보세요:
@@ -83,9 +83,9 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
   </script>
 </body>
 ```
-위에서 확인한 바와 같이 표준속성이 아닌 경우 이에 연결되는 DOM-프로퍼티가 없습니다. 이런 비표준 속성에 접근할 수 있는 방법은 없는걸까요?
+위에서 확인한 바와 같이 표준속성이 아닌 경우 이에 연결되는 DOM-프로퍼티가 없습니다. 이런 비표준 속성에 접근할 수 있는 방법은 없는 걸까요?
 
-물론 있습니다. 모든 속성은 아래의 메서드로 접근가능합니다.
+물론 있습니다. 모든 속성은 아래의 메서드로 접근 가능합니다.
 
 - `elem.hasAttribute(name)` -- 속성의 존재 확인.
 - `elem.getAttribute(name)` -- 속성값을 가져옴.
@@ -143,7 +143,7 @@ HTML 속성에 관한 또 다른 데모 코드를 살펴보세요:
 
 ## 프로퍼티-속성 동기화(synchronization)
 
-표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트 되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트되면 속성도 마찬가지로 업데이트됩니다.
+표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트되면 속성도 마찬가지로 업데이트됩니다.
 
 아래 예시에서 속성으로써의 `id`가 수정되었고, 이에 대응하는 프로퍼티가 업데이트되었음을 확인할 수 있습니다. 그 반대도 마찬가지입니다.
 
@@ -230,7 +230,7 @@ a 태그의 href 속성이 상대 URL이나 `#hash`와 같이 URL 조각이더�
   alert(a.getAttribute('href')); // #hello
 
   // property
-  alert(a.href ); // form내의 전체 URL http://site.com/page#hello
+  alert(a.href ); // form 내의 전체 URL http://site.com/page#hello
 </script>
 ```
 
@@ -298,7 +298,7 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   A canceled order.
 </div>
 ```
-`.order-state-new`, `.order-state-pending`, `order-state-canceled`와 같은 클래스를 만들어도 되는데 왜 위의 방식을 쓰는걸까요?
+`.order-state-new`, `.order-state-pending`, `order-state-canceled`와 같은 클래스를 만들어도 되는데 왜 위의 방식을 쓰는 걸까요?
 
 이는 속성이 다루기 쉽다는 장점 때문입니다. 상태(state)를 이렇게 쉽게 바꿀 수 있습니다:
 
