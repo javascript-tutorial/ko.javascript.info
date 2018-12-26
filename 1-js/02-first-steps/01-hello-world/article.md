@@ -1,17 +1,17 @@
 # Hello, world!
 
-The tutorial that you're reading is about core JavaScript, which is platform-independent. Further on, you will learn Node.JS and other platforms that use it.
+여러분이 읽고 있는 튜토리얼은 플랫폼으로부터 독립적인 자바스크립트의 핵심에 관한 내용입니다. 추후 여러분은 Node.JS나 자바스크립트를 사용하는 다른 플랫폼을 배우게 될 것입니다.
 
-But, we need a working environment to run our scripts, and, just because this book is online, the browser is a good choice. We'll keep the amount of browser-specific commands (like `alert`) to a minimum so that you don't spend time on them if you plan to concentrate on another environment like Node.JS. On the other hand, browser details are explained in detail in the [next part](/ui) of the tutorial.
+한편, 우리는 스크립트를 실행시킬 환경이 필요합니다. 마침 이 튜토리얼이 온라인에서 제공되기 때문에 브라우저를 사용하는 것이 좋습니다. 만약 당신이 Node.JS처럼 다른 환경에 주력하고자 한다면, 브라우저에 한정된 명령어를 배우는 데 많은 시간을 보내지 않도록 (`alert`와 같은) 브라우저 한정 명령어를 최소한으로 사용할 것입니다. 다른 한편으로는, 튜토리얼의 [다음 파트](/ui)에서 브라우저에 관한 자세한 내용을 다룰 것입니다.
 
-So first, let's see how to attach a script to a webpage. For server-side environments, you can just execute it with a command like `"node my.js"` for Node.JS.
+우선 웹 페이지에 스크립트를 어떻게 삽입하는지 알아봅시다. 만약 서버 사이드 환경이라면 Node.JS의 `"node my.js"`와 같은 명령어를 통해 스크립트를 실행시킬 수 있습니다.
 
 
-## The "script" tag
+## "script" 태그
 
-JavaScript programs can be inserted in any part of an HTML document with the help of the `<script>` tag.
+자바스크립트 프로그램은 `<script>` 태그만 있으면 HTML 문서의 어느 곳에나 삽입될 수 있습니다.
 
-For instance:
+예를 들어:
 
 ```html run height=100
 <!DOCTYPE HTML>
@@ -35,25 +35,25 @@ For instance:
 ```
 
 ```online
-You can run the example by clicking on the "Play" button in its right-top corner.
+오른쪽 상단에 있는 "Play" 버튼을 눌러 예제를 실행시킬 수 있습니다.
 ```
 
-The `<script>` tag contains JavaScript code which is automatically executed when the browser meets the tag.
+`<script>` 태그는 브라우저가 이 태그를 만났을 때 자동으로 실행시키는 자바스크립트 코드를 포함하고 있습니다.
 
 
-## The modern markup
+## 모던 마크업
 
-The `<script>` tag has a few attributes that are rarely used nowadays, but we can find them in old code:
+`<script>` 태그에는 요즘 잘 사용되지 않지만, 예전 코드에 존재하는 몇 가지 속성이 있습니다.:
 
- The `type` attribute: <code>&lt;script <u>type</u>=...&gt;</code>
+ `type` 속성: <code>&lt;script <u>type</u>=...&gt;</code>
 
- : The old standard HTML4 required a script to have a type. Usually it was `type="text/javascript"`. It's not required anymore. Also, the modern standard totally changed the meaning of this attribute. Now it can be used for Javascript modules. But that's an advanced topic; we'll talk about modules later in another part of the tutorial. 
+ : 예전 표준인 HTML4는 스크립트가 타입을 갖도록 요구했습니다. 보통 `type="text/javascript"` 이런 방식으로 말이죠. 이런 방식은 더 이상 필요하지 않습니다. 또한, 현대 표준은 이 type 속성의 의미를 완전히 바꿔버렸습니다. 이제 이 속성은 자바스크립트 모듈에 사용될 수 있습니다. 하지만 이것은 심화된 내용입니다. 우리는 튜토리얼의 다른 파트에서 모듈에 대한 다뤄볼 것입니다.
 
- The `language` attribute: <code>&lt;script <u>language</u>=...&gt;</code>
-  : This attribute was meant to show the language of the script. This attribute no longer makes sense, because JavaScript is the default language. No need to use it.
+ `language` 속성: <code>&lt;script <u>language</u>=...&gt;</code>
+  : 이 속성은 스크립트의 언어를 보여주기 위해 사용되었습니다. 자바스크립트가 스크립트의 기본 언어이므로 이 속성은 이제 의미가 없습니다. 더는 사용할 필요가 없습니다.
 
-Comments before and after scripts.
-: In really ancient books and guides, one may find comments inside `<script>`, like this:
+주석은 스크립트 전후에 위치합니다.
+: 아주 오래된 책과 가이드에서는 다음과 같이 `<script>` 안에 주석이 존재하는 걸 볼 수 있습니다.:
 
     ```html no-beautify
     <script type="text/javascript"><!--
@@ -61,30 +61,30 @@ Comments before and after scripts.
     //--></script>
     ```
 
-    This trick isn't used in modern JavaScript. These comments were used to hide the JavaScript code from old browsers that didn't know about a `<script>` tag. Since browsers released in the last 15 years don't have this issue, this kind of comment can help you identify really old code.
+    이런 방식은 모던 자바스크립트에서 사용되지 않습니다. 스크립트 안의 주석은 `<script>` 태그를 알지 못했던 예전의 브라우저로부터 자바스크립트 코드를 숨기기 위해 사용되었습니다. 지난 15년간 출시된 브라우저들은 이런 문제가 없기 때문에, 스크립트 안의 주석을 보면 정말 오래된 코드라는 사실을 알 수 있을 것입니다.
 
 
-## External scripts
+## 외부 스크립트
 
-If we have a lot of JavaScript code, we can put it into a separate file.
+아주 많은 자바스크립트 코드가 있다면, 우리는 그 코드를 다른 파일에 담을 수 있습니다.
 
-The script file is attached to HTML with the `src` attribute:
+스크립트 파일은 `src` 속성을 통해 HTML 파일에 삽입될 수 있습니다.
 
 ```html
 <script src="/path/to/script.js"></script>
 ```
 
-Here `/path/to/script.js` is an absolute path to the file with the script (from the site root).
+여기서 `/path/to/script.js` 는 스크립트가 존재하는 파일의 (사이트의 루트로부터의) 절대 경로를 의미합니다.
 
-It is also possible to provide a path relative to the current page. For instance, `src="script.js"` would mean a file `"script.js"` in the current folder.
+현재 페이지로부터 상대적인 경로를 사용하는 것도 가능합니다. 예를 들어, `src="script.js"` 는 현재 폴더에 있는 `"script.js"` 파일을 의미합니다.
 
-We can give a full URL as well. For instance:
+우리는 URL 전체를 사용할 수도 있습니다. 예를 들어:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 ```
 
-To attach several scripts, use multiple tags:
+여러 개의 스크립트를 삽입하고 싶다면, 여러 개의 스크립트 태그를 사용하세요.:
 
 ```html
 <script src="/js/script1.js"></script>
@@ -93,29 +93,29 @@ To attach several scripts, use multiple tags:
 ```
 
 ```smart
-As a rule, only the simplest scripts are put into HTML. More complex ones reside in separate files.
+보통 아주 간단한 스크립트만 HTML 파일에 바로 작성합니다. 좀 더 복잡한 스크립트 코드는 다른 외부 파일에 작성합니다.
 
-The benefit of a separate file is that the browser will download it and then store it in its [cache](https://en.wikipedia.org/wiki/Web_cache).
+외부 파일을 사용했을 때의 좋은 점은 브라우저가 스크립트를 다운받아 자신의 [캐시(cache)](https://en.wikipedia.org/wiki/Web_cache)에 저장한다는 것입니다.
 
-After this, other pages that want the same script will take it from the cache instead of downloading it. So the file is actually downloaded only once.
+이후, 같은 스크립트 파일을 사용하는 다른 페이지들은 다시 스크립트를 다운받지 않고 브라우저의 캐시로부터 스크립트를 가져와 사용할 수 있습니다. 따라서 스크립트 파일은 오직 한 번만 다운받으면 됩니다.
 
-That saves traffic and makes pages faster.
+이를 통해 트래픽을 절약하고 웹 페이지를 더 빠르게 만들 수 있습니다.
 ```
 
-````warn header="If `src` is set, the script content is ignored."
-A single `<script>` tag can't have both the `src` attribute and the code inside.
+````warn header="`src` 속성이 사용되면, 태그 내부의 스크립트 코드는 무시됩니다."
+한 `<script>` 태그는 `src` 속성과 내부의 코드를 동시에 가질 수 없습니다. 
 
-This won't work:
+다음의 코드는 실행되지 않을 것입니다.:
 
 ```html
 <script *!*src*/!*="file.js">
-  alert(1); // the content is ignored, because src is set
+  alert(1); // src 속성이 사용되었으므로 이 코드는 무시됩니다.
 </script>
 ```
 
-We must choose: either it's an external `<script src="…">` or a regular `<script>` with code.
+우리는 `<script src="…">` 로 외부 파일을 연결할지 아니면 일반적인 `<script>` 태그 내에 코드를 작성할지 선택해야 합니다.
 
-The example above can be split into two scripts to work:
+위의 예시 코드는 두 스크립트로 분리해 실행시킬 수 있습니다.:
 
 ```html
 <script src="file.js"></script>
@@ -125,11 +125,11 @@ The example above can be split into two scripts to work:
 ```
 ````
 
-## Summary
+## 요약
 
-- We can use a `<script>` tag to add JavaScript code to the page.
-- The `type` and `language` attributes are not required.
-- A script in an external file can be inserted with `<script src="path/to/script.js"></script>`.
+- 우리는 웹 페이지에 자바스크립트 코드를 추가하기 위해 `<script>` 태그를 사용합니다.
+- `type` 과 `language` 속성은 필수가 아닙니다.
+- 외부 파일에 있는 스크립트는 `<script src="path/to/script.js"></script>`처럼 코드를 작성하면 사용할 수 있습니다.
 
 
-There is much more to learn about browser scripts and their interaction with the web-page. But let's keep in mind that this part of the tutorial is devoted to the JavaScript language, so we shouldn't distract ourselves from it. We'll be using a browser as a way to run JavaScript, which is very convenient for online reading, but yet one of many.
+브라우저 스크립트 그리고 스크립트와 웹 페이지의 상호작용에 대해서는 배울 것이 훨씬 더 많습니다. 하지만 튜토리얼에서 이 파트는 자바스크립트라는 언어에 초점을 맞추었다는 사실을 계속 명심합시다. 우리는 자바스크립트를 실행하기 위해 온라인 읽기 환경에 적합한 브라우저를 사용할 것입니다.
