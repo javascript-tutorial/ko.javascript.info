@@ -1,24 +1,24 @@
-# Variables
+# 여러가지 변수
 
 Most of the time, a JavaScript application needs to work with information. Here are 2 examples:
 1. An online-shop -- the information might include goods being sold and a shopping cart.
 2. A chat application -- the information might include users, messages, and much more.
 
-Variables are used to store this information.
+변수는 이러한 정보를 저장하기 위해 사용됩니다.
 
-## A variable
+## 변수(variable)
 
-A [variable](https://en.wikipedia.org/wiki/Variable_(computer_science)) is a "named storage" for data. We can use variables to store goodies, visitors and other data.
+[변수(variable)](https://en.wikipedia.org/wiki/Variable_(computer_science)) 는 데이터를 저장하기 위해 "이름을 붙인 저장소" 입니다. We can use variables to store goodies, visitors and other data.
 
-To create a variable in JavaScript, we need to use the `let` keyword.
+자바스크립트에서 변수를 생성하기 위해서는 `let` 키워드를 사용해야 합니다.
 
-The statement below creates (in other words: *declares* or *defines*) a variable with the name "message":
+아래 statement는 "message"라는 이름을 가진 변수를 생성(즉, *선언* 또는 *정의*)합니다.
 
 ```js
 let message;
 ```
 
-Now we can put some data into it by using the assignment operator `=`:
+이제 우리는 할당 연산자인 `=`를 통해 이 변수 안에 어떤 데이터를 저장할 수 있습니다.:
 
 ```js
 let message;
@@ -47,15 +47,15 @@ let message = 'Hello!'; // define the variable and assign the value
 alert(message); // Hello!
 ```
 
-We can also declare multiple variables in one line:
+하나의 라인에 여러 변수를 선언할 수도 있습니다.:
 
 ```js no-beautify
 let user = 'John', age = 25, message = 'Hello';
 ```
 
-That might seem shorter, but it's not recommended. For the sake of better readability, please use a single line per variable.
+이렇게 작성하면 좀 더 코드가 짧아보이지만, 권장되는 것은 아닙니다. 좀 더 좋은 가독성을 위해, 변수 하나 당 하나의 라인을 사용해주세요.
 
-The multiline variant is a bit longer, but easier to read:
+여러 라인에 걸쳐 변수를 선언하면 좀 더 코드가 길어보이지만, 읽기엔 편합니다.:
 
 ```js
 let user = 'John';
@@ -63,14 +63,14 @@ let age = 25;
 let message = 'Hello';
 ```
 
-Some people also write many variables like that:
+어떤 사람들은 이런 방식으로 많은 변수를 작성하기도 합니다.:
 ```js no-beautify
 let user = 'John',
   age = 25,
   message = 'Hello';
 ```
 
-...Or even in the "comma-first" style:
+...또는 심지어 "쉼표가 먼저 오는" 방식으로 작성하기도 합니다.:
 
 ```js no-beautify
 let user = 'John'
@@ -78,7 +78,7 @@ let user = 'John'
   , message = 'Hello';
 ```
 
-Technically, all these variants do the same. So, it's a matter of personal taste and aesthetics.
+기술적으로 보면, 이 모든 방식은 같은 작업을 하고 있습니다. So, it's a matter of personal taste and aesthetics.
 
 
 ````smart header="`var` instead of `let`"
