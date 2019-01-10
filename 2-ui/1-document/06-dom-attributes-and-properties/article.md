@@ -4,7 +4,7 @@
 
 예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체 프로퍼티로 전환 돼 `body.id="page"`로 접근할 수 있습니다.
 
-하지만 속성-프로퍼티는 일대일의 관계가 아닙니다. 이 장에선 속성과 프로퍼티가 어떻게 함께 작동하는지, 언제 같은지, 언제 다른지 주의하여 두 개념을 알아보겠습니다.
+하지만 속성-프로퍼티는 일대일의 관계가 아닙니다. 이번 주제에선 속성과 프로퍼티가 어떻게 함께 작동하는지, 언제 같은지, 언제 다른지 주의하여 두 개념을 알아보겠습니다.
 
 ## DOM 프로퍼티
 
@@ -102,7 +102,7 @@ HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, �
 <body something="non-standard">
   <script>
 *!*
-    alert(document.body.getAttribute('something')); // non-standard
+    alert(document.body.getAttribute('something')); // 비표준(non-standard) 속성에 접근
 */!*
   </script>
 </body>
@@ -120,13 +120,13 @@ HTML 속성에 관한 또 다른 데모 코드를 살펴보세요:
   <div id="elem" about="Elephant"></div>
 
   <script>
-    alert( elem.getAttribute('About') ); // (1) 'Elephant', reading
+    alert( elem.getAttribute('About') ); // (1) 'Elephant', 속성 읽기
 
-    elem.setAttribute('Test', 123); // (2), writing
+    elem.setAttribute('Test', 123); // (2) 속성 추가하기
 
-    alert( elem.outerHTML ); // (3), see it's there
+    alert( elem.outerHTML ); // (3) 추가된 속성 확인하기
 
-    for (let attr of elem.attributes) { // (4) list all
+    for (let attr of elem.attributes) { // (4) 속성에 접근하기
       alert( `${attr.name} = ${attr.value}` );
     }
   </script>
@@ -383,4 +383,4 @@ data-속성을 읽을 수 있을 뿐만 아니라 수정할 수도 있다는 점
 대부분의 경우에 DOM 프로퍼티를 사용하면 원하는 작업을 할 수 있습니다. HTML 속성의 정확한 값이 필요한 다음의 사례는 프로퍼티를 사용하기에 적절치 않은 경우이므로 속성을 사용해야 합니다:
 
 - 비표준 속성이 필요한 경우. 다만 속성이 `data-`로 시작하는 경우, `dataset`을 사용합니다.
-- HTML에 적힌 문자 그대로의 값을 읽고 싶은 경우. 원본값과 DOM 프로퍼티의 값이 다른데, 원본값이 필요한 경우에 사용합니다. `href` 프로퍼티의 경우 항상 전체 URL 값을 가지기 때문에 이 경우가 예시가 될 수 있습니다.
+- HTML에 적힌 문자 그대로의 값을 읽고 싶은 경우. 원본값과 DOM 프로퍼티의 값이 다른데, 원본값이 필요한 경우에 사용합니다. `href` 프로퍼티의 경우 항상 전체 URL 값을 가지기 때문에 이런 경우 사용하면 유용합니다.
