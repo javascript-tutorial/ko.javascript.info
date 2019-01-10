@@ -20,7 +20,7 @@
 ## 한국어 번역
 한국어 번역을 진행하고 있는 저장소는 당 저장소와 [@Yeonjj님의 저장소](https://github.com/Yeonjj/javascript-tutorial-ko)가 있습니다. 번역어를 제외한 다른 컨벤션들은 Yeonjj님의 저장소를 기준으로 삼고 만들었습니다. 많은 분들이 이 저장소와 Yeonjj님의 저장소에서 한국어 번역에 참여해주셨으면 좋겠습니다.
 
-번역을 시작하기 전에 Yeonjj님의 저장소 이슈와 당 저장소의 이슈를 확인하시어 번역작업이 진행되거나 종료된 주제인지 확인해 주시기 바랍니다. 번역 진행관리를 위한 Dashboard를 곧 만들어 공개하도록 하겠습니다.
+번역을 시작하기 전에 Yeonjj님의 저장소 이슈와 당 저장소의 이슈를 확인하시어 번역작업이 진행되거나 종료된 주제인지 확인해 주시기 바랍니다. 번역 진행현황은 이 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 확인할 수 있습니다.
 
 ## 저장소 구조
 
@@ -45,4 +45,4 @@
   * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
   * 한글라이즈([링크](https://hangulize.org/))
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property))`를 하였습니다.
-* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시면 편집 권한을 드리겠습니다. 
+* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1mxlxTwqdQwxkxrqMWqHgGT6lCKgj8HqCZ3UioQLAvL0/edit?usp=sharing)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시면 번역어 시트와 Dashboard시트의 편집 권한을 드리겠습니다. 
