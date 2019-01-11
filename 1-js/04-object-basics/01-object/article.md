@@ -70,7 +70,7 @@ delete user.age;
 
 ![user object 3](object-user-delete.png)
 
-We can also use multiword property names, but then they must be quoted:
+여러 단어로 이루어진 프로퍼티 이름을 사용할 수도 있지만, 반드시 따옴표 처리되어야 합니다.:
 
 ```js
 let user = {
@@ -90,20 +90,20 @@ let user = {
   age: 30*!*,*/!*
 }
 ```
-That is called a "trailing" or "hanging" comma. Makes it easier to add/remove/move around properties, because all lines become alike.
+이것을 "trailing" or "hanging" comma라고 부릅니다. 이 comma를 사용함으로써 모든 line이 동일한 모습을 갖게 되어 프로퍼티들을 추가/삭제/이동하는 것이 쉬워집니다.
 
 ## 대괄호
 
-For multiword properties, the dot access doesn't work:
+여러 단어를 프로퍼티 이름으로 부여하면, 마침표 표기법(점 표기법)을 사용할 수 없습니다.:
 
 ```js run
-// this would give a syntax error
+// 이 코드는 syntax 에러를 발생시킵니다.
 user.likes birds = true
 ```
 
 That's because the dot requires the key to be a valid variable identifier. That is: no spaces and other limitations.
 
-There's an alternative "square bracket notation" that works with any string:
+어느 문자열에나 적용되는 "대괄호 표기법" 이라는 대안이 존재합니다.:
 
 
 ```js run
@@ -147,40 +147,40 @@ alert( user[key] ); // John (if enter "name")
 ```
 
 
-### Computed properties
+### 계산된 프로퍼티(Computed properties)
 
-We can use square brackets in an object literal. That's called *computed properties*.
+우리는 객체 리터럴 안에서 대괄호를 사용할 수 있습니다. 이것을 *계산된 프로퍼티(computed properties)* 라고 부릅니다.
 
-For instance:
+예를 들어:
 
 ```js run
 let fruit = prompt("Which fruit to buy?", "apple");
 
 let bag = {
 *!*
-  [fruit]: 5, // the name of the property is taken from the variable fruit
+  [fruit]: 5, // fruit 변수로부터 프로퍼티 이름을 받아옵니다.
 */!*
 };
 
-alert( bag.apple ); // 5 if fruit="apple"
+alert( bag.apple ); // 만약 fruit="apple" 이라면 5를 보여줍니다.
 ```
 
-The meaning of a computed property is simple: `[fruit]` means that the property name should be taken from `fruit`.
+계산된 프로퍼티의 의미는 단순합니다. `[fruit]`은 프로퍼티 이름을 `fruit`으로부터 가져와야 한다는 것을 의미합니다.
 
-So, if a visitor enters `"apple"`, `bag` will become `{apple: 5}`.
+따라서, 만약 한 방문객이 `"apple"`을 입력한다면, `bag`은 {apple: 5}`가 될 것입니다.
 
-Essentially, that works the same as:
+본질적으로, 다음 코드처럼 실행됩니다.:
 ```js run
 let fruit = prompt("Which fruit to buy?", "apple");
 let bag = {};
 
-// take property name from the fruit variable
+// fruit 변수로부터 프로퍼티 이름을 가져옵니다.
 bag[fruit] = 5;
 ```
 
-...But looks nicer.
+...하지만 앞서 봤던 코드가 더 근사해 보이네요.
 
-We can use more complex expressions inside square brackets:
+우리는 대괄호 안에 더욱 복잡한 문들을 사용할 수 있습니다.:
 
 ```js
 let fruit = 'apple';
@@ -189,16 +189,16 @@ let bag = {
 };
 ```
 
-Square brackets are much more powerful than the dot notation. They allow any property names and variables. But they are also more cumbersome to write.
+대괄호 표기법은 마침표 표기법보다 훨씬 더 강력합니다. 어떤 프로퍼티 이름이나 변수를 사용할 수 있게 해줍니다. 하지만 작성하기에 더 번거로운 면이 있습니다.
 
-So most of the time, when property names are known and simple, the dot is used. And if we need something more complex, then we switch to square brackets.
+그래서 대부분의 경우, 프로퍼티 이름이 이미 정해져있고 간단할 때 마침표 표기법을 사용합니다. 만약 우리가 더 복잡한 무언가가 필요하게 되면 대괄호 표기법을 사용하면 됩니다.
 
 
 
-````smart header="Reserved words are allowed as property names"
-A variable cannot have a name equal to one of language-reserved words like "for", "let", "return" etc.
+````smart header="예약어를 프로퍼티 이름으로 사용할 수 있습니다."
+변수의 경우, "for", "let", "return" 등과 같은 자바스크립트의 예약어와 동일한 이름을 사용할 수 없습니다.
 
-But for an object property, there's no such restriction. Any name is fine:
+하지만 객체 프로퍼티에는 이러한 제약이 없습니다. 어떤 이름이나 사용할 수 있습니다.:
 
 ```js run
 let obj = {
@@ -210,7 +210,7 @@ let obj = {
 alert( obj.for + obj.let + obj.return );  // 6
 ```
 
-Basically, any name is allowed, but there's a special one: `"__proto__"` that gets special treatment for historical reasons. For instance, we can't set it to a non-object value:
+Basically, any name is allowed, but there's a special one: `"__proto__"`은 역사적인 이유로 인해 특별 대우를 받습니다. 예를 들어, non-object value에 이 이름을 설정할 수 없습니다.:
 
 ```js run
 let obj = {};
@@ -218,7 +218,7 @@ obj.__proto__ = 5;
 alert(obj.__proto__); // [object Object], didn't work as intended
 ```
 
-As we see from the code, the assignment to a primitive `5` is ignored.
+위 코드에서 보는 것처럼, 원시 값 `5`를 부여하는 것이 무시됩니다.
 
 That can become a source of bugs and even vulnerabilies if we intend to store arbitrary key-value pairs in an object, and allow a visitor to specify the keys.
 
@@ -229,11 +229,11 @@ There's also another data structure [Map](info:map-set-weakmap-weakset), that we
 ````
 
 
-## Property value shorthand
+## 프로퍼티 값 생략/축약/단축(Property value shorthand)
 
 In real code we often use existing variables as values for property names.
 
-For instance:
+예를 들어:
 
 ```js run
 function makeUser(name, age) {
@@ -248,39 +248,39 @@ let user = makeUser("John", 30);
 alert(user.name); // John
 ```
 
-In the example above, properties have the same names as variables. The use-case of making a property from a variable is so common, that there's a special *property value shorthand* to make it shorter.
+위 예제에서, 프로퍼티는 변수와 같은 이름을 갖고 있습니다. The use-case of making a property from a variable is so common, that there's a special *property value shorthand* to make it shorter.
 
-Instead of `name:name` we can just write `name`, like this:
+다음과 같이 `name:name` 대신 `name`만 적을 수 있게 됩니다.:
 
 ```js
 function makeUser(name, age) {
 *!*
   return {
-    name, // same as name: name
-    age   // same as age: age
+    name, // name: name 와 같습니다.
+    age   // age: age 와 같습니다.
     // ...
   };
 */!*
 }
 ```
 
-We can use both normal properties and shorthands in the same object:
+같은 객체 내에서 일반적인 표현과 단축 표현을 함께 사용할 수 있습니다.:
 
 ```js
 let user = {
-  name,  // same as name:name
+  name,  // name: name와 같습니다.
   age: 30
 };
 ```
 
-## Existence check
+## 존재 확인
 
 A notable objects feature is that it's possible to access any property. There will be no error if the property doesn't exist! Accessing a non-existing property just returns `undefined`. It provides a very common way to test whether the property exists -- to get it and compare vs undefined:
 
 ```js run
 let user = {};
 
-alert( user.noSuchProperty === undefined ); // true means "no such property"
+alert( user.noSuchProperty === undefined ); // true는 "no such property"를 의미합니다.
 ```
 
 There also exists a special operator `"in"` to check for the existence of a property.
