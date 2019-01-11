@@ -1,22 +1,22 @@
-# Garbage collection
+# 가비지 컬렉션(Garbage Collection)
 
-Memory management in JavaScript is performed automatically and invisibly to us. We create primitives, objects, functions... All that takes memory.
+자바스크립트에서 메모지 관리는 자동적으로 이루어지며 우리에게는 보이지 않습니다. 우리가 만드는 원시 값이 할당된 변수, 객체, 함수... 이 모든 것은 메모리를 차지합니다.
 
-What happens when something is not needed any more? How does the JavaScript engine discover it and clean it up?
+만약 어떤 것이 더 이상 필요하지 않을 땐 무슨 일이 일어날까요? 자바스크립트 엔진은 그것을 어떻게 찾아내서 삭제하는 걸까요?
 
-## Reachability
+## 도달 가능성(Reachability)
 
-The main concept of memory management in JavaScript is *reachability*.
+자바스크립트에서 메모리 관리의 주요 개념은 *도달 가능성(Reachability)*입니다.
 
-Simply put, "reachable" values are those that are accessible or usable somehow. They are guaranteed to be stored in memory.
+쉽게 말해, "도달 가능한" 값들은 접근할 수 있으며 어떻게든 사용가능한 값들을 말합니다. 이 값들은 메모리에 저장되는 게 보장됩니다.
 
 1. There's a base set of inherently reachable values, that cannot be deleted for obvious reasons.
 
     For instance:
 
-    - Local variables and parameters of the current function.
-    - Variables and parameters for other functions on the current chain of nested calls.
-    - Global variables.
+    - 현재 함수의 지역 변수와 매개 변수
+    - current chain of nested calls에 있는 다른 함수들의 변수와 매개 변수
+    - 전역 변수
     - (there are some other, internal ones as well)
 
     These values are called *roots*.
@@ -27,12 +27,12 @@ Simply put, "reachable" values are those that are accessible or usable somehow. 
 
 There's a background process in the JavaScript engine that is called [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)). It monitors all objects and removes those that have become unreachable.
 
-## A simple example
+## 간단한 예제
 
-Here's the simplest example:
+간단한 예제를 하나 살펴봅시다.:
 
 ```js
-// user has a reference to the object
+// user는 객체에 대한 참조를 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -40,9 +40,9 @@ let user = {
 
 ![](memory-user-john.png)
 
-Here the arrow depicts an object reference. The global variable `"user"` references the object `{name: "John"}` (we'll call it John for brevity). The `"name"` property of John stores a primitive, so it's painted inside the object.
+이 그림에서 화살표는 객체 참조를 나타냅니다. 전역 변수(`<global>`) `"user"` 는 `{name: "John"}` (줄여서 John이라고 부르겠습니다) 이라는 객체를 참조합니다. John의 `"name"` 프로퍼티는 원시 값을 저장하고 있기 때문에 객체(`Object`) 안에 적혀 있습니다.
 
-If the value of `user` is overwritten, the reference is lost:
+만약 `user` 값이 다른 값으로 덮어쓰여지면 참조를 잃게 됩니다.:
 
 ```js
 user = null;
@@ -50,14 +50,14 @@ user = null;
 
 ![](memory-user-john-lost.png)
 
-Now John becomes unreachable. There's no way to access it, no references to it. Garbage collector will junk the data and free the memory.
+이제 John은 도달할 수 없게됩니다. John에 접근할 수 있는 방법은 없으며, John에 대한 참조도 존재하지 않습니다. 가비지 컬렉터는 이 데이터를 버리고 메모리를 해제할 것입니다.
 
 ## Two references
 
-Now let's imagine we copied the reference from `user` to `admin`:
+이제 우리가 `user`의 참조를 `admin`에 복사했다고 가정해봅시다.:
 
 ```js
-// user has a reference to the object
+// user는 객체에 대한 참조를 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -69,16 +69,16 @@ let admin = user;
 
 ![](memory-user-john-admin.png)
 
-Now if we do the same:
+이제 우리가 이 코드를 실행한다면:
 ```js
 user = null;
 ```
 
-...Then the object is still reachable via `admin` global variable, so it's in memory. If we overwrite `admin` too, then it can be removed.
+...전역 변수 `admin`을 통해 여전히 객체에 접근할 수 있습니다. 따라서 객체는 메모리 안에 존재합니다. 만약 `admin`도 다른 값으로 덮어쓴다면, 객체는 제거될 수 있습니다.
 
-## Interlinked objects
+## 서로 연결된 객체
 
-Now a more complex example. The family:
+이제 더 복잡한 예제, family를 살펴봅시다.:
 
 ```js
 function marry(man, woman) {
@@ -98,15 +98,15 @@ let family = marry({
 });
 ```
 
-Function `marry` "marries" two objects by giving them references to each other and returns a new object that contains them both.
+`marry` 함수는 두 객체에게 서로에 대한 참조를 주면서 두 객체를 "결혼"시키며 이 두 객체를 포함한 새로운 객체를 반환합니다.
 
-The resulting memory structure:
+결과적으로 메모리 구조는 이렇게 됩니다.:
 
 ![](family.png)
 
-As of now, all objects are reachable.
+이제 모든 객체는 접근 가능합니다.
 
-Now let's remove two references:
+두 참조를 지워봅시다.:
 
 ```js
 delete family.father;
@@ -127,7 +127,7 @@ After garbage collection:
 
 ![](family-no-father-2.png)
 
-## Unreachable island
+## 도달할 수 없는 섬
 
 It is possible that the whole island of interlinked objects becomes unreachable and is removed from the memory.
 
@@ -193,7 +193,7 @@ Some of the optimizations:
 
 There are other optimizations and flavours of garbage collection algorithms. As much as I'd like to describe them here, I have to hold off, because different engines implement different tweaks and techniques. And, what's even more important, things change as engines develop, so going deeper "in advance", without a real need is probably not worth that. Unless, of course, it is a matter of pure interest, then there will be some links for you below.
 
-## Summary
+## 요약
 
 The main things to know:
 
