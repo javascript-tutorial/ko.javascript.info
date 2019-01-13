@@ -1,52 +1,52 @@
 
-# Objects
+# 객체 (Objects)
 
-As we know from the chapter <info:types>, there are seven data types in JavaScript. Six of them are called "primitive", because their values contain only a single thing (be it a string or a number or whatever).
+우리가 <info:types> 챕터에서 배웠듯이, 자바스크립트에는 일곱 가지 데이터 타입이 존재합니다. 그 중 여섯 개의 타입은 오직 하나의 값(문자열, 숫자 등)만 담을 수 있기 때문에 "원시(primitive) 타입" 라고 불립니다.
 
-In contrast, objects are used to store keyed collections of various data and more complex entities. In JavaScript, objects penetrate almost every aspect of the language. So we must understand them first before going in-depth anywhere else.
+이와 달리, 객체는 다양한 데이터와 더욱 복잡한 개체로 이루어진 이름을 가진 컬렉션(keyed collections)을 저장하기 위해 사용됩니다. 자바스크립트에서 객체는 penetrate almost every aspect of the language. 그러므로 우리는 다른 심도 깊은 내용으로 들어가기 전에 객체를 먼저 이해해야 합니다.(So we must understand them first before going in-depth anywhere else.)
 
-An object can be created with figure brackets `{…}` with an optional list of *properties*. A property is a "key: value" pair, where `key` is a string (also called a "property name"), and `value` can be anything.
+객체는 중괄호 `{…}`를 통해 생성되는데, 부가적인 *프로퍼티(properties)* 리스트가 올 수도 있습니다. "키(key): 값(value)"의 쌍을 의미합니다. 여기서 `키`("프로퍼티 이름"으로도 불립니다.)는 문자열이며, `값`에는 무엇이든지 올 수 있습니다.
 
 We can imagine an object as a cabinet with signed files. Every piece of data is stored in its file by the key. It's easy to find a file by its name or add/remove a file.
 
 ![](object.png)
 
-An empty object ("empty cabinet") can be created using one of two syntaxes:
+빈 객체 ("empty cabinet") 는 두 구문 중 하나를 사용해 만들 수 있습니다.:
 
 ```js
-let user = new Object(); // "object constructor" syntax
-let user = {};  // "object literal" syntax
+let user = new Object(); // "객체 생성자" 구문
+let user = {};  // "객체 리터럴" 구문
 ```
 
 ![](object-user-empty.png)
 
-Usually, the figure brackets `{...}` are used. That declaration is called an *object literal*.
+일반적으로, 중괄호 `{...}`가 사용됩니다. 이 선언 방식을 *객체 리터럴*이라고 합니다.
 
-## Literals and properties
+## 리터럴과 프로퍼티
 
-We can immediately put some properties into `{...}` as "key: value" pairs:
+우리는 `{...}` 안에 바로 "키: 값"의 형태로 프로퍼티를 넣을 수 있습니다.
 
 ```js
-let user = {     // an object
-  name: "John",  // by key "name" store value "John"
-  age: 30        // by key "age" store value 30
+let user = {     // 객체
+  name: "John",  // "name" 키에 "John" 값을 저장
+  age: 30        // "age" 키에 30 값을 저장
 };
 ```
 
-A property has a key (also known as "name" or "identifier") before the colon `":"` and a value to the right of it.
+프로퍼티는 `":"` 왼쪽에 ("이름" 또는 "identifier"라고도 불리는) 키를 갖고 있으며 오른쪽에는 값을 갖고 있습니다.
 
-In the `user` object, there are two properties:
+`user` 객체에는 두 프로퍼티가 존재합니다.:
 
-1. The first property has the name `"name"` and the value `"John"`.
-2. The second one has the name `"age"` and the value `30`.
+1. 첫 번째 프로퍼티는 `"name"`이라는 이름과 `"John"`이라는 값을 갖고 있습니다.
+2. 두 번째 프로퍼티는 `"age"`라는 이름과 `30`이라는 값을 갖고 있습니다.
 
-The resulting `user` object can be imagined as a cabinet with two signed files labeled "name" and "age".
+결과적으로 `user` 객체는 can be imagined as a cabinet with two signed files labeled "name" and "age".
 
 ![user object](object-user.png)
 
 We can add, remove and read files from it any time.
 
-Property values are accessible using the dot notation:
+dot notation 을 이용해 프로퍼티 값에 접근할 수 있습니다.:
 
 ```js
 // get fields of the object:
@@ -54,7 +54,7 @@ alert( user.name ); // John
 alert( user.age ); // 30
 ```
 
-The value can be of any type. Let's add a boolean one:
+값은 어느 타입이나 될수 있습니다. 불리언 타입의 프로퍼티를 추가해봅시다.:
 
 ```js
 user.isAdmin = true;
@@ -62,7 +62,7 @@ user.isAdmin = true;
 
 ![user object 2](object-user-isadmin.png)
 
-To remove a property, we can use `delete` operator:
+`delete` operator를 이용해 프로퍼티를 삭제할 수 있습니다.:
 
 ```js
 delete user.age;
@@ -83,7 +83,7 @@ let user = {
 ![](object-user-props.png)
 
 
-The last property in the list may end with a comma:
+마지막 프로퍼티는 쉼표로 끝날 수도 있습니다.:
 ```js
 let user = {
   name: "John",
@@ -92,7 +92,7 @@ let user = {
 ```
 That is called a "trailing" or "hanging" comma. Makes it easier to add/remove/move around properties, because all lines become alike.
 
-## Square brackets
+## 대괄호
 
 For multiword properties, the dot access doesn't work:
 
