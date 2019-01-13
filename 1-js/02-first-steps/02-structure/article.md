@@ -1,44 +1,44 @@
-# Code structure
+# 코드 구조
 
-The first thing to study is the building blocks of the code.
+처음으로 배울 것은 코드 블록을 만드는 방법입니다.
 
-## Statements
+## 문 (Statements)
 
-Statements are syntax constructs and commands that perform actions.
+문은 어떤 작업을 수행시키는 구문 구조와 명령어들을 의미합니다.
 
-We've already seen a statement `alert('Hello, world!')`, which shows the message "Hello world!".
+우리는 이미 "Hello world!" 메시지를 보여주는 `alert('Hello, world!')` 문을 보았습니다.
 
-We can have as many statements in the code as we want. Another statement can be separated with a semicolon.
+우리는 코드에서 원하는 만큼 문을 작성할 수 있습니다. 서로 다른 문은 세미콜론으로 구분됩니다.
 
-For example, here we split the message into two:
+예를 들어, alert 문을 두 개의 문으로 나눌 수 있습니다.:
 
 ```js run no-beautify
 alert('Hello'); alert('World');
 ```
 
-Usually each statement is written on a separate line -- thus the code becomes more readable:
+일반적으로 각 문은 서로 다른 줄에 작성합니다. -- 이로 인해 코드의 가독성이 좋아집니다.:
 
 ```js run no-beautify
 alert('Hello');
 alert('World');
 ```
 
-## Semicolons [#semicolon]
+## 세미콜론 [#semicolon]
 
-A semicolon may be omitted in most cases when a line break exists.
+줄 바꿈이 있다면, 대부분의 경우 세미콜론을 생략할 수 있습니다.
 
-This would also work:
+이렇게 작성할 수 있습니다.:
 
 ```js run no-beautify
 alert('Hello')
 alert('World')
 ```
 
-Here JavaScript interprets the line break as an "implicit" semicolon. That's also called an [automatic semicolon insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion).
+여기서 자바스크립트는 줄 바꿈을 "암시적" 세미콜론으로 해석합니다. 이것은 [세미콜론 자동 삽입(automatic semicolon insertion)](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) 으로도 불립니다.
 
-**In most cases a newline implies a semicolon. But "in most cases" does not mean "always"!**
+**대부분의 경우 줄 바꿈은 세미콜론을 의미합니다. 하지만 "대부분의 경우"가 "항상"이라는 의미는 아닙니다.**
 
-There are cases when a newline does not mean a semicolon, for example:
+줄 바꿈이 세미콜론을 의미하지 않는 경우가 있습니다. 예를 들어:
 
 ```js run no-beautify
 alert(3 +
@@ -46,22 +46,22 @@ alert(3 +
 + 2);
 ```
 
-The code outputs `6` because JavaScript does not insert semicolons here. It is intuitively obvious that if the line ends with a plus `"+"`, then it is an "incomplete expression", so the semicolon is not required. And in this case that works as intended.
+이 코드의 결과값은 `6` 입니다. 자바스크립트가 세미콜론을 삽입하지 않았기 때문입니다. 만약 한 줄의 코드가 `"+"` 로 끝이 난다면 이것은 "불완전한 표현식"이며, 따라서 세미콜론이 필요하지 않다는 것은 직관적으로 명백한 사실입니다. 또한 이러한 경우에 이 코드는 의도한 대로 실행이 됩니다.
 
-**But there are situations where JavaScript "fails" to assume a semicolon where it is really needed.**
+**하지만 세미콜론이 정말로 필요할 때 자바스크립트가 세미콜론이 있다고 추정하지 "못하는" 상황들도 존재합니다.**
 
-Errors which occur in such cases are quite hard to find and fix.
+이런 상황에 발생하는 에러들은 찾거나 고치기가 상당히 어렵습니다.
 
-````smart header="An example of an error"
-If you're curious to see a concrete example of such an error, check this code out:
+````smart header="에러 예제"
+에러의 구체적인 예시를 보고 싶다면, 이 코드를 확인하세요.:
 
 ```js run
 [1, 2].forEach(alert)
 ```
 
-No need to think about the meaning of the brackets `[]` and `forEach` yet. We'll study them later, for now it does not matter. Let's just remember the result: it shows `1`, then `2`.
+괄호 `[]`와 `forEach`의 의미에 대해서는 아직 생각해볼 필요가 없습니다. 다음에 우리는 이것들에 대해 공부를 할 예정이니 아직은 신경 쓰지 않아도 됩니다. 결과적으로 `1` 다음 `2`가 보인다는 것만을 기억하세요.
 
-Now let's add an `alert` before the code and *not* finish it with a semicolon:
+이제 코드 앞에 `alert`를 추가하고 *세미콜론은 붙이지 마세요.*:
 
 ```js run no-beautify
 alert("There will be an error")
@@ -69,91 +69,91 @@ alert("There will be an error")
 [1, 2].forEach(alert)
 ```
 
-Now if we run it, only the first `alert` is shown, and then we have an error!
+이제 실행을 해보면, 첫 번째 `alert` 만 보이고 에러가 발생합니다.
 
-But everything is fine again if we add a semicolon after `alert`:
+하지만 `alert` 이후에 세미콜론을 추가하면 모든 것은 제대로 작동합니다.:
 ```js run
 alert("All fine now");
 
 [1, 2].forEach(alert)  
 ```
 
-Now we have the "All fine now" message and then `1` and `2`.
+이제 우리는 "All fine now" 메시지 다음에 `1`과 `2`가 나타나는 것을 볼 수 있습니다.
 
 
-The error in the no-semicolon variant occurs because JavaScript does not imply a semicolon before square brackets `[...]`.
+세미콜론이 없을 때 에러가 발생했던 이유는 자바스크립트가 `[...]` 괄호 전에 세미콜론이 있다고 가정하지 않기 때문입니다.
 
-So, because the semicolon is not auto-inserted, the code in the first example is treated as a single statement. That's how the engine sees it:
+따라서, 세미콜론이 자동으로 삽입되지 않기 때문에 첫 번째 예제의 코드는 단일 문으로 처리됩니다. 자바스크립트 엔진이 보는 코드의 모습은 다음과 같습니다.:
 
 ```js run no-beautify
 alert("There will be an error")[1, 2].forEach(alert)
 ```
 
-But it should be two separate statements, not a single one. Such a merging in this case is just wrong, hence the error. There are other situations when such a thing happens.
+하지만 원래 이 코드는 단일 문이 아닌 두 개의 서로 다른 문으로 처리되어야 합니다. 문을 잘못 합치게 되어 에러가 발생한 것입니다. 다른 비슷한 상황들도 존재합니다.
 ````
 
-It's recommended to put semicolons between statements even if they are separated by newlines. This rule is widely adopted by the community. Let's note once again -- *it is possible* to leave out semicolons most of the time. But it's safer -- especially for a beginner -- to use them.
+비록 줄 바꿈에 의해 문이 나뉘더라도 문 사이에 세미콜론을 넣는 것이 좋습니다. 이 원칙은 커뮤니티에서 널리 채택하고 있습니다. 다시 한 번 주목합시다. -- 대체로 세미콜론을 생략*할 수 있습니다.* 하지만 세미콜론을 사용하는 것이 -- 특히 입문자에겐 -- 더 안전합니다.
 
-## Comments
+## 주석 (Comments)
 
-As time goes on, the program becomes more and more complex. It becomes necessary to add *comments* which describe what happens and why.
+시간이 흐름에 따라, 자바스크립트 프로그램은 더욱더 복잡해졌습니다. 이로 인해 무슨 일이 왜 벌어지고 있는지를 설명해주는 *주석*을 추가하는 것이 필요해졌습니다.
 
-Comments can be put into any place of the script. They don't affect the execution because the engine simply ignores them.
+주석은 스크립트의 어느 곳에나 작성될 수 있습니다. 자바스크립트 엔진이 주석을 단순히 무시하기 때문에 주석은 코드 실행에 영향을 끼치지 않습니다.
 
-**One-line comments start with two forward slash characters `//`.**
+**한 줄의 주석은 두 개의 슬래시 `//`로 시작됩니다.**
 
-The rest of the line is a comment. It may occupy a full line of its own or follow a statement.
+슬래시 뒤에 주석을 작성합니다. 주석은 한 줄을 다 차지할 수도 있고 문 다음에 이어질 수도 있습니다.
 
 Like here:
 ```js run
-// This comment occupies a line of its own
+// 이 주석은 한 줄을 다 차지합니다.
 alert('Hello');
 
-alert('World'); // This comment follows the statement
+alert('World'); // 이 주석은 문 다음 이어집니다.
 ```
 
-**Multiline comments start with a forward slash and an asterisk <code>/&#42;</code> and end with an asterisk and a forward slash <code>&#42;/</code>.**
+**여러 줄의 주석은 슬래시와 별표 <code>/&#42;</code> 로 시작해 슬래시와 별표 <code>&#42;/</code> 로 끝이 납니다.**
 
-Like this:
+이렇게요:
 
 ```js run
-/* An example with two messages.
-This is a multiline comment.
+/* 두 줄의 주석 예제
+이것은 여러 줄의 주석입니다.
 */
 alert('Hello');
 alert('World');
 ```
 
-The content of comments is ignored, so if we put code inside <code>/&#42; ... &#42;/</code> it won't execute.
+주석의 내용은 무시되기 때문에 만약 주석 안에 <code>/&#42; ... &#42;/</code> 가 포함된다면 이것은 실행되지 않을 것입니다.
 
-Sometimes it comes in handy to temporarily disable a part of code:
+가끔 주석을 통해 코드의 한 부분을 일시적으로 비활성화할 수 있어 유용합니다.:
 
 ```js run
-/* Commenting out the code
+/* 코드 주석 처리하기
 alert('Hello');
 */
 alert('World');
 ```
 
-```smart header="Use hotkeys!"
-In most editors a line of code can be commented out by `key:Ctrl+/` hotkey for a single-line comment and something like `key:Ctrl+Shift+/` -- for multiline comments (select a piece of code and press the hotkey). For Mac try `key:Cmd` instead of `key:Ctrl`.
+```smart header="단축키를 사용하세요!"
+대부분의 에디터는 주석 처리를 도와주는 단축키를 제공합니다. `key:Ctrl+/` 를 사용하면 한 줄의 코드를 한 줄의 주석으로 처리할 수 있으며 여러 줄의 주석은 `key:Ctrl+Shift+/` 를 통해 처리할 수 있습니다(블록을 지정하고 단축키를 누르세요.). 맥에서는 `key:Ctrl` 대신 `key:Cmd`를 사용하세요.
 ```
 
-````warn header="Nested comments are not supported!"
-There may not be `/*...*/` inside another `/*...*/`.
+````warn header="주석 중첩은 지원되지 않습니다."
+`/*...*/` 안에 또 다른 `/*...*/` 는 존재할 수 없습니다.
 
-Such code will die with an error:
+그런 코드는 에러와 함께 종료될 것입니다.:
 
 ```js run no-beautify
 /*
-  /* nested comment ?!? */
+  /* 중첩된 주석 ?!? */
 */
 alert( 'World' );
 ```
 ````
 
-Please, don't hesitate to comment your code.
+주석 달기를 두려워하지 마세요.
 
-Comments increase the overall code footprint, but that's not a problem at all. There are many tools which minify the code before publishing to the production server. They remove comments, so they don't appear in the working scripts. Therefore comments do not have any negative effects on production at all.
+주석은 코드의 전체적인 길이를 증가시키지만, 이것은 전혀 문제가 되지 않습니다. 프로덕션 서버에 배포하기 전에 코드를 압축시키는 도구들이 많이 존재합니다. 이 도구들은 주석을 삭제하기 때문에 실행 중인 스크립트에선 주석이 보이지 않습니다. 그러므로 주석은 프로덕션에 부정적인 영향을 전혀 끼치지 않습니다.
 
-Further in the tutorial there will be a chapter <info:coding-style> that also explains how to write better comments.
+나중에 <info:coding-style> 챕터에서 주석을 더 잘 쓰는 방법에 관해 설명할 것입니다.
