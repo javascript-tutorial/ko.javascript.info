@@ -1,3 +1,3 @@
-# An introduction
+# 소개
 
-About the JavaScript language and the environment to develop with it.
+자바스크립트 언어란 무엇인지 그리고 개발 환경에 대해 소개합니다.
