@@ -1,3 +1,3 @@
-# JavaScript Fundamentals
+# 자바스크립트 기초
 
-Let's learn the fundamentals of script building.
+자바스크립트의 기초에 대해 배워봅시다.
