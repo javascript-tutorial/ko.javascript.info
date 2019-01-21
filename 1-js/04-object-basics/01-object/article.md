@@ -7,7 +7,7 @@
 
 객체는 중괄호 `{…}`를 통해 생성되는데, 부가적인 *프로퍼티(properties)* 리스트가 올 수도 있습니다. "키(key): 값(value)"의 쌍을 의미합니다. 여기서 `키`("프로퍼티 이름"으로도 불립니다.)는 문자열이며, `값`에는 무엇이든지 올 수 있습니다.
 
-We can imagine an object as a cabinet with signed files. Every piece of data is stored in its file by the key. It's easy to find a file by its name or add/remove a file.
+We can imagine an object as a cabinet with signed files. Every piece of data is stored in its file by the key. 이름으로 파일을 찾거나 파일을 추가/삭제하는 일은 쉽습니다.
 
 ![](object.png)
 
@@ -94,7 +94,7 @@ let user = {
 
 ## 대괄호
 
-여러 단어를 프로퍼티 이름으로 부여하면, 마침표 표기법(점 표기법)을 사용할 수 없습니다.:
+여러 단어를 프로퍼티 이름으로 부여하면, 점 표기법을 사용할 수 없습니다.:
 
 ```js run
 // 이 코드는 syntax 에러를 발생시킵니다.
@@ -189,9 +189,9 @@ let bag = {
 };
 ```
 
-대괄호 표기법은 마침표 표기법보다 훨씬 더 강력합니다. 어떤 프로퍼티 이름이나 변수를 사용할 수 있게 해줍니다. 하지만 작성하기에 더 번거로운 면이 있습니다.
+대괄호 표기법은 점 표기법보다 훨씬 더 강력합니다. 어떤 프로퍼티 이름이나 변수를 사용할 수 있게 해줍니다. 하지만 작성하기에 더 번거로운 면이 있습니다.
 
-그래서 대부분의 경우, 프로퍼티 이름이 이미 정해져있고 간단할 때 마침표 표기법을 사용합니다. 만약 우리가 더 복잡한 무언가가 필요하게 되면 대괄호 표기법을 사용하면 됩니다.
+그래서 대부분의 경우, 프로퍼티 이름이 이미 정해져있고 간단할 때 점 표기법을 사용합니다. 만약 우리가 더 복잡한 무언가가 필요하게 되면 대괄호 표기법을 사용하면 됩니다.
 
 
 
@@ -275,7 +275,7 @@ let user = {
 
 ## 존재 확인
 
-A notable objects feature is that it's possible to access any property. There will be no error if the property doesn't exist! Accessing a non-existing property just returns `undefined`. It provides a very common way to test whether the property exists -- to get it and compare vs undefined:
+어느 프로퍼티에나 접근 가능하다는 것은 중요한 객체의 특징입니다. 만약 프로퍼티가 존재하지 않는다고 해도 에러가 발생하지 않습니다! 존재하지 않는 프로퍼티에 접근하면 `undefined`를 반환할 뿐이지요. 이것은 프로퍼티의 존재 여부를 테스트하는 매우 일반적인 방법을 제공해 줍니다. -- 우선 접근해보고 undefined 인지 확인해보면 되니까요.:
 
 ```js run
 let user = {};
@@ -283,25 +283,25 @@ let user = {};
 alert( user.noSuchProperty === undefined ); // true는 "no such property"를 의미합니다.
 ```
 
-There also exists a special operator `"in"` to check for the existence of a property.
+프로퍼티의 존재를 확인하기 위해서는 특별한 연산자인 `"in"`을 사용할 수도 있습니다.
 
-The syntax is:
+문법은 다음과 같습니다.:
 ```js
 "key" in object
 ```
 
-For instance:
+예를 들어:
 
 ```js run
 let user = { name: "John", age: 30 };
 
-alert( "age" in user ); // true, user.age exists
-alert( "blabla" in user ); // false, user.blabla doesn't exist
+alert( "age" in user ); // true, user.age가 존재합니다.
+alert( "blabla" in user ); // false, user.blabla가 존재하지 않습니다.
 ```
 
-Please note that on the left side of `in` there must be a *property name*. That's usually a quoted string.
+`in`의 왼쪽에는 *프로퍼티 이름*이 있어야 한다는 사실을 주의하세요. 이 이름은 보통 따옴표로 묶인 문자열입니다.
 
-If we omit quotes, that would mean a variable containing the actual name will be tested. For instance:
+만약 따옴표를 생략하게 되면, that would mean a variable containing the actual name will be tested. For instance:
 
 ```js run
 let user = { age: 30 };
