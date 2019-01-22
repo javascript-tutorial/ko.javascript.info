@@ -449,7 +449,7 @@ for(let code in codes) {
 
 Now it works as intended.
 
-## Copying by reference
+## 참조에 의한 복사
 
 One of the fundamental differences of objects vs primitives is that they are stored and copied "by reference".
 
@@ -514,38 +514,38 @@ alert(*!*user.name*/!*); // 'Pete', changes are seen from the "user" reference
 
 The example above demonstrates that there is only one object. As if we had a cabinet with two keys and used one of them (`admin`) to get into it. Then, if we later use the other key (`user`) we would see changes.
 
-### Comparison by reference
+### 참조에 의한 비교
 
-The equality `==` and strict equality `===` operators for objects work exactly the same.
+동등 연산자 `==`와 객체를 위한 엄격한 동등 연산자 `===`는 완전히 동일한 방식으로 작동합니다.
 
-**Two objects are equal only if they are the same object.**
+**두 객체가 같은 객체라면 그들은 동등합니다.**
 
-For instance, two variables reference the same object, they are equal:
+예를 들어, 두 변수가 같은 객체를 참조하면 그들은 동등합니다.:
 
 ```js run
 let a = {};
-let b = a; // copy the reference
+let b = a; // 참조에 의한 복사
 
-alert( a == b ); // true, both variables reference the same object
+alert( a == b ); // true, 두 변수는 같은 객체를 참조합니다.
 alert( a === b ); // true
 ```
 
-And here two independent objects are not equal, even though both are empty:
+그리고 여기 독립적인 두 객체는 둘 다 빈 객체일지라도 동등하지 않습니다.:
 
 ```js run
 let a = {};
-let b = {}; // two independent objects
+let b = {}; // 두 개의 독립적인 객체
 
 alert( a == b ); // false
 ```
 
-For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, objects are converted to primitives. We'll study how object conversions work very soon, but to tell the truth, such comparisons are necessary very rarely and usually are a result of a coding mistake.
+For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, 객체는 원시값으로 변환됩니다. 우리는 곧 객체 변환이 어떻게 이뤄지는지 공부할 것입니다. 그러나 사실 이런 비교는 거의 필요하지 않으며 보통 코딩 실수에 의한 결과라고 할 수 있습니다.
 
-### Const object
+### Const 객체
 
-An object declared as `const` *can* be changed.
+`const`로 선언된 객체는 *변경 될 수 있습니다.*
 
-For instance:
+예를 들어:
 
 ```js run
 const user = {
@@ -559,9 +559,9 @@ user.age = 25; // (*)
 alert(user.age); // 25
 ```
 
-It might seem that the line `(*)` would cause an error, but no, there's totally no problem. That's because `const` fixes the value of `user` itself. And here `user` stores the reference to the same object all the time. The line `(*)` goes *inside* the object, it doesn't reassign `user`.
+`(*)` 행이 에러를 일으킬 것처럼 보이지만 사실 전혀 문제가 없습니다. 왜냐하면 `const`가 `user` 자체의 값을 고정시키기 때문입니다. 그리고 여기서 `user`은 언제나 같은 객체에 대한 참조를 저장하고 있습니다. `(*)` 행은 객체의 *안으로* 들어가며, 이것은 `user`를 재할당하지 않습니다.
 
-The `const` would give an error if we try to set `user` to something else, for instance:
+만약 우리가 `user`를 다른 어떤 것에 설정하려고 한다면 `const`가 에러를 발생시킬 것입니다. 예를 들어:
 
 ```js run
 const user = {
@@ -569,7 +569,7 @@ const user = {
 };
 
 *!*
-// Error (can't reassign user)
+// Error (user를 재할당할 수 없습니다.)
 */!*
 user = {
   name: "Pete"
