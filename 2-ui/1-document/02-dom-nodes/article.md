@@ -4,92 +4,92 @@ libs:
 
 ---
 
-# DOM tree
+# DOM 트리(tree)
 
-The backbone of an HTML document are tags.
+HTML의 근간은 태그(tags)입니다.
 
-According to Document Object Model (DOM), every HTML-tag is an object. Nested tags are called "children" of the enclosing one.
+DOM(문서 객체 모델, Document Object Model)에선 모든 HTML 태그가 객체입니다. 중첩 태그(nested tag)들은 그 태그를 감싸고 있는 태그의 "자식들(children)"이라 불립니다.
 
-The text inside a tag it is an object as well.
+태그 사이의 문자(text) 역시 객체입니다.
 
-All these objects are accessible using JavaScript.
+이런 모든 객체는 자바스크립트를 통해 접근 가능합니다.
 
-## An example of DOM
+## DOM 예제
 
-For instance, let's explore the DOM for this document:
+아래 문서의 DOM을 탐색해 봅시다.
 
 ```html run no-beautify
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>About elks</title>
+  <title>사슴에 관하여</title>
 </head>
 <body>
-  The truth about elks.
+  사슴에 관한 진실.
 </body>
 </html>
 ```
 
-The DOM represents HTML as a tree structure of tags. Here's how it looks:
+DOM은 HTML을 태그의 트리구조로 나타냅니다. 아래 그림을 통해 확인해 봅시다:
 
 <div class="domtree"></div>
 
 <script>
-let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elks"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n  "},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elks."}]}]}
+let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"사슴에 관하여"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n  "},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  사슴에 관한 진실."}]}]}
 
 drawHtmlTree(node1, 'div.domtree', 690, 320);
 </script>
 
 ```online
-On the picture above, you can click on element nodes and their children will open/collapse.
+위 그림에서 요소 노드를 클릭하면 그 자식들을 보거나 숨길 수 있습니다.
 ```
 
-Tags are called *element nodes* (or just elements). Nested tags become children of the enclosing ones. As a result we have a tree of elements: `<html>` is at the root, then `<head>` and `<body>` are its children, etc.
+태그는 *요소 노드*(혹은 그냥 요소)라고 불립니다. 중첩 태그는 그 태그를 감싸는 상위 태그의 자식이 됩니다. 이런 규칙에 따라 `<html>`은 요소 트리의 가장 꼭대기에 위치하고, `<head>`와 `<body>`등을 자식으로 갖습니다. 
 
-The text inside elements forms *text nodes*, labelled as `#text`. A text node contains only a string. It may not have children and is always a leaf of the tree.
+요소 안쪽의 문자(text)는 *텍스트(text) 노드*가 되고, `#text`로 표시됩니다. 텍스트 노드는 오로지 문자열만 담습니다. 자식을 가질 수 없고 트리의 끝에서 잎 노드(leaf node)로만 존재합니다.
 
-For instance, the `<title>` tag has the text `"About elks"`.
+예를 들어 `<title>` 태그는 `"사슴에 관하여"`라는 문자 노드를 자식으로 갖습니다
 
-Please note the special characters in text nodes:
+텍스트 노드에 있는 특수문자를 눈여겨보세요:
 
-- a newline: `↵` (in JavaScript known as `\n`)
-- a space: `␣`
+- 새 줄(newline): `↵` (자바스크립트에선 `\n`로 표시)
+- 공백(space): `␣`
 
-Spaces and newlines -- are totally valid characters, they form text nodes and become a part of the DOM. So, for instance, in the example above the `<head>` tag contains some spaces before `<title>`, and that text becomes a `#text` node (it contains a newline and some spaces only).
+공백과 새 줄 -- 이 두 가지는 명백한 문자입니다. 그래서 텍스트 노드가 되고, DOM의 일부를 구성합니다. 위 예제 HTML에서 `<head>`과 `<title>`사이의 공백은 문자이기 때문에 `#text` 노드가 됩니다(이 노드는 새 줄과 몇 개의 공백만을 포함합니다).
 
-There are only two top-level exclusions:
-1. Spaces and newlines before `<head>` are ignored for historical reasons,
-2. If we put something after `</body>`, then that is automatically moved inside the `body`, at the end, as the HTML spec requires that all content must be inside `<body>`. So there may be no spaces after `</body>`.
+텍스트 노드 생성엔 두가지 예외가 있습니다:
+1. 역사적인 이유로 `<head>`이전의 공백과 새 줄은 무시됩니다.
+2. HTML  명세는 모든 콘텐츠가 `body` 안쪽에 있어야 한다고 명시하기 떄문에 `</body>`뒤에 뭔갈 넣더라도 그 콘텐츠는 자동으로 `body` 안쪽으로 옮겨집니다. 따라서 `</body>`뒤엔 어느 공백도 있을 수 없습니다.
 
-In other cases everything's straightforward -- if there are spaces (just like any character) in the document, then they become text nodes in DOM, and if we remove them, then there won't be any.
+두 예외를 제외하곤 아주 간단합니다 -- 문서 내에 공백이 있다면 다른 문자처럼 DOM의 텍스트 노드가 되고 공백을 지우면 그 노드는 사라집니다. 
 
-Here are no space-only text nodes:
+아래는 공백 없는 텍스트 노드만으로 구성된 HTML입니다.:
 
 ```html no-beautify
 <!DOCTYPE HTML>
-<html><head><title>About elks</title></head><body>The truth about elks.</body></html>
+<html><head><title>사슴에 관하여</title></head><body>사슴에 관한 진실.</body></html>
 ```
 
 <div class="domtree"></div>
 
 <script>
-let node2 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elks"}]}]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"The truth about elks."}]}]}
+let node2 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"사슴에 관하여"}]}]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"사슴에 관한 진실."}]}]}
 
 drawHtmlTree(node2, 'div.domtree', 690, 210);
 </script>
 
-```smart header="Edge spaces and in-between empty text are usually hidden in tools"
-Browser tools (to be covered soon) that work with DOM usually do not show spaces at the start/end of the text and empty text nodes (line-breaks) between tags.
+```smart header="가장자리 공백이나 중간의 비어있는 텍스트는 개발자 도구에서 보이지 않습니다"
+브라우저 개발자 도구(곧 다룰 예정임)에선 문자 맨 앞이나 끝쪽의 공백과 태그 사이의 새 줄이 만들어내는 비어있는 텍스트 노드는 보여주지 않습니다.
 
-That's because they are mainly used to decorate HTML, and do not affect how it is shown (in most cases).
+이런 노드들은 주로 HTML의 가시성을 위해 사용되는 것이지, 실제 문서가 어떻게 보이는지엔지엔 (대개) 영향을 끼치지 않기 때문입니다.
 
-On further DOM pictures we'll sometimes omit them where they are irrelevant, to keep things short.
+이 튜토리얼에서도 단순화를 위해 뒤에 나타나는 DOM 그림부터 이런 텍스트 노드를 생략하도록 하겠습니다.
 ```
 
 
-## Autocorrection
+## 자동 교정(Autocorrection)
 
-If the browser encounters malformed HTML, it automatically corrects it when making DOM.
+브라우저는 규칙에 어긋나는 HTML을 만나면, DOM 생성 시 잘못된 부분을 자동으로 교정해줍니다.
 
 For instance, the top tag is always `<html>`. Even if it doesn't exist in the document -- it will exist in the DOM, the browser will create it. The same goes for `<body>`.
 
