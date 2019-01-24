@@ -50,4 +50,4 @@
   * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
   * 한글라이즈([링크](https://hangulize.org/))
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property))`를 하였습니다.
-* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시면 번역어 시트의 편집 권한을 드리겠습니다. 
+* 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시고, google계정을 알려주시면 번역어 시트의 편집 권한을 드리겠습니다. 
