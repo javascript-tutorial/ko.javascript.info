@@ -10,29 +10,29 @@
 
 쉽게 말해, "도달 가능한" 값들은 접근할 수 있으며 어떻게든 사용가능한 값들을 말합니다. 이 값들은 메모리에 저장되는 게 보장됩니다.
 
-1. There's a base set of inherently reachable values, that cannot be deleted for obvious reasons.
+1. 본질적으로 도달가능한 값들의 기본 집합이 있습니다. 이 값들은 명백한 이유들로도 제거될 수 없습니다.
 
-    For instance:
+    예를 들어:
 
     - 현재 함수의 지역 변수와 매개 변수
-    - current chain of nested calls에 있는 다른 함수들의 변수와 매개 변수
+    - 현재 중첩된 호출 체인에 있는 다른 함수들의 변수와 매개 변수
     - 전역 변수
     - (there are some other, internal ones as well)
 
-    These values are called *roots*.
+    이 값들은 *roots*라고 불립니다.
 
-2. Any other value is considered reachable if it's reachable from a root by a reference or by a chain of references.
+2. root로부터 참조값이나 참조값의 연쇄에 의해 도달 가능하다면 그 값은 도달 가능합니다.
 
-    For instance, if there's an object in a local variable, and that object has a property referencing another object, that object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+    예를 들어, 만약 지역 변수인 객체가 있고 이 객체는 다른 객체를 참조하는 프로퍼티를 갖고 있다면, 그 객체는 도달 가능하다고 여겨집니다. 그리고 그 객체가 참조하는 값들 역시 도달 가능합니다. 아래에서 자세한 예시를 봅시다.
 
-There's a background process in the JavaScript engine that is called [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)). It monitors all objects and removes those that have become unreachable.
+자바스크립트 엔진에는 [가비지 컬렉터(garbage collector)](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))라고 불리는 백그라운드 프로세스가 있습니다. 가비지 컬렉터는 모든 객체들을 감시하며 도달 가능하지 않아진 객체를 제거합니다.
 
 ## 간단한 예제
 
 간단한 예제를 하나 살펴봅시다.:
 
 ```js
-// user는 객체에 대한 참조를 갖고 있습니다.
+// user는 객체에 대한 참조값을 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -40,9 +40,9 @@ let user = {
 
 ![](memory-user-john.png)
 
-이 그림에서 화살표는 객체 참조를 나타냅니다. 전역 변수(`<global>`) `"user"` 는 `{name: "John"}` (줄여서 John이라고 부르겠습니다) 이라는 객체를 참조합니다. John의 `"name"` 프로퍼티는 원시 값을 저장하고 있기 때문에 객체(`Object`) 안에 적혀 있습니다.
+이 그림에서 화살표는 객체 참조를 나타냅니다. 전역 변수(`<global>`) `"user"` 는 `{name: "John"}` (줄여서 John이라고 부르겠습니다) 이라는 객체를 참조합니다. John의 `"name"` 프로퍼티는 기본값을 저장하고 있기 때문에 객체(`Object`) 안에 적혀져 있습니다.
 
-만약 `user` 값이 다른 값으로 덮어쓰여지면 참조를 잃게 됩니다.:
+만약 `user` 값이 다른 값으로 덮어쓰여지면 참조값을 잃게 됩니다.:
 
 ```js
 user = null;
@@ -50,14 +50,14 @@ user = null;
 
 ![](memory-user-john-lost.png)
 
-이제 John은 도달할 수 없게됩니다. John에 접근할 수 있는 방법은 없으며, John에 대한 참조도 존재하지 않습니다. 가비지 컬렉터는 이 데이터를 버리고 메모리를 해제할 것입니다.
+이제 John은 도달할 수 없게됩니다. John에 접근할 수 있는 방법은 없으며, John에 대한 참조값도 존재하지 않습니다. 가비지 컬렉터는 이 데이터를 삭제하고 메모리를 해제할 것입니다.
 
-## Two references
+## 두 개의 참조값
 
-이제 우리가 `user`의 참조를 `admin`에 복사했다고 가정해봅시다.:
+이제 우리가 `user`의 참조값을 `admin`에 복사했다고 가정해봅시다.:
 
 ```js
-// user는 객체에 대한 참조를 갖고 있습니다.
+// user는 객체에 대한 참조값을 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -98,7 +98,7 @@ let family = marry({
 });
 ```
 
-`marry` 함수는 두 객체에게 서로에 대한 참조를 주면서 두 객체를 "결혼"시키며 이 두 객체를 포함한 새로운 객체를 반환합니다.
+`marry` 함수는 두 객체에게 서로에 대한 참조값을 부여하며 두 객체를 "결혼"시킵니다. 이 함수는 두 객체를 포함한 새로운 객체를 반환합니다.
 
 결과적으로 메모리 구조는 이렇게 됩니다.:
 
@@ -106,7 +106,7 @@ let family = marry({
 
 이제 모든 객체는 접근 가능합니다.
 
-두 참조를 지워봅시다.:
+두 참조값을 지워봅시다.:
 
 ```js
 delete family.father;
@@ -115,55 +115,55 @@ delete family.mother.husband;
 
 ![](family-delete-refs.png)
 
-It's not enough to delete only one of these two references, because all objects would still be reachable.
+모든 객체는 아직 접근 가능하기 때문에 두 참조값 중 하나를 지우는 것만으로는 충분하지 않습니다.
 
-But if we delete both, then we can see that John has no incoming reference any more:
+그러나 두 참조값을 모두 지우면, John은 더 이상 외부에서 들어오는 참조를 갖지 않게 됩니다.:
 
 ![](family-no-father.png)
 
-Outgoing references do not matter. Only incoming ones can make an object reachable. So, John is now unreachable and will be removed from the memory with all its data that also became unaccessible.
+외부로 나가는 참조는 문제 되지 않습니다. 외부에서 들어오는 참조만 객체를 도달 가능한 상태로 만듭니다. 그러므로, John은 이제 도달 가능하지 않으며 접근 불가능하게 된 John의 데이터와 함께 메모리로부터 삭제될 것입니다.
 
-After garbage collection:
+가비지 컬렉션 후의 상태입니다.:
 
 ![](family-no-father-2.png)
 
 ## 도달할 수 없는 섬
 
-It is possible that the whole island of interlinked objects becomes unreachable and is removed from the memory.
+서로 연결된 객체들의 섬 전역이 도달 불가능해져 메모리로부터 삭제될 수도 있습니다.
 
-The source object is the same as above. Then:
+다음 예제에서 사용되는 객체는 위 예제와 같습니다.:
 
 ```js
 family = null;
 ```
 
-The in-memory picture becomes:
+위 코드를 실행하면 메모리 내부는 다음 상태가 됩니다.:
 
 ![](family-no-family.png)
 
-This example demonstrates how important the concept of reachability is.
+이 예제는 도달 가능성의 개념이 얼마나 중요한지 보여줍니다.
 
-It's obvious that John and Ann are still linked, both have incoming references. But that's not enough.
+John과 Ann은 여전히 연결되어 있으며 둘 다 외부에서 들어오는 참조를 갖고 있다는 것이 명백합니다. 하지만 이걸로 충분하지 않습니다.
 
-The former `"family"` object has been unlinked from the root, there's no reference to it any more, so the whole island becomes unreachable and will be removed.
+앞서 `"family"` 객체가 root로부터 연결이 해제되었으므로, 이 객체에 대한 참조값은 더 이상 존재하지 않으며 섬 전체가 도달할 수 없게 되어 제거될 것입니다.
 
-## Internal algorithms
+## 내부 알고리즘
 
-The basic garbage collection algorithm is called "mark-and-sweep".
+가비지 컬렉션의 기본적인 알고리즘은 "mark-and-sweep"이라고 불립니다.
 
-The following "garbage collection" steps are regularly performed:
+일반적으로 "가비지 컬렉션"은 다음 단계를 거쳐 수행됩니다.:
 
-- The garbage collector takes roots and "marks" (remembers) them.
+- 가비지 컬렉터는 takes roots and "marks" (remembers) them.
 - Then it visits and "marks" all references from them.
 - Then it visits marked objects and marks *their* references. All visited objects are remembered, so as not to visit the same object twice in the future.
 - ...And so on until there are unvisited references (reachable from the roots).
 - All objects except marked ones are removed.
 
-For instance, let our object structure look like this:
+예를 들어, let our object structure look like this:
 
 ![](garbage-collection-1.png)
 
-We can clearly see an "unreachable island" to the right side. Now let's see how "mark-and-sweep" garbage collector deals with it.
+We can clearly see an "도달할 수 없는 섬" to the right side. Now let's see how "mark-and-sweep" garbage collector deals with it.
 
 The first step marks the roots:
 
@@ -197,16 +197,16 @@ There are other optimizations and flavours of garbage collection algorithms. As 
 
 The main things to know:
 
-- Garbage collection is performed automatically. We cannot force or prevent it.
-- Objects are retained in memory while they are reachable.
+- 가비지 컬렉션은 자동으로 수행됩니다. 우리가 실행시키거나 막을 수 없습니다.
+- 객체들은 도달가능한 상태일 때 메모리에 유지되어 있습니다.
 - Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole.
 
-Modern engines implement advanced algorithms of garbage collection.
+모던 엔진은 더욱 발전된 가비지 컬렉션 알고리즘을 구현합니다.
 
-A general book "The Garbage Collection Handbook: The Art of Automatic Memory Management" (R. Jones et al) covers some of them.
+A general book "The Garbage Collection Handbook: The Art of Automatic Memory Management" (R. Jones et al) 는 관련된 내용을 다룹니다.
 
-If you are familiar with low-level programming, the more detailed information about V8 garbage collector is in the article [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection).
+만약 여러분이 로우 레벨 프로그래밍에 익숙하시다면, V8 가비지 컬렉터에 대한 더욱 자세한 내용은 이 글 [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection) 에서 확인하실 수 있습니다.
 
-[V8 blog](http://v8project.blogspot.com/) also publishes articles about changes in memory management from time to time. Naturally, to learn the garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](http://mrale.ph) who worked as one of V8 engineers. I'm saying: "V8", because it is best covered with articles in the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
+[V8 blog](http://v8project.blogspot.com/) 는  also publishes articles about changes in memory management from time to time. Naturally, to learn the garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](http://mrale.ph) who worked as one of V8 engineers. I'm saying: "V8", because it is best covered with articles in the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
 
 In-depth knowledge of engines is good when you need low-level optimizations. It would be wise to plan that as the next step after you're familiar with the language.  
