@@ -153,8 +153,8 @@ John과 Ann은 여전히 연결되어 있으며 둘 다 외부에서 들어오�
 
 일반적으로 "가비지 컬렉션"은 다음 단계를 거쳐 수행됩니다.:
 
-- 가비지 컬렉터는 takes roots and "marks" (remembers) them.
-- Then it visits and "marks" all references from them.
+- 가비지 컬렉터는 roots에 접근하여 그들을 "마크"(기억) 합니다.
+- 그런 다음 roots로부터의 모든 참조값에 방문하고 "마크" 합니다.
 - Then it visits marked objects and marks *their* references. All visited objects are remembered, so as not to visit the same object twice in the future.
 - ...And so on until there are unvisited references (reachable from the roots).
 - All objects except marked ones are removed.
