@@ -25,7 +25,7 @@
 ## 한국어 번역
 한국어 번역은 최초 [@Yeonjj님의 저장소](https://github.com/Yeonjj/javascript-tutorial-ko)와 당 저장소가 병행하여 작업을 진행했었고, 번역어를 제외한 다른 컨벤션들은 Yeonjj님의 저장소를 기준으로 삼고 만들었습니다. 현재는 당 저장소가 한국어 번역 리드(lead) 리파지터리로 등록되었습니다.
 
-번역 진행현황은 이 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit?usp=sharing)에서 확인할 수 있습니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈챗방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
+번역 진행현황은 이 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit?usp=sharing)에서 확인할 수 있습니다. 새롭게 작업을 시작하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit?usp=sharing)에서 번역하고자 하는 문서가 이미 번역이 되어있는지 아닌지를 확인하고, 새로 작업할 주제가 정해지면 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주세요. 이슈 등록 시 구글 계정을 함께 알려주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
 ## 저장소 구조
 
