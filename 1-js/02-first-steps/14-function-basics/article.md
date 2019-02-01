@@ -128,7 +128,7 @@ Variables declared outside of any function, such as the outer `userName` in the 
 
 Global variables are visible from any function (unless shadowed by locals).
 
-Usually, a function declares all variables specific to its task. Global variables only store project-level data, so when it's important that these variables are accesible from anywhere. Modern code has few or no globals. Most variables reside in their functions.
+Usually, a function declares all variables specific to its task. Global variables only store project-level data, and it's important that these variables are accessible from anywhere. Modern code has few or no globals. Most variables reside in their functions.
 ```
 
 ## Parameters
@@ -205,7 +205,9 @@ function showMessage(from, text = anotherFunction()) {
 ```
 
 ```smart header="Evaluation of default parameters"
-In JavaScript, a default parameter is evaluated every time the function is called without the respective parameter. In the example above, `anotherFunctions()` is called everytime `someMessage()` is called without the `text` parameter. This is in contrast to some other languages like Python, where any default parameters are evaluated only once during the initial interpretation.
+
+In JavaScript, a default parameter is evaluated every time the function is called without the respective parameter. In the example above, `anotherFunction()` is called every time `showMessage()` is called without the `text` parameter. This is in contrast to some other languages like Python, where any default parameters are evaluated only once during the initial interpretation.
+
 ```
 
 
@@ -372,7 +374,7 @@ A few examples of breaking this rule:
 
 - `getAge` -- would be bad if it shows an `alert` with the age (should only get).
 - `createForm` -- would be bad if it modifies the document, adding a form to it (should only create it and return).
-- `checkPermission` -- would be bad if displays the `access granted/denied` message (should only perform the check and return the result).
+- `checkPermission` -- would be bad if it displays the `access granted/denied` message (should only perform the check and return the result).
 
 These examples assume common meanings of prefixes. What they mean for you is determined by you and your team. Maybe it's pretty normal for your code to behave differently. But you should have a firm understanding of what a prefix means, what a prefixed function can and cannot do. All same-prefixed functions should obey the rules. And the team should share the knowledge.
 ```

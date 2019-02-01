@@ -108,7 +108,7 @@ let rabbit = {
 let longEar = {
   earLength: 10,
   __proto__: rabbit
-}
+};
 
 // walk는 원형 체인으로부터 얻어옵니다.
 longEar.walk(); // Animal walk
@@ -142,7 +142,7 @@ let animal = {
 
 let rabbit = {
   __proto__: animal
-}
+};
 
 *!*
 rabbit.walk = function() {

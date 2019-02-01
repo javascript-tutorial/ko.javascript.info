@@ -149,7 +149,7 @@ Ternary
 : The only operator with three parameters: `cond ? resultA : resultB`. If `cond` is truthy, returns `resultA`, otherwise `resultB`.
 
 Logical operators
-: Logical AND `&&` and OR `||` perform short-circuit evaluation and then return the value where it stopped.
+: Logical AND `&&` and OR `||` perform short-circuit evaluation and then return the value where it stopped. Logical NOT `!` converts the operand to boolean type and returns the inverse value.
 
 Comparisons
 : Equality check `==` for values of different types converts them to a number (except `null` and `undefined` that equal each other and nothing else), so these are equal:
@@ -167,7 +167,7 @@ Comparisons
 
     Greater/less comparisons compare strings character-by-character, other types are converted to a number.
 
-Logical operators
+Other operators
 : There are few others, like a comma operator.
 
 More in: <info:operators>, <info:comparison>, <info:logical-operators>.
