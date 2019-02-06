@@ -577,19 +577,19 @@ user = {
 };
 ```
 
-...그러나 만약 상수 객체 프로퍼티를 만들고 싶다면 어떻게 될까요? So that `user.age = 25`가 에러를 일으킬 것입니다. That's possible too. <info:property-descriptors> 챕터에서 이에 대해 다룰 예정입니다.
+...그러나 만약 상수 객체 프로퍼티를 만들고 싶다면 어떻게 될까요? 그러면 `user.age = 25`가 에러를 일으킬 수도 있습니다. <info:property-descriptors> 챕터에서 이에 대한 내용을 다룰 예정입니다.
 
-## Cloning and merging, Object.assign
+## 복사와 병합, Object.assign
 
-So, copying an object variable creates one more reference to the same object.
+따라서, 객체 변수를 복사하는 것은 같은 객체에 대한 참조값을 하나 더 만들어 냅니다. 
 
-But what if we need to duplicate an object? Create an independent copy, a clone?
+하지만 만약 우리가 객체를 복제해야 할 때는 어떻게 할까요? 독립적인 복사본, 복제를 만들고 싶다면요?
 
-That's also doable, but a little bit more difficult, because there's no built-in method for that in JavaScript. Actually, that's rarely needed. Copying by reference is good most of the time.
+물론 할 수는 있습니다만, 조금 더 어렵습니다. 왜냐하면 자바스크립트에는 이를 위한 내장 함수가 없기 때문입니다. 사실, 필요할 일이 거의 없긴 합니다. 대부분의 경우 참조에 의한 복사가 좋습니다.
 
-But if we really want that, then we need to create a new object and replicate the structure of the existing one by iterating over its properties and copying them on the primitive level.
+그러나 우리가 정말 복제를 하고 싶다면, 새로운 객체를 만든 다음 기존 객체의 프로퍼티들을 순회하고 그것들을 모두 복사하면서 기존 객체의 구조를 복제해야 합니다.
 
-Like this:
+이렇게 말이죠.:
 
 ```js run
 let user = {
@@ -598,32 +598,32 @@ let user = {
 };
 
 *!*
-let clone = {}; // the new empty object
+let clone = {}; // 새로운 빈 객체
 
-// let's copy all user properties into it
+// 빈 객체에 모든 user 프로퍼티를 복사해 넣어봅시다.
 for (let key in user) {
   clone[key] = user[key];
 }
 */!*
 
-// now clone is a fully independent clone
-clone.name = "Pete"; // changed the data in it
+// 이제 clone은 완전히 독립적인 복사본입니다.
+clone.name = "Pete"; // clone의 데이터를 변경했습니다.
 
-alert( user.name ); // still John in the original object
+alert( user.name ); // 원본 객체에는 여전히 John이 있습니다.
 ```
 
-Also we can use the method [Object.assign](mdn:js/Object/assign) for that.
+또한 [Object.assign](mdn:js/Object/assign)를 사용하는 방법도 있습니다.
 
-The syntax is:
+문법은 다음과 같습니다.:
 
 ```js
 Object.assign(dest[, src1, src2, src3...])
 ```
 
-- Arguments `dest`, and `src1, ..., srcN` (can be as many as needed) are objects.
-- It copies the properties of all objects `src1, ..., srcN` into `dest`. In other words, properties of all arguments starting from the 2nd are copied into the 1st. Then it returns `dest`.
+- 인자 `dest` 와 `src1, ..., srcN` (필요에 따라 얼마든지 올 수 있습니다)는 객체입니다.
+- 모든 객체 `src1, ..., srcN` 의 프로퍼티를 `dest`에 복사합니다. 다시 말해, 두 번째 인자부터 모든 객체들의 프로퍼티가 첫 번째 인자 객체로 복사됩니다. 이후 `dest`를 반환합니다.
 
-For instance, we can use it to merge several objects into one:
+예를 들어, 우리는 여러 객체를 하나의 객체로 병합하기 위해 이것을 사용할 수 있습니다.:
 ```js
 let user = { name: "John" };
 
@@ -631,25 +631,25 @@ let permissions1 = { canView: true };
 let permissions2 = { canEdit: true };
 
 *!*
-// copies all properties from permissions1 and permissions2 into user
+// permissions1와 permissions2의 모든 프로퍼티를 user로 복사합니다.
 Object.assign(user, permissions1, permissions2);
 */!*
 
-// now user = { name: "John", canView: true, canEdit: true }
+// 그 결과, user = { name: "John", canView: true, canEdit: true } 가 됩니다.
 ```
 
-If the receiving object (`user`) already has the same named property, it will be overwritten:
+만약 복사를 받는 객체 (`user`)가 이미 같은 이름의 프로퍼티를 갖고 있다면, 새로운 값으로 덮어쓰여집니다.:
 
 ```js
 let user = { name: "John" };
 
-// overwrite name, add isAdmin
+// name을 덮어 쓰고 isAdmin을 추가합니다.
 Object.assign(user, { name: "Pete", isAdmin: true });
 
-// now user = { name: "Pete", isAdmin: true }
+// 그 결과, user = { name: "Pete", isAdmin: true }
 ```
 
-We also can use `Object.assign` to replace the loop for simple cloning:
+간단한 복사를 위한 반복문 대신 `Object.assign`를 사용할 수도 있습니다.
 
 ```js
 let user = {
@@ -662,11 +662,11 @@ let clone = Object.assign({}, user);
 */!*
 ```
 
-이것은 `user`의 모든 프로퍼티를 빈 객체에 복사한 뒤 돌려줍니다. 사실, 반복문을 돌리는 것과 같은 작업이지만 코드가 더 짧아집니다.
+이 코드는 `user`의 모든 프로퍼티를 빈 객체에 복사한 뒤 돌려줍니다. 사실, 반복문을 돌리는 것과 같은 작업이지만 코드가 더 짧아집니다.
 
-Until now we assumed that all properties of `user` are primitive. But properties can be references to other objects. What to do with them?
+지금까지 우리는 `user`의 모든 프로퍼티가 기본값이라고 가정했습니다. 그러나 프로퍼티는 다른 객체에 대한 참조값이 될 수도 있습니다. 이 경우에 어떻게 하면 될까요?
 
-Like this:
+예제가 있습니다.:
 ```js run
 let user = {
   name: "John",
@@ -679,9 +679,9 @@ let user = {
 alert( user.sizes.height ); // 182
 ```
 
-Now it's not enough to copy `clone.sizes = user.sizes`, because the `user.sizes` is an object, it will be copied by reference. So `clone` and `user` will share the same sizes:
+이제 `clone.sizes = user.sizes` 로 복사하는 것만으로는 충분하지 않습니다. `user.sizes` 는 객체이기 때문에 참조로 복사가 될 것입니다. 그러므로 `clone`과 `user`는 같은 sizes를 공유하게 됩니다.:
 
-Like this:
+이렇게요.:
 ```js run
 let user = {
   name: "John",
@@ -693,14 +693,14 @@ let user = {
 
 let clone = Object.assign({}, user);
 
-alert( user.sizes === clone.sizes ); // true, same object
+alert( user.sizes === clone.sizes ); // true, 같은 객체입니다.
 
-// user and clone share sizes
-user.sizes.width++;       // change a property from one place
-alert(clone.sizes.width); // 51, see the result from the other one
+// user와 clone는 sizes를 공유합니다.
+user.sizes.width++;       // 한 객체에서 프로퍼티를 변경합니다.
+alert(clone.sizes.width); // 51, 다른 객체에서 프로퍼티 값이 달라졌습니다.
 ```
 
-To fix that, we should use the cloning loop that examines each value of `user[key]` and, if it's an object, then replicate its structure as well. That is called a "deep cloning".
+이 문제를 해결하기 위해, 우리는  we should use the cloning loop that examines each value of `user[key]` and, if it's an object, then replicate its structure as well. That is called a "deep cloning".
 
 There's a standard algorithm for deep cloning that handles the case above and more complex cases, called the [Structured cloning algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data). In order not to reinvent the wheel, we can use a working implementation of it from the JavaScript library [lodash](https://lodash.com), the method is called [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
 
@@ -710,12 +710,12 @@ There's a standard algorithm for deep cloning that handles the case above and mo
 
 객체는 여러 특별한 특징을 가진 연관 배열입니다.
 
-객체는 프로퍼티(키-값 묶음)을 저장합니다.:
+객체는 프로퍼티(키-값 형태)을 저장합니다.:
 - 키는 문자열이나 심볼이어야 합니다 (보통 문자열을 사용합니다).
 - 값은 어느 타입이나 가능합니다.
 
 프로퍼티에 접근하기 위해서는 다음 방법을 사용할 수 있습니다.:
-- 점 표기법: `obj.property`.
+- 마침표 표기법: `obj.property`.
 - 대괄호 표기법 `obj["property"]`. 대괄호 표기법을 사용하면 `obj[varWithKey]`처럼 변수로부터 키 값을 가져올 수 있습니다.
 
 추가적인 연산자:
@@ -737,6 +737,6 @@ There's a standard algorithm for deep cloning that handles the case above and mo
 - 에러 정보를 저장하기 위한 `Error`
 - ...기타 등등
 
-이 객체들은 이후 우리가 배우게 될 각자만의 특별한 특징을 지니고 있습니다. 사람들은 종종 "Array 타입" 이나 "Data 타입" Sometimes people say something like "Array type" or "Date type", but formally they are not types of their own, but belong to a single "object" data type. And they extend it in various ways.
+이 객체들은 이후 우리가 배우게 될 각자만의 특별한 특징을 지니고 있습니다. 사람들은 종종 "Array 타입" 이나 "Data 타입" 이라고 할 때가 있습니다. 하지만 공식적으로 Array와 Data는 온전한 타입이 아니라 단일한 "객체" 데이터 타입에 속합니다. 또한 이들은 다양한 방식으로 객체를 확장합니다.
 
 자바스크립트의 객체는 매우 강력합니다. Here we've just scratched the surface of a topic that is really huge. We'll be closely working with objects and learning more about them in further parts of the tutorial.
