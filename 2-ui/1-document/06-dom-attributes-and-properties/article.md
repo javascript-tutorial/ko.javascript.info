@@ -1,18 +1,18 @@
-# Attributes and properties
+# 속성과 프로퍼티
 
-When the browser loads the page, it "reads" (another word: "parses") the HTML and generates DOM objects from it. For element nodes, most standard HTML attributes automatically become properties of DOM objects.
+브라우저는 웹페이지를 만나면 HTML을 읽어(이 과정을 파싱(parsing, 구문분석)이라고 부릅니다) DOM 객체를 생성합니다. 요소 노드(Element node)에서 표준 HTML 속성(HTML attribute)은 파싱을 거쳐 DOM 객체의 프로퍼티(property)가 됩니다.
 
-For instance, if the tag is `<body id="page">`, then the DOM object has `body.id="page"`.
+예를 들어 `<body id="page">`태그가 있다면 id 속성은 DOM 객체 프로퍼티로 전환 돼 `body.id="page"`로 접근할 수 있습니다.
 
-But the attribute-property mapping is not one-to-one! In this chapter we'll pay attention to separate these two notions, to see how to work with them, when they are the same, and when they are different.
+하지만 속성-프로퍼티는 일대일의 관계가 아닙니다. 이번 주제에선 속성과 프로퍼티가 어떻게 함께 작동하는지, 언제 같은지, 언제 다른지 주의하여 두 개념을 알아보겠습니다.
 
-## DOM properties
+## DOM 프로퍼티
 
-We've already seen built-in DOM properties. There's a lot. But technically no one limits us, and if it's not enough -- we can add our own.
+이미 내장(built-in) DOM 프로퍼티에 대해 살펴본 바 있습니다. DOM 프로퍼티는 엄청나게 많습니다. 하지만 이런 내장 프로퍼티만으로 충분하지 않은 경우 자신만의 프로퍼티를 만들 수도 있습니다.
 
-DOM nodes are regular JavaScript objects. We can alter them.
+DOM 노드(DOM node)는 자바스크립트 객체입니다. 이걸 한번 바꿔보도록 하겠습니다.
 
-For instance, let's create a new property in `document.body`:
+예를 들어 새로운 프로퍼티를 `document.body`에 만들어보겠습니다:
 
 ```js run
 document.body.myData = {
@@ -23,17 +23,17 @@ document.body.myData = {
 alert(document.body.myData.title); // Imperator
 ```
 
-We can add a method as well:
+여기에 메서드도 하나 추가할 수 있습니다:
 
 ```js run
 document.body.sayTagName = function() {
   alert(this.tagName);
 };
 
-document.body.sayTagName(); // BODY (the value of "this" in the method is document.body)
+document.body.sayTagName(); // BODY (메서드에서 사용된 "this" 가 가리키는건 document.body입니다)
 ```
 
-We can also modify built-in prototypes like `Element.prototype` and add new methods to all elements:
+`Element.prototype`와 같은 내장 프로토타입을 수정해 모든 요소가 이 메서드를 사용하게 할 수도 있습니다:
 
 ```js run
 Element.prototype.sayHi = function() {
@@ -44,107 +44,108 @@ document.documentElement.sayHi(); // Hello, I'm HTML
 document.body.sayHi(); // Hello, I'm BODY
 ```
 
-So, DOM properties and methods behave just like those of regular JavaScript objects:
+DOM 프로퍼티와 메서드는 일반적인 자바스크립트 객체처럼 행동합니다:
 
-- They can have any value.
-- They are case-sensitive (write `elem.nodeType`, not `elem.NoDeTyPe`).
+- 어떤 값이든 가질 수 있습니다.
+- 대소문자를 가립니다(이렇게 써야 작동하고 `elem.nodeType`, 이렇게 쓰면 작동하지 않습니다 `elem.NoDeTyPe`).
 
-## HTML attributes
+## HTML 속성
 
-In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes *standard* attributes and creates DOM properties from them.
+HTML에서 태그(tag)는 복수의 속성(attribute)를 가질 수 있습니다. 브라우저는 HTML을 파싱해 DOM 객체를 만들 때 HTML *표준* 속성을 인식하고, 이 표준 속성을 이용해 DOM 프로퍼티를 만듭니다.
 
-So when an element has `id` or another *standard* attribute, the corresponding property gets created. But that doesn't happen if the attribute is non-standard.
+HTML 요소가 `id`와 같은 *표준* 속성으로만 구성되어 있다면, 이에 해당하는 프로퍼티가 자연스레 만들어집니다. 하지만 표준이 아닌 속성이 사용된 경우는 조금 다릅니다.
 
-For instance:
+예를 들어 다음과 같은 html이 있다고 합시다:
 ```html run
 <body id="test" something="non-standard">
   <script>
     alert(document.body.id); // test
 *!*
-    // non-standard attribute does not yield a property
+    // 표준이 아닌 속성은 프로퍼티로 파싱되지 않습니다
     alert(document.body.something); // undefined
 */!*
   </script>
 </body>
 ```
 
-Please note that a standard attribute for one element can be unknown for another one. For instance, `"type"` is standard for `<input>` ([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), but not for `<body>` ([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). Standard attributes are described in the specification for the corresponding element class.
+한 요소에선 표준인 속성이 다른 요소에선 표준이 아닐 수 있다는 점에 주의해야 합니다. 예를 들어 `<input>`요소에서 `"type"`은 표준이지만([HTMLInputElement](https://html.spec.whatwg.org/#htmlinputelement)), `<body>`에선 아닙니다([HTMLBodyElement](https://html.spec.whatwg.org/#htmlbodyelement)). 표준 속성(standard attribute)은 해당 요소(HTML element)의 명세서에 가면 찾아볼 수 있습니다.
 
-Here we can see it:
+
+다음을 확인해 보세요:
 ```html run
 <body id="body" type="...">
   <input id="input" type="text">
   <script>
     alert(input.type); // text
 *!*
-    alert(body.type); // undefined: DOM property not created, because it's non-standard
+    alert(body.type); // undefined: type은 body의 표준 속성이 아니므로 DOM 프로퍼티가 생성되지 않습니다
 */!*
   </script>
 </body>
 ```
+위에서 확인한 바와 같이 표준속성이 아닌 경우 이에 연결되는 DOM-프로퍼티가 없습니다. 이런 비표준 속성에 접근할 수 있는 방법은 없는 걸까요?
 
-So, if an attribute is non-standard, there won't be a DOM-property for it. Is there a way to access such attributes?
+물론 있습니다. 모든 속성은 아래의 메서드로 접근 가능합니다.
 
-Sure. All attributes are accessible by using the following methods:
+- `elem.hasAttribute(name)` -- 속성의 존재 확인.
+- `elem.getAttribute(name)` -- 속성값을 가져옴.
+- `elem.setAttribute(name, value)` -- 속성값을 변경함.
+- `elem.removeAttribute(name)` -- 속성값을 제거함.
 
-- `elem.hasAttribute(name)` -- checks for existence.
-- `elem.getAttribute(name)` -- gets the value.
-- `elem.setAttribute(name, value)` -- sets the value.
-- `elem.removeAttribute(name)` -- removes the attribute.
+위 메서드는 HTML에 명시된 속성을 변화시킵니다.
 
-These methods operate exactly with what's written in HTML.
+여기에 더하여 `elem.attributes`을 사용하면 모든 속성값을 읽을 수도 있습니다. `elem.attributes`은 내장 클래스 [Attr](https://dom.spec.whatwg.org/#attr)를 구현한 `name` and `value` 프로퍼티를 가진 객체를 반환합니다.
 
-Also one can read all attributes using `elem.attributes`: a collection of objects that belong to a built-in [Attr](https://dom.spec.whatwg.org/#attr) class, with `name` and `value` properties.
-
-Here's a demo of reading a non-standard property:
+아래는 비표준 프로퍼티를 읽는 데모 코드입니다:
 
 ```html run
 <body something="non-standard">
   <script>
 *!*
-    alert(document.body.getAttribute('something')); // non-standard
+    alert(document.body.getAttribute('something')); // 비표준(non-standard) 속성에 접근
 */!*
   </script>
 </body>
 ```
 
-HTML attributes have the following features:
+HTML 속성은 다음과 같은 특징이 있습니다:
 
-- Their name is case-insensitive (`id` is same as `ID`).
-- Their values are always strings.
+- 대/소문자를 구분하지 않습니다(`id`와 `ID`가 같습니다).
+- 값은 항상 문자열입니다.
 
-Here's an extended demo of working with attributes:
+HTML 속성에 관한 또 다른 데모 코드를 살펴보세요:
 
 ```html run
 <body>
   <div id="elem" about="Elephant"></div>
 
   <script>
-    alert( elem.getAttribute('About') ); // (1) 'Elephant', reading
+    alert( elem.getAttribute('About') ); // (1) 'Elephant', 속성 읽기
 
-    elem.setAttribute('Test', 123); // (2), writing
+    elem.setAttribute('Test', 123); // (2) 속성 추가하기
 
-    alert( elem.outerHTML ); // (3), see it's there
+    alert( elem.outerHTML ); // (3) 추가된 속성 확인하기
 
-    for (let attr of elem.attributes) { // (4) list all
+    for (let attr of elem.attributes) { // (4) 속성에 접근하기
       alert( `${attr.name} = ${attr.value}` );
     }
   </script>
 </body>
 ```
 
-Please note:
+주의해서 볼 점은 다음과 같습니다:
 
-1. `getAttribute('About')` -- the first letter is uppercase here, and in HTML it's all lowercase. But that doesn't matter: attribute names are case-insensitive.
-2. We can assign anything to an attribute, but it becomes a string. So here we have `"123"` as the value.
-3. All attributes including ones that we set are visible in `outerHTML`.
-4. The `attributes` collection is iterable and has all the attributes of the element (standard and non-standard) as objects with `name` and `value` properties.
+1. `getAttribute('About')` -- 첫 번째 글자가 대문자 A이지만, HTML 안에는 모두 소문자로 작성되어 있습니다. 이렇게 대/소문자가 다름에도 불구하고 정상적으로 값이 출력되었습니다. 속성은 대/소문자를 구분하지 않습니다.
+2. 어떤 값이든 속성에 대입할 수 있습니다. 하지만 최종적으론 문자열로 바뀝니다. 숫자 123이 문자열 `"123"` 으로 바뀌었습니다.
+3. `outerHTML`을 사용하면 모든 속성을 볼 수 있습니다.
+4. `attributes` 컬렉션은 iterable 합니다. 그리고 표준, 비표준 요소의 속성을 `name` 과 `value` 프로퍼티로 접근할 수 있게 해줍니다.
 
-## Property-attribute synchronization
 
-When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.
+## 프로퍼티-속성 동기화(synchronization)
 
-In the example below `id` is modified as an attribute, and we can see the property changed too. And then the same backwards:
+표준 속성이 변화하면 해당하는 프로퍼티는 자동으로 업데이트되고, 몇몇 경우를 제외하고 프로퍼티가 업데이트되면 속성도 마찬가지로 업데이트됩니다.
+
+아래 예시에서 속성으로써의 `id`가 수정되었고, 이에 대응하는 프로퍼티가 업데이트되었음을 확인할 수 있습니다. 그 반대도 마찬가지입니다.
 
 ```html run
 <input>
@@ -162,7 +163,7 @@ In the example below `id` is modified as an attribute, and we can see the proper
 </script>
 ```
 
-But there are exclusions, for instance `input.value` synchronizes only from attribute -> to property, but not back:
+하지만  `input.value`와 같이 동기화가 속성에서 프로퍼티 방향으로만 일어나는 예외상황도 존재합니다: 
 
 ```html run
 <input>
@@ -177,31 +178,31 @@ But there are exclusions, for instance `input.value` synchronizes only from attr
 *!*
   // NOT property => attribute
   input.value = 'newValue';
-  alert(input.getAttribute('value')); // text (not updated!)
+  alert(input.getAttribute('value')); // text (업데이트 안됨!)
 */!*
 </script>
 ```
 
-In the example above:
-- Changing the attribute `value` updates the property.
-- But the property change does not affect the attribute.
+위의 예시에서 다음을 확인할 수 있습니다:
+- 속성 `value`를 수정하면 프로퍼티도 수정된다.
+- 하지만 프로퍼티를 수정해도 속성은 수정되지 않는다.
 
-That "feature" may actually come in handy, because the user may modify `value`, and then after it, if we want to recover the "original" value from HTML, it's in the attribute.
+이런 특징은 유용하게 사용될 수도 있습니다. 만약 유저가 `value`를 수정하고 난 다음 어떤 이유로 수정 전의 value를 가지고 오고 싶어 하는 경우, 기존 값을 속성에서 그대로 가지고 오면 되기 때문입니다.
 
-## DOM properties are typed
+## DOM 프로퍼티의 타입
 
-DOM properties are not always strings. For instance, the `input.checked` property (for checkboxes) is a boolean:
+DOM 프로퍼티는 항상 문자열이 아닙니다. 예를 들어 `input.checked` 프로퍼티(체크박스에서 사용됨)의 경우 불린(boolean) 값을 가집니다:
 
 ```html run
 <input id="input" type="checkbox" checked> checkbox
 
 <script>
-  alert(input.getAttribute('checked')); // the attribute value is: empty string
-  alert(input.checked); // the property value is: true
+  alert(input.getAttribute('checked')); // 속성 값: 빈 문자열
+  alert(input.checked); // 프로퍼티 값: true
 </script>
 ```
 
-There are other examples. The `style` attribute is a string, but the `style` property is an object:
+몇 가지 다른 예를 보여드리겠습니다. `style` 속성의 경우 문자열이지만, `style` 프로퍼티의 경우 객체입니다:
 
 ```html run
 <div id="div" style="color:red;font-size:120%">Hello</div>
@@ -216,11 +217,11 @@ There are other examples. The `style` attribute is a string, but the `style` pro
 </script>
 ```
 
-That's an important difference. But even if a DOM property type is a string, it may differ from the attribute!
+속성과 프로퍼티의 중요한 차이점이 바로 이것입니다. 한편, DOM 프로퍼티의 타입이 문자열임에도 불구하고 속성과는 전혀 다른 값을 가질 수도 있습니다.
 
-For instance, the `href` DOM property is always a *full* URL, even if the attribute contains a relative URL or just a `#hash`.
+a 태그의 href 속성이 상대 URL이나 `#hash`와 같이 URL 조각이더라도, `href` DOM 프로퍼티의 경우 항상 *전체* URL 값을 가지는 경우가 대표적인 예시입니다.
 
-Here's an example:
+예제 코드를 살펴봅시다:
 
 ```html height=30 run
 <a id="a" href="#hello">link</a>
@@ -229,49 +230,49 @@ Here's an example:
   alert(a.getAttribute('href')); // #hello
 
   // property
-  alert(a.href ); // full URL in the form http://site.com/page#hello
+  alert(a.href ); // form 내의 전체 URL http://site.com/page#hello
 </script>
 ```
 
-If we need the value of `href` or any other attribute exactly as written in the HTML, we can use `getAttribute`.
+HTML에 내에 사용된 `href` 값과 같이 정확한 속성값을 얻고 싶다면 `getAttribute`을 사용하면 됩니다.
 
 
-## Non-standard attributes, dataset
+## 비표준 속성, dataset
 
-When writing HTML, we use a lot of standard attributes. But what about non-standard, custom ones? First, let's see whether they are useful or not? What for?
+HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합니다. 하지만 표준이 아닌 속성도 있을 수 있습니다. 이런 비표준(non-standard) 속성을 언제 사용해야 유용하고 언제 사용하면 유용하지 않은 지, 그리고 언제 이 비표준 속성을 사용하는지 알아봅시다.
 
-Sometimes non-standard attributes are used to pass custom data from HTML to JavaScript, or to "mark" HTML-elements for JavaScript.
+비표준 속성은 커스텀 데이터를 HTML에서 자바스크립트로 넘기고 싶은 경우나 HTML-요소를 "mark(표시)" 하기 위해 사용될 수 있습니다. 
 
-Like this:
+예시:
 
 ```html run
-<!-- mark the div to show "name" here -->
+<!-- "name"이 보여지는 div라고 mark함(show-info사용) -->
 <div *!*show-info="name"*/!*></div>
-<!-- and age here -->
+<!-- age가 보여지는 자리 -->
 <div *!*show-info="age"*/!*></div>
 
 <script>
-  // the code finds an element with the mark and shows what's requested
+  // 마크된 요소를 찾아 그 자리에 해당하는 정보를 보여줌
   let user = {
     name: "Pete",
     age: 25
   };
 
   for(let div of document.querySelectorAll('[show-info]')) {
-    // insert the corresponding info into the field
+    // 해당하는 정보를 필드 값에 입력해 줌
     let field = div.getAttribute('show-info');
     div.innerHTML = user[field]; // Pete, then age
   }
 </script>
 ```
 
-Also they can be used to style an element.
+요소에 스타일을 적용할 때 사용될 수도 있습니다.
 
-For instance, here for the order state the attribute `order-state` is used:
+주문(order) 상태(state)를 나타내는 커스텀 속성 `order-state`의 스타일을 꾸미는 예제:
 
 ```html run
 <style>
-  /* styles rely on the custom attribute "order-state" */
+  /* 스타일이 커스텀 속성인 "order-state"에 따라 결정됩니다 */
   .order[order-state="new"] {
     color: green;
   }
@@ -297,25 +298,24 @@ For instance, here for the order state the attribute `order-state` is used:
   A canceled order.
 </div>
 ```
+`.order-state-new`, `.order-state-pending`, `order-state-canceled`와 같은 클래스를 만들어도 되는데 왜 위의 방식을 쓰는 걸까요?
 
-Why the attribute may be preferable to classes like `.order-state-new`, `.order-state-pending`, `order-state-canceled`?
-
-That's because an attribute is more convenient to manage. The state can be changed as easy as:
+이는 속성이 다루기 쉽다는 장점 때문입니다. 상태(state)를 이렇게 쉽게 바꿀 수 있습니다:
 
 ```js
-// a bit simpler than removing old/adding a new class
+// 새 클래스를 추가하거나 지우는 것보다 더 쉽게 상태(state)를 바꿀 수 있습니다
 div.setAttribute('order-state', 'canceled');
 ```
 
-But there may be a possible problem with custom attributes. What if we use a non-standard attribute for our purposes and later the standard introduces it and makes it do something? The HTML language is alive, it grows, more attributes appear to suit the needs of developers. There may be unexpected effects in such case.
+하지만 커스텀 속성을 사용하게 되면 몇 가지 문제가 발생할 수 있습니다. 비표준 속성을 사용해 코드를 작성했는데 나중에 그 속성이 표준으로 등록되게 되면 어떨까요? HTML은 살아있는 언어입니다. 개발자들의 요구를 반영하기 위해 지속해서 발전하고 있죠. 그래서 앞에서 언급한 경우에 예기치 못한 부작용이 생기기도 합니다.
 
-To avoid conflicts, there exist [data-*](https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes) attributes.
+이런 충돌상황을 방지하기 위해 [data-*](https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes) 속성이 도입되었습니다.
 
-**All attributes starting with "data-" are reserved for programmers' use. They are available in the `dataset` property.**
+**"data-"로 시작하는 모든 속성은 개발자가 등록한 속성입니다. 이 속성들은 `dataset` 프로퍼티를 통해 사용할 수 있습니다.**
 
-For instance, if an `elem` has an attribute named `"data-about"`, it's available as `elem.dataset.about`.
+예를 들어 `elem`이 `"data-about"`이라는 속성을 가지고 있다면, 우리는 `elem.dataset.about`이라는 문법을 쓸 수 있습니다
 
-Like this:
+이렇게 말이죠:
 
 ```html run
 <body data-about="Elephants">
@@ -324,9 +324,9 @@ Like this:
 </script>
 ```
 
-Multiword attributes like `data-order-state` become camel-cased: `dataset.orderState`.
+`data-order-state`와 같이 여러 단어로 구성된 속성의 경우는 카멜 표기법(camel-cased)을 사용해 `dataset.orderState`으로 변환됩니다.
 
-Here's a rewritten "order state" example:
+주문 상태(order state)에 관한 예제를 다시 살펴보죠:
 
 ```html run
 <style>
@@ -356,31 +356,31 @@ Here's a rewritten "order state" example:
 </script>
 ```
 
-Using `data-*` attributes is a valid, safe way to pass custom data.
+`data-*` 속성은 커스텀 데이터를 전달하기 위해 안전하고 유효한 방법입니다.
 
-Please note that we can not only read, but also modify data-attributes. Then CSS updates the view accordingly: in the example above the last line `(*)` changes the color to blue.
+data-속성을 읽을 수 있을 뿐만 아니라 수정할 수도 있다는 점을 기억하세요. 속성이 수정되면 CSS가 해당 뷰를 자동으로 업데이트해 줍니다. 위의 주문상태 예시에서 `(*)` 표시가 된 마지막 라인은 색을 파란색으로 바꿔줍니다.
 
-## Summary
+## 요약
 
-- Attributes -- is what's written in HTML.
-- Properties -- is what's in DOM objects.
+- 속성(Attributes) -- HTML 안에 쓰임.
+- 프로퍼티(Properties) -- DOM 객체 안에 쓰임.
 
-A small comparison:
+비교표:
 
-|            | Properties | Attributes |
+|            | 프로퍼티 | 속성 |
 |------------|------------|------------|
-|Type|Any value, standard properties have types described in the spec|A string|
-|Name|Name is case-sensitive|Name is not case-sensitive|
+|타입|모든 타입 가능, 표준 프로퍼티의 경우 spec에 타입이 명시되어 있음|문자열|
+|이름|대/소문자 구분|대/소문자 구분하지 않음|
 
-Methods to work with attributes are:
+속성과 함께 쓰이는 메서드:
 
-- `elem.hasAttribute(name)` -- to check for existence.
-- `elem.getAttribute(name)` -- to get the value.
-- `elem.setAttribute(name, value)` -- to set the value.
-- `elem.removeAttribute(name)` -- to remove the attribute.
-- `elem.attributes` is a collection of all attributes.
+- `elem.hasAttribute(name)` -- 속성의 존재 확인.
+- `elem.getAttribute(name)` -- 속성값을 가져옴.
+- `elem.setAttribute(name, value)` -- 속성값을 변경함.
+- `elem.removeAttribute(name)` -- 속성값을 제거함.
+- `elem.attributes` 은 속성의 모음(collection)을 반환함.
 
-For most needs, DOM properties can serve us well. We should refer to attributes only when DOM properties do not suit us, when we need exactly attributes, for instance:
+대부분의 경우에 DOM 프로퍼티를 사용하면 원하는 작업을 할 수 있습니다. HTML 속성의 정확한 값이 필요한 다음의 사례는 프로퍼티를 사용하기에 적절치 않은 경우이므로 속성을 사용해야 합니다:
 
-- We need a non-standard attribute. But if it starts with `data-`, then we should use `dataset`.
-- We want to read the value "as written" in HTML. The value of the DOM property may be different, for instance the `href` property is always a full URL, and we may want to get the "original" value.
+- 비표준 속성이 필요한 경우. 다만 속성이 `data-`로 시작하는 경우, `dataset`을 사용합니다.
+- HTML에 적힌 문자 그대로의 값을 읽고 싶은 경우. 원본값과 DOM 프로퍼티의 값이 다른데, 원본값이 필요한 경우에 사용합니다. `href` 프로퍼티의 경우 항상 전체 URL 값을 가지기 때문에 이런 경우 사용하면 유용합니다.

@@ -1,3 +1,3 @@
-# Document
+# 문서(Document)
 
-Here we'll learn to manipulate a web-page using JavaScript.
+자바스크립트를 이용해서 웹페이지를 조작하는 방법을 배워봅시다.
