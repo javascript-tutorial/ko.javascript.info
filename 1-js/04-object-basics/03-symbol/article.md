@@ -9,7 +9,7 @@
 
 "심볼(Symbol)" 값은 유일한 식별자(unique identifier)를 나타냅니다.
 
-A value of this type can be created using `Symbol()`:
+심볼 값은 `Symbol()`를 통해 만들어집니다.:
 
 ```js
 // id는 새로운 심볼입니다.
@@ -61,11 +61,11 @@ alert(id.toString()); // Symbol(id), 이제 잘 실행됩니다.
 이것은 혼란을 막기 위한 "언어적 보호장치(language guard)"입니다. 문자열과 심볼은 근본적으로 다르며 서로의 타입으로 종종 변환돼서는 안되기 때문입니다.
 ````
 
-## "Hidden" 프로퍼티
+## "숨겨진" 프로퍼티
 
-Symbols allow us to create "hidden" properties of an object, that no other part of code can occasionally access or overwrite.
+심볼은 객체의 "숨겨진" 프로퍼티를 생성할 수 있게 해줍니다. 다른 부분에 있는 어떤 코드도 간혹 숨겨진 프로퍼티에 접근을 하거나 덮어쓰기를 할 수 없습니다.
 
-For instance, if we want to store an "identifier" for the object `user`, we can use a symbol as a key for it:
+예를 들어 우리가 `user` 객체를 위해 "식별자"를 저장하고 싶다면,  if we want to store an "identifier" for the object `user`, we can use a symbol as a key for it:
 
 ```js run
 let user = { name: "John" };
@@ -108,9 +108,9 @@ user.id = "Their id value"
 
 ### Symbols in a literal
 
-If we want to use a symbol in an object literal, we need square brackets.
+객체 리터럴에서 심볼을 사용하고 싶다면 대괄호를 사용하면 됩니다.
 
-Like this:
+이렇게 말이죠.:
 
 ```js
 let id = Symbol("id");
@@ -124,11 +124,11 @@ let user = {
 ```
 That's because we need the value from the variable `id` as the key, not the string "id".
 
-### Symbols are skipped by for..in
+### 심볼은 for..in 에서 배재됩니다.
 
-Symbolic properties do not participate in `for..in` loop.
+심볼 프로퍼티는 `for..in` 반복문에 참여하지 않습니다.
 
-For instance:
+예를 들어:
 
 ```js run
 let id = Symbol("id");
@@ -253,9 +253,9 @@ For instance, `Symbol.toPrimitive` allows us to describe object to primitive con
 
 Other symbols will also become familiar when we study the corresponding language features.
 
-## Summary
+## 요약
 
-`Symbol` is a primitive type for unique identifiers.
+`Symbol` 은 유일한 식별자를 위한 is a primitive type for unique identifiers.
 
 Symbols are created with `Symbol()` call with an optional description.
 
@@ -263,7 +263,7 @@ Symbols are always different values, even if they have the same name. If we want
 
 Symbols have two main use cases:
 
-1. "Hidden" object properties.
+1. "숨겨진" 객체 프로퍼티
     If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be occasionally listed. Also it won't be accessed directly, because another script does not have our symbol, so it will not occasionally intervene into its actions.
 
     So we can "covertly" hide something into objects that we need, but others should not see, using symbolic properties.
