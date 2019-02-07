@@ -1,6 +1,5 @@
-# The JavaScript language
+# 자바스크립트 
+기초 자바스크립트부터 OOP(역주: Object-Oriented Programming, 객체 지향 프로그래밍)와 같은 상급(advanced) 개념까지 배워 봅시다.
 
-Here we learn JavaScript, starting from scratch and go on to advanced concepts like OOP.
-
-We concentrate on the language itself here, with the minimum of environment-specific notes.
+개발 환경과 관련된 언급은 최대한 줄이고 자바스크립트 언어 자체에 집중하여 학습할 예정입니다.
 

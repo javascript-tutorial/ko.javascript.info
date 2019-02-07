@@ -56,7 +56,7 @@ A *breakpoint* is a point of code where the debugger will automatically pause th
 
 While the code is paused, we can examine current variables, execute commands in the console etc. In other words, we can debug it.
 
-We can always find a list of breakpoints in the right pane. That's useful when we have many breakpoints in various files. It allows to:
+We can always find a list of breakpoints in the right pane. That's useful when we have many breakpoints in various files. It allows us to:
 - Quickly jump to the breakpoint in the code (by clicking on it in the right pane).
 - Temporarily disable the breakpoint by unchecking it.
 - Remove the breakpoint by right-clicking and selecting Remove.
@@ -172,7 +172,7 @@ If we have enough logging in our code, then we can see what's going on from the 
 As we can see, there are three main ways to pause a script:
 1. A breakpoint.
 2. The `debugger` statements.
-3. An error (if dev tools are open and the button <span class="devtools" style="background-position:-264px -4px"></span> is "on")
+3. An error (if dev tools are open and the button <span class="devtools" style="background-position:-264px -4px"></span> is "on").
 
 Then we can examine variables and step on to see where the execution goes wrong.
 
