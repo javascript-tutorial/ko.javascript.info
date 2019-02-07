@@ -581,7 +581,7 @@ user = {
 
 ## 복사와 병합, Object.assign
 
-따라서, 객체 변수를 복사하는 것은 같은 객체에 대한 참조값을 하나 더 만들어 냅니다. 
+따라서, 객체 변수를 복사하는 것은 같은 객체에 대한 참조값을 하나 더 만들어 냅니다.
 
 하지만 만약 우리가 객체를 복제해야 할 때는 어떻게 할까요? 독립적인 복사본, 복제를 만들고 싶다면요?
 
@@ -700,9 +700,9 @@ user.sizes.width++;       // 한 객체에서 프로퍼티를 변경합니다.
 alert(clone.sizes.width); // 51, 다른 객체에서 프로퍼티 값이 달라졌습니다.
 ```
 
-이 문제를 해결하기 위해, 우리는  we should use the cloning loop that examines each value of `user[key]` and, if it's an object, then replicate its structure as well. That is called a "deep cloning".
+이 문제를 해결하기 위해, 우리는 `user[key]`의 각 값을 검사하면서 만약 그 값이 객체라면 객체의 구조도 복사를 하는 복사 반복문을 사용해야 합니다. 이 과정을 "깊은 복사(deep cloning)"라고 합니다.
 
-There's a standard algorithm for deep cloning that handles the case above and more complex cases, called the [Structured cloning algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data). In order not to reinvent the wheel, we can use a working implementation of it from the JavaScript library [lodash](https://lodash.com), the method is called [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
+위 예제를 포함해 더 복잡한 케이스들을 처리하는 깊은 복사를 위해 표준 알고리즘 [Structured cloning algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data)이 존재합니다. 시간을 낭비하지 않기 위해, 이미 구현된 자바스크립트 라이브러리 [lodash](https://lodash.com)에서 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)라는 메서드를 사용할 수 있습니다.
 
 
 
@@ -728,7 +728,7 @@ There's a standard algorithm for deep cloning that handles the case above and mo
 
 "진정한 복사본" (복제) 을 만들기 위해서는 `Object.assign`나  [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)를 사용할 수 있습니다.
 
-우리가 이 챕터에서 배운 것은 "plain object" 또는 `Object`라고 불립니다.
+우리가 이 챕터에서 배운 것을 "순수 객체(plain object)" 또는 `객체(Object)`라고 합니다.
 
 이외에도 자바스크립트에는 많은 종류의 객체가 있습니다.:
 
@@ -737,6 +737,6 @@ There's a standard algorithm for deep cloning that handles the case above and mo
 - 에러 정보를 저장하기 위한 `Error`
 - ...기타 등등
 
-이 객체들은 이후 우리가 배우게 될 각자만의 특별한 특징을 지니고 있습니다. 사람들은 종종 "Array 타입" 이나 "Data 타입" 이라고 할 때가 있습니다. 하지만 공식적으로 Array와 Data는 온전한 타입이 아니라 단일한 "객체" 데이터 타입에 속합니다. 또한 이들은 다양한 방식으로 객체를 확장합니다.
+이 객체들은 각자만의 특별한 특징을 지니고 있으며 이후 우리가 배우게 될 것입니다. 사람들은 종종 "Array 타입"이나 "Data 타입"이라고 할 때가 있습니다. 하지만 공식적으로 Array와 Data는 온전한 타입이 아니라 단일한 "객체" 데이터 타입에 속합니다. 또한 이들은 다양한 방식으로 객체를 확장합니다.
 
-자바스크립트의 객체는 매우 강력합니다. Here we've just scratched the surface of a topic that is really huge. We'll be closely working with objects and learning more about them in further parts of the tutorial.
+자바스크립트의 객체는 매우 강력합니다. 여기서는 객체라는 정말 거대한 주제의 극히 일부만 다루었습니다. 튜토리얼의 이후 파트에서 우리는 객체들과 밀접한 작업을 하게 될 것이며 객체에 대해 더 많은 것을 배울 것입니다.
