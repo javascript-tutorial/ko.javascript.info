@@ -276,50 +276,51 @@ alert(color); // #FF7F00
 - `COLOR_ORANGE`보다 `"#FF7F00"`에서 오타를 낼 확률이 높습니다.
 - 코드를 읽을 때, `COLOR_ORANGE`가 `#FF7F00`보다 훨씬 유의미합니다.
 
-그렇다면 언제 상수를 평범하게 명명하고 언제 대문자를 사용해야 할까요? 명확히 짚고 넘어갑시다.
+그렇다면 언제 상수를 일반적으로 명명하고 언제 대문자를 사용해야 할까요? 명확히 짚고 넘어갑시다.
 
-Being a "constant" just means that a variable's value never changes. But there are constants that are known prior to execution (like a hexadecimal value for red) and there are constants that are *calculated* in run-time, during the execution, but do not change after their initial assignment.
+"상수"는 변수의 값이 절대 변하지 않는다는 것을 의미합니다. 그 중에는 (빨간색을 나타내는 16진수 값처럼) 실행 전에 알려지는 상수도 있고 런타임에 *계산되지만* 할당 이후 값이 변하지 않는 상수도 있습니다.
 
 예를 들어:
 ```js
 const pageLoadTime = /* 웹페이지를 로드하는데 걸린 시간 */;
 ```
 
-The value of `pageLoadTime` is not known prior to the page load, so it's named normally. But it's still a constant because it doesn't change after assignment.
+`pageLoadTime` 값은 페이지가 로드되기 전에는 정해지지 않기 때문에 일반적으로 명명했습니다. 하지만 이 값은 할당 이후 변경되지 않으므로 여전히 상수입니다.
 
-In other words, capital-named constants are only used as aliases for "hard-coded" values.  
+다시 말해, 대문자로 된 상수는 "코드로 작성하기 어려운" 값을 위한 별칭으로만 사용됩니다.
 
-## Name things right
+## 올바른 명명 규칙
 
-Talking about variables, there's one more extremely important thing.
+변수에 관한 매우 중요한 사실이 한 가지 더 있습니다.
 
-Please name your variables sensibly. Take time to think about this.
+변수명을 신중하게 지어주세요. 변수명에 대해 생각할 시간을 좀 더 가져주세요.
 
-Variable naming is one of the most important and complex skills in programming. A quick glance at variable names can reveal which code was written by a beginner versus an experienced developer.
+변수의 이름을 짓는 것은 프로그래밍에서 가장 중요하고 복잡한 기술 중 하나입니다. 변수명만 슬쩍 봐도 코드를 초보자가 작성했는지 노련한 개발자가 작성했는지 알 수 있습니다.
 
-In a real project, most of the time is spent modifying and extending an existing code base rather than writing something completely separate from scratch. When we return to some code after doing something else for a while, it's much easier to find information that is well-labeled. Or, in other words, when the variables have good names.
+실제 프로젝트에서 대부분의 경우 맨 처음부터 완전히 독립적인 코드를 작성하기 보다 기존 코드의 틀을 변경하고 확장시키면서 시간을 보냅니다. 우리가 작성했던 코드를 얼마 후에 다시 봤을 때, 알맞은 이름이 적힌 정보를 찾는 것이 훨신 더 쉽습니다. 다시 말해, 변수가 올바른 이름을 가졌을 때 말이죠.
 
-Please spend time thinking about the right name for a variable before declaring it. Doing so will repay you handsomely.
+변수 선언에 앞서 변수의 올바른 이름에 대해 생각할 시간을 가져 주세요.
 
-Some good-to-follow rules are:
+참고하기 좋은 몇몇 규칙을 알려드리겠습니다.:
 
-- Use human-readable names like `userName` or `shoppingCart`.
-- Stay away from abbreviations or short names like `a`, `b`, `c`, unless you really know what you're doing.
-- Make names maximally descriptive and concise. Examples of bad names are `data` and `value`. Such names say nothing. It's only okay to use them if the context of the code makes it exceptionally obvious which data or value the variable is referencing.
-- Agree on terms within your team and in your own mind. If a site visitor is called a "user" then we should name related variables `currentUser` or `newUser` instead of `currentVisitor` or `newManInTown`.
+- `userName` 이나 `shoppingCart`처럼 사람이 읽을 수 있는 이름을 사용하세요.
+- 여러분이 무엇을 하고 있는지 명확히 알지 않는 이상, 줄임말이나 `a`, `b`, `c`와 같이 짧은 이름은 피하세요.
+- 최대한 서술적이고 간결한 이름을 사용하세요. 나쁜 이름의 예로는 `data`와 `value`가 있습니다. 이런 이름은 아무것도 설명해주지 않습니다. 
+코드의 문맥상 변수가 어떤 데이터나 값을 가리키는지가 아주 분명할 때에만 이런 이름을 사용하는 게 괜찮습니다.
+- 자신만의 규칙이나 소속된 팀의 규칙을 따르세요. 만약 사이트 방문객을 "user"라고 부르기로 했다면 이와 관련된 변수를 `currentVisitor`나 `newManInTown`이 아닌 `currentUser`나 `newUser`라는 이름으로 지어야 합니다.
 
-Sounds simple? Indeed it is, but creating descriptive and concise variable names in practice is not. Go for it.
+간단해 보이나요? 그렇게 보이긴 합니다. 그러나 실전에서 서술적이고 간결한 변수명을 짓는 것은 간단하지 않습니다. 그럼, 화이팅!
 
-```smart header="Reuse or create?"
-And the last note. There are some lazy programmers who, instead of declaring new variables, tend to reuse existing ones.
+```smart header="재사용 아니면 새로 만들기?"
+이제 마지막 내용입니다. 프로그래머 중에는 새로운 변수를 선언하기보다 기존 변수를 재활용하는 게으른 자들이 있습니다.
 
-As a result, their variables are like boxes into which people throw different things without changing their stickers. What's inside the box now? Who knows? We need to come closer and check.
+결과적으로, 재사용된 변수는 과거의 이름 스티커를 그대로 붙인 채 다른 물건을 담고 있는 상자와 같습니다. 이제 상자 안에는 무엇이 들어 있나요? 누가 알고 있나요? 우리는 가까이 다가가 확인해야 합니다.
 
-Such programmers save a little bit on variable declaration but lose ten times more on debugging.
+변수를 재사용하는 프로그래머는 변수 선언을 조금 덜 하지만 디버깅에 열 배 더 많은 시간을 쏟아야 합니다.
 
-An extra variable is good, not evil.
+추가적인 변수는 좋습니다. 유해하지 않습니다.
 
-Modern JavaScript minifiers and browsers optimize code well enough, so it won't create performance issues. Using different variables for different values can even help the engine optimize your code.
+모던 자바스크립트의 압축기와 브라우저는 코드를 잘 최적화하기 때문에 성능 이슈를 만들지 않습니다. 다른 값에 다른 변수를 사용하면 엔진의 코드 최적화에 도움이 될 수도 있습니다.
 ```
 
 ## 요약
