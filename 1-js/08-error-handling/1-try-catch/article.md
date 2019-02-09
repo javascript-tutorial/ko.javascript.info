@@ -1,14 +1,14 @@
 # Error handling, "try..catch"
 
-No matter how great we are at programming, sometimes our scripts have errors. They may occur because of our mistakes, an unexpected user input, an erroneous server response and for a thousand of other reasons.
+아무리 프로그래밍에 능하더라도, 때때로 스크립트에는 오류가 있습니다. 원인은 아마도 실수이거나, 예상치 못한 사용자 입력이나 잘못된 서버 응답, 그 밖에 수천만가지 다른 이유들로 인한 것입니다.
 
-Usually, a script "dies" (immediately stops) in case of an error, printing it to console.
+보통, 오류인 경우에 스크립트는 "죽으면서" (즉시 중단되면서), 콘솔에 오류를 출력합니다.
 
-But there's a syntax construct `try..catch` that allows to "catch" errors and, instead of dying, do something more reasonable.
+그러나 `try..catch` 문법을 사용하면 오류를 "잡아서", 죽는 대신에 더 합당한 무언가를 할 수 있게 됩니다.
 
-## The "try..catch" syntax
+## "try..catch" 문법
 
-The `try..catch` construct has two main blocks: `try`, and then `catch`:
+'try..catch' 구문에는 두 개의 주요 블록이 있습니다: 'try'와 'catch'입니다.
 
 ```js
 try {
@@ -22,19 +22,19 @@ try {
 }
 ```
 
-It works like this:
+이는 다음처럼 동작합니다.
 
-1. First, the code in `try {...}` is executed.
-2. If there were no errors, then `catch(err)` is ignored: the execution reaches the end of `try` and then jumps over `catch`.
-3. If an error occurs, then `try` execution is stopped, and the control flows to the beginning of `catch(err)`. The `err` variable (can use any name for it) contains an error object with details about what's happened.
+1. 먼저, `try {...}` 안의 코드가 실행됩니다.
+2. 만약 오류가 없다면, `catch(err)`는 무시되고, `try`의 끝까지 실행되고나면 `catch`로 뛰어넘습니다.
+3. 만약 오류가 있으면, `try` 실행이 중단되고, `catch(err)`의 첫부분으로 넘어갑니다. `err` 변수(아무 이름이나 사용 가능)는 무슨 일이 일어났는지 상세를 담은 오류 개체를 포함합니다.
 
 ![](try-catch-flow.png)
 
-So, an error inside the `try {…}` block does not kill the script: we have a chance to handle it in `catch`.
+그래서, `try {…}` 블록 안쪽의 오류는 스크립트를 죽이지 않고, `catch`에서 다룰 수 있는 기회가 생깁니다.
 
-Let's see more examples.
+예제를 좀 더 봅시다.
 
-- An errorless example: shows `alert` `(1)` and `(2)`:
+- 오류가 없는 예제로, `alert` `(1)`과 `(2)`를 보여줍니다.
 
     ```js run
     try {
@@ -53,7 +53,7 @@ Let's see more examples.
 
     alert("...Then the execution continues");
     ```
-- An example with an error: shows `(1)` and `(3)`:
+- 오류가 있는 예제로, `(1)`과 `(3)`을 보여줍니다.
 
     ```js run
     try {
@@ -76,10 +76,10 @@ Let's see more examples.
     ```
 
 
-````warn header="`try..catch` only works for runtime errors"
-For `try..catch` to work, the code must be runnable. In other words, it should be valid JavaScript.
+````warn header="`try..catch`는 오직 런타임 오류에만 동작합니다."
+`try..catch`가 동작하려면, 코드가 실행 가능해야 합니다. 다시 말하면, 유효한 자바스크립트여야 합니다.
 
-It won't work if the code is syntactically wrong, for instance it has unmatched curly braces:
+만약 코드가 문법적으로 틀리면 동작하지 않을 것입니다. 중괄호 짝이 안 맞는 것을 예로 들 수 있습니다.
 
 ```js run
 try {
@@ -89,14 +89,14 @@ try {
 }
 ```
 
-The JavaScript engine first reads the code, and then runs it. The errors that occur on the reading phrase are called "parse-time" errors and are unrecoverable (from inside that code). That's because the engine can't understand the code.
+자바스크립트 엔진은 먼저 코드를 읽고, 그 다음에 실행합니다. 구문을 읽는 중에 발생하는 오류는 "parse-time" 오류라고 부르며 (그 코드 안에서) 복구 불가능합니다. 엔진이 코드를 이해할 수 없기 때문입니다.
 
-So, `try..catch` can only handle errors that occur in the valid code. Such errors are called "runtime errors" or, sometimes, "exceptions".
+따라서, `try..catch`는 유효한 코드에서 발생하는 오류만 처리할 수 있습니다. 이런 오류들을 "런타임 오류" 또는 가끔씩 "예외"라고 부릅니다.
 ````
 
 
-````warn header="`try..catch` works synchronously"
-If an exception happens in "scheduled" code, like in `setTimeout`, then `try..catch` won't catch it:
+````warn header="`try..catch`는 동기적으로 동작합니다"
+만약 예외가 setTimeout처럼 "스케줄된" 코드에서 발생한다면` try..catch`가 잡아낼 수 없을 것입니다.
 
 ```js run
 try {
@@ -109,8 +109,10 @@ try {
 ```
 
 That's because `try..catch` actually wraps the `setTimeout` call that schedules the function. But the function itself is executed later, when the engine has already left the `try..catch` construct.
+왜냐하면 `try..catch`는 실제로는 함수를 스케줄하는 `setTimeout` 호출을 감싸고 있는 것이기 때문입니다. 하지만 함수 자체는 엔진이 `try..catch` 구문을 떠나버린 나중 시점에 실행됩니다.
 
-To catch an exception inside a scheduled function, `try..catch` must be inside that function:
+스케줄된 함수 내부의 예외를 잡으려면, `try..catch`가 함수 내부에 있어야 합니다.
+
 ```js run
 setTimeout(function() {
   try {    
@@ -122,9 +124,9 @@ setTimeout(function() {
 ```
 ````
 
-## Error object
+## 오류 개체
 
-When an error occurs, JavaScript generates an object containing the details about it. The object is then passed as an argument to `catch`:
+오류가 일어나면, 자바스크립트는 오류 상세를 포함한 개체를 만듭니다. 개체는 그 후 `catch`에 인수로서 전달됩니다.
 
 ```js
 try {
@@ -134,18 +136,18 @@ try {
 }
 ```
 
-For all built-in errors, the error object inside `catch` block has two main properties:
+모든 내장 오류에 대해서, `catch` 블록 내부의 오류 개체는 두 주요 속성을 가집니다.
 
 `name`
-: Error name. For an undefined variable that's `"ReferenceError"`.
+: 오류 이름. 정의되지 않은 변수에 대해서는 "참조오류".
 
 `message`
-: Textual message about error details.
+: 오류 상세에 대한 글 메시지.
 
-There are other non-standard properties available in most environments. One of most widely used and supported is:
+그 밖에 대부분의 환경에서 가능한 비표준 속성들이 있습니다. 가장 널리 사용되고 지원되는 것으로는 다음이 있습니다.
 
 `stack`
-: Current call stack: a string with information about the sequence of nested calls that led to the error. Used for debugging purposes.
+: 현재 호출 스택: 오류로 이어지는 중첩 호출의 나열에 대한 정보를 가진 문자열. 디버깅 목적으로 사용.
 
 For instance:
 
