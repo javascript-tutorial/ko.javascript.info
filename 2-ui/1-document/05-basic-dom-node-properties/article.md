@@ -19,7 +19,7 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
 노드 클래스:
 
 - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 계층의 뿌리에 있는 "추상" 클래스입니다. 이 클래스를 구현한 객체는 절대 생성되지 않습니다. 모든 노드가 "events"라는 걸 지원하도록 하는 기반의 역할을 합니다. 이 부분에 대해선 추후 이야기할 예정입니다.
-- [Node](http://dom.spec.whatwg.org/#interface-node) -- DOM 노드의 기초가 되는 "추상" 클래스입니다. `parentNode`, `nextSibling`, `childNodes`와 같은 노드사이 이동에 관련된 getter 메서드를 지원합니다. `Node` 클래스를 구현한 객체는 절대 생성되지 않습니다. 하지만 이 추상클래스를 상속받는 구체적인 클래스는 존재합니다. Text 노드를 위한 `Text`, 요소, 요소(Element) 노드를 위한 `Element`, Comment 노드를 위한 `Comment`가 그 예입니다.
+- [Node](http://dom.spec.whatwg.org/#interface-node) -- DOM 노드의 기초가 되는 "추상" 클래스입니다. `parentNode`, `nextSibling`, `childNodes`와 같은 노드사이 이동에 관련된 getter 메서드를 지원합니다. `Node` 클래스를 구현한 객체는 절대 생성되지 않습니다. 하지만 이 추상클래스를 상속받는 구체적인 클래스는 존재합니다. 텍스트 노드를 위한 `Text`, 요소, 요소(Element) 노드를 위한 `Element`, Comment 노드를 위한 `Comment`가 그 예입니다.
 - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소의 기초가 되는 클래스입니다. `nextElementSibling`, `children`와 같은 요소 레벨 탐색 관련 프로퍼티와 `getElementsByTagName`, `querySelector`와 같은 검색 메서드를 제공합니다. 브라우저에는 HTML뿐만 아니라 XML, SVG가 있을 수 있습니다. `Element` 클래스는 `SVGElement`, `XMLElement`, `HTMLElement`의 기초가 됩니다.
 - [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- 모든 HTML 요소의 기초가 되는 클래스입니다. 다양한 HTML 요소들은 이 클래스를 상속받습니다.
     - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- `<input>` 요소를 위한 클래스
@@ -121,7 +121,7 @@ interface HTMLInputElement: HTMLElement {
 
 노드 타입은 상숫값을 가집니다:
 - `elem.nodeType == 1` 은 요소 노드,
-- `elem.nodeType == 3` 은 TEXT 노드,
+- `elem.nodeType == 3` 은 텍스트(Text) 노드,
 - `elem.nodeType == 9` 은 DOCUMENT 객체(document object)를 나타내고,
 - [스펙 문서](https://dom.spec.whatwg.org/#node)로 가면 다양한 노드 타입을 볼 수 있습니다.
 
@@ -133,10 +133,10 @@ interface HTMLInputElement: HTMLElement {
   let elem = document.body;
 
   // 어떤 타입일까요?
-  alert(elem.nodeType); // 1 => element
+  alert(elem.nodeType); // 1 => 요소
 
   // 첫번째 자식 노드는...
-  alert(elem.firstChild.nodeType); // 3 => text
+  alert(elem.firstChild.nodeType); // 3 => 텍스트
 
   // 문서객체는 타입이 9
   alert( document.nodeType ); // 9
@@ -255,7 +255,7 @@ XML 모드에선 문자가 그대로 유지됩니다. XML 모드는 최근엔 �
    노드 클래스:
    
    - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 계층의 뿌리에 있는 "추상" 클래스입니다. 이 클래스를 구현한 객체는 절대 생성되지 않습니다. 모든 노드가 "events"라는 걸 지원하도록 하는 기반의 역할을 합니다. 이부분에 대해선 추후 이야기 할 예정입니다.
-   - [Node](http://dom.spec.whatwg.org/#interface-node) -- DOM 노드의 기초가 되는 "추상" 클래스 입니다. `parentNode`, `nextSibling`, `childNodes`와 같은 노드사이 이동에 관련된 getter 메서드를 지원합니다. `Node` 클래스를 구현한 객체는 절대 생성되지 않습니다. 하지만 이 추상클래스를 상속받는 구체적인 클래스는 존재합니다. Text 노드를 위한 `Text`, 요소, 요소(Element) 노드를 위한 `Element`, Comment 노드를 위한 `Comment`가 그 예입니다.
+   - [Node](http://dom.spec.whatwg.org/#interface-node) -- DOM 노드의 기초가 되는 "추상" 클래스 입니다. `parentNode`, `nextSibling`, `childNodes`와 같은 노드사이 이동에 관련된 getter 메서드를 지원합니다. `Node` 클래스를 구현한 객체는 절대 생성되지 않습니다. 하지만 이 추상클래스를 상속받는 구체적인 클래스는 존재합니다. 텍스트 노드를 위한 `Text`, 요소, 요소(Element) 노드를 위한 `Element`, Comment 노드를 위한 `Comment`가 그 예입니다.
    - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소의 기초가 되는 클래스입니다. `nextElementSibling`, `children`와 같은 요소레벨 탐색 관련 프로퍼티와 `getElementsByTagName`, `querySelector`와 같은 검색 메서드를 제공합니다. 브라우저에는 HTML뿐만 아니라 XML, SVG가 있을 수 있습니다. `Element` 클래스는 `SVGElement`, `XMLElement`, `HTMLElement`의 기초가 됩니다.
    - [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- 모든 HTML 요소의 기초가 되는 클래스입니다. 다양한 HTML요소들은 이 클래스를 상속받습니다.
        - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- `<input>` 요소를 위한 클래스
@@ -360,7 +360,7 @@ XML 모드에선 문자가 그대로 유지됩니다. XML 모드는 최근엔 �
    
    노드 타입은 상수 값을 가집니다:
    - `elem.nodeType == 1` 은 요소 노드,
-   - `elem.nodeType == 3` 은 TEXT 노드,
+   - `elem.nodeType == 3` 은 텍스트 노드,
    - `elem.nodeType == 9` 은 DOCUMENT 객체(document object)를 나타내고,
    - [스펙 문서](https://dom.spec.whatwg.org/#node)로 가면 다양한 노드 타입을 볼 수 있습니다.
    
@@ -372,10 +372,10 @@ XML 모드에선 문자가 그대로 유지됩니다. XML 모드는 최근엔 �
      let elem = document.body;
    
      // 어떤 타입일까요?
-     alert(elem.nodeType); // 1 => element
+     alert(elem.nodeType); // 1 => 요소
    
      // 첫번째 자식 노드는...
-     alert(elem.firstChild.nodeType); // 3 => text
+     alert(elem.firstChild.nodeType); // 3 => 텍스트
    
      // 문서객체는 타입이 9
      alert( document.nodeType ); // 9
@@ -710,7 +710,7 @@ XML 모드에선 문자가 그대로 유지됩니다. XML 모드는 최근엔 �
    자주 쓰이는 DOM 노드 프로퍼티는 다음과 같습니다:
    
    `nodeType`
-   : DOM 객체 클래스로부터 `nodeType`이 뭔지 알아낼 수 있지만 가끔은 특정 노드가 text 노드인지, 요소 노드인지만 판단하길 원하는 경우도 생깁니다. 이럴 때 `nodeType` 프로퍼티가 유용합니다. 이 프로퍼티는 숫자를 리턴해 주는데 리턴 값이 `1`의 경우는 요소 노드, `3`의 경우는 text 노드 입니다. 읽기 전용. 
+   : DOM 객체 클래스로부터 `nodeType`이 뭔지 알아낼 수 있지만 가끔은 특정 노드가 텍스트 노드인지, 요소 노드인지만 판단하길 원하는 경우도 생깁니다. 이럴 때 `nodeType` 프로퍼티가 유용합니다. 이 프로퍼티는 숫자를 리턴해 주는데 리턴 값이 `1`의 경우는 요소 노드, `3`의 경우는 텍스트 노드 입니다. 읽기 전용. 
    
    `nodeName/tagName`
    : 요소 노드에서 태그 이름을 대문자로 리턴해 줍니다(XML-모드 제외). 
@@ -973,7 +973,7 @@ Each DOM node belongs to a certain class. The classes form a hierarchy. The full
 자주 쓰이는 DOM 노드 프로퍼티는 다음과 같습니다:
 
 `nodeType`
-: DOM 객체 클래스로부터 `nodeType`이 뭔지 알아낼 수 있지만 가끔은 특정 노드가 text 노드인지, 요소 노드인지만 판단하길 원하는 경우도 생깁니다. 이럴 때 `nodeType` 프로퍼티가 유용합니다. 이 프로퍼티는 숫자를 리턴해 주는데 리턴 값이 `1`의 경우는 요소 노드, `3`의 경우는 text 노드 입니다. 읽기 전용. 
+: DOM 객체 클래스로부터 `nodeType`이 뭔지 알아낼 수 있지만 가끔은 특정 노드가 텍스트 노드인지, 요소 노드인지만 판단하길 원하는 경우도 생깁니다. 이럴 때 `nodeType` 프로퍼티가 유용합니다. 이 프로퍼티는 숫자를 리턴해 주는데 리턴 값이 `1`의 경우는 요소 노드, `3`의 경우는 텍스트 노드 입니다. 읽기 전용. 
 
 `nodeName/tagName`
 : 요소 노드에서 태그 이름을 대문자로 리턴해 줍니다(XML-모드 제외). 

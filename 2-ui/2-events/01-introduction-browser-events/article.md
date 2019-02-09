@@ -56,7 +56,7 @@ HTML-속성(HTML-attribute)값에 긴 코드를 작성하는건 편리한 방법
 <script>
   function countRabbits() {
     for(let i=1; i<=3; i++) {
-      alert("토 " + i);
+      alert("Rabbit number " + i);
     }
   }
 </script>
