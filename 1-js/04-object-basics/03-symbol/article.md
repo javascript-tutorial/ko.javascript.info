@@ -1,31 +1,31 @@
 
-# Symbol type
+# 심볼 타입
 
-By specification, object property keys may be either of string type, or of symbol type. Not numbers, not booleans, only strings or symbols, these two types.
+명세에 따르면 객체의 프로퍼티 키는 문자열 타입이나 심볼 타입이 될 수 있습니다. 숫자나 불리언 타입은 불가능하며 오직 문자열과 심볼 두 타입만 가능합니다.
 
-Till now we've only seen strings. Now let's see the advantages that symbols can give us.
+지금까지 우리는 오직 문자열만 봐왔습니다. 이제 심볼이 우리에게 가져다 줄 수 있는 이점들을 알아봅시다.
 
-## Symbols
+## 심볼(Symbols)
 
-"Symbol" value represents a unique identifier.
+"심볼(Symbol)" 값은 유일한 식별자(unique identifier)를 나타냅니다.
 
-A value of this type can be created using `Symbol()`:
+심볼 값은 `Symbol()`를 통해 만들어집니다.:
 
 ```js
-// id is a new symbol
+// id는 새로운 심볼입니다.
 let id = Symbol();
 ```
 
-We can also give symbol a description (also called a symbol name), mostly useful for debugging purposes:
+우리는 심볼에 설명(심볼 이름이라고도 불립니다)을 붙일 수도 있습니다. 주로 디버깅을 할 때 유용하게 쓰입니다.:
 
 ```js
-// id is a symbol with the description "id"
+// id는 "id"라는 설명을 가진 심볼입니다.
 let id = Symbol("id");
 ```
 
-Symbols are guaranteed to be unique. Even if we create many symbols with the same description, they are different values. The description is just a label that doesn't affect anything.
+심볼은 유일하다는 것이 보장됩니다. 우리가 같은 설명을 가진 많은 심볼을 만들지라도, 그 심볼들은 다른 값을 가집니다. 설명은 어떤 것에도 영향을 주지 않는 단지 라벨일 뿐입니다.
 
-For instance, here are two symbols with the same description -- they are not equal:
+예를 들어, 여기에 같은 설명을 가진 두 심볼이 있습니다. -- 이들은 같지 않습니다.:
 
 ```js run
 let id1 = Symbol("id");
@@ -36,12 +36,12 @@ alert(id1 == id2); // false
 */!*
 ```
 
-If you are familiar with Ruby or another language that also has some sort of "symbols" -- please don't be misguided. JavaScript symbols are different.
+당신이 루비(Ruby)나 "심볼"과 비슷한 것을 가진 다른 언어와 친숙하다면 -- 잘못 이해하면 안됩니다. 자바스크립트의 심볼은 다릅니다.
 
-````warn header="Symbols don't auto-convert to a string"
-Most values in JavaScript support implicit conversion to a string. For instance, we can `alert` almost any value, and it will work. Symbols are special. They don't auto-convert.
+````warn header="심볼은 문자열로 자동 변환되지 않습니다."
+자바스크립트의 대부분의 값은 문자열로의 암시적 형 변환을 지원합니다. 예를 들어, 우리는 어느 값에나 `alert`를 사용할 수 있으며 이것은 잘 실행될 것입니다. 심볼은 특별합니다. 심볼은 자동 변환되지 않습니다.
 
-For instance, this `alert` will show an error:
+예를 들어, 이 코드의 `alert`는 에러를 일으킬 것입니다.:
 
 ```js run
 let id = Symbol("id");
@@ -50,22 +50,22 @@ alert(id); // TypeError: Cannot convert a Symbol value to a string
 */!*
 ```
 
-If we really want to show a symbol, we need to call `.toString()` on it, like here:
+만약 우리가 정말로 심볼을 보여주고 싶다면, 다음과 같이 심볼에 `.toString()` 메서드를 호출해야 합니다.:
 ```js run
 let id = Symbol("id");
 *!*
-alert(id.toString()); // Symbol(id), now it works
+alert(id.toString()); // Symbol(id), 이제 잘 실행됩니다.
 */!*
 ```
 
-That's a "language guard" against messing up, because strings and symbols are fundamentally different and should not occasionally convert one into another.
+이것은 혼란을 막기 위한 "언어적 보호장치(language guard)"입니다. 문자열과 심볼은 근본적으로 다르며 서로의 타입으로 종종 변환돼서는 안되기 때문입니다.
 ````
 
-## "Hidden" properties
+## "숨겨진" 프로퍼티
 
-Symbols allow us to create "hidden" properties of an object, that no other part of code can occasionally access or overwrite.
+심볼은 객체의 "숨겨진" 프로퍼티를 생성할 수 있게 해줍니다. 다른 부분에 있는 어떤 코드도 간혹 숨겨진 프로퍼티에 접근을 하거나 덮어쓰기를 할 수 없습니다.
 
-For instance, if we want to store an "identifier" for the object `user`, we can use a symbol as a key for it:
+예를 들어 우리가 `user` 객체를 위해 "식별자"를 저장하고 싶다면,  if we want to store an "identifier" for the object `user`, we can use a symbol as a key for it:
 
 ```js run
 let user = { name: "John" };
@@ -108,9 +108,9 @@ user.id = "Their id value"
 
 ### Symbols in a literal
 
-If we want to use a symbol in an object literal, we need square brackets.
+객체 리터럴에서 심볼을 사용하고 싶다면 대괄호를 사용하면 됩니다.
 
-Like this:
+이렇게 말이죠.:
 
 ```js
 let id = Symbol("id");
@@ -124,11 +124,11 @@ let user = {
 ```
 That's because we need the value from the variable `id` as the key, not the string "id".
 
-### Symbols are skipped by for..in
+### 심볼은 for..in 에서 배재됩니다.
 
-Symbolic properties do not participate in `for..in` loop.
+심볼 프로퍼티는 `for..in` 반복문에 참여하지 않습니다.
 
-For instance:
+예를 들어:
 
 ```js run
 let id = Symbol("id");
@@ -253,9 +253,9 @@ For instance, `Symbol.toPrimitive` allows us to describe object to primitive con
 
 Other symbols will also become familiar when we study the corresponding language features.
 
-## Summary
+## 요약
 
-`Symbol` is a primitive type for unique identifiers.
+`Symbol` 은 유일한 식별자를 위한 is a primitive type for unique identifiers.
 
 Symbols are created with `Symbol()` call with an optional description.
 
@@ -263,7 +263,7 @@ Symbols are always different values, even if they have the same name. If we want
 
 Symbols have two main use cases:
 
-1. "Hidden" object properties.
+1. "숨겨진" 객체 프로퍼티
     If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be occasionally listed. Also it won't be accessed directly, because another script does not have our symbol, so it will not occasionally intervene into its actions.
 
     So we can "covertly" hide something into objects that we need, but others should not see, using symbolic properties.

@@ -1,38 +1,38 @@
-# Garbage collection
+# 가비지 컬렉션(Garbage Collection)
 
-Memory management in JavaScript is performed automatically and invisibly to us. We create primitives, objects, functions... All that takes memory.
+자바스크립트의 메모리 관리는 자동으로 수행되며 우리 눈에 보이지 않습니다. 우리가 기본값을 가진 변수나 객체, 함수 등을 만들 때 이 모든 것은 메모리를 차지합니다.
 
-What happens when something is not needed any more? How does the JavaScript engine discover it and clean it up?
+만약 어떤 것이 더 필요없게 된다면 어떻게 될까요? 자바스크립트 엔진은 어떻게 필요없는 것을 찾아내 삭제하는 걸까요?
 
-## Reachability
+## 도달 가능성(Reachability)
 
-The main concept of memory management in JavaScript is *reachability*.
+자바스크립트에서 메모리 관리의 주요 개념은 *도달 가능성(Reachability)*입니다.
 
-Simply put, "reachable" values are those that are accessible or usable somehow. They are guaranteed to be stored in memory.
+쉽게 말해, "도달 가능한" 값들은 어떻게든 접근할 수 있으며 사용할 수 있는 값들을 말합니다. 이 값들은 메모리에 유지되는 것이 보장됩니다.
 
-1. There's a base set of inherently reachable values, that cannot be deleted for obvious reasons.
+1. 본질적으로 도달 가능한 값들의 기본 집합이 있습니다. 이 값들은 명백한 이유로 삭제될 수 없습니다.
 
-    For instance:
+    예를 들어:
 
-    - Local variables and parameters of the current function.
-    - Variables and parameters for other functions on the current chain of nested calls.
-    - Global variables.
-    - (there are some other, internal ones as well)
+    - 현재 함수의 지역 변수와 매개 변수
+    - 중첩된 함수 호출로 실행된 경우 현재 스코프 체인에 있는 변수와 매개 변수
+    - 전역 변수
+    - (내부적인 다른 값들도 존재합니다.)
 
-    These values are called *roots*.
+    이 값들은 *루트(roots)*라고 불립니다.
 
-2. Any other value is considered reachable if it's reachable from a root by a reference or by a chain of references.
+2. 루트에서 참조나 참조의 체인에 의해 도달 가능한 값이 있다면 그 값은 도달 가능합니다.
 
-    For instance, if there's an object in a local variable, and that object has a property referencing another object, that object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+    예를 들어, 만약 지역 변수가 어떤 객체를 참조하고 있고 이 객체는 다른 객체를 참조하는 프로퍼티를 갖고 있다면, 그 객체는 도달 가능하다고 여겨집니다. 그리고 그 객체가 참조하는 값들 역시 도달 가능합니다. 아래에서 자세한 예시를 봅시다.
 
-There's a background process in the JavaScript engine that is called [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)). It monitors all objects and removes those that have become unreachable.
+자바스크립트 엔진에는 [가비지 컬렉터(garbage collector)](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)) 라는 백그라운드 프로세스가 있습니다. 가비지 컬렉터는 모든 객체를 모니터링하면서 객체가 도달할 수 없는 상태가 되었을 때 삭제합니다.
 
-## A simple example
+## 간단한 예제
 
-Here's the simplest example:
+간단한 예제를 하나 살펴봅시다.:
 
 ```js
-// user has a reference to the object
+// user는 객체에 대한 참조를 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -40,9 +40,9 @@ let user = {
 
 ![](memory-user-john.png)
 
-Here the arrow depicts an object reference. The global variable `"user"` references the object `{name: "John"}` (we'll call it John for brevity). The `"name"` property of John stores a primitive, so it's painted inside the object.
+이 그림에서 화살표는 객체 참조를 나타냅니다. 전역 변수(`<global>`) `"user"` 는 `{name: "John"}` (줄여서 John이라고 부르겠습니다) 이라는 객체를 참조합니다. John의 `"name"` 프로퍼티는 기본값을 저장하고 있기 때문에 객체(`Object`) 안에 위치합니다.
 
-If the value of `user` is overwritten, the reference is lost:
+만약 `user` 값이 다른 값으로 덮어 쓰이면 기존의 참조를 잃게 됩니다.:
 
 ```js
 user = null;
@@ -50,14 +50,14 @@ user = null;
 
 ![](memory-user-john-lost.png)
 
-Now John becomes unreachable. There's no way to access it, no references to it. Garbage collector will junk the data and free the memory.
+이제 John은 도달할 수 없게 되었습니다. John에 접근할 방법은 없으며, John에 대한 어떤 참조도 존재하지 않습니다. 가비지 컬렉터는 이 데이터를 삭제하고 메모리를 해제할 것입니다.
 
-## Two references
+## 두 개의 참조
 
-Now let's imagine we copied the reference from `user` to `admin`:
+이제 우리가 `user`의 참조를 `admin`에 복사했다고 가정해봅시다.:
 
 ```js
-// user has a reference to the object
+// user는 객체에 대한 참조를 갖고 있습니다.
 let user = {
   name: "John"
 };
@@ -69,16 +69,16 @@ let admin = user;
 
 ![](memory-user-john-admin.png)
 
-Now if we do the same:
+이제 우리가 이 코드를 실행한다면:
 ```js
 user = null;
 ```
 
-...Then the object is still reachable via `admin` global variable, so it's in memory. If we overwrite `admin` too, then it can be removed.
+...전역 변수 `admin`을 통해 여전히 객체에 접근할 수 있습니다. 따라서 객체는 메모리 안에 존재합니다. 만약 `admin`도 다른 값으로 덮어쓴다면, 객체는 삭제될 수 있습니다.
 
-## Interlinked objects
+## 서로 연결된 객체
 
-Now a more complex example. The family:
+이제 더 복잡한 예제, family를 살펴봅시다.:
 
 ```js
 function marry(man, woman) {
@@ -98,15 +98,15 @@ let family = marry({
 });
 ```
 
-Function `marry` "marries" two objects by giving them references to each other and returns a new object that contains them both.
+`marry` 함수는 두 객체를 서로 참조하게 하면서 "결혼"시킵니다. 그 다음, 두 객체를 포함한 새로운 객체를 반환합니다.
 
-The resulting memory structure:
+결과적으로 메모리 구조는 이렇게 됩니다.:
 
 ![](family.png)
 
-As of now, all objects are reachable.
+모든 객체는 접근 가능하게 되었습니다.
 
-Now let's remove two references:
+이제 두 참조를 지워봅시다.:
 
 ```js
 delete family.father;
@@ -115,98 +115,98 @@ delete family.mother.husband;
 
 ![](family-delete-refs.png)
 
-It's not enough to delete only one of these two references, because all objects would still be reachable.
+모든 객체는 여전히 접근 가능하므로 참조 하나를 지우는 것만으로는 충분하지 않습니다.
 
-But if we delete both, then we can see that John has no incoming reference any more:
+그러나 두 참조를 모두 지우면, John에 대한 참조는 더 이상 존재하지 않게 됩니다.:
 
 ![](family-no-father.png)
 
-Outgoing references do not matter. Only incoming ones can make an object reachable. So, John is now unreachable and will be removed from the memory with all its data that also became unaccessible.
+John에서 외부로 나가는 참조는 문제 되지 않습니다. 외부에서 들어오는 참조만이 객체를 도달 가능한 상태로 만듭니다. 따라서 John은 이제 도달할 수 없으며 접근 불가능한 John의 데이터는  메모리에서 제거될 것입니다.
 
-After garbage collection:
+가비지 컬렉션 수행 후 결과는 다음과 같습니다.:
 
 ![](family-no-father-2.png)
 
-## Unreachable island
+## 도달할 수 없는 섬
 
-It is possible that the whole island of interlinked objects becomes unreachable and is removed from the memory.
+서로 연결된 객체들의 섬 전체가 도달할 수 없게 되어 메모리에서 제거될 수 있습니다.
 
-The source object is the same as above. Then:
+다음 예제에서 사용되는 객체는 위 예제와 같습니다.:
 
 ```js
 family = null;
 ```
 
-The in-memory picture becomes:
+위 코드를 실행하면 메모리 내부는 다음 상태가 됩니다.:
 
 ![](family-no-family.png)
 
-This example demonstrates how important the concept of reachability is.
+이 예제는 도달 가능성의 개념이 얼마나 중요한지 보여줍니다.
 
-It's obvious that John and Ann are still linked, both have incoming references. But that's not enough.
+John과 Ann은 여전히 연결되어 있으며 둘 다 외부에서 들어오는 참조를 갖고 있다는 사실이 명백합니다. 하지만 이것만으로는 충분하지 않습니다.
 
-The former `"family"` object has been unlinked from the root, there's no reference to it any more, so the whole island becomes unreachable and will be removed.
+앞서 `"family"` 객체가 루트로부터 연결이 해제되었습니다. 그러므로 이 객체에 대한 참조는 존재하지 않으며 섬 전체가 도달할 수 없게 돼 메모리에서 제거될 것입니다.
 
-## Internal algorithms
+## 내부 알고리즘
 
-The basic garbage collection algorithm is called "mark-and-sweep".
+가비지 컬렉션의 기본적인 알고리즘은 "마크 앤 스윕(mark-and-sweep)"이라고 불립니다.
 
-The following "garbage collection" steps are regularly performed:
+일반적으로 "가비지 컬렉션"은 다음 단계를 거쳐 수행됩니다.:
 
-- The garbage collector takes roots and "marks" (remembers) them.
-- Then it visits and "marks" all references from them.
-- Then it visits marked objects and marks *their* references. All visited objects are remembered, so as not to visit the same object twice in the future.
-- ...And so on until there are unvisited references (reachable from the roots).
-- All objects except marked ones are removed.
+- 가비지 컬렉터는 루트에 접근하여 그들을 "마크"(기억) 합니다.
+- 그리고 루트가 참조하고 있는 모든 것들에 방문하여 "마크" 합니다.
+- 이제 마크된 모든 객체에 방문하여 *그들의* 참조에도 마크합니다. 같은 객체를 다시 방문하지 않기 위해 방문한 모든 객체는 기억됩니다.
+- ...(루트로부터 도달 가능하며) 방문하지 않은 참조가 있다면 위 과정을 반복 수행합니다.
+- 마크되지 않은 모든 객체는 삭제됩니다.
 
-For instance, let our object structure look like this:
+예를 들어 다음과 같은 객체 구조가 있다고 해봅시다.:
 
 ![](garbage-collection-1.png)
 
-We can clearly see an "unreachable island" to the right side. Now let's see how "mark-and-sweep" garbage collector deals with it.
+오른편에 있는 "도달할 수 없는 섬"을 발견할 수 있습니다. 이제 가비지 컬렉터의 "마크 앤 스윕" 알고리즘이 이것을 어떻게 처리하는지 알아봅시다.
 
-The first step marks the roots:
+루트를 마크하는 첫 번째 단계입니다.:
 
 ![](garbage-collection-2.png)
 
-Then their references are marked:
+이후 루트가 참조하고 있는 것들을 마크합니다.:
 
 ![](garbage-collection-3.png)
 
-...And their references, while possible:
+...그리고 나서 그것들이 참조하고 있는 것들을 마크합니다. 가능한 범위에서 이 과정을 반복합니다.:
 
 ![](garbage-collection-4.png)
 
-Now the objects that could not be visited in the process are considered unreachable and will be removed:
+이 과정에서 방문할 수 없는 객체들은 도달 불가능한 것으로 여겨져 메모리에서 삭제될 것입니다.:
 
 ![](garbage-collection-5.png)
 
-That's the concept of how garbage collection works.
+이것이 바로 가비지 컬렉션이 작동하는 개념입니다.
 
-JavaScript engines apply many optimizations to make it run faster and not affect the execution.
+자바스크립트 엔진은 가비지 컬렉션의 실행에 영향을 주지 않으면서 이것이 빠르게 작동할 수 있도록 여러 가지 최적화를 적용합니다.
 
-Some of the optimizations:
+최적화의 예시:
 
-- **Generational collection** -- objects are split into two sets: "new ones" and "old ones". Many  objects appear, do their job and die fast, they can be cleaned up aggressively. Those that survive for long enough, become "old" and are examined less often.
-- **Incremental collection** -- if there are many objects, and we try to walk and mark the whole object set at once, it may take some time and introduce visible delays in the execution. So the engine tries to split the garbage collection into pieces. Then the pieces are executed one by one, separately. That requires some extra bookkeeping between them to track changes, but we have many tiny delays instead of a big one.
-- **Idle-time collection** -- the garbage collector tries to run only while the CPU is idle, to reduce the possible effect on the execution.
+- **세대별 수집(Generational collection)** -- 객체는 "새로운 객체"와 "오래된 객체" 두 집합으로 나뉩니다. 많은 객체는 생겨난 다음 제 일을 수행하고 빠르게 죽습니다. 이 객체들은 인정사정없이 제거될 수 있습니다. 반면 충분히 오랫동안 살아남은 객체들은 "오래된 객체"가 되어 가비지 컬렉터에게 덜 검사를 받게 됩니다.
+- **점진적 수집(Incremental collection)** -- 많은 객체가 있을 때 모든 객체 집합을 한 번에 방문해 마크하려고 한다면, 시간이 꽤 걸릴 것이며 수행 시간을 확연히 늦출 수 있습니다. 따라서 자바스크립트 엔진은 가비지 컬렉션을 여러 부분으로 나눠 수행하고자 합니다. 부분 작업은 하나씩 별도로 수행됩니다. 부분 작업 사이에서 발생한 변경사항을 추적하기 위해 추가적인 기록이 필요합니다. 그러나 한 번의 큰 지연 대신 여러 번의 작은 지연을 갖게 됩니다.
+- **유휴 시간 수집(Idle-time collection)** -- 가비지 컬렉터는 실행에 끼칠 수 있는 영향을 줄이기 위해 CPU가 유휴 상태일 때에만 실행됩니다.
 
-There are other optimizations and flavours of garbage collection algorithms. As much as I'd like to describe them here, I have to hold off, because different engines implement different tweaks and techniques. And, what's even more important, things change as engines develop, so going deeper "in advance", without a real need is probably not worth that. Unless, of course, it is a matter of pure interest, then there will be some links for you below.
+이외에도 가비지 컬렉션의 여러 알고리즘과 최적화 기법이 존재합니다. 이에 관해 설명해드리고 싶지만 여기서 멈추는 게 좋을 것 같습니다. 다양한 엔진들은 저마다 다른 기술을 사용하기 때문입니다. 훨씬 더 중요한 것은, 엔진이 발전함에 따라 모든 것은 변화한다는 것입니다. 그러므로 실제로 필요하지 않는데도 "미리" 깊은 내용으로 들어가는 것은 그만한 가치가 없을 것입니다. 물론, 그게 아니라 순수한 관심이 있다면 아래에 있는 링크를 확인해보세요.
 
-## Summary
+## 요약
 
-The main things to know:
+알아야 하는 핵심 사항은 다음과 같습니다.:
 
-- Garbage collection is performed automatically. We cannot force or prevent it.
-- Objects are retained in memory while they are reachable.
-- Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole.
+- 가비지 컬렉션은 자동으로 수행됩니다. 우리가 실행시키거나 막을 수 없습니다.
+- 객체들은 도달 가능한 상태일 때 메모리에 저장돼 있습니다.
+- 참조된다는 것은 (루트로부터) 도달 가능하다는 것이 아닙니다.: 서로 연결된 객체들의 pack은 전체적으로 도달 불가능해질 수도 있습니다.
 
-Modern engines implement advanced algorithms of garbage collection.
+현대의 엔진은 더욱 발전된 가비지 컬렉션 알고리즘을 구현합니다.
 
-A general book "The Garbage Collection Handbook: The Art of Automatic Memory Management" (R. Jones et al) covers some of them.
+"The Garbage Collection Handbook: The Art of Automatic Memory Management" (R. Jones et al) 책에서 이와 관련된 전반적인 내용을 다룹니다.
 
-If you are familiar with low-level programming, the more detailed information about V8 garbage collector is in the article [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection).
+만약 여러분이 로우 레벨 프로그래밍에 익숙하시다면, V8 가비지 컬렉터에 대한 더욱 자세한 내용은 이 글 [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection) 에서 확인하실 수 있습니다.
 
-[V8 blog](http://v8project.blogspot.com/) also publishes articles about changes in memory management from time to time. Naturally, to learn the garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](http://mrale.ph) who worked as one of V8 engineers. I'm saying: "V8", because it is best covered with articles in the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
+[V8 blog](http://v8project.blogspot.com/)는 종종 메모리 관리의 변화에 대한 글들을 게재합니다. 자연스럽게 가비지 컬렉션을 공부하기 위해서는 V8의 내부구조를 공부하거나 V8의 엔지니어로 일했던 [Vyacheslav Egorov](http://mrale.ph) 의 블로그를 읽는 것이 좋습니다. 제가 "V8"을 언급하는 이유는 인터넷에 이에 관해 잘 다룬 글들이 있기 때문입니다. 다른 엔진들은 여러 접근 방법이 V8과 비슷하지만, 가비지 컬렉션에서는 많은 차이가 있습니다.
 
-In-depth knowledge of engines is good when you need low-level optimizations. It would be wise to plan that as the next step after you're familiar with the language.  
+로우 레벨의 최적화가 필요한 상황이라면 엔진에 대한 깊은 지식은 좋습니다. 그렇지 않다면 우선 자바스크립트에 익숙해진 뒤에 그다음 단계로 엔진에 대해 공부하는 것이 좋습니다.
