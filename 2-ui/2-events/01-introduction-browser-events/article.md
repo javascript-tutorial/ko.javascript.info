@@ -1,187 +1,187 @@
-# Introduction to browser events
+# 브라우저 이벤트(browser event) 알아보기
 
-*An event* is a signal that something has happened. All DOM nodes generate such signals (but events are not limited to DOM).
+*이벤트*는 무언가 일어났다는 신호입니다. 모든 DOM 노드는 이런 신호를 만들어 냅니다(이벤트는 DOM에만 한정되진 않습니다).
 
-Here's a list of the most useful DOM events, just to take a look at:
+아래는 가장 유용하게 쓰이는 DOM 이벤트를 나열해 놓은 것 입니다. 잠시 살펴보도록 합시다:
 
-**Mouse events:**
-- `click` -- when the mouse clicks on an element (touchscreen devices generate it on a tap).
-- `contextmenu` -- when the mouse right-clicks on an element.
-- `mouseover` / `mouseout` -- when the mouse cursor comes over / leaves an element.
-- `mousedown` / `mouseup` -- when the mouse button is pressed / released over an element.
-- `mousemove` -- when the mouse is moved.
+**마우스 이벤트(Mouse events):**
+- `click` -- 요소 위에서 마우스 버튼을 눌렀을 때 (터치스크린이 있는 장치에선 탭 했을 때).
+- `contextmenu` -- 요소 위에서 마우스 우클릭 버튼을 눌렀을 때.
+- `mouseover` / `mouseout` -- 마우스를 요소 위로 움직였을 때 / 마우스가 요소 밖으로 움직였을 때.
+- `mousedown` / `mouseup` -- 요소 위에서 마우스 버튼을 누르고 있을 때 / 마우스 버튼을 뗄 때.
+- `mousemove` -- 마우스를 움직일 때.
 
-**Form element events:**
-- `submit` -- when the visitor submits a `<form>`.
-- `focus` --  when the visitor focuses on an element, e.g. on an `<input>`.
+**폼 요소 이벤트(Form element events):**
+- `submit` -- 사용자가 `<form>`을 제출할 때.
+- `focus` --  사용자가 `<input>`과 같은 요소에 포커스 할 때(focuses on an element).
 
-**Keyboard events:**
-- `keydown` and `keyup` -- when the visitor presses and then releases the button.
+**키보드 이벤트(Keyboard events):**
+- `keydown` 와 `keyup` -- 사용자가 키보드를 눌렀다 뗄 때.
 
-**Document events**
-- `DOMContentLoaded` -- when the HTML is loaded and processed, DOM is fully built.
+**문서 이벤트(Document events):**
+- `DOMContentLoaded` -- HTML이 전부 로드되고 처리되어서 DOM이 완전히 만들어 졌을 때.
 
-**CSS events:**
-- `transitionend` -- when a CSS-animation finishes.
+**CSS 이벤트(CSS events):**
+- `transitionend` -- CSS-애니메이션(CSS-animation)이 종료되었을 때.
 
-There are many other events. We'll get into more details of particular events in next chapters.
+이 외에도 다양한 종류의 이벤트가 있습니다. 다음 장에서 몇몇 이벤트에 대해 자세히 다룰 예정입니다.
 
-## Event handlers
+## 이벤트 핸들러(Event handlers)
 
-To react on events we can assign a *handler* -- a function that runs in case of an event.
+이벤트에 반응하려면 이벤트가 발생하는 시점에 실행되는 *핸들러(handler)* 함수가 필요합니다.  
 
-Handlers are a way to run JavaScript code in case of user actions.
+핸들러는 사용자의 행동에 어떻게 반응할지를 자바스크립트 코드로 표현한 것입니다.
 
-There are several ways to assign a handler. Let's see them, starting from the simplest one.
+핸들러를 지정하는 방법은 여러가지가 있습니다. 가장 간단한 방법부터 살펴보도록 하겠습니다.
 
-### HTML-attribute
+### HTML-속성(HTML-attribute)
 
-A handler can be set in HTML with an attribute named `on<event>`.
+핸들러는 HTML 안에서 `on<event>`와 같은 속성을 통해 설정할 수 있습니다.
 
-For instance, to assign a `click` handler for an `input`, we can use `onclick`, like here:
+아래와 같이 `onclick`속성을 사용하면 `input`태그에 `click`핸들러를 적용할 수 있습니다:
 
 ```html run
-<input value="Click me" *!*onclick="alert('Click!')"*/!* type="button">
+<input value="Click me" *!*onclick="alert('클릭!')"*/!* type="button">
 ```
 
-On mouse click, the code inside `onclick` runs.
+마우스를 클릭하면 `onclick`안의 코드가 실행됩니다.
 
-Please note that inside `onclick` we use single quotes, because the attribute itself is in double quotes. If we forget that the code is inside the attribute and use double quotes inside, like this:  `onclick="alert("Click!")"`, then it won't work right.
+`onclick`안의 따옴표에 주목해주세요. 속성 값이 이미 쌍따옴표로 둘러 쌓여있기 때문에 이렇게 작성한 것입니다. 이 점을 잊고 `onclick="alert("클릭!")"`과 같이 속성 값에서 또 쌍따옴표를 쓰게 되면 코드가 작동하지 않습니다.
 
-An HTML-attribute is not a convenient place to write a lot of code, so we'd better create a JavaScript function and call it there.
+HTML-속성(HTML-attribute)값에 긴 코드를 작성하는건 편리한 방법이 아닙니다. 대신 자바스크립트 함수를 만들어서 이를 호출하는 방법을 추천합니다.
 
-Here a click runs the function `countRabbits()`:
+버튼을 클릭하면 `countRabbits()`함수가 호출됩니다:
 
 ```html autorun height=50
 <script>
   function countRabbits() {
     for(let i=1; i<=3; i++) {
-      alert("Rabbit number " + i);
+      alert("토 " + i);
     }
   }
 </script>
 
-<input type="button" *!*onclick="countRabbits()"*/!* value="Count rabbits!">
+<input type="button" *!*onclick="countRabbits()"*/!* value="토끼를 세봅시다!">
 ```
 
-As we know, HTML attribute names are not case-sensitive, so `ONCLICK` works as well as `onClick` and `onCLICK`... But usually attributes are lowercased: `onclick`.
+HTML 속성은 대소문자를 구분하지 않습니다. `ONCLICK`은 `onClick` 나 `onCLICK`과 동일하게 작동합니다. 하지만 대개의 경우 속성은 `onclick`와 같이 소문자로 작성합니다.
 
-### DOM property
+### DOM 프로퍼티(property)
 
-We can assign a handler using a DOM property `on<event>`.
+DOM 프로퍼티 `on<event>`을 사용하면 핸들러를 할당할 수 있습니다.
 
-For instance, `elem.onclick`:
+`elem.onclick`을 사용한 예시:
 
 ```html autorun
-<input id="elem" type="button" value="Click me">
+<input id="elem" type="button" value="클릭해주세요">
 <script>
 *!*
   elem.onclick = function() {
-    alert('Thank you');
+    alert('감사합니다');
   };
 */!*
 </script>
 ```
 
-If the handler is assigned using an HTML-attribute then the browser reads it, creates a new function from the attribute content and writes it to the DOM property.
+HTML-속성을 사용해 핸들러를 할당하면 브라우저는 속성의 콘텐츠를 이용해 새로운 함수를 만듭니다. 그리고 DOM 프로퍼티에 함수를 생성합니다.
 
-So this way is actually the same as the previous one.
+따라서 이 방법은 위의 예제와 동일한 방법입니다.
 
-**The handler is always in the DOM property: the HTML-attribute is just one of the ways to initialize it.**
+**핸들러는 항상 DOM 프로퍼티 안에 있습니다: HTML-속성은 핸들러를 초기화 하는 방법중 하나일 뿐입니다.**
 
-These two code pieces work the same:
+아래 두 코드조각은 동일하게 작동합니다:
 
-1. Only HTML:
+1. HTML만 사용해서 작성:
 
     ```html autorun height=50
-    <input type="button" *!*onclick="alert('Click!')"*/!* value="Button">
+    <input type="button" *!*onclick="alert('클릭!')"*/!* value="버튼">
     ```
-2. HTML + JS:
+2. HTML과 JS를 함께 사용해 작성:
 
     ```html autorun height=50
-    <input type="button" id="button" value="Button">
+    <input type="button" id="button" value="버튼">
     <script>
     *!*
       button.onclick = function() {
-        alert('Click!');
+        alert('클릭!');
       };
     */!*
     </script>
     ```
 
-**As there's only one `onclick` property, we can't assign more than one event handler.**
+**`onclick` 프로퍼티는 하나이기 때문에, 단 하나의 이벤트 핸들러만 할당할 수 있습니다.**
 
-In the example below adding a handler with JavaScript overwrites the existing handler:
+아래의 예제코드와 같이 자바스크립트로 핸들러를 하나 더해주면 기존에 존재하는 핸들러는 덮어씌워집니다:
 
 ```html run height=50 autorun
-<input type="button" id="elem" onclick="alert('Before')" value="Click me">
+<input type="button" id="elem" onclick="alert('이전')" value="클릭해주세요">
 <script>
 *!*
-  elem.onclick = function() { // overwrites the existing handler
-    alert('After'); // only this will be shown
+  elem.onclick = function() { // 기존에 작성된 핸들러를 덮어씀
+    alert('이후'); // 이 경고창만 보입니다
   };
 */!*
 </script>
 ```
 
-By the way, we can assign an existing function as a handler directly:
+한편, 이미 존재하는 함수를 핸들러에 직접 할당할 수도 있습니다:
 
 ```js
 function sayThanks() {
-  alert('Thanks!');
+  alert('감사합니다!');
 }
 
 elem.onclick = sayThanks;
 ```
 
-To remove a handler -- assign `elem.onclick = null`.
+핸들러를 제거하고 싶다면 `elem.onclick = null`과 같이 null을 대입하면 됩니다.
 
-## Accessing the element: this
+## 요소에 접근하기: this
 
-The value of `this` inside a handler is the element. The one which has the handler on it.
+핸들러에서 `this`는 핸들러가 할당 된 요소를 참조합니다.
 
-In the code below `button` shows its contents using `this.innerHTML`:
+아래의 코드에서 보는 바와 같이 `this.innerHTML`에서 this는 `button`을 참조하므로 `button`을 클릭하면 그 안의 콘텐츠를 볼 수 있습니다:
 
 ```html height=50 autorun
-<button onclick="alert(this.innerHTML)">Click me</button>
+<button onclick="alert(this.innerHTML)">클릭해주세요</button>
 ```
 
-## Possible mistakes
+## 자주하는 실수
 
-If you're starting to work with event -- please note some subtleties.
+이벤트를 다룰 일이 생기면 아래의 세부요소들에 주의해주세요.
 
-**The function should be assigned as `sayThanks`, not `sayThanks()`.**
+**함수는 `sayThanks`와 같이 할당해야합니다. `sayThanks()`는 작동하지 않습니다.**
 
 ```js
-// right
+// 옳바른 방법
 button.onclick = sayThanks;
 
-// wrong
+// 틀린 방법
 button.onclick = sayThanks();
 ```
 
-If we add brackets, then `sayThanks()` --  will be the *result* of the function execution, so `onclick` in the last code becomes `undefined` (the function returns nothing). That won't work.
+`sayThanks()`와 같이 괄호를 덧붙이게 되면 함수를 실행한 것이 되어 그 함수의 *결과(result)* 를 할당하게 됩니다. 따라서 코드 마지막 줄의 `onclick`엔 (함수가 아무것도 반환하지 않기 때문에)`undefined`이 대입되고, 원하는 대로 이벤트가 작동하지 않습니다. 
 
-...But in the markup we do need the brackets:
+...하지만 마크업(markup)에선 괄호가 필요합니다:
 
 ```html
 <input type="button" id="button" onclick="sayThanks()">
 ```
 
-The difference is easy to explain. When the browser reads the attribute, it creates a handler function with the body from its content.
+이 차이는 브라우저가 속성을 읽을 때 속성 값을 사용해 핸들러 함수를 만들기 때문에 발생합니다.
 
-So the last example is the same as:
+따라서 위 예시는 아래와 동일하게 작동합니다:
 ```js
 button.onclick = function() {
 *!*
-  sayThanks(); // the attribute content
+  sayThanks(); // 속성 내용
 */!*
 };
 ```
 
-**Use functions, not strings.**
+**문자열(strings)보다는 함수를 쓰세요.**
 
-The assignment `elem.onclick = "alert(1)"` would work too. It works for compatibility reasons, but strongly not recommended.
+`elem.onclick = "alert(1)"`은 잘 작동하긴 합니다(역주: 쌍따옴표로 둘러쌓인 문자열을 대입). 호환성 때문에 이렇게 작성해도 문제가 없도록 만들어졌지만, 이 방법을 쓰지 않기를 강력히 권고합니다.
 
 **Don't use `setAttribute` for handlers.**
 
