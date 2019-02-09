@@ -45,7 +45,7 @@ DOM 노드를 만드는 데는 두가지 방법이 있습니다:
     ```
 
 `document.createTextNode(text)`
-: 원하는 텍스트를 가지고 새로운 *text 노드* 만들기:
+: 원하는 텍스트를 가지고 새로운 *텍스트 노드* 만들기:
 
     ```js
     let textNode = document.createTextNode('안녕하세요');
@@ -446,7 +446,7 @@ We could make a function and put the code there. But the alternative way would b
 새로운 노드를 만들어주는 메서드:
 
 - `document.createElement(tag)` --  태그 이름을 가지고 새로운 요소 만들기,
-- `document.createTextNode(value)` -- 원하는 텍스트를 가지고 새로운 text 노드 만들기(거의 쓰이지 않음),
+- `document.createTextNode(value)` -- 원하는 텍스트를 가지고 새로운 텍스트 노드 만들기(거의 쓰이지 않음),
 - `elem.cloneNode(deep)` -- 요소를 복제함. 매개변수가 true 이면 자손 노드 전체를 복제.
 
 노드의 삽입과 삭제:
