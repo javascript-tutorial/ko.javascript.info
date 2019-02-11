@@ -168,15 +168,15 @@ try {
 ```
 
 
-## Using "try..catch"
+## "try..catch" 사용하기
 
-Let's explore a real-life use case of `try..catch`.
+`try..catch`의 실제 사례를 살펴봅시다.
 
-As we already know, JavaScript supports the [JSON.parse(str)](mdn:js/JSON/parse) method to read JSON-encoded values.
+이미 알고 있듯이, 자바스크립트는 JSON으로 암호화된 값을 읽을 수 있는 [JSON.parse(str)](mdn:js/JSON/parse) 메소드를 지원합니다.
 
-Usually it's used to decode data received over the network, from the server or another source.
+보통은 서버 또는 다른 출처로부터 네트워크를 통해 전달된 데이터를 복호화하는데 사용합니다.
 
-We receive it and call `JSON.parse`, like this:
+이를 전달받아 다음과 같이 `JSON.parse`을 호출합니다.
 
 ```js run
 let json = '{"name":"John", "age": 30}'; // data from the server
@@ -190,15 +190,15 @@ alert( user.name ); // John
 alert( user.age );  // 30
 ```
 
-You can find more detailed information about JSON in the <info:json> chapter.
+JSON에 대해 더 자세한 정보는 <info:json> 장에서 찾을 수 있습니다.
 
-**If `json` is malformed, `JSON.parse` generates an error, so the script "dies".**
+**만약 `json`이 잘못 구성되면, `JSON.parse`은 오류를 발생시키고, 스크립트는 "죽습니다".**
 
-Should we be satisfied with that? Of course, not!
+우리는 이에 만족해야 할까요? 당연히 아니죠!
 
-This way, if something's wrong with the data, the visitor will never know that (unless they open the developer console). And people really don't like when something "just dies" without any error message.
+이런 방식으로는, 데이터가 무언가 잘못되었을 경우 방문자는 (개발자 콘솔을 열 때까지) 그 사실을 절대 알 수 없습니다. 그리고 사람들은 에러 메시지 없이 무언가가 "그냥 죽는" 것을 좋아하지 않습니다.
 
-Let's use `try..catch` to handle the error:
+`try..catch`를 사용하여 오류를 처리해 봅시다.
 
 ```js run
 let json = "{ bad json }";
@@ -220,7 +220,7 @@ try {
 }
 ```
 
-Here we use the `catch` block only to show the message, but we can do much more: send a new network request, suggest an alternative to the visitor, send information about the error to a logging facility, ... . All much better than just dying.
+여기에서는 단지 메시지룰 보여주기 위해 `catch` 블록을 사용하지만, 더 많은 일을 할 수 있습니다. 네트워크 요청 보내기, 사용자에게 대안을 제안하기, 오류에 대한 정보를 로깅 장치에 보내기, ... . 모두 그냥 죽는 것보다 훨씬 낫습니다.
 
 ## Throwing our own errors
 
