@@ -29,7 +29,7 @@ let john = {
 john.sayHi(); // Hi buddy!
 ```
 
-그래서 여기서 우리는 sayHi라는 방법으로 john이라는 object를 만들었습니다.
+그래서 여기서 우리는 sayHi라는 메서드로 john이라는 object를 만들었습니다.
 
 날짜, 오류, HTML 요소 등으로 작동하는 객체와 같이 이미 내장된 객체가 많이 있습니다. 그들은 다른 속성과 메서드를을 가지고 있다.
 
@@ -62,7 +62,7 @@ let str = "Hello";
 alert( str.toUpperCase() ); // HELLO
 ```
 
-간단 하죠? 다음은`str.toUpperCase ()`에서 실제로 일어나는 일입니다 :
+간단 하죠? 다음은 `str.toUpperCase ()`에서 실제로 일어나는 일입니다 :
 
 1. 문자열 `str`은 primitive 입니다. 그래서 property에 접근하는 순간에, 문자열의 값을 알고,`toUpperCase()`와 같은 유용한 메서드를 가진 특별한 object가 생성됩니다.
 2. 이 메서드는 실행되어 새로운 문자열을 반환합니다 (`alert`로 나타납니다).
@@ -80,7 +80,7 @@ let n = 1.23456;
 alert( n.toFixed(2) ); // 1.23
 ```
 
-<info : number> 및 <info : string> 장에서 보다 구체적인 메서드를 볼 수 있습니다.
+<info:number> 및 <info:string> 장에서 보다 구체적인 메서드를 볼 수 있습니다.
 
 ````warn header="Constructors(생성자) `String/Number/Boolean` 는 내적 용도로만 사용합니다."
 Java와 같은 일부 언어는 `new Number(1)` 또는 `new Boolean(false)` 과 같은 syntax(구문)을 사용하여 명시 적으로 primitives 에 대해 "wrapper objects"를 만들 수 있습니다.
@@ -114,13 +114,14 @@ let num = Number("123"); // convert a string to number
 ```
 ````
 
-````warn header="null/undefined 는 메서드가 없습니다."
+````warn header="`null/undefined` 는 메서드가 없습니다."
 특수한 `null`과 `undefined` primitives는 예외입니다. 그들에는 대응하는 "wrapper objects"가 없고 메서드를 제공하지 않는다. 어떤 의미에서는, 그들은 "가장 원시적 인" 것입니다.
 
 이러한 값의 속성에 액세스하려고하면 오류가 발생합니다.
 
 ```js run
 alert(null.test); // error
+```
 ````
 
 ## 요약
