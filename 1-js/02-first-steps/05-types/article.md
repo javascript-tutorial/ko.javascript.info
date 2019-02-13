@@ -1,6 +1,6 @@
-# Data types
+# Data types(자료형)
 
-A variable in JavaScript can contain any data. A variable can at one moment be a string and at another be a number:
+JavaScript의 변수는 모든 데이터를 포함할 수 있습니다. 변수는 한 순간에 문자열이 될 수 있고 다음 순간에는 숫자도 될 수 있습니다:
 
 ```js
 // no error
@@ -8,63 +8,63 @@ let message = "hello";
 message = 123456;
 ```
 
-Programming languages that allow such things are called "dynamically typed", meaning that there are data types, but variables are not bound to any of them.
+이러한 것을 허용하는 프로그래밍 언어를 "다이나믹 타이핑"이라고 하는데, 이는 데이터 형식이 있지만 변수는 그 어느 것에도 구속되어 있지 않다는 것을 의미합니다.
 
-There are seven basic data types in JavaScript. Here, we'll cover them in general and in the next chapters we'll talk about each of them in detail.
+JavaScript에는 7 가지 기본 데이터 유형이 있습니다. 여기서는 전반적으로 다루고 다음 장에서는 각각에 대해 자세히 다룰 것입니다.
 
-## A number
+## A number(숫자 유형)
 
 ```js
 let n = 123;
 n = 12.345;
 ```
 
-The *number* type represents both integer and floating point numbers.
+*number* 유형은 정수 및 부동소수점 번호를 모두 나타낸다.
 
-There are many operations for numbers, e.g. multiplication `*`, division `/`, addition `+`, subtraction `-`, and so on.
+숫자에 대한 많은 연산이 있습니다. (예 : 곱하기 `*`, 나눗셈 `/`, 덧셈 `+`, 뺄셈 `-` 등이 있습니다.
 
-Besides regular numbers, there are so-called "special numeric values" which also belong to this data type: `Infinity`, `-Infinity` and `NaN`.
+일반 숫자 외에도 이 데이터 유형에 속하는 소위 "특수 숫자 값"이 있습니다 : `Infinity`, `-Infinity` 및 `NaN`.
 
-- `Infinity` represents the mathematical [Infinity](https://en.wikipedia.org/wiki/Infinity) ∞. It is a special value that's greater than any number.
+- '무한대'는 수학적 [무한대](https://en.wikipedia.org/wiki/Infinity) ∞를 나타냅니다. 어떤 숫자보다 큰 특별한 가치입니다.
 
-    We can get it as a result of division by zero:
+    우리는 0으로 나눈 결과로 얻을 수 있습니다:
 
     ```js run
     alert( 1 / 0 ); // Infinity
     ```
 
-    Or just reference it directly:
+    아니면 직접 참조하십시오:
 
     ```js run
     alert( Infinity ); // Infinity
     ```
-- `NaN` represents a computational error. It is a result of an incorrect or an undefined mathematical operation, for instance:
+- `NaN`은 계산상의 오류를 나타냅니다. 다음과 같이 부정확하거나 정의되지 않은 수학 연산의 결과입니다.
 
     ```js run
     alert( "not a number" / 2 ); // NaN, such division is erroneous
     ```
 
-    `NaN` is sticky. Any further operation on `NaN` returns `NaN`:
+    `NaN`은 여간해선 바뀌지 않습니다. `NaN`에 대한 어떠한 추가 연산도 `NaN`을 반환합니다. :
 
     ```js run
     alert( "not a number" / 2 + 5 ); // NaN
     ```
 
-    So, if there's a `NaN` somewhere in a mathematical expression, it propagates to the whole result.
+    따라서 `NaN`이 수학적 표현 어딘가에 있으면 모든 결과로 전파합니다. 
 
-```smart header="Mathematical operations are safe"
-Doing maths is "safe" in JavaScript. We can do anything: divide by zero, treat non-numeric strings as numbers, etc.
+```smart header="수학적 연산은 안전합니다."
+수학을하는 것은 JavaScript에서 "안전"합니다. 우리는 0으로 나누고 숫자가 아닌 문자열을 숫자로 취급하는 등의 작업을 할 수 있습니다.
 
-The script will never stop with a fatal error ("die"). At worst, we'll get `NaN` as the result.
+치명적인 오류 ("die")로 스크립트가 멈추지 않습니다. 최악의 경우 `NaN`을 결과로 얻습니다.
 ```
 
-Special numeric values formally belong to the "number" type. Of course they are not numbers in the common sense of this word.
+특수 숫자 값은 공식적으로 "number"유형에 속합니다. 물론 이 것들은 상식적으로 숫자가 아닙니다.
 
-We'll see more about working with numbers in the chapter <info:number>.
+이 장에서 우리는 숫자를 다루는 방법에 대해 더 자세히 알아볼 것입니다. <info:number>.
 
-## A string
+## A string(문자열)
 
-A string in JavaScript must be surrounded by quotes.
+JavaScript의 문자열은 따옴표로 묶어야합니다.
 
 ```js
 let str = "Hello";
@@ -72,15 +72,15 @@ let str2 = 'Single quotes are ok too';
 let phrase = `can embed ${str}`;
 ```
 
-In JavaScript, there are 3 types of quotes.
+JavaScript에는 세 가지 유형의 따옴표가 있습니다.
 
-1. Double quotes: `"Hello"`.
-2. Single quotes: `'Hello'`.
-3. Backticks: <code>&#96;Hello&#96;</code>.
+1. 큰 따옴표: `"Hello"`.
+2. 작은 따옴표: `'Hello'`.
+3. Backticks(백틱-역 따옴표): <code>&#96;Hello&#96;</code>.
 
-Double and single quotes are "simple" quotes. There's no difference between them in JavaScript.
+큰 따옴표와 작은 따옴표는 "간단한"따옴표입니다. JavaScript에는 차이점이 없습니다.
 
-Backticks are "extended functionality" quotes. They allow us to embed variables and expressions into a string by wrapping them in `${…}`, for example:
+Backticks는 "확장 된 기능"을 가진 따옴표입니다. 그것들은 `${…}`에서 변수와 표현식을 Backticks로 감싸진 문자열 안에 끼워 넣을수 있게합니다. 예를 들면 :
 
 ```js run
 let name = "John";
