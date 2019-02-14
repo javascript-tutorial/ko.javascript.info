@@ -108,7 +108,6 @@ try {
 }
 ```
 
-That's because `try..catch` actually wraps the `setTimeout` call that schedules the function. But the function itself is executed later, when the engine has already left the `try..catch` construct.
 왜냐하면 `try..catch`는 실제로는 함수를 스케줄하는 `setTimeout` 호출을 감싸고 있는 것이기 때문입니다. 하지만 함수 자체는 엔진이 `try..catch` 구문을 떠나버린 나중 시점에 실행됩니다.
 
 스케줄된 함수 내부의 예외를 잡으려면, `try..catch`가 함수 내부에 있어야 합니다.
@@ -149,7 +148,7 @@ try {
 `stack`
 : 현재 호출 스택: 오류로 이어지는 중첩 호출의 나열에 대한 정보를 가진 문자열. 디버깅 목적으로 사용.
 
-For instance:
+예를 들어,
 
 ```js run untrusted
 try {
@@ -222,11 +221,11 @@ try {
 
 여기에서는 단지 메시지룰 보여주기 위해 `catch` 블록을 사용하지만, 더 많은 일을 할 수 있습니다. 네트워크 요청 보내기, 사용자에게 대안을 제안하기, 오류에 대한 정보를 로깅 장치에 보내기, ... . 모두 그냥 죽는 것보다 훨씬 낫습니다.
 
-## Throwing our own errors
+## 자체 오류 던지기
 
-What if `json` is syntactically correct, but doesn't have a required `name` property?
+만약 `json`이 문법적으로 정확하지만, 필수 속성인 `name`이 없다면 어떨까요?
 
-Like this:
+다음처럼 말이죠.
 
 ```js run
 let json = '{ "age": 30 }'; // incomplete data
@@ -243,25 +242,25 @@ try {
 }
 ```
 
-Here `JSON.parse` runs normally, but the absence of `name` is actually an error for us.
+여기에서 `JSON.parse` 는 정상적으로 동작하지만, `name`의 부재는 우리에게는 실제로 오류입니다.
 
-To unify error handling, we'll use the `throw` operator.
+오류 처리를 통합하기 위해, 우리는 `throw` 연산자를 사용할 것입니다.
 
-### "Throw" operator
+### "Throw" 연산자
 
-The `throw` operator generates an error.
+`throw` 연산자는 오류를 생성합니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 throw <error object>
 ```
 
-Technically, we can use anything as an error object. That may be even a primitive, like a number or a string, but it's better to use objects, preferably with `name` and `message` properties (to stay somewhat compatible with built-in errors).
+이론적으로는 아무 것이나 오류 객체로 사용할 수 있습니다. 심지어 숫자, 문자열 같은 원시 타입도 되지만, 객체를 사용하는 것이 좋고 가급적이면 `name`과 `message` 속성과 사용합니다. (내장 오류와 호환이 되도록).
 
-JavaScript has many built-in constructors for standard errors: `Error`, `SyntaxError`, `ReferenceError`, `TypeError` and others. We can use them to create error objects as well.
+자바스크립트는 많은 표준 오류를 위한 내장 생성자를 가지고 있습니다. `Error`, `SyntaxError`, `ReferenceError`, `TypeError`등입니다. 이들을 오류 객체를 생성하는데 사용할 수도 있습니다.
 
-Their syntax is:
+문법은 이렇습니다.
 
 ```js
 let error = new Error(message);
@@ -271,9 +270,9 @@ let error = new ReferenceError(message);
 // ...
 ```
 
-For built-in errors (not for any objects, just for errors), the `name` property is exactly the name of the constructor. And `message` is taken from the argument.
+내장 오류에서(아무 객체나가 아닌 오류만에서만), `name` 속성은 정확히 생성자의 이름입니다. 그리고 `message`는 인수로부터 가져와집니다.
 
-For instance:
+예를 들면,
 
 ```js run
 let error = new Error("Things happen o_O");
@@ -282,7 +281,7 @@ alert(error.name); // Error
 alert(error.message); // Things happen o_O
 ```
 
-Let's see what kind of error `JSON.parse` generates:
+`JSON.parse`이 어떤 종류의 오류를 생성하는지 봅시다.
 
 ```js run
 try {
@@ -295,11 +294,11 @@ try {
 }
 ```
 
-As we can see, that's a `SyntaxError`.
+보다시피 `SyntaxError`입니다.
 
-And in our case, the absence of `name` could be treated as a syntax error also, assuming that users must have a `name`.
+우리의 경우에서는, 사용자가 반드시 `name`을 가져야만 한다고 가정하며 `name`의 부재 역시 문법 오류로 처리될 것입니다.
 
-So let's throw it:
+그럼 던져봅시다.
 
 ```js run
 let json = '{ "age": 30 }'; // incomplete data
@@ -321,15 +320,15 @@ try {
 }
 ```
 
-In the line `(*)`, the `throw` operator generates a `SyntaxError` with the given `message`, the same way as JavaScript would generate it itself. The execution of `try` immediately stops and the control flow jumps into `catch`.
+`(*)` 줄에서, `throw` 연산자는 주어진 `message`를 가지고 `SyntaxError`를 생성하는데, 이는 자바스크립트가 자체적으로 생성하는 방식과 동일합니다. `try`의 실행은 즉시 중단되고 제어 흐름은 `catch`으로 뛰어넘습니다.
 
-Now `catch` became a single place for all error handling: both for `JSON.parse` and other cases.
+이제 `catch`는 모든 에러를 처리하는 단 한 곳이 되었고, `JSON.parse`와 다른 경우들을 모두 처리합니다.
 
-## Rethrowing
+## 다시 던지기
 
-In the example above we use `try..catch` to handle incorrect data. But is it possible that *another unexpected error* occurs within the `try {...}` block? Like a variable is undefined or something else, not just that "incorrect data" thing.
+위의 예제들에서는 `try..catch`를 사용하여 틀린 데이터를 처리했습니다. 그런데 *또다른 예기치 않은 오류*가 `try {...}` 블록 안에서 발생하는 것이 가능할까요? 가령 변수가 undefined이거나 또는 "틀린 데이터"인 예처럼 다른 무언가이거나요.
 
-Like this:
+다음처럼요.
 
 ```js run
 let json = '{ "age": 30 }'; // incomplete data
@@ -344,11 +343,11 @@ try {
 }
 ```
 
-Of course, everything's possible! Programmers do make mistakes. Even in open-source utilities used by millions for decades -- suddenly a crazy bug may be discovered that leads to terrible hacks (like it happened with the `ssh` tool).
+당연히 모든 일이 일어날 수 있습니다! 프로그래머들은 실수를 합니다. 심지어 몇 십년간 몇 백만명이 사용한 오픈소스 유틸리티에서도요 -- 끔찍한 해킹으로 이어질 수 있는 엄청난 버그가 갑자기 발견될 수 있습니다(`ssh` 툴에서도 벌어진 일입니다).
 
-In our case, `try..catch` is meant to catch "incorrect data" errors. But by its nature, `catch` gets *all* errors from `try`. Here it gets an unexpected error, but still shows the same `"JSON Error"` message. That's wrong and also makes the code more difficult to debug.
+우리의 경우에서는, `try..catch`는 "틀린 데이터"를 잡기 위한 것이었습니다. 하지만 근본적으로, `catch`는 `try`의 *모든* 오류들을 잡습니다. 여기에서는 예기치 못한 오류를 잡지만, 여전히 동일한 "JSON Error"를 보여줍니다. 그것은 잘못된 것이며 또한 코드를 더 디버깅하기 어렵게 만듭니다.
 
-Fortunately, we can find out which error we get, for instance from its `name`:
+다행스럽게도, 우리는 잡은 오류가 무엇인지 알아낼 수 있습니다. 예를 들어 `name`에서 얻어낼 수 있습니다.
 
 ```js run
 try {
@@ -360,17 +359,18 @@ try {
 }
 ```
 
-The rule is simple:
+규칙은 간단합니다.
 
-**Catch should only process errors that it knows and "rethrow" all others.**
+**Catch는 알고 있는 오류들만 처리하고 나머지 오류들은 모두 "다시 던져야" 합니다.**
 
-The "rethrowing" technique can be explained in more detail as:
+"다시 던지기" 기술을 더 자세히 설명하면,
 
-1. Catch gets all errors.
-2. In `catch(err) {...}` block we analyze the error object `err`.
-2. If we don't know how to handle it, then we do `throw err`.
+1. Catch가 모든 오류들을 잡습니다.
+2. `catch(err) {...}` 블록에서 `err` 객체를 분석합니다.
+2. 어떻게 처리할지 모르면 `throw err`를 합니다.
 
 In the code below, we use rethrowing so that `catch` only handles `SyntaxError`:
+아래 코드에서는, 다시 던지기를 사용하여 `catch`가 `SyntaxError`만 처리합니다.
 
 ```js run
 let json = '{ "age": 30 }'; // incomplete data
@@ -401,11 +401,11 @@ try {
 }
 ```
 
-The error throwing on line `(*)` from inside `catch` block "falls out" of `try..catch` and can be either caught by an outer `try..catch` construct (if it exists), or it kills the script.
+`(*)` 줄에서 안쪽 `catch` 블록에서 던져진 오류는 `try..catch`에서 "떨어져 나와서" 바깥쪽 `try..catch`(존재한다면)에서 잡히거나, 스크립트를 죽이게 됩니다.
 
-So the `catch` block actually handles only errors that it knows how to deal with and "skips" all others.
+이렇게 `catch` 블록은 실제로 어떻게 다루어야 할지 알고 있는 오류들만 처리하고 나머지는 "스킵"합니다.
 
-The example below demonstrates how such errors can be caught by one more level of `try..catch`:
+아래 예제에서는 이런 오류들을 어떻게 `try..catch` 한 단계 위의 레벨에서 잡을 수 있는지 시연합니다.
 
 ```js run
 function readData() {
@@ -435,20 +435,20 @@ try {
 }
 ```
 
-Here `readData` only knows how to handle `SyntaxError`, while the outer `try..catch` knows how to handle everything.
+여기에서 `readData`는 `SyntaxError`를 다루는 방법만 알고 있고, 바깥쪽 `try..catch`는 모든 것을 다루는 방법을 압니다.
 
 ## try..catch..finally
 
-Wait, that's not all.
+잠깐만요, 이게 다가 아닙니다.
 
-The `try..catch` construct may have one more code clause: `finally`.
+`try..catch`문은 `finally`라는 코드 절을 하나 더 가질 수 있습니다.
 
-If it exists, it runs in all cases:
+만약 존재한다면, 모든 경우에 대해 실행됩니다. 
 
-- after `try`, if there were no errors,
-- after `catch`, if there were errors.
+- 오류가 없는 경우, `try` 후에,
+- 오류가 있는 경우, `catch` 뒤에.
 
-The extended syntax looks like this:
+확장된 문법은 다음과 같습니다.
 
 ```js
 *!*try*/!* {
@@ -460,7 +460,7 @@ The extended syntax looks like this:
 }
 ```
 
-Try running this code:
+다음 코드를 실행해보세요.
 
 ```js run
 try {
@@ -473,18 +473,18 @@ try {
 }
 ```
 
-The code has two ways of execution:
+이 코드에는 두 가지 실행 경로가 있습니다.
 
-1. If you answer "Yes" to "Make an error?", then `try -> catch -> finally`.
-2. If you say "No", then `try -> finally`.
+1. "Make an error?"에 "Yes"로 답하면, `try -> catch -> finally`.
+2. "No"로 하면, `try -> finally`.
 
-The `finally` clause is often used when we start doing something before `try..catch` and want to finalize it in any case of outcome.
+`finally` 절은 `try..catch` 전에 무언가를 시작하고 그것을 결과에 상관없이 완료하고 싶을 경우 사용됩니다.
 
-For instance, we want to measure the time that a Fibonacci numbers function `fib(n)` takes. Naturally, we can start measuring before it runs and finish afterwards. But what if there's an error during the function call? In particular, the implementation of `fib(n)` in the code below returns an error for negative or non-integer numbers.
+가령, 피보나치 함수 `fib(n)`의 시간을 측정하고 싶습니다. 자연히 실행 전에 측정을 시작하고 그 후에 종료할 수 있습니다. 그런데 함수 호출하는 도중에 오류가 있다면 어떻게 될까요? 구체적으로, 아래 코드에서 `fib(n)`의 실행은 음수 또는 정수가 아닌 수에 대한 오류를 리턴합니다.
 
-The `finally` clause is a great place to finish the measurements no matter what.
+`finally` 절은 측정을 종료하기 아주 좋은 장소입니다.
 
-Here `finally` guarantees that the time will be measured correctly in both situations -- in case of a successful execution of `fib` and in case of an error in it:
+여기에서 `finally`는 시간이 `fib`이 정상적으로 실행되는 경우, 그리고 오류가 있는 경우, 두가지 상황에서 모두 올바르게 측정될 것이라는 사실을 보장합니다. 
 
 ```js run
 let num = +prompt("Enter a positive integer number?", 35)
@@ -515,15 +515,14 @@ alert(result || "error occured");
 alert( `execution took ${diff}ms` );
 ```
 
-You can check by running the code with entering `35` into `prompt` -- it executes normally, `finally` after `try`. And then enter `-1` -- there will be an immediate error, an the execution will take `0ms`. Both measurements are done correctly.
+코드를 실행하고 `35`를 `prompt`에 입력하면 확인할 수 있습니다. -- 정상적으로 `try` 다음에 `finally`가 실행됩니다. 그리고나서 `-1`를 입력하면 -- 즉시 `0ms` 시간이라는 오류가 나올 것입니다. 두 경우 다 측정이 정상적으로 이루어집니다.
 
-In other words, there may be two ways to exit a function: either a `return` or `throw`. The `finally` clause handles them both.
+다른 말로 하면, 함수를 나가는 두 가지 경로가 있을 수 있습니다. `return` 또는 `throw`입니다. `finally` 절은 두 경우 둘 다 처리할 수 있습니다.
 
+```smart header="`try..catch..finally` 안의 변수들은 로컬 변수입니다"
+위의 코드에서 `result`와 `diff` 변수들은 `try..catch` *이전*에 선언되었다는 사실에 주의하세요.
 
-```smart header="Variables are local inside `try..catch..finally`"
-Please note that `result` and `diff` variables in the code above are declared *before* `try..catch`.
-
-Otherwise, if `let` were made inside the `{...}` block, it would only be visible inside of it.
+그렇지 않고, 만약 `{...}` 블록 안에서 `let`을 했다면, 그 안에서만 가시성을 가집니다.
 ```
 
 ````smart header="`finally` and `return`"
@@ -554,7 +553,7 @@ alert( func() ); // first works alert from finally, and then this one
 
 ````smart header="`try..finally`"
 
-The `try..finally` construct, without `catch` clause, is also useful. We apply it when we don't want to handle errors right here, but want to be sure that processes that we started are finalized.
+`catch` 절이 없는 `try..finally` 구문도 유용합니다. 당장 여기에서는 오류를 처리하고 싶지 않지만, 시작한 프로세스가 완료되기를 원할 경우에 이를 사용합니다.
 
 ```js
 function func() {
@@ -566,22 +565,22 @@ function func() {
   }
 }
 ```
-In the code above, an error inside `try` always falls out, because there's no `catch`. But `finally` works before the execution flow jumps outside.
+위의 코드에서는, `try` 안의 오류는 `catch`가 없기 때문에 항상 떨어져 나옵니다. 그러나 실행 흐름이 바깥으로 나가기 전에 `finally`가 실행됩니다.
 ````
 
-## Global catch
+## 전역 catch
 
 ```warn header="Environment-specific"
-The information from this section is not a part of the core JavaScript.
+이 장의 정보는 코어 자바스크립트의 일부가 아닙니다.
 ```
 
-Let's imagine we've got a fatal error outside of `try..catch`, and the script died. Like a programming error or something else terrible.
+`try..catch` 바깥에 프로그래밍 오류나 끔찍한 다른 무언가처럼 치명적인 오류가 있어서 스크립트가 죽었다고 상상해봅시다. 
 
-Is there a way to react on such occurrences? We may want to log the error, show something to the user (normally they don't see error messages) etc.
+이런 상황에 대응하는 방법이 있을까요? 오류를 기록하거나, 사용자에게 무언가 보여주는 것(정상적이라면 오류 메시지는 보이지 않습니다) 등을 원할 수 있습니다.
 
-There is none in the specification, but environments usually provide it, because it's really useful. For instance, Node.JS has [process.on('uncaughtException')](https://nodejs.org/api/process.html#process_event_uncaughtexception) for that. And in the browser we can assign a function to special [window.onerror](mdn:api/GlobalEventHandlers/onerror) property. It will run in case of an uncaught error.
+명세에는 없지만, 아주 유용하기 때문에 환경에서는 일반적으로 기능을 제공합니다. 가령, Node.JS에는 [process.on('uncaughtException')](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 있습니다. 그리고 브라우저에서 특별한 [window.onerror](mdn:api/GlobalEventHandlers/onerror) 속성에 함수를 할당할 수 있습니다. 잡히지 않은 오류가 있는 경우에 실행됩니다.
 
-The syntax:
+문법은 이렇습니다.
 
 ```js
 window.onerror = function(message, url, line, col, error) {
@@ -590,18 +589,18 @@ window.onerror = function(message, url, line, col, error) {
 ```
 
 `message`
-: Error message.
+: 오류 메시지.
 
 `url`
-: URL of the script where error happened.
+: 오류가 발생한 스크립트의 URL.
 
 `line`, `col`
-: Line and column numbers where error happened.
+: 오류가 발생한 줄과 열 번호.
 
 `error`
-: Error object.
+: 오류 객체.
 
-For instance:
+예를 들면,
 
 ```html run untrusted refresh height=1
 <script>
@@ -619,22 +618,22 @@ For instance:
 </script>
 ```
 
-The role of the global handler `window.onerror` is usually not to recover the script execution -- that's probably impossible in case of programming errors, but to send the error message to developers.
+전역 처리기 `window.onerror`의 용도는 보통 스크립트 실행을 복구하고자 하는 것이 아니며(프로그래밍 오류인 경우 아마 불가능할 것입니다), 개발자에게 오류 메시지를 보내기 위한 것입니다.
 
-There are also web-services that provide error-logging for such cases, like <https://errorception.com> or <http://www.muscula.com>.
+<https://errorception.com> 또는 <http://www.muscula.com>처럼 이런 경우를 위한 오류 로깅을 제공하는 웹서비스들도 있습니다.
 
-They work like this:
+이들은 다음처럼 동작합니다.
 
-1. We register at the service and get a piece of JS (or a script URL) from them to insert on pages.
-2. That JS script has a custom `window.onerror` function.
-3. When an error occurs, it sends a network request about it to the service.
-4. We can log in to the service web interface and see errors.
+1. 서비스에 등록하고 JS 코드 조각 (또는 스크립트 URL)을 가져와서 페이지에 삽입합니다.
+2. 그 JS 스크립트에는 커스텀 `window.onerror` 메소드가 있습니다.
+3. 오류가 발생하면, 서비스로 이에 대한 네트워크 요청을 보냅니다.
+4. 서비스 웹 인터페이스에 로그인하고 오류를 볼 수 있습니다.
 
-## Summary
+## 정리
 
-The `try..catch` construct allows to handle runtime errors. It literally allows to try running the code and catch errors that may occur in it.
+`try..catch` 구문은 런타임 오류들을 처리할 수 있게 합니다. 말 그대로 코드 실행을 시도하고 발생할 수 있는 오류를 잡습니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 try {
@@ -647,16 +646,16 @@ try {
 }
 ```
 
-There may be no `catch` section or no `finally`, so `try..catch` and `try..finally` are also valid.
+`catch` 장이나 `finally` 장이 없으므로, `try..catch`와 `try..finally`만 가능하겠지요.
 
-Error objects have following properties:
+오류 객체들은 다음 속성들을 가집니다.
 
-- `message` -- the human-readable error message.
-- `name` -- the string with error name (error constructor name).
-- `stack` (non-standard) -- the stack at the moment of error creation.
+- `message` -- 사람이 읽을 수 있는 형태의 오류 메시지.
+- `name` -- 오류 이름 문자열 (오류 생성자 이름).
+- `stack` (표준 아님) -- 오류가 생성되는 순간의 스택.
 
-We can also generate our own errors using the `throw` operator. Technically, the argument of `throw` can be anything, but usually it's an error object inheriting from the built-in `Error` class. More on extending errors in the next chapter.
+`throw` 연산자를 사용하면 자체 오류도 생성할 수 있습니다. 이론적으로, `throw`의 인수로는 아무 것이나 가능하지만, 일반적으로 내장 `Error` 클래스에서 상속받은 오류 객체를 사용합니다. 다음 장에 확장 오류들이 더 나옵니다.
 
-Rethrowing is a basic pattern of error handling: a `catch` block usually expects and knows how to handle the particular error type, so it should rethrow errors it doesn't know.
+다시 던지기는 오류 처리의 기본 패턴입니다. 일반적으로 `catch` 블록은 어떤 특정한 오류 종류들이 나올 것인지, 이 오류들을 어떻게 다룰지 알고 있으므로, 알지 못하는 오류들은 다시 던지기를 해야 합니다. 
 
-Even if we don't have `try..catch`, most environments allow to setup a "global" error handler to catch errors that "fall out". In-browser that's `window.onerror`.
+`try..catch`를 사용하지 않더라도, 대다수의 환경에서는 "전역" 오류 처리기를 설정하여 "떨어져 나온" 오류들을 잡는데 사용합니다. 브라우저에서는 `window.onerror`입니다.
