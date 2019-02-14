@@ -92,7 +92,6 @@ alert( `Hello, *!*${name}*/!*!` ); // Hello, John!
 alert( `the result is *!*${1 + 2}*/!*` ); // the result is 3
 ```
 
-The expression inside `${…}` is evaluated and the result becomes a part of the string. We can put anything in there: a variable like `name` or an arithmetical expression like `1 + 2` or something more complex.
 `${…}` 내부의 표현식이 평가되고 결과는 문자열의 일부가 됩니다. 우리는 거기에 무엇이든 넣을 수 있습니다: `name` 이나 `1 + 2` 와 같은 수학적 표현식 이나 좀더 복잡한 것들을 말입니다. 
 
 이 방법은 백틱에서만 수행할 수 있습니다. 다른 따옴표에는 이 포함 기능이 없습니다!
@@ -142,10 +141,8 @@ let age = null;
 
 JavaScript에서 `null`은 다른 언어와 마찬가지로 "존재하지 않는 object에 대한 참조" 또는 "null pointer"가 아닙니다.
 
-<!-- It's just a special value which represents "nothing", "empty" or "value unknown". -->
 이것은 "nothing"(아무것도 아닌), "empty"(빈) 또는 "unknown"(알수없는)을 나타내는 특별한 값입니다.
 
-The code above states that `age` is unknown or empty for some reason.
 위의 코드는 무슨 이유에서인지 `age`이 unknown 이거나 empty 라고 말합니다.
 
 ## The "undefined" value ("정의되지 않은" 값입니다)
@@ -162,7 +159,6 @@ let x;
 alert(x); // shows "undefined"
 ```
 
-Technically, it is possible to assign `undefined` to any variable:
 기술적으로, 어떠한 변수에도 `undefined`를 할당할 수 있습니다 :
 
 ```js run
@@ -173,22 +169,18 @@ x = undefined;
 alert(x); // "undefined"
 ```
 
-...But we don't recommend doing that. Normally, we use `null` to assign an "empty" or "unknown" value to a variable, and we use `undefined` for checks like seeing if a variable has been assigned.
 ...그러나 우리는 그렇게하는 것을 권장하지 않습니다. 일반적으로 변수에 "empty"또는 "unknown"값을 할당하기 위해`null`을 사용하고, 변수가 할당되었는지 확인하는 것과 같은 검사에는 `undefined`를 사용합니다.
 
 ## Objects and Symbols(객체와 심볼)
 
 `object` 유형은 특별합니다.
 
-All other types are called "primitive" because their values can contain only a single thing (be it a string or a number or whatever). In contrast, objects are used to store collections of data and more complex entities. We'll deal with them later in the chapter 
 다른 모든 유형은 그 값이 한 가지만 포함 할 수 있기 때문에 "primitive"(원시 자료형) 라고 합니다. (그것은 문자열이나 숫자 또는 무엇이든 될 수 있습니다). 대조적으로 objects는 데이터 모음과 더 복잡한 엔터티를 저장하는 데 사용됩니다. 우리가 primitives 에 대해 더 많이 배우고 나서 나중에 이 장에서 다룰 것입니다. <info:object>
 
-The `symbol` type is used to create unique identifiers for objects. We have to mention it here for completeness, but it's better to study this type after objects.
 `symbol` 유형은 objects에 대한 고유한 식별자(unique identifiers)를 생성하는 데 사용됩니다. 완전한 설명을 위해 여기서 언급해야 하지만, objects를 공부한 이후에 이 유형을 공부하는 것이 더 좋습니다. 
 
 ## The typeof operator(typeof 연산자) [#type-typeof] 
 
-The `typeof` operator returns the type of the argument. It's useful when we want to process values of different types differently or just want to do a quick check.
 `typeof` 연산자는 argument(인수)의 타입을 반환합니다. 다른 유형의 값을 다르게 처리하거나 빠른 검사를 하고 싶을 때 유용합니다.
 
 그것은 두 가지 형태의 syntax(구문)을 지원합니다 :
@@ -196,9 +188,8 @@ The `typeof` operator returns the type of the argument. It's useful when we want
 1. As an operator(연산자): `typeof x`.
 2. As a function(함수): `typeof(x)`.
 
-다시 말해, 괄호가 있든 없든, 괄호가 작동합니다. 결과는 같습니다.
+다시 말해, 괄호가 있든 없든 이것은 괄호로 작동합니다. 결과는 같습니다.
 
-The call to `typeof x` returns a string with the type name:
 `typeof x` 호출은 자료형 이름의 문자열을 반환합니다:
 
 ```js
@@ -227,29 +218,27 @@ typeof alert // "function"  (3)
 
 마지막 세 줄에는 추가 설명이 필요할 수 있습니다:
 
-1. `Math`은 수학 연산을 제공하는 내장된 대상이다. 우리는 이 장에서 배울 것입니다.<info:number>. 여기서는 object의 예처럼 사용됩니다.
-2. `typeof null`의 결과는 `"object"`입니다. 그건 틀렸습니다. 호환성을 위해 보관 된 `typeof`에서 공식적으로 인정되는 오류입니다. 물론 `null`은 object가 아닙니다. 별도의 고유한 유형의 특수 값입니다. 다시 말하지만 이것은 언어의 오류입니다.
+1. `Math`은 수학 연산을 제공하는 내장된 object입니다. 우리는 이것을 <info:number> 챕터에서 배울 것입니다. 여기서는 이것을 object의 예로서 사용합니다.
+2. `typeof null`의 결과는 `"object"`입니다. 이 결과는 잘못됐습니다. 호환성을 위해 보관 된 `typeof`에서 공식적으로 인정되는 오류입니다. 물론 `null`은 object가 아닙니다. 별도의 고유한 유형의 특수 값입니다. 다시 말하지만 이것은 언어의 오류입니다.
+3. `alert`는 언어의 함수이기 때문에 `typeof alert`의 결과는 `"function"`입니다. 우리는 다음 장에서 function을 공부할 것이고, JavaScript에는 특별히 "function"유형이 없다는 것에 대해 볼겁니다. Functions는 object 유형에 속합니다. 그러나 `typeof`는 그것들을 다르게 취급합니다. 형식적으로는 잘못되었지만 실제로는 매우 편리합니다. 
 
-3. The result of `typeof alert` is `"function"`, because `alert` is a function of the language. We'll study functions in the next chapters where we'll see that there's no special "function" type in JavaScript. Functions belong to the object type. But `typeof` treats them differently. Formally, it's incorrect, but very convenient in practice.
-`alert '는 언어의 함수이기 때문에`typeof alert`의 결과는``function "`입니다. 우리는 다음 장에서 JavaScript에서 특별한 "함수"유형이 없다는 것을 알게 될 함수를 연구 할 것입니다. 함수는 오브젝트 유형에 속합니다. 그러나`typeof`는 그것들을 다르게 취급합니다. 형식적으로는 잘못되었지만 실제로는 매우 편리합니다.
+## 요약
 
+JavaScript에는 7 가지 기본 유형이 있습니다.
 
-## Summary
+- 어떠한 종류의 숫자 위한 `number`: 정수 또는 부동 소수점.
+- 문자열을 위한 `string`. 문자열에는 하나 이상의 문자가 있을 수 있으며, 별도의 단일 문자 유형은 없습니다.
+- `true`/`false`(참/거짓)을 위한 `boolean`.
+- 알 수 없는 값의 `null` -- 단일 값 `null` 을 가진 독립 유형입니다.
+- 할당되지 않은 값을 위한 `undefined`- 단일 값 `undefined`인 가진 독립 유형입니다.
+- 더 복잡한 자료 구조를 위한 `object`
+- 고유한 식별자를 위한 `symbol`
 
-There are 7 basic types in JavaScript.
+`typeof` 연산자는 어떤 타입이 변수에 저장되어 있는지를 알려줍니다.
 
-- `number` for numbers of any kind: integer or floating-point.
-- `string` for strings. A string may have one or more characters, there's no separate single-character type.
-- `boolean` for `true`/`false`.
-- `null` for unknown values -- a standalone type that has a single value `null`.
-- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
-- `object` for more complex data structures.
-- `symbol` for unique identifiers.
-
-The `typeof` operator allows us to see which type is stored in a variable.
-
-- Two forms: `typeof x` or `typeof(x)`.
-- Returns a string with the name of the type, like `"string"`.
+- 2가지 형식: `typeof x` 이거나 `typeof(x)`.
+- `"string"`과 같이 타입의 이름을 가진 문자열을 반환합니다.
 - For `null` returns `"object"` -- this is an error in the language, it's not actually an object.
+- `null`은 `"object"`를 반환합니다. -- 이것은 이 언어의 오류 입니다. 실제로는 object가 아닙니다. 
 
-In the next chapters, we'll concentrate on primitive values and once we're familiar with them, we'll move on to objects.
+다음 장에서는 primitive 값에 대해 살펴보고 일단 익숙해지면 objects 로 넘어갑니다.
