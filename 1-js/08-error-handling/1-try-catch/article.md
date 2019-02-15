@@ -1,10 +1,10 @@
-# Error handling, "try..catch"
+# "try..catch"로 에러 핸들링(Error handling) 
 
-아무리 프로그래밍에 능하더라도, 때때로 스크립트에는 오류가 있습니다. 원인은 아마도 실수이거나, 예상치 못한 사용자 입력이나 잘못된 서버 응답, 그 밖에 수천만가지 다른 이유들로 인한 것입니다.
+아무리 프로그래밍에 능한 사람이더라도, 오류가 있는 스크립트를 작성할 수 있습니다. 원인은 아마도 실수, 예상치 못한 사용자 입력, 잘못된 서버 응답, 그 밖에 수천만 가지 다른 이유 때문일 것입니다.
 
-보통, 오류인 경우에 스크립트는 "죽으면서" (즉시 중단되면서), 콘솔에 오류를 출력합니다.
+보통 오류가 발생하면 스크립트는 "죽으면서" (즉시 중단되면서), 콘솔에 오류를 출력합니다.
 
-그러나 `try..catch` 문법을 사용하면 오류를 "잡아서", 죽는 대신에 더 합당한 무언가를 할 수 있게 됩니다.
+그러나 `try..catch` 문법을 사용하면, 죽는 대신에 오류를 "잡아서" 더 합당한 무언가를 할 수 있게 됩니다.
 
 ## "try..catch" 문법
 
@@ -13,24 +13,24 @@
 ```js
 try {
 
-  // code...
+  // 코드...
 
 } catch (err) {
 
-  // error handling
+  // 에러 핸들링
 
 }
 ```
 
 이는 다음처럼 동작합니다.
 
-1. 먼저, `try {...}` 안의 코드가 실행됩니다.
-2. 만약 오류가 없다면, `catch(err)`는 무시되고, `try`의 끝까지 실행되고나면 `catch`로 뛰어넘습니다.
-3. 만약 오류가 있으면, `try` 실행이 중단되고, `catch(err)`의 첫부분으로 넘어갑니다. `err` 변수(아무 이름이나 사용 가능)는 무슨 일이 일어났는지 상세를 담은 오류 개체를 포함합니다.
+1. 먼저, `try {...}` 안의 코드를 실행합니다.
+2. 만약 오류가 없다면, `catch(err)` 블록은 무시됩니다: `try`의 안의 마지막 줄까지 실행되면 `catch`는 건너뜁니다.
+3. 만약 오류가 있으면, `try` 실행이 중단되고, `catch(err)` 블록의 첫부분으로 넘어갑니다. `err` 변수(아무 이름이나 사용 가능)는 무슨 일이 일어났는지를 상세히 설명하는 오류 개체를 포함합니다.
 
 ![](try-catch-flow.png)
 
-그래서, `try {…}` 블록 안쪽의 오류는 스크립트를 죽이지 않고, `catch`에서 다룰 수 있는 기회가 생깁니다.
+이런 동작 때문에 `try {…}` 블록 안쪽에 오류가 있는 코드가 있더라도 스크립트는 죽지 않습니다: `catch`에서 에러를 다룰 수 있는 기회가 생깁니다.
 
 예제를 좀 더 봅시다.
 
@@ -39,84 +39,83 @@ try {
     ```js run
     try {
 
-      alert('Start of try runs');  // *!*(1) <--*/!*
+      alert('try 블록 시작');  // *!*(1) <--*/!*
 
-      // ...no errors here
+      // ...에러가 없습니다.
 
-      alert('End of try runs');   // *!*(2) <--*/!*
+      alert('try 블록 끝');   // *!*(2) <--*/!*
 
     } catch(err) {
 
-      alert('Catch is ignored, because there are no errors'); // (3)
+      alert('에러가 없으므로, Catch는 무시되었습니다.'); // (3)
 
     }
 
-    alert("...Then the execution continues");
+    alert("...실행이 계속 됩니다");
     ```
 - 오류가 있는 예제로, `(1)`과 `(3)`을 보여줍니다.
 
     ```js run
     try {
 
-      alert('Start of try runs');  // *!*(1) <--*/!*
+      alert('try 블록 시작');  // *!*(1) <--*/!*
 
     *!*
-      lalala; // error, variable is not defined!
+      lalala; // 에러, 변수가 정의되지 않음!
     */!*
 
-      alert('End of try (never reached)');  // (2)
+      alert('try 블록 끝(절대 도달하지 않음)');  // (2)
 
     } catch(err) {
 
-      alert(`Error has occured!`); // *!*(3) <--*/!*
+      alert(`에러가 발생했습니다!`); // *!*(3) <--*/!*
 
     }
 
-    alert("...Then the execution continues");
+    alert("...실행이 계속 됩니다");
     ```
 
 
 ````warn header="`try..catch`는 오직 런타임 오류에만 동작합니다."
 `try..catch`가 동작하려면, 코드가 실행 가능해야 합니다. 다시 말하면, 유효한 자바스크립트여야 합니다.
 
-만약 코드가 문법적으로 틀리면 동작하지 않을 것입니다. 중괄호 짝이 안 맞는 것을 예로 들 수 있습니다.
+중괄호 짝이 안 맞는 것처럼 코드가 문법적으로 틀리다면 동작하지 않을 것입니다
 
 ```js run
 try {
   {{{{{{{{{{{{
 } catch(e) {
-  alert("The engine can't understand this code, it's invalid");
+  alert("유효하지 않은 코드이기 때문에 자바스크립트 엔진은 이 코드를 이해할 수 없습니다.");
 }
 ```
 
-자바스크립트 엔진은 먼저 코드를 읽고, 그 다음에 실행합니다. 구문을 읽는 중에 발생하는 오류는 "parse-time" 오류라고 부르며 (그 코드 안에서) 복구 불가능합니다. 엔진이 코드를 이해할 수 없기 때문입니다.
+자바스크립트 엔진(JavaScript engine)은 먼저 코드를 읽고 난 후에 코드를 실행합니다. 구문을 읽는 중에 발생하는 오류는 "parse-time" 오류라고 부르며 (그 코드 안에서) 복구 불가능합니다. 엔진이 코드를 이해할 수 없기 때문입니다.
 
-따라서, `try..catch`는 유효한 코드에서 발생하는 오류만 처리할 수 있습니다. 이런 오류들을 "런타임 오류" 또는 가끔씩 "예외"라고 부릅니다.
+따라서, `try..catch`는 유효한 코드에서 발생하는 오류만 처리할 수 있습니다. 이런 오류들을 "런타임 오류"라고 부르며 가끔은 "예외"라고 불릴 때도 있습니다.
 ````
 
 
 ````warn header="`try..catch`는 동기적으로 동작합니다"
-만약 예외가 setTimeout처럼 "스케줄된" 코드에서 발생한다면` try..catch`가 잡아낼 수 없을 것입니다.
+만약 setTimeout처럼 "스케줄 된(scheduled)" 코드에서 예외가 발생한다면` try..catch`는 예외를 잡아낼 수 없을 것입니다.
 
 ```js run
 try {
   setTimeout(function() {
-    noSuchVariable; // script will die here
+    noSuchVariable; // 스크립트는 여기서 죽을 것입니다
   }, 1000);
 } catch (e) {
-  alert( "won't work" );
+  alert( "작동 멈춤" );
 }
 ```
 
-That's because `try..catch` actually wraps the `setTimeout` call that schedules the function. But the function itself is executed later, when the engine has already left the `try..catch` construct.
-왜냐하면 `try..catch`는 실제로는 함수를 스케줄하는 `setTimeout` 호출을 감싸고 있는 것이기 때문입니다. 하지만 함수 자체는 엔진이 `try..catch` 구문을 떠나버린 나중 시점에 실행됩니다.
+왜냐하면 `try..catch`가 함수의 실행 시간을 조정하는 `setTimeout` 호출을 감싸고 있기 때문입니다. 하지만 함수 자체는 엔진이 `try..catch` 구문을 떠나버린 나중 시점에 실행됩니다.
 
-스케줄된 함수 내부의 예외를 잡으려면, `try..catch`가 함수 내부에 있어야 합니다.
+스케줄 된 함수 내부의 예외를 잡으려면, `try..catch`가 함수 내부에 있어야 합니다:
 
 ```js run
 setTimeout(function() {
   try {    
-    noSuchVariable; // try..catch handles the error!
+    noSuchVariable; // try..catch가 에러를 잡아냅니다!
   } catch (e) {
     alert( "error is caught here!" );
   }
@@ -124,46 +123,46 @@ setTimeout(function() {
 ```
 ````
 
-## 오류 개체
+## 오류 객체(Error object)
 
-오류가 일어나면, 자바스크립트는 오류 상세를 포함한 개체를 만듭니다. 개체는 그 후 `catch`에 인수로서 전달됩니다.
+오류가 발생하면, 자바스크립트는 오류의 상세내용을 포함한 객체를 만듭니다. 이 객체는 `catch` 블록에 인수로서 전달됩니다:
 
 ```js
 try {
   // ...
-} catch(err) { // <-- the "error object", could use another word instead of err
+} catch(err) { // <-- "에러 객체", err 대신 다른 이름으로 쓸 수 있음
   // ...
 }
 ```
 
-모든 내장 오류에 대해서, `catch` 블록 내부의 오류 개체는 두 주요 속성을 가집니다.
+모든 내장 오류에 대해서, `catch` 블록에 전달되는 오류 객체는 두 주요 프로퍼티(property)을 가집니다.
 
 `name`
-: 오류 이름. 정의되지 않은 변수에 대해서는 "참조오류".
+: 오류 이름. 정의되지 않은 변수에 대해서는 `"참조오류(ReferenceError)"`.
 
 `message`
-: 오류 상세에 대한 글 메시지.
+: 오류 상세에 대한 문자 메시지.
 
-그 밖에 대부분의 환경에서 가능한 비표준 속성들이 있습니다. 가장 널리 사용되고 지원되는 것으로는 다음이 있습니다.
+그 밖에 대부분의 환경에서 가능한 비표준 속성들이 있습니다. 가장 널리 사용되고 지원되는 것으로는 다음이 있습니다:
 
 `stack`
 : 현재 호출 스택: 오류로 이어지는 중첩 호출의 나열에 대한 정보를 가진 문자열. 디버깅 목적으로 사용.
 
-For instance:
+예시:
 
 ```js run untrusted
 try {
 *!*
-  lalala; // error, variable is not defined!
+  lalala; // 에러, 변수가 정의되지 않음!
 */!*
 } catch(err) {
-  alert(err.name); // ReferenceError
-  alert(err.message); // lalala is not defined
-  alert(err.stack); // ReferenceError: lalala is not defined at ...
+  alert(err.name); // 참조오류
+  alert(err.message); // lalala는 정의되지 않은 변수입니다
+  alert(err.stack); // 참조오류: lalala는 정의되지 않은 ...
 
-  // Can also show an error as a whole
-  // The error is converted to string as "name: message"
-  alert(err); // ReferenceError: lalala is not defined
+  // 에러 전체를 보여줄수도 있습니다
+  // 에러는 "name: message" 형태의 문자열로 변환됩니다
+  alert(err); // 참조오류: lalala는 정의되지 않은 변수입니다
 }
 ```
 
