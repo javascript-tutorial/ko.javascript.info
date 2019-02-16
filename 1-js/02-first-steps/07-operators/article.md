@@ -1,15 +1,15 @@
-# Operators
+# Operators(연산자)
 
-We know many operators from school. They are things like addition `+`, multiplication `*`, subtraction `-`, and so on.
+우리는 학교에서 많은 연산자를 알고있다. 그것들은 덧셈 `+`, 곱셈 `*`, 뺄셈 `-`과 같은 것들입니다.
 
-In this chapter, we'll concentrate on aspects of operators that are not covered by school arithmetic.
+이 장에서는 수학시간에 다루지 않는 연산자에 대해 집중적으로 다룹니다.
 
-## Terms: "unary", "binary", "operand"
+## Terms(용어): "unary"(단항 연산자), "binary"(이항 연산자), "operand"(피연산자)
 
-Before we move on, let's grasp some common terminology.
+계속하기 전에 몇 가지 일반적인 용어를 알아 보겠습니다.
 
-- *An operand* -- is what operators are applied to. For instance, in the multiplication of `5 * 2` there are two operands: the left operand is `5` and the right operand is `2`. Sometimes, people call these "arguments" instead of "operands".
-- An operator is *unary* if it has a single operand. For example, the unary negation `-` reverses the sign of a number:
+- *An operand*(피연산자) -- 는 연산자가 적용되는 것입니다. 예를 들어, `5 * 2` 의 곱셈에는 두 개의 피연산자가 있습니다: 왼쪽 피연산자는 `5`이고 오른쪽 피연산자는 `2`입니다. 때때로 사람들은 "operands"대신에 "arguments"(인수)라고도 부릅니다.
+- 연산자가 하나의 피연산자를 가진 경우 이것은 *unary*입니다. 예를 들어, unary negation(단항 부정 연산자) `-`는 숫자의 부호를 뒤집습니다:
 
     ```js run
     let x = 1;
@@ -19,31 +19,31 @@ Before we move on, let's grasp some common terminology.
     */!*
     alert( x ); // -1, unary negation was applied
     ```
-- An operator is *binary* if it has two operands. The same minus exists in binary form as well:
+- 연산자는 피연산자가 두 개인 경우 *binary*입니다. 같은 뺄셈이지만 binary form(바이너리 형식)으로도 존재합니다:
 
     ```js run no-beautify
     let x = 1, y = 3;
     alert( y - x ); // 2, binary minus subtracts values
     ```
 
-    Formally, we're talking about two different operators here: the unary negation (single operand: reverses the sign) and the binary subtraction (two operands: subtracts).
+    형식상, 여기서 우리는 두 가지 다른 연산자에 대해 말하고있습니다.: unary negation (단일 피연산자: 부호 반전)과 binary subtraction (2개의 피연산자: 뺄셈)입니다. 
 
-## String concatenation, binary +
+## 문자열 연결, binary +
 
-Now, let's see special features of JavaScript operators that are beyond school arithmetics.
+이제 학교에서 배운 수학을 뛰어 넘는 JavaScript 연산자의 특수 기능을 살펴 보겠습니다.
 
-Usually, the plus operator `+` sums numbers.
+대개, 더하기 연산자 `+`는 숫자를 합산합니다.
 
-But, if the binary `+` is applied to strings, it merges (concatenates) them:
+그러나 binary `+`가 strings(문자열)에 적용되면, 그 문자열을 병합 (연결)합니다 :
 
 ```js
 let s = "my" + "string";
 alert(s); // mystring
 ```
 
-Note that if one of the operands is a string, the other one is converted to a string too.
+피연산자 중 하나가 string이면 다른 하나는 string로 변환됩니다.
 
-For example:
+예를 들어:
 
 ```js run
 alert( '1' + 2 ); // "12"
@@ -51,24 +51,24 @@ alert( 2 + '1' ); // "21"
 ```
 
 See, it doesn't matter whether the first operand is a string or the second one. The rule is simple: if either operand is a string, the other one is converted into a string as well.
+첫 번째 피연산자가 string인지 또는 두 번째 피연산자가 string인지는 중요하지 않습니다. 규칙은 간단합니다: 두 피연산자가 string이면 다른 하나는 string로 변환됩니다.
 
-However, note that operations run from left to right. If there are two numbers followed by a string, the numbers will be added before being converted to a string:
-
+그러나 연산은 왼쪽에서 오른쪽으로 실행됩니다. 두 개의 숫자 뒤에 string이 오면, 앞에 숫자들은 string로 변환되기 전에 더해집니다:
 
 ```js run
 alert(2 + 2 + '1' ); // "41" and not "221"
 ```
 
-String concatenation and conversion is a special feature of the binary plus `+`. Other arithmetic operators work only with numbers and always convert their operands to numbers.
+String 연결 및 변환은 binary plus `+`의 특별한 기능입니다. 다른 산술 연산자는 숫자로만 작동하며 항상 피연산자를 숫자로 변환합니다.
 
-For instance, subtraction and division:
+예를 들어, 빼기와 나누기 :
 
 ```js run
 alert( 2 - '1' ); // 1
 alert( '6' / '2' ); // 3
 ```
 
-## Numeric conversion, unary +
+## Numeric conversion(숫자 변환), unary +
 
 The plus `+` exists in two forms: the binary form that we used above and the unary form.
 
