@@ -32,7 +32,7 @@
 
 이제 학교에서 배운 수학을 뛰어 넘는 JavaScript 연산자의 특수 기능을 살펴 보겠습니다.
 
-대개, 더하기 연산자 `+`는 숫자를 합산합니다.
+대개, 연산자 덧셈 `+`는 숫자를 합산합니다.
 
 그러나 binary `+`가 strings(문자열)에 적용되면, 그 문자열을 병합 (연결)합니다 :
 
@@ -53,15 +53,15 @@ alert( 2 + '1' ); // "21"
 See, it doesn't matter whether the first operand is a string or the second one. The rule is simple: if either operand is a string, the other one is converted into a string as well.
 첫 번째 피연산자가 string인지 또는 두 번째 피연산자가 string인지는 중요하지 않습니다. 규칙은 간단합니다: 두 피연산자가 string이면 다른 하나는 string로 변환됩니다.
 
-그러나 연산은 왼쪽에서 오른쪽으로 실행됩니다. 두 개의 숫자 뒤에 string이 오면, 앞에 숫자들은 string로 변환되기 전에 더해집니다:
+그러나 연산은 왼쪽에서 오른쪽으로 실행됩니다. 두 개의 숫자 뒤에 string이 오면, 숫자들은 string로 변환되기 전에 덧셈 연산합니다.:
 
 ```js run
 alert(2 + 2 + '1' ); // "41" and not "221"
 ```
 
-String 연결 및 변환은 binary plus `+`의 특별한 기능입니다. 다른 산술 연산자는 숫자로만 작동하며 항상 피연산자를 숫자로 변환합니다.
+String 연결 및 변환은 binary 덧셈 `+`의 특별한 기능입니다. 다른 산술 연산자는 숫자로만 작동하며 항상 피연산자를 숫자로 변환합니다.
 
-예를 들어, 빼기와 나누기 :
+예를 들어, 뺄셈 `-`와 나누기 `/`:
 
 ```js run
 alert( 2 - '1' ); // 1
@@ -70,11 +70,11 @@ alert( '6' / '2' ); // 3
 
 ## Numeric conversion(숫자 변환), unary +
 
-The plus `+` exists in two forms: the binary form that we used above and the unary form.
+덧셈 `+`는 2가지 형식이 있습니다.: 우리가 위에서 사용한 이항 연산자 형식과 단항 연산자 형식입니다.
 
-The unary plus or, in other words, the plus operator `+` applied to a single value, doesn't do anything to numbers. But if the operand is not a number, the unary plus converts it into a number.
+단항 연산자 덧셈 (다른 말로하면 하나의 값에 적용된 덧셈 연산자 `+`)는 숫자에 아무 것도 하지 않습니다. 그러나 피연산자가 숫자가 아닌 경우 단항 기호는 피연산자를 숫자로 변환합니다.
 
-For example:
+예를 들어:
 
 ```js run
 // No effect on numbers
@@ -91,13 +91,13 @@ alert( +"" );   // 0
 */!*
 ```
 
-It actually does the same thing as `Number(...)`, but is shorter.
+실제로 `Number(...)`와 똑같은 일을 하지만 더 짧습니다.
 
-The need to convert strings to numbers arises very often. For example, if we are getting values from HTML form fields, they are usually strings.
+strings을 숫자로 변환하는 요구는 매우 자주 발생합니다. 예를 들어 HTML form(양식) 필드에서 값을 가져 오는 경우에는 대개 strings입니다.
 
-What if we want to sum them?
+그것들을 합산한다면?
 
-The binary plus would add them as strings:
+이항연산자 덧셈은 그것들을 strings로 더할겁니다:
 
 ```js run
 let apples = "2";
@@ -106,7 +106,7 @@ let oranges = "3";
 alert( apples + oranges ); // "23", the binary plus concatenates strings
 ```
 
-If we want to treat them as numbers, we need to convert and then sum them:
+그것들을 숫자로 처리하려면 변환한 다음 합산해야합니다.
 
 ```js run
 let apples = "2";
