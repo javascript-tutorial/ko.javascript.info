@@ -121,38 +121,39 @@ alert( +apples + +oranges ); // 5
 // alert( Number(apples) + Number(oranges) ); // 5
 ```
 
-From a mathematician's standpoint, the abundance of pluses may seem strange. But from a programmer's standpoint, there's nothing special: unary pluses are applied first, they convert strings to numbers, and then the binary plus sums them up.
+수학자의 관점에서, 다수의 pluses가 이상하게 보일지도 모릅니다. 그러나 프로그래머의 관점에서 보면 특별한 것은 없습니다. 단항연산자 pluses가 먼저 적용되고, 그것들은  strings을 숫자로 변환 합니다. 그러고 나서 이항연산자 plus가 그것들을 합산합니다.
 
 Why are unary pluses applied to values before the binary ones? As we're going to see, that's because of their *higher precedence*.
+왜 이항연산자 pluses가 적용되기 전에 단항연산자 pluses 가 적용됩니까? 곧 보게될 것 처럼, 그것들은 *더 높은 우선순위* 때문입니다.
 
-## Operator precedence
+## Operator precedence(연산자 우선순위)
 
-If an expression has more than one operator, the execution order is defined by their *precedence*, or, in other words, the implicit priority order of operators.
+수식에서 둘 이상의 연산자가 있는 경우, 실행 순서는 *precedence*(우선순위), 다른말로 하자면 (the implicit priority order of operators-연산자의 암묵적 우선순위)에 의해 정의됩니다.
 
-From school, we all know that the multiplication in the expression `1 + 2 * 2` should be calculated before the addition. That's exactly the precedence thing. The multiplication is said to have *a higher precedence* than the addition.
+학교에서, 우리는 `1 + 2 * 2` 수식에서 곱셈을 덧셈 전에 계산해야 하는 것을 알고 있습니다. 그게 우선순위입니다. 곱셈은 ​​덧셈보다 *더 높은 우선 순위*를 가집니다. 
 
-Parentheses override any precedence, so if we're not satisfied with the implicit order, we can use them to change it. For example: `(1 + 2) * 2`.
+괄호는 우선순위를 무시하므로 암묵적 순서에 만족하지 못하면 이를 사용하여 변경할 수 있습니다. 예: `(1 + 2) * 2`.
 
-There are many operators in JavaScript. Every operator has a corresponding precedence number. The one with the larger number executes first. If the precedence is the same, the execution order is from left to right.
+JavaScript에는 많은 연산자가 있습니다. 모든 연산자에는 해당 우선순위 번호가 있습니다. 숫자가 큰 번호가 먼저 실행됩니다. 우선 순위가 같으면 실행 순서는 왼쪽에서 오른쪽입니다.
 
-Here's an extract from the [precedence table](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+다음은 [precedence table(우선순위 테이블)](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence)에서 발췌한 것입니다 (이 것을 기억할 필요는 없지만 단항연산자는 동반하는 이진연산자보다 우선순위가 더 큽니다) :
 
-| Precedence | Name | Sign |
+| Precedence(우선선위 번호) | Name(이름) | Sign(기호) |
 |------------|------|------|
 | ... | ... | ... |
-| 16 | unary plus | `+` |
-| 16 | unary negation | `-` |
-| 14 | multiplication | `*` |
-| 14 | division | `/` |
-| 13 | addition | `+` |
-| 13 | subtraction | `-` |
+| 16 | unary plus(단항연산자 더하기) | `+` |
+| 16 | unary negation(단항부정) | `-` |
+| 14 | multiplication(곱하기) | `*` |
+| 14 | division(나누기) | `/` |
+| 13 | addition(더하기) | `+` |
+| 13 | subtraction(빼기) | `-` |
 | ... | ... | ... |
-| 3 | assignment | `=` |
+| 3 | assignment(할당) | `=` |
 | ... | ... | ... |
 
-As we can see, the "unary plus" has a priority of `16` which is higher than the `13` of "addition" (binary plus). That's why, in the expression `"+apples + +oranges"`, unary pluses work before the addition.
+보시다시피, "단항연산자 더하기"는 "더하기"(이항연산자)의 우선 순위 `13`보다 높은 `16`을 갖습니다. 그래서 `"+apples + +oranges"`라는 수식에서 unary plus는 addition 전에 계산합니다.
 
-## Assignment
+## Assignment(할당)
 
 Let's note that an assignment `=` is also an operator. It is listed in the precedence table with the very low priority of `3`.
 
