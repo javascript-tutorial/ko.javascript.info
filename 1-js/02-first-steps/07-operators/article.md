@@ -148,16 +148,16 @@ JavaScript에는 많은 연산자가 있습니다. 모든 연산자에는 해당
 | 13 | addition(더하기) | `+` |
 | 13 | subtraction(빼기) | `-` |
 | ... | ... | ... |
-| 3 | assignment(할당) | `=` |
+| 3 | assignment(대입 연산자) | `=` |
 | ... | ... | ... |
 
 보시다시피, "단항연산자 더하기"는 "더하기"(이항연산자)의 우선 순위 `13`보다 높은 `16`을 갖습니다. 그래서 `"+apples + +oranges"`라는 수식에서 unary plus는 addition 전에 계산합니다.
 
-## Assignment(할당)
+## Assignment(대입)
 
-Let's note that an assignment `=` is also an operator. It is listed in the precedence table with the very low priority of `3`.
+대입 연산자 `=`도 연산자라는 것을 주위합니다. 우선 순위 테이블에 `3`이라는 매우 낮은 우선 순위로 나열됩니다.
 
-That's why, when we assign a variable, like `x = 2 * 2 + 1`, the calculations are done first and then the `=` is evaluated, storing the result in `x`.
+그래서 우리가 `x = 2 * 2 + 1`과 같이 변수를 대입할 때 계산이 먼저 수행 된 다음 `=`가 수치를 구하여 결과가 `x`에 저장됩니다.
 
 ```js
 let x = 2 * 2 + 1;
@@ -165,7 +165,7 @@ let x = 2 * 2 + 1;
 alert( x ); // 5
 ```
 
-It is possible to chain assignments:
+대입 연산자는 연결할 수 있습니다.:
 
 ```js run
 let a, b, c;
@@ -179,14 +179,16 @@ alert( b ); // 4
 alert( c ); // 4
 ```
 
-Chained assignments evaluate from right to left. First, the rightmost expression `2 + 2` is evaluated and then assigned to the variables on the left: `c`, `b` and `a`. At the end, all the variables share a single value.
+연결된 대입연산자는 오른쪽에서 왼쪽으로 수치가 구해집니다. 먼저 가장 오른쪽에있는 수식인 `2 + 2`의 수치를 구하여 왼쪽에 있는 변수인 `c`, `b`와 `a`에 대입됩니다. 결국 모든 변수는 단일 값을 공유합니다.
 
-````smart header="The assignment operator `\"=\"` returns a value"
+````smart header="대입 연산자 `\"=\"`는 값을 반환합니다."
 An operator always returns a value. That's obvious for most of them like addition `+` or multiplication `*`. But the assignment operator follows this rule too.
+연산자는 항상 값을 반환합니다. 그것들의 대부분은 덧셈`+` 또는 곱셈`*`과 같이 명백합니다. 그러나 대입연산자는 이 규칙도 있습니다.
 
-The call `x = value` writes the `value` into `x` *and then returns it*.
+`x = value` 호출은 `value`를 `x`*에 쓴 다음 그것을 반환합니다 *.
 
 Here's a demo that uses an assignment as part of a more complex expression:
+다음은 보다 복잡한 수식의 일부로 대입 연산자를 사용하는 데모입니다.
 
 ```js run
 let a = 1;
@@ -200,18 +202,18 @@ alert( a ); // 3
 alert( c ); // 0
 ```
 
-In the example above, the result of `(a = b + 1)` is the value which is assigned to `a` (that is `3`). It is then used to subtract from `3`.
+위의 예제에서 `(a = b + 1)`의 결과는 `a`(즉`3`)에 할당 된 값입니다. 그런 다음 `3`에서 빼기 위해 사용됩니다.
 
-Funny code, isn't it? We should understand how it works, because sometimes we see it in 3rd-party libraries, but shouldn't write anything like that ourselves. Such tricks definitely don't make code clearer or readable.
+재미 있은 코드입니다, 그렇죠? 때로는 (3rd-party)타사 라이브러리에서 볼 수 있기 때문에 어떻게 작동하는지 이해해야합니다. 하지만 직접 작성하지 않아야합니다. 이러한 트릭은 절대로 알아보기 쉽거나 가독성 좋은 코드를 만들수 없습니다.
 ````
 
-## Remainder %
+## Remainder(나머지 연산자) %
 
-The remainder operator `%`, despite its appearance, is not related to percents.
+나머지 연산자`%`는 외형에도 불구하고 퍼센트와 관련이 없습니다.
 
-The result of `a % b` is the remainder of the integer division of `a` by `b`.
+`a % b`의 결과는 `a`의 `b`에 의한 정수 나누기의 나머지입니다.
 
-For instance:
+예를 들어:
 
 ```js run
 alert( 5 % 2 ); // 1 is a remainder of 5 divided by 2
@@ -219,13 +221,14 @@ alert( 8 % 3 ); // 2 is a remainder of 8 divided by 3
 alert( 6 % 3 ); // 0 is a remainder of 6 divided by 3
 ```
 
-## Exponentiation **
+## Exponentiation(지수 계산) **
 
-The exponentiation operator `**` is a recent addition to the language.
+지수 계산 연산자 `**`는 최근에 언어에 추가되었습니다. 
 
 For a natural number `b`, the result of `a ** b` is `a` multiplied by itself `b` times.
+자연수 `b`의 경우 `a ** b`의 결과는 `a`에 스스로를 `b`번를 곱한 값입니다.
 
-For instance:
+예를 들어:
 
 ```js run
 alert( 2 ** 2 ); // 4  (2 * 2)
@@ -233,31 +236,31 @@ alert( 2 ** 3 ); // 8  (2 * 2 * 2)
 alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2)
 ```
 
-The operator works for non-integer numbers of `a` and `b` as well.
+연산자는 `a`와 `b`의 정수가 아닌 숫자에 대해서도 계산합니다.
 
-For instance:
+예를 들어:
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root, that's maths)
 alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
 ```
 
-## Increment/decrement
+## Increment/decrement(증가 연산자/감소 연산자)
 
-<!-- Can't use -- in title, because built-in parse turns it into – -->
+<!-- 내장 구문 분석기능이 -- 을 –로 전환하기 때문에 제목에 -- 사용할 수 없습니다. -->
 
-Increasing or decreasing a number by one is among the most common numerical operations.
+숫자를 하나씩 늘리거나 줄이는 것은 가장 일반적인 수치 연산 중 하나입니다.
 
-So, there are special operators for it:
+그래서, 이것을 위한 특별한 연산자가 있습니다:
 
-- **Increment** `++` increases a variable by 1:
+- **Increment**(증가 연산자) `++`는 변수를 1씩 증가시킵니다.:
 
     ```js run no-beautify
     let counter = 2;
     counter++;      // works the same as counter = counter + 1, but is shorter
     alert( counter ); // 3
     ```
-- **Decrement** `--` decreases a variable by 1:
+- **Decrement**(감고 연산자) `--`1씩 변수를 감소시킵니다. :
 
     ```js run no-beautify
     let counter = 2;
@@ -266,21 +269,23 @@ So, there are special operators for it:
     ```
 
 ```warn
-Increment/decrement can only be applied to variables. Trying to use it on a value like `5++` will give an error.
+증가/감소 연산자는 변수에만 적용할 수 있습니다. `5++`과 같이 값에 사용하려고 하면 에러가 발생합니다.
 ```
 
-The operators `++` and `--` can be placed either before or after a variable.
+`++`와`--` 연산자는 변수 앞이나 뒤에 놓을 수 있습니다.
 
-- When the operator goes after the variable, it is in "postfix form": `counter++`.
-- The "prefix form" is when the operator goes before the variable: `++counter`.
+- 연산자가 변수 뒤에 오는 경우, "postfix form"(후치 형식) 입니다.: `counter++`.
+- "prefix form"(전치 형식)은 연산자가 변수 앞에 오면됩니다.: `++counter`.
 
 Both of these statements do the same thing: increase `counter` by `1`.
+이 두 문장은 똑같은 일을 합니다 : 'counter'를 '1'만큼 증가시킵니다.
 
-Is there any difference? Yes, but we can only see it if we use the returned value of `++/--`.
+어떤 차이가 있습니까? 네. 그러나 `++/--`의 반환 값을 사용하는 경우에만 볼 수 있습니다.
 
-Let's clarify. As we know, all operators return a value. Increment/decrement is no exception. The prefix form returns the new value while the postfix form returns the old value (prior to increment/decrement).
+명확히합시다. 이미 알다시피 모든 연산자는 값을 반환합니다. 증가/감소 연산자는
+ 예외가 없습니다. 전치 형식은 새 값을 반환하지만 후치 형식은 이전 값(증가/감소) 이전 을 반환합니다.
 
-To see the difference, here's an example:
+차이점을 확인하려면 다음 예를 참조하십시오.
 
 ```js run
 let counter = 1;
@@ -289,9 +294,9 @@ let a = ++counter; // (*)
 alert(a); // *!*2*/!*
 ```
 
-In the line `(*)`, the *prefix* form `++counter` increments `counter` and returns the new value, `2`. So, the `alert` shows `2`.
+`(*)`줄에서 `++counter`형식의 *전치*는 `counter`를 증가시키고 새로운 값 `2`를 반환합니다. 따라서 'alert'는 '2'를 표시합니다.
 
-Now, let's use the postfix form:
+자, postfix form(후치)을 사용해봅시다
 
 ```js run
 let counter = 1;
@@ -300,11 +305,12 @@ let a = counter++; // (*) changed ++counter to counter++
 alert(a); // *!*1*/!*
 ```
 
-In the line `(*)`, the *postfix* form `counter++` also increments `counter` but returns the *old* value (prior to increment). So, the `alert` shows `1`.
+`(*)`줄에서 *후치* 형식 인 `counter++`는 `counter`를 증가 시키지만 *이전* 값 (증가 이전)을 반환합니다. 따라서 `alert`는 `1`을 표시합니다.
 
-To summarize:
+요약:
 
 - If the result of increment/decrement is not used, there is no difference in which form to use:
+- 증가/감소의 연산자의 결과가 사용되지 않으면 사용하는 형식에 차이는 없습니다.
 
     ```js run
     let counter = 0;
@@ -312,41 +318,42 @@ To summarize:
     ++counter;
     alert( counter ); // 2, the lines above did the same
     ```
-- If we'd like to increase a value *and* immediately use the result of the operator, we need the prefix form:
+- 값을 늘리고 연산자의 결과를 즉시 사용하려면 전치 형식이 필요합니다.
 
     ```js run
     let counter = 0;
     alert( ++counter ); // 1
     ```
-- If we'd like to increment a value but use its previous value, we need the postfix form:
+- 값을 증가시키고 이전 값을 사용하려면 후치 형식이 필요합니다.
 
     ```js run
     let counter = 0;
     alert( counter++ ); // 0
     ```
 
-````smart header="Increment/decrement among other operators"
+````smart header="다른 연산자들 사이의 증가/감소 연산자"
 The operators `++/--` can be used inside expressions as well. Their precedence is higher than most other arithmetical operations.
+`++/--` 연산자는 수식에도 사용할 수 있습니다. 우선 순위는 다른 대부분의 산술 연산보다 높습니다.
 
-For instance:
+예를 들어:
 
 ```js run
 let counter = 1;
 alert( 2 * ++counter ); // 4
 ```
 
-Compare with:
+다음과 비교:
 
 ```js run
 let counter = 1;
 alert( 2 * counter++ ); // 2, because counter++ returns the "old" value
 ```
 
-Though technically okay, such notation usually makes code less readable. One line does multiple things -- not good.
+기술적으로는 괜찮지만 그러한 표기법은 일반적으로 코드의 가독성을 떨어트립니다. 한 줄은 여러 가지 일을 하는 것은 좋지 않습니다. 
 
-While reading code, a fast "vertical" eye-scan can easily miss something like `counter++` and it won't be obvious that the variable increased.
+코드를 읽는 동안, 빠른 "수직" 아이-스캔은 `counter++`와 같은 것을 쉽게 놓칠 수 있으며 변수가 증가했다는 것을 명확하게 알수 없습니다.
 
-We advise a style of "one line -- one action":
+우리는 "한 줄에 하나의 행동"하는 스타일을 권고합니다.
 
 ```js run
 let counter = 1;
@@ -355,13 +362,14 @@ counter++;
 ```
 ````
 
-## Bitwise operators
+## Bitwise operators(비트 연산자)
 
-Bitwise operators treat arguments as 32-bit integer numbers and work on the level of their binary representation.
+비트 연산자는 arguments(인수)를 32-bit 정수로 처리하고 이진 표현 수준에서 연산합니다.
 
 These operators are not JavaScript-specific. They are supported in most programming languages.
+이 연산자는 JavaScript와 관련이 없습니다. 하지만 대부분의 프로그래밍 언어에서 지원됩니다.
 
-The list of operators:
+비트 연산자 목록:
 
 - AND ( `&` )
 - OR ( `|` )
@@ -371,13 +379,13 @@ The list of operators:
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
-These operators are used very rarely. To understand them, we need to delve into low-level number representation and it would not be optimal to do that right now, especially since we won't need them any time soon. If you're curious, you can read the [Bitwise Operators](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) article on MDN. It would be more practical to do that when a real need arises.
+이 연산자는 거의 사용되지 않습니다. 그것들을 이해하기 위해서, 우리는 저수준 숫자 표현을 탐구해야하는데, 지금 당장 필요하지 않으므로 그렇게하는 것은 적절하지 않을겁니다. 호기심이 생기면 MDN에서 [비트 단위 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 읽을 수 있습니다. 진짜로 필요할때 그것을 사용하는 것이 더 실용적일 것입니다.
 
-## Modify-in-place
+## Modify-in-place(제자리에서 수정)
 
-We often need to apply an operator to a variable and store the new result in that same variable.
+때때로 변수에 연산자를 적용하고 같은 변수에 새로운 결과를 저장해야합니다.
 
-For example:
+예를 들어:
 
 ```js
 let n = 2;
@@ -386,6 +394,7 @@ n = n * 2;
 ```
 
 This notation can be shortened using the operators `+=` and `*=`:
+이 표기법은 `+=` 및 `*=`연산자를 사용하여 단축될 수 있습니다.
 
 ```js run
 let n = 2;
@@ -413,7 +422,7 @@ The comma operator `,` is one of the rarest and most unusual operators. Sometime
 
 The comma operator allows us to evaluate several expressions, dividing them with a comma `,`. Each of them is evaluated but only the result of the last one is returned.
 
-For example:
+예를 들어:
 
 ```js run
 *!*
@@ -435,7 +444,7 @@ Why do we need an operator that throws away everything except the last part?
 
 Sometimes, people use it in more complex constructs to put several actions in one line.
 
-For example:
+예를 들어:
 
 ```js
 // three operations in one line
