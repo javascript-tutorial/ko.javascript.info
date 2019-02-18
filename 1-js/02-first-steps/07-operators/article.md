@@ -1,18 +1,18 @@
 # Operators(연산자)
 
-우리는 학교에서 많은 연산자를 알고있다. 그것들은 덧셈 `+`, 곱셈 `*`, 뺄셈 `-`과 같은 것들입니다.
+우리는 학교에서 많은 연산자를 배웁니다. 그것들은 덧셈 `+`, 곱셈 `*`, 뺄셈 `-`과 같은 것들입니다.
 
-이 장에서는 수학시간에 다루지 않는 연산자에 대해 집중적으로 다룹니다.
+이 장에서는 학교 수학에서 다루지 않는 연산자에 대해 집중적으로 다룹니다.
 
 ## Terms(용어): "unary"(단항 연산자), "binary"(이항 연산자), "operand"(피연산자)
 
 계속하기 전에 몇 가지 일반적인 용어를 알아 보겠습니다.
 
-- *An operand*(피연산자) -- 는 연산자가 적용되는 것입니다. 예를 들어, `5 * 2` 의 곱셈에는 두 개의 피연산자가 있습니다: 왼쪽 피연산자는 `5`이고 오른쪽 피연산자는 `2`입니다. 때때로 사람들은 "operands"대신에 "arguments"(인수)라고도 부릅니다.
+- *An operand*(피연산자)는 연산자가 적용되는 대상입니다. 예를 들어, `5 * 2` 의 곱셈에는 두 개의 피연산자가 있습니다: 왼쪽 피연산자는 `5`이고 오른쪽 피연산자는 `2`입니다. 때때로 사람들은 "operands"대신에 "arguments"(인수)라고도 부릅니다.
 - 연산자가 하나의 피연산자를 가진 경우 이것은 *unary*입니다. 예를 들어, unary negation(단항 부정 연산자) `-`는 숫자의 부호를 뒤집습니다:
 
     ```js run
-    let x = 1;
+    let x = 1; 
 
     *!*
     x = -x;
@@ -50,7 +50,6 @@ alert( '1' + 2 ); // "12"
 alert( 2 + '1' ); // "21"
 ```
 
-See, it doesn't matter whether the first operand is a string or the second one. The rule is simple: if either operand is a string, the other one is converted into a string as well.
 첫 번째 피연산자가 string인지 또는 두 번째 피연산자가 string인지는 중요하지 않습니다. 규칙은 간단합니다: 두 피연산자가 string이면 다른 하나는 string로 변환됩니다.
 
 그러나 연산은 왼쪽에서 오른쪽으로 실행됩니다. 두 개의 숫자 뒤에 string이 오면, 숫자들은 string로 변환되기 전에 덧셈 연산합니다.:
@@ -123,7 +122,6 @@ alert( +apples + +oranges ); // 5
 
 수학자의 관점에서, 다수의 pluses가 이상하게 보일지도 모릅니다. 그러나 프로그래머의 관점에서 보면 특별한 것은 없습니다. 단항연산자 pluses가 먼저 적용되고, 그것들은  strings을 숫자로 변환 합니다. 그러고 나서 이항연산자 plus가 그것들을 합산합니다.
 
-Why are unary pluses applied to values before the binary ones? As we're going to see, that's because of their *higher precedence*.
 왜 이항연산자 pluses가 적용되기 전에 단항연산자 pluses 가 적용됩니까? 곧 보게될 것 처럼, 그것들은 *더 높은 우선순위* 때문입니다.
 
 ## Operator precedence(연산자 우선순위)
@@ -182,12 +180,10 @@ alert( c ); // 4
 연결된 대입연산자는 오른쪽에서 왼쪽으로 수치가 구해집니다. 먼저 가장 오른쪽에있는 수식인 `2 + 2`의 수치를 구하여 왼쪽에 있는 변수인 `c`, `b`와 `a`에 대입됩니다. 결국 모든 변수는 단일 값을 공유합니다.
 
 ````smart header="대입 연산자 `\"=\"`는 값을 반환합니다."
-An operator always returns a value. That's obvious for most of them like addition `+` or multiplication `*`. But the assignment operator follows this rule too.
 연산자는 항상 값을 반환합니다. 그것들의 대부분은 덧셈`+` 또는 곱셈`*`과 같이 명백합니다. 그러나 대입연산자는 이 규칙도 있습니다.
 
 `x = value` 호출은 `value`를 `x`*에 쓴 다음 그것을 반환합니다 *.
 
-Here's a demo that uses an assignment as part of a more complex expression:
 다음은 보다 복잡한 수식의 일부로 대입 연산자를 사용하는 데모입니다.
 
 ```js run
@@ -277,7 +273,6 @@ alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
 - 연산자가 변수 뒤에 오는 경우, "postfix form"(후치 형식) 입니다.: `counter++`.
 - "prefix form"(전치 형식)은 연산자가 변수 앞에 오면됩니다.: `++counter`.
 
-Both of these statements do the same thing: increase `counter` by `1`.
 이 두 문장은 똑같은 일을 합니다 : 'counter'를 '1'만큼 증가시킵니다.
 
 어떤 차이가 있습니까? 네. 그러나 `++/--`의 반환 값을 사용하는 경우에만 볼 수 있습니다.
@@ -309,7 +304,6 @@ alert(a); // *!*1*/!*
 
 요약:
 
-- If the result of increment/decrement is not used, there is no difference in which form to use:
 - 증가/감소의 연산자의 결과가 사용되지 않으면 사용하는 형식에 차이는 없습니다.
 
     ```js run
@@ -332,7 +326,6 @@ alert(a); // *!*1*/!*
     ```
 
 ````smart header="다른 연산자들 사이의 증가/감소 연산자"
-The operators `++/--` can be used inside expressions as well. Their precedence is higher than most other arithmetical operations.
 `++/--` 연산자는 수식에도 사용할 수 있습니다. 우선 순위는 다른 대부분의 산술 연산보다 높습니다.
 
 예를 들어:
@@ -366,8 +359,7 @@ counter++;
 
 비트 연산자는 arguments(인수)를 32-bit 정수로 처리하고 이진 표현 수준에서 연산합니다.
 
-These operators are not JavaScript-specific. They are supported in most programming languages.
-이 연산자는 JavaScript와 관련이 없습니다. 하지만 대부분의 프로그래밍 언어에서 지원됩니다.
+이러한 연산자는 JavaScript에 특정되지 않습니다. 대부분의 프로그래밍 언어에서 지원됩니다.
 
 비트 연산자 목록:
 
@@ -379,7 +371,7 @@ These operators are not JavaScript-specific. They are supported in most programm
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
-이 연산자는 거의 사용되지 않습니다. 그것들을 이해하기 위해서, 우리는 저수준 숫자 표현을 탐구해야하는데, 지금 당장 필요하지 않으므로 그렇게하는 것은 적절하지 않을겁니다. 호기심이 생기면 MDN에서 [비트 단위 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 읽을 수 있습니다. 진짜로 필요할때 그것을 사용하는 것이 더 실용적일 것입니다.
+이 연산자는 거의 사용되지 않습니다. 그것들을 이해하기 위해서, 우리는 저수준 숫자 표현을 탐구해야 하는데, 지금 당장 필요하지 않으므로 그렇게하는 것은 적절하지 않습니다. 호기심이 생기면 MDN에서 [비트 단위 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 읽을 수 있습니다. 진짜로 필요할 때 그것을 사용하는 것이 더 실용적일 것입니다.
 
 ## Modify-in-place(제자리에서 수정)
 
@@ -393,8 +385,7 @@ n = n + 5;
 n = n * 2;
 ```
 
-This notation can be shortened using the operators `+=` and `*=`:
-이 표기법은 `+=` 및 `*=`연산자를 사용하여 단축될 수 있습니다.
+이 표기법은 `+=` 및 `*=`연산자를 사용하여 단축할 수 있습니다.
 
 ```js run
 let n = 2;
@@ -404,9 +395,9 @@ n *= 2; // now n = 14 (same as n = n * 2)
 alert( n ); // 14
 ```
 
-Short "modify-and-assign" operators exist for all arithmetical and bitwise operators: `/=`, `-=`, etc.
+짧은 "modify-and-assign"(수정-대입) 연산자는 산술, 비트 연산자를 위해 존재합니다: `/=`, `-=`, 등.
 
-Such operators have the same precedence as a normal assignment, so they run after most other calculations:
+이러한 연산자는 일반 대입과 동일한 우선순위를 가지므로 대부분 다른 계산 후에 실행합니다.
 
 ```js run
 let n = 2;
@@ -416,11 +407,11 @@ n *= 3 + 5;
 alert( n ); // 16  (right part evaluated first, same as n *= 8)
 ```
 
-## Comma
+## Comma(쉼표)
 
-The comma operator `,` is one of the rarest and most unusual operators. Sometimes, it's used to write shorter code, so we need to know it in order to understand what's going on.
+쉼표 연산자`,`는 가장 희귀하고 가장 특이한 연산자 중 하나입니다. 때로는 더 짧은 코드를 작성하는데 사용되므로 상황을 이해하기 위해 알아야합니다.
 
-The comma operator allows us to evaluate several expressions, dividing them with a comma `,`. Each of them is evaluated but only the result of the last one is returned.
+쉼표 연산자를 사용하면 여러 수식을 쉼표`,`로 구분하여 수치를 구할수 있습니다. 각각은 수치를 구하지만 마지막 결과 만 리턴됩니다.
 
 예를 들어:
 
@@ -432,17 +423,17 @@ let a = (1 + 2, 3 + 4);
 alert( a ); // 7 (the result of 3 + 4)
 ```
 
-Here, the first expression `1 + 2` is evaluated and its result is thrown away. Then, `3 + 4` is evaluated and returned as the result.
+여기 첫 번째 수식 `1 + 2`은 수치를 구하고 그 결과가 버려집니다. 그런 다음`3 + 4`가 계산되어 결과로 반환됩니다.
 
-```smart header="Comma has a very low precedence"
-Please note that the comma operator has very low precedence, lower than `=`, so parentheses are important in the example above.
+```smart header="쉼표는 매우 낮은 우선 순위를 갖습니다."
+쉼표 연산자는 매우 낮은 우선 순위(`=`보다 더 낮은)를 갖습니다. 그래서 괄호가 위의 예에서 중요합니다.
 
-Without them: `a = 1 + 2, 3 + 4` evaluates `+` first, summing the numbers into `a = 3, 7`, then the assignment operator `=` assigns    `a = 3`, and finally the number after the comma, `7`, is not processed so it's ignored.
+그것들이 없으면: `a = 1 + 2, 3 + 4`는 `+`를 먼저 계산하고 `a = 3, 7`로 합산합니다. 그러고나서 대입 연산자 `=`는 `a = 3`을 대입하고 마지막으로 '7'(쉼표 뒤에 숫자)은 처리되지 않으므로 무시됩니다.
 ```
 
-Why do we need an operator that throws away everything except the last part?
+마지막 부분을 제외한 모든 것을 버리는 연산자가 필요한 이유는 무엇입니까?
 
-Sometimes, people use it in more complex constructs to put several actions in one line.
+때로는 사람들이 더 복잡한 구조에서 여러 행동을 하나의 줄에 넣는 경우가 있습니다.
 
 예를 들어:
 
@@ -453,4 +444,4 @@ for (*!*a = 1, b = 3, c = a * b*/!*; a < 10; a++) {
 }
 ```
 
-Such tricks are used in many JavaScript frameworks. That's why we're mentioning them. But, usually, they don't improve code readability so we should think well before using them.
+이러한 트릭은 많은 JavaScript 프레임워크에서 사용됩니다. 그것이 우리가 언급하는 이유입니다. 그러나 보통은 코드 가독성이 향상되지 않으므로 사용하기 전에 잘 생각해야합니다.
