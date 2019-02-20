@@ -52,7 +52,7 @@ john.sayHi(); // Hi buddy!
 
 "객체 래퍼"(object wrapper)는 각 "원시 자료형"에 따라 다르며 `String`,`Number`,`Boolean`과 `Symbol`라고 불립니다. 따라서, 그들은 각각 다른 세트의 메서드를 제공합니다.
 
-예를 들어 대문자로 된 문자열을 반환하는 [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/자바스크립트/Reference/Global_Objects/String/toUpperCase) 메서드가 있습니다.
+예를 들어 대문자로 된 문자열을 반환하는 [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) 메서드가 있습니다.
 
 다음은 사용 방법입니다.
 
@@ -72,7 +72,7 @@ alert( str.toUpperCase() ); // HELLO
 
 자바스크립트 엔진은 이 프로세스를 고도로 최적화합니다. 이것은 심지어 여분의 "객체 자료형" 의 생성을 전혀 하지않고 건너 뛸 수도 있습니다. 그러나 여전히 명세를 고수하고 마치 "객체 자료형"를 생성하는 것처럼 작동해야합니다.
 
-숫자에는 고유 한 메서드가 있습니다. 예를 들어 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/자바스크립트/Reference/Global_Objects/Number/toFixed)는 주어진 정밀도로 숫자를 반올림합니다. 
+숫자에는 고유 한 메서드가 있습니다. 예를 들어 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)는 주어진 정밀도로 숫자를 반올림합니다. 
 
 ```js run
 let n = 1.23456;
