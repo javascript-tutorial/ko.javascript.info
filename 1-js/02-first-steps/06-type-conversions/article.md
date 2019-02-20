@@ -1,4 +1,4 @@
-# Type Conversions(형 변환)
+# 형 변환(Type Conversions)
 
 대부분의 경우 연산자와 함수는 자동으로 주어진 값을 올바른 자료형으로 변환합니다. 이를 "형 변환"이라고합니다.
 
@@ -6,11 +6,11 @@
 
 또한 값을 예상되는 형식으로 명시적으로 변환해야하는 경우도 있습니다.
 
-```smart header="아직 objects(객체 자료형)에 대해 이야기하지 않습니다."
-이 장에서는 objects 를 다루지 않겠습니다. 대신, 우리는 먼저 primitives(원시 자료형)를 공부 할 것입니다. 나중에 객체 자료형에 대해 공부한 이후에 <info:object-toprimitive> 챕터에서 객체의 형변환 작업을 어떻게 하는지 볼 것입니다.
+```smart header="아직 객체 자료형(objects)에 대해 이야기하지 않습니다."
+이 장에서는 객체 자료형를 다루지 않겠습니다. 대신, 우리는 먼저 원시 자료형(primitives)를 공부 할 것입니다. 나중에 객체 자료형에 대해 공부한 이후에 <info:object-toprimitive> 주체에서 객체의 형변환 작업을 어떻게 하는지 볼 것입니다.
 ```
 
-## ToString (문자열로)
+## 문자열로 변환(ToString)
 
 문자열 변환은 값의 문자열 형태가 필요할 때 발생합니다.
 
@@ -30,7 +30,7 @@ alert(typeof value); // string
 
 문자열 변환은 대부분 명확합니다. `false`는``false``가되고 ``null``은``null``이됩니다.
 
-## ToNumber(숫자로)
+## 숫자로 변환(ToNumber)
 
 숫자 변환은 수학적 함수와 수식에서 자동으로 발생합니다.
 
@@ -84,17 +84,17 @@ alert( Number(false) );       // 0
 ````smart header="덧셈'+'은 문자열을 연결합니다."
 거의 모든 수학 연산은 값을 숫자로 변환합니다. 주목할만한 예외는 덧셈`+`입니다. 더한 값 중 하나가 문자열이면 다른 값도 문자열로 변환됩니다.
 
-그런 다음, 이를 연결(joins) 합니다.
+그런 다음, 이를 joins(연결) 합니다.
 
 ```js run
 alert( 1 + '2' ); // '12' (string to the right)
 alert( '1' + 2 ); // '12' (string to the left)
 ```
 
-이것은 arguments(인수) 중 적어도 하나가 문자열 일 때만 발생합니다. 그렇지 않으면 값이 숫자로 변환됩니다.
+이것은 인수(arguments) 중 적어도 하나가 문자열 일 때만 발생합니다. 그렇지 않으면 값이 숫자로 변환됩니다.
 ````
 
-## ToBoolean(Boolean으로)
+## Boolean으로 변환(ToBoolean)
 
 불리언 형변환은 가장 간단합니다.
 
@@ -116,7 +116,7 @@ alert( Boolean("") ); // false
 ```
 
 ````warn header="주의 : `\"0\"`을 가진 문자열은 `true`입니다."
-일부 언어 (다시 말하면, PHP)는 `"0"`을 `false`로 취급합니다. 그러나 JavaScript에서 비어 있지 않은 문자열은 항상 `true`입니다.
+일부 언어 (다시 말하면, PHP)는 `"0"`을 `false`로 취급합니다. 그러나 자바스크립트에서 비어 있지 않은 문자열은 항상 `true`입니다.
 
 ```js run
 alert( Boolean("0") ); // true
@@ -127,9 +127,9 @@ alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
 
 ## 요약 
 
-가장 널리 사용되는 세 가지 자료형 변환은 (to string), (to number)와 (to boolean)입니다.
+가장 널리 사용되는 세 가지 자료형 변환은 문자열(to string), 숫자(to number)와 논리 자료형(to boolean)입니다.
 
-**`ToString`** -- 우리가 뭔가를 출력할 때 발생합니다. `String(value)`으로 실행할 수 있습니다. 문자열 변환은 일반적으로 primitive 값에 대해 명확합니다.
+**`ToString`** -- 우리가 뭔가를 출력할 때 발생합니다. `String(value)`으로 실행할 수 있습니다. 문자열 변환은 일반적으로 원시자료형 값에 대해 명확합니다.
 
 **`ToNumber`** --  수학 연산에서 발생합니다. `Number(value)`로 실행할 수 있습니다.
 
@@ -157,4 +157,4 @@ alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
 - `undefined`는 숫자 변환하면 `0`이 아니라 `NaN`입니다.
 - `"0"`과 `"   "`같은 공백은 boolean 형 변환시 true 입니다.
 
-Objects는 여기에서 다루지 않습니다. 나중에 <info:object-toprimitive> 챕터에서 Objects 로 되돌아 갈것입니다. JavaScript에 대한 기본적인 내용을 배우고 나면 객체에만 전념합니다.
+객체 자료형(objects)는 여기에서 다루지 않습니다. 나중에 <info:object-toprimitive> 주체에서 객체 자료형(objects) 로 되돌아 갈것입니다. 자바스크립트에 대한 기본적인 내용을 배우고 나면 객체에만 전념합니다.
