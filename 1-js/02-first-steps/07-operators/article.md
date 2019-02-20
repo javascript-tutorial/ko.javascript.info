@@ -134,7 +134,7 @@ alert( +apples + +oranges ); // 5
 
 자바스크립트에는 많은 연산자가 있습니다. 모든 연산자에는 해당 우선순위 번호가 있습니다. 숫자가 큰 번호가 먼저 실행됩니다. 우선 순위가 같으면 실행 순서는 왼쪽에서 오른쪽입니다.
 
-다음은 [우선순위 테이블(precedence table)](https://developer.mozilla.org/en/자바스크립트/Reference/operators/operator_precedence)에서 발췌한 것입니다 (이 것을 기억할 필요는 없지만 단항연산자는 동반하는 이진연산자보다 우선순위가 더 큽니다) :
+다음은 [우선순위 테이블(precedence table)](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence)에서 발췌한 것입니다 (이 것을 기억할 필요는 없지만 단항연산자는 동반하는 이진연산자보다 우선순위가 더 큽니다) :
 
 | 우선선위 번호(Precedence) | 이름(Name) | 기호(Sign) |
 |------------|------|------|
@@ -370,7 +370,7 @@ counter++;
 - RIGHT SHIFT ( `>>` )
 - ZERO-FILL RIGHT SHIFT ( `>>>` )
 
-이 연산자는 거의 사용되지 않습니다. 그것들을 이해하기 위해서, 우리는 저수준 숫자 표현을 탐구해야 하는데, 지금 당장 필요하지 않으므로 그렇게하는 것은 적절하지 않습니다. 호기심이 생기면 MDN에서 [비트 단위 연산자](https://developer.mozilla.org/en/docs/Web/자바스크립트/Reference/Operators/Bitwise_Operators) 문서를 읽을 수 있습니다. 진짜로 필요할 때 그것을 사용하는 것이 더 실용적일 것입니다.
+이 연산자는 거의 사용되지 않습니다. 그것들을 이해하기 위해서, 우리는 저수준 숫자 표현을 탐구해야 하는데, 지금 당장 필요하지 않으므로 그렇게하는 것은 적절하지 않습니다. 호기심이 생기면 MDN에서 [비트 단위 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 읽을 수 있습니다. 진짜로 필요할 때 그것을 사용하는 것이 더 실용적일 것입니다.
 
 ## 제자리에서 수정(Modify-in-place)
 
