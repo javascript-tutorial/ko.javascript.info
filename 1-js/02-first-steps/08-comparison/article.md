@@ -1,20 +1,20 @@
-# Comparisons
+# 비교
 
-We know many comparison operators from maths:
+우리는 수학에서 많은 비교 연산자를 배웁니다.
 
-- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
-- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
-- Equals: `a == b` (please note the double equals sign `=`. A single symbol `a = b` would mean an assignment).
-- Not equals. In maths the notation is <code>&ne;</code>, but in JavaScript it's written as an assignment with an exclamation sign before it: <code>a != b</code>.
+- 보다 큼/작음: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- 보다 크거나/작거나 같음: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- 같음: `a == b` (2개의 `=`기호에 유의합니다. 하나의 기호 `a ​​= b`는 할당을 의미합니다).
+- 같지 않음. 수학에서 표기법은 다음과 같습니다. <code>&ne;</code>, 자바스크립트에서는 느낌표가 붙은 할당연산자로 작성됩니다. <code>a != b</code>.
 
-## Boolean is the result
+## 불리언은 결과입니다.
 
-Like all other operators, a comparison returns a value. In this case, the value is a boolean.
+다른 모든 연산자와 마찬가지로 비교는 값을 반환합니다. 이 경우 값은 불리언 값입니다.
 
-- `true` -- means "yes", "correct" or "the truth".
-- `false` -- means "no", "wrong" or "not the truth".
+- `true` -- "예", "올바른"또는 "진실"을 의미합니다.
+- `false` -- "아니오", "잘못"또는 "진실이 아님"을 의미합니다.
 
-For example:
+예시:
 
 ```js run
 alert( 2 > 1 );  // true (correct)
@@ -22,20 +22,20 @@ alert( 2 == 1 ); // false (wrong)
 alert( 2 != 1 ); // true (correct)
 ```
 
-A comparison result can be assigned to a variable, just like any value:
+비교 결과는 모든 값과 마찬가지로 변수에 할당 할 수 있습니다.
 
 ```js run
 let result = 5 > 4; // assign the result of the comparison
 alert( result ); // true
 ```
 
-## String comparison
+## 문자열 비교
 
-To see whether a string is greater than another, JavaScript uses the so-called "dictionary" or "lexicographical" order.
+문자열이 다른 문자열보다 큰지 확인하기 위해 자바스크립트는 소위 "사전"(dictionary)또는 "사전 식"(lexicographical)순서를 사용합니다.
 
-In other words, strings are compared letter-by-letter.
+즉, 문자열은 문자별로 비교됩니다.
 
-For example:
+예시:
 
 ```js run
 alert( 'Z' > 'A' ); // true
@@ -43,53 +43,56 @@ alert( 'Glow' > 'Glee' ); // true
 alert( 'Bee' > 'Be' ); // true
 ```
 
-The algorithm to compare two strings is simple:
+두 문자열을 비교하는 알고리즘은 간단합니다.
 
-1. Compare the first character of both strings.
-2. If the first character from the first string is greater (or less) than the other string's, then the first string is greater (or less) than the second. We're done.
-3. Otherwise, if both strings' first characters are the same, compare the second characters the same way.
-4. Repeat until the end of either string.
-5. If both strings end at the same length, then they are equal. Otherwise, the longer string is greater.
+1. 두 문자열의 첫 문자를 비교하십시오.
+2. 첫번재 문자열의 첫글자가 다른문자열의 첫글자보다 크면(작으면), 첫번째 문자열이 두번째 것보다 큽니다(작습니다.). 끝났습니다. 
+3. 그렇지 않으면 두 문자열의 첫 번째 문자가 같은 경우 두 번째 문자를 같은 방식으로 비교합니다.
+4. 각 문자열이 끝날 때까지 반복합니다.
+5. 두 문자열이 같은 길이로 끝나면 두 문자열은 동일합니다. 그렇지 않으면 긴 문자열이 더 큽니다.
 
 In the examples above, the comparison `'Z' > 'A'` gets to a result at the first step while the strings `"Glow"` and `"Glee"` are compared character-by-character:
+위의 예제에서 문자열 `"Glow"` 와 `"Glee"`가 문자별로 비교되는 동안 비교-`'Z' > 'A'`는 첫 단계에서 결과에 도달합니다.
 
-1. `G` is the same as `G`.
-2. `l` is the same as `l`.
-3. `o` is greater than `e`. Stop here. The first string is greater.
+1. `G`는`G`와 같습니다.
+2. `l`은 `l`과 동일합니다.
+3. `o`는`e`보다 큽니다. 여기서 멈춥니다. 첫 번째 문자열이 더 큽니다.
 
-```smart header="Not a real dictionary, but Unicode order"
-The comparison algorithm given above is roughly equivalent to the one used in dictionaries or phone books, but it's not exactly the same.
+```smart header="진짜 사전 순서는 아니지만 유니코드 순서입니다."
+위에 주어진 비교 알고리즘은 사전이나 전화번호부에서 사용된 알고리즘과 거의 동일하지만 정확하게 동일하지는 않습니다.
 
-For instance, case matters. A capital letter `"A"` is not equal to the lowercase `"a"`. Which one is greater? The lowercase `"a"`. Why? Because the lowercase character has a greater index in the internal encoding table JavaScript uses (Unicode). We'll get back to specific details and consequences of this in the chapter <info:string>.
+예를 들어, 대소문자가 중요합니다. 대문자 `"A"`는 소문자 `"a"`와 같지 않습니다. 어느 것이 더 큽니까? 소문자 `"a"`입니다. 왜? 소문자는 "자바스크립트가 사용하는 내부 인코딩 테이블"(유니 코드)에서 더 큰 인덱스를 갖기 때문입니다. <info:string> 주제에서 이에 대한 자세한 내용과 결과를 살펴 보겠습니다.
+
 ```
 
-## Comparison of different types
+## 다른 타입간의 비교
 
 When comparing values of different types, JavaScript converts the values to numbers.
+다른 유형의 값을 비교할 때 자바스크립트는 값을 숫자로 변환합니다.
 
-For example:
+예시:
 
 ```js run
 alert( '2' > 1 ); // true, string '2' becomes a number 2
 alert( '01' == 1 ); // true, string '01' becomes a number 1
 ```
 
-For boolean values, `true` becomes `1` and `false` becomes `0`. 
+불리언 값의 경우 `true`는 `1`이되고 `false`는 `0`이됩니다.
 
-For example:
+예시:
 
 ```js run
 alert( true == 1 ); // true
 alert( false == 0 ); // true
 ```
 
-````smart header="A funny consequence"
-It is possible that at the same time:
+````smart header="재미있는 결과"
+동시에 다음과 같은 일이 가능합니다:
 
-- Two values are equal.
-- One of them is `true` as a boolean and the other one is `false` as a boolean.
+- 두 값이 같습니다.
+- 그 중 하나는 불리언으로 'true'이고 다른 하나는 불리언으로 'false'입니다.
 
-For example:
+예시:
 
 ```js run
 let a = 0;
@@ -101,18 +104,18 @@ alert( Boolean(b) ); // true
 alert(a == b); // true!
 ```
 
-From JavaScript's standpoint, this result is quite normal. An equality check converts values using the numeric conversion (hence `"0"` becomes `0`), while the explicit `Boolean` conversion uses another set of rules.
+자바스크립트의 관점에서 보았을 때, 이 결과는 매우 정상입니다. 같음 비교`==`는 숫자 변환(`"0"`을 `0`으로)을 사용하여 값을 변환하고, 반면 명시적인 '불리언'변환은 그 밖의 규칙을 사용합니다.
 ````
 
-## Strict equality
+## 엄격한 같음 비교
 
-A regular equality check `==` has a problem. It cannot differentiate `0` from `false`:
+일반적인 같음 비교`==`는 문제가 있습니다. 그것은 `0`과 `false`를 구별 할 수 없습니다.
 
 ```js run
 alert( 0 == false ); // true
 ```
 
-The same thing happens with an empty string:
+빈 문자열에서도 같은 일이 발생합니다.
 
 ```js run
 alert( '' == false ); // true
