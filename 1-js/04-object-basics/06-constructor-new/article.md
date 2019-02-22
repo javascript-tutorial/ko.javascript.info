@@ -1,17 +1,17 @@
-# Constructor, operator "new"
+# "new" 연산자와 생성자
 
-The regular `{...}` syntax allows to create one object. But often we need to create many similar objects, like multiple users or menu items and so on.
+객체 리터럴 `{...}` 을 사용하면 객체 한 개를 만들 수 있습니다. 하지만 복수의 사용자나 메뉴 아이템 등을 구현하기 위해, 대다수의 경우 유사한 기능을 하는 복수의 객체를 만들어야 합니다.
 
-That can be done using constructor functions and the `"new"` operator.
+`"new"` 연산자와 생성자 함수를 사용하면 복수의 객체를 쉽게 만들 수 있습니다. 
 
-## Constructor function
+## 생성자 함수
 
-Constructor functions technically are regular functions. There are two conventions though:
+생성자 함수(Constructor function)는 함수입니다. 일반 함수와는 달리 생성자 함수는 아래 두 가지 표기법을 써서 작성하는 게 관습입니다.
 
-1. They are named with capital letter first.
-2. They should be executed only with `"new"` operator.
+1. 함수 이름은 첫 글자는 대문자로 시작합니다.
+2. `"new"` 연산자와 함께 사용합니다.
 
-For instance:
+예:
 
 ```js run
 function User(name) {
@@ -27,31 +27,32 @@ alert(user.name); // Jack
 alert(user.isAdmin); // false
 ```
 
-When a function is executed as `new User(...)`, it does the following steps:
+`new User(...)`를 써서 함수를 실행하면, 다음 절차가 실행됩니다.
 
-1. A new empty object is created and assigned to `this`.
+1. 빈 객체가 생성되고, `this`에 생성된 객체를 할당합니다.
 2. The function body executes. Usually it modifies `this`, adds new properties to it.
-3. The value of `this` is returned.
+2. 생성자 함수가 실행됩니다. 이때 새로운 프로퍼티가 `this`에 추가되면서, `this`가 수정됩니다.
+3. `this`가 반환됩니다.
 
-In other words, `new User(...)` does something like:
+다시 표현하면, `new User(...)` 는 아래와 같은 일을 합니다:
 
 ```js
 function User(name) {
 *!*
-  // this = {};  (implicitly)
+  // this = {};  (암시적 생성)
 */!*
 
-  // add properties to this
+  // 새로운 프로퍼티를 this에 추가함
   this.name = name;
   this.isAdmin = false;
 
 *!*
-  // return this;  (implicitly)
+  // return this;  (암시적 반환)
 */!*
 }
 ```
 
-So the result of `new User("Jack")` is the same object as:
+따라서, `new User("Jack")`의 결과는 아래의 객체가 됩니다:
 
 ```js
 let user = {
@@ -60,27 +61,26 @@ let user = {
 };
 ```
 
-Now if we want to create other users, we can call `new User("Ann")`, `new User("Alice")` and so on. Much shorter than using literals every time, and also easy to read.
+이제 `new User("Ann")`, `new User("Alice")` 등을 사용해 새로운 사용자를 만들 수 있게 되었습니다. 리터럴을 써서 매번 객체를 만드는 방법보다, 이 방법이 훨씬 간단하고 읽기 쉽습니다.
 
-That's the main purpose of constructors -- to implement reusable object creation code.
+이렇게, 재사용 가능한 객체 생성 코드 구현이 생성자의 주요 목적입니다.
 
-Let's note once again -- technically, any function can be used as a constructor. That is: any function can be run with `new`, and it will execute the algorithm above. The "capital letter first" is a common agreement, to make it clear that a function is to be run with `new`.
+다시 한번 상기시켜드리겠습니다. 어떤 함수도 생성자 함수가 될 수 있습니다. 이는, `new` 연산자와 함께 실행하면 어떤 함수도 위에 언급한 절차를 그대로 밟는다는 의미입니다. "첫 글자를 대문자로 작성"하면, 함수는 `new` 연산자와 함께 호출해야 합니다. 이는 공동의 약속입니다.
 
 ````smart header="new function() { ... }"
-If we have many lines of code all about creation of a single complex object, we can wrap them in constructor function, like this:
+객체 하나를 만들어야 하고, 이 객체가 복잡하기 때문에 생성 시 많은 코드가 필요하다면, 코드를 생성자 함수로 감싸서 객체를 만들 수 있습니다. 아래와 같이 말이죠:
 
 ```js
 let user = new function() {
   this.name = "John";
   this.isAdmin = false;
 
-  // ...other code for user creation
-  // maybe complex logic and statements
-  // local variables etc
+  // ...사용자 생성을 위해 필요한 다른 코드
+  // 복잡한 로직과 지역 변수 등
 };
 ```
 
-The constructor can't be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
+위 생성자는 어디에도 저장되지 않기 때문에 다시 사용할 수 없습니다. 만들어지고 난 다음 딱 한 번 호출되기만 하죠. 이렇게 만든 이유는 객체를 만들 때 코드를 캡슐화하려는 목적 때문입니다. 재사용은 신경 쓰지 않고요.
 ````
 
 ## Dual-syntax constructors: new.target
@@ -128,38 +128,38 @@ This approach is sometimes used in libraries to make the syntax more flexible. S
 
 Probably not a good thing to use everywhere though, because omitting `new` makes it a bit less obvious what's going on. With `new` we all know that the new object is being created.
 
-## Return from constructors
+## 싱성자와 Return 문 
 
-Usually, constructors do not have a `return` statement. Their task is to write all necessary stuff into `this`, and it automatically becomes the result.
+보통, 생성자 함수엔 `return` 문이 없습니다. 필요한 모든 것이 `this`에 할당되고, this는 자동으로 반환됩니다.
 
-But if there is a `return` statement, then the rule is simple:
+그런데 만약 생성자 함수에 `return` 문이 있다면 어떨까요? 규칙은 간단합니다:
 
-- If `return` is called with object, then it is returned instead of `this`.
-- If `return` is called with a primitive, it's ignored.
+- `return` 이 객체와 함께 호출되었다면, this 대신 객체를 반환합니다.
+- `return` 이 원시 자료형과 함께 호출되었다면, return 문은 무시됩니다.
 
-In other words, `return` with an object returns that object, in all other cases `this` is returned.
+정리하자면, `return`이 객체와 함께 쓰이면, 생성자 함수는 객체를 반환하고, 다른 모든 경우는 `this`를 반환합니다.
 
-For instance, here `return` overrides `this` by returning an object:
+아래의 예에서 `return`은 `this`를 오버라이드 하고, 객체를 반환합니다:
 
 ```js run
 function BigUser() {
 
   this.name = "John";
 
-  return { name: "Godzilla" };  // <-- returns an object
+  return { name: "Godzilla" };  // <-- 객체를 반환
 }
 
-alert( new BigUser().name );  // Godzilla, got that object ^^
+alert( new BigUser().name );  // 객체, Godzilla를 받아옵니다
 ```
 
-And here's an example with an empty `return` (or we could place a primitive after it, doesn't matter):
+아래는 아무것도 `return`하지 않는 예입니다(return 뒤에 원시 자료형이 있더라도 동일하게 작동합니다): 
 
 ```js run
 function SmallUser() {
 
   this.name = "John";
 
-  return; // finishes the execution, returns this
+  return; // 실행이 중지되고, this를 반환
 
   // ...
 
@@ -168,27 +168,27 @@ function SmallUser() {
 alert( new SmallUser().name );  // John
 ```
 
-Usually constructors don't have a `return` statement. Here we mention the special behavior with returning objects mainly for the sake of completeness.
+보통 생성자엔 `return`문이 없습니다. 여기서 생성자가 객체를 반환하는 특이 케이스를 소개해드린 이유는 튜토리얼의 완전성을 위해서 입니다.
 
-````smart header="Omitting parentheses"
-By the way, we can omit parentheses after `new`, if it has no arguments:
+````smart header="괄호를 생략하기"
+인수가 없다면, `new` 다음 괄호를 생략할 수 있습니다:
 
 ```js
-let user = new User; // <-- no parentheses
-// same as
+let user = new User; // <-- 괄호 없음
+// 아래는 위와 동일하게 작동함
 let user = new User();
 ```
 
-Omitting parentheses here is not considered a "good style", but the syntax is permitted by specification.
+괄호를 생략하는 건 "좋은 스타일"이 아닙니다. 하지만 명세서에선 이런 문법을 허용하고 있습니다.
 ````
 
-## Methods in constructor
+## 생성자 내 메서드
 
-Using constructor functions to create objects gives a great deal of flexibility. The constructor function may have parameters that define how to construct the object, and what to put in it.
+객체를 생성할 때 생성자 함수를 쓰면 유연하다는 장점이 있습니다. 생성자 함수는 객체를 어떻게 생성할지와 객체 안에 무엇을 넣을지 결정하는 매개변수를 가질 수 있습니다.
 
-Of course, we can add to `this` not only properties, but methods as well.
+`this`는 프로퍼티 뿐만 아니라 메서드에서도 쓸 수 있습니다.
 
-For instance, `new User(name)` below creates an object with the given `name` and the method `sayHi`:
+아래는 `name`프로퍼티와 `sayHi`라는 메서드를 가진 객체를 `new User(name)`를 통해 만들어냅니다:
 
 ```js run
 function User(name) {
@@ -213,17 +213,17 @@ john = {
 */
 ```
 
-## Summary
+## 요약
 
-- Constructor functions or, briefly, constructors, are regular functions, but there's a common agreement to name them with capital letter first.
-- Constructor functions should only be called using `new`. Such a call implies a creation of empty `this` at the start and returning the populated one at the end.
+- 생성자 함수, 짧게 줄여서 생성자는 일반 함수입니다. 일반함수와 구분하기 위해 첫 글자를 대문자로 쓰자고 약속하였습니다.
+- 생성자 함수는 `new` 연산자와 함께 호출되어야 합니다. 이렇게 호출하면 빈 `this`가 암시적으로 생성되고, 마지막엔 이 this가 반환됩니다.
 
-We can use constructor functions to make multiple similar objects.
+유사한 객체를 여러 개 만들 때 생성자 함수를 쓸 수 있습니다.
 
-JavaScript provides constructor functions for many built-in language objects: like `Date` for dates, `Set` for sets and others that we plan to study.
+자바스크립트는 다양한 내장 언어 객체를 만들 수 있는 생성자 함수를 제공합니다. 날짜를 위한 `Date`, 집합(set)을 위한 `Set` 등이 있고, 이에 대해서는 곧 학습할 예정입니다.
 
 ```smart header="Objects, we'll be back!"
-In this chapter we only cover the basics about objects and constructors. They are essential for learning more about data types and functions in the next chapters.
+이번 주제에선 객체와 생성자에 대한 기초를 다뤘습니다. 이 기초 내용은 다음장에서 배울 데이터 타입과 함수를 이해하는데 필수적인 내용입니다. 
 
-After we learn that, in the chapter <info:object-oriented-programming> we return to objects and cover them in-depth, including inheritance and classes.
+다음 주제를 학습한 후, <info:object-oriented-programming>에서 객체에 대해 좀 더 다뤄보도록 하겠습니다. 상속이나 클래스와 같은 개념을 다루겠습니다.
 ```
