@@ -104,12 +104,12 @@ alert( Boolean(b) ); // true
 alert(a == b); // true!
 ```
 
-자바스크립트의 관점에서 보았을 때, 이 결과는 매우 정상입니다. 같음 비교`==`는 숫자 변환(`"0"`을 `0`으로)을 사용하여 값을 변환하고, 반면 명시적인 '불리언'변환은 그 밖의 규칙을 사용합니다.
+자바스크립트의 관점에서 보았을 때, 이 결과는 매우 정상입니다. 항등 검사`==`는 숫자 변환(`"0"`을 `0`으로)을 사용하여 값을 변환하고, 반면 명시적인 '불리언'변환은 그 밖의 규칙을 사용합니다.
 ````
 
-## 엄격한 같음 비교
+## 완전 항등 검사
 
-일반적인 같음 비교`==`는 문제가 있습니다. 그것은 `0`과 `false`를 구별 할 수 없습니다.
+일반적인 항등 검사`==`는 문제가 있습니다. 그것은 `0`과 `false`를 구별 할 수 없습니다.
 
 ```js run
 alert( 0 == false ); // true
@@ -121,40 +121,42 @@ alert( 0 == false ); // true
 alert( '' == false ); // true
 ```
 
-This happens because operands of different types are converted to numbers by the equality operator `==`. An empty string, just like `false`, becomes a zero.
+이것은 서로 다른 타입의 피연산자가 항등 연산자`==`에 의해 숫자로 변환되기 때문에 발생합니다. `false`와 마찬가지로 빈 문자열은 0이됩니다.
 
-What to do if we'd like to differentiate `0` from `false`?
+`0`과 `false`를 구별하려면 어떻게해야 할까요?
 
-**A strict equality operator `===` checks the equality without type conversion.**
+**완전 항등 연산자 `===`는 타입 변환없이 항등성을 검사합니다.**
 
 In other words, if `a` and `b` are of different types, then `a === b` immediately returns `false` without an attempt to convert them.
+다시 말해, `a`와 `b`가 다른 타입이라면, `a === b`는 변환하려고 시도하지 않고 즉시 `false`를 반환합니다.
 
-Let's try it:
+해봅시다:
 
 ```js run
 alert( 0 === false ); // false, because the types are different
 ```
 
-There is also a "strict non-equality" operator `!==` analogous to `!=`.
+`!=`와 유사하게 "완전 비항등" 연산자`!==`도 있습니다.
 
-The strict equality operator is a bit longer to write, but makes it obvious what's going on and leaves less room for errors.
+"완전 평등 연산자"는 작성하는 데 약간 시간이 걸리지만, 진행 상황을 명확하게 나타내므로 오류가 발생할 가능성이 적습니다.
 
-## Comparison with null and undefined
+## 널(null) 과 정의되지않음(undefined) 의 비교
 
-Let's see more edge cases.
+좀 더 많은 사레를 살펴봅시다.
 
-There's a non-intuitive behavior when `null` or `undefined` are compared to other values.
+`null`또는 `undefined`가 다른 값과 비교될 때 비직관적인 행동이 있습니다.
 
 
-For a strict equality check `===`
-: These values are different, because each of them is a different type.
+완전 항등 검사`===`
+: 이 값들은 각각 다른 유형이기 때문에 서로 다릅니다.
 
     ```js run
     alert( null === undefined ); // false
     ```
 
-For a non-strict check `==`
+항등 검사`==`
 : There's a special rule. These two are a "sweet couple": they equal each other (in the sense of `==`), but not any other value.
+: 특별한 규칙이 있습니다. 이 두 가지는 "달콤한 커플"입니다 : 그들은 (`==`의 의미로) 서로 같지만 다른 값은 없습니다.
 
     ```js run
     alert( null == undefined ); // true
