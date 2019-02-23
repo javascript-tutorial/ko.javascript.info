@@ -155,21 +155,21 @@ alert( 0 === false ); // false, because the types are different
     ```
 
 항등 검사`==`
-: There's a special rule. These two are a "sweet couple": they equal each other (in the sense of `==`), but not any other value.
-: 특별한 규칙이 있습니다. 이 두 가지는 "달콤한 커플"입니다 : 그들은 (`==`의 의미로) 서로 같지만 다른 값은 없습니다.
+: 특별한 규칙이 있습니다. 이 두 가지는 "달콤한 커플"입니다 : 그들은 (`==`의 의미로) 서로 같지만 어떠한 값도 아닙니다.
 
     ```js run
     alert( null == undefined ); // true
     ```
 
-For maths and other comparisons `< > <= >=`
-: `null/undefined` are converted to numbers: `null` becomes `0`, while `undefined` becomes `NaN`.
+수학과 각각의 비교 `< > <= >=`
+:`null / undefined`는 숫자로 변환됩니다. `null`은 `0`이되고 `undefined`는 `NaN`이 됩니다.
 
 Now let's see some funny things that happen when we apply these rules. And, what's more important, how to not fall into a trap with them.
+이제 이 규칙들을 적용 할 때 일어나는 재미있는 일들을 봅시다. 그리고 무엇이 더 중요한지, 어떻게 이것들과 함정에 빠지지 않는지.
 
-### Strange result: null vs 0
+### 이상한 결과 : null vs 0
 
-Let's compare `null` with a zero:
+`null`과 0을 비교합시다.
 
 ```js run
 alert( null > 0 );  // (1) false
@@ -177,11 +177,12 @@ alert( null == 0 ); // (2) false
 alert( null >= 0 ); // (3) *!*true*/!*
 ```
 
-Mathematically, that's strange. The last result states that "`null` is greater than or equal to zero", so one of the comparisons above it must be correct, but they are both false.
+수학적으로 이것은 이상합니다. 마지막 결과는 "`null`이 0보다 크거나 같음"을 나타내고, 그래서 이것의 위의 비교 중 하나는 `true`여야 하지만 둘 다 false입니다.
 
-The reason is that an equality check `==` and comparisons `> < >= <=` work differently. Comparisons convert `null` to a number, treating it as `0`. That's why (3) `null >= 0` is true and (1) `null > 0` is false.
+그 이유는 항등 검사`==`와 비교`> < >= <=`가 다르게 작동하기 때문입니다. 비교는 `null`을 숫자로 변환하여 `0`으로 처리합니다. 이것이 (3) `null> = 0`이 true이고 (1)`null> 0`이 false 인 이유입니다.
 
 On the other hand, the equality check `==` for `undefined` and `null` is defined such that, without any conversions, they equal each other and don't equal anything else. That's why (2) `null == 0` is false.
+반면, `undefined`와 `null`에 대한 항등 검사`==`는 변환 없이는 서로 같고 다른 것과 동등하지 않도록 정의됩니다. 이것이 (2)`null == 0`이 거짓 인 이유입니다.
 
 ### An incomparable undefined
 
