@@ -85,13 +85,13 @@ let user = new function() {
 
 ## Dual-syntax constructors: new.target
 
-```smart header="Advanced stuff"
-The syntax from this section is rarely used, skip it unless you want to know everything.
+```smart header="어렵습니다"
+이 절의 내용은 자주 쓰이지 않습니다. 자바스크립트의 모든 것을 알고싶지 않다면 넘어가셔도 좋습니다.
 ```
 
-Inside a function, we can check whether it was called with `new` or without it, using a special `new.target` property.
+함수 안에서 `new.target` 프로퍼티를 사용하면, 함수가 `new` 연산자와 함께 호출되었는지 아닌지를 확인할 수 있습니다.
 
-It is empty for regular calls and equals the function if called with `new`:
+일반적인 함수 호출 시 `new.target`은 undefined이고, 함수가 생성자로서 `new`와 함께 호출된 경우, `new.target`는 함수 자체를 반환합니다.
 
 ```js run
 function User() {
@@ -109,24 +109,25 @@ new User(); // function User { ... }
 */!*
 ```
 
+`new.target` 은 함수를 `new`연산자와 함께 호출하거나, 일반적인 방법으로 호출 시 같은 결과를 얻고자 할 때 사용합니다. 두 경우 모두 동일한 객체를 생성합니다.
 That can be used to allow both `new` and regular calls to work the same. That is, create the same object:
 
 ```js run
 function User(name) {
-  if (!new.target) { // if you run me without new
-    return new User(name); // ...I will add new for you
+  if (!new.target) { // new 없이 실행한 경우
+    return new User(name); // ...new를 대신해서 넣어줌
   }
 
   this.name = name;
 }
 
-let john = User("John"); // redirects call to new User
+let john = User("John"); // new User를 쓴 것처럼 바꿔줌
 alert(john.name); // John
 ```
 
-This approach is sometimes used in libraries to make the syntax more flexible. So that people may call the function with or without `new`, and it still works.
+이 방법은 syntax를 좀 더 유연하게 사용할 수 있게 하려는 목적으로 라이브러리에서 사용되곤 합니다. 이 방법을 사용하면, 사람들이 `new`와 함께 함수를 호출하든 아니든 동일하게 동작합니다. 
 
-Probably not a good thing to use everywhere though, because omitting `new` makes it a bit less obvious what's going on. With `new` we all know that the new object is being created.
+다만, 모든 곳에서 이 방법을 쓰는 건 추천하지 않습니다. `new`를 생략하면 무슨 일이 일어나는 것인지 명확하지 않습니다. 하지만 `new` 를 쓰면 새로운 객체가 만들어진다는 걸 누구나 알 수 있죠.
 
 ## 싱성자와 Return 문 
 
