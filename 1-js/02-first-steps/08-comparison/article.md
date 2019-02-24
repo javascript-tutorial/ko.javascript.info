@@ -51,7 +51,6 @@ alert( 'Bee' > 'Be' ); // true
 4. 각 문자열이 끝날 때까지 반복합니다.
 5. 두 문자열이 같은 길이로 끝나면 두 문자열은 동일합니다. 그렇지 않으면 긴 문자열이 더 큽니다.
 
-In the examples above, the comparison `'Z' > 'A'` gets to a result at the first step while the strings `"Glow"` and `"Glee"` are compared character-by-character:
 위의 예제에서 문자열 `"Glow"` 와 `"Glee"`가 문자별로 비교되는 동안 비교-`'Z' > 'A'`는 첫 단계에서 결과에 도달합니다.
 
 1. `G`는`G`와 같습니다.
@@ -61,13 +60,12 @@ In the examples above, the comparison `'Z' > 'A'` gets to a result at the first 
 ```smart header="진짜 사전 순서는 아니지만 유니코드 순서입니다."
 위에 주어진 비교 알고리즘은 사전이나 전화번호부에서 사용된 알고리즘과 거의 동일하지만 정확하게 동일하지는 않습니다.
 
-예를 들어, 대소문자가 중요합니다. 대문자 `"A"`는 소문자 `"a"`와 같지 않습니다. 어느 것이 더 큽니까? 소문자 `"a"`입니다. 왜? 소문자는 "자바스크립트가 사용하는 내부 인코딩 테이블"(유니 코드)에서 더 큰 인덱스를 갖기 때문입니다. <info:string> 주제에서 이에 대한 자세한 내용과 결과를 살펴 보겠습니다.
 
 ```
 
 ## 다른 타입간의 비교
+- ## 다른 타입간의 비교
 
-When comparing values of different types, JavaScript converts the values to numbers.
 다른 유형의 값을 비교할 때 자바스크립트는 값을 숫자로 변환합니다.
 
 예시:
@@ -127,7 +125,6 @@ alert( '' == false ); // true
 
 **완전 항등 연산자 `===`는 타입 변환없이 항등성을 검사합니다.**
 
-In other words, if `a` and `b` are of different types, then `a === b` immediately returns `false` without an attempt to convert them.
 다시 말해, `a`와 `b`가 다른 타입이라면, `a === b`는 변환하려고 시도하지 않고 즉시 `false`를 반환합니다.
 
 해봅시다:
@@ -164,7 +161,6 @@ alert( 0 === false ); // false, because the types are different
 수학과 각각의 비교 `< > <= >=`
 :`null / undefined`는 숫자로 변환됩니다. `null`은 `0`이되고 `undefined`는 `NaN`이 됩니다.
 
-Now let's see some funny things that happen when we apply these rules. And, what's more important, how to not fall into a trap with them.
 이제 이 규칙들을 적용 할 때 일어나는 재미있는 일들을 봅시다. 그리고 무엇이 더 중요한지, 어떻게 이것들과 함정에 빠지지 않는지.
 
 ### 이상한 결과 : null vs 0
@@ -181,12 +177,11 @@ alert( null >= 0 ); // (3) *!*true*/!*
 
 그 이유는 항등 검사`==`와 비교`> < >= <=`가 다르게 작동하기 때문입니다. 비교는 `null`을 숫자로 변환하여 `0`으로 처리합니다. 이것이 (3) `null> = 0`이 true이고 (1)`null> 0`이 false 인 이유입니다.
 
-On the other hand, the equality check `==` for `undefined` and `null` is defined such that, without any conversions, they equal each other and don't equal anything else. That's why (2) `null == 0` is false.
-반면, `undefined`와 `null`에 대한 항등 검사`==`는 변환 없이는 서로 같고 다른 것과 동등하지 않도록 정의됩니다. 이것이 (2)`null == 0`이 거짓 인 이유입니다.
+반면, `undefined`와 `null`에 대한 항등 검사`==`는 이렇게 정의 됩니다. 어떠한 변환도 없을 경우 이것들은 서로 같고, 다른 무엇과도 일치하지 않습니다. 이것이 (2)`null == 0`이 거짓 인 이유입니다.
 
-### An incomparable undefined
+### 비교할 수 없는 undefined
 
-The value `undefined` shouldn't be compared to other values:
+`undefined`값은 다른 값과 비교되어서는 안됩니다.
 
 ```js run
 alert( undefined > 0 ); // false (1)
@@ -194,25 +189,25 @@ alert( undefined < 0 ); // false (2)
 alert( undefined == 0 ); // false (3)
 ```
 
-Why does it dislike zero so much? Always false!
+왜 이것은 0을 싫어하나요? 항상 `false` 입니다!
 
-We get these results because:
+다음과 같은 이유로 이러한 결과를 얻습니다.
 
-- Comparisons `(1)` and `(2)` return `false` because `undefined` gets converted to `NaN` and `NaN` is a special numeric value which returns `false` for all comparisons.
-- The equality check `(3)` returns `false` because `undefined` only equals `null` and no other value.
+- `(1)`과`(2)`는 `undefined`가 `NaN`으로 변환되고 `NaN`이 모든 비교에 대해 `false`를 반환하는 특수한 숫자 값이기 때문입니다. 
+- `undefined`는 오직 `null`만 같고 동등한 다른 값은 없어서 항등검사`(3)`은 `false`를 반환합니다.
 
-### Evade problems
+### 문제 회피
 
-Why did we go over these examples? Should we remember these peculiarities all the time? Well, not really. Actually, these tricky things will gradually become familiar over time, but there's a solid way to evade problems with them:
+왜 이 예들을 검토하였을까요? 항상 이러한 특성을 기억해야 할까요? 글쎄요, 그렇진 않습니다. 사실, 이러한 까다로운 일들은 점차 익숙해 질 것입니다.하지만 문제를 피할 수있는 견고한 방법이 있습니다.
 
-Just treat any comparison with `undefined/null` except the strict equality `===` with exceptional care.
+완전 평등`===`을 제외한 `undefined/null`에 대한 모든 비교를 특별한 주의를 기울여 처리하십시오.
 
-Don't use comparisons `>= > < <=` with a variable which may be `null/undefined`, unless you're really sure of what you're doing. If a variable can have these values, check for them separately.
+뭘 하고 있는지 확신하지 못한다면, `>= > < <=`비교를 `null/undefined`일 수 있는 변수와 함께 사용하지 마십시오. 변수가 이 값을 가질 수 있으면, 변수를 개별적으로 검사하십시오.
 
-## Summary
+## 요약
 
-- Comparison operators return a boolean value.
-- Strings are compared letter-by-letter in the "dictionary" order.
-- When values of different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
-- The values `null` and `undefined` equal `==` each other and do not equal any other value.
-- Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Checking for `null/undefined` separately is a good idea.
+- 비교 연산자는 불리언 값을 반환합니다.
+- 문자열은 "사전"순서로 문자단위로 비교됩니다.
+- 서로 다른 유형의 값을 비교하면 숫자로 변환됩니다 ("완전 항등 검사"는 제외하고).
+- `null`값과 `undefined`값은 서로 같고`==` 다른 어떠한 값과도 같지 않습니다.
+- 때때로 `null/undefined`일 수 있는 변수에 대해 `>` 또는 `<`같은 비교를 사용할 때 주의하십시오. 개별적으로 `null/undefined`를 체크하는 것은 좋은 생각입니다. 
