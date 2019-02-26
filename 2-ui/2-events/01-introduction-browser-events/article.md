@@ -150,7 +150,7 @@ elem.onclick = sayThanks;
 
 이벤트를 다룰 때, 아래의 주의사항을 기억하세요.
 
-**함수는 `sayThanks`와 같이 할당해야 합니다. `sayThanks()`과 같이 쓰면 동작지 않습니다.**
+**함수는 `sayThanks`와 같이 할당해야 합니다. `sayThanks()`과 같이 쓰면 동작하지 않습니다.**
 
 ```js
 // 올바른 방법
