@@ -1,14 +1,14 @@
-# Conditional operators: if, '?'
+# 조건 연산자: if, '?'
 
-Sometimes, we need to perform different actions based on different conditions.
+때때로, 우리는 다른 조건에 따라 다른 행동을 취할 필요가 있습니다.
 
-To do that, we use the `if` statement and the conditional (ternary) operator which we will be referring to as the “question mark” operator `?` for simplicity.
+그렇게하기 위해, `if`문과 간결함을 위해 `?`연산자로 참조될 조건부 삼항연산자(conditional ternary operator)를 사용합니다. 
 
-## The "if" statement
+## "if" 문
 
-The `if` statement evaluates a condition and, if the condition's result is `true`, executes a block of code.
+`if`문은 조건을 평가하고 조건 결과가 `true`이면 코드 블록을 실행합니다.
 
-For example:
+예시:
 
 ```js run
 let year = prompt('In which year was ECMAScript-2015 specification published?', '');
@@ -18,9 +18,9 @@ if (year == 2015) alert( 'You are right!' );
 */!*
 ```
 
-In the example above, the condition is a simple equality check (`year == 2015`), but it can be much more complex.
+위의 예제에서 조건은 간단한 항등 검사 (`year == 2015`)이지만 코드는 훨씬 더 복잡해질 수 있습니다.
 
-If we want to execute more than one statement, we have to wrap our code block inside curly braces:
+만약 둘 이상의 명령문을 실행하려면 코드 블록을 중괄호로 묶어야합니다.
 
 ```js
 if (year == 2015) {
@@ -29,18 +29,19 @@ if (year == 2015) {
 }
 ```
 
-We recommend wrapping your code block with curly braces `{}` every time you use an `if` statement, even if there is only one statement to execute. Doing so improves readability.
+`if` 문을 사용할 때마다 중괄호`{}`로 코드 블록을 래핑(wrapping)하는 것이 좋습니다. 단 하나의 명령문만 실행해도 마찬가지입니다. 이렇게하면 가독성이 향상됩니다.
 
-## Boolean conversion
+## 불리언,부울(논리 타입) 변환
 
-The `if (…)` statement evaluates the expression in its parentheses and converts the result to a boolean.
+`if (…)` 문은 괄호 안의 표현식을 평가하고 결과를 부울로 변환합니다.
 
 Let's recall the conversion rules from the chapter <info:type-conversions>:
+<info:type-conversions> 챕터에 있는 변환 규칙을 상기해 보겠습니다.
 
-- A number `0`, an empty string `""`, `null`, `undefined`, and `NaN` all become `false`. Because of that they are called "falsy" values.
-- Other values become `true`, so they are called "truthy".
+- 숫자`0`, 빈 문자열`""`, `null`, `undefined`, `NaN`은 모두 `false`가 됩니다. 이때문에 이 값들을 "falsy"값 이라고 부릅니다.
+- 다른 값은 `true`가 되므로 "truthy"라고 합니다.
 
-So, the code under this condition would never execute:
+따라서 아래 조건의 코드는 절대로 실행되지 않습니다.
 
 ```js
 if (0) { // 0 is falsy
@@ -48,7 +49,7 @@ if (0) { // 0 is falsy
 }
 ```
 
-...and inside this condition -- it always will:
+... 그리고 다음 조건 안에서는 항상 실행할 것입니다.
 
 ```js
 if (1) { // 1 is truthy
@@ -56,7 +57,7 @@ if (1) { // 1 is truthy
 }
 ```
 
-We can also pass a pre-evaluated boolean value to `if`, like this:
+다음과 같이 사전 평가된 부울 값을 `if`에 전달할 수 도 있습니다 :
 
 ```js
 let cond = (year == 2015); // equality evaluates to true or false
@@ -66,9 +67,10 @@ if (cond) {
 }
 ```
 
-## The "else" clause
+## "else"절
 
 The `if` statement may contain an optional "else" block. It executes when the condition is false.
+`if`문은 선택적 "else"블록을 포함 할 수 있습니다. 조건이 거짓 일 때 실행됩니다.
 
 For example:
 ```js run
