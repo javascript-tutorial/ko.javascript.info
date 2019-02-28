@@ -1,18 +1,18 @@
-# Functions
+# 함수
 
-Quite often we need to perform a similar action in many places of the script.
+스크립트를 작성하다 보면 여러 곳에서 유사한 동작이 필요한 경우가 자주 생깁니다.
 
-For example, we need to show a nice-looking message when a visitor logs in, logs out and maybe somewhere else.
+사용자가 로그인이나 로그아웃 했을 때 간드러진 메시지를 보여주는 동작이 그 예가 될 수 있습니다.
 
-Functions are the main "building blocks" of the program. They allow the code to be called many times without repetition.
+함수는 프로그램을 구성하는 "구성 단위(building blocks)"입니다. 함수 덕분에 중복 코드 없이 유사한 동작을 여러번 호출할 수 있습니다. 
 
-We've already seen examples of built-in functions, like `alert(message)`, `prompt(message, default)` and `confirm(question)`. But we can create functions of our own as well.
+`alert(message)`, `prompt(message, default)`, `confirm(question)`와 같은 내장 함수를 사용 해 본 경험이 있을겁니다. 이런 내장 함수 이외에도 직접 함수를 만들어 사용할 수 있습니다. 
 
-## Function Declaration
+## 함수 선언(Function Declaration)
 
-To create a function we can use a *function declaration*.
+함수를 만들려면 *함수를 선언*해야 합니다.
 
-It looks like this:
+아래와 같이 말이죠:
 
 ```js
 function showMessage() {
@@ -20,13 +20,13 @@ function showMessage() {
 }
 ```
 
-The `function` keyword goes first, then goes the *name of the function*, then a list of *parameters* between the parentheses (empty in the example above) and finally the code of the function, also named "the function body", between curly braces.
+함수를 선언할 때, `function` 키워드를 제일 앞에 써주고, 다음으로 *함수 이름*, 이어서 괄호로 둘러 쌓인 매개변수를 명시해 줍니다(위의 예에선 매개변수가 없습니다). 그리고 난다음 함수를 구성하는 문의 모임인 "함수 바디"를 중괄호에 쌓아 적어줍니다.
 
 ![](function_basics.png)
 
-Our new function can be called by its name: `showMessage()`.
+새롭게 정의된 함수는 이름을 사용하면 호출이 가능합니다: `showMessage()`.
 
-For instance:
+예:
 
 ```js run
 function showMessage() {
@@ -39,17 +39,17 @@ showMessage();
 */!*
 ```
 
-The call `showMessage()` executes the code of the function. Here we will see the message two times.
+`showMessage()`로 함수를 호출하면 함수 내의 코드가 실행됩니다. showMessage 함수를 두 번 호출했으므로, 얼럿창에 메시지가 두 번 뜹니다.
 
-This example clearly demonstrates one of the main purposes of functions: to avoid code duplication.
+함수의 주요 용도중 하나는 중복 코드 피하기 입니다. 위 예를 통해 이를 확인해보았습니다.
 
-If we ever need to change the message or the way it is shown, it's enough to modify the code in one place: the function which outputs it.
+메시지 내용을 바꾸거나 메시지를 보여주는 방식을 변경하려면, 코드 한 부분만 수정하면 됩니다. 출력에 관여하는 함수만 수정하면 되죠.
 
-## Local variables
+## 지역 변수(Local variables)
 
-A variable declared inside a function is only visible inside that function.
+함수 내에서 선언한 변수는 함수 바디 안에서만 존재합니다.
 
-For example:
+예:
 
 ```js run
 function showMessage() {
@@ -62,12 +62,12 @@ function showMessage() {
 
 showMessage(); // Hello, I'm JavaScript!
 
-alert( message ); // <-- Error! The variable is local to the function
+alert( message ); // <-- 에러! message는 함수내의 지역 변수입니다
 ```
 
-## Outer variables
+## 외부 변수(Outer variables) 
 
-A function can access an outer variable as well, for example:
+함수내에서 함수 바깥의 변수에 접근할 수 있습니다. 예:
 
 ```js run no-beautify
 let *!*userName*/!* = 'John';
@@ -80,65 +80,65 @@ function showMessage() {
 showMessage(); // Hello, John
 ```
 
-The function has full access to the outer variable. It can modify it as well.
+함수 바디에서 바깥의 변수에 접근할수 있고, 수정도 가능합니다.
 
-For instance:
+예:
 
 ```js run
 let *!*userName*/!* = 'John';
 
 function showMessage() {
-  *!*userName*/!* = "Bob"; // (1) changed the outer variable
+  *!*userName*/!* = "Bob"; // (1) 외부 변수 수정
 
   let message = 'Hello, ' + *!*userName*/!*;
   alert(message);
 }
 
-alert( userName ); // *!*John*/!* before the function call
+alert( userName ); // 함수 호출 전이므로 *!*John*/!* 
 
 showMessage();
 
-alert( userName ); // *!*Bob*/!*, the value was modified by the function
+alert( userName ); // 함수에 의해 *!*Bob*/!* 으로 값이 바뀜
 ```
 
-The outer variable is only used if there's no local one. So an occasional modification may happen if we forget `let`.
+외부 변수는 함수 내 지역 변수가 없는 경우만 사용됩니다. 함수 내에서 `let`을 적는걸 잊을 경우, 의도치 않게 외부 변수를 수정하는 실수를 할 수 있습니다.
 
-If a same-named variable is declared inside the function then it *shadows* the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored:
+만약 함수 외부와 내부에 같은 이름의 변수가 선언되었다면, 지역 변수는 외부 변수에 *영향을 주지 못합니다*. 아래 코드를 살펴보시죠. 함수 내부에서 `userName` 변수를 선언하였고, 새로운 값을 할당하였지만 외부 변수 값은 변하지 않습니다. 
 
 ```js run
 let userName = 'John';
 
 function showMessage() {
 *!*
-  let userName = "Bob"; // declare a local variable
+  let userName = "Bob"; // 지역 변수 선언
 */!*
 
   let message = 'Hello, ' + userName; // *!*Bob*/!*
   alert(message);
 }
 
-// the function will create and use its own userName
+// userName는 함수 내부에서만 생성되고 쓰임
 showMessage();
 
-alert( userName ); // *!*John*/!*, unchanged, the function did not access the outer variable
+alert( userName ); // *!*John*/!*이 출력됨, 함수는 외부 변수에 접근하지 못하기 때문에, 값이 변경되지 않음
 ```
 
-```smart header="Global variables"
-Variables declared outside of any function, such as the outer `userName` in the code above, are called *global*.
+```smart header="전역 변수(Global variables)"
+위 코드의 `userName`처럼, 함수 외부에 선언된 변수는 *전역(global)* 변수가 됩니다.
 
-Global variables are visible from any function (unless shadowed by locals).
+전역 변수는 (지역 변수에 의해 가려지지만 않는다면) 모든 함수에서 접근 가능합니다.
 
-Usually, a function declares all variables specific to its task. Global variables only store project-level data, and it's important that these variables are accessible from anywhere. Modern code has few or no globals. Most variables reside in their functions.
+대게, 함수에서 필요한 변수는 함수 안에서 선언합니다. 전역변수는 프로젝트 수준(project-level)의 데이터를 저장하는데만 쓰입니다. 전역 변수는 어느 곳에서든 접근 할 수 있다는 점 때문에 중요합니다. 최신 코드(modern code)엔 전역 변수가 거의 없거나 아주 적게 있습니다. 대부분의 변수를 함수 내에 작성하기 때문입니다.
 ```
 
-## Parameters
+## 매개변수(Parameters)
 
-We can pass arbitrary data to functions using parameters (also called *function arguments*) .
+매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인수(arguments)* 로 불리기도 합니다(역주: 매개변수와 인수는 엄밀히 같진 않지만, 본 튜토리얼 원문을 토대로 번역하였습니다).
 
-In the example below, the function has two parameters: `from` and `text`.
+아래 함수 showMessage는 매개변수 `from` 과 `text`를 받고 있습니다.
 
 ```js run
-function showMessage(*!*from, text*/!*) { // arguments: from, text
+function showMessage(*!*from, text*/!*) { // 인수: from, text
   alert(from + ': ' + text);
 }
 
@@ -148,8 +148,12 @@ showMessage('Ann', "What's up?"); // Ann: What's up? (**)
 */!*
 ```
 
-When the function is called in lines `(*)` and `(**)`, the given values are copied to local variables `from` and `text`. Then the function uses them.
+`(*)` 와 `(**)`로 표시한 줄에서 함수가 호출 되는데, 전달된 인자는 지역변수로 복사됩니다. 함수는 이 복사된 값을 사용합니다. 
 
+예시 하나를 더 살펴봅시다. 변수 `from`이 있고, 이 변수를 함수에 전달하였습니다. 
+Here's one more example: we have a variable `from` and pass it to the function. 
+Please note: the function changes `from`, but the change is not seen outside, 
+because a function always gets a copy of the value:
 Here's one more example: we have a variable `from` and pass it to the function. Please note: the function changes `from`, but the change is not seen outside, because a function always gets a copy of the value:
 
 
