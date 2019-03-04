@@ -1,24 +1,24 @@
-# Logical operators
+# 논리 연산자
 
-There are three logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT).
+자바스크립트에는 세 가지 논리 연산자가 있습니다: `||`(OR), `&&`(AND), `!`(NOT).
 
-Although they are called "logical", they can be applied to values of any type, not only boolean. Their result can also be of any type.
+"논리적"이라고 부르지만 모든 유형의 값에 적용 할 수 있습니다.(논리 타입뿐만 아니라) 그 결과는 어떤 타입이든 가능합니다.
 
-Let's see the details.
+세부 사항을 확인합시다.
 
 ## || (OR)
 
-The "OR" operator is represented with two vertical line symbols:
+"OR"연산자는 두 개의 수직선 기호로 표시됩니다.
 
 ```js
 result = a || b;
 ```
 
-In classical programming, the logical OR is meant to manipulate boolean values only. If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
+클래식 프로그래밍에서 "논리적 OR"은 불리언 값만 조작하기 위한 것이었습니다. 인수중 하나라도 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.
 
-In JavaScript, the operator is a little bit trickier and more powerful. But first, let's see what happens with boolean values.
+자바스크립트에서 연산자는 조금 더 까다롭고 강력합니다. 하지만 먼저 불리언 값에 어떤 일이 일어나는지 살펴 보겠습니다.
 
-There are four possible logical combinations:
+가능한 논리적 조합에는 네 가지가 있습니다.
 
 ```js run
 alert( true || true );   // true
@@ -27,21 +27,21 @@ alert( true || false );  // true
 alert( false || false ); // false
 ```
 
-As we can see, the result is always `true` except for the case when both operands are `false`.
+보시다시피 결과는 두 피연산자가 모두 `false`인 경우를 제외하고 항상 `true`입니다.
 
-If an operand is not a boolean, it's converted to a boolean for the evaluation.
+피연산자가 논리타입이 아니면 평가를 위해 논리타입으로 변환됩니다.
 
-For instance, the number `1` is treated as `true`, the number `0` as `false`:
-
+예를 들어, 숫자 `1`은 `true`로 취급되고 숫자 `0`은 `false`로 취급됩니다. 
+ 
 ```js run
 if (1 || 0) { // works just like if( true || false )
   alert( 'truthy!' );
 }
 ```
 
-Most of the time, OR `||` is used in an `if` statement to test if *any* of the given conditions is `true`.
+대부분의 경우, OR `||`는 주어진 조건 중 어떠한 것이 `true`인지 테스트하기 위해 `if`문에서 사용합니다.
 
-For example:
+예:
 
 ```js run
 let hour = 9;
@@ -53,7 +53,7 @@ if (hour < 10 || hour > 18) {
 }
 ```
 
-We can pass more conditions:
+더 많은 조건을 넘길 수 있습니다.
 
 ```js run
 let hour = 12;
@@ -64,27 +64,27 @@ if (hour < 10 || hour > 18 || isWeekend) {
 }
 ```
 
-## OR finds the first truthy value
+## OR은 첫 번째로 참인 값을 찾습니다.
 
-The logic described above is somewhat classical. Now, let's bring in the "extra" features of JavaScript.
+위에서 설명한 로직(논리)은 다소 고전적입니다. 이제 자바스크립트의 "추가"기능을 소개하겠습니다.
 
-The extended algorithm works as follows.
+확장 알고리즘은 다음과 같이 작동합니다.
 
-Given multiple OR'ed values:
+OR 값이 여러 개있는 경우:
 
 ```js
 result = value1 || value2 || value3;
 ```
 
-The OR `||` operator does the following:
+OR`||`연산자는 다음을 수행합니다.
 
-- Evaluates operands from left to right.
-- For each operand, converts it to boolean. If the result is `true`, stops and returns the original value of that operand.
-- If all operands have been evaluated (i.e. all were `false`), returns the last operand.
+- 피연산자(operand)를 왼쪽에서 오른쪽으로 수치를 구합니다.
+- 각 피연산자에 대해 논리 타입으로 변환합니다. 결과가 `true`이면 수치연산을 멈추고 해당 피연산자의 원래 값(변환 전)을 반환합니다.
+- 모든 피연산자의 수치를 구한 경우(즉 모두 `거짓`인 경우) 마지막 피연산자를 반환합니다.
 
-A value is returned in its original form, without the conversion.
+값은 변환없이 원래 형식으로 반환됩니다.
 
-In other words, a chain of OR `"||"` returns the first truthy value or the last one if no such value is found.
+바꾸어 말하면, OR`"||"`의 연속은 첫 번째 참인 값을 반환하거나 참인 값이 없으면 마지막 값을 반환합니다. 
 
 For instance:
 
