@@ -128,6 +128,7 @@ alert(name1); // Julius
 alert(name2); // Caesar
 
 *!*
+// Note that type of `rest` is Array.
 alert(rest[0]); // Consul
 alert(rest[1]); // of the Roman Republic
 alert(rest.length); // 2
@@ -146,6 +147,7 @@ let [firstName, surname] = [];
 */!*
 
 alert(firstName); // undefined
+alert(surname); // undefined
 ```
 
 If we want a "default" value to replace the missing one, we can provide it using `=`:
@@ -382,6 +384,8 @@ alert(item2);  // Donut
 ```
 
 The whole `options` object except `extra` that was not mentioned, is assigned to corresponding variables.
+
+Note that `size` and `items` itself is not destructured.
 
 ![](destructuring-complex.png)
 
