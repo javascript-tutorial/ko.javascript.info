@@ -214,7 +214,7 @@ sayHi(); // undefined
 
 `this`가 strict mode에서 `undefined`일 경우. `this.name`을 접근하려 한다면, 에러를 출력할 것입니다.
 
-strict mode가 아닌 모드에서 (`use strict`를 사용하는 것을 잊어벼렸다면) `this`의 값은 *global object*일 것입니다(`window` 브라우저 안의 객체이죠, 나중에 다뤄 보겠습니다). 이것에 `"use strict"'`가 고치는 것들에 관한 역사적인 배경이 있는 동작입니다.
+strict mode가 아닌 모드에서 `this`의 값은 *global object*일 것입니다(브라우저 환경에선, `window`가 될겁니다. [](info:global-object)에서 자세히 다루도록 하겠습니다). 이것에 `"use strict"'`가 고치는 것들에 관한 역사적인 배경이 있는 동작입니다.
 
 보통은 객체 없이 `this`를 사용하는 함수를 호출하는 것은 정상적이지 않다는 것을 알아두세요. 오히려 프로그래밍 실수라고 여기죠. 함수가 `this`를 가지고 있다면 어떤 객체의 문맥에서 호출될 것을 의도했다고 보면 되죠.
 
