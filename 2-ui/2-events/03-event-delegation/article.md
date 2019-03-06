@@ -1,15 +1,13 @@
 
-# Event delegation
+# 이벤트 위임(Event delegation)
 
-Capturing and bubbling allow us to implement one of most powerful event handling patterns called *event delegation*.
+캡처링과 버블링을 활용하면 강력한 이벤트 핸들링 패턴인 *이벤트 위임*을 구현할 수 있습니다.
 
-The idea is that if we have a lot of elements handled in a similar way, then instead of assigning a handler to each of them -- we put a single handler on their common ancestor.
+비슷한 방식으로 여러 요소를 다뤄야 할 때 이벤트 위임을 활용할 수 있습니다. 요소마다 핸들러를 할당하지 않고, 요소의 공통 조상에 이벤트 핸들러를 단 하나만 할당하면 됩니다.
 
-In the handler we get `event.target`, see where the event actually happened and handle it.
+공통 조상에 할당한 핸들러에서 `event.target`을 이용하면, 실제 어디서 이벤트가 발생했는지 알 수 있고, 이를 이용해 이벤트를 핸들링합니다.
 
-Let's see an example -- the [Ba-Gua diagram](http://en.wikipedia.org/wiki/Ba_gua) reflecting the ancient Chinese philosophy.
-
-Here it is:
+예제를 살펴봅시다. 다음은 고대 중국 철학과 관련된 [팔괘도(Ba-Gua diagram)](http://en.wikipedia.org/wiki/Ba_gua) 입니다.
 
 [iframe height=350 src="bagua" edit link]
 
@@ -30,45 +28,45 @@ The HTML is like this:
 </table>
 ```
 
-The table has 9 cells, but there could be 99 or 9999, doesn't matter.
+지금 보는 표에는 9개의 칸만 있습니다. 하지만 칸이 99개이든 9999개이든 상관없이 이벤트 위임을 적용할 수 있습니다.  
 
-**Our task is to highlight a cell `<td>` on click.**
+**우리가 해야 할 작업은 `<td>`를 클릭했을 때, 그 칸을 강조하는 것입니다.**
 
-Instead of assign an `onclick` handler to each `<td>` (can be many) -- we'll setup the "catch-all" handler on `<table>` element.
+각 `<td>`마다 `onclick` 핸들러를 할당하는 대신, `<table>` 요소에 "모든 이벤트를 잡아내는(catch-all)" 핸들러를 할당할 수 있습니다.
 
-It will use `event.target` to get the clicked element and highlight it.
+이 핸들러는 `event.target`을 이용해 어떤 요소가 클릭 되었는지 감지하고, 해당 칸을 강조합니다.
 
-The code:
+코드:
 
 ```js
 let selectedTd;
 
 *!*
 table.onclick = function(event) {
-  let target = event.target; // where was the click?
+  let target = event.target; // 클릭이 어디서 발생했나?
 
-  if (target.tagName != 'TD') return; // not on TD? Then we're not interested
+  if (target.tagName != 'TD') return; // TD에서 발생한 게 아니라면? 아무 작업도 안 함
 
-  highlight(target); // highlight it
+  highlight(target); // 강조해줌 
 };
 */!*
 
 function highlight(td) {
-  if (selectedTd) { // remove the existing highlight if any
+  if (selectedTd) { // 강조된 칸을 원상태로 바꿔줌
     selectedTd.classList.remove('highlight');
   }
   selectedTd = td;
-  selectedTd.classList.add('highlight'); // highlight the new td
+  selectedTd.classList.add('highlight'); // 새로운 td를 강조해줌
 }
 ```
 
-Such a code doesn't care how many cells there are in the table. We can add/remove `<td>` dynamically at any time and the highlighting will still work.
+이렇게 코드를 작성하면 테이블 내의 칸 개수는 고민거리가 되지 않습니다. 강조기능을 수정하지 않더라도 `<td>`를 언제라도 넣고 뺄 수 있게 됩니다. 
 
-Still, there's a drawback.
+하지만, 단점도 존재합니다.
 
-The click may occur not on the `<td>`, but inside it.
+위처럼 구현하면 클릭 이벤트가 `<td>`가 아닌 그 안에 동작할 수 있습니다.
 
-In our case if we take a look inside the HTML, we can see nested tags inside `<td>`, like `<strong>`:
+위 팔괘도의 HTML을 살펴봅시다. `<td>`안에 `<strong>`가 중첩된 것을 확인할 수 있습니다:
 
 ```html
 <td>
@@ -79,13 +77,13 @@ In our case if we take a look inside the HTML, we can see nested tags inside `<t
 </td>
 ```
 
-Naturally, if a click happens on that `<strong>` then it becomes the value of `event.target`.
+ `<strong>`을 클릭하게 되면 이 요소가 이벤트의 타깃이 됩니다. `event.target`에 이 요소가 저장되죠.
 
 ![](bagua-bubble.png)
 
-In the handler `table.onclick` we should take such `event.target` and find out whether the click was inside `<td>` or not.
+따라서 `table.onclick`핸들러에서 `event.target`을 이용해 클릭 이벤트가 `<td>`안쪽에서 일어났는지, 아닌지를 알아내야 합니다.
 
-Here's the improved code:
+아래는 기능을 좀 더 향상시킨 코드입니다:
 
 ```js
 table.onclick = function(event) {
@@ -99,27 +97,27 @@ table.onclick = function(event) {
 };
 ```
 
-Explanations:
-1. The method `elem.closest(selector)` returns the nearest ancestor that matches the selector. In our case we look for `<td>` on the way up from the source element.
-2. If `event.target` is not inside any `<td>`, then the call returns `null`, and we don't have to do anything.
-3. In case of nested tables, `event.target` may be a `<td>` lying outside of the current table. So we check if that's actually *our table's* `<td>`.
-4. And, if it's so, then highlight it.
+설명:
+1. `elem.closest(selector)` 메서드는 selector의 가장 가까운 조상을 반환합니다. 위 코드에선 근원 요소로부터 시작해 위로 올라가며 `<td>` 요소를 찾습니다.
+2. 만약 `event.target`이 `<td>`안에 있지 않으면, 반환값은 `null`이 됩니다. 따라서, 아무 작업도 일어나지 않습니다.
+3. 중첩 테이블이 있는 경우, `event.target`은 현재 테이블 바깥에 있는 `<td>`일 수도 있습니다. 이런 경우를 처리하기 위해, `<td>`가 팔괘도 안에 있는지를 확인합니다.
+4. 이제 진짜 td를 강조해 줍니다.
 
-## Delegation example: actions in markup
+## 이벤트 위임 활용: 마크업 내 이벤트 핸들링 최적화
 
-The event delegation may be used to optimize event handling. We use a single handler for similar actions on many elements. Like we did it for highlighting `<td>`.
+이벤트 위임은 이벤트 핸들링을 최적화하는데 사용할 수 있습니다. 위의 예제에선 `<td>`를 강조하는 것과 같이, 유사한 동작을 하나의 핸들러로 제어하려는 목적으로 이벤트 위임을 활용했습니다.
 
-But we can also use a single handler as an entry point for many different things.
+하지만, 하나의 핸들러에서 다양한 동작을 다룰 수도 있습니다. 이 핸들러를 제어의 시작점으로 활용해서 말이죠.
 
-For instance, we want to make a menu with buttons "Save", "Load", "Search" and so on. And there's an object with methods `save`, `load`, `search`....
+"Save", "Load", "Search" 등의 버튼이 있는 메뉴를 만든다고 가정해 봅시다. `save`, `load`, `search`등의 메서드를 가진 객체가 필요할 겁니다.
 
-The first idea may be to assign a separate handler to each button. But there's a more elegant solution. We can add a handler for the whole menu and `data-action` attributes for buttons that has the method to call:
+처음엔 버튼 각각에 독립된 핸들러를 할당해 기능을 구현하려고 할 겁니다. 하지만 이 방법보다 더 우아한 해결책이 있습니다. 메뉴 전체와 각 버튼의 `data-action` 속성에 핸들러를 할당해주면 됩니다. 속성값으론 호출할 메서드를 할당해 줍니다:
 
 ```html
 <button *!*data-action="save"*/!*>Click to Save</button>
 ```
 
-The handler reads the attribute and executes the method. Take a look at the working example:
+핸들러는 속성값을 읽고 메서드를 실행합니다. 아래 코드를 실행해 봅시다:
 
 ```html autorun height=60 run
 <div id="menu">
@@ -161,16 +159,16 @@ The handler reads the attribute and executes the method. Take a look at the work
 </script>
 ```
 
-Please note that `this.onClick` is bound to `this` in `(*)`. That's important, because otherwise `this` inside it would reference the DOM element (`elem`), not the menu object, and `this[action]` would not be what we need.
+`(*)`로 표시한 줄의 `this.onClick`은 `this`에 bind 되었다는 것을 주의해 주세요. 이렇게 하지 않으면 `this`는 DOM 요소(`elem`)를 참조하게 됩니다. menu 객체를 참조하지 않습니다. `this[action]`은 우리가 원하는 바가 아닙니다. 
 
-So, what the delegation gives us here?
+자 그럼, 이렇게 작성한 코드는 어떤 이점이 있을까요? 아래와 같은 장점이 있습니다.
 
 ```compare
-+ We don't need to write the code to assign a handler to each button. Just make a method and put it in the markup.
-+ The HTML structure is flexible, we can add/remove buttons at any time.
++ 각 버튼에 핸들러를 할당하기 위한 코드를 작성할 필요가 없어집니다. 버튼에 해당하는 메서드를 만들고, 마크업에 그 메서드를 써주기만 하면 됩니다.
++ HTML 구조는 유연하기 때문에, 언제든지 버튼을 추가하고 제거할 수 있게 됩니다.
 ```
 
-We could also use classes `.action-save`, `.action-load`, but an attribute `data-action` is better semantically. And we can use it in CSS rules too.
+`.action-save`, `.action-load` 같은 클래스를 사용할 수도 있지만, `data-action` 속성이 좀 더 의미론적으로 낫습니다. CSS 규칙을 적용할 수도 있게 됩니다.
 
 ## The "behavior" pattern
 
