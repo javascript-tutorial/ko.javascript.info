@@ -1,21 +1,21 @@
-# Destructuring assignment
+# 해체 할당(destructuring assignment)
 
-The two most used data structures in JavaScript are `Object` and `Array`.
+`객체` 와 `배열`은 자바스크립트에서 가장 많이 쓰이는 자료구조입니다.
 
-Objects allow us to pack many pieces of information into a single entity and arrays allow us to store ordered collections. So we can make an object or an array and handle it as a single entity, or maybe pass it to a function call.
+객체를 이용하면 다양한 정보 조각을 하나의 엔티티에 넣을 수 있습니다. 배열은 순서가 있는 컬렉션을 저장할 수 있게 해줍니다. 이렇게 객체와 배열을 이용하면 다양한 데이터를 하나의 엔티티로 다룰 수 있습니다. 이런 점을 이용해 다양한 정보를 객체나 배열에 담아 함수의 매개변수로 전달해 줄 수도 있습니다.
 
-*Destructuring assignment* is a special syntax that allows us to "unpack" arrays or objects into a bunch of variables, as sometimes they are more convenient. Destructuring also works great with complex functions that have a lot of parameters, default values, and soon we'll see how these are handled too.
+*해체 할당*은 객체나 배열을 변수로 "해체"할 수 있게 해주는 유용한 문법입니다. 매개변수, 매개변수 기본값(default values)이 많은 복잡한 함수에서 해체 할당은 그 진가를 발휘합니다. 이 용례는 뒤에서 살펴보도록 하겠습니다.
 
-## Array destructuring
+## 배열 해체
 
-An example of how the array is destructured into variables:
+배열이 어떻게 변수로 해체되는지 예제를 통해 살펴봅시다:
 
 ```js
-// we have an array with the name and surname
+// 이름과 성을 요소로 가진 배열
 let arr = ["Ilya", "Kantor"]
 
 *!*
-// destructuring assignment
+// 해체 할당
 let [firstName, surname] = arr;
 */!*
 
@@ -23,18 +23,18 @@ alert(firstName); // Ilya
 alert(surname);  // Kantor
 ```
 
-Now we can work with variables instead of array members.
+배열 해체를 이용해 배열에 담긴 이름과 성을 변수로 호출할 수 있게되었습니다.
 
-It looks great when combined with `split` or other array-returning methods:
+`split`과 같이 배열을 반환해주는 메서드를 배열 해체와 함께 사용하는것도 좋습니다:
 
 ```js
 let [firstName, surname] = "Ilya Kantor".split(' ');
 ```
 
-````smart header="\"Destructuring\" does not mean \"destructive\"."
-It's called "destructuring assignment," because it "destructurizes" by copying items into variables. But the array itself is not modified.
+````smart header="\"해체(Destructuring)\"와 \"파괴(destructive)\"는 다릅니다."
+해체 할당은 해체하고자 하는 배열을 복사해서 변수로 "해체(destructurizes)"해주기 때문에, 그 이름이 붙었습니다. 이 과정에서 기존 배열은 수정되지 않습니다.
 
-It's just a shorter way to write:
+해체 할당은 간결한 문법으로 배열의 요소를 변수로 저장할 수 있게 해주는 방법 일 뿐입니다:
 ```js
 // let [firstName, surname] = arr;
 let firstName = arr[0];
@@ -42,24 +42,24 @@ let surname = arr[1];
 ```
 ````
 
-````smart header="Ignore first elements"
-Unwanted elements of the array can also be thrown away via an extra comma:
+````smart header="첫번째 요소 무시하기"
+여분의 쉼표를 사용하면 필요하지 않은 배열 요소를 버릴 수 있습니다:
 
 ```js run
 *!*
-// first and second elements are not needed
+// 첫번째, 두 번째 요소는 불필요함
 let [, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 */!*
 
 alert( title ); // Consul
 ```
 
-In the code above, although the first and second elements of the array are skipped, the third one is assigned to `title`, and the rest are also skipped.
+위 코드에서 첫번째, 두 번쨰 요소는 걸러졌지만, 세 번째 요소는 `title`이라는 변수에 저장된 것을 확인할 수 있습니다. 그 이외 요소도 역시 걸러졌습니다.
 ````
 
-````smart header="Works with any iterable on the right-side"
+````smart header="오른쪽 피연산자에 이터러블 객체가 있는 경우"
 
-...Actually, we can use it with any iterable, not only arrays:
+...배열 해체는 배열 뿐만 아니라 모든 이터러블 객체에 사용할 수 있습니다:
 
 ```js
 let [a, b, c] = "abc"; // ["a", "b", "c"]
@@ -69,11 +69,11 @@ let [one, two, three] = new Set([1, 2, 3]);
 ````
 
 
-````smart header="Assign to anything at the left-side"
+````smart header="왼쪽 피연산자엔 모든지 할당 가능합니다"
 
-We can use any "assignables" at the left side.
+왼쪽 피 연산자엔 "할당할 수 있는"모든 걸 넣어도 괜찮습니다.
 
-For instance, an object property:
+아래와 같이 객체 프로퍼티도 가능합니다:
 ```js run
 let user = {};
 [user.name, user.surname] = "Ilya Kantor".split(' ');
@@ -83,11 +83,11 @@ alert(user.name); // Ilya
 
 ````
 
-````smart header="Looping with .entries()"
+````smart header=".entries()로 반복하기"
 
-In the previous chapter we saw the [Object.entries(obj)](mdn:js/Object/entries) method.
+[Object.entries(obj)](mdn:js/Object/entries)메서드는 이전 챕터에서 학습한 바 있습니다. 
 
-We can use it with destructuring to loop over keys-and-values of an object:
+이 메서드를 활용하면 객체의 키와 값을 순회하고 해체할 수 있습니다.
 
 ```js run
 let user = {
@@ -95,7 +95,7 @@ let user = {
   age: 30
 };
 
-// loop over keys-and-values
+// keys-and-values 순회하기
 *!*
 for (let [key, value] of Object.entries(user)) {
 */!*
@@ -103,7 +103,7 @@ for (let [key, value] of Object.entries(user)) {
 }
 ```
 
-...And the same for a map:
+맵에도 물론 적용할 수 있습니다:
 
 ```js run
 let user = new Map();
@@ -117,9 +117,9 @@ for (let [key, value] of user.entries()) {
 }
 ```
 ````
-### The rest '...'
+### '...'로 나머지 값 가져오기
 
-If we want not just to get first values, but also to gather all that follows -- we can add one more parameter that gets "the rest" using three dots `"..."`:
+앞쪽에 위치한 값들 뿐만 아니라, 그 이후 이어지는 나머지 값들을 사용해야 하는 경우가 있습니다. 이럴때 `"..."`같이 세개의 점이 이어지는 연산자(역주: 확산 연산자 또는 전개 연산자)를 매개변수 앞에 붙여주면 "나머지(rest)" 값들을 모두 사용할 수 있습니다.
 
 ```js run
 let [name1, name2, *!*...rest*/!*] = ["Julius", "Caesar", *!*"Consul", "of the Roman Republic"*/!*];
@@ -128,18 +128,18 @@ alert(name1); // Julius
 alert(name2); // Caesar
 
 *!*
-// Note that type of `rest` is Array.
+// `rest`의 타입은 배열(Array)입니다.
 alert(rest[0]); // Consul
 alert(rest[1]); // of the Roman Republic
 alert(rest.length); // 2
 */!*
 ```
 
-The value of `rest` is the array of the remaining array elements. We can use any other variable name in place of `rest`, just make sure it has three dots before it and goes last in the destructuring assignment.
+`rest`는 나머지 배열 요소가 들어있는 배열이 됩니다. 이제 `rest`에 있는 모든 요소를 변수로 참조할 수 있게 되었습니다. `rest`앞에는 확산 연산자  `"..."`가 있고, 해체 할당 가장 마지막에 `rest`가 있어야 한다는 점을 잊지 마시기 바랍니다.
 
-### Default values
+### 기본값(default values)
 
-If there are fewer values in the array than variables in the assignment, there will be no error. Absent values are considered undefined:
+할당하고자 하는 변수의 갯수가 해체하고자 하는 배열의 요소갯수보다 많더라도, 에러가 발생하지 않습니다. 값이 없는 경우는 undefined으로 취급되기 때문입니다.
 
 ```js run
 *!*
@@ -150,45 +150,46 @@ alert(firstName); // undefined
 alert(surname); // undefined
 ```
 
-If we want a "default" value to replace the missing one, we can provide it using `=`:
+값이 없을 때 할당해 줄 "기본" 값을 설정해주려면, `=`을 이용해 값을 제공해 주면 됩니다:
 
 ```js run
 *!*
-// default values
+// 기본 값
 let [name = "Guest", surname = "Anonymous"] = ["Julius"];
 */!*
 
-alert(name);    // Julius (from array)
-alert(surname); // Anonymous (default used)
+alert(name);    // Julius (배열로부터 받아온 값)
+alert(surname); // Anonymous (기본값)
 ```
 
-Default values can be more complex expressions or even function calls. They are evaluated only if the value is not provided.
+복잡한 표현식이나 함수를 기본값으로 할당해 줄 수도 있습니다. 이 경우는, 값이 없다고 판단된 이후 표현식이 평가되거나 함수가 호출됩니다.
 
+아래는 기본값으로 두개의 `prompt` 함수를 할당 해 주었습니다. 하지만 surname만 값이 없기 때문에 함수는 한번만 호출 됩니다:
 For instance, here we use the `prompt` function for two defaults. But it will run only for the missing one:
 
 ```js run
-// runs only prompt for surname
+// surname의 prompt만 실행됨
 let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius"];
 
-alert(name);    // Julius (from array)
-alert(surname); // whatever prompt gets
+alert(name);    // Julius (배열로 부터 받아온 값)
+alert(surname); // prompt로부터 받아온 값
 ```
 
 
 
-## Object destructuring
+## 객체 해체
 
-The destructuring assignment also works with objects.
+해체 할당으로 객체를 해체할 수 있습니다.
 
-The basic syntax is:
+기본 문법은 다음과 같습니다:
 
 ```js
 let {var1, var2} = {var1:…, var2…}
 ```
 
-We have an existing object at the right side, that we want to split into variables. The left side contains a "pattern" for corresponding properties. In the simple case, that's a list of variable names in `{...}`.
+오른쪽 피 연산자엔 변수로 해체하고자 하는 객체를 써줍니다. 왼쪽 피 연산자엔 객체의 프로퍼티가 할당 될 변수를 위한 "패턴(pattern)"을 써줍니다. 가장 간단한 패턴은 `{...}`안에 객체의 프로퍼티 이름과 일치하는 변수 이름을 적어주는 것 입니다.
 
-For instance:
+예:
 
 ```js run
 let options = {
@@ -206,16 +207,17 @@ alert(width);  // 100
 alert(height); // 200
 ```
 
-Properties `options.title`, `options.width` and `options.height` are assigned to the corresponding variables. The order does not matter. This works too:
+프로퍼티 `options.title`, `options.width`, `options.height`는 상응하는 변수에 할당됩니다. 이 때, 순서는 중요하지 않습니다. 아래 코드도 동일하게 객체를 해체해 줍니다. 
+ are assigned to the corresponding variables. The order does not matter. This works too:
 
 ```js
-// changed the order of properties in let {...}
+// let {...} 안의 프로퍼티 순서가 변경됨
 let {height, width, title} = { title: "Menu", height: 200, width: 100 }
 ```
 
-The pattern on the left side may be more complex and specify the mapping between properties and variables.
+왼쪽 피 연산자의 패턴은 좀 더 복잡할 수 있습니다. 프로퍼티와 값의 매핑을 구체적으로 해줄 수도 있습니다.
 
-If we want to assign a property to a variable with another name, for instance, `options.width` to go into the variable named `w`, then we can set it using a colon:
+프로퍼티를 프로퍼티 이름과 다른 변수에 저장하고 싶은 경우도 있을겁니다. 아래 예에선 `options.width`는 `w`라는 변수에 저장됩니다. 이렇게 변수 잉름과 객체의 프로퍼티 이름이 다른 경우는 콜론(:)을 사용합니다:
 
 ```js run
 let options = {
@@ -238,9 +240,9 @@ alert(w);      // 100
 alert(h);      // 200
 ```
 
-The colon shows "what : goes where". In the example above the property `width` goes to `w`, property `height` goes to `h`, and `title` is assigned to the same name.
+콜론은 "sourceProperty: targetVariable"과 같은 형태로 사용합니다. 위 예제에선 프로퍼티 `width`가 변수 `w`에 저장되고, 프로퍼티 `height`는 변수 `h`에 저장됩니다. `title`는 같은 이름의 변수에 저장됩니다. 
 
-For potentially missing properties we can set default values using `"="`, like this:
+`"="`을 사용하면 누락된 프로퍼티에 대한 기본값을 설정할 수도 있습니다. 아래와 같이 말이죠:
 
 ```js run
 let options = {
@@ -256,9 +258,9 @@ alert(width);  // 100
 alert(height); // 200
 ```
 
-Just like with arrays or function parameters, default values can be any expressions or even function calls. They will be evaluated if the value is not provided.
+배열이나 함수의 매개변수처럼, 객체 해체에 할당한 기본값에도 표현식이나 함수 호출을 할당할 수 있습니다. 이 때, 기본값이 없는 경우에만 표현식이나 함수호출이 평가됩니다.   
 
-The code below asks for width, but not the title.
+아래 코드를 실행하면 width 값만 물어보고, title은 물어보지 않습니다.
 
 ```js run
 let options = {
@@ -273,7 +275,7 @@ alert(title);  // Menu
 alert(width);  // (whatever you the result of prompt is)
 ```
 
-We also can combine both the colon and equality:
+콜론과 등호를 동시에 사용하는 것도 가능합니다:
 
 ```js run
 let options = {
