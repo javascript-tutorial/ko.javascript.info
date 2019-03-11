@@ -18,7 +18,7 @@ let id = Symbol();
 
 우리는 심볼에 설명(심볼 이름이라고도 불립니다)을 붙일 수도 있습니다. 주로 디버깅을 할 때 유용하게 쓰입니다.:
 
-```js
+```js run
 // id는 "id"라는 설명을 가진 심볼입니다.
 let id = Symbol("id");
 ```
@@ -50,7 +50,9 @@ alert(id); // TypeError: Cannot convert a Symbol value to a string
 */!*
 ```
 
-만약 우리가 정말로 심볼을 보여주고 싶다면, 다음과 같이 심볼에 `.toString()` 메서드를 호출해야 합니다.:
+That's a "language guard" against messing up, because strings and symbols are fundamentally different and should not occasionally convert one into another.
+
+If we really want to show a symbol, we need to call `.toString()` on it, like here:
 ```js run
 let id = Symbol("id");
 *!*
@@ -58,7 +60,14 @@ alert(id.toString()); // Symbol(id), 이제 잘 실행됩니다.
 */!*
 ```
 
-이것은 혼란을 막기 위한 "언어적 보호장치(language guard)"입니다. 문자열과 심볼은 근본적으로 다르며 서로의 타입으로 종종 변환돼서는 안되기 때문입니다.
+Or get `symbol.description` property to get the description only:
+```js run
+let id = Symbol("id");
+*!*
+alert(id.description); // id
+*/!*
+```
+
 ````
 
 ## "숨겨진" 프로퍼티
