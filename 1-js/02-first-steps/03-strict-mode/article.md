@@ -47,15 +47,33 @@ alert("some code");
 엄격 모드를 적용하면, 돌이킬 방법은 없습니다.
 ```
 
+## Browser console
+
+For the future, when you use a browser console to test features, please note that it doesn't `use strict` by default.
+
+Sometimes, when `use strict` makes a difference, you'll get incorrect results.
+
+Even if we press `key:Shift+Enter` to input multiple lines, and put `use strict` on top, it doesn't work. That's because of how the console executes the code internally.
+
+The reliable way to ensure `use strict` would be to input the code into console like this:
+
+```
+(function() {
+  'use strict';
+
+  // ...your code...
+})()
+```
+
 ## 항상 "use strict"를 사용하세요.
 
-`"use strict"`와 "default" 모드의 차이점에 대해 다뤄봐야 할 필요가 있습니다.
+We have yet to cover the differences between strict mode and the "default" mode.
 
-다음 챕터에서 자바스크립트의 기능에 대해 배울 때, 우리는 엄격 모드와 기본 모드의 차이점에 대해 알아볼 것입니다. 다행히도, 차이점은 많지 않습니다. 그리고 이 두 모드는 우리의 삶을 더욱 편리하게 만들어 줍니다.
+In the next chapters, as we learn language features, we'll note the differences between the strict and default modes. Luckily, there aren't many and they actually make our lives better.
 
-현시점에서는 엄격 모드에 대해 이 정도만 알아도 충분합니다.:
+For now, it's enough to know about it in general:
 
-1. `"use strict"` 지시어는 엔진을 "현대적인" 모드로 전환시키고 일부 내장된 기능을 변경합니다. 나중에 이 부분을 공부할 때 자세히 알아보도록 하겠습니다.
-2. 엄격 모드는 상단에 위치한 `"use strict"`를 통해 활성화됩니다. 엄격 모드를 자동으로 활성화시키는 "클래스"와 "모듈" 같은 여러 기능도 존재합니다.
-3. 엄격 모드는 모든 모던 브라우저에 의해 지원됩니다.
-4. 항상 스크립트를 `"use script"`로 시작할 것을 권장합니다. 이 튜토리얼의 모든 예제는 (매우 드문) 특정한 상황이 아니라면 `"use script"`로 시작한다는 것을 전제합니다.
+1. The `"use strict"` directive switches the engine to the "modern" mode, changing the behavior of some built-in features. We'll see the details later in the tutorial.
+2. Strict mode is enabled by placing `"use strict"` at the top of a script or function. Several language features, like "classes" and "modules", enable strict mode automatically.
+3. Strict mode is supported by all modern browsers.
+4. We recommended always starting scripts with `"use strict"`. All examples in this tutorial assume strict mode unless (very rarely) specified otherwise.

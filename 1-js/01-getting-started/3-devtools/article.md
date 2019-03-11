@@ -50,6 +50,12 @@
 
 이제 `key:Cmd+Opt+C` 를 누르면 개발자 콘솔을 열 수 있습니다. 그리고 상단에 "개발자용(Develop)" 메뉴가 새로 생긴 것을 볼 수 있습니다. 여기에는 많은 명령어와 옵션이 있습니다.
 
+## Multi-line input
+
+Usually, when we put a line of code into the console, and then press `ley:Enter`, it executes.
+
+To insert multiple line, press `key:Shift+Enter`.
+
 ## 요약
 
 - 개발자 도구를 통해 에러를 확인하고, 명령어를 실행하고, 변수를 분석해보는 등의 일을 할 수 있습니다.
