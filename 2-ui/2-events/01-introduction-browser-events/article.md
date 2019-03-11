@@ -217,7 +217,7 @@ input.onclick = function() { alert(2); } // 이전의 핸들러를 교체함
 핸들러를 더해줄 땐 다음의 syntax(구문) 을 사용합니다:
 
 ```js
-element.addEventListener(event, handler[, phase]);
+element.addEventListener(event, handler[, options]);
 ```
 
 `event`
@@ -226,15 +226,17 @@ element.addEventListener(event, handler[, phase]);
 `handler`
 : 핸들러 함수
 
-`phase`
-: 추가적인 인수로, 핸들러를 어느 "단계" 호출할지를 정함. 잘 사용되진 않고, 뒤에서 다룰 예정임
+`options`
+: 아래와 같은 프로퍼티를 갖는 추가적인 객체입니다:
+    - `once`: `true`이면 호출할 때 listener가 자동으로 삭제됩니다.
+    - `capture`: 어느 단계에서 이벤트를 다뤄야 하는지를 알려주는 프로퍼티로, <info:bubbling-and-capturing>에서 다룰 예정입니다. `{capture: false/true}`는  `options`을 `false/true`로 설정하는 것과 같습니다. 과거엔 `options` 자체가 `false/true` 값을 가지는 프로퍼티였습니다.
+    - `passive`: true일 경우, listener에서 지정한 함수가 preventDefault()를 호출하지 않습니다. <info:default-browser-action>에서 자세히 다루겠습니다.
 
 핸들러 삭제는 `removeEventListener`로 합니다:
 
 
 ```js
-// addEventListener와 정확히 일치하는 인수
-element.removeEventListener(event, handler[, phase]);
+element.removeEventListener(event, handler[, options]);
 ```
 
 ````warn header="삭제는 동일한 함수만 할 수 있습니다"
