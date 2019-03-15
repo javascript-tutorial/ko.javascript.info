@@ -1,30 +1,30 @@
-# Comments
+# 주석(comment)
 
-As we know from the chapter <info:structure>, comments can be single-line: starting with `//` and multiline: `/* ... */`.
+<info:structure> 챕터에서 알아본 바와 같이 한줄짜리 주석은 `//`로, 여러줄의 주석은 `/* ... */`로 시작합니다.
 
-We normally use them to describe how and why the code works.
+주석은 대게 어떻게, 그리고 왜 코드가 동작하는지를 설명하는데 쓰입니다.
 
-From the first sight, commenting might be obvious, but novices in programming usually get it wrong.
+처음엔 주석 작성이 쉬워보일 수 있을지 모르겠지만, 초보 프로그래머들은 대게 주석을 잘 못 작성합니다.
 
-## Bad comments
+## 좋지 않은 주석
 
-Novices tend to use comments to explain "what is going on in the code". Like this:
+초심자들은 "코드가 무슨일을 하는지"를 설명하는 주석을 작성하곤 합니다. 아래와 같이 말이죠:
 
 ```js
-// This code will do this thing (...) and that thing (...)
-// ...and who knows what else...
+// 이 코드는 (...)일과 (...)을 수행합니다
+// ...그리고 누가 뭘 알고 있는지 등등에 대해 씁니다...
 very;
 complex;
 code;
 ```
 
-But in good code the amount of such "explanatory" comments should be minimal. Seriously, code should be easy to understand without them.
+그러나 좋은 코드에선 "설명적" 주석의 양을 최소화 해야 합니다. 코드는 주석 없이도 이해하기 쉬워야 합니다. 
 
-There's a great rule about that: "if the code is so unclear that it requires a comment, then maybe it should be rewritten instead".
+이에 관한 좋은 규칙도 있습니다. "만약 코드가 불분명해서 주석 작성이 불가피 하다면, 코드를 다시 작성해야만 하는 경우일 수 있습니다."
 
-### Recipe: factor out functions
+### 레시피: 함수를 뽑아내기
 
-Sometimes it's beneficial to replace a code piece with a function, like here:
+어떤 경우는 코드 일부를 함수로 뽑아내는 게 유익한 상황이 있습니다. 아래와 같이 말이죠:
 
 ```js
 function showPrimes(n) {
@@ -32,7 +32,7 @@ function showPrimes(n) {
   for (let i = 2; i < n; i++) {
 
 *!*
-    // check if i is a prime number
+    // i가 소수인지를 확인함
     for (let j = 2; j < i; j++) {
       if (i % j == 0) continue nextPrime;
     }
@@ -43,7 +43,7 @@ function showPrimes(n) {
 }
 ```
 
-The better variant, with a factored out function `isPrime`:
+코드 일부를 함수 `isPrime` 뽑아낸 아래 코드는 더 나은 대안이 됩니다:
 
 
 ```js
@@ -65,21 +65,21 @@ function isPrime(n) {
 }
 ```
 
-Now we can understand the code easily. The function itself becomes the comment. Such code is called *self-descriptive*.
+이제 코드를 쉽게 이해할 수 있게 되었습니다. 함수 자체가 주석 역할을 하기 때문입니다. 이런 코드를 *자기 설명적인*코드라 부릅니다.
 
-### Recipe: create functions
+### 레시피: 함수 만들기
 
-And if we have a long "code sheet" like this:
+아래와 같이 긴 "code sheet"이 있는 경우를 생각해 봅시다:
 
 ```js
-// here we add whiskey
+// 위스키를 더해줌
 for(let i = 0; i < 10; i++) {
   let drop = getWhiskey();
   smell(drop);
   add(drop, glass);
 }
 
-// here we add juice
+// 주스를 더해줌
 for(let t = 0; t < 3; t++) {
   let tomato = getTomato();
   examine(tomato);
@@ -90,7 +90,7 @@ for(let t = 0; t < 3; t++) {
 // ...
 ```
 
-Then it might be a better variant to refactor it into functions like:
+이럴 땐 코드를 함수로 리팩토링 해주는게 더 낫습니다. 아래와 같이 말이죠:
 
 ```js
 addWhiskey(glass);
@@ -111,70 +111,71 @@ function addJuice(container) {
 }
 ```
 
-Once again, functions themselves tell what's going on. There's nothing to comment. And also the code structure is better when split. It's clear what every function does, what it takes and what it returns.
+함수 자체는 이미 그 자체로 무엇을 하는지 설명합니다. 주석을 달 필요가 없는거죠. 그리고 코드를 쪼개면 코드 구조도 더 나아집니다. 이렇게 작성하면 모든 함수가 어떤 기능을 하는지, 무엇을 받고 무엇을 반환하는지가 명확해집니다.
 
-In reality, we can't totally avoid "explanatory" comments. There are complex algorithms. And there are smart "tweaks" for purposes of optimization. But generally we should try to keep the code simple and self-descriptive.
+하지만 실제 상황에선, "설명적" 주석 작성을 완전히 피할 순 없습니다. 복잡한 알고리즘 떄문이죠. 최적화를 위해 복잡한 코드가 불가피 할 수 있습니다. 이런 경우를 제외하곤 자기설명적이고 간단한 코드를 작성하기 위해 노력해야 합니다.  
 
-## Good comments
+## 좋은 주석
 
-So, explanatory comments are usually bad. Which comments are good?
+설명적 주석은 대부분 좋지 않습니다. 그럼 좋은 주석은 어떤걸까요?
 
-Describe the architecture
-: Provide a high-level overview of components, how they interact, what's the control flow in various situations... In short -- the bird's eye view of the code. There's a special diagram language [UML](http://wikipedia.org/wiki/Unified_Modeling_Language) for high-level architecture diagrams. Definitely worth studying.
+아키텍처를 설명하는 주석
+: 고 차원에서 바라본 컴포넌트 개요와 컴포넌트간의 상호작용을 설명하고, 다양한 상황에서의 컨트롤 플로우를 설명하는 주석이 좋습니다. 간단히 말해서 코드의 조감도같은 주석 말이죠. 
+고차원 수준의 아키텍처 다이어그램을 그리는데 쓰이는 언어인 [UML](http://wikipedia.org/wiki/Unified_Modeling_Language)이라는게 있습니다. 시간을 내어 공부할 가치가 있습니다.  
 
-Document a function usage
-: There's a special syntax [JSDoc](http://en.wikipedia.org/wiki/JSDoc) to document a function: usage, parameters, returned value.
+함수의 용례를 문서화 해주는 주석
+: 함수의 용례, 매개변수, 반환값등을 문서화 하는데 쓰이는 [JSDoc](http://en.wikipedia.org/wiki/JSDoc)라는 특별한 문법이 있습니다.
 
     For instance:
     ```js
     /**
-     * Returns x raised to the n-th power.
+     * x를 n번 곱한 수를 반환함
      *
-     * @param {number} x The number to raise.
-     * @param {number} n The power, must be a natural number.
-     * @return {number} x raised to the n-th power.
+     * @param {number} x 거듭제곱할 숫자
+     * @param {number} n 곱할 횟수, 반드시 자연수여야 함
+     * @return {number} x의 n거듭제곱을 반환함
      */
     function pow(x, n) {
       ...
     }
     ```
 
-    Such comments allow us to understand the purpose of the function and use it the right way without looking in its code.
+    이런 주석은 코드를 읽어보지 않고도 함수의 목적과 사용법을 바로 알 수 있게 해줍니다.
 
-    By the way, many editors like [WebStorm](https://www.jetbrains.com/webstorm/) can understand them as well and use them to provide autocomplete and some automatic code-checking.
+    [WebStorm](https://www.jetbrains.com/webstorm/)과 같은 다양한 에디터에선 미리 작성된 주석을 읽고, 자동완성 기능이나 자동 코드 체크 기능을 제공합니다. 
 
-    Also, there are tools like [JSDoc 3](https://github.com/jsdoc3/jsdoc) that can generate HTML-documentation from the comments. You can read more information about JSDoc at <http://usejsdoc.org/>.
+    이 외에, [JSDoc 3](https://github.com/jsdoc3/jsdoc)과 같은 툴도 있는데, 이 툴들은 주석을 이용해 HTML 문서를 만들어줍니다. JSDoc에 관한 자세한 정보는 <http://usejsdoc.org/>에서 찾을 수 있습니다.
 
-Why is the task solved this way?
-: What's written is important. But what's *not* written may be even more important to understand what's going on. Why is the task solved exactly this way? The code gives no answer.
+왜 이 방법으로 문제를 해결했나를 설명하는 주석
+: 무엇을 써야할지는 중요한 문제입니다. 하지만 무슨일이 일어나고 있는지 파악하려면 무엇을 *쓰지 말아야*할지 아는게 더 중요할 수 있습니다. '왜 이 문제를 이 방법으로 해결했나'라는 질문에 코드는 답을 해 줄 수 없기 때문입니다.
 
-    If there are many ways to solve the task, why this one? Especially when it's not the most obvious one.
+    문제를 해결할 수 있는 방법이 여러가지인데 왜 이방법을 택했을까요? 선택한 방법이 가장 나은것이 아닌데 말이죠.
 
-    Without such comments the following situation is possible:
-    1. You (or your colleague) open the code written some time ago, and see that it's "suboptimal".
-    2. You think: "How stupid I was then, and how much smarter I'm now", and rewrite using the "more obvious and correct" variant.
-    3. ...The urge to rewrite was good. But in the process you see that the "more obvious" solution is actually lacking. You even dimly remember why, because you already tried it long ago. You revert to the correct variant, but the time was wasted.
+    왜 이렇게 문제를 해결했나를 설명하는 주석이 없으면 다음과 같은 일이 발생할 수 있습니다:
+    1. 당신 (혹은 당신의 동료)이 작성한지 꽤 시간이 지난 코드를 열어봅니다. 그리고 그 코드가 "최적이 아닌"걸 알아냅니다.
+    2. 당신은 "그때는 내가 멍청했구나. 하지만 지금은 더 똑똑해졌지"라고 생각합니다. 그리고 "더 명확하고 옳바른" 방법으로 코드를 개선합니다.
+    3. 코드를 재작성하려는 시도까지는 좋았습니다. 하지만 재 작성 과정에서 "더 명확한" 해결책을 적용하면 문제가 발생한다는걸 알아냅니다. 이미 시도해봤던 해결책이었기 때문에 왜 이런 문제가 발생하는지 희미하게 기억이 떠오릅니다. 새로 작성한 코드를 되돌립니다. 시간이 낭비되었습니다. 
 
-    Comments that explain the solution are very important. They help to continue development the right way.
+    해결책에 대한 주석을 작성하는건 아주 중요합니다. 개발을 옳바른 방향으로 할 수 있도록 도와주기 때문입니다.
 
-Any subtle features of the code? Where they are used?
-: If the code has anything subtle and counter-intuitive, it's definitely worth commenting.
+미묘한 기능이 있고, 이 기능이 어디에 쓰이는지를 설명하는 주석
+: 직감에 반하는 미묘한 기능을 담당하는 코드가 있다면 주석을 다는게 좋습니다.
 
-## Summary
+## 요약
 
-An important sign of a good developer is comments: their presence and even their absence.
+좋은 개발자의 징후는 주석에서 나타압니다. 언제 주석을 쓰고 쓰지 않는지에서 말이죠.
 
-Good comments allow us to maintain the code well, come back to it after a delay and use it more effectively.
+좋은 주석은 코드 유지보수에도 도움을 줍니다. 시간이 지난 후 코드를 다시 살펴볼 때 주석이 유용하게 사용됩니다.
 
-**Comment this:**
+**주석에 들어가면 좋은 내용**
 
-- Overall architecture, high-level view.
-- Function usage.
-- Important solutions, especially when not immediately obvious.
+- 고 차원에서 바라본 전체적인 아키텍처
+- 함수의 용례
+- 당장 봐선 명확해 보이지 않는 해결책에 대한 설명
 
-**Avoid comments:**
+**주석에 들어가면 좋지 않은 내용**
 
-- That tell "how code works" and "what it does".
-- Put them only if it's impossible to make the code so simple and self-descriptive that it doesn't require those.
+- "어떻게 코드가 동작하는지"와 "이 코드가 무엇을 하는지"에 대한 설명
+- 코드가 간단하고 자기 설명적이어서 주석이 필요 없는 경우, 이에 대한 내용
 
-Comments are also used for auto-documenting tools like JSDoc3: they read them and generate HTML-docs (or docs in another format).
+주석은 JSDoc3와 같은 자동 문서생성 도구에도 쓰입니다. 이런 툴들은 주석을 읽고 HTML등의 포맷을 가진 문서를 자동 생성합니다.
