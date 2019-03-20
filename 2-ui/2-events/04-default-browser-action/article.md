@@ -1,23 +1,23 @@
-# Browser default actions
+# 브라우저 기본 동작(browser default action)
 
-Many events automatically lead to browser actions.
+상당수의 이벤트는 브라우저 동작을 자동으로 유발시킵니다.
 
-For instance:
+예:
 
-- A click on a link -- initiates going to its URL.
-- A click on submit button inside a form -- initiates its submission to the server.
-- Pressing a mouse button over a text and moving it -- selects the text.
+- 링크를 클릭 -- 정의된 URL로 이동.
+- 폼(from)안의 제출(submit)버튼을 클릭 -- 폼을 서버로 전송함.
+- 글자 위에서 마우스 버튼을 누르고, 마우스를 움직임 -- 글자를 선택.
 
-If we handle an event in JavaScript, often we don't want browser actions. Fortunately, it can be prevented.
+이벤트를 다루다 보면, 이런 기본 동작이 필요치 않는 경우도 있습니다. 다행이도, 이런 동작을 막을 수 있는 방법이 있습니다.
 
-## Preventing browser actions
+## 브라우저 기본 동작 취소하기
 
-There are two ways to tell the browser we don't want it to act:
+두 가지 방법으로 이벤트의 기본 동작을 취소할 수 있습니다:
 
-- The main way is to use the `event` object. There's a method `event.preventDefault()`.
-- If the handler is assigned using `on<event>` (not by `addEventListener`), then we can just return `false` from it.
+- 가장 많이 쓰이는 방법은 `event` 객체의 `event.preventDefault()`메서드를 이용하는것입니다.
+- 만약 이벤트가 (`addEventListener`이 아니라) `on<event>`를 이용해 할당되었다면, `false`를 반환해 주면 됩니다.
 
-In the example below a click to links doesn't lead to URL change:
+아래 예제에선 링크를 클릭 해도 URL로 연결되지 않습니다.
 
 ```html autorun height=60 no-beautify
 <a href="/" onclick="return false">Click here</a>
@@ -25,17 +25,17 @@ or
 <a href="/" onclick="event.preventDefault()">here</a>
 ```
 
-```warn header="Not necessary to return `true`"
-The value returned by an event handler is usually ignored.
+```warn header="`true`를 반환할 필요는 없습니다"
+이벤트 핸들러가 반환하는 값은 대게 무시됩니다.
 
-The only exception -- is `return false` from a handler assigned using `on<event>`.
+딱 한가지 예외는 `on<event>`를 이용해 할당한 핸들러에 `return false`이 있을 때 입니다.
 
-In all other cases, the return is not needed and it's not processed anyhow.
+이 외에 다른 모든 경우는 반환문이 필요 없고, 있더라도 그 반환문은 처리되지 않습니다.
 ```
 
-### Example: the menu
+### 예제: 메뉴
 
-Consider a site menu, like this:
+아래와 같이 사이트 메뉴가 있다고 해봅시다:
 
 ```html
 <ul id="menu" class="menu">
@@ -45,82 +45,82 @@ Consider a site menu, like this:
 </ul>
 ```
 
-Here's how it looks with some CSS:
+약간의 CSS를 가미해 아래와 같이 꾸며보았습니다:
 
 [iframe height=70 src="menu" link edit]
 
-Menu items are links `<a>`, not buttons. There are several benefits, for instance:
+메뉴의 각 항목을 버튼이 아닌 `<a>` 링크로 만들었습니다. 이렇게 작성한 이유는 아래와 같은 이점이 있기 때문입니다:
 
-- Many people like to use "right click" -- "open in a new window". If we use `<button>` or `<span>`, that doesn't work.
-- Search engines follow `<a href="...">` links while indexing.
+- 많은 사람들이 "마우스 오른쪽 클릭" 후 "새 창에서 열기"를 통해 링크를 열기 때문입니다. `<button>` 이나 `<span>`을 쓰면 이 기능을 쓸 수 없습니다.
+- 검색 엔진은 인덱싱(색인)을 하는 동안 `<a href="...">` 링크를 따라갑니다.
 
-So we use `<a>` in the markup. But normally we intend to handle clicks in JavaScript. So we should prevent the default browser action.
+이런 이유 때문에 `<a>`를 사용하여 각 항목을 만들었습니다. 하지만 자바스크립트로 클릭 이벤트를 의도적으로 처리해야 하는 경우가 많기 때문에, 브라우저 기본 동작을 취소해 보도록 하겠습니다.
 
-Like here:
+아래와 같이 말이죠:
 
 ```js
 menu.onclick = function(event) {
   if (event.target.nodeName != 'A') return;
 
   let href = event.target.getAttribute('href');
-  alert( href ); // ...can be loading from the server, UI generation etc
+  alert( href ); // ...서버에서 데이터를 읽어오거나, UI를 새로 만든다거나 하는 등의 작업
 
 *!*
-  return false; // prevent browser action (don't go to the URL)
+  return false; // 브라우저 동작 취소(URL로 넘어가지 않음)
 */!*
 };
 ```
 
-If we omit `return false`, then after our code executes the browser will do its "default action" -- following to the URL in `href`.
+위에서 `return false`를 생략했다면, 브라우저 "기본 동작"이 실행돼 `href` 속성에 정의된 URL로 이동하게 됩니다.
 
-By the way, using event delegation here makes our menu flexible. We can add nested lists and style them using CSS to "slide down".
+한편, 위에서 작성한 메뉴에 이벤트 위임을 적용하면 메뉴를 좀 더 유연하게 만들 수 있습니다. 중첩 리스트를 더해주고, CSS를 사용해 이 리스트에 "slide down" 애니메이션을 적용해 줄 수 있습니다. 
 
 
-## Prevent further events
+## 연결되는 이벤트 취소하기
 
-Certain events flow one into another. If we prevent the first event, there will be no second.
+이벤트 흐름이 한 이벤트에서 시작해 다른 이벤트로 흘러갈 때도 있습니다. 이런 경우, 첫 번째 이벤트를 취소하면 다음 이벤트가 발생하지 않습니다.
 
-For instance, `mousedown` on an `<input>` field leads to focusing in it, and the `focus` event. If we prevent the `mousedown` event, there's no focus.
+예를 들어 살펴보겠습니다. `<input>` 필드의 `mousedown` 이벤트는 `focus` 이벤트를 유발합니다. 따라서 `mousedown`를 막으면 포커싱도 발생하지 않습니다. 
 
-Try to click on the first `<input>` below -- the `focus` event happens. That's normal.
+아래에서 첫번째 `<input>`을 클릭해보세요. `focus` 이벤트가 발생합니다. 이게 일반적인 경우입니다.
 
-But if you click the second one, there's no focus.
+하지만 두번째 `<input>`을 클릭하면 포커스 이벤트가 발생하지 않는 걸 확인할 수 있습니다.
 
 ```html run autorun
 <input value="Focus works" onfocus="this.value=''">
 <input *!*onmousedown="return false"*/!* onfocus="this.value=''" value="Click me">
 ```
 
-That's because the browser action is canceled on `mousedown`. The focusing is still possible if we use another way to enter the input. For instance, the `key:Tab` key to switch from the 1st input into the 2nd. But not with the mouse click any more.
+이는 `mousedown`에서 브라우저 동작을 취소했기 때문입니다. 마우스 클릭 말고 다른 방법을 사용하면 포커싱이 가능합니다. 첫번째 input에서 `key:Tab` 키를 눌러 두번째 input으로 이동하면 됩니다. 이렇게 해도 여전히 마우스 클릭을 통한 포커싱은 동작하지 않습니다.
 
-## The "passive" handler option
+## addEventListener의 "passive" 옵션
 
-The optional `passive: true` option of `addEventListener` signals the browser that the handler is not going to call `preventDefault()`.
+`addEventListener`의 옵션에 `passive: true`를 설정하면, `preventDefault()`를 이용해 스크롤 이벤트를 막지 않겠다고 브라우저에게 인식시킵니다. 
 
-Why that may be needed?
+이런 기능이 왜 필요한걸까요?
 
-There are some events like `touchmove` on mobile devices (when the user moves their finger across the screen), that cause scrolling by default, but that scrolling can be prevented using `preventDefault()` in the handler.
+모바일 기기에는 (사용자가 스크린에 손가락을 대고 움직일 때 발생하는 )`touchmove`와 같은 이벤트가 있습니다. 이런 이벤트는 기본적으로 스크롤링(scrolling)을 발생시킵니다. 하지만 핸들러의 `preventDefault()`를 사용하면 기본동작인 스크롤링을 막을 수 있습니다.  
 
-So when the browser detects such event, it has first to process all handlers, and then if `preventDefault` is not called anywhere, it can proceed with scrolling. That may cause unnecessary delays and "jitters" in the UI.
+브라우저는 스크롤링을 발생시키는 이벤트를 감지했을 때, 먼저 모든 핸들러를 처리하는데, 이 때 `preventDefault`가 어디에서도 호출되지 않았다고 판단되면, 그제서야 스크롤링을 진행합니다. 이 과정에서 불필요한 지연이 생기고, UI가 "덜덜 떨리는" 현상이 발생합니다.
 
-The `passive: true` options tells the browser that the handler is not going to cancel scrolling. Then browser scrolls immediately providing a maximally fluent experience, and the event is handled by the way.
+`passive: true` 옵션은 핸들러가 스크롤링을 취소하지 않을거라는 정보를 브라우저에게 알려주는 역할을 합니다. 이 정보를 바탕으로 브라우저는 최대한 자연스러운 동작으로 스크롤링 되고, 이벤트는 적절하게 처리됩니다. 
 
-For some browsers (Firefox, Chrome), `passive` is `true` by default for `touchstart` and `touchmove` events.
+Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` 이벤트의 `passive` 는 기본값이 `true`입니다.
 
 
 ## event.defaultPrevented
 
-The property `event.defaultPrevented` is `true` if the default action was prevented, and `false` otherwise.
+기본 동작을 막은 경우는 `event.defaultPrevented` 값이 `true` 이고, 그렇지 않은 경우는 `false` 입니다.
 
-There's an interesting use case for it.
+이를 이용할 수 있는 흥미로운 유스 케이스(use case)가 있습니다.
 
-You remember in the chapter <info:bubbling-and-capturing> we talked about `event.stopPropagation()`  and why stopping bubbling is bad?
+<info:bubbling-and-capturing> 챕터에서 `event.stopPropagation()`를 배우면서 버블링을 막으면 왜 나쁜지 이야기 한 걸 기억하시나요?
 
-Sometimes we can use `event.defaultPrevented` instead.
+버블링을 막는 대신 `event.defaultPrevented`을 사용할 수 있습니다.
 
-Let's see a practical example where stopping the bubbling looks necessary, but actually we can do well without it.
+이벤트 버블링을 막아야 해결되는 이슈지만, 버블링을 막는 대신 다른 방법으로 해당 이슈를 해결하는 사례를 살펴보도록 합시다. 
 
-By default the browser on `contextmenu` event (right mouse click) shows a context menu with standard options. We can prevent it and show our own, like this:
+브라우저에서 마우스 우클릭시 발생하는 `컨텍스트 메뉴(contextmenu)` 이벤트는 컨텍스트 메뉴를 보여줍니다. 컨텍스트 메뉴가 뜨는걸 말고, 자신만의 메뉴를 보여줄 수도 있습니다. 아래와 같이 말이죠:
 
 ```html autorun height=50 no-beautify run
 <button>Right-click for browser context menu</button>
