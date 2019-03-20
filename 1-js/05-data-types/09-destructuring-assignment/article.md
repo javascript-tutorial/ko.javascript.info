@@ -1,21 +1,21 @@
-# 해체 할당(destructuring assignment)
+# 구조 분해 할당(destructuring assignment)
 
 `객체` 와 `배열`은 자바스크립트에서 가장 많이 쓰이는 자료구조입니다.
 
 객체를 이용하면 다양한 정보 조각을 하나의 엔티티에 넣을 수 있습니다. 배열은 순서가 있는 컬렉션을 저장할 수 있게 해줍니다. 이렇게 객체와 배열을 이용하면 다양한 데이터를 하나의 엔티티로 다룰 수 있습니다. 이를 이용하면 다양한 정보를 객체나 배열에 담아 함수의 매개변수로 전달해 줄 수도 있습니다.
 
-*해체 할당*은 객체나 배열을 변수로 "해체"할 수 있게 해주는 유용한 문법입니다. 해체 할당은 매개변수가 많고, 매개변수 기본값(default values)도 설정해 줘야하는 복잡한 함수에서 그 진가를 발휘합니다. 이 용례는 뒤에서 살펴보도록 하겠습니다.
+*구조 분해 할당*은 객체나 배열을 변수로 "분해"할 수 있게 해주는 유용한 문법입니다. 구조 분해 할당은 매개변수가 많고, 매개변수 기본값(default values)도 설정해 줘야하는 복잡한 함수에서 그 진가를 발휘합니다. 이 용례는 뒤에서 살펴보도록 하겠습니다.
 
-## 배열 해체
+## 배열 분해하기
 
-배열이 어떻게 변수로 해체되는지 예제를 통해 살펴봅시다:
+배열이 어떻게 변수로 분해되는지 예제를 통해 살펴봅시다:
 
 ```js
 // 이름과 성을 요소로 가진 배열
 let arr = ["Ilya", "Kantor"]
 
 *!*
-// 해체 할당
+// 구조 분해 할당
 let [firstName, surname] = arr;
 */!*
 
@@ -23,18 +23,18 @@ alert(firstName); // Ilya
 alert(surname);  // Kantor
 ```
 
-배열 해체를 이용해 배열에 담긴 이름과 성을 변수에 할당했습니다.
+배열 분해를 이용해 배열에 담긴 이름과 성을 변수에 할당했습니다.
 
-`split`과 같이 배열을 반환해주는 메서드를 배열 해체와 함께 사용하는것도 좋습니다:
+`split`과 같이 배열을 반환해주는 메서드를 배열 분해와 함께 사용하는것도 좋습니다:
 
 ```js
 let [firstName, surname] = "Ilya Kantor".split(' ');
 ```
 
-````smart header="\"해체(Destructuring)\"와 \"파괴(destructive)\"는 다릅니다."
-해체 할당이란 명칭은 해체하고자 하는 배열을 복사해서 변수로 "해체(destructurizes)"해주는 특징 때문에 생겼습니다. 이 과정에서 기존 배열은 수정되지 않습니다.
+````smart header="\"분해(Destructuring)\"와 \"파괴(destructive)\"는 다릅니다."
+구조 분해 할당이란 명칭은 분해하고자 하는 배열을 복사해서 변수로 "분해(destructurizes)"해주는 특징 때문에 생겼습니다. 이 과정에서 기존 배열은 수정되지 않습니다.
 
-해체 할당은 간결한 문법으로 배열의 요소를 변수로 저장할 수 있게 해주는 방법 일 뿐입니다:
+구조 분해 할당은 간결한 문법으로 배열의 요소를 변수로 저장할 수 있게 해주는 방법 일 뿐입니다:
 ```js
 // let [firstName, surname] = arr;
 let firstName = arr[0];
@@ -59,7 +59,7 @@ alert( title ); // Consul
 
 ````smart header="오른쪽 피연산자에 이터러블 객체가 있는 경우"
 
-배열 해체는 배열 뿐만 아니라 모든 이터러블 객체에 사용할 수 있습니다:
+배열 분해는 배열 뿐만 아니라 모든 이터러블(iterable) 객체에 사용할 수 있습니다:
 
 ```js
 let [a, b, c] = "abc"; // ["a", "b", "c"]
@@ -69,7 +69,7 @@ let [one, two, three] = new Set([1, 2, 3]);
 ````
 
 
-````smart header="왼쪽 피연산자엔 모든지 할당 가능합니다"
+````smart header="왼쪽 피연산자엔 모든지 들어갑니다"
 
 왼쪽 피 연산자엔 "할당할 수 있는"것이라면 모든 걸 넣을 수 있습니다.
 
@@ -87,7 +87,7 @@ alert(user.name); // Ilya
 
 [Object.entries(obj)](mdn:js/Object/entries)메서드는 이전 챕터에서 학습한 바 있습니다. 
 
-이 메서드를 활용하면 객체를 순회 해 키와 값을 변수로 해체할 수 있습니다.
+이 메서드를 활용하면 객체를 순회 해 키와 값을 변수로 분해할 수 있습니다.
 
 ```js run
 let user = {
@@ -139,7 +139,7 @@ alert(rest.length); // 2
 
 ### 기본값(default values)
 
-할당하고자 하는 변수의 갯수가 해체하고자 하는 배열의 요소갯수보다 많더라도, 에러가 발생하지 않습니다. 값이 없는 경우는 undefined으로 취급되기 때문입니다.
+할당하고자 하는 변수의 갯수가 분해하고자 하는 배열의 요소갯수보다 많더라도, 에러가 발생하지 않습니다. 값이 없는 경우는 undefined 으로 취급되기 때문입니다.
 
 ```js run
 *!*
@@ -176,9 +176,9 @@ alert(surname); // prompt로부터 받아온 값
 
 
 
-## 객체 해체
+## 객체 분해하기
 
-해체 할당으로 객체도 해체할 수 있습니다.
+구조 분해 할당으로 객체도 분해할 수 있습니다.
 
 기본 문법은 다음과 같습니다:
 
@@ -186,7 +186,7 @@ alert(surname); // prompt로부터 받아온 값
 let {var1, var2} = {var1:…, var2…}
 ```
 
-오른쪽 피 연산자엔 해체하고자 하는 객체를 써줍니다. 왼쪽 피 연산자엔 객체의 프로퍼티가 할당 될 변수 "패턴(pattern)"을 써줍니다. 가장 간단한 패턴은 `{...}`안에 객체의 프로퍼티 이름과 일치하는 변수 이름을 적어주는 것 입니다.
+오른쪽 피 연산자엔 분해하고자 하는 객체를 써줍니다. 왼쪽 피 연산자엔 객체의 프로퍼티가 할당 될 변수 "패턴(pattern)"을 써줍니다. 가장 간단한 패턴은 `{...}`안에 객체의 프로퍼티 이름과 일치하는 변수 이름을 적어주는 것 입니다.
 
 예:
 
@@ -207,7 +207,6 @@ alert(height); // 200
 ```
 
 프로퍼티 `options.title`, `options.width`, `options.height`의 값은 상응하는 변수에 할당됩니다. 이 때, 순서는 중요하지 않습니다. 아래 코드는 위 코드와 동일하게 동작합니다. 
- are assigned to the corresponding variables. The order does not matter. This works too:
 
 ```js
 // let {...} 안의 프로퍼티 순서가 변경됨
@@ -257,7 +256,7 @@ alert(width);  // 100
 alert(height); // 200
 ```
 
-배열이나 함수의 매개변수에서 한 것 처럼, 객체 해체 기본값에도 표현식이나 함수 호출을 할당할 수 있습니다. 이 때, 기본값이 없는 경우에만 표현식이나 함수호출이 평가됩니다.   
+배열이나 함수의 매개변수에서 한 것 처럼, 객체 분해 기본값에도 표현식이나 함수 호출을 할당할 수 있습니다. 이 때, 기본값이 없는 경우에만 표현식이나 함수호출이 평가됩니다.   
 
 아래 코드를 실행하면 width 값만 물어보고, title은 물어보지 않습니다.
 
@@ -290,13 +289,13 @@ alert(w);      // 100
 alert(h);      // 200
 ```
 
-### The rest operator
+### 나머지 연산자(rest operator)
 
-What if the object has more properties than we have variables? Can we take some and then assign the "rest" somewhere?
+만약 객체의 프로퍼티 객수가 변수의 갯수보다 많다면 어떨까요? "나머지"를 가져다 어딘가에 할당할 수 있지 않을까요?
 
-The specification for using the rest operator (three dots) here is almost in the standard, but most browsers do not support it yet.
+생략 부호처럼 생긴 세개의 점으로 만들 수 있는 나머지 연산자는 자바스크립트 명세에서 지원하는 표준이지만, 아직까지 대부분의 브라우저는 이를 지원하지 않습니다.
 
-It looks like this:
+나머지 연산자는 아래와 같이 생겼습니다:
 
 ```js run
 let options = {
@@ -316,29 +315,29 @@ alert(rest.width);   // 100
 
 
 
-````smart header="Gotcha without `let`"
-In the examples above variables were declared right before the assignment: `let {…} = {…}`. Of course, we could use existing variables too. But there's a catch.
+````smart header="`let`없이 사용하기"
+위의 예제에서 변수는 할당 `let {…} = {…}` 바로 직전에 선언되었습니다. 물론, 이미 존재하는 변수를 사용할 수도 있지만, 이때는 주의할 점이 있습니다.
 
-This won't work:
+아래 코드는 동작하지 않습니다:
 ```js run
 let title, width, height;
 
-// error in this line
+// 이 줄에서 에러가 발생함
 {title, width, height} = {title: "Menu", width: 200, height: 100};
 ```
 
-The problem is that JavaScript treats `{...}` in the main code flow (not inside another expression) as a code block. Such code blocks can be used to group statements, like this:
+문제는 자바스크립트가 주요 코드 흐름상에 있는(다른 표현식 안에 있지 않은) `{...}`를 코드 블록으로 다루면서 발생합니다. 이런 코드 블록은 아래와 같이 그룹 문(group statements)처럼 사용됩니다:
 
 ```js run
 {
-  // a code block
+  // 코드 블록
   let message = "Hello";
   // ...
   alert( message );
 }
 ```
 
-To show JavaScript that it's not a code block, we can wrap the whole assignment in parentheses `(...)`:
+자바스크립트가 이를 코드블록으로 해석하지 않도록 하게 하려면, 모든 할당문을 `(...)`로 감싸주면 됩니다:
 
 ```js run
 let title, width, height;
@@ -351,11 +350,11 @@ alert( title ); // Menu
 
 ````
 
-## Nested destructuring
+## 중첩 분해
 
-If an object or an array contain other objects and arrays, we can use more complex left-side patterns to extract deeper portions.
+객체나 배열이 다른 객체나 배열을 포함하는 경우, 중첩 구조 분해를 사용하면 안쪽의 객체나 배열을 추출해 낼 수 있습니다. 
 
-In the code below `options` has another object in the property `size` and an array in the property `items`. The pattern at the left side of the assignment has the same structure:
+아래 코드에서 `options`은 size 프로퍼티에 다른 객체를 값으로 가지고 있고, `items` 프로퍼티엔 배열이 값으로 저장되어 있습니다. 등호 왼쪽의 구조 분해 패턴은 분해하려는 객체 `options`와 같은 구조를 갖고 있습니다.
 
 ```js run
 let options = {
@@ -364,17 +363,18 @@ let options = {
     height: 200
   },
   items: ["Cake", "Donut"],
-  extra: true    // something extra that we will not destruct
+  extra: true    // 분해의 대상이 아닌 기타 요소들
 };
 
-// destructuring assignment on multiple lines for clarity
+// 가시성을 위해 여러 줄에 거쳐 구조 분해 할당 패턴을 작성함
+destructuring assignment on multiple lines for clarity
 let {
   size: { // put size here
     width,
     height
   },
   items: [item1, item2], // assign items here
-  title = "Menu" // not present in the object (default value is used)
+  title = "Menu" // 분해 대상 객체엔 없는 값임 (기본 값을 사용함)
 } = options;
 
 alert(title);  // Menu
@@ -384,13 +384,13 @@ alert(item1);  // Cake
 alert(item2);  // Donut
 ```
 
-The whole `options` object except `extra` that was not mentioned, is assigned to corresponding variables.
+`extra`를 제외한 모든 `options`객체 요소가 상응하는 변수에 할당되었습다.
 
-Note that `size` and `items` itself is not destructured.
+`size`와 `items` 자체는 분해되지 않았다는 점에 유의하길 바랍니다. 
 
 ![](destructuring-complex.png)
 
-Finally, we have `width`, `height`, `item1`, `item2` and `title` from the default value.
+중첩 구조 분해를 사용해 마침내 `width`, `height`, `item1`, `item2` 변수에 값을 저장하였고, `title`에는 기본값이 할당되었습니다.
 
 That often happens with destructuring assignments. We have a complex object with many properties and want to extract only what we need.
 
