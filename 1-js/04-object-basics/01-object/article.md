@@ -313,7 +313,7 @@ alert( *!*key*/!* in user ); // true, 변수 key에 저장된 값을 가져와�
 ````smart header="`undefined` 값을 가진 프로퍼티에 \"in\" 사용하기"
 일치를 확인하는 `"=== undefined"` 는 잘 작동합니다. 그러나 이것이 잘 작동하지 않는 특별한 경우도 있는데, 이 경우에 `"in"`은 올바르게 작동합니다.
 
-객체 프로퍼티가 존재하지만 값이 `undefined`일 때가 그렇습니다.:
+It's when an object property exists, but stores `undefined`:
 
 ```js run
 let obj = {
@@ -339,7 +339,7 @@ alert( "test" in obj ); // true, 프로퍼티는 존재합니다!
 문법:
 
 ```js
-for(key in object) {
+for (key in object) {
   // 객체 프로퍼티 내 각 키에 대해 바디(body)를 수행합니다.
 }
 ```
@@ -353,17 +353,17 @@ let user = {
   isAdmin: true
 };
 
-for(let key in user) {
-  // 키
+for (let key in user) {
+  // keys
   alert( key );  // name, age, isAdmin
-  // 키에 대한 값
+  // values for the keys
   alert( user[key] ); // John, 30, true
 }
 ```
 
 여기서 `let key`와 같이 모든 "for"문은 반복문 안에서 사용할 수 있는 변수를 선언할 수 있게 해줍니다.
 
-`key` 대신에 다른 변수명도 사용할 수 있습니다. `"for(let prop in obj)"`도 널리 사용되고 있는 예입니다.
+Also, we could use another variable name here instead of `key`. For instance, `"for (let prop in obj)"` is also widely used.
 
 
 ### 객체의 정렬 방식
@@ -384,7 +384,7 @@ let codes = {
 };
 
 *!*
-for(let code in codes) {
+for (let code in codes) {
   alert(code); // 1, 41, 44, 49
 }
 */!*
@@ -442,7 +442,7 @@ let codes = {
   "+1": "USA"
 };
 
-for(let code in codes) {
+for (let code in codes) {
   alert( +code ); // 49, 41, 44, 1
 }
 ```
@@ -717,10 +717,10 @@ alert(clone.sizes.width); // 51, 다른 객체에서 변경 사항을 확인할 
 - 마침표 표기법: `obj.property`.
 - 대괄호 표기법 `obj["property"]`. 대괄호 표기법을 사용하면 `obj[varWithKey]`처럼 변수로부터 킷값을 가져올 수 있습니다.
 
-추가 연산자:
-- 프로퍼티 삭제: `delete obj.prop`.
-- 주어진 킷값을 가진 프로퍼티의 존재 여부 확인: `"key" in obj`.
-- 객체 순회: `for(let key in obj)` 반복문.
+Additional operators:
+- To delete a property: `delete obj.prop`.
+- To check if a property with the given key exists: `"key" in obj`.
+- To iterate over an object: `for (let key in obj)` loop.
 
 객체는 참조에 의해 할당되고 복사됩니다. 다시 말해, 변수는 "객체 값" 자체를 저장하지 않고 (메모리상의 주소인) "참조"를 저장합니다. 그러므로 객체 변수를 복사하거나 함수의 인자로 넘겨줄 때, 객체가 아닌 객체의 참조가 전달됩니다. 복사된 참조를 이용한 (프로퍼티 추가/삭제와 같은) 모든 작업은 하나의 객체에 수행됩니다.
 

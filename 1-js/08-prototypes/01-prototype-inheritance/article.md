@@ -133,8 +133,6 @@ alert(longEar.jumps); // true (from rabbit)
 
 1. 참조는 이 순환에 들어가지 않습니다. 만약 우리가 `__proto__`를 원형 체인 순환에 할당하려고 한다면 에러를 던집니다.
 2. `__proto__`의 값은 `null`이거나 객체입니다. 모든 다른 값들(primitive)은 무시됩니다.
-1. The references can't go in circles. JavaScript will throw an error if we try to assign `__proto__` in a circle.
-2. The value of `__proto__` can be either an object or `null`, other types (like primitives) are ignored.
 
 또한 당연할지 모르지만, 오직 하나의 `[[Portotype]]`만 있을 수 있습니다. 객체는 두 개의 다른 객체로부터 상속받지 않을 테니까요.
 
@@ -143,7 +141,6 @@ alert(longEar.jumps); // true (from rabbit)
 원형은 오직 속성들을 읽는 데 사용합니다.
 
 getter/setter가 아닌 데이터 속성들을 쓰고/지우는 명령들은 객체에 직접 적용할 수 있습니다.
-Write/delete operations work directly with the object.
 
 아래 예제에서는, `walk`메서드를 `rabbit`에 할당하고 있습니다:
 
@@ -173,10 +170,8 @@ rabbit.walk(); // Rabbit! Bounce-bounce!
 ![](proto-animal-rabbit-walk-2.png)
 
 만약 우리가 속성을 읽고 쓴다면 getter/setter는 원형에서 찾아지고 호출됩니다.
-That's for data properties only, not for accessors. If a property is a getter/setter, then it behaves like a function: getters/setters are looked up in the prototype.
 
 예를 들어, 아래 코드에서 `admin.fullName`속성을 보시면:
-For that reason `admin.fullName` works correctly in the code below:
 
 ```js run
 let user = {
@@ -209,7 +204,6 @@ admin.fullName = "Alice Cooper"; // (**)
 
 위의 예제에서 흥미로운 질문을 던질 수 있습니다: `set fullName(valuie)`에서 `this`는 어떤 값을 가지고 있는가? `this.name`과 `this.surname`은 어디에 코딩되어있는가? `user` 또는 `admin`?
 답은 간단합니다. `this`는 원형에 의해 전혀 영향을 받지 않습니다.
-An interesting question may arise in the example above: what's the value of `this` inside `set fullName(value)`? Where the properties `this.name` and `this.surname` are written: into `user` or `admin`?
 
 **그 메서드가 어디서 호출되는지는 중요하지 않습니다. 객체에서 호출되든 이 객체의 원형에서 호출되든. 메서드 호출에서는, `this`는 언제나 `.`연산 앞에 있는 객체를 가리킵니다.**
 
@@ -263,8 +257,3 @@ alert(animal.isSleeping); // undefined (no such property in the prototype)
 - `[[Prototype]]`에 의해 참조되는 객체를 "원형"이라고 합니다.
 - 만약 `obj`의 속성을 읽고 싶다면, 그리고 그게 존재하지 않는다면, 자바스크립트는 원형에서 그것을 찾으려 할 것입니다. 읽기/지우기 명령은 객체에 직접적으로 적용됩니다. 원형을 사용하지 않습니다(속성이 setter가 아닌 이상).
 - 만약 `obj.method()`를 호출한다면, 그리고 `method`가 원형으로부터 가져온다면, `this`는 여전히 `obj`를 가리킵니다. 그래서 설사 상속되었다고 해도 메서드들을 언제나 현재 객체에 적용될 것입니다.
-- In JavaScript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
-- We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
-- The object referenced by `[[Prototype]]` is called a "prototype".
-- If we want to read a property of `obj` or call a method, and it doesn't exist, then JavaScript tries to find it in the prototype. Write/delete operations work directly on the object, they don't use the prototype (unless the property is actually a setter).
-- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.

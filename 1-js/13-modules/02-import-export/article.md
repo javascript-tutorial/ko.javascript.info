@@ -158,7 +158,7 @@ So far, we've seen how to import/export multiple things, optionally "as" other n
 
 In practice, modules contain either:
 - A library, pack of functions, like `lib.js`.
-- Or an entity, like `class User` is descirbed in `user.js`, the whole module has only this class.
+- Or an entity, like `class User` is described in `user.js`, the whole module has only this class.
 
 Mostly, the second approach is preferred, so that every "thing" resides in its own module.
 
@@ -204,7 +204,7 @@ We may have both default and named exports in a single module, but in practice p
 
 **Another thing to note is that named exports must (naturally) have a name, while `export default` may be anonymous.**
 
-For instance, these are all perfecly valid default exports:
+For instance, these are all perfectly valid default exports:
 
 ```js
 export default class { // no class name
@@ -433,6 +433,6 @@ if (something) {
 }
 ```
 
-...But what if we really need to import something conditionally? Or at the right time? Like, load a module upon request, when it's really needed? 
+...But what if we really need to import something conditionally? Or at the right time? Like, load a module upon request, when it's really needed?
 
 We'll see dynamic imports in the next chapter.
