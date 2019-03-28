@@ -1,18 +1,17 @@
-# Recursion and stack
+# 재귀와 스택
 
-Let's return to functions and study them more in-depth.
+함수로 돌아가서 조금 더 깊이 공부해봅시다.
 
-Our first topic will be *recursion*.
+우리의 첫번째 주제는 *재귀* 입니다.
 
-If you are not new to programming, then it is probably familiar and you could skip this chapter.
+만약 프로그램에 새로 입문하지 않았고, 아마도 이것과 익숙하다면 이 챕터는 건너뛰어도 좋습니다.
 
-Recursion is a programming pattern that is useful in situations when a task can be naturally split into several tasks of the same kind, but simpler. Or when a task can be simplified into an easy action plus a simpler variant of the same task. Or, as we'll see soon, to deal with certain data structures.
+재귀는 프로그래밍 패턴중에 하나이며 작업이 자연스럽게 여러가지 비슷한 과정으로 나누어질수 있을때 유용합니다, 그리고 더 간단하죠. 또는 과제가 쉬운행동과 동일한 작업으로 더 단순화될수있을때. 또는, 우리가 곧 볼 수 있듯이 특정 데이터 구조를 다룰 수 있습니다.
+함수가 작업을 해결할 때 프로세스에서 다른 많은 함수를 호출 할 수 있습니다. 이것의 부분적인 경우는 함수가 *자체* 를 호출 할 때입니다. 그것을 *재귀* 라고 부릅니다.
 
-When a function solves a task, in the process it can call many other functions. A partial case of this is when a function calls *itself*. That's called *recursion*.
+## 두 가지 사고 방식
 
-## Two ways of thinking
-
-For something simple to start with -- let's write a function `pow(x, n)` that raises `x` to a natural power of `n`. In other words, multiplies `x` by itself `n` times.
+간단한 시작을 위해 -`pow` (x, n) 함수를 작성하여`x`를`n`의 제곱으로 올리십시오. 즉, 'x'자체를 'n'배 곱합니다.
 
 ```js
 pow(2, 2) = 4
@@ -20,9 +19,9 @@ pow(2, 3) = 8
 pow(2, 4) = 16
 ```
 
-There are two ways to implement it.
+그것을 구현하는 두 가지 방법이 있습니다.
 
-1. Iterative thinking: the `for` loop:
+1. 반복적 사고: the `for` loop:
 
     ```js run
     function pow(x, n) {
@@ -39,7 +38,7 @@ There are two ways to implement it.
     alert( pow(2, 3) ); // 8
     ```
 
-2. Recursive thinking: simplify the task and call self:
+2. 재귀적 사고: 작업을 단순화하고 스스로를 부르기:
 
     ```js run
     function pow(x, n) {
@@ -53,39 +52,41 @@ There are two ways to implement it.
     alert( pow(2, 3) ); // 8
     ```
 
-Please note how the recursive variant is fundamentally different.
+재귀 변형이 근본적으로 다른 점에 유의하십시오.
 
-When `pow(x, n)` is called, the execution splits into two branches:
+`pow (x, n)`이 호출되면, 실행은 두 개의 분기로 나누어집니다:
 
 ```js
               if n==1  = x
              /
 pow(x, n) =
-             \       
+             \
               else     = x * pow(x, n - 1)
 ```
 
-1. If `n == 1`, then everything is trivial. It is called *the base* of recursion, because it immediately produces the obvious result: `pow(x, 1)` equals `x`.
-2. Otherwise, we can represent `pow(x, n)` as `x * pow(x, n - 1)`. In maths, one would write <code>x<sup>n</sup> = x * x<sup>n-1</sup></code>. This is called *a recursive step*: we transform the task into a simpler action (multiplication by `x`) and a simpler call of the same task (`pow` with lower `n`). Next steps simplify it further and further until `n` reaches `1`.
+1. 만약 `n == 1` 이면, 모든 것이 무시된다. *재귀의 바탕* 이라고 부릅니다, 왜냐하면 그것은 `pow (x, 1)` 가 `x` 와 같다는 결과를 즉시 생성하기 때문입니다.
+2. 그렇지 않으면`pow (x, n)`을`x * pow (x, n - 1)`로 표현할 수 있습니다. 수학에서는, 이렇게 쓸 수 있습니다. <code>x<sup>n</sup> = x * x<sup>n-1</sup></code>.
+이것을 *재귀적 단계* 라고 부릅니다: 우리는 작업을보다 단순한 동작 (`x`에 의한 곱셈)으로 바꾸고 동일한 작업을 더 간단히 호출합니다 (더 낮은 `n` 을 가진 `pow`).
+다음 단계는 'n'이 '1'이 될 때까지 더 간소화합니다.
 
-We can also say that `pow` *recursively calls itself* till `n == 1`.
+`pow` 가 `n == 1`까지 재귀적으로 호출되었다고 말할 수 있습니다.
 
 ![recursive diagram of pow](recursion-pow.png)
 
 
-For example, to calculate `pow(2, 4)` the recursive variant does these steps:
+예를 들어, `pow (2, 4)`를 계산하기 위해서 재귀적 변수들은 다음 단계들을 수행합니다:
 
 1. `pow(2, 4) = 2 * pow(2, 3)`
 2. `pow(2, 3) = 2 * pow(2, 2)`
 3. `pow(2, 2) = 2 * pow(2, 1)`
 4. `pow(2, 1) = 2`
 
-So, the recursion reduces a function call to a simpler one, and then -- to even more simpler, and so on, until the result becomes obvious.
+그래서, 재귀는 함수 호출을 단순한 함수 호출로 축소시킨다음 결과가 명백해질 때까지 더 간단하게 처리합니다.
 
-````smart header="Recursion is usually shorter"
-A recursive solution is usually shorter than an iterative one.
+````smart header="재귀는 보통 짧습니다"
+재귀적 해결법은 대개 반복적 해결법보다 짧습니다.
 
-Here we can rewrite the same using the ternary `?` operator instead of `if` to make `pow(x, n)` more terse and still very readable:
+여기서 `pow (x, n)` 을 `if` 대신에 `?` 연산자를 사용하여 같은 것을 더 간결하면서도 매우 읽기 쉽도록 다시 쓸 수 있습니다:
 
 ```js run
 function pow(x, n) {
@@ -94,36 +95,37 @@ function pow(x, n) {
 ```
 ````
 
-The maximal number of nested calls (including the first one) is called *recursion depth*. In our case, it will be exactly `n`.
+중첩 된 호출 (첫 번째 호출 포함)의 최대 개수는 *재귀 깊이* 라고합니다. 우리의 경우, 정확히 `n`.
 
-The maximal recursion depth is limited by JavaScript engine. We can make sure about 10000, some engines allow more, but 100000 is probably out of limit for the majority of them. There are automatic optimizations that help alleviate this ("tail calls optimizations"), but they are not yet supported everywhere and work only in simple cases.
+최대 재귀 깊이는 JavaScript 엔진에 의해 제한됩니다. 우리는 약 10000 지를 만들 수 있습니다. 일부 엔진은 더 많은 것을 허용하지만,
+대다수 엔진의 경우 100000은 아마도 한계를 벗어날 것입니다. 이 문제를 완화하는 데 도움이되는 자동 최적화가 있지만 ( "tail calls optimizations"), 아직 모든 곳에서 지원되지 않고 단순한 경우에만 작동합니다.
 
-That limits the application of recursion, but it still remains very wide. There are many tasks where recursive way of thinking gives simpler code, easier to maintain.
+이것은 재귀의 적용을 제한하지만 여전히 매우 광범위합니다. 많은 작업들은 재귀적 사고 방식이 단순한 코드를 제공하고 유지 보수하기 쉽게 만듭니다.
 
-## The execution stack
+## 실행 스택
 
-Now let's examine how recursive calls work. For that we'll look under the hood of functions.
+이제 재귀 호출이 어떻게 작동하는지 살펴 보겠습니다. 이를 위해 함수의 가려진 부분을 살펴볼 것입니다.
 
-The information about a function run is stored in its *execution context*.
+함수 실행에 대한 정보는 해당 *실행 컨텍스트* 에 저장됩니다.
 
-The [execution context](https://tc39.github.io/ecma262/#sec-execution-contexts) is an internal data structure that contains details about the execution of a function: where the control flow is now, the current variables, the value of `this` (we don't use it here) and few other internal details.
+The [execution context](https://tc39.github.io/ecma262/#sec-execution-contexts) is 함수의 실행에 대한 세부 사항을 포함하는 내부 데이터 구조 : 제어 흐름이 현재의 변수, 'this'의 값 (여기서는 사용하지 않음) 및 다른 몇 가지 내부 세부 사항.
 
-One function call has exactly one execution context associated with it.
+하나의 함수 호출에는 정확히 하나의 실행 컨텍스트가 연결되어 있습니다.
 
-When a function makes a nested call, the following happens:
+함수가 중첩 호출을하면 다음과 같은 일이 발생합니다:
 
-- The current function is paused.
-- The execution context associated with it is remembered in a special data structure called *execution context stack*.
-- The nested call executes.
-- After it ends, the old execution context is retrieved from the stack, and the outer function is resumed from where it stopped.
+- 현재 Function 이 중지된다.
+- 이와 관련된 실행 컨텍스트는 *실행 컨텍스트 스택* 이라는 특수 데이터 구조로 기억됩니다.
+- 중첩 된 호출이 실행됩니다.
+- 그것이 끝난 후 스택에서 이전 실행 컨텍스트를 검색하고 중지 된 위치에서 외부 함수를 다시 시작합니다.
 
-Let's see what happens during the `pow(2, 3)` call.
+`pow (2, 3)` 호출 중에 어떤 일이 일어나는지 살펴보겠습니다.
 
 ### pow(2, 3)
 
-In the beginning of the call `pow(2, 3)` the execution context will store variables: `x = 2, n = 3`, the execution flow is at line `1` of the function.
+`pow (2, 3)` 호출의 시작 부분에서 실행 컨텍스트는 변수를 저장합니다 :`x = 2, n = 3`, 실행 흐름은 함수의 `1` 라인에 있습니다.
 
-We can sketch it as:
+우리는 그것을 다음과 같이 스케치 할 수 있습니다 :
 
 <ul class="function-execution-context-list">
   <li>
@@ -132,7 +134,7 @@ We can sketch it as:
   </li>
 </ul>
 
-That's when the function starts to execute. The condition `n == 1` is false, so the flow continues into the second branch of `if`:
+그 때 함수가 실행되기 시작합니다. `n == 1` 조건은 거짓이므로, 흐름은`if`의 두 번째 분기로 계속됩니다 :
 
 ```js run
 function pow(x, n) {
@@ -149,7 +151,7 @@ alert( pow(2, 3) );
 ```
 
 
-The variables are same, but the line changes, so the context is now:
+변수는 동일하지만 행이 변경되므로 컨텍스트가 다음과 같습니다.
 
 <ul class="function-execution-context-list">
   <li>
@@ -158,19 +160,19 @@ The variables are same, but the line changes, so the context is now:
   </li>
 </ul>
 
-To calculate `x * pow(x, n - 1)`, we need to make a subcall of `pow` with new arguments `pow(2, 2)`.
+`x * pow (x, n - 1)`을 계산하려면, 새로운 인수`pow (2, 2) '로`pow`의 서브 콜을 만들어야합니다.
 
 ### pow(2, 2)
 
-To do a nested call, JavaScript remembers the current execution context in the *execution context stack*.
+중첩 호출을 수행하기 위해 JavaScript는 * 실행 컨텍스트 스택 *에서 현재 실행 컨텍스트를 기억합니다.
 
-Here we call the same function `pow`, but it absolutely doesn't matter. The process is the same for all functions:
+여기서 우리는 동일한 함수`pow`를 호출하지만 절대적으로 중요하지 않습니다. 프로세스는 모든 기능에 대해 동일합니다.
 
-1. The current context is "remembered" on top of the stack.
-2. The new context is created for the subcall.
-3. When the subcall is finished -- the previous context is popped from the stack, and its execution continues.
+1. 현재 컨텍스트가 스택 맨 위에 "기억"됩니다.
+2. 새 A 텍스트가 서브 콜용으로 작성됩니다.
+3. 하위 호출이 완료되면 이전 컨텍스트가 스택에서 팝되고 실행이 계속됩니다.
 
-Here's the context stack when we entered the subcall `pow(2, 2)`:
+하위 호출`pow (2, 2)`에 들어갔을 때 컨텍스트 스택이 있습니다 :
 
 <ul class="function-execution-context-list">
   <li>
@@ -183,15 +185,15 @@ Here's the context stack when we entered the subcall `pow(2, 2)`:
   </li>
 </ul>
 
-The new current execution context is on top (and bold), and previous remembered contexts are below.
+새로운 현재 실행 컨텍스트가 맨 위 (굵은 체)에 있으며 이전에 기억 된 컨텍스트가 아래에 있습니다.
 
-When we finish the subcall -- it is easy to resume the previous context, because it keeps both variables and the exact place of the code where it stopped. Here in the picture we use the word "line", but of course it's more precise.
+subcall을 마치면 이전 컨텍스트를 다시 시작하는 것이 쉽습니다. 왜냐하면 변수와 중지 된 코드의 정확한 위치를 모두 유지하기 때문입니다. 여기 사진에서 우리는 "선"이라는 단어를 사용하지만, 물론 더 정확합니다.
 
 ### pow(2, 1)
 
-The process repeats: a new subcall is made at line `5`, now with arguments `x=2`, `n=1`.
+프로세스는 다음과 같이 반복됩니다 : 새로운 서브 콜이 행`5`에서 만들어 졌는데, 이제는`x = 2`,`n = 1`을 인수로 사용합니다.
 
-A new execution context is created, the previous one is pushed on top of the stack:
+새 실행 컨텍스트가 만들어지고, 이전 실행 컨텍스트가 스택 맨 위에 푸시됩니다.
 
 <ul class="function-execution-context-list">
   <li>
@@ -208,11 +210,11 @@ A new execution context is created, the previous one is pushed on top of the sta
   </li>
 </ul>
 
-There are 2 old contexts now and 1 currently running for `pow(2, 1)`.
+현재 2 개의 구 컨텍스트가 있고`pow (2, 1)`로 현재 실행중인 컨텍스트가 1 개 있습니다.
 
 ### The exit
 
-During the execution of `pow(2, 1)`, unlike before, the condition `n == 1` is truthy, so the first branch of `if` works:
+`pow (2, 1)`을 실행하는 동안 이전과 달리`n == 1 '조건은 진실이므로`if`의 첫 번째 분기가 작동합니다 :
 
 ```js
 function pow(x, n) {
@@ -226,9 +228,9 @@ function pow(x, n) {
 }
 ```
 
-There are no more nested calls, so the function finishes, returning `2`.
+더 이상 중첩 된 호출이 없으므로 함수가 완료되고`2`가 반환됩니다.
 
-As the function finishes, its execution context is not needed anymore, so it's removed from the memory. The previous one is restored off the top of the stack:
+함수가 끝나면 실행 컨텍스트가 더 이상 필요하지 않으므로 메모리에서 제거됩니다. 이전 스택은 스택 맨 위에서 복원됩니다.
 
 
 <ul class="function-execution-context-list">
@@ -242,9 +244,9 @@ As the function finishes, its execution context is not needed anymore, so it's r
   </li>
 </ul>
 
-The execution of `pow(2, 2)` is resumed. It has the result of the subcall `pow(2, 1)`, so it also can finish the evaluation of `x * pow(x, n - 1)`, returning `4`.
+`pow (2, 2)`의 실행이 재개됩니다. 서브 콜`pow (2, 1)`의 결과를 가지므로,`x * pow (x, n - 1)`의 평가도 끝내고,`4`를 반환 할 수 있습니다.
 
-Then the previous context is restored:
+그런 다음 이전 컨텍스트가 복원됩니다.
 
 <ul class="function-execution-context-list">
   <li>
@@ -253,15 +255,15 @@ Then the previous context is restored:
   </li>
 </ul>
 
-When it finishes, we have a result of `pow(2, 3) = 8`.
+끝나면`pow (2, 3) = 8`의 결과를 얻습니다.
 
-The recursion depth in this case was: **3**.
+이 경우 재귀 깊이는 ** 3 **입니다.
 
-As we can see from the illustrations above, recursion depth equals the maximal number of context in the stack.
+위의 그림에서 알 수 있듯이 재귀 깊이는 스택의 최대 컨텍스트 수와 같습니다.
 
-Note the memory requirements. Contexts take memory. In our case, raising to the power of `n` actually requires the memory for `n` contexts, for all lower values of `n`.
+메모리 요구 사항에 유의하십시오. 컨텍스트는 메모리를 사용합니다. 우리의 경우,`n`의 힘을 높이려면`n`의 모든 낮은 값에 대해 실제로`n` 상황을위한 메모리가 필요합니다.
 
-A loop-based algorithm is more memory-saving:
+루프 기반 알고리즘은 메모리를 많이 절약합니다.
 
 ```js
 function pow(x, n) {
@@ -275,19 +277,19 @@ function pow(x, n) {
 }
 ```
 
-The iterative `pow` uses a single context changing `i` and `result` in the process. Its memory requirements are small, fixed and do not depend on `n`.
+반복적 인`pow`는 단일 컨텍스트를 사용하여 프로세스에서`i`와`result`를 변경합니다. 메모리 요구 사항은 작고 고정되어 있으며 'n'에 의존하지 않습니다.
 
-**Any recursion can be rewritten as a loop. The loop variant usually can be made more effective.**
+** 모든 재귀는 루프로 다시 작성할 수 있습니다. 루프 변형은 일반적으로보다 효과적 일 수 있습니다. **
 
-...But sometimes the rewrite is non-trivial, especially when function uses different recursive subcalls depending on conditions and merges their results or when the branching is more intricate. And the optimization may be unneeded and totally not worth the efforts.
+...하지만 때로는 재 작성이 중요하지 않습니다. 특히 함수가 조건에 따라 다른 재귀 하위 호출을 사용하고 결과를 병합하거나 분기가 더 복잡한 경우에는 특히 그렇습니다. 그리고 최적화는 불필요 할 수 있으며 노력을 기울일 가치가 없습니다.
 
-Recursion can give a shorter code, easier to understand and support. Optimizations are not required in every place, mostly we need a good code, that's why it's used.
+재귀는 짧은 코드를 제공하고 이해하기 쉽고 지원하기 쉽습니다. 모든 장소에서 최적화가 필요하지는 않으며 대부분 좋은 코드가 필요하기 때문에 사용됩니다.
 
-## Recursive traversals
+## 순회 트래버스
 
-Another great application of the recursion is a recursive traversal.
+재귀의 다른 훌륭한 응용 프로그램은 재귀 적 탐색입니다.
 
-Imagine, we have a company. The staff structure can be presented as an object:
+우리 회사가 있다고 상상해보십시오. 직원 구조는 객체로 표현 될 수 있습니다.
 
 ```js
 let company = {
@@ -316,30 +318,30 @@ let company = {
 };
 ```
 
-In other words, a company has departments.
+즉, 한 회사에 부서가 있습니다.
 
-- A department may have an array of staff. For instance, `sales` department has 2 employees: John and Alice.
-- Or a department may split into subdepartments, like `development` has two branches: `sites` and `internals`. Each of them has the own staff.
-- It is also possible that when a subdepartment grows, it divides into subsubdepartments (or teams).
+- 부서에는 여러 명의 직원이있을 수 있습니다. 예를 들어, 영업 부서에는 John과 Alice라는 2 명의 직원이 있습니다.
+- 또는 부서는 하위 개발 부서로 나눌 수 있습니다. 개발 부서에는 사이트와 내부가 두 개가 있습니다. 그들 각각에는 직원이 있습니다.
+- 하위 구획이 커지면 하위 구획 (또는 팀)으로 나눌 수도 있습니다.
 
-    For instance, the `sites` department in the future may be split into teams for `siteA` and `siteB`. And they, potentially, can split even more. That's not on the picture, just something to have in mind.
+    예를 들어, 미래의`sites` 부서는`siteA`와`siteB`에 대해 팀으로 분리 될 수 있습니다. 그리고 그들은 잠재적으로 더 많은 것을 나눌 수 있습니다. 그것은 사진에 있지 않고 단지 염두에 두어야 할 것입니다.
 
-Now let's say we want a function to get the sum of all salaries. How can we do that?
+이제 모든 급여의 합계를 구하는 함수가 필요하다고 가정 해 봅시다. 우리가 어떻게 할 수 있을까요?
 
-An iterative approach is not easy, because the structure is not simple. The first idea may be to make a `for` loop over `company` with nested subloop over 1st level departments. But then we need more nested subloops to iterate over the staff in 2nd level departments like `sites`. ...And then another subloop inside those for 3rd level departments that might appear in the future? Should we stop on level 3 or make 4 levels of loops? If we put 3-4 nested subloops in the code to traverse a single object, it becomes rather ugly.
+구조가 단순하지 않기 때문에 반복 접근법은 쉽지 않습니다. 첫 번째 아이디어는 1 단계 부서 이상의 중첩 된 서브 루프로 '회사'에 대해 'for'루프를 만드는 것일 수 있습니다. 그러나 '사이트'와 같은 2 단계 부서의 직원을 반복하기 위해 더 많은 중첩 된 서브 루프가 필요합니다. ... 그리고 앞으로 나타날 수있는 3 단계 부서의 하위 루프가 있습니다. 우리는 레벨 3에서 멈추거나 4 레벨의 루프를 만들어야합니까? 코드에 3-4 중첩 된 서브 루핑을 사용하여 단일 객체를 탐색하면 오히려 추한 이미지가됩니다.
 
-Let's try recursion.
+재귀를 사용해 봅시다.
 
-As we can see, when our function gets a department to sum, there are two possible cases:
+우리가 볼 수 있듯이, 우리의 기능이 총계를 얻을 때, 두 가지 가능한 경우가 있습니다 :
 
-1. Either it's a "simple" department with an *array of people* -- then we can sum the salaries in a simple loop.
-2. Or it's *an object with `N` subdepartments* -- then we can make `N` recursive calls to get the sum for each of the subdeps and combine the results.
+1. 사람들의 배열을 가진 "단순한"부서 * - 그런 다음 간단한 회 돌이로 급여를 합산 할 수 있습니다.
+2. 또는 N 개의 서브 디벨먼트가있는 객체 * - 그러면 각각의 서브 데프의 합계를 얻기 위해`N` 회귀 호출을하고 결과를 결합 할 수 있습니다.
 
-The (1) is the base of recursion, the trivial case.
+(1)은 재귀의 기본이며 사소한 경우입니다.
 
-The (2) is the recursive step. A complex task is split into subtasks for smaller departments. They may in turn split again, but sooner or later the split will finish at (1).
+(2)는 재귀 단계입니다. 복잡한 작업은 소규모 부서의 하위 작업으로 분할됩니다. 그들은 차례로 다시 나뉠 수 있지만 조만간 분할은 (1)로 끝납니다.
 
-The algorithm is probably even easier to read from the code:
+이 알고리즘은 코드에서 읽기가 더 쉽습니다.
 
 
 ```js run
@@ -369,62 +371,62 @@ function sumSalaries(department) {
 alert(sumSalaries(company)); // 6700
 ```
 
-The code is short and easy to understand (hopefully?). That's the power of recursion. It also works for any level of subdepartment nesting.
+코드는 짧고 이해하기 쉽습니다 (잘만되면?). 그것은 재귀의 힘입니다. 또한 하위 수준의 중첩 수준에서도 작동합니다.
 
-Here's the diagram of calls:
+다음은 호출 다이어그램입니다.
 
-![recursive salaries](recursive-salaries.png)
+! [재귀 급여] (재귀 급여 .png)
 
-We can easily see the principle: for an object `{...}` subcalls are made, while arrays `[...]` are the "leaves" of the recursion tree, they give immediate result.
+객체`{...}`에 대해 서브 콜이 만들어지고, 배열 [[...]은 재귀 트리의 "잎"이지만 즉시 결과가 나타납니다.
 
-Note that the code uses smart features that we've covered before:
+이 코드는 이전에 다뤘던 스마트 기능을 사용합니다.
 
-- Method `arr.reduce` explained in the chapter <info:array-methods> to get the sum of the array.
-- Loop `for(val of Object.values(obj))` to iterate over object values: `Object.values` returns an array of them.
+배열의 합을 얻기 위해 <info : array-methods> 장에서 설명 된`arr.reduce` 메쏘드.
+- 객체 값을 반복하기 위해`val of Object.values (obj) '를 반복하십시오 :`Object.values`는 그것들의 배열을 반환합니다.
 
 
-## Recursive structures
+## 재귀 구조
 
-A recursive (recursively-defined) data structure is a structure that replicates itself in parts.
+재귀 (재귀 적으로 정의 된) 데이터 구조는 자체적으로 복제하는 구조입니다.
 
-We've just seen it in the example of a company structure above.
+우리는 방금 위의 회사 구조의 예에서이를 보았습니다.
 
-A company *department* is:
-- Either an array of people.
-- Or an object with *departments*.
+회사 * 부서는 다음과 같습니다.
+- 사람들의 배열.
+- 또는 부서가있는 오브젝트 *.
 
-For web-developers there are much better-known examples: HTML and XML documents.
+웹 개발자에게는 HTML 및 XML 문서와 같이 훨씬 더 잘 알려진 예제가 있습니다.
 
-In the HTML document, an *HTML-tag* may contain a list of:
-- Text pieces.
-- HTML-comments.
-- Other *HTML-tags* (that in turn may contain text pieces/comments or other tags etc).
+HTML 문서에서 * HTML 태그 *는 다음 목록을 포함 할 수 있습니다.
+- 텍스트 조각.
+- HTML 주석.
+- 다른 * HTML 태그 * (차례로 텍스트 조각 / 주석 또는 기타 태그 등을 포함 할 수 있음).
 
-That's once again a recursive definition.
+그것은 다시 한번 재귀적인 정의입니다.
 
-For better understanding, we'll cover one more recursive structure named "Linked list" that might be a better alternative for arrays in some cases.
+더 나은 이해를 위해, 어떤 경우에는 배열에 대한 더 나은 대안이 될 수있는 "링크 된 목록"이라는 하나 이상의 재귀 구조를 다룰 것입니다.
 
 ### Linked list
 
-Imagine, we want to store an ordered list of objects.
+상상해보십시오. 우리는 객체의 정렬 된 목록을 저장하려고합니다.
 
-The natural choice would be an array:
+자연스러운 선택은 배열 일 것입니다 :
 
 ```js
 let arr = [obj1, obj2, obj3];
 ```
 
-...But there's a problem with arrays. The "delete element" and "insert element" operations are expensive. For instance, `arr.unshift(obj)` operation has to renumber all elements to make room for a new `obj`, and if the array is big, it takes time. Same with `arr.shift()`.
+...하지만 배열에 문제가 있습니다. "요소 삭제"및 "요소 삽입"작업은 비용이 많이 듭니다. 예를 들어,`arr.unshift (obj)`연산은 새로운`obj`를위한 공간을 만들기 위해 모든 원소의 번호를 다시 지정해야하고 배열이 큰 경우 시간이 걸립니다. `arr.shift () '와 동일합니다.
 
-The only structural modifications that do not require mass-renumbering are those that operate with the end of array: `arr.push/pop`. So an array can be quite slow for big queues.
+   대량 넘버링을 필요로하지 않는 유일한 구조적인 변경은`arr.push / pop` 배열의 끝으로 동작하는 것입니다. 따라서 배열은 큰 대기열에 대해서는 상당히 느릴 수 있습니다.
 
-Alternatively, if we really need fast insertion/deletion, we can choose another data structure called a [linked list](https://en.wikipedia.org/wiki/Linked_list).
+   또는 빠른 삽입 / 삭제가 정말로 필요한 경우에는 [연결 목록] (https://en.wikipedia.org/wiki/Linked_list)이라는 다른 데이터 구조를 선택할 수 있습니다.
 
-The *linked list element* is recursively defined as an object with:
+* 연결된 목록 요소 *는 다음을 사용하여 재귀 적으로 객체로 정의됩니다.
 - `value`.
-- `next` property referencing the next *linked list element* or `null` if that's the end.
+- `next` 다음 * 연결된 목록 요소 *를 참조하는 속성 또는 끝인 경우 'null'.
 
-For instance:
+예를 들어:
 
 ```js
 let list = {
@@ -442,11 +444,11 @@ let list = {
 };
 ```
 
-Graphical representation of the list:
+목록의 그래픽 표현 :
 
 ![linked list](linked-list.png)
 
-An alternative code for creation:
+생성을위한 대체 코드 :
 
 ```js no-beautify
 let list = { value: 1 };
@@ -455,9 +457,9 @@ list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
 ```
 
-Here we can even more clearer see that there are multiple objects, each one has the `value` and `next` pointing to the neighbour. The `list` variable is the first object in the chain, so following `next` pointers from it we can reach any element.
+여기서 우리는 여러 객체가 있음을보다 분명하게 볼 수 있습니다. 각 객체는 이웃을 가리키는`value`와`next`를 가지고 있습니다. `list` 변수는 체인의 첫 번째 객체이므로,`next` 포인터를 따라 가면 모든 요소에 도달 할 수 있습니다.
 
-The list can be easily split into multiple parts and later joined back:
+목록을 여러 부분으로 쉽게 나눌 수 있으며 나중에 다시 가입 할 수 있습니다.
 
 ```js
 let secondList = list.next.next;
@@ -472,9 +474,9 @@ To join:
 list.next.next = secondList;
 ```
 
-And surely we can insert or remove items in any place.
+그리고 확실하게 우리는 어떤 장소에서나 아이템을 삽입하거나 제거 할 수 있습니다.
 
-For instance, to prepend a new value, we need to update the head of the list:
+예를 들어, 새 값을 앞에 붙이려면 목록 헤드를 업데이트해야합니다.
 
 ```js
 let list = { value: 1 };
@@ -490,7 +492,7 @@ list = { value: "new item", next: list };
 
 ![linked list](linked-list-0.png)
 
-To remove a value from the middle, change `next` of the previous one:
+중간에서 값을 제거하려면 이전 값의 'next'를 변경하십시오.
 
 ```js
 list.next = list.next.next;
@@ -498,35 +500,35 @@ list.next = list.next.next;
 
 ![linked list](linked-list-remove-1.png)
 
-We made `list.next` jump over `1` to value `2`. The value `1` is now excluded from the chain. If it's not stored anywhere else, it will be automatically removed from the memory.
+우리는`list.next`를`1`을 뛰어 넘어서`2` 값을 얻었습니다. 이제 값 '1'이 체인에서 제외됩니다. 다른 곳에 저장되지 않으면 자동으로 메모리에서 제거됩니다.
 
-Unlike arrays, there's no mass-renumbering, we can easily rearrange elements.
+배열과는 달리, 대량 번호 매기기가 없으므로 요소를 쉽게 재 배열 할 수 있습니다.
 
-Naturally, lists are not always better than arrays. Otherwise everyone would use only lists.
+당연히 목록은 항상 배열보다 낫지는 않습니다. 그렇지 않으면 모든 사람이 목록 만 사용합니다.
 
-The main drawback is that we can't easily access an element by its number. In an array that's easy: `arr[n]` is a direct reference. But in the list we need to start from the first item and go `next` `N` times to get the Nth element.
+가장 큰 단점은 번호로 요소에 쉽게 액세스 할 수 없다는 것입니다. 쉬운 배열 :`arr [n]`은 직접적인 참조입니다. 그러나 목록에서 우리는 첫 번째 항목부터 시작하여 N 번째 요소를 얻기 위해`next`` N` 번 이동해야합니다.
 
-...But we don't always need such operations. For instance, when we need a queue or even a [deque](https://en.wikipedia.org/wiki/Double-ended_queue) -- the ordered structure that must allow very fast adding/removing elements from both ends.
+... 그러나 우리는 항상 그러한 작업이 필요하지 않습니다. 예를 들어 대기열 또는 [deque] (https://en.wikipedia.org/wiki/Double-ended_queue)가 필요할 때 - 양끝에서 요소를 매우 빠르게 추가 / 제거 할 수있는 정렬 된 구조.
 
-Sometimes it's worth to add another variable named `tail` to track the last element of the list (and update it when adding/removing elements from the end). For large sets of elements the speed difference versus arrays is huge.
+가끔 'tail'이라는 또 다른 변수를 추가하여 목록의 마지막 요소를 추적 할 수 있습니다 (끝에 요소를 추가 / 제거 할 때 업데이트합니다). 큰 요소 세트의 경우 속도 차이와 배열이 매우 큽니다.
 
-## Summary
+## 요약
 
 Terms:
-- *Recursion*  is a programming term that means a "self-calling" function. Such functions can be used to solve certain tasks in elegant ways.
+- * 재귀 *는 "자체 호출"기능을 의미하는 프로그래밍 용어입니다. 이러한 기능을 사용하여 특정 작업을 우아한 방식으로 해결할 수 있습니다.
 
-    When a function calls itself, that's called a *recursion step*. The *basis* of recursion is function arguments that make the task so simple that the function does not make further calls.
+    함수가 자신을 호출 할 때 * 재귀 단계 *라고합니다. 재귀의 * basis *는 함수를 더 간단하게 만들어서 함수가 더 이상 호출하지 못하게하는 함수 인수입니다.
 
-- A [recursively-defined](https://en.wikipedia.org/wiki/Recursive_data_type) data structure is a data structure that can be defined using itself.
+- [재귀 적으로 정의 된] (https://en.wikipedia.org/wiki/Recursive_data_type) 데이터 구조는 자체적으로 정의 할 수있는 데이터 구조입니다.
 
-    For instance, the linked list can be defined as a data structure consisting of an object referencing a list (or null).
+    예를 들어, 링크 된 목록은 목록을 참조하는 객체 (또는 null)로 구성된 데이터 구조로 정의 될 수 있습니다.
 
     ```js
-    list = { value, next -> list }
+    list = {value, next -> list}
     ```
 
-    Trees like HTML elements tree or the department tree from this chapter are also naturally recursive: they branch and every branch can have other branches.
+    이 장의 HTML 요소 트리 또는 부서 트리와 같은 나무도 자연스럽게 재귀 적입니다. 분기를 가지며 모든 분기마다 다른 분기를 가질 수 있습니다.
 
-    Recursive functions can be used to walk them as we've seen in the `sumSalary` example.
+    `sumSalary` 예제에서 보았 듯이 재귀 함수를 사용하여 그것들을 걸어 갈 수 있습니다.
 
-Any recursive function can be rewritten into an iterative one. And that's sometimes required to optimize stuff. But for many tasks a recursive solution is fast enough and easier to write and support.
+모든 재귀 함수는 반복적 인 함수로 다시 작성할 수 있습니다. 그리고 때로는 물건을 최적화해야합니다. 그러나 많은 작업에서 재귀 적 솔루션은 빠르며 작성하고 지원하기 쉽습니다.
