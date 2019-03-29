@@ -42,7 +42,9 @@
 
 번역 진행현황은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 확인할 수 있습니다. 
 
-새롭게 작업을 시작하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역하고자 하는 문서가 이미 번역이 되어있는지 아닌지를 확인하고, 새로 작업할 주제가 정해지면 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주세요. 이슈 등록 시 **구글 계정**을 함께 알려주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
+새롭게 작업을 시작하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역하고자 하는 문서가 이미 번역이 되어있는지 아닌지를 확인하고, 새로 작업할 주제가 정해지면 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주세요. 
+
+이슈 등록 시 **구글 계정**을 함께 알려주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
 
 ## 번역어(번역 컨벤션)
@@ -55,4 +57,4 @@
   * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
   * 한글라이즈([링크](https://hangulize.org/))
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property), 브라우저 객체 모델(Browser Object Model, BOM))`를 하였습니다.
-* 합의된 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다. 새롭게 작업을 시작하는 분들은 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주시고, google계정을 알려주시면 번역어 시트의 편집 권한을 드리겠습니다. 
+* 합의된 번역어는 다음 시트에서 확인할 수 있습니다([링크](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)). 해당 시트를 확인하시어 번역어 통일에 힘써주시기 바랍니다.
