@@ -22,9 +22,6 @@
 만약 자신만의 번역 저장소(repository)를 만들고 싶다면 원본 저장소를 클론 한 다음, 이름을 `javascript-tutorial-...`로 바꿔주세요. 한국어의 경우 `...`에는 ko가 들어가면 됩니다. 그 후 이곳에 [이슈](https://github.com/iliakan/javascript-tutorial-en/issues)를 등록하여 당신의 언어가 번역 진행 사항에 등록되도록 알리면 됩니다.
 마크다운을 지원하는 모든 에디터에서 문서를 수정할 수 있습니다. 로컬에서 서버를 띄워 번역물이 어떻게 웹페이지로 전환되는지 보고 싶다면 다음 링크를 확인해주세요. <https://github.com/iliakan/javascript-tutorial-server>
 
-## 한국어 번역
-
-번역 진행현황은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 확인할 수 있습니다. 새롭게 작업을 시작하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역하고자 하는 문서가 이미 번역이 되어있는지 아닌지를 확인하고, 새로 작업할 주제가 정해지면 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주세요. 이슈 등록 시 **구글 계정**을 함께 알려주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
 ## 저장소 구조
 
@@ -39,6 +36,14 @@
   - `task.md` 이/가 있는 폴더는 `과제`입니다. (해당 과제의 해답은 같은 폴더 내에 `solution.md`으로 제공됩니다)
 
 각 파일은 `# Main header`로 시작합니다.
+
+
+## 한국어 번역
+
+번역 진행현황은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 확인할 수 있습니다. 
+
+새롭게 작업을 시작하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역하고자 하는 문서가 이미 번역이 되어있는지 아닌지를 확인하고, 새로 작업할 주제가 정해지면 [이곳](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues)에서 이슈를 등록해주세요. 이슈 등록 시 **구글 계정**을 함께 알려주시면 번역어 시트와 Dashboard 시트의 편집 권한을 드리겠습니다. 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
+
 
 ## 번역어(번역 컨벤션)
 * 경어체를 사용합니다.
