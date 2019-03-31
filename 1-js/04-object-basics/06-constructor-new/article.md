@@ -110,7 +110,6 @@ new User(); // function User { ... }
 ```
 
 `new.target` 은 함수를 `new`연산자와 함께 호출하거나, 일반적인 방법으로 호출 시 같은 결과를 얻고자 할 때 사용합니다. 두 경우 모두 동일한 객체를 생성합니다.
-That can be used to allow both `new` and regular calls to work the same. That is, create the same object:
 
 ```js run
 function User(name) {
@@ -185,7 +184,7 @@ let user = new User();
 
 ## 생성자 내 메서드
 
-객체를 생성할 때 생성자 함수를 쓰면 유연하다는 장점이 있습니다. 생성자 함수는 객체를 어떻게 생성할지와 객체 안에 무엇을 넣을지 결정하는 매개변수를 가질 수 있습니다.
+Using constructor functions to create objects gives a great deal of flexibility. The constructor function may have parameters that define how to construct the object, and what to put in it.
 
 `this`는 프로퍼티 뿐만 아니라 메서드에서도 쓸 수 있습니다.
 
@@ -226,5 +225,5 @@ john = {
 ```smart header="Objects, we'll be back!"
 이번 주제에선 객체와 생성자에 대한 기초를 다뤘습니다. 이 기초 내용은 다음장에서 배울 데이터 타입과 함수를 이해하는데 필수적인 내용입니다. 
 
-다음 주제를 학습한 후, <info:object-oriented-programming>에서 객체에 대해 좀 더 다뤄보도록 하겠습니다. 상속이나 클래스와 같은 개념을 다루겠습니다.
+데이터 타입과 함수에 대한 학습 이후엔, <info:prototypes>, <info:classes> 챕터에서 다시 객체에 대해 좀 더 다뤄보도록 하겠습니다.
 ```

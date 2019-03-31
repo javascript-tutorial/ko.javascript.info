@@ -254,7 +254,7 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 */!*
 ```
 
-If we forget to add `.catch` there, then we get an unhandled promise error (and can see it in the console). We can catch such errors using a global event handler as described in the chapter <info:promise-chaining>.
+If we forget to add `.catch` there, then we get an unhandled promise error (and can see it in the console). We can catch such errors using a global event handler as described in the chapter <info:promise-error-handling>.
 
 
 ```smart header="`async/await` and `promise.then/catch`"
@@ -281,11 +281,17 @@ In case of an error, it propagates as usual: from the failed promise to `Promise
 
 ````
 
-## Timiing: async/await and higher-level actions
+## Microtask queue [#microtask-queue]
 
-Some async stuff is more asynchronous than the other.
+As we've seen in the chapter <info:microtask-queue>, promise handlers are executed asynchronously. Every `.then/catch/finally` handler first gets into the "microtask queue" and executed after the current code is complete.
 
-For instance, `setTimeout(handler, 0)` is async, and `let x = await f()` is async. What triggers first?
+`Async/await` is based on promises, so it uses the same microtask queue internally, and has the similar priority over macrotasks.
+
+For instance, we have:
+- `setTimeout(handler, 0)`, that should run `handler` with zero delay.
+- `let x = await f()`, function `f()` is async, but returns immediateley.
+
+Which one runs first if `await` is *below* `setTimeout` in the code?
 
 ```js run
 async function f() {
@@ -301,13 +307,7 @@ async function f() {
 })();
 ```
 
-There's no ambiguity here: `await` always finishes first.
-
-Remember promise queue from the chapter <info:promise-queue>? Promise `.then/catch/finally` handlers get queued, and then executed when the currently running code is complete. By specification, the promise queue has higher priority than environment-specific handlers.
-
-`Async/await` is based on promises, so it uses the same promise queue internally.
-
-So `await` is guaranteed to work before any `setTimeout` or other event handlers. That's actually quite essential, as we know that our async/await code flow will never be interrupted by other handlers or events.
+There's no ambiguity here: `await` always finishes first, because (as a microtask) it has a higher priority than `setTimeout` handling.
 
 ## Summary
 
