@@ -1,2 +1,2 @@
 
-# Storing data in the browser
+# 브라우저에 데이터 저장하기
