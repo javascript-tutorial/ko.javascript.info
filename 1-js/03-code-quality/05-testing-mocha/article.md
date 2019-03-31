@@ -1,26 +1,37 @@
-# Automated testing with mocha
+# Mocha로 하는 테스팅 자동화
 
+테스트 자동화는 추가 작업에 사용됩니다.
 Automated testing will be used in further tasks.
 
+사실 테스트 자동화는 개발자가 받아야 할 "최소한의 교육"에 속합니다.
 It's actually a part of the "educational minimum" of a developer.
 
 ## Why we need tests?
+## 테스트는 왜 필요할까?
 
 When we write a function, we can usually imagine what it should do: which parameters give which results.
+함수를 작성할 땐, 어떤 매개변수가 들어오면 어떤 결과가 나올 지 상상하며 작업합니다. 
 
 During development, we can check the function by running it and comparing the outcome with the expected one. For instance, we can do it in the console.
+그리고 함수를 직접 실행 한 결과가 원하는 것과 같은지를 비교하면서 함수를 잘 만들었는지 확인합니다. 콘솔에서 실행 해 확인하는 것 같이 말이죠.
 
 If something is wrong -- then we fix the code, run again, check the result -- and so on till it works.
+뭔가 잘못 된 경우는, 코드를 고치고, 재 실행해 서 결과를 다시 확인합니다. 함수가 제대로 작동할 때까지 이 작업을 반복하죠.
 
 But such manual "re-runs" are imperfect.
+하지만 이렇게 손으로 "재 실행"하는건 불완전한 방법입니다.
 
 **When testing a code by manual re-runs, it's easy to miss something.**
+**손으로 재 실행 하는 방식의 테스팅은, 뭔가를 놓치기 쉽습니다.**
 
 For instance, we're creating a function `f`. Wrote some code, testing: `f(1)` works, but `f(2)` doesn't work. We fix the code and now `f(2)` works. Looks complete? But we forgot to re-test `f(1)`. That may lead to an error.
+함수 `f`를 만들고 있다고 가정해 봅시다. 코드를 작성하고, `f(1)`을 테스트 하는데, 잘 작동합니다. 그런데 `f(2)`는 잘 작동하지 않습니다. 코드를 수정하고 나니 `f(2)`가 잘 작동합니다. 작업이 끝난것 같이 보입니다. 하지만 코드가 수정된 후 `f(1)`을 테스트 하지 못했습니다. 이런 상황은 에러를 발생시킬 수 있습니다.  
 
 That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
+이는 전형적인 상황입니다. 개발자는 많은 가능성을 염두하고 코드를 작성합니다. 하지만 코드가 수정되고 난 후, 개발자가 모든 가능성을 다시 확인한다는 보장이 없습니다. 이 때문에 하나를 고치면 다른 하나가 고장날 가능성이 생깁니다.
 
 **Automated testing means that tests are written separately, in addition to the code. They can be executed easily and check all the main use cases.**
+**테스트 코드가 기능을 담당하는 코드와 별개로 작성된 경우를 테스팅 자동화를 하고 있다고 부릅니다. 테스트 코드는 실행하기 쉽고, 모든 주요 유스 케이스(use case)를 확인해 줍니다.**
 
 ## Behavior Driven Development (BDD)
 
