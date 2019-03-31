@@ -52,7 +52,7 @@
 
 ## Multi-line input
 
-Usually, when we put a line of code into the console, and then press `ley:Enter`, it executes.
+Usually, when we put a line of code into the console, and then press `key:Enter`, it executes.
 
 To insert multiple line, press `key:Shift+Enter`.
 
