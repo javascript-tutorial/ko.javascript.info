@@ -108,7 +108,7 @@ function pow(x, n) {
 
 함수 실행에 대한 정보는 해당 *실행 컨텍스트* 에 저장됩니다.
 
-The [execution context](https://tc39.github.io/ecma262/#sec-execution-contexts) is 함수의 실행에 대한 세부 사항을 포함하는 내부 데이터 구조 : 제어 흐름이 현재의 변수, 'this'의 값 (여기서는 사용하지 않음) 및 다른 몇 가지 내부 세부 사항.
+The [execution contex](https://tc39.github.io/ecma262/#sec-execution-contexts) is 함수의 실행에 대한 세부 사항을 포함하는 내부 데이터 구조 : 제어 흐름이 현재의 변수, 'this'의 값 (여기서는 사용하지 않음) 및 다른 몇 가지 내부 세부 사항.
 
 하나의 함수 호출에는 정확히 하나의 실행 컨텍스트가 연결되어 있습니다.
 
@@ -150,7 +150,6 @@ function pow(x, n) {
 alert( pow(2, 3) );
 ```
 
-
 변수는 동일하지만 행이 변경되므로 컨텍스트가 다음과 같습니다.
 
 <ul class="function-execution-context-list">
@@ -160,7 +159,7 @@ alert( pow(2, 3) );
   </li>
 </ul>
 
-`x * pow (x, n - 1)`을 계산하려면, 새로운 인수`pow (2, 2) '로`pow`의 서브 콜을 만들어야합니다.
+`x * pow (x, n - 1)`을 계산하려면, 새로운 인수 `pow (2, 2) `로 `pow`의 서브 콜을 만들어야합니다.
 
 ### pow(2, 2)
 
@@ -382,7 +381,7 @@ alert(sumSalaries(company)); // 6700
 이 코드는 이전에 다뤘던 스마트 기능을 사용합니다.
 
 배열의 합을 얻기 위해 <info : array-methods> 장에서 설명 된`arr.reduce` 메쏘드.
-- 객체 값을 반복하기 위해`val of Object.values (obj) '를 반복하십시오 :`Object.values`는 그것들의 배열을 반환합니다.
+- 객체 값을 반복하기 위해`val of Object.values (obj) `를 반복하십시오 :`Object.values`는 그것들의 배열을 반환합니다.
 
 
 ## 재귀 구조
