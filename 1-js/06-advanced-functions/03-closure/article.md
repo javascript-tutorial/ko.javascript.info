@@ -74,15 +74,15 @@
 
 예를 들어,이 간단한 코드에는 하나의 어휘 환경 만 있습니다.
 
-! [어휘 환경] (lexical-environment-global.png)
+![lexical environment](lexical-environment-global.png)
 
-이것은 전체 스크립트와 관련된 소위 글로벌 어휘 환경입니다. 브라우저의 경우 모든 <script> 태그는 동일한 전역 환경을 공유합니다.
+This is a so-called global Lexical Environment, associated with the whole script. For browsers, all `<script>` tags share the same global environment.
 
-위의 그림에서 사각형은 환경 레코드 (변수 저장)를 의미하고 화살표는 외부 참조를 의미합니다. 글로벌 어휘 환경은 외부 참조가 없으므로 'null'을 가리 킵니다.
+On the picture above, the rectangle means Environment Record (variable store) and the arrow means the outer reference. The global Lexical Environment has no outer reference, so it points to `null`.
 
-`let` 변수가 어떻게 동작하는지에 대한 더 큰 그림이 있습니다 :
+Here's the bigger picture of how `let` variables work:
 
-! [어휘 환경] (어휘 환경 - 글로벌 - 2.png)
+![lexical environment](lexical-environment-global-2.png)
 
 오른쪽에있는 사각형은 실행 중 전역 어휘 환경이 어떻게 변경되는지 보여줍니다.
 
@@ -98,7 +98,7 @@
 - 변수는 현재 실행중인 블록 / 함수 / 스크립트와 연관된 특수 내부 오브젝트의 특성입니다.
 - 변수로 작업하는 것은 실제로 해당 객체의 속성을 사용하여 작업합니다.
 
-### 함수 선언
+### Function Declaration
 
 지금까지는 변수 만 관찰했습니다. 이제 Function Declarations를 입력하십시오.
 
@@ -113,7 +113,7 @@
 ![lexical environment](lexical-environment-global-3.png)
 
 
-### 내부 및 외부 어휘 환경
+### Inner and outer Lexical Environment
 
 이제 함수가 외부 변수에 액세스 할 때 어떤 일이 일어나는지 살펴 보겠습니다.
 
@@ -187,18 +187,18 @@ sayHi(); // Pete
 2.`(*)`행에서 전역 변수가 변경되었습니다. 이제는 'name : "Pete"`가 있습니다.
 3. 함수`sayHi ()`가 실행될 때 외부에서`name`을 취합니다. 이것은 이미``피트 (Pete) '인 글로벌 어휘 환경에서 온 것입니다.
 
+```smart header="One call -- one Lexical Environment"
+Please note that a new function Lexical Environment is created each time a function runs.
 
-```스마트 헤더 = "하나의 호출 - 하나의 어휘 환경"
-함수가 실행될 때마다 새 함수 어휘 환경이 만들어집니다.
-
-그리고 함수가 여러 번 호출되면, 각 호출은 바로 실행을위한 로컬 변수와 매개 변수가있는 자체 어휘 환경을 갖게됩니다.
+And if a function is called multiple times, then each invocation will have its own Lexical Environment, with local variables and parameters specific for that very run.
 ```
 
-```smart header = "어휘 환경은 명세 객체"
-"어휘 환경"은 명세 객체입니다. 코드에서이 객체를 가져 와서 직접 조작 할 수는 없습니다. 자바 스크립트 엔진은 메모리를 최적화하고 메모리를 저장하지 않고 다른 내부 트릭을 수행하는 변수를 무시할 수 있지만 보이는 동작은 설명 된대로 이루어져야합니다.
+```smart header="Lexical Environment is a specification object"
+"Lexical Environment" is a specification object. We can't get this object in our code and manipulate it directly. JavaScript engines also may optimize it, discard variables that are unused to save memory and perform other internal tricks, but the visible behavior should be as described.
 ```
 
-## 중첩 된 함수
+
+## Nested functions
 
 함수가 다른 함수 내부에서 작성되면 "내포 된"함수라고합니다.
 
@@ -224,7 +224,7 @@ function sayHiBye(firstName, lastName) {
 
 더 흥미로운 점은 중첩 된 함수가 반환 될 수 있다는 것입니다 : 외부 객체의 속성 (외부 함수가 메서드를 사용하여 객체를 만드는 경우) 또는 그 자체로 결과입니다. 그런 다음 다른 곳에서 사용할 수 있습니다. 어디에 있더라도, 그것은 여전히 동일한 외부 변수에 액세스 할 수 있습니다.
 
-예를 들어, 여기에서 중첩 된 함수는 새 객체에 [constructor function] (info:constructor-new):
+For instance, here the nested function is assigned to the new object by the [constructor function] (info:constructor-new):
 
 ```js run
 // constructor function returns a new object
@@ -310,7 +310,7 @@ alert( counter2() ); // 0 (independent)
 
 바라건대, 외부 변수를 가진 상황은 이제 당신에게 분명합니다. 그러나보다 복잡한 상황에서는 내부에 대한 깊은 이해가 필요할 수 있습니다. 그럼 좀 더 깊이 들어가 봅시다.
 
-## 세부 환경
+## Environments in detail
 
 클로저가 일반적으로 작동하는 방식을 이해 했으므로 이제는 매우 유용합니다.
 
@@ -329,30 +329,30 @@ alert( counter2() ); // 0 (independent)
         여기서`makeCounter`는 전역 어휘 환경에서 생성되므로`[[Environment]]`는 그 어휘를 참조합니다.
    
         즉, 함수가 태어난 어휘 환경에 대한 참조로 "각인"됩니다. 그리고 [[Environment]]는 그 참조를 가진 숨겨진 함수 속성입니다.
-   
-2. 코드가 실행되면 새로운 전역 변수`counter`가 선언되고`makeCounter ()`라는 값이 호출됩니다. 실행이 makeCounter () 내부의 첫 번째 줄에있는 순간의 스냅 샷은 다음과 같습니다.
+
+2. The code runs on, the new global variable `counter` is declared and for its value `makeCounter()` is called. Here's a snapshot of the moment when the execution is on the first line inside `makeCounter()`:
 
     ![](lexenv-nested-makecounter-2.png)
 
-`makeCounter ()`호출의 순간에, 변수와 인수를 저장하기 위해 어휘 환경이 생성된다.
+    `makeCounter ()`호출의 순간에, 변수와 인수를 저장하기 위해 어휘 환경이 생성된다.
+    
+         모든 어휘 환경과 마찬가지로 두 가지를 저장합니다.
+         1. 지역 변수가있는 환경 레코드. 우리의 경우`count`만이 유일한 로컬 변수입니다 (`let count '가 실행될 때 나타납니다).
+         2. 외부 어휘 참조. 함수의`[[Environment]]`로 설정됩니다. 여기`makeCounter`의 [[Environment]]`는 전역 어휘 환경을 참조합니다.
+    
+         이제 우리는 두개의 어휘 환경을 가지고 있습니다 : 첫 번째 것은 글로벌이고, 두 번째는 현재의 makeCounter 호출을위한 것이며, 외부 참조는 global입니다.
 
-     모든 어휘 환경과 마찬가지로 두 가지를 저장합니다.
-     1. 지역 변수가있는 환경 레코드. 우리의 경우`count`만이 유일한 로컬 변수입니다 (`let count '가 실행될 때 나타납니다).
-     2. 외부 어휘 참조. 함수의`[[Environment]]`로 설정됩니다. 여기`makeCounter`의 [[Environment]]`는 전역 어휘 환경을 참조합니다.
+3. During the execution of `makeCounter()`, a tiny nested function is created.
 
-     이제 우리는 두개의 어휘 환경을 가지고 있습니다 : 첫 번째 것은 글로벌이고, 두 번째는 현재의 makeCounter 호출을위한 것이며, 외부 참조는 global입니다.
+    It doesn't matter whether the function is created using Function Declaration or Function Expression. All functions get the `[[Environment]]` property that references the Lexical Environment in which they were made. So our new tiny nested function gets it as well.
 
-3. makeCounter ()를 실행하는 동안, 작은 중첩 된 함수가 생성됩니다.
-
-     Function Declaration 또는 Function Expression을 사용하여 함수를 작성했는지 여부는 중요하지 않습니다. 모든 함수는 그것들이 만들어진 어휘 환경을 참조하는`[[Environment]]`속성을 얻는다. 그래서 우리의 새로운 작은 중첩 된 함수는 그것을 얻습니다.
-
-     새로운 중첩 된 함수의 경우, [[Environment]]의 값은`makeCounter ()`의 현재 어휘 환경 (태어난 곳)입니다 :
+    For our new nested function the value of `[[Environment]]` is the current Lexical Environment of `makeCounter()` (where it was born):
 
     ![](lexenv-nested-makecounter-3.png)
 
-   이 단계에서 내부 함수가 생성되었지만 아직 호출되지 않았다는 점에 유의하십시오. `function () {return count ++; }`이 (가) 실행되고 있지 않습니다. 우리는 곧 그것을 돌려 보낼 것입니다.
+    이 단계에서 내부 함수가 생성되었지만 아직 호출되지 않았다는 점에 유의하십시오. `function () {return count ++; }`이 (가) 실행되고 있지 않습니다. 우리는 곧 그것을 돌려 보낼 것입니다.
 
-실행이 진행되면`makeCounter ()`에 대한 호출이 끝나고 그 결과 (작은 중첩 함수)가 전역 변수`counter`에 할당됩니다.
+4. As the execution goes on, the call to `makeCounter()` finishes, and the result (the tiny nested function) is assigned to the global variable `counter`:
 
     ![](lexenv-nested-makecounter-4.png)
 
@@ -362,19 +362,19 @@ alert( counter2() ); // 0 (independent)
 
     ![](lexenv-nested-makecounter-5.png)
 
-    이제 변수에 접근하면, 먼저 자신의 어휘 환경 (empty)을 찾은 다음, 이전의`makeCounter ()`호출 어휘 환경을 찾은 다음 글로벌 어휘 환경을 검색합니다.
-    
-         `count`를 찾을 때, 그것은 가장 가까운 외부 어휘 환경에서`makeCounter` 변수들 중에서 그것을 찾습니다.
-    
-         여기서 메모리 관리가 어떻게 작동하는지 확인하십시오. `makeCounter ()`호출은 얼마 전에 끝났지 만, 어휘 환경은 그것을 참조하는`[[Environment]]와 함께 중첩 된 함수가 있기 때문에 메모리에 남아있게됩니다.
-    
-         일반적으로, 어휘 환경 객체는 그것을 사용할 수있는 함수가있는 한 계속 존재합니다. 남은 것이 없을 때만 지워집니다.
+   이제 변수에 접근하면, 먼저 자신의 어휘 환경 (empty)을 찾은 다음, 이전의`makeCounter ()`호출 어휘 환경을 찾은 다음 글로벌 어휘 환경을 검색합니다.
+   
+        `count`를 찾을 때, 그것은 가장 가까운 외부 어휘 환경에서`makeCounter` 변수들 중에서 그것을 찾습니다.
+   
+        여기서 메모리 관리가 어떻게 작동하는지 확인하십시오. `makeCounter ()`호출은 얼마 전에 끝났지 만, 어휘 환경은 그것을 참조하는`[[Environment]]와 함께 중첩 된 함수가 있기 때문에 메모리에 남아있게됩니다.
+   
+        일반적으로, 어휘 환경 객체는 그것을 사용할 수있는 함수가있는 한 계속 존재합니다. 남은 것이 없을 때만 지워집니다.
 
 6. The call to `counter()` not only returns the value of `count`, but also increases it. Note that the modification is done "in place". The value of `count` is modified exactly in the environment where it was found.
 
     ![](lexenv-nested-makecounter-6.png)
 
-  그래서 우리는 유일한 변화, 즉`count`의 새로운 값으로 이전 단계로 돌아갑니다. 다음 호출은 모두 동일합니다.
+   그래서 우리는 유일한 변화, 즉`count`의 새로운 값으로 이전 단계로 돌아갑니다. 다음 호출은 모두 동일합니다.
 
 7. Next `counter()` invocations do the same.
 
@@ -389,13 +389,13 @@ alert( counter2() ); // 0 (independent)
 그러나 makeWorker ()에`let name '이 없다면 위의 체인에서 볼 수 있듯이 전역 변수를 검색하고 외부 변수로 가져옵니다. 이 경우에는 "John"이됩니다.
 
 ```smart header="Closures"
-일반적으로 개발자가 알아야하는 일반적인 프로그래밍 용어 인 "폐쇄 (closure)"가 있습니다.
+There is a general programming term "closure", that developers generally should know.
 
-[closure] (https://en.wikipedia.org/wiki/Closure_ (computer_programming))는 외부 변수를 기억하고 액세스 할 수있는 함수입니다. 일부 언어에서는 불가능하거나 기능을 특수하게 작성하여이를 가능하게해야합니다. 그러나 위에서 설명한 것처럼 JavaScript에서는 모든 함수가 자연스럽게 종료됩니다 (<info : new-function>에서 다룰 수있는 제외 항목은 하나뿐입니다).
+A [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is a function that remembers its outer variables and can access them. In some languages, that's not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exclusion, to be covered in <info:new-function>).
 
-즉, 숨겨진`[[Environment]] '속성을 사용하여 생성 된 위치를 자동으로 기억하고, 모두가 외부 변수에 액세스 할 수 있습니다.
+That is: they automatically remember where they were created using a hidden `[[Environment]]` property, and all of them can access outer variables.
 
-인터뷰에서 프론트 엔드 개발자가 "클로저가 무엇입니까?"라는 질문을받는 경우, 유효한 대답은 클로저의 정의와 JavaScript의 모든 기능이 클로저이고 기술적 세부 사항에 대한 몇 가지 단어 일 수 있습니다. `[[Environment]]`속성과 어휘 환경이 작동하는 방법.
+When on an interview, a frontend developer gets a question about "what's a closure?", a valid answer would be a definition of the closure and an explanation that all functions in JavaScript are closures, and maybe few more words about technical details: the `[[Environment]]` property and how Lexical Environments work.
 ```
 
 ## Code blocks and loops, IIFE
@@ -585,6 +585,7 @@ function f() {
 //         LE   LE   LE
 let arr = [f(), f(), f()];
 ```
+
 어휘 환경 객체는 (다른 객체와 마찬가지로) 도달 할 수 없을 때 죽습니다. 다른 말로하면 적어도 하나의 중첩 된 함수가 참조하는 동안에 만 존재합니다.
 
 아래의 코드에서,`g`가 도달 할 수 없게 된 후, 어휘 환경 (그리고 그러므로`value`)을 감싸는 것은 메모리에서 제거됩니다;
@@ -610,11 +611,11 @@ g = null; // ...and now the memory is cleaned up
 
 그러나 실제로는 JavaScript 엔진이이를 최적화하려고합니다. 변수 사용을 분석하고 외부 변수가 사용되지 않는 것을 쉽게 알 수 있으면 제거됩니다.
 
-** V8 (Chrome, Opera)의 중요한 부작용은 디버깅에서 이러한 변수를 사용할 수 없게된다는 것입니다. **
+**V8 (Chrome, Opera)의 중요한 부작용은 디버깅에서 이러한 변수를 사용할 수 없게된다는 것입니다.**
 
 개발자 도구를 열고 Chrome에서 아래의 예를 실행 해보세요.
 
-일시 중지되면 콘솔에`alert (value)`를 입력하십시오.
+일시 중지되면 콘솔 유형에서 `alert(value)`.
 
 ```js run
 function f() {
