@@ -1,19 +1,19 @@
 
 # The old "var"
 
-In the very first chapter about [variables](info:variables), we mentioned three ways of variable declaration:
+첫 번째 장에서 [variables](info:variables), 변수 선언의 세 가지 방법을 언급했습니다.
 
 1. `let`
 2. `const`
 3. `var`
 
-`let` and `const` behave exactly the same way in terms of Lexical Environments.
+`let`과`const`는 어휘 환경에서 정확히 같은 방식으로 행동합니다.
 
-But `var` is a very different beast, that originates from very old times. It's generally not used in modern scripts, but still lurks in the old ones.
+하지만 'var'는 매우 다른 동물입니다. 아주 오래 전부터 시작된 동물입니다. 일반적으로 현대 스크립트에는 사용되지 않지만 이전 스크립트에는 여전히 숨어 있습니다.
 
-If you don't plan meeting such scripts you may even skip this chapter or postpone it, but then there's a chance that it bites you later.
+그러한 스크립트를 만날 계획이 없다면이 장을 건너 뛰거나 연기 할 수도 있습니다. 그렇지만 나중에 다시 물릴 기회가 있습니다.
 
-From the first sight, `var` behaves similar to `let`. That is, declares a variable:
+첫눈에 반해`var`는`let`과 비슷한 동작을합니다. 즉, 변수를 선언합니다.
 
 ```js run
 function sayHi() {
@@ -27,13 +27,13 @@ sayHi();
 alert(phrase); // Error, phrase is not defined
 ```
 
-...But here are the differences.
+...하지만 여기에는 차이점이 있습니다.
 
 ## "var" has no block scope
 
-`var` variables are either function-wide or global, they are visible through blocks.
+`var` 변수는 함수 전체 또는 전역 변수이며 블록을 통해 볼 수 있습니다.
 
-For instance:
+예를 들면 :
 
 ```js
 if (true) {
@@ -45,9 +45,9 @@ alert(test); // true, the variable lives after if
 */!*
 ```
 
-If we used `let test` on the 2nd line, then it wouldn't be visible to `alert`. But `var` ignores code blocks, so we've got a global `test`.
+두 번째 라인에서`let test '를 사용하면`alert'에 보이지 않을 것입니다. 그러나`var`은 코드 블록을 무시하므로 전역적인`test`가 있습니다.
 
-The same thing for loops: `var` cannot be block- or loop-local:
+루프에 대해서도 마찬가지입니다 :`var`는 블록 또는 루프 로컬 일 수 없습니다 :
 
 ```js
 for (var i = 0; i < 10; i++) {
@@ -59,7 +59,7 @@ alert(i); // 10, "i" is visible after loop, it's a global variable
 */!*
 ```
 
-If a code block is inside a function, then `var` becomes a function-level variable:
+코드 블럭이 함수 안에 있으면`var`는 함수 레벨 변수가됩니다 :
 
 ```js
 function sayHi() {
@@ -74,15 +74,15 @@ sayHi();
 alert(phrase); // Error: phrase is not defined
 ```
 
-As we can see, `var` pierces through `if`, `for` or other code blocks. That's because a long time ago in JavaScript blocks had no Lexical Environments. And `var` is a remnant of that.
+코드 블럭이 함수 안에 있으면`var`는 함수 레벨 변수가됩니다 :...
 
 ## "var" are processed at the function start
 
-`var` declarations are processed when the function starts (or script starts for globals).
+`var` 선언은 함수가 시작될 때 (또는 스크립트가 전역을 위해 시작될 때) 처리됩니다.
 
-In other words, `var` variables are defined from the beginning of the function, no matter where the definition is (assuming that the definition is not in the nested function).
+즉,`var` 변수는 정의의 어디에 있든지 관계없이 함수의 처음부터 정의됩니다 (정의가 중첩 된 함수에 없다고 가정).
 
-So this code:
+그래서이 코드는 :
 
 ```js
 function sayHi() {
@@ -96,7 +96,7 @@ function sayHi() {
 }
 ```
 
-...Is technically the same as this (moved `var phrase` above):
+... 기술적으로 이것과 같습니다 (위에서 이동 된`var phrase ') :
 
 ```js
 function sayHi() {
@@ -110,7 +110,7 @@ function sayHi() {
 }
 ```
 
-...Or even as this (remember, code blocks are ignored):
+... 아니면 (코드 블록이 무시된다는 것을 기억하십시오.)
 
 ```js
 function sayHi() {
@@ -126,13 +126,13 @@ function sayHi() {
 }
 ```
 
-People also call such behavior "hoisting" (raising), because all `var` are "hoisted" (raised) to the top of the function.
+사람들은 또한 모든 행동이 "호이 스팅 (hoisting)"(raising)이라고 부릅니다. 왜냐하면 모든 'var'이 기능의 최상위로 "올려지기"때문입니다.
 
-So in the example above, `if (false)` branch never executes, but that doesn't matter. The `var` inside it is processed in the beginning of the function, so at the moment of `(*)` the variable exists.
+그래서 위의 예제에서`if (false)`브랜치는 결코 실행되지 않지만, 그건 중요하지 않습니다. 내부의`var '는 함수의 시작 부분에서 처리되므로`(*)`의 순간에 변수가 존재합니다.
 
-**Declarations are hoisted, but assignments are not.**
+** 선언문은 들려 있지만 할당은 불가능합니다. **
 
-That's better to demonstrate with an example, like this:
+다음과 같이 예제로 설명하는 것이 좋습니다.
 
 ```js run
 function sayHi() {
@@ -146,12 +146,12 @@ function sayHi() {
 sayHi();
 ```
 
-The line `var phrase = "Hello"` has two actions in it:
+`var phrase = "Hello"`행에는 두 개의 액션이 있습니다 :
 
-1. Variable declaration `var`
-2. Variable assignment `=`.
+1. 변수 선언`var`
+2. 변수 할당`=`.
 
-The declaration is processed at the start of function execution ("hoisted"), but the assignment always works at the place where it appears. So the code works essentially like this:
+선언은 함수 실행의 시작에서 처리되지만 ( "hoisted") 할당은 항상 나타나는 위치에서 작동합니다. 따라서 코드는 기본적으로 다음과 같이 작동합니다.
 
 ```js run
 function sayHi() {
@@ -169,17 +169,17 @@ function sayHi() {
 sayHi();
 ```
 
-Because all `var` declarations are processed at the function start, we can reference them at any place. But variables are undefined until the assignments.
+모든`var` 선언은 함수 시작에서 처리되기 때문에, 우리는 그것들을 어느 곳에서나 참조 할 수 있습니다. 그러나 변수는 할당까지 정의되지 않습니다.
 
-In both examples above `alert` runs without an error, because the variable `phrase` exists. But its value is not yet assigned, so it shows `undefined`.
+위의 두 예제 모두`alert '변수는`phrase` 변수가 있기 때문에 오류없이 실행됩니다. 그러나 그 값은 아직 할당되지 않았으므로 '정의되지 않음'을 보여줍니다.
 
-## Summary
+## 요약
 
-There are two main differences of `var`:
+`var`의 두 가지 주요 차이점은 다음과 같습니다.
 
-1. Variables have no block scope, they are visible minimum at the function level.
-2. Variable declarations are processed at function start.
+1. 변수는 블록 범위가 없으며 함수 수준에서 최소로 표시됩니다.
+2. 변수 선언은 함수 시작시 처리됩니다.
 
-There's one more minor difference related to the global object, we'll cover that in the next chapter.
+전역 객체와 관련된 사소한 차이점이 하나 있습니다. 다음 장에서 다루겠습니다.
 
-These differences are actually a bad thing most of the time. Block-level variables is such a great thing. That's why `let` was introduced in the standard long ago, and is now a major way (along with `const`) to declare a variable.
+이러한 차이점은 실제로 대부분의 경우 나쁜 것입니다. 블록 수준 변수는 정말 좋은 점입니다. 그래서`let`이 오래전에 표준에 도입되었고, 변수를 선언하는 주요 방법 (`const`과 함께)입니다.
