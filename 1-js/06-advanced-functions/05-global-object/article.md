@@ -43,7 +43,7 @@ window.alert("Hello");
     alert(x); // 0, variable modified
     ```
 
-    현대의`let / const` 선언에서는 이런 일이 일어나지 않습니다.
+    Please note, that doesn't happen with more modern `let/const` declarations:
 
     ```js untrusted run no-strict refresh
     let x = 5;
@@ -51,7 +51,7 @@ window.alert("Hello");
     alert(window.x); // undefined ("let" doesn't create a window property)
     ```
 
-3. 또한 모든 스크립트는 동일한 전역 범위를 공유하므로 하나의`<script> '에 선언 된 변수는 다른 변수에서 볼 수있게됩니다 :
+3. 또한 모든 스크립트는 동일한 전역 범위를 공유하므로 하나의 변수가 `<script>` 다른 것들에서 볼 수있게된다 :
 
     ```html run
     <script>
@@ -65,7 +65,7 @@ window.alert("Hello");
     </script>
     ```
 
-4. 그리고 사소한 일이지만 여전히 글로벌 범위에서`this`의 값은`window`입니다.
+4. And, a minor thing, but still: the value of `this` in the global scope is `window`.
 
     ```js untrusted run no-strict refresh
     alert(this); // window
@@ -137,7 +137,7 @@ We'll cover more features of modules later, in the chapter [](info:modules).
 
 2. 현대적인 언어 기능을 지원하기 위해 전역 객체를 테스트 할 수 있습니다.
 
-    For instance, test if a build-in `Promise` object exists (it doesn't in really old browsers):
+     예를 들어, build-in`Promise` 객체가 존재하는지 테스트하십시오 (정말로 오래된 브라우저에서는 그렇지 않습니다) :
     ```js run
     if (!window.Promise) {
       alert("Your browser is really old!");
