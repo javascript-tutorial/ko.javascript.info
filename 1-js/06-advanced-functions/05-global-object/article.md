@@ -18,29 +18,29 @@ window.alert("Hello");
 
 ## 브라우저 : "창"객체
 
-역사적인 이유로, 브라우저 내`window` 객체는 다소 엉망입니다.
+역사적인 이유로, 브라우저 내 `window` 객체는 다소 엉망입니다.
 
 1. 글로벌 객체 역할을 수행하는 것 외에도 "브라우저 창"기능을 제공합니다.
 
      브라우저 창과 관련된 속성과 메서드에 액세스하기 위해`window`를 사용할 수 있습니다 :
 
     ```js run
-    alert(window.innerHeight); // shows the browser window height
+    alert(window.innerHeight); // 브라우저 창 높이를 보여줍니다
 
-    window.open('http://google.com'); // opens a new browser window
+    window.open('http://google.com'); // 새 브라우저 창을 엽니다
     ```
 
-2. 최상위`var` 변수와 함수 선언은 자동적으로`window`의 속성이됩니다.
+2. 최상위 `var` 변수와 함수 선언은 자동적으로 `window`의 속성이됩니다.
 
-    For instance:
+    예를들면:
     ```js untrusted run no-strict refresh
     var x = 5;
 
-    alert(window.x); // 5 (var x becomes a property of window)
+    alert(window.x); // 5 (var x 가 윈도우의 프로퍼티가 된다)
 
     window.x = 0;
 
-    alert(x); // 0, variable modified
+    alert(x); // 0, 변수가 수정되어졌다
     ```
 
     Please note, that doesn't happen with more modern `let/const` declarations:
@@ -48,7 +48,7 @@ window.alert("Hello");
     ```js untrusted run no-strict refresh
     let x = 5;
 
-    alert(window.x); // undefined ("let" doesn't create a window property)
+    alert(window.x); // undefined ("let" 은 윈도우의 프로퍼티로 생성하지 않습니다)
     ```
 
 3. 또한 모든 스크립트는 동일한 전역 범위를 공유하므로 하나의 변수가 `<script>` 다른 것들에서 볼 수있게된다 :
@@ -81,9 +81,9 @@ window.alert("Hello");
 
 다행히 "Javascript 모듈"이라는 "지옥의 길"이 있습니다.
 
-`<script>`태그에`type = "module"속성을 설정하면, 그 스크립트는`window`와 간섭하지 않고 자체 최상위 범위 (어휘 환경)를 가진 별도의 "모듈"로 간주됩니다.
+`<script>`태그에 `type = "module"` 속성을 설정하면, 그 스크립트는 `window`와 간섭하지 않고 자체 최상위 범위 (어휘 환경)를 가진 별도의 "모듈"로 간주됩니다.
 
-- 모듈에서`var x`는`window`의 속성이되지 않습니다 :
+- 모듈에서 `var x`는 `window`의 속성이되지 않습니다 :
 
     ```html run
     <script type="module">
@@ -102,11 +102,11 @@ window.alert("Hello");
 
     <script type="module">
       alert(window.x); // undefined
-      alert(x); // Error: undeclared variable
+      alert(x); // 에러: 선언되지않은 변수
     </script>
     ```
 
-- 그리고 마지막으로 미성년자 인 모듈에서`this`의 최상위 값은`undefined '입니다 (어쨌든`window`가되어야하는 이유는 무엇입니까?) :
+- 그리고 마지막으로 미성년자 인 모듈에서 `this`의 최상위 값은 `undefined` 입니다 (어쨌든 `window`가되어야하는 이유는 무엇입니까?) :
 
     ```html run
     <script type="module">
@@ -114,24 +114,24 @@ window.alert("Hello");
     </script>
     ```
 
-**Using `<script type="module">` fixes the design flaw of the language by separating top-level scope from `window`.**
+**`<script type="module">`을 사용하는것은 최상위 범위를에서 분리하여 언어의 디자인 결함을 수정합니다. `window`.**
 
-We'll cover more features of modules later, in the chapter [](info:modules).
+나중에 모듈의 더 많은 기능을 다루겠습니다 [](info:modules).
 
-전역 객체의 유효 사용
+# 전역 객체의 유효 사용
 
 1. 전역 변수를 사용하는 것은 일반적으로 권장되지 않습니다. 가능한 한 적은 전역 변수가 있어야하지만, 전역 적으로 무엇인가를 만들 필요가 있다면, 그것을 window (또는 Node.js의 global)에 넣을 수 있습니다.
 
      여기에서는 현재 사용자에 대한 정보를 다른 모든 스크립트에서 액세스 할 수있는 전역 객체에 넣습니다.
 
     ```js run
-    // explicitly assign it to `window`
+    // `window` 에 명시적으로에 할당
     window.currentUser = {
       name: "John",
       age: 30
     };
 
-    // then, elsewhere, in another script
+    // 그러면, 다른곳에서, 다른스크립트에서
     alert(window.currentUser.name); // John
     ```
 
@@ -148,8 +148,8 @@ We'll cover more features of modules later, in the chapter [](info:modules).
 
     ```js run
     if (!window.Promise) {
-      window.Promise = ... // custom implementation of the modern language feature
+      window.Promise = ... // 현대 언어 기능의 맞춤 구현
     }
     ```
 
-... 물론 우리가 브라우저에 있다면 브라우저 창 기능 (전역 개체가 아닌)에 액세스하기 위해`window '를 사용하면 완벽합니다.
+... 물론 우리가 브라우저에 있다면 브라우저 창 기능 (전역 개체가 아닌)에 액세스하기 위해 `window '를 사용하면 완벽합니다.
