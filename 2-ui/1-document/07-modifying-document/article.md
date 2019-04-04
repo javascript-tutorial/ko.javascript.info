@@ -342,7 +342,7 @@ We could make a function and put the code there. But the alternative way would b
 
 
 `parentElem.removeChild(node)`
-: `parentElem`로부터 `elem`을 제거(`elem`은 자식 노드라고 가정)
+: `parentElem`로부터 `node`을 제거(`node`은 자식 노드라고 가정)
 
 `node.remove()`
 : `node`를 제거

@@ -1,3 +1,3 @@
-# Introduction into Events
+# 이벤트의 기초
 
-An introduction to browser events, event properties and handling patterns.
+브라우저 이벤트, 이벤트 프로퍼티에 대해 소개하고 이벤트 핸들링 기초를 다룹니다.

@@ -1,1 +1,1 @@
-# Objects: the basics
+# 객체: 기초

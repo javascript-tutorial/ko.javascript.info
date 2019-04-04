@@ -1,89 +1,90 @@
 
-# Map, Set, WeakMap and WeakSet
+# 맵, 셋, 위크맵, 위크셋(Map, Set, WeakMap and WeakSet)
 
-Now we've learned about the following complex data structures:
+지금까지 아래와 같은 복잡한 자료구조에 대해 학습해보았습니다.
 
-- Objects for storing keyed collections.
-- Arrays for storing ordered collections.
+- 키와 값이 연결된 컬렉션을 저장하는 객체.
+- 순서가 있는 컬렉션을 저장하는 배열.
 
-But that's not enough for real life. That's why `Map` and `Set` also exist.
+하지만 이 자료구조 만으론 부족해서, `Map`과 `Set`이 등장하게 되었습니다.
 
-## Map
+## 맵
 
-[Map](mdn:js/Map) is a collection of keyed data items, just like an `Object`. But the main difference is that `Map` allows keys of any type.
+[맵](mdn:js/Map)은 `객체`와 같이 키 값을 가진 데이터가 저장된 컬렉션입니다. 하지만 `맵`의 키는 다양한 자료형이 될 수 있다는 점이 다릅니다.
 
-The main methods are:
+맵의 주요 메서드는 다음과 같습니다:
 
-- `new Map()` -- creates the map.
-- `map.set(key, value)` -- stores the value by the key.
-- `map.get(key)` -- returns the value by the key, `undefined` if `key` doesn't exist in map.
-- `map.has(key)` -- returns `true` if the `key` exists, `false` otherwise.
-- `map.delete(key)` -- removes the value by the key.
-- `map.clear()` -- clears the map
-- `map.size` -- returns the current element count.
+- `new Map()` -- 맵을 만듭니다.
+- `map.set(key, value)` -- `key`와 `value`를 쌍으로 가진 요소를 추가합니다.
+- `map.get(key)` -- key에 해당하는 값을 가져옵니다. 맵에 해당 `key`를 가진 요소가 없으면 `undefined`을 반환합니다.
+- `map.has(key)` -- 해당 `key`정보가 맵에 있으면 `true`를 반환하고, 없으면 `false`를 반환합니다.
+- `map.delete(key)` -- 해당 `key`를 가진 요소를 삭제합니다.
+- `map.clear()` -- 맵을 삭제합니다.
+- `map.size` -- 요소의 갯수를 반환합니다.
 
-For instance:
+예:
 
 ```js run
 let map = new Map();
 
-map.set('1', 'str1');   // a string key
-map.set(1, 'num1');     // a numeric key
-map.set(true, 'bool1'); // a boolean key
+map.set('1', 'str1');   // 문자열 키
+map.set(1, 'num1');     // 숫자형 키
+map.set(true, 'bool1'); // boolean 키
 
-// remember the regular Object? it would convert keys to string
-// Map keeps the type, so these two are different:
+// 객체는 key를 문자열로 변환한다는 걸 기억하고 계신가요?
+// 맵은 타입을 변환시키지 않고 그대로 유지합니다. 이런 점이 두 자료구조를 각각 특색있게 만듭니다:
 alert( map.get(1)   ); // 'num1'
 alert( map.get('1') ); // 'str1'
 
 alert( map.size ); // 3
 ```
 
-As we can see, unlike objects, keys are not converted to strings. Any type of key is possible.
+위에서 확인한 바와 같이, 맵의 키는 문자열로 바뀌지 않습니다. 객체와는 다른 특성입니다. 그리고 키의 타입에 제한이 없습니다.
 
-**Map can also use objects as keys.**
+**맵은 객체를 키로 쓸 수 있습니다.**
 
-For instance:
+예:
 ```js run
 let john = { name: "John" };
 
-// for every user, let's store their visits count
+// 소비자의 가게 방문 횟수를 세봅시다. 대상은 모든 소비자입니다.
 let visitsCountMap = new Map();
 
-// john is the key for the map
+// john은 이제 키가 됩니다.
 visitsCountMap.set(john, 123);
 
 alert( visitsCountMap.get(john) ); // 123
 ```
 
-Using objects as keys is one of most notable and important `Map` features. For string keys, `Object` can be fine, but it would be difficult to replace the `Map` with a regular `Object` in the example above.
+객체를 키로 쓰는 건 `맵`의 중요한 특징입니다. 키가 문자열만으로 이루어진 `객체`를 `맵`으로 바꾸는건 괜찮습니다. 하지만 위의 예시에서와 같이 `맵`을 보통의 `객체`로 바꾸는 건 어려울 수 있습니다.
 
-In the old times, before `Map` existed, people added unique identifiers to objects for that:
+`Map`이 있기 전에는, 특별한 객체 식별자를 요소에 추가하는 방식을 사용하곤 했습니다. 아래와 같이 말이죠:
 
 ```js run
-// we add the id field
+// id 필드를 추가함
 let john = { name: "John", *!*id: 1*/!* };
 
 let visitsCounts = {};
 
-// now store the value by id
+// id를 이용해 값을 저장함
 visitsCounts[john.id] = 123;
 
 alert( visitsCounts[john.id] ); // 123
 ```
 
-...But `Map` is much more elegant.
+하지만 `Map`을 사용하면 훨씬 우아하게 같은 작업을 할 수 있게되었습니다.
 
 
-```smart header="How `Map` compares keys"
-To test values for equivalence, `Map` uses the algorithm [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero). It is roughly the same as strict equality `===`, but the difference is that `NaN` is considered equal to `NaN`. So `NaN` can be used as the key as well.
+```smart header="`Map`이 키를 비교하는 방식"
+`맵`은 동일한 키가 존재하는지 확인할 때, [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero) 알고리즘을 사용합니다. 이 알고리즘은 타입과 값이 동시에 일치하는지 확인하는 `===`와 거의 같지만 `NaN`과 `NaN`을 같다고 취급하는 것에서 차이가 있습니다. 따라서 `NaN` 역시 키로 쓸 수 있습니다.
 
-This algorithm can't be changed or customized.
+맵에서 쓰이는 이 알고리즘을 다른 알고리즘으로 바꾸거나, 알고리즘 일부만 변경하는 것 모두 금지되어 있습니다.
 ```
 
 
-````smart header="Chaining"
+````smart header="체이닝"
 
+`map.set`은 맵 자신을 반환하기 때문에, "체인"으로 연결할 수 있습니다:
 Every `map.set` call returns the map itself, so we can "chain" the calls:
 
 ```js
@@ -93,12 +94,12 @@ map.set('1', 'str1')
 ```
 ````
 
-## Map from Object
+## 객체를 맵으로
 
-When a `Map` is created, we can pass an array (or another iterable) with key-value pairs, like this:
+`맵`이 만들어지면, 키-값 쌍을 가진 배열이나 다른 iterable을 맵에 전달해 줄 수 있습니다. 아래와 같이 말이죠:
 
 ```js
-// array of [key, value] pairs
+// [key, value] 쌍을 가진 배열
 let map = new Map([
   ['1',  'str1'],
   [1,    'num1'],
@@ -106,9 +107,9 @@ let map = new Map([
 ]);
 ```
 
-There is a built-in method [Object.entries(obj)](mdn:js/Object/entries) that returns an array of key/value pairs for an object exactly in that format.
+내장 메서드인 [Object.entries(obj)](mdn:js/Object/entries)는 첫 번째 요소가 키이고 두 번째 요소가 값인 배열을 반환합니다.
 
-So we can initialize a map from an object like this:
+이를 이용하면 객체를 이용해 맵을 초기화 할 수 있습니다.
 
 ```js
 let map = new Map(Object.entries({
@@ -117,17 +118,17 @@ let map = new Map(Object.entries({
 }));
 ```
 
-Here, `Object.entries` returns the array of key/value pairs: `[ ["name","John"], ["age", 30] ]`. That's what `Map` needs.
+`Object.entries`를 써서 `[ ["name","John"], ["age", 30] ]` 같이 키/값 쌍의 배열이 반환되는걸 확인해 보았습니다. `맵`에서 이를 유용하게 쓸 수 있습니다.
 
-## Iteration over Map
+## 맵 객체 요소 나열하기
 
-For looping over a `map`, there are 3 methods:
+`맵`객체의 요소를 확인하려면 다음과 같은 세 가지 메서드가 필요합니다:
 
-- `map.keys()` -- returns an iterable for keys,
-- `map.values()` -- returns an iterable for values,
-- `map.entries()` -- returns an iterable for entries `[key, value]`, it's used by default in `for..of`.
+- `map.keys()` -- 키 정보만 모아 iterable로 반환합니다.
+- `map.values()` -- 값 정보만 모아 iterable로 반환합니다.
+- `map.entries()` --  요소의 `[키, 값]`을 한쌍으로하는 iterable을 반환합니다. 이 iterable은 `for..of`에서에서 기본으로 쓰입니다.  
 
-For instance:
+예:
 
 ```js run
 let recipeMap = new Map([
@@ -159,6 +160,7 @@ The iteration goes in the same order as the values were inserted. `Map` preserve
 Besides that, `Map` has a built-in `forEach` method, similar to `Array`:
 
 ```js
+// runs the function for each (key, value) pair 
 recipeMap.forEach( (value, key, map) => {
   alert(`${key}: ${value}`); // cucumber: 500 etc
 });
