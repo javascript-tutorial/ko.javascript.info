@@ -1,18 +1,18 @@
-# Functions
+# 함수
 
-Quite often we need to perform a similar action in many places of the script.
+스크립트를 작성하다 보면 유사한 동작이 여러 곳에서 필요한 경우가 자주 생깁니다.
 
-For example, we need to show a nice-looking message when a visitor logs in, logs out and maybe somewhere else.
+사용자가 로그인이나 로그아웃 했을 때 안내 메시지를 보여주는 동작같은 경우 말이죠.
 
-Functions are the main "building blocks" of the program. They allow the code to be called many times without repetition.
+함수는 프로그램을 구성하는 "구성 요소(building blocks)"입니다. 함수 덕분에 중복 코드 없이 유사한 동작을 여러 번 호출할 수 있습니다. 
 
-We've already seen examples of built-in functions, like `alert(message)`, `prompt(message, default)` and `confirm(question)`. But we can create functions of our own as well.
+`alert(message)`, `prompt(message, default)`, `confirm(question)`와 같은 내장 함수를 사용 해 본 경험이 있을 겁니다. 이런 내장 함수 이외에도 직접 함수를 만들어 사용할 수 있습니다. 
 
-## Function Declaration
+## 함수 선언(Function Declaration)
 
-To create a function we can use a *function declaration*.
+함수를 만들려면 *함수를 선언*해야 합니다.
 
-It looks like this:
+아래와 같이 말이죠:
 
 ```js
 function showMessage() {
@@ -20,13 +20,13 @@ function showMessage() {
 }
 ```
 
-The `function` keyword goes first, then goes the *name of the function*, then a list of *parameters* between the parentheses (empty in the example above) and finally the code of the function, also named "the function body", between curly braces.
+함수를 선언할 때, `function` 키워드를 제일 앞에 써주고, 다음으로 *함수 이름*, 이어서 괄호로 둘러싸인 매개변수를 명시해 줍니다(위의 예에선 매개변수가 없습니다). 그리고 난 다음 함수를 구성하는 문의 모임인 "함수 본문(body)"를 중괄호에 쌓아 적어줍니다.
 
 ![](function_basics.png)
 
-Our new function can be called by its name: `showMessage()`.
+새롭게 정의한 함수는 이름으로 호출합니다: `showMessage()`.
 
-For instance:
+예:
 
 ```js run
 function showMessage() {
@@ -39,22 +39,22 @@ showMessage();
 */!*
 ```
 
-The call `showMessage()` executes the code of the function. Here we will see the message two times.
+`showMessage()`로 함수를 호출하면 함수 내의 코드가 실행됩니다. showMessage 함수를 두 번 호출했으므로, 얼럿(alert)창에 메시지가 두 번 뜹니다.
 
-This example clearly demonstrates one of the main purposes of functions: to avoid code duplication.
+함수의 주요 용도 중 하나는 중복 코드 피하기입니다. 위 예를 통해 이를 확인해보았습니다.
 
-If we ever need to change the message or the way it is shown, it's enough to modify the code in one place: the function which outputs it.
+메시지 내용을 바꾸거나 메시지를 보여주는 방식을 변경하려면, 코드 한 부분만 수정하면 됩니다. 출력에 관여하는 함수 본문만 수정하면 되죠.
 
-## Local variables
+## 지역 변수(Local variables)
 
-A variable declared inside a function is only visible inside that function.
+함수 내에서 선언한 변수는 함수 본문 안에서만 존재합니다.
 
-For example:
+예:
 
 ```js run
 function showMessage() {
 *!*
-  let message = "Hello, I'm JavaScript!"; // local variable
+  let message = "Hello, I'm JavaScript!"; // 지역 변수
 */!*
 
   alert( message );
@@ -62,12 +62,12 @@ function showMessage() {
 
 showMessage(); // Hello, I'm JavaScript!
 
-alert( message ); // <-- Error! The variable is local to the function
+alert( message ); // <-- 에러! message는 함수 내의 지역 변수입니다
 ```
 
-## Outer variables
+## 외부 변수(Outer variables) 
 
-A function can access an outer variable as well, for example:
+함수 내에서 함수 바깥의 변수에 접근할 수 있습니다. 예:
 
 ```js run no-beautify
 let *!*userName*/!* = 'John';
@@ -80,65 +80,65 @@ function showMessage() {
 showMessage(); // Hello, John
 ```
 
-The function has full access to the outer variable. It can modify it as well.
+함수 본문에서 바깥의 변수에 접근할 수 있고, 수정도 가능합니다.
 
-For instance:
+예:
 
 ```js run
 let *!*userName*/!* = 'John';
 
 function showMessage() {
-  *!*userName*/!* = "Bob"; // (1) changed the outer variable
+  *!*userName*/!* = "Bob"; // (1) 외부 변수 수정
 
   let message = 'Hello, ' + *!*userName*/!*;
   alert(message);
 }
 
-alert( userName ); // *!*John*/!* before the function call
+alert( userName ); // 함수 호출 전이므로 *!*John*/!* 
 
 showMessage();
 
-alert( userName ); // *!*Bob*/!*, the value was modified by the function
+alert( userName ); // 함수에 의해 *!*Bob*/!* 으로 값이 바뀜
 ```
 
-The outer variable is only used if there's no local one. So an occasional modification may happen if we forget `let`.
+외부 변수는 함수 내 지역 변수가 없는 경우만 사용됩니다. 함수 내에서 `let`을 적는 걸 잊을 경우, 의도치 않게 외부 변수를 수정하는 실수를 할 수 있습니다.
 
-If a same-named variable is declared inside the function then it *shadows* the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored:
+만약 함수 외부와 내부에 같은 이름의 변수가 선언되었다면, 지역 변수는 외부 변수에 *영향을 주지 못합니다*. 아래 코드를 살펴보시죠. 함수 내부에서 `userName` 변수를 선언하고 새로운 값을 할당했지만, 외부 변숫값은 변하지 않습니다. 
 
 ```js run
 let userName = 'John';
 
 function showMessage() {
 *!*
-  let userName = "Bob"; // declare a local variable
+  let userName = "Bob"; // 지역 변수 선언
 */!*
 
   let message = 'Hello, ' + userName; // *!*Bob*/!*
   alert(message);
 }
 
-// the function will create and use its own userName
+// userName는 함수 내부에서만 생성되고 쓰임
 showMessage();
 
-alert( userName ); // *!*John*/!*, unchanged, the function did not access the outer variable
+alert( userName ); // *!*John*/!*이 출력됨, 함수는 외부 변수에 접근하지 못하기 때문에, 값이 변경되지 않음
 ```
 
-```smart header="Global variables"
-Variables declared outside of any function, such as the outer `userName` in the code above, are called *global*.
+```smart header="전역 변수(Global variables)"
+위 코드의 `userName`처럼, 함수 외부에 선언된 변수는 *전역* 변수(global variable)가 됩니다.
 
-Global variables are visible from any function (unless shadowed by locals).
+전역 변수는 (지역 변수에 의해 가려지지만 않는다면) 모든 함수에서 접근 가능합니다.
 
-Usually, a function declares all variables specific to its task. Global variables only store project-level data, and it's important that these variables are accessible from anywhere. Modern code has few or no globals. Most variables reside in their functions.
+대게, 함수에서 필요한 변수는 함수 안에서 선언합니다. 전역변수는 프로젝트 수준(project-level)의 데이터를 저장하는 데만 쓰입니다. 전역 변수는 어느 곳에서든 접근 할 수 있다는 점 때문에 중요합니다. 최신 코드(modern code)엔 전역 변수가 거의 없거나 아주 적게 있습니다. 대부분 변수를 함수 내에 작성하기 때문입니다.
 ```
 
-## Parameters
+## 매개변수(Parameters)
 
-We can pass arbitrary data to functions using parameters (also called *function arguments*) .
+매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인수(arguments)* 로 불리기도 합니다(역주: 매개변수와 인수는 엄밀히 같진 않지만, 본 튜토리얼 원문을 토대로 번역하였습니다).
 
-In the example below, the function has two parameters: `from` and `text`.
+아래 함수 showMessage는 매개변수 `from` 과 `text`를 받고 있습니다.
 
 ```js run
-function showMessage(*!*from, text*/!*) { // arguments: from, text
+function showMessage(*!*from, text*/!*) { // 인수: from, text
   alert(from + ': ' + text);
 }
 
@@ -148,16 +148,16 @@ showMessage('Ann', "What's up?"); // Ann: What's up? (**)
 */!*
 ```
 
-When the function is called in lines `(*)` and `(**)`, the given values are copied to local variables `from` and `text`. Then the function uses them.
+`(*)` 와 `(**)`로 표시한 줄에서 함수를 호출하는데, 이때 함수에 전달된 인자는 지역변수로 복사됩니다. 함수는 복사된 값을 사용합니다. 
 
-Here's one more example: we have a variable `from` and pass it to the function. Please note: the function changes `from`, but the change is not seen outside, because a function always gets a copy of the value:
+예시 하나를 더 살펴봅시다. 변수 `from`이 있고, 이 변수를 함수에 전달하였습니다. 함수 내부에서 `from`을 변경하였지만, 변경된 값은 외부 변수 `from`에 영향을 미치지 못합니다. 함수는 언제나 복사된 값을 사용하기 때문입니다:
 
 
 ```js run
 function showMessage(from, text) {
 
 *!*
-  from = '*' + from + '*'; // make "from" look nicer
+  from = '*' + from + '*'; // "from"을 꾸며줌
 */!*
 
   alert( from + ': ' + text );
@@ -167,23 +167,23 @@ let from = "Ann";
 
 showMessage(from, "Hello"); // *Ann*: Hello
 
-// the value of "from" is the same, the function modified a local copy
+// 바깥의 "from" 값은 그대로임. 함수는 복사 값을 사용하기 때문
 alert( from ); // Ann
 ```
 
-## Default values
+## 매개변수 기본값(Default values)
 
-If a parameter is not provided, then its value becomes `undefined`.
+매개변수에 값을 제공하지 않으면, 그 값은 `undefined`으로 할당됩니다.
 
-For instance, the aforementioned function `showMessage(from, text)` can be called with a single argument:
+예를 들어, 앞서 예제로 사용한 함수 `showMessage(from, text)`는 인수 하나만 넣어서 호출할 수 있습니다.
 
 ```js
 showMessage("Ann");
 ```
 
-That's not an error. Such a call would output `"Ann: undefined"`. There's no `text`, so it's assumed that `text === undefined`.
+이렇게 호출해도 에러가 발생하지 않습니다. 단지 결괏값이 `"Ann: undefined"`가 될 뿐입니다. `text` 값이 넘어오지 않았기 때문에, 함수는 `text === undefined`으로 인식합니다.
 
-If we want to use a "default" `text` in this case, then we can specify it after `=`:
+위의 경우에서 만약 `text`의 "기본(default)"값을 설정하고 싶으면, `=` 다음에 기본값을 써주면 됩니다:
 
 ```js run
 function showMessage(from, *!*text = "no text given"*/!*) {
@@ -193,28 +193,28 @@ function showMessage(from, *!*text = "no text given"*/!*) {
 showMessage("Ann"); // Ann: no text given
 ```
 
-Now if the `text` parameter is not passed, it will get the value `"no text given"`
+이젠 `text` 매개변수를 전달받지 못한 경우, 기본값 `"no text given"`을 대신 전달받습니다.
 
-Here `"no text given"` is a string, but it can be a more complex expression, which is only evaluated and assigned if the parameter is missing. So, this is also possible:
+여기선 기본값으로 문자열인 `"no text given"`을 전달받았습니다. 하지만 더 복잡한 표현식을 기본값으로 할당할 수도 있습니다. 아래와 같이 말이죠:
 
 ```js run
 function showMessage(from, text = anotherFunction()) {
-  // anotherFunction() only executed if no text given
-  // its result becomes the value of text
+  // anotherFunction()은 text값이 없을 때만 호출됨
+  // 결괏값은 text 값이 됨
 }
 ```
 
-```smart header="Evaluation of default parameters"
+```smart header="매개변수 기본값의 평가 시점"
 
-In JavaScript, a default parameter is evaluated every time the function is called without the respective parameter. In the example above, `anotherFunction()` is called every time `showMessage()` is called without the `text` parameter. This is in contrast to some other languages like Python, where any default parameters are evaluated only once during the initial interpretation.
+자바스크립트에선 함수 호출 시 기대하고 있는 매개변수 값이 없을 때마다 기본값을 재산정합니다. 위의 예에서 `showMessage()`을 호출하는데, `text` 매개변수 값이 없으면 그때마다 `anotherFunction()`가 호출됩니다. Python과 같은 몇몇 언어는 매번 기본값을 평가하지 않습니다. 이런 언어들은 인터프리터가 최초 실행되는 시점(the initial interpretation)에 단 한 번만 매개변수를 평가합니다.
 
 ```
 
 
-````smart header="Default parameters old-style"
-Old editions of JavaScript did not support default parameters. So there are alternative ways to support them, that you can find mostly in the old scripts.
+````smart header="옛날식 기본값"
+오래된 버전의 자바스크립트에선 기본값을 지정할 수 없었습니다. 그래서 기본값을 지정해주는 방법으로 아래와 같은 방법을 사용했습니다. 오래된 코드에서 이 방법이 사용된 걸 종종 볼 수 있을 겁니다.
 
-For instance, an explicit check for being `undefined`:
+아래 예에선 `undefined`을 명시적으로 확인하는 방법이 사용되었습니다:
 
 ```js
 function showMessage(from, text) {
@@ -228,11 +228,11 @@ function showMessage(from, text) {
 }
 ```
 
-...Or the `||` operator:
+...`||` 연산자를 사용할 수도 있습니다:
 
 ```js
 function showMessage(from, text) {
-  // if text is falsy then text gets the "default" value
+  // 만약 text가 거짓 같은 값(falsy)라면 "기본(default)" 값을 할당합니다
   text = text || 'no text given';
   ...
 }
@@ -242,11 +242,11 @@ function showMessage(from, text) {
 ````
 
 
-## Returning a value
+## 반환 값(Returning a value)
 
-A function can return a value back into the calling code as the result.
+함수는 함수를 호출한 곳에 특정 값을 반환해 줄 수 있습니다. 이때 이 값을 반환 값이라고 합니다. 
 
-The simplest example would be a function that sums two values:
+간단한 예제로, 두 값을 더하는 함수를 살펴보겠습니다.
 
 ```js run no-beautify
 function sum(a, b) {
@@ -257,9 +257,9 @@ let result = sum(1, 2);
 alert( result ); // 3
 ```
 
-The directive `return` can be in any place of the function. When the execution reaches it, the function stops, and the value is returned to the calling code (assigned to `result` above).
+`return` 키워드는 함수 본문 안 어디에든 올 수 있습니다. `return`을 만나면 함수를 즉시 종료하고 함수를 호출한 곳에 값을 반환합니다(위의 예에선 반환 값이 `result`에 할당되었습니다). 
 
-There may be many occurrences of `return` in a single function. For instance:
+아래와 같이 하나의 함수에 여러 개의 `return`이 올 수도 있습니다:
 
 ```js run
 function checkAge(age) {
@@ -269,23 +269,23 @@ function checkAge(age) {
 */!*
   } else {
 *!*
-    return confirm('Do you have permission from your parents?');
+    return confirm('보호자의 동의를 받으셨나요?');
 */!*
   }
 }
 
-let age = prompt('How old are you?', 18);
+let age = prompt('나이를 알려주세요', 18);
 
 if ( checkAge(age) ) {
-  alert( 'Access granted' );
+  alert( '접속 허용' );
 } else {
-  alert( 'Access denied' );
+  alert( '접속 차단' );
 }
 ```
 
-It is possible to use `return` without a value. That causes the function to exit immediately.
+값없이 `return` 키워드만 쓸 수도 있습니다. 이때는 함수가 즉시 종료됩니다.
 
-For example:
+예:
 
 ```js
 function showMovie(age) {
@@ -295,23 +295,22 @@ function showMovie(age) {
 */!*
   }
 
-  alert( "Showing you the movie" ); // (*)
+  alert( "영화 상영" ); // (*)
   // ...
 }
 ```
 
-In the code above, if `checkAge(age)` returns `false`, then `showMovie` won't proceed to the `alert`.
+위 예에서, `checkAge(age)`가 `거짓(false)`을 반환하면, `showMovie`의 얼럿창은 보이지 않습니다:
 
-````smart header="A function with an empty `return` or without it returns `undefined`"
-If a function does not return a value, it is the same as if it returns `undefined`:
+````smart header="`return`문이 없거나 아무것도 반환하지 않는 함수는 `undefined`을 반환합니다"
+함수에서 return을 명시적으로 호출하지 않으면, 반환 값은 `undefined`가 됩니다.
 
 ```js run
 function doNothing() { /* empty */ }
 
 alert( doNothing() === undefined ); // true
 ```
-
-An empty `return` is also the same as `return undefined`:
+어떤 값도 반환하지 않는 경우도, `return undefined`를 한 것과 같습니다:
 
 ```js run
 function doNothing() {
@@ -322,80 +321,80 @@ alert( doNothing() === undefined ); // true
 ```
 ````
 
-````warn header="Never add a newline between `return` and the value"
-For a long expression in `return`, it might be tempting to put it on a separate line, like this:
+````warn header="`return`과 값 사이에 절대 새 줄을 넣지 마세요"
+`return` 값이 긴 경우, 줄 나눔을 하고 싶을 수 있습니다. 아래와 같이 말이죠:
 
 ```js
 return
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-That doesn't work, because JavaScript assumes a semicolon after `return`. That'll work the same as:
+이렇게 하면 안 됩니다. 자바스크립트는 return 키워드가 들어간 줄 끝에 세미콜론(semicolon)이 들어가 있다고 가정하기 때문입니다. 따라서 위 코드는 아래 코드같이 작동합니다:
 
 ```js
 return*!*;*/!*
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-So, it effectively becomes an empty return. We should put the value on the same line instead.
+결론적으로 아무것도 반환하지 않게 됩니다. return 값은 꼭 return 키워드와 같은 줄에 있어야 합니다.
 ````
 
-## Naming a function [#function-naming]
+## 함수 이름짓기 [#function-naming]
 
-Functions are actions. So their name is usually a verb. It should be brief, as accurate as possible and describe what the function does, so that someone reading the code gets an indication of what the function does.
+함수는 동작입니다. 따라서 함수의 이름은 대게 동사입니다. 함수 이름은 가능한 한 명확하게, 그리고 함수가 어떤 기능을 하는지 설명할 수 있도록 지어야 합니다. 코드를 읽는 사람이 함수가 어떤 기능을 하는지 이름만 보고도 힌트를 얻을 수 있도록 말이죠.     
 
-It is a widespread practice to start a function with a verbal prefix which vaguely describes the action. There must be an agreement within the team on the meaning of the prefixes.
+함수의 이름은 함수가 대충 어떤 동작을 하는지 설명하는 동사를 접두어로 붙여 시작하는 게 관습입니다. 이렇게 접두어를 붙일 때는, 접두어의 의미를 팀 내에서 반드시 의논하고 합의해야 합니다. 
 
-For instance, functions that start with `"show"` usually show something.
+예를 들어 `"show"`로 시작하는 함수는 대게 무언가를 보여주는 동작을 하는 함수입니다.
 
-Function starting with...
+접두어의 의미는 아래와 같이 쓰일 수 있습니다.
 
-- `"get…"` -- return a value,
-- `"calc…"` -- calculate something,
-- `"create…"` -- create something,
-- `"check…"` -- check something and return a boolean, etc.
+- `"get…"` -- 값을 반환함,
+- `"calc…"` -- 무언가를 계산함,
+- `"create…"` -- 무언가를 만듦,
+- `"check…"` -- 무언가를 확인하고 boolean(불리언) 값을 반환함.
 
-Examples of such names:
+함수 이름의 예:
 
 ```js no-beautify
-showMessage(..)     // shows a message
-getAge(..)          // returns the age (gets it somehow)
-calcSum(..)         // calculates a sum and returns the result
-createForm(..)      // creates a form (and usually returns it)
-checkPermission(..) // checks a permission, returns true/false
+showMessage(..)     // 메시지를 보여줌
+getAge(..)          // 나이를 반환함(그리고 그 값을 얻음)
+calcSum(..)         // 합계를 계산하고 그 결과를 반환함
+createForm(..)      // form을 만듦 (그리고 대게 만들어진 form을 반환함)
+checkPermission(..) // 승인 여부를 확인하고 true/false를 반환함
 ```
 
-With prefixes in place, a glance at a function name gives an understanding what kind of work it does and what kind of value it returns.
+접두어를 적절히 활용하면 함수 이름을 통해 함수가 어떤 동작을 하고 어떤 값을 반환하는지 한눈에 볼 수 있습니다.
 
-```smart header="One function -- one action"
-A function should do exactly what is suggested by its name, no more.
+```smart header="하나의 함수 -- 하나의 동작"
+함수는 함수 이름에 언급되어있는 동작을 정확히 수행해야 합니다. 그 이상은 안 됩니다.
 
-Two independent actions usually deserve two functions, even if they are usually called together (in that case we can make a 3rd function that calls those two).
+독립적인 두 개의 동작은 두 함수로 나눠서 작성해야 합니다. 두 동작이 한 곳에서 필요하더라도 말이죠(이런 경우는 대게 두 함수를 호출하는 제3의 함수를 만듭니다). 
 
-A few examples of breaking this rule:
+예를 통해 함수를 언제 쪼개야 하는지 알아봅시다:
 
-- `getAge` -- would be bad if it shows an `alert` with the age (should only get).
-- `createForm` -- would be bad if it modifies the document, adding a form to it (should only create it and return).
-- `checkPermission` -- would be bad if it displays the `access granted/denied` message (should only perform the check and return the result).
+- `getAge` -- `alert` 창에 나이를 출력해주는 동작이 들어가 있으면 안 좋습니다(오직 나이를 얻어오는 용도로 사용해야 합니다).
+- `createForm` -- 문서를 수정해서 form을 문서에 더해주는 동작이 들어가 있으면 안 좋습니다(form을 만들고 이를 반환하는 동작만 해야 합니다).  
+- `checkPermission` -- `승인 허가/거부` 메시지를 보여주는 동작이 들어가 있으면 안 좋습니다(승인 여부를 확인하고 그 결과를 반환하는 동작만 해야 합니다).
 
-These examples assume common meanings of prefixes. What they mean for you is determined by you and your team. Maybe it's pretty normal for your code to behave differently. But you should have a firm understanding of what a prefix means, what a prefixed function can and cannot do. All same-prefixed functions should obey the rules. And the team should share the knowledge.
+널리 쓰이는 접두어의 의미를 위 예를 통해 확인해 보았습니다. 이 의미들은 개발자와 개발팀에 의해 정의됩니다. 당신이 작성한 코드가 다른 동작을 할 수도 있는데, 이는 어쩌면 정상적인 일일 겁니다. 하지만 개발자는 접두어가 어떤 의미가 있는지 명확히 이해하고, 접두어가 붙은 이름을 가진 함수가 어떤 동작을 하고 어떤 동작을 못하는지 명확히 알아야 합니다. 동일한 접두어가 붙은 함수는 동일한 동작을 해야 합니다. 그리고 팀은 그 규칙을 공유하고 있어야 합니다.
 ```
 
-```smart header="Ultrashort function names"
-Functions that are used *very often* sometimes have ultrashort names.
+```smart header="아주 짧은 함수 이름"
+*빈번히* 쓰이는 함수 중 아주 짧은 이름을 가진 함수도 있습니다.
 
-For example, the [jQuery](http://jquery.com) framework defines a function with `$`. The [LoDash](http://lodash.com/) library has its core function named `_`.
+[jQuery](http://jquery.com) 프레임워크(framework)는 `$`라는 이름을 가진 함수를 정의합니다. [LoDash](http://lodash.com/) 라이브러리(library)의 핵심 함수는 이름이 `_` 입니다.
 
-These are exceptions. Generally functions names should be concise and descriptive.
+이런 함수들은 예외라고 생각하셔야 합니다. 일반적으로 함수 이름은 간결하고 함수가 어떤 일을 하는지 설명할 수 있어야 합니다.
 ```
 
-## Functions == Comments
+## 함수 == 주석
 
-Functions should be short and do exactly one thing. If that thing is big, maybe it's worth it to split the function into a few smaller functions. Sometimes following this rule may not be that easy, but it's definitely a good thing.
+함수는 간결해야하고, 한 가지 기능만 수행해야 합니다. 거대한 함수는 작은 함수로 쪼개는 게 좋습니다. 함수를 쪼개는 게 쉽지 않을 수도 있지만, 쪼개는 건 많은 장점이 있기 때문에 함수를 쪼개는 것을 추천합니다.
 
-A separate function is not only easier to test and debug -- its very existence is a great comment!
+함수를 쪼개 놓으면 테스트와 디버깅이 쉬워집니다. 그리고 함수 그 자체로 주석의 역할까지 합니다!
 
-For instance, compare the two functions `showPrimes(n)` below. Each one outputs [prime numbers](https://en.wikipedia.org/wiki/Prime_number) up to `n`.
+예를 들어봅시다. 아래 두 `showPrimes(n)`을 비교해 보죠. 각 함수는 `n`까지의 [소수(prime numbers)](https://en.wikipedia.org/wiki/Prime_number)를 출력해줍니다.
 
-The first variant uses a label:
+첫 번째 `showPrimes(n)`은 라벨(label)을 사용합니다:
 
 ```js
 function showPrimes(n) {
@@ -410,7 +409,7 @@ function showPrimes(n) {
 }
 ```
 
-The second variant uses an additional function `isPrime(n)` to test for primality:
+두 번째 `showPrimes(n)`은 `isPrime(n)`이라는 추가 함수를 만들어 소수인지 아닌지 여부를 테스트합니다:
 
 ```js
 function showPrimes(n) {
@@ -430,13 +429,13 @@ function isPrime(n) {
 }
 ```
 
-The second variant is easier to understand, isn't it? Instead of the code piece we see a name of the action (`isPrime`). Sometimes people refer to such code as *self-describing*.
+두 번째 `showPrimes(n)`이 더 이해하기 쉽지 않나요? 소수인지 아닌지 여부를 체크하는 코드 조각 대신에 `isPrime`같이 함수 이름을 통해 그 동작을 확인할 수 있습니다. 사람들은 이렇게 *자기 설명, self-describing*이 가능한 코드를 선호합니다.
 
-So, functions can be created even if we don't intend to reuse them. They structure the code and make it readable.
+위와 같이 나중에 다시 필요하지 않은 동작이더라도 함수로 만들 수 있습니다. 코드를 구조화하고 읽기 쉽게 만들어 주기 때문입니다. 
 
-## Summary
+## 요약
 
-A function declaration looks like this:
+함수의 선언은 아래와 같이 합니다:
 
 ```js
 function name(parameters, delimited, by, comma) {
@@ -444,18 +443,18 @@ function name(parameters, delimited, by, comma) {
 }
 ```
 
-- Values passed to a function as parameters are copied to its local variables.
-- A function may access outer variables. But it works only from inside out. The code outside of the function doesn't see its local variables.
-- A function can return a value. If it doesn't, then its result is `undefined`.
+- 매개변수로 함수에 전달된 값은, 복사되어 지역변수가 됩니다.
+- 함수내부에서 함수 바깥의 변수에 접근할 수 있습니다. 하지만 함수 바깥의 코드가 함수 안의 변수에 접근하는 건 불가능합니다. 
+- 함수는 값을 반환할 수 있습니다. 값을 반환하지 않는 경우는, 반환값이 `undefined`이 됩니다.
 
-To make the code clean and easy to understand, it's recommended to use mainly local variables and parameters in the function, not outer variables.
+코드를 깔끔하고 이해하기 쉽도록 작성하려면, 지역변수와 지역 매개변수를 주로 활용하는 게 좋습니다. 외부 변수사용은 이를 방해합니다. 
 
-It is always easier to understand a function which gets parameters, works with them and returns a result than a function which gets no parameters, but modifies outer variables as a side-effect.
+매개변수를 받아서 그 변수를 가지고 반환값을 만들어 내는 함수는 개발자가 이해하기 쉽습니다. 반면, 매개변수 없이 외부 변수 수정을 부작용(side-effect)처럼 수행하는 함수는 이해하기 어렵습니다. 
 
-Function naming:
+함수 이름짓기:
 
-- A name should clearly describe what the function does. When we see a function call in the code, a good name instantly gives us an understanding what it does and returns.
-- A function is an action, so function names are usually verbal.
-- There exist many well-known function prefixes like `create…`, `show…`, `get…`, `check…` and so on. Use them to hint what a function does.
+- 함수 이름은 함수가 어떤 일을 하는지 설명할 수 있도록 지어야 합니다. 함수 이름이 잘 지어졌다면, 함수 호출 코드를 보았을 때 이 함수가 무엇을 하고 어떤 값을 반환할지 바로 알 수 있습니다. 
+- 함수는 동작입니다. 따라서 함수 이름은 주로 동사를 이용해 만듭니다.
+- `create…`, `show…`, `get…`, `check…` 등의 잘 알려진 접두어를 사용해 함수를 만들 수 있습니다. 접두어를 사용하면 함수가 어떤 동작을 하는지 정보를 얻을 수 있습니다.
 
-Functions are the main building blocks of scripts. Now we've covered the basics, so we actually can start creating and using them. But that's only the beginning of the path. We are going to return to them many times, going more deeply into their advanced features.
+함수는 스크립트를 구성하는 주요 구성 요소입니다. 지금까진 함수의 기초를 다루면서 함수를 만들고 사용하는 방법을 알아보았습니다. 하지만 이 내용은 시작일 뿐입니다. 이어지는 내용을 통해 고급 기능을 다루도록 하겠습니다.

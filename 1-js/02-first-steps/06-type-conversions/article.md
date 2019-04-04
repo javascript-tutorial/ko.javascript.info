@@ -1,22 +1,22 @@
-# Type Conversions
+# 형 변환(Type Conversions)
 
-Most of the time, operators and functions automatically convert the values given to them to the right type. This is called "type conversion".
+대부분의 경우 연산자와 함수는 자동으로 주어진 값을 올바른 자료형으로 변환합니다. 이를 "형 변환"이라고합니다.
 
-For example, `alert` automatically converts any value to a string to show it. Mathematical operations convert values to numbers.
+예를 들어, `alert`는 어떤 값을 문자열로 자동 변환하여 보여줍니다. 수학 연산은 값을 숫자로 변환합니다.
 
-There are also cases when we need to explicitly convert a value to the expected type.
+또한 값을 예상되는 형식으로 명시적으로 변환해야하는 경우도 있습니다.
 
-```smart header="Not talking about objects yet"
-In this chapter, we won't cover objects. Instead, we'll study primitives first. Later, after we learn about objects, we'll see how object conversion works in the chapter <info:object-toprimitive>.
+```smart header="아직 객체 자료형(objects)에 대해 이야기하지 않습니다."
+이 장에서는 객체 자료형를 다루지 않겠습니다. 대신, 우리는 먼저 원시 자료형(primitives)를 공부 할 것입니다. 나중에 객체 자료형에 대해 공부한 이후에 <info:object-toprimitive> 주체에서 객체의 형변환 작업을 어떻게 하는지 볼 것입니다.
 ```
 
-## ToString
+## 문자열로 변환(ToString)
 
-String conversion happens when we need the string form of a value.
+문자열 변환은 값의 문자열 형태가 필요할 때 발생합니다.
 
-For example, `alert(value)` does it to show the value.
+예를 들어, `alert(value)`는 값은 보여주기 위해 이 문자열 변환을 수행합니다.
 
-We can also call the `String(value)` function to convert a value to a string:
+우리는 또한 `String(value)`함수를 호출하여 값을 문자열로 변환 할 수 있습니다:
 
 ```js run
 let value = true;
@@ -28,19 +28,19 @@ alert(typeof value); // string
 */!*
 ```
 
-String conversion is mostly obvious. A `false` becomes `"false"`, `null` becomes `"null"`, etc.
+문자열 변환은 대부분 명확합니다. `false`는``false``가되고 ``null``은``null``이됩니다.
 
-## ToNumber
+## 숫자로 변환(ToNumber)
 
-Numeric conversion happens in mathematical functions and expressions automatically.
+숫자 변환은 수학적 함수와 수식에서 자동으로 발생합니다.
 
-For example, when division `/` is applied to non-numbers:
+예를 들어, 숫자가 아닌 것들에 나누기 `/`를 적용한 경우:
 
 ```js run
 alert( "6" / "2" ); // 3, strings are converted to numbers
 ```
 
-We can use the `Number(value)` function to explicitly convert a `value` to a number:
+명시적으로 `value`를 숫자로 변환하기 위해 `Number(value)`함수를 사용할 수 있습니다:
 
 ```js run
 let str = "123";
@@ -51,9 +51,9 @@ let num = Number(str); // becomes a number 123
 alert(typeof num); // number
 ```
 
-Explicit conversion is usually required when we read a value from a string-based source like a text form but expect a number to be entered.
+명시적 변환은 일반적으로 텍스트 형식과 같은 문자열 기반 소스에서 값을 읽어서 숫자로 입력해야 할 때 필요합니다.
 
-If the string is not a valid number, the result of such a conversion is `NaN`. For instance:
+문자열이 유효한 숫자가 아닌 경우, 그러한 변환의 결과는 `NaN`입니다. 예를 들면:
 
 ```js run
 let age = Number("an arbitrary string instead of a number");
@@ -61,16 +61,16 @@ let age = Number("an arbitrary string instead of a number");
 alert(age); // NaN, conversion failed
 ```
 
-Numeric conversion rules:
+숫자 변환 규칙:
 
-| Value |  Becomes... |
+| Value |  변환 후... |
 |-------|-------------|
 |`undefined`|`NaN`|
 |`null`|`0`|
-|<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
-| `string` | Whitespaces from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+|<code>true&nbsp;and&nbsp;false</code> | `1` 과 `0` |
+| `string` | 시작과 끝에서 공백이 제거됩니다. 나머지 문자열이 비어 있으면 결과는 `0`입니다. 그렇지 않으면 숫자가 문자열에서 읽혀집니다. 오류는 `NaN`을 제공합니다. |
 
-Examples:
+예시:
 
 ```js run
 alert( Number("   123   ") ); // 123
@@ -79,33 +79,33 @@ alert( Number(true) );        // 1
 alert( Number(false) );       // 0
 ```
 
-Please note that `null` and `undefined` behave differently here: `null` becomes zero while `undefined` becomes `NaN`.
+여기서 `null`과 `undefined`는 다르게 동작하는 것에 유의하시기 바랍니다.: `null`은 0이되고 `undefined`는 `NaN`이 됩니다.
 
-````smart header="Addition '+' concatenates strings"
-Almost all mathematical operations convert values to numbers. A notable exception is addition `+`. If one of the added values is a string, the other one is also converted to a string.
+````smart header="덧셈'+'은 문자열을 연결합니다."
+거의 모든 수학 연산은 값을 숫자로 변환합니다. 주목할만한 예외는 덧셈`+`입니다. 더한 값 중 하나가 문자열이면 다른 값도 문자열로 변환됩니다.
 
-Then, it concatenates (joins) them:
+그런 다음, 이를 joins(연결) 합니다.
 
 ```js run
 alert( 1 + '2' ); // '12' (string to the right)
 alert( '1' + 2 ); // '12' (string to the left)
 ```
 
-This only happens when at least one of the arguments is a string. Otherwise, values are converted to numbers.
+이것은 인수(arguments) 중 적어도 하나가 문자열 일 때만 발생합니다. 그렇지 않으면 값이 숫자로 변환됩니다.
 ````
 
-## ToBoolean
+## Boolean으로 변환(ToBoolean)
 
-Boolean conversion is the simplest one.
+불리언 형변환은 가장 간단합니다.
 
-It happens in logical operations (later we'll meet condition tests and other similar things) but can also be performed explicitly with a call to `Boolean(value)`.
+이것은 논리적 연산에서 발생하고(나중에 우리는 조건 테스트와 그 밖의 유사한 것들을 만날 것입니다), `Boolean(value)`를 호출하여 명시적으로 수행할 수도 있습니다.
 
-The conversion rule:
+형변환 규칙:
 
-- Values that are intuitively "empty", like `0`, an empty string, `null`, `undefined`, and `NaN`, become `false`.
-- Other values become `true`.
+- `0`, 빈 문자열(''), `null`, `undefined` 과 `NaN`과 같이 직관적으로 "비어있는" 값은 `false`가 됩니다.
+- 그외에 값은 `true`가 됩니다.
 
-For instance:
+예를 들면:
 
 ```js run
 alert( Boolean(1) ); // true
@@ -115,8 +115,8 @@ alert( Boolean("hello") ); // true
 alert( Boolean("") ); // false
 ```
 
-````warn header="Please note: the string with zero `\"0\"` is `true`"
-Some languages (namely PHP) treat `"0"` as `false`. But in JavaScript, a non-empty string is always `true`.
+````warn header="주의 : `\"0\"`을 가진 문자열은 `true`입니다."
+일부 언어 (다시 말하면, PHP)는 `"0"`을 `false`로 취급합니다. 그러나 자바스크립트에서 비어 있지 않은 문자열은 항상 `true`입니다.
 
 ```js run
 alert( Boolean("0") ); // true
@@ -125,36 +125,36 @@ alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
 ````
 
 
-## Summary
+## 요약 
 
-The three most widely used type conversions are to string, to number, and to boolean.
+가장 널리 사용되는 세 가지 자료형 변환은 문자열(to string), 숫자(to number)와 논리 자료형(to boolean)입니다.
 
-**`ToString`** -- Occurs when we output something. Can be performed with `String(value)`. The conversion to string is usually obvious for primitive values.
+**`ToString`** -- 우리가 뭔가를 출력할 때 발생합니다. `String(value)`으로 실행할 수 있습니다. 문자열 변환은 일반적으로 원시자료형 값에 대해 명확합니다.
 
-**`ToNumber`** -- Occurs in math operations. Can be performed with `Number(value)`.
+**`ToNumber`** --  수학 연산에서 발생합니다. `Number(value)`로 실행할 수 있습니다.
 
-The conversion follows the rules:
+변환은 다음 규칙을 따릅니다.
 
-| Value |  Becomes... |
+| Value |  변환 후... |
 |-------|-------------|
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
-| `string` | The string is read "as is", whitespaces from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+| `string` | 시작과 끝에서 공백이 제거됩니다. 나머지 문자열이 비어 있으면 결과는 `0`입니다. 그렇지 않으면 숫자가 문자열에서 읽혀집니다. 오류는 `NaN`을 제공합니다. |
 
-**`ToBoolean`** -- Occurs in logical operations. Can be performed with `Boolean(value)`.
+**`ToBoolean`** -- 논리적 연산에서 발생합니다. `Boolean(value)`으로 실행할 수 있습니다.
 
-Follows the rules:
+다음 규칙을 따릅니다.
 
-| Value |  Becomes... |
+| Value |  변환 후... |
 |-------|-------------|
 |`0`, `null`, `undefined`, `NaN`, `""` |`false`|
 |any other value| `true` |
 
 
-Most of these rules are easy to understand and memorize. The notable exceptions where people usually make mistakes are:
+이 규칙의 대부분은 이해하고 기억하기 쉽습니다. 사람들이 일반적으로 실수를 저지르는 주목할만한 예외는 다음과 같습니다.
 
-- `undefined` is `NaN` as a number, not `0`.
-- `"0"` and space-only strings like `"   "` are true as a boolean.
+- `undefined`는 숫자 변환하면 `0`이 아니라 `NaN`입니다.
+- `"0"`과 `"   "`같은 공백은 boolean 형 변환시 true 입니다.
 
-Objects aren't covered here. We'll return to them later in the chapter <info:object-toprimitive> that is devoted exclusively to objects after we learn more basic things about JavaScript.
+객체 자료형(objects)는 여기에서 다루지 않습니다. 나중에 <info:object-toprimitive> 주체에서 객체 자료형(objects) 로 되돌아 갈것입니다. 자바스크립트에 대한 기본적인 내용을 배우고 나면 객체에만 전념합니다.
