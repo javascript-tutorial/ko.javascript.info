@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Output a single-linked list
+# 단일 링크 목록 출력
 
-Let's say we have a single-linked list (as described in the chapter <info:recursion>):
+단일 연결 목록이 있다고 가정 해 봅니다 (<info:recursion>):
 
 ```js
 let list = {
@@ -21,9 +21,8 @@ let list = {
   }
 };
 ```
+목록 항목을 하나씩 출력하는`printList (list)`함수를 작성하십시오.
 
-Write a function `printList(list)` that outputs list items one-by-one.
+루프를 사용하고 재귀를 사용하여 솔루션의 두 가지 변형을 만듭니다.
 
-Make two variants of the solution: using a loop and using recursion.
-
-What's better: with recursion or without it?
+무엇이 더 좋습니까? 재귀가 있거나 없으면 어떻게됩니까?

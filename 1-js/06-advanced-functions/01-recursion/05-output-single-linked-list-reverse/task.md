@@ -2,8 +2,8 @@ importance: 5
 
 ---
 
-# Output a single-linked list in the reverse order
+# 단일 링크 목록을 역순으로 출력
 
-Output a single-linked list from the previous task <info:task/output-single-linked-list> in the reverse order.
+이전 작업의 단일 연결 목록을 역순으로 출력합니다. <info:task/output-single-linked-list> 
 
-Make two solutions: using a loop and using a recursion.
+루프를 사용하고 재귀를 사용하는 두 가지 솔루션을 만듭니다.
