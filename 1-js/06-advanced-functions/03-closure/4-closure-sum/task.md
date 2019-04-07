@@ -2,13 +2,13 @@ importance: 4
 
 ---
 
-# Sum with closures
+# 클로저와 합계
 
-Write function `sum` that works like this: `sum(a)(b) = a+b`.
+`sum (a) (b) = a + b`와 같이 작동하는`sum` 함수를 작성하십시오.
 
-Yes, exactly this way, using double parentheses (not a mistype).
+예, 정확하게이 방법은 이중 괄호 (실수 유형이 아님)를 사용합니다.
 
-For instance:
+예를 들면 :
 
 ```js
 sum(1)(2) = 3

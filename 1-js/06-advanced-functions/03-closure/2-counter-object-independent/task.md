@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Counter object
+# 카운터 객체
 
-Here a counter object is made with the help of the constructor function.
+여기서 counter 객체는 생성자 함수의 도움으로 만들어집니다.
 
-Will it work? What will it show?
+작동할까요? 그것은 무엇을 보여줄 것인가?
 
 ```js
 function Counter() {

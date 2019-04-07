@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Sort by field
+# 필드로 정렬
 
-We've got an array of objects to sort:
+정렬 할 객체 배열이 있습니다.
 
 ```js
 let users = [
@@ -14,7 +14,7 @@ let users = [
 ];
 ```
 
-The usual way to do that would be:
+그렇게하는 일반적인 방법은 다음과 같습니다.
 
 ```js
 // by name (Ann, John, Pete)
@@ -24,13 +24,13 @@ users.sort((a, b) => a.name > b.name ? 1 : -1);
 users.sort((a, b) => a.age > b.age ? 1 : -1);
 ```
 
-Can we make it even less verbose, like this?
+우리가 덜 장황하게 만들 수 있을까요?
 
 ```js
 users.sort(byField('name'));
 users.sort(byField('age'));
 ```
 
-So, instead of writing a function, just put `byField(fieldName)`.
+따라서, 함수를 작성하는 대신`byField (fieldName)`을 입력하십시오.
 
-Write the function `byField` that can be used for that.
+그것을 사용할 수있는 byField 함수를 작성하십시오.

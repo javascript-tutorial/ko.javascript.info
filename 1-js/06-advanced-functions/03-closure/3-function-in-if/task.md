@@ -1,7 +1,7 @@
 
-# Function in if
+# if 함수
 
-Look at the code. What will be result of the call at the last line?
+코드를보세요. 마지막 줄에서 전화 한 결과는 무엇입니까?
 
 ```js run
 let phrase = "Hello";

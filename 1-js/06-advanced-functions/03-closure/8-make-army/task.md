@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Army of functions
+# 기능의 군대들
 
-The following code creates an array of `shooters`.
+다음 코드는`shooters` 배열을 만듭니다.
 
-Every function is meant to output its number. But something is wrong...
+모든 함수는 숫자를 출력합니다. 그러나 뭔가 잘못되었습니다 ...
 
 ```js run
 function makeArmy() {
@@ -31,5 +31,4 @@ army[5](); // and number 5 also outputs 10...
 // ... all shooters show 10 instead of their 0, 1, 2, 3...
 ```
 
-Why all shooters show the same? Fix the code so that they work as intended.
-
+왜 모든 shooters 는 똑같아 보일까요? 코드를 고쳐서 의도한대로 동작하게 해보세요.
