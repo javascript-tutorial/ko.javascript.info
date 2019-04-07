@@ -1,7 +1,7 @@
 
-# The old "var"
+# 오래된 "var"
 
-첫 번째 장에서 [variables](info:variables), 변수 선언의 세 가지 방법을 언급했습니다.
+첫 번째 장에서 [변수](info:variables), 변수 선언의 세 가지 방법을 언급했습니다.
 
 1. `let`
 2. `const`
