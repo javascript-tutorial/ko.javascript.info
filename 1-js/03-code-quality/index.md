@@ -1,3 +1,3 @@
-# Code quality
+# 코드 품질
 
-This chapter explains coding practices that we'll use further in the development. 
+이번 챕터는 개발 시 사용되는 코딩 관례(coding practice)에 대해 설명합니다.
