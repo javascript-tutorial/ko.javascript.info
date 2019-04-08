@@ -86,7 +86,7 @@ OR`||`연산자는 다음을 수행합니다.
 
 바꾸어 말하면, OR`"||"`의 연속은 첫 번째 참인 값을 반환하거나 참인 값이 없으면 마지막 값을 반환합니다. 
 
-For instance:
+예:
 
 ```js run
 alert( 1 || 0 ); // 1 (1 is truthy)
@@ -97,13 +97,14 @@ alert( null || 0 || 1 ); // 1 (the first truthy value)
 alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 ```
 
-This leads to some interesting usage compared to a "pure, classical, boolean-only OR".
+위의 예시들은 "순수하고 전형적인 부울-전용 OR"과 비교되는 흥미로운 사용법을 유도합니다.
 
-1. **Getting the first truthy value from a list of variables or expressions.**
+1. **변수 또는 표현식 목록에서 첫 번째 truthy 값 얻기.**
 
     Imagine we have several variables which can either contain data or be `null/undefined`. How can we find the first one with data?
+    데이터를 담거나 `null/undefined`일 수 있는 여러 변수가 있다고 상상해봅시다. 데이터를 가진 첫 번째 변수를 어떻게 찾을 수 있을까요?
 
-    We can use OR `||`:
+    OR `||`을 사용할 수 있습니다:
 
     ```js run
     let currentUser = null;
@@ -116,14 +117,16 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert( name ); // selects "John" – the first truthy value
     ```
 
-    If both `currentUser` and `defaultUser` were falsy, `"unnamed"` would be the result.
-2. **Short-circuit evaluation.**
+    `currentUser`와 `defaultUser` 둘 다 거짓(falsy)이면, `"unnamed"`가 결과가 됩니다.
 
-    Operands can be not only values, but arbitrary expressions. OR evaluates and tests them from left to right. The evaluation stops when a truthy value is reached, and the value is returned. This process is called "a short-circuit evaluation" because it goes as short as possible from left to right.
+2. **단락 회로 평가.(Short-circuit evaluation)**
 
-    This is clearly seen when the expression given as the second argument has a side effect like a variable assignment.
+    피연산자는 값뿐만 아니라 임의의 표현식이 될 수 있습니다. OR`||`는 왼쪽에서 오른쪽으로 평가 및 테스트합니다. 참인 값에 도달하면 평가가 중지되고 그 값이 리턴됩니다. 이 프로세스는 가능한 한 짧게 왼쪽에서 오른쪽으로 진행되기 때문에 "단락 회로 평가"라고합니다.
+
+    "단락 회로 평가"는 두 번째 인수로 주어진 표현식이 변수 할당과 같은 부수적인 효과를 가질 때 분명하게 나타납니다.
 
     In the example below, `x` does not get assigned:
+    아래 예제에서 `x`는 할당되지 않습니다.:
 
     ```js run no-beautify
     let x;
@@ -133,7 +136,7 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert(x); // undefined, because (x = 1) not evaluated
     ```
 
-    If, instead, the first argument is `false`, `||` evaluates the second one, thus running the assignment:
+    대신에 첫 번째 인수가 `false`인 경우, `||`는 두 번째 인수를 평가하여 할당을 수행합니다.
 
     ```js run no-beautify
     let x;
@@ -143,9 +146,10 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert(x); // 1
     ```
 
-    An assignment is a simple case. Other side effects can also be involved.
+    할당은 간단한 경우입니다. 다른 부수적인 효과도 발생할 수 있습니다.
 
     As we can see, such a use case is a "shorter way of doing `if`". The first operand is converted to boolean. If it's false, the second one is evaluated.
+    우리가 볼 수 있듯이, 그러한 유스 케이스는 "if if를하는 더 짧은 방법"이다. 첫 번째 피연산자는 부울로 변환됩니다. 거짓이면 두 번째 것이 평가됩니다.
 
     Most of time, it's better to use a "regular" `if` to keep the code easy to understand, but sometimes this can be handy.
 
