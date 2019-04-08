@@ -1,48 +1,48 @@
-# Interaction: alert, prompt, confirm
+# 상호 작용: 알림창, 입력창, 확인창
 
-This part of the tutorial aims to cover JavaScript "as is", without environment-specific tweaks.
+튜토리얼의 이 파트는 브라우저(Browser) 환경 특유의 조정 없이 "있는 그대로"의 자바스크립트를 다루는 것을 목표로합니다.
 
-But we'll still be using the browser as our demo environment, so we should know at least a few of its user-interface functions. In this chapter, we'll get familiar with the browser functions `alert`, `prompt` and `confirm`.
+그러나 우리는 여전히 브라우저(Browser)를 데모 환경으로 사용할 것이므로 최소한의 사용자 인터페이스 기능을 알아야 합니다. 이 챕터에서는 브라우저(Browser) 함수인 `alert`, `prompt`, `confirm`에 대해 알아 보겠습니다.
 
-## alert
+## 알림창(alert)
 
-Syntax:
+문법:
 
 ```js
 alert(message);
 ```
 
-This shows a message and pauses script execution until the user presses "OK".
+이 메시지는 사용자가 확인("OK")을 누를 때까지 메시지를 표시하고 스크립트 실행을 일시 중지합니다.
 
-For example:
+예시:
 
 ```js run
 alert("Hello");
 ```
 
-The mini-window with the message is called a *modal window*. The word "modal" means that the visitor can't interact with the rest of the page, press other buttons, etc. until they have dealt with the window. In this case -- until they press "OK".
+메시지가 있는 미니 창을 *모달창*(modal window)이라고 합니다. 모달"modal"이란 단어는 방문자가 창을 다룰 때까지 페이지의 나머지 부분과 상호 작용하거나 다른 버튼을 누르는 등의 작업을 수행할 수 없음을 의미합니다. 이 경우 - 확인("OK")를 누를 때까지 입니다. 
 
-## prompt
+## 입력창(prompt)
 
-The function `prompt` accepts two arguments:
+`prompt`함수는 두 개의 인수를 받습니다.
 
 ```js no-beautify
 result = prompt(title[, default]);
 ```
 
-It shows a modal window with a text message, an input field for the visitor, and the buttons OK/CANCEL.
+이 함수는 텍스트 메시지, 방문자를 위한 입력 필드(input field)과 확인/취소(OK/CANCEL) 버튼이 있는 모달 창을 보여줍니다.
 
 `title`
-: The text to show the visitor.
+: 방문자에게 보여줄 텍스트입니다.
 
 `default`
-: An optional second parameter, the initial value for the input field.
+: 선택사항인 두 번째 매개 변수는 입력 필드의 초기 값입니다.
 
-The visitor may type something in the prompt input field and press OK. Or they can cancel the input by pressing CANCEL or hitting the `key:Esc` key.
+방문자는 프롬프트 입력 필드에 내용을 입력하고 확인(OK)을 누릅니다. 또는 취소(CANCEL)을 누르거나 `key:Esc`키를 눌러 입력을 취소할 수 있습니다.
 
-The call to `prompt` returns the text from the input field or `null` if the input was canceled.
+`prompt`호출은 입력 필드에서 텍스트를 반환하거나 입력이 취소된 경우 `null`을 반환합니다.
 
-For instance:
+예시:
 
 ```js run
 let age = prompt('How old are you?', 100);
@@ -50,35 +50,35 @@ let age = prompt('How old are you?', 100);
 alert(`You are ${age} years old!`); // You are 100 years old!
 ```
 
-````warn header="In IE: always supply a `default`"
-The second parameter is optional, but if we don't supply it, Internet Explorer will insert the text `"undefined"` into the prompt.
+````warn header="IE 에서는 항상 '기본값'을 제공하십시오."
+두 번째 매개변수는 선택사항이지만, 제공하지 않으면 Internet Explorer는 `"undefined"`텍스트를 프롬프트에 삽입합니다.
 
-Run this code in Internet Explorer to see:
+확인하기 위해 Internet Explorer에서 이 코드를 실행하십시오.
 
 ```js run
 let test = prompt("Test");
 ```
 
-So, for prompts to look good in IE, we recommend always providing the second argument:
+따라서 IE에서 보기 좋게 prompt()를 실행하려면, 항상 두 번째 인수를 제공하는 것이 좋습니다.
 
 ```js run
 let test = prompt("Test", ''); // <-- for IE
 ```
 ````
 
-## confirm
+## 확인창(confirm)
 
-The syntax:
+문법:
 
 ```js
 result = confirm(question);
 ```
 
-The function `confirm` shows a modal window with a `question` and two buttons: OK and CANCEL.
+`confirm`함수는 질문(`question`)과 두 개의 버튼(OK/CANCEL)이 있는 모달 윈도우를 보여줍니다.
 
-The result is `true` if OK is pressed and `false` otherwise.
+OK를 누르면 `true`이고 그렇지 않으면 `false`입니다.
 
-For example:
+예시:
 
 ```js run
 let isBoss = confirm("Are you the boss?");
@@ -86,24 +86,24 @@ let isBoss = confirm("Are you the boss?");
 alert( isBoss ); // true if OK is pressed
 ```
 
-## Summary
+## 요약
 
-We covered 3 browser-specific functions to interact with visitors:
+방문자와 상호작용할 수 있는 세 가지 브라우저 특유의 기능을 다뤘습니다.
 
 `alert`
-: shows a message.
+: 메시지를 보여줍니다.
 
 `prompt`
-: shows a message asking the user to input text. It returns the text or, if CANCEL or `key:Esc` is clicked, `null`.
+: 사용자에게 텍스트를 입력하라는 메시지를 표시합니다. 이 함수는 텍스트를 반환하거나, 취소(CANCEL) 또는 `key:Esc`를 누르면 `null`을 반환합니다.
 
 `confirm`
-: shows a message and waits for the user to press "OK" or "CANCEL". It returns `true` for OK and `false` for CANCEL/`key:Esc`.
+: 메시지를 보여주고 사용자가 확인("OK")또는 취소("CANCEL")을 누를 때까지 기다립니다. 이 함수는 확인(OK)에 대해 `true`를 반환하고 CANCEL/`key:Esc`에 대해 `false`를 반환합니다. 
 
-All these methods are modal: they pause script execution and don't allow the visitor to interact with the rest of the page until the window has been dismissed.
+이 모든 메서드는 모달입니다. 이 메서드들은 스크립트 실행을 일시 중지하고 방문자가 창을 닫을 때까지 나머지 페이지와 상호 작용할 수 없도록 합니다.
 
-There are two limitations shared by all the methods above:
+위의 메서드에는 공통된 두 가지 제한 사항이 있습니다.
 
-1. The exact location of the modal window is determined by the browser. Usually, it's in the center.
-2. The exact look of the window also depends on the browser. We can't modify it.
+1. 모달 윈도우의 정확한 위치는 브라우저에 의해 결정됩니다. 대개 중앙에 있습니다.
+2. 창의 모양은 브라우저에 따라 달라집니다. 우리는 그것을 수정할 수 없습니다.
 
-That is the price for simplicity. There are other ways to show nicer windows and richer interaction with the visitor, but if "bells and whistles" do not matter much, these methods work just fine.
+이 것은 간단함(simplicity)을 위해 치러야할 대가입니다. 더 좋은 창을 표시하고 방문자와 보다 풍부한 상호 작용을 보여주는 다른 방법이 있지만 "멋으로 덧붙이는 부가 기능"이 별로 중요하지 않은 경우, 이 메서드를 사용하는게 좋습니다. 
