@@ -1,24 +1,24 @@
-# Logical operators
+# 논리 연산자
 
-There are three logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT).
+자바스크립트에는 세 가지 논리 연산자가 있습니다: `||`(OR), `&&`(AND), `!`(NOT).
 
-Although they are called "logical", they can be applied to values of any type, not only boolean. Their result can also be of any type.
+"논리적"이라고 부르지만 모든 유형의 값에 적용 할 수 있습니다.(논리 타입뿐만 아니라) 그 결과는 어떤 타입이든 가능합니다.
 
-Let's see the details.
+세부 사항을 확인합시다.
 
 ## || (OR)
 
-The "OR" operator is represented with two vertical line symbols:
+"OR"연산자는 두 개의 수직선 기호로 표시됩니다.
 
 ```js
 result = a || b;
 ```
 
-In classical programming, the logical OR is meant to manipulate boolean values only. If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
+클래식 프로그래밍에서 "논리적 OR"은 불리언 값만 조작하기 위한 것이었습니다. 인수중 하나라도 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.
 
-In JavaScript, the operator is a little bit trickier and more powerful. But first, let's see what happens with boolean values.
+자바스크립트에서 연산자는 조금 더 까다롭고 강력합니다. 하지만 먼저 불리언 값에 어떤 일이 일어나는지 살펴 보겠습니다.
 
-There are four possible logical combinations:
+가능한 논리적 조합에는 네 가지가 있습니다.
 
 ```js run
 alert( true || true );   // true
@@ -27,21 +27,21 @@ alert( true || false );  // true
 alert( false || false ); // false
 ```
 
-As we can see, the result is always `true` except for the case when both operands are `false`.
+보시다시피 결과는 두 피연산자가 모두 `false`인 경우를 제외하고 항상 `true`입니다.
 
-If an operand is not a boolean, it's converted to a boolean for the evaluation.
+피연산자가 논리타입이 아니면 평가를 위해 논리타입으로 변환됩니다.
 
-For instance, the number `1` is treated as `true`, the number `0` as `false`:
-
+예를 들어, 숫자 `1`은 `true`로 취급되고 숫자 `0`은 `false`로 취급됩니다. 
+ 
 ```js run
 if (1 || 0) { // works just like if( true || false )
   alert( 'truthy!' );
 }
 ```
 
-Most of the time, OR `||` is used in an `if` statement to test if *any* of the given conditions is `true`.
+대부분의 경우, OR `||`는 주어진 조건 중 어떠한 것이 `true`인지 테스트하기 위해 `if`문에서 사용합니다.
 
-For example:
+예:
 
 ```js run
 let hour = 9;
@@ -53,7 +53,7 @@ if (hour < 10 || hour > 18) {
 }
 ```
 
-We can pass more conditions:
+더 많은 조건을 넘길 수 있습니다.
 
 ```js run
 let hour = 12;
@@ -64,29 +64,29 @@ if (hour < 10 || hour > 18 || isWeekend) {
 }
 ```
 
-## OR finds the first truthy value
+## OR은 첫 번째로 참인 값을 찾습니다.
 
-The logic described above is somewhat classical. Now, let's bring in the "extra" features of JavaScript.
+위에서 설명한 로직(논리)은 다소 고전적입니다. 이제 자바스크립트의 "추가"기능을 소개하겠습니다.
 
-The extended algorithm works as follows.
+확장 알고리즘은 다음과 같이 작동합니다.
 
-Given multiple OR'ed values:
+OR 값이 여러 개있는 경우:
 
 ```js
 result = value1 || value2 || value3;
 ```
 
-The OR `||` operator does the following:
+OR`||`연산자는 다음을 수행합니다.
 
-- Evaluates operands from left to right.
-- For each operand, converts it to boolean. If the result is `true`, stops and returns the original value of that operand.
-- If all operands have been evaluated (i.e. all were `false`), returns the last operand.
+- 피연산자(operand)를 왼쪽에서 오른쪽으로 수치를 구합니다.
+- 각 피연산자에 대해 논리 타입으로 변환합니다. 결과가 `true`이면 수치연산을 멈추고 해당 피연산자의 원래 값(변환 전)을 반환합니다.
+- 모든 피연산자의 수치를 구한 경우(즉 모두 `거짓`인 경우) 마지막 피연산자를 반환합니다.
 
-A value is returned in its original form, without the conversion.
+값은 변환없이 원래 형식으로 반환됩니다.
 
-In other words, a chain of OR `"||"` returns the first truthy value or the last one if no such value is found.
+바꾸어 말하면, OR`"||"`의 연속은 첫 번째 참인 값을 반환하거나 참인 값이 없으면 마지막 값을 반환합니다. 
 
-For instance:
+예:
 
 ```js run
 alert( 1 || 0 ); // 1 (1 is truthy)
@@ -97,13 +97,14 @@ alert( null || 0 || 1 ); // 1 (the first truthy value)
 alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 ```
 
-This leads to some interesting usage compared to a "pure, classical, boolean-only OR".
+위의 예시들은 "순수하고 전형적인 부울-전용 OR"과 비교되는 흥미로운 사용법을 유도합니다.
 
-1. **Getting the first truthy value from a list of variables or expressions.**
+1. **변수 또는 표현식 목록에서 첫 번째 truthy 값 얻기.**
 
     Imagine we have several variables which can either contain data or be `null/undefined`. How can we find the first one with data?
+    데이터를 담거나 `null/undefined`일 수 있는 여러 변수가 있다고 상상해봅시다. 데이터를 가진 첫 번째 변수를 어떻게 찾을 수 있을까요?
 
-    We can use OR `||`:
+    OR `||`을 사용할 수 있습니다:
 
     ```js run
     let currentUser = null;
@@ -116,14 +117,16 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert( name ); // selects "John" – the first truthy value
     ```
 
-    If both `currentUser` and `defaultUser` were falsy, `"unnamed"` would be the result.
-2. **Short-circuit evaluation.**
+    `currentUser`와 `defaultUser` 둘 다 거짓(falsy)이면, `"unnamed"`가 결과가 됩니다.
 
-    Operands can be not only values, but arbitrary expressions. OR evaluates and tests them from left to right. The evaluation stops when a truthy value is reached, and the value is returned. This process is called "a short-circuit evaluation" because it goes as short as possible from left to right.
+2. **단락 회로 평가.(Short-circuit evaluation)**
 
-    This is clearly seen when the expression given as the second argument has a side effect like a variable assignment.
+    피연산자는 값뿐만 아니라 임의의 표현식이 될 수 있습니다. OR`||`는 왼쪽에서 오른쪽으로 평가 및 테스트합니다. 참인 값에 도달하면 평가가 중지되고 그 값이 리턴됩니다. 이 프로세스는 가능한 한 짧게 왼쪽에서 오른쪽으로 진행되기 때문에 "단락 회로 평가"라고합니다.
+
+    "단락 회로 평가"는 두 번째 인수로 주어진 표현식이 변수 할당과 같은 부수적인 효과를 가질 때 분명하게 나타납니다.
 
     In the example below, `x` does not get assigned:
+    아래 예제에서 `x`는 할당되지 않습니다.:
 
     ```js run no-beautify
     let x;
@@ -133,7 +136,7 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert(x); // undefined, because (x = 1) not evaluated
     ```
 
-    If, instead, the first argument is `false`, `||` evaluates the second one, thus running the assignment:
+    대신에 첫 번째 인수가 `false`인 경우, `||`는 두 번째 인수를 평가하여 할당을 수행합니다.
 
     ```js run no-beautify
     let x;
@@ -143,9 +146,10 @@ This leads to some interesting usage compared to a "pure, classical, boolean-onl
     alert(x); // 1
     ```
 
-    An assignment is a simple case. Other side effects can also be involved.
+    할당은 간단한 경우입니다. 다른 부수적인 효과도 발생할 수 있습니다.
 
     As we can see, such a use case is a "shorter way of doing `if`". The first operand is converted to boolean. If it's false, the second one is evaluated.
+    우리가 볼 수 있듯이, 그러한 유스 케이스는 "if if를하는 더 짧은 방법"이다. 첫 번째 피연산자는 부울로 변환됩니다. 거짓이면 두 번째 것이 평가됩니다.
 
     Most of time, it's better to use a "regular" `if` to keep the code easy to understand, but sometimes this can be handy.
 
