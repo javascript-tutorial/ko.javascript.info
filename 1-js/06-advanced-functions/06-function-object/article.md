@@ -125,7 +125,7 @@ function ask(question, ...handlers) {
 ask("Question?", () => alert('You said yes'), result => alert(result));
 ```
 
-이것은 소위 말하는 특별한 경우입니다. [다형성](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- 그들의 타입에 따라 다르게 다루거나, 우리의 경우에는`길이`에 의존한다. 이 아이디어는 JavaScript 라이브러리에서 사용됩니다.
+이것은 소위 말하는 특별한 경우입니다. [다형성](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- 그들의 타입에 따라 다르게 다루거나, 이러한 경우에는`길이`에 의존한다. 이 아이디어는 JavaScript 라이브러리에서 사용됩니다.
 
 ## 사용자 정의 속성
 
@@ -138,7 +138,7 @@ function sayHi() {
   alert("Hi");
 
   *!*
-  // 우리가 몇 번이나 뛰는지 세어 봅시다.
+  // 몇 번이나 뛰는지 세어 봅시다.
   sayHi.counter++;
   */!*
 }
@@ -203,7 +203,7 @@ alert( counter() ); // 10
 */!*
 ```
 
-따라서 구현의 선택은 우리의 목표에 달려 있습니다.
+따라서 구현의 선택은 목표에 달려 있습니다.
 
 ## Named Function Expression
 
@@ -224,7 +224,7 @@ let sayHi = function *!*func*/!*(who) {
 };
 ```
 
-우리가 여기서 무엇을 얻었습니까? 추가 된 "func"이름의 목적은 무엇입니까?
+여기서 무엇을 얻었습니까? 추가 된 "func"이름의 목적은 무엇입니까?
 
 먼저 Function Expression을 가지고 있음을 주목하십시오. `function` 다음에``func``라는 이름을 추가해도 함수 선언이되지 않습니다. 왜냐하면 그것이 여전히 할당 표현식의 일부로 생성 되었기 때문입니다.
 
