@@ -1,9 +1,7 @@
 importance: 5
 
 ---
-
 # 필드로 정렬
-
 정렬 할 객체 배열이 있습니다.
 
 ```js
@@ -31,6 +29,6 @@ users.sort(byField('name'));
 users.sort(byField('age'));
 ```
 
-따라서, 함수를 작성하는 대신`byField (fieldName)`을 입력하십시오.
+따라서, 함수를 작성하는 대신 `byField (fieldName)`을 입력하십시오.
 
 그것을 사용할 수 있는 byField 함수를 작성하십시오.
