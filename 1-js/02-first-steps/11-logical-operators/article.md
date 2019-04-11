@@ -116,7 +116,7 @@ alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
     alert( name ); // selects "John" – the first truthy value
     ```
 
-    `currentUser`와 `defaultUser` 둘 다 거짓(falsy)이면, `"unnamed"`가 결과가 됩니다.
+    `currentUser`와 `defaultUser` 둘 다 거짓 같은 값(falsy)이면, `"unnamed"`가 결과가 됩니다.
 
 2. **단락 회로 평가.(Short-circuit evaluation)**
 
@@ -150,7 +150,7 @@ alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 
     대부분의 경우, 코드를 이해하기 쉽도록 "보통" `if`를 사용하는 것이 더 좋지만, 때때로 편리할 수 ​​있습니다.
 
-## && (그리고)
+## && (AND)
 
 AND 연산자는 두 개의 앰퍼샌드`&&`로 표현됩니다.
 
@@ -187,7 +187,7 @@ if (1 && 0) { // evaluated as true && false
 ```
 
 
-## AND는 첫 번째 거짓(falsy) 값을 찾습니다.
+## AND는 첫 번째 거짓 같은 값(falsy) 값을 찾습니다.
 
 AND 연산자의 피연산자가 여러 개있는 경우 :
 
@@ -292,7 +292,7 @@ alert( !!"non-empty string" ); // true
 alert( !!null ); // false
 ```
 
-즉, 첫 번째 NOT은 값을 부울로 변환하고 정반대 값을 반환하고, 두 번째 NOT은 이 값을 다시 반전합니다. 결국 단순한 논리 타입 변환을 가집니다.
+즉, 첫 번째 NOT 연산자는 값을 논리 타입으로 변환하면서 반대되는 값을 반환하고, 두 번째 NOT 연산자는 다시 반대되는 값을 반환합니다. 결국 단순한 논리 타입 변환을 가집니다.
 
 같은 일을 하는 좀 더 장황한 방법, 즉 내장 된 `Boolean` 함수가 있습니다.:
 
