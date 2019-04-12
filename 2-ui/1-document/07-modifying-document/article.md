@@ -338,11 +338,11 @@ We could make a function and put the code there. But the alternative way would b
 
 ## DocumentFragment [#document-fragment]
 
-`DocumentFragment` is a special DOM node that serves as a wrapper to pass around groups of nodes.
+`DocumentFragment`는 특별한 DOM 노드 타입으로, 여러 노드로 구성된 그룹을 전달하는 데 쓰이는 래퍼(wrapper) 역할을 합니다.
 
-We can append other nodes to it, but when we insert it somewhere, then it "disappears", leaving its content inserted instead.
+문서에 있는 다른 노드를 DocumentFragment에 추가하는 것도 가능합니다. 하지만, 이렇게 만들어진 DocumentFragment를 문서 어딘가에 삽입하면, DocumentFragment는 사라집니다. 물론 DocumentFragment안에 들어있던 노드는 문서에 추가가 되기 때문에 사라지지 않죠. 
 
-For example, `getListContent` below generates a fragment with `<li>` items, that are later inserted into `<ul>`:
+예시를 살펴봅시다. 아래의 `getListContent` 함수는  `<li>` 노드로 구성된 fragment를 만들고, 이 fragment를 `<ul>`에 추가해 줍니다.
 
 ```html run
 <ul id="ul"></ul>
@@ -366,7 +366,7 @@ ul.append(getListContent()); // (*)
 </script>
 ```
 
-Please note, at the last line `(*)` we append `DocumentFragment`, but it "blends in", so the resulting structure will be:
+`(*)`로 표시한 마지막 줄에서 `DocumentFragment`를 추가해 주었지만, 추가한 fragment가 문서에 녹아들었기 때문에 최종 결과물은 아래와 같아진다는 점에 유의하시기 바랍니다.
 
 ```html
 <ul>
@@ -376,7 +376,7 @@ Please note, at the last line `(*)` we append `DocumentFragment`, but it "blends
 </ul>
 ```
 
-`DocumentFragment` is rarely used explicitly. Why append to a special kind of node, if we can return an array of nodes instead? Rewritten example:
+`DocumentFragment`를 직접 사용하는 일은 드뭅니다. 여러 노드로 구성된 배열을 만들어 반환 할 수 있으므로, 이렇게 특별한 종류의 노드를 만들 필요가 없기 때문입니다. 위 예시를 `DocumentFragment` 없이 다시 작성해 보도록 하겠습니다. 
 
 ```html run
 <ul id="ul"></ul>
@@ -400,7 +400,7 @@ ul.append(...getListContent()); // append + "..." operator = friends!
 </script>
 ```
 
-We mention `DocumentFragment` mainly because there are some concepts on top of it, like [template](info:template-element) element, that we'll cover much later.
+여기서 `DocumentFragment`를 언급하고 넘어가는 이유는, [template](info:template-element) 요소와 같이 `DocumentFragment`를 기반으로 만들어진 개념이 있기 때문입니다. template 요소는 추후 다루도록 하겠습니다.  
 
 
 ## 제거 메서드
