@@ -48,8 +48,8 @@ let promise = new Promise(function(resolve, reject) {
 let promise = new Promise(function(resolve, reject) {
   // 이 함수는 프라미스가 생성될 때 자동으로 실행됩니다.
 
-  // 1초 뒤에 "done!"결과와 함께 일이 끝났다고 신호를 보냅니다.
-  setTimeout(() =&amp;gt; *!*resolve("done!")*/!*, 1000);
+  // 1초 뒤에 result 값 "done"과 함께 일이 끝났다는 신호를 보냅니다.
+  setTimeout(() => *!*resolve("done")*/!*, 1000);
 });
 ```
 
@@ -218,7 +218,7 @@ promise.catch(alert); // 1초 뒤 "Error: Whoops!" 출력
 
 `.finally(f)`를 호출하는 건 `.then(f, f)`과 유사합니다. finally는 프라미즈가 settled(결정) 되었을 때 실행됩니다: 성공(resolved)이나 실패(rejected)가 확정될 때 실행됩니다.
 
-더는 필요치 않은 로딩 인디케이터(loading indicators)를 멈추는 경우 같이, 끝마무리하는데 finally를 쓸 수 있습니다. 결과가 어떻든 마무리가 필요한 경우 말이죠.
+더는 필요치 않은 로딩 인디케이터(loading indicators)를 멈추는 경우 같이, 끝마무라애 `finally`를 유용히 쓸 수 있습니다. 결과가 어떻든 마무리가 필요한 경우 말이죠.
 
 사용법은 아래와 같습니다:
 
@@ -261,7 +261,7 @@ new Promise((resolve, reject) => {
 
     프라미즈 체이닝과 결과를 전달해주는 것에 대한 이야기는 다음 챕터에서 좀 더 해보도록 하겠습니다.
 
-3. `.finally(f)`는 문법적으로 더 편리합니다. `.then(f, f)`과같이 함수 두개를 전달할 필요가 없기 때문입니다.
+3. `.finally(f)`는 문법적으로 더 편리합니다. `.then(f, f)`과같이 함수를 중복해서 사용할 필요가 없기 때문입니다.
 
 ````smart header="On settled promises handlers runs immediately"
 프라미스가 보류상태이면, `.then/catch/finally` 핸들러는 결과를 기다립니다. 만약 프라미스가 이미 settled(결정) 상태라면, 핸들러는 바로 실행됩니다:
@@ -273,7 +273,7 @@ let promise = new Promise(resolve =&amp;gt; resolve("done!"));
 promise.then(alert); // done! (바로 출력됨)
 ```
 
-`.then` 핸들러는 시간이 걸리는 일이든, 즉시 끝나는 일이든 상관없이 실행이 보장됩니다.
+`.then` 핸들러는 시간이 걸리는 프라미즈이든, 즉시 끝나는 프라미즈이든 상관없이 실행이 보장됩니다.
 ````
 
 다음으로, 비동기 코드 작성시 프라미스 활용법을 실질적인 예를 통해 살펴보겠습니다.
