@@ -11,13 +11,13 @@
 - `arr.shift()` -- 배열의 처음 요소를 제거,
 - `arr.unshift(...items)` -- 배열의 처음에 요소를 추가.
 
-이 외의 다른 메서드도 있습니다.
+이 외에도 요소를 추가/제거하는 다른 메서드가 있습니다.
 
 ### splice
 
-배열에서 한 요소를 지우고 싶다면 어떻게 해야할까요?
+배열에서 요소 하나를 지우고 싶다면 어떻게 해야할까요?
 
-배열은 객체이므로, `delete`를 사용해 볼 수 있습니다:
+배열 역시 객체이므로, `delete`를 사용해 볼 수 있을것입니다:
 
 ```js run
 let arr = ["I", "go", "home"];
@@ -30,32 +30,31 @@ alert( arr[1] ); // undefined
 alert( arr.length ); // 3
 ```
 
-원하는 요소를 지우긴 했지만, 배열은 여전히 3개의 요소를 가지고 있습니다. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
-The element was removed, but the array still has 3 elements, we can see that `arr.length == 3`.
+원하는대로 요소를 지우긴 했지만, 배열은 여전히 3개의 요소를 가지고 있네요. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
 
-이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. `delete` 메서드는 제 역할을 다 한 것입니다. 객체엔 이렇게 해도 괜찮습니다. 하지만 배열을 다룰 땐, 나머지 요소들이 이동해 빈 공간을 채우길 기대하며 이 메서드를 썼을겁니다. 요소를 지운 만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
+이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. 객체를 다룰 땐 이렇게 값만 삭제되도 괜찮습니다. 하지만 배열을 다룰 땐, 나머지 요소들이 이동해 빈 공간을 채우길 기대하며 이 메서드를 썼을겁니다. 지워진 요소만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
 
 따라서 요소엔 특별한 메서드를 사용해야 합니다.
 
-[arr.splice(str)](mdn:js/Array/splice)메서드는 요소를 다룰 때 쓰이는 스위스 맥가이버 칼 같은 존재입니다. 이 메서드로 요소 추가, 삭제, 삽입을 모두 할 수 있습니다.
+[arr.splice(str)](mdn:js/Array/splice)메서드는 만능 스위스 맥가이버 칼 처럼 요소를 자유자재로 다룰 수 있게 해줍니다. 이 메서드로 요소 추가, 삭제, 삽입이 모두 가능합니다.
 
-문법은 다음과 같습니다:
+문법은 다음과 같습니다.
 
 ```js
 arr.splice(index[, deleteCount, elem1, ..., elemN])
 ```
 
-첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거할 요소의 숫자를 나타냅니다. `elem1, ..., elemN`은 배열에 추가 될 요소입니다.
+첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거할 요소의 갯수를 나타냅니다. `elem1, ..., elemN`은 배열에 추가 될 요소입니다.
 
-다양한 예제를 보다보면 메서드를 더 잘 이해할 수 있습니다.
+다양한 예제를 통해 splice 메서드를 이해해 보도록 하겠습니다.
 
-요소 삭제에 관한 예제부터 살펴보도록 하겠습니다.
+먼저 요소 삭제에 관한 예제부터 살펴보도록 하겠습니다.
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
 
 *!*
-arr.splice(1, 1); // index 1 부터 하나(1)의 요소를 제거합니다.
+arr.splice(1, 1); // 인덱스 1 부터 요소 한개(1)를 제거합니다.
 */!*
 
 alert( arr ); // ["I", "JavaScript"]
@@ -63,7 +62,7 @@ alert( arr ); // ["I", "JavaScript"]
 
 쉽죠? 인덱스 `1`부터 시작해 `1`개의 요소를 지웠습니다.
 
-다음 코드에선 3개의 요소를 지우고, 그 자리를 다른 두개의 요소로 교체해 보도록 하겠습니다: 
+다음 코드에선 요소 세개를 지우고, 그 자리를 다른 두개의 요소로 교체해 보도록 하겠습니다.
 
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
@@ -74,7 +73,7 @@ arr.splice(0, 3, "Let's", "dance");
 alert( arr ) // now [*!*"Let's", "dance"*/!*, "right", "now"]
 ```
 
-아래 코드를 통해 `splice` 메서드가 삭제된 요소로 구성된 배열을 반환한다는 것을 확인할 수 있습니다:
+아래 코드를 통해 `splice` 메서드는 삭제된 요소로 구성된 배열을 반환한다는 것을 확인할 수 있습니다.
 
 ```js run
 let arr = [*!*"I", "study",*/!* "JavaScript", "right", "now"];
@@ -85,21 +84,21 @@ let removed = arr.splice(0, 2);
 alert( removed ); // "I", "study" <-- 삭제된 요소로 구성된 배열
 ```
 
-`splice` 메서드는 요소를 제거하지 않으면서 요소를 추가해 줄 수도 있습니다. `deleteCount`를 `0`으로 설정하기만 하면 됩니다:
+요소를 제거하지 않으면서 추가할 수도 있습니다. `deleteCount`를 `0`으로 설정하기만 하면 됩니다.
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
 
-// index 2 부터
+// 인덱스 2 부터
 // 0개의 요소를 삭제합니다.
-// 그리고 나서 "complex" 와 "language"를 추가해줍니다.
+// 그 후, "complex" 와 "language"를 추가합니다.
 arr.splice(2, 0, "complex", "language");
 
 alert( arr ); // "I", "study", "complex", "language", "JavaScript"
 ```
 
 ````smart header="음수 인덱스도 사용 가능합니다"
-slice메서드와 다른 배열 관련 메서드에 음수 인덱스를 사용할 수 있습니다. 이때 숫자는 배열 끝에서부터 센 요소의 위치를 나타냅니다. 아래와 같이 말이죠:
+slice메서드와 다른 배열 관련 메서드에 음수 인덱스를 사용할 수 있습니다. 이때 음수 인덱스는 배열 끝에서부터 센 요소의 위치를 나타냅니다. 아래와 같이 말이죠.
 
 ```js run
 let arr = [1, 2, 5];
@@ -115,7 +114,7 @@ alert( arr ); // 1,2,3,4,5
 
 ### slice
 
-[arr.slice](mdn:js/Array/slice)메서드는 `arr.splice`보다 훨씬 간단합니다. 
+[arr.slice](mdn:js/Array/slice)메서드는 `arr.splice`와 비슷해보이지만, 훨씬 간단한 메서드입니다.
 
 문법:
 
@@ -123,9 +122,9 @@ alert( arr ); // 1,2,3,4,5
 arr.slice(start, end)
 ```
 
-이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스 까지의 요소를 포함하는 메서드를 반환합니다. `start` 와 `end` 인덱스는 둘 다 음수가 될 수 있습니다. 이 때, 인덱스는 배열의 끝에서부터의 요소 갯수를 의미합니다.
+이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스 까지의 요소를 포함하는 메서드를 반환합니다. `start` 와 `end` 인덱스는 둘 다 음수일수도 있습니다. 인덱스가 음수일 땐 배열의 끝에서부터의 요소 갯수를 의미합니다.
 
-문자열 메서드인 `str.slice`처럼 동작하지만, 배열의 `arr.slice`메서드는 서브 문자열(substring) 대신 서브배열(subarray)를 반환한다는 점이 다릅니다.
+문자열 메서드인 `str.slice`와 유사하게 동작하지만, 배열의 `arr.slice`메서드는 서브 문자열(substring) 대신 서브 배열(subarray)를 반환한다는 점이 다릅니다.
 
 예:
 
@@ -142,36 +141,36 @@ alert( arr.slice(-2) ); // s,t
 
 ### concat
 
-The method [arr.concat](mdn:js/Array/concat) joins the array with other arrays and/or items.
+[arr.concat](mdn:js/Array/concat) 메서드는 배열의 끝에 다른 배열이나 요소를 추가해줍니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 arr.concat(arg1, arg2...)
 ```
 
-It accepts any number of arguments -- either arrays or values.
+인수의 갯수는 제한이 없고, 인수로 배열이나 값을 받을 수 있습니다.
 
-The result is a new array containing items from `arr`, then `arg1`, `arg2` etc.
+위 코드의 결과는 `arr`의 모든 요소와 `arg1`, `arg2` 등을 포함하는 배열입니다. 
 
-If an argument is an array or has `Symbol.isConcatSpreadable` property, then all its elements are copied. Otherwise, the argument itself is copied.
+인수가 배열이거나, 인수의 프로퍼티가 `Symbol.isConcatSpreadable`라면, 인수로 받은 배열의 모든 요소를 복사합니다. 이 경우 외에는 인수 자체를 복사합니다.
 
-For instance:
+예제를 통해 알아봅시다.
 
 ```js run
 let arr = [1, 2];
 
-// merge arr with [3,4]
+// 배열 arr을 배열 [3,4]와 병합함
 alert( arr.concat([3, 4])); // 1,2,3,4
 
-// merge arr with [3,4] and [5,6]
+// 배열 arr을 배열 [3,4]와 배열 [5,6]과 병합함
 alert( arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
-// merge arr with [3,4], then add values 5 and 6
+// 배열 arr을 배열 [3,4]와 병합하고, 값 5 와 6을 추가함
 alert( arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
-Normally, it only copies elements from arrays ("spreads" them). Other objects, even if they look like arrays, added as a whole:
+일반적으로, concat 메서드는 제공받은 배열의 요소를 ("분해"해서) 복사합니다. 유사 배열 객체라 하더라도 본질은 객체이므로, 객체가 통으로 복사되어 더해집니다. 
 
 ```js run
 let arr = [1, 2];
@@ -185,7 +184,7 @@ alert( arr.concat(arrayLike) ); // 1,2,[object Object]
 //[1, 2, arrayLike]
 ```
 
-...But if an array-like object has `Symbol.isConcatSpreadable` property, then its elements are added instead:
+하지만 유사배열 객체에 `Symbol.isConcatSpreadable` 프로퍼티가 있는 경우는, 분해된 객체의 요소가 더해집니다.
 
 ```js run
 let arr = [1, 2];
@@ -204,23 +203,23 @@ alert( arr.concat(arrayLike) ); // 1,2,something,else
 
 ## Iterate: forEach
 
-The [arr.forEach](mdn:js/Array/forEach) method allows to run a function for every element of the array.
+[arr.forEach](mdn:js/Array/forEach) 메서드는 주어진 함수를 배열 요소 각각에 대해 실행할 수 있게 해줍니다.
 
-The syntax:
+문법:
 ```js
 arr.forEach(function(item, index, array) {
-  // ... do something with item
+  // ... item에 무언갈 할 수 있습니다
 });
 ```
 
-For instance, this shows each element of the array:
+아래는 배열의 각 요소를 보여주는 코드입니다.
 
 ```js run
 // for each element call alert
 ["Bilbo", "Gandalf", "Nazgul"].forEach(alert);
 ```
 
-And this code is more elaborate about their positions in the target array:
+아래는 index와 타깃 배열까지 출력해주는 좀 더 정교한 코드입니다.
 
 ```js run
 ["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
@@ -228,22 +227,27 @@ And this code is more elaborate about their positions in the target array:
 });
 ```
 
-The result of the function (if it returns any) is thrown away and ignored.
+함수의 반환값은 (반환값을 어떻게 명시해 줬던 간에) 무시됩니다. 결국 forEach 메서드의 반환값은 undefined이 됩니다.
 
 
-## Searching in array
+## 배열 탐색하기
 
+배열 내에서 뭔가를 찾을 때 쓰이는 메서드가 있습니다. 
 These are methods to search for something in an array.
 
 ### indexOf/lastIndexOf and includes
 
+배열의 [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf), [arr.includes](mdn:js/Array/includes) 메서드는 대응하는 문자열의 메서드와 동일한 문법을 사용하고, 하는일도 본질적으로 같지만, 연산 대상이 문자열이 아닌 배열의 요소라는 점만 다릅니다.
 The methods [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf) and [arr.includes](mdn:js/Array/includes) have the same syntax and do essentially the same as their string counterparts, but operate on items instead of characters:
 
+- `arr.indexOf(item, from)`는 인덱스 `from`부터 시작해 해당하는 `item`을 검색합니다. 일치하는 요소를 찾으면, 해당하는 요소의 인덱스를 반환하고, 찾지 못하면 `-1`을 반환합니다.
 - `arr.indexOf(item, from)` looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
+- `arr.lastIndexOf(item, from)`는 위 메서드와 동일한 기능을 하는 메서드이나, 검색을 끝에서 부터 시작한다는 점만 다릅니다.
 - `arr.lastIndexOf(item, from)` -- same, but looks from right to left.
+- `arr.includes(item, from)`는 인덱스 `from`부터 시작해 배열에서 해당하는 `item`이 있는지를 검색하는데, 해당하는 요소를 발견하면 `true` 를 반환합니다.
 - `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
 
-For instance:
+예시 코드를 살펴보겠습니다.
 
 ```js run
 let arr = [1, 0, false];
@@ -254,42 +258,48 @@ alert( arr.indexOf(null) ); // -1
 
 alert( arr.includes(1) ); // true
 ```
-
+위 메서드들은 요소를 찾을 때 완전 항등 연산자인 `===` 를 사용한다는 점에 유의하시기 바랍니다. 보시는 바와 같이 `false`를 검색하면 정확히 `false`만을 검색하지, 0을 검색하진 않습니다.
 Note that the methods use `===` comparison. So, if we look for `false`, it finds exactly `false` and not the zero.
 
+정확히 어떤 인덱스에 요소가 있는지는 알고 싶지 않고, 배열의 존재 여부만 확인하고 싶다면 `arr.includes`를 사용하는게 좋습니다.
 If we want to check for inclusion, and don't want to know the exact index, then `arr.includes` is preferred.
 
+또한, `includes` 메서드는 `NaN`도 찾아낼 수 있다는 점에서 `indexOf/lastIndexOf`메서드와 약간의 차이가 있습니다.
 Also, a very minor difference of `includes` is that it correctly handles `NaN`, unlike `indexOf/lastIndexOf`:
 
 ```js run
 const arr = [NaN];
-alert( arr.indexOf(NaN) ); // -1 (should be 0, but === equality doesn't work for NaN)
+alert( arr.indexOf(NaN) ); // -1 (0이 출력되길 기대하지만, 완전 항등 비교 === 는 NaN엔 작동하지 않습니다.)
 alert( arr.includes(NaN) );// true (correct)
 ```
 
-### find and findIndex
+### find 와 findIndex
 
+객체로 이루어진 배열이 있다고 가정해 봅시다. 특정 조건을 가진 객체를 배열 내에서 어떻게 찾아낼 수 있을까요?
 Imagine we have an array of objects. How do we find an object with the specific condition?
 
+[arr.find](mdn:js/Array/find)메서드는 이럴 때 쓸모가 있습니다.
 Here the [arr.find](mdn:js/Array/find) method comes in handy.
 
-The syntax is:
+문법은 다음과 같습니다.
 ```js
 let result = arr.find(function(item, index, array) {
-  // if true is returned, item is returned and iteration is stopped
-  // for falsy scenario returns undefined
+  // true가 반환되면, 반복이 멈추고 해당 요소(item)을 반환합니다.
+  // 거짓 같은 값(falsy)일 경우는 undefined가 반환됩니다.
 });
 ```
 
+배열 내 모든 요소에 대하여 함수가 호출됩니다:
 The function is called repetitively for each element of the array:
 
-- `item` is the element.
-- `index` is its index.
-- `array` is the array itself.
+- `item` 은 요소를 의미합니다.
+- `index` 는 인덱스를 의미합니다.
+- `array` 는 배열 그 자체를 의미합니다.
 
+만약 참이 반환되면, 탐색은 중단되고 해당 요소가 반환됩니다. 아무것도 찾지 못했을 경우는 `undefined`가 반환됩니다.
 If it returns `true`, the search is stopped, the `item` is returned. If nothing found, `undefined` is returned.
 
-For example, we have an array of users, each with the fields `id` and `name`. Let's find the one with `id == 1`:
+`id`와 `name`이 있는 사용자 객체가 들어있는 배열을 예로 들어보도록 하겠습니다. 배열 내에서 `id == 1` 조건을 충족하는 사용자 객체를 찾아봅시다.
 
 ```js run
 let users = [
@@ -303,18 +313,23 @@ let user = users.find(item => item.id == 1);
 alert(user.name); // John
 ```
 
+객체로 구성된 배열은 실 생활에서 아주 흔한 경우이기 때문에, `find` 메서드는 아주 유용합니다.
 In real life arrays of objects is a common thing, so the `find` method is very useful.
 
+위 예제에선 인수가 하나만 있는 함수인 `item => item.id == 1`을 `find` 메서드에 넘겨주었다는 점에 유의하시기 바랍니다. 이 함수에서 다른 인수는 거의 쓰이지 않고 있습니다.
 Note that in the example we provide to `find` the function `item => item.id == 1` with one argument. Other arguments of this function are rarely used.
 
+[arr.findIndex](mdn:js/Array/findIndex) 메서드는 find 메서드와 동일한 일을 하나, 조건에 맞는 요소를 반환하지 않고, 해당 요소의 인덱스만 반환한다는 점에서 차이가 있습니다. 아무것도 찾지 못한 경우는 `-1`을 반환합니다. 
 The [arr.findIndex](mdn:js/Array/findIndex) method is essentially the same, but it returns the index where the element was found instead of the element itself and `-1` is returned when nothing is found.
 
 ### filter
 
+`find` 메서드는 함수의 반환값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 이 요소는 조건에 맞는 첫 번 째 요소가 되겠죠.
 The `find` method looks for a single (first) element that makes the function return `true`.
 
-If there may be many, we can use [arr.filter(fn)](mdn:js/Array/filter).
+만약 조건에 맞는 요소가 여러개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
 
+문법은 `find`와 비슷하나, filter 메서드는 `true`가 이미 반환된 경우에도 탐색을 멈추지 않기 때문에 배열의 모든 요소를 검색합니다. 
 The syntax is similar to `find`, but filter continues to iterate for all array elements even if `true` is already returned:
 
 ```js
@@ -324,7 +339,7 @@ let results = arr.filter(function(item, index, array) {
 });
 ```
 
-For instance:
+예시:
 
 ```js run
 let users = [
@@ -333,13 +348,13 @@ let users = [
   {id: 3, name: "Mary"}
 ];
 
-// returns array of the first two users
+// 앞쪽 두명의 사용자를 반환합니다.
 let someUsers = users.filter(item => item.id < 3);
 
 alert(someUsers.length); // 2
 ```
 
-## Transform an array
+## 배열을 변형시키는 메서드Transform an array
 
 This section is about the methods transforming or reordering the array.
 
