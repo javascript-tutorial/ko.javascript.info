@@ -1,20 +1,20 @@
 
-# 함수 개체, NFE
+# Function object, NFE
 
-이미 알고 있듯이 JavaScript의 함수는 값입니다.
+As we already know, functions in JavaScript are values.
 
-JavaScript의 모든 값에는 유형이 있습니다. 어떤 유형의 함수입니까?
+Every value in JavaScript has a type. What type is a function?
 
-자바 스크립트에서 함수는 객체입니다.
+In JavaScript, functions are objects.
 
-함수를 상상하는 좋은 방법은 호출 가능한 "액션 객체"입니다. 우리는 객체를 호출 할 수있을뿐만 아니라 속성을 추가 / 제거하거나 참조로 전달할 수 있습니다.
+A good way to imagine functions is as callable "action objects". We can not only call them, but also treat them as objects: add/remove properties, pass by reference etc.
 
 
-## "name"속성
+## The "name" property
 
-함수 객체는 몇 가지 유용한 속성을 포함합니다.
+Function objects contain a few useable properties.
 
-예를 들어 함수의 이름은 "name"속성으로 액세스 할 수 있습니다.
+For instance, a function's name is accessible as the "name" property:
 
 ```js run
 function sayHi() {
@@ -24,7 +24,7 @@ function sayHi() {
 alert(sayHi.name); // sayHi
 ```
 
-더 재미있는 것은 이름 지정 논리가 똑똑하다는 것입니다. 또한 할당에 사용되는 함수에 올바른 이름을 지정합니다.
+What's more funny, the name-assigning logic is smart. It also assigns the correct name to functions that are used in assignments:
 
 ```js run
 let sayHi = function() {
@@ -34,7 +34,7 @@ let sayHi = function() {
 alert(sayHi.name); // sayHi (works!)
 ```
 
-또한 할당이 기본값을 통해 수행되는 경우에도 작동합니다.
+It also works if the assignment is done via a default value:
 
 ```js run
 function f(sayHi = function() {}) {
@@ -44,9 +44,9 @@ function f(sayHi = function() {}) {
 f();
 ```
 
-이 사양에서이 기능을 "컨텍스트 이름"이라고합니다. 함수가 하나를 제공하지 않으면 할당에서 문맥으로부터 계산됩니다.
+In the specification, this feature is called a "contextual name". If the function does not provide one, then in an assignment it is figured out from the context.
 
-객체 메소드에도 이름이 있습니다.
+Object methods have names too:
 
 ```js run
 let user = {
@@ -65,7 +65,7 @@ alert(user.sayHi.name); // sayHi
 alert(user.sayBye.name); // sayBye
 ```
 
-그래도 마법은 없습니다. 올바른 이름을 찾는 방법이없는 경우가 있습니다. 이 경우 name 속성은 다음과 같이 비어 있습니다.
+There's no magic though. There are cases when there's no way to figure out the right name. In that case, the name property is empty, like here:
 
 ```js
 // function created inside array
@@ -77,9 +77,9 @@ alert( arr[0].name ); // <empty string>
 
 In practice, however, most functions do have a name.
 
-## "길이"속성
+## The "length" property
 
-함수 매개변수의 수를 반환하는 또 다른 기본 제공 속성 "length"가 있습니다. 예를 들면 다음과 같습니다.
+There is another built-in property "length" that returns the number of function parameters, for instance:
 
 ```js run
 function f1(a) {}
@@ -91,20 +91,20 @@ alert(f2.length); // 2
 alert(many.length); // 2
 ```
 
-여기서 우리는 나머지 매개변수가 계산되지 않음을 알 수 있습니다.
+Here we can see that rest parameters are not counted.
 
-`length` 속성은 때로는 다른 함수에서 작동하는 함수에서의 내성 검사에 사용됩니다.
+The `length` property is sometimes used for introspection in functions that operate on other functions.
 
-예를 들어, 아래의 코드에서`ask` 함수는 호출 할`question`과 호출 할`handler` 함수의 임의의 수를 받아들입니다.
+For instance, in the code below the `ask` function accepts a `question` to ask and an arbitrary number of `handler` functions to call.
 
-사용자가 대답을 제공하면 함수는 핸들러를 호출합니다. 두 종류의 핸들러를 전달할 수 있습니다.
+Once a user provides their answer, the function calls the handlers. We can pass two kinds of handlers:
 
-- 사용자가 긍정적 인 대답을 줄 때만 호출되는 인수가없는 함수입니다.
-- 인수가있는 함수로, 대 / 소문자로 호출되고 응답을 반환합니다.
+- A zero-argument function, which is only called when the user gives a positive answer.
+- A function with arguments, which is called in either case and returns an answer.
 
-생각은 긍정적 인 경우 (가장 빈번한 변종)에 대해 단순하고 인자없는 핸들러 구문이 있지만 보편적 인 핸들러도 제공 할 수 있다는 것입니다.
+The idea is that we have a simple, no-arguments handler syntax for positive cases (most frequent variant), but are able to provide universal handlers as well.
 
-`핸들러` 를 올바른 방법으로 호출하기 위해, 우리는 `length` 속성을 검사합니다 :
+To call `handlers` the right way, we examine the `length` property:
 
 ```js run
 function ask(question, ...handlers) {
@@ -120,25 +120,25 @@ function ask(question, ...handlers) {
 
 }
 
-// 양수 응답의 경우 두 핸들러가 호출됩니다.
-// 부정 응답의 경우, 두 번째 응답 만
+// for positive answer, both handlers are called
+// for negative answer, only the second one
 ask("Question?", () => alert('You said yes'), result => alert(result));
 ```
 
-이것은 소위 말하는 특별한 경우입니다. [다형성](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- 그들의 타입에 따라 다르게 다루거나, 이러한 경우에는`길이`에 의존한다. 이 아이디어는 JavaScript 라이브러리에서 사용됩니다.
+This is a particular case of so-called [polymorphism](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- treating arguments differently depending on their type or, in our case depending on the `length`. The idea does have a use in JavaScript libraries.
 
-## 사용자 정의 속성
+## Custom properties
 
-우리는 또한 우리 자신의 속성을 추가 할 수 있습니다.
+We can also add properties of our own.
 
-여기에 총 호출 수를 추적하는`counter` 속성을 추가합니다 :
+Here we add the `counter` property to track the total calls count:
 
 ```js run
 function sayHi() {
   alert("Hi");
 
   *!*
-  // 몇 번이나 뛰는지 세어 봅시다.
+  // let's count how many times we run
   sayHi.counter++;
   */!*
 }
@@ -151,12 +151,12 @@ alert( `Called ${sayHi.counter} times` ); // Called 2 times
 ```
 
 ```warn header="A property is not a variable"
-`sayHi.counter = 0`과 같은 함수에 할당 된 속성은 그 안에 지역 변수`counter '를 정의하지 않습니다. 즉, 'counter'속성과 'let counter'변수는 서로 관련이없는 두 가지 항목입니다.
+A property assigned to a function like `sayHi.counter = 0` does *not* define a local variable `counter` inside it. In other words, a property `counter` and a variable `let counter` are two unrelated things.
 
-우리는 함수를 객체로 취급하고 속성을 저장하지만 그 실행에는 아무런 영향을 미치지 않습니다. 변수는 절대로 함수 속성을 사용하지 않으며 반대의 경우도 마찬가지입니다. 이들은 단지 평행 세계입니다.
+We can treat a function as an object, store properties in it, but that has no effect on its execution. Variables never use function properties and vice versa. These are just parallel worlds.
 ```
 
-함수 속성은 때때로 클로저를 대체 할 수 있습니다. 예를 들어 함수 함수를 사용하려면 <info:closure> 장에서 카운터 함수 예제를 다시 작성할 수 있습니다.
+Function properties can replace closures sometimes. For instance, we can rewrite the counter function example from the chapter <info:closure> to use a function property:
 
 ```js run
 function makeCounter() {
@@ -177,11 +177,11 @@ alert( counter() ); // 0
 alert( counter() ); // 1
 ```
 
-`count`는 이제 외부 어휘 환경이 아닌 함수에 직접 저장됩니다.
+The `count` is now stored in the function directly, not in its outer Lexical Environment.
 
-클로저를 사용하는 것보다 좋든 나쁘지 않습니까?
+Is it better or worse than using a closure?
 
-가장 큰 차이점은`count`의 값이 외부 변수에있는 경우 외부 코드가 외부 변수에 액세스 할 수 없다는 것입니다. 중첩 된 함수 만 수정할 수 있습니다. 그리고 그것이 함수에 묶여 있다면, 그런 일이 가능합니다 :
+The main difference is that if the value of `count` lives in an outer variable, then external code is unable to access it. Only nested functions may modify it. And if it's bound to a function, then such a thing is possible:
 
 ```js run
 function makeCounter() {
@@ -203,20 +203,21 @@ alert( counter() ); // 10
 */!*
 ```
 
-따라서 구현의 선택은 목표에 달려 있습니다.
+So the choice of implementation depends on our aims.
 
 ## Named Function Expression
 
-명명 된 함수 식 NFE는 이름이있는 함수 식에 대한 용어입니다.
+Named Function Expression, or NFE, is a term for Function Expressions that have a name.
 
-예를 들어, 일반적인 Function Expression을 살펴 보겠습니다.
+For instance, let's take an ordinary Function Expression:
+
 ```js
 let sayHi = function(who) {
   alert(`Hello, ${who}`);
 };
 ```
 
-그리고 그것에 이름을 추가하십시오 :
+And add a name to it:
 
 ```js
 let sayHi = function *!*func*/!*(who) {
@@ -224,13 +225,13 @@ let sayHi = function *!*func*/!*(who) {
 };
 ```
 
-여기서 무엇을 얻었습니까? 추가 된 "func"이름의 목적은 무엇입니까?
+Did we achieve anything here? What's the purpose of that additional `"func"` name?
 
-먼저 Function Expression을 가지고 있음을 주목하십시오. `function` 다음에``func``라는 이름을 추가해도 함수 선언이되지 않습니다. 왜냐하면 그것이 여전히 할당 표현식의 일부로 생성 되었기 때문입니다.
+First let's note, that we still have a Function Expression. Adding the name `"func"` after `function` did not make it a Function Declaration, because it is still created as a part of an assignment expression.
 
-그런 이름을 추가해도 아무 것도 깨뜨리지 못했습니다.
+Adding such a name also did not break anything.
 
-이 함수는 여전히`sayHi ()`로 사용할 수 있습니다 :
+The function is still available as `sayHi()`:
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -240,12 +241,12 @@ let sayHi = function *!*func*/!*(who) {
 sayHi("John"); // Hello, John
 ```
 
-`func`이라는 이름에는 두 가지 특별한 것들이 있습니다 :
+There are two special things about the name `func`:
 
-1. 함수가 내부적으로 자신을 참조 할 수있게합니다.
-2. 함수 밖에서는 보이지 않습니다.
+1. It allows the function to reference itself internally.
+2. It is not visible outside of the function.
 
-예를 들어,`sayHi` 함수는`who`가 제공되지 않으면``Guest``로 다시 호출합니다 :
+For instance, the function `sayHi` below calls itself again with `"Guest"` if no `who` is provided:
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -264,10 +265,10 @@ sayHi(); // Hello, Guest
 func(); // Error, func is not defined (not visible outside of the function)
 ```
 
-왜 우리는`func`을 사용합니까? 아마도`sayHi`를 중첩 호출에 사용하겠습니까?
+Why do we use `func`? Maybe just use `sayHi` for the nested call?
 
 
-실제로 대부분의 경우 다음과 같은 작업을 수행 할 수 있습니다.
+Actually, in most cases we can:
 
 ```js
 let sayHi = function(who) {
@@ -281,7 +282,7 @@ let sayHi = function(who) {
 };
 ```
 
-이 코드의 문제점은`sayHi '값이 변경 될 수 있다는 것입니다. 함수가 다른 변수로 갈 수 있으며 코드에서 오류가 발생합니다.
+The problem with that code is that the value of `sayHi` may change. The function may go to another variable, and the code will start to give errors:
 
 ```js run
 let sayHi = function(who) {
@@ -289,7 +290,7 @@ let sayHi = function(who) {
     alert(`Hello, ${who}`);
   } else {
 *!*
-    sayHi("Guest"); // 오류 : sayHi는 함수가 아닙니다.
+    sayHi("Guest"); // Error: sayHi is not a function
 */!*
   }
 };
@@ -297,14 +298,14 @@ let sayHi = function(who) {
 let welcome = sayHi;
 sayHi = null;
 
-welcome(); // 오류, 중첩 된 sayHi 호출이 더 이상 작동하지 않습니다!
+welcome(); // Error, the nested sayHi call doesn't work any more!
 ```
 
-이것은 함수가 외부 어휘 환경에서`sayHi`를 사용하기 때문에 발생합니다. 지역 sayHi가 없으므로 외부 변수가 사용됩니다. 그리고 외침의 순간에 바깥 쪽`sayHi`는`null`입니다.
+That happens because the function takes `sayHi` from its outer lexical environment. There's no local `sayHi`, so the outer variable is used. And at the moment of the call that outer `sayHi` is `null`.
 
-함수 표현식에 넣을 수있는 선택적 이름은 이러한 종류의 문제를 정확하게 해결하기위한 것입니다.
+The optional name which we can put into the Function Expression is meant to solve exactly these kinds of problems.
 
-코드를 수정하여 사용하자.
+Let's use it to fix our code:
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -323,31 +324,29 @@ sayHi = null;
 welcome(); // Hello, Guest (nested call works)
 ```
 
-``func ''라는 이름이 함수 - 지역이기 때문에 이제는 작동합니다. 외부에서 가져온 것이 아니며 거기에서 볼 수 없습니다. 사양은 항상 현재 함수를 참조한다는 것을 보장합니다.
+Now it works, because the name `"func"` is function-local. It is not taken from outside (and not visible there). The specification guarantees that it will always reference the current function.
 
-바깥 쪽 코드는 여전히 변수`sayHi` 또는`welcome`을 가지고 있습니다. 그리고`func`은 함수가 내부적으로 어떻게 호출 할 수 있는지를 나타내는 "내부 함수 이름"입니다.
+The outer code still has it's variable `sayHi` or `welcome`. And `func` is an "internal function name", how the function can call itself internally.
 
 ```smart header="There's no such thing for Function Declaration"
-여기에 설명 된 "내부 이름"기능은 Function Expressions에만 사용할 수 있으며 Function Declarations에는 사용할 수 없습니다. Function Declarations의 경우, 하나의 "내부"이름을 추가 할 수있는 구문이 없습니다.
+The "internal name" feature described here is only available for Function Expressions, not to Function Declarations. For Function Declarations, there's just no syntax possibility to add a one more "internal" name.
 
-때로는 신뢰할 수있는 내부 이름이 필요할 때 함수 선언을 명명 된 함수 식 형식으로 다시 작성해야하는 경우가 있습니다.
+Sometimes, when we need a reliable internal name, it's the reason to rewrite a Function Declaration to Named Function Expression form.
 ```
 
-## 요약
+## Summary
 
-함수는 객체입니다.
+Functions are objects.
 
-여기에 우리는 그들의 속성을 다뤘습니다.
+Here we covered their properties:
 
--`name` - 함수 이름. 함수 정의에서뿐만 아니라 할당 및 객체 속성에도 제공됩니다.
--`length` - 함수 정의에있는 인자의 수. 나머지 매개변수는 계산되지 않습니다.
+- `name` -- the function name. Exists not only when given in the function definition, but also for assignments and object properties.
+- `length` -- the number of arguments in the function definition. Rest parameters are not counted.
 
-함수가 함수 표현식 (주 코드 플로우가 아닌)으로 선언되고 이름을 전달하면 명명 된 함수 표현식이라고합니다. 이름은 재귀 호출 등을 위해 내부에서 참조 할 때 사용할 수 있습니다.
+If the function is declared as a Function Expression (not in the main code flow), and it carries the name, then it is called a Named Function Expression. The name can be used inside to reference itself, for recursive calls or such.
 
-또한 함수에는 추가 속성이있을 수 있습니다. 많은 잘 알려진 JavaScript 라이브러리가이 기능을 유용하게 사용합니다.
+Also, functions may carry additional properties. Many well-known JavaScript libraries make great use of this feature.
 
-그들은 "main"함수를 만들고 그것에 다른 많은 "helper"함수를 붙입니다. 예를 들어, the [jquery](https://jquery.com) 라이브러리는 이름이 지정된 함수를 만듭니다. `$`. 
-The [lodash](https://lodash.com) 라이브러리는`_` 함수를 생성합니다. 그리고 나서 `_.clone`, `_.keyBy` 그리고 다른속성들을 (see the [docs](https://lodash.com/docs) 
-그(것)들에 관하여 더 많은 것을 배우고 싶을 때). 사실 그들은 지구 공간의 오염을 줄이기 위해 그것을합니다. 그래서 단일 도서관은 하나의 지구 변수를 제공합니다. 이렇게하면 명명 충돌의 가능성이 줄어 듭니다.
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jquery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`. And then adds `_.clone`, `_.keyBy` and other properties to (see the [docs](https://lodash.com/docs) when you want learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
 
-따라서 함수는 유용한 작업을 단독으로 수행 할 수 있으며 속성에서 다른 기능을 수행 할 수도 있습니다.
+So, a function can do a useful job by itself and also carry a bunch of other functionality in properties.
