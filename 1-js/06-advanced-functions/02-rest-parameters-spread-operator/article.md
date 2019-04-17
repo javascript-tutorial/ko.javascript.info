@@ -1,20 +1,20 @@
-# Rest parameters and spread operator
+# 나머지 매개변수와 전개 연산자
 
-Many JavaScript built-in functions support an arbitrary number of arguments.
+많은 자바스크립트 내장 함수는 임의의 수의 인수를 지원합니다.
 
-For instance:
+예를 들어
 
-- `Math.max(arg1, arg2, ..., argN)` -- returns the greatest of the arguments.
-- `Object.assign(dest, src1, ..., srcN)` -- copies properties from `src1..N` into `dest`.
-- ...and so on.
+- `Math.max(arg1, arg2, ..., argN)` -- 가장 큰 인수를 반환합니다.
+- `Object.assign(dest, src1, ..., srcN)` -- `src1..N` 에서 `dest` 로 속성을 복사.
+- ...등등.
 
-In this chapter we'll learn how to do the same. And, more importantly, how to feel comfortable working with such functions and arrays.
+이번 챕터에서는 이러한 방법을 살펴보겠습니다. 그리고 중요한 것은 이러한 함수 및 배열을 사용해서 편하게 작업하는 방법을 배워보겠습니다.
 
-## Rest parameters `...`
+## 나머지 매개변수 `...`
 
-A function can be called with any number of arguments, no matter how it is defined.
+어떤 함수가 정의되더라도 함수의 인수는 여러개로 호출할 수 있습니다.
 
-Like here:
+예를 들면
 ```js run
 function sum(a, b) {
   return a + b;
@@ -23,14 +23,14 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
-There will be no error because of "excessive" arguments. But of course in the result only the first two will be counted.
+"초과된" 인수 때문에 오류가 발생하지는 않습니다. 그러나 결과에서 처음 두 개만 계산되죠.
 
-The rest parameters can be mentioned in a function definition with three dots `...`. They literally mean "gather the remaining parameters into an array".
+나머지 매개변수는 세 개의 점 '...'이 있는 함수 선언에서 언급할 수 있습니다. 표현 그대로 "나머지 매개변수를 배열로 모으는" 것을 의미합니다.
 
-For instance, to gather all arguments into array `args`:
+예를 들어 모든 인수를 배열 `args`에 모으려면
 
 ```js run
-function sumAll(...args) { // args is the name for the array
+function sumAll(...args) { // args 가 배열의 이름입니다
   let sum = 0;
 
   for (let arg of args) sum += arg;
@@ -43,9 +43,9 @@ alert( sumAll(1, 2) ); // 3
 alert( sumAll(1, 2, 3) ); // 6
 ```
 
-We can choose to get the first parameters as variables, and gather only the rest.
+첫 번째 매개변수를 변수로 가져오고 나머지 매개변수 만 수집 할 수 있습니다.
 
-Here the first two arguments go into variables and the rest go into `titles` array:
+여기서 처음 두 인수는 변수에 들어가고 나머지는 `titles` 배열에 들어갑니다.
 
 ```js run
 function showName(firstName, lastName, ...titles) {
@@ -61,23 +61,23 @@ function showName(firstName, lastName, ...titles) {
 showName("Julius", "Caesar", "Consul", "Imperator");
 ```
 
-````warn header="The rest parameters must be at the end"
-The rest parameters gather all remaining arguments, so the following does not make sense and causes an error:
+````warn header="나머지 매개변수는 항상 마지막에 있어야 합니다"
+나머지 매개변수는 나머지 모든 인수를 수집하므로 다음은 오류입니다.
 
 ```js
-function f(arg1, ...rest, arg2) { // arg2 after ...rest ?!
+function f(arg1, ...rest, arg2) { // arg2 후에 ...rest ?!
   // error
 }
 ```
 
-The `...rest` must always be last.
+`...rest`는 항상 마지막에 있어야 합니다.
 ````
 
-## The "arguments" variable
+## "arguments" 변수
 
-There is also a special array-like object named `arguments` that contains all arguments by their index.
+`arguemnts`라는 이름의 특별한 유사-배열-객체(array-like object)가 인덱스에 의해 모든 인수를 포함하고 있습니다.
 
-For instance:
+예를 들면 :
 
 ```js run
 function showName() {
@@ -85,7 +85,7 @@ function showName() {
   alert( arguments[0] );
   alert( arguments[1] );
 
-  // it's iterable
+  // 반복 가능하다
   // for(let arg of arguments) alert(arg);
 }
 
@@ -96,20 +96,20 @@ showName("Julius", "Caesar");
 showName("Ilya");
 ```
 
-In old times, rest parameters did not exist in the language, and using `arguments` was the only way to get all arguments of the function, no matter their total number.
+과거의 자바스크립트에는 나머지 매개변수가 존재하지 않았고  `arguments`를 사용하는 것이 매개변수의 숫자에 관계없이 모든 인수를 사용하는 유일한 방법이었습니다.
 
-And it still works, we can use it today.
+그리고 `arguments`는 여전히 작동하고 사용할 수 있습니다.
 
-But the downside is that although `arguments` is both array-like and iterable, it's not an array. It does not support array methods, so we can't call `arguments.map(...)` for example.
+그러나 `arguments` 의 단점은 배열과 같이 반복은 할 수 있지만 배열은 아닙니다. 배열 메서드를 지원하지 않아서, `arguments.map (...)`을 호출할 수 없습니다.
 
-Also, it always contains all arguments. We can't capture them partially, like we did with rest parameters.
+또한 언제나 모든 인수를 포함합니다. 나머지 매개변수와 마찬가지로 부분적으로 사용할 수 없습니다.
 
-So when we need these features, then rest parameters are preferred.
+이런 이유로 현재는 나머지 매개변수가 선호됩니다.
 
-````smart header="Arrow functions do not have `\"arguments\"`"
-If we access the `arguments` object from an arrow function, it takes them from the outer "normal" function.
+````smart header="`\"arguments\" 는 화살표 함수에는 없습니다`"
+화살표 함수에서 `arguments` 객체에 접근하면, 그것들은 외부에 있는 "보통" 함수로부터 가져옵니다.
 
-Here's an example:
+다음은 그 예입니다.
 
 ```js run
 function f() {
@@ -121,23 +121,23 @@ f(1); // 1
 ```
 ````
 
-As we remember, arrow functions don't have their own `this`. Now we know they don't have the special `arguments` object either.
+그러나, 화살표 함수에는 그 함수만을 위한 `this` 가 없습니다. 그래서 `arguments` 객체도 없습니다.
 
-## Spread operator [#spread-operator]
+## 전개 연산자 [# spread-operator]
 
-We've just seen how to get an array from the list of parameters.
+매개변수를 배열로 가져오는 방법을 살펴보았습니다.
 
-But sometimes we need to do exactly the reverse.
+그런데 가끔 그것의 역행인 작업이 필요할때가 있습니다.
 
-For instance, there's a built-in function [Math.max](mdn:js/Math/max) that returns the greatest number from a list:
+예를 들어 [Math.max](mdn:js/Math/max) 라는 내장함수는 목록에서 가장 큰 숫자를 반환합니다.
 
 ```js run
 alert( Math.max(3, 5, 1) ); // 5
 ```
 
-Now let's say we have an array `[3, 5, 1]`. How do we call `Math.max` with it?
+배열 `[3, 5, 1]` 이 있다고 할때 `Math.max`를` 어떻게 호출할 수 있을까요?
 
-Passing it "as is" won't work, because `Math.max` expects a list of numeric arguments, not a single array:
+`Math.max`는 단일 배열이 아닌 목록으로된 숫자 인자를 인수로 받기 때문에 "배열" 그대로 넘기면 작동하지 않습니다
 
 ```js run
 let arr = [3, 5, 1];
@@ -147,21 +147,22 @@ alert( Math.max(arr) ); // NaN
 */!*
 ```
 
-And surely we can't manually list items in the code `Math.max(arr[0], arr[1], arr[2])`, because we may be unsure how many there are. As our script executes, there could be a lot, or there could be none. And that would get ugly.
+확실히 `Math.max (arr [0], arr [1], arr [2])` 코드에서는 배열항목을 수동으로 나열할 수 없습니다. 
+왜냐하면 스크립트가 실행될 때 배열이 더 클 수도 있고 작을 수도 있고 혹은 비어있을지 알 수 없기 때문이죠. 이것이 잘못된 결과를 가져올 수 있습니다.
 
-*Spread operator* to the rescue! It looks similar to rest parameters, also using `...`, but does quite the opposite.
+*전개 연산자* 가 해결해 줍니다! 전개 연산자는 나머지 매개변수와 비슷하게 보이고 `...` 을 사용하지만, 사실은 반대로 작동합니다.
 
-When `...arr` is used in the function call, it "expands" an iterable object `arr` into the list of arguments.
+`... arr`이 함수에서 호출 될때, iterable(반복 가능한) 객체 `arr`을 인수들의 목록으로 "확장" 합니다.
 
 For `Math.max`:
 
 ```js run
 let arr = [3, 5, 1];
 
-alert( Math.max(...arr) ); // 5 (spread turns array into a list of arguments)
+alert( Math.max(...arr) ); // 5 (배열을 인자들의 목록으로 바꾼다)
 ```
 
-We also can pass multiple iterables this way:
+다음과 같이 여러 iterable을 전달할 수도 있습니다.
 
 ```js run
 let arr1 = [1, -2, 3, 4];
@@ -170,7 +171,7 @@ let arr2 = [8, 3, -8, 1];
 alert( Math.max(...arr1, ...arr2) ); // 8
 ```
 
-We can even combine the spread operator with normal values:
+전개 연산자를 일반 값과 혼합해 사용할 수도 있습니다.
 
 
 ```js run
@@ -180,7 +181,7 @@ let arr2 = [8, 3, -8, 1];
 alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
 ```
 
-Also, the spread operator can be used to merge arrays:
+또한 전개 연산자를 사용하여 배열을 병합할 수 있습니다.
 
 ```js run
 let arr = [3, 5, 1];
@@ -190,12 +191,12 @@ let arr2 = [8, 9, 15];
 let merged = [0, ...arr, 2, ...arr2];
 */!*
 
-alert(merged); // 0,3,5,1,2,8,9,15 (0, then arr, then 2, then arr2)
+alert(merged); // 0,3,5,1,2,8,9,15 (0, 다음은 arr, 다음은 2, 다음은 arr2)
 ```
 
-In the examples above we used an array to demonstrate the spread operator, but any iterable will do.
+위의 예제에서는 전개 연산자를 보여주기 위해 배열을 사용했지만, 다른 어떠한 iterable 작업이라면 가능합니다.
 
-For instance, here we use the spread operator to turn the string into array of characters:
+다음 예제는 전개 연산자를 사용하여 문자열을 문자 배열로 변환합니다.
 
 ```js run
 let str = "Hello";
@@ -203,11 +204,13 @@ let str = "Hello";
 alert( [...str] ); // H,e,l,l,o
 ```
 
-The spread operator internally uses iterators to gather elements, the same way as `for..of` does.
+전개 연산자는 `for..of` 와 같은 방식으로 내부적으로 iterators(반복자들)을 사용하여 요소를 수집합니다.
 
-So, for a string, `for..of` returns characters and `...str` becomes `"H","e","l","l","o"`. The list of characters is passed to array initializer `[...str]`.
+그래서, 문자일경우, `for..of` 는 문자를 반환하고 `...str`은 `"H","e","l","l","o"`가 됩니다. 문자의 리스트는 `[...str]` 배열 이니셜라이저로 넘겨집니다. 
 
-For this particular task we could also use `Array.from`, because it converts an iterable (like a string) into an array:
+이 특별한 작업을 위해서 iterable `Array.from`을 배열로 변환하기 때문에 `Array.from`을 사용할 수도 있습니다 :
+
+이러한 iterable (문자열 같은) 객체를 배열로 변환하는 특수한 작업에는 `Array.from`을 사용할 수도 있습니다.
 
 ```js run
 let str = "Hello";
@@ -216,30 +219,30 @@ let str = "Hello";
 alert( Array.from(str) ); // H,e,l,l,o
 ```
 
-The result is the same as `[...str]`.
+결과는`[...str]`과 같습니다.
 
-But there's a subtle difference between `Array.from(obj)` and `[...obj]`:
+그러나 `Array.from (obj)`와 `[... obj]`에는 미묘한 차이가 있습니다 :
 
-- `Array.from` operates on both array-likes and iterables.
-- The spread operator operates only on iterables.
+- `Array.from` 은 유사-배열과 iterables(반복 가능한) 둘 다에서 작동합니다.
+- 전개 연산자는 iterable 객체 에서만 작동합니다.
 
-So, for the task of turning something into an array, `Array.from` tends to be more universal.
+그래서, 배열로 뭔가를 돌리는 작업을 할때는 `Array.from` 을 사용하는 경향이 있습니다.
 
 
-## Summary
+## 요약
 
-When we see `"..."` in the code, it is either rest parameters or the spread operator.
+`"..."`는 코드에서 볼 때, 나머지 매개변수 또는 전개 연산자이다.
 
-There's an easy way to distinguish between them:
+나머지 매개변수와 전개 연산자를 서로 구분할 수 있는 쉬운 방법이 있다.
 
-- When `...` is at the end of function parameters, it's "rest parameters" and gathers the rest of the list of arguments into an array.
-- When `...` occurs in a function call or alike, it's called a "spread operator" and expands an array into a list.
+- `...`이 함수 매개변수의 끝에 있을 때, 그것은 "나머지 매개변수"이고 나머지 인수 목록을 배열로 모으는 것이다.
+- `...`이 함수 호출과 비슷하게 발생하면, 그것은 "전개 연산자"이고 배열을 리스트로 확장하는 것이다.
 
-Use patterns:
+패턴 사용하기
 
-- Rest parameters are used to create functions that accept any number of arguments.
-- The spread operator is used to pass an array to functions that normally require a list of many arguments.
+- 나머지 매개변수는 주로 여러 개의 인수를 허용하는 함수에 사용된다.
+- 전개 연산자는 일반적으로 많은 인수 목록을 요구하는 함수에 배열을 전달하는 데 사용된다.
 
-Together they help to travel between a list and an array of parameters with ease.
+두 방법 모두 목록과 매개변수 배열 간의 이동을 쉽게 돕습니다.
 
-All arguments of a function call are also available in "old-style" `arguments`: array-like iterable object.
+여전히 모든 함수 호출의 인수는 "오래된-방식" 인 `arguments`(배열 같은 iterable 객체)을 사용할 수 있습니다.

@@ -19,7 +19,7 @@ If you run it, you see `code finished` first, and then `promise done`.
 
 That's strange, because the promise is definitely done from the beginning.
 
-Why `.then` triggered after? What's going on?
+Why did the `.then` trigger afterwards? What's going on?
 
 # Microtasks
 
@@ -38,11 +38,9 @@ That's why "code finished" in the example above shows first.
 
 Promise handlers always go through that internal queue.
 
-If there's a chain with multiple `.then/catch/finally`, then every one of them is executed asynchronously.
+If there's a chain with multiple `.then/catch/finally`, then every one of them is executed asynchronously. That is, it first gets queued, and executed when the current code is complete and previously queued handlers are finished.
 
-That is, it first gets queued, and executed when the current code is complete and previously queued handlers are finished.
-
-What if the order matters for us? How to make `code finished` work after `promise done`?
+**What if the order matters for us? How can we make `code finished` work after `promise done`?**
 
 Easy, just put it into the queue with `.then`:
 
@@ -56,7 +54,7 @@ Now the order is as intended.
 
 ## Event loop
 
-Browser Javascript, as well as Node.js, is based on an *event loop*.
+In-browser Javascript, as well as Node.js, is based on an *event loop*.
 
 "Event loop" is a process when the engine sleeps and waits for events, then reacts on those and sleeps again.
 
@@ -73,11 +71,11 @@ Things happen -- the engine handles them -- and waits for more to happen (while 
 
 As you can see, there's also a queue here. A so-called "macrotask queue" (v8 term).
 
-When an event happens, and the engine is busy, the event is enqueued.
+When an event happens, while the engine is busy, its handling is enqueued.
 
 For instance, while the engine is busy processing a network `fetch`, a user may move their mouse causing `mousemove`, and `setTimeout` may be due and so on, just as painted on the picture above.
 
-Events from the macrotask queue are processed on "first came – first served" basis. When the engine browser finishes with `fetch`, it handles `mousemove` event, then `setTimeout` handler, and so on.
+Events from the macrotask queue are processed on "first come – first served" basis. When the engine browser finishes with `fetch`, it handles `mousemove` event, then `setTimeout` handler, and so on.
 
 So far, quite simple, right? The engine is busy, so other tasks queue up.
 
@@ -90,7 +88,7 @@ In other words, the engine first executes all microtasks, and then takes a macro
 For instance, take a look:
 
 ```js run
-setTimeout(() => alert("timeout"), 0);
+setTimeout(() => alert("timeout"));
 
 Promise.resolve()
   .then(() => alert("promise"));
@@ -100,13 +98,13 @@ alert("code");
 
 What's the order?
 
-1. `code` shows first, it's a regular synchronous call.
-2. `promise` shows second, because `.then` passes through the microtask queue, runs after the current code.
+1. `code` shows first, because it's a regular synchronous call.
+2. `promise` shows second, because `.then` passes through the microtask queue, and runs after the current code.
 3. `timeout` shows last, because it's a macrotask.
 
 It may happen that while handling a macrotask, new promises are created.
 
-Or, vise-versa, a microtask schedules a macrotask (e.g. `setTimeout`).
+Or, vice-versa, a microtask schedules a macrotask (e.g. `setTimeout`).
 
 For instance, here `.then` schedules a `setTimeout`:
 
@@ -122,9 +120,7 @@ Promise.resolve()
 
 Naturally, `promise` shows up first, because `setTimeout` macrotask awaits in the less-priority macrotask queue.
 
-**As a side effect, macrotasks are handled only when promises give the engine a "free time".**
-
-So call have a promise chain that doesn't wait for anything, then things like `setTimeout` or event handlers can never get in the middle.
+As a logical consequence, macrotasks are handled only when promises give the engine a "free time". So if we have a promise chain that doesn't wait for anything, then things like `setTimeout` or event handlers can never get in the middle.
 
 
 ## Unhandled rejection
@@ -159,12 +155,12 @@ promise.catch(err => alert('caught'));
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 ```
 
-Now let's say, we'll be catching the error, but after an extremely small delay:
+Now let's say, we'll be catching the error, but after `setTimeout`:
 
 ```js run
 let promise = Promise.reject(new Error("Promise Failed!"));
 *!*
-setTimeout(() => promise.catch(err => alert('caught')), 0);
+setTimeout(() => promise.catch(err => alert('caught')));
 */!*
 
 // Error: Promise Failed!
@@ -173,13 +169,13 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 Now the unhandled rejction appears again. Why? Because `unhandledrejection` triggers when the microtask queue is complete. The engine examines promises and, if any of them is in "rejected" state, then the event is generated.
 
-In the example above `setTimeout` adds the `.catch`, and it triggers too, of course it does, but later, after the event has already occured.
+In the example, the `.catch` added by `setTimeout` triggers too, of course it does, but later, after `unhandledrejection` has already occurred.
 
 ## Summary
 
 - Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (v8 term).
 
-    **So, `.then/catch/finally` is called after the current code is finished.**
+    **So, `.then/catch/finally` are called after the current code is finished.**
 
     If we need to guarantee that a piece of code is executed after `.then/catch/finally`, it's best to add it into a chained `.then` call.
 

@@ -135,7 +135,7 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
     */!*
     </script>
     ```
-    `newLi`를 첫 번째 요소로 만들고 싶으면 아래와 같이 작성하면 됩니다:
+    `newLi`를 첫 번째 요소로 만들고 싶으면 아래와 같이 작성하면 됩니다.
     
     ```js
     list.insertBefore(newLi, list.firstChild);
@@ -335,6 +335,73 @@ We could make a function and put the code there. But the alternative way would b
 */!*
 </script>
 ```
+
+## DocumentFragment [#document-fragment]
+
+`DocumentFragment`는 특별한 DOM 노드 타입으로, 여러 노드로 구성된 그룹을 전달하는 데 쓰이는 래퍼(wrapper) 역할을 합니다.
+
+문서에 있는 다른 노드를 DocumentFragment에 추가하는 것도 가능합니다. 하지만, 이렇게 만들어진 DocumentFragment를 문서 어딘가에 삽입하면, DocumentFragment는 사라집니다. 물론 DocumentFragment안에 들어있던 노드는 문서에 추가가 되기 때문에 사라지지 않죠. 
+
+예시를 살펴봅시다. 아래의 `getListContent` 함수는  `<li>` 노드로 구성된 fragment를 만들고, 이 fragment를 `<ul>`에 추가해 줍니다.
+
+```html run
+<ul id="ul"></ul>
+
+<script>
+function getListContent() {
+  let fragment = new DocumentFragment();
+
+  for(let i=1; i<=3; i++) {
+    let li = document.createElement('li');
+    li.append(i);
+    fragment.append(li);
+  }
+
+  return fragment;
+}
+
+*!*
+ul.append(getListContent()); // (*)
+*/!*
+</script>
+```
+
+`(*)`로 표시한 마지막 줄에서 `DocumentFragment`를 추가해 주었지만, 추가한 fragment가 문서에 녹아들었기 때문에 최종 결과물은 아래와 같아진다는 점에 유의하시기 바랍니다.
+
+```html
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+```
+
+`DocumentFragment`를 직접 사용하는 일은 드뭅니다. 여러 노드로 구성된 배열을 만들어 반환 할 수 있으므로, 이렇게 특별한 종류의 노드를 만들 필요가 없기 때문입니다. 위 예시를 `DocumentFragment` 없이 다시 작성해 보도록 하겠습니다. 
+
+```html run
+<ul id="ul"></ul>
+
+<script>
+function getListContent() {
+  let result = [];
+
+  for(let i=1; i<=3; i++) {
+    let li = document.createElement('li');
+    li.append(i);
+    result.push(li);
+  }
+
+  return result;
+}
+
+*!*
+ul.append(...getListContent()); // append + "..." operator = friends!
+*/!*
+</script>
+```
+
+여기서 `DocumentFragment`를 언급하고 넘어가는 이유는, [template](info:template-element) 요소와 같이 `DocumentFragment`를 기반으로 만들어진 개념이 있기 때문입니다. template 요소는 추후 다루도록 하겠습니다.  
+
 
 ## 제거 메서드
 
