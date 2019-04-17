@@ -8,7 +8,7 @@
 
 ## 변수(variable)
 
-[변수(variable)](https://en.wikipedia.org/wiki/Variable_(computer_science)) 는 데이터를 위한 "이름을 붙인 저장소" 입니다.  상품, 방문객 등의 데이터를 저장하기 위해 변수를 사용할 수 있습니다.
+[변수(variable)](https://en.wikipedia.org/wiki/Variable_(computer_science)) 는 데이터를 위한 "이름을 붙인 저장소" 입니다. 상품, 방문객 등의 데이터를 저장하기 위해 변수를 사용할 수 있습니다.
 
 자바스크립트에선 변수를 생성할 때 `let` 키워드를 사용합니다.
 
