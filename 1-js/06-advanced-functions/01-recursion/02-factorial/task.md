@@ -1,18 +1,17 @@
 importance: 4
 
 ---
+# 계승 계산
 
-# Calculate factorial
+자연수의 [계승](https://en.wikipedia.org/wiki/Factorial) (factorialial)은 숫자에 "1"을 곱한 다음 숫자를 2 "등으로 곱한 다음 1까지 계속됩니다. 'n'의 계승은`n! '으로 표시됩니다.
 
-The [factorial](https://en.wikipedia.org/wiki/Factorial) of a natural number is a number multiplied by `"number minus one"`, then by `"number minus two"`, and so on till `1`. The factorial of `n` is denoted as `n!`
-
-We can write a definition of factorial like this:
+계승의 정의는 다음과 같이 쓸 수 있습니다
 
 ```js
 n! = n * (n - 1) * (n - 2) * ...*1
 ```
 
-Values of factorials for different `n`:
+'n'에 대한 계승의 다른 값
 
 ```js
 1! = 1
@@ -22,10 +21,10 @@ Values of factorials for different `n`:
 5! = 5 * 4 * 3 * 2 * 1 = 120
 ```
 
-The task is to write a function `factorial(n)` that calculates `n!` using recursive calls.
+재귀인 방법을 사용하여`n! '을 계산하는`factorial (n)`함수를 작성하세요.
 
 ```js
 alert( factorial(5) ); // 120
 ```
 
-P.S. Hint: `n!` can be written as `n * (n-1)!` For instance: `3! = 3*2! = 3*2*1! = 6`
+P.S. 힌트 :`n!`은`n * (n-1)! '로 쓸 수 있습니다! 예를 들면`3! = 3 * 2! = 3 * 2 * 1! = 6`
