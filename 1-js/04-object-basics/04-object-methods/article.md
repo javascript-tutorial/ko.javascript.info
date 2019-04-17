@@ -63,7 +63,7 @@ user.sayHi(); // Hello!
 ```smart header="객체 지향 프로그래밍"
 우리 코드에 어떤 존재를 객체를 사용하여 나타낼 때, [객체지향 프로그래밍](https://en.wikipedia.org/wiki/Object-oriented_programming) 이라고 말합니다. 줄여서 "OOP"라고 하죠.
 
-OOP는 매우 중요하죠. 이것 자체로 흥미로운 과학입니다. 어떻게 올바른 객체를 택할 수 있을까요? 그들 사이의 상호작용 관계를 어떻게 조직할 수 있을까요? 이런 것이 설계입니다. 그리고 이 주제에 관한 훌륭한 책이 있습니다. "Elements of Reusable Object-Oriented Software" by E.Gamma, R.Helm, R.Johnson, J.Vissides 또는 "Object-Oriented Analysis and Design with Applications" by G.Booch, 그 밖에도 더 있습니다. 나중이 이 주제에 대해 <객체 지향 프로그래밍> 주제에서 겉핥기식으로 배워 볼 것입니다.
+OOP는 매우 중요하죠. 이것 자체로 흥미로운 과학입니다. 어떻게 올바른 객체를 택할 수 있을까요? 그들 사이의 상호작용 관계를 어떻게 조직할 수 있을까요? 이런 것이 설계입니다. 그리고 이 주제에 관한 훌륭한 책이 있습니다. E.Gamma, R.Helm, R.Johnson, J.Vissides의 저서 "Elements of Reusable Object-Oriented Software"나 G.Booch의 "Object-Oriented Analysis and Design with Applications" 등의 책에서 이에 대해 알아볼 수 있습니다.
 ```
 ### 메서드 선언 짧게 만들기
 
@@ -248,7 +248,6 @@ let user = {
 user.hi(); // John (the simple call works)
 
 *!*
-// now let's call user.hi or user.bye depending on the name
 // 이제 user.hi나 user.bye를 이름에 따라 호출해 보자.
 (user.name == "John" ? user.hi : user.bye)(); // Error!
 */!*
@@ -302,11 +301,8 @@ hi(); // undefined
 
 참조 타입의 값은 세 개의 조합으로 이루어져 있습니다. `(base, name, strict)`이죠.
 
-- `base` is the object.
 - `base`는 객체입니다.
-- `name` is the property.
-- `name`은 속성입니다.
-- `strict` is true if `use strict` is in effect.
+- `name`은 프로퍼티입니다.
 - `strict`는 `use strict`가 설정돼있다면 참입니다.
 
 `user.hi` 속성 접근의 결과는 함수가 아닙니다. 참조 타입입니다. strict mode에서 `user.hi`는:
