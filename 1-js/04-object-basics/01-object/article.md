@@ -340,7 +340,7 @@ alert( "test" in obj ); // true, 프로퍼티는 존재합니다!
 
 ```js
 for (key in object) {
-  // 객체 프로퍼티 내 각 키에 대해 바디(body)를 수행합니다.
+  // 객체 프로퍼티 내 각 키에 대해 본문(body)을 실행합니다.
 }
 ```
 
@@ -616,7 +616,7 @@ alert( user.name ); // 원본 객체에는 여전히 John이 있습니다.
 문법은 다음과 같습니다.:
 
 ```js
-Object.assign(dest[, src1, src2, src3...])
+Object.assign(dest, [src1, src2, src3...])
 ```
 
 - 인수 `dest` 와 `src1, ..., srcN` (필요에 따라 얼마든지 올 수 있습니다)는 객체입니다.

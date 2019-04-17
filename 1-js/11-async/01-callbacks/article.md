@@ -121,8 +121,6 @@ loadScript('/my/script.js', function(script) {
 만약 스크립트가 하나 더 필요한 경우는 어떻게 해야 할까요?
 
 ```js
-
-
 loadScript('/my/script.js', function(script) {
 
   loadScript('/my/script2.js', function(script) {
