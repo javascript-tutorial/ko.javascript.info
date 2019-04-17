@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Sum all numbers till the given one
+# 주어진 숫자까지 모든 숫자를 합해보세요.
 
-Write a function `sumTo(n)` that calculates the sum of numbers `1 + 2 + ... + n`.
+숫자`1 + 2 + ... + n`의 합을 계산하는 함수`sumTo (n)`을 작성하세요.
 
-For instance:
+예를들면
 
 ```js no-beautify
 sumTo(1) = 1
@@ -17,13 +17,13 @@ sumTo(4) = 4 + 3 + 2 + 1 = 10
 sumTo(100) = 100 + 99 + ... + 2 + 1 = 5050
 ```
 
-Make 3 solution variants:
+3 가지 솔루션 변형 만들기
 
-1. Using a for loop.
-2. Using a recursion, cause `sumTo(n) = n + sumTo(n-1)` for `n > 1`.
-3. Using the [arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) formula.
+1. for 반복문 사용.
+2. 재귀를 사용하면`n> 1`에 대해`sumTo (n) = n + sumTo (n-1)`이 됩니다.
+3. [산술 진행](https://en.wikipedia.org/wiki/Arithmetic_progression) 공식사용.
 
-An example of the result:
+결과의 예
 
 ```js
 function sumTo(n) { /*... your code ... */ }
@@ -31,6 +31,6 @@ function sumTo(n) { /*... your code ... */ }
 alert( sumTo(100) ); // 5050
 ```
 
-P.S. Which solution variant is the fastest? The slowest? Why?
+P.S. 어떤 솔루션 변형이 가장 빠릅니까? 가장 느린 것은 어떤 것 입니까? 왜 그럴까요?
 
-P.P.S. Can we use recursion to count `sumTo(100000)`? 
+P.P.S. 재귀를 사용하여 `sumTo (100000)`를 계산할 수 있습니까?
