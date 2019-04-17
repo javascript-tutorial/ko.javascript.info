@@ -17,7 +17,7 @@
 
 배열에서 한 요소를 지우고 싶다면 어떻게 해야할까요?
 
-배열은 객체이므로, `delete`를 사용해 볼 수 있습니다:
+배열 역시 객체이므로, `delete` 메서드로 지우는 걸 시도 해 볼 수 있을겁니다.
 
 ```js run
 let arr = ["I", "go", "home"];
@@ -30,24 +30,23 @@ alert( arr[1] ); // undefined
 alert( arr.length ); // 3
 ```
 
-원하는 요소를 지우긴 했지만, 배열은 여전히 3개의 요소를 가지고 있습니다. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
-The element was removed, but the array still has 3 elements, we can see that `arr.length == 3`.
+`delete`로 원하는 요소를 지우긴 했지만, 배열엔 여전히 3개의 요소가 있습니다. `arr.length == 3`을 통해 이를 확인할 수 있죠.
 
-이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. `delete` 메서드는 제 역할을 다 한 것입니다. 객체엔 이렇게 해도 괜찮습니다. 하지만 배열을 다룰 땐, 나머지 요소들이 이동해 빈 공간을 채우길 기대하며 이 메서드를 썼을겁니다. 요소를 지운 만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
+이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. `delete` 메서드는 제 역할을 다 한 것입니다. 객체엔 이렇게 해도 괜찮습니다. 하지만 배열을 다룰 땐, 요소를 삭제하고 난 후, 나머지 요소들이 이동해 삭제된 공간을 채우길 기대하며 이 메서드를 썼을겁니다. 요소를 지운 만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
 
-따라서 요소엔 특별한 메서드를 사용해야 합니다.
+따라서 배열의 요소를 지울 땐, 특별한 메서드가 필요합니다.
 
 [arr.splice(str)](mdn:js/Array/splice)메서드는 요소를 다룰 때 쓰이는 스위스 맥가이버 칼 같은 존재입니다. 이 메서드로 요소 추가, 삭제, 삽입을 모두 할 수 있습니다.
 
-문법은 다음과 같습니다:
+문법은 다음과 같습니다.
 
 ```js
 arr.splice(index[, deleteCount, elem1, ..., elemN])
 ```
 
-첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거할 요소의 숫자를 나타냅니다. `elem1, ..., elemN`은 배열에 추가 될 요소입니다.
+첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거하고자 하는 요소의 갯수를 나타냅니다. `elem1, ..., elemN`은 배열에 추가 될 요소입니다.
 
-다양한 예제를 보다보면 메서드를 더 잘 이해할 수 있습니다.
+spice 메서드를 써서 만든 다양한 예제를 보다보면 메서드를 더 잘 이해할 수 있습니다.
 
 요소 삭제에 관한 예제부터 살펴보도록 하겠습니다.
 
@@ -55,26 +54,26 @@ arr.splice(index[, deleteCount, elem1, ..., elemN])
 let arr = ["I", "study", "JavaScript"];
 
 *!*
-arr.splice(1, 1); // index 1 부터 하나(1)의 요소를 제거합니다.
+arr.splice(1, 1); // index 1 부터 요소 한개(1)를 제거합니다.
 */!*
 
 alert( arr ); // ["I", "JavaScript"]
 ```
 
-쉽죠? 인덱스 `1`부터 시작해 `1`개의 요소를 지웠습니다.
+쉽죠? 인덱스 `1`부터 시작해 한개(`1`)의 요소를 지웠습니다.
 
-다음 코드에선 3개의 요소를 지우고, 그 자리를 다른 두개의 요소로 교체해 보도록 하겠습니다: 
+다음 코드에선 요소 세개(3)를 지우고, 그 자리를 다른 두개의 요소로 교체해 보도록 하겠습니다.
 
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
 
-// 처음 3개의 요소를 지우고, 이 자리를 다른 요소로 대체합니다
+// 처음 세개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
 arr.splice(0, 3, "Let's", "dance");
 
 alert( arr ) // now [*!*"Let's", "dance"*/!*, "right", "now"]
 ```
 
-아래 코드를 통해 `splice` 메서드가 삭제된 요소로 구성된 배열을 반환한다는 것을 확인할 수 있습니다:
+`splice` 메서드는 삭제한 요소로 구성된 배열을 반환한다는 것을 확인할 수 있습니다. 아래 코드를 보시죠.
 
 ```js run
 let arr = [*!*"I", "study",*/!* "JavaScript", "right", "now"];
@@ -85,7 +84,7 @@ let removed = arr.splice(0, 2);
 alert( removed ); // "I", "study" <-- 삭제된 요소로 구성된 배열
 ```
 
-`splice` 메서드는 요소를 제거하지 않으면서 요소를 추가해 줄 수도 있습니다. `deleteCount`를 `0`으로 설정하기만 하면 됩니다:
+`splice` 메서드는 요소를 제거하지 않으면서 요소를 추가해 줄 수도 있습니다. `deleteCount`를 `0`으로 설정하기만 하면 됩니다.
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
@@ -99,7 +98,7 @@ alert( arr ); // "I", "study", "complex", "language", "JavaScript"
 ```
 
 ````smart header="음수 인덱스도 사용 가능합니다"
-slice메서드와 다른 배열 관련 메서드에 음수 인덱스를 사용할 수 있습니다. 이때 숫자는 배열 끝에서부터 센 요소의 위치를 나타냅니다. 아래와 같이 말이죠:
+slice메서드와 다른 배열 관련 메서드에 음수 인덱스를 사용할 수 있습니다. 이때 숫자는 배열 끝에서부터 센 요소의 위치를 나타냅니다. 아래와 같이 말이죠.
 
 ```js run
 let arr = [1, 2, 5];
@@ -125,7 +124,7 @@ arr.slice(start, end)
 
 이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스 까지의 요소를 포함하는 메서드를 반환합니다. `start` 와 `end` 인덱스는 둘 다 음수가 될 수 있습니다. 이 때, 인덱스는 배열의 끝에서부터의 요소 갯수를 의미합니다.
 
-문자열 메서드인 `str.slice`처럼 동작하지만, 배열의 `arr.slice`메서드는 서브 문자열(substring) 대신 서브배열(subarray)를 반환한다는 점이 다릅니다.
+`arr.slice`메서드의 동작은 문자열 메서드인 `str.slice`와 유사하지만, `arr.slice`메서드는 서브 문자열(substring) 대신 서브배열(subarray)를 반환한다는 점이 다릅니다.
 
 예:
 
@@ -142,36 +141,36 @@ alert( arr.slice(-2) ); // s,t
 
 ### concat
 
-The method [arr.concat](mdn:js/Array/concat) joins the array with other arrays and/or items.
+[arr.concat](mdn:js/Array/concat)메서드는 현재 배열을 다른 배열 혹은 요소와 합쳐줍니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 arr.concat(arg1, arg2...)
 ```
 
-It accepts any number of arguments -- either arrays or values.
+인수의 갯수는 제한이 없습니다. 배열이나 값이라면 말이죠.
 
-The result is a new array containing items from `arr`, then `arg1`, `arg2` etc.
+메서드를 적용한 결과는 `arr`에 속한 모든 요소와, `arg1`, `arg2` 등에 속한 모든 요소를 합친 배열입니다.
 
-If an argument is an array or has `Symbol.isConcatSpreadable` property, then all its elements are copied. Otherwise, the argument itself is copied.
+만약 인수가 배열이거나 `Symbol.isConcatSpreadable` 프로퍼티를 갖고 있다면, 모든 요소는 복사됩니다. 그렇지 않다면 인수 자체가 복사됩니다. 
 
-For instance:
+예시:
 
 ```js run
 let arr = [1, 2];
 
-// merge arr with [3,4]
+// 배열 [3,4]와 합침
 alert( arr.concat([3, 4])); // 1,2,3,4
 
-// merge arr with [3,4] and [5,6]
+// 배열 [3,4], [5,6]와 합침
 alert( arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
-// merge arr with [3,4], then add values 5 and 6
+// 배열 [3,4]와 합치고, 값 5 와 6을 더해줌
 alert( arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
-Normally, it only copies elements from arrays ("spreads" them). Other objects, even if they look like arrays, added as a whole:
+concat 메서드는 더하려는 배열의 요소만을 복사합니다. 하지만 객체는, 배열 처럼 보일지라도 객체 전체가 통으로 더해집니다. 
 
 ```js run
 let arr = [1, 2];
