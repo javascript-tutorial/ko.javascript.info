@@ -236,11 +236,9 @@ alert( document.documentElement.parentNode ); // document
 alert( document.documentElement.parentElement ); // null
 ```
 
-`documentElement`프로퍼티는 HTML 페이지의 루트 노드인 `<html>` 요소 노드를 가리킵니다. 이 루트 노드는 `document` 노드를 부모로 가집니다. 그런데 `document` 노드는 요소 노드가 아니기 때문에, `documentElement`의 `parentNode`는 `document` 노드를 가리키지만, `documentElement`의 `parentElement`는 `document` 노드를 가리키지 않습니다. 부모 노드를 돌면서 각 노드에 있는 특정 메서드를 호출할 때 위와 같은 차이점을 고려 해야 할 때가 생길 겁니다. `document`노드엔 이 메서드가 없기 때문에, 메서드가 제외됩니다.
-```
+`documentElement`프로퍼티는 HTML 페이지의 루트 노드인 `<html>` 요소 노드를 가리킵니다. 이 루트 노드는 `document` 노드를 부모로 가집니다. 그런데 `document` 노드는 요소 노드가 아니기 때문에, `documentElement`의 `parentNode`는 `document` 노드를 가리키지만, `documentElement`의 `parentElement`는 `document` 노드를 가리키지 않습니다. 
 
-`childNodes`를 `children`으로 대체해, 위에서 쓰였던 예제 중 하나를 다시 작성해 보도록 하겠습니다. 이젠 오직 요소 노드만 출력되네요.
-This loop travels up from an arbitrary element `elem` to `<html>`, but not to the `document`:
+아래 반복문은 임의의 요소 노드 `elem`부터 시작해 `<html>`까지 거슬러 올라가지만, `document`까지는 도달하지 못합니다.
 ```js
 while(elem = elem.parentElement) {
   alert( elem ); // parent chain till <html>
@@ -248,7 +246,7 @@ while(elem = elem.parentElement) {
 ```
 ````
 
-Let's modify one of the examples above: replace `childNodes` with `children`. Now it shows only elements:
+`childNodes`를 `children`으로 대체해, 위에서 쓰였던 예제 중 하나를 다시 작성해 보도록 하겠습니다. 이젠 오직 요소 노드만 출력되네요.
 
 ```html run
 <html>
