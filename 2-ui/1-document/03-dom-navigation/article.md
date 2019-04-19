@@ -240,6 +240,15 @@ alert( document.documentElement.parentElement ); // null
 ```
 
 `childNodes`를 `children`으로 대체해, 위에서 쓰였던 예제 중 하나를 다시 작성해 보도록 하겠습니다. 이젠 오직 요소 노드만 출력되네요.
+This loop travels up from an arbitrary element `elem` to `<html>`, but not to the `document`:
+```js
+while(elem = elem.parentElement) {
+  alert( elem ); // parent chain till <html>
+}
+```
+````
+
+Let's modify one of the examples above: replace `childNodes` with `children`. Now it shows only elements:
 
 ```html run
 <html>
