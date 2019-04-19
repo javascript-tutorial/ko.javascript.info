@@ -5,37 +5,37 @@ libs:
 ---
 
 
-# Walking the DOM
+# DOM 탐색하기
 
-The DOM allows us to do anything with elements and their contents, but first we need to reach the corresponding DOM object, get it into a variable, and then we are able to modify it.
+DOM(문서 객체 모델)을 이용하면 요소와 요소의 컨텐츠에 무엇이든 할 수 있습니다. 하지만 무언가를 하려면 해당하는 DOM 객체에 접근해, 이 객체를 변수에 저장해야 합니다. 그리고 나서야 DOM 객체를 수정할 수 있죠.
 
-All operations on the DOM start with the `document` object. From it we can access any node.
+DOM에 수행하는 모든 연산은 `document` 객체에서 시작합니다. 이 객체에서 모든 노드에 접근할 수 있습니다.
 
-Here's a picture of links that allow for travel between DOM nodes:
+아래 그림은 DOM 노드 탐색이 어떤 관계를 통해 이루어지는지를 보여줍니다.
 
 ![](dom-links.png)
 
-Let's discuss them in more detail.
+이 관계에 대하여 좀 더 자세히 알아보도록 합시다.
 
-## On top: documentElement and body
+## 꼭대기의 documentElement 와 body
 
-The topmost tree nodes are available directly as `document` properties:
+DOM 트리 꼭대기의 노드는 `document` 프로퍼티로 접근할 수 있습니다.
 
 `<html>` = `document.documentElement`
-: The topmost document node is `document.documentElement`. That's DOM node of `<html>` tag.
+최상단의 문서 노드는 `document.documentElement` 입니다. 이 노드는 `<html>` 태그에 해당하는 DOM 노드입니다.
 
 `<body>` = `document.body`
-: Another widely used DOM node is the `<body>` element -- `document.body`.
+`document.body`는 `<body>` 요소에 해당하는 DOM 노드로, 자주 쓰이는 노드 중 하나입니다. 
 
 `<head>` = `document.head`
-: The `<head>` tag is available as `document.head`.
+`<head>` 태그는 `document.head`로 접근할 수 있습니다.
 
-````warn header="There's a catch: `document.body` can be `null`"
-A script cannot access an element that doesn't exist at the moment of running.
+````warn header="`document.body`가 `null`일 수도 있으니, 주의하세요."
+실행 시점에 존재하지 않는 요소는 스크립트에서 접근할 수 없습니다.
 
-In particular, if a script is inside `<head>`, then `document.body` is unavailable, because the browser did not read it yet.
+특히, 스크립트가 `<head>` 안에 있을 때, `document.body`는 접근 불가능합니다. 브라우저가 아직 `document.body`를 읽지 않았기 때문이죠.
 
-So, in the example below the first `alert` shows `null`:
+이런 특징 때문에, 아래 예시에서 첫 번째 `alert`는 `null`을 출력합니다.
 
 ```html run
 <html>
@@ -59,18 +59,19 @@ So, in the example below the first `alert` shows `null`:
 ```
 ````
 
-```smart header="In the DOM world `null` means \"doesn't exist\""
-In the DOM, the `null` value means "doesn't exist" or "no such node".
+```smart header="DOM 세계에서 `null`은 \"존재하지 않음\"을 의미합니다"
+
+DOM에서 `null`값은 "존재하지 않음"이나 "해당하는 노드가 없음"을 의미합니다.
 ```
 
-## Children: childNodes, firstChild, lastChild
+## childNodes, firstChild, lastChild로 자식 노드 탐색하기
 
-There are two terms that we'll use from now on:
+앞으로 사용할 두 가지 용어를 먼저 정의하고 설명을 이어나가도록 하겠습니다.
 
-- **Child nodes (or children)** -- elements that are direct children. In other words, they are nested exactly in the given one. For instance, `<head>` and `<body>` are children of `<html>` element.
-- **Descendants** -- all elements that are nested in the given one, including children, their children and so on.
+- **자식 노드(child node, children)**는 바로 아래의 자식 요소를 나타냅니다. 자식 노드는 부모 노드의 바로 아래에서 중첩 관계를 만듭니다. `<head>`와 `<body>`는 `<html>`요소의 자식 노드입니다.
+- **자손 노드(descendants)**는 중첩 관계에 있는 모든 요소를 의미합니다. 자식 노드, 자식 노드의 모든 자식 노드 등이 자손 노드가 됩니다.
 
-For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text nodes):
+아래에서 `<body>`는 `<div>`와 `<ul>` (그리고 몇 개의 빈 텍스트 노드)을 자식 노드로 갖습니다.
 
 ```html run
 <html>
@@ -86,11 +87,11 @@ For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text 
 </html>
 ```
 
-...And if we ask for all descendants of `<body>`, then we get direct children `<div>`, `<ul>` and also more nested elements like `<li>` (being a child of `<ul>`) and `<b>` (being a child of `<li>`) -- the entire subtree.
+`<body>`의 자손 노드는, 자식 노드인 `<div>`와 `<ul>`, 그리고 더 안쪽의 중첩 요소인 `<li>`(`<ul>`의 자식 노드)와 `<b>`(`<li>`의 자식 노드)가 됩니다. 서브 트리 전부가 자손 노드가 되죠.
 
-**The `childNodes` collection provides access to all child nodes, including text nodes.**
+**`childNodes` 컬렉션은 텍스트 노드를 포함한 모든 자식 노드에 접근할 수 있도록 해줍니다.**
 
-The example below shows children of `document.body`:
+아래 스크립트를 실행하면 `document.body`의 자식 노드가 출력됩니다.
 
 ```html run
 <html>
@@ -115,17 +116,17 @@ The example below shows children of `document.body`:
 </html>
 ```
 
-Please note an interesting detail here. If we run the example above, the last element shown is `<script>`. In fact, the document has more stuff below, but at the moment of the script execution the browser did not read it yet, so the script doesn't see it.
+흥미로운 점이 하나 발견되었네요. 마지막 요소로 `<script>`가 출력된 것을 확인하셨을 겁니다. 문서 내 `<script>` 아래 더 많은 요소(...more stuff...)가 있지만, 스크립트는 이 요소를 보지 못하기 때문에 이런 결과가 나타났습니다. 스크립트가 실행되는 시점엔 브라우저가 스크립트 아래의 요소를 읽지 않은 상태이기 때이죠.
 
-**Properties `firstChild` and `lastChild` give fast access to the first and last children.**
+**`firstChild`와 `lastChild` 프로퍼티를 이용하면 첫 번째, 마지막 자식 노드에 빠르게 접근할 수 있습니다.**
 
-They are just shorthands. If there exist child nodes, then the following is always true:
+이 프로퍼티들은 빠른 접근을 도와주는 역할만을 합니다. 자식 노드가 존재할 경우, 아래 비교문은 항상 참이 됩니다.
 ```js
 elem.childNodes[0] === elem.firstChild
 elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
 ```
 
-There's also a special function `elem.hasChildNodes()` to check whether there are any child nodes.
+이 외에, 자식 노드의 유무를 검사하는 특별한 함수, `elem.hasChildNodes()`도 있습니다.
 
 ### DOM 컬렉션
 
