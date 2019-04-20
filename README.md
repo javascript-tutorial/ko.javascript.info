@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 # The Modern JavaScript Tutorial in Korean
 
 This repository hosts the translation of <https://javascript.info> in Korean.
-=======
-# The Modern JavaScript Tutorial
-
-This repository hosts the English content of the Modern JavaScript Tutorial, published at [https://javascript.info](https://javascript.info).
->>>>>>> 069795438d355d7088f22470cfa6529149e11af7
 
 Please help us to make the translation better.
 
@@ -15,7 +9,6 @@ Please help us to make the translation better.
 - Add a comment to that issue to inform the maintainer that you're translating it.
 - Fork the repository, translate and send a PR when done.
 
-<<<<<<< HEAD
 🎉 Thank you!
 
 Your name and the contribution size will appear in the "About project" page when the translation gets published.
@@ -25,19 +18,9 @@ P.S. The full list of languages can be found at <https://github.com/javascript-t
 ## Structure
 
 Every chapter, an article or a task resides in its own folder.
-=======
-See <https://github.com/javascript-tutorial/translate> for the details.
-
-## Contributions
-
-We'd also like to collaborate on the tutorial with other people. 
-
-Something's wrong? A topic is missing? Explain it to people, add as PR 👏
->>>>>>> 069795438d355d7088f22470cfa6529149e11af7
 
 The folder is named `N-url`, where `N` – is the number for sorting (articles are ordered), and `url` is the URL-slug on the site.
 
-<<<<<<< HEAD
 The folder has one of files:
 
 - `index.md` for a section,
@@ -50,9 +33,9 @@ Additional resources and examples for the article or the task, are also in the s
 
 ## Translation Tips
 
-The translation doesn't have to be word-by-word precise. It should be technically correct and explain well.
-
-If you see that the English version can be improved – great, please send a PR to it.
+- The translation doesn't have to be word-by-word precise. It should be technically correct and explain well.
+- If you see that the English version can be improved – great, please send a PR to it.
+- Please keep line breaks and paragraphs "as is": makes it easy to merge changes from English version into translation in the future. 
 
 ### Text in Code Blocks
 
@@ -104,11 +87,6 @@ Example:
 ```
 
 For links to MDN, that are only partially translated, also use the language-specific version.
-=======
-The list of contributors is available at <https://javascript.info/about#contributors>.
-
-## Structure
->>>>>>> 069795438d355d7088f22470cfa6529149e11af7
 
 If a linked article has no translated version, leave the link "as is".
 
@@ -117,14 +95,4 @@ If a linked article has no translated version, leave the link "as is".
 
 You can run the tutorial locally, to immediately see the changes on-site.
 
-<<<<<<< HEAD
 The server is at <https://github.com/javascript-tutorial/server>. 
-=======
-Each of these files starts from the `# Main header`.
-
-It's very easy to add something new.
-
----
-💓  
-Ilya Kantor
->>>>>>> 069795438d355d7088f22470cfa6529149e11af7
