@@ -418,14 +418,11 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 이제 의도한 대로 숫자가 오름차순으로 정렬되었습니다.
 
-Let's step aside and think what's happening. The `arr` can be array of anything, right? 
-It may contain numbers or strings or html elements or whatever. We have a set of *something*. 
-To sort it, we need an *ordering function* that knows how to compare its elements. 
-The default is a string order.
+읽는 걸 멈추고 이 메서드가 어떻게 동작하는지 잠시 생각해 보도록 합시다. `arr`의 요소는 어떤 형태의 값이든 가능합니다. 숫자, 문자열, html 요소 등 모든것이 가능하죠. *무언가*로 구성된 집합이 있는 상황입니다. 이 집합을 정렬하려면 *순서를 매겨주는 함수*가 필요합니다. 요소를 어떤 기준으로 비교하고 정렬할지를 이 함수에서 정의합니다. sort 메서드는 기본적으로 문자열 집합을 가정하고 요소를 비교, 정렬합니다.
 
-The `arr.sort(fn)` method has a built-in implementation of sorting algorithm. We don't need to care how it exactly works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+`arr.sort(fn)` 메서드의 정렬 알고리즘은 내부에 구현되어 있습니다. (대부분 최적화된 [quicksort](https://en.wikipedia.org/wiki/Quicksort)를 사용하는데) 내부 알고리즘이 어떻게 작동하는지는 상관할 필요가 없습니다. 내부에 구현된 알고리즘은 배열내를 돌아다니며 요소를 비교하고, 제공된 함수를 기준으로 요소를 재 정렬합니다. 개발자는 비교에 쓰이는 `fn` 만 제공해 주면 됩니다.  
 
-By the way, if we ever want to know which elements are compared -- nothing prevents from alerting them:
+정렬 과정에서 어떤 요소끼리 비교가 일어났는지 확인하고 싶다면 아래 코드를 통해 확인하면 됩니다.
 
 ```js run
 [1, -2, 15, 2, 0, 8].sort(function(a, b) {
@@ -433,10 +430,10 @@ By the way, if we ever want to know which elements are compared -- nothing preve
 });
 ```
 
-The algorithm may compare an element multiple times in the process, but it tries to make as few comparisons as possible.
+정렬에 쓰이는 알고리즘은 정렬 과정에서 요소를 여러번 비교합니다. 하지만 비교를 가능한 한 적게 하는 방식으로 구현되어 있습니다.
 
 
-````smart header="A comparison function may return any number"
+````smart header="비교에 쓰이는 함수는 어떤 숫자던 반환할 수 있습니다."
 Actually, a comparison function is only required to return a positive number to say "greater" and a negative number to say "less".
 
 That allows to write shorter functions:
