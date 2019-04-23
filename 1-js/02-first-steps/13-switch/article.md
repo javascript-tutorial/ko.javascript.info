@@ -1,14 +1,13 @@
-# The "switch" statement
+# switch 구문
 
-A `switch` statement can replace multiple `if` checks.
+`switch` 구문은 여러 개의 `if`을 바꿀 수 있다. 
+여러 개의 코드를 비교하는 좀 더 나은 방법을 제공한다.
 
-It gives a more descriptive way to compare a value with multiple variants.
+## 문법
 
-## The syntax
+`switch`은 한 개 또는 한 개 이상의 `case` 블록 그리고 옵션으로 default으로 구성 되어 있다.
 
-The `switch` has one or more `case` blocks and an optional default.
-
-It looks like this:
+아래와 같은 코드에서:
 
 ```js no-beautify
 switch(x) {
@@ -25,14 +24,12 @@ switch(x) {
     [break]
 }
 ```
+- `x`의 값이 첫번째 `case` (이것은 `value1`)의 값과 정확하게 같은지 확인하고, 그 다음 두번째 case의 값 (`value2`) 이 같은지 확인한다. 
+- 같은 값을 찾으면 `switch`는 해당하는 `case`의 `break`에 접근할 때까지 또는 `switch`의 끝에 접근할 때까지 코드를 실행하기 시작한다.
+- 일치하는 case가 없다면 `default` 코드를 실행한다.(`default`가 존재한다면)
 
-- The value of `x` is checked for a strict equality to the value from the first `case` (that is, `value1`) then to the second (`value2`) and so on.
-- If the equality is found, `switch` starts to execute the code starting from the corresponding `case`, until the nearest `break` (or until the end of `switch`).
-- If no case is matched then the `default` code is executed (if it exists).
-
-## An example
-
-An example of `switch` (the executed code is highlighted):
+## 예
+`switch`의 예 (강조된 코드가 실행이 된다.)
 
 ```js run
 let a = 2 + 2;
@@ -54,13 +51,11 @@ switch (a) {
 }
 ```
 
-Here the `switch` starts to compare `a` from the first `case` variant that is `3`. The match fails.
+여기서 `switch`는 a와 첫번째 `case` 코드 3과 비교를 하기 시작한다. 일치하지 않는다. 그 다음 `4`. 4는 일치한다. 그래서 `break`을 만날 때까지 `case 4`을 실행하기 시작한다.
 
-Then `4`. That's a match, so the execution starts from `case 4` until the nearest `break`.
+**만약 `break`이 없다면, 그 어떠한 확인도 없이 `case`을 계속 실행한다.**
 
-**If there is no `break` then the execution continues with the next `case` without any checks.**
-
-An example without `break`:
+`break`가 없이 실행되는 예시 :
 
 ```js run
 let a = 2 + 2;
@@ -78,8 +73,7 @@ switch (a) {
 */!*
 }
 ```
-
-In the example above we'll see sequential execution of three `alert`s:
+위의 코드의 예처럼 3번의 `alert`가 실행되는 것을 볼 수 있다.
 
 ```js
 alert( 'Exactly!' );
@@ -87,10 +81,11 @@ alert( 'Too big' );
 alert( "I don't know such values" );
 ```
 
-````smart header="Any expression can be a `switch/case` argument"
-Both `switch` and `case` allow arbitrary expressions.
+### 어느 expression이든 `switch/case`의 인자로 가능하다.
+Both `switch` and `case` 표현식 타입이 가능하다.
+(*arbitrary expression* : some expression of your choice, types of expression)
 
-For example:
+예를 들어:
 
 ```js run
 let a = "1";
@@ -107,14 +102,13 @@ switch (+a) {
     alert("this doesn't run");
 }
 ```
-Here `+a` gives `1`, that's compared with `b + 1` in `case`, and the corresponding code is executed.
-````
+여기에서 `+a`는 1이고, 이것은 `b + 1`케이스와 비교한다. 그리고 해당 코드를 실행한다.
 
-## Grouping of "case"
+## "case"의 그룹핑
 
-Several variants of `case` which share the same code can be grouped.
+`case`의 몇몇 코드들은 그룹되어진 같은 코드들을 공유한다. 
 
-For example, if we want the same code to run for `case 3` and `case 5`:
+예를 들어,`case 3`와 `case 5`이 같은 코드로 실행되어지기 원하면 :
 
 ```js run no-beautify
 let a = 2 + 2;
@@ -137,15 +131,14 @@ switch (a) {
 }
 ```
 
-Now both `3` and `5` show the same message.
+`3` 과 `5` 는 같은 메시지가 출력이 된다.
+"group" case는 `break`가 없기 때문에 `switch/case`에서 side-effect의 케이스이다. `break`가 없기 때문에 `case 3`을 실행하기 시작하여 `case 5`까지 실행한다. 
 
-The ability to "group" cases is a side-effect of how `switch/case` works without `break`. Here the execution of `case 3` starts from the line `(*)` and goes through `case 5`, because there's no `break`.
+## 타입 문제
 
-## Type matters
+항상 정확히 같은지 체크해야한다는 것을 강조한다. 값은 항상 타입이 같아야 한다.
 
-Let's emphasize that the equality check is always strict. The values must be of the same type to match.
-
-For example, let's consider the code:
+아래의 코드로 예를 든다면 :
 
 ```js run
 let arg = prompt("Enter a value?");
@@ -166,7 +159,6 @@ switch (arg) {
     alert( 'An unknown value' );
 }
 ```
-
-1. For `0`, `1`, the first `alert` runs.
-2. For `2` the second `alert` runs.
-3. But for `3`, the result of the `prompt` is a string `"3"`, which is not strictly equal `===` to the number `3`. So we've got a dead code in `case 3`! The `default` variant will execute.
+1. `0`, `1`은 `alert`가 실행이 된다. 
+2. 두번째 `2`도 `alert`가 실행이 된다.
+3. 그러나 3은 , `prompt`의 결과값은 문자열 "3"이므로 숫자 타입 3과 정확히 일치 하지 않는다. 그래서  `case 3` 코드는 실행되지 않고 `default` 코드가 실행된다.
