@@ -7,7 +7,7 @@
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역 진행 상황을 확인합니다.
 - 번역되지 않은 글(article)이나, 리뷰가 필요한 글을 선택합니다.
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)의 해당 글에 본인의 깃허브 아이디와 진행상황(Translation Status)을 업데이트합니다.
-- [한국어 리드 저장소](https://github.com/Violet-Bora-Lee/ko.javascript.info)를 포크하여 번역 작업을 시작하고, 번역이 끝나면 Pull Request 합니다. 
+- [한국어 리드 저장소](https://github.com/javascript-tutorial/ko.javascript.info)를 포크하여 번역 작업을 시작하고, 번역이 끝나면 Pull Request 합니다. 
 
 :exclamation: 권한 요청
 - 처음 작업을 하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0) 수정 권한이 필요하니, gmail 아이디를 적은 권한 요청 게시물을 [이슈](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues) 페이지에 등록합니다.
