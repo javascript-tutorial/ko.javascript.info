@@ -29,12 +29,12 @@ let promise = new Promise(function(resolve, reject) {
 - `state` - 처음엔 "pending(보류)" 상태이고, 나중에 "fulfilled(처리)" 혹은 "rejected(거부)"로 바뀝니다.
 - `result` - 임의로 선택된 값이며, 처음에는 `undefined`입니다.
 
-executor의 실행이 끝나면 인자로 받은 함수인 resolve나 reject 중 하나를 호출해야 합니다.
+executor의 실행이 끝나면 인자로 받은 콜백인 resolve나 reject 중 하나를 호출해야 합니다.
 
 - `resolve(value)` - 일이 성공적으로 끝났을 때 호출됨.
     - `state`의 값이 `"fulfilled"`이 되고,
     - `result`의 값이 `value`로 바뀜.
-- `reject(error)` - 실패했을 때를 말함.
+- `reject(error)` - 일이 실패했을 때 호출됨.
     - `state`의 값이 `"rejected"`이 되고,
     - `result`의 값이 `error`로 바뀜.
 
