@@ -78,9 +78,9 @@ document.querySelector('.hello').innerHTML = text;
 
 ```js
 // 예시
-const text = 'Hola mundo';
+const text = '안녕하세요.';
 // ".hello"는 클래스이므로 번역하지 않습니다
-document.querySelector('.hola').innerHTML = text;
+document.querySelector('.안녕').innerHTML = text;
 ```
 
 ### 외부 링크
@@ -99,7 +99,7 @@ document.querySelector('.hola').innerHTML = text;
 [자바스크립트](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8)는 프로그래밍 언어입니다.
 ```
 
-MDN링크는 경우, 부분 번역이 진행된 링크라도 해당 언어의 링크로 교체할 수 있습니다. 번역이 전혀 진행되지 않은 링크는, 링크를 교체하지 않습니다.
+MDN 링크는, 부분 번역이 진행된 링크라도 해당 언어의 링크로 교체할 수 있습니다. 번역이 전혀 진행되지 않은 링크는 링크를 교체하지 않습니다.
 
 
 ## 로컬에서 실행하기
