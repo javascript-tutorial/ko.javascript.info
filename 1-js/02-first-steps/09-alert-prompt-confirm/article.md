@@ -27,7 +27,7 @@ alert("Hello");
 `prompt`함수는 두 개의 인수를 받습니다.
 
 ```js no-beautify
-result = prompt(title[, default]);
+result = prompt(title, [default]);
 ```
 
 이 함수는 텍스트 메시지, 방문자를 위한 입력 필드(input field)과 확인/취소(OK/CANCEL) 버튼이 있는 모달 창을 보여줍니다.

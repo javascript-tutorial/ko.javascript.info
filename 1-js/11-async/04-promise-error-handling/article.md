@@ -15,7 +15,7 @@ fetch('https://no-such-server.blabla') // rejects
   .catch(err => alert(err)) // TypeError: failed to fetch (the text may vary)
 ```
 
-Or, maybe, everything is all right with the server, but the response is not a valid JSON:
+Or, maybe, everything is all right with the server, but the response is not valid JSON:
 
 ```js run
 fetch('/') // fetch works fine now, the server responds successfully
@@ -76,7 +76,7 @@ new Promise((resolve, reject) => {
 
 The "invisible `try..catch`" around the executor automatically catches the error and treats it as a rejection.
 
-That's so not only in the executor, but in handlers as well. If we `throw` inside `.then` handler, that means a rejected promise, so the control jumps to the nearest error handler.
+This happens not only in the executor, but in its handlers as well. If we `throw` inside a `.then` handler, that means a rejected promise, so the control jumps to the nearest error handler.
 
 Here's an example:
 
@@ -90,7 +90,7 @@ new Promise((resolve, reject) => {
 }).catch(alert); // Error: Whoops!
 ```
 
-That's so not only for `throw`, but for any errors, including programming errors as well:
+This happens for all errors, not just those caused by the `throw` statement. For example, a programming error:
 
 ```js run
 new Promise((resolve, reject) => {
@@ -102,11 +102,11 @@ new Promise((resolve, reject) => {
 }).catch(alert); // ReferenceError: blabla is not defined
 ```
 
-As a side effect, the final `.catch` not only catches explicit rejections, but also occasional errors in the handlers above.
+The final `.catch` not only catches explicit rejections, but also occasional errors in the handlers above.
 
 ## Rethrowing
 
-As we already noticed, `.catch` behaves like `try..catch`. We may have as many `.then` as we want, and then use a single `.catch` at the end to handle errors in all of them.
+As we already noticed, `.catch` behaves like `try..catch`. We may have as many `.then` handlers as we want, and then use a single `.catch` at the end to handle errors in all of them.
 
 In a regular `try..catch` we can analyze the error and maybe rethrow it if can't handle. The same thing is possible for promises.
 
@@ -120,7 +120,7 @@ new Promise((resolve, reject) => {
 
   throw new Error("Whoops!");
 
-}).catch(function(error) {
+}).catch(function(error) { 
 
   alert("The error is handled, continue normally");
 
@@ -213,7 +213,7 @@ loadJson('no-such-user.json') // (3)
 
 1. We make a custom class for HTTP Errors to distinguish them from other types of errors. Besides, the new class has a constructor that accepts `response` object and saves it in the error. So error-handling code will be able to access it.
 2. Then we put together the requesting and error-handling code into a function that fetches the `url` *and* treats any non-200 status as an error. That's convenient, because we often need such logic.
-3. Now `alert` shows better message.
+3. Now `alert` shows a more helpful descriptive message.
 
 The great thing about having our own class for errors is that we can easily check for it in error-handling code.
 
@@ -266,7 +266,7 @@ new Promise(function() {
 
 In case of an error, the promise state becomes "rejected", and the execution should jump to the closest rejection handler. But there is no such handler in the examples above. So the error gets "stuck".
 
-In practice, just like with a regular unhandled errors, it means that something terribly gone wrong, the script probably died.
+In practice, just like with a regular unhandled errors, it means that something has terribly gone wrong, the script probably died.
 
 Most JavaScript engines track such situations and generate a global error in that case. We can see it in the console.
 
@@ -300,7 +300,7 @@ In non-browser environments like Node.JS there are other similar ways to track u
 - `.catch` handles promise rejections of all kinds: be it a `reject()` call, or an error thrown in a handler.
 - We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones.
 - It's normal not to use `.catch` if we don't know how to handle errors (all errors are unrecoverable).
-- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments), to track unhandled errors and inform the user (and probably our server) about the them. So that our app never "just dies".
+- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments), to track unhandled errors and inform the user (and probably our server) about the them, so that our app never "just dies".
 
 And finally, if we have load-indication, then `.finally` is a great handler to stop it when the fetch is complete:
 

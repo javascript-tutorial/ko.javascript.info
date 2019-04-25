@@ -42,19 +42,19 @@ let surname = arr[1];
 ```
 ````
 
-````smart header="첫번째 요소 무시하기"
+````smart header="쉼표를 사용하여 요소 무시하기"
 여분의 쉼표를 사용하면 필요하지 않은 배열 요소를 버릴 수 있습니다:
 
 ```js run
 *!*
-// 첫번째, 두 번째 요소는 불필요함
-let [, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+// 두 번째 요소는 불필요함
+let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 */!*
 
 alert( title ); // Consul
 ```
 
-위 코드에서 첫번째, 두 번쨰 요소는 걸러졌지만, 세 번째 요소는 `title`이라는 변수에 저장된 것을 확인할 수 있습니다. 그 이외 요소도 역시 걸러졌습니다.
+위 코드에서 두 번째 요소는 걸러졌지만, 세 번째 요소는 `title`이라는 변수에 저장된 것을 확인할 수 있습니다. 그 이외 요소도 역시 걸러졌습니다.
 ````
 
 ````smart header="오른쪽 피연산자에 이터러블 객체가 있는 경우"

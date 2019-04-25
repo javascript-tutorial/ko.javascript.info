@@ -5,37 +5,37 @@ libs:
 ---
 
 
-# Walking the DOM
+# DOM 탐색하기
 
-The DOM allows us to do anything with elements and their contents, but first we need to reach the corresponding DOM object, get it into a variable, and then we are able to modify it.
+DOM(문서 객체 모델)을 이용하면 요소와 요소의 컨텐츠에 무엇이든 할 수 있습니다. 하지만 무언가를 하려면 해당하는 DOM 객체에 접근해, 이 객체를 변수에 저장해야 합니다. 그리고 나서야 DOM 객체를 수정할 수 있죠.
 
-All operations on the DOM start with the `document` object. From it we can access any node.
+DOM에 수행하는 모든 연산은 `document` 객체에서 시작합니다. 이 객체에서 모든 노드에 접근할 수 있습니다.
 
-Here's a picture of links that allow for travel between DOM nodes:
+아래 그림은 DOM 노드 탐색이 어떤 관계를 통해 이루어지는지를 보여줍니다.
 
 ![](dom-links.png)
 
-Let's discuss them in more detail.
+이 관계에 대하여 좀 더 자세히 알아보도록 합시다.
 
-## On top: documentElement and body
+## 꼭대기의 documentElement 와 body
 
-The topmost tree nodes are available directly as `document` properties:
+DOM 트리 꼭대기의 노드는 `document` 프로퍼티로 접근할 수 있습니다.
 
 `<html>` = `document.documentElement`
-: The topmost document node is `document.documentElement`. That's DOM node of `<html>` tag.
+최상단의 문서 노드는 `document.documentElement` 입니다. 이 노드는 `<html>` 태그에 해당하는 DOM 노드입니다.
 
 `<body>` = `document.body`
-: Another widely used DOM node is the `<body>` element -- `document.body`.
+`document.body`는 `<body>` 요소에 해당하는 DOM 노드로, 자주 쓰이는 노드 중 하나입니다. 
 
 `<head>` = `document.head`
-: The `<head>` tag is available as `document.head`.
+`<head>` 태그는 `document.head`로 접근할 수 있습니다.
 
-````warn header="There's a catch: `document.body` can be `null`"
-A script cannot access an element that doesn't exist at the moment of running.
+````warn header="`document.body`가 `null`일 수도 있으니, 주의하세요."
+실행 시점에 존재하지 않는 요소는 스크립트에서 접근할 수 없습니다.
 
-In particular, if a script is inside `<head>`, then `document.body` is unavailable, because the browser did not read it yet.
+특히, 스크립트가 `<head>` 안에 있을 때, `document.body`는 접근 불가능합니다. 브라우저가 아직 `document.body`를 읽지 않았기 때문이죠.
 
-So, in the example below the first `alert` shows `null`:
+이런 특징 때문에, 아래 예시에서 첫 번째 `alert`는 `null`을 출력합니다.
 
 ```html run
 <html>
@@ -59,18 +59,19 @@ So, in the example below the first `alert` shows `null`:
 ```
 ````
 
-```smart header="In the DOM world `null` means \"doesn't exist\""
-In the DOM, the `null` value means "doesn't exist" or "no such node".
+```smart header="DOM 세계에서 `null`은 \"존재하지 않음\"을 의미합니다"
+
+DOM에서 `null`값은 "존재하지 않음"이나 "해당하는 노드가 없음"을 의미합니다.
 ```
 
-## Children: childNodes, firstChild, lastChild
+## childNodes, firstChild, lastChild로 자식 노드 탐색하기
 
-There are two terms that we'll use from now on:
+앞으로 사용할 두 가지 용어를 먼저 정의하고 설명을 이어나가도록 하겠습니다.
 
-- **Child nodes (or children)** -- elements that are direct children. In other words, they are nested exactly in the given one. For instance, `<head>` and `<body>` are children of `<html>` element.
-- **Descendants** -- all elements that are nested in the given one, including children, their children and so on.
+- **자식 노드(child node, children)**는 바로 아래의 자식 요소를 나타냅니다. 자식 노드는 부모 노드의 바로 아래에서 중첩 관계를 만듭니다. `<head>`와 `<body>`는 `<html>`요소의 자식 노드입니다.
+- **자손 노드(descendants)**는 중첩 관계에 있는 모든 요소를 의미합니다. 자식 노드, 자식 노드의 모든 자식 노드 등이 자손 노드가 됩니다.
 
-For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text nodes):
+아래에서 `<body>`는 `<div>`와 `<ul>` (그리고 몇 개의 빈 텍스트 노드)을 자식 노드로 갖습니다.
 
 ```html run
 <html>
@@ -86,11 +87,11 @@ For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text 
 </html>
 ```
 
-...And if we ask for all descendants of `<body>`, then we get direct children `<div>`, `<ul>` and also more nested elements like `<li>` (being a child of `<ul>`) and `<b>` (being a child of `<li>`) -- the entire subtree.
+`<body>`의 자손 노드는, 자식 노드인 `<div>`와 `<ul>`, 그리고 더 안쪽의 중첩 요소인 `<li>`(`<ul>`의 자식 노드)와 `<b>`(`<li>`의 자식 노드)가 됩니다. 서브 트리 전부가 자손 노드가 되죠.
 
-**The `childNodes` collection provides access to all child nodes, including text nodes.**
+**`childNodes` 컬렉션은 텍스트 노드를 포함한 모든 자식 노드에 접근할 수 있도록 해줍니다.**
 
-The example below shows children of `document.body`:
+아래 스크립트를 실행하면 `document.body`의 자식 노드가 출력됩니다.
 
 ```html run
 <html>
@@ -115,61 +116,61 @@ The example below shows children of `document.body`:
 </html>
 ```
 
-Please note an interesting detail here. If we run the example above, the last element shown is `<script>`. In fact, the document has more stuff below, but at the moment of the script execution the browser did not read it yet, so the script doesn't see it.
+흥미로운 점이 하나 발견되었네요. 마지막 요소로 `<script>`가 출력된 것을 확인하셨을 겁니다. 문서 내 `<script>` 아래 더 많은 요소(...more stuff...)가 있지만, 스크립트는 이 요소를 보지 못하기 때문에 이런 결과가 나타났습니다. 스크립트가 실행되는 시점엔 브라우저가 스크립트 아래의 요소를 읽지 않은 상태이기 때이죠.
 
-**Properties `firstChild` and `lastChild` give fast access to the first and last children.**
+**`firstChild`와 `lastChild` 프로퍼티를 이용하면 첫 번째, 마지막 자식 노드에 빠르게 접근할 수 있습니다.**
 
-They are just shorthands. If there exist child nodes, then the following is always true:
+이 프로퍼티들은 빠른 접근을 도와주는 역할만을 합니다. 자식 노드가 존재할 경우, 아래 비교문은 항상 참이 됩니다.
 ```js
 elem.childNodes[0] === elem.firstChild
 elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
 ```
 
-There's also a special function `elem.hasChildNodes()` to check whether there are any child nodes.
+이 외에, 자식 노드의 유무를 검사하는 특별한 함수, `elem.hasChildNodes()`도 있습니다.
 
-### DOM collections
+### DOM 컬렉션
 
-As we can see, `childNodes` looks like an array. But actually it's not an array, but rather a *collection* -- a special array-like iterable object.
+위에서 살펴본 `childNodes`는 마치 배열 같아 보입니다. 하지만 `childNodes`는 배열이 아닌 *컬렉션(collection)*입니다. iterable(반복 가능한) 유사 배열 객체이죠. 
 
-There are two important consequences:
+`childNodes`는 컬렉션이기 때문에 아래와 같은 특징을 가집니다.
 
-1. We can use `for..of` to iterate over it:
+1. `for..of`를 사용할 수 있습니다.
   ```js
   for (let node of document.body.childNodes) {
-    alert(node); // shows all nodes from the collection
+    alert(node); // 컬렉션 내의 모든 노드를 보여줍니다
   }
   ```
   That's because it's iterable (provides the `Symbol.iterator` property, as required).
 
-2. Array methods won't work, because it's not an array:
+2. 배열이 아니기 때문에 배열 메서드를 쓸 수 없습니다.
   ```js run
-  alert(document.body.childNodes.filter); // undefined (there's no filter method!)
+  alert(document.body.childNodes.filter); // undefined (filter 메서드가 없습니다)
   ```
 
-The first thing is nice. The second is tolerable, because we can use `Array.from` to create a "real" array from the collection, if we want array methods:
+첫 번째 특징은 유용합니다. 두 번째 특징도 썩 좋지는 않지만 참을 만합니다. `Array.from`을 사용하면 컬렉션을 가지고 "진짜" 배열을 만들 수 있기 때문입니다. 배열 메서드를 쓰고 싶다면, 이를 이용하면 됩니다. 
 
   ```js run
-  alert( Array.from(document.body.childNodes).filter ); // now it's there
+  alert( Array.from(document.body.childNodes).filter ); // 이제 filter메서드를 사용할 수 있습니다. 
   ```
 
-```warn header="DOM collections are read-only"
-DOM collections, and even more -- *all* navigation properties listed in this chapter are read-only.
+```warn header="DOM 컬렉션은 읽는 것만 가능합니다."
+DOM 컬렉션을 비롯해 이번 챕터에서 설명하는 *모든* 탐색용 프로퍼티는 읽기 전용입니다.  
 
-We can't replace a child by something else by assigning `childNodes[i] = ...`.
+childNodes[i] = ...`를 이용해 자식 노드를 교체하 는게 불가능합니다.
 
-Changing DOM needs other methods. We will see them in the next chapter.
+DOM을 변경하려면 다른 메서드가 필요합니다. 다음 챕터에서 이 메서드에 대해 살펴보겠습니다.
 ```
 
-```warn header="DOM collections are live"
-Almost all DOM collections with minor exceptions are *live*. In other words, they reflect the current state of DOM.
+```warn header="DOM 컬렉션은 살아있습니다."
+몇몇 예외사항을 제외하고 거의 모든 DOM 컬렉션은 *살아있습니다*. DOM의 현재 상태를 반영한다는 말이죠.
 
-If we keep a reference to `elem.childNodes`, and add/remove nodes into DOM, then they appear in the collection automatically.
+`elem.childNodes`를 이용해 컬렉션을 참조하고 있는 도중에 DOM에 새로운 노드가 더해지거나 삭제되면, 이 변경사항이 컬렉션에도 자동으로 반영됩니다.
 ```
 
-````warn header="Don't use `for..in` to loop over collections"
-Collections are iterable using `for..of`. Sometimes people try to use `for..in` for that.
+````warn header="컬렉션에 `for..in` 반복문을 사용하지 마세요"
+컬렉션은 `for..of`를 이용해 반복가능합니다. 그런데 가끔 `for..in`을 사용하려는 사람들이 있습니다.
 
-Please, don't. The `for..in` loop iterates over all enumerable properties. And collections have some "extra" rarely used properties that we usually do not want to get:
+`for..in`은 절대 사용하지 마세요. `for..in`반복문은 객체의 모든 열거 가능한 프로퍼티에 반복을 시행합니다. 컬렉션엔 거의 사용되지 않는 "추가" 프로퍼티가 있는데, 이 프로퍼티에 까지 반복문이 돌길 원하지 않으실 거니까요.
 
 ```html run
 <body>
@@ -180,67 +181,72 @@ Please, don't. The `for..in` loop iterates over all enumerable properties. And c
 </body>
 ````
 
-## Siblings and the parent
+## 형제와 부모 노드
 
-*Siblings* are nodes that are children of the same parent. For instance, `<head>` and `<body>` are siblings:
+*형제 노드*는 같은 부모를 가진 노드 사이의 관계를 의미합니다. `<head>`와 `<body>`가 대표적인 형제 관계의 노드입니다. 
 
-- `<body>` is said to be the "next" or "right" sibling of `<head>`,
-- `<head>` is said to be the "previous" or "left" sibling of `<body>`.
+- `<body>`는 `<head>`의 "다음(next)" 또는 "우측(right)" 형제 노드입니다.
+- `<head>`는 `<body>`의 "이전(previous)" 또는 "좌측(left)" 형제 노드입니다.
 
-The parent is available as `parentNode`.
+`parentNode`를 이용하면 부모 노드를 참조할 수 있습니다.
 
-The next node in the same parent (next sibling) is `nextSibling`, and the previous one is `previousSibling`.
+같은 부모를 가진 다음 노드(형제 노드)로는 `nextSibling`, 이전 노드로는 `previousSibling`을 이용하여 이동할 수 있습니다.
 
-For instance:
+예시:
 
 ```html run
 <html><head></head><body><script>
-  // HTML is "dense" to evade extra "blank" text nodes.
+  // "빈" text 노드를 없애려고 HTML을 "압축"하였습니다.
 
-  // parent of <body> is <html>
+  // <body>의 부모는 <html>입니다
   alert( document.body.parentNode === document.documentElement ); // true
 
-  // after <head> goes <body>
+  // <head> 다음 노드는 <body>입니다.
   alert( document.head.nextSibling ); // HTMLBodyElement
 
-  // before <body> goes <head>
+  // <body> 이전 노드는 <head>입니다.
   alert( document.body.previousSibling ); // HTMLHeadElement
 </script></body></html>
 ```
 
-## Element-only navigation
+## 요소 간 이동
 
-Navigation properties listed above refer to *all* nodes. For instance, in `childNodes` we can see both text nodes, element nodes, and even comment nodes if there exist.
+위에서 언급된 탐색에 관한 프로퍼티는 *모든* 노드를 참조합니다. `childNodes`를 이용하면 텍스트 노드, 요소 노드, 심지어 주석 노드까지 참조할 수 있습니다. 물론 노드가 존재하면 말이죠.
 
-But for many tasks we don't want text or comment nodes. We want to manipulate element nodes that represent tags and form the structure of the page.
+하지만 실무에서 텍스트 노드나 주석 노드는 잘 다루지 않습니다. 웹 페이지를 구성하는 태그의 분신인 요소 노드를 조작해야 하는 작업이 대다수이죠.  
 
-So let's see more navigation links that only take *element nodes* into account:
+이런 점을 반영하여, 지금부턴 *요소 노드*만을 고려하는 탐색 관계를 살펴보도록 하겠습니다.
 
 ![](dom-links-elements.png)
 
-The links are similar to those given above, just with `Element` word inside:
+그림 속 관계는 위쪽에서 다뤘던 모든 종류의 노드 간 관계와 유사해 보입니다. `요소(Element)`라는 단어가 추가된 점만 다르네요.
 
-- `children` -- only those children that are element nodes.
-- `firstElementChild`, `lastElementChild` -- first and last element children.
-- `previousElementSibling`, `nextElementSibling` -- neighbour elements.
-- `parentElement` -- parent element.
+- `children` 프로퍼티는 해당 요소의 자식 요소 노드를 가리킵니다.
+- `firstElementChild`와 `lastElementChild` 프로퍼티는 각각 첫 번째 자식 요소와 마지막 자식 요소를 가리킵니다.
+- `previousElementSibling`와 `nextElementSibling`는 형제 요소를 가리킵니다.
+- `parentElement` 는 부모 요소를 가리킵니다.
 
-````smart header="Why `parentElement`? Can the parent be *not* an element?"
-The `parentElement` property returns the "element" parent, while `parentNode` returns "any node" parent. These properties are usually the same: they both get the parent.
+````smart header="부모가 요소라는 보장이 *없는데* 왜 `parentElement`를 쓰나요?"
+`parentElement` 프로퍼티는 부모 "요소(노드)"를 반환합니다. 반면, `parentNode` 프로퍼티는 "모든 종류의 부모 노드"를 반환하죠. 부모를 참조한다는 점에서 두 프로퍼티는 대게 같습니다.
 
-With the one exception of `document.documentElement`:
+하지만 한가지 예외가 있는데, `document.documentElement`를 다룰 때입니다.
 
 ```js run
 alert( document.documentElement.parentNode ); // document
 alert( document.documentElement.parentElement ); // null
 ```
 
-In other words, the `documentElement` (`<html>`) is the root node. Formally, it has `document` as its parent. But `document` is not an element node, so `parentNode` returns it and `parentElement` does not.
+`documentElement`프로퍼티는 HTML 페이지의 루트 노드인 `<html>` 요소 노드를 가리킵니다. 이 루트 노드는 `document` 노드를 부모로 가집니다. 그런데 `document` 노드는 요소 노드가 아니기 때문에, `documentElement`의 `parentNode`는 `document` 노드를 가리키지만, `documentElement`의 `parentElement`는 `document` 노드를 가리키지 않습니다. 
 
-Sometimes that matters when we're walking over the chain of parents and call a method on each of them, but `document` doesn't have it, so we exclude it.
+아래 반복문은 임의의 요소 노드 `elem`부터 시작해 `<html>`까지 거슬러 올라가지만, `document`까지는 도달하지 못합니다.
+```js
+while(elem = elem.parentElement) {
+  alert( elem ); // parent chain till <html>
+}
+```
 ````
 
-Let's modify one of the examples above: replace `childNodes` with `children`. Now it shows only elements:
+`childNodes`를 `children`으로 대체해, 위에서 쓰였던 예제 중 하나를 다시 작성해 보도록 하겠습니다. 이젠 오직 요소 노드만 출력되네요.
 
 ```html run
 <html>
@@ -265,31 +271,31 @@ Let's modify one of the examples above: replace `childNodes` with `children`. No
 </html>
 ```
 
-## More links: tables [#dom-navigation-tables]
+## 테이블 탐색하기 [#dom-navigation-tables]
 
-Till now we described the basic navigation properties.
+지금까진 탐색에 쓰이는 기본적인 프로퍼티를 알아보았습니다.
 
-Certain types of DOM elements may provide additional properties, specific to their type, for convenience.
+특정 타입의 DOM 요소는 기본 프로퍼티 외에 추가적인 프로퍼티를 지원합니다. 편의를 위해서이죠. 
 
-Tables are a great example and important particular case of that.
+테이블은 추가적인 프로퍼티를 지원하는 요소 중 하나입니다.
 
-**The `<table>`** element supports (in addition to the given above) these properties:
-- `table.rows` -- the collection of `<tr>` elements of the table.
-- `table.caption/tHead/tFoot` -- references to elements `<caption>`, `<thead>`, `<tfoot>`.
-- `table.tBodies` -- the collection of `<tbody>` elements (can be many according to the standard).
+**`<table>`** 요소는 위에서 배운 기본 프로퍼티 이외에 아래의 프로퍼티도 지원합니다.
+- `table.rows`는 테이블 내 `<tr>`요소를 담은 컬렉션을 가리킵니다.
+- `table.caption/tHead/tFoot`은 각각 `<caption>`, `<thead>`, `<tfoot>` 요소를 가리킵니다.
+- `table.tBodies`는 테이블 내 `<tbody>` 요소를 담은 컬렉션을 참조합니다(표준에 따르면, table 내에 여러 개의 tbody가 존재하는 게 가능합니다).
 
-**`<thead>`, `<tfoot>`, `<tbody>`** elements provide the `rows` property:
-- `tbody.rows` -- the collection of `<tr>` inside.
+**`<thead>`, `<tfoot>`, `<tbody>`** 요소는 `rows` 프로퍼티를 지원합니다.
+- `tbody.rows`는 tbody 내 `<tr>` 요소 컬렉션을 가리킵니다.
 
 **`<tr>`:**
-- `tr.cells` -- the collection of `<td>` and `<th>` cells inside the given `<tr>`.
-- `tr.sectionRowIndex` -- the position (index) of the given `<tr>` inside the enclosing `<thead>/<tbody>/<tfoot>`.
-- `tr.rowIndex` -- the number of the `<tr>` in the table as a whole (including all table rows).
+- `tr.cells`은 주어진 `<tr>` 안의 모든 `<td>`, `<th>`을 담은 컬렉션을 반환합니다.
+- `tr.sectionRowIndex`는 주어진 `<tr>`이 `<thead>/<tbody>/<tfoot>`안쪽에서 몇 번째 줄에 위치하는지를 나타내는 인덱스(index)를 반환합니다.
+- `tr.rowIndex`는 `<table>`내에서 해당 `<tr>`이 몇 번째 줄인지를 나타내는 인덱스를 반환합니다.
 
-**`<td>` and `<th>`:**
-- `td.cellIndex` -- the number of the cell inside the enclosing `<tr>`.
+**`<td>`과 `<th>`:**
+- `td.cellIndex`는 주어진 `<td>`가 `<tr>`내 몇 번째 위치해 있는지를 나타내는 인덱스를 반환합니다.
 
-An example of usage:
+사용 예시:
 
 ```html run height=100
 <table id="table">
@@ -302,22 +308,22 @@ An example of usage:
 </table>
 
 <script>
-  // get the content of the first row, second cell
+  // 첫번째 줄, 두번째 칸의 내용을 출력
   alert( table.*!*rows[0].cells[1]*/!*.innerHTML ) // "two"
 </script>
 ```
 
-The specification: [tabular data](https://html.spec.whatwg.org/multipage/tables.html).
+표에 관련한 공식 스펙은 [tabular data](https://html.spec.whatwg.org/multipage/tables.html)에서 찾아볼 수 있습니다.
 
-There are also additional navigation properties for HTML forms. We'll look at them later when we start working with forms.
+테이블과 마찬가지로, HTML 폼(form)에만 쓸 수 있는 몇 가지 탐색 프로퍼티도 존재합니다. 폼을 배우면서 이 프로퍼티에 대해서도 살펴보도록 하겠습니다.
 
-# Summary
+# 요약
 
-Given a DOM node, we can go to its immediate neighbours using navigation properties.
+탐색 프로퍼티(navigation property)를 사용하면, 특정 DOM 노드에서 이웃해있는 다른 노드로 바로 이동할 수 있습니다.
 
-There are two main sets of them:
+탐색 프로퍼티는 크게 두 개의 집합으로 나뉩니다.
 
-- For all nodes: `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
-- For element nodes only: `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
+- 모든 노드에 적용 가능한 `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
+- 요소 노드에만 적용 가능한 `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
 
-Some types of DOM elements, e.g. tables, provide additional properties and collections to access their content.
+테이블과 같은 몇몇 특정 타입의 DOM 요소는 콘텐츠를 읽을 수 있게 해주는 프로퍼티와 컬렉션을 제공하기도 합니다.

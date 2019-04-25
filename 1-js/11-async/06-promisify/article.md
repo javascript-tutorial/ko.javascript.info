@@ -73,7 +73,7 @@ let loadScriptPromise = promisify(loadScript);
 loadScriptPromise(...).then(...);
 ```
 
-Here we assume that the original function expects a callback with two arguments `(err, result)`. That's what we meet most often. Then our custom callbacks is exactly in the right format, and `promisify` works great for such case.
+Here we assume that the original function expects a callback with two arguments `(err, result)`. That's what we encounter most often. Then our custom callback is in exactly the right format, and `promisify` works great for such a case.
 
 But what if the original `f` expects a callback with more arguments `callback(err, res1, res2)`?
 
@@ -102,7 +102,7 @@ function promisify(f, manyArgs = false) {
 
 // usage:
 f = promisify(f, true);
-f(...).then(err => ..., arrayOfResults => ...)
+f(...).then(arrayOfResults => ..., err => ...)
 ```
 
 In some cases, `err` may be absent at all: `callback(result)`, or there's something exotic in the callback format, then we can promisify such functions manually.
@@ -114,5 +114,5 @@ Promisification is a great approach, especially when you use `async/await` (see 
 
 Remember, a promise may have only one result, but a callback may technically be called many times.
 
-So promisification is only meant for functions that call the callback once. Furhter calls will be ignored.
+So promisification is only meant for functions that call the callback once. Further calls will be ignored.
 ```
