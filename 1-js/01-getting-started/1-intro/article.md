@@ -45,7 +45,11 @@
 
 모던 자바스크립트는 "안전한" 프로그래밍 언어입니다. 메모리나 CPU에 대한 로우 레벨의 접근을 제공하지 않습니다. 애초에 이러한 접근을 필요로 하지 않는 브라우저를 위해 만들어진 언어이기 때문이죠.
 
+<<<<<<< HEAD
 자바스크립트가 할 수 있는 일은 자바스크립트가 실행되는 환경에 크게 의존하고 있습니다. 예를 들어, [Node.JS](https://wikipedia.org/wiki/Node.js) 는 자바스크립트가 임의의 파일을 읽거나 쓰고, 네트워크 요청을 수행할 수 있게 해주는 기능들을 지원합니다.
+=======
+JavaScript's capabilities greatly depend on the environment it's running in. For instance, [Node.js](https://wikipedia.org/wiki/Node.js) supports functions that allow JavaScript to read/write arbitrary files, perform network requests, etc.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 브라우저 내의 자바스크립트는 웹 페이지 조작, 사용자와의 상호작용, 그리고 웹 서버와 관련된 모든 일을 할 수 있습니다.
 
@@ -88,7 +92,11 @@
 + 간단한 일은 간단하게 처리된다.
 + 모든 주요 브라우저에 의해 지원되고 기본적으로 사용할 수 있다.
 ```
+<<<<<<< HEAD
 이 세 가지 특징은 오직 자바스크립트에만 존재하며 다른 브라우저 기술엔 존재하지 않습니다.
+=======
+JavaScript is the only browser technology that combines these three things.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 이것이 바로 자바스크립트가 특별한 이유입니다. 그래서 자바스크립트는 브라우저 인터페이스를 만들기 위해 가장 널리 사용되는 도구입니다.
 

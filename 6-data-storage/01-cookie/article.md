@@ -36,7 +36,11 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 
 `; `을 기준으로 `document.cookie`를 분리하면 특정 쿠키를 찾을 수 있습니다. 분리엔 정규 표현식이나 배열 함수를 이용할 수 있습니다.
 
+<<<<<<< HEAD
 이에 관한 연습문제 몇 개를 아래에서 풀어보길 권유합니다. 챕터 끝에서 쿠키 조작에 쓰이는 몇 가지 헬퍼 함수를 찾아볼 수 있을 겁니다. 
+=======
+We leave it as an exercise for the reader. Also, at the end of the chapter you'll find helper functions to manipulate cookies.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 ## document.cookie 에 쓰기
 
@@ -168,7 +172,11 @@ document.cookie = "user=John; max-age=0";
 
 이 옵션은 오직 HTTPS 연결로만 쿠키가 전송될 수 있음을 의미합니다. 
 
+<<<<<<< HEAD
 **이 옵션이 없으면 `http://site.com`에서 설정(생성)한 쿠키는 `https://site.com`에서 읽을 수 있고, 그 역도 마찬가지입니다.**
+=======
+**By default, if we set a cookie at `http://site.com`, then it also appears at `https://site.com` and vice versa.**
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 쿠키는 기본적으로 도메인만 확인하지 프로토콜을 따지진 않기 때문입니다.
 
@@ -253,13 +261,21 @@ document.cookie = "user=John; secure";
 
 ## httpOnly
 
+<<<<<<< HEAD
 이 옵션은 자바스크립트와 전혀 관계가 없지만, 완결성을 위해 언급하고 넘어가도록 하겠습니다.
+=======
+This option has nothing to do with JavaScript, but we have to mention it for completeness.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 웹서버에선 `Set-Cookie` 헤더를 이용해 쿠키를 설정할 수 있는데, 이때 `httpOnly` 옵션을 지정할 수 있습니다.
 
 이 옵션은 자바스크립트 같은 클라이언트 측의 스크립트에선 쿠키를 사용할 수 없게 합니다. `document.cookie`를 통해 쿠키를 볼 수도 없고 조작할 수도 없습니다.
 
+<<<<<<< HEAD
 해커가 악의적인 자바스크립트 코드를 페이지에 삽입하고 사용자가 그 페이지에 접속하기를 기다리는 방식의 공격을 예방할 때 이 옵션을 사용합니다. 우리가 만든 사이트에 해커가 코드를 삽입하지 못하도록 막아야 하지만, 버그는 존재할 수 있기 때문에 해커가 코드를 삽입할 가능성이 있을 수 있습니다.
+=======
+That's used as a precaution measure, to protect from certain attacks when a hacker injects his own JavaScript code into a page and waits for a user to visit that page. That shouldn't be possible at all, a hacker should not be able to inject their code into our site, but there may be bugs that let hackers do it.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 
 이런 상황이 만에 하나 발생하면, 사용자가 웹 페이지에 방문시, `document.cookie`을 볼 수 있고 조작도 할 수 있는 해커의 코드도 함께 실행 됩니다. 물론 쿠키엔 인증 정보가 있겠죠. 나쁜 상황입니다.

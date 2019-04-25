@@ -15,11 +15,19 @@
 👂 의사소통
 - 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
+<<<<<<< HEAD
 번역 기여자의 이름과 기여도는 번역이 완료되면 "About project"에 올라갑니다.
+=======
+We'd also like to collaborate on the tutorial with other people.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 P.S. 번역이 진행되고 있는 언어는 <https://github.com/javascript-tutorial/translate>에서 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ## 저장소 구조
+=======
+**You can edit the text in any editor.** The tutorial uses enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.  
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 모든 챕터(chapter), 글(article), 과제(task)는 각각의 폴더 안에 구성되어 있습니다.
 
@@ -48,6 +56,7 @@ P.S. 번역이 진행되고 있는 언어는 <https://github.com/javascript-tuto
   * 한글라이즈([링크](https://hangulize.org/))
 
 
+<<<<<<< HEAD
 ### 번역 팁
 
 - 번역은 단어-단어수준으로 정확하지 않아도 됩니다. 오역이 없고 번역투가 없는 문장이면 됩니다. 다만, 번역시 누락은 있으면 안됩니다.
@@ -110,3 +119,8 @@ MDN 링크는, 부분 번역이 진행된 링크라도 해당 언어의 링크�
 본 튜토리얼을 로컬 환경에서 실행하면 번역물이 어떻게 사용자에게 보일지 바로 확인 가능합니다.
 
 서버는 <https://github.com/javascript-tutorial/server>를 사용하여 세팅할 수 있습니다. 
+=======
+---
+💓  
+Ilya Kantor @iliakan
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb

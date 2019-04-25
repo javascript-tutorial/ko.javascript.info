@@ -1,10 +1,18 @@
 # Hello, world!
 
+<<<<<<< HEAD
 여러분이 읽고 있는 이 튜토리얼은 플랫폼과 관계없이 사용할 수 있는(platform-independent) 코어 자바스크립트(core JavaScript)를 다룹니다. Node.JS등의 다양한 자바스크립트 기반 플랫폼은 추후 학습할 예정입니다.
 
 코어 자바스크립트를 다루고 있긴 하지만, 학습을 위해선 스크립트를 실행할 수 있는 환경이 필요합니다. 본 튜토리얼은 온라인으로 제공되기 때문에 실행환경으로 브라우저를 사용하도록 하겠습니다. Node.JS 같이 브라우저 이외의 환경에 주력하는 학습자를 위해, (`alert`와 같은) 브라우저 한정 명령어는 최소한으로 사용하도록 하겠습니다. 이런 명령어를 학습하는 데 시간을 보내지 않도록 말이죠. 브라우저 환경에서의 자바스크립트는 [다음 파트](/ui)에서 다루도록 하겠습니다.
 
 먼저, 웹 페이지에 스크립트를 삽입하는 방법에 대해 알아봅시다. 만약 Node.JS와 같은 서버 사이드 환경에서 스크립트를 실행하고 싶다면 `"node my.js"`와 같은 명령어를 사용하면 됩니다.
+=======
+The tutorial that you're reading is about core JavaScript, which is platform-independent. Later on, you'll learn about Node.js and other platforms that use it.
+
+But we need a working environment to run our scripts and, since this book is online, the browser is a good choice. We'll keep the amount of browser-specific commands (like `alert`) to a minimum so that you don't spend time on them if you plan to concentrate on another environment (like Node.js). We'll focus on JavaScript in the browser in the [next part](/ui) of the tutorial.
+
+So first, let's see how we attach a script to a webpage. For server-side environments (like Node.js), you can execute the script with a command like `"node my.js"`.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 
 ## "script" 태그

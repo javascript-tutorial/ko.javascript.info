@@ -4,7 +4,11 @@
 
 플랫폼은 브라우저, 웹서버, 심지어는 세탁기가 될 수도 있고 그 이외의 *호스트(host)*가 될 수도 있습니다. 각 플랫폼은 그 플랫폼에 특정되는 기능을 제공합니다. 자바스크립트 명세에선 이를 *호스트 환경(host environment)*이라 부릅니다.
 
+<<<<<<< HEAD
 호스트환경은 랭귀지 코어(역주: ECMAScript)에 더하여 플랫폼에 특정되는 객체와 함수를 제공합니다. 웹브라우저는 웹페이지를 제어하기 위한 수단을 제공하고, Node.JS는 서버사이드 기능을 제공하는 것이 대표적인 예가 될 수 있습니다.
+=======
+A host environment provides platform-specific objects and functions additional to the language core. Web browsers give a means to control web pages. Node.js provides server-side features, and so on.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 아래 그림은 자바스크립트가 웹브라우저에서 돌아갈 때 사용할 수 있는 기능을 보여줍니다.
 

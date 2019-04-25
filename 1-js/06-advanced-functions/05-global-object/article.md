@@ -3,7 +3,11 @@
 
 전역 개체는 어디에서나 사용할 수 있는 변수 및 함수 입니다. 자바스크립트나 사용자 환경에 내장되어 있습니다.
 
+<<<<<<< HEAD
 Node.js의 경우 "global", 브라우저에서는 "window" 라는 이름으로 존재하며 다른 환경에는 다른 이름을 가질 수 있습니다.
+=======
+In a browser it is named "window", for Node.js it is "global", for other environments it may have another name.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 이러한 예로는, `alert` 을 `window` 의 메서드로 호출하는 것입니다.
 
@@ -79,7 +83,11 @@ window.alert("Hello");
 
 현재 다목적으로 제작된 `window` 객체는 언어의 디자인 실수로 간주하고 있습니다.
 
+<<<<<<< HEAD
 다행히, "자바스크립트 모듈" 이라는 해결방법이 있습니다.
+=======
+Luckily, there's a "road out of hell", called "JavaScript modules".
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 `<script>` 태그에 `type = "module"` 속성을 설정하면, 그 스크립트는 `window` 객체와 간섭하지 않고 자체적으로 최상위 범위(렉시컬 환경)를 가진 별도의 "모듈"로 간주합니다.
 

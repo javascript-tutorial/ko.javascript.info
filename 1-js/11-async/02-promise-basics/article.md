@@ -214,7 +214,11 @@ promise.catch(alert); // 1초 뒤 "Error: Whoops!" 출력
 
 ### finally
 
+<<<<<<< HEAD
 `try {...} catch {...}`에 finally 절이 있는 것처럼, 프라미스에도 `finally`가 있습니다.
+=======
+Just like there's a `finally` clause in a regular `try {...} catch {...}`, there's `finally` in promises.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 `.finally(f)`를 호출하는 건 `.then(f, f)`과 유사합니다. finally는 프라미즈가 처리되었을 때(settled) 실행됩니다. 프라미스가 이행(resolved)이나 거부(rejected)가 확정되었을 때 말이죠.
 

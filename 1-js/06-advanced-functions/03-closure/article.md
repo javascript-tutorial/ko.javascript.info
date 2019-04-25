@@ -220,7 +220,11 @@ function sayHiBye(firstName, lastName) {
 }
 ```
 
+<<<<<<< HEAD
 여기서 *중첩* 함수인 `getFullName()`은 편의상 만들어졌습니다. 외부 변수에 액세스할 수 있으므로 전체 이름을 반환할 수 있습니다. 중첩된 함수는 자바스크립트에서 매우 일반적입니다.
+=======
+Here the *nested* function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 더 흥미로운 점은 중첩된 함수가 반환될 수 있다는 것입니다 : 외부 객체의 속성 (외부 함수가 메서드를 사용하여 객체를 만드는 경우) 또는 그 자체로 결과입니다. 그런 다음 다른 곳에서 사용할 수 있습니다. 어디에 있더라도, 그것은 여전히 동일한 외부 변수에 액세스할 수 있습니다.
 
@@ -475,7 +479,11 @@ alert(message); // 에러: 메세지는 정의되지 않았음
 
 ### IIFE (즉시 호출되는 함수 표현식)
 
+<<<<<<< HEAD
 과거 자바스크립트에는 블록 수준의 렉시컬 환경이 없었습니다.
+=======
+In the past, there were no block-level lexical environment in JavaScript.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 그래서 프로그래머들은 뭔가를 발명해야 했습니다. 그리고 그들이 만든 것은 "즉시 호출되는 함수 표현식"(줄여서 IIFE 라고 함)입니다.
 

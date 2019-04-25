@@ -46,9 +46,15 @@ john.sayHi(); // Hi buddy!
 
 조금 어색해 보이지만, 아래 방법을 통해 해결책을 모색하였습니다 :
 
+<<<<<<< HEAD
 1. 원시 값은 변치 않고 원시 값 그대로 남아있습니다. 여전히 단일 값이기 때문에 가볍습니다.
 2. 문자열, 숫자, 불리언, 심볼 타입의 메서드와 프로퍼티에 대한 접근을 허용합니다.
 3. 원시 값의 메서드나 프로퍼티를 참조하려고 하면 추가 기능을 제공하는 특수한 "원시 래퍼 객체(object wrapper)"를 생성한 다음 다음 삭제합니다.
+=======
+1. Primitives are still primitive. A single value, as desired.
+2. The language allows access to methods and properties of strings, numbers, booleans and symbols.
+3. When this happens, a special "object wrapper" that provides the extra functionality is created, and then is destroyed.
+>>>>>>> 273e47b70a14ae7a8b882b8d2543e581b000eefb
 
 "원시 래퍼 객체"는 원시 타입에 따라 종류가 다양합니다. 각 래퍼 객체는 원시 자료형의 이름을 그대로 따, `String`,`Number`,`Boolean`, `Symbol`라고 부릅니다. 원시 자료형에 따라 원시 래퍼 객체도 다른 세트의 메서드를 제공합니다.
 
