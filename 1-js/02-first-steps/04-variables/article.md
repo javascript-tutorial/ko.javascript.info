@@ -157,7 +157,11 @@ let userName;
 let test123;
 ```
 
+<<<<<<< HEAD
 변수명이 여러 단어로 구성되어 있을 땐 [카멜 케이스(camelCase)](https://en.wikipedia.org/wiki/CamelCase) 가 흔히 사용됩니다. 카멜케이스는 단어를 차례대로 나열하면서 각 단어의 첫글자는 대문자로 작성합니다.: `myVeryLongName`.
+=======
+When the name contains multiple words, [camelCase](https://en.wikipedia.org/wiki/CamelCase) is commonly used. That is: words go one after another, each word except first starting with a capital letter: `myVeryLongName`.
+>>>>>>> 19223ae762f03cdff4e83f6f963f4f427af93847
 
 달러 기호 `'$'` 와 언더스코어(underscore) `'_'` 를 변수명에 사용할 수 있다는 점은 흥미로운 사실입니다. 이 특수기호는 문자처럼 특별한 의미가 없습니다.
 

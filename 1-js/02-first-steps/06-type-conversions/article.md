@@ -1,6 +1,10 @@
 # 형 변환(Type Conversions)
 
+<<<<<<< HEAD
 함수와 연산자에 전달되는 값은 대부분 적절한 자료형으로 자동 변환됩니다. 이런 과정을 "형 변환"이라고 합니다.
+=======
+Most of the time, operators and functions automatically convert the values given to them to the right type. 
+>>>>>>> 19223ae762f03cdff4e83f6f963f4f427af93847
 
 `alert`가 전달받은 값을 문자열로 자동 변환하여 보여주는 것이나, 수학 연산에서 전달된 값이 숫자로 변환되는 경우가 형 변환의 대표적인 예시입니다.
 
