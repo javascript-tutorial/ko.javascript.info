@@ -12,6 +12,9 @@
 :exclamation: 권한 요청
 - 처음 작업을 하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0) 수정 권한이 필요하니, gmail 아이디를 적은 권한 요청 게시물을 [이슈](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues) 페이지에 등록합니다.
 
+👂 의사소통
+- 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
+
 번역 기여자의 이름과 기여도는 번역이 완료되면 "About project"에 올라갑니다.
 
 P.S. 번역이 진행되고 있는 언어는 <https://github.com/javascript-tutorial/translate>에서 확인할 수 있습니다.
