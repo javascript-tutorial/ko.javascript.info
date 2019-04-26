@@ -1,31 +1,31 @@
 
-# Modules, introduction
+# 모듈 소개
 
-As our application grows bigger, we want to split it into multiple files, so called 'modules'.
-A module usually contains a class or a library of useful functions.
+개발하는 애플리케이션의 크기가 커질수록 파일을 여러개로 쪼개고자 하는 욕구는 강해집니다. 이 때 쪼개놓은 하나의 파일을 '모듈'이라고 부릅니다.
+모듈은 대게 클래스 하나 혹은 복수의 함수로 구성된 라이브러리 하나를 담습니다.
 
-For a long time, Javascript existed without a language-level module syntax. That wasn't a problem, because initially scripts were small and simple. So there was no need.
+자바스크립트 생태계는 오랫동안 언어 수준에서 지원하는 모듈 문법 없이 성장해 왔습니다. 이 점이 문제가 되진 않았습니다. 초기 스크립트는 크기도 작고 간단했기 때문이죠. 그래서 모듈의 필요성이 대두되지 않았습니다.  
 
-But eventually scripts became more and more complex, so the community invented a variety of ways to organize code into modules.
+하지만 스크립트의 크기가 점차 커지고 복잡해지기 시작했습니다. 그래서 자바스크립트 커뮤니티는 모듈이라는 개념을 도입해 코드를 체계화 하려는 여러가지 시도를 하였습니다.   
 
-For instance:
+예:
 
-- [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) -- one of the most ancient module systems, initially implemented by the library [require.js](http://requirejs.org/).
-- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1) -- the module system created for Node.JS server.
-- [UMD](https://github.com/umdjs/umd) -- one more module system, suggested as a universal one, compatible with AMD and CommonJS.
+- [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition)는 가장 오래된 모듈 시스템 중 하나입니다. [require.js](http://requirejs.org/)라는 라이브러리를 통해 처음 개발되었습니다.
+- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)는 Node.JS 서버를 위해 만들어진 모듈 시스템입니다.
+- [UMD](https://github.com/umdjs/umd)는 여러 모듈 시스템을 함께 사용하기위해 만들어졌습니다. AMD와 CommonJS와 호환됩니다.
 
-Now all these slowly become a part of history, but we still can find them in old scripts. The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js.
+위 모듈 시스템은 오래된 스크립트에서 찾아 볼 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다. 언어 차원에서 지원하는 모듈 시스템이 2015년부터 등장했기 때문입니다. 이제는 거의 대부분의 주요 브라우저와 Node.js에서 모듈 시스템을 지원하고 있습니다.  
 
-## What is a module?
+## 모듈이란?
 
-A module is just a file, a single script, as simple as that.
+모듈은 단순한 파일입니다. 하나의 스크립트죠. 아주 간단합니다.
 
-Directives `export` and `import` allow to interchange functionality between modules:
+모듈간 기능 공유는 지시자 `export`와 `import`를 이용하면 됩니다.
 
-- `export` keyword labels variables and functions that should be accessible from outside the file.
-- `import` allows to import functionality from other modules.
+- `export` 키워드를 변수나 함수 앞에 붙이면, 이 변수나 함수는 파일 외부에서 접근 할 수 있습니다.
+- `import` 키워드는 다른 모듈에서 기능을 가져올 때 사용합니다.
 
-For instance, if we have a file `sayHi.js` exporting a function:
+파일 `sayHi.js` 내부에 있는 함수를 외부로 내보내는(export) 예시를 살펴보도록 하죠.
 
 ```js
 // 📁 sayHi.js
@@ -34,33 +34,33 @@ export function sayHi(user) {
 }
 ```
 
-...Then another file may import and use it:
+이제 다른 파일에서 위 함수를 가져오고(import) 사용할 수 있습니다.
 
 ```js
 // 📁 main.js
 import {sayHi} from './sayHi.js';
 
-alert(sayHi); // function...
+alert(sayHi); // 함수
 sayHi('John'); // Hello, John!
 ```
 
-In this tutorial we concentrate on the language itself, but we use browser as the demo environment, so let's see how modules work in the browser.
+본 튜토리얼은 실행 환경에 상관 없이 자바스크립트 언어 자체에 대해 다루고자 하였으나, 브라우저를 데모 환경으로 사용중이므로 브라우저에서 어떻게 모듈이 동작하는지 알아보도록 하겠습니다.
 
-To use modules, we must set the attribute `<script type="module">`, like this:
+모듈을 사용하려면 `<script type="module">` 같이 속성을 설정해 주어야 합니다. 
 
 [codetabs src="say" height="140" current="index.html"]
 
-The browser automatically fetches and evaluates imports, then runs the script.
+브라우저는 스크립트 내 import 키워드를 만낫을 때 자동으로 모듈을 가져오고 평가한 다음, 스크립트를 실행합니다.
 
-## Core module features
+## 모듈의 핵심 기능
 
-What's different in modules, compared to "regular" scripts?
+그냥 "일반적인" 스크립트와 모듈의 차이는 무엇일까요?
 
-There are core features, valid both for browser and server-side Javascript.
+브라우저와 서버사이드 자바스크립트 환경에서 모두 적용되는 모듈의 기능은 다음과 같습니다. 
 
-### Always "use strict"
+### "use strict"이 항상 적용됩니다
 
-Modules always `use strict`. E.g. assigning to an undeclared variable will give an error.
+모듈은 항상 `use strict(엄격 모드)`로 실행됩니다. 그래서 선언되지 않은 변수에 값을 할당하면 에러가 발생하죠. 
 
 ```html run
 <script type="module">
@@ -68,29 +68,29 @@ Modules always `use strict`. E.g. assigning to an undeclared variable will give 
 </script>
 ```
 
-Here we can see it in the browser, but the same is true for any module.
+위 예시를 통해 브라우저 환경에서 모듈은 엄격모드로 실행된다는 것을 확인하였습니다. 모든 환경에서도 마찬가지입니다.
 
-### Module-level scope
+### 모듈 레벨 스코프
 
-Each module has its own top-level scope. In other words, top-level variables and functions from a module are not seen in other scripts.
+각 모듈은 자기만의 상위 레벨 스코프를 갖습니다. 즉, 모듈 최상위 레벨의 변수와 함수는 다른 스크립트(모듈)에서 접근할 수 없습니다. 
 
-In the example below, two scripts are imported, and `hello.js` tries to use `user` variable declared in `user.js`, and fails:
+아래 예시를 통해 이를 알아봅시다. 두개의 스크립트를 임포트 한 상황입니다. `user.js`에서 선언한 변수 `user`를 `hello.js`에서 사용하려고 하니 에러가 발생합니다.
 
 [codetabs src="scopes" height="140" current="index.html"]
 
-Modules are expected to `export` what they want to be accessible from outside and `import` what they need.
+외부에서 사용하려는 모듈은 `export`해줘야하고, 내보내진(export) 모듈을 가져와 사용하려면 `import`해줘야 합니다.
 
-So we should import `user.js` directly into `hello.js` instead of `index.html`.
+따라서 `user.js`를 `hello.js` 안에서 바로 import해줘야 합니다. `index.html`에서 가져오지 말고요.
 
-That's the correct variant:
+이제 정상적으로 동작하네요.
 
 [codetabs src="scopes-working" height="140" current="hello.js"]
 
-In the browser, independant top-level scope also exists for each `<script type="module">`:
+브라우저 환경에서도 각 `<script type="module">` 마다 독립적인 최상위 레벨 스코프가 존재합니다.
 
 ```html run
 <script type="module">
-  // The variable is only visible in this module script
+  // 변수 user는 모듈 안에서만 접근 가능합니다
   let user = "John";
 </script>
 
@@ -101,15 +101,15 @@ In the browser, independant top-level scope also exists for each `<script type="
 </script>
 ```
 
-If we really need to make a "global" in-browser variable, we can explicitly assign it to `window` and access as `window.user`. But that's an exception requiring a good reason.
+부득이하게 브라우저 환경에서 "전역(global)" 변수를 사용해야 한다면, `window` 객체에 변수를 명시적으로 할당하고, `window.user`로 접근하면 됩니다. 하지만 정말 필요한 경우에만 이 방법을 사용하길 권유합니다.
 
-### A module code is evaluated only the first time when imported
+### 모듈은 최초 임포트 시 단 한번만 평가됩니다. 
 
-If a same module is imported into multiple other places, it's code is executed only the first time, then exports are given to all importers.
+동일 모듈이 여러 곳에서 사용되는 경우, 모듈 내 코드는 최초 1회만 실행됩니다. 실행 이후 다른 모듈에서 이 모듈을 가져오죠. 
 
-That has important consequences. Let's see that on examples.
+이는 중요한 결과를 초래합니다. 예제를 살펴봅시다.
 
-First, if executing a module code brings side-effects, like showing a message, then importing it multiple times will trigger it only once -- the first time:
+alert 메시지를 보여주는 것 같이 실행 시 부작용이 발생하는 코드를 담고 있는 모듈은 여러번 임포트 되어도 최초 한번만 실행됩니다.
 
 ```js
 // 📁 alert.js
@@ -117,20 +117,20 @@ alert("Module is evaluated!");
 ```
 
 ```js
-// Import the same module from different files
+// 같은 모듈을 여러 파일에서 임포트함
 
 // 📁 1.js
-import `./alert.js`; // Module is evaluated!
+import `./alert.js`; // 모듈이 평가됩니다!
 
 // 📁 2.js
-import `./alert.js`; // (nothing)
+import `./alert.js`; // (아무일도 발생하지 않음)
 ```
 
-In practice, top-level module code is mostly used for initialization. We create data structures, pre-fill them, and if we want something to be reusable -- export it.
+현업에서 최상위 레벨 모듈 코드는 대게 초기화 용도로 사용합니다. 데이터 구조를 만들고, 그 구조에 내용을 미리 채워넣죠. 그리고 재사용 하고 싶은 경우 이 모듈을 내보냅니다.
 
-Now, a more advanced example.
+좀 더 어려운 예제를 살펴봅시다.
 
-Let's say, a module exports an object:
+모듈이 객체를 내보내는 경우를 보시죠.
 
 ```js
 // 📁 admin.js
@@ -139,9 +139,9 @@ export let admin = {
 };
 ```
 
-If this module is imported from multiple files, the module is only evaluated the first time, `admin` object is created, and then passed to all further importers.
+이 모듈이 여러 파일에서 임포트되어도 앞에서 설명한 바 처럼 한 번만 평가됩니다. `admin` 객체가 만들어지고, 이 모듈을 임포트 하는 모든 파일에 `admin`객체가 전달됩니다.
 
-All importers get exactly the one and only `admin` object:
+각 파일에서 전달받은 `admin` 객체는 유일무이한 객체입니다. 모두 동일한 객체를 받는 거죠. 
 
 ```js
 // 📁 1.js
@@ -153,16 +153,16 @@ import {admin} from './admin.js';
 alert(admin.name); // Pete
 
 *!*
-// Both 1.js and 2.js imported the same object
-// Changes made in 1.js are visible in 2.js
+// 1.js와 2.js 모두 같은 객체를 받아옵니다.
+// 1.js에서 변화된 객체가 2.js에서도 보이는 군요.
 */!*
 ```
 
-So, let's reiterate -- the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other modules will see that .
+자, 다시 정리해봅시다. 모듈은 단 한번만 실행됩니다. 내보내기(exports)가 만들어지면 해당 모듈은 모든 가져오기 파일에서 공유됩니다. 따라서 `admin` 객체에 뭔가 변화가 있으면, 다른 모듈들은 이 변화를 볼 수 있습니다.
 
-Such behavior is great for modules that require configuration. We can set required properties on the first import, and then in further imports it's ready.
+이런 특징은 환경설정이 필요한 모듈에서 유용하게 쓰입니다. 첫번째 import 에서 프로퍼티를 설정하하면, 다른 파일에서 이 설정을 사용할 수 있기 때문입니다.
 
-For instance, `admin.js` module may provide certain functionality, but expect the credentials to come into the `admin` object from outside:
+ `admin.js` 모듈을 예를들어 설명해보도록 하겠습니다. `admin` 객체는 보안상의 이유로 이 모듈 이외의 파일에서 수정되면 안됩니다.     
 
 ```js
 // 📁 admin.js
@@ -173,7 +173,7 @@ export function sayHi() {
 }
 ```
 
-Now, in `init.js`, the first script of our app, we set `admin.name`. Then everyone will see it, including calls made from inside `admin.js` itself:
+애플리케이션의 진입 스크립트인 `init.js`에서 `admin.name`을 설정해주었습니다. 이제 `admin`객체의 이름을 다른 파일들이 모두 볼 수 있게 되었습니다. `admin.js`에서도 이 변화를 볼 수 있죠.
 
 ```js
 // 📁 init.js
@@ -192,21 +192,21 @@ sayHi(); // Ready to serve, *!*Pete*/!*!
 
 ### import.meta
 
-The object `import.meta` contains the information about the current module.
+`import.meta` 객체는 현재 모듈에 대한 정보를 제공합니다.
 
-Its content depends on the environment. In the browser, it contains the url of the script, or a current webpage url if inside HTML:
+실행 환경에 따라 정보의 내용은 다릅니다. 브라우저 환경에선 스크립트의 url, HTML안에 있는 모듈의 경우 현재 웹페이지의 url 정보를 제공합니다.
 
 ```html run height=0
 <script type="module">
-  alert(import.meta.url); // script url (url of the html page for an inline script)
+  alert(import.meta.url); // script url (인라인 스크립트가 있는 html 페이지의 url)
 </script>
 ```
 
-### Top-level "this" is undefined
+### 모듈에서 최상위 레벨의 "this"
 
-That's kind of a minor feature, but for completeness we should mention it.
+사소한 기능이지만, 설명의 완전성을 위해 이 내용을 언급하고 넘어가야 할 것 같습니다. 
 
-In a module, top-level `this` is undefined, as opposed to a global object in non-module scripts:
+모듈의 최상위 레벨 `this`는 undefined 값을 가집니다. 모듈이 아닌 스크립트의 전역 객체엔 값이 있습니다.
 
 ```html run height=0
 <script>
@@ -218,52 +218,52 @@ In a module, top-level `this` is undefined, as opposed to a global object in non
 </script>
 ```
 
-## Browser-specific features
+## 브라우저 특정 기능
 
-There are also several browser-specific differences of scripts with `type="module"` compared to regular ones.
+`type="module"`가 붙은 브라우저 환경에서의 모듈은 일반적인 모듈과 몇가지 차이점이 있습니다.
 
-You may want skip those for now if you're reading for the first time, or if you don't use Javascript in a browser.
+자바스크립트 초심자나 브라우저 환경에서 자바스크립트를 사용하지 않고 있다면 이 내용은 넘어가셔도 됩니다.
 
-### Module scripts are deferred
+### 모듈의 지연 실행
 
-Module scripts are *always* deferred, same effect as `defer` attribute (described in the chapter [](info:script-async-defer)), for both external and inline scripts.
+외부 스크립트인지 인라인 스크립트인지에 상관없이 모듈 스크립트의 실행은 *항상* 지연됩니다. [](info:script-async-defer) 챕터에서 학습한 `defer` 속성이 적용된 것처럼 동작하죠.
 
-In other words:
-- external module scripts `<script type="module" src="...">` don't block HTML processing.
-- module scripts wait until the HTML document is fully ready.
-- relative order is maintained: scripts that go first in the document, execute first.
+따라서 아래와 같은 특성을 보입니다.
+- 외부 모듈 스크립트 `<script type="module" src="...">`는 브라우저의 HTML 처리를 막지 않습니다.
+- HTML 문서과 완전히 준비 될 때까지 모듈 스크립트 실행은 대기 상태에 있습니다.
+- 스크립트의 상대적 순서가 유지됩니다. 위쪽의 스크립트를 먼저 실행합니다.
 
-As a side-effect, module scripts always see HTML elements below them.
+이런 특징 때문에 모듈 스크립트는 스크립트 아래에 정의된 HTML 요소도 볼 수 있습니다.
 
-For instance:
+예시:
 
 ```html run
 <script type="module">
 *!*
-  alert(typeof button); // object: the script can 'see' the button below
+  alert(typeof button); // object: 스크립트는 아래쪽의 button 요소를 '참조'할 수 있습니다.
 */!*
-  // as modules are deferred, the script runs after the whole page is loaded
+  // 모듈 스크립트는 지연 되기 때문에, 페이지가 모두 로드되고 난 다음에 실행됩니다.
 </script>
 
 <script>
 *!*
-  alert(typeof button); // Error: button is undefined, the script can't see elements below
+  alert(typeof button); // Error: 버튼은 undefined 상태입니다. 스크립트 아래의 요소를 참조할 수 없습니다
 */!*
-  // regular scripts run immediately, before the rest of the page is processed
+  // 일반 스크립트는 페이지 내 나머지 요소가 처리되기 이전에 실행됩니다
 </script>
 
 <button id="button">Button</button>
 ```
 
-Please note: the second script actually works before the first! So we'll see `undefined` first, and then `object`.
+주의 사항: 두번째 스크립트는 첫 번째 모듈 스크립트보다 먼저 실행됩니다! 그렇기 때문에 `undefined`가 먼저, `object`가 나중에 출력됩니다.
 
-That's because modules are deferred, so way wait for the document to be processed. The regular scripts runs immediately, so we saw its output first.
+이는 모듈 스크립트가 지연 실행되기 때문입니다. 문서 전체가 처리되기 전까지 실행되지 않죠. 반면 일반 스크립트는 바로 실행됩니다. 그래서 위와 같은 결과가 나타납니다.
 
-When using modules, we should be aware that HTML-document can show up before the Javascript application is ready. Some functionality may not work yet. We should put transparent overlays or "loading indicators", or otherwise ensure that the visitor won't be confused because of it.
+모듈 사용 시 자바스크립트 애플리케이션이 준비되기 전에 HTML 문서가 먼저 나타날 수 있다는 점을 항상 염두해야 합니다. 몇몇 기능은 자바스크립트가 로딩되기 전까지 동작하지 않을 수 있습니다. 이 시점에 투명 오버레이나 "로딩 인디케이터(loading indicator)"를 보여주지 않으면 사용자의 혼란을 초래합니다.
 
-### Async works on inline scripts
+### 인라인 스크립트의 비동기성 Async works on inline scripts
 
-Async attribute `<script async type="module">` is allowed on both inline and external scripts. Async scripts run immediately when imported modules are processed, independantly of other scripts or the HTML document.
+`<script async type="module">`의 async 속성은 인라인 스크립트와 외부 스크립트 모두에 적용할 수 있습니다. 이렇게 async 속성이 붙은 스크립트는 임포트된 모듈이 처리될 때 즉시 실행됩니다. 다른 스크립트나 HTML 문서와 독립적으로 말이죠. 
 
 For example, the script below has `async`, so it doesn't wait for anyone.
 
