@@ -1,6 +1,6 @@
-# 객체 메서드(method), "this"
+# 객체 메서드, "this"
 
-객체는 대게 user같이 실제 세계에 존재하는 것들을 표현하기 위해 생성됩니다. 
+객체는 사용자(user), 주문하기(order) 같이 실제 세계에 존재하는 개체(entity)를 표현할 목적으로 만들어집니다.
 
 ```js
 let user = {
@@ -9,13 +9,13 @@ let user = {
 };
 ```
 
-그리고, 실제 세계에서는, user는 *행동*할 수 있죠 : 쇼핑 카트에서 선택하기, 로그인하기, 로그아웃하기 등등.
+실제 세상에서 사용자는 *행동*할 수 있는 개체입니다. 장바구니에서 물건 선택하기, 로그인하기, 로그아웃하기 등등의 행위를 하죠.
 
-자바스크립트에서 행동은 객체 안에 함수로 표현됩니다. 
+자바스크립트는 프로퍼티에 정의한 함수로 이런 행동을 표현합니다.  
 
 ## 메서드 예제
 
-시작하기 위해, `user`에게 hello라고 말하는 법을 가르쳐 줍시다:
+메서드에 대해 알아봅시다. 일단 `user`에게 hello 라고 말할 수 있는 능력을 부여해 보죠.
 
 ```js run
 let user = {
@@ -32,15 +32,15 @@ user.sayHi = function() {
 user.sayHi(); // Hello!
 ```
 
-여기서  함수를 만들기 위해서 Function 표현을 사용했습니다. 그리고 객체의 `user.sayHi` 속성에 이것을 할당해 줬습니다. 
+위 코드에선 함수 표현식(Function Expression)을 이용해 함수를 만들었습니다. 그리고 이 함수를 객체의 `user.sayHi` 프로퍼티 할당해 주었습니다. 
 
-그리고서 이것을 호출할 수 있죠. 이제는 user가 말할 수 있습니다!
+객체에 함수를 등록해주었기 때문에, 이제 호출할 수 있게 되었습니다. user에게 인사를 할 수 있는 능력이 부여되었습니다!
 
-객체의 속성인 함수를 *메서드*라고 부릅니다.
+sayHi처럼 객체의 속성인 함수를 *메서드*라고 부릅니다.
 
-즉, 여기서  `user`안에 `sayHi`메서드를 가진 것이죠.
+위 코드에선 `user` 객체의 `sayHi`가 메서드가 되는 거죠.
 
-물론, 미리 선언된 함수를 메서드로 사용할 수 있습니다. 이렇게요:
+이렇게 객체에 직접 메서드를 등록할 수 있지만, 이미 선언된 함수도 객체의 메서드로 등록할 수 있습니다.
 
 ```js run
 let user = {
@@ -48,12 +48,12 @@ let user = {
 };
 
 *!*
-// first, declare
+// 함수 선언
 function sayHi() {
   alert("Hello!");
 };
 
-// then add as a method
+// 선언된 함수를 메서드로 등록
 user.sayHi = sayHi;
 */!*
 
@@ -61,16 +61,16 @@ user.sayHi(); // Hello!
 ```
 
 ```smart header="객체 지향 프로그래밍"
-우리 코드에 어떤 존재를 객체를 사용하여 나타낼 때, [객체지향 프로그래밍](https://en.wikipedia.org/wiki/Object-oriented_programming) 이라고 말합니다. 줄여서 "OOP"라고 하죠.
+개체를 표현하는 방식으로 객체를 사용할 수 있습니다. 이런 방식을 [객체지향 프로그래밍(object-oriented programming)](https://en.wikipedia.org/wiki/Object-oriented_programming) 이라고 부릅니다. 줄여서 "OOP" 라고 하죠.
 
-OOP는 매우 중요하죠. 이것 자체로 흥미로운 과학입니다. 어떻게 올바른 객체를 택할 수 있을까요? 그들 사이의 상호작용 관계를 어떻게 조직할 수 있을까요? 이런 것이 설계입니다. 그리고 이 주제에 관한 훌륭한 책이 있습니다. E.Gamma, R.Helm, R.Johnson, J.Vissides의 저서 "Elements of Reusable Object-Oriented Software"나 G.Booch의 "Object-Oriented Analysis and Design with Applications" 등의 책에서 이에 대해 알아볼 수 있습니다.
+OOP는 중요한 연구분야입니다. 어떻게 올바른 개체를 택할지, 개체 사이의 상호작용을 어떻게 나타낼 지에 대해 다루기 때문입니다. 설계를 통해 이런 의사결정을 진행하죠. 객체 지향 설계에 관한 훌륭한 책을 몇가지 소개해 드립니다. E.Gamma, R.Helm, R.Johnson, J.Vissides의 저서 "Elements of Reusable Object-Oriented Software"나 G.Booch의 "Object-Oriented Analysis and Design with Applications" 등의 책을 읽어보길 권유드립니다.
 ```
-### 메서드 선언 짧게 만들기
+### 메서드 단축 구문
 
-객체 리터럴 안에 메서드를 선언하기 위한 더 짧은 문법이 있습니다:
+객체 리터럴 안에 메서드를 선언할 때 사용할 수 있는 단축구문을 소개합니다.
 
 ```js
-// these objects do the same
+// 아래 두 객체는 동일하게 동작합니다
 
 let user = {
   sayHi: function() {
@@ -78,31 +78,31 @@ let user = {
   }
 };
 
-// method shorthand looks better, right?
+// 단축 구문을 사용하니 더 깔끔해 보이네요.
 let user = {
 *!*
-  sayHi() { // same as "sayHi: function()"
+  sayHi() { // "sayHi: function()"와 동일합니다
 */!*
     alert("Hello");
   }
 };
 ```
 
-이처럼, `"function"`을 생략하고 그냥 `sayHi()`를 쓸 수 있습니다.
+위와 같이 `"function"`을 생략하고 메서드이름 `sayHi()`만 써도 메서드를 정의할 수 있습니다.
 
-사실을 말하자면, 완전히 같은 표기는 아닙니다. 객체 상속에 관련된 미묘한 차이점이 존재합니다(나중에 다루도록 하겠습니다). 하지만 지금은 아무런 문제가 되지 않습니다. 거의 모든 경우에 짧은 문법을 더 좋아합니다. 
+사실 두 방법은 완전히 동일한 표기법은 아닙니다. 객체 상속에 관한 미묘한 차이점이 존재하죠(이에 대해선 곧 다루도록 하겠습니다). 현재로는 이 차이가 중요하지 않습니다. 대부분의 상황에서 단축 구문을 사용하는 것이 선호되죠.
 
-## 메서드안에 "this"
+## 메서드 내 "this"
 
-보통 객체의 메서드는 제 역할을 하기 위해 객체 안에 저장된 정보에 접근할 권한이 필요합니다.
+객체의 메서드는 객체 안에 저장된 정보에 접근해 무언가를 할 때가 많습니다.
 
-예를 들어, `user.sayHi()`안에 있는 코드는 `user`의 name 속성을 필요로 할 수 있습니다.
+`user.sayHi()` 메서드가 `user`의 name 정보를 이용해 인사말을 만들어야 할 때가 이런 경우겠죠.
 
-**`this`키워드를 사용하면 메서드는 객체에 접근할 수 있습니다.**
+**`this` 키워드를 사용하면 메서드가 객체에 접근할 수 있게 할 수 있습니다.**
 
-`this`의 값은 "점 연산 이전"의 객체입니다. 메서드를 호출한 객체이죠.
+"점 앞"의 `this`는 객체를 참조합니다. 정확히는 메서드를 호출하는데 사용된 객체를 참조하죠.
 
-예를 들어:
+예시:
 
 ```js run
 let user = {
@@ -120,9 +120,9 @@ let user = {
 user.sayHi(); // John
 ```
 
-`user.sayHi()`의 실행 동안, `this`의 값은 `user`가 될 것입니다.
+`user.sayHi()`을 실행하는 동안, `this`가 참조하는 값은 `user`가 됩니다.
 
-기술적으로, `this` 없이도 접근할 수 있습니다. 바깥 변수를 통해 참조함으로 말이죠:
+`this` 없이도 이 객체에 접근할 수 있긴 합니다. 외부 변수를 참조하면 가능하죠.
 
 ```js
 let user = {
@@ -131,16 +131,16 @@ let user = {
 
   sayHi() {
 *!*
-    alert(user.name); // "user" instead of "this"
+    alert(user.name); // "this" 대신 "user"를 이용함
 */!*
   }
 
 };
 ```
 
-...하지만 이런 코드는 신뢰성이 떨어지죠. 만약 `user`를 다른 변수에 저장하기로 한다거나 `admin = user`, `user`를 다른 것으로 오버라이드 한다면, 원하지 않은 객체를 참조하게 될 것입니다.
+그런데 이렇게 외부 변수를 이용해 객체를 참조하면 예상치 못한 일이 발생할 수 있습니다. `admin = user`같이 `user`를 복사해 다른 변수에 할당하고, 기존에 있던 `user` 객체에 다른 값을 덮어쓴 경우를 생각해 봅시다. 이렇게 되면 엉뚱한 객체를 참조하겠죠.
 
-아래 보여드리겠습니다:
+이런 경우를 실제 코드를 이용해 재현해 보겠습니다.
 
 ```js run
 let user = {
@@ -157,18 +157,18 @@ let user = {
 
 
 let admin = user;
-user = null; // overwrite to make things obvious
+user = null; // user객체에 null을 덮어 씁니다.
 
-admin.sayHi(); // Whoops! inside sayHi(), the old name is used! error!
+admin.sayHi(); // 이런! sayHi()가 엉뚱한 객체를 참고해서 에러가 발생했네요!
 ```
 
-만약 `this.name`를 `user.name`대신 `alert` 안에서 사용한다고 하죠, 그럼 코드는 작동할 것입니다.
+`alert` 안에서 `user.name`대신 `this.name`을 사용했다면, 코드가 원하는 대로 작동했을 겁니다.
 
-## "this"는 바운드가 아니다.
+## 어디에도 종속되지 않는 "this"("this" is not bound)
 
-자바스크립트에서, "this" 키워드는 다른 객체지향 언어들과 다르게 동작합니다. 먼저, 어떤 함수에서도 사용할 수 있습니다.
+자바스크립트에서 "this" 키워드는 다른 프로그래밍 언어에서의 this 키워드와 다르게 동작합니다. 가장 먼저 소개해 드릴 특징은 어떤 함수에서도 사용할 수 있다는 점입니다.
 
-다음과 코드에는 문법 오류가 없습니다:
+다음 코드에는 문법 오류가 없습니다.
 
 ```js
 function sayHi() {
@@ -176,9 +176,9 @@ function sayHi() {
 }
 ```
 
-`this`값은 실행 시간에 결정됩니다. 어떤 것이든 될 수 있죠.
+`this`가 무엇을 참조하는지는 런타임에 결정됩니다. 따라서 this가 참조하는건 상황에 따라 동적으로 결정됩니다.
 
-예를 들어, 같은 함수라도 다른 "this"를 가질 수 있습니다. 다른 객체에서 호출됐다면 말이죠.
+아래 예제에서 처럼, 동일한 함수라도 다른 객체에서 이 함수를 호출했다면 "this"가 참조하는 값은 다릅니다.
 
 ```js run
 let user = { name: "John" };
@@ -189,20 +189,20 @@ function sayHi() {
 }
 
 *!*
-// use the same functions in two objects
+// 두개의 객체에서 하나의 함수를 사용함
 user.f = sayHi;
 admin.f = sayHi;
 */!*
 
-// these calls have different this
-// "this" inside the function is the object "before the dot"
-user.f(); // John  (this == user)
-admin.f(); // Admin  (this == admin)
+// 함수가 참조하는 this는 각각 다름
+// "this"는 "점(.) 앞의" 객체를 참조함
+user.f(); // John  (this는 user를 가리킴)
+admin.f(); // Admin  (this는 admin을 가리킴)
 
-admin['f'](); // Admin (dot or square brackets access the method – doesn't matter)
+admin['f'](); // Admin (점(.)을 통한 접근과 대괄호를 이용한 접근에 차이가 없습니다)
 ```
 
-사실, 이 함수를 객체 없이 호출할 수도 있습니다.
+사실, sayHi 함수를 객체 없이도 호출할 수 있습니다.
 
 ```js run
 function sayHi() {
@@ -212,20 +212,20 @@ function sayHi() {
 sayHi(); // undefined
 ```
 
-`this`가 strict mode에서 `undefined`일 경우. `this.name`을 접근하려 한다면, 에러를 출력할 것입니다.
+이런 경우에 엄격 모드(strict mode)에선 `this`가 `undefined`가 됩니다. `this.name`에 접근하려 한다면, 에러가 발생할 것입니다.
 
-strict mode가 아닌 모드에서 `this`의 값은 *global object*일 것입니다(브라우저 환경에선, `window`가 될겁니다. [](info:global-object)에서 자세히 다루도록 하겠습니다). 이것에 `"use strict"'`가 고치는 것들에 관한 역사적인 배경이 있는 동작입니다.
+엄격 모드가 아닐 때, `this`는 *전역 객체*를 참조합니다(브라우저 환경에서 전역객체는 `window`가 되겠죠. 전역 객체는 [](info:global-object)에서 자세히 다루도록 하겠습니다). 이런 동작 차이는 `"use strict"'`가 도입된 배경이기도 합니다.
 
-보통은 객체 없이 `this`를 사용하는 함수를 호출하는 것은 정상적이지 않다는 것을 알아두세요. 오히려 프로그래밍 실수라고 여기죠. 함수가 `this`를 가지고 있다면 어떤 객체의 문맥에서 호출될 것을 의도했다고 보면 되죠.
+객체 없이 `this`를 사용하는 함수를 호출하는 것은 정상적인 방법이 아닙니다. 프로그래밍 실수입니다. 함수 몸체에 `this`가 있는 경우는, 이 함수를 어떤 객체와 함께 호출할 것임을 의도했다고 보면 됩니다.
 
-```smart header="The consequences of unbound `this`"
-만약 당신이 다른 언어에서 넘어왔다면, 객체 안에 정의된 메서드들의 `this`는 언제나 그 객체를 가리킨다는 "bound `this`"의 개념을 사용하려 할 것이다. 
+```smart header="자유로운 `this`가 만드는 결과"
+다른 언어를 사용하다 자바스크립트로 넘어왔다면, 객체에서 정의한 메서드는 항상 그 객체를 참조하는 this를 가지고 있다는 개념("bound `this`")을 자바스크립트에도 적용하려고 할 것입니다.
 
-자바스크립트에서 `this`는 "free"이다. 호출 시간에 이 값이 정해지며 메서드가 어디에 정의된 것인가가 아니라 "점 연산 전에" 객체가 무엇이었는가에 달려있다.
+하지만 자바스크립트에서 `this`는 "자유롭습니다". this의 값은 런타임에 정해집니다. 메서드가 어디서 정의되었는지에 전혀 종속되지 않고, "점 앞의" 객체가 무엇인가에 따라 값이 결정됩니다.
 
-실행 시간 정해지는 `this`의 개념은 장점 단점이 있다. 한편으로는 다른 객체에 의해 함수가 재사용 될 수 있을 것이고 다른 한편으로는, 실수할 수 있는 더 큰 기회를 제공한다.
+이렇게 런타임에 결정되는 `this`의 동작 방식은 장점도 있고 단점도 있습니다. 여러 객체에 하나의 함수를 재사용 할 수 있어서 좋지만, 이런 유연성이 실수로 이어질 수 있기 때문에 주의해야 합니다.
 
-우리는 이 설계 결정이 좋은가 나쁜가를 판단할 위치에 있지 않다. 우리는 어떻게 이것과 함께 일할 수 있나 이해하고 어떻게 이익을 취할 것인지 또 어떻게 문제점을 피할 것인지 이해할 것이다. 
+자바스크립트가 this를 다루는 방식이 좋은지 나쁜지는 우리가 판단할 문제가 아닙니다. 개발자는 this의 동작 방식을 충분히 이해하고, 장점을 취하면서 실수를 피하는 데 집중하면 됩니다. 
 ```
 
 ## 내부적인 것들: 참조 타입(Reference Type)
