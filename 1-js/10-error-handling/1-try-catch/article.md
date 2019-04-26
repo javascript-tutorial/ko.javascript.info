@@ -579,7 +579,7 @@ function func() {
 
 이런 상황은 어떻게 대처할까요? 에러를 기록하거나, (사용자는 보통, 에러 메시지를 보진 않지만) 무언가를 보여주는 걸 할 수 있겠죠.
 
-명세에는 이런 치명적인 에러에 대응하는 방법은 적혀있지 않습니다. 하지만 try..catch 밖의 에러를 잡는 기능은 아주 유용하게 사용되기 때문에, 자바스크립트 환경에선 이 기능을 제공합니다. Node.JS의 [process.on('uncaughtException')](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 그 예입니다. 브라우저 환경에선 [window.onerror](mdn:api/GlobalEventHandlers/onerror) 프로퍼티에 함수를 할당해 에러를 처리합니다. try..catrh 블록에서 잡히지 않은 에러가 있는 경우, 이 함수가 호출됩니다.
+명세에는 이런 치명적인 에러에 대응하는 방법은 적혀있지 않습니다. 하지만 try..catch 밖의 에러를 잡는 기능은 아주 유용하게 사용되기 때문에, 자바스크립트 환경에선 이 기능을 제공합니다. Node.js의 [process.on('uncaughtException')](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 그 예입니다. 브라우저 환경에선 [window.onerror](mdn:api/GlobalEventHandlers/onerror) 프로퍼티에 함수를 할당해 에러를 처리합니다. try..catrh 블록에서 잡히지 않은 에러가 있는 경우, 이 함수가 호출됩니다.
 
 문법은 이렇습니다.
 
