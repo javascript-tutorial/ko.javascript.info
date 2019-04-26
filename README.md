@@ -4,6 +4,8 @@
 
 ## 참여 방법
 
+### 번역 참여 방법
+
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역 진행 상황을 확인합니다.
 - 번역되지 않은 글(article)이나, 리뷰가 필요한 글을 선택합니다.
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)의 해당 글에 본인의 깃허브 아이디와 진행상황(Translation Status)을 업데이트합니다.
@@ -15,9 +17,19 @@
 👂 의사소통
 - 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
-번역 기여자의 이름과 기여도는 번역이 완료되면 "About project"에 올라갑니다.
+번역이 진행되고 있는 언어는 <https://github.com/javascript-tutorial/translate>에서 확인할 수 있습니다.
 
-P.S. 번역이 진행되고 있는 언어는 <https://github.com/javascript-tutorial/translate>에서 확인할 수 있습니다.
+### 튜토리얼 작성에 기여하기
+
+더 나은 튜토리얼 작성을 위해 도움과 협업이 필요합니다.
+
+잘못된 점이 있거나 누락된 부분이 있으면 알려주세요. 이슈를 등록하고, 직접 수정할 수 있으면 PR을 보내주세요.
+
+*텍스트 에디터만 있다면 누구나 튜토리얼에 기여할 수 있습니다.* '마크다운(markdown)'으로 작성되었기 때문이죠.
+
+PR전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 싶다면, <https://github.com/javascript-tutorial/server>을 이용해 로컬에 서버를 세팅해 보세요. 
+
+튜토리얼에 기여하신 분들의 이름은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다.
 
 ## 저장소 구조
 
@@ -51,62 +63,10 @@ P.S. 번역이 진행되고 있는 언어는 <https://github.com/javascript-tuto
 ### 번역 팁
 
 - 번역은 단어-단어수준으로 정확하지 않아도 됩니다. 오역이 없고 번역투가 없는 문장이면 됩니다. 다만, 번역시 누락은 있으면 안됩니다.
+- 문장 끝 : 등의 영어에서만 사용되는 문장부호나 스타일은 최대한 한글화 해주세요.
 - 모호하지 않은 영어 문장이 발견되면 PR을 보내 영어 원문 수정요청을 할 수 있습니다.
 - 줄 바꿈과 단락은 "원문 그대로" 유지해주세요. 영어 원문 수정사항을 병합 할 때 중요합니다. 
 
-### 코드 내 텍스트 번역
-
-- 주석은 번역합니다.
-- 사용자 메시지와 예제 문자열도 번역합니다.
-- 변수, 클래스명, 식별자(identifier)은 번역하지 않습니다.
-- 번역 후 코드가 정상적으로 동작하는지 꼭 확인해주세요 :)
-
-예시:
-
-```js
-// Example
-const text = "Hello, world";
-document.querySelector('.hello').innerHTML = text;
-```
-
-✅ 옳바른 번역
-
-```js
-// 예시
-const text = '안녕하세요.';
-document.querySelector('.hello').innerHTML = text;
-```
-
-❌ 옳바르지 않은 번역
-
-```js
-// 예시
-const text = '안녕하세요.';
-// ".hello"는 클래스이므로 번역하지 않습니다
-document.querySelector('.안녕').innerHTML = text;
-```
-
-### 외부 링크
-
-원문의 `https://en.wikipedia.org/wiki/JavaScript` 같은 위키피디아 링크는 한글화가 잘 되어있는 경우, 한글 위키피디아 링크로 교체할 수 있습니다.
-
-예:
-
-```md
-[JavaScript](https://en.wikipedia.org/wiki/JavaScript) is a programming language.
-```
-
-✅ OK (en -> ko):
-
-```md
-[자바스크립트](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8)는 프로그래밍 언어입니다.
-```
-
-MDN 링크는, 부분 번역이 진행된 링크라도 해당 언어의 링크로 교체할 수 있습니다. 번역이 전혀 진행되지 않은 링크는 링크를 교체하지 않습니다.
-
-
-## 로컬에서 실행하기
-
-본 튜토리얼을 로컬 환경에서 실행하면 번역물이 어떻게 사용자에게 보일지 바로 확인 가능합니다.
-
-서버는 <https://github.com/javascript-tutorial/server>를 사용하여 세팅할 수 있습니다. 
+---
+💓  
+Ilya Kantor @iliakan

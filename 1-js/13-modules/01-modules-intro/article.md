@@ -11,7 +11,7 @@
 예:
 
 - [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition)는 가장 오래된 모듈 시스템 중 하나입니다. [require.js](http://requirejs.org/)라는 라이브러리를 통해 처음 개발되었습니다.
-- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)는 Node.JS 서버를 위해 만들어진 모듈 시스템입니다.
+- [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)는 Node.js 서버를 위해 만들어진 모듈 시스템입니다.
 - [UMD](https://github.com/umdjs/umd)는 여러 모듈 시스템을 함께 사용하기위해 만들어졌습니다. AMD와 CommonJS와 호환됩니다.
 
 위 모듈 시스템은 오래된 스크립트에서 찾아 볼 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다. 언어 차원에서 지원하는 모듈 시스템이 2015년부터 등장했기 때문입니다. 이제는 거의 대부분의 주요 브라우저와 Node.js에서 모듈 시스템을 지원하고 있습니다.  
@@ -350,7 +350,7 @@ Build tools do the following:
     - Unreachable code removed.
     - Unused exports removed ("tree-shaking").
     - Development-specific statements like `console` and `debugger` removed.
-    - Modern, bleeding-edge Javascript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
+    - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
     - The resulting file is minified (spaces removed, variables replaced with shorter named etc).
 
 That said, native modules are also usable. So we won't be using Webpack here: you can configure it later.
