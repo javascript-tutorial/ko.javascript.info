@@ -381,7 +381,7 @@ checkPermission(..) // 승인 여부를 확인하고 true/false를 반환함
 ```smart header="아주 짧은 함수 이름"
 *빈번히* 쓰이는 함수 중 아주 짧은 이름을 가진 함수도 있습니다.
 
-[jQuery](http://jquery.com) 프레임워크(framework)는 `$`라는 이름을 가진 함수를 정의합니다. [LoDash](http://lodash.com/) 라이브러리(library)의 핵심 함수는 이름이 `_` 입니다.
+[jQuery](http://jquery.com) 프레임워크(framework)는 `$`라는 이름을 가진 함수를 정의합니다. [Lodash](http://lodash.com/) 라이브러리(library)의 핵심 함수는 이름이 `_` 입니다.
 
 이런 함수들은 예외라고 생각하셔야 합니다. 일반적으로 함수 이름은 간결하고 함수가 어떤 일을 하는지 설명할 수 있어야 합니다.
 ```

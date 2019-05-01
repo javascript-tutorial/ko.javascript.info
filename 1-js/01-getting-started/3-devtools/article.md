@@ -54,7 +54,7 @@
 
 Usually, when we put a line of code into the console, and then press `key:Enter`, it executes.
 
-To insert multiple line, press `key:Shift+Enter`.
+To insert multiple lines, press `key:Shift+Enter`.
 
 ## 요약
 
