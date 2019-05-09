@@ -1,7 +1,7 @@
 
 # 클로져
 
-자바스크립트는 매우 기능 지향적인 언어입니다. 많은 자유도를 가지고 있습니다. 한순간에 함수를 생성한 다음 다른 변수에 복사하거나 다른 함수에 인수로 전달할 수 있으며 나중에 완전히 다른 곳에서 호출할 수 있습니다.
+자바스크립트는 매우 기능 지향적인 언어입니다. 많은 자유도를 가지고 있습니다. 함수를 동적으로 생성하고, 생성된 함수를 다른 변수에 복사하거나 또 다른 함수에 인수로 전달할 수 있으며, 완전히 다른 곳에서 호출할 수도 있습니다.
 
 함수가 외부의 변수에 접근할 수 있다는 것을 알고 있습니다. 이 기능은 꽤 자주 사용됩니다.
 
@@ -63,33 +63,34 @@
 
 무슨 일이 벌어지고 있는지 이해하려면 먼저 "변수"가 실제로 무엇인지 논의해 봅시다.
 
-자바스크립트에서 실행 중인 모든 함수, 코드 블록 및 스크립트에는 *렉시컬 환경* 라는 알려진 객체가 있습니다.
+In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
+자바스크립트에서 실행 중인 모든 함수와 코드 블록 `{...}`, 스크립트는 *렉시컬 환경*이라고 불리는 (숨겨진) 내부 연관 객체를 가집니다.
 
 렉시컬 환경 객체는 두 부분으로 구성됩니다.
 
-1. *환경 레코드* - 모든 로컬 변수를 속성으로 가진 객체 (그리고 `this` 값과 같은 다른 정보).
-*외부 렉시컬 환경* 에 대한 참조. 일반적으로 바깥쪽의 어휘적으로 바뀐 코드와 연관되어 있습니다. (현재 중괄호 바깥쪽).
+1. *환경 레코드(Environment Record)* -- 모든 로컬 변수를 프로퍼티로 저장하고 있는 객체(`this` 값 등의 다른 정보도 저장함)
+2. *외부 렉시컬 환경(outer lexical environment)* 에 대한 참조. 외부 코드와 연관됨
 
-**따라서 "변수"는 특별한 내부 객체인 환경 레코드의 속성일 뿐입니다. "변수를 가져오거나 변경하려면" "해당 객체의 속성을 가져오거나 변경하려면"을 의미합니다.**
+**따라서 "변수"는 특별한 내부 객체인 `환경 레코드`의 프로퍼티일 뿐입니다. "변수를 가져오거나 변경"하는 행위는 "환경 레코드의 프로퍼티를 가져오거나 변경"하는 것을 의미합니다.**
 
 예를 들어, 이 간단한 코드에는 하나의 렉시컬 환경만 있습니다.
 
 ![렉시컬 환경](lexical-environment-global.png)
 
-이것은 전체 스크립트와 관련된 소위 전역 렉시컬 환경입니다. 브라우저의 경우 모든 `<script>` 태그는 동일한 전역 환경을 공유합니다.
+이를 전역 렉시컬 환경(global Lexical Environment)이라 부릅니다. 전역 렉시컬 환경은 전체 스크립트와 연관되어 있습니다.
 
 위의 그림에서 사각형은 환경 레코드 (변수 저장)를 의미하고 화살표는 외부 참조를 의미합니다. 글로벌 렉시컬 환경은 외부 참조가 없기 때문에 'null'을 가리킨다.
 
-`let` 변수가 어떻게 동작하는지에 대한 더 큰 그림이 있습니다 :
+`let` 이 변할 때 어떤 일이 발생하는지에 대한 그림을 살펴보도록 합시다.
 
 ![렉시컬 환경](lexical-environment-global-2.png)
 
 오른쪽에 있는 사각형은 실행 중 전역 렉시컬 환경이 어떻게 변경되는지 보여줍니다.
 
-1. 스크립트가 시작되면 렉시컬 환경이 비어 있습니다.
-2. `let phrase` 정의가 나타납니다. 값이 할당되지 않았으므로`undefined`가 저장됩니다.
-3. `phrase`에는 값이 할당됩니다.
-4. `phrase`는 새로운 가치를 의미합니다.
+1. 스크립트가 시작할 땐, 렉시컬 환경이 비어 있습니다.
+2. `let phrase` 정의가 나타납니다. 값이 할당되지 않았으므로 `undefined`가 저장됩니다.
+3. `phrase`에 값이 할당됩니다.
+4. `phrase`의 값이 변경됩니다.
 
 모든 것이 단순해 보입니다.
 
@@ -286,7 +287,6 @@ counter는 내부적으로 어떻게 작동합니까?
 좋습니다. 답을 살펴보겠습니다.
 
 1. 방법은 없습니다 : `count`는 지역 함수 변수입니다. 외부에서 접근할 수 없습니다.
-
 2.`makeCounter()`를 호출할 때마다 새로운 함수인 렉시컬 환경가 생성되고, 그것의 자신의 `count`가 사용됩니다. 결과적으로 `counter` 함수는 독립적입니다.
 
 다음과 같습니다.
@@ -309,15 +309,13 @@ alert( counter2() ); // 0 (독립적)
 ```
 
 
-다행히, 외부 변수를 가진 상황은 이제 분명합니다. 그러나보다 복잡한 상황에서는 내부에 대한 깊은 이해가 필요할 수 있습니다. 그럼 좀 더 깊이 들어가 봅시다.
+외부 변수가 있는 예제에 대한 내용은 이제 명확히 이해되었을 겁니다. 대부분의 코드는 이정도만 알고 있어도 충분히 이해할 수 있습니다. 그러나 보다 복잡한 상황에서는 내부에 대한 깊은 이해가 필요할 수 있습니다. 그럼 좀 더 깊이 들어가 봅시다.
 
 ## 세부적인 환경
 
-클로저가 일반적으로 작동하는 방식을 이해했으므로, 매우 좋습니다.
+Here's what's going on in the `makeCounter` example step-by-step, follow it to make sure that you know things in the very detail.
 
-여기서 `makeCounter` 예제에서 진행되는 과정을 단계별로 알 수 있도록 진행하겠습니다. 하나씩 따라가서 매우 자세히 이해해야 합니다.
-
-추가적으로 `[[Environment]]`속성에 대해서도 다루고 있습니다. 이전에서는 간결성 때문에 언급하지 않았습니다.
+Please note the additional `[[Environment]]` property is covered here. We didn't mention it before for simplicity.
 
 1. 스크립트가 막 시작하면 전역 렉시컬 환경만 존재합니다:
 
@@ -338,7 +336,6 @@ alert( counter2() ); // 0 (독립적)
     `makeCounter()`호출의 순간에, 변수와 인수를 저장하기 위해 렉시컬 환경이 생성됩니다.
     
      모든 렉시컬 환경과 마찬가지로 두 가지를 저장합니다.
-         
      1. 지역 변수가 있는 환경 레코드. 이런 경우`count`만이 유일한 로컬 변수입니다. (`let count '가 실행될 때 나타납니다).
      2. 외부 렉시컬 참조. 함수의`[[Environment]]`로 설정됩니다. 여기`makeCounter`의 `[[Environment]]`는 전역 렉시컬 환경을 참조합니다.
     
@@ -352,7 +349,7 @@ alert( counter2() ); // 0 (독립적)
 
     ![](lexenv-nested-makecounter-3.png)
 
-    이 단계에서 내부 함수가 생성되었지만 아직 호출되지 않았다는 점에 유의해야합니다. `function() {return count ++; }`은 실행되고 있지 않습니다. 그것은 곧 반환될 것입니다.
+    Please note that on this step the inner function was created, but not yet called. The code inside `function() { return count++; }` is not running.
 
 4. 실행이 진행되면`makeCounter()`에 대한 호출이 끝나고 결과 (작은 중첩 함수)가 전역 변수`counter`에 할당됩니다.
 
@@ -393,8 +390,7 @@ alert( counter2() ); // 0 (독립적)
 ```smart header="클로져"
 일반적으로 개발자가 알아야 하는 일반적인 프로그래밍 용어인 "클로져 (closure)"가 있습니다.
 
-A [클로져(closure)](https://en.wikipedia.org/wiki/Closure_(computer_programming)) 는 외부 변수를 기억하고 액세스할 수 있는 함수입니다. 일부 언어에서는 불가능하거나 기능을 특수하게 작성하여 이를 가능하게 해야 합니다. 위에서 설명한 것처럼 자바스크립트에서는 모든 함수가 자연스럽게 닫힙니다. 
-(적용될 하나의 예외가 있습니다 <info:new-function>).
+A [클로져(closure)](https://en.wikipedia.org/wiki/Closure_(computer_programming)) 는 외부 변수를 기억하고 액세스할 수 있는 함수입니다. 일부 언어에서는 불가능하거나 기능을 특수하게 작성하여 이를 가능하게 해야 합니다. 위에서 설명한 것처럼 자바스크립트에서는 모든 함수가 자연스럽게 닫힙니다. (적용될 하나의 예외가 있습니다 <info:new-function>).
 
 하나의 예외: 숨겨진`[[Environment]]`속성을 사용하여 생성된 곳을 자동으로 기억하고, 모두가 외부 변수에 접근할 수 있습니다.
 
@@ -453,7 +449,7 @@ alert(i); // 에러, 변수없음
 
 또한 "bare"코드 블록 `{...}`을 사용하여 변수를 "로컬 범위"로 분리할 수 있습니다.
 
-예를 들어 웹 브라우저에서 모든 스크립트는 동일한 전역 영역을 공유합니다. 따라서 한 스크립트에 전역 변수를 만들면 다른 변수에서도 사용할 수 있게 됩니다. 그러나 두 스크립트가 동일한 변수 이름을 사용하고 서로 겹쳐 쓰면 소스가 충돌 합니다.
+For instance, in a web browser all scripts (except with `type="module"`) share the same global area. So if we create a global variable in one script, it becomes available to others. But that becomes a source of conflicts if two scripts use the same variable name and overwrite each other.
 
 변수 이름이 널리 쓰이는 것이고 스크립트 작성자가 서로를 알지 못하는 경우 이러한 일이 발생할 수 있습니다.
 
@@ -583,8 +579,8 @@ function f() {
   return function() { alert(value); };
 }
 
-// 배열안에 있는 3가지 함수들이, 하나씩 렉시컬 환경에 연결됨
-// 해당하는 f() 가 실행됨
+// 3 functions in array, every one of them links to Lexical Environment (LE for short)
+// from the corresponding f() run
 //         LE   LE   LE
 let arr = [f(), f(), f()];
 ```
