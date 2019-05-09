@@ -12,10 +12,11 @@
 
 ![prototype](object-prototype-empty.png)
 
-`[[Prototype]]`은 "마법의" 의미를 가지고 있습니다. `객체`에서 속성을 읽을 때 만약 해당 속성이 없다면, 자바스크립트는 자동으로 해당 객체의 원형에서 그것을 읽어 옵니다. 프로그래밍에서 그런 것을 "원형 상속 Prototypal inheritance"이라고 부릅니다. 많은 간지나는 언어들과 프로그래밍 기술의 토대가 되는 언어 특징입니다.
-`[[prototype]]`속성은 내부적으로 숨겨져 있습니다. 하지만 설정할 수 있는 많은 방법이 있죠.
+The prototype is a little bit "magical". When we want to read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". Many cool language features and programming techniques are based on it.
 
-그중 하나가 `__proto__`입니다, 이렇게 사용하죠:
+The property `[[Prototype]]` is internal and hidden, but there are many ways to set it.
+
+One of them is to use `__proto__`, like this:
 
 ```js run
 let animal = {
@@ -99,6 +100,7 @@ rabbit.walk(); // Animal walk
 ![](proto-animal-rabbit-walk.png)
 
 이러한 원형 체인은 더 길어질 수 있습니다:
+
 
 ```js run
 let animal = {
@@ -203,15 +205,14 @@ admin.fullName = "Alice Cooper"; // (**)
 ## "this" 값
 
 위의 예제에서 흥미로운 질문을 던질 수 있습니다: `set fullName(valuie)`에서 `this`는 어떤 값을 가지고 있는가? `this.name`과 `this.surname`은 어디에 코딩되어있는가? `user` 또는 `admin`?
+
 답은 간단합니다. `this`는 원형에 의해 전혀 영향을 받지 않습니다.
 
 **그 메서드가 어디서 호출되는지는 중요하지 않습니다. 객체에서 호출되든 이 객체의 원형에서 호출되든. 메서드 호출에서는, `this`는 언제나 `.`연산 앞에 있는 객체를 가리킵니다.**
 
 그래서, setter는 `admin.fullName=`를 호출해서 `admin`을 `this`로 사용합니다. `user`가 아니고요.
 
-That is actually a super-important thing, because we may have a big object with many methods and inherit from it. Then we can run its methods on inherited objects and they will modify the state of these objects, not the big one.
-이건 사실 매우 매우 중요한 사실입니다, 왜냐하면 많은 메서드를 가진 객체를 가지고 있고 이 객체로부터 상속한 경우를 생각해 보죠. 그 후에 부모겍체의 메서드를 상속된 객체에서 실행시킬 수 있을 것입니다. 그러나 이것은 부모객체가 아니라 상속받은 객체들의 상태를 수정할 것입니다.
-(업데이트)That is actually a super-important thing, because we may have a big object with many methods and inherit from it. Then inherited objects can run its methods, and they will modify the state of these objects, not the big one.
+That is actually a super-important thing, because we may have a big object with many methods and inherit from it. Then inherited objects can run its methods, and they will modify the state of these objects, not the big one.
 
 예를 들어, 여기 `animal`가 "메서드 저장소"라고 해보죠, 그리고 `rabbit`은 이것을 사용합니다.
 
