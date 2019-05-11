@@ -79,7 +79,7 @@ switch (a) {
 }
 ```
 
-위의 코드의 예시처럼 3번의 `alert`가 실행되는 것을 볼 수 있습니다.
+위의 코드의 예시처럼 3번의 `alert`코드 가 실행되는 것을 볼 수 있습니다.
 
 ```js
 alert( 'Exactly!' );
@@ -87,7 +87,7 @@ alert( 'Too big' );
 alert( "I don't know such values" );
 ```
 
-### 어느 표현식이든 `switch/case` 문의 인자로 가능합니다.
+### 어느 표현식이든 `switch/case` 문의 인수로 가능합니다.
 
 `switch` 문과 `case` 문은 표현식의 타입으로 가능합니다.
 (*arbitrary expression* : some expression of your choice, types of expression)
