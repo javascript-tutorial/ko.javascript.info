@@ -2,9 +2,9 @@ importance: 2
 
 ---
 
-# Sum with an arbitrary amount of brackets
+# 정해지지않은 괄호의 양을 합산하기
 
-Write function `sum` that would work like this:
+다음과 같이 작동하는 `sum` 함수를 작성해보세요.
 
 ```js
 sum(1)(2) == 3; // 1 + 2
@@ -14,4 +14,4 @@ sum(6)(-1)(-2)(-3) == 0
 sum(0)(1)(2)(3)(4)(5) == 15
 ```
 
-P.S. Hint: you may need to setup custom object to primitive conversion for your function.
+P.S. 힌트: 아마도 특수 객체(custom object)를 활용해서 원시값 변환에 사용하세요.
