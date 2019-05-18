@@ -12,9 +12,9 @@
 
 ![prototype](object-prototype-empty.png)
 
-`[[Prototype]]`은 "마법의" 의미를 가지고 있습니다. `객체`에서 속성을 읽을 때 만약 해당 속성이 없다면, 자바스크립트는 자동으로 해당 객체의 원형에서 그것을 읽어 옵니다. 프로그래밍에서 그런 것을 "원형 상속 Prototypal inheritance"이라고 부릅니다. 많은 간지나는 언어들과 프로그래밍 기술의 토대가 되는 언어 특징입니다.
+The prototype is a little bit "magical". When we want to read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". Many cool language features and programming techniques are based on it.
 
-`[[prototype]]`속성은 내부적으로 숨겨져 있습니다. 하지만 설정할 수 있는 많은 방법이 있죠.
+The property `[[Prototype]]` is internal and hidden, but there are many ways to set it.
 
 One of them is to use `__proto__`, like this:
 
@@ -100,7 +100,6 @@ rabbit.walk(); // Animal walk
 ![](proto-animal-rabbit-walk.png)
 
 이러한 원형 체인은 더 길어질 수 있습니다:
-
 
 ```js run
 let animal = {
@@ -210,13 +209,13 @@ admin.fullName = "Alice Cooper"; // (**)
 
 **그 메서드가 어디서 호출되는지는 중요하지 않습니다. 객체에서 호출되든 이 객체의 원형에서 호출되든. 메서드 호출에서는, `this`는 언제나 `.`연산 앞에 있는 객체를 가리킵니다.**
 
-So, the setter call `admin.fullName=` uses `admin` as `this`, not `user`.
+그래서, setter는 `admin.fullName=`를 호출해서 `admin`을 `this`로 사용합니다. `user`가 아니고요.
 
 That is actually a super-important thing, because we may have a big object with many methods and inherit from it. Then inherited objects can run its methods, and they will modify the state of these objects, not the big one.
 
-For instance, here `animal` represents a "method storage", and `rabbit` makes use of it.
+예를 들어, 여기 `animal`가 "메서드 저장소"라고 해보죠, 그리고 `rabbit`은 이것을 사용합니다.
 
-The call `rabbit.sleep()` sets `this.isSleeping` on the `rabbit` object:
+`rabbit.sleep()`호출은 `this.isSleeping`을 `rabbit`객체에 설정할 것입니다.
 
 ```js run
 // animal has methods

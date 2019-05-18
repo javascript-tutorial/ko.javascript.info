@@ -36,7 +36,7 @@ alert( arr.length ); // 3
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
-The [arr.splice(str)](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+[arr.splice(str)](mdn:js/Array/splice) 메서드는 만능 스위스 맥가이버 칼 같습니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드로 요소 추가, 삭제, 교체가 모두 가능합니다.
 
 문법은 다음과 같습니다.
 
@@ -238,9 +238,9 @@ arr.forEach(function(item, index, array) {
 
 배열 메서드인 [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf), [arr.includes](mdn:js/Array/includes)는 같은 이름을 가진 문자열 메서드와 동일한 문법을 사용하고 하는 일도 본질적으로 같습니다. 연산 대상이 문자열이 아닌 배열의 요소라는 점만 다릅니다.
 
-- `arr.indexOf(item, from)` looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
-- `arr.lastIndexOf(item, from)` -- same, but looks for from right to left.
-- `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
+- `arr.indexOf(item, from)`는 인덱스 `from`부터 시작해 해당하는 `item(요소)`을 찾습니다. 일치하는 요소를 발견하면 해당하는 요소의 인덱스를 반환하고 그렇지 않다면 `-1`을 반환합니다.
+- `arr.lastIndexOf(item, from)`는 위 메서드와 동일한 기능을 하는 메서드이나, 검색을 끝에서부터 시작한다는 점만 다릅니다.
+- `arr.includes(item, from)`는 인덱스 `from`부터 시작해 배열에 해당하는 `요소(item)`가 있는지를 검색하는데, 해당하는 요소를 발견하면 `true`를 반환합니다.
 
 예시 코드를 살펴보겠습니다.
 
@@ -253,7 +253,6 @@ alert( arr.indexOf(null) ); // -1
 
 alert( arr.includes(1) ); // true
 ```
-
 위 메서드들은 요소를 찾을 때 완전 항등 연산자인 `===` 를 사용한다는 점에 유의하시기 바랍니다. 보시는 바와 같이 `false`를 검색하면 정확히 `false`만을 검색하지, 0을 검색하진 않습니다.
 
 요소의 위치를 정확히 알고 싶은게 아니고, 배열 내 존재 여부만 확인하고 싶다면 `arr.includes`를 사용하는 게 좋습니다.

@@ -288,7 +288,7 @@ promise.then(alert); // done! (바로 출력됨)
 function loadScript(src, callback) {
   let script = document.createElement('script');
   script.src = src;
-  
+
   script.onload = () => callback(null, script);
   script.onerror = () => callback(new Error(`Script load error for ${src}`));
 
@@ -320,11 +320,11 @@ function loadScript(src) {
 let promise = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js");
 
 promise.then(
-  script =&amp;gt; alert(`${script.src} is loaded!`),
-  error =&amp;gt; alert(`Error: ${error.message}`)
+  script => alert(`${script.src} is loaded!`),
+  error => alert(`Error: ${error.message}`)
 );
 
-promise.then(script =&amp;gt; alert('One more handler to do something else!'));
+promise.then(script => alert('One more handler to do something else!'));
 ```
 
 위 코드를 통해 프라미스를 사용한 코드가 콜백 기반 패턴을 구현한 코드에 비해 다음과 같은 이점이 있다는걸 알 수 있습니다.
