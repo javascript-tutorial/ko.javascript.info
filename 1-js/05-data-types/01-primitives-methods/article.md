@@ -62,17 +62,17 @@ let str = "Hello";
 alert( str.toUpperCase() ); // HELLO
 ```
 
-Simple, right? Here's what actually happens in `str.toUpperCase()`:
+간단 하죠? 아래는 `str.toUpperCase ()`에서 실제로 일어나는 일입니다:
 
-1. The string `str` is a primitive. So in the moment of accessing its property, a special object is created that knows the value of the string, and has useful methods, like `toUpperCase()`.
-2. That method runs and returns a new string (shown by `alert`).
-3. The special object is destroyed, leaving the primitive `str` alone.
+1. 문자열 `str`은 원시 값 입니다. 따라서 원시 값의 프로퍼티(toUpperCase)에 접근하는 순간, 특별한 객체가 생성됩니다. 이 객체는 문자열이 뭔지 알고 있고, `toUpperCase()`와 같은 유용한 메서드를 가지고 있습니다.
+2. 메서드가 실행되고, 새로운 문자열이 반환됩니다(`alert` 창에 이 문자열이 출력됩니다).
+3. 특별한 객체는 파괴되고, 다시 원시 값 `str`만 남습니다.
 
-So primitives can provide methods, but they still remain lightweight.
+이런 과정을 통해 원시 값에 메서드를 호출할 수 있습니다. 여전히 가벼우면서 말이죠.
 
-The JavaScript engine highly optimizes this process. It may even skip the creation of the extra object at all. But it must still adhere to the specification and behave as if it creates one.
+자바스크립트 엔진은 위와 같은 프로세스를 고도로 최적화해줍니다. 심지어 여분의 객체 생성 없이 위 과정이 가능하도록 하죠. 최적화 과정은 객체를 생성 하지 않고도, 명세를 지키며, 마치 원시 래퍼 객체를 생성한 것처럼 동작합니다.
 
-A number has methods of its own, for instance, [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) rounds the number to the given precision:
+원시 타입 중 하나인 숫자 타입에도 고유한 메서드가 있습니다. 대표적인 메서드인 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)는 주어진 정밀도로 숫자를 반올림합니다. 
 
 ```js run
 let n = 1.23456;
@@ -80,7 +80,7 @@ let n = 1.23456;
 alert( n.toFixed(2) ); // 1.23
 ```
 
-We'll see more specific methods in chapters <info:number> and <info:string>.
+<info:number>, <info:string> 에서 각 타입에서 제공하는 메서드를 좀 더 알아보도록 하겠습니다.
 
 
 ````warn header="`String/Number/Boolean` 생성자(Constructors)는 내부용으로만 사용합니다."
@@ -106,7 +106,7 @@ if (zero) { // 변수 zero는 객체이므로, 참이 됩니다.
 }
 ```
 
-On the other hand, using the same functions `String/Number/Boolean` without `new` is a totally sane and useful thing. They convert a value to the corresponding type: to a string, a number, or a boolean (primitive).
+`new`를 쓰지 않고 `String / Number / Boolean` 함수를 사용하는 걸 추천합니다. 의도한 바와 같이 인수로 들어온 값을 문자열, 숫자, 불리언같은 원시 값으로 변환해 주기 때문입니다.
 
 For example, this is entirely valid:
 ```js
@@ -126,5 +126,5 @@ alert(null.test); // error
 
 ## Summary
 
-- Primitives except `null` and `undefined` provide many helpful methods. We will study those in the upcoming chapters.
-- Formally, these methods work via temporary objects, but JavaScript engines are well tuned to optimize that internally, so they are not expensive to call.
+- 'null'과 'undefined'를 제외한 원시 값은 유용한 메서드를 제공합니다. 다음 주제에서 이 메서드를 공부할 것입니다.
+- 공식적으로 이러한 메서드는 임시 객체 생성을 통해 작동하지만, 자바스크립트 엔진은 내부 최적화가 되어있어 메서드 호출 비용이 많이 들지 않습니다.

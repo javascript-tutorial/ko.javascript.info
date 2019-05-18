@@ -119,6 +119,7 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (역 따옴표는 �
 let nameFieldChecked = true; // yes, name field is checked
 let ageFieldChecked = false; // no, age field is not checked
 ```
+
 불리언 값은 비교 후 결과를 저장하기도 합니다:
 
 ```js run

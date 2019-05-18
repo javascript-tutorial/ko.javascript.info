@@ -61,9 +61,8 @@
 
 ## 렉시컬(lexical, 정적, 어휘적) 환경
 
-무슨 일이 벌어지고 있는지 이해하려면 먼저 "변수"가 실제로 무엇인지 논의해 봅시다.
+무슨 일이 벌어지고 있는지 이해하려면, "변수"가 실제 무엇인지 알아야 합니다.
 
-In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
 자바스크립트에서 실행 중인 모든 함수와 코드 블록 `{...}`, 스크립트는 *렉시컬 환경*이라고 불리는 (숨겨진) 내부 연관 객체를 가집니다.
 
 렉시컬 환경 객체는 두 부분으로 구성됩니다.
@@ -449,7 +448,13 @@ alert(i); // 에러, 변수없음
 
 또한 "bare"코드 블록 `{...}`을 사용하여 변수를 "로컬 범위"로 분리할 수 있습니다.
 
+<<<<<<<<< Temporary merge branch 1
+예를 들어 웹 브라우저에서 모든 스크립트는 동일한 전역 영역을 공유합니다. 따라서 한 스크립트에 전역 변수를 만들면 다른 변수에서도 사용할 수 있게 됩니다. 그러나 두 스크립트가 동일한 변수 이름을 사용하고 서로 겹쳐 쓰면 소스가 충돌 합니다.
+||||||||| merged common ancestors
+For instance, in a web browser all scripts share the same global area. So if we create a global variable in one script, it becomes available to others. But that becomes a source of conflicts if two scripts use the same variable name and overwrite each other.
+=========
 For instance, in a web browser all scripts (except with `type="module"`) share the same global area. So if we create a global variable in one script, it becomes available to others. But that becomes a source of conflicts if two scripts use the same variable name and overwrite each other.
+>>>>>>>>> Temporary merge branch 2
 
 변수 이름이 널리 쓰이는 것이고 스크립트 작성자가 서로를 알지 못하는 경우 이러한 일이 발생할 수 있습니다.
 
@@ -579,8 +584,8 @@ function f() {
   return function() { alert(value); };
 }
 
-// 3 functions in array, every one of them links to Lexical Environment (LE for short)
-// from the corresponding f() run
+// 배열안에 있는 3가지 함수들이, 하나씩 렉시컬 환경에 연결됨(LE for short)
+// 해당하는 f() 가 실행됨
 //         LE   LE   LE
 let arr = [f(), f(), f()];
 ```
