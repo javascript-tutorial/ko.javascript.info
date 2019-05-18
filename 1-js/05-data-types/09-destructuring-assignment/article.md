@@ -499,22 +499,22 @@ showMenu(); // Menu 100 200
 
 위 코드에서 전체 인수 객체의 기본값은 `{}`입니다. 어떤 경우든 분해할 것이 있기 때문에 함수에 인수를 하나도 전달하지 않아도 에러가 발생하지 않습니다.
 
-## Summary
+## 요약
 
-- Destructuring assignment allows for instantly mapping an object or array onto many variables.
-- The object syntax:
+- 구조 분해 할당을 사용하면 객체나 배열을 변수로 매핑할 수 있습니다.
+- 객체 분해하기:
     ```js
     let {prop : varName = default, ...} = object
     ```
 
-    This means that property `prop` should go into the variable `varName` and, if no such property exists, then the `default` value should be used.
+    객체 object의 프로퍼티 `prop`은 변수 `varName`으로 매핑되고, 만약 객체에 이 프로퍼티가 없는 경우엔 `default` 값이 쓰입니다.
 
-- The array syntax:
+- 배열 분해하기:
 
     ```js
     let [item1 = default, item2, ...rest] = array
     ```
 
-    The first item goes to `item1`; the second goes into `item2`, all the rest makes the array `rest`.
+    배열 array의 첫 번째 요소는 변수 `item1`으로, 두 번째 요소는 변수 `item2`으로 매핑되고, 배열의 나머지 요소들은 `rest`라는 배열에 저장됩니다.
 
-- For more complex cases, the left side must have the same structure as the right one.
+- 구조가 복잡한 경우엔, 좌측과 우측의 구조 패턴이 같아야 합니다.
