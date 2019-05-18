@@ -1,24 +1,24 @@
-# 논리 연산자
+# Logical operators
 
-자바스크립트에는 세 가지 논리 연산자 `||`(OR), `&&`(AND), `!`(NOT) 이 있습니다. 
+There are three logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT).
 
-"논리"라는 수식어가 붙지만, 논리 연산자는 (불리언(boolean) 자료형뿐만 아니라) 모든 유형의 값에 적용할 수 있습니다. 연산의 결과 역시 모든 유형이 될 수 있습니다.
+Although they are called "logical", they can be applied to values of any type, not only boolean. Their result can also be of any type.
 
-좀 더 자세히 알아보도록 합시다.
+Let's see the details.
 
 ## || (OR)
 
-"OR" 연산자는 두 개의 수직선 기호로 만들 수 있습니다.
+The "OR" operator is represented with two vertical line symbols:
 
 ```js
 result = a || b;
 ```
 
-클래식 프로그래밍에서 OR 연산자는 불리언 값만 조작합니다. 인수 중 하나라도 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.
+In classical programming, the logical OR is meant to manipulate boolean values only. If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
 
-자바스크립트에서 OR 연산자는 조금 더 까다롭고 강력합니다. 이에 대해 알아보기 전에, 먼저, OR연산자가 불리언 값을 어떻게 다루는지 알아보도록 합시다.
+In JavaScript, the operator is a little bit trickier and more powerful. But first, let's see what happens with boolean values.
 
-아래와 같이 네 가지 조합이 가능합니다.
+There are four possible logical combinations:
 
 ```js run
 alert( true || true );   // true
@@ -27,21 +27,21 @@ alert( true || false );  // true
 alert( false || false ); // false
 ```
 
-보시다시피 결과는 피연산자(operand)가 모두 `false`인 경우를 제외하고 항상 `true`입니다.
+As we can see, the result is always `true` except for the case when both operands are `false`.
 
-피연산자가 논리 타입이 아니면, 평가를 위해 논리 타입으로 변환됩니다.
+If an operand is not a boolean, it's converted to a boolean for the evaluation.
 
-예를 들어, 숫자 `1`은 `true`로 취급되고 숫자 `0`은 `false`로 취급됩니다. 
- 
+For instance, the number `1` is treated as `true`, the number `0` as `false`:
+
 ```js run
-if (1 || 0) { // if( true || false ) 와 동일하게 동작합니다.
+if (1 || 0) { // works just like if( true || false )
   alert( 'truthy!' );
 }
 ```
 
-OR `||`은 `if`문에서 자주 사용합니다. 주어진 조건 중 *하나라도* `참`인지를 테스트 하기 위해서죠.
+Most of the time, OR `||` is used in an `if` statement to test if *any* of the given conditions is `true`.
 
-예:
+For example:
 
 ```js run
 let hour = 9;
@@ -53,57 +53,57 @@ if (hour < 10 || hour > 18) {
 }
 ```
 
-많은 조건을 테스트 할 수도 있습니다.
+We can pass more conditions:
 
 ```js run
 let hour = 12;
 let isWeekend = true;
 
 if (hour < 10 || hour > 18 || isWeekend) {
-  alert( 'The office is closed.' ); // 조건이 주말이기 때문임
+  alert( 'The office is closed.' ); // it is the weekend
 }
 ```
 
-## OR은 첫 번째 참 같은 값(truthy value)을 찾습니다
+## OR finds the first truthy value
 
-불리언 값을 대상으로 하는 OR 연산은 고전적입니다. 이제 자바스크립트의 "추가"기능을 소개하겠습니다.
+The logic described above is somewhat classical. Now, let's bring in the "extra" features of JavaScript.
 
-확장된 알고리즘은 다음과 같이 동작합니다.
+The extended algorithm works as follows.
 
-피 연산자 값이 여러 개있는 경우:
+Given multiple OR'ed values:
 
 ```js
 result = value1 || value2 || value3;
 ```
 
-이런 경우, OR `||`연산자는 다음 절차를 통해 연산을 수행합니다.
+The OR `||` operator does the following:
 
-- 왼쪽부터 오른쪽으로 피연산자를 평가합니다.
-- 각 피연산자를 논리 타입으로 변환합니다. 결과가 `true`이면, 연산을 멈추고 해당 피연산자의 원래 값(변환 전)을 반환합니다.
-- 피연산자 모두가 평가된 경우(즉, 모두 `false`인 경우)는 마지막 피연산자를 반환합니다. 
+- Evaluates operands from left to right.
+- For each operand, converts it to boolean. If the result is `true`, stops and returns the original value of that operand.
+- If all operands have been evaluated (i.e. all were `false`), returns the last operand.
 
-형 변환 없이 원래 값을 반환합니다.
+A value is returned in its original form, without the conversion.
 
-이렇게, OR `"||"` 연산자가 체이닝 되면, 첫 번째 참 같은 값을 반환합니다. 피연산자에 참 같은 값이 하나도 없다면, 마지막 피연산자를 반환합니다.
+In other words, a chain of OR `"||"` returns the first truthy value or the last one if no truthy value is found.
 
-예:
+For instance:
 
 ```js run
-alert( 1 || 0 ); // 1 (1은 참 같은 값임)
-alert( true || 'no matter what' ); // (true는 참 같은 값임)
+alert( 1 || 0 ); // 1 (1 is truthy)
+alert( true || 'no matter what' ); // (true is truthy)
 
-alert( null || 1 ); // 1 (1은 첫 번째 참 같은 값임)
-alert( null || 0 || 1 ); // 1 (첫 번째 참 같은 값)
-alert( undefined || null || 0 ); // 0 (모두 거짓 같은 값이므로, 마지막 값을 반환함)
+alert( null || 1 ); // 1 (1 is the first truthy value)
+alert( null || 0 || 1 ); // 1 (the first truthy value)
+alert( undefined || null || 0 ); // 0 (all falsy, returns the last value)
 ```
 
-이런 자바스크립트에서만 볼 수 있는 OR 연산자의 특징을 이용하면 연산자를 다양한 곳에 응용할 수 있습니다. 불리언 값만을 피연산자로 받아들이는 고전적인 OR 연산과는 다르게 말이죠.
+This leads to some interesting usage compared to a "pure, classical, boolean-only OR".
 
-1. **변수 또는 표현식으로 구성된 목록에서 첫 번째 참 같은 값 얻기**
+1. **Getting the first truthy value from a list of variables or expressions.**
 
-    데이터가 저장되었거나, `null/undefined`일 수 있는 변수가 여러 개 있다고 가정 해 봅시다. 여러 변수 중, 데이터가 들어있는 첫 번째 변수는 어떻게 찾을 수 있을까요?
+    Imagine we have a list of variables which can either contain data or be `null/undefined`. How can we find the first one with data?
 
-    이럴 때, OR `||`을 사용할 수 있습니다.
+    We can use OR `||`:
 
     ```js run
     let currentUser = null;
@@ -113,28 +113,27 @@ alert( undefined || null || 0 ); // 0 (모두 거짓 같은 값이므로, 마지
     let name = currentUser || defaultUser || "unnamed";
     */!*
 
-    alert( name ); // 첫 번째 참 같은 값인 "John"이 선택됨
+    alert( name ); // selects "John" – the first truthy value
     ```
 
-    `currentUser`와 `defaultUser` 둘 다 거짓 같은 값(falsy)이면, `"unnamed"`가 출력됩니다.
+    If both `currentUser` and `defaultUser` were falsy, `"unnamed"` would be the result.
+2. **Short-circuit evaluation.**
 
-2. **단락 회로 평가(short circuit evaluation)**
+    Operands can be not only values, but arbitrary expressions. OR evaluates and tests them from left to right. The evaluation stops when a truthy value is reached, and the value is returned. This process is called "a short-circuit evaluation" because it goes as short as possible from left to right.
 
-    피연산자엔 값뿐만 아니라 임의의 표현식이 올 수 있습니다. OR`||`은 왼쪽부터 시작해서 오른쪽으로 평가 및 테스트를 진행합니다. 참 같은 값에 도달하면 평가가 중지되고 그 값이 리턴됩니다. 연산이 참 같은 값에 도달한 순간 멈추기 때문에 모든 피연산자를 평가하지 않고 적은 연산만으로도 결과가 도출됩니다. 이런 과정을 "단락 회로 평가"라고 부릅니다.
+    This is clearly seen when the expression given as the second argument has a side effect like a variable assignment.
 
-    두 번째 피연산자가 부수적인 효과(side effect)를 가지는 표현식 일 때, "단락 회로 평가"의 특징을 잘 살펴볼 수 있습니다.
-
-    아래 예제에서 `x`의 값 할당되지 않습니다.
+    In the example below, `x` does not get assigned:
 
     ```js run no-beautify
     let x;
 
     *!*true*/!* || (x = 1);
 
-    alert(x); // (x = 1)이 평가되지 않기 때문에, x는 undefined가 됨
+    alert(x); // undefined, because (x = 1) not evaluated
     ```
 
-    위 예제에서 만약 첫 번째 인수가 `false`이면, `||`는 두 번째 인수를 평가하기 때문에 x에 값이 할당됩니다.
+    If, instead, the first argument is `false`, `||` evaluates the second one, thus running the assignment:
 
     ```js run no-beautify
     let x;
@@ -144,21 +143,21 @@ alert( undefined || null || 0 ); // 0 (모두 거짓 같은 값이므로, 마지
     alert(x); // 1
     ```
 
-    할당은 단순한 부수 효과입니다. 할당 이외에 다른 부수 효과가 발생할 수도 있습니다.
+    An assignment is a simple case. Other side effects can also be involved.
 
-    위에서 살펴본 OR을 활용한 유스케이스는 "`if` 조건문을 더 짧게 만들 수 있는 방법"입니다. 첫 번째 피연산자는 불 값으로 변환됩니다. 변환된 값이 false 라면 두 번째 피연산자가 평가됩니다. 
+    As we can see, such a use case is a "shorter way of doing `if`". The first operand is converted to boolean. If it's false, the second one is evaluated.
 
-    "평범한" `if`문을 사용하는 것이 코드 이해도 측면에서 좋지만, OR을 사용하는 것이 가끔은 편리할 수 ​​있습니다.
+    Most of time, it's better to use a "regular" `if` to keep the code easy to understand, but sometimes this can be handy.
 
 ## && (AND)
 
-AND 연산자는 두 개의 앰퍼샌드`&&`로 표현됩니다.
+The AND operator is represented with two ampersands `&&`:
 
 ```js
 result = a && b;
 ```
 
-고전적 프로그래밍에서 AND 연산자는 두 피연산자가 모두 참 같은 값일 때 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.
+In classical programming, AND returns `true` if both operands are truthy and `false` otherwise:
 
 ```js run
 alert( true && true );   // true
@@ -167,7 +166,7 @@ alert( true && false );  // false
 alert( false && false ); // false
 ```
 
-아래는 AND 연산자와 `if`를 활용한 예제입니다. 
+An example with `if`:
 
 ```js run
 let hour = 12;
@@ -178,68 +177,68 @@ if (hour == 12 && minute == 30) {
 }
 ```
 
-OR 연산자와 마찬가지로, AND의 피연산자에도 모든 값을 넣을수 있습니다.
+Just as with OR, any value is allowed as an operand of AND:
 
 ```js run
-if (1 && 0) { // true && false 같이 평가됨
+if (1 && 0) { // evaluated as true && false
   alert( "won't work, because the result is falsy" );
 }
 ```
 
 
-## AND는 첫 번째 거짓 같은 값(falsy)을 찾습니다.
+## AND finds the first falsy value
 
-AND의 피연산자가 여러 개 있는 경우를 살펴봅시다.
+Given multiple AND'ed values:
 
 ```js
 result = value1 && value2 && value3;
 ```
 
-AND `&&`연산자는 다음 절차를 통해 연산을 수행합니다.
+The AND `&&` operator does the following:
 
-- 왼쪽부터 오른쪽으로 피연산자를 평가합니다.
-- 각 피연산자를 논리 타입으로 변환합니다. 결과가 `false`이면, 평가를 멈추고 해당 피연산자의 원래 값(변환 전)을 반환합니다.
-- 피연산자 모두가 평가된 경우(모든 피연산자가 참 같은 값인 경우)는 마지막 피연산자를 반환합니다.
+- Evaluates operands from left to right.
+- For each operand, converts it to a boolean. If the result is `false`, stops and returns the original value of that operand.
+- If all operands have been evaluated (i.e. all were truthy), returns the last operand.
 
-즉, AND는 첫 번째 거짓 같은 값을 반환하거나, 거짓 같은 값을 찾지 못하면 마지막 값을 반환합니다.
+In other words, AND returns the first falsy value or the last value if none were found.
 
-이런 절차는 OR 연산자의 연산 절차와 유사합니다. 차이점은 AND 연산자가 첫 번째 *거짓 같은 값*을 반환하는 반면, OR은 첫 번째 *참 같은 값*을 반환한다는 것입니다.
+The rules above are similar to OR. The difference is that AND returns the first *falsy* value while OR returns the first *truthy* one.
 
-예:
+Examples:
 
 ```js run
-// 첫 번째 피연산자가 참 같은 값이면,
-// AND는 두 번째 피연산자를 반환합니다.
+// if the first operand is truthy,
+// AND returns the second operand:
 alert( 1 && 0 ); // 0
 alert( 1 && 5 ); // 5
 
-// 첫 번째 피연산자가 거짓 같은 값이면,
-// AND는 첫 번째 피연산자를 반환합니다. 두 번째 피연산자는 무시됩니다.
+// if the first operand is falsy,
+// AND returns it. The second operand is ignored
 alert( null && 5 ); // null
 alert( 0 && "no matter what" ); // 0
 ```
 
-OR 연산자에도 여러 피연산자를 연속적으로 전달할 수 있습니다. 피연산자가 많을 때, 첫 번째 거짓 같은 값이 어떻게 반환되는지 살펴봅시다.
+We can also pass several values in a row. See how the first falsy one is returned:
 
 ```js run
 alert( 1 && 2 && null && 3 ); // null
 ```
 
-모든 피연산자가 참 같은 값이면 마지막 피연산자가 반환됩니다.
+When all values are truthy, the last value is returned:
 
 ```js run
-alert( 1 && 2 && 3 ); // 마지막 값, 3
+alert( 1 && 2 && 3 ); // 3, the last one
 ```
 
-````smart header="AND `&&`의 우선순위가 OR `||`보다 높습니다."
-AND `&&` 연산자의 우선순위는 OR `||`보다 높습니다.
+````smart header="Precedence of AND `&&` is higher than OR `||`"
+The precedence of AND `&&` operator is higher than OR `||`.
 
-이런 우선순위 차이 때문에, 코드 `a && b || c && d`는 `&&` 표현식이 괄호 안에 있는 식, `(a && b) || (c && d)`과 같습니다. 
+So the code `a && b || c && d` is essentially the same as if the `&&` expressions were in parentheses: `(a && b) || (c && d)`.
 ````
 
-OR과 마찬가지로 AND `&&` 연산자가 때때로 if 문을 대체 할 수 있습니다.
+Just like OR, the AND `&&` operator can sometimes replace `if`.
 
-예:
+For instance:
 
 ```js run
 let x = 1;
@@ -247,9 +246,9 @@ let x = 1;
 (x > 0) && alert( 'Greater than zero!' );
 ```
 
-`&&`의 우측은 `(x> 0)`이 참인 경우에만 실행됩니다. 평가가 우측까지 진행되려면 왼쪽 피연산자가 참 같은 값이어야 합니다.  
+The action in the right part of `&&` would execute only if the evaluation reaches it. That is, only if `(x > 0)` is true.
 
-따라서, 위 코드는 아래와 같은 if문으로 바꿀 수 있습니다.
+So we basically have an analogue for:
 
 ```js run
 let x = 1;
@@ -259,46 +258,46 @@ if (x > 0) {
 }
 ```
 
-보시는 바와 같이 `&&`를 사용한 코드가 더 짧습니다. 그러나 `if`문을 사용한 예제가 더 명백하고 읽기 쉽습니다.
+The variant with `&&` appears shorter. But `if` is more obvious and tends to be a little bit more readable.
 
-연산자를 본래의 목적에 맞게 사용할 것을 권장드립니다. if 조건문이 필요하면 `if`를 사용하고 AND 논리 연산자가 필요하면 `&&`를 사용합시다.
+So we recommend using every construct for its purpose: use `if` if we want if and use `&&` if we want AND.
 
 ## ! (NOT)
 
-논리 연산자, NOT은 느낌표 `!`로 표시됩니다.
+The boolean NOT operator is represented with an exclamation sign `!`.
 
-문법은 매우 간단합니다.
+The syntax is pretty simple:
 
 ```js
 result = !value;
 ```
 
-OR 연산자는 인수를 하나만 받습니다. 그리고 다음 순서로 연산을 진행합니다.
+The operator accepts a single argument and does the following:
 
-1. 피연산자를 불린형, `true / false`로 변환합니다.
-2. 변환된 값의 역을 반환합니다.
+1. Converts the operand to boolean type: `true/false`.
+2. Returns the inverse value.
 
-예:
+For instance:
 
 ```js run
 alert( !true ); // false
 alert( !0 ); // true
 ```
 
-피연산자를 불린형으로 변환할 때, double NOT`!!`이 종종 사용됩니다.
+A double NOT `!!` is sometimes used for converting a value to boolean type:
 
 ```js run
 alert( !!"non-empty string" ); // true
 alert( !!null ); // false
 ```
 
-즉, 처음 NOT 연산자는 피연산자를 불린형으로 변환한 후 이 값의 역을 반환하고, 두 번째 NOT 연산자는 다시 반대되는 값을 반환합니다. 마지막 반환 값은 결국 단순한 불린형이 됩니다.
+That is, the first NOT converts the value to boolean and returns the inverse, and the second NOT inverses it again. In the end, we have a plain value-to-boolean conversion.
 
-내장 함수 `Boolean`을 사용하면 double NOT`!!`과 같은 결과를 도출할 수 있습니다.
+There's a little more verbose way to do the same thing -- a built-in `Boolean` function:
 
 ```js run
 alert( Boolean("non-empty string") ); // true
 alert( Boolean(null) ); // false
 ```
 
-`NOT`연산자의 우선 순위는 모든 논리 연산자 중에서 가장 높기 때문에 항상 `&&` 또는 `||` 보다 먼저 실행됩니다.
+The precedence of NOT `!` is the highest of all logical operators, so it always executes first, before `&&` or `||`.

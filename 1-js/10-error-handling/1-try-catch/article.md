@@ -166,6 +166,20 @@ try {
 }
 ```
 
+## Optional "catch" binding
+
+[recent browser=new]
+
+If we don't need error details, `catch` may omit it:
+
+```js
+try {
+  // ...
+} catch {
+  // error object omitted
+}
+```
+
 
 ## "try..catch" 사용하기
 
@@ -657,7 +671,6 @@ try {
 
 If error is not needed, we can omit it by using `catch {` instead of `catch(err) {`.
 
-We can also generate our own errors using the `throw` operator. Technically, the argument of `throw` can be anything, but usually it's an error object inheriting from the built-in `Error` class. More on extending errors in the next chapter.
 `throw` 연산자를 사용하면 커스텀 에러를 만들 수 있습니다. 이론상으론, `throw`의 인수로 아무것이나 가능하지만, 대게 내장 `Error` 클래스에서 상속받은 에러 객체를 인수에 넣습니다. 다음 주제에서 확장 에러를 다루도록 하겠습니다.
 
 다시 던지기(Rethrowing)는 에러 처리의 기본 패턴입니다: `catch` 블록에선 대게, 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루기 때문에, 예상치 못한 에러는 다시 던지기를 통해 다뤄야 합니다. 

@@ -106,7 +106,7 @@ drawHtmlTree(node3, 'div.domtree', 690, 150);
 
 브라우저는 닫는 태그가 없는 경우도 처리해 줍니다.   
 
-아래와 같이 "유효하지 않은" 문서가 입력되더라도
+Such an document with unclosed tags:
 
 ```html no-beautify
 <p>안녕하세요
@@ -225,7 +225,7 @@ Elements 탭엔 아래와 같은 하위 탭이 있습니다:
 
 ## 콘솔 다루기
 
-DOM을 탐색하는 것과 동시에 자바스크립트를 적용하고 싶을 때가 있을 겁니다. 노드 하나를 정하고 거기에 코드를 적용해 수정한 다음 결과물이 어떨지 보고 싶은 경우같이 말이죠. Elements 탭과 콘솔(consone)을 왔다 갔다 하면서 작업할 때 유용한 팁 몇가지를 알려드리겠습니다.
+As we explore the DOM, we also may want to apply JavaScript to it. Like: get a node and run some code to modify it, to see the result. Here are few tips to travel between the Elements tab and the console.
 
 - Elements 탭에서 첫 번째 `<li>`를 선택하세요.
 - `Esc 키`를 누르세요 --  Elements 탭 바로 아래에 콘솔이 뜹니다.

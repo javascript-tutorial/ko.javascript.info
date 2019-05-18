@@ -86,7 +86,7 @@ alert(typeof User); // function
 
 What `class User {...}` construct really does is:
 1. Creates a function named `User`, that becomes the result of the class declaration.
-    - The function code is taken from the `constructor` method (assumed empty is we don't write such method).
+    - The function code is taken from the `constructor` method (assumed empty if we don't write such method).
 3. Stores all methods, such as `sayHi`, in `User.prototype`.
 
 Afterwards, for new objects, when we call a method, it's taken from the prototype, just as  described in the chapter <info:function-prototype>. So `new User` object has access to class methods.
@@ -168,12 +168,12 @@ Although, there are important differences.
     alert(User); // class User { ... }
     ```
 
-2. Class methods are non-enumerable
+2. Class methods are non-enumerable.
     A class definition sets `enumerable` flag to `false` for all methods in the `"prototype"`.
 
     That's good, because if we `for..in` over an object, we usually don't want its class methods.
 
-3. Classes always `use strict`
+3. Classes always `use strict`.
     All code inside the class construct is automatically in strict mode.
 
 
@@ -241,7 +241,7 @@ class User {
 
   constructor(name) {
     // invokes the setter
-    this._name = name;
+    this.name = name;
   }
 
 *!*
