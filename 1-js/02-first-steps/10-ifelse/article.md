@@ -142,7 +142,6 @@ let accessAllowed = (age > 18) ? true : false;
 ```
 
 `age > 18` 주위에 괄호를 생략할 수 있습니다. 물음표 연산자는 우선순위가 낮으므로 비교 연산자 `>`가 실행되고 난 후에 실행됩니다.
-Technically, we can omit the parentheses around `age > 18`. The question mark operator has a low precedence, so it executes after the comparison `>`.
 
 이 예제는 이전 것과 같은 동작을 할 것입니다.
 

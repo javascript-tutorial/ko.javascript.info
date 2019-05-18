@@ -300,13 +300,13 @@ async 속성(`<script async type="module">`)은 인라인 스크립트와 외부
 
     이 특징은 보안을 강화해 줍니다.
 
-### No bare modules allowed
+### No "bare" modules allowed
 
-브라우저 환경의 (HTML이 아닌) 스크립트에서 `import` 지시자는 반드시 상대 혹은 절대 URL 앞에 와야합니다. 경로가 없는 "기본(bare)" 모듈은 허용되지 않습니다.
+In the browser, in scripts (not in HTML), `import` must get either a relative or absolute URL. Modules without any path are called "bare" modules. Such modules are not allowed in `import`.
 
 아래 예제에서 `import`는 무효합니다.
 ```js
-import {sayHi} from 'sayHi'; // 기본 모듈을 임포트 하려 했기 때문에 에러가 발생
+import {sayHi} from 'sayHi'; // Error, "bare" module
 // './sayHi.js'와 같이 모듈이 어디에 있는지 경로를 지정해 주어야 함
 ```
 
@@ -327,7 +327,7 @@ Node.js나 번들 툴 같은 일부 환경에선 경로가 없어도 모듈을 �
 </script>
 ```
 
-번들링 툴을 사용할 경우 `import/export`문은 특유의 번들러 호출로 대체됩니다. If we use bundle tools, then as modules are bundled together, their `import/export` statements are replaced by special bundler calls, so the resulting build does not require `type="module"`, and we can put it into a regular script:
+If we use bundle tools, then as modules are bundled together, their `import/export` statements are replaced by special bundler calls, so the resulting build does not require `type="module"`, and we can put it into a regular script:
 
 ```html
 <!-- Assuming we got bundle.js from a tool like Webpack -->
