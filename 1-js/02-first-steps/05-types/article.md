@@ -119,6 +119,7 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (역 따옴표는 �
 let nameFieldChecked = true; // yes, name field is checked
 let ageFieldChecked = false; // no, age field is not checked
 ```
+
 불리언 값은 비교 후 결과를 저장하기도 합니다:
 
 ```js run
@@ -222,6 +223,7 @@ typeof alert // "function"  (3)
 2. `typeof null`의 결과는 `"object"`입니다. 이는 잘못된 결과입니다. 공식적으로 인정되는 `typeof` 오류이지만 호환성을 위해 유지되고 있습니다. 물론 `null`은 객체가 아닙니다. 별도의 고유한 자료형을 가지는 특수 값입니다. 다시 말하지만, 이것은 언어의 오류입니다.
 3. `alert`는 언어의 함수이기 때문에 `typeof alert`의 결과는 `"function"`입니다. 다음주제에서 함수(function)을 공부하면서 자바스크립트엔 "함수(function)" 타입이 없다는 걸 알아보겠습니다. 함수는 객체 타입에 속합니다. 하지만 `typeof`는 함수가 피연산자로 들어오면 이를 다르게 취급합니다. 형식적으로는 잘못되었지만, 실제 사용시 에는 이 특징이 매우 유용합니다. 
 
+
 ## 요약
 
 자바스크립트에는 일곱 가지 기본 자료형이 있습니다.
@@ -238,7 +240,6 @@ typeof alert // "function"  (3)
 
 - 2가지 형식: `typeof x` 또는 `typeof(x)`.
 - `"string"`과 같이 자료형의 이름을 가진 문자열을 반환합니다.
-- For `null` returns `"object"` -- this is an error in the language, it's not actually an object.
 - `null`의 typeof 연산은 `"object"`를 반환합니다. -- 이것은 언어상의 오류 입니다. null은 객체가 아닙니다. 
 
 다음 주제에서는 원시자료형에 대해 살펴보고, 이 자료형이 익숙해지면 객체를 학습하도록 하겠습니다.

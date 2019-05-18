@@ -1,5 +1,5 @@
 
-# Unicode character properies \p
+# Unicode character properties \p
 
 [Unicode](https://en.wikipedia.org/wiki/Unicode), the encoding format used by JavaScript strings, has a lot of properties for different characters (or, technically, code points). They describe which "categories" character belongs to, and a variety of technical details.
 
@@ -40,7 +40,7 @@ There are also other derived categories, like:
 For instance, let's look for a 6-digit hex number:
 
 ```js run
-let reg = /\p{Hex_Digit}{6}/u; // flag 'u' is requireds
+let reg = /\p{Hex_Digit}{6}/u; // flag 'u' is required
 
 alert("color: #123ABC".match(reg)); // 123ABC
 ```

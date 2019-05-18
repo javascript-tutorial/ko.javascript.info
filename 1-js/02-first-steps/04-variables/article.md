@@ -1,61 +1,61 @@
-# 여러 가지 변수
+# Variables
 
-대다수의 경우, 자바스크립트 애플리케이션은 작업에 필요한 정보와 함께 동작합니다. 여기 두 예시가 있습니다.:
-1. 온라인 쇼핑몰 -- 판매 중인 상품이나 쇼핑 카트 등의 정보
-2. 채팅 애플리케이션 -- 사용자, 메시지, 그 외의 더 많은 정보
+Most of the time, a JavaScript application needs to work with information. Here are two examples:
+1. An online shop -- the information might include goods being sold and a shopping cart.
+2. A chat application -- the information might include users, messages, and much more.
 
-변수는 이러한 정보를 저장하기 위해 사용됩니다.
+Variables are used to store this information.
 
-## 변수(variable)
+## A variable
 
-[변수(variable)](https://en.wikipedia.org/wiki/Variable_(computer_science)) 는 데이터를 위한 "이름을 붙인 저장소" 입니다. 상품, 방문객 등의 데이터를 저장하기 위해 변수를 사용할 수 있습니다.
+A [variable](https://en.wikipedia.org/wiki/Variable_(computer_science)) is a "named storage" for data. We can use variables to store goodies, visitors, and other data.
 
-자바스크립트에선 변수를 생성할 때 `let` 키워드를 사용합니다.
+To create a variable in JavaScript, use the `let` keyword.
 
-아래 문은 "message"라는 이름을 가진 변수를 생성(즉, *선언(declares )* 또는 *정의(defines)*)합니다.
+The statement below creates (in other words: *declares* or *defines*) a variable with the name "message":
 
 ```js
 let message;
 ```
 
-이제 우리는 할당 연산자 `=`로 이 변수 안에 데이터를 저장할 수 있습니다.:
+Now, we can put some data into it by using the assignment operator `=`:
 
 ```js
 let message;
 
 *!*
-message = 'Hello'; // 문자열을 저장합니다.
+message = 'Hello'; // store the string
 */!*
 ```
 
-이 문자열은 이제 변수와 연결되어 메모리 영역에 저장됩니다. 우리는 변수명을 통해 문자열에 접근할 수 있습니다.:
+The string is now saved into the memory area associated with the variable. We can access it using the variable name:
 
 ```js run
 let message;
 message = 'Hello!';
 
 *!*
-alert(message); // 변수에 저장된 값을 보여줍니다.
+alert(message); // shows the variable content
 */!*
 ```
 
-변수 선언과 할당을 간결하게 한 줄에 작성할 수 있습니다.:
+To be concise, we can combine the variable declaration and assignment into a single line:
 
 ```js run
-let message = 'Hello!'; // 변수를 정의하고 값을 할당합니다.
+let message = 'Hello!'; // define the variable and assign the value
 
 alert(message); // Hello!
 ```
 
-한 줄에 여러 변수를 선언할 수도 있습니다.:
+We can also declare multiple variables in one line:
 
 ```js no-beautify
 let user = 'John', age = 25, message = 'Hello';
 ```
 
-이렇게 작성하면 코드가 좀 더 짧아 보이지만, 권장하는 방법은 아닙니다. 가독성을 위해 한 변수는 한 줄에 작성해주세요.
+That might seem shorter, but we don't recommend it. For the sake of better readability, please use a single line per variable.
 
-여러 줄에 걸쳐 변수를 선언하면 코드가 길어 보이지만, 읽기엔 편합니다.:
+The multiline variant is a bit longer, but easier to read:
 
 ```js
 let user = 'John';
@@ -63,14 +63,14 @@ let age = 25;
 let message = 'Hello';
 ```
 
-어떤 사람들은 이런 방식으로 복수의 변수를 정의합니다.:
+Some people also define multiple variables in this multiline style:
 ```js no-beautify
 let user = 'John',
   age = 25,
   message = 'Hello';
 ```
 
-...또는 "쉼표가 먼저 오는" 방식으로도 작성합니다.:
+...Or even in the "comma-first" style:
 
 ```js no-beautify
 let user = 'John'
@@ -78,7 +78,8 @@ let user = 'John'
   , message = 'Hello';
 ```
 
-이 모든 방식은 기술적으로 같은 작업입니다. 개인의 취향과 미적 감각의 영역입니다.
+Technically, all these variants do the same thing. So, it's a matter of personal taste and aesthetics.
+
 
 ````smart header="`let` 대신 `var`"
 작성된지 오래된 스크립트에서 `let` 대신 `var`라는 키워드를 발견하는 경우가 있습니다:
@@ -87,20 +88,18 @@ let user = 'John'
 *!*var*/!* message = 'Hello';
 ```
 
-`var` 키워드는 *거의* `let`과 같습니다. 변수를 선언한다는 점에서 같지만, 약간 다른, "오래된" 방식입니다.
+The `var` keyword is *almost* the same as `let`. It also declares a variable, but in a slightly different, "old-school" way.
 
 `let`과 `var` 사이에는 미묘한 차이점이 있습니다. 하지만 지금 시점에서 둘 사이의 차이점을 중요하게 다루지는 않을 것입니다. 이후 <info:var> 에서 이에 대해 자세히 다루겠습니다.
-
 ````
 
-## 현실 속의 비유
+## A real-life analogy
 
-"변수"의 개념은 데이터를 보관하고 있고 그 위에는 이름 스티커가 붙여진 "상자"를 떠올리면 쉽게 이해할 수 있습니다.
+We can easily grasp the concept of a "variable" if we imagine it as a "box" for data, with a uniquely-named sticker on it.
 
-예를 들어, `message` 변수는 `"message"`라는 라벨이 붙여져 있고 그 안에 `"Hello!"` 라는 값이 담긴 상자로 생각할 수 있습니다.:
+For instance, the variable `message` can be imagined as a box labeled `"message"` with the value `"Hello!"` in it:
 
 ![](variable.png)
-
 
 상자 속엔 어떤 값이든지 들어갈 수 있습니다.
 
@@ -115,33 +114,34 @@ message = 'World!'; // 값이 변경되었습니다.
 alert(message);
 ```
 
-값이 변경되면 이전 데이터는 변수에서 제거됩니다.:
+When the value is changed, the old data is removed from the variable:
 
 ![](variable-change.png)
 
-두 변수를 선언하고 한 변수의 데이터를 다른 변수에 복사할 수도 있습니다.
+We can also declare two variables and copy data from one into the other.
 
 ```js run
-let Hello = 'Hello world!';
+let hello = 'Hello world!';
 
 let message;
 
 *!*
-// Hello의 'Hello world' 값을 message에 복사합니다.
-message = Hello;
+// copy 'Hello world' from hello into message
+message = hello;
 */!*
 
-// 이제 두 변수는 같은 데이터를 가집니다.
-alert(Hello); // Hello world!
+// now two variables hold the same data
+alert(hello); // Hello world!
 alert(message); // Hello world!
 ```
 
 ```smart header="함수형 언어"
-변숫값 변경을 금지하는 [함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어가 존재한다는 사실이 흥미로울 수도 있습니다. [스칼라(Scala)](http://www.scala-lang.org/) 와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다. 
+[함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어는 변숫값 변경을 금지합니다. [스칼라(Scala)](http://www.scala-lang.org/) 와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다. 
 
 이 언어에서는 일단 "상자 속에" 값이 저장되면, 그 값은 영원히 유지됩니다. 또 다른 값을 저장하고 싶다면 새로운 상자를 만들어야(새 변수를 선언해야)만 합니다. 이전 변수를 재사용할 수 없습니다.
 
 처음 봤을 땐 좀 이상해 보일 수 있지만, 중대한 개발에 상당히 적합한 언어입니다. 더 나아가, 이런 제약이 장점으로 작용하는 병렬 계산(parallel computations)과 같은 영역이 있습니다. 이런 언어를 (곧 사용할 계획이 없을지라도) 공부한다면 시야를 넓히는 데 도움이 될 것입니다.
+```
 
 ## 변수 명명법(variable-naming)
 
@@ -157,104 +157,104 @@ let userName;
 let test123;
 ```
 
-변수명이 여러 단어로 구성되어 있을 땐 [카멜 케이스(camelCase)](https://en.wikipedia.org/wiki/CamelCase) 가 흔히 사용됩니다. 카멜케이스는 단어를 차례대로 나열하면서 각 단어의 첫글자는 대문자로 작성합니다.: `myVeryLongName`.
+변수명이 여러 단어로 구성되어 있을 땐 [카멜 케이스(camelCase)](https://en.wikipedia.org/wiki/CamelCase) 가 흔히 사용됩니다. 카멜케이스는 단어를 차례대로 나열하면서 첫 단어를 제외한 각 단어의 첫글자를 대문자로 작성합니다.: `myVeryLongName`.
 
-달러 기호 `'$'` 와 언더스코어(underscore) `'_'` 를 변수명에 사용할 수 있다는 점은 흥미로운 사실입니다. 이 특수기호는 문자처럼 특별한 의미가 없습니다.
+What's interesting -- the dollar sign `'$'` and the underscore `'_'` can also be used in names. They are regular symbols, just like letters, without any special meaning.
 
-아래는 유효한 변수명입니다:
+These names are valid:
 
 ```js run untrusted
-let $ = 1; // "$"라는 이름의 변수를 선언합니다.
-let _ = 2; // "_"라는 이름의 변수를 선언합니다.
+let $ = 1; // declared a variable with the name "$"
+let _ = 2; // and now a variable with the name "_"
 
 alert($ + _); // 3
 ```
 
-아래는 잘못된 변수명의 예시입니다:
+Examples of incorrect variable names:
 
 ```js no-beautify
-let 1a; // 변수명은 숫자로 시작해선 안 됩니다.
+let 1a; // cannot start with a digit
 
-let my-name; // 하이픈 '-'은 변수명에 올 수 없습니다.
+let my-name; // hyphens '-' aren't allowed in the name
 ```
 
 ```smart header="대소문자 구별"
 `apple`와 `AppLE`은 서로 다른 변수입니다.
+```
 
-
-````smart header="영어 이외의 언어도 변수명에 사용할 수 있지만 권장하진 않습니다."
-키릴 문자나 심지어 상형문자까지도 변수명에 사용할 수 있습니다:
+````smart header="비 라틴계 언어도 변수명에 사용할 수 있지만 권장하진 않습니다."
+모든 언어를 변수명에 사용할 수 있습니다. 키릴 문자나 심지어 상형문자까지도 사용할 수 있습니다.
 
 ```js
 let имя = '...';
 let 我 = '...';
 ```
 
-위 코드에는 기술적인 에러가 없고, 변수명도 유효합니다. 하지만 영어를 변수명에 사용하는 것이 국제적 관습입니다. 다른 나라 사람이 우리가 작성한 스크립트를 볼지도 모르는 경우 등을 대비해 장기적인 안목을 가지고 코드를 작성해야 합니다.
+Technically, there is no error here, such names are allowed, but there is an international tradition to use English in variable names. Even if we're writing a small script, it may have a long life ahead. People from other countries may need to read it some time.
 ````
 
-````warn header="예약어(Reserved names)"
-언어 자체(역주: Javascript)내부에서 사용되기 때문에, 변수명으로 사용할 수 없는 [예약어 목록](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords)이 있습니다. 
+````warn header="Reserved names"
+There is a [list of reserved words](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords), which cannot be used as variable names because they are used by the language itself.
 
-예: `let`, `class`, `return`, `function`
+For example: `let`, `class`, `return`, and `function` are reserved.
 
-아래 코드는 syntax(구문) 에러를 발생시킵니다.:
+The code below gives a syntax error:
 
 ```js run no-beautify
-let let = 5; // "let"을 변수명으로 사용할 수 없으므로 에러!
-let return = 5; // "return"을 변수명으로 사용할 수 없으므로 에러!
+let let = 5; // can't name a variable "let", error!
+let return = 5; // also can't name it "return", error!
 ```
 ````
 
-````warn header="`use strict` 없이 할당하기"
+````warn header="An assignment without `use strict`"
 
-일반적으로 변수는 사용하기 전에 정의되어있어야 합니다. 그러나 예전에는 `let` 없이도 단순하게 값을 할당해 변수를 생성하는 것이 가능했습니다. `use strict`를 쓰지 않으면 지금도 가능합니다. 과거 스크립트와의 호환성이 필요할 때 이 방식이 사용됩니다.
+Normally, we need to define a variable before using it. But in the old times, it was technically possible to create a variable by a mere assignment of the value without using `let`. This still works now if we don't put `use strict` in our scripts to maintain compatibility with old scripts.
 
 ```js run no-strict
-// 주의: 이 예제에는 "use strict"가 없습니다.
+// note: no "use strict" in this example
 
-num = 5; // 변수 "num"이 존재하지 않았더라도 단순 할당으로 변수가 생성됩니다.
+num = 5; // the variable "num" is created if it didn't exist
 
 alert(num); // 5
 ```
 
-이렇게 변수를 지정하는 것은 나쁜 관습입니다. 엄격 모드(stric mode)에서 에러를 발생시키기 때문이죠.:
+This is a bad practice and would cause an error in strict mode:
 
 ```js
 "use strict";
 
 *!*
-num = 5; // 에러: num은 정의되지 않았습니다.
+num = 5; // error: num is not defined
 */!*
 ```
 ````
 
-## 상수(Constants)
+## Constants
 
-변함없는 (변화하지 않는) 변수를 선언할땐, `let` 대신 `const`를 사용합니다:
+To declare a constant (unchanging) variable, use `const` instead of `let`:
 
 ```js
 const myBirthday = '18.04.1982';
 ```
 
-`const`로 선언한 변수를 "상수"라고 부릅니다. 상수는 변하지 않습니다. 상수를 변경하려고 하면 에러가 발생합니다:
+Variables declared using `const` are called "constants". They cannot be changed. An attempt to do so would cause an error:
 
 ```js run
 const myBirthday = '18.04.1982';
 
-myBirthday = '01.01.2001'; // 에러, 상수는 재할당할 수 없습니다!
+myBirthday = '01.01.2001'; // error, can't reassign the constant!
 ```
 
-프로그래머는 변숫값이 절대 변경되지 않을 것이라 확신할 때, 이 사실을 보장하고 다른 개발자들에게 이를 전달하려는 의도로 `const`를 사용할 수 있습니다 
+When a programmer is sure that a variable will never change, they can declare it with `const` to guarantee and clearly communicate that fact to everyone.
 
 
-### 대문자로 된 상수(Uppercase constants)
+### Uppercase constants
 
-기억하기 힘든 값을 변수에 할당해 별칭으로 사용할 수 있습니다. 이는 널리 사용되는 관습입니다.
+There is a widespread practice to use constants as aliases for difficult-to-remember values that are known prior to execution.
 
-이런 상수의 이름은 대문자와 언더스코어로 구성되어 있습니다.
+Such constants are named using capital letters and underscores.
 
-이렇게요:
+For instance, let's make constants for colors in so-called "web" (hexadecimal) format:
 
 ```js run
 const COLOR_RED = "#F00";
@@ -262,69 +262,69 @@ const COLOR_GREEN = "#0F0";
 const COLOR_BLUE = "#00F";
 const COLOR_ORANGE = "#FF7F00";
 
-// ...색상을 고르고 싶을 때 이렇게 사용합니다
+// ...when we need to pick a color
 let color = COLOR_ORANGE;
 alert(color); // #FF7F00
 ```
 
-대문자로 된 상수는 다음과 같은 장점이 있습니다.:
+Benefits:
 
-- `COLOR_ORANGE`는 `"#FF7F00"`보다 기억하기가 훨씬 쉽습니다.
-- `COLOR_ORANGE`보다 `"#FF7F00"`에서 오타를 낼 확률이 높습니다.
-- 코드를 읽을 때, `COLOR_ORANGE`가 `#FF7F00`보다 훨씬 유의미합니다.
+- `COLOR_ORANGE` is much easier to remember than `"#FF7F00"`.
+- It is much easier to mistype `"#FF7F00"` than `COLOR_ORANGE`.
+- When reading the code, `COLOR_ORANGE` is much more meaningful than `#FF7F00`.
 
-그렇다면 언제 일반적인 방식으로 상수를 명명하고, 언제 대문자를 사용해서 명명해야 하는 걸까요? 명확히 짚고 넘어갑시다.
+When should we use capitals for a constant and when should we name it normally? Let's make that clear.
 
-"상수"는 변수의 값이 절대 변하지 않음을 의미합니다. 그 중에는 (빨간색을 나타내는 16진수 값처럼) 코드가 실행되기 전에 이미 그 값을 알고 있는 상수도 있고, 런타임 과정에서 *계산되지만* 최초 할당 이후 값이 변하지 않는 상수도 있습니다.
+Being a "constant" just means that a variable's value never changes. But there are constants that are known prior to execution (like a hexadecimal value for red) and there are constants that are *calculated* in run-time, during the execution, but do not change after their initial assignment.
 
-예를 들어:
+For instance:
 ```js
-const pageLoadTime = /* 웹페이지를 로드하는데 걸린 시간 */;
+const pageLoadTime = /* time taken by a webpage to load */;
 ```
 
-`pageLoadTime` 값은 페이지가 로드되기 전에는 정해지지 않기 때문에 일반적인 방식으로 변수명을 지었습니다. 하지만 이 값은 최초 할당 이후에 변경되지 않으므로 여전히 상수입니다.
+The value of `pageLoadTime` is not known prior to the page load, so it's named normally. But it's still a constant because it doesn't change after assignment.
 
-정리하자면, 대문자로 된 상수는 "하드 코딩한(hard-coded)" 값의 별칭으로만 사용됩니다.
+In other words, capital-named constants are only used as aliases for "hard-coded" values.  
 
-## 올바른 명명 규칙
+## Name things right
 
-변수에 관한 매우 중요한 사실이 한 가지 더 있습니다.
+Talking about variables, there's one more extremely important thing.
 
-변수명을 신중하게 지어주세요. 변수명을 지을 때 생각할 시간을 좀 더 가져주세요.
+A variable name should have a clean, obvious meaning, describe the data that it stores.
 
-변수의 이름을 짓는 것은 프로그래밍에서 가장 중요하고 복잡한 기술 중 하나입니다. 변수명만 슬쩍 봐도 초보자가 코드를 작성했는지, 노련한 개발자가 작성했는지 알 수 있습니다.
+Variable naming is one of the most important and complex skills in programming. A quick glance at variable names can reveal which code was written by a beginner versus an experienced developer.
 
-실제 프로젝트에선 맨 처음부터 완전히 독립적인 코드를 작성하기보다 기존 코드의 틀을 변경하고 확장하는데 대부분 시간을 보냅니다. 우리가 작성했던 코드를 얼마 후에 다시 봤을 때, 정보에 알맞은 이름이 적혀있으면 정보를 더 쉽게 찾을 수 있습니다. 다시 말해, 변수가 올바른 이름을 가졌을 때 말이죠.
+In a real project, most of the time is spent modifying and extending an existing code base rather than writing something completely separate from scratch. When we return to some code after doing something else for a while, it's much easier to find information that is well-labeled. Or, in other words, when the variables have good names.
 
-그러므로 변수를 선언하기 전에 올바른 변수의 이름에 대해 숙고해 주시기 바랍니다.
+Please spend time thinking about the right name for a variable before declaring it. Doing so will repay you handsomely.
 
-아래는 변수 명명 시 참고하기 좋은 규칙입니다
+Some good-to-follow rules are:
 
-- `userName` 이나 `shoppingCart`처럼 사람이 읽을 수 있는 이름을 사용하세요.
-- 무엇을 하고 있는지 명확히 알고 있지 않을 경우 외에는, 줄임말이나 `a`, `b`, `c`와 같이 짧은 이름은 피하세요.
-- 최대한 서술적이고, 간결하게 명명해 주세요. `data`와 `value`는 나쁜 이름의 예입니다. 이런 이름은 아무것도 설명해주지 않습니다. 코드의 문맥상 변수가 가리키는 데이터나 값이 아주 명확할 때에만 이런 이름을 사용하도록 합시다.
-- 자신만의 규칙이나 소속된 팀의 규칙을 따르세요. 만약 사이트 방문객을 "user"라고 부르기로 했다면 이와 관련된 변수를 `currentVisitor`나 `newManInTown`이 아닌 `currentUser`나 `newUser`라는 이름으로 지어야 합니다.
+- Use human-readable names like `userName` or `shoppingCart`.
+- Stay away from abbreviations or short names like `a`, `b`, `c`, unless you really know what you're doing.
+- Make names maximally descriptive and concise. Examples of bad names are `data` and `value`. Such names say nothing. It's only okay to use them if the context of the code makes it exceptionally obvious which data or value the variable is referencing.
+- Agree on terms within your team and in your own mind. If a site visitor is called a "user" then we should name related variables `currentUser` or `newUser` instead of `currentVisitor` or `newManInTown`.
 
-간단해 보이나요? 그렇게 보이긴 합니다. 그러나 실전에서 서술적이고 간결한 변수명을 짓는 것은 간단하지 않습니다. 그럼, 화이팅!
+Sounds simple? Indeed it is, but creating descriptive and concise variable names in practice is not. Go for it.
 
-```smart header="재사용 아니면 새로 만들기?"
-마지막 노트입니다. 프로그래머 중에는 새로운 변수를 선언하기보다 기존 변수를 재활용하길 선호하는 게으른 자들이 있습니다.
+```smart header="Reuse or create?"
+And the last note. There are some lazy programmers who, instead of declaring new variables, tend to reuse existing ones.
 
-재사용된 변수는 과거에 붙여진 스티커를 떼지 않은 채 물건만 바뀐 상자와 같습니다. 상자 안에는 무엇이 들어 있나요? 누가 알고 있나요? 이를 알기 위해선 가까이 다가가 확인해야만 합니다.
+As a result, their variables are like boxes into which people throw different things without changing their stickers. What's inside the box now? Who knows? We need to come closer and check.
 
-변수를 재사용하면 변수 쏟는 노력은 좀 덜 순 있겠지만 디버깅에 열 배 더 많은 시간을 쏟아야 합니다.
+Such programmers save a little bit on variable declaration but lose ten times more on debugging.
 
-변수 추가는 좋습니다. 나쁘지 않아요.
+An extra variable is good, not evil.
 
-모던 자바스크립트 압축기(minifier)와 브라우저는 코드 최적화를 잘 하므로, 변수를 추가한다고 해서 성능 이슈를 만들지 않습니다. 다른 값에 다른 변수를 사용하면 엔진의 코드 최적화에 도움이 될 수도 있습니다.
+Modern JavaScript minifiers and browsers optimize code well enough, so it won't create performance issues. Using different variables for different values can even help the engine optimize your code.
 ```
 
-## 요약
+## Summary
 
-데이터를 저장하기 위해 변수를 선언할 수 있습니다. `var`, `let`, `const`를 사용하면 됩니다.
+We can declare variables to store data by using the `var`, `let`, or `const` keywords.
 
-- `let` -- 현대적인 변수 선언입니다. 크롬 (V8)에서 `let`을 사용하려면 엄격 모드에서 코드를 작성해야 합니다.
-- `var` -- 과거의 변수 선언입니다. 잘 사용하지 않는 방식이지만, 이후 <info:var> 주제에서 `var`과 `let`의 미묘한 차이점을 살펴볼 것입니다.
-- `const` -- `let`과 비슷하지만, 변수의 값을 변경할 수 없습니다.
+- `let` -- is a modern variable declaration. The code must be in strict mode to use `let` in Chrome (V8).
+- `var` -- is an old-school variable declaration. Normally we don't use it at all, but we'll cover subtle differences from `let` in the chapter <info:var>, just in case you need them.
+- `const` -- is like `let`, but the value of the variable can't be changed.
 
-변수명은 변수가 담고 있는 것이 무엇인지 쉽게 알 수 있도록 지어져야 합니다.
+Variables should be named in a way that allows us to easily understand what's inside them.

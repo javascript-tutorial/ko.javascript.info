@@ -2,7 +2,7 @@
 
 때때로, 우리는 다른 조건에 따라 다른 행동을 취할 필요가 있습니다.
 
-그렇게하기 위해, `if`문과 간결함을 위해 `?`연산자로 참조될 조건부 삼항연산자(conditional ternary operator)를 사용합니다. 
+To do that, we can use the `if` statement and the conditional operator `?`, that's also called a "question mark" operator.
 
 ## "if" 문
 
@@ -103,7 +103,7 @@ if (year < 2015) {
 
 더 많은 `else if`블록이 있을 수 있습니다. 마지막 `else`는 선택 사항입니다.
 
-## 삼항 연산자 '?'
+## Conditional operator '?'
 
 때로는 조건에 따라 변수를 할당해야 합니다.
 
@@ -124,9 +124,9 @@ if (age > 18) {
 alert(accessAllowed);
 ```
 
-소위 "삼항"(ternary) 또는 "물음표"라는 연산자는 더 짧고 간단한 방법으로 여러 조건을 테스트할 수 있게 합니다.
+The so-called "conditional" or "question mark" operator lets us do that in a shorter and simpler way.
 
-연산자는 물음표`?`로 표시됩니다. 공식 용어 "삼항"(ternary)은 연산자에 3개의 피연산자(operand)가 있음을 의미합니다. 이것은 실제로 자바스크립트에서 피연사자를 가장 많이 가진 유일한 연산자입니다. 
+The operator is represented by a question mark `?`. Sometimes it's called "ternary", because the operator has three operands. It is actually the one and only operator in JavaScript which has that many.
 
 문법:
 ```js
@@ -141,7 +141,7 @@ let result = condition ? value1 : value2;
 let accessAllowed = (age > 18) ? true : false;
 ```
 
-기술적으로, `age > 18` 주위에 괄호를 생략 할 수 있습니다. 물음표 연산자는 우선 순위가 낮으므로 비교 `>`후에 실행됩니다.
+Technically, we can omit the parentheses around `age > 18`. The question mark operator has a low precedence, so it executes after the comparison `>`.
 
 이 예제는 이전 것과 같은 동작을 할 것입니다.
 

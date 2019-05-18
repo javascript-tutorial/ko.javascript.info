@@ -320,9 +320,9 @@ let company = {
 
 한 회사에 부서가 있습니다.
 
-- 부서에는 여러 명의 직원이 있을 수 있습니다. 예를 들어 `sales` 부서에는 John과 Alice라는 2명의 직원이 있습니다.
-- 부서는 하위 개발 부서로 나눌 수 있습니다. `development` 부서에는 `sites`와 `internals`가 두 개가 있습니다. 각각에든 직원이 있습니다.
-- 하위 부서가 커지면 하위 부서 (또는 팀)으로 나눌 수도 있습니다.
+- A department may have an array of staff. For instance, `sales` department has 2 employees: John and Alice.
+- Or a department may split into subdepartments, like `development` has two branches: `sites` and `internals`. Each of them has their own staff.
+- It is also possible that when a subdepartment grows, it divides into subsubdepartments (or teams).
 
     예를 들어 미래의 `sites` 부서는 `sited부서는` `siteA` 와 `siteB` 에 대해 팀으로 분리될 수 있고, 잠재적으로 더 많이 나누어질 수 있습니다. 여기서는 일단 가능성만 생각해보죠.
 

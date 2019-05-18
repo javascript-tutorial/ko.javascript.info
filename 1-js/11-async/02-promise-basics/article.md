@@ -288,8 +288,10 @@ promise.then(alert); // done! (바로 출력됨)
 function loadScript(src, callback) {
   let script = document.createElement('script');
   script.src = src;
+  
   script.onload = () => callback(null, script);
-  script.onerror = () => callback(new Error(`Script load error ` + src));
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
   document.head.append(script);
 }
 ```
@@ -304,8 +306,8 @@ function loadScript(src) {
     let script = document.createElement('script');
     script.src = src;
 
-    script.onload = () =&amp;gt; resolve(script);
-    script.onerror = () =&amp;gt; reject(new Error("Script load error: " + src));
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`Script load error for ${src}`));
 
     document.head.append(script);
   });
