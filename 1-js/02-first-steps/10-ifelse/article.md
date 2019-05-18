@@ -1,8 +1,8 @@
-# 조건 연산자: if, '?'
+# 조건부 연산: if, '?'
 
-때때로, 우리는 다른 조건에 따라 다른 행동을 취할 필요가 있습니다.
+때때로, 조건에 따라 다른 행동을 취해야 할 필요가 있습니다.
 
-To do that, we can use the `if` statement and the conditional operator `?`, that's also called a "question mark" operator.
+`if`문과 물음표 연산자라고 불리는 조건부 연산자인 `?`를 사용하면 조건에 따른 처리가 가능합니다. 
 
 ## "if" 문
 
@@ -103,9 +103,9 @@ if (year < 2015) {
 
 더 많은 `else if`블록이 있을 수 있습니다. 마지막 `else`는 선택 사항입니다.
 
-## Conditional operator '?'
+## 조건부 연산자 '?'
 
-때로는 조건에 따라 변수를 할당해야 합니다.
+때로는 조건에 따라 다른 값을 변수에 할당해야 할 때가 있습니다.
 
 예시:
 
@@ -124,16 +124,16 @@ if (age > 18) {
 alert(accessAllowed);
 ```
 
-The so-called "conditional" or "question mark" operator lets us do that in a shorter and simpler way.
+"조건부(conditional) 연산자" 또는 "물음표(question mark) 연산자"라고 불리는 이 연산자는 더 짧고 간단한 방법으로 이를 가능하게 해 줍니다.
 
-The operator is represented by a question mark `?`. Sometimes it's called "ternary", because the operator has three operands. It is actually the one and only operator in JavaScript which has that many.
+이 연산자는 물음표`?`로 표시됩니다. 피연산자(operand)가 세 개 있어 조건부 연산자를 "삼항(ternary) 연산자"라고 부를 때도 있습니다. 조건부 연산자는 자바스크립트에서 피연산자를 가장 많이 가진 유일한 연산자입니다. 
 
 문법:
 ```js
 let result = condition ? value1 : value2;
 ```
 
-평가받은 조건`condition`: truthy 일 경우 `value1`이 반환되고, 그렇지 않으면 `value2`가 반환됩니다.
+평가할 조건인 `condition`이 truthy 일 경우 `value1`이 반환되고, 그렇지 않으면 `value2`가 반환됩니다.
 
 예시:
 
@@ -141,7 +141,7 @@ let result = condition ? value1 : value2;
 let accessAllowed = (age > 18) ? true : false;
 ```
 
-Technically, we can omit the parentheses around `age > 18`. The question mark operator has a low precedence, so it executes after the comparison `>`.
+`age > 18` 주위에 괄호를 생략할 수 있습니다. 물음표 연산자는 우선순위가 낮으므로 비교 연산자 `>`가 실행되고 난 후에 실행됩니다.
 
 이 예제는 이전 것과 같은 동작을 할 것입니다.
 

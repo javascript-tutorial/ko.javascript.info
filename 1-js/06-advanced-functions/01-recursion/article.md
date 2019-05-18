@@ -6,8 +6,8 @@
 
 새롭게 프로그램을 배우는게 아니고, 재귀에 익숙하다면 이 챕터는 건너뛰어도 좋습니다.
 
-재귀는 프로그래밍 패턴 중에 하나이며 작업이 여러 가지 비슷한 과정으로 나누어질 수 있을 떄 유용합니다.
-더 간단하죠. 작업이 더 쉬운 방법과 동일한 작업이 단순화 시킬 수 있을 때. 또는, 특정 데이터 구조로 다룰 수 있을때 사용합니다.
+재귀는 프로그래밍 패턴 중에 하나이며 작업이 여러 가지 비슷한 과정으로 나누어질 수 있을 떄 유용합니다. 더 간단하죠. 작업이 더 쉬운 방법과 동일한 작업이 단순화 시킬 수 있을 때. 또는, 특정 데이터 구조로 다룰 수 있을때 사용합니다. 
+
 함수가 진행될 때 프로세스에서 다른 많은 함수를 호출할 수 있습니다. 이때 함수가 *자기 자신* 을 호출할 때, 그것을 *재귀* 라고 부릅니다.
 
 ## 두 가지 사고 방식
@@ -320,9 +320,9 @@ let company = {
 
 한 회사에 부서가 있습니다.
 
-- A department may have an array of staff. For instance, `sales` department has 2 employees: John and Alice.
-- Or a department may split into subdepartments, like `development` has two branches: `sites` and `internals`. Each of them has their own staff.
-- It is also possible that when a subdepartment grows, it divides into subsubdepartments (or teams).
+- 부서에는 여러 명의 직원이 있을 수 있습니다. 예를 들어 `sales` 부서에는 John과 Alice라는 2명의 직원이 있습니다.
+- 부서는 하위 개발 부서로 나눌 수 있습니다. `development` 부서에는 `sites`와 `internals`가 두 개가 있습니다. 각각에든 직원이 있습니다.
+- 하위 부서가 커지면 하위 부서 (또는 팀)으로 나눌 수도 있습니다.
 
     예를 들어 미래의 `sites` 부서는 `sited부서는` `siteA` 와 `siteB` 에 대해 팀으로 분리될 수 있고, 잠재적으로 더 많이 나누어질 수 있습니다. 여기서는 일단 가능성만 생각해보죠.
 
