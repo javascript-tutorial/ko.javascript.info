@@ -102,6 +102,7 @@ sayHi('John'); // Hello, John!
 ```
 
 부득이하게 브라우저 환경에서 "전역(global)" 변수를 사용해야 한다면, `window` 객체에 변수를 명시적으로 할당하고, `window.user`로 접근하면 됩니다. 하지만 정말 필요한 경우에만 이 방법을 사용하길 권유합니다.
+
 ### 모듈은 최초 임포트 시 단 한 번만 평가됩니다.
 
 동일 모듈이 여러 곳에서 사용되더라도 모듈 내 코드는 최초 1회만 실행됩니다. 최초 실행 이후 다른 모듈에서 이 모듈을 임포트 합니다. 
@@ -203,7 +204,7 @@ sayHi(); // Ready to serve, *!*Pete*/!*!
 
 ### 모듈 내의 "this"
 
-사소한 기능이지만, 설명의 완전성을 위해 이 내용을 언급하고 넘어가야 할 것 같습니다. 
+사소한 기능이지만, 설명의 완전성을 위해 이 내용을 언급하고 넘어가야 할 것 같습니다.
 
 모듈이 아닌 스크립트의 전역 객체엔 값이 있는데 반해, 모듈 스코프의 `this`는 undefined입니다.
 
@@ -300,21 +301,21 @@ async 속성(`<script async type="module">`)은 인라인 스크립트와 외부
 
     이 특징은 보안을 강화해 줍니다.
 
-### No "bare" modules allowed
+### "경로가 없는" 모듈은 사용할 수 없습니다
 
-In the browser, in scripts (not in HTML), `import` must get either a relative or absolute URL. Modules without any path are called "bare" modules. Such modules are not allowed in `import`.
+브라우저 환경의 (HTML이 아닌) 스크립트에서 `import` 지시자는 반드시 상대 혹은 절대 URL 앞에 와야 합니다. 경로가 없는 모듈은 허용되지 않습니다.
 
 아래 예제에서 `import`는 무효합니다.
 ```js
-import {sayHi} from 'sayHi'; // Error, "bare" module
+import {sayHi} from 'sayHi'; // Error!
 // './sayHi.js'와 같이 모듈이 어디에 있는지 경로를 지정해 주어야 함
 ```
 
-Node.js나 번들 툴 같은 일부 환경에선 경로가 없어도 모듈을 찾을 수 있는 방법이 있기 때문에 기본 모듈을 사용할 수 있습니다. 하지만 브라우저는 아직까진 기본 모듈을 지원하지 못합니다. 
+Node.js나 번들 툴 같은 일부 환경에선 경로가 없어도 모듈을 찾을 수 있는 방법이 있기 때문에 경로가 없는 모듈을 사용할 수 있습니다. 하지만 브라우저에선 아직까진 이런 모듈을 지원하지 않습니다.
 
 ### 호환성을 지원해주는 "nomodule"
 
-오래된 브라우저는 `type="module"`을 해석하지 못합니다. 이 브라우저들은 알려지지 않은 type의 스크립트를 만나면 무시하고 넘어갑니다. 대비책으로 `nomodule` 속성을 사용하면 호환성을 유지할 수 있습니다.
+오래된 브라우저는 `type="module"`을 해석하지 못합니다. 이 브라우저들은 알려지지 않은 타입의 스크립트를 만나면 이를 무시하고 넘어갑니다. 대비책으로 `nomodule` 속성을 사용하면 호환성을 유지할 수 있습니다.
 
 ```html run
 <script type="module">
@@ -327,10 +328,10 @@ Node.js나 번들 툴 같은 일부 환경에선 경로가 없어도 모듈을 �
 </script>
 ```
 
-If we use bundle tools, then as modules are bundled together, their `import/export` statements are replaced by special bundler calls, so the resulting build does not require `type="module"`, and we can put it into a regular script:
+번들링 툴을 사용하는 경우, 스크립트는 하나 혹은 여러 개의 파일로 번들링 됩니다. 이때, 번들링 전 스크립트에 있던 `import/export`문은 특별한 번들러 함수로 대체됩니다. 번들링 과정을 거친 스크립트엔 `import/export`가 없기 때문에 `type="module"` 역시 필요 없어집니다. 모듈이 아닌 일반 스크립트로 취급할 수 있게 되죠. 
 
 ```html
-<!-- Assuming we got bundle.js from a tool like Webpack -->
+<!-- bundle.js는 웹팩과 같은 툴로 번들링 과정을 거친 스크립트라고 가정합시다. -->
 <script src="bundle.js"></script>
 ```
 
@@ -338,7 +339,7 @@ If we use bundle tools, then as modules are bundled together, their `import/expo
 
 실제 개발 환경에서 브라우저 모듈을 날 것 그대로 사용하는 경우는 거의 없습니다. 대부분 [웹팩(Webpack)](https://webpack.js.org/)과 같은 특별한 빌드 툴을 이용해 모듈을 번들링하고, 산출물을 프로덕션 서버에 배포합니다.
 
-번들러(bundler)를 사용하면 모듈 번들링을 통제할 수 있다는 장점이 생깁니다. 기본 모듈이나 CSS/HTML 모듈도 사용할 수 있게 됩니다. 
+번들러(bundler)를 사용하면 모듈 번들링을 통제할 수 있다는 장점이 생깁니다. 경로가 없는 모듈이나 CSS/HTML 모듈도 사용할 수 있게 됩니다. 
 
 빌드 툴은 아래와 같은 절차를 수행합니다.
 
