@@ -160,9 +160,9 @@ button.onclick = sayThanks;
 button.onclick = sayThanks();
 ```
 
-`sayThanks()`와 같이 괄호를 덧붙이게 되면, 함수를 호출한 것이 되어 그 함수의 *결괏(result)값* 를 프로퍼티에 할당합니다. 따라서 코드 마지막 줄의 `onclick`엔 (함수가 아무것도 반환하지 않기 때문에)`undefined`이 할당되고, 이벤트가 원하는 대로 동작하지 않습니다. 
+`sayThanks()`와 같이 괄호를 덧붙이게 되면, 함수가 호출됩니다. 따라서 위 예제의 마지막 줄에선 함수호출의 *결괏(result)값*이 프로퍼티에 할당합니다. `onclick`엔 (함수가 아무것도 반환하지 않기 때문에)`undefined`이 할당되고, 이벤트가 원하는 대로 동작하지 않습니다. 
 
-...하지만 마크업(markup)에선 괄호가 필요합니다:
+하지만 마크업(markup)에선 괄호가 필요합니다:
 
 ```html
 <input type="button" id="button" onclick="sayThanks()">
@@ -190,7 +190,6 @@ button.onclick = function() {
 ```js run no-beautify
 // <body>를 클릭하면 에러가 발생합니다.
 // 속성은 항상 문자열이기 때문에, 함수가 문자열이 되어버리기 때문입니다
-// because attributes are always strings, function becomes a string
 document.body.setAttribute('onclick', function() { alert(1) });
 ```
 
@@ -232,8 +231,8 @@ element.addEventListener(event, handler[, options]);
     - `capture`: 어느 단계에서 이벤트를 다뤄야 하는지를 알려주는 프로퍼티로, <info:bubbling-and-capturing>에서 다룰 예정입니다. `{capture: false/true}`는  `options`을 `false/true`로 설정하는 것과 같습니다. 과거엔 `options` 자체가 `false/true` 값을 가지는 프로퍼티였습니다.
     - `passive`: true일 경우, listener에서 지정한 함수가 preventDefault()를 호출하지 않습니다. <info:default-browser-action>에서 자세히 다루겠습니다.
 
-핸들러 삭제는 `removeEventListener`로 합니다:
 
+핸들러 삭제는 `removeEventListener`로 합니다:
 
 ```js
 element.removeEventListener(event, handler[, options]);
@@ -352,7 +351,7 @@ DOM-프로퍼티로 할당할 수 없는 이벤트가 존재합니다. 이런 �
 : 이벤트 타입, 위 예시에선 `"click"`.
 
 `event.currentTarget`
-: 현재 이벤트를 처리 중인 요소. `this`를 다른 요소에 bind 하지 않았다면, `this`와 같은 값을 참조하기 때문에 유용하게 쓰임.
+: Element that handled the event. That's exactly the same as `this`, unless the handler is an arrow function, or its `this` is bound to something else, then `event.currentTarget` becomes useful.
 
 `event.clientX / event.clientY`
 : 마우스 이벤트에서, 커서의 상대 좌표(역주: 모니터 기준의 좌표가 아닌, 브라우저 화면 기준 좌표)
@@ -467,4 +466,4 @@ DOM 프로퍼티를 사용한 방법은 괜찮습니다. 하지만 복수의 핸
 
 어떤 방법으로 이벤트 핸들러를 할당하던, 첫 번째 인자는 이벤트 객체입니다. 이 객체는 어떤 일이 일어났는지에 대한 상세한 정보를 담고 있습니다.
 
-다음 주제에서 이벤트에 대해 전반적인 내용과 다양한 이벤트 타입에 대해서 다뤄보도록 하겠습니다. 
+다음 주제에서 이벤트에 대해 전반적인 내용과 다양한 이벤트 타입에 대해서 다뤄보도록 하겠습니다.

@@ -100,7 +100,7 @@ user = { sayHi() { alert("Another user in setTimeout!"); } };
 ```js
 // 더 복잡한 문법은 나중에 다루겠습니다
 let boundFunc = func.bind(context);
-````
+```
 
 `func.bind(context)`의 결과는 "exotic object" 같은 특별한 함수입니다, 이것은 함수로서 호출할 수 있고`func`에`this = context`를 투명하게 전달합니다.
 

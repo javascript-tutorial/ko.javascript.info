@@ -166,16 +166,29 @@ try {
 }
 ```
 
+## "catch" 추가하기
+
+[recent browser=new]
+
+If we don't need error details, `catch` may omit it:
+
+```js
+try {
+  // ...
+} catch {
+  // error object omitted
+}
+```
 
 ## "try..catch" 사용하기
 
-`try..catch`의 실제 사례를 살펴봅시다.
+`try..catch`의 용례를 살펴봅시다.
 
 이미 알고 있듯이, 자바스크립트는 JSON으로 인코딩(encode)된 값을 읽을 수 있는 [JSON.parse(str)](mdn:js/JSON/parse) 메서드를 지원합니다.
 
 이 메서드는 주로 서버 또는 다른 출처로부터 네트워크를 통해 전달받은 데이터를 디코딩(decode)하는데 사용됩니다.
 
-전달된 데이터에 `JSON.parse`을 호출해 봅시다:
+데이터를 전달밭고 이 데이터에 `JSON.parse`을 호출해 봅시다.
 
 ```js run
 let json = '{"name":"John", "age": 30}'; // 서버로부터 전달받은 데이터
@@ -479,8 +492,7 @@ try {
 
 `finally` 절은 `try..catch` 전에 무언가를 시작하고 그것을 결과에 상관없이 완료하고 싶을 경우 사용됩니다.
 
-예를 들어, 피보나치 함수 `fib(n)`의 연산 시간을 측정하고 싶다고 해 봅시다. 함수 실행 전에 측정을 시작해서 실행이 끝난 후 측정을 종료하는 방법이 자연스레 떠올랐을 겁니다. 
-그런데 만약 함수 실행 도중 에러가 발생하면 어떻게 될까요? 아래 코드의 함수 `fib(n)`는 음수나 정수가 아닌 수가 입력될 경우 에러가 리턴됩니다.
+예를 들어, 피보나치 함수 `fib(n)`의 연산 시간을 측정하고 싶다고 해 봅시다. 함수 실행 전에 측정을 시작해서 실행이 끝난 후 측정을 종료하는 방법이 자연스레 떠올랐을 겁니다. 그런데 만약 함수 실행 도중 에러가 발생하면 어떻게 될까요? 아래 코드의 함수 `fib(n)`는 음수나 정수가 아닌 수가 입력될 경우 에러가 리턴됩니다.
 
 `finally` 절은 연산 시간 측정을 종료하기 좋은 장소입니다.
 
@@ -657,7 +669,6 @@ try {
 
 If error is not needed, we can omit it by using `catch {` instead of `catch(err) {`.
 
-We can also generate our own errors using the `throw` operator. Technically, the argument of `throw` can be anything, but usually it's an error object inheriting from the built-in `Error` class. More on extending errors in the next chapter.
 `throw` 연산자를 사용하면 커스텀 에러를 만들 수 있습니다. 이론상으론, `throw`의 인수로 아무것이나 가능하지만, 대게 내장 `Error` 클래스에서 상속받은 에러 객체를 인수에 넣습니다. 다음 주제에서 확장 에러를 다루도록 하겠습니다.
 
 다시 던지기(Rethrowing)는 에러 처리의 기본 패턴입니다: `catch` 블록에선 대게, 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루기 때문에, 예상치 못한 에러는 다시 던지기를 통해 다뤄야 합니다. 
