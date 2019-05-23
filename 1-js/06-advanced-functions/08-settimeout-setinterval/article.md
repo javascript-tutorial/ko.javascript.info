@@ -127,10 +127,10 @@ let timerId = setInterval(() => alert('tick'), 2000);
 setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 ```
 
-```smart header="크롬, 오페라, 사파리에서 모달창은 시간을 정지시킵니다."
-IE와 파이어폭스 사용 시, `alert/confirm/prompt` 창이 떠 있어도 내부 타이머의 시간은 멈추지 않습니다. 그러나 크롬, 오페라, 사파리에선 내부 타이머가 "정지" 됩니다.
+```smart header="`alert`창이 떠있는 상태에선 타이머가 멈추지 않습니다."
+크롬과 파이어폭스를 포함한 대부분의 브라우저에서는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머가 멈추지 않고 "째깍거리며" 돌아갑니다.
 
-So if you run the code above and don't dismiss the `alert` window for some time, then in Firefox/IE next `alert` will be shown immediately as you do it (2 seconds passed from the previous invocation), and in Chrome/Opera/Safari -- after 2 more seconds (timer did not tick during the `alert`).
+위의 코드를 실행 하고, 얼마간 `alert` 창을 닫지 않고 있다가 창을 닫으면, 다음 `alert` 창이 바로 나타나는것을 통해 이를 확인할 수 있습니다. `alert` 창이 간의 간격은 5초보다 짧아집니다.
 ```
 
 ## 재귀적인 setTimeout
