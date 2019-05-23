@@ -2,10 +2,9 @@ importance: 5
 
 ---
 
-# 바운드 함수로서의 기능
+# Bound function as a method
 
-결과값은 무엇일까요?
-
+What will be the output?
 
 ```js
 function f() {
