@@ -6,6 +6,7 @@ importance: 5
 
 결과는 무엇일까요?
 
+
 ```js
 function f() {
   alert( this ); // ?
