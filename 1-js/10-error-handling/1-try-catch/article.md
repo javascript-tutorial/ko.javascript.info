@@ -522,7 +522,11 @@ try {
 }
 */!*
 
+<<<<<<< HEAD
 alert(result || "에러 발생");
+=======
+alert(result || "error occurred");
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 alert( `연산 시간 ${diff}ms` );
 ```
