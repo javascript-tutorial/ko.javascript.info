@@ -34,7 +34,6 @@ alert( str.search(regexp) ); // 2
 
 `str.search` 메서드는 `pattern:/love/` 패턴을 찾고 문자열 안의 위치를 ​​돌려줍니다. 추측할 수 있듯이 `pattern:/love/` 는 가능한 패턴 중에 가장 단순한 것입니다. 이것이 하는 일은 간단한 부분 문자열 검색입니다.
 
-The code above is the same as:
 위의 코드는 다음과 동일합니다.
 
 ```js run
@@ -78,7 +77,7 @@ alert( "<h1> <h2> <h3>".search(regexp));
 
 정규 표현식에는 검색에 영향을 주는 플래그가 있을 수 있습니다.
 
-자바스크립트에는 딱 5개가 있습니다.
+자바스크립트에는 딱 6개가 있습니다.
 
 `i`
 : 이 플래그를 사용하면 대소문자 구분 없이 검색합니다. `A`와 `a`는 차이가 없습니다 (아래 예 참조).
@@ -87,7 +86,6 @@ alert( "<h1> <h2> <h3>".search(regexp));
 : 이 플래그를 사용하면 일치하는 처음 항목 뿐만 아니라 일치하는 모든 항목을 검색합니다. (다음 챕터에 예시가 있습니다).
 
 `m`
-: Multiline mode (covered in the chapter <info:regexp-multiline-mode>).
 다중 행 모드 (<info:regexp-multiline-mode> 챕터 참조).
 
 `s`
@@ -112,6 +110,7 @@ alert( str.search(/LOVE/) ); // -1 ('i' 플래그 없이는 아무것도 찾지 
 ```
 
 이미 `i` 플래그가 단순한 부분 문자열 검색보다는 정규 표현식을 더 강력한 것으로 만듭니다. 하지만 훨씬 더 많은 것이 있습니다. 다음 챕터들에서 다른 플래그와 기능에 대해 다룰 것입니다.
+
 
 ## 요약
 
