@@ -17,8 +17,7 @@
 👂 의사소통
 - 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
-번역이 진행되고 있는 언어는 <https://github.com/javascript-tutorial/translate>에서 확인할 수 있습니다.
-
+번역이 진행되고 있는 언어 목록과 각 언어로의 번역률은 <https://javascript.info/translate>에서 확인할 수 있습니다.
 ### 튜토리얼 작성에 기여하기
 
 더 나은 튜토리얼 작성을 위해 도움과 협업이 필요합니다.
