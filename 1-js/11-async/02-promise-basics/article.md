@@ -8,9 +8,15 @@
 
 위 비유는 우리가 코드를 짜면서 자주 만나는 상황을 실제 상황으로 비유 한 것입니다. 이 실제 상황은 다음과 같습니다.
 
+<<<<<<< HEAD
 1. "제작 코드(producing code)"는 무언가 시간이 걸리는 일입니다. 원격에서 스크립트를 불러오는 것 같이 말이죠. 위 비유에선 "가수"가 제작 코드에 해당합니다.
 2. "소비 코드(consuming code)"는 "제작 코드"가 준비되었을 때, 제작 코드의 결과를 사용하는 코드입니다. 여러 함수(소비 코드)에서 제작 코드의 결과를 활용하고 싶어 할 수 있습니다. 위 비유에선 결과물을 기다리는 함수들을 "팬들"로 비유했습니다.
 3. *프라미스(promise)*는 "제작 코드"와 "소비 코드"를 연결해 주는 특별한 자바스크립트 객체입니다. 위 비유에서 "구독 리스트"가 프라미즈입니다. "제작 코드"는 시간을 들여 약속한 결과물을 만들어 냅니다. "프라미스"는 결과물이 준비되었을 때, 모든 구독 코드에서 이 결과를 사용할 수 있도록 해줍니다.
+=======
+1. A "producing code" that does something and takes time. For instance, the code loads data over a network. That's a "singer".
+2. A "consuming code" that wants the result of the "producing code" once it's ready. Many functions  may need that result. These are the "fans".
+3. A *promise* is a special JavaScript object that links the "producing code" and the "consuming code" together. In terms of our analogy: this is the "subscription list". The "producing code" takes whatever time it needs to produce the promised result, and the "promise" makes that result available to all of the subscribed code when it's ready.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 이 비유가 완벽한 건 아닙니다. 자바스크립트의 프라미스는 비유에 사용된 구독 리스트보다 훨씬 복잡합니다. 프라미스엔 추가적인 기능과 한계점도 있습니다. 하지만 일단 이 비유를 이용해 프라미스를 학습해보도록 합시다.
 
@@ -26,8 +32,13 @@ let promise = new Promise(function(resolve, reject) {
 
 결과물로 반환되는 프라미스 객체엔 다음 내부 프로퍼티가 있습니다.
 
+<<<<<<< HEAD
 - `state` - 처음엔 "pending(보류)" 상태이고, 나중에 "fulfilled(처리)" 혹은 "rejected(거부)"로 바뀝니다.
 - `result` - 임의로 선택된 값이며, 처음에는 `undefined`입니다.
+=======
+- `state` — initially "pending", then changes to either "fulfilled" or "rejected",
+- `result` — an arbitrary value, initially `undefined`.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 executor의 실행이 끝나면 인자로 받은 콜백인 resolve나 reject 중 하나를 호출해야 합니다.
 
@@ -55,8 +66,13 @@ let promise = new Promise(function(resolve, reject) {
 
 위 코드를 통해 두 가지를 확인할 수 있습니다.
 
+<<<<<<< HEAD
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로, 따로 만들 필요는 없습니다. 대신, 우리는 executor를 만들어 `resolve`와 `reject` 함수를 호출할 수 있게 해야 합니다.
+=======
+1. The executor is called automatically and immediately (by the `new Promise`).
+2. The executor receives two arguments: `resolve` and `reject` — these functions are pre-defined by the JavaScript engine. So we don't need to create them. We only should call one of them when ready.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 executor가 호출되고 1초 후에 `resolve("done")`이 호출되어, state와 result를 변경합니다.
 
@@ -77,7 +93,11 @@ let promise = new Promise(function(resolve, reject) {
 
 지금까지 살펴본 프라미스에 대해 간단히 요약하면 다음과 같습니다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이 때 프라미스 객체의 프로퍼티인 state가 변경됩니다.
 
+<<<<<<< HEAD
 이행된(resolved) 혹은 거부된(rejected) 프라미스는 "처리된(settled)" 프라미스라 부릅니다. 이에 반대되는 "대기 상태의(pending)" 프라미스도 있습니다.
+=======
+The Promise that is either resolved or rejected is called "settled", as opposed to a initially "pending" Promise.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 ````smart header="오직 하나의 결과나 에러만 있을 수 있습니다"
 executor는 `resolve`나 `reject`함수 중 단 하나만 호출할 수 있습니다. 함수가 호출되어 프라미즈의 state가 변경되면, state는 더이상 변하지 않습니다.
@@ -112,9 +132,15 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
+<<<<<<< HEAD
 어떤 일을 시작했는데, 알고 보니 이 일이 이미 끝마쳐져 있는 경우가 있을 수 있습니다.
 
 이 경우도 그냥 바로 이행된(resolved) 프라미스를 호출하면 됩니다. 아무 문제 없이 작동합니다.
+=======
+For instance, this might happen when we start to do a job but then see that everything has already been completed and  cached.
+
+That's fine. We immediately have a resolved promise.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 ````
 
 ```smart header="`state` 와 `result`는 내부에 있습니다."
@@ -140,13 +166,23 @@ promise.then(
 
 `.then`의 첫 번째 인수는 다음과 같은 일을 하는 함수입니다.
 
+<<<<<<< HEAD
 1. 프라미스가 이행되었을 때(resolved) 실행됩니다. 그리고
 2. 그 결과(result)를 받습니다.
+=======
+1. runs when the promise is resolved, and
+2. receives the result.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 `.then`의 두 번째 인수는 다음과 같은 일을 하는 함수입니다.
 
+<<<<<<< HEAD
 1. 프라미스가 거부되었을 때(rejected) 실행됩니다. 그리고
 2. 에러(error)를 받습니다.
+=======
+1. runs when the promise is rejected, and
+2. receives the error.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 다음은 프라미스가 성공적으로 이행된 경우에 관한 예입니다.
 
@@ -233,10 +269,17 @@ new Promise((resolve, reject) => {
   .then(result => show result, err => show error)
 ```
 
+<<<<<<< HEAD
 `.then(f, f)`와 finally는 완전히 동일하진 않고, 다음과 같은 차이점이 있습니다.
 
 1. `finally` 핸들러엔 인수가 없습니다. 프라미즈가 이행되었는지, 거부되었는지 여부를 `finally` 에선 알 수 없습니다. finally 에선 절차를 마무리 하는 "보편적" 동작을 하기 때문에, 성공/실패 여부를 몰라도 됩니다.
 2. Finally는 결과(result)와 에러(error)를 다음 핸들러에게 전달합니다.
+=======
+It's not exactly an alias of `then(f,f)` though. There are several important differences:
+
+1. A `finally` handler has no arguments. In `finally` we don't know whether the promise is successful or not. That's all right, as our task is usually to perform "general" finalizing procedures.
+2. A `finally` handler passes through results and errors to the next handler.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
     아래 예제를 통해 result가 `finally`를 거쳐 `then`까지 전달되는 것을 확인할 수 있습니다.
     ```js run
@@ -257,11 +300,19 @@ new Promise((resolve, reject) => {
       .catch(err => alert(err)); // <-- .catch에서 에러 객체를 다룸
     ```  
 
+<<<<<<< HEAD
     finally는 프라미즈의 결과를 처리하기 위해 만들어지지 않았습니다. 이행 여부에 상관없이 결과를 전달해주죠. 이런 특징은 유용하게 사용될 수 있습니다.
+=======
+    That's very convenient, because `finally` is not meant to process a promise result. So it passes it through.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
     프라미즈 체이닝과 핸들러간 결과 전달에 대한 이야기는 다음 챕터에서 이어나가도록 하겠습니다.
 
+<<<<<<< HEAD
 3. `.finally(f)`는 `.then(f, f)`보다 문법 측면에서 더 편리합니다. `.then(f, f)`과같이 함수를 중복해서 사용할 필요가 없습니다.
+=======
+3. Last, but not least, `.finally(f)` is a more convenient syntax than `.then(f, f)`: no need to duplicate the function `f`.
+>>>>>>> 08734734021aa128c13da2382fe8fa062677bb9f
 
 ````smart header="프라미스가 처리되면, 핸들러는 즉각 실행됩니다."
 프라미스가 보류상태(pending)일 때, `.then/catch/finally` 핸들러는 결과를 기다립니다. 만약 프라미스가 처리되었다면(settled), 핸들러는 바로 실행됩니다.
