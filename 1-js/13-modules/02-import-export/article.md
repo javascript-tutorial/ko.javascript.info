@@ -163,7 +163,7 @@ say.bye('John'); // Bye, John!
 
 이렇게 모듈을 구성하다 보면 무언 갈 하나 만들 때마다 모듈 하나를 만들어야 하므로, 프로젝트 내 파일이 많아질 수밖에 없습니다. 이름을 잘 지어주고, 폴더로 파일을 잘 나눠 프로젝트를 구성하면 되기 때문에, 이는 문제가 되지 않습니다.
 
-자바스크립트는 `export default`라는 문법을 제공해, "모듈 하나에 무언가가 하나"만 들어가는 상황을 좀 더 깔끔하게 코드로 짤 수 있도록 해줍니다. 
+자바스크립트는 `export default`라는 문법을 제공해, "모듈 하나에 내보낼 게 하나"만 들어있는 상황을 깔끔하게 구현할 수 있게 해줍니다. 
 
 사용법은 간단합니다.
 
@@ -226,21 +226,21 @@ export class { // 에러! (default export가 아닌경우엔 이름이 꼭 필�
 }
 ```     
 
-### "Default" alias
+### "default" 별칭
 
-The "default" keyword is used as an "alias" for the default export, for standalone exports and other scenarios when we need to reference it.
+"default" 키워드는 default export(기본 내보내기)에 별칭으로 사용됩니다. 이 키워드는 내보낼 게 하나이거나 내보내고자 하는걸 참조해야 할 필요가 있을 때 사용합니다.
 
-For example, if we already have a function declared, that's how to `export default` it (separately from the definition):
+아래 예제는 함수가 정의가 끝난 상황에서, 해당 함수를 기본 내보내기(`export default`) 하고자 하는 경우, 어떻게 default 별칭을 사용하는지를 보여줍니다.
 
 ```js
 function sayHi(user) {
   alert(`Hello, ${user}!`);
 }
 
-export {sayHi as default}; // same as if we added "export default" before the function
+export {sayHi as default}; // 함수를 정의할 때, function 앞에 "export default"를 써서 정의한 것과 동일한 효과를 냅니다.
 ```
 
-Or, let's say a module `user.js` exports one main "default" thing and a few named ones (rarely the case, but happens):
+`user.js`라는 모듈에 default export가 하나 있고, named export가 여러 개 있다고 가정해 봅시다(사실 이런 경우는 흔치 않은데, 가끔 발생할 수 있습니다).
 
 ```js
 // 📁 user.js
@@ -255,7 +255,7 @@ export function sayHi(user) {
 }
 ```
 
-Here's how to import the default export along with a named one:
+이 경우, 어떻게 default export 한 것과 named export 한 것을 동시에 가져올 수 있는지 알아봅시다.
 
 ```js
 // 📁 main.js
@@ -264,7 +264,7 @@ import {*!*default as User*/!*, sayHi} from './user.js';
 new User('John');
 ```
 
-Or, if we consider importing `*` as an object, then the `default` property is exactly the default export:
+위 방법 이외에, `*`을 써서 객체 형태로 가져오기 하면, default export 한 것을 `default` 프로퍼티로 접근할 수 있습니다. 
 
 ```js
 // 📁 main.js
@@ -275,30 +275,30 @@ new User('John');
 ```
 
 
-### Should I use default exports?
+### 언제 default export를 써야 하나요?
 
-One should be careful about using default exports, because they are more difficult to maintain.
+default export는 유지 보수하기가 까다롭기 때문에, 사용 시 주의해야 합니다.
 
-Named exports are explicit. They exactly name what they import, so we have that information from them, that's a good thing.
+named export는 내보냈을 때 이름을 그대로 사용해 가져와야 합니다. 변경의 여지가 없죠. 
 
-Also, named exports enforce us to use exactly the right name to import:
+이름이 바뀌지 않기 때문에, 어디서 어떤 것이 내보내 졌는지에 관한 정보를 한눈에 파악하기도 쉽습니다.
 
 ```js
 import {User} from './user.js';
-// import {MyUser} won't work, the name must be {User}
+// import {MyUser}은 동작하지 않습니다. 이름은 반드시 {User}이어야 합니다.
 ```
 
-For default exports, we always choose the name when importing:
+반면 default export는 가져오기 할 때, 개발자가 이름을 선택해 주어야 합니다.
 
 ```js
-import User from './user.js'; // works
-import MyUser from './user.js'; // works too
-// could be import Anything..., and it'll be work
+import User from './user.js'; // 동작
+import MyUser from './user.js'; // 동작
+// 어떤 이름이든 에러 없이 동작합니다.
 ```
 
-So, there's a little bit more freedom that can be abused, so that team members may use different names for the same thing.
+그런데 이름을 자유롭게 선택할 수 있으면 문제가 발생할 수 있습니다. 같은 것에 대해 개발자마다 다른 이름을 부여할 수 있죠.    
 
-Usually, to avoid that and keep the code consistent, there's a rule that imported variables should correspond to file names, e.g:
+이런 문제를 피하고 코드의 일관성을 유지하기 위해, default export 한 것을 가져올 땐 아래와 같이 파일 이름을 이용하여 이름을 부여합니다.
 
 ```js
 import User from './user.js';
@@ -307,20 +307,20 @@ import func from '/path/to/func.js';
 ...
 ```
 
-Another solution would be to use named exports everywhere. Even if only a single thing is exported, it's still exported under a name, without `default`.
+모든 것을 named export 하는 것도 또 하나의 방법이 될 수 있습니다. 모듈 안에 내보낼 것이 하나밖에 없더라도 말이죠. `default`를 쓰지 않고 이름을 부여해 내보내면 문제를 예방할 수 있습니다.
 
-That also makes re-export (see below) a little bit easier.
+이렇게 하면 다시 내보내기(re-export)가 수월해진다는 장점도 있습니다.
 
-## Re-export
+## 다시 내보내기
 
-"Re-export" syntax `export ... from ...` allows to import things and immediately export them (possibly under another name), like this:
+`export ... from ...` 문법을 사용해 "다시 내보내기(re-export)" 하면 무언가를 가져온 즉시 내보낼 수 있습니다. 이름을 바꿔서 즉시 내보내는 것도 가능하죠. 예시를 통해 알아봅시다. 
 
 ```js
 export {sayHi} from './say.js';
 export {default as User} from './user.js';
 ```
 
-What's the point, why that's needed? Let's see a practical use case.
+이걸 어디에 활용할지 아직 감이 오지 않으셨을 겁니다. 유스 케이스를 통해 실무에서 다시 내보내기가 언제 사용되는지 알아봅시다.
 
 Imagine, we're writing a "package": a folder with a lot of modules, mostly needed internally, with some of the functionality exported outside (tools like NPM allow to publish and distribute packages, but here it doesn't matter).
 
@@ -361,7 +361,7 @@ export {Github};
 ...
 ```
 
-"Re-exporting" is just a shorter notation for that:
+"다시 내보내기"를 사용해 작성한 위 예제는 아래 스크립트의 축약 버전이라고 생각하시면 됩니다. 
 
 ```js
 // 📁 auth/index.js
@@ -389,53 +389,53 @@ export {default} from './module.js'; // to re-export default
 The default should be mentioned explicitly only when re-exporting: `import * as obj` works fine. It imports the default export as `obj.default`. So there's a slight asymmetry between import and export constructs here.
 ````
 
-## Summary
+## 요약
 
-There are following types of `export`:
+다양한 방법을 이용해 모듈을 내보낼 수 있습니다.
 
-- Before declaration:
+- 선언과 동시에 내보내기:
   - `export [default] class/function/variable ...`
-- Standalone:
+- 선언과 떨어진 곳에서 내보내기:
   - `export {x [as y], ...}`.
-- Re-export:
+- 다시 내보내기:
   - `export {x [as y], ...} from "mod"`
   - `export * from "mod"` (doesn't re-export default).
   - `export {default [as y]} from "mod"` (re-export default).
 
-Import:
+가져오기 역시 다양한 방법으로 가능합니다.
 
-- Named exports from module:
+- named export 가져오기:
   - `import {x [as y], ...} from "mod"`
-- Default export:  
+- default export 가져오기:
   - `import x from "mod"`
   - `import {default as x} from "mod"`
-- Everything:
+- 모든 export 한번에 가져오기:
   - `import * as obj from "mod"`
-- Import the module (it runs), but do not assign it to a variable:
+- 모듈을 가져오긴 하지만, 변수에 할당하지 않기:
   - `import "mod"`
 
-We can put import/export statements at the top or at the bottom of a script, that doesn't matter.
+import/export 문은 스크립트의 맨 위나 맨 아래에 올 수 있는데, 차이는 없습니다.
 
-So this is technically fine:
+따라서 아래 스크립트는 문제없이 잘 동작합니다.
 ```js
 sayHi();
 
 // ...
 
-import {sayHi} from './say.js'; // import at the end of the script
+import {sayHi} from './say.js'; // import 문을 스크립트 맨 아래에 위치시킴
 ```
 
-In practice imports are usually at the start of the file, but that's only for better convenience.
+대게는 편의상 스크립트 맨 위에 import 문을 위치시킵니다.
 
-**Please note that import/export statements don't work if inside `{...}`.**
+**import/export 문은 블록 `{...}`안에선 동작하지 않는다는 점에 유의하시길 바랍니다.**
 
-A conditional import, like this, won't work:
+조건에 따라 모듈을 가져오려는 의도로 작성한 아래 코드는 동작하지 않습니다.
 ```js
 if (something) {
-  import {sayHi} from "./say.js"; // Error: import must be at top level
+  import {sayHi} from "./say.js"; // 에러: import 문은 최상위 레벨에 위치해야 합니다.
 }
 ```
 
-...But what if we really need to import something conditionally? Or at the right time? Like, load a module upon request, when it's really needed?
+그런데 애플리케이션을 작성하다 보면 조건에 따라 모듈을 가져와야 하거나 어떤 특정 시점에 모듈을 불러와야 하는 경우가 생깁니다. 이럴 땐 어떤 방법을 사용해야 할까요? 요청이 있을 때만 모듈을 불러오는 게 가능할까요?
 
-We'll see dynamic imports in the next chapter.
+동적으로 모듈을 가져오는 방법(dynamic import)은 다음 챕터에서 알아보도록 하겠습니다.
