@@ -6,7 +6,11 @@
 
 자바스크립트는 `throw` 를 아무 인수와 함께 사용할 수 있게 허용하므로, 기본적으로 커스텀 에러 클래스들은 `Error`를 상속할 필요가 없습니다. 그러나 상속을 하면 `obj instanceof Error`를 사용해서 에러 객체들을 식별하는 것이 가능해집니다. 따라서 상속받는 게 낫습니다.
 
+<<<<<<< HEAD
 애플리케이션을 빌드할 때, 자체 에러들은 기본적으로 계층 구조를 형성합니다. 예를 들어 `HttpTimeoutError`는 `HttpError`를 상속받는 등입니다.
+=======
+As the application grows, our own errors naturally form a hierarchy, for instance `HttpTimeoutError` may inherit from `HttpError`, and so on.
+>>>>>>> a0266c574c0ab8a0834dd38ed65e7e4ee27f9cdb
 
 ## 에러 확장하기
 
@@ -126,7 +130,11 @@ try {
 
 `instanceof`를 사용하는 게 훨씬 좋습니다. 왜냐하면 나중에 `ValidationError`를 확장하여 `PropertyRequiredError` 같은 서브 타입을 만들 것이기 때문입니다. 그리고 `instanceof` 검사는 상속받은 새로운 클래스들에서도 동작할 것입니다. 따라서 나중에 대비할 수 있게 됩니다.
 
+<<<<<<< HEAD
 또한 `catch`가 알려지지 않은 에러를 만나면 `(**)` 줄에서 재던지기를 한다는 것이 중요합니다. `catch` 는 유효성 검사와 문법 오류를 처리하는 방법만 알고 있으며, 다른 종류(코드 오타 등)는 빠져 나가야 합니다. 
+=======
+Also it's important that if `catch` meets an unknown error, then it rethrows it in the line `(**)`. The `catch` block only knows how to handle validation and syntax errors, other kinds (due to a typo in the code or other unknown ones) should fall through.
+>>>>>>> a0266c574c0ab8a0834dd38ed65e7e4ee27f9cdb
 
 ## 더 깊게 상속하기
 
@@ -185,7 +193,11 @@ try {
 
 새로운 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. 우리는 단지 속성 이름을 전달하기만 하면 됩니다. `new PropertyRequiredError(property)`. 사람이 읽기 쉬운 `message`는 생성자에 의해 생성됩니다.
 
+<<<<<<< HEAD
 `PropertyRequiredError` 생성자의 `this.name`을 다시 직접 지정해야 한다는 점에 주의하세요. 각 커스텀 에러를 생성할 때 `this.name = <클래스 이름>`을 수동으로 지정해야 하는 사실이 조금 짜증날 수 있습니다. 하지만 방법이 있습니다. 생성자에서 `this.name`에 `this.constructor.name`를 지정해서 자체적인 "기본 에러" 클래스를 만들면 우리 어깨에서 짐을 내려놓을 수 있습니다. 그리고 그 클래스를 상속하면 되죠.
+=======
+Please note that `this.name` in `PropertyRequiredError` constructor is again assigned manually. That may become a bit tedious -- to assign `this.name = <class name>` in every custom error class. But there's a way out. We can make our own "basic error" class that removes this burden from our shoulders by using `this.constructor.name` for `this.name` in its constructor. And then inherit all ours custom errors from it.
+>>>>>>> a0266c574c0ab8a0834dd38ed65e7e4ee27f9cdb
 
 이 클래스를 `MyError`라고 부릅시다.
 
@@ -218,7 +230,11 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 ## 예외 감싸기
 
+<<<<<<< HEAD
 위의 코드에서 함수 `readUser`의 목적은 "사용자 데이터를 읽는 것"입니다, 그렇죠? 그 과정에서 다른 종류의 오류들이 발생할 수 있습니다. 지금 우리는 `SyntaxError`와 `ValidationError`를 가지고 있지만, 앞으로는 `readUser` 함수가 더 커질 수 있습니다. 새로운 코드는 아마도 다른 종류의 오류들을 생성할 것입니다.
+=======
+The purpose of the function `readUser` in the code above is "to read the user data", right? There may occur different kinds of errors in the process. Right now we have `SyntaxError` and `ValidationError`, but in the future `readUser` function may grow and probably generate other kinds of errors.
+>>>>>>> a0266c574c0ab8a0834dd38ed65e7e4ee27f9cdb
 
 `readUser`를 호출하는 코드는 이런 오류들을 처리해야 합니다. 지금은 `catch` 블록 안에 `if` 여러 개를 사용하여 서로 다른 오류 유형들을 확인하고 알려지지 않은 유형은 다시 던지기를 합니다. 그러나 `readUser` 함수가 여러 유형의 오류들을 발생한다면 우리는 스스로에게 물어보아야 합니다. `readUser`를 호출하는 각 코드에서 전체 오류 유형을 정말 일일이 확인하길 원하는지를요.
 
@@ -302,6 +318,12 @@ try {
 
 ## 요약
 
+<<<<<<< HEAD
 - 우리는 보통 `Error`와 다른 내장 오류 클래스로부터 상속을 받을 수 있습니다. `name` 속성을 확인하고 `super`를 호출하는 것만 잊지 마세요.
 - 대부분의 경우, 우리는 특정 오류를 확인하는데 `instanceof`를 사용해야 합니다. 상속된 클래스에도 적용됩니다. 그러나 때로는 서드파티 라이브러리에 있는 오류 객체들이 있는데, 그런 클래스를 알아내는 것은 쉽지 않습니다. 이런 경우는 `name` 속성을 확인할 수 있습니다.
 - 오류 감싸기는 함수가 로우-레벨 예외를 처리하고 오류에 대해 보고하는 하이 레벨 객체를 만들 때 널리 사용되는 기법입니다. 로우-레벨 예외는 때로는 위에서 본 예제의 `err.cause`처럼 그 객체의 속성이 될 수 있지만, 엄격히 필수로 요구되는 것은 아닙니다.
+=======
+- We can inherit from `Error` and other built-in error classes normally, just need to take care of `name` property and don't forget to call `super`.
+- We can use `instanceof` to check for particular errors. It also works with inheritance. But sometimes we have an error object coming from the 3rd-party library and there's no easy way to get the class. Then `name` property can be used for such checks.
+- Wrapping exceptions is a widespread technique: a function handles low-level exceptions and creates higher-level errors instead of various low-level ones. Low-level exceptions sometimes become properties of that object like `err.cause` in the examples above, but that's not strictly required.
+>>>>>>> a0266c574c0ab8a0834dd38ed65e7e4ee27f9cdb
