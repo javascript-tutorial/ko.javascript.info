@@ -278,7 +278,7 @@ promise.then(alert); // done! (바로 출력됨)
 
 이제, 실질적인 예제와 함께 프라미스를 이용해 어떻게 비동기 코드를 작성하는지 알아봅시다.
 
-## 예제 : loadScript
+## 예제 : loadScript [#loadscript]
 
 이전 챕터에서 스크립트를 불러오는 `loadScript` 함수를 작성한 바 있습니다.
 
