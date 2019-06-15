@@ -15,7 +15,7 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 - [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료).
 - [WebStorm](http://www.jetbrains.com/webstorm/) (크로스 플랫폼, 유료).
 
-참고로 윈도우 계열엔 "Visual Studio"라는 에디터가 있는데, 이는 "Visual Studio Code"와는 다릅니다. "Visual Studio"는 윈도우만 지원하는 강력한 유료 에디터입니다. .NET 개발에 적합하고 자바스크립트 역시 잘 지원합니다. 
+참고로 윈도 계열엔 "Visual Studio"라는 에디터가 있는데, 이는 "Visual Studio Code"와는 다릅니다. "Visual Studio"는 윈도 OS만 지원하는 강력한 유료 에디터로, .NET 개발에 주로 사용되며 자바스크립트도 지원합니다. "Visual Studio"의 무료 버전인 [Visual Studio Community](https://www.visualstudio.com/vs/community/)도 있으니 참고하시기 바랍니다.
 
 대다수의 IDE가 유료이지만 체험 기간을 제공합니다. 개발자의 연봉과 비교했을 때 IDE의 가격은 보통 무시할 수 있을 만한 금액이므로 자신에게 잘 맞는 IDE를 찾아보시길 권유드립니다. 
 
