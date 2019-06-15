@@ -55,7 +55,7 @@ Let's imagine we have several animations running simultaneously.
 
 If we run them separately, then even though each one has `setInterval(..., 20)`, then the browser would have to repaint much more often than every `20ms`.
 
-That's because they have different starting time, so "every 20ms" differs between different animations. The intervals are not alignned. So we'll have several independent runs within `20ms`.
+That's because they have different starting time, so "every 20ms" differs between different animations. The intervals are not aligned. So we'll have several independent runs within `20ms`.
 
 In other words, this:
 
@@ -75,7 +75,7 @@ setInterval(animate2, 20); // in different places of the script
 setInterval(animate3, 20);
 ```
 
-These several independent redraws should be grouped together, to make the redraw easier for the browser (and hence smoother for people).
+These several independent redraws should be grouped together, to make the redraw easier for the browser and hence load less CPU load and look smoother.
 
 There's one more thing to keep in mind. Sometimes when CPU is overloaded, or there are other reasons to redraw less often (like when the browser tab is hidden), so we really shouldn't run it every `20ms`.
 

@@ -2,26 +2,27 @@ importance: 5
 
 ---
 
-# What will setTimeout show?
+# setTimeout 은 무엇을 보여줄까요?
 
-In the code below there's a `setTimeout` call scheduled, then a heavy calculation is run, that takes more than 100ms to finish.
+아래의 코드에는 `setTimeout` 호출이 스케줄되어 있고, 그다음은 시간이 100ms 이상 걸리는 무거운 계산이 실행됩니다.
 
-When will the scheduled function run?
+setTimeout에 넘겨준 함수는 언제 실행될까요?
 
-1. After the loop.
-2. Before the loop.
-3. In the beginning of the loop.
+1. 반복문 후에
+2. 반복문 전에
+3. 반복문이 시작할 때
 
 
-What is `alert` going to show?
+`alert`은 무엇을 보여줄까요?
 
 ```js
 let i = 0;
 
 setTimeout(() => alert(i), 100); // ?
 
-// assume that the time to execute this function is >100ms
+// 아래 반복문을 다 도는 데 걸리는 시간은 100ms보다 크다고 가정합시다.
 for(let j = 0; j < 100000000; j++) {
   i++; 
 }
 ```
+    

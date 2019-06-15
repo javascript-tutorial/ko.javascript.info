@@ -175,7 +175,7 @@ ask(
 
 함수 표현식과 선언문의 차이에 대해 알아봅시다.
 
-첫 번째 차이는 문법입니다: 코드에서 어떻게 보이냐가 다릅니다.
+First, the syntax: how to differentiate between them in the code.
 
 - *함수 선언문:* 함수는 메인 코드 중간에 독립된 문의 형태로 선언됩니다
 
@@ -185,7 +185,7 @@ ask(
       return a + b;
     }
     ```
-- *함수 표현식:* 함수는 표현식(expression) 안이나, 다른 문법의 생성자(another syntax construct) 안에서 선언됩니다. "할당 표현식"인 `=`의 우측에서 함수가 생선된 걸 아래 코드에서 확인할 수 있습니다.
+- *Function Expression:* a function, created inside an expression or inside another syntax construct. Here, the function is created at the right side of the "assignment expression" `=`:
     
     ```js
     // 함수 표현식
@@ -202,7 +202,7 @@ ask(
 
 하지만 함수 선언문은 조금 다릅니다.
 
-**함수 선언문은 모든 스크립트/코드 블록에서 사용 가능합니다.**
+**A Function Declaration is usable in the whole script (or a code block, if it's inside a block).**
 
 자바스크립트는 스크립트 혹은 코드 블록을 실행하기 위한 준비를 할 때, 먼저 함수 선언문이 있는지를 찾고, 함수를 생성합니다. 이런 과정을 "초기화 단계(initialization stage)"라고 부릅니다.
 

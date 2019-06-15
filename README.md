@@ -1,98 +1,72 @@
-# The Modern JavaScript Tutorial in Korean
+# 자바스크립트 튜토리얼
 
-This repository hosts the translation of <https://javascript.info> in Korean.
+본 저장소는 <https://javascript.info>의 내용을 영-한 번역하고 있습니다.
 
-Please help us to make the translation better.
+## 참여 방법
 
-- See the [Korean Translate Progress](https://github.com/javascript-tutorial/ko.javascript.info/issues/23) issue.
-- Choose an unchecked article you'd like to translate.
-- Add a comment to that issue to inform the maintainer that you're translating it.
-- Fork the repository, translate and send a PR when done.
+### 번역 참여 방법
 
-🎉 Thank you!
+- [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역 진행 상황을 확인합니다.
+- 번역되지 않은 글(article)이나, 리뷰가 필요한 글을 선택합니다.
+- [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)의 해당 글에 본인의 깃허브 아이디와 진행상황(Translation Status)을 업데이트합니다.
+- [한국어 리드 저장소](https://github.com/javascript-tutorial/ko.javascript.info)를 포크하여 번역 작업을 시작하고, 번역이 끝나면 Pull Request 합니다. 
 
-Your name and the contribution size will appear in the "About project" page when the translation gets published.
+:exclamation: 권한 요청
+- 처음 작업을 하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0) 수정 권한이 필요하니, gmail 아이디를 적은 권한 요청 게시물을 [이슈](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues) 페이지에 등록합니다.
 
-P.S. The full list of languages can be found at <https://github.com/javascript-tutorial/translate>.
+👂 의사소통
+- 질문이나 소통을 위해선 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)을 이용해주세요.
 
-## Structure
+번역이 진행되고 있는 언어 목록과 각 언어로의 번역률은 <https://javascript.info/translate>에서 확인할 수 있습니다.
+### 튜토리얼 작성에 기여하기
 
-Every chapter, an article or a task resides in its own folder.
+더 나은 튜토리얼 작성을 위해 도움과 협업이 필요합니다.
 
-The folder is named `N-url`, where `N` – is the number for sorting (articles are ordered), and `url` is the URL-slug on the site.
+잘못된 점이 있거나 누락된 부분이 있으면 알려주세요. 이슈를 등록하고, 직접 수정할 수 있으면 PR을 보내주세요.
 
-The folder has one of files:
+**텍스트 에디터만 있다면 누구나 튜토리얼에 기여할 수 있습니다.** '마크다운(markdown)'으로 작성되었기 때문이죠.
 
-- `index.md` for a section,
-- `article.md` for an article,
-- `task.md` for a task formulation (+`solution.md` with the solution text if any).
+PR전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 싶다면, <https://github.com/javascript-tutorial/server>을 이용해 로컬에 서버를 세팅해 보세요. 
 
-A file starts with the `# Title Header`, and then the text in Markdown-like format, editable in a simple text editor. 
+튜토리얼에 기여하신 분들의 이름은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다.
 
-Additional resources and examples for the article or the task, are also in the same folder.
+## 저장소 구조
 
-## Translation Tips
+모든 챕터(chapter), 글(article), 과제(task)는 각각의 폴더 안에 구성되어 있습니다.
 
-- The translation doesn't have to be word-by-word precise. It should be technically correct and explain well.
-- If you see that the English version can be improved – great, please send a PR to it.
-- Please keep line breaks and paragraphs "as is": makes it easy to merge changes from English version into translation in the future. 
+폴더는 `N-url`형식의 이름을 가집니다. `N`은 정렬 목적으로 부여한 숫자이고 `url`은 해당 자료의 URL 일부를 나타냅니다.
 
-### Text in Code Blocks
+폴더는 다음 같은 파일을 담고 있습니다.
 
-- Translate comments.
-- Translate user-messages and example strings.
-- Don't translate variables, classes, identifiers.
-- Ensure that the code works after the translation :)
+  - `대주제(section)`의 개괄적인 설명을 담은 `index.md`
+  - `글(article)`이 저장된 `article.md`
+  - `과제(task)`를 위한 `task.md` (과제의 해답이 있다면 `solution.md`으로 제공)
 
-Example:
+각 파일은 `# Title Header`로 시작하고, 간단한 텍스트 에디터로 수정 가능한 마크다운 포멧으로 작성되었습니다.
 
-```js
-// Example
-const text = "Hello, world";
-document.querySelector('.hello').innerHTML = text;
-```
+## 번역 규칙
 
-✅ DO (translate comment):
-
-```js
-// Ejemplo
-const text = 'Hola mundo';
-document.querySelector('.hello').innerHTML = text;
-```
-
-❌ DON'T (translate class):
-
-```js
-// Ejemplo
-const text = 'Hola mundo';
-// ".hello" is a class
-// DO NOT TRANSLATE
-document.querySelector('.hola').innerHTML = text;
-```
-
-### External Links
-
-If an external link is to Wikipedia, e.g. `https://en.wikipedia.org/wiki/JavaScript`, and a version of that article exists in your language that is of decent quality, link to that version instead.
-
-Example:
-
-```md
-[JavaScript](https://en.wikipedia.org/wiki/JavaScript) is a programming language.
-```
-
-✅ OK (en -> es):
-
-```md
-[JavaScript](https://es.wikipedia.org/wiki/JavaScript) es un lenguaje de programación.
-```
-
-For links to MDN, that are only partially translated, also use the language-specific version.
-
-If a linked article has no translated version, leave the link "as is".
+* 경어체를 사용합니다.
+* PR 전 [맞춤법 검사기](http://speller.cs.pusan.ac.kr/)를 사용해 틀린 부분을 교정합니다. **검사기를 돌리지 않았다고 판단되는 커밋은 PR 받지 않겠습니다.** 리뷰자 역시 맞춤법 검사기를 사용해, 맞춤법을 지키고 있는지 재검사합니다. 
+* 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property), 브라우저 객체 모델(Browser Object Model, BOM))`합니다.
+* [합의된 번역어](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)로 번역합니다. 공동작업에선 번역어 통일이 매우 중요합니다.
+* 등록되지 않은 새로운 용어는 번역어를 등록한후 번역합니다.
+* 번역어는 출판된 도서, 국립국어원의 외래어 표기법 용례, 한글라이즈 사이트 등을 기준으로 선정합니다. 주 참고자료는 다음과 같습니다.
+  * 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
+  * 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
+  * 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
+  * 초보자를 위한 JavaScript 200제([링크](http://www.yes24.com/Product/Goods/70746749?Acode=101))
+  * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
+  * 한글라이즈([링크](https://hangulize.org/))
 
 
-## Running locally
+### 번역 팁
 
-You can run the tutorial locally, to immediately see the changes on-site.
-
-The server is at <https://github.com/javascript-tutorial/server>. 
+- 번역은 단어-단어수준으로 정확하지 않아도 됩니다. 오역이 없고 번역투가 없는 문장이면 됩니다. 다만, 번역시 누락은 있으면 안됩니다.
+- 문장 끝 :(콜론) 등의 영어에서만 사용되는 문장부호나 스타일은 최대한 한글화 합니다.
+- 모호하지 않은 영어 문장이 발견되면 PR을 보내 영어 원문 수정요청을 할 수 있습니다.
+- 줄 바꿈과 단락은 "원문 그대로" 유지해주세요. 영어 원문 수정사항을 병합 할 때 중요합니다.
+- 충돌이 있는 경우 빠르게 수정하여 병합할 수 있도록 PR하나에 챕터 하나만 번역하길 권유 드립니다. 
+---
+♥  
+Ilya Kantor @iliakan

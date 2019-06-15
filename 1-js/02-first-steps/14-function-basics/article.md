@@ -101,7 +101,7 @@ showMessage();
 alert( userName ); // 함수에 의해 *!*Bob*/!* 으로 값이 바뀜
 ```
 
-외부 변수는 함수 내 지역 변수가 없는 경우만 사용됩니다. 함수 내에서 `let`을 적는 걸 잊을 경우, 의도치 않게 외부 변수를 수정하는 실수를 할 수 있습니다.
+외부 변수는 함수 내 지역 변수가 없는 경우만 사용됩니다.
 
 만약 함수 외부와 내부에 같은 이름의 변수가 선언되었다면, 지역 변수는 외부 변수에 *영향을 주지 못합니다*. 아래 코드를 살펴보시죠. 함수 내부에서 `userName` 변수를 선언하고 새로운 값을 할당했지만, 외부 변숫값은 변하지 않습니다. 
 
@@ -123,12 +123,12 @@ showMessage();
 alert( userName ); // *!*John*/!*이 출력됨, 함수는 외부 변수에 접근하지 못하기 때문에, 값이 변경되지 않음
 ```
 
-```smart header="전역 변수(Global variables)"
+```smart header="전역 변수)"
 위 코드의 `userName`처럼, 함수 외부에 선언된 변수는 *전역* 변수(global variable)가 됩니다.
 
 전역 변수는 (지역 변수에 의해 가려지지만 않는다면) 모든 함수에서 접근 가능합니다.
 
-대게, 함수에서 필요한 변수는 함수 안에서 선언합니다. 전역변수는 프로젝트 수준(project-level)의 데이터를 저장하는 데만 쓰입니다. 전역 변수는 어느 곳에서든 접근 할 수 있다는 점 때문에 중요합니다. 최신 코드(modern code)엔 전역 변수가 거의 없거나 아주 적게 있습니다. 대부분 변수를 함수 내에 작성하기 때문입니다.
+전역변수는 되도록 사용하지 않는 것이 좋습니다. 모던 코드에선 전역변수를 사용하지 않거나 최소한으로만 사용하고, 변수는 연관되는 함수 내에 작성됩니다. 프로젝트 수준(project-level)의 데이터를 저장하는 데 가끔 전역변수가 쓰이는 경우가 있긴 합니다.
 ```
 
 ## 매개변수(Parameters)
@@ -375,13 +375,13 @@ checkPermission(..) // 승인 여부를 확인하고 true/false를 반환함
 - `createForm` -- 문서를 수정해서 form을 문서에 더해주는 동작이 들어가 있으면 안 좋습니다(form을 만들고 이를 반환하는 동작만 해야 합니다).  
 - `checkPermission` -- `승인 허가/거부` 메시지를 보여주는 동작이 들어가 있으면 안 좋습니다(승인 여부를 확인하고 그 결과를 반환하는 동작만 해야 합니다).
 
-널리 쓰이는 접두어의 의미를 위 예를 통해 확인해 보았습니다. 이 의미들은 개발자와 개발팀에 의해 정의됩니다. 당신이 작성한 코드가 다른 동작을 할 수도 있는데, 이는 어쩌면 정상적인 일일 겁니다. 하지만 개발자는 접두어가 어떤 의미가 있는지 명확히 이해하고, 접두어가 붙은 이름을 가진 함수가 어떤 동작을 하고 어떤 동작을 못하는지 명확히 알아야 합니다. 동일한 접두어가 붙은 함수는 동일한 동작을 해야 합니다. 그리고 팀은 그 규칙을 공유하고 있어야 합니다.
+These examples assume common meanings of prefixes. You and your team are free to agree on other meanings, but usually they're not much different. In any case, you should have a firm understanding of what a prefix means, what a prefixed function can and cannot do. All same-prefixed functions should obey the rules. And the team should share the knowledge.
 ```
 
 ```smart header="아주 짧은 함수 이름"
 *빈번히* 쓰이는 함수 중 아주 짧은 이름을 가진 함수도 있습니다.
 
-[jQuery](http://jquery.com) 프레임워크(framework)는 `$`라는 이름을 가진 함수를 정의합니다. [LoDash](http://lodash.com/) 라이브러리(library)의 핵심 함수는 이름이 `_` 입니다.
+[jQuery](http://jquery.com) 프레임워크(framework)는 `$`라는 이름을 가진 함수를 정의합니다. [Lodash](http://lodash.com/) 라이브러리(library)의 핵심 함수는 이름이 `_` 입니다.
 
 이런 함수들은 예외라고 생각하셔야 합니다. 일반적으로 함수 이름은 간결하고 함수가 어떤 일을 하는지 설명할 수 있어야 합니다.
 ```

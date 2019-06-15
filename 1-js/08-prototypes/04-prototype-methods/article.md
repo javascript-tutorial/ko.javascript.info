@@ -3,7 +3,7 @@
 
 In the first chapter of this section, we mentioned that there are modern methods to setup a prototype.
 
-The `__proto__` is considered outdated and somewhat deprecated (in browser-only part of the Javascript standard).
+The `__proto__` is considered outdated and somewhat deprecated (in browser-only part of the JavaScript standard).
 
 The modern methods are:
 
@@ -72,16 +72,16 @@ That's for historical reasons.
 
 - The `"prototype"` property of a constructor function works since very ancient times.
 - Later in the year 2012: `Object.create` appeared in the standard. It allowed to create objects with the given prototype, but did not allow to get/set it. So browsers implemented non-standard `__proto__` accessor that allowed to get/set a prototype at any time.
-- Later in the year 2015: `Object.setPrototypeOf` and `Object.getPrototypeOf` were added to the standard. The `__proto__` was de-facto implemented everywhere, so it made its way to the Annex B of the standard, that is optional for non-browser environments.
+- Later in the year 2015: `Object.setPrototypeOf` and `Object.getPrototypeOf` were added to the standard, to perform the same functionality as `__proto__`. As `__proto__` was de-facto implemented everywhere, it was kind-of deprecated and made its way to the Annex B of the standard, that is optional for non-browser environments.
 
 As of now we have all these ways at our disposal.
 
-Why `__proto__` was replaced by the functions? That's an interesting question, requiring us to understand why `__proto__` is bad. Read on to get the answer.
+Why was `__proto__` replaced by the functions `getPrototypeOf/setPrototypeOf`? That's an interesting question, requiring us to understand why `__proto__` is bad. Read on to get the answer.
 
 ```warn header="Don't reset `[[Prototype]]` unless the speed doesn't matter"
 Technically, we can get/set `[[Prototype]]` at any time. But usually we only set it once at the object creation time, and then do not modify: `rabbit` inherits from `animal`, and that is not going to change.
 
-And JavaScript engines are highly optimized to that. Changing a prototype "on-the-fly" with `Object.setPrototypeOf` or `obj.__proto__=` is a very slow operation, it breaks internal optimizations for object property access operations. So evade it unless you know what you're doing, or Javascript speed totally doesn't matter for you.
+And JavaScript engines are highly optimized to that. Changing a prototype "on-the-fly" with `Object.setPrototypeOf` or `obj.__proto__=` is a very slow operation, it breaks internal optimizations for object property access operations. So evade it unless you know what you're doing, or JavaScript speed totally doesn't matter for you.
 ```
 
 ## "Very plain" objects
@@ -107,7 +107,7 @@ That shouldn't surprise us. The `__proto__` property is special: it must be eith
 
 But we didn't *intend* to implement such behavior, right? We want to store key/value pairs, and the key named `"__proto__"` was not properly saved. So that's a bug!
 
-Here the consequences are not terrible. But in other cases the prototype may indeed be changed, so the execution may go wrong in totally unexpected ways.
+Here the consequences are not terrible. But in other cases, we may be assigning object values, then the prototype may indeed be changed. As the result, the execution will go wrong in totally unexpected ways.
 
 What's worst -- usually developers do not think about such possibility at all. That makes such bugs hard to notice and even turn them into vulnerabilities, especially when JavaScript is used on server-side.
 
@@ -191,10 +191,10 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 
 - [Object.keys(obj)](mdn:js/Object/keys) / [Object.values(obj)](mdn:js/Object/values) / [Object.entries(obj)](mdn:js/Object/entries) -- returns an array of enumerable own string property names/values/key-value pairs.
-- [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) -- returns an array of all own symbolic property names.
-- [Object.getOwnPropertyNames(obj)](mdn:js/Object/getOwnPropertyNames) -- returns an array of all own string property names.
-- [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) -- returns an array of all own property names.
-- [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) property named `key`.
+- [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) -- returns an array of all own symbolic keys.
+- [Object.getOwnPropertyNames(obj)](mdn:js/Object/getOwnPropertyNames) -- returns an array of all own string keys.
+- [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) -- returns an array of all own keys.
+- [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) keytt named `key`.
 
 We also made it clear that `__proto__` is a getter/setter for `[[Prototype]]` and resides in `Object.prototype`, just as other methods.
 

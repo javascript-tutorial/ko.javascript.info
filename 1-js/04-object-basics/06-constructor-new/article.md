@@ -83,7 +83,7 @@ let user = new function() {
 위 생성자는 어디에도 저장되지 않기 때문에 다시 사용할 수 없습니다. 만들어지고 난 다음 딱 한 번 호출되기만 하죠. 이렇게 만든 이유는 객체를 만들 때 코드를 캡슐화하려는 목적 때문입니다. 재사용은 신경 쓰지 않고요.
 ````
 
-## Dual-syntax constructors: new.target
+## Constructor mode test: new.target
 
 ```smart header="어렵습니다"
 이 절의 내용은 자주 쓰이지 않습니다. 자바스크립트의 모든 것을 알고싶지 않다면 넘어가셔도 좋습니다.
@@ -109,7 +109,9 @@ new User(); // function User { ... }
 */!*
 ```
 
-`new.target` 은 함수를 `new`연산자와 함께 호출하거나, 일반적인 방법으로 호출 시 같은 결과를 얻고자 할 때 사용합니다. 두 경우 모두 동일한 객체를 생성합니다.
+That can be used inside the function to know whether it was called with `new`, "in constructor mode", or without it, "in regular mode".
+
+We can also make both `new` and regular calls to do the same, like this:
 
 ```js run
 function User(name) {
