@@ -12,15 +12,12 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 
 만약 아직 IDE를 선택하지 못했다면, 다음의 선택지들을 참고하세요.:
 
-- [WebStorm](http://www.jetbrains.com/webstorm/) 은 프론트엔드 개발을 위한 것입니다(유료). 만약 당신이 다른 언어를 추가해서 사용하고 싶다면 같은 회사(JetBrain)의 다른 에디터를 사용하면 됩니다.
-- [Visual Studio Code](https://code.visualstudio.com/) (무료)
-- [Netbeans](http://netbeans.org/) (유료)
+- [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료).
+- [WebStorm](http://www.jetbrains.com/webstorm/) (크로스 플랫폼, 유료).
 
-모든 IDE는 크로스 플랫폼(cross-platform)입니다.
+참고로 윈도우 계열엔 "Visual Studio"라는 에디터가 있는데, 이는 "Visual Studio Code"와는 다릅니다. "Visual Studio"는 윈도우만 지원하는 강력한 유료 에디터입니다. .NET 개발에 적합하고 자바스크립트 역시 잘 지원합니다. 
 
-윈도우는 "Visual Studio"라는 에디터를 갖고 있는데, 이를 "Visual Studio Code"와 혼돈해서는 안됩니다. "Visual Studio"는 유료이며 윈도우만을 위한 강력한 에디터입니다. 이것은 .NET 플랫폼에 적합합니다. Visual Studio의 무료 버전은 ([Visual Studio Community](https://www.visualstudio.com/vs/community/)이라고 불립니다.
-
-많은 IDE가 유료이지만 체험판도 존재합니다. 자질 있는 개발자의 연봉과 비교했을 때, IDE의 가격은 보통 무시할 수 있을 만한 금액입니다.
+대다수의 IDE가 유료이지만 체험 기간을 제공합니다. 개발자의 연봉과 비교했을 때 IDE의 가격은 보통 무시할 수 있을 만한 금액이므로 자신에게 잘 맞는 IDE를 찾아보시길 권유드립니다. 
 
 ## 가벼운 에디터
 
@@ -34,20 +31,10 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 
 당신의 관심을 끌 만한 선택지들이 있습니다.:
 
-- [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료).
 - [Atom](https://atom.io/) (크로스 플랫폼, 무료).
 - [Sublime Text](http://www.sublimetext.com) (크로스 플랫폼, 쉐어웨어).
 - [Notepad++](https://notepad-plus-plus.org/) (윈도우, 무료).
-- 만약 당신이 사용법을 안다면 [Vim](http://www.vim.org/)와 [Emacs](https://www.gnu.org/software/emacs/)도 멋진 에디터가 될 것입니다.
-
-## 저자가 선호하는 프로그램
-
-저는 프로젝트 개발을 위한 IDE와 빠르고 간단한 파일 편집을 위한 가벼운 에디터를 모두를 사용합니다.
-
-제가 개인적으로 선호하는 에디터는 다음과 같습니다.:
-
-- [WebStorm](http://www.jetbrains.com/webstorm/) 는 자바스크립트를 위해 사용합니다. 만약 프로젝트에 다른 언어가 사용된다면 저는 위에 제시된 JetBrain 사의 제품 중 하나를 선택할 것입니다.
-- 가벼운 에디터로는 -- [Sublime Text](http://www.sublimetext.com) 나 [Atom](https://atom.io/) 를 사용합니다.
+- 만약 당신이 사용법을 안다면 [Vim](http://www.vim.org/)과 [Emacs](https://www.gnu.org/software/emacs/)도 멋진 에디터가 될 것입니다.
 
 ## 논쟁하진 맙시다.
 
