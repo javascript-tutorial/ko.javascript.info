@@ -34,7 +34,6 @@ let sayHi = function() {
 alert(sayHi.name); // sayHi (works!)
 ```
 
-기본값으로 적용해도 똑같이 작동합니다.
 만약에 할당이 기본값을 통해 적용된 경우에도 똑같이 작동합니다.
 
 ```js run
