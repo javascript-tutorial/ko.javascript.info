@@ -35,7 +35,7 @@ alert(phrase); // Error, phrase is not defined
 
 예시:
 
-```js
+```js run
 if (true) {
   var test = true; // "let" 대신 "var"를 사용했습니다.
 }
@@ -61,7 +61,7 @@ alert(i); // 10, 반복문이 종료되었지만 "i"는 전역 변수이므로 �
 
 코드 블록이 함수 안에 있다면, `var`는 함수 레벨 변수가 됩니다.
 
-```js
+```js run
 function sayHi() {
   if (true) {
     var phrase = "Hello";
@@ -71,7 +71,7 @@ function sayHi() {
 }
 
 sayHi();
-alert(phrase); // Error: phrase is not defined
+alert(phrase); // Error: phrase is not defined (Check the Developer Console)
 ```
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트는 블록이 렉시컬 환경을 갖지 못했기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
@@ -84,7 +84,7 @@ alert(phrase); // Error: phrase is not defined
 
 따라서 아래 두 예제는 동일하게 동작합니다.
 
-```js
+```js run
 function sayHi() {
   phrase = "Hello";
 
@@ -94,11 +94,12 @@ function sayHi() {
   var phrase;
 */!*
 }
+sayHi();
 ```
 
 `var phrase`가 위로 이동되었어도 말이죠.
 
-```js
+```js run
 function sayHi() {
 *!*
   var phrase;
@@ -108,11 +109,12 @@ function sayHi() {
 
   alert(phrase);
 }
+sayHi();
 ```
 
 코드 블록은 무시되기 때문에, 아래 코드 역시 동일하게 동작합니다.
 
-```js
+```js run
 function sayHi() {
   phrase = "Hello"; // (*)
 
@@ -124,6 +126,7 @@ function sayHi() {
 
   alert(phrase);
 }
+sayHi();
 ```
 
 이렇게 변수가 끌어올려 지는(raising) 현상을 "호이스팅(hoisting)"이라고 부릅니다. `var`로 선언한 모든 변수가 함수의 최상위로 "끌어 올려지기(hoisted)" 때문입니다.

@@ -58,7 +58,11 @@ alert(window.currentUser.name); // John
 
 사용하고 있는 브라우저가 최신 자바스크립트 기능을 지원하는지 여부를 확인하기 위해 전역 객체를 사용할 수 있습니다.
 
+<<<<<<< HEAD
 예를 들어, 내장 객체인 `Promise`를 지원하는지 여부를 아래와 같이 테스트할 수 있죠. 오래된 브라우저를 사용중이라면 `Promise`가 없기 때문에 `alert` 창이 뜰 겁니다.
+=======
+For instance, test if a built-in `Promise` object exists (it doesn't in really old browsers):
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 ```js run
 if (!window.Promise) {
   alert("오래된 브라우저를 사용 중이시군요!");

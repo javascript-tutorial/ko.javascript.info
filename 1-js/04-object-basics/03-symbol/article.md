@@ -16,7 +16,11 @@
 let id = Symbol();
 ```
 
+<<<<<<< HEAD
 심볼에 설명을 붙일 수도 있습니다(이를 심볼 이름이라고도 부릅니다). 디버깅 시 유용하게 쓰입니다.
+=======
+Upon creation, we can give symbol a description (also called a symbol name), mostly useful for debugging purposes:
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 ```js run
 // id는 "id"라는 설명을 가진 심볼입니다.
@@ -74,7 +78,11 @@ alert(id.description); // id
 
 심볼을 이용해 객체에 "숨김" 프로퍼티를 만들 수 있습니다. 숨김 프로퍼티는 다른 영역에 있는 코드에서 접근하거나 값을 덮어 쓸 수 없습니다.
 
+<<<<<<< HEAD
 `user` 객체에 "식별자(identifier)"를 만들어주고 싶다면, 심볼을 키로 사용할 수 있습니다. 아래와 같이 말이죠.
+=======
+For instance, if we'd like to add an "identifier" to the object `user`, we can use a symbol as a key for it:
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 ```js run
 let user = { name: "John" };
@@ -88,7 +96,11 @@ alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있�
 
 자세한 예제를 통해 어떤 장점이 있는지 알아보도록 하겠습니다.
 
+<<<<<<< HEAD
 `user` 안에 "id" 프로퍼티가 있어야 하는 또 다른 스크립트가 있다고 상상해 봅시다. 다른 스크립트는 자바스크립트 라이브러리일 수도 있으므로, 스크립트끼리는 서로의 스크립트를 알 수 없는 상황입니다.
+=======
+Imagine that another script wants to have its own identifier inside `user`, for its own purposes. That may be another JavaScript library, so thes scripts are completely unaware of each other.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 이때, 다른 스크립트는 자체적으로 `Symbol("id")`을 만들 수 있습니다. 아래와 같이 말이죠.
 
@@ -99,9 +111,15 @@ let id = Symbol("id");
 user[id] = "Their id value";
 ```
 
+<<<<<<< HEAD
 이렇게 다른 스크립트에서 user 객체에 id 프로퍼티를 만들어도 충돌이 발생하지 않습니다. 심볼은 같은 이름을 가지더라도 항상 다르기 때문입니다.
 
 만약 동일한 목적으로 심볼 대신에 `"id"`라는 문자열을 사용한다면, 충돌이 **발생할 수도** 있습니다.
+=======
+There will be no conflict between our and their identifiers, because symbols are always different, even if they have the same name.
+
+...But if we used a string `"id"` instead of a symbol for the same purpose, then there *would* be a conflict:
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 ```js run
 let user = { name: "John" };
@@ -117,7 +135,11 @@ user.id = "Their id value"
 
 ### 객체 리터럴 내 심볼
 
+<<<<<<< HEAD
 심볼을 객체 리터럴 내에서 사용하고 싶다면 대괄호를 써야 합니다.
+=======
+If we want to use a symbol in an object literal `{...}`, we need square brackets around it.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 이렇게 말이죠.
 
@@ -155,7 +177,11 @@ for (let key in user) alert(key); // name, age (심볼은 출력되지 않습니
 alert( "Direct: " + user[id] );
 ```
 
+<<<<<<< HEAD
 "은닉(hiding)" 개념으로 이를 이해하시면 될 것 같습니다. 만약 다른 스크립트나 라이브러리에서 객체에 반복문을 수행해도, 심볼형 프로퍼티엔 접근할 수 없습니다.
+=======
+`Object.keys(user)` also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 반면, [Object.assign](mdn:js/Object/assign)메서드를 사용하면 문자열과 심볼 프로퍼티 모두를 복사할 수 있습니다.
 
@@ -190,13 +216,21 @@ alert( obj[0] ); // test (같은 프로퍼티)
 
 ## 전역 심볼(global symbol)
 
+<<<<<<< HEAD
 앞에서 봤던 것처럼, 심볼은 이름이 같더라도 서로 다릅니다. 하지만 이름이 같은 심볼이 같은 개체이길 원하는 경우도 있을 겁니다.
+=======
+As we've seen, usually all symbols are different, even if they have the same name. But sometimes we want same-named symbols to be same entities.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 애플리케이션의 서로 다른 부분에서 하나의 프로퍼티를 나타내는 심볼 `"id"` 를 사용하고 싶어 한다고 가정해 봅시다.
 
 이런 경우를 위해 *전역 심볼 레지스트리*가 존재합니다. 전역 심볼 레지스트리(global symbol registry) 안에 심볼을 생성하고, 생성된 심볼에 접근하면, 같은 이름으로 여러 번 접근해도 항상 동일한 심볼이 반환됩니다.
 
+<<<<<<< HEAD
 `Symbol.for(key)`를 사용하면, 심볼을 레지스트리 안에 생성하거나 읽을 수 있습니다.
+=======
+In order to read (create if absent) a symbol from the registry, use `Symbol.for(key)`.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 이 메서드는 전역 레지스트리를 확인해 이름이 `key`인 심볼이 존재하면 그 심볼을 반환해줍니다. 심볼이 존재하지 않으면 주어진 `key`로 `Symbol(key)`이라는 새로운 심볼을 생성하고 레지스트리 안에 저장합니다.
 
@@ -206,7 +240,11 @@ alert( obj[0] ); // test (같은 프로퍼티)
 // 전역 레지스트리에서 심볼을 읽어 옵니다.
 let id = Symbol.for("id"); // 만약 심볼이 존재하지 않는다면, 새로운 심볼을 생성합니다.
 
+<<<<<<< HEAD
 // 다시 한번 심볼을 읽어 옵니다.
+=======
+// read it again (maybe from another part of the code)
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 let idAgain = Symbol.for("id");
 
 // 이 둘은 같은 심볼입니다.
@@ -266,14 +304,25 @@ alert( Symbol.keyFor(Symbol("name2")) ); // undefined, 매개변수는 전역 �
 
 `Symbol`은 유일무이한 식별자(unique identifier)로 사용되는 원시 타입입니다.
 
+<<<<<<< HEAD
 추가적인 설명(심볼 이름)과 함께 `Symbol()`을 호출하면 심볼을 만들 수 있습니다.
 
 이름이 같은 심볼이라도, 값은 항상 다릅니다. 이름이 같은 심볼이 같은 값을 갖길 원한다면, 전역 레지스트리를 사용해야 합니다. `Symbol.for(key)`는 `key`라는 이름을 가진 전역 심볼을 반환합니다(심볼이 없다면 생성해줍니다). `Symbol.for`를 여러 번 호출해도 언제나 같은 심볼을 반환합니다.
+=======
+Symbols are created with `Symbol()` call with an optional description (name).
+
+Symbols are always different values, even if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key` as the name. Multiple calls of `Symbol.for` with the same `key` return exactly the same symbol.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
 심볼의 주요 유스 케이스는 두 가지가 있습니다:
 
+<<<<<<< HEAD
 1. "숨김" 객체 프로퍼티.
     다른 스크립트나 라이브러리에 "소속된" 객체에 프로퍼티를 추가하고 싶다면, 심볼을 만들고, 이 심볼을 프로퍼티 키로 사용하면 됩니다. 심볼형 프로퍼티는 `for..in`에 등장하지 않기 때문에, 반복문을 통해 나열할 수 없습니다. 외부 스크립트는 현재 스크립트의 심볼을 가지고 있지 않기 때문에, 심볼에 직접 접근할 수 없습니다. 따라서 우연으로라도 스크립트를 방해하는 일이 발생하지 않습니다.
+=======
+1. "Hidden" object properties.
+    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be occasionally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from occasional use or overwrite.
+>>>>>>> 027933531e121650120f7e8385f691de99af12d2
 
     심볼형 프로퍼티를 이용하면, 어떤 것을 "은밀히" 원하는 객체 안에 숨길 수 있습니다. 외부 스크립트에선 이를 볼 수 없습니다.
 
