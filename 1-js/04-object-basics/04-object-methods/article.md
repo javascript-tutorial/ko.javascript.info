@@ -15,7 +15,11 @@ let user = {
 
 ## 메서드 예제
 
+<<<<<<< HEAD
 메서드에 대해 알아봅시다. 일단 `user`에게 인사할 수 있는 능력을 부여해 보죠.
+=======
+For a start, let's teach the `user` to say hello:
+>>>>>>> 9b5c1c95ec8a466150e519b0e94748717c747b09
 
 ```js run
 let user = {
@@ -256,11 +260,19 @@ user.hi(); // John (단순한 호출은 의도하는 대로 동작합니다)
 */!*
 ```
 
+<<<<<<< HEAD
 예시의 마지막 줄엔 `user.hi`나 `user.bye` 중 하나를 고르는 삼항 연산자가 있습니다. user 객체의 name이 "John"이므로 결과는 `user.hi`가 될 것입니다.
 
 hi 메서드는 `()`와 함께 즉시 호출됩니다. 하지만 예상하던 대로 작동하지 않습니다! 
 
 메서드는 호출되었지만, 에러가 발생한 것을 확인할 수 있습니다. 메서드 호출 시 `"this"`의 값이 `undefined`가 되어버리기 때문입니다.
+=======
+On the last line there is a conditinal operator that chooses either `user.hi` or `user.bye`. In this case the result is `user.hi`.
+
+Then the method is immediately called with parentheses `()`. But it doesn't work right!
+
+As you can see, the call results in an error, because the value of `"this"` inside the call becomes `undefined`.
+>>>>>>> 9b5c1c95ec8a466150e519b0e94748717c747b09
 
 아래 코드는 명확히 작동합니다(객체 점 메서드).
 ```js
@@ -304,9 +316,15 @@ hi(); // undefined
 
 참조 타입은 값 세개`(base, name, strict)`를 조합해 그 값을 확정합니다.
 
+<<<<<<< HEAD
 - `base`는 객체,
 - `name`은 프로퍼티,
 - `strict`는 `use strict`의 여부를 나타냅니다. 엄격 모드라면 이 값은 true입니다.
+=======
+- `base` is the object.
+- `name` is the property name.
+- `strict` is true if `use strict` is in effect.
+>>>>>>> 9b5c1c95ec8a466150e519b0e94748717c747b09
 
 `user.hi` 프로퍼티에 접근하면 함수가 아닌, 참조 타입의 값을 참조합니다. 엄격 모드라면 `user.hi`가 참조하는 값은 아래와 같습니다.
 
@@ -317,7 +335,13 @@ hi(); // undefined
 
 참조 타입에 괄호 `()`를 호출할 때, 괄호는 객체와 객체의 메서드에 관한 모든 정보를 받습니다. 그 후 알맞은 `this`(`=user`)를 결정하죠.
 
+<<<<<<< HEAD
 `hi = user.hi`내의 할당 연산과 같은 점 이외의 연산들은 참조 타입을 통째로 버리고, `user.hi`(함수)의 값을 받아 전달합니다. 그래서 그 이후의 연산에서 `this`의 정보는 사라집니다.
+=======
+Reference type is a special "intermediary" internal type, with the purpose to pass information from dot `.` to calling parentheses `()`.
+
+Any other operation like assignment `hi = user.hi` discards the reference type as a whole, takes the value of `user.hi` (a function) and passes it on. So any further operation "loses" `this`.
+>>>>>>> 9b5c1c95ec8a466150e519b0e94748717c747b09
 
 이런 이유로 `this`의 값은 점을 사용한 `obj.method()`, 또는 대괄호를 사용한 `obj[method]()`와 같이 함수를 직접 호출했을 때만 의도한 대로 전달됩니다. 추후 [func.bind()](/bind#solution-2-bind) 등을 이용해 이 문제를 해결하는 방법을 알아보도록 하겠습니다.
 
