@@ -66,4 +66,3 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 ---
 ♥
 Ilya Kantor @iliakan
-Violet Lee @Violet-Bora-Lee
