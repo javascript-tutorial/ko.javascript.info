@@ -199,10 +199,10 @@ log(new Date())("DEBUG")("some debug"); // log(a)(b)(c)
 log라는 편리한 함수를 사용해 보겠습니다.
 
 ```js
-// currentLog will be the partial of log with fixed first argument
+// currentLog 는 log 의 첫 번째 인수가 고정된 partial이 될 것입니다.
 let logNow = log(new Date());
 
-// use it
+// 사용해 보겠습니다
 logNow("INFO", "message"); // [HH:mm] INFO message
 ```
 
