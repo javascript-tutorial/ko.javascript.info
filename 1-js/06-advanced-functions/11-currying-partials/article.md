@@ -196,22 +196,22 @@ log(new Date(), "DEBUG", "some debug");
 log(new Date())("DEBUG")("some debug"); // log(a)(b)(c)
 ```
 
-log라는 편리한 함수를 사용해 봅니다
+log라는 편리한 함수를 사용해 보겠습니다.
 
 ```js
-// todayLog will be the partial of log with fixed first argument
-let todayLog = log(new Date());
+// currentLog will be the partial of log with fixed first argument
+let logNow = log(new Date());
 
 // use it
-todayLog("INFO", "message"); // [HH:mm] INFO message
+logNow("INFO", "message"); // [HH:mm] INFO message
 ```
 
-편리한 debug message 함수를 사용해 봅니다
+편리한 debug message 함수를 사용해 보겠습니다.
 
 ```js
-let todayDebug = todayLog("DEBUG");
+let debugNow = logNow("DEBUG");
 
-todayDebug("message"); // [HH:mm] DEBUG message
+debugNow("message"); // [HH:mm] DEBUG message
 ```
 
 결과적으로

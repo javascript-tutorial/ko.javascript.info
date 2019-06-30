@@ -1,54 +1,54 @@
 
-# Dynamic imports
+# 동적으로 모듈 가져오기
 
-Export and import statements that we covered in previous chaters are called "static".
+이전 챕터까진 "정적(static)" export와 import 문을 다뤘습니다. 
 
-That's because they are indeed static. The syntax is very strict.
+정적이라는 수식어가 붙은 이유는 실제로 두 구문이 정적이기 때문입니다. 아주 엄격한 문법을 지키면서 구문을 작성해야 했죠.
 
-First, we can't dynamically generate any parameters of `import`.
+첫 번째 제약은 `import`문에 동적 매개변수를 사용할 수 없다는 것이었습니다.
 
-The module path must be a primitive string, can't be a function call. This won't work:
+모듈 경로는 문자열 원형이어야만 하고, 함수 호출 결과값을 경로로 쓰는 것도 불가능했죠.
 
 ```js
-import ... from *!*getModuleName()*/!*; // Error, only from "string" is allowed
+import ... from *!*getModuleName()*/!*; // 모듈 경로는 문자열만 허용되기 때문에 에러가 발생합니다. 
 ```
 
-Second, we can't import conditionally or at run-time:
+두 번째 제약은, 런타임이나 조건부로 모듈을 불러올 수 없다는 점이었습니다.
 
 ```js
 if(...) {
-  import ...; // Error, not allowed!
+  import ...; // 모듈을 조건부로 불러올 수 없으므로 에러 발생
 }
 
 {
-  import ...; // Error, we can't put import in any block
+  import ...; // import 문을 블록 안에 넣을 수 없으므로 에러 발생
 }
 ```
 
-That's because, import/export aim to provide a backbone for the code structure. That's a good thing, as code structure can be analyzed, modules can be gathered and bundled together, unused exports can be removed (tree-shaken). That's possible only because everything is fixed.
+이렇게 엄격한 문법을 따라야 하는 데는 이유가 있습니다. import/export 문은 코드 구조의 기본적인 골격을 만드는 데 사용되기 때문입니다. 코드 구조를 분석해 모듈을 한데 모아 번들링하고, 사용하지 않는 모듈은 제거(가지치기)해야 하는데, 구조가 고정되어있을 때만 이런 작업이 가능합니다.
 
-But how do we import a module dynamically, on-demand?
+그런데 만약 모듈을 동적으로 불러와야 할 필요가 생기면 어떻게 할까요?
 
-## The import() function
+## import() 함수
 
-The `import(module)` function can be called from anywhere. It returns a promise that resolves into a module object.
+`import(module)` 함수는 제약 없이 어디서나 호출할 수 있습니다. 반환값은 모듈 객체로 해석되는 프라미스입니다.
 
-The usage pattern looks like this:
+사용 패턴은 아래와 같습니다.
 
 ```js run
-let modulePath = prompt("Module path?");
+let modulePath = prompt("모듈 경로?");
 
 import(modulePath)
   .then(obj => <module object>)
   .catch(err => <loading error, no such module?>)
 ```
 
-Or, we could use `let module = await import(modulePath)` if inside an async function.
+비동기 함수 안에선 `let module = await import(modulePath)`와 같이 사용할 수도 있습니다.
 
-Like this:
+아래와 같이 말이죠.
 
 [codetabs src="say" current="index.html"]
 
-So, dynamic imports are very simple to use.
+이를 이용하면 손쉽게 동적으로 모듈을 가져올 수 있습니다.
 
-Also, dynamic imports work in regular scripts, they don't require `script type="module"`.
+동적 import는 일반적인 스크립트 안에 넣을 수 있기 때문에, 모듈 속성 `script type="module"`이 필요하지 않습니다.
