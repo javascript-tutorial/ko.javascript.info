@@ -2,13 +2,13 @@
 
 쿠키는 브라우저에 저장되는 작은 크기의 문자열입니다. 쿠키는 자바스크립트에서만 쓰이는 기술은 아닙니다. [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세서에 정의된 HTTP 프로토콜의 일부입니다.
 
-쿠키는 주로 웹 서버의 요청으로 생성됩니다. 동일한 도메인에 접속 시 이 쿠키에 저장된 정보가 해당 도메인의 서버에 함께 자동 전송됩니다.
+Cookies are usually set by a web-server using response `Set-Cookie` HTTP-header. Then the browser automatically adds them to (almost) every request to the same domain using `Cookie` HTTP-header.
 
 인증은 쿠키의 주요 사용처 중 하나입니다:
 
-1. 로그인 시, 서버는 응답에 "세션 ID(session identifier)" 정보가 들어있는 쿠키를 설정하도록 해주는 `Set-Cookie` HTTP 헤더(HTTP-header)를 전송합니다.
-2. 동일 도메인에 접속 시, 브라우저는 `Cookie` HTTP 헤더를 함께 이용해 요청합니다.
-4. 서버는 이를 이용해 요청을 식별합니다.
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is set to the same domain, the browser sends the over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
@@ -17,11 +17,11 @@
 ## document.cookie 에서 정보 읽기
 
 ```online
-지금 보고 있는 이 사이트에 쿠키가 있을까요? 알아봅시다:
+Does your browser store any cookies from this site? Let's see:
 ```
 
 ```offline
-현재 인터넷에 접속되어 있다면, 쿠키를 볼 수 있습니다. 이렇게요: 
+Assuming you're on a website, it's possible to see the cookies from it, like this:
 ```
 
 ```js run
