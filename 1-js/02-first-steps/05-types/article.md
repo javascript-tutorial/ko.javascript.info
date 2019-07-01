@@ -219,9 +219,15 @@ typeof alert // "function"  (3)
 
 아래는 마지막 세 줄에 대한 설명입니다.
 
+<<<<<<< HEAD
 1. `Math`은 수학 연산을 제공하는 내장 객체이므로, 반환값이 `"object"`가 됩니다. `Math` 등의 내장객체는 객체 타입입니다. `Math`에 대해선 <info:number> 챕터에서 학습하도록 하겠습니다. 
 2. `typeof null`의 결과는 `"object"`입니다. `null`은 별도의 고유한 자료형을 가지는 특수 값으로 객체가 아니지만, 호환성을 위해 이런 오류가 수정되지 않고 유지되고 있습니다. 언어 자체의 오류이므로 `null`이 객체가 아님에 유의하시기 바랍니다.
 3. `alert`는 함수이기 때문에 `typeof alert`의 결과는 `"function"`입니다. 함수에 대해선 다음 챕터에서 학습할 예정인데, 여기서 자바스크립트엔 "함수"형이 없다는 점에 대해 알아볼 예정입니다. 함수는 객체형에 속합니다. 하지만 함수가 피연산자인 경우 `typeof`는 `"function"`를 반환합니다. 함수는 객체형이기 때문에 이는 형식적으로는 잘못되긴 했지만, 이런 특징을 실무에선 매우 유용하게 사용할 수 있습니다. 
+=======
+1. `Math` is a built-in object that provides mathematical operations. We will learn it in the chapter <info:number>. Here, it serves just as an example of an object.
+2. The result of `typeof null` is `"object"`. That's wrong. It is an officially recognized error in `typeof`, kept for compatibility. Of course, `null` is not an object. It is a special value with a separate type of its own. So, again, this is an error in the language.
+3. The result of `typeof alert` is `"function"`, because `alert` is a function. We'll study functions in the next chapters where we'll also see that there's no special "function" type in JavaScript. Functions belong to the object type. But `typeof` treats them differently, returning `"function"`. That's not quite correct, but very convenient in practice.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 
 
 ## 요약

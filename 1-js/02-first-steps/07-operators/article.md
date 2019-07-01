@@ -126,11 +126,19 @@ alert( +apples + +oranges ); // 5
 
 ## 연산자 우선순위(Operator precedence)
 
+<<<<<<< HEAD
 수식에서 둘 이상의 연산자가 있는 경우, 실행 순서는 *우선순위*(precedence), 다른말로 하자면 (연산자의 암묵적 우선순위-the implicit priority order of operators)에 의해 정의됩니다.
+=======
+If an expression has more than one operator, the execution order is defined by their *precedence*, or, in other words, the default priority order of operators.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 
 학교에서 우리는 `1 + 2 * 2` 수식에서 곱셈을 덧셈 전에 계산해야 하는 것을 배웠습니다. 그게 우선순위입니다. 곱셈은 ​​덧셈보다 *더 높은 우선 순위*를 가집니다. 
 
+<<<<<<< HEAD
 암묵적 순서에 만족하지 못한 경우, 괄호는 우선순위를 무시하므로 이를 사용하여 우선순위를 변경할 수 있습니다. 예: `(1 + 2) * 2`.
+=======
+Parentheses override any precedence, so if we're not satisfied with the default order, we can use them to change it. For example, write `(1 + 2) * 2`.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 
 자바스크립트에는 많은 연산자가 있습니다. 모든 연산자에는 해당 우선순위 번호가 있습니다. 숫자가 큰 번호가 먼저 실행됩니다. 우선 순위가 같으면 실행 순서는 왼쪽에서 오른쪽입니다.
 
@@ -198,9 +206,15 @@ alert( a ); // 3
 alert( c ); // 0
 ```
 
+<<<<<<< HEAD
 위의 예제에서 `(a = b + 1)`의 결과는 `a`(즉`3`)에 할당 된 값입니다. 그런 다음 `3`에서 빼기 위해 사용됩니다.
 
 재미 있은 코드입니다, 그렇죠? 때로는 (3rd-party)타사 라이브러리에서 볼 수 있기 때문에 어떻게 작동하는지 이해해야합니다. 하지만 직접 작성하지 않아야합니다. 이러한 트릭은 절대로 알아보기 쉽거나 가독성 좋은 코드를 만들수 없습니다.
+=======
+In the example above, the result of expression `(a = b + 1)` is the value which was assigned to `a` (that is `3`). It is then used for further evaluations.
+
+Funny code, isn't it? We should understand how it works, because sometimes we see it in JavaScript libraries, but shouldn't write anything like that ourselves. Such tricks definitely don't make code clearer or readable.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 ````
 
 ## 나머지 연산자(Remainder) %
@@ -427,10 +441,17 @@ alert( a ); // 7 (the result of 3 + 4)
 ```smart header="쉼표는 매우 낮은 우선 순위를 갖습니다."
 쉼표 연산자는 매우 낮은 우선 순위(`=`보다 더 낮은)를 갖습니다. 그래서 괄호가 위의 예에서 중요합니다.
 
+<<<<<<< HEAD
 그것들이 없으면: `a = 1 + 2, 3 + 4`는 `+`를 먼저 계산하고 `a = 3, 7`로 합산합니다. 그러고나서 대입 연산자 `=`는 `a = 3`을 대입하고 마지막으로 '7'(쉼표 뒤에 숫자)은 처리되지 않으므로 무시됩니다.
 ```
 
 마지막 부분을 제외한 모든 것을 버리는 연산자가 필요한 이유는 무엇입니까?
+=======
+Without them: `a = 1 + 2, 3 + 4` evaluates `+` first, summing the numbers into `a = 3, 7`, then the assignment operator `=` assigns `a = 3`, and the rest is ignored. It's like `(a = 1 + 2), 3 + 4`.
+```
+
+Why do we need an operator that throws away everything except the last expression?
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 
 때로는 사람들이 더 복잡한 구조에서 여러 행동을 하나의 줄에 넣는 경우가 있습니다.
 
@@ -443,4 +464,8 @@ for (*!*a = 1, b = 3, c = a * b*/!*; a < 10; a++) {
 }
 ```
 
+<<<<<<< HEAD
 이러한 트릭은 많은 자바스크립트 프레임워크에서 사용됩니다. 그것이 우리가 언급하는 이유입니다. 그러나 보통은 코드 가독성이 향상되지 않으므로 사용하기 전에 잘 생각해야합니다.
+=======
+Such tricks are used in many JavaScript frameworks. That's why we're mentioning them. But usually they don't improve code readability so we should think well before using them.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd

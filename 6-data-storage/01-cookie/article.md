@@ -182,9 +182,15 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
+<<<<<<< HEAD
 또 다른 보안 옵션도 있습니다. `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막을 때 사용합니다.
 
 아래 공격 시나리오를 통해 이 옵션이 언제 유용한지 알아보도록 합시다.
+=======
+That's another security attribute `somesite`. It's designed to protect from so-called XSRF (cross-site request forgery) attacks.
+
+To understand how it works and when it's useful, let's take a look at XSRF attacks.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd
 
 ### XSRF 공격
 

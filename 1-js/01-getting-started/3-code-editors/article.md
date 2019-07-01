@@ -12,6 +12,7 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 
 만약 아직 IDE를 선택하지 못했다면, 다음의 선택지들을 참고하세요.:
 
+<<<<<<< HEAD:1-js/01-getting-started/2-code-editors/article.md
 - [WebStorm](http://www.jetbrains.com/webstorm/) 은 프론트엔드 개발을 위한 것입니다(유료). 만약 당신이 다른 언어를 추가해서 사용하고 싶다면 같은 회사(JetBrain)의 다른 에디터를 사용하면 됩니다.
 - [Visual Studio Code](https://code.visualstudio.com/) (무료)
 - [Netbeans](http://netbeans.org/) (유료)
@@ -21,6 +22,14 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 윈도우는 "Visual Studio"라는 에디터를 갖고 있는데, 이를 "Visual Studio Code"와 혼돈해서는 안됩니다. "Visual Studio"는 유료이며 윈도우만을 위한 강력한 에디터입니다. 이것은 .NET 플랫폼에 적합합니다. Visual Studio의 무료 버전은 ([Visual Studio Community](https://www.visualstudio.com/vs/community/)이라고 불립니다.
 
 많은 IDE가 유료이지만 체험판도 존재합니다. 자질 있는 개발자의 연봉과 비교했을 때, IDE의 가격은 보통 무시할 수 있을 만한 금액입니다.
+=======
+- [Visual Studio Code](https://code.visualstudio.com/) (cross-platform, free).
+- [WebStorm](http://www.jetbrains.com/webstorm/) (cross-platform, paid).
+
+For Windows, there's also "Visual Studio", not to be confused with "Visual Studio Code". "Visual Studio" is a paid and mighty Windows-only editor, well-suited for the .NET platform. It's also good at JavaScript. There's also a free version [Visual Studio Community](https://www.visualstudio.com/vs/community/).
+
+Many IDEs are paid, but have a trial period. Their cost is usually negligible compared to a qualified developer's salary, so just choose the best one for you.
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd:1-js/01-getting-started/3-code-editors/article.md
 
 ## 가벼운 에디터
 
@@ -34,6 +43,7 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 
 당신의 관심을 끌 만한 선택지들이 있습니다.:
 
+<<<<<<< HEAD:1-js/01-getting-started/2-code-editors/article.md
 - [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료).
 - [Atom](https://atom.io/) (크로스 플랫폼, 무료).
 - [Sublime Text](http://www.sublimetext.com) (크로스 플랫폼, 쉐어웨어).
@@ -50,6 +60,14 @@ IDE는 (보통 많은 파일을 포함한) 프로젝트를 불러오고, 파일 
 - 가벼운 에디터로는 -- [Sublime Text](http://www.sublimetext.com) 나 [Atom](https://atom.io/) 를 사용합니다.
 
 ## 논쟁하진 맙시다.
+=======
+- [Atom](https://atom.io/) (cross-platform, free).
+- [Sublime Text](http://www.sublimetext.com) (cross-platform, shareware).
+- [Notepad++](https://notepad-plus-plus.org/) (Windows, free).
+- [Vim](http://www.vim.org/) and [Emacs](https://www.gnu.org/software/emacs/) are also cool if you know how to use them.
+
+## Let's not argue
+>>>>>>> 6bbe0b4313a7845303be835d632ef8e5bc7715cd:1-js/01-getting-started/3-code-editors/article.md
 
 위에 제시된 에디터들은 저와 제가 훌륭한 개발자라고 생각하는 제 친구들이 오랫동안 사용하고 있고 만족하고 있는 것들입니다. 
 
