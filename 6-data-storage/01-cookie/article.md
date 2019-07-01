@@ -40,7 +40,7 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 
 ## document.cookie 에 쓰기
 
-`document.cookie`에 직접 값을 쓸수 있습니다. 이 때 쿠키는 접근자(accessor) 프로퍼티입니다. 데이터 프로퍼티가 아닙니다.
+We can write to `document.cookie`. But it's not a data property, it's an accessor. An assignment to it is treated specially.
 
 **브라우저는 `document.cookie`에 넣은 값을 받아서 해당 쿠키를 갱신합니다. 이 때, 명시된 쿠키만 갱신하고, 다른 쿠키엔 영향을 주지 않습니다.**
 
@@ -85,11 +85,11 @@ document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 
 - **`path=/mypath`**
 
-쿠키에 접근할 수 있는 url path(경로)를 지정합니다. 절대 경로여야 하고, 기본값은 현재 경로입니다.
+The url path prefix, the cookie will be accessible for pages under that path. Must be absolute. By default, it's the current path.
 
 만약 `path=/admin`로 설정되었다면, `/admin` 과 `/admin/something`에선 쿠키를 볼 수 있지만, `/home` 이나 `/adminpage`에선 쿠키를 볼 수 없습니다.
 
-보통은 모든 페이지에서 쿠키에 접근할 수 있도록 경로 옵션을 `path=/`로 지정합니다.
+Usually, we should set `path` to the root: `path=/` to make the cookie accessible from all website pages.
 
 ## domain
 
@@ -111,19 +111,22 @@ alert(document.cookie); // no user
 
 **서브 도메인이나 다른 도메인에서 쿠키에 접속할 수 있는 방법은 없습니다. 그렇기 때문에 `site.com`을 통해 생성된 쿠키 정보를 `other.com`에선 절대 전송받을 수 없습니다.**
 
-안전 때문에 이런 제약이 존재합니다. 이 제약은 민감한 데이터를 쿠키에 저장할 수 있도록 해줍니다.
+It's a safety restriction, to allow us to store sensitive data in cookies, that should be available only on one site.
 
-하지만 루트 도메인(root domain)에서 `domain` 옵션을 `domain=site.com`으로 설정하면 `forum.site.com`과 같은 서브 도메인에서 쿠키 정보를 얻을 수 있습니다:
+...But if we'd like to allow subdomains like `forum.site.com` get a cookie, that's possible. When setting a cookie at `site.com`, we should explicitly set `domain` option to the root domain: `domain=site.com`:
 
 ```js
-// 모든 서브 도메인에서 쿠키에 접근할 수 있도록 domain 옵션값을 site.com으로 지정함
+// at site.com
+// make the cookie accessible on any subdomain *.site.com:
 document.cookie = "user=John; domain=site.com"
 
-// forum.site.com에서
-alert(document.cookie); // 쿠키에 저장된 user 정보를 얻을 수 있음
+// later
+
+// at forum.site.com
+alert(document.cookie); // has cookie user=John
 ```
 
-`domain=.site.com` (값의 맨 처음에 .을 넣어줌)으로 옵션값을 설정하면 동일하게 동작합니다. 이는 역사적인 이유 때문에 남아있는 기능입니다. 낮은 버전의 브라우저에서도 동작할 수 있도록 점(.)을 넣어 옵션값을 지정하는걸 추천합니다.
+For historical reasons, `domain=.site.com` (a dot before `site.com`) also works the same way, allowing access to the cookie from subdomains. That's an old notation, should be used if we need to support very old browsers.
 
 이렇게 `domain` 옵션값을 적절히 사용하면 서브 도메인에서도 쿠키에 접근할 수 있도록 할 수 있습니다.
 
