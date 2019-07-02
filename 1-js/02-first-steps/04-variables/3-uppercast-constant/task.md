@@ -2,9 +2,9 @@ importance: 4
 
 ---
 
-# Uppercase const?
+# 대문자 상수 올바로 사용하기
 
-Examine the following code:
+아래 코드를 평가해 보시기 바랍니다.
 
 ```js
 const birthday = '18.04.1982';
@@ -12,13 +12,13 @@ const birthday = '18.04.1982';
 const age = someCode(birthday);
 ```
 
-Here we have a constant `birthday` date and the `age` is calculated from `birthday` with the help of some code (it is not provided for shortness, and because details don't matter here).
+위 코드의 상수 `birthday`는 태어난 날짜 정보를 담고 있습니다. `age`라는 상수는 나이에 관한 값을 담고 있는데 `birthday`를 조작하여 그 값을 도출합니다(생일을 이용하여 나이를 도출하는 코드는 간결성을 위해 여기선 언급하지 않겠습니다. 이 문제에서 해당 코드가 중요한 역할을 하지 않기도 합니다).
 
-Would it be right to use upper case for `birthday`? For `age`? Or even for both?
+이런 상황에서 `birthday`를 대문자 상수로 바꾸는 것이 적절할까요? `age` 역시 대문자 상수로 바꾸는 것이 괜찮은 선택일까요?
 
 ```js
-const BIRTHDAY = '18.04.1982'; // make uppercase?
+const BIRTHDAY = '18.04.1982'; // 대문자 상수로 바꿔도 괜찮을까요?
 
-const AGE = someCode(BIRTHDAY); // make uppercase?
+const AGE = someCode(BIRTHDAY); // 대문자 상수로 바꿔도 괜찮을까요?
 ```
 
