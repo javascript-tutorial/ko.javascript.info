@@ -305,7 +305,7 @@ fetch('/article/promise-chaining/user.json')
   });
 ```
 
-The code works, see comments about the details, but it should be quite self-descriptive. Although, there's a potential problem in it, a typical error of those who begin to use promises.
+코드는 의도한 대로 잘 동작합니다. 주석을 보면 어떤 일이 일어나는지 상세히 알 수 있죠. 그런데 위 코드엔 프로미스를 다루는데 서툰 개발자가 자주 만들곤 하는 잠재적 문제가 하나 내제되어 있습니다. 
 
 Look at the line `(*)`: how can we do something *after* the avatar has finished showing and gets removed? For instance, we'd like to show a form for editing that user or something else. As of now, there's no way.
 

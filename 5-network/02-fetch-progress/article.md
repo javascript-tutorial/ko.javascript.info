@@ -1,9 +1,9 @@
 
 # Fetch: Download progress
 
-Fetch allows to track download progress, but not upload progress.
+The `fetch` method allows to track download progress.
 
-Please note: there's currently no way for fetch to track upload progress. For that purpose, please use [XMLHttpRequest](info:xmlhttprequest).
+Please note: there's currently no way for `fetch` to track upload progress. For that purpose, please use [XMLHttpRequest](info:xmlhttprequest).
 
 To track download progress, we can use `response.body` property. It's a "readable stream" -- a special object that provides body chunk-by-chunk, as it comes, so we can see how much is available at the moment.
 
