@@ -4,7 +4,11 @@
 
 주석은 어떻게, 그리고 왜 코드가 동작하는지를 설명하는 데 쓰입니다.
 
+<<<<<<< HEAD
 주석을 작성하는 게 처음엔 쉬워 보일 수 있겠지만, 초보 프로그래머들은 대게 주석을 제대로 작성하는 방법을 잘 모릅니다.
+=======
+At first sight, commenting might be obvious, but novices in programming usually get it wrong.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 ## 좋지 않은 주석
 
@@ -18,7 +22,11 @@ complex;
 code;
 ```
 
+<<<<<<< HEAD
 그러나 좋은 코드에선 "설명적(explanatory)" 주석이 최소화되어야 합니다. 주석 없이도 코드를 쉽게 이해할 수 있어야 하죠.
+=======
+But in good code, the amount of such "explanatory" comments should be minimal. Seriously, the code should be easy to understand without them.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 이에 관한 좋은 규칙도 있습니다. "만약 코드가 불분명해서 주석 작성이 불가피하다면, 코드를 다시 작성해야만 하는 경우일 수 있습니다."
 

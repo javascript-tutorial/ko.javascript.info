@@ -35,7 +35,7 @@ alert(phrase); // Error, phrase is not defined
 
 예시:
 
-```js
+```js run
 if (true) {
   var test = true; // "let" 대신 "var"를 사용했습니다.
 }
@@ -45,7 +45,23 @@ alert(test); // if 조건문이 끝났어도 변수에 여전히 접근할 수 �
 */!*
 ```
 
+<<<<<<< HEAD
 두 번째 행에서 `let test`를 사용했다면, `alert`에서 해당 변수에 접근하지 못했을 겁니다. 그러나 `var` 는 코드 블록을 무시하므로 전역 `test`에 접근할 수 있습니다.
+=======
+`var` ignores code blocks, so we've got a global variable `test`.
+
+If we used `let test` instead of `var test`, then the variable would only be visible inside `if`:
+
+```js run
+if (true) {
+  let test = true; // use "let"
+}
+
+*!*
+alert(test); // Error: test is not defined
+*/!*
+```
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 반복문에서도 `var`는 블록이나 루프 수준의 스코프를 형성하지 않습니다.
 
@@ -61,7 +77,7 @@ alert(i); // 10, 반복문이 종료되었지만 "i"는 전역 변수이므로 �
 
 코드 블록이 함수 안에 있다면, `var`는 함수 레벨 변수가 됩니다.
 
-```js
+```js run
 function sayHi() {
   if (true) {
     var phrase = "Hello";
@@ -71,12 +87,16 @@ function sayHi() {
 }
 
 sayHi();
-alert(phrase); // Error: phrase is not defined
+alert(phrase); // Error: phrase is not defined (Check the Developer Console)
 ```
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트는 블록이 렉시컬 환경을 갖지 못했기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
 
+<<<<<<< HEAD
 ## "var" 는 함수 시작 시 처리됩니다.
+=======
+## "var" declarations are processed at the function start
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 `var`는 함수가 시작될 때 처리됩니다. 전역 변수라면 스크립트가 시작될 때 처리되죠. 
 
@@ -84,7 +104,7 @@ alert(phrase); // Error: phrase is not defined
 
 따라서 아래 두 예제는 동일하게 동작합니다.
 
-```js
+```js run
 function sayHi() {
   phrase = "Hello";
 
@@ -94,11 +114,12 @@ function sayHi() {
   var phrase;
 */!*
 }
+sayHi();
 ```
 
 `var phrase`가 위로 이동되었어도 말이죠.
 
-```js
+```js run
 function sayHi() {
 *!*
   var phrase;
@@ -108,11 +129,12 @@ function sayHi() {
 
   alert(phrase);
 }
+sayHi();
 ```
 
 코드 블록은 무시되기 때문에, 아래 코드 역시 동일하게 동작합니다.
 
-```js
+```js run
 function sayHi() {
   phrase = "Hello"; // (*)
 
@@ -124,6 +146,7 @@ function sayHi() {
 
   alert(phrase);
 }
+sayHi();
 ```
 
 이렇게 변수가 끌어올려 지는(raising) 현상을 "호이스팅(hoisting)"이라고 부릅니다. `var`로 선언한 모든 변수가 함수의 최상위로 "끌어 올려지기(hoisted)" 때문입니다.
@@ -175,11 +198,22 @@ sayHi();
 
 ## 요약
 
+<<<<<<< HEAD
 `var`로 선언한 변수는 두 가지 주요한 특성을 보입니다.
 
 1. 블록 스코프를 갖지 않고, 최소 함수 수준 스코프를 갖습니다.
 2. 선언이 함수가 시작될 때 처리됩니다.
+=======
+There are two main differences of `var` compared to `let/const`:
+
+1. `var` variables have no block scope, they are visible minimum at the function level.
+2. `var` declarations are processed at function start (script start for globals).
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 이 외에도 전역 객체와 관련된 특성 하나가 더 있는데, 이에 대해선 다음 챕터에서 다루도록 하겠습니다.
 
+<<<<<<< HEAD
 이러한 `var`만의 특성은 대부분의 상황에서 좋지 않은 부작용을 낳습니다. 변수는 블록 레벨에서 처리돼야 좋죠. 이런 이유 때문에 `let`이 표준에 도입된 것입니다. 이제는 `let`과 `const`를 이용해 변수를 선언하는 게 대세입니다.
+=======
+These differences make `var` worse than `let` most of the time. Block-level variables is such a great thing. That's why `let` was introduced in the standard long ago, and is now a major way (along with `const`) to declare a variable.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af

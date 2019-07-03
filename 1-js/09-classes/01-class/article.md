@@ -89,7 +89,7 @@ What `class User {...}` construct really does is:
     - The function code is taken from the `constructor` method (assumed empty if we don't write such method).
 3. Stores all methods, such as `sayHi`, in `User.prototype`.
 
-Afterwards, for new objects, when we call a method, it's taken from the prototype, just as  described in the chapter <info:function-prototype>. So `new User` object has access to class methods.
+Afterwards, for new objects, when we call a method, it's taken from the prototype, just as  described in the chapter <info:function-prototype>. So a `new User` object has access to class methods.
 
 We can illustrate the result of `class User` declaration as:
 
@@ -119,7 +119,7 @@ alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 
 ## Not just a syntax sugar
 
-Sometimes people say that `class` is a "syntax sugar" in JavaScript, because we could actually declare the same without `class` keyword at all:
+Sometimes people say that `class` is a "syntax sugar" (syntax that is designed to make things easier to read, but doesn't introduce anything new) in JavaScript, because we could actually declare the same without `class` keyword at all:
 
 ```js run
 // rewriting class User in pure functions

@@ -196,19 +196,32 @@ First, the syntax: how to differentiate between them in the code.
 
 자바스크립트 엔진이 *언제* 함수를 생성하는지를 보면 더 미세한 차이를 발견할 수 있습니다.
 
+<<<<<<< HEAD
 **함수 표현식에 의해 선언된 경우는 실행이 표현식에 도달할 때 함수가 생성됩니다. 그리고 이 시점부터 함수를 사용할 수 있습니다.**
+=======
+**A Function Expression is created when the execution reaches it and is usable only from that moment.**
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 실행 흐름이 `let sum = function…`와 같은 코드의 우측(함수 표현식)에 도달 했을때 함수가 생성되고, 이때부터 할당이나 호출 등을 사용할 수 있습니다.
 
 하지만 함수 선언문은 조금 다릅니다.
 
-**A Function Declaration is usable in the whole script (or a code block, if it's inside a block).**
+**A Function Declaration can be called earlier than it is defined.**
 
+<<<<<<< HEAD
 자바스크립트는 스크립트 혹은 코드 블록을 실행하기 위한 준비를 할 때, 먼저 함수 선언문이 있는지를 찾고, 함수를 생성합니다. 이런 과정을 "초기화 단계(initialization stage)"라고 부릅니다.
 
 초기화 단계에서 모든 함수 선언문이 처리되고 난다음, 실행이 진행됩니다.
 
 따라서, 함수 선언문 방식으로 선언된 함수는 함수를 정의하기 전에 호출할 수 있습니다.
+=======
+For example, a global Function Declaration is visible in the whole script, no matter where it is.
+
+That's due to internal algorithms. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an "initialization stage".
+
+And after all Function Declarations are processed, the code is executed. So it has access to these functions.
+
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 예를 들어, 아래 코드는 에러 없이 작동합니다:
 
@@ -224,7 +237,11 @@ function sayHi(name) {
 
 `sayHi` 함수 선언문은 자바스크립트가 스크립트를 실행하려고 준비하는 과정에서 생성되기 때문에, 코드의 어디에서든 활용할 수 있습니다.
 
+<<<<<<< HEAD
 ...함수 표현식에선, 작동하지 않습니다:
+=======
+...If it were a Function Expression, then it wouldn't work:
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 ```js run refresh untrusted
 *!*
@@ -238,13 +255,21 @@ let sayHi = function(name) {  // (*) 마술은 일어나지 않습니다
 
 함수 표현식은 실행 흐름이 표현식에 다다랐을 때 만들어집니다. 위 코드에서 `(*)`로 표시한 라인에서 말이죠. 생성 시점이 함수 선언문보다 느립니다.
 
+<<<<<<< HEAD
 **함수 선언문이 코드 블록 안에 있다면, 이 함수는 블록 안 어디서든 응용할 수 있습니다. 블록 밖에서는 안 되지만 말이죠.**
 
 때때로, 블록 안에서만 쓰이는 함수는 지역 함수로 선언하는 게 편리한 경우가 있습니다. 하지만 이런 구현은 문제를 발생시킬 수 있습니다.
+=======
+**In strict mode, when a Function Declaration is within a code block, it's visible everywhere inside that block. But not outside of it.**
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 런타임에 받은 `age` 변숫값에 따라 변하는 `welcome()` 함수를 정의해야 한다고 가정해 봅시다. 그리고 이 함수를 나중에 재사용한다고 해봅시다.
 
+<<<<<<< HEAD
 아래 코드는 작동하지 않습니다:
+=======
+If we use Function Declaration, it won't work as intended:
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -350,12 +375,21 @@ welcome(); // ok now
 ```
 
 
+<<<<<<< HEAD
 ```smart header="함수 선언문과 함수표현식 중 어느 걸 선택해야 하나요?"
 경험적으로, 함수를 선언할 필요가 있을 때 먼저 고려해야 하는 것은 함수 선언문 방식입니다. 함수를 선언하기 전에 호출할 수 있으므로 코드 구성을 좀 더 자유롭게 할 수 있습니다.
 
 그리고 코드에서 `let f = function(…) {…}`보다 `function f(…) {…}` 을 찾는게 더 쉽습니다. 함수 선언문 방식이 좀 더 "눈길을 사로잡습니다".
 
 ...그러나 함수 선언 방식이 어떤 이유로든 적합하지 않다면(위 예제와 같은 경우), 함수 표현식을 사용해야 합니다.
+=======
+```smart header="When to choose Function Declaration versus Function Expression?"
+As a rule of thumb, when we need to declare a function, the first to consider is Function Declaration syntax. It gives more freedom in how to organize our code, because we can call such functions before they are declared.
+
+That's also better for readability, as it's easier to look up `function f(…) {…}` in the code than `let f = function(…) {…}`. Function Declarations are more "eye-catching".
+
+...But if a Function Declaration does not suit us for some reason, or we need a conditional declaration (we've just seen an example), then Function Expression should be used.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 ```
 
 

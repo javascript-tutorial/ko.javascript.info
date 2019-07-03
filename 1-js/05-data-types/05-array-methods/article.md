@@ -11,7 +11,11 @@
 - `arr.shift()` -- 배열의 처음 요소를 제거.
 - `arr.unshift(...items)` -- 배열의 처음에 요소를 추가.
 
+<<<<<<< HEAD
 이 외에 요소를 추가/제거하는 메서드를 알아보도록 하겠습니다.
+=======
+Here are a few others.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 ### splice
 
@@ -238,9 +242,15 @@ arr.forEach(function(item, index, array) {
 
 배열 메서드인 [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf), [arr.includes](mdn:js/Array/includes)는 같은 이름을 가진 문자열 메서드와 동일한 문법을 사용하고 하는 일도 본질적으로 같습니다. 연산 대상이 문자열이 아닌 배열의 요소라는 점만 다릅니다.
 
+<<<<<<< HEAD
 - `arr.indexOf(item, from)`는 인덱스 `from`부터 시작해 해당하는 `item(요소)`을 찾습니다. 일치하는 요소를 발견하면 해당하는 요소의 인덱스를 반환하고 그렇지 않다면 `-1`을 반환합니다.
 - `arr.lastIndexOf(item, from)`는 위 메서드와 동일한 기능을 하는 메서드이나, 검색을 끝에서부터 시작한다는 점만 다릅니다.
 - `arr.includes(item, from)`는 인덱스 `from`부터 시작해 배열에 해당하는 `요소(item)`가 있는지를 검색하는데, 해당하는 요소를 발견하면 `true`를 반환합니다.
+=======
+- `arr.indexOf(item, from)` -- looks for `item` starting from index `from`, and returns the index where it was found, otherwise `-1`.
+- `arr.lastIndexOf(item, from)` -- same, but looks for from right to left.
+- `arr.includes(item, from)` -- looks for `item` starting from index `from`, returns `true` if found.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 예시 코드를 살펴보겠습니다.
 
@@ -417,7 +427,11 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 이제 의도한 대로 숫자가 오름차순으로 정렬되었습니다.
 
+<<<<<<< HEAD
 잠시 멈춰 이 메서드가 어떻게 동작하는지 생각해 봅시다. `arr`의 요소는 어떤 값이든 가능합니다. 숫자, 문자열, html 요소 등 모든 것이 요소가 될 수 있죠. *무언가*로 구성된 집합이 arr에 담긴 상황입니다. 이제 이 집합을 정렬해봅시다. 요소를 어떤 기준으로 비교하고 정렬할지 정의하는 *순서를 매겨주는 함수(ordering function)* 가 필요합니다. 아무 매개변수도 넘겨주지 않으면 sort 메서드는 사전 순으로 정렬합니다.
+=======
+Let's step aside and think what's happening. The `arr` can be array of anything, right? It may contain numbers or strings or HTML elements or whatever. We have a set of *something*. To sort it, we need an *ordering function* that knows how to compare its elements. The default is a string order.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 `arr.sort(fn)` 메서드의 정렬 알고리즘은 내부에 구현되어 있습니다. 대부분 최적화된 [quicksort](https://en.wikipedia.org/wiki/Quicksort)를 이용하여 구현하는데, 이 알고리즘이 어떻게 작동하는지는 지금 살펴보지 않겠습니다. `arr.sort(fn)`의 정렬 알고리즘은 매개변수로 넘겨준 함수(비교 함수)를 이용해 배열 내를 돌아다니며 요소를 비교하고, 재정렬합니다. 개발자는 비교에 쓰이는 `fn` 만 제공해 주면 됩니다.  
 
@@ -473,7 +487,11 @@ alert( arr ); // 5,4,3,2,1
 
 ### split과 join
 
+<<<<<<< HEAD
 메시지 전송 애플리케이션을 만들고 있다고 가정해 봅시다. 메시지 수신자가 여러 명일 경우, 발신자는 쉼표를 이용해 각 수신자를 구분해 입력할 것입니다. `John, Pete, Mary`같이 말이죠. 개발자는 이렇게 하나의 긴 문자열로 입력받은 수신자 리스트를 배열 형태로 전환해 처리하고 싶을 겁니다. 어떻게 입력받은 문자열을 배열로 바꿀 수 있을까요?
+=======
+Here's the situation from real life. We are writing a messaging app, and the person enters the comma-delimited list of receivers: `John, Pete, Mary`. But for us an array of names would be much more comfortable than a single string. How to get it?
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 [str.split(delim)](mdn:js/String/split) 메서드를 이용하면, 정확히 우리가 원하는 것을 할 수 있습니다. 이 메서드는 구분자 `delim`을 이용해 긴 문자열을 배열로 쪼개주기 때문입니다.
 
@@ -547,7 +565,11 @@ let value = arr.reduce(function(previousValue, item, index, array) {
 
 조금 어렵겠지만, 예제를 통해 이 메서드를 이해해 보도록 합시다.
 
+<<<<<<< HEAD
 `reduce` 메서드를 이용해 코드 한 줄로 배열의 모든 요소를 더한 값을 구해보겠습니다.
+=======
+Here we get a sum of an array in one line:
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
@@ -680,7 +702,11 @@ alert(youngerUsers.length); // 2
 
 ## 요약
 
+<<<<<<< HEAD
 지금까지 살펴본 배열 메서드를 요약해보도록 합시다.
+=======
+A cheat sheet of array methods:
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
 
 - 요소를 더하거나 지우기
   - `push(...items)` -- 배열 끝에 요소 넣기
@@ -726,6 +752,12 @@ alert(youngerUsers.length); // 2
 
 처음엔 메서드 종류가 너무 많아서 외우기 힘들 수 있습니다. 하지만 보기보다 쉬우니 너무 걱정하지 않으셨으면 좋겠습니다.
 
+<<<<<<< HEAD
 요약본을 참고해 이런 메서드가 있다는 정도만 알아두세요. 아래 과제를 풀면서 충분히 연습하다 보면 배열 메서드에 대한 경험치가 쌓일 겁니다.
 
 나중에 배열을 이용해 뭔가를 해야 하는데 어떻게 해야 할지 생각이 떠오르지 않으면 이곳으로 돌아와 요약본을 다시 보고 상황에 맞는 메서드를 찾으면 됩니다. 메서드에 딸린 예시들이 실제 코드 작성시 도움이 될 겁니다. 이런 과정을 반복하다 보면 특별한 노력 없이도 메서드가 저절로 외워질 겁니다.
+=======
+Look through the cheat sheet just to be aware of them. Then solve the tasks of this chapter to practice, so that you have experience with array methods.
+
+Afterwards whenever you need to do something with an array, and you don't know how -- come here, look at the cheat sheet and find the right method. Examples will help you to write it correctly. Soon you'll automatically remember the methods, without specific efforts from your side.
+>>>>>>> b300836f00536a5eb9a716ad2cbb6b8fe97c25af
