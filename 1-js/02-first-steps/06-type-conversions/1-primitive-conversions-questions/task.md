@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Type conversions
+# 형 변환
 
-What are results of these expressions?
+아래 표현식들의 결과를 예측해 보세요.
 
 ```js no-beautify
 "" + 1 + 0
@@ -23,4 +23,4 @@ null + 1
 undefined + 1
 ```
 
-Think well, write down and then compare with the answer.
+예측한 결과를 적어본 후, 해답과 비교해 보시기 바랍니다.
