@@ -1,14 +1,14 @@
-# Searching: getElement*, querySelector*
+# getElement*, querySelector* 를 사용해 검색하기
 
-DOM navigation properties are great when elements are close to each other. What if they are not? How to get an arbitrary element of the page?
+검색하려는 요소가 가까이 붙어있다면 앞서 소개한 DOM 탐색 관련 프로퍼티가 아주 유용합니다. 그런데, 찾고자 하는 요소가 가까이 있지 않은 경우도 있기 마련입니다. 이렇게 멀리 떨어져 있는, 페이지 내 임의의 요소는 어떻게 해야 얻을 수 있을까요?
 
-There are additional searching methods for that.
+이번 챕터에선 임의의 요소를 찾을 수 있도록 도와주는 검색 메서드를 소개하도록 하겠습니다.
 
-## document.getElementById or just id
+## document.getElementById 혹은 id를 사용해 요소 검색하기
 
-If an element has the `id` attribute, then there's a global variable by the name from that `id`.
+요소에 `id` 속성이 있으면 `id` 값을 그대로 딴 전역 변수 하나가 만들어집니다.
 
-We can use it to immediately access the element no matter where it is:
+요소가 문서 내 어디 있든 상관없이 이 전역변수를 이용하면 요소에 즉시 접근할 수 있습니다.
 
 ```html run
 <div id="*!*elem*/!*">
@@ -16,18 +16,18 @@ We can use it to immediately access the element no matter where it is:
 </div>
 
 <script>
-  alert(elem); // DOM-element with id="elem"
-  alert(window.elem); // accessing global variable like this also works
+  alert(elem); // id 속성값이 "elem"인 DOM 요소를 출력합니다.
+  alert(window.elem); // 이렇게, 전역 변수를 통해 접근하는 것도 가능합니다.
 
-  // for elem-content things are a bit more complex
-  // that has a dash inside, so it can't be a variable name
-  alert(window['elem-content']); // ...but accessible using square brackets [...]
+  // id가 elem-content인 요소를 가져오려는 경우는 조금 복잡합니다.
+  // 속성값에 대시 기호(-)가 있기 때문에, id 값 변수 이름으로 쓸 수 없기 때문입니다.
+  alert(window['elem-content']); // 이럴 땐, 대괄호([...])를 이용하면 됩니다.
 </script>
 ```
 
-The behavior is described [in the specification](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem), but it is supported mainly for compatibility. The browser tries to help us by mixing namespaces of JS and DOM. Good for very simple scripts, but there may be name conflicts. Also, when we look in JS and don't have HTML in view, it's not obvious where the variable comes from.
+`id`와 대응하는 전역변수는 [스펙](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)에 명시되어 있는 사항을 구현한 것입니다. 이렇게 자바스크립트의 네임스페이스와 DOM을 구분하지 않는 방식은 개발자의 편의성을 도모하고, 하위 호환성을 위해 브라우저가 유지하고 있는 기능입니다. 그런데 이런 방식은 스크립트가 간단할 때는 괜찮지만, 스크립트가 복잡해지면 이름이 충돌한다는 단점이 있습니다. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
 
-If we declare a variable with the same name, it takes precedence:
+동일한 이름을 가진 변수를 새로 선언하면 기존의 변수를 덮어쓰기도 합니다. 
 
 ```html run untrusted height=0
 <div id="elem"></div>
@@ -39,9 +39,9 @@ If we declare a variable with the same name, it takes precedence:
 </script>
 ```
 
-The better alternative is to use a special method `document.getElementById(id)`.
+`document.getElementById(id)` 메서드를 사용하면 이런 단점을 극복할 수 있습니다. 좋은 대안이죠.
 
-For instance:
+사용 예시는 다음과 같습니다.
 
 ```html run
 <div id="elem">
@@ -57,23 +57,23 @@ For instance:
 </script>
 ```
 
-Here in the tutorial we'll often use `id` to directly reference an element, but that's only to keep things short. In real life `document.getElementById` is the preferred method.
+본 튜토리얼에선 `id`를 사용해 요소에 직접 접근하는 방법을 사용해 간결하게 코드를 구현할 예정입니다. 하지만 실제 코드를 구현할 땐 `document.getElementById`를 사용하길 권유합니다.
 
-```smart header="There can be only one"
-The `id` must be unique. There can be only one element in the document with the given `id`.
+```smart header="id는 하나만!"
+`id`는 고유해야 합니다. 문서 내 `id`는 중복될 수 없죠. 해당 `id`를 가진 요소는 유일해야 합니다. 
 
-If there are multiple elements with the same `id`, then the behavior of corresponding methods is unpredictable. The browser may return any of them at random. So please stick to the rule and keep `id` unique.
+같은 `id`를 가진 요소가 여러 개 있으면 메서드의 행동을 예측할 수 없습니다. 브라우저는 어떤 요소를 반환할지 판단하지 못 해, 임의의 요소를 반환하게 되죠. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
 ```
 
-```warn header="Only `document.getElementById`, not `anyNode.getElementById`"
-The method `getElementById` that can be called only on `document` object. It looks for the given `id` in the whole document.
+```warn header="`anyNode.getElementById`가 아닌 `document.getElementById`"
+`getElementById`메서드는 `document(문서)` 객체에만 쓸 수 있습니다. 이 메서드는 문서 객체에서 해당 `id`를 가진 요소를 탐색해 줍니다.
 ```
 
 ## querySelectorAll [#querySelectorAll]
 
-By far, the most versatile method, `elem.querySelectorAll(css)` returns all elements inside `elem` matching the given CSS selector.
+`elem.querySelectorAll(css)`은 요소 검색 시 가장 많이 사용되는 메서드입니다. 이 메서드는 주어진 CSS 선택자와 일치하는 elem 내 요소를 모두 반환합니다.
 
-Here we look for all `<li>` elements that are last children:
+아래 예시는 document 내 마지막 `<li>`요소 모두를 반환해줍니다.
 
 ```html run
 <ul>
@@ -95,39 +95,39 @@ Here we look for all `<li>` elements that are last children:
 </script>
 ```
 
-This method is indeed powerful, because any CSS selector can be used.
+이 메서드는 CSS 선택자를 활용할 수 있다는 점에서 아주 유용합니다.
 
-```smart header="Can use pseudo-classes as well"
-Pseudo-classes in the CSS selector like `:hover` and `:active` are also supported. For instance, `document.querySelectorAll(':hover')` will return the collection with elements that the pointer is  over now (in nesting order: from the outermost `<html>` to the most nested one).
+```smart header="가상 클래스(pseudo-class)도 사용할 수 있습니다."
+querySelectorAll에는 `:hover`나 `:active`같은 CSS 선택자의 가상 클래스도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover) 요소 모두를 반환해줍니다(반환은 <html>부터 트리 가장 안쪽의 요소 순으로 이뤄집니다.).
 ```
 
 ## querySelector [#querySelector]
 
-The call to `elem.querySelector(css)` returns the first element for the given CSS selector.
+`elem.querySelector(css)`를 호출하면 주어진 CSS 선택자의 가장 처음 요소를 반환합니다. 
 
-In other words, the result is the same as `elem.querySelectorAll(css)[0]`, but the latter is looking for *all* elements and picking one, while `elem.querySelector` just looks for one. So it's faster and shorter to write.
+`elem.querySelectorAll(css)[0]`을 호출한 것과 같은 효과를 가지죠. 다만, `querySelectorAll`은 *모든* 선택자에 해당하는 요소를 검색한 후 첫 번째 요소만을 반환한다는 점이 다릅니다. 따라서 `elem.querySelector`를 사용하는 것이 더 빠르고, 코드의 길이도 짧습니다.
 
 ## matches
 
-Previous methods were searching the DOM.
+지금까지 소개한 모든 메서드들은 DOM을 대상으로 검색을 수행합니다.
 
-The [elem.matches(css)](http://dom.spec.whatwg.org/#dom-element-matches) does not look for anything, it merely checks if `elem` matches the given CSS-selector. It returns `true` or `false`.
+[elem.matches(css)](http://dom.spec.whatwg.org/#dom-element-matches)는 DOM을 검색하는 일이 아닌 조금 다른 일을 합니다. 이 메서드는 해당 요소 `elem`이 주어진 CSS 선택자와 일치하는지 여부만을 판단해줍니다. 일치한다면 `true`, 아니라면 `false`를 반환하죠.
 
-The method comes handy when we are iterating over elements (like in array or something) and trying to filter those that interest us.
+이 메서드는 배열이나 기타 요소를 대상으로 반복 작업을 수행해, 원하는 요소를 필터링하고자 하는 경우 유용합니다.
 
-For instance:
+예시:
 
 ```html run
 <a href="http://example.com/file.zip">...</a>
 <a href="http://ya.ru">...</a>
 
 <script>
-  // can be any collection instead of document.body.children
+  // document.body.children이외의 모든 컬렉션에 메서드를 적용할 수 있습니다.
   for (let elem of document.body.children) {
 *!*
     if (elem.matches('a[href$="zip"]')) {
 */!*
-      alert("The archive reference: " + elem.href );
+      alert("주어진 CSS 선택자와 일치하는 요소: " + elem.href );
     }
   }
 </script>
@@ -135,68 +135,68 @@ For instance:
 
 ## closest
 
-*Ancestors* of an element are: parent, the parent of parent, its parent and so on. The ancestors together form the chain of parents from the element to the top.
+부모 요소, 부모 요소의 부모 요소 등 DOM 트리에서 특정 요소의 상위에 있는 요소들을 한데 묶어 해당 요소의 *조상* 요소라고 부릅니다.
 
-The method `elem.closest(css)` looks the nearest ancestor that matches the CSS-selector. The `elem` itself is also included in the search.
+`elem.closest(css)`메서드는 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다. 이때, `elem` 자기 자신도 검색 대상에 포함되죠.
 
-In other words, the method `closest` goes up from the element and checks each of parents. If it matches the selector, then the search stops, and the ancestor is returned.
+즉, `closest`메서드는 해당 요소부터 시작해 DOM 트리를 한 단계씩 거슬러 올라가면서 원하는 요소를 찾는다고 생각하시면 됩니다. CSS 선택자와 일치하는 요소를 찾으면, 검색이 중단되고 해당 요소가 반환되죠.
 
-For instance:
+예시:
 
 ```html run
-<h1>Contents</h1>
+<h1>목차</h1>
 
 <div class="contents">
   <ul class="book">
-    <li class="chapter">Chapter 1</li>
-    <li class="chapter">Chapter 1</li>
+    <li class="chapter">1장</li>
+    <li class="chapter">2장</li>
   </ul>
 </div>
 
 <script>
-  let chapter = document.querySelector('.chapter'); // LI
+  let chapter = document.querySelector('.chapter'); // li
 
-  alert(chapter.closest('.book')); // UL
-  alert(chapter.closest('.contents')); // DIV
+  alert(chapter.closest('.book')); // ul
+  alert(chapter.closest('.contents')); // div
 
-  alert(chapter.closest('h1')); // null (because h1 is not an ancestor)
+  alert(chapter.closest('h1')); // null (h1은 li의 조상 요소가 아닙니다.).
 </script>
 ```
 
 ## getElementsBy*
 
-There are also other methods to look for nodes by a tag, class, etc.
+지금까지 소개해 드린 메서드 이외에 태그나 클래스를 이용해 해당 노드를 검색해 주는 메서드도 있습니다.
 
-Today, they are mostly history, as `querySelector` is more powerful and shorter to write.
+`querySelector`를 이용하는 게 더 편하고 문법도 짧아서, 요즘은 이런 메서드들을 잘 쓰진 않습니다.
 
-So here we cover them mainly for completeness, while you can still find them in the old scripts.
+그렇긴 하지만, 오래된 스크립트에서 해당 메서드들을 만날 때를 대비하면서, 튜토리얼의 완성도를 높이기 위해 이 메서드들에 대해 언급하고 넘어가도록 하겠습니다.
 
-- `elem.getElementsByTagName(tag)` looks for elements with the given tag and returns the collection of them. The `tag` parameter can also be a star `"*"` for "any tags".
-- `elem.getElementsByClassName(className)` returns elements that have the given CSS class.
-- `document.getElementsByName(name)` returns elements with the given `name` attribute, document-wide. very rarely used.
+- `elem.getElementsByTagName(tag)`은 주어진 태그에 해당하는 요소를 찾고, 그 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, "모든 태그"가 검색됩니다.
+- `elem.getElementsByClassName(className)`는 주어진 css 클래스에 대응하는 요소를 반환합니다.
+- `document.getElementsByName(name)`는 문서 전체를 검색해 주어진 `name` 속성값을 가진 요소를 반환합니다. 아주 드물게 쓰이는 메서드 입니다.
 
-For instance:
+예시:
 ```js
-// get all divs in the document
+// 문서 내 모든 div를 얻습니다.
 let divs = document.getElementsByTagName('div');
 ```
 
-Let's find all `input` tags inside the table:
+다음은 표 안의 모든 `input` 태그를 찾는 예시입니다.
 
 ```html run height=50
 <table id="table">
   <tr>
-    <td>Your age:</td>
+    <td>나이:</td>
 
     <td>
       <label>
-        <input type="radio" name="age" value="young" checked> less than 18
+        <input type="radio" name="age" value="young" checked> 18세 미만
       </label>
       <label>
-        <input type="radio" name="age" value="mature"> from 18 to 50
+        <input type="radio" name="age" value="mature"> 18세 이상, 60세 미만
       </label>
       <label>
-        <input type="radio" name="age" value="senior"> more than 60
+        <input type="radio" name="age" value="senior"> 60세 이상
       </label>
     </td>
   </tr>
@@ -213,66 +213,66 @@ Let's find all `input` tags inside the table:
 </script>
 ```
 
-```warn header="Don't forget the `\"s\"` letter!"
-Novice developers sometimes forget the letter `"s"`. That is, they try to call `getElementByTagName` instead of <code>getElement<b>s</b>ByTagName</code>.
+```warn header="`\"s\"`를 절대 빠트리지 마세요!"
+개발 초보자들은 가끔 `"s"`를 빼먹는 실수를 하곤 합니다. <code>getElement<b>s</b>ByTagName</code>를 써야 하는데 `"s"`를 빠트리고 `getElementByTagName`를 입력하곤 하죠.
 
-The `"s"` letter is absent in `getElementById`, because it returns a single element. But `getElementsByTagName` returns a collection of elements, so there's `"s"` inside.
+`getElementById`에 `"s"`가 없는 이유는, 요소 하나만을 반환하기 때문입니다. `getElementsByTagName`와 같은 메서드들은 대응하는 요소의 컬렉션을 반환하기 때문에 메서드 중간에 `"s"`가 들어가 있습니다.
 ```
 
-````warn header="It returns a collection, not an element!"
-Another widespread novice mistake is to write:
+````warn header="요소 하나가 아니라 컬렉션을 반환합니다!"
+초보자들이 자주 저지르는 실수가 하나 더 있습니다.
 
 ```js
-// doesn't work
+// 동작하지 않는 코드
 document.getElementsByTagName('input').value = 5;
 ```
 
-That won't work, because it takes a *collection* of inputs and assigns the value to it rather than to elements inside it.
+위 코드는 input 태그 모두를 검색해 이를 *컬렉션*에 저장하고, 값 5를 컬렉션에 할당하려고 하므로 동작하지 않습니다. 본래 의도는 컬렉션이 아닌 요소에 그 값을 대응하는 것이었습니다.
 
-We should either iterate over the collection or get an element by its index, and then assign, like this:
+의도한 대로 동작하게 하려면 컬렉션을 순회하거나 원하는 요소를 인덱스를 사용해 얻고, 값을 할당하면 됩니다. 아래와 같이 말이죠.
 
 ```js
-// should work (if there's an input)
+// (문서에 요소가 있다면) 아래 코드는 잘 동작합니다.
 document.getElementsByTagName('input')[0].value = 5;
 ```
 ````
 
-Looking for `.article` elements:
+이제 `.article` 요소를 검색해 보도록 합시다.
 
 ```html run height=50
 <form name="my-form">
-  <div class="article">Article</div>
-  <div class="long article">Long article</div>
+  <div class="article">글</div>
+  <div class="long article">내용이 긴 글</div>
 </form>
 
 <script>
-  // find by name attribute
+  // name 속성을 이용해 봅시다.
   let form = document.getElementsByName('my-form')[0];
 
-  // find by class inside the form
+  // 클래스 이름을 이용해 봅시다.
   let articles = form.getElementsByClassName('article');
-  alert(articles.length); // 2, found two elements with class "article"
+  alert(articles.length); // 클래스 속성값이 "article"인 요소는 2개입니다.
 </script>
 ```
 
-## Live collections
+## 살아있는 컬렉션
 
-All methods `"getElementsBy*"` return a *live* collection. Such collections always reflect the current state of the document and "auto-update" when it changes.
+`"getElementsBy*"`로 시작하는 모든 메서드는 *살아있는* 컬렉션을 반환합니다. 변경이 있을 때마다 컬렉션을 "자동 갱신"해줘 문서의 최신 상태를 반영할 수 있도록 해주죠.
 
-In the example below, there are two scripts.
+아래 예제엔 스크립트 두 개가 있습니다.
 
-1. The first one creates a reference to the collection of `<div>`. As of now, its length is `1`.
-2. The second scripts runs after the browser meets one more `<div>`, so its length is `2`.
+1. 첫 번째 스크립트는 `<div>`에 상응하는 요소 컬렉션에 대한 참조를 만듭니다. 스크립트가 실행되는 시점에 이 컬렉션의 길이는 `1`입니다.  
+2. 두 번째 스크립트는 문서에 `<div>`가 하나 더 추가된 이후에 실행됩니다. 따라서 컬렉션의 길이는 `2`가 됩니다. 
 
 ```html run
-<div>First div</div>
+<div>첫 번째 div</div>
 
 <script>
   let divs = document.getElementsByTagName('div');
   alert(divs.length); // 1
 </script>
 
-<div>Second div</div>
+<div>두 번째 div</div>
 
 <script>
 *!*
@@ -281,20 +281,20 @@ In the example below, there are two scripts.
 </script>
 ```
 
-In contrast, `querySelectorAll` returns a *static* collection. It's like a fixed array of elements.
+반면, `querySelectorAll`은 *죽어있는* 컬렉션을 반환합니다. 요소를 담은 공간이 한 번 확정되면 더는 늘어나지 않습니다.
 
-If we use it instead, then both scripts output `1`:
+이 메서드를 사용하면, 아래에서 보시는 바와 같이 두 스크립트는 동일하게 `1`을 출력합니다.
 
 
 ```html run
-<div>First div</div>
+<div>첫 번째 div</div>
 
 <script>
   let divs = document.querySelectorAll('div');
   alert(divs.length); // 1
 </script>
 
-<div>Second div</div>
+<div>두 번째 div</div>
 
 <script>
 *!*
@@ -303,31 +303,31 @@ If we use it instead, then both scripts output `1`:
 </script>
 ```
 
-Now we can easily see the difference. The static collection did not increase after the appearance of a new `div` in the document.
+예제를 실행해 보면 두 방식의 차이가 잘 드러납니다. 문서에 새로운 `div`가 추가되어도 한번 만들어진 컬렉션은 더는 갱신이 되지 않기 때문에, 그 길이가 늘어나지 않죠.
 
-## Summary
+## 요약
 
-There are 6 main methods to search for nodes in DOM:
+아래 6가지 메서드는 DOM에서 원하는 노드를 찾을 수 있게 도와줍니다.
 
 <table>
 <thead>
 <tr>
-<td>Method</td>
-<td>Searches by...</td>
-<td>Can call on an element?</td>
-<td>Live?</td>
+<td>메서드</td>
+<td>검색 기준</td>
+<td>호출 대상이 요소가 될 수 있는지에 대한 여부</td>
+<td>컬렉션 갱신 가능 여부</td>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>querySelector</code></td>
-<td>CSS-selector</td>
+<td>CSS 선택자</td>
 <td>✔</td>
 <td>-</td>
 </tr>
 <tr>
 <td><code>querySelectorAll</code></td>
-<td>CSS-selector</td>
+<td>CSS 선택자</td>
 <td>✔</td>
 <td>-</td>
 </tr>
@@ -345,7 +345,7 @@ There are 6 main methods to search for nodes in DOM:
 </tr>
 <tr>
 <td><code>getElementsByTagName</code></td>
-<td>tag or <code>'*'</code></td>
+<td>태그나 <code>'*'</code></td>
 <td>✔</td>
 <td>✔</td>
 </tr>
@@ -358,12 +358,12 @@ There are 6 main methods to search for nodes in DOM:
 </tbody>
 </table>
 
-By far the most used are `querySelector` and `querySelectorAll`, but `getElementBy*` can be sporadically helpful or found in the old scripts.
+아마 실무에선 `querySelector`와 `querySelectorAll`을 가장 많이 만나실 겁니다. `getElementBy*`로 시작하는 메서드는 오래된 스크립트나 일부 이 메서드가 꼭 필요한 상황에 쓰입니다.
 
-Besides that:
+이 외에 알아두면 좋을 만한 메서드는 아래와 같습니다.
 
-- There is `elem.matches(css)` to check if `elem` matches the given CSS selector.
-- There is `elem.closest(css)` to look for the nearest ancestor that matches the given CSS-selector. The `elem` itself is also checked.
+- `elem.matches(css)`는 `elem`이 해당 CSS 선택자와 일치하는지 여부를 검사합니다.
+- `elem.closest(css)`는 해당 CSS 선택자와 일치하는 가장 가까운 조상을 탐색합니다. 이때, `elem` 자기 자신도 검색 대상에 포함됩니다.  
 
-And let's mention one more method here to check for the child-parent relationship, as it's sometimes useful:
--  `elemA.contains(elemB)` returns true if `elemB` is inside `elemA` (a descendant of `elemA`) or when `elemA==elemB`.
+위에선 언급하지 않았지만, 노드의 부모-자식 관계에 관한 유용한 메서드 하나를 더 소개해 드리고 마무리하겠습니다.  
+- `elemA.contains(elemB)`는 `elemB`가 `elemA`에 속하거나(`elemB`가 `elemA`의 후손인 경우) `elemA==elemB`일 때, 참을 반환합니다.
