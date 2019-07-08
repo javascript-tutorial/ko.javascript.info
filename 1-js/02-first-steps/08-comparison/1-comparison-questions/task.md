@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Comparisons
+# 비교
 
-What will be the result for these expressions?
+아래 표현식들의 결과를 예측해보세요.
 
 ```js no-beautify
 5 > 4
@@ -12,7 +12,7 @@ What will be the result for these expressions?
 "2" > "12"
 undefined == null
 undefined === null
-null == "\n0\n"
-null === +"\n0\n"
+null == *!*0*/!*
+null === *!*0*/!*
 ```
 
