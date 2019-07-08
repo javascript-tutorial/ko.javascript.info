@@ -2,13 +2,23 @@
 
 쿠키는 브라우저에 저장되는 작은 크기의 문자열입니다. 쿠키는 자바스크립트에서만 쓰이는 기술은 아닙니다. [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세서에 정의된 HTTP 프로토콜의 일부입니다.
 
+<<<<<<< HEAD
 쿠키는 주로 웹 서버의 요청으로 생성됩니다. 동일한 도메인에 접속 시 이 쿠키에 저장된 정보가 해당 도메인의 서버에 함께 자동 전송됩니다.
+=======
+Cookies are usually set by a web-server using response `Set-Cookie` HTTP-header. Then the browser automatically adds them to (almost) every request to the same domain using `Cookie` HTTP-header.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 인증은 쿠키의 주요 사용처 중 하나입니다:
 
+<<<<<<< HEAD
 1. 로그인 시, 서버는 응답에 "세션 ID(session identifier)" 정보가 들어있는 쿠키를 설정하도록 해주는 `Set-Cookie` HTTP 헤더(HTTP-header)를 전송합니다.
 2. 동일 도메인에 접속 시, 브라우저는 `Cookie` HTTP 헤더를 함께 이용해 요청합니다.
 4. 서버는 이를 이용해 요청을 식별합니다.
+=======
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is set to the same domain, the browser sends the over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
@@ -17,11 +27,19 @@
 ## document.cookie 에서 정보 읽기
 
 ```online
+<<<<<<< HEAD
 지금 보고 있는 이 사이트에 쿠키가 있을까요? 알아봅시다:
 ```
 
 ```offline
 현재 인터넷에 접속되어 있다면, 쿠키를 볼 수 있습니다. 이렇게요: 
+=======
+Does your browser store any cookies from this site? Let's see:
+```
+
+```offline
+Assuming you're on a website, it's possible to see the cookies from it, like this:
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 ```
 
 ```js run
@@ -40,7 +58,11 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 
 ## document.cookie 에 쓰기
 
+<<<<<<< HEAD
 `document.cookie`에 직접 값을 쓸수 있습니다. 이 때 쿠키는 접근자(accessor) 프로퍼티입니다. 데이터 프로퍼티가 아닙니다.
+=======
+We can write to `document.cookie`. But it's not a data property, it's an accessor. An assignment to it is treated specially.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 **브라우저는 `document.cookie`에 넣은 값을 받아서 해당 쿠키를 갱신합니다. 이 때, 명시된 쿠키만 갱신하고, 다른 쿠키엔 영향을 주지 않습니다.**
 
@@ -85,11 +107,19 @@ document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 
 - **`path=/mypath`**
 
+<<<<<<< HEAD
 쿠키에 접근할 수 있는 url path(경로)를 지정합니다. 절대 경로여야 하고, 기본값은 현재 경로입니다.
+=======
+The url path prefix, the cookie will be accessible for pages under that path. Must be absolute. By default, it's the current path.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 만약 `path=/admin`로 설정되었다면, `/admin` 과 `/admin/something`에선 쿠키를 볼 수 있지만, `/home` 이나 `/adminpage`에선 쿠키를 볼 수 없습니다.
 
+<<<<<<< HEAD
 보통은 모든 페이지에서 쿠키에 접근할 수 있도록 경로 옵션을 `path=/`로 지정합니다.
+=======
+Usually, we should set `path` to the root: `path=/` to make the cookie accessible from all website pages.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 ## domain
 
@@ -111,6 +141,7 @@ alert(document.cookie); // no user
 
 **서브 도메인이나 다른 도메인에서 쿠키에 접속할 수 있는 방법은 없습니다. 그렇기 때문에 `site.com`을 통해 생성된 쿠키 정보를 `other.com`에선 절대 전송받을 수 없습니다.**
 
+<<<<<<< HEAD
 안전 때문에 이런 제약이 존재합니다. 이 제약은 민감한 데이터를 쿠키에 저장할 수 있도록 해줍니다.
 
 하지만 루트 도메인(root domain)에서 `domain` 옵션을 `domain=site.com`으로 설정하면 `forum.site.com`과 같은 서브 도메인에서 쿠키 정보를 얻을 수 있습니다:
@@ -124,6 +155,24 @@ alert(document.cookie); // 쿠키에 저장된 user 정보를 얻을 수 있음
 ```
 
 `domain=.site.com` (값의 맨 처음에 .을 넣어줌)으로 옵션값을 설정하면 동일하게 동작합니다. 이는 역사적인 이유 때문에 남아있는 기능입니다. 낮은 버전의 브라우저에서도 동작할 수 있도록 점(.)을 넣어 옵션값을 지정하는걸 추천합니다.
+=======
+It's a safety restriction, to allow us to store sensitive data in cookies, that should be available only on one site.
+
+...But if we'd like to allow subdomains like `forum.site.com` get a cookie, that's possible. When setting a cookie at `site.com`, we should explicitly set `domain` option to the root domain: `domain=site.com`:
+
+```js
+// at site.com
+// make the cookie accessible on any subdomain *.site.com:
+document.cookie = "user=John; domain=site.com"
+
+// later
+
+// at forum.site.com
+alert(document.cookie); // has cookie user=John
+```
+
+For historical reasons, `domain=.site.com` (a dot before `site.com`) also works the same way, allowing access to the cookie from subdomains. That's an old notation, should be used if we need to support very old browsers.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 이렇게 `domain` 옵션값을 적절히 사용하면 서브 도메인에서도 쿠키에 접근할 수 있도록 할 수 있습니다.
 
@@ -182,9 +231,15 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
+<<<<<<< HEAD
 또 다른 보안 옵션도 있습니다. `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막을 때 사용합니다.
 
 아래 공격 시나리오를 통해 이 옵션이 언제 유용한지 알아보도록 합시다.
+=======
+That's another security attribute `somesite`. It's designed to protect from so-called XSRF (cross-site request forgery) attacks.
+
+To understand how it works and when it's useful, let's take a look at XSRF attacks.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 ### XSRF 공격
 

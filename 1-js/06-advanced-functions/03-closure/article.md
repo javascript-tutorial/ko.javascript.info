@@ -598,8 +598,13 @@ function f() {
   return g;
 }
 
+<<<<<<< HEAD
 let g = f(); // g가 살아있는 동안엔
 // 연관되는 렉시컬 환경은 살아있습니다.
+=======
+let g = f(); // while g is alive
+// their corresponding Lexical Environment lives
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 g = null; // 도달할 수 없는 상태가 되었으므로, 메모리에서 지워집니다.
 ```

@@ -130,7 +130,11 @@
 
 ![](eventflow.png)
 
+<<<<<<< HEAD
 `<td>` 요소를 클릭하면 이벤트가 최상위 조상에서 시작해서 아래로 전파되고(캡처링), 이벤트가 타깃 요소에 도착하면, 다시 위로 전파됩니다(버블링). 이 과정에서 요소에 할당된 핸들러가 호출됩니다. 
+=======
+That is: for a click on `<td>` the event first goes through the ancestors chain down to the element (capturing phase), then it reaches the target and triggers there (target phase), and then it goes up (bubbling phase), calling handlers on its way.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 **캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 주로 버블링만 설명했습니다. 캡처링에 관한 코드를 발견하는 일은 거의 없을 겁니다.**
 
@@ -149,7 +153,12 @@ elem.addEventListener(..., true)
 - `false`(default 값)인 경우, 핸들러는 버블링 단계에서 동작합니다.
 - `true`인 경우, 핸들러는 캡처링 단계에서 동작합니다.
 
+<<<<<<< HEAD
 공식적으론 총 3개의 이벤트 흐름이 있지만, 두 번째 단계("타깃 단계": 이벤트가 실제 타깃 요소에 전달되는 단계)를 별도로 다루진 않습니다: 캡처링과 버블링 단계의 핸들러는 타깃단계에서 모두 동작합니다.
+=======
+
+Note that while formally there are 3 phases, the 2nd phase ("target phase": the event reached the element) is not handled separately: handlers on both capturing and bubbling phases trigger at that phase.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 아래 예제를 통해 캡처링과 버블링에 대해 살펴보도록 합시다.
 
@@ -179,10 +188,16 @@ elem.addEventListener(..., true)
 
 `<p>` 요소를 클릭하면, 다음과 같은 순서로 이벤트가 전달됩니다:
 
+<<<<<<< HEAD
 1. `HTML` -> `BODY` -> `FORM` -> `DIV` -> `P` (캡처링 단계, 첫 번째 리스너)
 2. `P` -> `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
 
 얼럿 창에 `P`가 두 번 나타났다는 점에 주목해 주시기 바랍니다. `P`의 이벤트 리스너는 캡처링 단계의 마지막과 버블링 단계의 처음에 실행되었습니다. 
+=======
+1. `HTML` -> `BODY` -> `FORM` -> `DIV` (capturing phase, the first listener):
+2. `P` (target phrase, triggers two times, as we've set two listeners: capturing and bubbling)
+3. `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 `event.eventPhase` 프로퍼티를 이용하면 현재 발생 중인 이벤트 흐름의 단계를 알 수 있습니다(역주: 반환하는 정숫값에 따라 이벤트 흐름의 현재 실행 단계를 구분함). 하지만 핸들러를 통해 흐름 단계를 알 수 있기 때문에 이 프로퍼티는 자주 사용되지 않습니다.
 
@@ -190,6 +205,7 @@ elem.addEventListener(..., true)
 `addEventListener(..., true)`로 핸들러를 할당해 줬다면, 핸들러를 지울 때, `removeEventListener(..., true)`를 사용해 지워야 합니다. 같은 단계에 있어야 핸들러가 지워집니다.
 ```
 
+<<<<<<< HEAD
 ## 요약
 
 이벤트 핸들링 프로세스는 다음과 같습니다:
@@ -197,12 +213,37 @@ elem.addEventListener(..., true)
 - 이벤트가 발생하면, 가장 안쪽에 위치한 요소는 "타깃 요소"(`event.target`)가 됨.
 - 이벤트는 document 에서 시작해 DOM 트리를 따라 `event.target`까지 내려감. 이때, 트리 내 요소에 `addEventListener(...., true)`가 있어 핸들러가 할당된 경우, 해당 핸들러가 동작함(`true`는 `{capture: true}`를 짧게 표기한 것임).
 - 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달됨. 이 때, `on<event>`과 세 번째 인수가 없거나 `false`인 `addEventListener`로 할당한 핸들러가 동작함.
+=======
+````smart header="Listeners on same element and same phase run in their set order"
+If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+
+```js
+elem.addEventListener("click", e => alert(1)); // guaranteed to trigger first
+elem.addEventListener("click", e => alert(2));
+```
+````
+
+
+## Summary
+
+When an event happens -- the most nested element where it happens gets labeled as the "target element" (`event.target`).
+
+- Then the event moves down from the document root to `event.target`, calling handlers assigned with `addEventListener(...., true)` on the way (`true` is a shorthand for `{capture: true}`).
+- Then handlers are called on the target element itself.
+- Then the event bubbles up from `event.target` up to the root, calling handlers assigned using `on<event>` and `addEventListener` without the 3rd argument or with the 3rd argument `false/{capture:false}`.
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 각 핸들러는 아래와 같은 `이벤트` 객체의 프로퍼티에 접근할 수 있습니다:
 
+<<<<<<< HEAD
 - `event.target` -- 이벤트가 발생한 가장 안쪽의 요소
 - `event.currentTarget` (=`this`) -- 이벤트를 핸들링 하는 현재 요소 (핸들러가 실제 할당된 요소)
 - `event.eventPhase` -- 현재 이벤트 흐름 단계 (캡처링=1, 버블링=3).
+=======
+- `event.target` -- the deepest element that originated the event.
+- `event.currentTarget` (=`this`) -- the current element that handles the event (the one that has the handler on it)
+- `event.eventPhase` -- the current phase (capturing=1, target=2, bubbling=3).
+>>>>>>> 5e9eca374f644ea85c7d548bbe344fd30e5fb89d
 
 핸들러에서 `event.stopPropagation()`을 사용해 이벤트 캡처링이나 버블링을 멈추게 할 수 있습니다. 다만, 이 방법은 추천하지 않습니다. 지금은 상위 요소에서 이벤트가 어떻게 쓰일지 확실치 않더라도, 추후에 버블링이 필요한 경우가 생기기 때문입니다. 
 
