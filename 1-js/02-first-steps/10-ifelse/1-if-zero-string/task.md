@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# if (a string with zero)
+# if와 문자열 0
 
-Will `alert` be shown?
+아래 코드에서 `alert`는 실행될까요?
 
 ```js
 if ("0") {
