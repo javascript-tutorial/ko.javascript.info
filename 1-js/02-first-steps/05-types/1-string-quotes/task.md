@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# String quotes
+# 문자열 따옴표
 
-What is the output of the script?
+아래 스크립트의 결과를 예측해 보세요.
 
 ```js
 let name = "Ilya";
