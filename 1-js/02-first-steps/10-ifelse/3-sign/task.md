@@ -2,14 +2,14 @@ importance: 2
 
 ---
 
-# Show the sign
+# 입력받은 숫자의 부호 표시하기
 
-Using `if..else`, write the code which gets a number via `prompt` and then shows in `alert`:
+`if..else`와 `프롬프트 대화상자`를 사용해 사용자로부터 숫자 하나를 입력받고, 아래 조건에 따라 그 결과를 `alert` 창에 출력해 보세요.  
 
-- `1`, if the value is greater than zero,
-- `-1`, if less than zero,
-- `0`, if equals zero.
+- 입력받은 숫자가 0보다 큰 경우 `1`을 출력
+- 입력받은 숫자가 0보다 작은 경우 `-1`을 출력
+- 입력받은 숫자가 0인 경우 `0`을 출력
 
-In this task we assume that the input is always a number.
+(사용자는 항상 숫자를 입력한다고 가정)
 
 [demo src="if_sign"]
