@@ -1,27 +1,27 @@
 # 쿠키와 document.cookie
 
-쿠키는 브라우저에 저장되는 작은 크기의 문자열입니다. 쿠키는 자바스크립트에서만 쓰이는 기술은 아닙니다. [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세서에 정의된 HTTP 프로토콜의 일부입니다.
+쿠키는 브라우저에 저장되는 작은 크기의 문자열로, [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세에서 정의한 HTTP 프로토콜의 일부입니다.
 
-Cookies are usually set by a web-server using response `Set-Cookie` HTTP-header. Then the browser automatically adds them to (almost) every request to the same domain using `Cookie` HTTP-header.
+쿠키의 생성 주체는 주로 웹 서버입니다. 서버가 HTTP 응답 헤더(header)의 `Set-Cookie`에 내용을 넣어 전달하면, 브라우저는 이 내용를 자체적으로 브라우저에 저장합니다. 이후, 사용자가 쿠키를 생성하도록 한 동일 서버(사이트)에 접속할 때마다 브라우저는 쿠키의 내용을 `Cookie` 요청 헤더에 넣어서 함께 전달합니다. 
 
-인증은 쿠키의 주요 사용처 중 하나입니다:
+쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
-1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
-2. Next time when the request is set to the same domain, the browser sends the over the net using `Cookie` HTTP-header.
-3. So the server knows who made the request.
+1. 사용자가 로그인하면, 서버는 HTTP 응답 헤더의 `Set-Cookie`에 "세션 ID(session identifier)" 정보를 담아 브라우저에 전달합니다.
+2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고유값(세션 ID)을 담아 서버에 요청을 보냅니다.
+4. 서버는 브라우저가 보낸 요청헤더의 세션ID를 읽어 사용자를 식별합니다.
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
-쿠키와 쿠키의 옵션은 다루기 힘들 때가 많습니다. 이 챕터에선 이에 대해 자세히 알아보도록 하겠습니다.
+쿠키와 다양한 쿠키의 옵션을 다루는 일은 쉽지 않습니다. 이 챕터에선 이에 대해 자세히 알아보도록 하겠습니다.
 
-## document.cookie 에서 정보 읽기
+## document.cookie를 이용해 쿠키 정보 읽기
 
 ```online
-Does your browser store any cookies from this site? Let's see:
+지금 보고 있는 이 사이트와 관련된 쿠키가 브라우저에 저장되어있는지 알아봅시다.
 ```
 
 ```offline
-Assuming you're on a website, it's possible to see the cookies from it, like this:
+현재 보고있는 웹사이트와 관련된 쿠키는 아래와 같은 방법을 통해 볼 수 있습니다.
 ```
 
 ```js run
@@ -31,32 +31,31 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 ```
 
 
-`document.cookie`의 값은 `name=value`의 짝으로 구성되어 있고, `; ` 로 구분됩니다. 하나의 짝은 하나의 독립된 쿠키입니다.
-`document.cookie`의 값은 `name=value`의 짝으로 구성되어 있고, delimited by `; `. Each one is a separate cookie.
+`document.cookie`는 `name=value`쌍으로 구성되어있고, `;`로 각 쌍을 구분합니다. 이때, 쌍 하나는 하나의 독립된 쿠키를 나타냅니다.
 
-`; `을 기준으로 `document.cookie`를 분리하면 특정 쿠키를 찾을 수 있습니다. 분리엔 정규 표현식이나 배열 함수를 이용할 수 있습니다.
+`;`을 기준으로 `document.cookie`의 값을 분리하면 원하는 쿠키를 찾을 수 있습니다. 정규 표현식이나 배열 관련 함수를 함께 사용해서 말이죠.
 
-이에 관한 연습문제 몇 개를 아래에서 풀어보길 권유합니다. 챕터 끝에서 쿠키 조작에 쓰이는 몇 가지 헬퍼 함수를 찾아볼 수 있을 겁니다. 
+이에 관한 연습문제 몇 개를 아래에서 풀어보길 권유합니다. 챕터 끝에 쿠키 조작에 쓰이는 몇 가지 헬퍼(도우미) 함수를 명시해 놓았으니, 이를 참고하셔도 좋습니다.
 
-## document.cookie 에 쓰기
+## document.cookie에 쿠키 정보 쓰기
 
-We can write to `document.cookie`. But it's not a data property, it's an accessor. An assignment to it is treated specially.
+`document.cookie`에 직접 값을 쓸수 있습니다. 이 때 cookie는 데이터 프로퍼티가 아닌 접근자(accessor) 프로퍼티입니다. 앞서 학습한 바와 같이 접근자 프로퍼티에 값을 할당하는 것은, 데이터 프로퍼티에 값을 할당하는 것과는 조금 다르게 처리됩니다.
 
-**브라우저는 `document.cookie`에 넣은 값을 받아서 해당 쿠키를 갱신합니다. 이 때, 명시된 쿠키만 갱신하고, 다른 쿠키엔 영향을 주지 않습니다.**
+**브라우저는 `document.cookie`에 할당한 값을 받아서 해당 쿠키를 갱신합니다. 이 때, 브라우저는 명시된 쿠키만 갱신하고, 다른 쿠키의 값은 변경하지 않습니다.**
 
-아래와 같이 코드를 작성하면 이름이 `user`인 쿠키를 찾아 그 값을 `John`으로 갱신합니다:
+아래와 같이 코드를 작성하면 이름이 `user`인 쿠키를 찾아 그 값을 `John`으로 갱신합니다.
 
 ```js run
 document.cookie = "user=John"; // 이름이 'user'인 쿠키의 값만 갱신함 
 alert(document.cookie); // 모든 쿠키 보여주기
 ```
 
-위 코드를 실행하면 여러개의 쿠키가 출력되는걸 볼 수 있습니다. `document.cookie=` 연산은 코든 쿠키를 덮어쓰지 않고, 명시된 쿠키인 `user`의 값만 갱신합니다. 
+위 코드를 실행하면 여러개의 쿠키가 출력되는걸 볼 수 있습니다. `document.cookie=` 연산은 모든 쿠키를 덮어쓰지 않고, 명시된 쿠키인 `user`의 값만 갱신한 것을 알 수 있습니다.
 
-기술적으로 쿠키의 이름과 값엔 모든 글자가 허용됩니만, 반드시 내장된 `encodeURIComponent` 함수를 사용하여 이스케이프 처리 해줘야 합니다. 형식의 유효성을 위해서 말이죠.
+쿠키의 이름과 값엔 특별한 제약이 있는것은 아닙니다. 모든 글자가 허용되죠. 하지만 형식의 유효성을 일관성있게 유지하려면 반드시 내장 함수 `encodeURIComponent`를 사용하여 이스케이프 처리 해줘야 합니다.
 
 ```js run
-// 특수 값은 인코딩 처리해 줘야 함
+// 특수 값은 인코딩 처리해 줘야 합니다.
 let name = "my name";
 let value = "John Smith"
 
@@ -68,14 +67,14 @@ alert(document.cookie); // ...; my%20name=John%20Smith
 
 
 ```warn header="제한 사항"
-쿠키엔 몇 가지 제한 사항이 있습니다:
-- `encodeURIComponent`로 인코딩한 이후에 `name=value` 쌍은 4kb를 넘을 수 없습니다. 이를 넘는 긴 문자열은 쿠키에 저장할 수 없습니다.
+쿠키엔 몇 가지 제한 사항이 있습니다.
+- `encodeURIComponent`로 인코딩한 이후의 `name=value` 쌍은 4kb를 넘을 수 없습니다. 이를 넘는 긴 문자열은 쿠키에 저장할 수 없습니다.
 - 도메인 하나당 저장할 수 있는 쿠키의 개수는 20여개 정도로 한정되어 있습니다. 브라우저에 따라 개수는 조금씩 다릅니다.
 ```
 
-쿠키엔 몇 가지 옵션이 있습니다. 대다수의 옵션은 아주 중요하고, 꼭 지정해 줘야 합니다.
+쿠키엔 몇 가지 옵션이 있습니다. 몇몇 옵션은 아주 중요하기 때문에 꼭 지정해 줘야 합니다.
 
-옵션은 `key=value` 뒤에 나열 하고, `;`로 구분합니다. 아래와 같이 말이죠:
+옵션은 `key=value` 뒤에 나열 하고, `;`로 구분합니다. 아래와 같이 말이죠.
 
 ```js run
 document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
@@ -87,7 +86,7 @@ document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 
 The url path prefix, the cookie will be accessible for pages under that path. Must be absolute. By default, it's the current path.
 
-만약 `path=/admin`로 설정되었다면, `/admin` 과 `/admin/something`에선 쿠키를 볼 수 있지만, `/home` 이나 `/adminpage`에선 쿠키를 볼 수 없습니다.
+만약 쿠키가 `path=/admin`에서 설정되었다면 `/admin`과 `/admin/something`에선 쿠키를 볼 수 있지만, `/home` 이나 `/adminpage`에선 쿠키를 볼 수 없습니다.
 
 Usually, we should set `path` to the root: `path=/` to make the cookie accessible from all website pages.
 
@@ -95,11 +94,11 @@ Usually, we should set `path` to the root: `path=/` to make the cookie accessibl
 
 - **`domain=site.com`**
 
-쿠키에 접근 가능한 domain(도메인)을 지정합니다. 다만, 몇 가지 제약이 있어서, 아무 도메인이나 지정할 수 없습니다. 
+쿠키에 접근 가능한 domain(도메인)을 지정합니다. 다만, 몇 가지 제약이 있어서 아무 도메인이나 지정할 수 없습니다. 
 
-아무 값도 넣지 않았다면, 쿠키를 설정한 도메인에서만 쿠키에 접근할 수 있습니다. `site.com`에서 설정한 쿠키 정보는 `other.com`에서 얻을 수 없습니다.
+`domain`옵션에 아무 값도 넣지 않았다면, 쿠키를 설정한 도메인에서만 쿠키에 접근할 수 있습니다. `site.com`에서 설정한 쿠키는 `other.com`에서 얻을 수 없죠.
 
-서브 도메인(subdomain)인 `forum.site.com`에서도 쿠키 정보를 얻을 수 없습니다! 까다로운 제약사항입니다.
+서브 도메인(subdomain)인 `forum.site.com`에서도 마찬가지로 쿠키 정보를 얻을 수 없습니다. 까다로운 제약사항입니다.
 
 ```js
 // at site.com
@@ -185,7 +184,7 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
-`samesite`는 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막기 위해 만들어진 보안 속성입니다.
+또 다른 보안 옵션도 있습니다. `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막을 때 사용합니다.
 
 아래 XSRF 공격 시나리오를 통해 이 속성의 동작 방식, 언제 이 속성이 유용한지에 대해 알아보도록 합시다.
 
