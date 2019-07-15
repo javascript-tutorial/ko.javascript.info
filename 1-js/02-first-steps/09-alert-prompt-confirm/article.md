@@ -30,7 +30,11 @@ alert("Hello");
 result = prompt(title, [default]);
 ```
 
+<<<<<<< HEAD
 이 함수는 텍스트 메시지와 입력 필드(input field), 확인(OK) 및 취소(Cancel) 버튼이 있는 모달 창을 띄워줍니다.
+=======
+It shows a modal window with a text message, an input field for the visitor, and the buttons OK/Cancel.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 `title`
 : 사용자에게 보여줄 문자열.
@@ -38,7 +42,11 @@ result = prompt(title, [default]);
 `default`
 : 입력 필드의 초깃값(선택사항). 
 
+<<<<<<< HEAD
 사용자는 프롬프트 대화상자의 입력 필드에 원하는 값을 입력하고 확인을 누를 수 있습니다. 값을 입력하길 원하지 않는 경우는 취소(Cancel) 버튼을 누르거나 `key:Esc` 키를 눌러 대화상자를 빠져나갈 수 있습니다.
+=======
+The visitor may type something in the prompt input field and press OK. Or they can cancel the input by pressing Cancel or hitting the `key:Esc` key.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 `prompt` 함수는 사용자가 입력 필드에 기재한 문자열을 반환합니다. 사용자가 입력을 취소한 경우는 `null`이 반환됩니다.
 
@@ -74,7 +82,11 @@ let test = prompt("Test", ''); // <-- IE 사용자를 위한 매개변수 처리
 result = confirm(question);
 ```
 
+<<<<<<< HEAD
 `confirm` 함수는 매개변수로 받은 `question(질문)`과 확인 및 취소 버튼이 있는 모달 창을 보여줍니다.
+=======
+The function `confirm` shows a modal window with a `question` and two buttons: OK and Cancel.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 사용자가 확인버튼를 누르면 `true`, 그 외의 경우는 `false`를 반환합니다.
 
@@ -94,10 +106,17 @@ alert( isBoss ); // 확인 버튼을 눌렀다면 true가 출력됩니다.
 : 얼럿창은 메시지를 보여주는 용도로 사용됩니다.
 
 `prompt`
+<<<<<<< HEAD
 : 프롬프트 대화상자는 사용자에게 텍스트를 입력하라는 메시지를 띄워줌과 동시에, 입력 필드를 함께 제공합니다. 확인을 누르면 `prompt` 함수는 사용자가 입력한 문자열을 반환하고, 취소 또는 `key:Esc` 키를 누르면 `null`을 반환합니다.  
 
 `confirm`
 : 컨펌 대화상자는 메시지를 띄워줍니다. 사용자가 확인 또는 취소 버튼을 누를 때까지 창은 그대로 떠 있습니다. `confirm` 함수는 사용자가 확인 버튼을 누르면 `true`를, 취소 버튼이나 `key:Esc` 키를 누르면 `false`를 반환합니다. 
+=======
+: shows a message asking the user to input text. It returns the text or, if Cancel button or `key:Esc` is clicked, `null`.
+
+`confirm`
+: shows a message and waits for the user to press "OK" or "Cancel". It returns `true` for OK and `false` for Cancel/`key:Esc`.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 위 함수들은 모두 모달 창을 띄워주는데, 모달 창이 떠 있는 동안은 스크립트의 실행이 일시 중단됩니다. 사용자가 창을 닫기 전까진 나머지 페이지와 상호 작용이 불가능합니다.
 

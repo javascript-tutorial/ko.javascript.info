@@ -34,7 +34,7 @@ Even more, we can customize that behavior.
 
 We can add a special static getter `Symbol.species` to the class. If exists, it should return the constructor that JavaScript will use internally to create new entities in `map`, `filter` and so on.
 
-If we'd like built-in methods like `map`, `filter` will return regular arrays, we can return `Array` in `Symbol.species`, like here:
+If we'd like built-in methods like `map` or `filter` to return regular arrays, we can return `Array` in `Symbol.species`, like here:
 
 ```js run
 class PowerArray extends Array {
@@ -79,7 +79,7 @@ So, if `Rabbit extends Animal`, then:
 
 That's thoroughly explained in the chapter [](info:static-properties-methods#statics-and-inheritance).
 
-But built-in classes are an exception. They don't inherit statics `(1)` from each other.
+But built-in classes are an exception. They don't inherit statics from each other.
 
 For example, both `Array` and `Date` inherit from `Object`, so their instances have methods from `Object.prototype`. But  `Array.[[Prototype]]` does not point to `Object`. So there's `Object.keys()`, but not `Array.keys()` and `Date.keys()`.
 

@@ -4,7 +4,11 @@
 개발하는 애플리케이션의 크기가 커질수록 파일을 여러 개로 쪼개야 할 필요가 생깁니다. 이 때 쪼개진 파일 각각을 '모듈'이라고 부릅니다.
 모듈은 대게 클래스 하나 혹은 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.
 
+<<<<<<< HEAD
 자바스크립트 생태계는 오랫동안 언어 수준에서 지원하는 모듈 관련 문법 없이 성장해 왔습니다. 이 점이 문제가 되진 않았습니다. 초기 스크립트는 크기도 작고 간단했기 때문이죠. 그래서 모듈의 필요성이 대두되지 않았습니다.  
+=======
+For a long time, JavaScript existed without a language-level module syntax. That wasn't a problem, because initially scripts were small and simple, so there was no need.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 하지만 스크립트의 크기가 점차 커지고 복잡해지기 시작하자, 자바스크립트 커뮤니티는 모듈이라는 개념을 도입해 코드를 체계화하려는 여러 가지 시도를 하게 됩니다. 필요할 때마다 언제든지 모듈을 로드해 주는 특별한 라이브러리를 사용해서 말이죠.
 
@@ -296,7 +300,11 @@ async 속성(`<script async type="module">`)은 인라인 스크립트와 외부
     <script type="module" src="my.js"></script>
     ```
 
+<<<<<<< HEAD
 2. 다른 도메인에서 모듈 스크립트를 불러오려면 [CORS](mdn:Web/HTTP/CORS) 헤더가 필요합니다. 외부 모듈이 저장되어있는 원격 서버가 페치를 허용함을 나타내는 `Access-Control-Allow-Origin: *` 헤더(`*` 대신 페치를 허용할 도메인을 명시할 수도 있음)를 지원해야만 외부 모듈을 불러올 수 있습니다.
+=======
+2. External scripts that are fetched from another origin (e.g. another site) require [CORS](mdn:Web/HTTP/CORS) headers, as described in the chapter <info:fetch-crossorigin>. In other words, if a module script is fetched from another origin, the remote server must supply a header `Access-Control-Allow-Origin: *` (may use site domain instead of `*`) to indicate that the fetch is allowed.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
     ```html
     <!-- another-site.com이 Access-Control-Allow-Origin을 지원해야만 외부 모듈을 불러올 수 있습니다.-->
     <!-- 그렇지 않은 경우, 스크립트는 실행되지 않습니다.-->

@@ -2,9 +2,17 @@
 
 `객체`와 `배열`은 자바스크립트에서 가장 많이 쓰이는 자료 구조입니다.
 
+<<<<<<< HEAD
 객체를 이용하면 다양한 정보 조각을 하나의 엔티티에 넣을 수 있습니다. 배열은 순서가 있는 컬렉션을 저장할 수 있게 해줍니다. 이렇게 객체와 배열을 이용하면 다양한 데이터를 하나의 개체(entity)로 다룰 수 있고, 개체에 저장된 정보를 함수의 매개변수로 전달해 줄 수도 있습니다.
 
 *구조 분해 할당(destructuring assignment)* 은 객체나 배열을 변수로 "분해"할 수 있게 해주는 유용한 문법입니다. 매개변수가 많고, 매개변수 기본값(default values)도 설정해 줘야 하는 복잡한 함수에서 그 진가를 발휘합니다. 이 용례는 뒤에서 살펴보도록 하겠습니다.
+=======
+Objects allow us to create a single entity that stores data items by key, and arrays allow us to gather data items into an ordered collection.
+
+But when we pass those to a function, it may need not an object/array as a whole, but rather individual pieces.
+
+*Destructuring assignment* is a special syntax that allows us to "unpack" arrays or objects into a bunch of variables, as sometimes that's more convenient. Destructuring also works great with complex functions that have a lot of parameters, default values, and so on.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 ## 배열 분해하기
 
@@ -15,7 +23,13 @@
 let arr = ["Ilya", "Kantor"]
 
 *!*
+<<<<<<< HEAD
 // 구조 분해 할당
+=======
+// destructuring assignment
+// sets firstName = arr[0]
+// and surname = arr[1]
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 let [firstName, surname] = arr;
 */!*
 
@@ -54,7 +68,11 @@ let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic
 alert( title ); // Consul
 ```
 
+<<<<<<< HEAD
 위 코드에서 두 번째 요소는 걸러졌지만, 세 번째 요소는 `title`이라는 변수에 저장된 것을 확인할 수 있습니다. 그 이외 요소도 역시 걸러졌습니다.
+=======
+In the code above, the second element of the array is skipped, the third one is assigned to `title`, and the rest of the array items is also skipped (as there are no variables for them).
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ````
 
 ````smart header="우측엔 모든 이터러이 올 수 있습니다."
@@ -111,7 +129,7 @@ user.set("name", "John");
 user.set("age", "30");
 
 *!*
-for (let [key, value] of user.entries()) {
+for (let [key, value] of user) {
 */!*
   alert(`${key}:${value}`); // name:John, then age:30
 }
@@ -209,7 +227,11 @@ alert(height); // 200
 프로퍼티 `options.title`, `options.width`, `options.height`는 상응하는 변수에 할당되었습니다. 이때, 순서는 중요하지 않습니다. 아래 코드는 위 코드와 동일하게 동작합니다. 
 
 ```js
+<<<<<<< HEAD
 // let {...} 안의 프로퍼티 순서가 변경됨
+=======
+// changed the order in let {...}
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 let {height, width, title} = { title: "Menu", height: 200, width: 100 }
 ```
 
@@ -270,7 +292,11 @@ let {width = prompt("width?"), title = prompt("title?")} = options;
 */!*
 
 alert(title);  // Menu
+<<<<<<< HEAD
 alert(width);  // prompt로부터 받아온 값
+=======
+alert(width);  // (whatever the result of prompt is)
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ```
 
 콜론과 등호를 동시에 사용하여 패턴을 만들 수도 있습니다.
@@ -289,11 +315,19 @@ alert(w);      // 100
 alert(h);      // 200
 ```
 
+<<<<<<< HEAD
 ### 나머지 연산자
+=======
+### The rest pattern "..."
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 만약 분해하려는 객체의 프로퍼티 개수가 할당하려는 변수의 개수보다 많다면 어떨까요? "나머지"를 어딘가에 할당하면 좋지 않겠냐는 라는 생각이 들지 않으시나요?
 
+<<<<<<< HEAD
 세 개의 점으로 만들 수 있는 나머지 연산자(rest operator)는 이를 가능하게 해줍니다. 나머지 연산자에 대한 명세는 거의 표준으로 채택되기 직전이지만, 아직 대부분의 브라우저는 이를 지원하지 않습니다.
+=======
+We can use the rest pattern, just like we did with arrays. It's not supported by some older browsers (IE, use Babel to polyfill it), but works in modern ones.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 나머지 연산자는 아래와 같이 생겼습니다.
 
@@ -305,6 +339,8 @@ let options = {
 };
 
 *!*
+// title = property named title
+// rest = object with the rest of properties
 let {title, ...rest} = options;
 */!*
 
@@ -315,8 +351,13 @@ alert(rest.width);   // 100
 
 
 
+<<<<<<< HEAD
 ````smart header="`let` 없이 사용하기"
 위 예제에서 변수는 할당 `let {…} = {…}` 바로 직전에 선언되었습니다. 물론, 이미 존재하는 변수를 사용할 수도 있습니다. 다만, 주의할 점이 있습니다.
+=======
+````smart header="Gotcha if there's no `let`"
+In the examples above variables were declared right in the assignment: `let {…} = {…}`. Of course, we could use existing variables too, without `let`. But there's a catch.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 아래 코드는 동작하지 않습니다.
 ```js run
@@ -337,13 +378,22 @@ let title, width, height;
 }
 ```
 
+<<<<<<< HEAD
 자바스크립트가 이를 코드 블록으로 해석하지 않도록 하게 하려면, 모든 할당문을 괄호`(...)`로 감싸주면 됩니다.
+=======
+To show JavaScript that it's not a code block, we can make it a part of an expression by wrapping in parentheses `(...)`:
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 ```js run
 let title, width, height;
 
+<<<<<<< HEAD
 // 에러가 발생하지 않습니다.
 *!*(*/!*{title, width, height} = {title: "Menu", width: 200, height: 100}*!*)*/!*;
+=======
+// okay now
+*!*(*/!*{title, width, height}*!*)*/!* = {title: "Menu", width: 200, height: 100};
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 alert( title ); // Menu
 ```
@@ -367,7 +417,11 @@ let options = {
   extra: true    // 분해의 대상이 아닌 기타 요소
 };
 
+<<<<<<< HEAD
 // 명료성을 위해 여러 줄에 거쳐 구조 분해 할당함
+=======
+// destructuring assignment split in multiple lines for clarity
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 let {
   size: { // size는 여기,
     width,
@@ -392,9 +446,14 @@ alert(item2);  // Donut
 
 변수 `width`, `height`, `item1`, `item2`에 값이 저장되었습니다. 변수 `title`은 기본값을 통해 그 값을 할당받았습니다.
 
+<<<<<<< HEAD
 이렇게 객체 프로퍼티 일부에만 구조분해 할당을 적용하는 것은 꽤 자주 있는 일입니다. 프로퍼티가 많은 복잡한 객체에서 일부 필요한 프로퍼티만 사용하고 싶을 때가 있기 때문입니다.  
 
 아래의 경우도 발생할 수 있습니다.
+=======
+If we have a complex object with many properties, we can extract only what we need:
+
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ```js
 // size만 변수에 할당하고 나머지 프로퍼티들은 전부 무시함
 let { size } = options;
@@ -402,7 +461,11 @@ let { size } = options;
 
 ## 똑똑한 함수 매개변수
 
+<<<<<<< HEAD
 함수에 꽤 많은 매개변수가 있을 때가 있습니다. 대부분의 매개변수는 선택적으로 쓰이면서 말이죠. 사용자 인터페이스에 관한 함수에서 이런 상황을 자주 볼 수 있습니다. 메뉴를 만들어주는 함수가 있다고 가정해 봅시다. 메뉴엔 너비, 높이, 제목, 항목 리스트 등이 필요할 수 있습니다.
+=======
+There are times when a function has many parameters, most of which are optional. That's especially true for user interfaces. Imagine a function that creates a menu. It may have a width, a height, a title, items list and so on.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 아래는 별로 좋지 않은 방법으로 이 함수를 작성한 경우입니다.
 
@@ -504,12 +567,18 @@ showMenu(); // Menu 100 200
 - 구조 분해 할당을 사용하면 객체나 배열을 변수로 매핑할 수 있습니다.
 - 객체 분해하기:
     ```js
-    let {prop : varName = default, ...} = object
+    let {prop : varName = default, ...rest} = object
     ```
 
     객체 object의 프로퍼티 `prop`은 변수 `varName`으로 매핑되고, 만약 객체에 이 프로퍼티가 없는 경우엔 `default` 값이 쓰입니다.
 
+<<<<<<< HEAD
 - 배열 분해하기:
+=======
+    Object properties that have no mapping are copied to the `rest` object.
+
+- The array syntax:
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
     ```js
     let [item1 = default, item2, ...rest] = array

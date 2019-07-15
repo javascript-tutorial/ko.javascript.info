@@ -25,9 +25,15 @@ if(...) {
 }
 ```
 
+<<<<<<< HEAD
 이렇게 엄격한 문법을 따라야 하는 데는 이유가 있습니다. import/export 문은 코드 구조의 기본적인 골격을 만드는 데 사용되기 때문입니다. 코드 구조를 분석해 모듈을 한데 모아 번들링하고, 사용하지 않는 모듈은 제거(가지치기)해야 하는데, 구조가 고정되어있을 때만 이런 작업이 가능합니다.
 
 그런데 만약 모듈을 동적으로 불러와야 할 필요가 생기면 어떻게 할까요?
+=======
+That's because `import`/`export` aim to provide a backbone for the code structure. That's a good thing, as code structure can be analyzed, modules can be gathered and bundled together, unused exports can be removed ("tree-shaken"). That's possible only because the structure of imports/exports is simple and fixed.
+
+But how can we import a module dynamically, on-demand?
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 ## import() 함수
 
@@ -45,6 +51,7 @@ import(modulePath)
 
 비동기 함수 안에선 `let module = await import(modulePath)`와 같이 사용할 수도 있습니다.
 
+<<<<<<< HEAD
 아래와 같이 말이죠.
 
 [codetabs src="say" current="index.html"]
@@ -52,3 +59,60 @@ import(modulePath)
 이를 이용하면 손쉽게 동적으로 모듈을 가져올 수 있습니다.
 
 동적 import는 일반적인 스크립트 안에 넣을 수 있기 때문에, 모듈 속성 `script type="module"`이 필요하지 않습니다.
+=======
+For instance, if we have the following `say.js`:
+
+```js
+// 📁 say.js
+export function hi() {
+  alert(`Hello`);
+}
+
+export function bye() {
+  alert(`Bye`);
+}
+```
+
+...Then dynamic import can be like this:
+
+```js
+let {hi, bye} = await import('./say.js');
+
+hi();
+bye();
+
+```
+
+Or, for the default export:
+
+```js
+// 📁 say.js
+export default function() {
+  alert("Module loaded (export default)!");
+}
+```
+
+To import it, we need to get `default` property of the module object, as explained in the [previous chapter](info:import-export).
+
+So, the dynamic import will be like this:
+
+```js
+let {default: say} = await import('./say.js'); // map .default to say variable
+
+say();
+```
+
+Here's the full example:
+
+[codetabs src="say" current="index.html"]
+
+So, dynamic imports are very simple to use, and they allow to import modules at run-time.
+
+Also, dynamic imports work in regular scripts, they don't require `script type="module"`.
+
+```smart
+Although `import()` looks like a function call, it's a special syntax that just happens to use parentheses (similar to `super()`).
+
+That means that import doesn't inherit from `Function.prototype` so we cannot call or apply it.
+```
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7

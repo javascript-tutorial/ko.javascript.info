@@ -155,10 +155,10 @@ ball.onmousedown = function(event) {
     moveAt(event.pageX, event.pageY);
   }
 
-  // (3) move the ball on mousemove
+  // move the ball on mousemove
   document.addEventListener('mousemove', onMouseMove);
 
-  // (4) drop the ball, remove unneeded handlers
+  // drop the ball, remove unneeded handlers
   ball.onmouseup = function() {
     document.removeEventListener('mousemove', onMouseMove);
     ball.onmouseup = null;
@@ -183,7 +183,7 @@ The difference is especially noticeable if we drag the ball by its right-bottom 
 
 In previous examples the ball could be dropped just "anywhere" to stay. In real-life we usually take one element and drop it onto another. For instance, a file into a folder, or a user into a trash can or whatever.
 
-Abstractly, we take a "draggable" element and drop it onto "droppable" element.
+In other words, we take a "draggable" element and drop it onto "droppable" element.
 
 We need to know where the element was dropped at the end of Drag'n'Drop -- to do the corresponding action, and, preferably, know the droppable we're dragging over, to highlight it.
 
@@ -210,7 +210,7 @@ For instance, below are two `<div>` elements, red on top of blue. There's no way
 <div style="background:red" onmouseover="alert('over red!')"></div>
 ```
 
-The same with a draggable element. The ball in always on top over other elements, so events happen on it. Whatever handlers we set on lower elements, they won't work.
+The same with a draggable element. The ball is always on top over other elements, so events happen on it. Whatever handlers we set on lower elements, they won't work.
 
 That's why the initial idea to put handlers on potential droppables doesn't work in practice. They won't run.
 
@@ -254,7 +254,7 @@ function onMouseMove(event) {
   if (currentDroppable != droppableBelow) { // if there are any changes
     // we're flying in or out...
     // note: both values can be null
-    //   currentDroppable=null if we were not over a droppable (e.g over an empty space)
+    //   currentDroppable=null if we were not over a droppable before this event (e.g over an empty space)
     //   droppableBelow=null if we're not over a droppable now, during this event
 
     if (currentDroppable) {
@@ -274,11 +274,11 @@ In the example below when the ball is dragged over the soccer gate, the gate is 
 
 [codetabs height=250 src="ball4"]
 
-Now we have the current "drop target" in the variable `currentDroppable` during the whole process and can use it to highlight or any other stuff.
+Now we have the current "drop target", that we're flying over, in the variable `currentDroppable` during the whole process and can use it to highlight or any other stuff.
 
 ## Summary
 
-We considered a basic `Drag'n'Drop` algorithm.
+We considered a basic Drag'n'Drop algorithm.
 
 The key components:
 

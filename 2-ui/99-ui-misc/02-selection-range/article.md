@@ -4,7 +4,11 @@ libs:
 
 ---
 
+<<<<<<< HEAD
 # Text Selection and Range
+=======
+# Selection and Range
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 In this chapter we'll cover text selection.
 
@@ -70,7 +74,11 @@ let selectPDomtree = {
 drawHtmlTree(selectPDomtree, 'div.select-p-domtree', 690, 320);
 </script>
 
+<<<<<<< HEAD
 Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>`:
+=======
+Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>` (counting text nodes):
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 ![](range-example-p-0-1.png)
 
@@ -94,7 +102,11 @@ Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>`:
 ```
 
 - `range.setStart(p, 0)` -- sets the start at the 0th child of `<p>` (that's a text node `"Example: "`).
+<<<<<<< HEAD
 - `range.setEnd(p, 2)` -- spans the range up to (but not including) 2nd child of `<p>` (that's a text node `" and "`, but as the end is not included, the last selected node is `<i>`).
+=======
+- `range.setEnd(p, 2)` -- spans the range up to (but not including) 2nd child of `<p>` (that's a text node `" and "`, but as the end is not included, so the last selected node is `<i>`).
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 Here's a more flexible test stand where you try more variants:
 
@@ -541,6 +553,16 @@ To make something unselectable, there are three ways:
 
 3. We can also clear the selection post-factum after it happens with `document.getSelection().empty()`. That's rarely used, as this causes unwanted blinking as the selection appears-disappears.
 
+<<<<<<< HEAD
+=======
+## References
+
+- [DOM spec: Range](https://dom.spec.whatwg.org/#ranges)
+- [Selection API](https://www.w3.org/TR/selection-api/#dom-globaleventhandlers-onselectstart)
+- [HTML spec: APIs for the text control selections](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#textFieldSelection)
+
+
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ## Summary
 
 We covered two different APIs for selections:

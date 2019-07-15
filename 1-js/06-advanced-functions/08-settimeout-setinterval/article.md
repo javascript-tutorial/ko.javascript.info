@@ -7,8 +7,11 @@
 - `setTimeout`은 일정 시간이 지난 후에 함수를 실행합니다.
 - `setInterval`은 일정 시간 간격으로 함수가 실행되도록 합니다.
 
+<<<<<<< HEAD
 이들은 자바스크립트 명세에서 정의된 메서드는 아닙니다. 하지만 대부분의 자바스크립트 실행 환경이 이와 유사한 메서드와 내부 스케줄러를 지원합니다. 모든 종류의 브라우저와 Node.js에도 당연히 이 기능을 지원합니다.  
 
+=======
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ## setTimeout
 
 문법:
@@ -74,7 +77,11 @@ setTimeout(() => alert('Hello'), 1000);
 // 잘못된 코드
 setTimeout(sayHi(), 1000);
 ```
+<<<<<<< HEAD
 `setTimeout`은 함수에 대한 참조값을 인수로 받길 원하는데 `sayHi()`는 함수를 실행하기 때문에 이 코드는 동작하지 않습니다. *함수 실행 결과*가 `setTimeout`에 전달되기 때문입니다. `sayHi()`는 실제 아무런 값도 반환하지 않기 때문에 실행 결과는 `undefined`가 되고, `setTimeout`은 스케줄링할 대상을 갖지 못하게 됩니다.
+=======
+That doesn't work, because `setTimeout` expects a reference to a function. And here `sayHi()` runs the function, and the *result of its execution* is passed to `setTimeout`. In our case the result of `sayHi()` is `undefined` (the function returns nothing), so nothing is scheduled.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ````
 
 ### clearTimeout으로 스케줄링 취소하기
@@ -235,7 +242,11 @@ setTimeout(function() {...}, 100);
 이런 동작 방식에는 부작용이 있습니다. 함수가 외부 렉시컬 환경을 참조하면서 메모리에 남아있으면, 외부 변수도 역시 메모리에 남게됩니다. 이렇게 메모리에 남아있는 외부 변수는 함수가 차지하는 메모리 공간보다 더 많은 메모리를 차지할 가능성이 있습니다. 이런 부작용을 방지하기 위해, 더는 스케줄링할 필요가 없는 함수는 취소하는 게 좋습니다. 작은 함수라도 말이죠.
 ````
 
+<<<<<<< HEAD
 ## 대기 시간이 0인 setTimeout
+=======
+## Zero delay setTimeout
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 대기 시간이 0인 `setTimeout(func, 0)`(또는 `setTimeout(func)`)을 사용하는 특별한 유스 케이스가 있습니다.
 
@@ -251,11 +262,19 @@ setTimeout(() => alert("World"));
 alert("Hello");
 ```
 
+<<<<<<< HEAD
 첫 번째 줄은 "'0ms 후에 함수 호출하기'라는 할 일을 다이어리에 기록"하는 것과 같습니다. 그런데 스케줄러는 현재 코드의 실행이 완료된 이후에 "다이어리에 적힌 할일 목록을 확인"합니다. 따라서 `"Hello"` 가 먼저 출력되고, `"World"`은 그 다음에 출력됩니다.
 
 이렇게 대기시간을 0으로 하는 것에 대한 다양한 브라우저 환경에서의 유스 케이스가 있습니다. 이에 대해선 <info:event-loop>에서 자세히 다루도록 하겠습니다. 
 
 ````smart header="브라우저 환경에서 실제 대기시간은 0이 아닙니다."
+=======
+The first line "puts the call into calendar after 0ms". But the scheduler will only "check the calendar" after the current code is complete, so `"Hello"` is first, and `"World"` -- after it.
+
+There are also advanced browser-related use cases of zero-delay timeout, that we'll discuss in the chapter <info:event-loop>.
+
+````smart header="Zero delay is in fact not zero (in a browser)"
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 In the browser, there's a limitation of how often nested timers can run. The [HTML5 standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers) says: "after five nested timers, the interval is forced to be at least 4 milliseconds.".
 
 Let's demonstrate what it means with the example below. The `setTimeout` call in it re-schedules itself with zero delay. Each call remembers the real time from the previous one in the `times` array. What do the real delays look like? Let's see:
@@ -281,6 +300,7 @@ The similar thing happens if we use `setInterval` instead of `setTimeout`: `setI
 
 That limitation comes from ancient times and many scripts rely on it, so it exists for historical reasons.
 
+<<<<<<< HEAD
 다만, 서버 환경에선 이런 제약이 없습니다. Node.js에선 [process.nextTick](https://nodejs.org/api/process.html)과 [setImmediate](https://nodejs.org/api/timers.html)을 이용해 지연 없이 비동기 작업을 스케줄링할 수 있습니다. 위에서 언급된 제약은 브라우저에 한정됩니다.
 ````
 
@@ -290,13 +310,28 @@ That limitation comes from ancient times and many scripts rely on it, so it exis
 - `setInterval/setTimeout`을 호출해 반환된 값을 `clearInterval/clearTimeout`에 넘겨주면 실행을 취소할 수 있습니다.
 - 중첩 `setTimeout` 호출(재귀 호출)은 융통성 측면에서 `setInterval`보다 더 나은 대안입니다. 실행 *사이 간격*을 보장해 주는 것 또한 이점입니다.
 - 중간 휴식이 없는 `setTimeout(func, 0)`(= `setTimeout(func)`)은 "현재 코드의 실행이 완료된 후 가능한 한 빠르게" 다음 호출을 실행하고자 할 때 사용됩니다.
+=======
+For server-side JavaScript, that limitation does not exist, and there exist other ways to schedule an immediate asynchronous job, like [setImmediate](https://nodejs.org/api/timers.html) for Node.js. So this note is browser-specific.
+````
+
+## Summary
+
+- Methods `setInterval(func, delay, ...args)` and `setTimeout(func, delay, ...args)` allow to run the `func` regularly/once after `delay` milliseconds.
+- To cancel the execution, we should call `clearInterval/clearTimeout` with the value returned by `setInterval/setTimeout`.
+- Nested `setTimeout` calls is a more flexible alternative to `setInterval`. Also they can guarantee the minimal time *between* the executions.
+- Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current code is complete".
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 - The browser limits the minimal delay for five or more nested call of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
 
-Please note that all scheduling methods do not *guarantee* the exact delay. We should not rely on that in the scheduled code.
+Please note that all scheduling methods do not *guarantee* the exact delay. 
 
 다양한 이유 때문에 브라우저 환경에서 타이머가 느려집니다. 몇 가지 예시를 살펴봅시다.
 - CPU가 과부하 상태인 경우
 - 브라우저 탭이 백그라운드 모드인 경우
 - 노트북이 배터리에 의존해서 구동중인 경우
 
+<<<<<<< HEAD
 타이머는 최소 300ms, 심하면 1000ms까지 딜레이될 수 있습니다. 지연 시간은 브라우저와 사용 환경에 따라 달라집니다.
+=======
+All that may increase the minimal timer resolution (the minimal delay) to 300ms or even 1000ms depending on the browser and OS-level performance settings.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7

@@ -2,13 +2,23 @@
 
 쿠키는 브라우저에 저장되는 작은 크기의 문자열로, [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세에서 정의한 HTTP 프로토콜의 일부입니다.
 
+<<<<<<< HEAD
 쿠키의 생성 주체는 주로 웹 서버입니다. 서버가 HTTP 응답 헤더(header)의 `Set-Cookie`에 내용을 넣어 전달하면, 브라우저는 이 내용를 자체적으로 브라우저에 저장합니다. 이후, 사용자가 쿠키를 생성하도록 한 동일 서버(사이트)에 접속할 때마다 브라우저는 쿠키의 내용을 `Cookie` 요청 헤더에 넣어서 함께 전달합니다. 
+=======
+Cookies are usually set by a web-server using response `Set-Cookie` HTTP-header. Then the browser automatically adds them to (almost) every request to the same domain using `Cookie` HTTP-header.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
+<<<<<<< HEAD
 1. 사용자가 로그인하면, 서버는 HTTP 응답 헤더의 `Set-Cookie`에 "세션 ID(session identifier)" 정보를 담아 브라우저에 전달합니다.
 2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고유값(세션 ID)을 담아 서버에 요청을 보냅니다.
 4. 서버는 브라우저가 보낸 요청헤더의 세션ID를 읽어 사용자를 식별합니다.
+=======
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is set to the same domain, the browser sends the over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
@@ -17,11 +27,19 @@
 ## document.cookie를 이용해 쿠키 정보 읽기
 
 ```online
+<<<<<<< HEAD
 지금 보고 있는 이 사이트와 관련된 쿠키가 브라우저에 저장되어있는지 알아봅시다.
 ```
 
 ```offline
 현재 보고있는 웹사이트와 관련된 쿠키는 아래와 같은 방법을 통해 볼 수 있습니다.
+=======
+Does your browser store any cookies from this site? Let's see:
+```
+
+```offline
+Assuming you're on a website, it's possible to see the cookies from it, like this:
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 ```
 
 ```js run
@@ -39,7 +57,11 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 
 ## document.cookie에 쿠키 정보 쓰기
 
+<<<<<<< HEAD
 `document.cookie`에 직접 값을 쓸수 있습니다. 이 때 cookie는 데이터 프로퍼티가 아닌 접근자(accessor) 프로퍼티입니다. 앞서 학습한 바와 같이 접근자 프로퍼티에 값을 할당하는 것은, 데이터 프로퍼티에 값을 할당하는 것과는 조금 다르게 처리됩니다.
+=======
+We can write to `document.cookie`. But it's not a data property, it's an accessor. An assignment to it is treated specially.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 **브라우저는 `document.cookie`에 할당한 값을 받아서 해당 쿠키를 갱신합니다. 이 때, 브라우저는 명시된 쿠키만 갱신하고, 다른 쿠키의 값은 변경하지 않습니다.**
 
@@ -184,9 +206,15 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
+<<<<<<< HEAD
 또 다른 보안 옵션도 있습니다. `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막을 때 사용합니다.
 
 아래 XSRF 공격 시나리오를 통해 이 속성의 동작 방식, 언제 이 속성이 유용한지에 대해 알아보도록 합시다.
+=======
+That's another security attribute `somesite`. It's designed to protect from so-called XSRF (cross-site request forgery) attacks.
+
+To understand how it works and when it's useful, let's take a look at XSRF attacks.
+>>>>>>> be342e50e3a3140014b508437afd940cd0439ab7
 
 ### XSRF 공격
 
