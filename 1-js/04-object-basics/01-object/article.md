@@ -105,7 +105,6 @@ user.likes birds = true
 
 "대괄호 표기법"이라는 대안을 사용하면 키에 모든 문자열을 사용할 수 있습니다.:
 
-
 ```js run
 let user = {};
 
@@ -130,7 +129,7 @@ let key = "likes birds";
 user[key] = true;
 ```
 
-여기서 변수 `key`는 런타임에 계산되거나 사용자 입력값에 따라 변경할 수 있습니다. 프로퍼티에 접근할 때 변경된 key를 사용합니다. 이 방법은 상당한 유연성을 제공합니다. 마침표 표기법으론 이런 방식을 사용할 수 없습니다.
+여기서 변수 `key`는 런타임에 계산되거나 사용자 입력값에 따라 변경할 수 있습니다. 프로퍼티에 접근할 때 변경된 key를 사용합니다. 이 방법은 상당한 유연성을 제공합니다.
 
 예를 들어:
 
@@ -146,6 +145,17 @@ let key = prompt("What do you want to know about the user?", "name");
 alert( user[key] ); // John (if enter "name")
 ```
 
+마침표 표기법은 이런 방식으로 사용할 수 었습니다.
+
+```js run
+let user = {
+  name: "John",
+  age: 30
+};
+
+let key = "name";
+user.key // undefined
+```
 
 ### 계산된 프로퍼티(Computed properties)
 
