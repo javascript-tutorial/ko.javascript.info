@@ -145,7 +145,7 @@ let key = prompt("What do you want to know about the user?", "name");
 alert( user[key] ); // John (if enter "name")
 ```
 
-마침표 표기법은 이런 방식으로 사용할 수 었습니다.
+마침표 표기법은 이런 방식으로 사용할 수 없습니다.
 
 ```js run
 let user = {
@@ -235,6 +235,7 @@ alert(obj.__proto__); // [object Object], 의도한 대로 작동하지 않습�
 사용자는 `__proto__`를 키로 지정할 수도 있는데, 이 할당 로직은 (위에서 봤듯이) 작동하지 않을 것입니다.
 
 객체에서 `__proto__` 프로퍼티를 다루는 방법이 존재하는데, 이에 대해선 추후에 다룰 예정입니다. 그 전에 객체에 대해 더 알아야 할 필요가 있습니다.
+
 문자열 이외에 다른 타입의 키를 지원하는 [Map](info:map-set-weakmap-weakset)이라는 자료구조도 존재하는데, 이에 대해선 <info:map-set-weakmap-weakset>에서 다루도록 하겠습니다.
 ````
 
