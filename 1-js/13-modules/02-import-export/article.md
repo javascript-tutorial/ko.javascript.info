@@ -209,16 +209,32 @@ new User('John');
 export default class { // 클래스 이름이 없음
   constructor() { ... }
 }
+```
 
+<<<<<<< HEAD
 export default function(user) { // 함수 이름이 없음
+=======
+```js
+export default function(user) { // no function name
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
   alert(`Hello, ${user}!`);
 }
+```
 
+<<<<<<< HEAD
 // 이름 없이, 배열 형태의 값 하나를 내보냄
 export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 ```
 
 이렇게 해도 괜찮은 이유는, 파일 하나에 `export default`가 하나만 있기 때문입니다. 다만, named export는 파일 하나에 여러 개 있을 수 있기 때문에, 이름을 생략하면 에러가 납니다.
+=======
+```js
+// export a single value, without making a variable
+export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+```
+
+Not giving a name is fine, because `export default` is only one per file. Contrary to that, omitting a name for named imports would be an error:
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 ```js
 export class { // 에러! (default export가 아닌경우엔 이름이 꼭 필요합니다.)

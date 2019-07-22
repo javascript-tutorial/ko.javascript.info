@@ -38,7 +38,11 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
 - `EventTarget` -- 이벤트와 관련된 일을 합니다(뒤에서 다룰 예정입니다).
 - ... `EventTarget`은 `Object`를 상속받습니다 따라서 `hasOwnProperty`와 같은 순수 객체 관련 메서드를 사용할 수 있습니다.
 
+<<<<<<< HEAD
 DOM 노드 클래스 이름을 확인하려면 객체가 `constructor` 프로퍼티를 가진다는 점을 이용할 수 있습니다. `constructor` 프로퍼티는 클래스 생성자를 참조하고, `constructor.name`을 통해 이름을 알아낼 수 있습니다.
+=======
+To see the DOM node class name, we can recall that an object usually has the `constructor` property. It references the class constructor, and `constructor.name` is its name:
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 ```js run
 alert( document.body.constructor.name ); // HTMLBodyElement
@@ -75,8 +79,13 @@ alert( document.body instanceof EventTarget ); // true
 `document.body`를 통해 그 차이를 직접 확인해보세요.
 ```
 
+<<<<<<< HEAD
 ````smart header="스펙 문서에서 쓰이는 IDL"
 스펙 문서에선 DOM 클래스를 JavaScript가 아닌 이해하기 쉬운 표기법인 [Interface description language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL)을 이용하여 설명합니다. 
+=======
+````smart header="IDL in the spec"
+In the specification, DOM classes aren't described by using JavaScript, but a special [Interface description language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL), that is usually easy to understand.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 IDL은 모든 프로퍼티의 앞에 타입을 붙여서 작성됩니다. `DOMString`과 `boolean` 과 같은 타입이 프로퍼티 앞에 붙게 됩니다.
 
@@ -201,7 +210,11 @@ XML 모드에선 문자가 그대로 유지되는데, 최근엔 거의 사용되
 
 [innerHTML](https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) 프로퍼티를 사용하면 요소 안의 HTML을 문자열로 받아올 수 있습니다.
 
+<<<<<<< HEAD
 요소 안의 HTML을 수정하는 것도 가능합니다. innerHTML은 페이지를 수정하는 데 쓰이는 강력한 방법의 하나입니다.
+=======
+We can also modify it. So it's one of the most powerful ways to change the page.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 아래는 `document.body`안의 내용(contents)을 출력하고 완전히 바꾸는 예시입니다:
 

@@ -106,7 +106,11 @@ drawHtmlTree(node3, 'div.domtree', 690, 150);
 
 DOM 생성과정에서 브라우저는 닫는 태그가 없는 경우와 같은 문서 에러도 자동으로 처리해줍니다.  
 
+<<<<<<< HEAD
 아래와 같이 닫는 태그가 없는 경우가 있다고 가정해 봅시다.   
+=======
+Such document with unclosed tags:
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 ```html no-beautify
 <p>안녕하세요

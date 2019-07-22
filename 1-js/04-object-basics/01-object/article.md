@@ -49,7 +49,11 @@ let user = {     // 객체
 마침표 표기법을 이용하면 프로퍼티 값에 접근할 수 있습니다.:
 
 ```js
+<<<<<<< HEAD
 // 객체의 필드 값 얻기:
+=======
+// get property values of the object:
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 alert( user.name ); // John
 alert( user.age ); // 30
 ```
@@ -105,7 +109,6 @@ user.likes birds = true
 
 "대괄호 표기법"이라는 대안을 사용하면 키에 모든 문자열을 사용할 수 있습니다.:
 
-
 ```js run
 let user = {};
 
@@ -130,7 +133,11 @@ let key = "likes birds";
 user[key] = true;
 ```
 
+<<<<<<< HEAD
 여기서 변수 `key`는 런타임에 계산되거나 사용자 입력값에 따라 변경할 수 있습니다. 프로퍼티에 접근할 때 변경된 key를 사용합니다. 이 방법은 상당한 유연성을 제공합니다. 마침표 표기법으론 이런 방식을 사용할 수 없습니다.
+=======
+Here, the variable `key` may be calculated at run-time or depend on the user input. And then we use it to access the property. That gives us a great deal of flexibility.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 예를 들어:
 
@@ -146,6 +153,17 @@ let key = prompt("What do you want to know about the user?", "name");
 alert( user[key] ); // John (if enter "name")
 ```
 
+The dot notation cannot be used in a similar way:
+
+```js run
+let user = {
+  name: "John",
+  age: 30
+};
+
+let key = "name";
+user.key // undefined
+```
 
 ### 계산된 프로퍼티(Computed properties)
 
@@ -222,10 +240,18 @@ alert(obj.__proto__); // [object Object], 의도한 대로 작동하지 않습�
 
 객체에 임의의 키-값 쌍을 저장하고 사용자 키를 변경할 수 있도록 허용하면, 버그를 만들어내거나 취약성의 원인으로 작용할 수있습니다.
 
+<<<<<<< HEAD
 사용자는 "__proto__"를 키로 지정할 수도 있는데, 이 할당 로직은 (위에서 봤듯이) 작동하지 않을 것입니다.
 
 객체에서 `__proto__` 프로퍼티를 다루는 방법이 존재하는데, 이에 대해선 추후에 다룰 예정입니다. 그 전에 객체에 대해 더 알아야 할 필요가 있습니다.
 문자열 이외에 다른 타입의 키를 지원하는 [Map](info:map-set-weakmap-weakset)이라는 자료구조도 존재하는데, 이에 대해선 <info:map-set-weakmap-weakset>에서 다루도록 하겠습니다.
+=======
+In that case the visitor may choose `__proto__` as the key, and the assignment logic will be ruined (as shown above).
+
+There is a way to make objects treat `__proto__` as a regular property, which we'll cover later, but first we need to know more about objects.
+
+There's also another data structure [Map](info:map-set-weakmap-weakset), that we'll learn in the chapter <info:map-set-weakmap-weakset>, which supports arbitrary keys.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 ````
 
 

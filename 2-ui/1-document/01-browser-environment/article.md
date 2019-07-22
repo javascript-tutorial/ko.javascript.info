@@ -22,7 +22,11 @@ function sayHi() {
   alert("안녕하세요");
 }
 
+<<<<<<< HEAD
 // 전역 함수는 window 객체의 프로퍼티로 접근 가능
+=======
+// global functions are methods of the global object:
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 window.sayHi();
 ```
 
@@ -34,7 +38,11 @@ alert(window.innerHeight); // 창 내부 높이
 
 `window` 객체에 관련된 다양한 메서드와 프로퍼티는 추후 자세히 살펴보도록 하겠습니다.
 
+<<<<<<< HEAD
 ## 문서 객체 모델
+=======
+## DOM (Document Object Model)
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 `문서` 객체(Document Object)를 이용하면 페이지의 콘텐츠에 접근할 수 있습니다. 페이지 상에 콘텐츠를 생성하고 변경하는 게 가능하죠.
 
@@ -47,6 +55,7 @@ document.body.style.background = "red";
 setTimeout(() => document.body.style.background = "", 1000);
 ```
 
+<<<<<<< HEAD
 문서 객체는 예시에서 소개한 `document.body.style` 외에도 수 많은 기능을 제공합니다. 문서 객체의 프로퍼티와 메서드에 대한 설명은 두 그룹이 만든 명세(specification)에서 찾을 수 있습니다.
 
 1. [W3C](https://en.wikipedia.org/wiki/World_Wide_Web_Consortium) -- <https://www.w3.org/TR/dom>.
@@ -61,6 +70,11 @@ setTimeout(() => document.body.style.background = "", 1000);
 지금도 종종 오래된 코드에선 특정 브라우저에서만 쓰이는 프로퍼티가 사용되는 걸 발견할 수 있습니다. 브라우저 호환성 문제를 피하기 위해서죠. 이 튜토리얼에선 모던 자바스크립트를 학습할 예정이기 때문에 이런 오래된 것들을 알아야 할 필요는 없습니다. 진짜 알아야 할 경우가 생기기 전까진 말이죠.
 
 문서 객체 모델(Document Object Model, DOM) 표준은 이런 암흑기를 타개하고 사람들을 한데로 모으기 위해 등장했습니다. W3C는 최초 표준인 "DOM 레벨(Level) 1"을 제안한 이후 DOM 레벨 2, DOM 레벨 3을 순차적으로 제안하였고, 현재는 DOM 레벨 4까지 표준이 나온 상황입니다. WhatWG 그룹은 이런 버저닝 방식에 피로를 느껴, 레벨마다 번호를 매기지 않고 그냥 "DOM" 표준이라 부르고 있습니다. 이 튜토리얼에서는 WhatWG 그룹의 방식을 따르겠습니다.
+=======
+Here we used `document.body.style`, but there's much, much more. Properties and methods are described in the specification:
+
+- **DOM Living Standard** at <https://dom.spec.whatwg.org>
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 ```smart header="DOM은 브라우저에서만 쓰이지 않습니다."
 DOM 명세엔 문서의 구조와 문서를 조작하는데 필요한 객체가 명시되어 있습니다. 이것들은 브라우저 이외의 환경에서도 쓰입니다.
@@ -74,7 +88,11 @@ CSS와 스타일시트(stylesheet)에 관한 규칙은 HTML처럼 잘 정리된 
 CSSOM은 자바스크립트로 문서의 스타일 규칙을 수정해야 할 때 사용합니다. CSS 규칙은 대개 잘 변하지 않기 때문에 실무에서 CSSOM를 자주 접하진 않을 겁니다. 자바스크립트를 위해 CSS 규칙을 추가하거나 빼는 경우도 흔치 않기 때문에 이 튜토리얼에선 CSSOM을 다루지 않고 넘어가도록 하겠습니다. 
 ```
 
+<<<<<<< HEAD
 ## 브라우저 객체 모델
+=======
+## BOM (Browser object model)
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 브라우저 객체 모델(Browser Object Model, BOM)은 HTML 명세의 일부로, 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가적인 객체입니다.
 
@@ -94,12 +112,18 @@ if (confirm("위키피디아 페이지로 가시겠습니까?")) {
 
 메서드 `alert/confirm/prompt` 역시 BOM의 일부입니다. 문서와 직접 연결되어 있지 않지만, 사용자와 브라우저 사이의 커뮤니케이션을 도와주는 순수 브라우저 메서드이죠.  
 
+<<<<<<< HEAD
 
 ```smart header="HTML 명세"
 BOM은 [HTML 명세](https://html.spec.whatwg.org)에 속합니다.
 
 이상하게 들리겠지만, 맞습니다. <https://html.spec.whatwg.org>에서 볼 수 있는 HTML 명세는 태그(tag)나 속성(attribute) 같은 "HTML 언어"만 다루지 않습니다. 다양한 객체와 메서드, 특정 브라우저에 종속되는 DOM 확장도 다룹니다. 넓게 보면 이 모든 것이 HTML에 속하기 때문입니다.
 ```
+=======
+BOM is the part of the general [HTML specification](https://html.spec.whatwg.org).
+
+Yes, you heard that right. The HTML spec at <https://html.spec.whatwg.org> is not only about the "HTML language" (tags, attributes), but also covers a bunch of objects, methods and browser-specific DOM extensions. That's "HTML in broad terms". Also, some parts have additional specs listed at <https://spec.whatwg.org>.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
 
 ## 요약
 
@@ -114,8 +138,20 @@ CSSOM 명세
 HTML 명세
 : 태그와 같은 HTML 언어, `setTimeout`, `alert`, `location` 등의 다양한 브라우저 기능을 정의한 BOM(browser object model)에 관해 설명하고, <https://html.spec.whatwg.org>에서 볼 수 있습니다. DOM 명세에 추가적인 프로퍼티와 메서드를 더해 확장한 명세입니다.
 
+<<<<<<< HEAD
 문서는 UI(User Interface)에서 가장 핵심적인 역할을 합니다. 그러므로 지금부턴 DOM에 대해 배워보도록 하겠습니다.
 
 위에 소개된 명세 링크를 들어가면, 배워야 할 것이 너무 많다는 걸 금방 알 수 있습니다. 모든 것을 배우고 외우는 것은 불가능합니다.
 
 만약 특정 프로퍼티나 메서드에 관한 정보를 찾고 싶다면 모질라(Mozilla)에서 제공하는 매뉴얼<https://developer.mozilla.org/en-US/search>을 참고하는 게 좋습니다. 하지만 이 매뉴얼에 더해 관련 명세를 함께 읽는 걸 추천합니다. 길고 복잡하겠지만, 명세를 함께 찾는 습관을 들이면 기초 지식을 탄탄하게 다질 수 있습니다.
+=======
+Additionally, some classes are described separately at <https://spec.whatwg.org/>.
+
+Please note these links, as there's so much stuff to learn it's impossible to cover and remember everything.
+
+When you'd like to read about a property or a method, the Mozilla manual at <https://developer.mozilla.org/en-US/search> is also a nice resource, but the corresponding spec may be better: it's more complex and longer to read, but will make your fundamental knowledge sound and complete.
+
+To find something, it's often convenient to use an internet search "WHATWG [term]" or "MDN [term]", e.g <https://google.com?q=whatwg+localstorage>, <https://google.com?q=mdn+localstorage>.
+
+Now we'll get down to learning DOM, because the document plays the central role in the UI.
+>>>>>>> 4a8d8987dfc3256045e6b4a3bd8810ad3b25d1b3
