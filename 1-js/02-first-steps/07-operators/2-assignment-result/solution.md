@@ -1,5 +1,5 @@
 The answer is:
 
-- `a = 4` (multiplied by 2)
-- `x = 5` (calculated as 1 + 4)
+- `a = 4` (기존 값(2)에 2를 곱한 4)
+- `x = 5` (1 + 4의 결과)
 

@@ -1,5 +1,5 @@
 
-The answer is:
+답은 다음과 같습니다.
 
 - `a = 2`
 - `b = 2`
@@ -9,10 +9,10 @@ The answer is:
 ```js run no-beautify
 let a = 1, b = 1;
 
-alert( ++a ); // 2, prefix form returns the new value
-alert( b++ ); // 1, postfix form returns the old value
+alert( ++a ); // 2, 전위형은 증가 후 값을 반환합니다.
+alert( b++ ); // 1, 후위형은 증가  값을 반환합니다.
 
-alert( a ); // 2, incremented once
-alert( b ); // 2, incremented once
+alert( a ); // 2, 값이 1만큼 증가합니다.
+alert( b ); // 2, 값이 1만큼 증가합니다.
 ```
 
