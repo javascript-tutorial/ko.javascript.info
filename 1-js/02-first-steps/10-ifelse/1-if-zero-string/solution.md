@@ -1,8 +1,8 @@
-**Yes, it will.**
+**네, 실행됩니다.**
 
-Any string except an empty one (and `"0"` is not empty) becomes `true` in the logical context.
+비어있는 문자열을 제외한 모든 문자열은 논리 평가 시 `true`를 반환합니다. 문자 `"0"`은 비어있지 않은 문자열입니다.
 
-We can run and check:
+직접 실행해서 그 결과를 확인해 보시기 바랍니다.
 
 ```js run
 if ("0") {

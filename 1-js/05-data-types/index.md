@@ -1,3 +1,3 @@
-# Data types
+# 데이터 타입
 
-More data structures and more in-depth study of the types.
+데이터 타입과 자료구조에 대해 깊이 알아봅시다.

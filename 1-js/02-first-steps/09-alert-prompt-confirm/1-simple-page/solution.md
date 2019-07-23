@@ -1,11 +1,11 @@
-JavaScript-code:
+자바스크립트 코드:
 
 ```js demo run
-let name = prompt("What is your name?", "");
+let name = prompt("이름을 입력해 주세요.", "");
 alert(name);
 ```
 
-The full page:
+전체 페이지:
 
 ```html
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ The full page:
   <script>
     'use strict';
 
-    let name = prompt("What is your name?", "");
+    let name = prompt("이름을 입력해 주세요.", "");
     alert(name);
   </script>
 
