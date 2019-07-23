@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# The postfix and prefix forms
+# 전위형과 후위형
 
-What are the final values of all variables `a`, `b`, `c` and `d` after the code below?
+아래 코드가 실행된 후, 변수 `a`, `b`, `c`, `d`엔 각각 어떤 값들이 저장될까요?
 
 ```js
 let a = 1, b = 1;

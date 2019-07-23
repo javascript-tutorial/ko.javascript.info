@@ -472,4 +472,4 @@ messages.shift();
 
 - `위크셋` -- `셋`의 변종으로, 객체만 셋의 요소가 될 수 있습니다. 요소인 객체가 참조하는 것이 없는 경우 해당 객체는 가비지 컬렉션의 대상이 됩니다.
 
-`WeakMap` and `WeakSet` are used as "secondary" data structures in addition to the "main" object storage. Once the object is removed from the main storage, if it is only found in the `WeakMap/WeakSet`, it will be cleaned up automatically.
+`위크맵`과 `위크셋`은 객체를 저장하는 주요 저장소에 더하여 이를 보조하는 "제 2의" 자료구조로 쓰입니다. 객체가 주 저장소에서 제거되고, 이 객체가 `위크맵 또는 위크셋`에서 발견된 경우엔, 해당 객체는 자동으로 청소됩니다. 

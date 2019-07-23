@@ -2,9 +2,9 @@ importance: 3
 
 ---
 
-# Assignment result
+# 할당 후 결과 예측하기
 
-What are the values of `a` and `x` after the code below?
+아래 코드가 실행되고 난 후, `a`와 `x`엔 각각 어떤 값이 저장될까요?
 
 ```js
 let a = 2;
