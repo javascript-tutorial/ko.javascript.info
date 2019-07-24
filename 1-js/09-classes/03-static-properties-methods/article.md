@@ -17,7 +17,7 @@ class User {
 User.staticMethod(); // true
 ```
 
-사실 이것은 함수 프로퍼티에 정의하는것과 같습니다.
+사실 이것은 함수 프로퍼티에 정의하는 것과 같습니다.
 
 ```js
 function User() { }
@@ -27,11 +27,11 @@ User.staticMethod = function() {
 };
 ```
 
-`User.staticMethod()`안의 `this`값은 클래스의 생성자 `User`자신입니다 ("점으로 구분되기 전의 객체" 규칙).
+`User.staticMethod()`안의 `this` 값은 클래스의 생성자 `User` 자신입니다 ("점으로 구분되기 전의 객체" 규칙).
 
-보통은 정적 메서드들은 해당 클래스에 달려있는 함수들을 구현하기 위해 사용합니다. 그러나, 특별한 객체를 위해서는 아닙니다.
+보통은 정적 메서드들은 해당 클래스에 달린 함수들을 구현하기 위해 사용합니다. 그러나, 특별한 객체를 위해서는 아닙니다.
 
-예를 들면, `Article`이란 객체들이 있고 그것을 비교하기위한 함수가 필요하다고 한다면. 자연스러운 선택은 아래와 같이 `Article.compare`함수를 만드는 것입니다.
+예를 들면, `Article`이란 객체들이 있고 그것을 비교하기 위한 함수가 필요하다고 한다면. 자연스러운 선택은 아래와 같이 `Article.compare` 함수를 만드는 것입니다.
 
 ```js run
 class Article {
@@ -61,15 +61,15 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-`Article.compare`는 articles "위에" 존재합니다. 이것은 서로를 비교할 수 있다는 뜻이죠. 그것은 article의 메서드는 아닙니고 전체 클래스의 것이죠.
+`Article.compare`는 articles "위에" 존재합니다. 이것은 서로를 비교할 수 있다는 뜻이죠. 그것은 article의 메서드는 아니고 전체 클래스의 것이죠.
 
-또 다른 예시는 "factory"메서드를 호출할때 일것입니다. 몇개의 article를 생성해야 한다고 가정해 보죠.
+또 다른 예시는 "factory"메서드를 호출할 때 일 것입니다. 몇 개의 article을 생성해야 한다고 가정해 보죠.
 
-1. 인수들을 넘겨주어 생성한다 (`title`, `date` 기타 등등).
+1. 인수를 넘겨주어 생성한다 (`title`, `date` 기타 등등).
 2. 오늘 날짜로 비어있는 article을 생성한다.
 3. ...
 
-첫번째것은 생성자를 통해서 구현할 수 있습니다. 그리고 두번째것은 클래스의 정적 메서드를 사용해서 만들수 있습니다.
+첫 번째 것은 생성자를 통해서 구현할 수 있습니다. 그리고 두 번째 것은 클래스의 정적 메서드를 사용해서 만들 수 있습니다.
 
 아래 `Article.createTodays()`와 같이 말이죠
 
@@ -93,9 +93,9 @@ let article = Article.createTodays();
 alert( article.title ); // Todays digest
 ```
 
-이제 매번 오늘의 글을 생성할때, `Article.createTodays()`를 호출할 수 있습니다. 다시 한번, 이것은 article의 메서드는 아닙니다만 전체 클래스의 메서드이죠.
+이제 매번 오늘의 글을 생성할 때, `Article.createTodays()`를 호출할 수 있습니다. 다시 한번, 이것은 article의 메서드는 아닙니다만 전체 클래스의 메서드이죠.
 
-또한 정적 메서드들은 데이터베이스에 연관된 클래스들이 데이터베이스에서 검색/저장/삭제할때 사용될 수 있습니다. 아래 예시가 있습니다.
+또한 정적 메서드들은 데이터베이스에 연관된 클래스들이 데이터베이스에서 검색/저장/삭제할 때 사용될 수 있습니다. 아래 예시가 있습니다.
 
 ```js
 // Article이 articles을 합치는 특별한 클래스라고 가정합니다
@@ -125,9 +125,9 @@ Article.publisher = "Ilya Kantor";
 
 ## 정적과 상속
 
-정적된것들은 상속되어 집니다. `Parent.method`의 메서드를 `Child.method`로 접근할 수 있습니다.
+정적인 것들은 상속되어 집니다. `Parent.method`의 메서드를 `Child.method`로 접근할 수 있습니다.
 
-예를 들면, 아래의 `Animal.compare` 코드는 `Rabbit.compare`로 상속되어지고 접근할 수 있습니다.
+예를 들면, 아래의 `Animal.compare` 코드는 `Rabbit.compare`로 상속되고 접근할 수 있습니다.
 
 ```js run
 class Animal {
@@ -176,7 +176,7 @@ rabbits[0].run(); // Black Rabbit runs with speed 5.
 
 ![](animal-rabbit-static.png)
 
-그래서, `Rabbit`함수는 이제 `Animal`함수로 부터 상속받습니다. 그리고 `Animal` 함수는 보통 `Function.prototype`를 참조하는 `[[Prototype]]` 을 가지고 있습니다. 왜냐하면, 함수는 전혀 `extend` 하지 않기 때문이죠.
+그래서, `Rabbit` 함수는 이제 `Animal` 함수로 부터 상속받습니다. 그리고 `Animal` 함수는 보통 `Function.prototype`를 참조하는 `[[Prototype]]` 을 가지고 있습니다. 왜냐하면, 함수는 전혀 `extend` 하지 않기 때문이죠.
 
 아래 예시를 통해 확인해 보겠습니다.
 
@@ -200,7 +200,7 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype);
 
 정적 메서드는 구체적인 클래스 인스턴스와 관련이 없고, 인스턴스가 존재할 필요가 없으며 `Article.compare` -- articles을 비교하기 위한 일반적인 메서드와 같이 클래스 전체에 속하는 기능을 위해 사용됩니다.
 
-정적 속성은 인스턴스에 바인딩되지 않은 클래스 수준 데이터를 저장하려는 경우에 사용됩니다.
+정적 속성은 인스턴스에 바인딩 되지 않은 클래스 수준 데이터를 저장하려는 경우에 사용됩니다.
 
 문법은 다음과 같습니다
 
@@ -214,7 +214,7 @@ class MyClass {
 }
 ```
 
-이것은 기술적으로 클래스 자신에게 정의하는것과 같습니다. 
+이것은 기술적으로 클래스 자신에게 정의하는 것과 같습니다. 
 
 ```js
 MyClass.property = ...
