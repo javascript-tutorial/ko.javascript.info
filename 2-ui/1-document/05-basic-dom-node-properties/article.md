@@ -76,7 +76,7 @@ alert( document.body instanceof EventTarget ); // true
 ```
 
 ````smart header="스펙 문서에서 쓰이는 IDL"
-스펙 문서에선 DOM 클래스를 JavaScript가 아닌 이해하기 쉬운 표기법인 [Interface description language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL)을 이용하여 설명합니다. 
+스펙 문서에선 DOM 클래스를 JavaScript가 아닌 이해하기 쉬운 표기법인 [Interface description language](https://en.wikipedia.org/wiki/Interface_description_language) (IDL)을 이용하여 설명합니다.
 
 IDL은 모든 프로퍼티의 앞에 타입을 붙여서 작성됩니다. `DOMString`과 `boolean` 과 같은 타입이 프로퍼티 앞에 붙게 됩니다.
 

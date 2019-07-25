@@ -1,5 +1,5 @@
 
-# 객체(object)
+# 객체
 
 <info:types> 챕터에서 배웠듯이, 자바스크립트에는 일곱 가지 데이터 타입이 있습니다. 그중 여섯 개의 타입은 오직 (문자열, 숫자 등) 하나만 담을 수 있으므로 "원시 타입(primitive type)"이라 부릅니다.
 
@@ -161,7 +161,7 @@ user.key // undefined
 
 객체 리터럴 안에 대괄호를 사용할 수 있습니다. 이를 *계산된 프로퍼티(computed properties)* 라고 부릅니다.
 
-예:
+예시:
 
 ```js run
 let fruit = prompt("Which fruit to buy?", "apple");

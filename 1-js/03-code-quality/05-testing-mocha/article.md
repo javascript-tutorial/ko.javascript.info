@@ -18,6 +18,8 @@
 
 이는 전형적인 상황입니다. 개발자는 많은 가능성을 염두하고 코드를 작성합니다. 하지만 코드가 수정되고 난 후, 개발자가 모든 가능성을 다시 확인한다는 보장이 없습니다. 이 때문에 하나를 고치면 다른 하나가 고장날 가능성이 생깁니다.
 
+That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
+
 **Automated testing means that tests are written separately, in addition to the code. They can be executed automatically and check all the main use cases.**
 
 ## Behavior Driven Development (BDD)
@@ -110,7 +112,7 @@ The result:
 
 As of now, the test fails, there's an error. That's logical: we have an empty function code in `pow`, so `pow(2,3)` returns `undefined` instead of `8`.
 
-For the future, let's note that there are more high-level test-runners, like [karma](https://karma-runner.github.io/) and others, that make it easy to autorun many different tests.
+For the future, let's note that there are advanced test-runners, like [karma](https://karma-runner.github.io/) and others. So it's generally not a problem to setup many different tests.
 
 ## Initial implementation
 
