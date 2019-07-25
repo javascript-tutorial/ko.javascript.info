@@ -22,7 +22,7 @@ function sayHi() {
   alert("안녕하세요");
 }
 
-// 전역 함수는 window 객체의 프로퍼티로 접근 가능
+// 전역 함수는 전역 객체(window)의 메서드임
 window.sayHi();
 ```
 

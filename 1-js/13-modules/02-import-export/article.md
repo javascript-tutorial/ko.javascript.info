@@ -209,16 +209,20 @@ new User('John');
 export default class { // 클래스 이름이 없음
   constructor() { ... }
 }
+```
 
+```js
 export default function(user) { // 함수 이름이 없음
   alert(`Hello, ${user}!`);
 }
+```
 
+```js
 // 이름 없이, 배열 형태의 값 하나를 내보냄
 export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 ```
 
-이렇게 해도 괜찮은 이유는, 파일 하나에 `export default`가 하나만 있기 때문입니다. 다만, named export는 파일 하나에 여러 개 있을 수 있기 때문에, 이름을 생략하면 에러가 납니다.
+이렇게 이름이 없어도 괜찮은 이유는 파일 하나에 `export default`가 하나만 있기 때문입니다. 반면, named import는 이름이 없으면 에러가 발생합니다.
 
 ```js
 export class { // 에러! (default export가 아닌경우엔 이름이 꼭 필요합니다.)

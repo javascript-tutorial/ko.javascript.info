@@ -1,7 +1,7 @@
 
-# if문 안의 함수
+# Function in if
 
-코드를 보세요. 마지막 줄의 호출 결과는 무엇일까요?
+Look at the code. What will be the result of the call at the last line?
 
 ```js run
 let phrase = "Hello";
