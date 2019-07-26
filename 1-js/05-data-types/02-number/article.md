@@ -1,20 +1,20 @@
-# Numbers
+# 숫자들
 
-All numbers in JavaScript are stored in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), also known as "double precision floating point numbers".
+자바스크립트에 있는 모든 숫자들은 "배정도 부동 소수점 숫자들(double precision floating point numbers)"로 알려져 있는 64-비트 형식 [IEEE-754]에 저장 되어 있습니다.
 
-Let's recap and expand upon what we currently know about them.
+현재 알고 있는 내용을 한번 요약해 보겠습니다.
 
-## More ways to write a number
+## 숫자를 입력하는 다양한 방법들
 
-Imagine we need to write 1 billion. The obvious way is:
+10억을 입력해야 한다고 상상해 봅니다. 가장 분명한 방법은 이것 입니다.
 
 ```js
 let billion = 1000000000;
 ```
 
-But in real life we usually avoid writing a long string of zeroes as it's easy to mistype. Also, we are lazy. We will usually write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
+하지만 현실 세계에서 긴 문자열의 0을 입력하는 것은 실수를 유발할 수도 있고 게으르기 때문에 주로 피합니다. 주로 10억 대신 `"1bn"`을 입력하거나 73억 대신에 `"7.3bn"`을 입력합니다. 대부분의 거대한 숫자들의 경우에도 마찬가지입니다.
 
-In JavaScript, we shorten a number by appending the letter `"e"` to the number and specifying the zeroes count:
+자바스크립트에서는 숫자에 문자 `"e"`를 추가하여 줄이고 0의 숫자를 세어 표시합니다.
 
 ```js run
 let billion = 1e9;  // 1 billion, literally: 1 and 9 zeroes
@@ -22,7 +22,7 @@ let billion = 1e9;  // 1 billion, literally: 1 and 9 zeroes
 alert( 7.3e9 );  // 7.3 billions (7,300,000,000)
 ```
 
-In other words, `"e"` multiplies the number by `1` with the given zeroes count.
+다르게 말하면 `"e"`는 세어진 0의 숫자에다가 `1`을 곱한 결과가 되는 것입니다. 
 
 ```js
 1e3 = 1 * 1000
@@ -30,21 +30,21 @@ In other words, `"e"` multiplies the number by `1` with the given zeroes count.
 ```
 
 
-Now let's write something very small. Say, 1 microsecond (one millionth of a second):
+이제 매우 작은 숫자를 입력해보겠습니다. 1 마이크로초(백만 분의 1초)를 예로 들겠습니다.
 
 ```js
 let ms = 0.000001;
 ```
 
-Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could say:
+이전처럼 `"e"`가 도와줄 수 있습니다. 0을 명박하게 입력하는 것이 싫은 경우 우리는 이렇게 말할 수 있습니다.
 
 ```js
 let ms = 1e-6; // six zeroes to the left from 1
 ```
 
-If we count the zeroes in `0.000001`, there are 6 of them. So naturally it's `1e-6`.  
+0을 다음과 같이 센다면 `0.000001`, 6개가 있습니다. 자연스럽게 이것은 `1e-6` 입니다.  
 
-In other words, a negative number after `"e"` means a division by 1 with the given number of zeroes:
+다르게 말하면 `"e"` 다음에 등장하는 음수는 주어진 0의 갯수에다가 1을 나눈 것입니다.
 
 ```js
 // -3 divides by 1 with 3 zeroes
@@ -54,18 +54,18 @@ In other words, a negative number after `"e"` means a division by 1 with the giv
 1.23e-6 = 1.23 / 1000000 (=0.00000123)
 ```
 
-### Hex, binary and octal numbers
+### 16진수, 2진수 그리고 8진수 숫자들
 
-[Hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) numbers are widely used in JavaScript to represent colors, encode characters, and for many other things. So naturally, there exists a shorter way to write them: `0x` and then the number.
+[16진수](https://en.wikipedia.org/wiki/Hexadecimal) 숫자들은 자바스크립트에서 색깔을 나타낼 때, character형을 인코드 할 때 그리고 그외 다양한 부분에서 쓰입니다. 자연스럽게 16진수를 `0x` 그리고 그 뒤에 숫자들로 짧게 입력하는 방법이 있습니다.
 
-For instance:
+예시:
 
 ```js run
 alert( 0xff ); // 255
 alert( 0xFF ); // 255 (the same, case doesn't matter)
 ```
 
-Binary and octal numeral systems are rarely used, but also supported using the `0b` and `0o` prefixes:
+2진수와 8진수 시스템은 거의 쓰이지 않지만 `0b` 과 `0o` 접두사들을 통해 지원합니다.
 
 
 ```js run
@@ -75,13 +75,13 @@ let b = 0o377; // octal form of 255
 alert( a == b ); // true, the same number 255 at both sides
 ```
 
-There are only 3 numeral systems with such support. For other numeral systems, we should use the function `parseInt` (which we will see later in this chapter).
+이와 같이 3개의 숫자형 시스템만 지원합니다. 다른 숫자형 시스템에는 `parseInt`(이 챕터에서 나중에 보게 될) 라는 함수를 사용해야 합니다.
 
-## toString(base)
+## toString(베이스)
 
-The method `num.toString(base)` returns a string representation of `num` in the numeral system with the given `base`.
+`num.toString(base)` 메서드는 주어진 `base` 숫자형 시스템에서 `num`의 문자열 표현으로 반환합니다.
 
-For example:
+예시:
 ```js run
 let num = 255;
 
@@ -89,45 +89,45 @@ alert( num.toString(16) );  // ff
 alert( num.toString(2) );   // 11111111
 ```
 
-The `base` can vary from `2` to `36`. By default it's `10`.
+`base`는 `2`에서 `36`까지 다양합니다. default 값은 `10` 입니다.
 
-Common use cases for this are:
+아래는 이 부분에 대해서 흔히 케이스들입니다.
 
-- **base=16** is used for hex colors, character encodings etc, digits can be `0..9` or `A..F`.
-- **base=2** is mostly for debugging bitwise operations, digits can be `0` or `1`.
-- **base=36** is the maximum, digits can be `0..9` or `A..Z`. The whole latin alphabet is used to represent a number. A funny, but useful case for `36` is when we need to turn a long numeric identifier into something shorter, for example to make a short url. Can simply represent it in the numeral system with base `36`:
+- **base=16**는 16진수 색상, character형을 인코딩 등에 쓰이고  숫자들은 `0..9` 또는 `A..F`가 될 수 있습니다.
+- **base=2**는 대부분 비트 단위의 연산들에 쓰이고 숫자들은 `0` 또는 `1`가 될 수 있습니다.
+- **base=36**는 최대이고 숫자들은 `0..9` 또는 `A..Z`가 될 수 있습니다. 모든 라틴 알파벳이 숫자를 상징하기 위해 쓰입니다. 재미있지만 유용한 케이스로 `36`은 긴 숫자 식별자를 짧은 것으로 변경하고 싶을 때 쓰이며 예시로 짧은 url을 만들 때 이용됩니다. 베이스 `36`을 이용하여 숫자 시스템을 간단하게 표현할 수 있습니다.:
 
     ```js run
     alert( 123456..toString(36) ); // 2n9c
     ```
 
-```warn header="Two dots to call a method"
-Please note that two dots in `123456..toString(36)` is not a typo. If we want to call a method directly on a number, like `toString` in the example above, then we need to place two dots `..` after it.
+```warn header="메서드를 불러오기 위한 두 개의 점들"
+ `123456..toString(36)`에 있는 두 개의 점들은 오타가 아니라는 점에 유의하자. 위에 있는 `toString`의 예시처럼 만약에 숫자를 메서드를 불러오고 싶으면 , 숫자 다음에 점 두 개인 `..`를 배치하면 된다.
 
-If we placed a single dot: `123456.toString(36)`, then there would be an error, because JavaScript syntax implies the decimal part after the first dot. And if we place one more dot, then JavaScript knows that the decimal part is empty and now goes the method.
+`123456.toString(36)`처럼 한개의 점만 배치하면 이것은 에러일 수 있는데 그 이유는 자바스크립트 문법에서 첫 번째 점 이후 부분은 소수 부분으로 인식하기 때문이다. 그리고 하나 이상의 점들을 배치하면 자바스크립트는 소수 부분이 비어있다는 것을 알고 메서드로 이동한다.
 
-Also could write `(123456).toString(36)`.
+또한 이와 같이 `(123456).toString(36)` 입력할 수 있다.
 ```
 
-## Rounding
+## 반올림
 
-One of the most used operations when working with numbers is rounding.
+숫자들과 가장 많이 이용하는 연산자 중 하나는 바로 반올림이다.
 
-There are several built-in functions for rounding:
+반올림에 관한 내장 함수들이 존재한다.
 
 `Math.floor`
-: Rounds down: `3.1` becomes `3`, and `-1.1` becomes `-2`.
+: 버림: `3.1`은 `3`이 되고 `-1.1`은 `-2`이 된다.
 
 `Math.ceil`
-: Rounds up: `3.1` becomes `4`, and `-1.1` becomes `-1`.
+: 올림: `3.1`은 `4`이 되고 `-1.1`은 `-1`이 된다.
 
 `Math.round`
-: Rounds to the nearest integer: `3.1` becomes `3`, `3.6` becomes `4` and `-1.1` becomes `-1`.
+: 반올림: `3.1`은 `3`이 되고 `3.6`은 `4`이 되며 `-1.1`은 `-1`이 된다.
 
-`Math.trunc` (not supported by Internet Explorer)
-: Removes anything after the decimal point without rounding: `3.1` becomes `3`, `-1.1` becomes `-1`.
+`Math.trunc` (인터넷 익스플로러에서는 지원하지 않는다)
+: 반올림을 하지 않고 소수 부분을 제거한다: `3.1`은 `3`이 되고 `-1.1`은 `-1`이 된다.
 
-Here's the table to summarize the differences between them:
+아래에는 각 함수들의 차이점을 요약해 놓은 테이블이다.
 
 |   | `Math.floor` | `Math.ceil` | `Math.round` | `Math.trunc` |
 |---|---------|--------|---------|---------|
@@ -137,65 +137,65 @@ Here's the table to summarize the differences between them:
 |`-1.6`|  `-2`    |   `-1`  |    `-2`  |   `-1`   |
 
 
-These functions cover all of the possible ways to deal with the decimal part of a number. But what if we'd like to round the number to `n-th` digit after the decimal?
+이러한 함수들은 숫자의 소수 부분을 다루기 위한 가능한 모든 방법들이다. 하지만 만약에 소수 부분을 `n-th`의 숫자 형태로 반올림하고 싶은 경우에는 어떻게 해야 할까?
 
-For instance, we have `1.2345` and want to round it to 2 digits, getting only `1.23`.
+예를 들어 `1.2345`가 있고 `1.23`처럼 2개의 숫자 형태로 반올림하고 싶은 경우가 있다.
 
-There are two ways to do so:
+이런 방법에는 두가지의 경우가 존재한다.
 
-1. Multiply-and-divide.
+1. 곱하고 나누기.
 
-    For example, to round the number to the 2nd digit after the decimal, we can multiply the number by `100`, call the rounding function and then divide it back.
+    예를 들어 소수 부분을 2개의 숫자로 반올림하고 싶은 경우 `100`으로 그 숫자를 곱한 후 반올림 함수를 호출 한 뒤 다시 나눈다.
     ```js run
     let num = 1.23456;
 
     alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
     ```
 
-2. The method [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) rounds the number to `n` digits after the point and returns a string representation of the result.
+2. [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)라는 메서드는 숫자를 `n`개의 숫자들로 반올림하고 그것의 결과값을 문자열 형태로 반환한다.
 
     ```js run
     let num = 12.34;
     alert( num.toFixed(1) ); // "12.3"
     ```
 
-    This rounds up or down to the nearest value, similar to `Math.round`:
+    이것은 `Math.round`와 비슷하게 가장 가까운 값으로 올림을 하거나 버림을 한다:
 
     ```js run
     let num = 12.36;
     alert( num.toFixed(1) ); // "12.4"
     ```
 
-    Please note that result of `toFixed` is a string. If the decimal part is shorter than required, zeroes are appended to the end:
+    `toFixed`의 결과값은 문자열의 형태라는 것을 유의하자. 만약 소수 부분이 필요한 것보다 짧은 경우 0들은 뒷 부분에 추가된다.
 
     ```js run
     let num = 12.34;
     alert( num.toFixed(5) ); // "12.34000", added zeroes to make exactly 5 digits
     ```
 
-    We can convert it to a number using the unary plus or a `Number()` call: `+num.toFixed(5)`.
+    이것을 덧셈을 이용하여 `+num.toFixed(5)`와 같이 표시하거나 `Number()`을 호출하여 숫자로 변경할 수 있다.
 
-## Imprecise calculations
+## 부정확한 계산들
 
-Internally, a number is represented in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), so there are exactly 64 bits to store a number: 52 of them are used to store the digits, 11 of them store the position of the decimal point (they are zero for integer numbers), and 1 bit is for the sign.
+내부적으로 숫자는 64 비트 형태인 [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)으로 표현되어 있어 숫자를 저장하기 위해서 정확히 64 비트가 존재한다. 그 중 52개는 숫자들을 저장하기 위해 존재하고, 11 비트는 소수 부분을 저장하기 위해 존재하고(정수 숫자들은 0이 있다) 1 비트는 기호를 위해 존재한다.
 
-If a number is too big, it would overflow the 64-bit storage, potentially giving an infinity:
+만약 숫자가 너무 커서 64-비트 저장소를 넘치는 경우 잠재적으로 무한의 값을 줄 수 있다.
 
 ```js run
 alert( 1e500 ); // Infinity
 ```
 
-What may be a little less obvious, but happens quite often, is the loss of precision.
+분명하지는 않지만 가끔 일어나는 것은 정밀함의 손실이다.
 
-Consider this (falsy!) test:
+아래에 있는 테스트(오류!)를 생각해보자.
 
 ```js run
 alert( 0.1 + 0.2 == 0.3 ); // *!*false*/!*
 ```
 
-That's right, if we check whether the sum of `0.1` and `0.2` is `0.3`, we get `false`.
+`0.1` 과`0.2`의 합이 `0.3`이라는 것이 맞는지 체크하면 `false`라는 결과값을 얻고 그것은 참이다.
 
-Strange! What is it then if not `0.3`?
+이상하게 결과값이 `0.3`이 아니면 무엇일까?
 
 ```js run
 alert( 0.1 + 0.2 ); // 0.30000000000000004
