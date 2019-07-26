@@ -20,7 +20,7 @@ User.staticMethod(); // true
 사실 이것은 함수 프로퍼티에 정의하는 것과 같은 의미입니다.
 
 ```js
-function User() { }
+class User() { }
 
 User.staticMethod = function() {
   alert(this === User);

@@ -1,13 +1,13 @@
 
-# 심볼형(Symbol type)
+# 심볼형
 
-명세에선 객체의 프로퍼티 키는 문자형이나 심볼형만 될 수 있다고 정의합니다. 숫자나 불린형은 불가능하며, 오직 문자와 심볼형만 가능합니다.
+자바스크립트 명세는 문자형이나 심볼형(Symbol type)만 객체 프로퍼티 키가 될 수 있다고 정의합니다. 숫자나 불린값은 불가능하며, 오직 문와 심볼만 키로 사용할 수 있습니다.
 
 지금까지는 객체의 키가 문자형인 경우만 접해봤는데, 이제 심볼을 키로 사용하는 경우에 대해 알아보겠습니다. 그리고 심볼을 키로 사용할 때의 이점에 대해서도 알아보도록 하겠습니다.
 
-## 심볼(Symbols)
+## 심볼
 
-심볼값은 유일한 식별자를 나타냅니다.
+"심볼(Symbol)"값은 유일한 식별자를 나타냅니다.
 
 심볼형 값은 `Symbol()`을 이용해 만들 수 있습니다.
 
@@ -16,7 +16,7 @@
 let id = Symbol();
 ```
 
-심볼에 설명을 붙일 수도 있습니다(이를 심볼 이름이라고도 부릅니다). 디버깅 시 유용하게 쓰입니다.
+심볼에 설명을 붙일 수도 있는데, 이를 심볼 이름이라고도 부릅니다. 심볼에 이름을 붙이면 디버깅 시 유용합니다.
 
 ```js run
 // id는 "id"라는 설명을 가진 심볼입니다.
@@ -70,11 +70,11 @@ alert(id.description); // id
 
 ````
 
-## "숨김" 프로퍼티("Hidden" properties)
+## "숨김" 프로퍼티
 
-심볼을 이용해 객체에 "숨김" 프로퍼티를 만들 수 있습니다. 숨김 프로퍼티는 다른 영역에 있는 코드에서 접근하거나 값을 덮어 쓸 수 없습니다.
+심볼을 이용해 객체에 "숨김(hidden)" 프로퍼티를 만들 수 있습니다. 숨김 프로퍼티는 다른 영역에 있는 코드에서 접근하거나 값을 덮어 쓸 수 없습니다.
 
-`user` 객체에 "식별자(identifier)"를 만들어주고 싶다면, 심볼을 키로 사용할 수 있습니다. 아래와 같이 말이죠.
+`user` 객체에 "식별자(identifier)"를 더해주고 싶은 경우 아래와 같이 심볼을 키로 사용할 수 있습니다.
 
 ```js run
 let user = { name: "John" };
@@ -88,7 +88,7 @@ alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있�
 
 자세한 예제를 통해 어떤 장점이 있는지 알아보도록 하겠습니다.
 
-`user` 안에 "id" 프로퍼티가 있어야 하는 또 다른 스크립트가 있다고 상상해 봅시다. 다른 스크립트는 자바스크립트 라이브러리일 수도 있으므로, 스크립트끼리는 서로의 스크립트를 알 수 없는 상황입니다.
+자체 식별자를 둬 `user`를 식별하는 스크립트가 하나 있다고 가정해 봅시다. 이 스크립트는 자바스크립트 라이브러리일 수도 있으므로, 스크립트끼리 서로의 스크립트를 알 수 없는 상황입니다.
 
 이때, 다른 스크립트는 자체적으로 `Symbol("id")`을 만들 수 있습니다. 아래와 같이 말이죠.
 
@@ -101,7 +101,7 @@ user[id] = "Their id value";
 
 이렇게 다른 스크립트에서 user 객체에 id 프로퍼티를 만들어도 충돌이 발생하지 않습니다. 심볼은 같은 이름을 가지더라도 항상 다르기 때문입니다.
 
-만약 동일한 목적으로 심볼 대신에 `"id"`라는 문자열을 사용한다면, 충돌이 **발생할 수도** 있습니다.
+하지만 심볼 대신에 `"id"`라는 문자열을 사용했다면, 충돌이 **발생할 수** 있습니다.
 
 ```js run
 let user = { name: "John" };
@@ -117,7 +117,7 @@ user.id = "Their id value"
 
 ### 객체 리터럴 내 심볼
 
-심볼을 객체 리터럴 내에서 사용하고 싶다면 대괄호를 써야 합니다.
+심볼을 객체 리터럴 `{...}` 에서 사용하고 싶다면 대괄호를 사용해야 합니다.
 
 이렇게 말이죠.
 
@@ -137,7 +137,7 @@ let user = {
 
 심볼형 프로퍼티는 `for..in` 반복문의 반복 대상에서 배제됩니다.
 
-예:
+예시:
 
 ```js run
 let id = Symbol("id");
@@ -155,7 +155,7 @@ for (let key in user) alert(key); // name, age (심볼은 출력되지 않습니
 alert( "Direct: " + user[id] );
 ```
 
-"은닉(hiding)" 개념으로 이를 이해하시면 될 것 같습니다. 만약 다른 스크립트나 라이브러리에서 객체에 반복문을 수행해도, 심볼형 프로퍼티엔 접근할 수 없습니다.
+`Object.keys(user)` also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
 
 반면, [Object.assign](mdn:js/Object/assign)메서드를 사용하면 문자열과 심볼 프로퍼티 모두를 복사할 수 있습니다.
 
@@ -200,13 +200,13 @@ alert( obj[0] ); // test (같은 프로퍼티)
 
 이 메서드는 전역 레지스트리를 확인해 이름이 `key`인 심볼이 존재하면 그 심볼을 반환해줍니다. 심볼이 존재하지 않으면 주어진 `key`로 `Symbol(key)`이라는 새로운 심볼을 생성하고 레지스트리 안에 저장합니다.
 
-예:
+예시:
 
 ```js run
 // 전역 레지스트리에서 심볼을 읽어 옵니다.
 let id = Symbol.for("id"); // 만약 심볼이 존재하지 않는다면, 새로운 심볼을 생성합니다.
 
-// 다시 한번 심볼을 읽어 옵니다.
+// 다시 한번 심볼을 읽어 옵니다(maybe from another part of the code).
 let idAgain = Symbol.for("id");
 
 // 이 둘은 같은 심볼입니다.
@@ -225,7 +225,7 @@ alert( id === idAgain ); // true
 
 전역 심볼에 사용되는 `Symbol.for(key)`는 주어진 키로 심볼을 찾아 반환하는데, 이와 반대되는 메서드도 있습니다. `Symbol.keyFor(sym)`를 사용하면 주어진 전역 심볼에 대한 키를 반환합니다.
 
-예:
+예시:
 
 ```js run
 let sym = Symbol.for("name");
@@ -272,8 +272,8 @@ alert( Symbol.keyFor(Symbol("name2")) ); // undefined, 매개변수는 전역 �
 
 심볼의 주요 유스 케이스는 두 가지가 있습니다:
 
-1. "숨김" 객체 프로퍼티.
-    다른 스크립트나 라이브러리에 "소속된" 객체에 프로퍼티를 추가하고 싶다면, 심볼을 만들고, 이 심볼을 프로퍼티 키로 사용하면 됩니다. 심볼형 프로퍼티는 `for..in`에 등장하지 않기 때문에, 반복문을 통해 나열할 수 없습니다. 외부 스크립트는 현재 스크립트의 심볼을 가지고 있지 않기 때문에, 심볼에 직접 접근할 수 없습니다. 따라서 우연으로라도 스크립트를 방해하는 일이 발생하지 않습니다.
+1. "Hidden" object properties.
+    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be occasionally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from occasional use or overwrite.
 
     심볼형 프로퍼티를 이용하면, 어떤 것을 "은밀히" 원하는 객체 안에 숨길 수 있습니다. 외부 스크립트에선 이를 볼 수 없습니다.
 

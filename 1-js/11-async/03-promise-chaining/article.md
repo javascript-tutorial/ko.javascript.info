@@ -242,7 +242,7 @@ new Promise(resolve => resolve(1))
 
 프론트 단에선 네트워크 요청을 할 때 프라미스를 자주 사용합니다. 이에 관련된 예시를 좀 더 살펴봅시다. 
 
-원격 서버에서 사용자 정보를 가져오기 위해 [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) 메서드를 사용하겠습니다. `fetch`는 선택할 수 있는 매개변수가 많기 때문에 꽤 복잡하지만, 기본 문법은 아주 간단한 메서드입니다.
+원격 서버에서 사용자 정보를 가져오기 위해 [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 별도의 챕터에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
 
 ```js
 let promise = fetch(url);
