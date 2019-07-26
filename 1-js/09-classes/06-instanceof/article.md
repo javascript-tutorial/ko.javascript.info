@@ -46,7 +46,7 @@ alert( arr instanceof Object ); // true
 
 Please note that `arr` also belongs to the `Object` class. That's because `Array` prototypally inherits from `Object`.
 
-The `instanceof` operator examines the prototype chain for the check, but we can set a custom logic the static method `Symbol.hasInstance`.
+The `instanceof` operator examines the prototype chain for the check, but we can set a custom logic in the static method `Symbol.hasInstance`.
 
 The algorithm of `obj instanceof Class` works roughly as follows:
 
@@ -66,7 +66,7 @@ The algorithm of `obj instanceof Class` works roughly as follows:
     alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
     ```
 
-2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceOf Classs` checks whether `Class.prototype` equals to one of prototypes in the `obj` prototype chain.
+2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceOf Class` checks whether `Class.prototype` equals to one of prototypes in the `obj` prototype chain.
 
     In other words, compare:
     ```js

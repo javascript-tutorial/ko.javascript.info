@@ -1,37 +1,26 @@
 # Mocha로 하는 테스팅 자동화
 
-테스트 자동화는 추가 작업에 사용됩니다.
-Automated testing will be used in further tasks.
+테스트 자동화는 추가적인 작업이긴 하지만 많은 프로젝트가 테스트 자동화를 도입하고 있습니다.
 
-사실 테스트 자동화는 개발자가 받아야 할 "최소한의 교육"에 속합니다.
-It's actually a part of the "educational minimum" of a developer.
+## 테스트의 필요성
 
-## Why we need tests?
-## 테스트는 왜 필요할까?
-
-When we write a function, we can usually imagine what it should do: which parameters give which results.
 함수를 작성할 땐, 어떤 매개변수가 들어오면 어떤 결과가 나올 지 상상하며 작업합니다. 
 
-During development, we can check the function by running it and comparing the outcome with the expected one. For instance, we can do it in the console.
 그리고 함수를 직접 실행 한 결과가 원하는 것과 같은지를 비교하면서 함수를 잘 만들었는지 확인합니다. 콘솔에서 실행 해 확인하는 것 같이 말이죠.
 
-If something is wrong -- then we fix the code, run again, check the result -- and so on till it works.
 뭔가 잘못 된 경우는, 코드를 고치고, 재 실행해 서 결과를 다시 확인합니다. 함수가 제대로 작동할 때까지 이 작업을 반복하죠.
 
-But such manual "re-runs" are imperfect.
 하지만 이렇게 손으로 "재 실행"하는건 불완전한 방법입니다.
 
-**When testing a code by manual re-runs, it's easy to miss something.**
 **손으로 재 실행 하는 방식의 테스팅은, 뭔가를 놓치기 쉽습니다.**
 
-For instance, we're creating a function `f`. Wrote some code, testing: `f(1)` works, but `f(2)` doesn't work. We fix the code and now `f(2)` works. Looks complete? But we forgot to re-test `f(1)`. That may lead to an error.
 함수 `f`를 만들고 있다고 가정해 봅시다. 코드를 작성하고, `f(1)`을 테스트 하는데, 잘 작동합니다. 그런데 `f(2)`는 잘 작동하지 않습니다. 코드를 수정하고 나니 `f(2)`가 잘 작동합니다. 작업이 끝난것 같이 보입니다. 하지만 코드가 수정된 후 `f(1)`을 테스트 하지 못했습니다. 이런 상황은 에러를 발생시킬 수 있습니다.  
 
-That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
 이는 전형적인 상황입니다. 개발자는 많은 가능성을 염두하고 코드를 작성합니다. 하지만 코드가 수정되고 난 후, 개발자가 모든 가능성을 다시 확인한다는 보장이 없습니다. 이 때문에 하나를 고치면 다른 하나가 고장날 가능성이 생깁니다.
 
-**Automated testing means that tests are written separately, in addition to the code. They can be executed easily and check all the main use cases.**
-**테스트 코드가 기능을 담당하는 코드와 별개로 작성된 경우를 테스팅 자동화를 하고 있다고 부릅니다. 테스트 코드는 실행하기 쉽고, 모든 주요 유스 케이스(use case)를 확인해 줍니다.**
+That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
+
+**Automated testing means that tests are written separately, in addition to the code. They can be executed automatically and check all the main use cases.**
 
 ## Behavior Driven Development (BDD)
 
@@ -39,7 +28,7 @@ Let's use a technique named [Behavior Driven Development](http://en.wikipedia.or
 
 **BDD is three things in one: tests AND documentation AND examples.**
 
-Enough words. Let's see the example.
+Let's see the example.
 
 ## Development of "pow": the spec
 
@@ -66,7 +55,7 @@ A spec has three main building blocks that you can see above:
 `describe("title", function() { ... })`
 : What functionality we're describing. Uses to group "workers" -- the `it` blocks. In our case we're describing the function `pow`.
 
-`it("title", function() { ... })`
+`it("use case description", function() { ... })`
 : In the title of `it` we *in a human-readable way* describe the particular use case, and the second argument is a function that tests it.
 
 `assert.equal(value1, value2)`
@@ -82,7 +71,7 @@ The flow of development usually looks like this:
 
 1. An initial spec is written, with tests for the most basic functionality.
 2. An initial implementation is created.
-3. To check whether it works, we run the testing framework [Mocha](http://mochajs.org/) (more details soon) that runs the spec. Errors are displayed. We make corrections until everything works.
+3. To check whether it works, we run the testing framework [Mocha](http://mochajs.org/) (more details soon) that runs the spec. While the functionality is not complete, errors are displayed. We make corrections until everything works.
 4. Now we have a working initial implementation with tests.
 5. We add more use cases to the spec, probably not yet supported by the implementations. Tests start to fail.
 6. Go to 3, update the implementation till tests give no errors.
@@ -90,7 +79,9 @@ The flow of development usually looks like this:
 
 So, the development is *iterative*. We write the spec, implement it, make sure tests pass, then write more tests, make sure they work etc. At the end we have both a working implementation and tests for it.
 
-In our case, the first step is complete: we have an initial spec for `pow`. So let's make an implementation. But before that let's make a "zero" run of the spec, just to see that tests are working (they will all fail).
+Let's see this development flow in our practical case.
+
+The first step is complete: we have an initial spec for `pow`. Now, before making the implementaton, let's use few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
 
 ## The spec in action
 
@@ -143,7 +134,7 @@ What we've done is definitely a cheat. The function does not work: an attempt to
 
 ...But the situation is quite typical, it happens in practice. Tests pass, but the function works wrong. Our spec is imperfect. We need to add more use cases to it.
 
-Let's add one more test to see if `pow(3, 4) = 81`.
+Let's add one more test to check that `pow(3, 4) = 81`.
 
 We can select one of two ways to organize the test here:
 
@@ -307,7 +298,7 @@ Testing finished – after all tests (after)
 
 [edit src="beforeafter" title="Open the example in the sandbox."]
 
-Usually, `beforeEach/afterEach` (`before/after`) are used to perform initialization, zero out counters or do something else between the tests (or test groups).
+Usually, `beforeEach/afterEach` and `before/after` are used to perform initialization, zero out counters or do something else between the tests (or test groups).
 ````
 
 ## Extending the spec
@@ -401,22 +392,20 @@ That's especially important in large projects when a function is used in many pl
 
 Without tests, people have two ways:
 
-1. To perform the change, no matter what. And then our users meet bugs and report them. If we can afford that.
-2. Or people become afraid to modify such functions, if the punishment for errors is harsh. Then it becomes old, overgrown with cobwebs, no one wants to get into it, and that's not good.
+1. To perform the change, no matter what. And then our users meet bugs, as we probably fail to check something manually.
+2. Or, if the punishment for errors is harsh, as there are no tests, people become afraid to modify such functions, and then the code becomes outdated, no one wants to get into it. Not good for development.
 
-**Automatically tested code is contrary to that!**
+**Automatic testing helps to avoid these problems!**
 
-If the project is covered with tests, there's just no such problem. We can run tests and see a lot of checks made in a matter of seconds.
+If the project is covered with tests, there's just no such problem. After any changes, we can run tests and see a lot of checks made in a matter of seconds.
 
 **Besides, a well-tested code has better architecture.**
 
-Naturally, that's because it's easier to change and improve it. But not only that.
+Naturally, that's because auto-tested code is easier to modify and improve. But there's also another reason.
 
 To write tests, the code should be organized in such a way that every function has a clearly described task, well-defined input and output. That means a good architecture from the beginning.
 
 In real life that's sometimes not that easy. Sometimes it's difficult to write a spec before the actual code, because it's not yet clear how it should behave. But in general writing tests makes development faster and more stable.
-
-## What now?
 
 Later in the tutorial you will meet many tasks with tests baked-in. So you'll see more practical examples.
 
