@@ -4,7 +4,7 @@ libs:
 
 ---
 
-# Text Selection and Range
+# Selection and Range
 
 In this chapter we'll cover text selection.
 
@@ -70,7 +70,7 @@ let selectPDomtree = {
 drawHtmlTree(selectPDomtree, 'div.select-p-domtree', 690, 320);
 </script>
 
-Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>`:
+Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>` (counting text nodes):
 
 ![](range-example-p-0-1.png)
 
@@ -94,7 +94,7 @@ Let's select `"Example: <i>italic</i>"`. That's two first children of `<p>`:
 ```
 
 - `range.setStart(p, 0)` -- sets the start at the 0th child of `<p>` (that's a text node `"Example: "`).
-- `range.setEnd(p, 2)` -- spans the range up to (but not including) 2nd child of `<p>` (that's a text node `" and "`, but as the end is not included, the last selected node is `<i>`).
+- `range.setEnd(p, 2)` -- spans the range up to (but not including) 2nd child of `<p>` (that's a text node `" and "`, but as the end is not included, so the last selected node is `<i>`).
 
 Here's a more flexible test stand where you try more variants:
 
@@ -540,6 +540,13 @@ To make something unselectable, there are three ways:
     And `elem` contents still be copied.
 
 3. We can also clear the selection post-factum after it happens with `document.getSelection().empty()`. That's rarely used, as this causes unwanted blinking as the selection appears-disappears.
+
+## References
+
+- [DOM spec: Range](https://dom.spec.whatwg.org/#ranges)
+- [Selection API](https://www.w3.org/TR/selection-api/#dom-globaleventhandlers-onselectstart)
+- [HTML spec: APIs for the text control selections](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#textFieldSelection)
+
 
 ## Summary
 
