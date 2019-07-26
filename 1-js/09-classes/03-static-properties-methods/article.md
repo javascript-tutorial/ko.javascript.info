@@ -1,9 +1,9 @@
 
 # 정적 프로퍼티들과 메서드
 
-`"prototype"` 뿐만 아니라 클래스의 함수에 메서드를 지정할 수 있습니다. 이러한 메서드를 *static* 이라고 부릅니다.
+`"prototype"` 뿐만 아니라 클래스의 함수에도 메서드를 지정할 수 있습니다. 이러한 메서드를 *static* 이라고 부릅니다.
 
-아래에 예시가 있습니다.
+아래에 예시와 같습니다.
 
 ```js run
 class User {
@@ -17,7 +17,7 @@ class User {
 User.staticMethod(); // true
 ```
 
-사실 이것은 함수 프로퍼티에 정의하는 것과 같습니다.
+사실 이것은 함수 프로퍼티에 정의하는 것과 같은 의미입니다.
 
 ```js
 function User() { }
@@ -47,7 +47,7 @@ class Article {
 */!*
 }
 
-// 사용
+// 함수를 사용
 let articles = [
   new Article("HTML", new Date(2019, 1, 1)),
   new Article("CSS", new Date(2019, 0, 1)),
@@ -61,9 +61,9 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-`Article.compare`는 articles "위에" 존재합니다. 이것은 서로를 비교할 수 있다는 뜻이죠. 그것은 article의 메서드는 아니고 전체 클래스의 것이죠.
+`Article.compare`는 articles "위에" 존재합니다. 서로를 비교할 수 있다는 뜻이죠. article의 메서드는 아니고 전체 클래스의 일부입니다.
 
-또 다른 예시는 "factory"메서드를 호출할 때 일 것입니다. 몇 개의 article을 생성해야 한다고 가정해 보죠.
+또 다른 예시는 "factory"메서드를 호출할 때일 것입니다. 몇 개의 article을 생성해야 한다고 가정해 보죠.
 
 1. 인수를 넘겨주어 생성한다 (`title`, `date` 기타 등등).
 2. 오늘 날짜로 비어있는 article을 생성한다.
@@ -71,7 +71,7 @@ alert( articles[0].title ); // CSS
 
 첫 번째 것은 생성자를 통해서 구현할 수 있습니다. 그리고 두 번째 것은 클래스의 정적 메서드를 사용해서 만들 수 있습니다.
 
-아래 `Article.createTodays()`와 같이 말이죠
+아래 `Article.createTodays()`와 같이 작성될 것입니다.
 
 ```js run
 class Article {
@@ -90,7 +90,7 @@ class Article {
 
 let article = Article.createTodays();
 
-alert( article.title ); // Todays digest
+alert( article.title ); // 오늘의 글
 ```
 
 이제 매번 오늘의 글을 생성할 때, `Article.createTodays()`를 호출할 수 있습니다. 다시 한번, 이것은 article의 메서드는 아닙니다만 전체 클래스의 메서드이죠.
@@ -166,12 +166,12 @@ let rabbits = [
 rabbits.sort(Rabbit.compare);
 */!*
 
-rabbits[0].run(); // Black Rabbit runs with speed 5.
+rabbits[0].run(); // 검은 토끼는 속도 5로 달립니다.
 ```
 
 여기서 `Rabbit.compare`를 호출하면 상속받은 `Animal.compare`이 호출될 것이라고 예상됩니다.
 
-어떻게 작동할까요? 다시 한번 언급하면, 프로토타입을 사용하기 때문입니다. 이미 예상했듯이, `extends` 키워드가 `Rabbit` 의 `[[Prototype]]`이 `Animal`을 가리키도록 하고 있습니다.
+어떻게 작동되는 걸까요? 다시 한번 언급하면, 프로토타입을 사용하기 때문입니다. 이미 예상했듯이, `extends` 키워드가 `Rabbit` 의 `[[Prototype]]`이 `Animal`을 가리키도록 하고 있습니다.
 
 
 ![](animal-rabbit-static.png)
