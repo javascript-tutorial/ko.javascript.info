@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# A question about "if"
+# "if"에 관한 고찰
 
-Which of these `alert`s are going to execute?
+아래 표현식에서 어떤 `alert`가 실행될까요?
 
-What will the results of the expressions be inside `if(...)`?
+`if(...)` 안에 표현식이 있으면 어떤 일이 일어날까요?
 
 ```js
 if (-1 || 0) alert( 'first' );
