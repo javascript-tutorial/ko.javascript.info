@@ -16,7 +16,7 @@ importance: 3
 
 순서도는 다음과 같습니다.
 
-![](ifelse_task.png)
+![](ifelse_task.svg)
 
 중첩 `if` 블록을 사용하고, 코드 전체의 가독성을 고려해 답안을 작성하세요.
 

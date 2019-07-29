@@ -42,7 +42,7 @@ new Promise(function(resolve, reject) {
 
 결과가 핸들러의 사슬을 통해 전달되므로, `alert` 창에 `1` -> `2` -> `4`가 순서대로 출력되는것을 확인할 수 있습니다.
 
-![](promise-then-chain.png)
+![](promise-then-chain.svg)
 
 이렇게 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 프라미스가 반환되기 때문에 이 프라미스에 다시 `.then`을 호출할 수 있는 거죠.
 
@@ -94,7 +94,7 @@ promise.then(function(result) {
 
 그림으로 표현하면 다음과 습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
-![](promise-then-many.png)
+![](promise-then-many.svg)
 
 한 프라미스에 등록된 모든 `.then`은 해당 프라미스의 result라는 동일한 결과를 받습니다. 따라서 위 코드에서 모든 `alert` 창은 `1`을 출력합니다.
 
@@ -382,4 +382,4 @@ loadJson('/article/promise-chaining/user.json')
 
 아래는 이 과정을 그림으로 나타낸 것입니다.
 
-![](promise-handler-variants.png)
+![](promise-handler-variants.svg)

@@ -200,7 +200,7 @@ setTimeout(function run() {
 
 `setInterval`을 이용한 예제에선, 내부 스케줄러가 `func(i)`를 100ms마다 실행합니다.
 
-![](setinterval-interval.png)
+![](setinterval-interval.svg)
 
 알아차리셨나요?
 
@@ -216,7 +216,7 @@ setTimeout(function run() {
 
 아래는 회귀적인 `setTimeout`을 묘사하는 그림입니다.
 
-![](settimeout-interval.png)
+![](settimeout-interval.svg)
 
 **회귀적인 `setTimeout`에선 명시한 지연(여기서는 100ms)을 보장합니다.**
 

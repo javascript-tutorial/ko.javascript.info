@@ -189,7 +189,7 @@ All of them accept a list of DOM nodes and/or text strings. If a string is given
 
 위 코드를 간단히 도식화하면 다음과 같습니다:
 
-![](before-prepend-append-after.png)
+![](before-prepend-append-after.svg)
 
 리스트가 이렇게 변경되죠:
 
@@ -269,7 +269,7 @@ after
 
 insertAdjacentHTML을 사용한 삽입을 도식화하면 다음과 같습니다:
 
-![](insert-adjacent.png)
+![](insert-adjacent.svg)
 
 이 그림과 이전 그림이 꽤 유사하게 생겼다는 걸 알아차리실 수 있을 겁니다. 삽입하려는 지점은 두 그림에서 완전히 같고, HTML을 삽입하려는 점만 다르다는 걸 관찰 할 수 있습니다.
 

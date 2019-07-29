@@ -74,7 +74,7 @@
 
 아래 간단한 코드엔 하나의 렉시컬 환경만 존재합니다.
 
-![lexical environment](lexical-environment-global.png)
+![lexical environment](lexical-environment-global.svg)
 
 이렇게 스크립트 전체와 연관된 렉시컬 환경을 전역 렉시컬 환경(global Lexical Environment)이라 부릅니다.
 
@@ -82,7 +82,7 @@
 
 이제, `let`이 변할 때 어떤 일이 발생하는지에 대해 알아봅시다.
 
-![lexical environment](lexical-environment-global-2.png)
+![lexical environment](lexical-environment-global-2.svg)
 
 우측의 사각형들은 실행이 진행됨에 따라 전역 렉시컬 환경이 어떻게 변경되는지를 보여줍니다(위에서부터 아래로).
 
@@ -110,7 +110,7 @@
 
 아래 그림을 보면, 실행이 시작된 시점에 렉시컬 환경이 비어 있지 않은 걸 확인할 수 있습니다. 환경 레코드 안에 `say`가 있죠. 그 이후, 실행 흐름이 `let`에 도달하면 환경 레코드에 `phrase` 프로퍼티가 추가됩니다.
 
-![lexical environment](lexical-environment-global-3.png)
+![lexical environment](lexical-environment-global-3.svg)
 
 
 ### 내부와 외부 렉시컬 환경
@@ -134,7 +134,7 @@
     say("John"); // Hello, John
     ```-->
 
-![lexical environment](lexical-environment-simple.png)
+![lexical environment](lexical-environment-simple.svg)
 
 보시는 바와 같이 함수가 호출 중일 때, 두 개의 렉시컬 환경, 호출된 함수를 위한 (내부) 렉시컬 환경과 스크립트 전체와 연관된 (전역) 렉시컬 환경이 만들어집니다.
 
@@ -156,7 +156,7 @@
 -`say` 내부의 `alert`가 `name`에 접근하려고 하면, 함수 렉시컬 환경을 먼저 살피게 됩니다. `name`에 상응하는  프로퍼티를 바로 찾았네요!
 -`say` 내부의 `alert`가 `phrase`에 접근하려고 했는데, `phrase`는 내부 렉시컬 환경에 없습니다. 따라서, 내부 렉시컬 환경이 참조하는 렉시컬 환경(외부 렉시컬 환경)에 변수 `phrase`에 대응하는 프로퍼티가 있는지 검색을 시작합니다. 해당 프로퍼티가 외부 렉시컬 환경엔 있네요!
 
-![lexical environment lookup](lexical-environment-simple-lookup.png)
+![lexical environment lookup](lexical-environment-simple-lookup.svg)
 
 이제 첫 번째 경우에 내부에서 어떤 일이 일어나는지, 답은 무엇인지 알게 되었습니다.
 
@@ -265,7 +265,7 @@ alert( counter() ); // 2
 
 내부 함수의 코드 `count++`가 실행될 때, 안쪽에서부터 시작해 바깥으로 나아가며 count를 찾습니다. 검색 영역이 아래 그림처럼 점차 확장되어, 검색 순서가 아래와 같이 됩니다.
 
-![](lexical-search-order.png)
+![](lexical-search-order.svg)
 
 1. 중첩 함수의 내부
 2. 외부 함수의 내부
@@ -319,7 +319,7 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
 
 1. 스크립트가 시작할 땐, 전역 렉시컬 환경만 존재합니다.
 
-    ![](lexenv-nested-makecounter-1.png)
+    ![](lexenv-nested-makecounter-1.svg)
 
    함수가 아직 실행되진 않았지만, 전역 렉시컬 환경엔 `makeCounter`함수가 있습니다. `makeCounter`는 함수 선언문 방식으로 정의한 함수이기 때문입니다.
    
@@ -331,7 +331,7 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
 
 2. 실행이 진행되면서, 새로운 전역 변수`counter`가 선언되고, 변수의 값으로 함수 호출인 `makeCounter()`가 할당됩니다. 아래는 실행 흐름이 `makeCounter()` 함수 바디의 첫 번째 줄에 있는 순간을 표현한 그림입니다.
 
-    ![](lexenv-nested-makecounter-2.png)
+    ![](lexenv-nested-makecounter-2.svg)
 
     `makeCounter()`을 호출하는 순간, 함수내 변수와 넘겨받은 인수를 저장하는 렉시컬 환경이 만들어집니다.
     
@@ -347,19 +347,19 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
     
     새로운 중첩 익명 함수의 `[[Environment]]`는 `makeCounter()`를 위한 렉시컬 환경을 참조합니다. 이 익명함수는 `makeCounter()`의 렉시컬 환경에서 만들어졌기 때문입니다.
 
-    ![](lexenv-nested-makecounter-3.png)
+    ![](lexenv-nested-makecounter-3.svg)
 
     지금 단계에선 함수는 만들어졌지만, 아직 호출은 되지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`이 아직 실행되기 전입니다.
 
 4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
 
-    ![](lexenv-nested-makecounter-4.png)
+    ![](lexenv-nested-makecounter-4.svg)
 
     내부 중첩 함수의 바디는 `return count ++`라는 코드 한 줄로만 이루어져 있습니다.
 
 5. `counter()`를 호출하면, "비어있는" 렉시컬 환경이 만들어집니다. 익명 중첩 함수엔 지역 변수가 없기 때문입니다. 그러나 `counter`의 `[[Environment]]`가 외부 렉시컬 환경을 참조하고 있기 때문에, `makeCounter()`가 호출될 때 만들어진 렉시컬 환경 안의 변수에 접근할 수 있게 됩니다.
 
-    ![](lexenv-nested-makecounter-5.png)
+    ![](lexenv-nested-makecounter-5.svg)
 
    이제 변수에 접근해야 할 상황이 생기면, 자신의 렉시컬 환경(비어있음), `makeCounter()`를 호출할 때 만들어진 렉시컬 환경, 전역 렉시컬 환경의 순서로 검색하게 됩니다.
 
@@ -371,7 +371,7 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
 
 6. `counter()`를 호출하면 `count` 값이 반환될 뿐만 아니라, 값이 증가합니다. 값의 증가 같은 변수 업데이트는 "그 자리에서" 이뤄지므로, `count` 값의 증가는 `count`가 발견된 렉시컬 환경에서 이뤄집니다.
 
-    ![](lexenv-nested-makecounter-6.png)
+    ![](lexenv-nested-makecounter-6.svg)
 
    따라서 실행 흐름이 빨간 줄에 있을 땐, `count`의 값은 1이고, 단계 6에서 거친 과정과 동일한 절차를 거쳐 1이 alert 창에 출력됩니다.
 
@@ -381,7 +381,7 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
 
 아래 `work()` 함수는 함수가 만들어진 장소에서 참조하는 외부 렉시컬 환경의 `name`을 사용합니다.
 
-![](lexenv-nested-work.png)
+![](lexenv-nested-work.svg)
 
 따라서 `Pete`가 출력됩니다.
 
@@ -420,7 +420,7 @@ alert( counter2() ); // 0 (count2는 count1과 연관이 없습니다.)
     alert(user); // Error, can't see such variable!
     ```-->
 
-![](lexenv-if.png)
+![](lexenv-if.svg)
 
 실행이 `if` 블록에 도달하면 "if 전용" 렉시컬 환경이 새롭게 만들어집니다.
 

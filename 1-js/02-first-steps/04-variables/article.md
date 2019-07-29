@@ -99,7 +99,7 @@ let user = 'John'
 
 예를 들어, 변수 `message`는 `"message"`라는 이름표가 붙어있는 상자에 `"Hello!"`라는 값 저장한 것이라고 생각할 수 있습니다.
 
-![](variable.png)
+![](variable.svg)
 
 상자 속엔 어떤 값이든지 넣을 수 있습니다.
 
@@ -116,7 +116,7 @@ alert(message);
 
 값이 변경되면, 이전 데이터는 변수에서 제거됩니다.
 
-![](variable-change.png)
+![](variable-change.svg)
 
 변수 두 개를 선언하고, 한 변수의 데이터를 다른 변수에 복사할 수도 있습니다.
 
