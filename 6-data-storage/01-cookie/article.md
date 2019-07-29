@@ -196,7 +196,7 @@ document.cookie = "user=John; secure";
 
 폼이 `evil.com`에서 은행 사이트로 바로 전송될 때 인증 쿠키도 함께 전송됩니다. `bank.com`에 요청을 보낼 때마다 `bank.com`에서 설정한 쿠키가 전송되기 때문입니다. 은행은 전송받은 쿠키를 읽어 (해커가 아닌) 계정 주인이 접속한 것이라 생각하고 해커에게 돈을 송금합니다.
 
-![](cookie-xsrf.png)
+![](cookie-xsrf.svg)
 
 이런 공격을 크로스 사이트 요청 위조라고 부릅니다.
 
@@ -358,15 +358,15 @@ function deleteCookie(name) {
 1. `site.com`의 특정 페이지에서 이미지 배너(banner)를 불러옵니다. 배너는 다른 도메인 `<img src="https://ads.com/banner.png">` 에서 가져옵니다.
 2. `ads.com`에 있는 원격 서버는 배너와 함께 `Set-Cookie` 헤더를 전송해 브라우저가 `id=1234`와 같은 쿠키를 설정하도록 합니다. 이 쿠키는 `ads.com` 도메인에서 설정한 것이기 때문에 `ads.com`에서만 볼 수 있습니다.
 
-    ![](cookie-third-party.png)
+    ![](cookie-third-party.svg)
 
 3. 사용자가 `ads.com`에 다시 접속하면, 원격 서버는 요청과 함께 전송받은 쿠키의 `id`를 이용해 해당 유저를 인식합니다. 
 
-    ![](cookie-third-party-2.png)
+    ![](cookie-third-party-2.svg)
 
 4. 사용자가 `site.com`을 떠나 `other.com`에 접속하고 이 사이트에도 배너가 있으면 `ads.com`은 또 쿠키를 전송받습니다. 이 쿠키는 `ads.com`에서 설정한 것이기 때문이죠. 이를 이용해 `ads.com`은 사용자를 인식하고, 이 사용자가 어떤 사이트로 이동했는지를 추적합니다.
 
-    ![](cookie-third-party-3.png)
+    ![](cookie-third-party-3.svg)
 
 
 광고회사는 사용자의 이용 행태를 추적하고, 광고를 제공하기 위해 오래전부터 서드 파티 쿠키를 사용하고 있습니다. 서드파티 쿠키는 쿠키를 설정한 도메인에 종속되기 때문에 `ads.com`은 사용자가 어떤 사이트를 방문했는지 추적할 수 있습니다.

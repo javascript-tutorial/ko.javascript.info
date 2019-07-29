@@ -8,7 +8,7 @@ importance: 2
 
 사용자가 "ECMAScript"를 입력했다면 "정답입니다(Right)!", 아니라면 "모르셨나요? 정답은 ECMAScript입니다!(Didn’t know? ECMAScript)"라는 메시지를 보여주세요.
 
-![](ifelse_task2.png)
+![](ifelse_task2.svg)
 
 [demo src="ifelse_task2"]
 

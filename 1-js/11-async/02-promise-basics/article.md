@@ -38,7 +38,7 @@ executor의 실행이 끝나면, 인자로 받은 함수인 resolve나 reject �
     - `state`의 값이 `"rejected"`이 되고,
     - `result`의 값이 `error`로 바뀜.
 
-![](promise-resolve-reject.png)
+![](promise-resolve-reject.svg)
 
 이 변화가 어떻게 "팬"들에게 전달되는지는 잠시 후 살펴보도록 하겠습니다.
 
@@ -60,7 +60,7 @@ let promise = new Promise(function(resolve, reject) {
 
 1초 후에 executor는 `resolve("done")`를 호출하고, 결과물을 만들어 냅니다.
 
-![](promise-resolve-1.png)
+![](promise-resolve-1.svg)
 
 지금까진 성공적으로 일이 처리된 경우인 "fulfilled promise(약속이 이행된 프라미스)"에 대해 알아보았습니다.
 
@@ -73,7 +73,7 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-![](promise-reject-1.png)
+![](promise-reject-1.svg)
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이 때 프라미스 객체의 프로퍼티인 state가 변경됩니다.
 

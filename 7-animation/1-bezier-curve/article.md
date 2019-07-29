@@ -12,15 +12,15 @@
 
 예를 들어, 두 점의 곡선은:
 
-![](bezier2.png)
+![](bezier2.svg)
 
 세 점의 곡선은:
 
-![](bezier3.png)
+![](bezier3.svg)
 
 네 점의 곡선은:
 
-![](bezier4.png)
+![](bezier4.svg)
 
 이 곡선들을 깊게 들여다본다면, 즉시 알아차릴 수 있습니다.
 
@@ -29,7 +29,7 @@
 두 점으로 선형의 곡선(직선입니다.), 세 점으로 -- 2차 곡선을, 네점으로 3차 곡선을 가집니다.
 3. **곡선은 항상 제어점의 [컨벡스 헐(convex hull)](https://en.wikipedia.org/wiki/Convex_hull)안에 존재합니다:**
 
-    ![](bezier4-e.png) ![](bezier3-e.png)
+    ![](bezier4-e.svg) ![](bezier3-e.svg)
 
 마지막 속성 때문에, 컴퓨터 그래픽스에서는 교차 검사(intersection tests)를 최적화하는 것이 가능합니다. 컨벡스 헐(convex hulls)은 교차가 아니라면, 곡선은 같지 않습니다. 그래서 먼저 컨벡스 헐(convex hulls)의 교차를 검사하는 것은 가장 빠르게 "교차 없음" 결과를 도출할 수 있습니다. 교차를 검사하는 것 또는 컨벡스 헐(convex hulls)은 더욱 쉽습니다, 사각형, 삼각형 그리고 기타 등등 (위에 그림을 보세요), 곡선보다 더욱 간단한 도형이기 때문입니다.
 
@@ -45,7 +45,7 @@
 
 아래 예제가 있습니다:
 
-![](bezier-car.png) ![](bezier-letter.png) ![](bezier-vase.png)
+![](bezier-car.svg) ![](bezier-letter.svg) ![](bezier-vase.svg)
 
 ## 카스텔조 알고리즘(De Casteljau's algorithm)
 
@@ -77,7 +77,7 @@
 
 | `t=0.25`                 | `t=0.5`                |
 | ------------------------ | ---------------------- |
-| ![](bezier3-draw1.png)   | ![](bezier3-draw2.png) |
+| ![](bezier3-draw1.svg)   | ![](bezier3-draw2.svg) |
 
 4. <span style="color:#167490">파란색</span> 선분 안에서 `t`의 값과 동일하게 비례하는 거리만큼 점을 가져다 놓습니다. `t=0.25`(왼쪽 그림)은 선분의 4분의 1지점에 위치하고, `t=0.5`(오른쪽 그림) -- 선분의 가운데에 위치. 위 그림에서 점은 <span style="color:red">빨간색</span>입니다. 
 

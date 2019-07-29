@@ -393,7 +393,7 @@ alert(item2);  // Donut
 
 여기서 주의할 점은 `size`와 `items`는 분해되지 않았다는 점입니다.
 
-![](destructuring-complex.png)
+![](destructuring-complex.svg)
 
 변수 `width`, `height`, `item1`, `item2`에 값이 저장되었습니다. 변수 `title`은 기본값을 통해 그 값을 할당받았습니다.
 

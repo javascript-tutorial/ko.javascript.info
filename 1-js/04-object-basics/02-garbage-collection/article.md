@@ -38,7 +38,7 @@ let user = {
 };
 ```
 
-![](memory-user-john.png)
+![](memory-user-john.svg)
 
 이 그림에서 화살표는 객체 참조를 나타냅니다. 전역 변수(`<global>`) `"user"`는 `{name: "John"}` (줄여서 John이라고 부르겠습니다) 이라는 객체를 참조합니다. John의 `"name"` 프로퍼티는 원시값을 저장하고 있기 때문에 객체(`Object`) 안에 위치합니다.
 
@@ -48,7 +48,7 @@ let user = {
 user = null;
 ```
 
-![](memory-user-john-lost.png)
+![](memory-user-john-lost.svg)
 
 이제 John은 도달할 수 없게 되었습니다. John에 접근할 방법은 없으며, John에 대한 어떤 참조도 존재하지 않습니다. 가비지 컬렉터는 이 데이터를 삭제하고 메모리를 해제할 것입니다.
 
@@ -67,7 +67,7 @@ let admin = user;
 */!*
 ```
 
-![](memory-user-john-admin.png)
+![](memory-user-john-admin.svg)
 
 위에서처럼 `user`를 다른 값으로 덮어써 봅시다:
 ```js
@@ -102,7 +102,7 @@ let family = marry({
 
 결과적으로 메모리 구조는 이렇게 됩니다.:
 
-![](family.png)
+![](family.svg)
 
 지금은 모든 객체가 접근 가능한 상태에 있습니다.
 
@@ -113,19 +113,19 @@ delete family.father;
 delete family.mother.husband;
 ```
 
-![](family-delete-refs.png)
+![](family-delete-refs.svg)
 
 참조를 하나만 지웠다면, 모든 객체가 여전히 접근 가능한 상태로 남아있으므로 충분하지 않습니다.
 
 그러나 참조 두 개를 모두 지우면, John에 대한 참조는 더 이상 존재하지 않게 됩니다.:
 
-![](family-no-father.png)
+![](family-no-father.svg)
 
 John에서 외부로 나가는 참조는 문제가 되지 않습니다. 외부에서 들어오는 참조만이 객체를 도달 가능한 상태로 만듭니다. 따라서 John은 이제 도달할 수 없게 되었고, 접근 불가능한 John의 데이터는 메모리에서 제거될 것입니다.
 
 가비지 컬렉션 수행 후 결과는 다음과 같습니다.:
 
-![](family-no-father-2.png)
+![](family-no-father-2.svg)
 
 ## 도달할 수 없는 섬
 
@@ -139,7 +139,7 @@ family = null;
 
 이제 메모리 내부 상태는 다음과 같아집니다.:
 
-![](family-no-family.png)
+![](family-no-family.svg)
 
 도달할 수 없는 섬 예제는 도달 가능성이라는 개념이 얼마나 중요한지 보여줍니다.
 
@@ -161,25 +161,25 @@ John과 Ann은 여전히 연결되어 있고, 둘 다 외부에서 들어오는 
 
 예를 들어 다음과 같은 객체 구조가 있다고 해봅시다.:
 
-![](garbage-collection-1.png)
+![](garbage-collection-1.svg)
 
 오른편에 "도달할 수 없는 섬"이 보이네요. 이제 가비지 컬렉터의 "마크 앤 스윕" 알고리즘이 이것을 어떻게 처리하는지 알아봅시다.
 
 첫 번째 단계에선 루트를 마크합니다.:
 
-![](garbage-collection-2.png)
+![](garbage-collection-2.svg)
 
 이후 루트가 참조하고 있는 것들을 마크합니다.:
 
-![](garbage-collection-3.png)
+![](garbage-collection-3.svg)
 
 ...그리고 나서 그것들이 참조하고 있는 것들을 마크합니다. 가능한 범위에서 이 과정을 반복합니다.:
 
-![](garbage-collection-4.png)
+![](garbage-collection-4.svg)
 
 이 과정에서 방문할 수 없었던 객체들은 도달 불가능한 것으로 여겨져 메모리에서 삭제됩니다.:
 
-![](garbage-collection-5.png)
+![](garbage-collection-5.svg)
 
 이것이 바로 가비지 컬렉션이 작동하는 개념입니다.
 
