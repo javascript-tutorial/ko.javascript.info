@@ -30,7 +30,11 @@ It may happen that a task comes while the engine is busy, then it's enqueued.
 
 The tasks form a queue, so-called "macrotask queue" (v8 term):
 
+<<<<<<< HEAD
 ![](eventLoop.png)
+=======
+![](eventLoop.svg)
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 For instance, while the engine is busy executing a `script`, a user may move their mouse causing `mousemove`, and `setTimeout` may be due and so on, these tasks form a queue, as illustrated on the picture above.
 
@@ -309,7 +313,11 @@ So, microtasks are asynchronous from the point of code execution, but they don't
 
 The richer event loop picture may look like this:
 
+<<<<<<< HEAD
 ![](eventLoop-full.png)
+=======
+![](eventLoop-full.svg)
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 The more detailed algorithm of the event loop (though still simplified compare to the [specification](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)):
 

@@ -2,13 +2,23 @@
 
 쿠키는 브라우저에 저장되는 작은 크기의 문자열로, [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세에서 정의한 HTTP 프로토콜의 일부입니다.
 
+<<<<<<< HEAD
 쿠키는 주로 웹 서버에 의해 만들어집니다. 서버가 HTTP 응답 헤더(header)의 `Set-Cookie`에 내용을 넣어 전달하면, 브라우저는 이 내용을 자체적으로 브라우저에 저장합니다. 이게 바로 쿠키입니다. 브라우저는 사용자가 쿠키를 생성하도록 한 동일 서버(사이트)에 접속할 때마다 쿠키의 내용을 `Cookie` 요청 헤더에 넣어서 함께 전달합니다. 
+=======
+Cookies are usually set by a web-server using response `Set-Cookie` HTTP-header. Then the browser automatically adds them to (almost) every request to the same domain using `Cookie` HTTP-header.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
+<<<<<<< HEAD
 1. 사용자가 로그인하면, 서버는 HTTP 응답 헤더의 `Set-Cookie`에 "세션 ID(session identifier)" 정보를 담아 브라우저에 전달합니다.
 2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고윳값(세션 ID)을 담아 서버에 요청을 보냅니다.
 3. 서버는 브라우저가 보낸 요청 헤더의 세션 ID를 읽어 사용자를 식별합니다.
+=======
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is set to the same domain, the browser sends the over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
@@ -17,11 +27,19 @@
 ## 쿠키 읽기
 
 ```online
+<<<<<<< HEAD
 지금 보고 있는 이 사이트와 관련된 쿠키가 브라우저에 저장되어있는지 알아봅시다.
 ```
 
 ```offline
 현재 보고 있는 웹사이트와 관련된 쿠키는 아래와 같은 방법을 통해 볼 수 있습니다.
+=======
+Does your browser store any cookies from this site? Let's see:
+```
+
+```offline
+Assuming you're on a website, it's possible to see the cookies from it, like this:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```
 
 ```js run
@@ -39,9 +57,15 @@ alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 
 ## 쿠키 쓰기
 
+<<<<<<< HEAD
 `document.cookie`에 직접 값을 쓸 수 있습니다. 이때 `cookie`는 데이터 프로퍼티가 아닌 접근자(accessor) 프로퍼티입니다. 앞서 <info:property-accessors>에서 학습한 바와 같이, 접근자 프로퍼티에 값을 할당하는 것은 데이터 프로퍼티에 값을 할당하는 것과는 조금 다르게 처리됩니다.
 
 **`document.cookie`에 값을 할당하면, 브라우저는 이 값을 받아 해당 쿠키를 갱신합니다. 이때, 다른 쿠키의 값은 변경되지 않습니다.**
+=======
+We can write to `document.cookie`. But it's not a data property, it's an accessor (getter/setter). An assignment to it is treated specially.
+
+**A write operation to `document.cookie` updates only cookies mentioned in it, but doesn't touch other cookies.**
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 아래와 같이 코드를 작성하면 이름이 `user`인 쿠키를 찾아 그 값을 `John`으로 갱신합니다.
 
@@ -52,10 +76,17 @@ alert(document.cookie); // 모든 쿠키 보여주기
 
 코드를 실행하면 여러 개의 쿠키가 출력되는 것을 확인할 수 있습니다. 이를 통해 `document.cookie=` 연산은 모든 쿠키를 덮어쓰지 않고, 명시된 쿠키인 `user`의 값만 갱신한 것을 알 수 있습니다.
 
+<<<<<<< HEAD
 쿠키의 이름과 값엔 특별한 제약이 없기 때문에 모든 글자가 허용됩니다. 하지만 형식의 유효성을 일관성 있게 유지하기 위해 반드시 내장 함수 `encodeURIComponent`를 사용하여 이름과 값을 이스케이프 처리해 줘야 합니다.
 
 ```js run
 // 특수 값은 인코딩 처리해 줘야 합니다.
+=======
+Technically, name and value can have any characters, to keep the valid formatting they should be escaped using a built-in `encodeURIComponent` function:
+
+```js run
+// special characters (spaces), need encoding
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 let name = "my name";
 let value = "John Smith"
 
@@ -84,11 +115,19 @@ document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 
 - **`path=/mypath`**
 
+<<<<<<< HEAD
 URL path(경로)의 접두사로, 이 경로나 이 경로의 하위 경로에 있는 페이지만 쿠키에 접근할 수 있습니다. 절대 경로이어야 하고, (미 지정시) 기본값은 현재 경로입니다.
+=======
+The url path prefix, the cookie will be accessible for pages under that path. Must be absolute. By default, it's the current path.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 `path=/admin` 옵션을 사용하여 설정한 쿠키는 `/admin`과 `/admin/something`에선 볼 수 있지만, `/home` 이나 `/adminpage`에선 볼 수 없습니다.
 
+<<<<<<< HEAD
 특별한 경우가 아니라면, `path` 옵션을 `path=/`같이 루트로 설정해 웹사이트의 모든 페이지에서 쿠키에 접근할 수 있도록 합시다.
+=======
+Usually, we should set `path` to the root: `path=/` to make the cookie accessible from all website pages.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## domain
 
@@ -110,6 +149,7 @@ alert(document.cookie); // 찾을 수 없음
 
 **서브 도메인이나 다른 도메인에서 쿠키에 접속할 방법은 없습니다. `site.com`에서 생성한 쿠키를 `other.com`에선 절대 전송받을 수 없습니다.**
 
+<<<<<<< HEAD
 이런 제약사항은 안정성을 높이기 위해 만들어졌습니다. 민감한 데이터가 저장된 쿠키는 관련 페이지에서만 볼 수 있도록 하기 위해서 말이죠.
 
 그런데 정말 `forum.site.com`과 같은 서브 도메인에서 `site.com`에서 생성한 쿠키 정보를 얻을 방법이 없는 걸까요? 방법이 있습니다. `site.com`에서 쿠키를 설정할 때 `domain` 옵션에 루트 도메인인 `domain=site.com`을 명시적으로 설정해 주면 되죠. 
@@ -126,6 +166,24 @@ alert(document.cookie); // user=John 쿠키를 확인할 수 있습니다.
 ```
 
 하위 호환성 유지를 위해 (`site.com` 앞에 점을 붙인) `domain=.site.com`도 `domain=site.com`과 동일하게 작동합니다. 오래된 표기법이긴 하지만 구식 브라우저를 지원하려면 이 표기법을 사용하는 것이 좋습니다. 
+=======
+It's a safety restriction, to allow us to store sensitive data in cookies, that should be available only on one site.
+
+...But if we'd like to allow subdomains like `forum.site.com` get a cookie, that's possible. When setting a cookie at `site.com`, we should explicitly set `domain` option to the root domain: `domain=site.com`:
+
+```js
+// at site.com
+// make the cookie accessible on any subdomain *.site.com:
+document.cookie = "user=John; domain=site.com"
+
+// later
+
+// at forum.site.com
+alert(document.cookie); // has cookie user=John
+```
+
+For historical reasons, `domain=.site.com` (a dot before `site.com`) also works the same way, allowing access to the cookie from subdomains. That's an old notation, should be used if we need to support very old browsers.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이렇게 `domain` 옵션값을 적절히 사용하면 서브 도메인에서도 쿠키에 접근할 수 있습니다.
 
@@ -184,25 +242,45 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
+<<<<<<< HEAD
 또 다른 보안 속성인 `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막기 위해 만들어진 옵션입니다.
 
 아래 XSRF 공격 시나리오를 통해 이 속성의 동작 방식과 언제 이 속성을 유용하게 사용할 수 있는지 알아보도록 합시다.
+=======
+That's another security attribute `samesite`. It's designed to protect from so-called XSRF (cross-site request forgery) attacks.
+
+To understand how it works and when it's useful, let's take a look at XSRF attacks.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ### XSRF 공격
 
 현재 `bank.com`에 로그인되어있다고 가정해 봅시다. 해당 사이트에서 사용되는 인증 쿠키가 브라우저에 저장되고, 브라우저는 `bank.com`에 요청을 보낼 때마다 인증 쿠키를 함께 전송할 것입니다. 서버는 전송받은 쿠키를 이용해 사용자를 식별하고, 보안이 필요한 재정 거래를 처리합니다.
 
+<<<<<<< HEAD
 이제 (로그아웃하지 않고) 다른 창을 띄워서 웹 서핑을 하던 도중에 우연히 `evil.com`에 접속했다 가정해 봅시다. 이 사이트엔 해커에게 송금을 요청하는 폼(form) `<form action="https://bank.com/pay">`이 있고, 이 폼은 자동으로 제출되도록 설정되어 있습니다. 
 
 폼이 `evil.com`에서 은행 사이트로 바로 전송될 때 인증 쿠키도 함께 전송됩니다. `bank.com`에 요청을 보낼 때마다 `bank.com`에서 설정한 쿠키가 전송되기 때문입니다. 은행은 전송받은 쿠키를 읽어 (해커가 아닌) 계정 주인이 접속한 것이라 생각하고 해커에게 돈을 송금합니다.
+=======
+Now, while browsing the web in another window, you occasionally come to another site `evil.com`. That site has JavaScript code that submits a form `<form action="https://bank.com/pay">` to `bank.com` with fields that initiate a transaction to the hacker's account.
 
-![](cookie-xsrf.png)
+The browser sends cookies every time you visit the site `bank.com`, even if the form was submitted from `evil.com`. So the bank recognizes you and actually performs the payment.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
+![](cookie-xsrf.svg)
+
+<<<<<<< HEAD
 이런 공격을 크로스 사이트 요청 위조라고 부릅니다.
 
 실제 은행은 당연히 이 공격을 막을 수 있도록 시스템을 설계합니다. `bank.com`에서 사용하는 모든 폼에 "XSRF 보호 토큰(protection token)"이라는 특수 필드를 넣어서 말이죠. 이 토큰은 악의적인 페이지에서 만들 수 없고, 원격 페이지에서도 훔쳐 올 수 없도록 구현되어 있습니다. 따라서 악의적인 페이지에서 폼을 전송하더라도 보호 토큰이 없거나 서버에 저장된 값과 일치하지 않기 때문에 요청이 무용지물이 됩니다.
 
 하지만 이런 절차는 구현에 시간이 걸린다는 단점을 수반합니다. 모든 폼에 보호 토큰을 세팅해줘야 하죠. 또한 요청 전부를 검수해야 합니다. 
+=======
+That's called a "Cross-Site Request Forgery" (in short, XSRF) attack.
+
+Real banks are protected from it of course. All forms generated by `bank.com` have a special field, so called "XSRF protection token", that an evil page can't generate or extract from a remote page (it can submit a form there, but can't get the data back). And the site `bank.com` checks for such token in every form it receives.
+
+But such protection takes time to implement: we need to ensure that every form has the token field, and we must also check all requests.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ### samesite 옵션
 
@@ -212,19 +290,31 @@ document.cookie = "user=John; secure";
 
 - **`samesite=strict`(값을 설정하지 않고 그냥 `samesite` 옵션만 써줘도 동일하게 동작함)**
 
+<<<<<<< HEAD
 사용자가 사이트 외부에서 요청을 보낼 때, `samesite=strict` 옵션이 있는 쿠키는 절대로 전송되지 않습니다. 
+=======
+A cookie with `samesite=strict` is never sent if the user comes from outside the same site.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 메일에 있는 링크를 따라 접속하거나 `evil.com`과 같은 사이트에서 폼을 전송하는 경우 등과 같이 제3의 도메인에서 요청이 이뤄질 땐 쿠키가 전송되지 않죠.
 
 인증 쿠키에 `samesite` 옵션이 있는 경우, XSRF 공격은 절대로 성공하지 못합니다. `evil.com`에서 전송하는 요청엔 쿠키가 없을 것이고, `bank.com`은 미인식 사용자에게 지급을 허용하지 않을 것이기 때문입니다.
 
+<<<<<<< HEAD
 이 보호장치는 꽤 믿을 만합니다. `bank.com`에서 수행하는 모든 작업은 samesite 쿠키를 함께 전송하기 때문이죠.
+=======
+The protection is quite reliable. Only operations that come from `bank.com` will send the `samesite` cookie, e.g. a form submission from another page at `bank.com`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 하지만 약간의 불편함도 감수해야 합니다.
 
 만약 사용자가 메모장 등에 `bank.com`에 요청을 보낼 수 있는 링크를 기록해 놓았다가 이 링크를 클릭해 접속하면 `bank.com`이 사용자를 인식하지 못하는 상황이 발생하기 때문입니다. 실제로 이런 경우 `samesite=strict` 옵션이 설정된 쿠키는 전송되지 않습니다.
 
+<<<<<<< HEAD
 이런 문제는 쿠키 두 개를 함께 사용해 해결할 수 있습니다. "Hello, John"과 같은 환영 메시지를 출력해주는 "일반 인증(general recognition)"용 쿠키, 데이터 교환 시 사용하는 `samesite=strict` 옵션이 있는 쿠키를 따로 둬서 말이죠. 이렇게 하면 외부 사이트를 통해 접근한 사용자도 정상적으로 환영 메시지를 볼 수 있습니다. 지급은 무조건 은행의 사이트를 통해서만 수행되도록 만들면 됩니다.
+=======
+We could work around that by using two cookies: one for "general recognition", only for the purposes of saying: "Hello, John", and the other one for data-changing operations with `samesite=strict`. Then a person coming from outside of the site will see a welcome, but payments must be initiated from the bank website, for the second cookie to be sent.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 - **`samesite=lax`**
 
@@ -235,15 +325,23 @@ document.cookie = "user=John; secure";
 아래 두 조건을 동시에 만족할 때는 `samesite=lax` 옵션을 설정한 쿠키가 전송됩니다.
 1. "안전한" HTTP 메서드인 경우(예: GET 방식. POST 방식은 해당하지 않음). 
 
+<<<<<<< HEAD
     안전한 HTTP 메서드 목록은 [RFC7231 명세](https://tools.ietf.org/html/rfc7231)에서 확인할 수 있습니다. 안전한 메서드는 읽기 작업만 수행하고 쓰기나 데이터 교환 작업은 수행하지 않습니다. 참고로, 링크를 따라가는 행위는 항상 GET 방식이기 때문에 안전한 메서드만 쓰입니다. 
     
 2. 작업이 최상위 레벨 탐색에서 이루어질 때(브라우저 주소창에서 URL을 변경하는 경우).
+=======
+    That's usually true, but if the navigation is performed in an `<iframe>`, then it's not top-level. Also, JavaScript methods for network requests do not perform any navigation, hence they don't fit.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
     대다수의 작업은 이 조건을 충족합니다. 하지만 `<iframe>`안에서 탐색이 일어나는 경우는 최상위 레벨 탐색이 아니기 때문에 이 조건을 충족하지 못합니다. AJAX 요청 또한 탐색 행위가 아니므로 이 조건을 충족하지 못합니다.
     
 브라우저를 이용해 자주 하는 작업인 "특정 URL로 이동하기"를 실행하는 경우, `samesite=lax` 옵션이 설정되어 있으면 쿠키가 서버로 전송됩니다. 노트에 저장된 링크를 여는 것도 특정 URL로 이동하는 행위이므로 위 조건들을 충족합니다.
 
+<<<<<<< HEAD
 하지만 외부 사이트에서 AJAX 요청을 보내거나 폼을 전송하는 등의 복잡한 작업을 시도할 때는 쿠키가 전송되지 않습니다.
+=======
+But anything more complicated, like a network request from another site or a form submittion loses cookies.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이런 제약사항이 있어도 괜찮다면, `samesite=lax` 옵션은 사용자 경험을 해치지 않으면서 보안을 강화해주는 방법으로 활용할 수 있을 것입니다.
 
@@ -265,7 +363,11 @@ document.cookie = "user=John; secure";
 해커가 악의적인 자바스크립트 코드를 페이지에 삽입하고 사용자가 그 페이지에 접속하기를 기다리는 방식의 공격을 예방할 때 이 옵션을 사용합니다. 우리가 만든 사이트에 해커가 악의적인 코드를 삽입하지 못하도록 예방해야 하지만, 버그가 있을 확률은 언제나 있기 때문에 해커가 코드를 삽입할 가능성이 있을 수 있습니다.
 
 
+<<<<<<< HEAD
 이런 상황이 만에 하나 발생하면, 사용자가 웹 페이지에 방문할 때 `document.cookie`를 볼 수 있고 조작도 할 수 있는 해커의 코드도 함께 실행됩니다. 물론 쿠키엔 인증 정보가 있어서 해커가 이 정보를 훔치거나 조작할 수 있게 됩니다. 좋지 않은 상황이 발생하죠.
+=======
+Normally, if such thing happens, and a user visits a web-page with hacker's JavaScript code, then that code executes and gains access to `document.cookie` with user cookies containing authentication information. That's bad.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 하지만 `httpOnly` 옵션이 설정된 쿠키는 `document.cookie`로 쿠키 정보를 읽을 수 없기 때문에 쿠키를 보호할 수 있습니다.
 
@@ -352,21 +454,25 @@ function deleteCookie(name) {
 
 ## 부록: 서드 파티 쿠키
 
+<<<<<<< HEAD
 사용자가 방문 중인 도메인이 아닌 다른 도메인에서 설정한 쿠키를 "서드 파티 쿠키(third-party cookie)"라고 부릅니다. 
+=======
+A cookie is called "third-party" if it's placed by domain other than the page user is visiting.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 예시:
 1. `site.com`의 특정 페이지에서 이미지 배너(banner)를 불러옵니다. 배너는 다른 도메인 `<img src="https://ads.com/banner.png">` 에서 가져옵니다.
 2. `ads.com`에 있는 원격 서버는 배너와 함께 `Set-Cookie` 헤더를 전송해 브라우저가 `id=1234`와 같은 쿠키를 설정하도록 합니다. 이 쿠키는 `ads.com` 도메인에서 설정한 것이기 때문에 `ads.com`에서만 볼 수 있습니다.
 
-    ![](cookie-third-party.png)
+    ![](cookie-third-party.svg)
 
 3. 사용자가 `ads.com`에 다시 접속하면, 원격 서버는 요청과 함께 전송받은 쿠키의 `id`를 이용해 해당 유저를 인식합니다. 
 
-    ![](cookie-third-party-2.png)
+    ![](cookie-third-party-2.svg)
 
 4. 사용자가 `site.com`을 떠나 `other.com`에 접속하고 이 사이트에도 배너가 있으면 `ads.com`은 또 쿠키를 전송받습니다. 이 쿠키는 `ads.com`에서 설정한 것이기 때문이죠. 이를 이용해 `ads.com`은 사용자를 인식하고, 이 사용자가 어떤 사이트로 이동했는지를 추적합니다.
 
-    ![](cookie-third-party-3.png)
+    ![](cookie-third-party-3.svg)
 
 
 광고회사는 사용자의 이용 행태를 추적하고, 광고를 제공하기 위해 오래전부터 서드 파티 쿠키를 사용하고 있습니다. 서드파티 쿠키는 쿠키를 설정한 도메인에 종속되기 때문에 `ads.com`은 사용자가 어떤 사이트를 방문했는지 추적할 수 있습니다.
@@ -381,7 +487,11 @@ function deleteCookie(name) {
 ```smart
 `<script src="https://google-analytics.com/analytics.js">`같은 태그로 서드 파티 도메인에서 스크립트를 읽어오고, 이 스크립트 안에 `document.cookie`로 쿠키를 설정하는 코드가 있다면, 이때 만들어진 쿠키는 서드파티 쿠키가 아닙니다.
 
+<<<<<<< HEAD
 스크립트에서 쿠키를 설정한 경우에 만들어지는 쿠키는 현재 페이지의 도메인에 속하게 됩니다. 스크립트의 유래와 상관없이 말이죠.
+=======
+If a script sets a cookie, then no matter where the script came from -- the cookie belongs to the domain of the current webpage.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```
 
 ## 부록: GDPR
@@ -390,7 +500,11 @@ function deleteCookie(name) {
 
 EU(유럽연합)에는 사용자 개인 정보 보호를 강제하는 법령인 GDPR이 있습니다. 쿠키를 추적하는 경우 사용자로부터 명시적인 허가를 얻어야 한다는 것이 이 법령의 중요 요건 중 하나입니다. 
 
+<<<<<<< HEAD
 이 요건은 쿠키를 이용한 사용자 추적, 식별에 관한 내용을 담고 있습니다.
+=======
+Please note, that's only about tracking/identifying/authorizing cookies.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 따라서 쿠키를 설정하고, 이 쿠키를 정보 저장의 용도로만 사용한다면 이 법령이 강제하는 사항을 지킬 필요가 없습니다. 사용자를 추적하거나 식별하지 않는다면 말이죠.
 
@@ -400,7 +514,11 @@ EU(유럽연합)에는 사용자 개인 정보 보호를 강제하는 법령인 
 
 1. 인증된 사용자에 대해서만 추적 쿠키를 설정하려는 경우
 
+<<<<<<< HEAD
     가입 양식에 "개인 정보 취급 방침 동의" 같은 확인란을 만들고, 사용자가 이에 동의할 경우에만 추적 쿠키를 설정합니다.
+=======
+    To do so, the registration form should have a checkbox like "accept the privacy policy" (that describes how cookies are used), the user must check it, and then the website is free to set auth cookies.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 2. 모든 사용자를 대상으로 추적 쿠키를 설정하려는 경우
 

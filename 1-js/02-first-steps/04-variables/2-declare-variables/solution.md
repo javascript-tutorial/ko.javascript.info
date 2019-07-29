@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 첫 번째 문제에 대한 답은 아주 간단합니다.
+=======
+## The variable for our planet
+
+That's simple:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 let ourPlanetName = "Earth";
@@ -6,7 +12,11 @@ let ourPlanetName = "Earth";
 
 `planet`이라는 간단한 이름을 지어줘도 되지만, 이렇게 하면 어떤 행성(planet)을 언급하는 것인지 모호합니다. 변수명이 아주 길어지지 않는 이상, 설명을 좀 더 곁들어주는 것이 좋습니다. 
 
+<<<<<<< HEAD
 현재 방문자에 대한 이름에 관한 문제는 아래와 같이 작성해 볼 수 있습니다.
+=======
+## The name of the current visitor
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 let currentUserName = "John";

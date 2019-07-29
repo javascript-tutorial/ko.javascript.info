@@ -9,6 +9,10 @@ Now we've learned about the following complex data structures:
 But that's not enough for real life. That's why `Map` and `Set` also exist.
 
 ## Map
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 [Map](mdn:js/Map) is a collection of keyed data items, just like an `Object`. But the main difference is that `Map` allows keys of any type.
 
 Methods and properties are:

@@ -1,8 +1,12 @@
 # 원시 값의 메서드
 
+<<<<<<< HEAD
 자바스크립트는 원시 값(문자열(strings), 숫자(numbers) 등)를 마치 객체처럼 다룰 수 있게 해줍니다. 
 
 따라서 원시 값에서도 객체처럼 메서드를 호출할 수 있습니다. 이 메서드에 대해선 곧 학습하도록 하겠습니다. 그 전에 다시 한번 원시 값은 객체가 아니란 것을 상기하도록 합시다.
+=======
+JavaScript allows us to work with primitives (strings, numbers, etc.) as if they were objects. They also provide methods to call as such. We will study those soon, but first we'll see how it works because, of course, primitives are not objects (and here we will make it even clearer).
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 먼저, 원시 값과 객체 사이의 주요 차이를 살펴보겠습니다.
 
@@ -35,7 +39,11 @@ john.sayHi(); // Hi buddy!
 
 하지만, 이런 기능을 활용하는 건 시스템 자원을 많이 사용합니다!
 
+<<<<<<< HEAD
 객체는 원시 값보다 "무겁습니다". 내부 기능을 구동하기 위해 추가 자원이 필요하기 때문입니다. 하지만 프로퍼티와 메서드는 아주 유용하기 때문에, 자바스크립트 엔진에선 프로퍼티와 메서드 최적화를 통해 추가 부담을 줄이려 노력합니다.
+=======
+Objects are "heavier" than primitives. They require additional resources to support the internal machinery.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## 원시 값을 객체처럼 사용하기
 
@@ -83,8 +91,13 @@ alert( n.toFixed(2) ); // 1.23
 <info:number>, <info:string> 에서 각 타입에서 제공하는 메서드를 좀 더 알아보도록 하겠습니다.
 
 
+<<<<<<< HEAD
 ````warn header="`String/Number/Boolean` 생성자(Constructors)는 내부용으로만 사용합니다."
 Java와 같은 일부 언어는 `new Number(1)` 또는 `new Boolean(false)`와 같이 타입을 명시적으로 적어주는 문법을 사용해 원시 "래퍼 객체"를 만듭니다.
+=======
+````warn header="Constructors `String/Number/Boolean` are for internal use only"
+Some languages like Java allow us to explicitly create "wrapper objects" for primitives using a syntax like `new Number(1)` or `new Boolean(false)`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 자바스크립트에서도 역사적인 이유 때문에 이렇게 래퍼 객체를 생성하는 게 가능 합니다. 하지만, 이 방법을 **추천하지는 않습니다**. 여러 이유 때문에 당신을 미치게 할 것입니다. 
 

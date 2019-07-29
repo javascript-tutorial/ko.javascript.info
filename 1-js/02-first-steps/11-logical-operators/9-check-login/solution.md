@@ -10,7 +10,11 @@ if (userName == 'Admin') {
   if (pass == 'TheMaster') {
     alert( '환영합니다!' );
   } else if (pass == '' || pass == null) {
+<<<<<<< HEAD
     alert( '취소되었습니다.' );
+=======
+    alert( 'Canceled' );
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
   } else {
     alert( '인증에 실패하였습니다.' );
   }

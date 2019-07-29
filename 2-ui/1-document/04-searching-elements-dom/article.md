@@ -113,7 +113,11 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 [elem.matches(css)](http://dom.spec.whatwg.org/#dom-element-matches)는 DOM을 검색하는 일이 아닌 조금 다른 일을 합니다. 이 메서드는 요소 `elem`이 주어진 CSS 선택자와 일치하는지 여부를 판단해줍니다. 일치한다면 `true`, 아니라면 `false`를 반환하죠.
 
+<<<<<<< HEAD
 요소가 담겨있는 배열 등을 대상으로 반복 작업을 수행해 원하는 요소만 걸러내고자 하는 경우, 이 메서드가 유용합니다.
+=======
+The method comes in handy when we are iterating over elements (like in array or something) and trying to filter those that interest us.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 예시:
 

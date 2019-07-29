@@ -93,9 +93,13 @@ alert( +"" );   // 0
 
 단항 덧셈 연산자는 짧은 문법으로 `Number(...)`와 동일한 일을 할 수 있게 해줍니다.
 
+<<<<<<< HEAD
 개을 하다 보면 문자열을 숫자로 변환해야 하는 경우가 자주 생깁니다. HTML 폼(form) 필드에서 값을 가져왔는데, 그 형이 문자형일 때 같이 말이죠.
 
 이 때, 폼에서 가져온 값을 더하고 싶다고 가정해 봅시다.
+=======
+The need to convert strings to numbers arises very often. For example, if we are getting values from HTML form fields, they are usually strings. What if we want to sum them?
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이항 덧셈 연산자를 사용했다면 아래와 같이 값이 문자열로 변해서 연결될 겁니다.
 
@@ -127,11 +131,19 @@ alert( +apples + +oranges ); // 5
 
 ## 연산자 우선순위
 
+<<<<<<< HEAD
 하나의 표현식에 둘 이상의 연산자가 있는 경우, 실행 순서는 연산자의 *우선순위(precedence)* 에 의해 결정됩니다.
+=======
+If an expression has more than one operator, the execution order is defined by their *precedence*, or, in other words, the default priority order of operators.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 `1 + 2 * 2`라는 식이 있을 때 곱셈이 먼저, 그 후에 덧셈이 일어난다는 것을 알고 계실 겁니다. 이런 개념이 연산자 우선순위입니다. 여기서 곱셈은 ​​덧셈보다 *더 높은 우선순위*를 가지죠. 
 
+<<<<<<< HEAD
 자바스크립트에서 정의한 연산자 우선순위가 맘에 들지 않는다면, 괄호를 사용하면 됩니다. 괄호는 모든 연산자보다 우선순위가 높기 때문에 자바스크립트에서 정의한 연산자 우선순위를 무력화시킵니다. 표현식 `(1 + 2) * 2`에서 괄호로 둘러싼 덧셈 연산자가 먼저 수행되는 것 같이 말이죠.
+=======
+Parentheses override any precedence, so if we're not satisfied with the default order, we can use them to change it. For example, write `(1 + 2) * 2`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 자바스크립트는 다양한 연산자를 제공하는데, 이 모든 연산자엔 우선순위가 매겨져 있습니다. 우선순위 숫자가 클수록 먼저 실행됩니다. 순위가 같으면 왼쪽부터 시작해서 오른쪽으로 연산이 수행됩니다.
 
@@ -199,9 +211,15 @@ alert( a ); // 3
 alert( c ); // 0
 ```
 
+<<<<<<< HEAD
 위 예제에서 표현식 `(a = b + 1)`은 `a`에 값을 할당하고, 그 값인 `3`을 반환합니다. 반환값은 이어지는 표현식에 사용됩니다.
 
 괴상한 코드라고 느껴지겠지만, 여러 자바스크립트 라이브러리에서 이런 식으로 할당 연산자를 사용하고 있기 때문에 동작 원리를 이해할 수 있어야 합니다. 다만, 본인이 직접 코드를 작성할 땐 이런 방식을 사용하지 않기를 바랍니다. 이런 트릭을 사용하면 코드가 명확하지 않을 뿐만 아니라 가독성도 떨어지기 때문입니다.
+=======
+In the example above, the result of expression `(a = b + 1)` is the value which was assigned to `a` (that is `3`). It is then used for further evaluations.
+
+Funny code, isn't it? We should understand how it works, because sometimes we see it in JavaScript libraries, but shouldn't write anything like that ourselves. Such tricks definitely don't make code clearer or readable.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ````
 
 ## 나머지 연산자 %
@@ -253,14 +271,22 @@ alert( 8 ** (1/3) ); // 2 (1/3 거듭제곱은 세제곱근)
 
     ```js run no-beautify
     let counter = 2;
+<<<<<<< HEAD
     counter++;      // counter = counter + 1과 동일하게 동작합니다. 하지만 식은 더 짧습니다.
+=======
+    counter++;        // works the same as counter = counter + 1, but is shorter
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
     alert( counter ); // 3
     ```
 - **감소(decrement) 연산자** `--`는 변수를 1 감소시킵니다.
 
     ```js run no-beautify
     let counter = 2;
+<<<<<<< HEAD
     counter--;      // counter = counter - 1과 동일하게 동작합니다. 하지만 식은 더 짧습니다.
+=======
+    counter--;        // works the same as counter = counter - 1, but is shorter
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
     alert( counter ); // 1
     ```
 
@@ -428,10 +454,17 @@ alert( a ); // 7 (3 + 4의 결과)
 ```smart header="쉼표의 우선순위는 매우 낮습니다."
 쉼표 연산자의 연산자 우선순위는 매우 낮습니다. 할당 연산자 `=` 보다 더 낮죠. 따라서 위 예시에선 괄호가 중요한 역할을 합니다.
 
+<<<<<<< HEAD
 괄호가 없으면 `a = 1 + 2, 3 + 4`에서 `+`가 먼저 수행되어 `a = 3, 7`이 됩니다. 할당 연산자 `=`는 쉼표 연산자보다 우선순위가 높기 때문에 `a = 3`이 먼저 실행되고, 나머지('7')는 무시되죠. `(a = 1 + 2), 3 + 4`를 연산한 것처럼 될 겁니다. 
 ```
 
 이렇게 마지막 표현식을 제외한 모든 것을 버리는 연산자는 어디서 사용되는 걸까요?
+=======
+Without them: `a = 1 + 2, 3 + 4` evaluates `+` first, summing the numbers into `a = 3, 7`, then the assignment operator `=` assigns `a = 3`, and the rest is ignored. It's like `(a = 1 + 2), 3 + 4`.
+```
+
+Why do we need an operator that throws away everything except the last expression?
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 여러 동작을 하나의 줄에서 처리하려는 복잡한 구조에서 이를 사용합니다.
 
@@ -444,4 +477,8 @@ for (*!*a = 1, b = 3, c = a * b*/!*; a < 10; a++) {
 }
 ```
 
+<<<<<<< HEAD
 쉽표 연산자를 사용한 트릭은 여러 자바스크립트 프레임워크에서 볼 수 있습니다. 이 연산자의 사용 빈도가 높지 않지만, 언급하고 넘어가는 이유이죠. 쉼표 연산자는 코드 가독성에 도움이 되지 않습니다. 따라서 곰곰이 생각해 본 후, 진짜 필요한 경우에만 사용하시길 바랍니다.
+=======
+Such tricks are used in many JavaScript frameworks. That's why we're mentioning them. But usually they don't improve code readability so we should think well before using them.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74

@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 # 동적으로 모듈 가져오기
 
 이전 챕터까진 "정적(static)" export와 import 문을 다뤘습니다. 
+=======
+# Dynamic imports
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 정적이라는 수식어가 붙은 이유는 실제로 두 구문이 정적이기 때문입니다. 아주 엄격한 문법을 지키면서 구문을 작성해야 했죠.
 
@@ -24,9 +28,15 @@ if(...) {
 }
 ```
 
+<<<<<<< HEAD
 이렇게 엄격한 문법을 따라야 하는 데는 이유가 있습니다. `import`/`export` 문은 코드 구조의 기본적인 골격을 만드는 데 사용되기 때문입니다. 코드 구조를 분석해 모듈을 한데 모아 번들링하고, 사용하지 않는 모듈은 제거(가지치기)해야 하는데, 구조가 고정되어있을 때만 이런 작업이 가능합니다.
 
 그런데 만약 모듈을 동적으로 불러와야 할 필요가 생기면 어떻게 할까요?
+=======
+That's because `import`/`export` aim to provide a backbone for the code structure. That's a good thing, as code structure can be analyzed, modules can be gathered and bundled together, unused exports can be removed ("tree-shaken"). That's possible only because the structure of imports/exports is simple and fixed.
+
+But how can we import a module dynamically, on-demand?
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## import() 함수
 
@@ -59,6 +69,24 @@ export function bye() {
 
 이 경우 아래와 같이 코드를 작성하면 모듈을 동적으로 불러올 수 있습니다.
 
+<<<<<<< HEAD
+=======
+For instance, if we have the following `say.js`:
+
+```js
+// 📁 say.js
+export function hi() {
+  alert(`Hello`);
+}
+
+export function bye() {
+  alert(`Bye`);
+}
+```
+
+...Then dynamic import can be like this:
+
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```js
 let {hi, bye} = await import('./say.js');
 
@@ -66,7 +94,11 @@ hi();
 bye();
 ```
 
+<<<<<<< HEAD
 `say.js`에 default export가 있다면 아래와 같이도 가능합니다.
+=======
+Or, if `say.js` has the default export:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 // 📁 say.js
@@ -75,9 +107,15 @@ export default function() {
 }
 ```
 
+<<<<<<< HEAD
 이때, 해당 모듈을 가져오려면 모듈 객체의 `default` 프로퍼티를 사용하면 됩니다. [이전 챕터](info:import-export)에서 이에 대해서 설명해 드린 바 있습니다.
 
 `default` 프로퍼티를 사용하면 아래와 같이 동적으로 모듈을 불러올 수 있습니다.
+=======
+...Then, in order to access it, we can use `default` property of the module object, as explained in the [previous chapter](info:import-export).
+
+So, the dynamic import will be like this:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 let {default: say} = await import('./say.js'); // save .default property in say variable
@@ -85,11 +123,16 @@ let {default: say} = await import('./say.js'); // save .default property in say 
 say();
 ```
 
+<<<<<<< HEAD
 아래는 실제 동작하는 코드입니다.
+=======
+Here's the full example:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 [codetabs src="say" current="index.html"]
 
 ```smart
+<<<<<<< HEAD
 동적 import는 (모듈이 아닌) 일반적인 스크립트에서도 동작합니다. 모듈 속성 `script type="module"`이 필요하지 않죠.
 ```
 
@@ -97,4 +140,13 @@ say();
 `import()`는 함수 호출과 문법이 유사해 보이긴 하지만 함수 호출은 아닙니다. (`super()`처럼) 괄호를 쓰는 특별한 문법 중 하나입니다. 
 
 따라서 `import`를 복사해 변수에 할당한다거나 `.call/apply`를 적용할 수 없습니다.
+=======
+Dynamic imports work in regular scripts, they don't require `script type="module"`.
+```
+
+```smart
+Although `import()` looks like a function call, it's a special syntax that just happens to use parentheses (similar to `super()`).
+
+So we can't copy `import` to a variable or use `.call/apply` with it.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```

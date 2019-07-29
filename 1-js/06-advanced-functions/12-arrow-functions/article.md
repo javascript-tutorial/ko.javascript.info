@@ -2,7 +2,11 @@
 
 화살표 함수에 대해 다시 논의해봅시다.
 
+<<<<<<< HEAD
 화살표 함수들은 단지 "짧게 쓰기 위한" 것이 아닙니다.
+=======
+Arrow functions are not just a "shorthand" for writing small stuff. They have some very specific and useful features.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 자바스크립트는 다른 곳에서 실행되는 작은 함수를 써야 하는 상황이 잦습니다. 
 
@@ -14,7 +18,11 @@
 
 자바스크립트의 특징 중 하나는 함수를 만들어 어딘가로 전달하는 것입니다.
 
+<<<<<<< HEAD
 이렇게 전달된 함수들은 실행 컨텍스트를 떠나지 않습니다.
+=======
+And in such functions we usually don't want to leave the current context. That's where arrow functions come in handy.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## 화살표 함수에는 'this'가 없습니다.
 

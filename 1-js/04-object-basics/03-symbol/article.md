@@ -16,7 +16,11 @@
 let id = Symbol();
 ```
 
+<<<<<<< HEAD
 심볼에 설명을 붙일 수도 있는데, 이를 심볼 이름이라고도 부릅니다. 심볼에 이름을 붙이면 디버깅 시 유용합니다.
+=======
+Upon creation, we can give symbol a description (also called a symbol name), mostly useful for debugging purposes:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run
 // id는 "id"라는 설명을 가진 심볼입니다.
@@ -74,7 +78,13 @@ alert(id.description); // id
 
 심볼을 이용해 객체에 "숨김(hidden)" 프로퍼티를 만들 수 있습니다. 숨김 프로퍼티는 다른 영역에 있는 코드에서 접근하거나 값을 덮어 쓸 수 없습니다.
 
+<<<<<<< HEAD
 `user` 객체에 "식별자(identifier)"를 더해주고 싶은 경우 아래와 같이 심볼을 키로 사용할 수 있습니다.
+=======
+For instance, if we're working with `user` objects, that belong to a third-party code and don't have any `id` field. We'd like to add identifiers to them.
+
+Let's use a symbol key for it:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run
 let user = { name: "John" };
@@ -86,9 +96,15 @@ alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있�
 
 문자열 `"id"` 대신에 `Symbol("id")`을 사용하면 어떤 이점이 있을까요?
 
+<<<<<<< HEAD
 자세한 예제를 통해 어떤 장점이 있는지 알아보도록 하겠습니다.
 
 자체 식별자를 둬 `user`를 식별하는 스크립트가 하나 있다고 가정해 봅시다. 이 스크립트는 자바스크립트 라이브러리일 수도 있으므로, 스크립트끼리 서로의 스크립트를 알 수 없는 상황입니다.
+=======
+As `user` objects belongs to another code, and that code also works with them, we shouldn't just add any fields to it. That's unsafe. But a symbol cannot be accessed occasionally, the third-party code probably won't even see it, so it's probably all right to do.
+
+Also, imagine that another script wants to have its own identifier inside `user`, for its own purposes. That may be another JavaScript library, so that the scripts are completely unaware of each other.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이때, 다른 스크립트는 자체적으로 `Symbol("id")`을 만들 수 있습니다. 아래와 같이 말이죠.
 
@@ -99,9 +115,15 @@ let id = Symbol("id");
 user[id] = "Their id value";
 ```
 
+<<<<<<< HEAD
 이렇게 다른 스크립트에서 user 객체에 id 프로퍼티를 만들어도 충돌이 발생하지 않습니다. 심볼은 같은 이름을 가지더라도 항상 다르기 때문입니다.
 
 하지만 심볼 대신에 `"id"`라는 문자열을 사용했다면, 충돌이 **발생할 수** 있습니다.
+=======
+There will be no conflict between our and their identifiers, because symbols are always different, even if they have the same name.
+
+...But if we used a string `"id"` instead of a symbol for the same purpose, then there *would* be a conflict:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run
 let user = { name: "John" };
@@ -117,7 +139,11 @@ user.id = "Their id value"
 
 ### 객체 리터럴 내 심볼
 
+<<<<<<< HEAD
 심볼을 객체 리터럴 `{...}` 에서 사용하고 싶다면 대괄호를 사용해야 합니다.
+=======
+If we want to use a symbol in an object literal `{...}`, we need square brackets around it.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이렇게 말이죠.
 
@@ -190,13 +216,21 @@ alert( obj[0] ); // test (같은 프로퍼티)
 
 ## 전역 심볼(global symbol)
 
+<<<<<<< HEAD
 앞에서 봤던 것처럼, 심볼은 이름이 같더라도 서로 다릅니다. 하지만 이름이 같은 심볼이 같은 개체이길 원하는 경우도 있을 겁니다.
 
 애플리케이션의 서로 다른 부분에서 하나의 프로퍼티를 나타내는 심볼 `"id"` 를 사용하고 싶어 한다고 가정해 봅시다.
+=======
+As we've seen, usually all symbols are different, even if they have the same name. But sometimes we want same-named symbols to be same entities. For instance, different parts of our application want to access symbol `"id"` meaning exactly the same property.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이런 경우를 위해 *전역 심볼 레지스트리*가 존재합니다. 전역 심볼 레지스트리(global symbol registry) 안에 심볼을 생성하고, 생성된 심볼에 접근하면, 같은 이름으로 여러 번 접근해도 항상 동일한 심볼이 반환됩니다.
 
+<<<<<<< HEAD
 `Symbol.for(key)`를 사용하면, 심볼을 레지스트리 안에 생성하거나 읽을 수 있습니다.
+=======
+In order to read (create if absent) a symbol from the registry, use `Symbol.for(key)`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이 메서드는 전역 레지스트리를 확인해 이름이 `key`인 심볼이 존재하면 그 심볼을 반환해줍니다. 심볼이 존재하지 않으면 주어진 `key`로 `Symbol(key)`이라는 새로운 심볼을 생성하고 레지스트리 안에 저장합니다.
 
@@ -206,7 +240,11 @@ alert( obj[0] ); // test (같은 프로퍼티)
 // 전역 레지스트리에서 심볼을 읽어 옵니다.
 let id = Symbol.for("id"); // 만약 심볼이 존재하지 않는다면, 새로운 심볼을 생성합니다.
 
+<<<<<<< HEAD
 // 다시 한번 심볼을 읽어 옵니다(maybe from another part of the code).
+=======
+// read it again (maybe from another part of the code)
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 let idAgain = Symbol.for("id");
 
 // 이 둘은 같은 심볼입니다.
@@ -228,22 +266,42 @@ alert( id === idAgain ); // true
 예시:
 
 ```js run
+// get symbol by name
 let sym = Symbol.for("name");
 let sym2 = Symbol.for("id");
 
+<<<<<<< HEAD
 // 심볼을 이용해 이름을 얻을 수 있음
+=======
+// get name by symbol
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 alert( Symbol.keyFor(sym) ); // name
 alert( Symbol.keyFor(sym2) ); // id
 ```
 
 `Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져 주어진 심볼의 키를 찾습니다. 따라서, 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 만약 전역 심볼이 아니라면, 심볼을 찾을 수 없기 때문에 `undefined`를 반환합니다.
 
+<<<<<<< HEAD
 예:
 
 ```js run
 alert( Symbol.keyFor(Symbol.for("name")) ); // name, 전역 심볼
 
 alert( Symbol.keyFor(Symbol("name2")) ); // undefined, 매개변수는 전역 심볼이 아닙니다.
+=======
+That said, any symbols have `description` property.
+
+For instance:
+
+```js run
+let globalSymbol = Symbol.for("name");
+let localSymbol = Symbol("name");
+
+alert( Symbol.keyFor(globalSymbol) ); // name, global symbol
+alert( Symbol.keyFor(localSymbol) ); // undefined, not global
+
+alert( localSymbol.description ); // name
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```
 
 ## 시스템 심볼(system symbol)
@@ -266,9 +324,15 @@ alert( Symbol.keyFor(Symbol("name2")) ); // undefined, 매개변수는 전역 �
 
 `Symbol`은 유일무이한 식별자(unique identifier)로 사용되는 원시 타입입니다.
 
+<<<<<<< HEAD
 추가적인 설명(심볼 이름)과 함께 `Symbol()`을 호출하면 심볼을 만들 수 있습니다.
 
 이름이 같은 심볼이라도, 값은 항상 다릅니다. 이름이 같은 심볼이 같은 값을 갖길 원한다면, 전역 레지스트리를 사용해야 합니다. `Symbol.for(key)`는 `key`라는 이름을 가진 전역 심볼을 반환합니다(심볼이 없다면 생성해줍니다). `Symbol.for`를 여러 번 호출해도 언제나 같은 심볼을 반환합니다.
+=======
+Symbols are created with `Symbol()` call with an optional description (name).
+
+Symbols are always different values, even if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key` as the name. Multiple calls of `Symbol.for` with the same `key` return exactly the same symbol.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 심볼의 주요 유스 케이스는 두 가지가 있습니다:
 
@@ -279,4 +343,8 @@ alert( Symbol.keyFor(Symbol("name2")) ); // undefined, 매개변수는 전역 �
 
 2. `Symbol.*`로 자바스크립트 내부에서 사용되는 다양한 시스템 심볼에 접근할 수 있습니다. 시스템 심볼을 이용하면 내장 알고리즘을 변경할 수 있습니다. [iterable](info:iterable)에 `Symbol.iterator`를 사용하기, `Symbol.toPrimitive`를 사용해 [객체를 원시 타입으로 변환](info:object-toprimitive)하기 등의 예시를 추후 살펴보도록 하겠습니다.
 
+<<<<<<< HEAD
 사실 심볼은 100% 숨겨져 있는 건 아닙니다. [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols)라는 내장 메서드를 사용하면 모든 심볼을 볼 수 있습니다. [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys)라는 메서드를 사용하면, 심볼 프로퍼티를 포함한 객체의 모든 키를 반환받을 수도 있습니다. 이렇게 심볼은 완전히 숨겨져 있지 않습니다. 하지만 대부분의 라이브러리, 내장 메서드, 문법 구조는 심볼이 숨겨진 존재라는 합의 하에 구현됩니다. 심볼을 노출시키는 메서드를 명시적으로 호출하는 경우는 아마 이 메서드가 하는 일을 잘 알고 있는 경우 일 것입니다.
+=======
+Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) that returns *all* keys of an object including symbolic ones. So they are not really hidden. But most libraries, built-in functions and syntax constructs don't use these methods.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74

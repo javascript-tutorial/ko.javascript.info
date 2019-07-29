@@ -70,7 +70,7 @@ pow(x, n) =
 
 `n == 1`이 될 때 까지 `pow` 함수 *자신을 재귀 호출* 한다고 아래 그램을 말로 표현할 수 있을 것입니다.
 
-![recursive diagram of pow](recursion-pow.png)
+![recursive diagram of pow](recursion-pow.svg)
 
 
 `pow (2, 4)`를 계산하는 과정을 예로 재귀 단계를 구체적으로 살펴보겠습니다.
@@ -85,7 +85,11 @@ pow(x, n) =
 ````smart header="재귀적 방법을 사용하면 코드가 짧아집니다"
 재귀적 방법으로 작성한 코드는 대개 반복적 방법을 사용한 코드보다 짧습니다.
 
+<<<<<<< HEAD
 `if`문을 조건부 연산자 `?`를 사용해 변형하면 `pow (x, n)`은 아래와 같이 더 간결하고 읽기 쉬운 코드가 됩니다.
+=======
+Here we can rewrite the same using the conditional operator `?` instead of `if` to make `pow(x, n)` more terse and still very readable:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run
 function pow(x, n) {
@@ -100,11 +104,19 @@ function pow(x, n) {
 
 위와 같은 이유로 재귀를 실제 사용하는데 제약이 따르긴 하지만, 재귀는 여전히 광범위하게 사용되고 있습니다. 재귀적 방법을 사용해 코드를 작성하면, 간결하고 유지보수가 쉬운 작업이 많기 때문입니다.
 
+<<<<<<< HEAD
 ## 실행 컨텍스트와 스택
+=======
+## The execution context and stack
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 실제 재귀 호출이 어떻게 동작하는지 알아봅시다. 이를 위해서 함수의 내부 동작에 대해 살펴보도록 하겠습니다.
 
+<<<<<<< HEAD
 실행중인 함수의 실행 절차에 대한 정보는 해당 함수의 *실행 컨텍스트(execution context)* 에 저장됩니다.
+=======
+The information about the process of execution of a running function is stored in its *execution context*.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 [실행 컨텍스트](https://tc39.github.io/ecma262/#sec-execution-contexts) 는 함수 실행에 대한 세부 정보를 담고 있는 내부 데이터 구조입니다. 현재 제어 흐름 위치, 변수의 현재 값, (여기선 다루지 않지만) `this`가 참조하는 값 등의 내부 정보가 실행 컨텍스트에 저장됩니다.
 
@@ -373,7 +385,7 @@ alert(sumSalaries(company)); // 6700
 
 다음은 호출에 관한 그림입니다.
 
-![recursive salaries](recursive-salaries.png)
+![recursive salaries](recursive-salaries.svg)
 
 객체 `{...}`를 만나면 서브 호출이 일어나고, 배열 `[...]`이 재귀 트리의 "잎사귀"인 경우 결과값이 바로 계산되는 것을 그림을 통해 다시한번 확인할 수 있습니다.   
 
@@ -444,7 +456,7 @@ let list = {
 
 리스트를 시각적으로 표현하
 
-![linked list](linked-list.png)
+![linked list](linked-list.svg)
 
 코드로는 다음과 같습니다.
 
@@ -464,7 +476,7 @@ let secondList = list.next.next;
 list.next.next = null;
 ```
 
-![linked list split](linked-list-split.png)
+![linked list split](linked-list-split.svg)
 
 To join:
 
@@ -488,7 +500,7 @@ list = { value: "new item", next: list };
 */!*
 ```
 
-![linked list](linked-list-0.png)
+![linked list](linked-list-0.svg)
 
 중간에서 값을 제거하려면 이전 값의 `next`를 변경해야 합니다.
 
@@ -496,7 +508,7 @@ list = { value: "new item", next: list };
 list.next = list.next.next;
 ```
 
-![linked list](linked-list-remove-1.png)
+![linked list](linked-list-remove-1.svg)
 
 `list.next`가 `1`을 뛰어넘어서`2` 값을 얻었습니다. 이제 값 `1`이 체인에서 제외됩니다. 다른 곳에 저장되지 않으면 자동으로 메모리에서 제거됩니다.
 

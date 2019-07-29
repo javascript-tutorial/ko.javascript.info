@@ -4,7 +4,11 @@
 
 이 덕분에 기존에 작성한 코드는 절대 망가지지 않는다는 장점이 있었습니다. 하지만 자바스크립트 창시자들이 했던 실수나 불완전한 결정이 언어 안에 영원히 박제된다는 단점이 생겼죠.
 
+<<<<<<< HEAD
 이런 상황은 ECMAScript5(ES5) 가 등장한 2009년까지 지속되었습니다. ES5에서는 새로운 기능이 추가되었고 기존 기능 중 일부가 변경되었습니다. 대부분의 변경사항은 호환성 유지를 위해 기본 모드에선 적용되지 않습니다. `"use strict"`라는 특별한 지시자를 사용해 엄격 모드(strict mode)를 적용하면 변경사항이 명시적으로 활성화됩니다.
+=======
+This was the case until 2009 when ECMAScript 5 (ES5) appeared. It added new features to the language and modified some of the existing ones. To keep the old code working, most such modifications are off by default. You need to explicitly enable them with a special directive: `"use strict"`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## "use strict"
 
@@ -19,9 +23,13 @@
 ...
 ```
 
+<<<<<<< HEAD
 명령어를 그룹화하는 방식인 함수에 대해선 곧 학습하도록 하겠습니다.
 
 함수에 대해 학습하기 전에, `"use strict"`는 스크립트 최상단이 아닌 함수 본문 맨 앞에 올 수도 있다는 점을 알아두시기 바랍니다. 이렇게 하면 오직 해당 함수만 엄격 모드로 실행됩니다. 엄격 모드는 대게 스크립트 전체에 적용되지만 말이죠.
+=======
+We will learn functions (a way to group commands) soon. Looking ahead, let's note that `"use strict"` can be put at the start of most kinds of functions instead of the whole script. Doing that enables strict mode in that function only. But usually, people use it for the whole script.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 
 ````warn header="\"use strict\"는 반드시 최상단에 위치시키세요."

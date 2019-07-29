@@ -42,7 +42,7 @@ new Promise(function(resolve, reject) {
 
 결과가 핸들러의 사슬을 통해 전달되므로, `alert` 창에 `1` -> `2` -> `4`가 순서대로 출력되는것을 확인할 수 있습니다.
 
-![](promise-then-chain.png)
+![](promise-then-chain.svg)
 
 이렇게 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 프라미스가 반환되기 때문에 이 프라미스에 다시 `.then`을 호출할 수 있는 거죠.
 
@@ -94,7 +94,7 @@ promise.then(function(result) {
 
 그림으로 표현하면 다음과 습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
-![](promise-then-many.png)
+![](promise-then-many.svg)
 
 한 프라미스에 등록된 모든 `.then`은 해당 프라미스의 result라는 동일한 결과를 받습니다. 따라서 위 코드에서 모든 `alert` 창은 `1`을 출력합니다.
 
@@ -138,7 +138,11 @@ new Promise(function(resolve, reject) {
 });
 ```
 
+<<<<<<< HEAD
 위 코드에서 첫 번째 `.then`은 `1`을 보여주고 `(*)`로 표시한 줄에서 `new Promise(…)`를 반환합니다. 1초 후 이 프라미스가 이행되고, 그 결과(`resolve`의 인수, 여기선 `result*2`)가 `(**)`로 표시한 두 번째 `.then` 핸들러에 전달됩니다. 두 번째 `.then` 핸들러에선 `2`가 출력되고, 앞의 작업과 동일한 작업이 수행됩니다.
+=======
+Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result*2`) is passed on to handler of the second `.then` in the line `(**)`. It shows `2` and does the same thing.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 따라서 1 -> 2 -> 4가 순차적으로 출력됩니다. 다만 `alert` 창 사이에 1초의 간격이 생기죠.
 
@@ -146,7 +150,11 @@ new Promise(function(resolve, reject) {
 
 ## 예제: loadScript
 
+<<<<<<< HEAD
 이제 지금까지 배운 내용을 응용해 `loadScript`가 복수의 스크립트를 순차적으로 하나씩 불러오도록 해봅시다.
+=======
+Let's use this feature with the promisified `loadScript`, defined in the [previous chapter](info:promise-basics#loadscript), to load scripts one by one, in sequence:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run
 loadScript("/article/promise-chaining/one.js")
@@ -207,9 +215,13 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 
 
 ````smart header="Thenables"
+<<<<<<< HEAD
 `.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있고, 프라미스와 같은 방식으로 처리됩니다.
 
 "thenable" 객체에 대한 아이디어는 서드파티 라이브러리가 "프라미스와 호환 가능한" 자체 객체를 구현할 수 있다는 점에서 출발했습니다. 이 객체는 추가 메서드를 가질 수 있으면서 `.then`을 구현하고 있기 때문에 네이티브 프라미스와도 호환 가능합니다.
+=======
+To be precise, `.then` may return a so-called "thenable" object - an arbitrary object that has method `.then`, and it will be treated the same way as a promise.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 아래는 thenable 객체에 대한 예시입니다.
 
@@ -242,7 +254,11 @@ new Promise(resolve => resolve(1))
 
 프론트 단에선 네트워크 요청을 할 때 프라미스를 자주 사용합니다. 이에 관련된 예시를 좀 더 살펴봅시다. 
 
+<<<<<<< HEAD
 원격 서버에서 사용자 정보를 가져오기 위해 [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 별도의 챕터에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
+=======
+We'll use the [fetch](info:fetch) method to load the information about the user from the remote server. It has a lot of optional parameters covered in separate chapters, but the basic syntax is quite simple:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 let promise = fetch(url);
@@ -382,4 +398,4 @@ loadJson('/article/promise-chaining/user.json')
 
 아래는 이 과정을 그림으로 나타낸 것입니다.
 
-![](promise-handler-variants.png)
+![](promise-handler-variants.svg)

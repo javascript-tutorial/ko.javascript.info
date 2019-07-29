@@ -132,7 +132,11 @@ let visitsCountMap = new Map(); // map: user => visits count
 // increase the visits count
 function countUser(user) {
   let count = visitsCountMap.get(user) || 0;
+<<<<<<< HEAD
   visitsCountMap.set(count + 1);
+=======
+  visitsCountMap.set(user, count + 1);
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 }
 ```
 
@@ -162,7 +166,11 @@ let visitsCountMap = new WeakMap(); // map: user => visits count
 // increase the visits count
 function countUser(user) {
   let count = visitsCountMap.get(user) || 0;
+<<<<<<< HEAD
   visitsCountMap.set(count + 1);
+=======
+  visitsCountMap.set(user, count + 1);
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 }
 ```
 

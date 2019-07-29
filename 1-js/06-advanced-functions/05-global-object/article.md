@@ -16,7 +16,11 @@ alert("Hello");
 window.alert("Hello");
 ```
 
+<<<<<<< HEAD
 브라우저에서 `var`로 선언한 전역 함수나 전역 변수는 전역 객체의 프로퍼티가 됩니다.
+=======
+In a browser, global functions and variables declared with `var` become the property of the global object:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js run untrusted refresh
 var gVar = 5;
@@ -47,8 +51,13 @@ window.currentUser = {
 // 코드 어딘가에서 참조할 수 있습니다.
 alert(currentUser.name);  // John
 
+<<<<<<< HEAD
 // 또는 "currentUser"라는 이름을 가진 지역 변수가 있다면
 // 전역 객체 window에서 이를 명시적으로 가져올 수 있습니다. 안전한 방법으로 말이죠!
+=======
+// or, if we have a local variable with the name "currentUser"
+// get it from window explicitly (safe!)
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 alert(window.currentUser.name); // John
 ```
 
@@ -56,9 +65,15 @@ alert(window.currentUser.name); // John
 
 ## 폴리필 사용하기
 
+<<<<<<< HEAD
 전역 객체를 이용하면 사용하고 있는 브라우저가 최신 자바스크립트 기능을 지원하는지 여부를 확인할 수 있습니다.
 
 예를 들어, 내장 객체인 `Promise`를 지원하는지 여부를 아래와 같이 테스트할 수 있습니다. 오래된 브라우저를 사용 중이라면 `Promise`가 없기 때문에 `alert` 창이 뜰 겁니다.
+=======
+We use the global object to test for support of modern language features.
+
+For instance, test if a built-in `Promise` object exists (it doesn't in really old browsers):
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 ```js run
 if (!window.Promise) {
   alert("오래된 브라우저를 사용 중이시군요!");
@@ -80,7 +95,14 @@ if (!window.Promise) {
     `Array`, 브라우저 환경에서 현재 창의 높이를 가져올 수 있게 해주는 `window.innerHeight`, 이 외 자바스크립트 내장 기능은 전역 객체를 통해 사용할 수 있습니다.
 - 전역 객체는 `globalThis`라는 보편적인 이름으로 참조할 수 있습니다.
 
+<<<<<<< HEAD
     하지만 대게 관습에 따라 브라우저 환경에선 `window`, Node.js에선 `global`이라는 이름으로 참조할 때가 많습니다. `globalThis`는 근래에 제안되었기 때문에, 모든 브라우저에서 이를 지원하진 않습니다. 따라서 폴리필을 구현해 이를 사용해야 합니다.
 - 전역 객체에 변수를 저장하는건 해당 변수가 프로젝트 전역에서 정말 필요할 때만 하도록 합시다. 가능한 한 최소한으로 사용합시다.
 - [modules](info:modules)을 사용하고 있지 않은 경우라면 브라우저 환경에서 `var`로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다.
 - 해석이 용이하고 요구사항 변경에 쉽게 대응할 수 있는 코드를 구현하려면 전역 객체의 프로퍼티는 직접 접근해야 합니다. `window.x = ...`처럼 말이죠.
+=======
+    ...But more often is referred by "old-school" environment-specific names, such as `window` (browser) and `global` (Node.js). As `globalThis` is a recent proposal, it's not supported in non-Chromium Edge (but can be polyfilled).
+- We should store values in the global object only if they're truly global for our project. And keep their number at minimum.
+- In-browser, unless we're using [modules](info:modules), global functions and variables declared with `var` become a property of the global object.
+- To make our code future-proof and easier to understand, we should access properties of the global object directly, as `window.x`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74

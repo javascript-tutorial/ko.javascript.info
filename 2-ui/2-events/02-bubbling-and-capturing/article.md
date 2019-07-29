@@ -41,7 +41,7 @@
 3. 다음은 그 바깥의 `<form>`에 할당된 핸들러가 동작합니다.
 4. 트리를 거슬러 올라가면서 `document` 객체를 만날 때까지, 각 요소에 할당된 `onclick` 핸들러가 동작합니다.
 
-![](event-order-bubbling.png)
+![](event-order-bubbling.svg)
 
 이런 동작 방식 때문에 `<p>` 요소를 클릭하면 3개의 alert 창을 볼 수 있는것 입니다. `p` -> `div` -> `form` 순서로 말이죠.
 
@@ -68,14 +68,23 @@
 
 `form.onclick` 핸들러에서:
 
+<<<<<<< HEAD
 - `this` (`=event.currentTarget`)는 `<form>` 요소를 참조합니다. `<form>` 요소에 있는 핸들러가 동작했기 때문입니다.
 - `event.target` 은 form 안쪽에 있는 실제 클릭한 요소를 참조합니다.
+=======
+- `this` (`=event.currentTarget`) is the `<form>` element, because the handler runs on it.
+- `event.target` is the actual element inside the form that was clicked.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 확인해 봅시다:
 
 [codetabs height=220 src="bubble-target"]
 
+<<<<<<< HEAD
 `<form>` 요소를 정확히 클릭했을 때는 `event.target`과 `this`가 같습니다.
+=======
+It's possible that `event.target` could equal `this` -- it happens when the click is made directly on the `<form>` element.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## 버블링 중단하기
 
@@ -128,9 +137,13 @@
 
 테이블 안의 `<td>`를 클릭하면 어떻게 이벤트가 흐르는지 아래 그림을 보고 이해해 봅시다:  
 
-![](eventflow.png)
+![](eventflow.svg)
 
+<<<<<<< HEAD
 `<td>` 요소를 클릭하면 이벤트가 최상위 조상에서 시작해 아래로 전파되고(캡처링), 이벤트가 타깃 요소에 도착해 실행된 후(타깃 단계), 다시 위로 전파됩니다(버블링). 이런 과정을 통해 요소에 할당된 이벤트 핸들러가 호출됩니다.
+=======
+That is: for a click on `<td>` the event first goes through the ancestors chain down to the element (capturing phase), then it reaches the target and triggers there (target phase), and then it goes up (bubbling phase), calling handlers on its way.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 **캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 주로 버블링만 설명했습니다. 캡처링에 관한 코드를 발견하는 일은 거의 없을 겁니다.**
 
@@ -149,6 +162,11 @@ elem.addEventListener(..., true)
 - `false`(default 값)인 경우, 핸들러는 버블링 단계에서 동작합니다.
 - `true`인 경우, 핸들러는 캡처링 단계에서 동작합니다.
 
+<<<<<<< HEAD
+=======
+
+Note that while formally there are 3 phases, the 2nd phase ("target phase": the event reached the element) is not handled separately: handlers on both capturing and bubbling phases trigger at that phase.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 공식적으론 총 3개의 이벤트 흐름이 있지만, 두 번째 단계("타깃 단계": 이벤트가 실제 타깃 요소에 전달되는 단계)를 별도로 다루진 않습니다: 캡처링과 버블링 단계의 핸들러는 타깃단계에서 모두 동작합니다.
 
@@ -184,11 +202,17 @@ elem.addEventListener(..., true)
 2. `P (타깃 단계, capturing과 bubbling 둘 다에 리스너를 설정했기 때문에 두 번 호출됩니다.)
 3. `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
 
+<<<<<<< HEAD
 `event.eventPhase` 프로퍼티를 이용하면 현재 발생 중인 이벤트 흐름의 단계를 알 수 있습니다(역주: 반환하는 정숫값에 따라 이벤트 흐름의 현재 실행 단계를 구분함). 하지만 핸들러를 통해 흐름 단계를 알 수 있기 때문에 이 프로퍼티는 자주 사용되지 않습니다.
 
 ```smart header="핸들러를 제거할 땐, `removeEventListener`가 같은 단계에 있어야 합니다"
 `addEventListener(..., true)`로 핸들러를 할당해 줬다면, 핸들러를 지울 때, `removeEventListener(..., true)`를 사용해 지워야 합니다. 같은 단계에 있어야 핸들러가 지워집니다.
 ```
+=======
+1. `HTML` -> `BODY` -> `FORM` -> `DIV` (capturing phase, the first listener):
+2. `P` (target phrase, triggers two times, as we've set two listeners: capturing and bubbling)
+3. `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ````smart header="Listeners on same element and same phase run in their set order"
 If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
@@ -200,6 +224,7 @@ elem.addEventListener("click", e => alert(2));
 ````
 
 
+<<<<<<< HEAD
 ## 요약
 
 이벤트가 발생하면 이벤트가 발생한 가장 안쪽의 요소가 "타깃 요소(`event.target`)"가 됩니다.
@@ -207,12 +232,37 @@ elem.addEventListener("click", e => alert(2));
 - 이후 이벤트는 document에서 시작해 DOM 트리를 따라 `event.target`까지 내려갑니다. 이때, 요소에 `addEventListener(...., true)`로 할당한 핸들러가 있으면 해당 핸들러가 호출됩니다(`addEventListener(...., true)`의 `true`는 `{capture: true}`의 줄임입니다).
 - 타깃 요소의 핸들러가 호출됩니다.
 - 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달됩니다. 이때, `on<event>`, 세 번째 인수가 없거나 `false`인 `addEventListener`로 할당한 핸들러가 호출됩니다.
+=======
+````smart header="Listeners on same element and same phase run in their set order"
+If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+
+```js
+elem.addEventListener("click", e => alert(1)); // guaranteed to trigger first
+elem.addEventListener("click", e => alert(2));
+```
+````
+
+
+## Summary
+
+When an event happens -- the most nested element where it happens gets labeled as the "target element" (`event.target`).
+
+- Then the event moves down from the document root to `event.target`, calling handlers assigned with `addEventListener(...., true)` on the way (`true` is a shorthand for `{capture: true}`).
+- Then handlers are called on the target element itself.
+- Then the event bubbles up from `event.target` up to the root, calling handlers assigned using `on<event>` and `addEventListener` without the 3rd argument or with the 3rd argument `false/{capture:false}`.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 각 핸들러는 아래와 같은 `이벤트` 객체의 프로퍼티에 접근할 수 있습니다:
 
+<<<<<<< HEAD
 - `event.target` -- 이벤트가 발생한 가장 안쪽의 요소
 - `event.currentTarget` (=`this`) -- 이벤트를 핸들링 하는 현재 요소 (핸들러가 실제 할당된 요소)
 - `event.eventPhase` -- 현재 이벤트 흐름 단계 (캡처링=1, 타깃=2, 버블링=3).
+=======
+- `event.target` -- the deepest element that originated the event.
+- `event.currentTarget` (=`this`) -- the current element that handles the event (the one that has the handler on it)
+- `event.eventPhase` -- the current phase (capturing=1, target=2, bubbling=3).
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 핸들러에서 `event.stopPropagation()`을 사용해 이벤트 캡처링이나 버블링을 멈추게 할 수 있습니다. 다만, 이 방법은 추천하지 않습니다. 지금은 상위 요소에서 이벤트가 어떻게 쓰일지 확실치 않더라도, 추후에 버블링이 필요한 경우가 생기기 때문입니다. 
 

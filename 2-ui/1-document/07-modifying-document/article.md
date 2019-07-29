@@ -189,7 +189,7 @@ All of them accept a list of DOM nodes and/or text strings. If a string is given
 
 위 코드를 간단히 도식화하면 다음과 같습니다:
 
-![](before-prepend-append-after.png)
+![](before-prepend-append-after.svg)
 
 리스트가 이렇게 변경되죠:
 
@@ -269,7 +269,7 @@ after
 
 insertAdjacentHTML을 사용한 삽입을 도식화하면 다음과 같습니다:
 
-![](insert-adjacent.png)
+![](insert-adjacent.svg)
 
 이 그림과 이전 그림이 꽤 유사하게 생겼다는 걸 알아차리실 수 있을 겁니다. 삽입하려는 지점은 두 그림에서 완전히 같고, HTML을 삽입하려는 점만 다르다는 걸 관찰 할 수 있습니다.
 
@@ -504,7 +504,11 @@ ul.append(...getListContent()); // append + "..." operator = friends!
 
 단점이죠.
 
+<<<<<<< HEAD
 로드중인 페이지에서 `document.write`을 호출하면, 뭔가가 페이지에 더해지고, 브라우저는 콘텐츠가 원래 그 자리에 있었던 것처럼 출력해줍니다.
+=======
+Technically, when `document.write` is called while the browser is reading ("parsing") incoming HTML, and it writes something, the browser consumes it just as if it were initially there, in the HTML text.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이런 점이 장점으로 작용할 수도 있습니다 -- *DOM 조작이 필요 없기 때문에* 엄청나게 빠릅니다. DOM이 아직 만들어지기 전에 페이지에 직접 텍스트를 삽입하고, 브라우저는 이 텍스트를 DOM이 만들어지는 시점에 넣어주기 때문입니다. 
 

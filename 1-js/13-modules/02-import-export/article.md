@@ -212,17 +212,29 @@ export default class { // 클래스 이름이 없음
 ```
 
 ```js
+<<<<<<< HEAD
 export default function(user) { // 함수 이름이 없음
+=======
+export default function(user) { // no function name
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
   alert(`Hello, ${user}!`);
 }
 ```
 
 ```js
+<<<<<<< HEAD
 // 이름 없이, 배열 형태의 값 하나를 내보냄
 export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 ```
 
 이렇게 이름이 없어도 괜찮은 이유는 파일 하나에 `export default`가 하나만 있기 때문입니다. 반면, named import는 이름이 없으면 에러가 발생합니다.
+=======
+// export a single value, without making a variable
+export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+```
+
+Not giving a name is fine, because `export default` is only one per file. Contrary to that, omitting a name for named imports would be an error:
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ```js
 export class { // 에러! (default export가 아닌경우엔 이름이 꼭 필요합니다.)

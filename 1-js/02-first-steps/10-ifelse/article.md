@@ -6,7 +6,11 @@
 
 ## "if"문
 
+<<<<<<< HEAD
 `if`문은 조건을 평가하는데, 그 결과가 `true`이면 코드 블록이 실행됩니다.
+=======
+The `if(...)` statement evaluates a condition in parentheses and, if the result is `true`, executes a block of code.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 예시:
 
@@ -216,7 +220,11 @@ let company = prompt('자바스크립트는 어떤 회사가 만들었을까요?
 
 위 예시에선 검사 결과를 변수에 할당하지 않고, 결과에 따라 실행되는 표현식이 달라지도록 하였습니다.
 
+<<<<<<< HEAD
 **이런 식으로 물음표 연산자를 사용하는 것은 좋지 않습니다.**
+=======
+**It's not recommended to use the question mark operator in this way.**
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 개발자 입장에선 `if`문을 사용할 때 보다 코드 길이가 짧아진다는 점 때문에 이 방식이 매력적으로 느껴질 순 있습니다. 하지만 이렇게 코드를 작성하면 가독성이 떨어집니다.
 

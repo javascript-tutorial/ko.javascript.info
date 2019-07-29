@@ -242,7 +242,11 @@ Overall cross-domain security is same as for `fetch` and other network methods.
 ### Methods
 
 `close()`
+<<<<<<< HEAD
 : Closes the connection соединение.
+=======
+: Closes the connection.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ### Events
 

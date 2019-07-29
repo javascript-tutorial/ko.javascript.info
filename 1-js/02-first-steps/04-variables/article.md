@@ -99,7 +99,7 @@ let user = 'John'
 
 예를 들어, 변수 `message`는 `"message"`라는 이름표가 붙어있는 상자에 `"Hello!"`라는 값 저장한 것이라고 생각할 수 있습니다.
 
-![](variable.png)
+![](variable.svg)
 
 상자 속엔 어떤 값이든지 넣을 수 있습니다.
 
@@ -116,7 +116,7 @@ alert(message);
 
 값이 변경되면, 이전 데이터는 변수에서 제거됩니다.
 
-![](variable-change.png)
+![](variable-change.svg)
 
 변수 두 개를 선언하고, 한 변수의 데이터를 다른 변수에 복사할 수도 있습니다.
 
@@ -323,8 +323,14 @@ const pageLoadTime = /* 웹페이지를 로드하는데 걸린 시간 */;
 
 `var`, `let`, `const`를 사용하면 변수를 선언할 수 있습니다. 선언된 변수엔 데이터를 저장할 수 있죠.
 
+<<<<<<< HEAD
 - `let` -- 모던한 변수 선언 키워드입니다. 크롬(V8)에서 `let`을 사용하려면 엄격 모드에서 코드를 작성해야 합니다.
 - `var` -- 오래된 변수 선언 키워드입니다. 잘 사용하지 않습니다. `let`과의 미묘한 차이점은 <info:var> 챕터에서 다루도록 하겠습니다.
 - `const` -- `let`과 비슷하지만, 변수의 값을 변경할 수 없습니다.
+=======
+- `let` -- is a modern variable declaration.
+- `var` -- is an old-school variable declaration. Normally we don't use it at all, but we'll cover subtle differences from `let` in the chapter <info:var>, just in case you need them.
+- `const` -- is like `let`, but the value of the variable can't be changed.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 변수명은 변수가 담고 있는 것이 무엇인지 쉽게 알 수 있도록 지어져야 합니다.

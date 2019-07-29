@@ -4,7 +4,11 @@
 
 주석은 어떻게, 그리고 왜 코드가 동작하는지를 설명하는 데 쓰입니다.
 
+<<<<<<< HEAD
 주석을 작성하는 게 처음엔 쉬워 보일 수 있겠지만, 초보 프로그래머들은 대게 주석을 제대로 작성하는 방법을 잘 모릅니다.
+=======
+At first sight, commenting might be obvious, but novices in programming often use them wrongly.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 ## 좋지 않은 주석
 
@@ -18,7 +22,11 @@ complex;
 code;
 ```
 
+<<<<<<< HEAD
 그러나 좋은 코드에선 "설명적(explanatory)" 주석이 최소화되어야 합니다. 주석 없이도 코드를 쉽게 이해할 수 있어야 하죠.
+=======
+But in good code, the amount of such "explanatory" comments should be minimal. Seriously, the code should be easy to understand without them.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 이에 관한 좋은 규칙도 있습니다. "만약 코드가 불분명해서 주석 작성이 불가피하다면, 코드를 다시 작성해야만 하는 경우일 수 있습니다."
 
@@ -119,11 +127,19 @@ function addJuice(container) {
 
 설명적 주석은 대부분 좋지 않습니다. 그럼 좋은 주석은 어떤 걸까요?
 
+<<<<<<< HEAD
 아키텍처를 설명하는 주석
 : 고차원에서 바라본 컴포넌트 개요와 컴포넌트 간의 상호작용을 설명하고, 다양한 상황에서의 제어 흐름를 설명하는 주석이 좋습니다. 간단히 말해서 코드의 조감도 같은 주석 말이죠. 고차원 수준의 아키텍처 다이어그램을 그리는 데 쓰이는 언어인 [UML](http://wikipedia.org/wiki/Unified_Modeling_Language)이라는 게 있습니다. 시간을 내어 공부할 가치가 있습니다.  
 
 함수의 용례를 문서화 해주는 주석
 : 함수의 용례, 매개변수, 반환값등을 문서로 만드는데 쓰이는 [JSDoc](http://en.wikipedia.org/wiki/JSDoc)라는 특별한 문법이 있습니다.
+=======
+Describe the architecture
+: Provide a high-level overview of components, how they interact, what's the control flow in various situations... In short -- the bird's eye view of the code. There's a special language [UML](http://wikipedia.org/wiki/Unified_Modeling_Language) to build high-level architecture diagrams explaining the code. Definitely worth studying.
+
+Document function parameters and usage
+: There's a special syntax [JSDoc](http://en.wikipedia.org/wiki/JSDoc) to document a function: usage, parameters, returned value.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
     For instance:
     ```js

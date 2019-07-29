@@ -215,7 +215,13 @@ john = {
 */
 ```
 
+<<<<<<< HEAD
 ## 요약
+=======
+To create complex objects, there's a more advanced syntax, [classes](info:classes), that we'll cover later.
+
+## Summary
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 - 생성자 함수, 짧게 줄여서 생성자는 일반 함수입니다. 일반함수와 구분하기 위해 첫 글자를 대문자로 쓰자고 약속하였습니다.
 - 생성자 함수는 `new` 연산자와 함께 호출되어야 합니다. 이렇게 호출하면 빈 `this`가 암시적으로 생성되고, 마지막엔 이 this가 반환됩니다.

@@ -4,7 +4,11 @@
 
 당신은 일의 부하를 덜기 위해 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해줄 겁니다. 구독 리스트를 하나 만들어 팬들에게 이를 전달하며, 여기에 자신의 이메일 주소를 적게 만들겠죠. 앨범이 준비되면 약속한 대로 구독 리스트에 자신의 메일을 적은 팬들은 즉시 소식을 받아볼 수 있을 겁니다. 출시 예정인 앨범이 취소되는 불상사가 발생해도 팬들에게 소식을 전할 수 있죠.
 
+<<<<<<< HEAD
 이제 모두가 행복해졌습니다. 밤낮으로 질문을 하는 팬들이 사라졌고, 팬들은 앨범 출시를 놓치지 않을 수 있게 되었으니까요.
+=======
+Everyone is happy, because the people don't crowd you anymore, and fans, because they won't miss the single.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 위 비유는 우리가 코드를 짜면서 자주 만나게 되는 상황을 실제 일어날 법한 일로 바꾼 것입니다. 바로 아래 같은 상황 말이죠.
 
@@ -38,7 +42,7 @@ executor의 실행이 끝나면, 인자로 받은 함수인 resolve나 reject �
     - `state`의 값이 `"rejected"`이 되고,
     - `result`의 값이 `error`로 바뀜.
 
-![](promise-resolve-reject.png)
+![](promise-resolve-reject.svg)
 
 이 변화가 어떻게 "팬"들에게 전달되는지는 잠시 후 살펴보도록 하겠습니다.
 
@@ -60,7 +64,7 @@ let promise = new Promise(function(resolve, reject) {
 
 1초 후에 executor는 `resolve("done")`를 호출하고, 결과물을 만들어 냅니다.
 
-![](promise-resolve-1.png)
+![](promise-resolve-1.svg)
 
 지금까진 성공적으로 일이 처리된 경우인 "fulfilled promise(약속이 이행된 프라미스)"에 대해 알아보았습니다.
 
@@ -73,7 +77,7 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-![](promise-reject-1.png)
+![](promise-reject-1.svg)
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이 때 프라미스 객체의 프로퍼티인 state가 변경됩니다.
 
@@ -218,7 +222,11 @@ promise.catch(alert); // 1초 뒤 "Error: Whoops!" 출력
 
 프라미스가 처리되면(settled) 항상 실행된다는 점에서 `.finally(f)` 호출은 `.then(f, f)`과 유사합니다. 프라미스가 이행(resolved)이나 거부(rejected) 일 때 실행되죠.
 
+<<<<<<< HEAD
 더는 필요치 않은 로딩 인디케이터(loading indicators)를 멈추는 경우같이, 끝마무리에 `finally`를 유용하게 쓸 수 있습니다. 결과가 어떻든 마무리가 필요한 경우 말이죠.
+=======
+`finally` is a good handler for performing cleanup, e.g. stopping our loading indicators, as they are not needed anymore, no matter what the outcome is.
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 사용법은 아래와 같습니다.
 

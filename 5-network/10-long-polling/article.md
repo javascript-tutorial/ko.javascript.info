@@ -33,7 +33,11 @@ The flow:
 
 The situation when the browser sent a request and has a pending connection with the server, is standard for this method. Only when a message is delivered, the connection is reestablished.
 
+<<<<<<< HEAD
 ![](long-polling.png)
+=======
+![](long-polling.svg)
+>>>>>>> 34e9cdca3642882bd36c6733433a503a40c6da74
 
 If the connection is lost, because of, say, a network error, the browser immediately sends a new request.
 
