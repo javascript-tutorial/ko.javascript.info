@@ -8,7 +8,7 @@
 
 아래는 호스트 환경이 웹 브라우저일 때 사용할 수 있는 기능을 개괄적으로 보여주는 그림입니다.
 
-![](windowObjects.png)
+![](windowObjects.svg)
 
 최상단엔 `window` 객체가 있습니다. 이 객체는 2가지 역할을 합니다.
 
@@ -108,4 +108,4 @@ When you'd like to read about a property or a method, the Mozilla manual at <htt
 
 To find something, it's often convenient to use an internet search "WHATWG [term]" or "MDN [term]", e.g <https://google.com?q=whatwg+localstorage>, <https://google.com?q=mdn+localstorage>.
 
-문서는 UI(User Interface)에서 가장 핵심적인 역할을 합니다. 그러므로 지금부턴 DOM에 대해 배워보도록 하겠습니다.
+Now we'll get down to learning DOM, because the document plays the central role in the UI.

@@ -20,9 +20,13 @@ function showMessage() {
 }
 ```
 
-함수를 선언할 때, `function` 키워드를 제일 앞에 써주고, 다음으로 *함수 이름*, 이어서 괄호로 둘러싸인 매개변수를 명시해 줍니다(위의 예에선 매개변수가 없습니다). 그리고 난 다음 함수를 구성하는 문의 모임인 "함수 본문(body)"를 중괄호에 쌓아 적어줍니다.
+함수를 선언할 때, `function` 키워드를 제일 앞에 써주고, 다음으로 *함수 이름*, 이어서 매개변수를 괄호로 둘러싸 명시해 줍니다. 위의 예에선 매개변수가 없는데, 매개변수가 여러 개 있는 경우는 각 매개변수를 콤마로 구분합니다. 그리고 난 다음 함수를 구성하는 문의 모임인 "함수 본문(body)"를 중괄호에 쌓아 적어줍니다.
 
-![](function_basics.png)
+```js
+function name(parameters) {
+  ...body...
+}
+```
 
 새롭게 정의한 함수는 이름으로 호출합니다: `showMessage()`.
 
@@ -204,12 +208,11 @@ function showMessage(from, text = anotherFunction()) {
 }
 ```
 
-```smart header="매개변수 기본값의 평가 시점"
+```smart header="Evaluation of default parameters"
+In JavaScript, a default parameter is evaluated every time the function is called without the respective parameter. In the example above, `anotherFunction()` is called every time `showMessage()` is called without the `text` parameter.
 
-자바스크립트에선 함수 호출 시 기대하고 있는 매개변수 값이 없을 때마다 기본값을 재산정합니다. 위의 예에서 `showMessage()`을 호출하는데, `text` 매개변수 값이 없으면 그때마다 `anotherFunction()`가 호출됩니다. Python과 같은 몇몇 언어는 매번 기본값을 평가하지 않습니다. 이런 언어들은 인터프리터가 최초 실행되는 시점(the initial interpretation)에 단 한 번만 매개변수를 평가합니다.
-
+This is in contrast to some other languages like Python, where any default parameters are evaluated only once during the initial interpretation.
 ```
-
 
 ````smart header="옛날식 기본값"
 오래된 버전의 자바스크립트에선 기본값을 지정할 수 없었습니다. 그래서 기본값을 지정해주는 방법으로 아래와 같은 방법을 사용했습니다. 오래된 코드에서 이 방법이 사용된 걸 종종 볼 수 있을 겁니다.

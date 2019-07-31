@@ -81,7 +81,7 @@ function highlight(td) {
 
  `<strong>`을 클릭하게 되면 이 요소가 이벤트의 타깃이 됩니다. `event.target`에 이 요소가 저장되고, 원하는 강조 기능이 작동하지 않습니다.
 
-![](bagua-bubble.png)
+![](bagua-bubble.svg)
 
 따라서 `table.onclick`핸들러에서 `event.target`을 이용해 클릭 이벤트가 `<td>`안쪽에서 일어났는지, 아닌지를 알아내야 합니다.
 

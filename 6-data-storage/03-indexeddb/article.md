@@ -174,7 +174,7 @@ An example of object that can't be stored: an object with circular references. S
 
 A key must have a type one of: number, date, string, binary, or array. It's an unique identifier: we can search/remove/update values by the key.
 
-![](indexeddb-structure.png)
+![](indexeddb-structure.svg)
 
 
 As we'll see very soon, we can provide a key when we add a value to the store, similar to `localStorage`. But when we store objects, IndexedDB allows to setup an object property as the key, that's much more convenient. Or we can auto-generate keys.
@@ -551,7 +551,7 @@ openRequest.onupgradeneeded = function() {
 
 Imagine that our `inventory` has 4 books. Here's the picture that shows exactly what the `index` is:
 
-![](indexeddb-index.png)
+![](indexeddb-index.svg)
 
 As said, the index for each value of `price` (second argument) keeps the list of keys that have that price.
 
@@ -678,7 +678,7 @@ In the example above the cursor was made for the object store.
 
 But we also can make a cursor over an index. As we remember, indexes allow to search by an object field. Cursors over indexes to precisely the same as over object stores -- they save memory by returning one value at a time.
 
-For cursors over indexes, `cursor.key` is the index key (e.g. price), and we should use `cursor.primaryKey` property the object key:
+For cursors over indexes, `cursor.key` is the index key (e.g. price), and we should use `cursor.primaryKey` property for the object key:
 
 ```js
 let request = priceIdx.openCursor(IDBKeyRange.upperBound(5));

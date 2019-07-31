@@ -48,7 +48,7 @@ alert(url.pathname); // /url
 
 Here's the cheatsheet:
 
-![](url-object.png)
+![](url-object.svg)
 
 - `href` is the full url, same as `url.toString()`
 - `protocol` ends with the colon character `:`
@@ -130,7 +130,7 @@ As you can see, both `Тест` in the url path and `ъ` in the parameter are en
 If we're using strings instead of URL objects, then we can encode manually using built-in functions:
 
 - [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) - encode URL as a whole.
-- [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI) - decode it back.
+- [decodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI) - decode it back.
 - [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) - encode URL components, such as search parameters, or a hash, or a pathname.
 - [decodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent) - decodes it back.
 

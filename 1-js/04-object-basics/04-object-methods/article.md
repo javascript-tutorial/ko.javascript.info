@@ -111,6 +111,7 @@ let user = {
 
   sayHi() {
 *!*
+    // "this"는 "현재 객체"입니다.
     alert(this.name);
 */!*
   }
@@ -318,7 +319,7 @@ hi(); // undefined
 
 참조 타입에 괄호 `()`를 호출할 때, 괄호는 객체와 객체의 메서드에 관한 모든 정보를 받습니다. 그 후 알맞은 `this`(`=user`)를 결정하죠.
 
-Reference type is a special "intermediary" internal type, with the purpose to pass information from dot `.` to calling parentheses `()`.
+참조 타입은 "중개" 역할을 하는 특별한 내부 타입입니다. 참조 타입은 점 `.`에서 호출을 담당하는 괄호 `()`로 정보를 전달해주는 역할을 합니다.
 
 `hi = user.hi`내의 할당 연산과 같은 점 이외의 연산들은 참조 타입을 통째로 버리고, `user.hi`(함수)의 값을 받아 전달합니다. 그래서 그 이후의 연산에서 `this`의 정보는 사라집니다.
 
@@ -351,9 +352,9 @@ user.sayHi(); // Ilya
 - `object.doSomthing()`는 객체를 "행동"할 수 있게 해줍니다. 
 - 메서드는 `this`로 객체를 참조할 수 있습니다.
 
-`this`의 값은 런타임에 결정됩니다. 
-- 함수 선언 시, `this`를 사용할 수 있지만, 함수가 호출되기 전까지 `this`의 값은 없습니다.
+`this`의 값은 런타임에 결정됩니다.
+- 함수 선언 시 `this`를 사용할 수 있지만, 함수가 호출되기 전까지 `this`에 할당된 값은 없습니다.
 - 함수는 객체 간 복사될 수 있습니다.
-- `object.method()`같이 "메서드" 문법으로 함수가 호출될 경우, `this`의 값은 `object`입니다.
+- `object.method()`같이 "메서드" 문법으로 함수를 호출한 경우, `this`는 `object`입니다.
 
 화살표 함수는 특별합니다. `this`를 가지지 않죠. 화살표 함수 안에서 `this`를 사용하면, 그 값을 바깥에서 가져옵니다. 

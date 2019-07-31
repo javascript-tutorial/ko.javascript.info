@@ -9,7 +9,7 @@
 
 객체는 각각 이름이 적힌 파일을 보관하는 서랍장으로 비유할 수 있습니다. 모든 자료는 파일 안에서 키를 기준으로 분류되어 저장됩니다. 키를 이용하면 파일을 찾거나 추가/삭제하는 일이 쉽습니다.
 
-![](object.png)
+![](object.svg)
 
 빈 객체("빈 서랍장")는 두 방식 중 하나를 사용해 만들 수 있습니다.:
 
@@ -18,7 +18,7 @@ let user = new Object(); // "객체 생성자" 문법
 let user = {};  // "객체 리터럴" 문법
 ```
 
-![](object-user-empty.png)
+![](object-user-empty.svg)
 
 일반적으로, 중괄호 `{...}`를 이용해 객체를 만듭니다. 이 선언 방식을 *객체 리터럴*이라고 합니다.
 
@@ -42,7 +42,7 @@ let user = {     // 객체
 
 `user` 객체를 "name"과 "age"라는 이름표가 붙은 두 개의 파일이 담긴 서랍장이라고 생각할 수 있습니다.
 
-![user object](object-user.png)
+![user object](object-user.svg)
 
 서랍장에 언제든 파일을 추가, 삭제할수 있고, 파일을 꺼내 읽을 수도 있습니다.
 
@@ -60,7 +60,7 @@ alert( user.age ); // 30
 user.isAdmin = true;
 ```
 
-![user object 2](object-user-isadmin.png)
+![user object 2](object-user-isadmin.svg)
 
 `delete` 연산자를 이용해 프로퍼티를 삭제할 수 있습니다.:
 
@@ -68,7 +68,7 @@ user.isAdmin = true;
 delete user.age;
 ```
 
-![user object 3](object-user-delete.png)
+![user object 3](object-user-delete.svg)
 
 복수의 단어로 이루어진 프로퍼티 이름을 사용할 수도 있는데, 이때는 반드시 따옴표로 단어들을 묶어줘야 합니다.:
 
@@ -80,7 +80,7 @@ let user = {
 };
 ```
 
-![](object-user-props.png)
+![](object-user-props.svg)
 
 
 마지막 프로퍼티는 쉼표로 끝날 수도 있습니다.:
@@ -342,7 +342,6 @@ alert( "test" in obj ); // true, 프로퍼티는 존재합니다!
 보통 `undefined` 을 할당하는 경우는 많지 않아 이런 상황은 거의 일어나지 않습니다. "알려지지 않았거나(unknown)" "비어 있는(empty)" 값엔 주로 `null`을 사용합니다. 그래서 위 코드상의 `in` 연산자는 이국적인 손님과도 같습니다.
 ````
 
-
 ## "for..in" 반복문
 
 객체의 모든 키를 탐색할 수 있는 특별한 반복문인 `for..in`가 있습니다. 이것은 이전에 배웠던 `for(;;)` 와는 완전히 다릅니다.
@@ -475,7 +474,7 @@ let phrase = message;
 
 코드를 실행하면, 두 개의 독립적인 변수가 만들어지고, 각 변수는 `"Hello!"`라는 문자열을 값으로 갖습니다.
 
-![](variable-copy-value.png)
+![](variable-copy-value.svg)
 
 객체는 이와 다릅니다.
 
@@ -489,7 +488,7 @@ let user = {
 };
 ```
 
-![](variable-contains-reference.png)
+![](variable-contains-reference.svg)
 
 객체는 메모리의 어딘가에 저장되어 있습니다. 그리고 변수 `user`는 객체에 대한 참조값을 갖고 있습니다.
 
@@ -507,7 +506,7 @@ let admin = user; // 참조를 복사합니다.
 
 변수는 두개이고, 각 변수는 같은 객체에 대한 참조값을 갖습니다.:
 
-![](variable-copy-reference.png)
+![](variable-copy-reference.svg)
 
 서랍장에 접근하거나 서랍장의 내용물을 변경하기 위해 둘 중 아무 변수나 사용하면 됩니다.:
 
@@ -570,7 +569,7 @@ user.age = 25; // (*)
 alert(user.age); // 25
 ```
 
-`(*)` 행이 에러를 일으킬 것이라 예상되지만, 사실 전혀 문제가 없습니다. `const`가 `user` 값을 고정하기 때문입니다. 그리고 여기서 `user`는 언제나 같은 객체에 대한 참조값을 저장합니다. `(*)` 행은 객체의 *내부로* 들어가며, `user`를 재할당하지 않습니다.
+It might seem that the line `(*)` would cause an error, but no, there's totally no problem. That's because `const` fixes only value of `user` itself. And here `user` stores the reference to the same object all the time. The line `(*)` goes *inside* the object, it doesn't reassign `user`.
 
 만약 `user`를 다른 어떤 것으로 재할당하려 하면 `const`가 에러를 발생시킬 것입니다. 예:
 
