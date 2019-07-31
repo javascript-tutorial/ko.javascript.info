@@ -41,7 +41,7 @@ alert( sayHi ); // 함수 코드가 보임
 
 자바스크립트에서 함수는 값입니다. 따라서 함수도 값처럼 다룹니다. 위의 코드에선 소스코드인 함수를 문자열 형태로 나타내었습니다.
 
-함수는 `sayHi()`와 같이 호출해서 쓸 수 있다는 점에서 특별한 값입니다.
+`sayHi()`와 같이 호출할 수 있다는 점 때문에 일반적인 값과는 조금은 다르긴 합니다.
 
 하지만 그 본질은 값이기 때문에 값을 다룰 때 하는 여러 가지를 함수에도 할 수 있습니다.
 
@@ -60,10 +60,8 @@ sayHi(); // Hello    //     본래 함수도 역시 정상적으로 실행됨
 
 위 코드에서 어떤 일이 일어났는지 자세히 알아보도록 합시다:
 
-1. `(1)`의 함수 선언문을 통해 함수를 생성하고, 생성한 함수를 `sayHi`라는 변수에 저장됩니다.
-2. `(2)` 에선  `sayHi`를 변수 `func`에 복사합니다.
-
-    주의: `sayHi` 다음에 괄호가 없습니다. 만약 괄호가 있다면, `func = sayHi()` 가 되어 `sayHi()` *함수 호출의 결괏값*이 `func`에 저장될 것입니다. `sayHi` *함수* 그 자체는 저장되지 않습니다.
+1. `(1)`의 함수 선언문을 통해 함수가 생성되고, 생성된 함수는 `sayHi`라는 변수에 저장됩니다.
+2. `(2)` 에선  `sayHi`를 새로운 변수 `func`에 복사합니다. 이 때 `sayHi` 다음에 괄호가 없다는 점에 유의하시기 바랍니다. 괄호가 있었다면 `func = sayHi()` 가 되어  `sayHi` *함수* 그 자체가 아니라 *함수 호출의 결괏값*이 `func`에 저장되었을 겁니다. 
 3. 이젠 `sayHi()` 와 `func()`를 통해 함수를 호출할 수 있게 되었습니다.
 
 아래 코드의 첫 번째 줄처럼 함수 표현식을 사용해 `sayHi`를 정의할 수도 있습니다:
@@ -91,9 +89,9 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
-이유는 간단합니다:
-- `if { ... }`, `for {  }`, `function f { }`같이 중괄호로 만들어지는 코드 블록의 끝엔 `;`이 없어도 됩니다.
-- 함수 표현식은 `let sayHi = ...;`과 같은 문(statement)안에서 값으로 사용됩니다. 코드 블록이 아닙니다. 값이 무엇이든 상관없이 모든 문은 세미 콜론 `;`으로 끝내는 것을 권장합니다. 함수 표현식에 쓰인 세미 콜론은 함수 표현식 때문에 붙여진 게 아니라, 문의 끝이기 때문에 붙여진 것입니다. 
+The answer is simple:
+- There's no need for `;` at the end of code blocks and syntax structures that use them like `if { ... }`, `for {  }`, `function f { }` etc.
+- A Function Expression is used inside the statement: `let sayHi = ...;`, as a value. It's not a code block, but rather an assignment. The semicolon `;` is recommended at the end of statements, no matter what the value is. So the semicolon here is not related to the Function Expression itself, it just terminates the statement.
 ````
 
 ## 콜백 함수(Callback functions)
@@ -196,20 +194,19 @@ First, the syntax: how to differentiate between them in the code.
 
 자바스크립트 엔진이 *언제* 함수를 생성하는지를 보면 더 미세한 차이를 발견할 수 있습니다.
 
-**함수 표현식에 의해 선언된 경우는 실행이 표현식에 도달할 때 함수가 생성됩니다. 그리고 이 시점부터만 함수를 사용할 수 있습니다.**
+**A Function Expression is created when the execution reaches it and is usable only from that moment.**
 
 실행 흐름이 `let sum = function…`와 같은 코드의 우측(함수 표현식)에 도달 했을때 함수가 생성되고, 이때부터 할당이나 호출 등을 사용할 수 있죠.
 
 하지만 함수 선언문은 조금 다릅니다.
 
-**함수 선언문은 선언 전에 호출할 수 있습니다.**
+**A Function Declaration can be called earlier than it is defined.**
 
-예를 들어, 전역 함수 선언문은 스크립트 전체에서 볼 수 있습니다. 전역 스코프, 지역 스코프 상관없이 말이죠.
+For example, a global Function Declaration is visible in the whole script, no matter where it is.
 
-이게 가능한 이유는 자바스크립트 내부 알고리즘 때문입니다. 자바스크립트는 스크립트 실행을 준비할 때, 먼저 전역 함수 선언문이 있는지를 찾고, 전역 함수 선언문이 있는 경우 해당 함수를 생성합니다. 이 시기를 "초기화 단계(initialization stage)"라고 생각하시면 됩니다.
+That's due to internal algorithms. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an "initialization stage".
 
-이렇게 모든 함수 선언문이 처리되고 나서야 코드가 실행됩니다. 따라서 스크립트 어디서든 이런 함수에 접근할 수 있습니다.
-
+And after all Function Declarations are processed, the code is executed. So it has access to these functions.
 
 이런 과정 때문에 아래 코드는 에러 없이 동작합니다.
 
@@ -239,11 +236,13 @@ let sayHi = function(name) {  // (*) 마술은 일어나지 않습니다
 
 함수 표현식은 실행 흐름이 표현식에 다다랐을 때 만들어집니다. 위 코드에서 `(*)`로 표시한 라인에서 말이죠. 함수 표현식으로 선언한 함수는 함수 표현식으로 생성한 함수보다 뒤늦게 만들어집니다.
 
-**엄격 모드에서, 코드 블록 안에 함수 선언문을 작성한 경우 해당 함수는 블록 내 어디에서든 호출할 수 있습니다. 하지만 블록 밖에선 이 함수에 접근할 수 없습니다.**
+Another special feature of Function Declarations is their block scope.
 
-변수 `age`에 따라 함수 `welcome()`을 다르게 정의해야 한다고 가정해 봅시다. 이때 `age`는 런타임에 결정된다고 해보죠. 그리고 이 함수를 나중에 재사용한다고 해봅시다.
+**In strict mode, when a Function Declaration is within a code block, it's visible everywhere inside that block. But not outside of it.**
 
-함수 선언 방식으로 함수 선언문을 사용하면 의도한 대로 코드가 동작하지 않습니다.
+For instance, let's imagine that we need to declare a function `welcome()` depending on the `age` variable that we get during runtime. And then we plan to use it some time later.
+
+If we use Function Declaration, it won't work as intended:
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -291,7 +290,7 @@ if (age < 18) {
 
 } else {
 
-  function welcome() {     //  age = 16일 때, 이 "welcome" 함수는 절대 생성되지 않습니다
+  function welcome() {    
     alert("Greetings!");
   }
 }
@@ -308,7 +307,7 @@ welcome(); // Error: welcome is not defined
 
 함수 표현식으로 `welcome` 함수를 정의하고, 이 함수를 `if` 바깥에서 선언한 변수에 할당하면 가능합니다. 
 
-이제 의도한 대로 코드가 작동할 것입니다:
+This code works as intended:
 
 ```js run
 let age = prompt("What is your age?", 18);
@@ -349,12 +348,12 @@ welcome(); // ok now
 ```
 
 
-```smart header="함수 선언문과 함수표현식 중 어느 걸 선택해야 하나요?"
-제 오랜 경험에 따르면 함수 선언문을 먼저 고려하는 걸 추천합니다. 함수 선언문으로 함수를 정의하면, 함수를 선언하기 전에 호출할 수 있으므로 코드 구성을 좀 더 자유롭게 할 수 있습니다.
+```smart header="When to choose Function Declaration versus Function Expression?"
+As a rule of thumb, when we need to declare a function, the first to consider is Function Declaration syntax. It gives more freedom in how to organize our code, because we can call such functions before they are declared.
 
-함수 선언문을 사용하면 가독성도 좋습니다. 코드에서 `let f = function(…) {…}`보다 `function f(…) {…}` 을 찾는 게 더 쉽죠. 함수 선언문 방식이 "눈길을 사로잡기" 좋습니다.
+That's also better for readability, as it's easier to look up `function f(…) {…}` in the code than `let f = function(…) {…}`. Function Declarations are more "eye-catching".
 
-그러나 어떤 이유 때문에 함수 선언 방식이 적합하지 않거나, (위 예제와 같이) 조건에 따라 함수를 선언해야 한다면 함수 표현식을 사용해야 합니다.
+...But if a Function Declaration does not suit us for some reason, or we need a conditional declaration (we've just seen an example), then Function Expression should be used.
 ```
 
 
@@ -395,7 +394,7 @@ alert( sum(1, 2) ); // 3
 
 ```
 
-인수가 하나밖에 없다면, 괄호를 생략할 수 있습니다. 더 짧게 함수를 작성할 수 있습니다.
+If we have only one argument, then parentheses around parameters can be omitted, making that even shorter:
 
 ```js run
 // 아래 두 함수는 같습니다

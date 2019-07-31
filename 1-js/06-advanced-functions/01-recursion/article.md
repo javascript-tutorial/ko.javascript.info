@@ -70,7 +70,7 @@ pow(x, n) =
 
 `n == 1`이 될 때 까지 `pow` 함수 *자신을 재귀 호출* 한다고 아래 그램을 말로 표현할 수 있을 것입니다.
 
-![recursive diagram of pow](recursion-pow.png)
+![recursive diagram of pow](recursion-pow.svg)
 
 
 `pow (2, 4)`를 계산하는 과정을 예로 재귀 단계를 구체적으로 살펴보겠습니다.
@@ -332,10 +332,10 @@ let company = {
 
 앞서 본 바와 같이 부서는 크게 두 부류로 나뉩니다
 
-1. *임직원 배열* 을 가진 "단순한" 부서 -- 간단한 반복문으로 급여 합계를 구할 수 있습니다.
-2. *N 개의 하위 부서가 있는 객체* -- 각 하위 부서에 속한 급여 합계를 얻기 위해 `N` 번의 회귀 호출을 하고, 최종적으로 모든 하위부서 급여 합계를 합산 합니다.
+1. 임직원 *배열* 을 가진 "단순한" 부서 -- 간단한 반복문으로 급여 합계를 구할 수 있습니다.
+2. N 개의 하위 부서가 있는 *객체* -- 각 하위 부서에 속한 급여 합계를 얻기 위해 `N` 번의 회귀 호출을 하고, 최종적으로 모든 하위부서 급여 합계를 합산 합니다.
 
-(1)은 재귀의 base 이며, 사소한 경우입니다.
+(1)은 재귀의 base 이며, 배열을 사용하기 때문에 간단합니다.
 
 (2)는 재귀 단계입니다. 복잡한 작업이 작은 작업(하위 부서에 대한 루프)으로 쪼개집니다. 깊이에 따라 더 작은 작업으로 쪼깨 질 수 있는데, 결국 작업은 (1)의 경우에 해당하게 됩니다.
 
@@ -373,7 +373,7 @@ alert(sumSalaries(company)); // 6700
 
 다음은 호출에 관한 그림입니다.
 
-![recursive salaries](recursive-salaries.png)
+![recursive salaries](recursive-salaries.svg)
 
 객체 `{...}`를 만나면 서브 호출이 일어나고, 배열 `[...]`이 재귀 트리의 "잎사귀"인 경우 결과값이 바로 계산되는 것을 그림을 통해 다시한번 확인할 수 있습니다.   
 
@@ -444,7 +444,7 @@ let list = {
 
 리스트를 시각적으로 표현하
 
-![linked list](linked-list.png)
+![linked list](linked-list.svg)
 
 코드로는 다음과 같습니다.
 
@@ -464,7 +464,7 @@ let secondList = list.next.next;
 list.next.next = null;
 ```
 
-![linked list split](linked-list-split.png)
+![linked list split](linked-list-split.svg)
 
 To join:
 
@@ -488,7 +488,7 @@ list = { value: "new item", next: list };
 */!*
 ```
 
-![linked list](linked-list-0.png)
+![linked list](linked-list-0.svg)
 
 중간에서 값을 제거하려면 이전 값의 `next`를 변경해야 합니다.
 
@@ -496,7 +496,7 @@ list = { value: "new item", next: list };
 list.next = list.next.next;
 ```
 
-![linked list](linked-list-remove-1.png)
+![linked list](linked-list-remove-1.svg)
 
 `list.next`가 `1`을 뛰어넘어서`2` 값을 얻었습니다. 이제 값 `1`이 체인에서 제외됩니다. 다른 곳에 저장되지 않으면 자동으로 메모리에서 제거됩니다.
 

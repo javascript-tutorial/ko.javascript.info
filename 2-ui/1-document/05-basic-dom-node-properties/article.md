@@ -14,7 +14,7 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
 
 아래 그림은 이런 계층구조를 잘 나타냅니다.
 
-![](dom-class-hierarchy.png)
+![](dom-class-hierarchy.svg)
 
 노드 클래스:
 

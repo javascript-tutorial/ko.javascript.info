@@ -222,7 +222,7 @@ loadScript('1.js', function(error, script) {
 
 이런 경우를 "콜백 지옥(callback hell)" 또는 "멸망의 피라미드(pyramid of doom)"라고 부릅니다.
 
-![](callback-hell.png)
+![](callback-hell.svg)
 
 비동기 동작이 하나씩 추가될 때마다 중첩 호출이 만들어내는 "피라미드"는 오른쪽으로 점점 커집니다. 곧 손쓸 수 없는 지경까지 커져 버리죠.
 

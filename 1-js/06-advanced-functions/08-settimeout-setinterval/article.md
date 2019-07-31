@@ -7,7 +7,7 @@
 - `setTimeout`은 일정 시간이 지난 후에 함수를 실행합니다.
 - `setInterval`은 일정 시간 간격으로 함수가 실행되도록 합니다.
 
-이들은 자바스크립트 명세에서 정의된 메서드는 아닙니다. 하지만 대부분의 자바스크립트 실행 환경이 이와 유사한 메서드와 내부 스케줄러를 지원합니다. 모든 종류의 브라우저와 Node.js에도 당연히 이 기능을 지원합니다.  
+These methods are not a part of JavaScript specification. But most environments have the internal scheduler and provide these methods. In particular, they are supported in all browsers and Node.js.
 
 ## setTimeout
 
@@ -74,7 +74,7 @@ setTimeout(() => alert('Hello'), 1000);
 // 잘못된 코드
 setTimeout(sayHi(), 1000);
 ```
-`setTimeout`은 함수에 대한 참조값을 인수로 받길 원하는데 `sayHi()`는 함수를 실행하기 때문에 이 코드는 동작하지 않습니다. *함수 실행 결과*가 `setTimeout`에 전달되기 때문입니다. `sayHi()`는 실제 아무런 값도 반환하지 않기 때문에 실행 결과는 `undefined`가 되고, `setTimeout`은 스케줄링할 대상을 갖지 못하게 됩니다.
+That doesn't work, because `setTimeout` expects a reference to a function. And here `sayHi()` runs the function, and the *result of its execution* is passed to `setTimeout`. In our case the result of `sayHi()` is `undefined` (the function returns nothing), so nothing is scheduled.
 ````
 
 ### clearTimeout으로 스케줄링 취소하기
@@ -129,7 +129,7 @@ setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 ```smart header="`alert`창이 떠있는 상태에선 타이머가 멈추지 않습니다."
 크롬과 파이어폭스를 포함한 대부분의 브라우저에서는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머가 멈추지 않고 "째깍거리며" 돌아갑니다.
 
-위의 코드를 실행 하고, 얼마간 `alert` 창을 닫지 않고 있다가 창을 닫으면, 다음 `alert` 창이 바로 나타나는것을 통해 이를 확인할 수 있습니다. `alert` 창 간의 간격이 5초보다 짧아지죠.
+So if you run the code above and don't dismiss the `alert` window for some time, then in the next `alert` will be shown immediately as you do it. The actual interval between alerts will be shorter than 2 seconds.
 ```
 
 ## 재귀적인 setTimeout
@@ -175,7 +175,7 @@ let timerId = setTimeout(function request() {
 ```
 
 
-CPU 소모가 많은 작업을 주기적으로 해야 하는 경우에도, 작업 시간을 측정해 다음 작업을 언제 시작할지 계획할 수 있을 것입니다.
+And if the functions that we're scheduling are CPU-hungry, then we can measure the time taken by the execution and plan the next call sooner or later.
 
 **재귀적인 `setTimeout`은 실행 간 지연 시간 간격을 보장하지만, `setInterval`은 아닙니다.**
 
@@ -200,7 +200,7 @@ setTimeout(function run() {
 
 `setInterval`을 이용한 예제에선, 내부 스케줄러가 `func(i)`를 100ms마다 실행합니다.
 
-![](setinterval-interval.png)
+![](setinterval-interval.svg)
 
 알아차리셨나요?
 
@@ -216,7 +216,7 @@ setTimeout(function run() {
 
 아래는 회귀적인 `setTimeout`을 묘사하는 그림입니다.
 
-![](settimeout-interval.png)
+![](settimeout-interval.svg)
 
 **회귀적인 `setTimeout`에선 명시한 지연(여기서는 100ms)을 보장합니다.**
 
