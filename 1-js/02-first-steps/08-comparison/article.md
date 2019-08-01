@@ -138,13 +138,10 @@ alert( 0 === false ); // 피연산자의 형이 다르기 때문에 false가 출
 
 ## null이나 undefined와 비교하기
 
-비교 연산의 다양한 에지 케이스(edge case)를 살펴봅시다. 
+There's a non-intuitive behavior when `null` or `undefined` are compared to other values.
 
-`null`이나 `undefined`를 다른 값과 비교하면 예상치 않은 결과가 도출됩니다.
-
-
-일치 연산자 `===`를 사용할 때
-: 일치 연산자를 사용해 `null`과 `undefined`를 비교하면 `false`가 반환됩니다. 두 값은 별도의 자료형에 속하기 때문입니다.
+For a strict equality check `===`
+: These values are different, because each of them is a different type.
 
     ```js run
     alert( null === undefined ); // false

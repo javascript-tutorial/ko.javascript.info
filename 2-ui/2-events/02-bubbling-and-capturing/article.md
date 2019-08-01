@@ -1,4 +1,4 @@
-# 버블링과 캡처링(bubbling and capturing)
+# 버블링과 캡처링
 
 먼저 코드부터 살펴봅시다.
 
@@ -41,7 +41,7 @@
 3. 다음은 그 바깥의 `<form>`에 할당된 핸들러가 동작합니다.
 4. 트리를 거슬러 올라가면서 `document` 객체를 만날 때까지, 각 요소에 할당된 `onclick` 핸들러가 동작합니다.
 
-![](event-order-bubbling.png)
+![](event-order-bubbling.svg)
 
 이런 동작 방식 때문에 `<p>` 요소를 클릭하면 3개의 alert 창을 볼 수 있는것 입니다. `p` -> `div` -> `form` 순서로 말이죠.
 
@@ -75,7 +75,7 @@
 
 [codetabs height=220 src="bubble-target"]
 
-`event.target`과 `this`가 같은 경우도 있습니다 -- `<form>` 요소를 정확히 클릭했을 때 같아집니다.
+`<form>` 요소를 정확히 클릭했을 때는 `event.target`과 `this`가 같습니다.
 
 ## 버블링 중단하기
 
@@ -128,9 +128,9 @@
 
 테이블 안의 `<td>`를 클릭하면 어떻게 이벤트가 흐르는지 아래 그림을 보고 이해해 봅시다:  
 
-![](eventflow.png)
+![](eventflow.svg)
 
-`<td>` 요소를 클릭하면 이벤트가 최상위 조상에서 시작해서 아래로 전파되고(캡처링), 이벤트가 타깃 요소에 도착하면, 다시 위로 전파됩니다(버블링). 이 과정에서 요소에 할당된 핸들러가 호출됩니다. 
+`<td>` 요소를 클릭하면 이벤트가 최상위 조상에서 시작해 아래로 전파되고(캡처링 단계), 이벤트가 타깃 요소에 도착해 실행된 후(타깃 단계), 다시 위로 전파됩니다(버블링 단계). 이런 과정을 통해 요소에 할당된 이벤트 핸들러가 호출됩니다.
 
 **캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 주로 버블링만 설명했습니다. 캡처링에 관한 코드를 발견하는 일은 거의 없을 겁니다.**
 
@@ -149,7 +149,8 @@ elem.addEventListener(..., true)
 - `false`(default 값)인 경우, 핸들러는 버블링 단계에서 동작합니다.
 - `true`인 경우, 핸들러는 캡처링 단계에서 동작합니다.
 
-공식적으론 총 3개의 이벤트 흐름이 있지만, 두 번째 단계("타깃 단계": 이벤트가 실제 타깃 요소에 전달되는 단계)를 별도로 다루진 않습니다: 캡처링과 버블링 단계의 핸들러는 타깃단계에서 모두 동작합니다.
+
+공식적으론 총 3개의 이벤트 흐름이 있지만, 두 번째 단계("타깃 단계": 이벤트가 실제 타깃 요소에 전달되는 단계)는 별도로 처리되지 않습니다. 따라서, 캡처링과 버블링 단계의 핸들러는 타깃단계에서 모두 동작합니다.
 
 아래 예제를 통해 캡처링과 버블링에 대해 살펴보도록 합시다.
 
@@ -179,10 +180,9 @@ elem.addEventListener(..., true)
 
 `<p>` 요소를 클릭하면, 다음과 같은 순서로 이벤트가 전달됩니다:
 
-1. `HTML` -> `BODY` -> `FORM` -> `DIV` -> `P` (캡처링 단계, 첫 번째 리스너)
-2. `P` -> `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
-
-얼럿 창에 `P`가 두 번 나타났다는 점에 주목해 주시기 바랍니다. `P`의 이벤트 리스너는 캡처링 단계의 마지막과 버블링 단계의 처음에 실행되었습니다. 
+1. `HTML` -> `BODY` -> `FORM` -> `DIV` (캡처링 단계, 첫 번째 리스너)
+2. `P (타깃 단계, capturing과 bubbling 둘 다에 리스너를 설정했기 때문에 두 번 호출됩니다.)
+3. `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
 
 `event.eventPhase` 프로퍼티를 이용하면 현재 발생 중인 이벤트 흐름의 단계를 알 수 있습니다(역주: 반환하는 정숫값에 따라 이벤트 흐름의 현재 실행 단계를 구분함). 하지만 핸들러를 통해 흐름 단계를 알 수 있기 때문에 이 프로퍼티는 자주 사용되지 않습니다.
 
@@ -190,19 +190,29 @@ elem.addEventListener(..., true)
 `addEventListener(..., true)`로 핸들러를 할당해 줬다면, 핸들러를 지울 때, `removeEventListener(..., true)`를 사용해 지워야 합니다. 같은 단계에 있어야 핸들러가 지워집니다.
 ```
 
+````smart header="Listeners on same element and same phase run in their set order"
+If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+
+```js
+elem.addEventListener("click", e => alert(1)); // guaranteed to trigger first
+elem.addEventListener("click", e => alert(2));
+```
+````
+
+
 ## 요약
 
-이벤트 핸들링 프로세스는 다음과 같습니다:
+이벤트가 발생하면 이벤트가 발생한 가장 안쪽의 요소가 "타깃 요소(`event.target`)"가 됩니다.
 
-- 이벤트가 발생하면, 가장 안쪽에 위치한 요소는 "타깃 요소"(`event.target`)가 됨.
-- 이벤트는 document 에서 시작해 DOM 트리를 따라 `event.target`까지 내려감. 이때, 트리 내 요소에 `addEventListener(...., true)`가 있어 핸들러가 할당된 경우, 해당 핸들러가 동작함(`true`는 `{capture: true}`를 짧게 표기한 것임).
-- 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달됨. 이 때, `on<event>`과 세 번째 인수가 없거나 `false`인 `addEventListener`로 할당한 핸들러가 동작함.
+- 이후 이벤트는 document에서 시작해 DOM 트리를 따라 `event.target`까지 내려갑니다. 이때, 요소에 `addEventListener(...., true)`로 할당한 핸들러가 있으면 해당 핸들러가 호출됩니다(`addEventListener(...., true)`의 `true`는 `{capture: true}`의 줄임입니다).
+- 타깃 요소의 핸들러가 호출됩니다.
+- 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달됩니다. 이때, `on<event>`, 세 번째 인수가 없거나 `false`인 `addEventListener`로 할당한 핸들러가 호출됩니다.
 
 각 핸들러는 아래와 같은 `이벤트` 객체의 프로퍼티에 접근할 수 있습니다:
 
 - `event.target` -- 이벤트가 발생한 가장 안쪽의 요소
 - `event.currentTarget` (=`this`) -- 이벤트를 핸들링 하는 현재 요소 (핸들러가 실제 할당된 요소)
-- `event.eventPhase` -- 현재 이벤트 흐름 단계 (캡처링=1, 버블링=3).
+- `event.eventPhase` -- 현재 이벤트 흐름 단계 (캡처링=1, 타깃=2, 버블링=3).
 
 핸들러에서 `event.stopPropagation()`을 사용해 이벤트 캡처링이나 버블링을 멈추게 할 수 있습니다. 다만, 이 방법은 추천하지 않습니다. 지금은 상위 요소에서 이벤트가 어떻게 쓰일지 확실치 않더라도, 추후에 버블링이 필요한 경우가 생기기 때문입니다. 
 

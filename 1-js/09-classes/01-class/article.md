@@ -85,18 +85,17 @@ alert(typeof User); // function
 ```
 
 What `class User {...}` construct really does is:
-1. Creates a function named `User`, that becomes the result of the class declaration.
-    - The function code is taken from the `constructor` method (assumed empty if we don't write such method).
-3. Stores all methods, such as `sayHi`, in `User.prototype`.
 
-Afterwards, for new objects, when we call a method, it's taken from the prototype, just as  described in the chapter <info:function-prototype>. So `new User` object has access to class methods.
+1. Creates a function named `User`, that becomes the result of the class declaration. The function code is taken from the `constructor` method (assumed empty if we don't write such method).
+2. Stores class methods, such as `sayHi`, in `User.prototype`.
+
+Afterwards, for `new User` objects, when we call a method, it's taken from the prototype, just as described in the chapter <info:function-prototype>. So the object has access to class methods.
 
 We can illustrate the result of `class User` declaration as:
 
-![](class-user.png)
+![](class-user.svg)
 
 Here's the code to introspect it:
-
 
 ```js run
 class User {
@@ -119,7 +118,7 @@ alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 
 ## Not just a syntax sugar
 
-Sometimes people say that `class` is a "syntax sugar" in JavaScript, because we could actually declare the same without `class` keyword at all:
+Sometimes people say that `class` is a "syntax sugar" (syntax that is designed to make things easier to read, but doesn't introduce anything new), because we could actually declare the same without `class` keyword at all:
 
 ```js run
 // rewriting class User in pure functions
@@ -147,7 +146,7 @@ Although, there are important differences.
 
 1. First, a function created by `class` is labelled by a special internal property `[[FunctionKind]]:"classConstructor"`. So it's not entirely the same as creating it manually.
 
-    Unlike a regular function, a class constructor can't be called without `new`:
+    Unlike a regular function, a class constructor must be called with `new`:
 
     ```js run
     class User {
@@ -176,8 +175,7 @@ Although, there are important differences.
 3. Classes always `use strict`.
     All code inside the class construct is automatically in strict mode.
 
-
-Also, in addition to its basic operation, the `class` syntax brings many other features with it which we'll explore later.
+Besides, `class` syntax brings many other features that we'll explore later.
 
 ## Class Expression
 

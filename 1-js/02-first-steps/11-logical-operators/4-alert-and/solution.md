@@ -1,10 +1,9 @@
-The answer: `1`, and then `undefined`.
+얼럿 창엔 `1`, `undefined`가 차례대로 출력됩니다.
 
 ```js run
 alert( alert(1) && alert(2) );
 ```
 
-The call to `alert` returns `undefined` (it just shows a message, so there's no meaningful return).
+`alert`를 호출하면 `undefined`가 반환됩니다. `alert`는 단순히 얼럿 창에 메시지만 띄워주고, 의미 있는 값을 반환해 주지 않습니다.
 
-Because of that, `&&` evaluates the left operand (outputs `1`), and immediately stops, because `undefined` is a falsy value. And `&&` looks for a falsy value and returns it, so it's done.
-
+`&&`는 왼쪽 피연산자를 평가하고(이때 `1`이 얼럿창에 출력됩니다) 평가를 즉시 멈춥니다. `alert(1)`의 평가 결과는 `undefined`로 거짓 같은 값이기 때문이죠. `&&` 연산자는 거짓 같은 값을 만나면 그 값을 출력하고 즉시 연산을 멈춥니다.

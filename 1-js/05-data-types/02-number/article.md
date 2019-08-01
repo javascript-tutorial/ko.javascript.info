@@ -2,7 +2,11 @@
 
 자바스크립트에 있는 모든 숫자들은 "배정도 부동 소수점 숫자들(double precision floating point numbers)"로 알려져 있는 64-비트 형식 [IEEE-754]에 저장 되어 있습니다.
 
+<<<<<<< HEAD
 현재 알고 있는 내용을 한번 요약해 보겠습니다.
+=======
+Let's expand upon what we currently know about them.
+>>>>>>> upstream/master
 
 ## 숫자를 입력하는 다양한 방법들
 
@@ -12,7 +16,11 @@
 let billion = 1000000000;
 ```
 
+<<<<<<< HEAD
 하지만 현실 세계에서 긴 문자열의 0을 입력하는 것은 실수를 유발할 수도 있고 게으르기 때문에 주로 피합니다. 주로 10억 대신 `"1bn"`을 입력하거나 73억 대신에 `"7.3bn"`을 입력합니다. 대부분의 거대한 숫자들의 경우에도 마찬가지입니다.
+=======
+But in real life, we usually avoid writing a long string of zeroes as it's easy to mistype. Also, we are lazy. We will usually write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
+>>>>>>> upstream/master
 
 자바스크립트에서는 숫자에 문자 `"e"`를 추가하여 줄이고 0의 숫자를 세어 표시합니다.
 
@@ -213,7 +221,7 @@ So, division by powers `10` is guaranteed to work well in the decimal system, bu
 
 There's just no way to store *exactly 0.1* or *exactly 0.2* using the binary system, just like there is no way to store one-third as a decimal fraction.
 
-The numeric format IEEE-754 solves this by rounding to the nearest possible number. These rounding rules normally don't allow us to see that "tiny precision loss", so the number shows up as `0.3`. But beware, the loss still exists.
+The numeric format IEEE-754 solves this by rounding to the nearest possible number. These rounding rules normally don't allow us to see that "tiny precision loss", but it exists.
 
 We can see this in action:
 ```js run

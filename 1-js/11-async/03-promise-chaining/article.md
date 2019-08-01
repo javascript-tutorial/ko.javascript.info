@@ -42,7 +42,7 @@ new Promise(function(resolve, reject) {
 
 결과가 핸들러의 사슬을 통해 전달되므로, `alert` 창에 `1` -> `2` -> `4`가 순서대로 출력되는것을 확인할 수 있습니다.
 
-![](promise-then-chain.png)
+![](promise-then-chain.svg)
 
 이렇게 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 프라미스가 반환되기 때문에 이 프라미스에 다시 `.then`을 호출할 수 있는 거죠.
 
@@ -94,7 +94,7 @@ promise.then(function(result) {
 
 그림으로 표현하면 다음과 습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
-![](promise-then-many.png)
+![](promise-then-many.svg)
 
 한 프라미스에 등록된 모든 `.then`은 해당 프라미스의 result라는 동일한 결과를 받습니다. 따라서 위 코드에서 모든 `alert` 창은 `1`을 출력합니다.
 
@@ -207,7 +207,7 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 
 
 ````smart header="Thenables"
-`.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있고, 프라미스와 같은 방식으로 처리됩니다.
+`.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있는 임의의 메서드로, 프라미스와 같은 방식으로 처리됩니다.
 
 "thenable" 객체에 대한 아이디어는 서드파티 라이브러리가 "프라미스와 호환 가능한" 자체 객체를 구현할 수 있다는 점에서 출발했습니다. 이 객체는 추가 메서드를 가질 수 있으면서 `.then`을 구현하고 있기 때문에 네이티브 프라미스와도 호환 가능합니다.
 
@@ -242,7 +242,7 @@ new Promise(resolve => resolve(1))
 
 프론트 단에선 네트워크 요청을 할 때 프라미스를 자주 사용합니다. 이에 관련된 예시를 좀 더 살펴봅시다. 
 
-원격 서버에서 사용자 정보를 가져오기 위해 [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) 메서드를 사용하겠습니다. `fetch`는 선택할 수 있는 매개변수가 많기 때문에 꽤 복잡하지만, 기본 문법은 아주 간단한 메서드입니다.
+원격 서버에서 사용자 정보를 가져오기 위해 [fetch](info:fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 별도의 챕터에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
 
 ```js
 let promise = fetch(url);
@@ -382,4 +382,4 @@ loadJson('/article/promise-chaining/user.json')
 
 아래는 이 과정을 그림으로 나타낸 것입니다.
 
-![](promise-handler-variants.png)
+![](promise-handler-variants.svg)
