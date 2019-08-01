@@ -7,7 +7,7 @@
 ### 번역 참여 방법
 
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역 진행 상황을 확인합니다.
-- 번역되지 않은 글이나, 리뷰가 필요한 글을 선택합니다.
+- 번역되지 않은 글이나, 과제, 리뷰가 필요한 글을 선택합니다.
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에 본인의 깃허브 아이디와 진행 상황(Translation Status)을 업데이트합니다.
 - [본 저장소](https://github.com/javascript-tutorial/ko.javascript.info)를 포크하여 번역 작업을 시작하고, 번역이 끝나면 PR(Pull Request) 합니다.
 
@@ -23,7 +23,7 @@
 PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 싶다면, <https://github.com/javascript-tutorial/server>을 이용해 로컬에 서버를 세팅해 보세요. 
 
 ### 기여자
-튜토리얼에 기여하신 분들의 이름은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다.
+튜토리얼 원문에 기여하신 분들의 이름은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다. 한국어 번역에 기여해주신 분들의 이름은 <https://github.com/javascript-tutorial/ko.javascript.info/graphs/contributors>에서 확인할 수 있습니다.
 
 ## 저장소 구조
 
@@ -60,9 +60,9 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 - 번역은 단어-단어 수준으로 정확하지 않아도 됩니다. 오역이 없고 번역투가 없는 문장이면 됩니다. 다만, 번역 시 누락은 있으면 안 됩니다.
 - 문장 끝 :(콜론) 등의 영어에서만 사용되는 문장부호나 스타일은 최대한 한글화합니다.
 - 모호하지 않은 영어 문장이 발견되면 PR을 보내 영어 원문 수정요청을 할 수 있습니다.
-- 줄 바꿈과 단락은 "원문 그대로" 유지해주세요. 영어 원문 수정사항을 병합할 때 중요합니다.
+- 줄 바꿈과 단락은 "원문 그대로" 유지해주세요. 영어 원문 수정사항을 병합할 때 중요합니다. **(번역 후 파일의 줄 수가 원문의 줄 수와 다른 경우는 PR 받지 않겠습니다.)**
 - 충돌이 있는 경우 빠르게 수정하여 병합할 수 있도록 PR하나에 챕터 하나만 번역하길 권유 드립니다.
-- 번역기 사용을 지양하는 바는 아닙니다. 다만, 번역 투가 심하거나 번역되지 않은 대명사 때문에 가독성이 떨어지는 경우는 수정을 권유하고 있습니다.
+- 번역기 사용을 지양하는 바는 아닙니다. 다만, 번역 투가 심하거나 번역되지 않은 대명사 등 때문에 가독성이 떨어지는 경우는 수정을 권유하고 있습니다.
 ---
 ♥
 Ilya Kantor @iliakan
