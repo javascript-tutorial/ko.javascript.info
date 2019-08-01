@@ -2,11 +2,7 @@
 
 자바스크립트에 있는 모든 숫자들은 "배정도 부동 소수점 숫자들(double precision floating point numbers)"로 알려져 있는 64-비트 형식 [IEEE-754]에 저장 되어 있습니다.
 
-<<<<<<< HEAD
 현재 알고 있는 내용을 한번 요약해 보겠습니다.
-=======
-Let's expand upon what we currently know about them.
->>>>>>> upstream/master
 
 ## 숫자를 입력하는 다양한 방법들
 
@@ -16,11 +12,7 @@ Let's expand upon what we currently know about them.
 let billion = 1000000000;
 ```
 
-<<<<<<< HEAD
 하지만 현실 세계에서 긴 문자열의 0을 입력하는 것은 실수를 유발할 수도 있고 게으르기 때문에 주로 피합니다. 주로 10억 대신 `"1bn"`을 입력하거나 73억 대신에 `"7.3bn"`을 입력합니다. 대부분의 거대한 숫자들의 경우에도 마찬가지입니다.
-=======
-But in real life, we usually avoid writing a long string of zeroes as it's easy to mistype. Also, we are lazy. We will usually write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
->>>>>>> upstream/master
 
 자바스크립트에서는 숫자에 문자 `"e"`를 추가하여 줄이고 0의 숫자를 세어 표시합니다.
 
@@ -209,36 +201,36 @@ alert( 0.1 + 0.2 == 0.3 ); // *!*false*/!*
 alert( 0.1 + 0.2 ); // 0.30000000000000004
 ```
 
-여기에는 잘못된 비교보다 많은 결과가 있습니다. Imagine you're making an e-shopping site and the visitor puts `$0.10` and `$0.20` goods into their chart. The order total will be `$0.30000000000000004`. That would surprise anyone.
+여기에는 잘못된 비교보다 많은 결과가 있다. 만약에 온라인 쇼핑몰 사이트를 만든다고 할 때 방문객은 `$0.10` 과 `$0.20` 로 표기되어 있는 상품을 구매창에다가 넣을 것이다. 총 주문은 `$0.30000000000000004` 로 표시될 것이다. 이것은 모두를 놀라게 할 것이다.
 
-But why does this happen?
+왜 이런 현상이 일어날까?
 
-A number is stored in memory in its binary form, a sequence of bits - ones and zeroes. But fractions like `0.1`, `0.2` that look simple in the decimal numeric system are actually unending fractions in their binary form.
+숫자는 0과 1로 이루어진 비트인 2진수의 형태로 메모리에 저장되어 있다. 하지만 소수 숫자 형식에서 간단해 보이는 `0.1`, `0.2` 과 같은 분수는 실제로 이진 형태에서 무한대의 분수이다.
 
-In other words, what is `0.1`? It is one divided by ten `1/10`, one-tenth. In decimal numeral system such numbers are easily representable. Compare it to one-third: `1/3`. It becomes an endless fraction `0.33333(3)`.
+다르게 말하면 `0.1`은 무엇인가? `0.1`은 1/10`와 같이 1을 10으로 나눈 십분의 일이다. 소수 숫자 형식에서 이러한 숫자들은 쉽게 표현할 수 있다. 3분의 1인 `1/3`과 비교해봐라. 3분의 1은 `0.33333(3)`과 무한대의 분수가 된다.
 
-So, division by powers `10` is guaranteed to work well in the decimal system, but division by `3` is not. For the same reason, in the binary numeral system, the division by powers of `2` is guaranteed to work, but `1/10` becomes an endless binary fraction.
+그래서 `10`에 의한 나눔은 소수 형식에서 작동이 잘 되도록 보장이 되지만 `3`에 의한 나눔은 그렇지 않다. 같은 이유로 이진 숫자 형식에서 `2`에 의한 나눔은  is 작동되도록 보장이 되지만 `1/10`은 무한대의 이진 분수가 된다.
 
-There's just no way to store *exactly 0.1* or *exactly 0.2* using the binary system, just like there is no way to store one-third as a decimal fraction.
+이진수 형식를 이용할 경우 *완벽한 0.1* 또는 *완벽한 0.2*를 저장하는 방법은 없으며 이것은 소수에서 3분의 1을 저장할 방법이 없는 것과 마찬가지다.
 
-The numeric format IEEE-754 solves this by rounding to the nearest possible number. These rounding rules normally don't allow us to see that "tiny precision loss", but it exists.
+숫자 형식인 IEEE-754은 가능한 가장 가까운 숫자로 반올림을 하며 이 문제를 해결한다. 이러한 반올림  규칙은 일반적으로 "작고 정밀한 손실"를 보도록 허락하지 않지만 그것은 존재한다.
 
-We can see this in action:
+실제로 이것을 볼 수 있다.
 ```js run
 alert( 0.1.toFixed(20) ); // 0.10000000000000000555
 ```
 
-And when we sum two numbers, their "precision losses" add up.
+두 숫자를 더하면 "정밀한 손실"이 더해진다.
 
-That's why `0.1 + 0.2` is not exactly `0.3`.
+그래서 `0.1 + 0.2`은 완벽하게 `0.3`이 되지 않는 것이다.
 
-```smart header="Not only JavaScript"
-The same issue exists in many other programming languages.
+```smart header="자바스크립트 뿐만 아님"
+다양한 프로그래밍 언어에도 이러한 문제가 발생한다.
 
-PHP, Java, C, Perl, Ruby give exactly the same result, because they are based on the same numeric format.
+PHP, Java, C, Perl, Ruby는 완벽하게 똑같은 결과를 주는데 그것은 똑같은 숫자 형식를 기반으로 하기 떄문이다.
 ```
 
-Can we work around the problem? Sure, the most reliable method is to round the result with the help of a method [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed):
+문제를 해결 할 순 없을까? 가장 믿을 수 있는 방법은[toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) 라는 메서드의 도움으로 결과를 반올림하는 것이다. 
 
 ```js run
 let sum = 0.1 + 0.2;
