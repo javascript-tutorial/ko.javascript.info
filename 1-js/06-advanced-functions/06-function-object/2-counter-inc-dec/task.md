@@ -7,8 +7,8 @@ importance: 5
 다음 `makeCounter()`코드를 수정해서 카운터가 감소하고 숫자를 설정하게 해보세요.
 
 - `counter()` 는 다음 숫자를 반환 해야 합니다 (이전처럼).
-- `counter.set(value)` 는 `count`를 `value`로 설정합니다.
-- `counter.decrease()` 는 `count`를 1 감소시킵니다.
+- `counter.set(value)` 는 counter를 `value`로 설정합니다.
+- `counter.decrease()` 는 counter를 1 감소시킵니다.
 
 sandbox 코드를 완성된 예제로 참고하세요.
 

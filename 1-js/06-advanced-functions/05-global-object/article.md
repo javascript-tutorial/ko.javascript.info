@@ -1,22 +1,23 @@
 
 # 전역 객체
 
-전역 객체는 어디에서나 사용 가능한 변수나 함수로, 대게 언어 자체나 실행 환경에 내장되어 있습니다.
+전역 객체는 어디에서나 사용 가능한 변수나 함수로, 대게 언어 자체나 실행 환경에 기본적으로 내장되어 있습니다.
 
 전역 객체를 브라우저 환경에선 `window`, Node.js 환경에선 `global`라고 부릅니다. 이 외의 환경에선 다른 이름을 가질 수 있습니다.
 
 최근엔 전역 객체의 표준화 된 이름인 `globalThis`가 자바스크립에 추가되었습니다. 자바스크립트가 돌아가는 모든 환경에서 이를 지원해야 하죠. Edge나 IE, Opera같은 브라우저에선 아직 `globalThis`를 지원하진 않지만, 이에 대한 폴리필(polyfill)을 쉽게 찾을 수 있습니다.
 
-전역 객체의 모든 프로퍼티는 아래와 같이 직접 접근하는 게 가능합니다.
+We'll use `window` here, assuming that our environment is a browser. If your script may run in other environments, it's better to use `globalThis` instead.
+
+All properties of the global object can be accessed directly:
 
 ```js run
 alert("Hello");
-
 // 위와 동일하게 동작합니다.
 window.alert("Hello");
 ```
 
-브라우저에서 `var`로 선언한 전역 함수나 전역 변수는 전역 객체의 프로퍼티가 됩니다.
+브라우저에서 (`let`이나 `const`가 아닌) `var`로 선언한 전역 함수나 전역 변수는 전역 객체의 프로퍼티가 됩니다.
 
 ```js run untrusted refresh
 var gVar = 5;
@@ -24,9 +25,9 @@ var gVar = 5;
 alert(window.gVar); // 5 (전역 객체 window의 프로퍼티)
 ```
 
-하지만 이런 방식으로 전역 객체를 사용하는 것은 좋지 않습니다. 하위 호환성 때문에 아직까지 동작은 하지만요. 모듈을 사용하는 모던 스크립트에선 이런 일이 일어나지 않습니다. 이에 대해선 [](info:modules)에서 더 이야기해 보도록 하겠습니다.
+하지만 이런 방식으로 전역 객체를 사용하는 것은 좋지 않습니다. 하위 호환성 때문에 아직까지 동작은 하지만요. 모듈을 사용하는 모던 스크립트에선 이런 일이 일어나지 않습니다. 이에 대해선 [자바스크립트 모듈](info:modules)에서 더 이야기해 보도록 하겠습니다.
 
-여기에 더하여 `let`과 `const`을 사용해 변수를 선언했을 때도 이런 동작을 지원하지 않습니다.
+If we used `let` instead, such thing wouldn't happen:
 
 ```js run untrusted refresh
 let gLet = 5;
@@ -52,7 +53,7 @@ alert(currentUser.name);  // John
 alert(window.currentUser.name); // John
 ```
 
-전역 변수를 사용하는 것은 일반적으로 권장하지 않습니다. 가능한 한 적은 전역 변수를 사용하는 게 좋습니다. 함수를 통해 "입력"을 받고 함수 실행의 결과로 특정 "결과"를 생성하도록 코드를 디자인해야 좋습니다. 이렇게 해야 명확하고 오류가 적으면서, 테스트하기 쉬운 코드를 만들 수 있기 때문입니다. 
+That said, using global variables is generally discouraged. There should be as few global variables as possible. The code design where a function gets "input" variables and produces certain "outcome" is clearer, less prone to errors and easier to test than if it uses outer or global variables.
 
 ## 폴리필 사용하기
 

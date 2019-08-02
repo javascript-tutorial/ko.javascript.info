@@ -5,13 +5,13 @@ libs:
 
 # 함수 바인딩(Function binding)
 
-자바스크립트에서 `setTimeout`을 사용해서 객체 메서드 또는 객체 메서드를 통해서 보낼 때, "`this`를 잃어버리는" 잘 알려진 문제점이 있습니다.
+When passing object methods as callbacks, for instance to `setTimeout`, there's a known problem: "losing `this`".
 
-갑자기 `this`가 작동 안 하게 되는 것이죠. 이 상황은 초보 개발자에게 자주 일어나지만, 모두가 경험하는 문제입니다.
+In this chapter we'll see the ways to fix it.
 
 ## "this"를 잃어버리는 것
 
-자바스크립트는 `this`를 쉽게 잃어버린다는 것을 배웠습니다. 어떠한 매서드가 객체로부터 독립적으로 넘겨질 때 `this`를 잃어버립니다.
+We've already seen examples of losing `this`. Once a method is passed somewhere separately from the object -- `this` is lost.
 
 아래 예시를 통해 그 현상이 `setTimeout`에서 어떻게 일어나는지 살펴보겠습니다.
 
@@ -37,7 +37,7 @@ let f = user.sayHi;
 setTimeout(f, 1000); // user 컨텍스트를 잃어버렸음
 ```
 
-`setTimeout` 매서드는 브라우저 안에서는 조금 특별하게 작동합니다. 함수를 호출하기 위해서 `this=window` 를 설정합니다. (Node.js 에서는 `this` 가 타이머 객체가 되기 때문에 Node.js 에서는 크게 상관은 없습니다). 그래서 `this.firstName` 은 존재하지 않는 `window.firstName`을 가져오려고 합니다. 이러한 이유로, `this`가 `undefined`로 되는 것을 자주 볼 수 있습니다.
+The method `setTimeout` in-browser is a little special: it sets `this=window` for the function call (for Node.js, `this` becomes the timer object, but doesn't really matter here). So for `this.firstName` it tries to get `window.firstName`, which does not exist. In other similar cases, usually `this` just becomes `undefined`.
 
 호출될 곳에서 객체 메서드를 다른 곳으로 (여기서는 스케줄러에) 전달하려고 하는 것은 매우 전형적인 현상입니다. 어떻게 하면 올바른 컨텍스트에서 호출되는 것을 확인할 수 있을까요?
 
