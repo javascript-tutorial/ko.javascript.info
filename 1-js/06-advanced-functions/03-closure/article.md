@@ -194,8 +194,8 @@ sayHi(); // Pete
 어떤 함수 하나를 여러 번 호출하는 경우에도, 이 규칙은 변하지 않습니다. 각 호출마다 새로운 함수 렉시컬 환경이 만들어지죠. 함수 렉시컬 환경엔 함수 실행 시 넘겨받은 매개변수와 지역변수에 대한 정보가 담겨 있습니다. 
 ```
 
-```smart header="렉시컬 환경은 명세 객체입니다."
-"렉시컬 환경"은 명세에서 정의한 객체(specification object)입니다. 코드를 이용해 이 객체를 직접 가져오거나 조작할 수 없습니다. 쓰지 않는 변수를 버려 메모리를 비우는 것과 같은 명세 객체 최적화 작업은 자바스크립트 엔진이 담당합니다. 최적화 작업에도 위에 언급한 내부 기제가 동일하게 적용됩니다.
+```smart header="Lexical Environment is a specification object"
+"Lexical Environment" is a specification object: it only exists "theoretically" in the [language specification](https://tc39.es/ecma262/#sec-lexical-environments) to describe how things work. We can't get this object in our code and manipulate it directly. JavaScript engines also may optimize it, discard variables that are unused to save memory and perform other internal tricks, as long as the visible behavior remains as described.
 ```
 
 
