@@ -177,7 +177,7 @@ let timerId = setTimeout(function request() {
 
 And if the functions that we're scheduling are CPU-hungry, then we can measure the time taken by the execution and plan the next call sooner or later.
 
-**재귀적인 `setTimeout`은 실행 간 지연 시간 간격을 보장하지만, `setInterval`은 아닙니다.**
+**재귀적인 `setTimeout`은 실행 간 지연 시간 간격의 설정할 수 있게 해줍니다. 따라서 `setInterval`보다 지연 시간 간격이 정확합니다.**
 
 두 코드 조각을 비교해 보시죠. 첫 번째 코드 조각은 `setinterval`을 이용한 예제입니다.
 
@@ -222,7 +222,7 @@ setTimeout(function run() {
 
 다음 호출에 대한 계획은 현재 함수의 실행이 끝난 이후에 만들어지기 때문입니다.  
 
-````smart header="가비지 컬렉션"
+````smart header="가비지 컬렉션과 setInterval/setTimeout 콜백"
 함수를 `setInterval/setTimeout`으로 넘길 때, 함수에 대한 내부 참조가 만들어지고, 이 정보는 스케줄러에 저장됩니다. 이는 함수가 가비지 켤렉션의 대상이 되는 걸 막아줍니다. 해당 함수를 참조하는 것들이 없는 경우에도 말이죠.
 
 ```js
@@ -288,7 +288,7 @@ That limitation comes from ancient times and many scripts rely on it, so it exis
 
 - `setInterval(func, delay, ...args)`과 `setTimeout(func, delay, ...args)` 메서드는 `delay` 밀리초 후에 `func`을 규칙적으로, 또는 한번 실행하도록 해줍니다.
 - `setInterval/setTimeout`을 호출해 반환된 값을 `clearInterval/clearTimeout`에 넘겨주면 실행을 취소할 수 있습니다.
-- 중첩 `setTimeout` 호출(재귀 호출)은 융통성 측면에서 `setInterval`보다 더 나은 대안입니다. 실행 *사이 간격*을 보장해 주는 것 또한 이점입니다.
+- 중첩 `setTimeout` 호출(재귀 호출)은 융통성 측면에서 `setInterval`보다 나은 대안입니다. 실행 *사이 간격*을 정확히 설정할 수 있게 해주는 것 또한 이점입니다.
 - 중간 휴식이 없는 `setTimeout(func, 0)`(= `setTimeout(func)`)은 "현재 코드의 실행이 완료된 후 가능한 한 빠르게" 다음 호출을 실행하고자 할 때 사용됩니다.
 - The browser limits the minimal delay for five or more nested call of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
 
