@@ -313,6 +313,7 @@ function doNothing() { /* empty */ }
 
 alert( doNothing() === undefined ); // true
 ```
+
 `return` 지시자만 있어서 어떤 값도 반환하지 않는 경우도 `undefined`를 반환합니다. `return`은 `return undefined`와 동일하게 동작합니다.
 
 ```js run
@@ -337,7 +338,17 @@ return
 return*!*;*/!*
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-`return` 지시자만 남는 것처럼 되어버리기 때문에 원하는 표현식이 아닌 undefined`를 반환하게 됩니다. 반환하고자 하는 값은 꼭 return 지시자와 같은 줄에 명시하시기 바랍니다.
+`return` 지시자만 남는 것처럼 되어버리기 때문에 원하는 표현식이 아닌 undefined`를 반환하게 됩니다.
+ 표현식을 꼭 여러 줄에 걸쳐 작성하고 싶다면 아래와 같이 여는 괄호를 `return` 지시자와 같은 줄에 써주면 됩니다. 
+
+```js
+return (
+  some + long + expression 
+  + or + 
+  whatever * f(a) + f(b)
+  )
+```
+이렇게 하면 의도한 대로 반환 값을 얻을 수 있습니다. 
 ````
 
 ## 함수 이름짓기 [#function-naming]

@@ -196,8 +196,124 @@ for (let key in user) {
 자바스크립트 라이브러리들은 편리한 매스 바인딩(mass binding) 함수들을 제공하고 있습니다. lodash를 예로 들면 [_.bindAll(obj)](http://lodash.com/docs#bindAll) 가 있습니다.
 ````
 
-## 요약
+## Partial functions
+
+Until now we have only been talking about binding `this`. Let's take it a step further.
+
+We can bind not only `this`, but also arguments. That's rarely done, but sometimes can be handy.
+
+The full syntax of `bind`:
+
+```js
+let bound = func.bind(context, [arg1], [arg2], ...);
+```
+
+It allows to bind context as `this` and starting arguments of the function.
+
+For instance, we have a multiplication function `mul(a, b)`:
+
+```js
+function mul(a, b) {
+  return a * b;
+}
+```
+
+Let's use `bind` to create a function `double` on its base:
+
+```js run
+function mul(a, b) {
+  return a * b;
+}
+
+*!*
+let double = mul.bind(null, 2);
+*/!*
+
+alert( double(3) ); // = mul(2, 3) = 6
+alert( double(4) ); // = mul(2, 4) = 8
+alert( double(5) ); // = mul(2, 5) = 10
+```
+
+The call to `mul.bind(null, 2)` creates a new function `double` that passes calls to `mul`, fixing `null` as the context and `2` as the first argument. Further arguments are passed "as is".
+
+That's called [partial function application](https://en.wikipedia.org/wiki/Partial_application) -- we create a new function by fixing some parameters of the existing one.
+
+Please note that here we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
+
+The function `triple` in the code below triples the value:
+
+```js run
+function mul(a, b) {
+  return a * b;
+}
+
+*!*
+let triple = mul.bind(null, 3);
+*/!*
+
+alert( triple(3) ); // = mul(3, 3) = 9
+alert( triple(4) ); // = mul(3, 4) = 12
+alert( triple(5) ); // = mul(3, 5) = 15
+```
+
+Why do we usually make a partial function?
+
+The benefit is that we can create an independent function with a readable name (`double`, `triple`). We can use it and not provide first argument of every time as it's fixed with `bind`.
+
+In other cases, partial application is useful when we have a very generic function and want a less universal variant of it for convenience.
+
+For instance, we have a function `send(from, to, text)`. Then, inside a `user` object we may want to use a partial variant of it: `sendTo(to, text)` that sends from the current user.
+
+## Going partial without context
+
+What if we'd like to fix some arguments, but not the context `this`? For example, for an object method.
+
+The native `bind` does not allow that. We can't just omit the context and jump to arguments.
+
+Fortunately, a helper function `partial` for binding only arguments can be easily implemented.
+
+Like this:
+
+```js run
+*!*
+function partial(func, ...argsBound) {
+  return function(...args) { // (*)
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+*/!*
+
+// Usage:
+let user = {
+  firstName: "John",
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// add a partial method with fixed time
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// Something like:
+// [10:00] John: Hello!
+```
+
+The result of `partial(func[, arg1, arg2...])` call is a wrapper `(*)` that calls `func` with:
+- Same `this` as it gets (for `user.sayNow` call it's `user`)
+- Then gives it `...argsBound` -- arguments from the `partial` call (`"10:00"`)
+- Then gives it `...args` -- arguments given to the wrapper (`"Hello"`)
+
+So easy to do it with the spread operator, right?
+
+Also there's a ready [_.partial](https://lodash.com/docs#partial) implementation from lodash library.
+
+## Summary
 
 메서드`func.bind (context, ... args)`는 컨텍스트의 `this`와 첫 번째 인수가 주어지면 수정되는 `func` 함수의 "바운드 변수"를 반환합니다.
 
-보통 객체의 메서드에서 `this` 를 고치기 위해 `bind`를 사용하면 값을 전달할 수 있습니다. 예제에서 `setTimeout`같은 메서드를 살펴보았습니다. 현대적인 개발에 'bind'를 사용하는 이유는 더 있지만, 나중에 다시 다루어 보겠습니다.
+Usually we apply `bind` to fix `this` for an object method, so that we can pass it somewhere. For example, to `setTimeout`.
+
+When we fix some arguments of an existing function, the resulting (less universal) function is called *partially applied* or *partial*.
+
+Partials are convenient when we don't want to repeat the same argument over and over again. Like if we have a `send(from, to)` function, and `from` should always be the same for our task, we can get a partial and go on with it.
