@@ -124,7 +124,11 @@ HTML 속성에 관한 또 다른 데모 코드를 살펴보세요:
 
     elem.setAttribute('Test', 123); // (2) 속성 추가하기
 
+<<<<<<< HEAD
     alert( elem.outerHTML ); // (3) 추가된 속성 확인하기
+=======
+    alert( elem.outerHTML ); // (3), see if the attribute is in HTML (yes)
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
     for (let attr of elem.attributes) { // (4) 속성에 접근하기
       alert( `${attr.name} = ${attr.value}` );
@@ -260,7 +264,7 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   for(let div of document.querySelectorAll('[show-info]')) {
     // 해당하는 정보를 필드 값에 입력해 줌
     let field = div.getAttribute('show-info');
-    div.innerHTML = user[field]; // Pete, then age
+    div.innerHTML = user[field]; // first Pete into "name", then 25 into "age"
   }
 </script>
 ```

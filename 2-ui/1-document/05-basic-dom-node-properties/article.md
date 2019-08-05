@@ -2,11 +2,19 @@
 
 DOM 노드에 대하여 좀 더 살펴보도록 합시다.
 
+<<<<<<< HEAD
 이번 주제에선 노드가 무엇인지와 자주 쓰이는 노드 프로퍼티(property)에 대해서 알아보도록 하겠습니다.
+=======
+In this chapter we'll see more into what they are and learn their most used properties.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 ## DOM 노드 클래스
 
+<<<<<<< HEAD
 DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<a>`태그에 대응하는 요소(element) 노드의 경우 링크와 관련된 프로퍼티를 가지고 `<input>`태그에 대응하는 요소 노드의 경우 입력과 관련된 프로퍼티를 가지는 것이 그 예입니다. 텍스트(text) 노드는 요소 노드와는 다릅니다. 하지만 모든 노드 클래스는 공통의 계층(Node)으로부터 상속되므로 같은 기본 프로퍼티와 메서드를 공유합니다.  
+=======
+Different DOM nodes may have different properties. For instance, an element node corresponding to tag `<a>` has link-related properties, and the one corresponding to `<input>` has input-related properties and so on. Text nodes are not the same as element nodes. But there are also common properties and methods between all of them, because all classes of DOM nodes form a single hierarchy.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 각각의 DOM 노드는 그에 대응하는 내장 클래스에 속합니다.
 
@@ -18,6 +26,7 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
 
 노드 클래스:
 
+<<<<<<< HEAD
 - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 계층의 뿌리에 있는 "추상" 클래스입니다. 이 클래스를 구현한 객체는 절대 생성되지 않습니다. 모든 노드가 "events"라는 걸 지원하도록 하는 기반의 역할을 합니다. 이 부분에 대해선 추후 이야기할 예정입니다.
 - [Node](http://dom.spec.whatwg.org/#interface-node) -- DOM 노드의 기초가 되는 "추상" 클래스입니다. `parentNode`, `nextSibling`, `childNodes`와 같은 노드사이 이동에 관련된 getter 메서드를 지원합니다. `Node` 클래스를 구현한 객체는 절대 생성되지 않습니다. 하지만 이 추상클래스를 상속받는 구체적인 클래스는 존재합니다. 텍스트 노드를 위한 `Text`, 요소, 요소(Element) 노드를 위한 `Element`, Comment 노드를 위한 `Comment`가 그 예입니다.
 - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소의 기초가 되는 클래스입니다. `nextElementSibling`, `children`와 같은 요소 레벨 탐색 관련 프로퍼티와 `getElementsByTagName`, `querySelector`와 같은 검색 메서드를 제공합니다. 브라우저에는 HTML뿐만 아니라 XML, SVG가 있을 수 있습니다. `Element` 클래스는 `SVGElement`, `XMLElement`, `HTMLElement`의 기초가 됩니다.
@@ -26,9 +35,20 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
     - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- `<body>` 요소를 위한 클래스
     - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- `<a>` 요소를 위한 클래스
     - 이 외에도 각각의 태그는 특정 프로퍼티와 메서드를 제공하는 자신만의 클래스를 가집니다.
+=======
+- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class. Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
+- [Node](http://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes. It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are concrete node classes that inherit from it, namely: `Text` for text nodes, `Element` for element nodes and more exotic ones like `Comment` for comment nodes.
+- [Element](http://dom.spec.whatwg.org/#interface-element) -- is a base class for DOM elements. It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`. A  browser supports not only HTML, but also XML and SVG. The `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` and `HTMLElement`.
+- [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- is finally the basic class for all HTML elements. It is inherited by concrete HTML elements:
+    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
+    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
+    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
+    - ...and so on, each tag has its own class that may provide specific properties and methods.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 각 노드의 프로퍼티와 메서드는 상속으로부터 만들어집니다.
 
+<<<<<<< HEAD
 예를 들어 `<input>` 요소에 대응하는 DOM 객체를 생각해 봅시다. 이 객체는 [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) 클래스에 속합니다. 따라서 아래 상속 관계에 따라 프로퍼티와 메서드를 갖게 됩니다:
 
 - `HTMLInputElement` -- 이 클래스는 입력과 관련된 프로퍼티를 제공합니다. 그리고 아래(`HTMLElement`)로부터 상속됩니다.
@@ -37,6 +57,18 @@ DOM 노드는 클래스에 따라 각각 다른 프로퍼티를 가집니다. `<
 - `Node` -- 전반적인 DOM 노드 프로퍼티를 제공합니다. 그리고 아래로부터 상속됩니다.
 - `EventTarget` -- 이벤트와 관련된 일을 합니다(뒤에서 다룰 예정입니다).
 - ... `EventTarget`은 `Object`를 상속받습니다 따라서 `hasOwnProperty`와 같은 순수 객체 관련 메서드를 사용할 수 있습니다.
+=======
+For example, let's consider the DOM object for an `<input>` element. It belongs to [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) class.
+
+It gets properties and methods as a superposition of (listed in inheritance order):
+
+- `HTMLInputElement` -- this class provides input-specific properties,
+- `HTMLElement` -- it provides common HTML element methods (and getters/setters),
+- `Element` -- provides generic element methods,
+- `Node` -- provides common DOM node properties,.
+- `EventTarget` -- gives the support for events (to be covered),
+- ...and finally it inherits from `Object`, so "plain object" methods like `hasOwnProperty` are also available.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 DOM 노드 클래스 이름을 확인하려면 객체가 `constructor` 프로퍼티를 가진다는 점을 이용할 수 있습니다. `constructor` 프로퍼티는 클래스 생성자를 참조하고, `constructor.name`을 통해 이름을 알아낼 수 있습니다.
 
@@ -91,7 +123,11 @@ interface HTMLInputElement: HTMLElement {
   // <input> elements 와 관련된 프로퍼티와 메서드
 
 *!*
+<<<<<<< HEAD
   // "DOMString"은 아래 프로퍼티들이 문자열이라는 것을 의미함
+=======
+  // "DOMString" means that the value of a property is a string
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 */!*
   attribute DOMString accept;
   attribute DOMString alt;
@@ -110,13 +146,20 @@ interface HTMLInputElement: HTMLElement {
   ...
 }
 ```
+<<<<<<< HEAD
 
 다른 클래스에서도 유사한 문법을 확인할 수 있습니다.
+=======
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 ````
 
 ## nodeType 프로퍼티
 
+<<<<<<< HEAD
 `nodeType` 프로퍼티는 DOM 노드의 "타입"을 알아내고자 할 때 쓰이는 옛날식의 프로퍼티입니다.
+=======
+The `nodeType` property provides one more, "old-fashioned" way to get the "type" of a DOM node.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 노드 타입은 상숫값을 가집니다:
 - `elem.nodeType == 1` 은 요소 노드,
@@ -185,8 +228,12 @@ alert( document.body.tagName ); // BODY
 </body>
 ```
 
+<<<<<<< HEAD
 요소를 다루고 있다면 `tagName`을 사용하면 됩니다.
 
+=======
+If we only deal with elements, then we can use both `tagName` and `nodeName` - there's no difference.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 ```smart header="태그 이름은 XHTML을 제외하고 항상 대문자입니다"
 브라우저는 HTML과 XML유형의 문서를 다른 방법으로 처리합니다. 웹페이지는 대게 HTML 모드로 처리됩니다. 헤더가 `Content-Type: application/xml+xhtml`인 XML-문서의 경우는 XML 모드로 처리됩니다.
@@ -300,30 +347,35 @@ Consider the example:
 *!*
   // replace div.outerHTML with <p>...</p>
 */!*
-  div.outerHTML = '<p>A new element!</p>'; // (*)
+  div.outerHTML = '<p>A new element</p>'; // (*)
 
 *!*
   // Wow! The div is still the same!
 */!*
-  alert(div.outerHTML); // <div>Hello, world!</div>
+  alert(div.outerHTML); // <div>Hello, world!</div> (**)
 </script>
 ```
 
-In the line `(*)` we take the full HTML of `<div>...</div>` and replace it by `<p>...</p>`. In the outer document we can see the new content instead of the `<div>`. But the old `div` variable is still the same.
+Looks really odd, right?
 
-The `outerHTML` assignment does not modify the DOM element, but extracts it from the outer context and inserts a new piece of HTML instead of it.
+In the line `(*)` we replaced `div` with `<p>A new element</p>`. In the outer document we can see the new content instead of the `<div>`. But, as we can see in line `(**)`, the old `div` variable is still the same!
 
-Novice developers sometimes make an error here: they modify `div.outerHTML` and then continue to work with `div` as if it had the new content in it.
+The `outerHTML` assignment does not modify the DOM element, but removes it from the outer context and inserts a new piece of HTML instead of it.
 
-That's possible with `innerHTML`, but not with `outerHTML`.
+So what happened in `div.outerHTML=...` is:
+- `div` was removed from the document.
+- Another HTML `<p>A new element</p>` was inserted instead.
+- `div` still has the old value. The new HTML wasn't saved to any variable.
 
-We can write to `outerHTML`, but should keep in mind that it doesn't change the element we're writing to. It creates the new content on its place instead. We can get a reference to new elements by querying DOM.
+It's so easy to make an error here: modify `div.outerHTML` and then continue to work with `div` as if it had the new content in it. But it doesn't. Such thing is correct for `innerHTML`, but not for `outerHTML`.
+
+We can write to `elem.outerHTML`, but should keep in mind that it doesn't change the element we're writing to. It creates the new HTML on its place instead. We can get references to new elements by querying DOM.
 
 ## nodeValue/data: text node content
 
 The `innerHTML` property is only valid for element nodes.
 
-Other node types have their counterpart: `nodeValue` and `data` properties. These two are almost the same for practical use, there are only minor specification differences. So we'll use `data`, because it's shorter.
+Other node types, such as text nodes, have their counterpart: `nodeValue` and `data` properties. These two are almost the same for practical use, there are only minor specification differences. So we'll use `data`, because it's shorter.
 
 An example of reading the content of a text node and a comment:
 
@@ -345,7 +397,9 @@ An example of reading the content of a text node and a comment:
 </body>
 ```
 
-For text nodes we can imagine a reason to read or modify them, but why comments? Usually, they are not interesting at all, but sometimes developers embed information or template instructions into HTML in them, like this:
+For text nodes we can imagine a reason to read or modify them, but why comments?
+
+Sometimes developers embed information or template instructions into HTML in them, like this:
 
 ```html
 <!-- if isAdmin -->
@@ -353,7 +407,7 @@ For text nodes we can imagine a reason to read or modify them, but why comments?
 <!-- /if -->
 ```
 
-...Then JavaScript can read it and process embedded instructions.
+...Then JavaScript can read it from `data` property and process embedded instructions.
 
 ## textContent: pure text
 
@@ -436,7 +490,7 @@ Here's a blinking element:
 
 ## More properties
 
-DOM elements also have additional properties, many of them provided by the class:
+DOM elements also have additional properties, in particular those that depend on the class:
 
 - `value` -- the value for `<input>`, `<select>` and `<textarea>` (`HTMLInputElement`, `HTMLSelectElement`...).
 - `href` -- the "href" for `<a href="...">` (`HTMLAnchorElement`).
@@ -457,7 +511,7 @@ For instance:
 
 Most standard HTML attributes have the corresponding DOM property, and we can access it like that.
 
-If we want to know the full list of supported properties for a given class, we can find them in the specification. For instance, HTMLInputElement is documented at <https://html.spec.whatwg.org/#htmlinputelement>.
+If we want to know the full list of supported properties for a given class, we can find them in the specification. For instance, `HTMLInputElement` is documented at <https://html.spec.whatwg.org/#htmlinputelement>.
 
 Or if we'd like to get them fast or are interested in a concrete browser specification -- we can always output the element using `console.dir(elem)` and read the properties. Or explore "DOM properties" in the Elements tab of the browser developer tools.
 

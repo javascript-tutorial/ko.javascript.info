@@ -338,13 +338,20 @@ return
 return*!*;*/!*
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
+<<<<<<< HEAD
 `return` 지시자만 남는 것처럼 되어버리기 때문에 원하는 표현식이 아닌 undefined`를 반환하게 됩니다.
  표현식을 꼭 여러 줄에 걸쳐 작성하고 싶다면 아래와 같이 여는 괄호를 `return` 지시자와 같은 줄에 써주면 됩니다. 
+=======
+
+So, it effectively becomes an empty return.
+
+If we want the returned expression to wrap across multiple lines, we should start it at the same line as `return`. Or at least put the opening parentheses there as follows:
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 ```js
 return (
-  some + long + expression 
-  + or + 
+  some + long + expression
+  + or +
   whatever * f(a) + f(b)
   )
 ```

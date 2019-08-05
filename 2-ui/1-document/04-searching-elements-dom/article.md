@@ -105,7 +105,11 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 `elem.querySelector(css)`는 주어진 CSS 선택자에 대응하는 요소 중 첫 번째 요소를 반환합니다. 
 
+<<<<<<< HEAD
 반환 결과는 `elem.querySelectorAll(css)[0]`과 동일합니다. 다만, `querySelectorAll`은 선택자에 해당하는 *모든* 요소를 검색해 첫 번째 요소만을 반환한다는 점에서 다릅니다. `elem.querySelector`는 해당하는 요소를 찾으면 검색을 멈추지만 말이죠. 따라서 `elem.querySelector`를 사용하는 방식이 더 빠릅니다. 코드의 길이가 짧다는 장점도 있죠.
+=======
+In other words, the result is the same as `elem.querySelectorAll(css)[0]`, but the latter is looking for *all* elements and picking one, while `elem.querySelector` just looks for one. So it's faster and also shorter to write.
+>>>>>>> fb38a13978f6e8397005243bc13bc1a20a988e6a
 
 ## matches
 
