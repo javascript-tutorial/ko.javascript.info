@@ -102,9 +102,9 @@ promise.then(function(result) {
 
 ## 프라미스 반환하기
 
-`.then` 핸들러에 의해 반환된 값은 보통 다음 핸들러에 바로 전달됩니다. 하지만 예외상황이 하나 있습니다.
+A handler, used in `.then(handler)` may create and return a promise.
 
-반환값이 프라미스인 경우가 그렇습니다. 이때는 프라미스가 처리될 때(settled)까지 추가 실행이 중지됩니다. 프라미스가 처리되면 해당 프라미스의 결과가 다음 핸들러로 전달됩니다.
+In that case further handlers wait till it settles, and then get its result.
 
 예시:
 

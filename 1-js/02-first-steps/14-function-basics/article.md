@@ -326,25 +326,27 @@ alert( doNothing() === undefined ); // true
 ````
 
 ````warn header="`return`과 값 사이에 절대 줄을 삽입하지 마세요."
-긴 표현식을 사용해 `return`문을 작성하는 경우, 아래와 같이 새 줄을 넣어 코드를 작성하려는 시도를 할 수 있습니다.
+긴 표현식을 `return`문에 사용하는 경우, 아래와 같이 새 줄을 넣어 코드를 작성하면 좋지 않을까 하는 생각을 할 수도 있습니다.
 
 ```js
 return
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-이렇게 `return`문을 작성하면 안 됩니다. 자바스크립트는 return 다음에 세미콜론이 있다고 가정하기 때문입니다. 따라서 위 코드는 아래 코드처럼 동작합니다.
+자바스크립트는 return 다음에 세미콜론이 있다고 가정하기 때문에 이렇게 `return`문을 작성하면 안 됩니다. 위와 같이 반환문을 작성하면 아래 코드처럼 동작합니다.
 
 ```js
 return*!*;*/!*
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-`return` 지시자만 남는 것처럼 되어버리기 때문에 원하는 표현식이 아닌 undefined`를 반환하게 됩니다.
- 표현식을 꼭 여러 줄에 걸쳐 작성하고 싶다면 아래와 같이 여는 괄호를 `return` 지시자와 같은 줄에 써주면 됩니다. 
+
+`return` 지시자만 남고 아무것도 반환하지 않는 것처럼 되어버립니다.
+
+ `return`문의 표현식을 여러 줄에 걸쳐 작성하고 싶다면 표현식이 `return` 지시자가 있는 줄에서 시작하도록 코드를 작성하면 됩니다. 또는 아래와 같이 여는 괄호를 `return` 지시자와 같은 줄에 써줘도 괜찮습니다.
 
 ```js
 return (
-  some + long + expression 
-  + or + 
+  some + long + expression
+  + or +
   whatever * f(a) + f(b)
   )
 ```
