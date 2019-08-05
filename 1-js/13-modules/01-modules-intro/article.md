@@ -1,8 +1,7 @@
 
 # 모듈 소개
 
-개발하는 애플리케이션의 크기가 커질수록 파일을 여러 개로 쪼개야 할 필요가 생깁니다. 이 때 쪼개진 파일 각각을 '모듈'이라고 부릅니다.
-모듈은 대게 클래스 하나 혹은 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.
+개발하는 애플리케이션의 크기가 커질수록 파일을 여러 개로 쪼개야 할 필요가 생깁니다. 이 때 쪼개진 파일 각각을 '모듈'이라고 부릅니다. 모듈은 대게 클래스 하나 혹은 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.
 
 자바스크립트 생태계는 오랫동안 언어 수준에서 지원하는 모듈 관련 문법 없이 성장해 왔는데, 이 점이 문제가 되진 않았습니다. 초기 스크립트는 크기도 작고 간단했기 때문에 모듈의 필요성이 대두되지 않았기 때문입니다.
 
@@ -14,13 +13,15 @@
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)는 Node.js 서버를 위해 만들어진 모듈 시스템입니다.
 - [UMD](https://github.com/umdjs/umd)는 여러 모듈 시스템을 함께 사용하기위해 만들어졌습니다. AMD와 CommonJS와 호환됩니다.
 
-위 모듈 시스템은 오래된 스크립트에서 찾아볼 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다. 2015년부터 언어 수준에서 지원하는 모듈 시스템이 등장했기 때문입니다. 이제는 대부분의 주요 브라우저와 Node.js에서 모듈 시스템을 지원하고 있습니다.  
+위 모듈 시스템은 오래된 스크립트에서 찾아볼 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다.
+
+2015년에 모듈 시스템이 표준에 등재되었기 때문입니다. 이때 이후로 모듈 관련 문법이 계속 진화를 거듭하였고, 이제는 대부분의 주요 브라우저와 Node.js에서 모듈 시스템을 지원합니다. 이제 모듈이 뭔지 본격적으로 알아보도록 합시다.  
 
 ## 모듈이란?
 
-모듈은 단순히 하나의 파일을 의미합니다. 하나의 스크립트죠.
+모듈은 단순히 하나의 파일을 의미합니다. 스크립트 하나가 바로 하나의 모듈이 됩니다.
 
-지시자 `export`와 `import`를 이용하면 모듈 간 기능을 공유할 수 있습니다. 한 모듈에서 만든 기능을 다른 모듈에서 불러올 수 있죠.
+한 모듈에서 다른 모듈을 불러올 수 있습니다. 특수한 지시자 `export`와 `import`를 이용하면 한 모듈에서 만든 기능을 다른 모듈에서 불러올 수 있어 모듈 간 기능을 공유할 수 있습니다. 
 
 - `export` 키워드를 변수나 함수 앞에 붙이면, 파일 외부에서 현재 모듈의 변수나 함수에 접근할 수 있습니다.
 - `import` 키워드는 다른 모듈에서 기능을 가져올 때 사용합니다.
@@ -48,7 +49,9 @@ sayHi('John'); // Hello, John!
 
 모듈은 특별한 키워드와 기능을 제공하므로, `<script type="module">`을 사용해 해당 스크립트가 모듈인지의 여부를 브라우저에게 알려주어야 합니다.
 
-아래와 같이 말이죠.
+As modules support special keywords and features, we must tell the browser that a script should be treated as module, by using the attribute `<script type="module">`.
+
+Like this:
 
 [codetabs src="say" height="140" current="index.html"]
 
@@ -70,9 +73,7 @@ sayHi('John'); // Hello, John!
 </script>
 ```
 
-위 예시를 통해 브라우저 환경에서 모듈은 엄격 모드로 실행된다는 것을 확인하였습니다. 다른 환경에서도 마찬가지입니다.
-
-### 모듈 레벨 스코프
+### 모듈 수준 스코프
 
 각 모듈은 자기만의 스코프를 갖습니다. 모듈 내부에서 정의한 변수와 함수는 다른 스크립트(모듈)에서 접근할 수 없습니다.
 
@@ -160,11 +161,11 @@ alert(admin.name); // Pete
 */!*
 ```
 
-자, 다시 정리해봅시다. 모듈은 단 한 번만 실행됩니다. 내보내기(exports)가 만들어지면 해당 모듈은 모든 가져오기 파일에서 공유됩니다. 따라서 `admin` 객체에 뭔가 변화가 있으면, 다른 모듈들은 이 변화를 볼 수 있습니다.
+So, let's reiterate -- the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other modules will see that.
 
-이런 특징은 환경설정이 필요한 모듈에서 유용하게 쓰입니다. 첫 번째 import에서 필요한 환경을 설정하면, 다른 파일에서 이 설정을 사용할 수 있기 때문입니다.
+Such behavior allows to *configure* modules on first import. We can setup its properties once, and then in further imports it's ready.
 
- `admin.js` 모듈을 예를 들어 설명해보도록 하겠습니다. `admin` 객체는 보안상의 이유로 이 모듈 이외의 파일에서 수정되면 안 됩니다.
+For instance, `admin.js` module may provide certain functionality, but expect the credentials to come into the `admin` object from outside:
 
 ```js
 // 📁 admin.js
@@ -175,13 +176,15 @@ export function sayHi() {
 }
 ```
 
-애플리케이션의 진입 스크립트인 `init.js`에서 `admin.name`을 설정해주었습니다. 이제 `admin` 객체의 이름을 다른 파일들이 모두 볼 수 있게 되었습니다. `admin.js`에서도 이 변화를 볼 수 있죠.
+In `init.js`, the first script of our app, we set `admin.name`. Then everyone will see it, including calls made from inside `admin.js` itself:
 
 ```js
 // 📁 init.js
 import {admin} from './admin.js';
 admin.name = "Pete";
 ```
+
+Another module can also see `admin.name`:
 
 ```js
 // 📁 other.js
@@ -204,7 +207,7 @@ sayHi(); // Ready to serve, *!*Pete*/!*!
 </script>
 ```
 
-### 모듈 내의 "this"
+### In a module, "this" is undefined
 
 사소한 기능이지만, 설명의 완전성을 위해 이 내용을 언급하고 넘어가야 할 것 같습니다.
 
@@ -222,17 +225,17 @@ sayHi(); // Ready to serve, *!*Pete*/!*!
 
 ## 브라우저 특정 기능
 
-브라우저 환경에서의 모듈은 일반적인 모듈과 몇 가지 차이점이 있습니다.
+There are also several browser-specific differences of scripts with `type="module"` compared to regular ones.
 
 자바스크립트 초심자나 브라우저 환경에서 자바스크립트를 사용하지 않고 있다면 이 내용은 넘어가셔도 됩니다.
 
 ### 모듈의 지연 실행
 
-외부 스크립트인지 인라인 스크립트인지에 상관없이 브라우저 환경에서 모듈 스크립트의 실행은 *항상* 지연됩니다. [](info:script-async-defer) 챕터에서 학습한 `defer` 속성이 적용된 것처럼 동작합니다.
+Module scripts are *always* deferred, same effect as `defer` attribute (described in the chapter [](info:script-async-defer)), for both external and inline scripts.
 
 따라서 아래와 같은 특성을 보입니다.
-- 외부 모듈 스크립트 `<script type="module" src="...">`는 브라우저의 HTML 처리를 막지 않고, 다른 리소스와 함께 병렬적으로 로드됩니다. 
-- HTML 문서가 완전히 준비될 때까지 모듈 스크립트는 대기 상태에 있다가, 이후에 실행됩니다. 모듈의 크기가 아주 작아서 HTML보다 빨리 불러와 졌더라도 말이죠. 
+- 외부 모듈 스크립트 `<script type="module" src="...">`를 다운로드 할 때 브라우저의 HTML 처리가 중단되지 않습니다. 다른 리소스와 함께 병렬적으로 불러와지죠.
+- HTML 문서가 완전히 준비될 때까지 모듈 스크립트는 대기 상태에 있다가, 이후에 실행됩니다. 모듈의 크기가 아주 작아서 HTML보다 빨리 불러와 졌더라도 말이죠.
 - 스크립트의 상대적 순서가 유지됩니다. 문서상 위쪽의 스크립트부터 차례로 실행됩니다.
 
 이런 특징 때문에 모듈 스크립트는 항상 로드가 완전히 완료된 HTML 페이지를 "볼 수 있습니다". 모듈 아래에 정의한 HTML 요소에도 접근할 수 있죠.
@@ -273,11 +276,13 @@ async 속성(`<script async type="module">`)은 인라인 스크립트와 외부
 
 임포트 작업(`./analytics.js`을 가져옴)이 끝나면 해당 모듈은 바로 실행됩니다. HTML 분석이 끝나지 않거나, 다른 스크립트가 대기 상태에 있더라도 말이죠.
 
-카운터나 광고, document 레벨(최상위 레벨) 이벤트 리스너와 같이 의존성이 없는 기능에 이 속성을 적용할 수 있습니다. 
+It performs the import (fetches `./analytics.js`) and runs when ready, even if HTML document is not finished yet, or if other scripts are still pending.
+
+That's good for functionality that doesn't depend on anything, like counters, ads, document-level event listeners.
 
 ```html
-<!-- 문서나 다른 <script> 태그가 처리되길 기다리지 않고, -->
-<!-- 모든 의존 모듈(analytics.js)을 불러왔으면, 스크립트를 실행합니다.-->
+<!-- all dependencies are fetched (analytics.js), and the script runs -->
+<!-- doesn't wait for the document or other <script> tags -->
 <script *!*async*/!* type="module">
   import {counter} from './analytics.js';
 
@@ -332,6 +337,24 @@ Node.js나 번들 툴은 경로가 없는 모듈을 허용합니다. 경로 없�
 </script>
 ```
 
+## 빌드 툴
+
+In real-life, browser modules are rarely used in their "raw" form. Usually, we bundle them together with a special tool such as [Webpack](https://webpack.js.org/) and deploy to the production server.
+
+One of the benefits of using bundlers -- they give more control over how modules are resolved, allowing bare modules and much more, like CSS/HTML modules.
+
+Build tools do the following:
+
+1. Take a "main" module, the one intended to be put in `<script type="module">` in HTML.
+2. Analyze its dependencies: imports and then imports of imports etc.
+3. Build a single file with all modules (or multiple files, that's tunable), replacing native `import` calls with bundler functions, so that it works. "Special" module types like HTML/CSS modules are also supported.
+4. In the process, other transforms and optimizations may be applied:
+    - Unreachable code removed.
+    - Unused exports removed ("tree-shaking").
+    - Development-specific statements like `console` and `debugger` removed.
+    - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
+    - The resulting file is minified (spaces removed, variables replaced with shorter named etc).
+
 번들링 툴을 사용하는 경우, 스크립트는 하나 혹은 여러 개의 파일로 번들링 됩니다. 이때, 번들링 전 스크립트에 있던 `import/export`문은 특별한 번들러 함수로 대체됩니다. 번들링 과정을 거친 스크립트엔 `import/export`가 없기 때문에 `type="module"` 역시 필요 없어집니다. 모듈이 아닌 일반 스크립트로 취급할 수 있게 되죠. 
 
 ```html
@@ -339,31 +362,13 @@ Node.js나 번들 툴은 경로가 없는 모듈을 허용합니다. 경로 없�
 <script src="bundle.js"></script>
 ```
 
-## 빌드 툴(Build tools)
-
-실제 개발 환경에서 브라우저 모듈을 날 것 그대로 사용하는 경우는 거의 없습니다. 대부분 [웹팩(Webpack)](https://webpack.js.org/)과 같은 특별한 빌드 툴을 이용해 모듈을 번들링하고, 산출물을 프로덕션 서버에 배포합니다.
-
-번들러(bundler)를 사용하면 모듈 번들링을 통제할 수 있다는 장점이 생깁니다. 경로가 없는 모듈이나 CSS/HTML 모듈도 사용할 수 있게 됩니다. 
-
-빌드 툴은 아래와 같은 절차를 수행합니다.
-
-1. HTML의 `<script type="module">` 안에 있는 "주(main) 모듈"을 택함(역주: 웹팩에선 엔트리 프로퍼티(entry property)에 주 모듈을 명기함).
-2. 주 모듈이 어떤 모듈을 임포트 하는지를 이용해 다른 모듈과의 의존관계를 분석함.
-3. 의존관계에 있는 모든 모듈을 이용하여 하나의 파일을 빌드함(여러개의 파일을 빌드할 수 있게 조정할 수도 있음). 이 때, `import` 호출은 번들러 함수로 대체됨. HTML이나 CSS 같은 "특수한" 모듈 타입도 지원함.
-4. 진행 과정에서 아래와 같은 변환이나 최적화가 수행될 수 있음
-    - 도달할 수 없는 코드는 제거됨.
-    - 사용되지 않은 export는 제거됨("tree-shaking").
-    - `console`, `debugger`같은 개발 관련 코드가 제거됨.
-    - 최신 자바스크립트 문법이 사용된 경우, [바벨(Babel)](https://babeljs.io/)을 사용하여 같은 기능을 하는 낮은 버전의 스크립트로 변환함. 
-    - 산출물의 크기를 축소함(공백 제거, 변수 이름을 짧게 줄이기 등).
-
 That said, native modules are also usable. So we won't be using Webpack here: you can configure it later.
 
 ## 요약
 
 지금까지 배운 내용의 핵심을 추려보도록 하겠습니다.
 
-1. 하나의 모듈은 하나의 파일입니다. 브라우저에서 `import/export` 지시자를 사용하려면 `<script type="module">`같은 type 속성이 필요합니다. 모듈 타입 스크립트는 아래와 같은 특징을 지닙니다.
+1. 하나의 모듈은 하나의 파일입니다. 브라우저에서 `import/export` 지시자를 사용하려면 `<script type="module">`같은 type 속성이 필요합니다. 모듈은 아래와 같은 특징을 지닙니다.
     - 지연 실행 됩니다.
     - 인라인 모듈 스크립트도 비동기 처리 할 수 있습니다.
     - 다른 오리진(도메인, 프로토콜, 포트)에서 외부 스크립트를 불러오려면, CORS 헤더가 필요합니다.

@@ -9,7 +9,7 @@ libs:
 
 DOM(문서 객체 모델)을 이용하면 요소와 요소의 컨텐츠에 무엇이든 할 수 있습니다. 하지만 무언가를 하기 전에 DOM 객체에 접근하는 것이 선행되어야 합니다.
 
-DOM에 수행하는 모든 연산은 `document` 객체에서 시작합니다. 이 객체에서 모든 노드에 접근할 수 있습니다.
+DOM에 수행하는 모든 연산은 `document` 객체에서 시작합니다. `document` 객체는 DOM에 접근하기 위한 "진입점(entry point)"이죠. 여기를 통하면 어떤 노드에도 접근할 수 있습니다.
 
 아래 그림은 DOM 노드 탐색이 어떤 관계를 통해 이루어지는지를 보여줍니다.
 
@@ -86,9 +86,9 @@ DOM에서 `null`값은 "존재하지 않음"이나 "해당하는 노드가 없�
 </html>
 ```
 
-`<body>`의 자손 노드는, `<div>`나 `<ul>`같이 `<body>`의 자식 요소 이거나, `<li>`(`<ul>`의 자식 노드)와 `<b>`(`<li>`의 자식 노드)같이 더 깊은 곳의 중첩 요소입니다. 
+`<div>`나 `<ul>`같은 `<body>`의 자식 요소뿐만 아니라 `<li>`(`<ul>`의 자식 노드)나 `<b>`(`<li>`의 자식 노드)같이 더 깊은 곳에 있는 중첩 요소도 `<body>`의 자손 노드입니다.
 
-**`childNodes` 컬렉션은 텍스트 노드를 포함한 모든 자식 노드에 접근할 수 있도록 해줍니다.**
+**`childNodes` 컬렉션은 텍스트 노드를 포함한 모든 자식 노드를 담고 있습니다.**
 
 아래 스크립트를 실행하면 `document.body`의 자식 노드가 출력됩니다.
 
@@ -182,30 +182,34 @@ DOM을 변경하려면 다른 메서드가 필요합니다. 다음 챕터에서 
 
 ## 형제와 부모 노드
 
-*형제 노드*는 같은 부모를 가진 노드 사이의 관계를 의미합니다. `<head>`와 `<body>`가 대표적인 형제 관계의 노드입니다. 
+같은 부모를 가진 노드는 *형제(sibling) 노드* 라고 부릅니다.
 
-- `<body>`는 `<head>`의 "다음(next)" 또는 "우측(right)" 형제 노드입니다.
-- `<head>`는 `<body>`의 "이전(previous)" 또는 "좌측(left)" 형제 노드입니다.
+`<head>`와 `<body>`가 대표적인 형제 노드입니다. 
+
+```html
+<html>
+  <head>...</head><body>...</body>
+</html>
+```
+
+- `<body>`는 `<head>`의 "다음(next)" 또는 "우측(right)"에 있는 형제 노드입니다.
+- `<head>`는 `<body>`의 "이전(previous)" 또는 "좌측(left)"에 있는 형제 노드입니다.
+
+다음 형제 노드는 `nextSibling`, 이전 형제 노드는 `previousSibling`을 이용하면 접근할 수 있습니다.
 
 `parentNode`를 이용하면 부모 노드를 참조할 수 있습니다.
 
-같은 부모를 가진 다음 노드(형제 노드)로는 `nextSibling`, 이전 노드로는 `previousSibling`을 이용하여 이동할 수 있습니다.
+따라서 아래 예시에서 사용된 비교는 모두 참값은 값을 반환합니다.
 
-예시:
+```js
+// <body>의 부모 노드는 <html>입니다
+alert( document.body.parentNode === document.documentElement ); // true
 
-```html run
-<html><head></head><body><script>
-  // "빈" text 노드를 없애려고 HTML을 "압축"하였습니다.
+// <head> 다음 노드는 <body>입니다.
+alert( document.head.nextSibling ); // HTMLBodyElement
 
-  // <body>의 부모는 <html>입니다
-  alert( document.body.parentNode === document.documentElement ); // true
-
-  // <head> 다음 노드는 <body>입니다.
-  alert( document.head.nextSibling ); // HTMLBodyElement
-
-  // <body> 이전 노드는 <head>입니다.
-  alert( document.body.previousSibling ); // HTMLHeadElement
-</script></body></html>
+// <body> 이전 노드는 <head>입니다.
+alert( document.body.previousSibling ); // HTMLHeadElement
 ```
 
 ## 요소 간 이동
@@ -226,21 +230,21 @@ DOM을 변경하려면 다른 메서드가 필요합니다. 다음 챕터에서 
 - `parentElement` 는 부모 요소를 가리킵니다.
 
 ````smart header="부모가 요소라는 보장이 *없는데* 왜 `parentElement`를 쓰나요?"
-`parentElement` 프로퍼티는 부모 "요소(노드)"를 반환합니다. 반면, `parentNode` 프로퍼티는 "모든 종류의 부모 노드"를 반환하죠. 부모를 참조한다는 점에서 두 프로퍼티는 대게 같습니다.
+`parentElement` 프로퍼티는 부모 "요소(노드)"를 반환합니다. 반면, `parentNode` 프로퍼티는 "모든 종류의 부모 노드"를 반환하죠. 대다수의 경우에 두 프로퍼티는 같은 노드를 반환합니다.
 
-하지만 한가지 예외가 있는데, `document.documentElement`를 다룰 때입니다.
+`document.documentElement`를 다룰 때 빼고 말이죠.
 
 ```js run
 alert( document.documentElement.parentNode ); // document
 alert( document.documentElement.parentElement ); // null
 ```
 
-`documentElement`프로퍼티는 HTML 페이지의 루트 노드인 `<html>` 요소 노드를 가리킵니다. 이 루트 노드는 `document` 노드를 부모로 가집니다. 그런데 `document` 노드는 요소 노드가 아니기 때문에, `documentElement`의 `parentNode`는 `document` 노드를 가리키지만, `documentElement`의 `parentElement`는 `document` 노드를 가리키지 않습니다. 
+이렇게 반환 값이 다른 이유는 `document.documentElement` (`<html>`)의 부모가 `document`이기 때문입니다. 그런데 `document` 노드는 요소 노드가 아닙니다. 따라서 위 예시에서 `parentNode`는 의도한 대로 `document` 노드를 반환하지만, `parentElement`는 `document` 노드를 반환하지 않습니다.
 
-아래 반복문은 임의의 요소 노드 `elem`부터 시작해 `<html>`까지 거슬러 올라가지만, `document`까지는 도달하지 못합니다.
+이런 사소한 차이는 임의의 요소 노드 `elem`에서 시작해 `<html>`까지 거슬러 올라가고 싶은데, `document`까지는 가고 싶지 않은 경우 활용할 수 있습니다.
 ```js
-while(elem = elem.parentElement) {
-  alert( elem ); // parent chain till <html>
+while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
+  alert( elem );
 }
 ```
 ````

@@ -8,15 +8,25 @@ libs:
 
 HTML의 근간은 태그(tag)입니다.
 
-DOM(문서 객체 모델)에 따르면, 모든 HTML 태그가 객체입니다. 중첩 태그(nested tag)들은 그 태그를 감싸고 있는 태그의 "자식들(children)"이라 불립니다.
+According to Document Object Model (DOM), every HTML-tag is an object. Nested tags are  "children" of the enclosing one. The text inside a tag it is an object as well.
 
-태그 내의 문자(text) 역시 객체입니다.
+All these objects are accessible using JavaScript, we can use them to modify the page.
 
-이런 모든 객체는 자바스크립트를 통해 접근할 수 있습니다.
+For example, `document.body` is the object representing `<body>` tag.
+
+Running this code will make the `<body>` red for 3 seconds:
+
+```js run
+document.body.style.background = 'red'; // make the background red
+
+setTimeout(() => document.body.style.background = '', 3000); // return back
+```
+
+That was just a glimpse of DOM power. Soon we'll learn more ways to manipulate DOM, but first we need to know about its structure.
 
 ## DOM 예제
 
-아래 문서의 DOM을 탐색해 봅시다.
+Let's start with the following simple docment:
 
 ```html run no-beautify
 <!DOCTYPE HTML>
@@ -44,7 +54,9 @@ drawHtmlTree(node1, 'div.domtree', 690, 320);
 위에서 요소 노드를 클릭하면 그 자식들을 보거나 숨길 수 있습니다.
 ```
 
-태그는 *요소 노드*(혹은 그냥 요소)라고 불립니다. 중첩 태그는 그 태그를 감싸는 상위 태그의 자식이 됩니다. 이런 규칙에 따라 우리는 요소를 트리 구조로 나타낼 수 있습니다. `<html>`은 요소 트리의 가장 꼭대기에 위치하고, `<head>`와 `<body>`등을 자식으로 갖습니다.
+Every tree node is an object.
+
+Tags are *element nodes* (or just elements), they form the tree structure: `<html>` is at the root, then `<head>` and `<body>` are its children, etc.
 
 요소 안쪽의 문자는 *텍스트(text) 노드*가 됩니다. 위에서 `#text`로 표시하고 있죠. 텍스트 노드는 오로지 문자열만 담습니다. 자식을 가질 수 없고 트리의 끝에서 잎 노드(leaf node)로만 존재합니다.
 
@@ -55,7 +67,7 @@ drawHtmlTree(node1, 'div.domtree', 690, 320);
 - 새 줄(newline): `↵` (자바스크립트에선 `\n`로 표시)
 - 공백(space): `␣`
 
-공백과 새 줄은 문자로 취급됩니다. 그래서 텍스트 노드가 되고, DOM의 일부가 됩니다. 위 HTML에서 `<head>`와 `<title>`사이의 공백은 문자이기 때문에 `#text` 노드가 됩니다(이 노드는 새 줄과 몇 개의 공백만을 포함합니다).
+Spaces and newlines -- are totally valid characters, like letters and digits. They form text nodes and become a part of the DOM. So, for instance, in the example above the `<head>` tag contains some spaces before `<title>`, and that text becomes a `#text` node (it contains a newline and some spaces only).
 
 텍스트 노드 생성엔 두 가지 예외가 있습니다.
 1. 역사적인 이유로, `<head>` 이전의 공백과 새 줄은 무시됩니다.
@@ -78,14 +90,13 @@ let node2 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,
 drawHtmlTree(node2, 'div.domtree', 690, 210);
 </script>
 
-```smart header="가장자리 공백이나 중간의 비어있는 텍스트는 개발자 도구에서 보이지 않습니다"
-브라우저의 개발자 도구(곧 다룰 예정임)에선 문자 맨 앞이나 끝쪽의 공백과 태그 사이의 새 줄이 만들어내는 비어있는 텍스트 노드를 보여주지 않습니다.
+```smart header="Spaces at string start/end and space-only text nodes are usually hidden in tools"
+Browser tools (to be covered soon) that work with DOM usually do not show spaces at the start/end of the text and empty text nodes (line-breaks) between tags.
 
-이런 노드들은 주로 HTML의 가시성을 위해 사용되는 것이지, 실제 문서가 어떻게 보이는지엔 (대개) 영향을 끼치지 않기 때문입니다.
+Developer tools save screen space this way.
 
-이 튜토리얼에서도 단순화를 위해 이런 빈 텍스트 노드를 생략하도록 하겠습니다.
+On further DOM pictures we'll sometimes omit them when they are irrelevant. Such spaces usually do not affect how the document is displayed.
 ```
-
 
 ## 자동 교정
 
@@ -148,7 +159,9 @@ drawHtmlTree(node5,  'div.domtree', 600, 200);
 
 ## 기타 노드 타입
 
-페이지에 태그 몇 개와 주석 하나를 추가해보겠습니다.
+There are some other node types besides elements and text nodes.
+
+For example, comments:
 
 ```html
 <!DOCTYPE HTML>
@@ -174,7 +187,7 @@ let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,
 drawHtmlTree(node6, 'div.domtree', 690, 500);
 </script>
 
-`#comment`로 표시된 새로운 노드 타입, *주석 노드(comment node)*가 생긴 걸 확인할 수 있습니다. 
+We can see here a new tree node type -- *comment node*, labeled as `#comment`, between two text nodes.
 
 주석은 어떻게 화면이 출력될지에 대해 영향을 주지 않는데, 왜 DOM에 추가되었는지 의아해할 수도 있습니다. 주석 노드는 HTML에 뭔가 있다면 반드시 DOM 트리에 추가되어야 한다는 규칙 때문에 DOM에 추가된 것입니다.
 
@@ -195,9 +208,7 @@ HTML 문서 제일 처음에 등장하는 `<!DOCTYPE...>` 지시자 역시 DOM �
 
 실시간으로 DOM 구조를 보려면 [Live DOM Viewer](http://software.hixie.ch/utilities/js/live-dom-viewer/)를 이용해 보세요. 문서가 바로 DOM으로 바뀌어 출력됩니다.
 
-## 개발자 도구 이용하기
-
-DOM 구조를 볼 수 있는 또 다른 방법으로 브라우저의 개발자 도구(developer tools)가 있습니다. 실제 개발할 때는 이 도구를 주로 사용합니다.
+Another way to explore the DOM is to use the browser developer tools. Actually, that's what we use when developing.
 
 [elks.html](elks.html) 페이지를 열고, 브라우저에서 개발자 도구를 켠 다음 Elements 탭으로 이동해봅시다.
 
@@ -225,10 +236,12 @@ Elements 탭엔 아래와 같은 하위 탭이 있습니다:
 
 ## 콘솔 다루기
 
-개발자 도구를 이용해 DOM을 탐색하다 보면, DOM에 자바스크립트를 적용해 보고 싶어질 때가 생깁니다. 노드를 가져와서 코드로 해당 노드를 수정하고, 브라우저상에서 결과물을 바로 볼 수 있게 말이죠. 이럴 때 쓸 수 있는 몇 가지 팁을 알려드리도록 하겠습니다. 
+As we work the DOM, we also may want to apply JavaScript to it. Like: get a node and run some code to modify it, to see the result. Here are few tips to travel between the Elements tab and the console.
 
-- Elements 탭에서 첫 번째 `<li>`를 선택하세요.
-- `Esc 키`를 누르세요. 그러면 Elements 탭 바로 아래에 콘솔이 뜹니다.
+For the start:
+
+1. Select the first `<li>` in the Elements tab.
+2. Press `key:Esc` -- it will open console right below the Elements tab.
 
 가장 마지막에 선택했던 요소는 `$0`으로, 그 이전에 선택했던 요소는 `$1`으로 접근할 수 있습니다.
 
@@ -236,9 +249,11 @@ Elements 탭엔 아래와 같은 하위 탭이 있습니다:
 
 ![](domconsole0.png)
 
-한편, DOM 노드를 참조하는 변수가 있는 경우, `inspect(node)` 명령어를 입력해 해당 노드가 Elements 탭에서 선택되도록 할 수 있습니다.
+That's how to get a node from Elements in Console.
 
-또는, 아래에서 `document.body`를 콘솔에 입력한 것처럼, 콘솔 창에 직접 요소를 입력하면, 해당 요소를 바로 선택할 수 있습니다.
+There's also a road back. If there's a variable referencing a DOM node, then we can use the command `inspect(node)` in Console to see it in the Elements pane.
+
+Or we can just output DOM-node in the console and explore "at-place", like `document.body` below:
 
 ![](domconsole1.png)
 
