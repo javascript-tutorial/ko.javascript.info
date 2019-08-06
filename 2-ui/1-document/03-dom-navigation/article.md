@@ -195,11 +195,11 @@ DOM을 변경하려면 다른 메서드가 필요합니다. 다음 챕터에서 
 - `<body>`는 `<head>`의 "다음(next)" 또는 "우측(right)"에 있는 형제 노드입니다.
 - `<head>`는 `<body>`의 "이전(previous)" 또는 "좌측(left)"에 있는 형제 노드입니다.
 
-다음 형제 노드는 `nextSibling`, 이전 형제 노드는 `previousSibling`을 이용하면 접근할 수 있습니다.
+The next sibling is is `nextSibling`, and the previous one is `previousSibling`.
 
 `parentNode`를 이용하면 부모 노드를 참조할 수 있습니다.
 
-따라서 아래 예시에서 사용된 비교는 모두 참값은 값을 반환합니다.
+For example:
 
 ```js
 // <body>의 부모 노드는 <html>입니다

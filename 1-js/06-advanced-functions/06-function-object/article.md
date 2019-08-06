@@ -282,7 +282,7 @@ let sayHi = function(who) {
 };
 ```
 
-위의 코드의 문제점은 `sayHi`의 value가 바뀔 수 있다는 것입니다. 아마도 함수는 다른 변숫값으로 갈 수 있고 코드가 동작한다면 에러를 출력할 것입니다.
+The problem with that code is that `sayHi` may change in the outer code. If the function gets assigned to another variable instead, the code will start to give errors:
 
 ```js run
 let sayHi = function(who) {
