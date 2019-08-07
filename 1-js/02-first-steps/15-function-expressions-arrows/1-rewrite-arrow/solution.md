@@ -6,12 +6,12 @@ function ask(question, yes, no) {
 }
 
 ask(
-  "Do you agree?",
+  "동의하십니까?",
 *!*
-  () => alert("You agreed."),
-  () => alert("You canceled the execution.")
+  () => alert("동의하셨습니다."),
+  () => alert("취소 버튼을 누르셨습니다.")
 */!*
 );
 ```
 
-Looks short and clean, right?
+좀더 간결하고 명확해졌죠?
