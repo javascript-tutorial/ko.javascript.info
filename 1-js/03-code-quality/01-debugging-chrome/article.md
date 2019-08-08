@@ -2,17 +2,17 @@
 
 Before writing more complex code, let's talk about debugging.
 
-All modern browsers and most other environments support "debugging" -- a special UI in developer tools that makes finding and fixing errors much easier. It also allows to trace the code step by step to see what exactly is going on.
+[Debugging](https://en.wikipedia.org/wiki/Debugging) is the process of finding and fixing errors within a script. All modern browsers and most other environments support debugging tools -- a special UI in developer tools that enable debugging much easier. It also allows to trace the code step by step to see what exactly is going on.
 
 We'll be using Chrome here, because it has enough features, most other browsers have a similar process`.
 
-## The "sources" pane
+## The "Sources" pane
 
 Your Chrome version may look a little bit different, but it still should be obvious what's there.
 
 - Open the [example page](debugging/index.html) in Chrome.
 - Turn on developer tools with `key:F12` (Mac: `key:Cmd+Opt+I`).
-- Select the `sources` pane.
+- Select the `Sources` pane.
 
 Here's what you should see if you are doing it for the first time:
 

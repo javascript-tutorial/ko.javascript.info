@@ -32,7 +32,7 @@ try {
 
 `try {…}` 블록 안의 코드가 에러를 만들어도 `catch`에서 에러를 다루기 때문에 스크립트가 죽지 않습니다.
 
-예제를 좀 더 봅시다.
+예제를 살펴봅시다.
 
 - 아래는 에러가 없는 예제로, `(1)`과 `(2)`를 `alert` 창에 보여줍니다.
 
@@ -50,8 +50,6 @@ try {
       alert('에러가 없으므로, catch는 무시되었습니다.'); // (3)
 
     }
-
-    alert("...실행이 계속됩니다");
     ```
 - 아래는 에러가 있는 예제로, `(1)`과 `(3)`을 보여줍니다.
 
@@ -71,8 +69,6 @@ try {
       alert(`에러가 발생했습니다!`); // *!*(3) <--*/!*
 
     }
-
-    alert("...실행이 계속됩니다");
     ```
 
 
@@ -158,7 +154,7 @@ try {
 } catch(err) {
   alert(err.name); // ReferenceError
   alert(err.message); // lalala is not defined
-  alert(err.stack); // ReferenceError: lalala is not defined at ...
+  alert(err.stack); // ReferenceError: lalala is not defined at (...call stack)
 
   // 에러 전체를 보여줄 수도 있습니다.
   // 이때, 에러 객체는 "name: message" 형태의 문자열로 변환됩니다.
@@ -175,8 +171,8 @@ try {
 ```js
 try {
   // ...
-} catch {
-  // 에러 객체를 생략함
+} catch { // <-- (err) 없이 쓰임
+  // ...
 }
 ```
 
@@ -309,7 +305,7 @@ try {
 
 `SyntaxError`가 발생하네요.
 
-사용자를 나타내는 객체에 `name` 프로퍼티는 반드시 있어야 하므로, `name`의 부재를 syntax error로 처리해 봅시다.
+사용자를 나타내는 객체에 `name` 프로퍼티는 반드시 있어야 하므로, `name`이 없으면 error로 처리해야 합니다.
 
 Throw 연산자를 사용해 에러를 던져봅시다:
 
@@ -578,7 +574,7 @@ function func() {
   }
 }
 ```
-위의 코드에서 `try` 안에서 발생한 에러는 `catch`가 없기 때문에, 항상 밖으로 떨어져 나옵니다. 그러나 실행 흐름이 바깥으로 나가기 전에 `finally`가 실행됩니다.
+위의 코드에서 `try` 안에서 발생한 에러는 `catch`가 없기 때문에, 항상 밖으로 떨어져 나옵니다. 그러나 실행 흐름이 함수를 떠나기 전에 `finally`가 실행됩니다.
 ````
 
 ## 전역 catch
@@ -591,7 +587,7 @@ function func() {
 
 어떻게 대처해야 할까요? 에러를 기록하거나 사용자에게 무언가를 보여주는 것 등을 할 수 있겠죠.
 
-자바스크립트 명세에는 이런 치명적인 에러에 대응하는 방법이 적혀있지 않습니다. 하지만 try..catch 밖의 에러를 잡는 것은 아주 중요하기 때문에, 여러 자바스크립트 실행 환경에선 해당 기능을 제공합니다. Node.js의 [process.on('uncaughtException')](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 그 예입니다. 브라우저 환경에선 [window.onerror](mdn:api/GlobalEventHandlers/onerror)를 이용해 에러를 처리합니다. window.onerror프로퍼티에 특별한 함수를 할당하면, 예상치 못한 에러가 발생했을 때 이 함수가 실행됩니다.
+자바스크립트 명세에는 이런 치명적인 에러에 대응하는 방법이 적혀있지 않습니다. 하지만 try..catch 밖의 에러를 잡는 것은 아주 중요하기 때문에, 여러 자바스크립트 실행 환경에선 해당 기능을 제공합니다. Node.js의 [`process.on("uncaughtException")`](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 그 예입니다. 브라우저 환경에선 [window.onerror](mdn:api/GlobalEventHandlers/onerror)를 이용해 에러를 처리합니다. window.onerror프로퍼티에 특별한 함수를 할당하면, 예상치 못한 에러가 발생했을 때 이 함수가 실행됩니다.
 
 문법은 이렇습니다.
 
@@ -659,18 +655,18 @@ try {
 }
 ```
 
-`catch` 나 `finally`를 따로 다루는 절이 없는 걸 봐서, `try..catch`와 `try..finally`만 문법적으로 유효하다는 걸 알 수 있습니다.
+`catch` 나 `finally`를 따로 다루는 절이 없는 걸 봐서, `try..catch`와 `try..finally`도 유효한 문법이란 걸 유추할 수 있습니다.
 
 에러 객체엔 다음 프로퍼티가 있습니다.
 
 - `message` -- 사람이 읽을 수 있는 형태의 에러 메시지.
 - `name` -- 에러 이름을 담은 문자열 (에러 생성자 이름).
-- `stack` (표준 아님) -- 에러가 생성되는 순간의 스택.
+- `stack` (표준이 아니지만 잘 지원됨) -- 에러가 생성되는 순간의 스택.
 
 에러 객체가 필요 없으면 `catch(err) {` 대신 `catch {`를 쓸 수 있습니다.
 
 `throw` 연산자를 사용하면 커스텀 에러를 만들 수 있습니다. 이론상으론, `throw`의 인수로 아무것이나 가능하지만, 대게 내장 `Error` 클래스에서 상속받은 에러 객체를 인수에 넣습니다. 확장 에러에 대해선 다음 챕터에서 다루도록 하겠습니다.
 
-다시 던지기는 에러 처리의 기본 패턴입니다. `catch` 블록에선 대게, 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루고, 예상치 못한 에러는 다시 던지기를 통해 다룹니다. 
+*다시 던지기*는 에러 처리 시 사용되는 중요한 패턴입니다. `catch` 블록에선 대게, 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루고, 예상치 못한 에러는 다시 던지기를 통해 다룹니다. 
 
 대다수의 자바스크립트 환경에서는 `try..catch` 없이도 사용할 수 있는 "전역" 에러 핸들러가 있습니다. 이 핸들러에선 "떨어져 나온" 에러를 다루게 됩니다. 브라우저 환경의 전역 에러 핸들러는 `window.onerror`입니다.
