@@ -209,9 +209,9 @@ function showMessage(from, text = anotherFunction()) {
 ```
 
 ```smart header="매개변수 기본값 평가 시점"
-자바스크립트에선 함수를 호출할 때마다 매개변수 기본값을 평가합니다. 물론 해당하는 매개변수가 없을 때만 기본값을 평가하죠. 위 예제에선 매개변수 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
+자바스크립트에선 함수를 호출할 때마다 매개변수 기본값을 평가합니다. 물론 해당하는 매개변수가 없을 때만 기본값을 평가하죠.
 
-그런데 Python 등의 몇몇 언어는 함수를 호출할 때마다 기본값을 평가하지 않습니다. Python은 초기 해석(initial interpretation)단계에서 단 한 번만 매개변수 기본값을 평가합니다. 
+위 예제에선 매개변수 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
 ```
 
 ````smart header="과거 방식으로 기본값 설정하기"
