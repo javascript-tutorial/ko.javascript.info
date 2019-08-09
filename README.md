@@ -23,7 +23,7 @@
 PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 싶다면, <https://github.com/javascript-tutorial/server>을 이용해 로컬에 서버를 세팅해 보세요. 로컬 서버 세팅 방법은 [링크](https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0)에서 확인할 수 있습니다.
 
 ### 기여자
-튜토리얼 원문에 기여하신 분들의 이름은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다. 한국어 번역에 기여해주신 분들의 이름은 <https://github.com/javascript-tutorial/ko.javascript.info/graphs/contributors>에서 확인할 수 있습니다.
+튜토리얼 원문에 기여하신 분들은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다. 한국어 번역에 기여해주신 분들은 <https://github.com/javascript-tutorial/ko.javascript.info/graphs/contributors>에서 확인할 수 있습니다.
 
 ## 저장소 구조
 
