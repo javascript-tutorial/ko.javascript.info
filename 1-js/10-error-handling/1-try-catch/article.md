@@ -579,7 +579,7 @@ function func() {
 
 ## 전역 catch
 
-```warn header="개발 환경을 확인하세요"
+```warn header="호스트 환경을 확인하세요"
 이 절의 내용은 코어 자바스크립트 내용이 아닙니다.
 ```
 
