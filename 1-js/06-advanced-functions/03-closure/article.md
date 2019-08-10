@@ -609,7 +609,7 @@ But in practice, JavaScript engines try to optimize that. They analyze variable 
 
 **디버깅 시, 최적화 과정에서 제거된 변수를 사용할 수 없다는 점이 V8 (Chrome, Opera) 엔진의 주요 부작용 중 하나입니다.**
 
-크롬 브라우저에서 개발자 도구를 열고 아래의 코드를 실행해 이를 확인해 봅시다.
+Chrome 브라우저에서 개발자 도구를 열고 아래의 코드를 실행해 이를 확인해 봅시다.
 
 일시 중지된 곳에서 콘솔을 열고 `alert(value)`를 입력해 보죠.
 
