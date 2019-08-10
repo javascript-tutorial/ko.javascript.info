@@ -24,11 +24,11 @@
 
 엔진의 종류는 다양한데, 엔진마다 특유의 코드네임이 있습니다. 아래처럼 말이죠.
 
-- [V8](https://en.wikipedia.org/wiki/V8_(javascript_engine)) -- 크롬과 오페라에서 쓰입니다.
-- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- 파이어폭스에서 쓰입니다.
-- IE는 버전에 따라 "Trident"나 "Chakra"라 불리는 엔진을 사용합니다. "ChakraCore"는 마이크로소프트 엣지에 사용되며, "SquirrelFish"는 사파리에 사용됩니다.
+- [V8](https://en.wikipedia.org/wiki/V8_(javascript_engine)) -- Chrome과 Opera에서 쓰입니다.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
+- IE는 버전에 따라 "Trident"나 "Chakra"라 불리는 엔진을 사용합니다. "ChakraCore"는 Microsoft Edge에 사용되며, "SquirrelFish"는 Safari에 사용됩니다.
 
-개발 관련 글에서 종종 이 코드네임들이 언급되기 때문에 이를 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 이 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 크롬과 오페라에서만 이 기능을 지원한다고 이해하시면 됩니다.
+개발 관련 글에서 종종 이 코드네임들이 언급되기 때문에 이를 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 이 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
 
 ```smart header="엔진은 어떻게 동작하나요?"
 
@@ -107,9 +107,9 @@
 자바스크립트로 트랜스파일이 가능한 언어 몇 가지를 소개해 드리겠습니다.
 
 - [CoffeeScript](http://coffeescript.org/)는 자바스크립트를 위한 "syntactic sugar"입니다. 짧은 문법을 도입하여 명료하고 이해하기 쉬운 코드를 작성할 수 있습니다. Ruby 개발자들이 좋아합니다.
-- [TypeScript](http://www.typescriptlang.org/)는 "자료형의 명시화(strict data typing)"에 집중한 언어입니다. 자료형이 있으면 복잡한 시스템을 개발할 때 과정을 단순화 할 수 있습니다. 마이크로소프트가 개발한 언어입니다.
-- [Flow](http://flow.org/) 역시 자료형을 강제하는데, TypeScript와는 다른 방식을 사용합니다. 페이스북이 개발하였습니다.
-- [Dart](https://www.dartlang.org/)는 모바일 앱과 같이 브라우저가 아닌 환경에서 동작하는 고유의 엔진을 가진 독자적 언어입니다. 구글이 개발하였습니다.
+- [TypeScript](http://www.typescriptlang.org/)는 "자료형의 명시화(strict data typing)"에 집중한 언어입니다. 자료형이 있으면 복잡한 시스템을 개발할 때 과정을 단순화 할 수 있습니다. Microsoft가 개발한 언어입니다.
+- [Flow](http://flow.org/) 역시 자료형을 강제하는데, TypeScript와는 다른 방식을 사용합니다. Facebook이 개발하였습니다.
+- [Dart](https://www.dartlang.org/)는 모바일 앱과 같이 브라우저가 아닌 환경에서 동작하는 고유의 엔진을 가진 독자적 언어입니다. Google이 개발하였습니다.
 
 이 외에도 자바스크립트로 트랜스파일 할 수 있는 언어는 다양합니다. 개발 언어로 이런 언어 중 하나를 택한다고 하더라도 자신이 무엇을 하고 있는지 이해하려면 결국엔 자바스크립트를 알아야 합니다.
 

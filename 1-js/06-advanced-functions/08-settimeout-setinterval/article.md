@@ -27,7 +27,7 @@ let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
 : 실행할 때까지 기다리는 시간으로, 밀리초(millisecond, 1000밀리초 = 1초) 단위가 사용됩니다. 기본값은 0입니다.
 
 `arg1`, `arg2`...
-: 함수의 인수(사파리를 제외한 모든 데스크탑 브라우저와 IE10 이상에서 지원)
+: 함수의 인수(Safari를 제외한 모든 데스크탑 브라우저와 IE10 이상에서 지원)
 
 예를 들면, 다음 코드는 1초 후에 `sayHi()` 를 호출합니다.
 
@@ -127,7 +127,7 @@ setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 ```
 
 ```smart header="`alert`창이 떠있는 상태에선 타이머가 멈추지 않습니다."
-크롬과 파이어폭스를 포함한 대부분의 브라우저에서는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머가 멈추지 않고 "째깍거리며" 돌아갑니다.
+Chrome과 Firefox를 포함한 대부분의 브라우저에서는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머가 멈추지 않고 "째깍거리며" 돌아갑니다.
 
 So if you run the code above and don't dismiss the `alert` window for some time, then in the next `alert` will be shown immediately as you do it. The actual interval between alerts will be shorter than 2 seconds.
 ```

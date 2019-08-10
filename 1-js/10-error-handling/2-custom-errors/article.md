@@ -217,7 +217,7 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 The code which calls `readUser` should handle these errors. Right now it uses multiple `if` in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if `readUser` function generates several kinds of errors -- then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
 
-보통 대답은 "아니오"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
+보통 대답은 "아니요"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
 
 이런 오류들을 나타내는 새로운 `ReadError` 클래스를 만들어 봅시다. If an error occurs inside `readUser` 안에서 오류가 발생하면, 오류를 거기에서 잡아서 `ReadError`를 생성합니다. 우리는 또한  `cause` 속성에 실제 오류에 대한 참조도 보관할 것입니다. 그러면 바깥쪽 코드에서는 `ReadError`만 확인하면 됩니다..
 

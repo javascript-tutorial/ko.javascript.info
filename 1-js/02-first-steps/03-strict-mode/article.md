@@ -54,9 +54,9 @@ alert("some code");
 이럴 땐 'use strict'를 입력한 후, `Shift+Enter키`를 눌러 줄 바꿈 해 원하는 스크립트를 테스트해 볼 수 있습니다. 아래와 같이 말이죠.
 
 ```js
-'use strict'; <Shift+Enter키를 눌러 줄 바꿈 함>
+'use strict'; <Shift+Enter를 눌러 줄 바꿈 함>
 //  ...테스트하려는 코드 입력
-<Enter 키를 눌러 실행>
+<Enter를 눌러 실행>
 ```
 
 이 기능은 Firefox와 Chrome 같은 유명한 브라우저에서 대부분 사용 가능합니다.
