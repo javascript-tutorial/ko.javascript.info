@@ -244,7 +244,7 @@ let sum = 0.1 + 0.2;
 alert( +sum.toFixed(2) ); // 0.3
 ```
 
-또한 정수로 만들기 위해 임시적으로 숫자에 100 (혹은 더 큰 숫자)을 곱해 준 다음 계산을 하고 다시 나눠 돌려주는 방법이 있습니다. 그러면 정수로 수학을 하고 있기 때문에 에러는 증가하지만 분수로 결과를 얻습니다. 
+또한 정수로 만들기 위해 임시적으로 숫자에 100 (또는 더 큰 숫자)을 곱해 준 다음 계산을 하고 다시 나눠 돌려주는 방법이 있습니다. 그러면 정수로 수학을 하고 있기 때문에 에러는 증가하지만 분수로 결과를 얻습니다. 
 
 ```js run
 alert( (0.1 * 10 + 0.2 * 10) / 10 ); // 0.3
@@ -263,45 +263,45 @@ alert( (0.28 * 100 + 0.14 * 100) / 100); // 0.4200000000000001
 alert( 9999999999999999 ); // shows 10000000000000000
 ```
 
-This suffers from the same issue: a loss of precision. There are 64 bits for the number, 52 of them can be used to store digits, but that's not enough. So the least significant digits disappear.
+이것은 똑같이 정밀도의 손실이라는 어려움을 겪습니다. 숫자에는 64 비트가 존재하고 그 중 52개는 자릿수를 저장하기 위해 쓰이지만 그것은 충분하지 않습니다. 그래서 가장 부정확한 자릿수가 사라지는 것입니다.
 
-JavaScript doesn't trigger an error in such events. It does its best to fit the number into the desired format, but unfortunately, this format is not big enough.
+자바스크립트는 이러한 이벤트에서 오류를 발생하지 않습니다. 자바스크립트는 가장 원하는 형태로 숫자를 맞추려고 하지만 불행하게도 이러한 형태는 충분히 크지 않습니다.   
 ````
 
-```smart header="Two zeroes"
-Another funny consequence of the internal representation of numbers is the existence of two zeroes: `0` and `-0`.
+```smart header="두 개의 영"
+숫자의 내부 표현 중 또 다른 재미있는 결과는 `0` and `-0`인 두개의 영의 존재입니다.
 
-That's because a sign is represented by a single bit, so every number can be positive or negative, including a zero.
+이것은 부호가 단일 비트로 구성되어 있고 그로 인해 영을 포함한 모든 숫자가 긍정 또는 부정적일 수 있기 때문입니다.
 
-In most cases the distinction is unnoticeable, because operators are suited to treat them as the same.
+대부분의 경우 연산자들이 영들을 똑같이 취급하도록 적용되어 있어 구별하기는 쉽지 않습니다. 
 ```
 
 
 
-## Tests: isFinite and isNaN
+## 시험: isFinite 과 isNaN
 
-Remember these two special numeric values?
+두개의 특수 숫자 값을 기억하시나요?
 
-- `Infinity` (and `-Infinity`) is a special numeric value that is greater (less) than anything.
-- `NaN` represents an error.
+- `Infinity` (그리고 `-Infinity`)는 특별한 숫자 값으로 어떠한 것보다 많은 (적은) 것을 말합니다.
+- `NaN` 는 에러를 의미합니다.
 
-They belong to the type `number`, but are not "normal" numbers, so there are special functions to check for them:
+`number` 타입에 포함되지만 "일반적인" 숫자는 아니기 때문에 특별한 함수가 존재합니다.
 
 
-- `isNaN(value)` converts its argument to a number and then tests it for being `NaN`:
+- `isNaN(value)` 은 인수를 숫자로 변환한 다음 `NaN` 인지 테스트합니다.
 
     ```js run
     alert( isNaN(NaN) ); // true
     alert( isNaN("str") ); // true
     ```
 
-    But do we need this function? Can't we just use the comparison `=== NaN`? Sorry, but the answer is no. The value `NaN` is unique in that it does not equal anything, including itself:
+    하지만 이러한 함수가 필요한가요? 그냥 비교할 수 있는 `=== NaN` 을 이용하면 되지 않나요? 미안하지만 안됩니다. `NaN` 의 가치는 특별하여 그 자신을 포함해서 어떠한 것과도 동등하지 않습니다.
 
     ```js run
     alert( NaN === NaN ); // false
     ```
 
-- `isFinite(value)` converts its argument to a number and returns `true` if it's a regular number, not `NaN/Infinity/-Infinity`:
+- `isFinite(value)` 는 일반적인 숫자일 경우 `NaN/Infinity/-Infinity` 가 아닌 인수를 숫자로 변환하고 true를 리턴합니다.
 
     ```js run
     alert( isFinite("15") ); // true
@@ -309,7 +309,7 @@ They belong to the type `number`, but are not "normal" numbers, so there are spe
     alert( isFinite(Infinity) ); // false, because a special value: Infinity
     ```
 
-Sometimes `isFinite` is used to validate whether a string value is a regular number:
+가끔 `isFinite` 은 string 값이 일반적인 숫자인지 판별하는 용도로 쓰입니다.
 
 
 ```js run
@@ -319,36 +319,36 @@ let num = +prompt("Enter a number", '');
 alert( isFinite(num) );
 ```
 
-Please note that an empty or a space-only string is treated as `0` in all numeric functions including `isFinite`.  
+비어있거나 스페이스로만 이루어져있는 string은 `isFinite` 을 포함한 모든 숫자 함수에서 `0` 으로 취급한다는 것에 유의합니다.  
 
-```smart header="Compare with `Object.is`"
+```smart header="`Object.is`와 비교하기"
 
-There is a special built-in method [Object.is](mdn:js/Object/is) that compares values like `===`, but is more reliable for two edge cases:
+`===` 와 같이 값을 비교하는데 쓰이는 내장 메서드인 [Object.is](mdn:js/Object/is)가 존재하는데 이것은 두가지의 경우에서 더욱 믿음직스럽습니다.
 
-1. It works with `NaN`: `Object.is(NaN, NaN) === true`, that's a good thing.
-2. Values `0` and `-0` are different: `Object.is(0, -0) === false`, technically that's true, because internally the number has a sign bit that may be different even if all other bits are zeroes.
+1. `NaN`: `Object.is(NaN, NaN) === true` 과 같이 작동하는데 그것은 좋은 것입니다.
+2. `0` 과 `-0` 을 다르게 취급합니다. `Object.is(0, -0) === false` 은 기술적으로 참입니다. 그 이유는 다른 비트들이 영이어도 내부적으로 부호 비트가 다를 수 있기 떄문입니다.  
 
-In all other cases, `Object.is(a, b)` is the same as `a === b`.
+다른 모든 경우에도 `Object.is(a, b)` 은 `a === b` 와 동일합니다.
 
-This way of comparison is often used in JavaScript specification. When an internal algorithm needs to compare two values for being exactly the same, it uses `Object.is` (internally called [SameValue](https://tc39.github.io/ecma262/#sec-samevalue)).
+이런 비교 방식은 종종 자바스크립트 명세에서 사용됩니다. 내부 알고리즘이 정확히 동일한 두 값을 비교해야 할 경우 `Object.is` (내부적으로 [SameValue](https://tc39.github.io/ecma262/#sec-samevalue)라 부르는) 를 사용합니다.
 ```
 
 
-## parseInt and parseFloat
+## parseInt 와 parseFloat
 
-Numeric conversion using a plus `+` or `Number()` is strict. If a value is not exactly a number, it fails:
+덧셈 기호 `+` 또는 `Number()` 를 사용한 숫자 변환은 엄격합니다. 만약 값이 정확하게 숫자가 아닌 경우 실패합니다.
 
 ```js run
 alert( +"100px" ); // NaN
 ```
 
-The sole exception is spaces at the beginning or at the end of the string, as they are ignored.
+유일한 예외는 string에서 맨 앞 부분 또는 맨 뒷 부분이 공백일 경우 입니다.
 
-But in real life we often have values in units, like `"100px"` or `"12pt"` in CSS. Also in many countries the currency symbol goes after the amount, so we have `"19€"` and would like to extract a numeric value out of that.
+그러나 실제로 CSS에서 `"100px"` 또는 `"12pt"` 처럼 값에 단위가 있습니다. 또한 많은 국가에서 통화 기호는 금액 뒤에 나타납니다. 따라서 `"19€"` 가 있고 저 부분에서 숫자 값을 추출하려고 합니다.
 
-That's what `parseInt` and `parseFloat` are for.
+`parseInt` 과 `parseFloat` 가 존재하는 이유입니다.
 
-They "read" a number from a string until they can't. In case of an error, the gathered number is returned. The function `parseInt` returns an integer, whilst `parseFloat` will return a floating-point number:
+string에서 숫자를 읽을 수 없을 때 까지 읽습니다. 에러 발생시 모여진 숫자들이 반환됩니다. `parseInt` 함수는 정수를 반환하는 반면 `parseFloat` 함수는 부동소수점을 반환합니다.
 
 ```js run
 alert( parseInt('100px') ); // 100
@@ -358,14 +358,14 @@ alert( parseInt('12.3') ); // 12, only the integer part is returned
 alert( parseFloat('12.3.4') ); // 12.3, the second point stops the reading
 ```
 
-There are situations when `parseInt/parseFloat` will return `NaN`. It happens when no digits could be read:
+`parseInt/parseFloat` 함수들이 `NaN` 을 반환하는 경우가 있습니다. 이는 읽을 숫자들이 없을 경우에 일어납니다.
 
 ```js run
 alert( parseInt('a123') ); // NaN, the first symbol stops the process
 ```
 
-````smart header="The second argument of `parseInt(str, radix)`"
-The `parseInt()` function has an optional second parameter. It specifies the base of the numeral system, so `parseInt` can also parse strings of hex numbers, binary numbers and so on:
+````smart header="`parseInt(str, radix)` 의 두 번째 인수"
+`parseInt()` 함수는 선태적으로 두 번째 매개 변수가 있습니다. 숫자 시스템의 베이스를 지정하기 때문에 `parseInt` 는 16 진수, 2 진수 등의 string 을 parse 할 수 있습니다.
 
 ```js run
 alert( parseInt('0xff', 16) ); // 255
