@@ -85,9 +85,11 @@ if (confirm("위키피디아 페이지로 가시겠습니까?")) {
 
 메서드 `alert/confirm/prompt` 역시 BOM의 일부입니다. 문서와 직접 연결되어 있지 않지만, 사용자와 브라우저 사이의 커뮤니케이션을 도와주는 순수 브라우저 메서드이죠.  
 
-BOM은 [HTML 명세](https://html.spec.whatwg.org)에 속합니다.
+```smart header="다양한 명세"
+[HTML 명세](https://html.spec.whatwg.org)는 BOM에 대한 내용도 다룹니다. BOM에 관련된 명세가 따로 있을 것 같은데도 말이죠.
 
-이상하게 들리겠지만, 맞습니다. <https://html.spec.whatwg.org>에서 볼 수 있는 HTML 명세는 태그(tag)나 속성(attribute) 같은 "HTML 언어"만 다루지 않습니다. 다양한 객체와 메서드, 특정 브라우저에 종속되는 DOM 확장도 다룹니다. 넓게 보면 이 모든 것이 HTML에 속하기 때문입니다. <https://spec.whatwg.org>에도 몇몇 추가 스펙이 명시되어 있습니다.
+<https://html.spec.whatwg.org>에선 태그, HTML 속성(attribute) 같은 "HTML"에 관련된 내용만 다루지 않습니다. 브라우저 전반에서 사용되는 객체, 메서드 부터 특정 브라우저에서만 사용되는 DOM 확장까지도 다룹니다. 이 모든 것이 HTML 기술에 속하기 때문입니다. HTML 명세에서 다루지 않는 것들에 대한 명세는 <https://spec.whatwg.org>에서 확인할 수 있습니다.
+```
 
 ## 요약
 
