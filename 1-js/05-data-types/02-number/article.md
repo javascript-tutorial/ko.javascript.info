@@ -375,14 +375,14 @@ alert( parseInt('2n9c', 36) ); // 123456
 ```
 ````
 
-## Other math functions
+## 다른 수학 함수들
 
-JavaScript has a built-in [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object which contains a small library of mathematical functions and constants.
+자바스크립트는 수학 함수들과 상수들의 작은 라이브러리를 포함하고 있는 내장 [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) 가 존재한다.
 
-A few examples:
+몇 가지 예시들.
 
 `Math.random()`
-: Returns a random number from 0 to 1 (not including 1)
+0 에서 1 까지 숫자 중 (1을 포함하지 않고) 랜덤 숫자를 반환한다.
 
     ```js run
     alert( Math.random() ); // 0.1234567894322
@@ -391,7 +391,7 @@ A few examples:
     ```
 
 `Math.max(a, b, c...)` / `Math.min(a, b, c...)`
-: Returns the greatest/smallest from the arbitrary number of arguments.
+임의의 숫자의 인수에서 최댓값/최솟값을 반환한다.
 
     ```js run
     alert( Math.max(3, 5, -10, 0, 1) ); // 5
@@ -399,36 +399,36 @@ A few examples:
     ```
 
 `Math.pow(n, power)`
-: Returns `n` raised the given power
+주어진 power 만큼 `n` 의 제곱값을 반환한다.
 
     ```js run
     alert( Math.pow(2, 10) ); // 2 in power 10 = 1024
     ```
 
-There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object.
+`Math` 객체에는 삼각법을 포함한 많은 함수들과 상수들이 있는데 그것은 [docs for the Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) 객체에서 찾을 수 있습니다.
 
-## Summary
+## 요약
 
-To write big numbers:
+큰 숫자를 쓰기 위한 법
 
-- Append `"e"` with the zeroes count to the number. Like: `123e6` is `123` with 6 zeroes.
-- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. That's for one-millionth or such.
+- 0의 갯수를 센 뒤 그 갯수를 숫자 옆에 `"e"` 와 함꼐 붙입니다. `123e6` 이 `123` 와 6개의 영으로 이루어져 있는 것 처럼 합니다.
+- `"e"` 뒤에 오는 음수는 주어진 영으로 숫자를 1로 나눈 것입니다. 위의 예시는 백만 분의 일입니다.
 
-For different numeral systems:
+다른 숫자 시스템의 경우
 
-- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems
-- `parseInt(str, base)` parses an integer from any numeral system with base: `2 ≤ base ≤ 36`.
-- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+- 숫자를 16진법 (`0x`), 8진법 (`0o`) 그리고 이진법 (`0b`) 으로 바로 적을 수 있습니다.
+- `parseInt(str, base)` 는 정수를 어느 숫자 체계에서도 `2 ≤ base ≤ 36` 범위로 parse 합니다.
+- `num.toString(base)` 는 숫자 체계를 나타내는 `base` 안에서 숫자를 string 으로 변환합니다.
 
-For converting values like `12pt` and `100px` to a number:
+`12pt` 와 `100px` 같은 값들을 숫자로 변환할 경우
 
-- Use `parseInt/parseFloat` for the "soft" conversion, which reads a number from a string and then returns the value they could read before the error.
+- "soft" 변환에는 string에서 숫자를 읽어온 다음 에러가 나오기 전까지 읽은 값을 반환하는 `parseInt/parseFloat` 를 씁니다.
 
-For fractions:
+분수인 경우
 
-- Round using `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` or `num.toFixed(precision)`.
-- Make sure to remember there's a loss of precision when working with fractions.
+- `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` 또는 `num.toFixed(precision)` 를 이용해서 반올림을 합니다.
+- 분수로 작업을 할 경우 정밀도의 손실이 있을 수 있다는 것을 기억해야 합니다.
 
-More mathematical functions:
+다른 수학 함수들
 
-- See the [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object when you need them. The library is very small, but can cover basic needs.
+- 필요할 경우[Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) 객체를 참조합니다. 라이브러리는 작지만 기본적인 욕구를 충족시켜 줄 것입니다.
