@@ -3,11 +3,19 @@
 
 자바스크립트 명세에 따르면 객체 프로퍼티 키는 오직 문자형과 심볼형만 가능합니다. 숫자형, 불린형 모두 불가능하고 오직 문자형과 심볼형만 가능하죠.
 
+<<<<<<< HEAD
 지금까지는 프로퍼티 키가 문자형인 경우만 접해보았습니다. 이젠 심볼을 키로 사용하는 경우에 대해 알아보겠습니다. 그리고 심볼을 키로 사용할 때의 이점에 대해서도 알아보도록 하겠습니다.
+=======
+Till now we've been using only strings. Now let's see the benefits that symbols can give us.
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 
 ## 심볼
 
+<<<<<<< HEAD
 "심볼(symbol)"값은 유일한 식별자(identifier)를 만들고 싶을 때 사용합니다.
+=======
+A "symbol" represents a unique identifier.
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 
 함수 `Symbol()`을 사용하면 심볼값을 만들 수 있습니다.
 
@@ -52,7 +60,11 @@ alert(id); // Error: Cannot convert a Symbol value to a string
 
 문자열과 심볼은 근본적으로 다르기 때문에 우연히라도 서로의 타입으로 변환돼선 안 됩니다. 자바스크립트는  "언어 차원의 보호장치(language guard)"를 마련해 심볼형이 다른 형으로 변환되지 않게 막아줍니다.
 
+<<<<<<< HEAD
 꼭 심볼을 보여줘야 하는 상황이라면 아래와 같이 `.toString()` 메서드를 사용하면 됩니다.
+=======
+If we really want to show a symbol, we need to explicitly call `.toString()` on it, like here:
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 ```js run
 let id = Symbol("id");
 *!*
@@ -60,7 +72,11 @@ alert(id.toString()); // Symbol(id)가 얼럿창에 출력됨
 */!*
 ```
 
+<<<<<<< HEAD
 `symbol.description` 프로퍼티를 이용하면 설명만 얻을 수 있습니다.
+=======
+Or get `symbol.description` property to show the description only:
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 ```js run
 let id = Symbol("id");
 *!*
@@ -74,16 +90,29 @@ alert(id.description); // id
 
 심볼을 이용하면 외부 코드에서 접근이 불가능하고 값도 덮어쓸 수 없는 "숨김(hidden)" 프로퍼티를 만들 수 있습니다. 
 
+<<<<<<< HEAD
 현재 서드파티 코드에서 가지고 온 `user`라는 객체를 이용해 작업하고 있다고 가정해 봅시다. `user`를 식별할 수 있는 식별자를 만들어보겠습니다.
+=======
+For instance, if we're working with `user` objects, that belong to a third-party code. We'd like to add identifiers to them.
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 
 식별자로 사용될 프로퍼티의 키는 심볼로 하겠습니다.
 
 ```js run
-let user = { name: "John" };
+let user = { // belongs to another code
+  name: "John"
+};
+
 let id = Symbol("id");
 
+<<<<<<< HEAD
 user[id] = "ID Value";
 alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있게되었습니다.
+=======
+user[id] = 1;
+
+alert( user[id] ); // we can access the data using the symbol as the key
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 ```
 
 문자열 `"id"`를 키로 사용해도 되는데, `Symbol("id")`을 사용한 이유가 무엇일까요? 특별한 이점이 있어서 사용했을까요?
@@ -110,6 +139,7 @@ user[id] = "Their id value";
 ```js run
 let user = { name: "John" };
 
+<<<<<<< HEAD
 // 우리가 작성한 스크립트에선 "id" 프로퍼티를 사용해 객체를 식별합니다.
 user.id = "ID Value";
 
@@ -117,6 +147,15 @@ user.id = "ID Value";
 
 user.id = "Their id value"
 // 이런! 의도치 않게 값이 덮어 쓰여서 기존 식별자가 무의미해졌네요.
+=======
+// Our script uses "id" property
+user.id = "Our id value";
+
+// ...Another script also wants "id" for its purposes...
+
+user.id = "Their id value"
+// Boom! overwritten by another script!
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 ```
 
 ### 객체 리터럴과 심볼
@@ -131,7 +170,11 @@ let id = Symbol("id");
 let user = {
   name: "John",
 *!*
+<<<<<<< HEAD
   [id]: 123 // "id: 123"은 안됨
+=======
+  [id]: 123 // not "id: 123"
+>>>>>>> 852ee189170d9022f67ab6d387aeae76810b5923
 */!*
 };
 ```
