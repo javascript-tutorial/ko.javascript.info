@@ -2,9 +2,9 @@ importance: 2
 
 ---
 
-# Two functions – one object
+# 함수 두 개로 동일한 객체 만들기
 
-Is it possible to create functions `A` and `B` such as `new A()==new B()`?
+`new A()==new B()`가 성립 가능한 함수 `A`와 `B`를 만드는 게 가능할까요?
 
 ```js no-beautify
 function A() { ... }
@@ -16,4 +16,4 @@ let b = new B;
 alert( a == b ); // true
 ```
 
-If it is, then provide an example of their code.
+만약 가능하다면, 실행 가능한 예시를 작성해 보세요.
