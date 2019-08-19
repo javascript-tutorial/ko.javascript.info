@@ -2,25 +2,25 @@ importance: 4
 
 ---
 
-# Rewrite the function using '?' or '||'
+# '?'나 '||'를 사용하여 함수 다시 작성하기
 
-The following function returns `true` if the parameter `age` is greater than `18`.
+아래 함수는 매개변수 `age`가 `18`보다 큰 경우 `true`를 반환합니다.
 
-Otherwise it asks for a confirmation and returns its result.
+그 이외의 경우는 컨펌 대화상자를 통해 사용자에게 질문한 후, 해당 결과를 반환합니다. 
 
 ```js
 function checkAge(age) {
   if (age > 18) {
     return true;
   } else {
-    return confirm('Do you have your parents permission to access this page?');
+    return confirm('보호자의 동의를 받으셨나요?');
   }
 }
 ```
 
-Rewrite it, to perform the same, but without `if`, in a single line.
+`if`문을 사용하지 않고 동일한 동작을 하는 함수를 한 줄에 작성해보세요.
 
-Make two variants of `checkAge`:
+아래 조건을 충족하는 해답 2개를 작성해야 합니다.
 
-1. Using a question mark operator `?`
-2. Using OR `||`
+1. 물음표 연산자 `?`를 사용하여 본문을 작성
+2. OR 연산자 `||`를 사용하여 본문을 작성

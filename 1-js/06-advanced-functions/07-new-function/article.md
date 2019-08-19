@@ -46,12 +46,13 @@ func();
 
 ## 클로져(Closure)
 
-함수가 보통 어디에서 작성되었는지에 관한 특수한 프로퍼티는 `[[Environment]]`에 기억되고 생성된 렉시컬 환경을 참고합니다.
+Usually, a function remembers where it was born in the special property `[[Environment]]`. It references the Lexical Environment from where it's created  (we covered that in the chapter <info:closure>).
 
-그러나 `new Function`문을 사용해서 함수가 생성되면 `[[Environment]]`은 현재의 렉시컬 환경이 아니고 전역(global)이 됩니다.
+But when a function is created using `new Function`, its `[[Environment]]` is set to reference not the current Lexical Environment, but the global one.
+
+So, such function doesn't have access to outer variables, only to the global ones.
 
 ```js run
-
 function getFunc() {
   let value = "test";
 
@@ -99,26 +100,13 @@ getFunc()(); // *!*"test"*/!*, from the Lexical Environment of getFunc
 
 이런 실수로부터 예방하기 위해 `new Function`에는 특별한 기능이 있습니다.
 
-그리고 좀더 좋은 코드를 제공합니다. `new Function`이란 문법을 사용한 함수에 무언가를 넘기려고 할대는 명시적으로 인수(argument)로 넘기는것이 좋습니다.
+Besides, such code would be architecturally bad and prone to errors.
 
-아래의 "sum"함수는 명시적으로 전달하는것을 잘 표현하고 있습니다.
+To pass something to a function, created as `new Function`, we should use its arguments.
 
-```js run 
-*!*
-let sum = new Function('a', 'b', 'return a + b');
-*/!*
+## Summary
 
-let a = 1, b = 2;
-
-*!*
-// 필요한 값들이 매개변수로 전달되었음
-alert( sum(a, b) ); // 3
-*/!*
-```
-
-## 요약
-
-문법:
+The syntax:
 
 ```js
 let func = new Function(arg1, arg2, ..., body);
@@ -126,7 +114,7 @@ let func = new Function(arg1, arg2, ..., body);
 
 오래전부터 인수들은 콤마로 구별된 리스트로 사용할 수 있습니다.
 
-아래의 세 가지 표현은 다르지만 같은 표현입니다.
+These three declarations mean the same:
 
 ```js 
 new Function('a', 'b', 'return a + b'); // 기본 문법
@@ -134,4 +122,4 @@ new Function('a,b', 'return a + b'); // 콤마로 구별된
 new Function('a , b', 'return a + b'); // 콤마와 스페이스로 구별된
 ```
 
-`new Function`으로 생성된 함수는 전역 렉시컬환경을 참조하는 `[[Environment]]`를 가지고 있습니다. 그래서 그 함수는 외부 변수를 사용할 수 없습니다. 이런 현상은 에러를 방지하므로 실제로는 좋은 현상입니다. 외부 변수에 접근할 때, 명시적으로 매개변수로 넘기는 것이 minifiers와 문제가 생기지 않게 하는 설계적으로 더 좋은 방법이기 때문입니다.
+Functions created with `new Function`, have `[[Environment]]` referencing the global Lexical Environment, not the outer one. Hence, they cannot use outer variables. But that's actually good, because it insures us from errors. Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.

@@ -70,7 +70,7 @@ pow(x, n) =
 
 `n == 1`이 될 때 까지 `pow` 함수 *자신을 재귀 호출* 한다고 아래 그램을 말로 표현할 수 있을 것입니다.
 
-![recursive diagram of pow](recursion-pow.png)
+![recursive diagram of pow](recursion-pow.svg)
 
 
 `pow (2, 4)`를 계산하는 과정을 예로 재귀 단계를 구체적으로 살펴보겠습니다.
@@ -85,7 +85,7 @@ pow(x, n) =
 ````smart header="재귀적 방법을 사용하면 코드가 짧아집니다"
 재귀적 방법으로 작성한 코드는 대개 반복적 방법을 사용한 코드보다 짧습니다.
 
-`if` 조건문을 `?` 연산자를 사용해 변형하면 `pow (x, n)`은 아래와 같이 더 간결하고 읽기 쉬운 코드가 됩니다.
+`if`문을 조건부 연산자 `?`를 사용해 변형하면 `pow (x, n)`은 아래와 같이 더 간결하고 읽기 쉬운 코드가 됩니다.
 
 ```js run
 function pow(x, n) {
@@ -100,11 +100,11 @@ function pow(x, n) {
 
 위와 같은 이유로 재귀를 실제 사용하는데 제약이 따르긴 하지만, 재귀는 여전히 광범위하게 사용되고 있습니다. 재귀적 방법을 사용해 코드를 작성하면, 간결하고 유지보수가 쉬운 작업이 많기 때문입니다.
 
-## 실행 스택
+## 실행 컨텍스트와 스택
 
 실제 재귀 호출이 어떻게 동작하는지 알아봅시다. 이를 위해서 함수의 내부 동작에 대해 살펴보도록 하겠습니다.
 
-함수 실행에 대한 정보는 해당 함수의 *실행 컨텍스트(execution context)* 에 저장됩니다.
+실행중인 함수의 실행 절차에 대한 정보는 해당 함수의 *실행 컨텍스트(execution context)* 에 저장됩니다.
 
 [실행 컨텍스트](https://tc39.github.io/ecma262/#sec-execution-contexts) 는 함수 실행에 대한 세부 정보를 담고 있는 내부 데이터 구조입니다. 현재 제어 흐름 위치, 변수의 현재 값, (여기선 다루지 않지만) `this`가 참조하는 값 등의 내부 정보가 실행 컨텍스트에 저장됩니다.
 
@@ -332,10 +332,10 @@ let company = {
 
 앞서 본 바와 같이 부서는 크게 두 부류로 나뉩니다
 
-1. *임직원 배열* 을 가진 "단순한" 부서 -- 간단한 반복문으로 급여 합계를 구할 수 있습니다.
-2. *N 개의 하위 부서가 있는 객체* -- 각 하위 부서에 속한 급여 합계를 얻기 위해 `N` 번의 회귀 호출을 하고, 최종적으로 모든 하위부서 급여 합계를 합산 합니다.
+1. 임직원 *배열* 을 가진 "단순한" 부서 -- 간단한 반복문으로 급여 합계를 구할 수 있습니다.
+2. N 개의 하위 부서가 있는 *객체* -- 각 하위 부서에 속한 급여 합계를 얻기 위해 `N` 번의 회귀 호출을 하고, 최종적으로 모든 하위부서 급여 합계를 합산 합니다.
 
-(1)은 재귀의 base 이며, 사소한 경우입니다.
+(1)은 재귀의 base 이며, 배열을 사용하기 때문에 간단합니다.
 
 (2)는 재귀 단계입니다. 복잡한 작업이 작은 작업(하위 부서에 대한 루프)으로 쪼개집니다. 깊이에 따라 더 작은 작업으로 쪼깨 질 수 있는데, 결국 작업은 (1)의 경우에 해당하게 됩니다.
 
@@ -373,7 +373,7 @@ alert(sumSalaries(company)); // 6700
 
 다음은 호출에 관한 그림입니다.
 
-![recursive salaries](recursive-salaries.png)
+![recursive salaries](recursive-salaries.svg)
 
 객체 `{...}`를 만나면 서브 호출이 일어나고, 배열 `[...]`이 재귀 트리의 "잎사귀"인 경우 결과값이 바로 계산되는 것을 그림을 통해 다시한번 확인할 수 있습니다.   
 
@@ -416,7 +416,7 @@ let arr = [obj1, obj2, obj3];
 
 ...하지만 배열에는 문제가 있습니다. "요소 삭제" 및 "요소 삽입" 작업이 어렵습니다. 특히 `arr.unshift(obj)` 연산은 새로운 `obj` 를 위한 공간을 만들기 위해 모든 원소의 번호를 다시 지정해야 하고 큰 배열에는 시간이 걸립니다. `arr.shift()` 도 동일합니다.
 
-   큰 비용을 치루지 않고 모두 변경할 수 있는 유일한 방법은`arr.push/pop` 을 사용해 배열의 끝을 이용해 작업하는 것입니다. 여전히 배열은 크면 클수록 상당히 느릴 수 있습니다.
+The only structural modifications that do not require mass-renumbering are those that operate with the end of array: `arr.push/pop`. So an array can be quite slow for big queues, when we have to work with the beginning.
 
    빠른 삽입 / 삭제가 정말로 필요한 경우에는 [연결 리스트(Linked List)](https://en.wikipedia.org/wiki/Linked_list) 라는 다른 데이터 구조를 선택할 수 있습니다.
 
@@ -444,7 +444,7 @@ let list = {
 
 리스트를 시각적으로 표현하
 
-![linked list](linked-list.png)
+![linked list](linked-list.svg)
 
 코드로는 다음과 같습니다.
 
@@ -464,7 +464,7 @@ let secondList = list.next.next;
 list.next.next = null;
 ```
 
-![linked list split](linked-list-split.png)
+![linked list split](linked-list-split.svg)
 
 To join:
 
@@ -488,7 +488,7 @@ list = { value: "new item", next: list };
 */!*
 ```
 
-![linked list](linked-list-0.png)
+![linked list](linked-list-0.svg)
 
 중간에서 값을 제거하려면 이전 값의 `next`를 변경해야 합니다.
 
@@ -496,7 +496,7 @@ list = { value: "new item", next: list };
 list.next = list.next.next;
 ```
 
-![linked list](linked-list-remove-1.png)
+![linked list](linked-list-remove-1.svg)
 
 `list.next`가 `1`을 뛰어넘어서`2` 값을 얻었습니다. 이제 값 `1`이 체인에서 제외됩니다. 다른 곳에 저장되지 않으면 자동으로 메모리에서 제거됩니다.
 
@@ -506,14 +506,17 @@ list.next = list.next.next;
 
 리스트의 가장 큰 단점은 인덱스(번호)로 요소에 쉽게 액세스할 수 없다는 점입니다. 배열에서는 `arr[n]` 처럼 해당요소에 바로 접근할 수 있습니다. 그러나 리스트에서 첫 번째 항목부터 시작하여 N 번째 값을 얻기 위해서는 `next` 를 `N` 번 이동해야 합니다.
 
-...  이렇게 하지않아도 대기열(queue) 또는 [양단 대기열(deque)](https://en.wikipedia.org/wiki/Double-ended_queue) 를 사용해 양 끝의 요소를 매우 빠르게 추가 / 제거할 수 있습니다만
+...But we don't always need such operations. For instance, when we need a queue or even a [deque](https://en.wikipedia.org/wiki/Double-ended_queue) -- the ordered structure that must allow very fast adding/removing elements from both ends, but access to its middle is not needed.
 
-가끔 리스트의 마지막에 `tail`이라는 다른 이름을 사용해서 마지막 요소를 추가하는게 효과적일 수 있습니다. (그리고 끝에서 요소를 추가하거나 제거할때 업데이트 합니다). 여전히 큰 요소들로 구성되었을때 배열과 리스트의 속도차이는 큽니다.
+Lists can be enhanced:
+- We can add property `prev` in addition to `next` to reference the previous element, to move back easily.
+- We can also add a variable named `tail` referencing the last element of the list (and update it when adding/removing elements from the end).
+- ...The data structure may vary according to our needs.
 
-## 요약
+## Summary
 
-용어:
-- *재귀* 는 "자체 호출" 을 의미하는 프로그래밍 용어다. 재귀를 사용하여 특정 작업을 더 멋진 방식으로 해결할 수 있다.
+Terms:
+- *Recursion*  is a programming term that means calling a function from itself. Recursive functions can be used to solve tasks in elegant ways.
 
     함수가 자신을 호출할 때 *재귀 단계* 라고 한다. 재귀의 *base* 은 함수를 더 간단하게 만들어서 함수가 더 호출하지 못 하는 단계의 함수 인수이다.
 

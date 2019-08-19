@@ -1,14 +1,14 @@
-# switch 문
+# switch문
 
-`if`로 조건들을 확인하는 여러 줄의 코드를 `switch` 문으로 바꿀 수 있습니다.
-`switch` 문은 값을 여러 변수와 함께 비교를 위한 더 자세한 방법을 제공합니다.
+복수의 `if` 조건문은 `switch`문으로 바꿀 수 있습니다.
 
+`switch`문을 사용한 비교법은 특정 변수를 다양한 상황에서 비교할 수 있게 해줍니다. 코드 자체가 비교 상황을 잘 설명한다는 장점도 있습니다.
 
 ## 문법
 
-`switch` 문은 하나 이상의 `case` 블록 문과 선택적으로 `default` 문이 있습니다.
+`switch`문은 하나 이상의 `case`문으로 구성됩니다. 대게 `default`문도 있지만, 이는 필수는 아닙니다.
 
-예시 :
+예시:
 
 ```js no-beautify
 switch(x) {
@@ -26,73 +26,71 @@ switch(x) {
 }
 ```
 
-- `x`의 값이 첫 번째 `case` 문(이것은 `'value1'`)의 값과 정확하게 일치하는지 확인하고, 그다음 두 번째 `case` 문의 값(`'value2'`)이 일치하는지 확인합니다.
-- 일치하는 값을 찾으면 `switch` 문은 해당 `case` 문의 `break` 문으로 접근할 때까지 또는 `switch` 문이 끝날 때까지 코드를 실행하기 시작합니다.
-- 값과 일치하는 `case` 문이 없다면, `default` 문이 존재할 경우 `default` 문을 실행합니다.
+- 변수 `x`의 값과 첫 번째 `case`문의 값 `'value1'`를 일치 비교한 후, 두 번째 `case`문의 값 `'value2'`와 비교합니다. 이런 과정은 계속 이어집니다.
+- `case`문에서 변수 `x`의 값과 일치하는 값을 찾으면 해당 `case` 문의 아래의 코드가 실행됩니다. 이때, `break`문을 만나거나 `switch` 문이 끝나면 코드의 실행은 멈춥니다.
+- 값과 일치하는 `case`문이 없다면, `default`문 아래의 코드가 실행됩니다(`default` 문이 있는 경우).
 
 ## 예시
 
-`switch` 문의 예시 :
-
-강조된 코드가 실행됩니다.
+실제 실행 가능한 `switch`문 예시를 살펴봅시다. 아래 예시에선 강조된 코드가 실행됩니다.
 
 ```js run
 let a = 2 + 2;
 
 switch (a) {
   case 3:
-    alert( 'Too small' );
+    alert( '비교하려는 값보다 작습니다.' );
     break;
 *!*
   case 4:
-    alert( 'Exactly!' );
+    alert( '비교하려는 값과 일치합니다.' );
     break;
 */!*
   case 5:
-    alert( 'Too large' );
+    alert( '비교하려는 값보다 큽니다.' );
     break;
   default:
-    alert( "I don't know such values" );
+    alert( "어떤 값인지 파악이 되지 않습니다." );
 }
 ```
 
-여기서 `switch` 문은 a와 첫 번째 `case 3` 문과 비교를 하기 시작합니다. a는 일치하지 않습니다. 그 다음 `case 4` 문 비교를 시작합니다. `case 4` 문은 a와 일치하게 됩니다. 그래서 `break` 문을 만날 때까지 `case 4` 문을 실행하기 시작합니다.
+`switch`문은 a의 값인 4와 첫 번째 `case`문의 값인 3을 비교합니다. 두 값은 같지 않기 때문에 다음 `case`문으로 넘어갑니다.
 
-**만약 `break` 문이 없다면, 그 어떠한 확인도 하지 않고 `case` 문을 계속 실행합니다.**
+a와 그다음 `case`문의 값인 4는 일치합니다. 따라서 `break`문을 만날 때까지 `case 4` 아래의 코드가 실행됩니다. 
 
-`break` 문이 없이 실행되는 예시 :
+**`case`문 안에 `break`문이 없으면 조건에 부합하는지 여부를 따지지 않고 이어지는 `case`문을 실행합니다.**
+
+`break`문이 없는 경우 어떤 일이 일어나는지 예시를 통해 살펴봅시다.
 
 ```js run
 let a = 2 + 2;
 
 switch (a) {
   case 3:
-    alert( 'Too small' );
+    alert( '비교하려는 값보다 작습니다.' );
 *!*
   case 4:
-    alert( 'Exactly!' );
+    alert( '비교하려는 값과 일치합니다.' );
   case 5:
-    alert( 'Too big' );
+    alert( '비교하려는 값보다 큽니다.' );
   default:
-    alert( "I don't know such values" );
+    alert( "어떤 값인지 파악이 되지 않습니다." );
 */!*
 }
 ```
 
-위의 코드의 예시처럼 3번의 `alert`코드 가 실행되는 것을 볼 수 있습니다.
+위 예시를 실행하면 아래 3개의 `alert`문이 실행됩니다.
 
 ```js
-alert( 'Exactly!' );
-alert( 'Too big' );
-alert( "I don't know such values" );
+alert( '비교하려는 값과 일치합니다.' );
+alert( '비교하려는 값보다 큽니다.' );
+alert( "어떤 값인지 파악이 되지 않습니다." );
 ```
 
-### 어느 표현식이든 `switch/case` 문의 인수로 가능합니다.
+````smart header="`switch/case`문의 인수엔 어떤 표현식이든 올 수 있습니다."
+`switch`문과 `case`문은 모든 형태의 표현식을 인수로 받습니다.
 
-`switch` 문과 `case` 문은 표현식의 타입으로 가능합니다.
-(*arbitrary expression* : some expression of your choice, types of expression)
-
-예시 :
+예시:
 
 ```js run
 let a = "1";
@@ -101,74 +99,74 @@ let b = 0;
 switch (+a) {
 *!*
   case b + 1:
-    alert("this runs, because +a is 1, exactly equals b+1");
+    alert("표현식 +a는 1, 표현식 b+1는 1이므로 이 코드가 실행됩니다.");
     break;
 */!*
 
   default:
-    alert("this doesn't run");
+    alert("이 코드는 실행되지 않습니다.");
 }
 ```
+표현식 +a를 평가하면 1이 됩니다. 이 값은 첫 번째 `case`문의 표현식 `b + 1`을 평가한 값(1)과 일치하죠. 따라서 첫 번째 `case`문 아래의 코드가 실행됩니다.
+````
 
-여기에서 `+a`는 1이고, `+a`는 `case b + 1` 문과 비교합니다. 그리고 해당 코드 블록을 실행합니다.
+## 여러 개의 "case"문 묶기
 
-## "case" 문의 그룹화
+코드가 같은 `case`문은 한데 묶을 수 있습니다.
 
-`case` 문의 몇몇 코드들은 그룹화 된 같은 코드들을 공유합니다.
-
-예를 들어, `case 3` 문과 `case 5` 문이 같은 코드로 실행되기 원하면 :
+`case 3`과 `case 5`에서 실행하려는 코드가 같은 경우에 대한 예시를 살펴봅시다.
 
 ```js run no-beautify
 let a = 2 + 2;
 
 switch (a) {
   case 4:
-    alert('Right!');
+    alert('계산이 맞습니다!');
     break;
 
 *!*
-  case 3:                    // (*) grouped two cases
+  case 3: // (*) 두 case문을 묶음
   case 5:
-    alert('Wrong!');
-    alert("Why don't you take a math class?");
+    alert('계산이 틀립니다!');
+    alert("수학 수업을 다시 들어보는걸 권유 드립니다.");
     break;
 */!*
 
   default:
-    alert('The result is strange. Really.');
+    alert('계산 결과가 이상하네요.');
 }
 ```
 
-`case 3` 문과 `case 5` 문은 같은 메시지를 출력합니다.
-"group" 된 `case` 문은 `break` 문이 없기 때문에 `switch/case` 문에서 side-effect가 일어납니다. `break` 문이 없기 때문에 `case 3` 문을 실행하기 시작하여 `case 5` 문까지 실행합니다.
+`case 3`과 `case 5`는 동일한 메시지를 보여줍니다.
 
-## 타입 문제
+`switch/case`문에서 `break`문이 없는 경우엔 조건에 상관없이 다음 `case`문이 실행되는 부작용이 발생합니다. 위 예시에서 `case 3`이 참인 경우엔 `(*)`로 표시한 줄 아래의 코드가 실행되는데, 그 아래 줄엔 `case 5`가 있고 `break`문도 없기 때문에 12번째 줄의 `break`문을 만날 때까지 코드는 계속 실행됩니다.
 
-항상 정확히 일치하는지 체크해야 한다는 것을 강조하고 있습니다.
-값은 항상 타입이 같아야 합니다.
+## 자료형의 중요성
 
-예시 :
+switch문은 일치 비교로 조건을 확인합니다. 비교하려는 값과 `case`문의 값의 형과 값이 같아야 해당 `case`문이 실행됩니다.
+
+예시를 통해 switch문에서 자료형이 얼마나 중요한지 살펴보도록 합시다.
 
 ```js run
-let arg = prompt("Enter a value?");
+let arg = prompt("값을 입력해주세요.");
 switch (arg) {
   case '0':
   case '1':
-    alert( 'One or zero' );
+    alert( '0이나 1을 입력하셨습니다.' );
     break;
 
   case '2':
-    alert( 'Two' );
+    alert( '2를 입력하셨습니다.' );
     break;
 
   case 3:
-    alert( 'Never executes!' );
+    alert( '이 코드는 절대 실행되지 않습니다!" );
     break;
   default:
-    alert( 'An unknown value' );
+    alert( '알 수 없는 값을 입력하셨습니다.' );
 }
 ```
 
-1. `case 0` 문, `case 1` 문은 `alert`코드가 실행이 됩니다.
-2. 두번째 `case 2` 문도 `alert`코드가 실행이 됩니다.
-3. 그러나 3은 , `prompt`의 결과값은 문자열 "3"이므로 숫자 타입 3과 정확히 일치 하지 않습니다. 그래서  `case 3` 문은 실행되지 않고 `default` 문이 실행됩니다.
+1. `0`이나 `1`을 입력한 경우엔 첫 번째 `alert`문이 실행됩니다.
+2. `2`를 입력한 경우엔 두 번째 `alert`문이 실행됩니다.
+3. `3`을 입력하였더라도 세 번째 `alert`문은 실행되지 않습니다. 앞서 배운 바와 같이 `prompt` 함수는 사용자가 입력 필드에 기재한 값을 문자열로 변환해 반환하기 때문에 숫자 `3`을 입력하더라도 `prompt` 함수는 문자열 `'3'`을 반환합니다. 그런데 세 번째 `case`문에선 사용자가 입력한 값과 숫자형 3을 비교하므로, 형 자체가 다르기 때문에 `case 3` 아래의 코드는 절대 실행되지 않습니다. 대신 `default`문이 실행됩니다.

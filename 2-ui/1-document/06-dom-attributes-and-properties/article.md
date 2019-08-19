@@ -260,7 +260,7 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   for(let div of document.querySelectorAll('[show-info]')) {
     // 해당하는 정보를 필드 값에 입력해 줌
     let field = div.getAttribute('show-info');
-    div.innerHTML = user[field]; // Pete, then age
+    div.innerHTML = user[field]; // first Pete into "name", then 25 into "age"
   }
 </script>
 ```
@@ -297,7 +297,6 @@ HTML을 작성할 때 우리는 대부분의 경우 표준 속성을 사용합�
   A canceled order.
 </div>
 ```
-`.order-state-new`, `.order-state-pending`, `order-state-canceled`와 같은 클래스를 만들어도 되는데 왜 위의 방식을 쓰는 걸까요?
 
 이는 속성이 다루기 쉽다는 장점 때문입니다. 상태(state)를 이렇게 쉽게 바꿀 수 있습니다:
 

@@ -1,6 +1,6 @@
-# 브라우저 이벤트(browser event) 소개
+# 브라우저 이벤트 소개
 
-*이벤트*는 무언가 일어났다는 신호입니다. 모든 DOM 노드는 이런 신호를 만들어 냅니다(이벤트는 DOM에만 한정되진 않습니다).
+*이벤트(event)* 는 무언가 일어났다는 신호입니다. 모든 DOM 노드는 이런 신호를 만들어 냅니다(이벤트는 DOM에만 한정되진 않습니다).
 
 아래는 유용하게 쓰이는 DOM 이벤트 리스트입니다. 잠시 살펴보도록 합시다:
 
@@ -162,15 +162,15 @@ button.onclick = sayThanks();
 
 `sayThanks()`와 같이 괄호를 덧붙이게 되면, 함수가 호출됩니다. 따라서 위 예제의 마지막 줄에선 함수호출의 *결괏(result)값*이 프로퍼티에 할당합니다. `onclick`엔 (함수가 아무것도 반환하지 않기 때문에)`undefined`이 할당되고, 이벤트가 원하는 대로 동작하지 않습니다. 
 
-하지만 마크업(markup)에선 괄호가 필요합니다:
+...On the other hand, in the markup we do need the parentheses:
 
 ```html
 <input type="button" id="button" onclick="sayThanks()">
 ```
 
-이 차이는 브라우저가 속성을 읽을 때 속성값을 사용해 핸들러 함수를 만들기 때문에 발생합니다.
+The difference is easy to explain. When the browser reads the attribute, it creates a handler function with *body from its content*: `sayThanks()`.
 
-따라서 위 HTML는 아래와 동일하게 작동합니다:
+So the markup generates this property:
 ```js
 button.onclick = function() {
 *!*
@@ -351,7 +351,7 @@ DOM-프로퍼티로 할당할 수 없는 이벤트가 존재합니다. 이런 �
 : 이벤트 타입, 위 예시에선 `"click"`.
 
 `event.currentTarget`
-: Element that handled the event. That's exactly the same as `this`, unless the handler is an arrow function, or its `this` is bound to something else, then `event.currentTarget` becomes useful.
+: Element that handled the event. That's exactly the same as `this`, unless the handler is an arrow function, or its `this` is bound to something else, then we can get the element from  `event.currentTarget`.
 
 `event.clientX / event.clientY`
 : 마우스 이벤트에서, 커서의 상대 좌표(역주: 모니터 기준의 좌표가 아닌, 브라우저 화면 기준 좌표)
@@ -371,7 +371,7 @@ DOM-프로퍼티로 할당할 수 없는 이벤트가 존재합니다. 이런 �
 
 ## 객체 핸들러: handleEvent
 
-`addEventListener`를 사용하면 객체를 이벤트 핸들러에 할당할 수 있습니다. 이벤트가 발생하면, 객체의 `handleEvent` 메서드가 이벤트와 함께 호출됩니다.
+We can assign not just a function, but an object as an event handler using `addEventListener`. When an event occurs, its `handleEvent` method is called.
 
 예:
 
@@ -388,7 +388,7 @@ DOM-프로퍼티로 할당할 수 없는 이벤트가 존재합니다. 이런 �
 </script>
 ```
 
-정리하자면, `addEventListener`가 객체를 핸들러로 받으면, 이벤트 발생 시 `object.handleEvent(event)`를 호출합니다.
+As we can see, when `addEventListener` receives an object as the handler, it calls `object.handleEvent(event)` in case of an event.
 
 클래스를 사용할 수도 있습니다:
 

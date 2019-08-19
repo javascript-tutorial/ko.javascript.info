@@ -23,6 +23,7 @@ function cachingDecorator(func) {
   let cache = new Map();
 
   return function(x) {
+
     if (cache.has(x)) { // 만약에 결과가 map에 담겨져 온다면
       return cache.get(x); // 그것을 반환합니다
     }
@@ -30,6 +31,7 @@ function cachingDecorator(func) {
     let result = func(x); // 아닐경우 함수를 호출합니다
 
     cache.set(x, result); // 그리고 결과를 캐쉬(기억) 합니다
+
     return result;
   };
 }
@@ -53,7 +55,7 @@ alert( "Again: " + slow(2) ); // 이전 라인과 같습니다
 
 `cachingDecorator(func)`의 결괏값은 "래퍼" 입니다: `function(x)` 이라는 함수로 "둘러싼" `func(x)`의 호출을 caching 로직으로 담아냅니다:
 
-![](decorator-makecaching-wrapper.png)
+![](decorator-makecaching-wrapper.svg)
 
 위의 그림처럼, 래퍼는 `func(x)`의 결괏값을 "있는 그대로" 반환합니다. 코드의 바깥에서는, 둘러싸여진 `slow` 함수가 아직 똑같은 작업을 합니다. 단지 그 행동에 캐싱하는 것이 더해졌을 뿐이죠.
 
@@ -241,7 +243,6 @@ worker.slow = cachingDecorator(worker.slow);
 2. 중첩 맵들을 사용한다: `cache.set(min)` 는 `(max, result)`라는 짝을 저장하는 `Map`이 될 것입니다. 그렇게 하면 `result`를 `cache.get(min).get(max)` 식으로 얻을 수 있을 것입니다.
 3. 두 가지 값들을 하나로 합친다. `"min,max"` 문자열을 그냥 `Map` 값으로 사용할 것입니다. 좀 더 유동적으로 하기 위해서 *hashing function*를 데코레이터에 사용한다면 어떻게 많은 값을 하나로 만들 수 있는지 알 수 있습니다.
 
-
 대다수의 애플리케이션은 3번째 방법이 적절하기 때문에 여기에서도 첫 번째 문제를 해결할 방법으로 선택하도록 하겠습니다.
 
 두 번째 문제는 많은 인수를 어떻게 `func`으로 전달할까 하는 것입니다. 아직은 `function(x)` 래퍼는 하나의 인수를 가정하고 그것을 `func.call(this, x)`로 전달합니다.
@@ -339,7 +340,7 @@ function cachingDecorator(func, hash) {
     }
 
 *!*
-    let result = func.apply(this, arguments); // (**)
+    let result = func.call(this, ...arguments); // (**)
 */!*
 
     cache.set(key, result);
@@ -364,6 +365,45 @@ alert( "Again " + worker.slow(3, 5) ); // 똑같음(캐쉬에 저장됨)
 - `(*)`있는 줄에서 `hash`를 호출해서 `arguments`러부터 독립된 키를 만들어냅니다. 여기에 간단한 "joining" 함수를 만들어서 `(3, 5)`를 `"3, 5"`키값으로 반환하게 합니다. 더 복잡한 경우에는 다른 해시 함수가 필요하겠지만요.
 - 그다음엔 `(**)`이 `func.apply`를 사용해서 래퍼가 가진 컨텍스트와 모든 인수를 (몇 개든 상관없이) 원래의 함수로 전달합니다.
 
+Instead of `func.call(this, ...arguments)` we could use `func.apply(this, arguments)`.
+
+The syntax of built-in method [func.apply](mdn:js/Function/apply) is:
+
+```js
+func.apply(context, args)
+```
+
+It runs the `func` setting `this=context` and using an array-like object `args` as the list of arguments.
+
+The only syntax difference between `call` and `apply` is that `call` expects a list of arguments, while `apply` takes an array-like object with them.
+
+So these two calls are almost equivalent:
+
+```js
+func.call(context, ...args); // pass an array as list with spread operator
+func.apply(context, args);   // is same as using apply
+```
+
+There's only a minor difference:
+
+- The spread operator `...` allows to pass *iterable* `args` as the list to `call`.
+- The `apply` accepts only *array-like* `args`.
+
+So, these calls complement each other. Where we expect an iterable, `call` works, where we expect an array-like, `apply` works.
+
+And for objects that are both iterable and array-like, like a real array, we technically could use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
+
+Passing all arguments along with the context to another function is called *call forwarding*.
+
+That's the simplest form of it:
+
+```js
+let wrapper = function() {
+  return func.apply(this, arguments);
+};
+```
+
+When an external code calls such `wrapper`, it is indistinguishable from the call of the original function `func`.
 
 ## 메서드 빌리기 [#method-borrowing]
 
@@ -449,10 +489,9 @@ hash(1, 2);
 ```js
 let wrapper = function() {
   return original.apply(this, arguments);
-}
+};
 ```
 
 *메서드 빌리기*의 방법 또한 알아보았습니다. 해당 객체의 메서드를 다른 객체의 컨텍스트 안에서 `호출` 사용되었습니다. 배열 메서드들을 가지고 와서 `인수`들로 전달하는 것은 자주 쓰이는 방법입니다. 다른 방법으로는 정규 배열인 나머지 매개변수들 객체를 사용하는 것입니다.
-
 
 데코레이터들을 실제도 더 많이 있습니다. 이번 챕터에서 문제를 어떤 방식으로 해결했는지 다시 한번 확인해 보세요.
