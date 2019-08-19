@@ -154,7 +154,7 @@ let user = {
 };
 
 let key = "name";
-user.key // undefined
+alert( user.key ) // undefined
 ```
 
 ### 계산된 프로퍼티(Computed properties)
