@@ -54,7 +54,7 @@ Sources 패널은 크게 세 개의 영역으로 구성됩니다.
 
 *중단점(breakpoint)* 은 말 그대로 자바스크립트의 실행이 중단되는 코드 내 지점을 의미합니다.
 
-0중단점을 이용하면 실행이 중지된 시점에 변수가 어떤 값을 담고 있는지 등의 정보를 얻을 수 있습니다. 또한 콘솔 창에 명령어를 입력해 실행이 중지된 시점을 기준으로 해당 명령어를 실행할 수도 있습니다. 이런 기능을 이용해 디버깅하면 됩니다.  
+중단점을 이용하면 실행이 중지된 시점에 변수가 어떤 값을 담고 있는지 등의 정보를 얻을 수 있습니다. 또한 콘솔 창에 명령어를 입력해 실행이 중지된 시점을 기준으로 해당 명령어를 실행할 수도 있습니다. 이런 기능을 이용해 디버깅하면 됩니다.  
 
 Sources 패널 우측의 디버깅 영역을 보면 중단점 목록을 확인할 수 있습니다. 파일 여러 개에 다수의 중단점을 설정해 놓은 경우, 디버깅 영역을 이용하면 아래와 같은 작업을 할 수도 있습니다.
 - 항목을 클릭해 해당 중단점을 설정한 소스 코드 줄로 바로 이동할 수 있습니다,
@@ -89,7 +89,7 @@ debugger 명령어를 사용하면 중단점을 설정하기 위해 브라우저
 
 ## 멈추면 보이는 것들
 
-예시 페이지를 불러올 때 함수 `hello()`가 호출되므로, 새로 로침 단축키 `key:F5`(Windows, Linux 사용자)나 `key:Cmd+R`키(MacOS 사용자)를 눌러 중단점을 작동시켜봅시다. 중단점이 제대로 설정된 상태에서 말이죠.
+예시 페이지를 불러올 때 함수 `hello()`가 호출되므로, 새로 고침 단축키 `key:F5`(Windows, Linux 사용자)나 `key:Cmd+R`키(MacOS 사용자)를 눌러 중단점을 작동시켜봅시다. 중단점이 제대로 설정된 상태에서 말이죠.
 
 아래 그림과 같이 네 번째 줄에서 실행이 중단되는 걸 확인할 수 있습니다.
 
@@ -123,16 +123,16 @@ debugger 명령어를 사용하면 중단점을 설정하기 위해 브라우저
 <span class="devtools" style="background-position:-7px -76px"></span> -- 다시 시작(단축키 `key:F8`)
 : 다음 중단점까지 실행을 재개합니다. 추가 중단점이 없는 경우 정상 실행이 재개되고, 디버거는 동작하지 않습니다.
 
-버튼을 클릭해봅시다.
-
-![](chrome-sources-debugger-trace-1.svg)
-
-실행이 다시 시작됩니다. 그러다가 `say()` 안에 설정한 중단점 때문에 실행이 중단됩니다. 이 시점에서 우측의 "Call stack"을 살펴봅시다. 스택 최상단에 콜(`say`)이 하나 더 추가된 것을 확인할 수 있습니다. 현재 실행은 `say()`에 멈춰있는 상황입니다.
+    버튼을 클릭해봅시다.
+    
+    ![](chrome-sources-debugger-trace-1.svg)
+    
+    실행이 다시 시작됩니다. 그러다가 `say()` 안에 설정한 중단점 때문에 실행이 중단됩니다. 이 시점에서 우측의 "Call stack"을 살펴봅시다. 스택 최상단에 콜(`say`)이 하나 더 추가된 것을 확인할 수 있습니다. 현재 실행은 `say()`에 멈춰있는 상황입니다.
 
 <span class="devtools" style="background-position:-137px -76px"></span> -- Step Over(단축키 `key:F10`)
 : 다음 명령어를 실행합니다. 단, 실행하려는 명령어에 함수 호출이 포함된 경우 해당 함수 내로 진입하지 않고 *지나갑니다(step over)*.
 
-<span class="devtools" style="background-position:-72px -76px;background-image:url(/article/debugging-chrome/toolbarButtonGlyphs.svg);"></span> -- Step Into(단축키 `key:F11`)
+<span class="devtools" style="background-position:-72px -76px"></span> -- Step Into(단축키 `key:F11`)
 : Step Over와 동일한 기능(다음 명령어 실행)을 합니다. 다만 실행하려는 명령어에 함수 호출이 포함되어 있으면 해당 함수 *안으로 진입합니다(step into)*. Step Into는 어떤 함수로 진입하거나 빠져나오든 상관없이 하나의 명령문만 실행되도록 보장하므로 스크립트 전체를 '한 번에 한 줄씩' 실행하고자 할 때 유용합니다.
 
 <span class="devtools" style="background-position:-104px -76px"></span> -- Step Out(단축키 `key:Shift+F11`)
