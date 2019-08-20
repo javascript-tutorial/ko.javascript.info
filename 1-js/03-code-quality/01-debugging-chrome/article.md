@@ -123,16 +123,16 @@ debugger 명령어를 사용하면 중단점을 설정하기 위해 브라우저
 <span class="devtools" style="background-position:-7px -76px"></span> -- 다시 시작(단축키 `key:F8`)
 : 다음 중단점까지 실행을 재개합니다. 추가 중단점이 없는 경우 정상 실행이 재개되고, 디버거는 동작하지 않습니다.
 
-    버튼을 클릭해봅시다.
+버튼을 클릭해봅시다.
 
-    ![](chrome-sources-debugger-trace-1.svg)
+![](chrome-sources-debugger-trace-1.svg)
 
-    실행이 다시 시작됩니다. 그러다가 `say()` 안에 설정한 중단점 때문에 실행이 중단됩니다. 이 시점에서 우측의 "Call stack"을 살펴봅시다. 스택 최상단에 콜(`say`)이 하나 더 추가된 것을 확인할 수 있습니다. 현재 실행은 `say()`에 멈춰있는 상황입니다.
+실행이 다시 시작됩니다. 그러다가 `say()` 안에 설정한 중단점 때문에 실행이 중단됩니다. 이 시점에서 우측의 "Call stack"을 살펴봅시다. 스택 최상단에 콜(`say`)이 하나 더 추가된 것을 확인할 수 있습니다. 현재 실행은 `say()`에 멈춰있는 상황입니다.
 
 <span class="devtools" style="background-position:-137px -76px"></span> -- Step Over(단축키 `key:F10`)
 : 다음 명령어를 실행합니다. 단, 실행하려는 명령어에 함수 호출이 포함된 경우 해당 함수 내로 진입하지 않고 *지나갑니다(step over)*.
 
-<span class="devtools" style="background-position:-72px -76px"></span> -- Step Into(단축키 `key:F11`)
+<span class="devtools" style="background-position:-72px -76px;background-image:url(/article/debugging-chrome/toolbarButtonGlyphs.svg);"></span> -- Step Into(단축키 `key:F11`)
 : Step Over와 동일한 기능(다음 명령어 실행)을 합니다. 다만 실행하려는 명령어에 함수 호출이 포함되어 있으면 해당 함수 *안으로 진입합니다(step into)*. Step Into는 어떤 함수로 진입하거나 빠져나오든 상관없이 하나의 명령문만 실행되도록 보장하므로 스크립트 전체를 '한 번에 한 줄씩' 실행하고자 할 때 유용합니다.
 
 <span class="devtools" style="background-position:-104px -76px"></span> -- Step Out(단축키 `key:Shift+F11`)
