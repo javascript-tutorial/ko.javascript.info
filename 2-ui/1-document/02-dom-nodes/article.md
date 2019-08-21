@@ -200,7 +200,7 @@ HTML 문서 제일 처음에 등장하는 `<!DOCTYPE...>` 지시자 역시 DOM �
 노드는 총 [열두 가지](https://dom.spec.whatwg.org/#node) 종류로 구성되고, 실무에선 주로 다음 4가지 노드를 다룹니다.
 
 1. DOM의 "진입점(entry point)"이 되는 `문서(document)` 노드.
-2. HTML 태그에서 만들어지며, DOM 트리를 구성하는 블럭인 요소 노드(element node).
+2. HTML 태그에서 만들어지며, DOM 트리를 구성하는 블록인 요소 노드(element node).
 3. 텍스트를 포함하는 텍스트 노드(text node).
 4. 화면에 보이지는 않지만, 정보를 기록하고 자바스크립트를 사용해 이 정보를 DOM으로부터 읽을 수 있는 주석(comment) 노드.
 
