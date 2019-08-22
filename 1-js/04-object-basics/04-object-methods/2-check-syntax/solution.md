@@ -21,7 +21,9 @@ let user = {
 let user = { go:... }(user.go)()
 ```
 
-Then we can also see that such a joint expression is syntactically a call of the object `{ go: ... }` as a function with the argument `(user.go)`. And that also happens on the same line with `let user`, so the `user` object has not yet even been defined, hence the error.
+또한 { go: ... }라는 객체 내 매개변수 (user. go)를 가진 함수를 호출하는 코드와 같습니다.
+let user와 같은 코드에서도 발생할 수 있는데,
+user 객체가 정의되어있지 않기 때문에, error가 발생합니다.
 
 `user = {...}`뒤에 세미콜론을 붙여서 에러를 해결해봅시다.
 
