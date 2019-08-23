@@ -1,13 +1,13 @@
 
-# Promises chaining
+# 프라미스 체이닝
 
-Let's return to the problem mentioned in the chapter <info:callbacks>: we have a sequence of asynchronous tasks to be done one after another. For instance, loading scripts. How can we code it well?
+<info:callbacks>에서 언급한 문제를 다시 집어보도록 합시다. 현재 순차적으로 처리해야 하는 비동기 작업이 여러 개 있다고 가정해 봅시다. 스크립트를 불러오는 예시같이 말이죠. 이런 상황을 어떻게 코드로 잘 풀어낼 수 있을까요?
 
-Promises provide a couple of recipes to do that.
+프라미스를 사용하면 이런 상황에 대한 여러 가지 해결책을 도출해낼 수 있습니다.
 
-In this chapter we cover promise chaining.
+이번 챕터에선 프라미스 체이닝(promise chaining)을 이용한 비동기 처리에 대해 다루도록 하겠습니다.
 
-It looks like this:
+프라미스 체이닝은 아래와 같이 만들 수 있습니다.
 
 ```js run
 new Promise(function(resolve, reject) {
@@ -32,43 +32,25 @@ new Promise(function(resolve, reject) {
 });
 ```
 
-The idea is that the result is passed through the chain of `.then` handlers.
+프라미스 체이닝은 `.then` 핸들러의 체인(사슬)을 통해 결과를 전달할 수 있다는 점에서 착안한 아이디어입니다.
 
-Here the flow is:
-1. The initial promise resolves in 1 second `(*)`,
-2. Then the `.then` handler is called `(**)`.
-3. The value that it returns is passed to the next `.then` handler `(***)`
-4. ...and so on.
+위 코드는 아래와 같은 흐름을 갖습니다.
+1. 1초 후 최초 프라미스가 이행되고(`(*)`),
+2. `.then` 핸들러가 호출됩니다(`(**)`).
+3. 2에서 반환한 값은 다음 `.then` 핸들러에 전달됩니다(`(***)`).
+4. 이런 과정이 계속 이어집니다.
 
-As the result is passed along the chain of handlers, we can see a sequence of `alert` calls: `1` -> `2` -> `4`.
+결과가 핸들러의 사슬을 통해 전달되므로, `alert` 창에 `1` -> `2` -> `4`가 순서대로 출력되는것을 확인할 수 있습니다.
 
-![](promise-then-chain.png)
+![](promise-then-chain.svg)
 
-The whole thing works, because a call to `promise.then` returns a promise, so that we can call the next `.then` on it.
+이렇게 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 프라미스가 반환되기 때문에 이 프라미스에 다시 `.then`을 호출할 수 있는 거죠.
 
-When a handler returns a value, it becomes the result of that promise, so the next `.then` is called with it.
+핸들러가 값을 반환할 땐, 이 값이 프라미스의 result가 됩니다. 따라서 체인 상의 다음 `.then`은 이 값을 이용해 호출됩니다.  
 
-To make these words more clear, here's the start of the chain:
+**초보자가 많이 하는 실수: 프라미스 하나에 `.then`을 원하는 만큼 추가할 순 있지만, 이는 체이닝이 아닙니다.**
 
-```js run
-new Promise(function(resolve, reject) {
-
-  setTimeout(() => resolve(1), 1000);
-
-}).then(function(result) {
-
-  alert(result);
-  return result * 2; // <-- (1)
-
-}) // <-- (2)
-// .then…
-```
-
-The value returned by `.then` is a promise, that's why we are able to add another `.then` at `(2)`. When the value is returned in `(1)`, that promise becomes resolved, so the next handler runs with the value.
-
-**A classic newbie error: technically we can also add many `.then` to a single promise. This is not chaining.**
-
-For example:
+예시:
 ```js run
 let promise = new Promise(function(resolve, reject) {
   setTimeout(() => resolve(1), 1000);
@@ -90,23 +72,23 @@ promise.then(function(result) {
 });
 ```
 
-What we did here is just several handlers to one promise. They don't pass the result to each other, instead they process it independently.
+위 코드에서 한 것은, 프라미스 하나에 여러 개의 핸들러를 등록한 것뿐입니다. 이 핸들러들은 결과를 순차적으로 전달하지 않고, 독립적으로 결과를 처리합니다.
 
-Here's the picture (compare it with the chaining above):
+그림으로 표현하면 다음과 습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
-![](promise-then-many.png)
+![](promise-then-many.svg)
 
-All `.then` on the same promise get the same result -- the result of that promise. So in the code above all `alert` show the same: `1`.
+한 프라미스에 등록된 모든 `.then`은 해당 프라미스의 result라는 동일한 결과를 받습니다. 따라서 위 코드에서 모든 `alert` 창은 `1`을 출력합니다.
 
-In practice we rarely need multiple handlers for one promise. Chaining is used much more often.
+이런 식으로 한 프라미스에 여러 개의 핸들러를 등록해서 사용하는 경우는 거의 없습니다. 프라미스 체이닝이 더 많이 쓰이죠.
 
-## Returning promises
+## 프라미스 반환하기
 
-Normally, a value returned by a `.then` handler is immediately passed to the next handler. But there's an exception.
+A handler, used in `.then(handler)` may create and return a promise.
 
-If the returned value is a promise, then the further execution is suspended until it settles. After that, the result of that promise is given to the next `.then` handler.
+In that case further handlers wait till it settles, and then get its result.
 
-For instance:
+예시:
 
 ```js run
 new Promise(function(resolve, reject) {
@@ -138,15 +120,15 @@ new Promise(function(resolve, reject) {
 });
 ```
 
-Here the first `.then` shows `1` returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result*2`) is passed on to handler of the second `.then` in the line `(**)`. It shows `2` and does the same thing.
+Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result * 2`) is passed on to handler of the second `.then`. That handler is in the line `(**)`, it shows `2` and does the same thing.
 
-So the output is again 1 -> 2 -> 4, but now with 1 second delay between `alert` calls.
+So the output is the same as in the previous example: 1 -> 2 -> 4, but now with 1 second delay between `alert` calls.
 
-Returning promises allows us to build chains of asynchronous actions.
+이렇게 프라미스를 반환하는 것도 비동기 작업의 체이닝을 가능하게 해줍니다.
 
-## Example: loadScript
+## 예제: loadScript
 
-Let's use this feature with `loadScript` to load scripts one by one, in sequence:
+이제 지금까지 배운 내용을 응용해 `loadScript`가 복수의 스크립트를 순차적으로 하나씩 불러오도록 해봅시다.
 
 ```js run
 loadScript("/article/promise-chaining/one.js")
@@ -157,22 +139,22 @@ loadScript("/article/promise-chaining/one.js")
     return loadScript("/article/promise-chaining/three.js");
   })
   .then(function(script) {
-    // use functions declared in scripts
-    // to show that they indeed loaded
+    // 불러온 스크립트 안에 정의된 함수를 호출해
+    // 실제로 스크립트들이 정상적으로 로드되었는지 확인합니다.
     one();
     two();
     three();
   });
 ```
 
-This code can be made bit shorter with arrow functions:
+화살표 함수를 사용하면 코드 길이를 좀 더 줄일 수 있습니다.
 
 ```js run
 loadScript("/article/promise-chaining/one.js")
   .then(script => loadScript("/article/promise-chaining/two.js"))
   .then(script => loadScript("/article/promise-chaining/three.js"))
   .then(script => {
-    // scripts are loaded, we can use functions declared there
+    // 스크립트를 정상적으로 불러왔기 때문에, 스크립트 내의 함수를 호출할 수 있습니다.
     one();
     two();
     three();
@@ -180,17 +162,17 @@ loadScript("/article/promise-chaining/one.js")
 ```
 
 
-Here each `loadScript` call returns a promise, and the next `.then` runs when it resolves. Then it initiates the loading of the next script. So scripts are loaded one after another.
+위 코드에서 각 `loadScript`는 호출될 때마다 프라미스를 반환합니다. 다음 `.then`은 이 프라미스가 이행된 경우 실행되죠. 이어지는 `.then`은 다음 스크립트를 부르는 작업을 시작합니다. 이런 작업을 거쳐 스크립트가 순차적으로 로드됩니다.
 
-We can add more asynchronous actions to the chain. Please note that code is still "flat", it grows down, not to the right. There are no signs of "pyramid of doom".
+체이닝을 이런 식으로 응용하면 더 많은 비동기 작업을 추가할 수 있습니다. 추가 작업이 많아져도 코드가 오른쪽으로 길어지지 않기 때문에 멸망의 피라미드가 만들어 지지 않고 코드의 전체적인 모양이 "편평"해집니다.
 
-Please note that technically we can add `.then` directly to each `loadScript`, like this:
+한편, 아래와 같이 각 `loadScript`에 `.then`을 바로 붙일 수도 있습니다.
 
 ```js run
 loadScript("/article/promise-chaining/one.js").then(script1 => {
   loadScript("/article/promise-chaining/two.js").then(script2 => {
     loadScript("/article/promise-chaining/three.js").then(script3 => {
-      // this function has access to variables script1, script2 and script3
+      // 여기서 script1, script2, script3에 정의된 함수를 사용할 수 있습니다.
       one();
       two();
       three();
@@ -199,21 +181,19 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 });
 ```
 
-This code does the same: loads 3 scripts in sequence. But it "grows to the right". So we have the same problem as with callbacks.
+이렇게 `.then`을 바로 붙여도 동일한 동작(스크립트 3개를 순차적으로 불러오는 작업)을 수행합니다. 하지만 코드가 "오른쪽으로" 길어졌네요. 콜백 기반 비동기 요청에서 발생한 문제와 유사한 문제가 발생했습니다.  
 
-People who start to use promises sometimes don't know about chaining, so they write it this way. Generally, chaining is preferred.
+프라미스를 이제 막 배우기 시작해 체이닝에 대해 잘 모른다면 위처럼 코드를 작성할 확률이 있습니다. 위 방법보다 체이닝을 이용한 방법을 더 선호하므로 프라미스 체이닝을 잘 익혀두도록 합시다.
 
-Sometimes it's ok to write `.then` directly, because the nested function has access to the outer scope. In the example above the most nested callback has access to all variables `script1`, `script2`, `script3`. But that's an exception rather than a rule.
+그런데 가끔은 `.then`을 바로 쓰는 게 괜찮은 경우도 있습니다. 중첩 함수가 외부 스코프에 접근할 수 있기 때문이죠. 위 예제에서 가장 깊은 곳에 있는 중첩 콜백은  `script1`, `script2`, `script3` 안에 있는 모든 변수에 접근할 수 있습니다. 이런 예외 상황이 있다는 정도만 알아두도록 합시다. 
 
 
 ````smart header="Thenables"
-To be precise, `.then` may return an arbitrary "thenable" object, and it will be treated the same way as a promise.
+`.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있는 임의의 메서드로, 프라미스와 같은 방식으로 처리됩니다.
 
-A "thenable" object is any object with a method `.then`.
+"thenable" 객체에 대한 아이디어는 서드파티 라이브러리가 "프라미스와 호환 가능한" 자체 객체를 구현할 수 있다는 점에서 출발했습니다. 이 객체는 추가 메서드를 가질 수 있으면서 `.then`을 구현하고 있기 때문에 네이티브 프라미스와도 호환 가능합니다.
 
-The idea is that 3rd-party libraries may implement "promise-compatible" objects of their own. They can have extended set of methods, but also be compatible with native promises, because they implement `.then`.
-
-Here's an example of a thenable object:
+아래는 thenable 객체에 대한 예시입니다.
 
 ```js run
 class Thenable {
@@ -221,80 +201,82 @@ class Thenable {
     this.num = num;
   }
   then(resolve, reject) {
-    alert(resolve); // function() { native code }
-    // resolve with this.num*2 after the 1 second
+    alert(resolve); // function() { 네이티브 코드 }
+    // 1초 후 this.num*2와 함께 이행됨
     setTimeout(() => resolve(this.num * 2), 1000); // (**)
   }
 }
 
 new Promise(resolve => resolve(1))
   .then(result => {
+*!*
     return new Thenable(result); // (*)
+*/!*
   })
-  .then(alert); // shows 2 after 1000ms
+  .then(alert); // 1000 밀리 초 후 2를 보여줌
 ```
 
-JavaScript checks the object returned by `.then` handler in the line `(*)`: if it has a callable method named `then`, then it calls that method providing native functions `resolve`, `reject` as arguments (similar to executor) and waits until one of them is called. In the example above `resolve(2)` is called after 1 second `(**)`. Then the result is passed further down the chain.
+자바스크립트는 `(*)`로 표시한 줄에서 `.then` 핸들러가 반환한 객체를 확인합니다. 이 객체가 호출 가능한 메서드, `then`을 가지고 있다면 `then`이 호출됩니다. `then`은 `resolve`와 `reject`를 인수로 받는데, `then` 안에 구현된 네이티브 함수는 `resolve`와 `reject` 중 하나가 호출될 때까지 기다립니다. 위 예시에서 `resolve(2)`는 1초 후에 호출됩니다(`(**)`). 호출 후 결과는 체인을 따라 아래까지 전달됩니다.
 
-This feature allows to integrate custom objects with promise chains without having to inherit from `Promise`.
+이렇게 `Promise`를 상속하지 않는 커스텀 thenable 객체를 사용해도 프라미스 체이닝이 가능합니다.
 ````
 
 
-## Bigger example: fetch
+## fetch와 체이닝 함께 응용하기
 
-In frontend programming promises are often used for network requests. So let's see an extended example of that.
+프론트 단에선 네트워크 요청을 할 때 프라미스를 자주 사용합니다. 이에 관련된 예시를 좀 더 살펴봅시다. 
 
-We'll use the [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) method to load the information about the user from the remote server. The method is quite complex, it has many optional parameters, but the basic usage is quite simple:
+원격 서버에서 사용자 정보를 가져오기 위해 [fetch](info:fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 [별도의 챕터](info:fetch)에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
 
 ```js
 let promise = fetch(url);
 ```
 
-This makes a network request to the `url` and returns a promise. The promise resolves with a `response` object when the remote server responds with headers, but *before the full response is downloaded*.
+위 코드를 실행하면 `url`에 네트워크 요청이 가고 프라미스가 반환됩니다. 원격 서버가 헤더와 함께 응답을 보내면, 프라미스는 `response` 객체와 함께 이행됩니다. *response 전체가 완전히 다운로드되기 전*에 말이죠. 
 
-To read the full response, we should call a method `response.text()`: it returns a promise that resolves  when the full text downloaded from the remote server, with that text as a result.
+응답 전체를 읽으려면 `response.text()` 메서드를 호출해야 합니다. `response.text()` 메서드는 원격 서버에서 텍스트 전체를 다운로드하면, 다운로드받은 텍스트를 result 값으로 사용하는 이행된 프라미스를 반환합니다.
 
-The code below makes a request to `user.json` and loads its text from the server:
+아래 코드는 `user.json`을 요청하고, 서버에서 해당 텍스트를 불러오는 예제입니다.
 
 ```js run
 fetch('/article/promise-chaining/user.json')
-  // .then below runs when the remote server responds
+  // 아래 .then은 원격 서버가 응답할 때 실행됩니다.
   .then(function(response) {
-    // response.text() returns a new promise that resolves with the full response text
-    // when we finish downloading it
+    // response.text()는 다운로드 완료 시, 
+    // 응답받은 텍스트 전체를 이용해 새로운 이행 프라미스를 반환합니다. 
     return response.text();
   })
   .then(function(text) {
-    // ...and here's the content of the remote file
+    // 원격에서 받아온 파일의 내용을 출력해줍니다.
     alert(text); // {"name": "iliakan", isAdmin: true}
   });
 ```
 
-There is also a method `response.json()` that reads the remote data and parses it as JSON. In our case that's even more convenient, so let's switch to it.
+`response.json()` 메서드를 쓰면 원격에서 받아온 데이터를 읽고, JSON으로 파싱할 수 있습니다. 우리 예제엔 이 메서드가 더 적합하므로 기존에 작성한 코드를 약간 변경해 보도록 하겠습니다.
 
-We'll also use arrow functions for brevity:
+화살표 함수도 함께 써서 코드를 간결하게 바꿔봅시다.
 
 ```js run
-// same as above, but response.json() parses the remote content as JSON
+// 위 코드와 동일한 기능을 하지만, response.json()은 원격 서버에서 불러온 내용을 JSON으로 변경해줍니다.
 fetch('/article/promise-chaining/user.json')
   .then(response => response.json())
-  .then(user => alert(user.name)); // iliakan
+  .then(user => alert(user.name)); // iliakan, got user name
 ```
 
-Now let's do something with the loaded user.
+자, 이제 사용자 정보를 불러왔으니 이걸 가지고 무언가를 더 해봅시다.
 
-For instance, we can make one more request to github, load the user profile and show the avatar:
+GitHub에 요청을 보내 사용자 프로필을 불러오고 아바타를 출력해봅시다.
 
 ```js run
-// Make a request for user.json
+// user.json을 요청합니다.
 fetch('/article/promise-chaining/user.json')
-  // Load it as json
+  // 응답받은 내용을 json 형태로 불러옵니다.
   .then(response => response.json())
-  // Make a request to github
+  // GitHub에 요청을 보냅니다.
   .then(user => fetch(`https://api.github.com/users/${user.name}`))
-  // Load the response as json
+  // 응답받은 내용을 json 형태로 불러옵니다.
   .then(response => response.json())
-  // Show the avatar image (githubUser.avatar_url) for 3 seconds (maybe animate it)
+  // 아바타 이미지(githubUser.avatar_url)를 3초간 보여줍니다.
   .then(githubUser => {
     let img = document.createElement('img');
     img.src = githubUser.avatar_url;
@@ -305,13 +287,13 @@ fetch('/article/promise-chaining/user.json')
   });
 ```
 
-The code works, see comments about the details, but it should be quite self-descriptive. Although, there's a potential problem in it, a typical error of those who begin to use promises.
+코드는 의도한 대로 잘 동작합니다. 주석을 보면 어떤 일이 일어나는지 상세히 알 수 있죠. 그런데 위 코드엔 잠재적 문제가 하나 내재되어 있습니다. 프로미스를 다루는데 서툰 개발자가 자주 저지르는 문제죠. 
 
-Look at the line `(*)`: how can we do something *after* the avatar has finished showing and gets removed? For instance, we'd like to show a form for editing that user or something else. As of now, there's no way.
+`(*)`로 표시한 줄을 보세요. 만약 아바타가 사라진 *이후에* 비동기 작업을 하나 더 추가해야 한다면 어떻게 해야 할까요? 유저 정보를 수정할 수 있게 해주는 폼을 보여주는 등의 작업을 추가하려는 경우같이 말이죠. 지금으로선 방법이 없습니다.
 
-To make the chain extendable, we need to return a promise that resolves when the avatar finishes showing.
+체인을 언제든 확장 할 수 있도록 하려면 아바타가 사라졌을 때 이행되는 프라미스를 반환해 줘야 합니다.
 
-Like this:
+아래와 같이 말이죠.
 
 ```js run
 fetch('/article/promise-chaining/user.json')
@@ -319,7 +301,7 @@ fetch('/article/promise-chaining/user.json')
   .then(user => fetch(`https://api.github.com/users/${user.name}`))
   .then(response => response.json())
 *!*
-  .then(githubUser => new Promise(function(resolve, reject) {
+  .then(githubUser => new Promise(function(resolve, reject) { // (*)
 */!*
     let img = document.createElement('img');
     img.src = githubUser.avatar_url;
@@ -329,21 +311,23 @@ fetch('/article/promise-chaining/user.json')
     setTimeout(() => {
       img.remove();
 *!*
-      resolve(githubUser);
+      resolve(githubUser); // (**)
 */!*
     }, 3000);
   }))
-  // triggers after 3 seconds
+  // 3초 후 아래 체인이 실행됩니다.
   .then(githubUser => alert(`Finished showing ${githubUser.name}`));
 ```
 
-Now right after `setTimeout` runs `img.remove()`, it calls `resolve(githubUser)`, thus passing the control to the next `.then` in the chain and passing forward the user data.
+That is, `.then` handler in the line `(*)` now returns `new Promise`, that becomes settled only after the call of `resolve(githubUser)` in `setTimeout` `(**)`.
 
-As a rule, an asynchronous action should always return a promise.
+The next `.then` in chain will wait for that.
 
-That makes it possible to plan actions after it. Even if we don't plan to extend the chain now, we may need it later.
+As a good rule, an asynchronous action should always return a promise.
 
-Finally, we can split the code into reusable functions:
+지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
+
+이제 코드를 재사용 가능한 함수 단위로 리팩토링한 후 마무리하도록 하겠습니다.
 
 ```js run
 function loadJson(url) {
@@ -370,7 +354,7 @@ function showAvatar(githubUser) {
   });
 }
 
-// Use them:
+// 함수를 이용하여 다시 동일 작업 수행
 loadJson('/article/promise-chaining/user.json')
   .then(user => loadGithubUser(user.name))
   .then(showAvatar)
@@ -378,10 +362,10 @@ loadJson('/article/promise-chaining/user.json')
   // ...
 ```
 
-## Summary
+## 요약
 
-If a `.then` (or `catch/finally`, doesn't matter) handler returns a promise, the rest of the chain waits until it settles. When it does, its result (or error) is passed further.
+`.then` (혹은 `catch/finally`) 핸들러가 프라미스를 반환하면, 이어지는 체인은 이 프라미스가 처리될 때까지 대기합니다. 처리가 완료되면 결과나 에러가 다음 체인으로 전달됩니다.
 
-Here's a full picture:
+아래는 이 과정을 그림으로 나타낸 것입니다.
 
-![](promise-handler-variants.png)
+![](promise-handler-variants.svg)

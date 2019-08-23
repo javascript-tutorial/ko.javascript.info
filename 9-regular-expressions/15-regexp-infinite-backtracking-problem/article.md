@@ -8,7 +8,7 @@ The typical situation -- a regular expression works fine sometimes, but for cert
 
 In a web-browser it kills the page. Not a good thing for sure.
 
-For server-side Javascript it may become a vulnerability, and it uses regular expressions to process user data. Bad input will make the process hang, causing denial of service. The author personally saw and reported such vulnerabilities even for very well-known and widely used programs.
+For server-side JavaScript it may become a vulnerability, and it uses regular expressions to process user data. Bad input will make the process hang, causing denial of service. The author personally saw and reported such vulnerabilities even for very well-known and widely used programs.
 
 So the problem is definitely worth to deal with.
 
@@ -26,7 +26,7 @@ We want to find all tags, with or without attributes -- like `subject:<a href=".
 
 In particular, we need it to match tags like `<a test="<>" href="#">` -- with `<` and `>` in attributes. That's allowed by [HTML standard](https://html.spec.whatwg.org/multipage/syntax.html#syntax-attributes).
 
-Now we can see that a simple regexp like `pattern:<[^>]+>` doesn't work, because it stops at the first `>`, and we need to ignore `<>` if inside an attribute.
+A simple regexp like `pattern:<[^>]+>` doesn't work, because it stops at the first `>`, and we need to ignore `<>` if inside an attribute:
 
 ```js run
 // the match doesn't reach the end of the tag - wrong!
@@ -41,7 +41,7 @@ To correctly handle such situations we need a more complex regular expression. I
 
 If we substitute these into the pattern above and throw in some optional spaces `pattern:\s`, the full regexp becomes: `pattern:<\w+(\s*\w+="[^"]*"\s*)*>`.
 
-That regexp is not perfect! It doesn't yet support all details of HTML, for instance unquoted values, and there are other ways to improve, but let's not add complexity. It will demonstrate the problem for us.
+That regexp is not perfect! It doesn't support all the details of HTML syntax, such as unquoted values, and there are other ways to improve, but let's not add complexity. It will demonstrate the problem for us.
 
 The regexp seems to work:
 
@@ -112,7 +112,7 @@ First, one may notice that the regexp is a little bit strange. The quantifier `p
 
 Indeed, the regexp is artificial. But the reason why it is slow is the same as those we saw above. So let's understand it, and then the previous example will become obvious.
 
-What happen during the search of `pattern:(\d+)*$` in the line `subject:123456789z`?
+What happens during the search of `pattern:(\d+)*$` in the line `subject:123456789z`?
 
 1. First, the regexp engine tries to find a number `pattern:\d+`. The plus `pattern:+` is greedy by default, so it consumes all digits:
 
@@ -222,6 +222,8 @@ The string has no `>` at the end, so the match is impossible, but the regexp eng
 ...
 ```
 
+As there are many combinations, it takes a lot of time.
+
 ## How to fix?
 
 The backtracking checks many variants that are an obvious fail for a human.
@@ -262,7 +264,9 @@ In other words:
 - The lookahead `pattern:?=` looks for the maximal count `pattern:a+` from the current position.
 - And then they are "consumed into the result" by the backreference `pattern:\1` (`pattern:\1` corresponds to the content of the second parentheses, that is `pattern:a+`).
 
-There will be no backtracking, because lookahead does not backtrack. If it found like 5 times of `pattern:a+` and the further match failed, then it doesn't go back to 4.
+There will be no backtracking, because lookahead does not backtrack. If, for
+example, it found 5 instances of `pattern:a+` and the further match failed,
+it won't go back to the 4th instance.
 
 ```smart
 There's more about the relation between possessive quantifiers and lookahead in articles [Regex: Emulate Atomic Grouping (and Possessive Quantifiers) with LookAhead](http://instanceof.me/post/52245507631/regex-emulate-atomic-grouping-with-lookahead) and [Mimicking Atomic Groups](http://blog.stevenlevithan.com/archives/mimic-atomic-groups).

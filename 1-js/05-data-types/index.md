@@ -1,3 +1,3 @@
-# Data types
+# 자료구조와 자료형
 
-More data structures and more in-depth study of the types.
+자바스크립트에서 제공해주는 다양한 자료구조에 대해 알아봅시다. 여기에 더하여 자료형을 좀 더 깊이 학습해봅시다.

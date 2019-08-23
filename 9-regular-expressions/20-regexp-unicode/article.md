@@ -5,7 +5,7 @@ The unicode flag `/.../u` enables the correct support of surrogate pairs.
 
 Surrogate pairs are explained in the chapter <info:string>.
 
-Let's briefly remind them here. In short, normally characters are encoded with 2 bytes. That gives us 65536 characters maximum. But there are more characters in the world.
+Let's briefly review them here. In short, normally characters are encoded with 2 bytes. That gives us 65536 characters maximum. But there are more characters in the world.
 
 So certain rare characters are encoded with 4 bytes, like `𝒳` (mathematical X) or `😄` (a smile).
 
@@ -72,7 +72,7 @@ alert( '𝒳'.match(/[𝒳𝒴]/u) ); // 𝒳
 
 Let's see one more example.
 
-If we forget the `u` flag and occasionally use surrogate pairs, then we can get an error:
+If we forget the `u` flag and accidentally use surrogate pairs, then we can get an error:
 
 ```js run
 '𝒳'.match(/[𝒳-𝒴]/); // SyntaxError: invalid range in character class
@@ -80,7 +80,7 @@ If we forget the `u` flag and occasionally use surrogate pairs, then we can get 
 
 Normally, regexps understand `[a-z]` as a "range of characters with codes between codes of `a` and `z`.
 
-But without `u` flag, surrogate pairs are assumed to be a "pair of independant characters", so `[𝒳-𝒴]` is like `[<55349><56499>-<55349><56500>]` (replaced each surrogate pair with code points). Now we can clearly see that the range `56499-55349` is unacceptable, as the left range border must be less than the right one.
+But without `u` flag, surrogate pairs are assumed to be a "pair of independent characters", so `[𝒳-𝒴]` is like `[<55349><56499>-<55349><56500>]` (replaced each surrogate pair with code points). Now we can clearly see that the range `56499-55349` is unacceptable, as the left range border must be less than the right one.
 
 Using the `u` flag makes it work right:
 

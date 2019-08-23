@@ -26,37 +26,18 @@ The "Same Origin" policy states that:
 - if we have a reference to another window, e.g. a popup created by `window.open` or a window inside `<iframe>`, and that window comes from the same origin, then we have full access to that window.
 - otherwise, if it comes from another origin, then we can't access the content of that window: variables, document, anything. The only exception is `location`: we can change it (thus redirecting the user). But we cannot *read* location (so we can't see where the user is now, no information leak).
 
-Now let's see some examples. First, we'll look at pages that come from the same origin and do not conflict with the "Same Origin" policy, and afterwards we'll cover cross-window messaging that allows to work around the "Same Origin" policy.
+### In action: iframe
 
+An `<iframe>` tag hosts a separate embedded window, with its own separate `document` and `window` objects.
 
-````warn header="Subdomains may be same-origin"
-There's a small exclusion in the "Same Origin" policy.
+We can access them using properties:
 
-If windows share the same second-level domain, for instance `john.site.com`, `peter.site.com` and `site.com` (so that their common second-level domain is `site.com`), they can be treated as coming from the "same origin".
+- `iframe.contentWindow` to get the window inside the `<iframe>`.
+- `iframe.contentDocument` to get the document inside the `<iframe>`, shorthand for `iframe.contentWindow.document`.
 
-To make it work, all such pages (including the one from `site.com`) should run the code:
+When we access something inside the embedded window, the browser checks if the iframe has the same origin. If that's not so then the access is denied (writing to `location` is an exception, it's still permitted).
 
-```js
-document.domain = 'site.com';
-```
-
-That's all. Now they can interact without limitations. Again, that's only possible for pages with the same second-level domain.
-````
-
-## Accessing an iframe contents
-
-Our first example covers iframes. An `<iframe>` is a two-faced beast. From one side it's a tag, just like `<script>` or `<img>`. From the other side it's a window-in-window.
-
-The embedded window has a separate `document` and `window` objects.
-
-We can access them like using the properties:
-
-- `iframe.contentWindow` is a reference to the window inside the `<iframe>`.
-- `iframe.contentDocument` is a reference to the document inside the `<iframe>`.
-
-When we access an embedded window, the browser checks if the iframe has the same origin. If that's not so then the access is denied (with exclusions noted above).
-
-For instance, here's an `<iframe>` from another origin:
+For instance, let's try reading and writing to `<iframe>` from another origin:
 
 ```html run
 <iframe src="https://example.com" id="iframe"></iframe>
@@ -64,44 +45,47 @@ For instance, here's an `<iframe>` from another origin:
 <script>
   iframe.onload = function() {
     // we can get the reference to the inner window
-    let iframeWindow = iframe.contentWindow;
-
+*!*
+    let iframeWindow = iframe.contentWindow; // OK
+*/!*
     try {
       // ...but not to the document inside it
-      let doc = iframe.contentDocument;
+*!*
+      let doc = iframe.contentDocument; // ERROR
+*/!*
     } catch(e) {
       alert(e); // Security Error (another origin)
     }
 
-    // also we can't read the URL of the page in it
+    // also we can't READ the URL of the page in iframe
     try {
-      alert(iframe.contentWindow.location);
+      // Can't read URL from the Location object
+*!*
+      let href = iframe.contentWindow.location.href; // ERROR
+*/!*
     } catch(e) {
       alert(e); // Security Error
     }
 
-    // ...but we can change it (and thus load something else into the iframe)!
-    iframe.contentWindow.location = '/'; // works
+    // ...we can WRITE into location (and thus load something else into the iframe)!
+*!*
+    iframe.contentWindow.location = '/'; // OK
+*/!*
 
-    iframe.onload = null; // clear the handler, to run this code only once
+    iframe.onload = null; // clear the handler, not to run it after the location change
   };
 </script>
 ```
 
 The code above shows errors for any operations except:
 
-- Getting the reference to the inner window `iframe.contentWindow`
-- Changing its `location`.
+- Getting the reference to the inner window `iframe.contentWindow` - that's allowed.
+- Writing to `location`.
 
-```smart header="`iframe.onload` vs `iframe.contentWindow.onload`"
-The `iframe.onload` event is actually the same as `iframe.contentWindow.onload`. It triggers when the embedded window fully loads with all resources.
-
-...But `iframe.onload` is always available, while `iframe.contentWindow.onload` needs the same origin.
-```
-
-And now an example with the same origin. We can do anything with the embedded window:
+Contrary to that, if the `<iframe>` has the same origin, we can do anything with it:
 
 ```html run
+<!-- iframe from the same site -->
 <iframe src="/" id="iframe"></iframe>
 
 <script>
@@ -112,9 +96,33 @@ And now an example with the same origin. We can do anything with the embedded wi
 </script>
 ```
 
-### Please wait until the iframe loads
+```smart header="`iframe.onload` vs `iframe.contentWindow.onload`"
+The `iframe.onload` event (on the `<iframe>` tag) is essentially the same as `iframe.contentWindow.onload` (on the embedded window object). It triggers when the embedded window fully loads with all resources.
 
-When an iframe is created, it immediately has a document. But that document is different from the one that finally loads into it!
+...But we can't access `iframe.contentWindow.onload` for an iframe from another origin, so using `iframe.onload`.
+```
+
+## Windows on subdomains: document.domain
+
+By definition, two URLs with different domains have different origins.
+
+But if windows share the same second-level domain, for instance `john.site.com`, `peter.site.com` and `site.com` (so that their common second-level domain is `site.com`), we can make the browser ignore that difference, so that they can be treated as coming from the "same origin" for the purposes of cross-window communication.
+
+To make it work, each such window should run the code:
+
+```js
+document.domain = 'site.com';
+```
+
+That's all. Now they can interact without limitations. Again, that's only possible for pages with the same second-level domain.
+
+## Iframe: wrong document pitfall
+
+When an iframe comes from the same origin, and we may access its  `document`, there's a pitfall. It's not related to cross-origin things, but important to know.
+
+Upon its creation an iframe immediately has a document. But that document is different from the one that loads into it!
+
+So if we do something with the document immediately, that will probably be lost.
 
 Here, look:
 
@@ -134,11 +142,13 @@ Here, look:
 </script>
 ```
 
-That's actually a well-known pitfall for developers. We shouldn't work with the document immediately, because that's the *wrong document*. If we set any event handlers on it, they will be ignored.
+We shouldn't work with the document of a not-yet-loaded iframe, because that's the *wrong document*. If we set any event handlers on it, they will be ignored.
 
-...But the `onload` event triggers when the whole iframe with all resources is loaded. What if we want to act sooner, on `DOMContentLoaded` of the embedded document?
+How to detect the moment when the document is there?
 
-That's not possible if the iframe comes from another origin. But for the same origin we can try to catch the moment when a new document appears, and then setup necessary handlers, like this:
+The right document is definitely at place when `iframe.onload`  triggers. But it only triggers when the whole iframe with all resources is loaded.
+
+We can try to catch the moment earlier using checks in `setInterval`:
 
 ```html run
 <iframe src="/" id="iframe"></iframe>
@@ -148,21 +158,17 @@ That's not possible if the iframe comes from another origin. But for the same or
 
   // every 100 ms check if the document is the new one
   let timer = setInterval(() => {
-    if (iframe.contentDocument == oldDoc) return;
+    let newDoc = iframe.contentDocument;
+    if (newDoc == oldDoc) return;
 
-    // new document, let's set handlers
-    iframe.contentDocument.addEventListener('DOMContentLoaded', () => {
-      iframe.contentDocument.body.prepend('Hello, world!');
-    });
+    alert("New document is here!");
 
     clearInterval(timer); // cancel setInterval, don't need it any more
   }, 100);
 </script>
 ```
 
-Let me know in comments if you know a better solution here.
-
-## window.frames
+## Collection: window.frames
 
 An alternative way to get a window object for `<iframe>` -- is to get it from the named collection  `window.frames`:
 
@@ -204,11 +210,11 @@ if (window == top) { // current window == window.top?
 }
 ```
 
-## The sandbox attribute
+## The "sandbox" iframe attribute
 
 The `sandbox` attribute allows for the exclusion of certain actions inside an `<iframe>` in order to prevent it executing untrusted code. It "sandboxes" the iframe by treating it as coming from another origin and/or applying other limitations.
 
-By default, for `<iframe sandbox src="...">` the "default set" of restrictions is applied to the iframe. But we can provide a space-separated list of "excluded" limitations as a value of the attribute, like this: `<iframe sandbox="allow-forms allow-popups">`. The listed limitations are not applied.
+There's a "default set" of restrictions applied for `<iframe sandbox src="...">`. But it can be relaxed if we provide a space-separated list of restrictions that should not be applied as a value of the attribute, like this: `<iframe sandbox="allow-forms allow-popups">`.
 
 In other words, an empty `"sandbox"` attribute puts the strictest limitations possible, but we can put a space-delimited list of those that we want to lift.
 
@@ -246,7 +252,7 @@ The purpose of the `"sandbox"` attribute is only to *add more* restrictions. It 
 
 The `postMessage` interface allows windows to talk to each other no matter which origin they are from.
 
-So, it's a way around the "Same Origin" policy. It allows a window from `john-smith.com` to talk to `gmail.com` and exchange information, but only if they both agree and call corresponding Javascript functions. That makes it safe for users.
+So, it's a way around the "Same Origin" policy. It allows a window from `john-smith.com` to talk to `gmail.com` and exchange information, but only if they both agree and call corresponding JavaScript functions. That makes it safe for users.
 
 The interface has two parts.
 
@@ -262,9 +268,9 @@ Arguments:
 `targetOrigin`
 : Specifies the origin for the target window, so that only a window from the given origin will get the message.
 
-The `targetOrigin` is a safety measure. Remember, if the target window comes from another origin, we can't read it's `location`. So we can't be sure which site is open in the intended window right now: the user could navigate away.
+The `targetOrigin` is a safety measure. Remember, if the target window comes from another origin, we can't read it's `location` in the sender window. So we can't be sure which site is open in the intended window right now: the user could navigate away, and the sender window has no idea about it.
 
-Specifying `targetOrigin` ensures that the window only receives the data if it's still at that site. Good when the data is sensitive.
+Specifying `targetOrigin` ensures that the window only receives the data if it's still at the right site. Important when the data is sensitive.
 
 For instance, here `win` will only receive the message if it has a document from the origin `http://example.com`:
 
@@ -306,7 +312,7 @@ The event object has special properties:
 : The origin of the sender, for instance `http://javascript.info`.
 
 `source`
-: The reference to the sender window. We can immediately `postMessage` back if we want.
+: The reference to the sender window. We can immediately `source.postMessage(...)` back if we want.
 
 To assign that handler, we should use `addEventListener`, a short syntax `window.onmessage` does not work.
 
@@ -320,6 +326,8 @@ window.addEventListener("message", function(event) {
   }
 
   alert( "received: " + event.data );
+
+  // can message back using event.source.postMessage(...)
 });
 ```
 
@@ -328,16 +336,16 @@ The full example:
 [codetabs src="postmessage" height=120]
 
 ```smart header="There's no delay"
-There's totally no delay between `postMessage` and the `message` event. That happens synchronously, even faster than `setTimeout(...,0)`.
+There's totally no delay between `postMessage` and the `message` event. The event triggers synchronously, faster than `setTimeout(...,0)`.
 ```
 
 ## Summary
 
 To call methods and access the content of another window, we should first have a reference to it.
 
-For popups we have two properties:
-- `window.open` -- opens a new window and returns a reference to it,
-- `window.opener` -- a reference to the opener window from a popup
+For popups we have these references:
+- From the opener window: `window.open` -- opens a new window and returns a reference to it,
+- From the popup: `window.opener` -- is a reference to the opener window from a popup.
 
 For iframes, we can access parent/children windows using:
 - `window.frames` -- a collection of nested window objects,
@@ -347,18 +355,17 @@ For iframes, we can access parent/children windows using:
 If windows share the same origin (host, port, protocol), then windows can do whatever they want with each other.
 
 Otherwise, only possible actions are:
-- Change the location of another window (write-only access).
+- Change the `location` of another window (write-only access).
 - Post a message to it.
 
-
-Exclusions are:
+Exceptions are:
 - Windows that share the same second-level domain: `a.site.com` and `b.site.com`. Then setting `document.domain='site.com'` in both of them puts them into the "same origin" state.
 - If an iframe has a `sandbox` attribute, it is forcefully put into the "different origin" state, unless the `allow-same-origin` is specified in the attribute value. That can be used to run untrusted code in iframes from the same site.
 
-The `postMessage` interface allows two windows to talk with security checks:
+The `postMessage` interface allows two windows with any origins to talk:
 
 1. The sender calls `targetWin.postMessage(data, targetOrigin)`.
-2. If `targetOrigin` is not `'*'`, then the browser checks if window `targetWin` has the URL from  `targetWin` site.
+2. If `targetOrigin` is not `'*'`, then the browser checks if window `targetWin` has the origin `targetOrigin`.
 3. If it is so, then `targetWin` triggers the `message` event with special properties:
     - `origin` -- the origin of the sender window (like `http://my.site.com`)
     - `source` -- the reference to the sender window.

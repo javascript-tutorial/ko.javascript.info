@@ -55,7 +55,7 @@ Let's imagine we have several animations running simultaneously.
 
 If we run them separately, then even though each one has `setInterval(..., 20)`, then the browser would have to repaint much more often than every `20ms`.
 
-That's because they have different starting time, so "every 20ms" differs between different animations. The intervals are not alignned. So we'll have several independent runs within `20ms`.
+That's because they have different starting time, so "every 20ms" differs between different animations. The intervals are not aligned. So we'll have several independent runs within `20ms`.
 
 In other words, this:
 
@@ -75,7 +75,7 @@ setInterval(animate2, 20); // in different places of the script
 setInterval(animate3, 20);
 ```
 
-These several independent redraws should be grouped together, to make the redraw easier for the browser (and hence smoother for people).
+These several independent redraws should be grouped together, to make the redraw easier for the browser and hence load less CPU load and look smoother.
 
 There's one more thing to keep in mind. Sometimes when CPU is overloaded, or there are other reasons to redraw less often (like when the browser tab is hidden), so we really shouldn't run it every `20ms`.
 
@@ -160,7 +160,7 @@ Function `animate` accepts 3 parameters that essentially describes the animation
     ```
 
     It's graph:
-    ![](linear.png)
+    ![](linear.svg)
 
     That's just like `transition-timing-function: linear`. There are more interesting variants shown below.
 
@@ -221,7 +221,7 @@ function quad(timeFraction) {
 
 The graph:
 
-![](quad.png)
+![](quad.svg)
 
 See in action (click to activate):
 
@@ -231,7 +231,7 @@ See in action (click to activate):
 
 Here's the graph for `progress` in the power `5`:
 
-![](quint.png)
+![](quint.svg)
 
 In action:
 
@@ -249,7 +249,7 @@ function circ(timeFraction) {
 
 The graph:
 
-![](circ.png)
+![](circ.svg)
 
 [iframe height=40 src="circ" link]
 
@@ -269,7 +269,7 @@ function back(x, timeFraction) {
 
 **The graph for `x = 1.5`:**
 
-![](back.png)
+![](back.svg)
 
 For animation we use it with a specific value of `x`. Example for `x = 1.5`:
 
@@ -306,7 +306,7 @@ function elastic(x, timeFraction) {
 ```
 
 **The graph for `x=1.5`:**
-![](elastic.png)
+![](elastic.svg)
 
 In action for `x=1.5`:
 
@@ -349,7 +349,7 @@ Then the bounce will be not in the beginning, but at the end of the animation. L
 
 Here we can see how the transform changes the behavior of the function:
 
-![](bounce-inout.png)
+![](bounce-inout.svg)
 
 If there's an animation effect in the beginning, like bouncing -- it will be shown at the end.
 
@@ -395,7 +395,7 @@ The "easeInOut" transform joins two graphs into one: `easeIn` (regular) for the 
 
 The effect is clearly seen if we compare the graphs of `easeIn`, `easeOut` and `easeInOut` of the `circ` timing function:
 
-![](circ-ease.png)
+![](circ-ease.svg)
 
 - <span style="color:#EE6B47">Red</span> is the regular variantof `circ` (`easeIn`).
 - <span style="color:#8DB173">Green</span> -- `easeOut`.

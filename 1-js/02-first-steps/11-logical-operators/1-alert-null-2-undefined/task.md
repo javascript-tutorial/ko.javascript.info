@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# What's the result of OR?
+# 다음 OR 연산의 결과는 무엇일까요?
 
-What is the code below going to output?
+아래 코드의 결과를 예측해 보세요.
 
 ```js
 alert( null || 2 || undefined );

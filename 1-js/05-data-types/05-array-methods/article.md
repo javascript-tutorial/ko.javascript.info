@@ -1,23 +1,23 @@
 # 배열 메서드
 
-배열은 다양한 메서드를 제공합니다. 학습의 편의를 위해, 본 챕터에선 배열 메서드를 크게 두 그룹으로 나누어 소개하도록 하겠습니다.
+배열은 다양한 메서드를 제공합니다. 학습의 편의를 위해 본 챕터에선 배열 메서드를 기능단위로 나눠 소개하도록 하겠습니다.
 
 ## 요소를 추가/제거하는 메서드
 
-배열의 처음이나 끝에 요소를 추가하거나 제거하는 메서드는 이미 학습한 바 있습니다.
+배열의 처음이나 끝에 요소(item)를 추가하거나 제거하는 메서드는 이미 학습한 바 있습니다.
 
-- `arr.push(...items)` -- 배열의 끝에 요소를 추가,
-- `arr.pop()` -- 배열의 끝 요소를 제거,
-- `arr.shift()` -- 배열의 처음 요소를 제거,
+- `arr.push(...items)` -- 배열의 끝에 요소를 추가.
+- `arr.pop()` -- 배열의 끝 요소를 제거.
+- `arr.shift()` -- 배열의 처음 요소를 제거.
 - `arr.unshift(...items)` -- 배열의 처음에 요소를 추가.
 
 이 외에 요소를 추가/제거하는 메서드를 알아보도록 하겠습니다.
 
 ### splice
 
-배열에서 요소 하나를 지우고 싶다면 어떻게 해야할까요?
+배열에서 요소 하나를 지우고 싶다면 어떻게 해야 할까요?
 
-배열 역시 객체이므로, 객체 연산자인 `delete`를 사용해 볼 수 있을것입니다.
+배열 역시 객체이므로, 객체 연산자인 `delete`를 사용해 볼 수 있을 것입니다.
 
 ```js run
 let arr = ["I", "go", "home"];
@@ -30,13 +30,13 @@ alert( arr[1] ); // undefined
 alert( arr.length ); // 3
 ```
 
-원하는대로 요소를 지우긴 했지만, 배열은 여전히 세개의 요소가 남아있네요. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
+원하는 대로 요소를 지우긴 했지만, 배열엔 여전히 세 개의 요소가 남아있네요. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
 
-이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. `delete` 메서드는 제 역할을 다 한 것입니다. 객체엔 이렇게 해도 괜찮습니다. 하지만 나머지 요소들이 이동해 삭제된 요소의 공간을 채우길 기대하며 이 메서드를 썼을겁니다. 요소를 지운 만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
+이는 자연스러운 현상입니다. `delete obj.key`는 `key`를 이용해 값을 지우기 때문입니다. `delete` 메서드는 제 역할을 다 한 것이죠. 객체엔 이렇게 해도 괜찮습니다. 하지만 개발자는 삭제하고 남은 나머지 요소들이 이동해 삭제된 요소의 공간을 채우길 기대하며 이 메서드를 썼을 겁니다. 요소를 지운 만큼 배열의 길이가 더 짧아지길 기대하며 말이죠. 
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
-[arr.splice(str)](mdn:js/Array/splice)메서드는 만능 스위스 맥가이버 칼 같습니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드로 요소 추가, 삭제, 삽입이 모두 가능합니다.
+[arr.splice(str)](mdn:js/Array/splice) 메서드는 만능 스위스 맥가이버 칼 같습니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드로 요소 추가, 삭제, 교체가 모두 가능합니다.
 
 문법은 다음과 같습니다.
 
@@ -44,7 +44,7 @@ alert( arr.length ); // 3
 arr.splice(index[, deleteCount, elem1, ..., elemN])
 ```
 
-첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거하고자 하는 요소의 갯수를 나타냅니다. `elem1, ..., elemN`은 배열에 추가 될 요소입니다.
+첫 번째 매개변수는 수정을 시작할 `인덱스(index)`입니다. 그다음 매개변수는 `deleteCount`로, 제거하고자 하는 요소의 개수를 나타냅니다. `elem1, ..., elemN`은 배열에 추가될 요소입니다.
 
 다양한 예제를 통해 splice 메서드를 이해해 보도록 하겠습니다.
 
@@ -54,31 +54,31 @@ arr.splice(index[, deleteCount, elem1, ..., elemN])
 let arr = ["I", "study", "JavaScript"];
 
 *!*
-arr.splice(1, 1); // 인덱스 1 부터 요소 한개(1)를 제거합니다.
+arr.splice(1, 1); // 인덱스 1부터 요소 한 개(1)를 제거합니다.
 */!*
 
 alert( arr ); // ["I", "JavaScript"]
 ```
 
-쉽죠? 인덱스 `1`부터 시작해 요소 한개(`1`)를 지웠습니다.
+쉽죠? 인덱스 `1`부터 시작해 요소 한 개(`1`)를 지웠습니다.
 
-다음 코드에선 요소 세개(3)를 지우고, 그 자리를 다른 두개의 요소로 교체해 보도록 하겠습니다.
+다음 코드에선 요소 세 개(3)를 지우고, 그 자리를 다른 두 개의 요소로 교체해 보도록 하겠습니다.
 
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
 
-// 처음 세개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
+// 처음 세 개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
 arr.splice(0, 3, "Let's", "dance");
 
 alert( arr ) // now [*!*"Let's", "dance"*/!*, "right", "now"]
 ```
 
-아래 코드를 통해 `splice` 메서드는 삭제된 요소로 구성된 배열을 반환한다는 것을 확인할 수 있습니다.
+`splice` 메서드는 삭제된 요소로 구성된 배열을 반환합니다. 아래 코드를 통해 확인해 봅시다. 
 
 ```js run
 let arr = [*!*"I", "study",*/!* "JavaScript", "right", "now"];
 
-// 처음 두개의 요소를 삭제함
+// 처음 두 개의 요소를 삭제함
 let removed = arr.splice(0, 2);
 
 alert( removed ); // "I", "study" <-- 삭제된 요소로 구성된 배열
@@ -89,9 +89,9 @@ alert( removed ); // "I", "study" <-- 삭제된 요소로 구성된 배열
 ```js run
 let arr = ["I", "study", "JavaScript"];
 
-// 인덱스 2 부터
+// 인덱스 2부터
 // 0개의 요소를 삭제합니다.
-// 그 후, "complex" 와 "language"를 추가합니다.
+// 그 후, "complex"와 "language"를 추가합니다.
 arr.splice(2, 0, "complex", "language");
 
 alert( arr ); // "I", "study", "complex", "language", "JavaScript"
@@ -103,9 +103,9 @@ slice메서드와 다른 배열 관련 메서드에 음수 인덱스를 사용�
 ```js run
 let arr = [1, 2, 5];
 
-// 인덱스 -1 부터 (배열 끝에서부터 첫번째 요소)
-// 0 개의 요소를 삭제하고,
-// 3 과 4를 추가해줍니다.
+// 인덱스 -1부터 (배열 끝에서부터 첫 번째 요소)
+// 0개의 요소를 삭제하고,
+// 3과 4를 추가해줍니다.
 arr.splice(-1, 0, 3, 4);
 
 alert( arr ); // 1,2,3,4,5
@@ -114,7 +114,7 @@ alert( arr ); // 1,2,3,4,5
 
 ### slice
 
-[arr.slice](mdn:js/Array/slice)메서드는 `arr.splice`와 비슷해보이지만, 훨씬 간단한 메서드입니다.
+[arr.slice](mdn:js/Array/slice) 메서드는 `arr.splice`와 비슷해 보이지만, 훨씬 간단한 메서드입니다.
 
 문법:
 
@@ -122,26 +122,23 @@ alert( arr ); // 1,2,3,4,5
 arr.slice(start, end)
 ```
 
-이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스 까지의 요소를 포함하는 메서드를 반환합니다. `start` 와 `end` 인덱스는 둘 다 음수일수도 있습니다. 인덱스가 음수일 땐 배열의 끝에서부터의 요소 갯수를 의미합니다.
+이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스까지의 요소를 포함하는 메서드를 반환합니다. `start`와 `end` 인덱스는 둘 다 음수일 수도 있습니다. 인덱스가 음수일 땐 배열 끝에서부터의 요소 개수를 의미합니다.
 
-`arr.slice`메서드의 동작은 문자열 메서드인 `str.slice`와 유사하지만, `arr.slice`메서드는 서브 문자열(substring) 대신 서브배열(subarray)를 반환한다는 점이 다릅니다.
+`arr.slice`메서드의 동작은 문자열 메서드인 `str.slice`와 유사하지만, `arr.slice`메서드는 서브 문자열(substring) 대신 서브 배열(subarray)를 반환한다는 점이 다릅니다.
 
-예:
+예시:
 
 ```js run
-let str = "test";
 let arr = ["t", "e", "s", "t"];
 
-alert( str.slice(1, 3) ); // es
-alert( arr.slice(1, 3) ); // e,s
+alert( arr.slice(1, 3) ); // e,s (copy from 1 to 3)
 
-alert( str.slice(-2) ); // st
-alert( arr.slice(-2) ); // s,t
+alert( arr.slice(-2) ); // s,t (copy from -2 till the end)
 ```
 
 ### concat
 
-[arr.concat](mdn:js/Array/concat) 메서드는 배열의 끝에 다른 배열이나 요소를 추가해줍니다.
+The method [arr.concat](mdn:js/Array/concat) creates a new array that includes values from other arrays and additional items.
 
 문법은 다음과 같습니다.
 
@@ -149,28 +146,28 @@ alert( arr.slice(-2) ); // s,t
 arr.concat(arg1, arg2...)
 ```
 
-인수의 갯수는 제한이 없고, 인수로 배열이나 값을 받을 수 있습니다.
+인수의 개수는 제한이 없고, 인수로 배열이나 값을 받을 수 있습니다.
 
 메서드를 적용한 결과는 `arr`에 속한 모든 요소와, `arg1`, `arg2` 등에 속한 모든 요소를 합친 배열입니다.
 
-인수가 배열이거나, 인수의 프로퍼티가 `Symbol.isConcatSpreadable`라면, 인수로 받은 배열의 모든 요소를 복사합니다. 이 외에는 인수 자체를 복사합니다.
+If an argument `argN` is an array, then all its elements are copied. Otherwise, the argument itself is copied.
 
 예시:
 
 ```js run
 let arr = [1, 2];
 
-// 배열 arr을 배열 [3,4]와 병합함
+// create an array from: arr and [3,4]
 alert( arr.concat([3, 4])); // 1,2,3,4
 
-// 배열 arr을 배열 [3,4]와 배열 [5,6]과 병합함
+// create an array from: arr and [3,4] and [5,6]
 alert( arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
-// 배열 arr을 배열 [3,4]와 병합하고, 값 5 와 6을 추가함
+// create an array from: arr and [3,4], then add values 5 and 6
 alert( arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
-일반적으로, concat 메서드는 제공받은 배열의 요소를 ("분해"해서) 복사합니다. 객체는 통으로 복사되어 더해집니다. 배열 처럼 보이는 객체도 마찬가지로 전체가 복사됩니다. 
+일반적으로, concat 메서드는 제공받은 배열의 요소를 ("분해"해서) 복사합니다. 객체는 통으로 복사되어 더해집니다. 배열처럼 보이는 객체(유사 배열 객체)도 마찬가지로 전체가 복사됩니다. 
 
 ```js run
 let arr = [1, 2];
@@ -184,7 +181,7 @@ alert( arr.concat(arrayLike) ); // 1,2,[object Object]
 //[1, 2, arrayLike]
 ```
 
-하지만 유사배열 객체에 `Symbol.isConcatSpreadable` 프로퍼티가 있으면, 객체의 요소가 더해집니다.
+...But if an array-like object has a special property `Symbol.isConcatSpreadable` property, the it's treated as array by `concat`: its elements are added instead:
 
 ```js run
 let arr = [1, 2];
@@ -208,7 +205,7 @@ alert( arr.concat(arrayLike) ); // 1,2,something,else
 문법은 다음과 같습니다.
 ```js
 arr.forEach(function(item, index, array) {
-  // 요소(item)에 무언갈 할 수 있습니다.
+  // 요소에 무언갈 할 수 있습니다.
 });
 ```
 
@@ -219,7 +216,7 @@ arr.forEach(function(item, index, array) {
 ["Bilbo", "Gandalf", "Nazgul"].forEach(alert);
 ```
 
-아래는 타깃 배열의 인덱스(index)까지 출력해주는 좀 더 정교한 코드입니다.
+아래는 타깃 배열의 인덱스까지 출력해주는 좀 더 정교한 코드입니다.
 
 ```js run
 ["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
@@ -227,20 +224,20 @@ arr.forEach(function(item, index, array) {
 });
 ```
 
-함수의 반환값은 (반환값을 어떻게 명시해 줬던 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환값은 undefined 가 됩니다).
+함수의 반환값은 (반환값을 어떻게 명시해 줬든 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환값은 undefined가 됩니다).
 
 
 ## 배열 탐색하기
 
-배열 내에서 뭔가를 찾을 때 쓰이는 메서드가 있습니다. 
+배열 내에서 뭔가를 찾고 싶을 때 쓰는 메서드에 대해 알아봅시다.
 
-### indexOf/lastIndexOf and includes
+### indexOf/lastIndexOf와 includes
 
-배열의 [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf), [arr.includes](mdn:js/Array/includes) 같은 이름을 가진 문자열 메서드와 동일한 문법을 사용하고 하는일도 본질적으로 같지만, 연산 대상이 문자열이 아닌 배열의 요소라는 점만 다릅니다.
+배열 메서드인 [arr.indexOf](mdn:js/Array/indexOf), [arr.lastIndexOf](mdn:js/Array/lastIndexOf), [arr.includes](mdn:js/Array/includes)는 같은 이름을 가진 문자열 메서드와 동일한 문법을 사용하고 하는 일도 본질적으로 같습니다. 연산 대상이 문자열이 아닌 배열의 요소라는 점만 다릅니다.
 
-- `arr.indexOf(item, from)`는 인덱스 `from`부터 시작해 해당하는 `요소(item)`을 찾습니다. 일치하는 요소를 발견하면 해당하는 요소의 인덱스를 반환하고 그렇지 않다면 `-1`을 반환합니다.
-- `arr.lastIndexOf(item, from)`는 위 메서드와 동일한 기능을 하는 메서드이나, 검색을 끝에서 부터 시작한다는 점만 다릅니다.
-- `arr.includes(item, from)`는 인덱스 `from`부터 시작해 배열에 해당하는 `요소(item)`가 있는지를 검색하는데, 해당하는 요소를 발견하면 `true` 를 반환합니다.
+- `arr.indexOf(item, from)`는 인덱스 `from`부터 시작해 해당하는 `item(요소)`을 찾습니다. 일치하는 요소를 발견하면 해당하는 요소의 인덱스를 반환하고 그렇지 않다면 `-1`을 반환합니다.
+- `arr.lastIndexOf(item, from)`는 위 메서드와 동일한 기능을 하는 메서드이나, 검색을 끝에서부터 시작한다는 점만 다릅니다.
+- `arr.includes(item, from)`는 인덱스 `from`부터 시작해 배열에 해당하는 `요소(item)`가 있는지를 검색하는데, 해당하는 요소를 발견하면 `true`를 반환합니다.
 
 예시 코드를 살펴보겠습니다.
 
@@ -253,9 +250,10 @@ alert( arr.indexOf(null) ); // -1
 
 alert( arr.includes(1) ); // true
 ```
+
 위 메서드들은 요소를 찾을 때 완전 항등 연산자인 `===` 를 사용한다는 점에 유의하시기 바랍니다. 보시는 바와 같이 `false`를 검색하면 정확히 `false`만을 검색하지, 0을 검색하진 않습니다.
 
-요소의 위치를 정확히 알고 싶은게 아니고, 배열내 존재 여부만 확인하고 싶다면 `arr.includes`를 사용하는게 좋습니다.
+요소의 위치를 정확히 알고 싶은게 아니고, 배열 내 존재 여부만 확인하고 싶다면 `arr.includes`를 사용하는 게 좋습니다.
 
 `includes` 메서드는 `NaN`도 찾아낼 수 있다는 점에서 `indexOf/lastIndexOf`메서드와 약간의 차이가 있습니다.
 
@@ -269,17 +267,17 @@ alert( arr.includes(NaN) );// true (기대하는 대로 NaN의 여부를 확인�
 
 객체로 이루어진 배열이 있다고 가정해 봅시다. 특정 조건을 가진 객체를 배열 내에서 어떻게 찾아낼 수 있을까요?
 
-[arr.find](mdn:js/Array/find)메서드는 이럴 때 쓸모가 있습니다.
+[arr.find](mdn:js/Array/find) 메서드는 이럴 때 쓸모가 있습니다.
 
 문법은 다음과 같습니다.
 ```js
 let result = arr.find(function(item, index, array) {
-  // true가 반환되면, 반복이 멈추고 해당 요소(item)을 반환합니다.
+  // true가 반환되면, 반복이 멈추고 해당 item(요소)을 반환합니다.
   // 거짓 같은 값(falsy)일 경우는 undefined를 반환합니다.
 });
 ```
 
-배열 내 모든 요소에 대하여 함수가 호출됩니다. 이때,
+The function is called for elements of the array, one after another:
 
 - `item` 은 요소를 의미합니다.
 - `index` 는 인덱스를 의미합니다.
@@ -287,7 +285,7 @@ let result = arr.find(function(item, index, array) {
 
 find 메서드가 참을 반환하면, 탐색은 중단되고 해당 `요소(item)`가 반환됩니다. 아무것도 찾지 못했을 경우는 `undefined`가 반환됩니다.
 
-`id`와 `name`이 있는 사용자 객체가 들어있는 배열을 예로 들어보도록 하겠습니다. 배열 내에서 `id == 1` 조건을 충족하는 사용자 객체를 찾아봅시다.
+`id`와 `name` 프로퍼티를 가진 사용자 객체로 구성된 배열을 예로 들어보도록 하겠습니다. 배열 내에서 `id == 1` 조건을 충족하는 사용자 객체를 찾아봅시다.
 
 ```js run
 let users = [
@@ -301,24 +299,24 @@ let user = users.find(item => item.id == 1);
 alert(user.name); // John
 ```
 
-객체로 구성된 배열은 실 생활에서 아주 흔한 경우이기 때문에, `find` 메서드는 아주 유용합니다.
+실무에서 객체로 구성된 배열을 자주 만나게 될겁니다. 그렇기 때문에 `find` 메서드는 유용하죠.
 
-위 예제에선 인수가 하나만 있는 함수인 `item => item.id == 1`을 `find` 메서드에 넘겨주었다는 점에 유의하시기 바랍니다. 다른 인수는 거의 쓰이지 않고 있습니다.
+Note that in the example we provide to `find` the function `item => item.id == 1` with one argument. That's typical, other arguments of this function are rarely used.
 
 [arr.findIndex](mdn:js/Array/findIndex) 메서드는 find 메서드와 동일한 일을 하나, 조건에 맞는 요소를 반환하지 않고, 해당 요소의 인덱스만 반환한다는 점에서 차이가 있습니다. 아무것도 찾지 못한 경우는 `-1`을 반환합니다. 
 
 ### filter
 
-`find` 메서드는 함수의 반환값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번 째 요소만 반환됩니다.
+`find` 메서드는 함수의 반환값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번째 요소만 반환됩니다.
 
-만약 조건을 충족하는 요소가 여러개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
+만약 조건을 충족하는 요소가 여러 개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
 
-문법은 `find`와 비슷합니다. 하지만 filter 메서드는 `true`가 이미 반환된 경우에도 탐색을 멈추지 않기 때문에 배열의 모든 요소를 검색한다는 점에서 차이가 있습니다.
+The syntax is similar to `find`, but `filter` returns an array of all matching elements:
 
 ```js
 let results = arr.filter(function(item, index, array) {
-  // 조건을 만족하는 요소가 반환되더라도 탐색은 멈추지 않습니다.
-  // 모든 요소가 조건을 충족하지 않으면, 빈 배열이 반환됩니다.
+  // if true item is pushed to results and the iteration continues
+  // returns empty array if nothing found
 });
 ```
 
@@ -331,7 +329,7 @@ let users = [
   {id: 3, name: "Mary"}
 ];
 
-// 앞쪽 두명의 사용자를 반환합니다.
+// 앞쪽 두 명의 사용자를 반환합니다.
 let someUsers = users.filter(item => item.id < 3);
 
 alert(someUsers.length); // 2
@@ -339,23 +337,21 @@ alert(someUsers.length); // 2
 
 ## 배열을 변형시키는 메서드
 
-This section is about the methods transforming or reordering the array.
-배열을 변형하거나 재 정렬하는 메서드에 대해 다뤄보도록 하겠습니다.
-
+Let's move on to methods that transform and reorder an array.
 
 ### map
 
 [arr.map](mdn:js/Array/map) 메서드는 유용성과 사용 빈도가 아주 높은 메서드 중 하나입니다.
 
-문법은 다음과 같습니다.
+It calls the function for each element of the array and returns the array of results.
+
+The syntax is:
 
 ```js
 let result = arr.map(function(item, index, array) {
-  // 요소가 아닌 새로운 값을 반환합니다
-})
+  // returns the new value instead of item
+});
 ```
-
-map메서드는 배열의 각 요소에 함수를 호출하고, 결과를 배열로 받아 반환합니다.   
 
 아래는 map 메서드를 활용해 각 요소의 길이를 출력해주는 예시입니다.
 
@@ -366,14 +362,16 @@ alert(lengths); // 5,7,6
 
 ### sort(fn)
 
-[arr.sort](mdn:js/Array/sort) 메서드는 배열의 요소를 *제 자리에서* 정렬해줍니다.
+The call to [arr.sort()](mdn:js/Array/sort) sorts the array *in place*, changing its element order.
+
+It also returns the sorted array, but the returned value is usually ignored, as `arr` itself is modified.
 
 예시:
 
 ```js run
 let arr = [ 1, 2, 15 ];
 
-// sort 메서드는 arr의 내용을 재정렬 하고, 재정렬된 배열을 반환합니다.
+// the method reorders the content of arr
 arr.sort();
 
 alert( arr );  // *!*1, 15, 2*/!*
@@ -383,22 +381,22 @@ alert( arr );  // *!*1, 15, 2*/!*
 
 순서가 `1, 15, 2`가 되었습니다. 기대하던 결과와는 다르네요. 왜 이런 결과가 나왔을까요?
 
-**요소는 문자열로 취급되어 정렬됩니다.**
+**요소는 문자열로 취급되어 정렬되기 때문입니다.**
 
-모든 요소는 문자열로 변환되고 나서 비교됩니다. 사전순으로 재정렬 되기 때문에, `"2" > "15"`라는 결과가 도출되었습니다.
+Literally, all elements are converted to strings for comparisons. For strings,  lexicographic ordering is applied and indeed `"2" > "15"`.
 
-문자열 기준이 아닌, 다른 기준을 만들어 정렬하고 싶다면 인수 두개를 받는 함수를 만들어 `arr.sort()`의 인수로 전달해 주면 됩니다.
+To use our own sorting order, we need to supply a function as the argument of `arr.sort()`.
 
-인수 두개를 받는 함수는 아래와 같은 형태이어야 합니다.
+The function should compare two arbitrary values and return:
 ```js
 function compare(a, b) {
-  if (a > b) return 1;
-  if (a == b) return 0;
-  if (a < b) return -1;
+  if (a > b) return 1; // if the first value is greater than the second
+  if (a == b) return 0; // if values are equal
+  if (a < b) return -1; // if the first value is less than the second
 }
 ```
 
-예시:
+For instance, to sort as numbers:
 
 ```js run
 function compareNumeric(a, b) {
@@ -418,9 +416,9 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 이제 의도한 대로 숫자가 오름차순으로 정렬되었습니다.
 
-읽는 걸 멈추고 이 메서드가 어떻게 동작하는지 잠시 생각해 보도록 합시다. `arr`의 요소는 어떤 형태의 값이든 가능합니다. 숫자, 문자열, html 요소 등 모든것이 가능하죠. *무언가*로 구성된 집합이 있는 상황입니다. 이 집합을 정렬하려면 *순서를 매겨주는 함수*가 필요합니다. 요소를 어떤 기준으로 비교하고 정렬할지를 이 함수에서 정의합니다. sort 메서드는 기본적으로 문자열 집합을 가정하고 요소를 비교, 정렬합니다.
+잠시 멈춰 이 메서드가 어떻게 동작하는지 생각해 봅시다. `arr`의 요소는 어떤 값이든 가능합니다. 숫자, 문자열, 객체 등 모든 것이 요소가 될 수 있죠. *무언가*로 구성된 집합이 arr에 담긴 상황입니다. 이제 이 집합을 정렬해봅시다. 요소를 어떤 기준으로 비교하고 정렬할지 정의하는 *순서를 매겨주는 함수(ordering function)* 가 필요합니다. 아무 매개변수도 넘겨주지 않으면 sort 메서드는 사전 순으로 정렬합니다.
 
-`arr.sort(fn)` 메서드의 정렬 알고리즘은 내부에 구현되어 있습니다. (대부분 최적화된 [quicksort](https://en.wikipedia.org/wiki/Quicksort)를 사용하는데) 내부 알고리즘이 어떻게 작동하는지는 상관할 필요가 없습니다. 내부에 구현된 알고리즘은 배열내를 돌아다니며 요소를 비교하고, 제공된 함수를 기준으로 요소를 재 정렬합니다. 개발자는 비교에 쓰이는 `fn` 만 제공해 주면 됩니다.  
+The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
 
 정렬 과정에서 어떤 요소끼리 비교가 일어났는지 확인하고 싶다면 아래 코드를 통해 확인하면 됩니다.
 
@@ -430,13 +428,13 @@ alert(arr);  // *!*1, 2, 15*/!*
 });
 ```
 
-정렬에 쓰이는 알고리즘은 정렬 과정에서 요소를 여러번 비교합니다. 하지만 비교를 가능한 한 적게 하는 방식으로 구현되어 있습니다.
+이 알고리즘은 정렬 시 요소를 여러번 비교합니다. 하지만 비교를 가능한 한 적게 하는 방식으로 구현되어 있습니다.
 
 
-````smart header="비교에 쓰이는 함수는 어떤 숫자던 반환할 수 있습니다."
-Actually, a comparison function is only required to return a positive number to say "greater" and a negative number to say "less".
+````smart header="비교 함수는 어떤 숫자든 반환할 수 있습니다."
+사실 비교함수는 양수가 "~보다 크다"를 나타내고 음수가 "~보다 작다"를 나타내기만 하면 리턴값엔 아무 제약이 없습니다.
 
-That allows to write shorter functions:
+이 점을 이용하면 콜백을 간결하게 작성할 수 있습니다.
 
 ```js run
 let arr = [ 1, 2, 15 ];
@@ -447,21 +445,21 @@ alert(arr);  // *!*1, 2, 15*/!*
 ```
 ````
 
-````smart header="Arrow functions for the best"
-Remember [arrow functions](info:function-expressions-arrows#arrow-functions)? We can use them here for neater sorting:
+````smart header="화살표 함수가 제일 좋습니다"
+앞서 배웠던 [화살표 함수](info:function-expressions-arrows#arrow-functions)를 기억하시나요? 비교함수를 화살표 함수로 작성하면 아주 깔끔한 코드로 배열을 정렬할 수 있습니다.
 
 ```js
 arr.sort( (a, b) => a - b );
 ```
 
-This works exactly the same as the other, longer, version above.
+화살표 함수로 작성한 위 코드는 앞서 소개한 긴 버전의 코드와 동일하게 작동합니다.
 ````
 
 ### reverse
 
-The method [arr.reverse](mdn:js/Array/reverse) reverses the order of elements in `arr`.
+[arr.reverse](mdn:js/Array/reverse) 메서드는 `arr`의 요소를 역순으로 정렬시킵니다.
 
-For instance:
+예시:
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
@@ -470,15 +468,15 @@ arr.reverse();
 alert( arr ); // 5,4,3,2,1
 ```
 
-It also returns the array `arr` after the reversal.
+이 메서드 역시 역순으로 재정렬된 배열을 반환합니다.
 
-### split and join
+### split과 join
 
-Here's the situation from the real life. We are writing a messaging app, and the person enters the comma-delimited list of receivers: `John, Pete, Mary`. But for us an array of names would be much more comfortable than a single string. How to get it?
+메시지 전송 애플리케이션을 만들고 있다고 가정해 봅시다. 메시지 수신자가 여러 명일 경우, 발신자는 쉼표를 이용해 각 수신자를 구분해 입력할 것입니다. `John, Pete, Mary`같이 말이죠. 개발자는 이렇게 하나의 긴 문자열로 입력받은 수신자 리스트를 배열 형태로 전환해 처리하고 싶을 겁니다. 어떻게 입력받은 문자열을 배열로 바꿀 수 있을까요?
 
-The [str.split(delim)](mdn:js/String/split) method does exactly that. It splits the string into an array by the given delimiter `delim`.
+[str.split(delim)](mdn:js/String/split) 메서드를 이용하면, 정확히 우리가 원하는 것을 할 수 있습니다. 이 메서드는 구분자 `delim`을 이용해 긴 문자열을 배열로 쪼개주기 때문입니다.
 
-In the example below, we split by a comma followed by space:
+아래 코드에선 쉼표와 공백이 하나의 구분자 역할을 하고 있습니다.
 
 ```js run
 let names = 'Bilbo, Gandalf, Nazgul';
@@ -490,7 +488,7 @@ for (let name of arr) {
 }
 ```
 
-The `split` method has an optional second numeric argument -- a limit on the array length. If it is provided, then the extra elements are ignored. In practice it is rarely used though:
+`split` 메서드는 두 번째 인수로 숫자를 받을 수 있습니다. 이 숫자는 배열의 길이를 제한해줍니다. 길이를 넘어서는 요소는 무시되죠. 실무에선 자주 사용하지 않습니다.
 
 ```js run
 let arr = 'Bilbo, Gandalf, Nazgul, Saruman'.split(', ', 2);
@@ -498,8 +496,8 @@ let arr = 'Bilbo, Gandalf, Nazgul, Saruman'.split(', ', 2);
 alert(arr); // Bilbo, Gandalf
 ```
 
-````smart header="Split into letters"
-The call to `split(s)` with an empty `s` would split the string into an array of letters:
+````smart header="문자열을 글자 하나하나로 쪼개기"
+메서드 `split(s)`의 인수에 빈 문자열 `s`를 넣으면 문자열을 구성하는 글자 하나하나를 요소로 갖는 배열을 만들 수 있습니다.
 
 ```js run
 let str = "test";
@@ -508,47 +506,50 @@ alert( str.split('') ); // t,e,s,t
 ```
 ````
 
-The call [arr.join(separator)](mdn:js/Array/join) does the reverse to `split`. It creates a string of `arr` items glued by `separator` between them.
+The call [arr.join(glue)](mdn:js/Array/join) does the reverse to `split`. It creates a string of `arr` items joined by `glue` between them.
 
-For instance:
+예시:
 
 ```js run
 let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
 
-let str = arr.join(';');
+let str = arr.join(';'); // glue the array into a string using ;
 
 alert( str ); // Bilbo;Gandalf;Nazgul
 ```
 
 ### reduce/reduceRight
 
-When we need to iterate over an array -- we can use `forEach`, `for` or `for..of`.
+배열 내 요소를 대상으로 반복 작업을 하고 싶을 때 `forEach`, `for`, `for..of`을 사용할 수 있다고 배웠습니다.
 
-When we need to iterate and return the data for each element -- we can use `map`.
+각 요소를 돌면서 반복 작업을 수행하고, 요소를 조작하여 얻은 값을 받고 싶을 때는 `map`을 사용할 수 있죠.
 
-The methods [arr.reduce](mdn:js/Array/reduce) and [arr.reduceRight](mdn:js/Array/reduceRight) also belong to that breed, but are a little bit more intricate. They are used to calculate a single value based on the array.
+[arr.reduce](mdn:js/Array/reduce)와 [arr.reduceRight](mdn:js/Array/reduceRight)도 유사한 작업을 합니다. 다만 사용법이 조금 복잡합니다. 이 메서드들은 배열을 기반으로 어떤 값 하나를 도출해 내고 싶을 때 사용합니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 let value = arr.reduce(function(previousValue, item, index, array) {
   // ...
-}, initial);
+}, [initial]);
 ```
 
-The function is applied to the elements. You may notice the familiar arguments, starting from the 2nd:
+The function is applied to all array elements one after another and "carries on" its result to the next call.
 
+Arguments:
+
+- `previousValue` -- is the result of the previous function call, equals `initial` the first time (if `initial` is provided).
 - `item` -- is the current array item.
 - `index` -- is its position.
 - `array` -- is the array.
 
-So far, like `forEach/map`. But there's one more argument:
+As function is applied, the result of the previous function call is passed to the next one as the first argument.
 
-- `previousValue` -- is the result of the previous function call, `initial` for the first call.
+Sounds complicated, but it's not if you think about the first argument as the "accumulator" that stores the combined result of all previous execution. And at the end it becomes the result of `reduce`.
 
-The easiest way to grasp that is by example.
+조금 어렵겠지만, 예제를 통해 이 메서드를 이해해 보도록 합시다.
 
-Here we get a sum of array in one line:
+`reduce` 메서드를 이용해 코드 한 줄로 배열의 모든 요소를 더한 값을 구해보겠습니다.
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
@@ -558,76 +559,75 @@ let result = arr.reduce((sum, current) => sum + current, 0);
 alert(result); // 15
 ```
 
-Here we used the most common variant of `reduce` which uses only 2 arguments.
+The function passed to `reduce` uses only 2 arguments, that's typically enough.
 
-Let's see the details of what's going on.
+어떤 과정을 거쳐 위 결과가 나왔는지 살펴보도록 합시다.
 
-1. On the first run, `sum` is the initial value (the last argument of `reduce`), equals `0`, and `current` is the first array element, equals `1`. So the result is `1`.
-2. On the second run, `sum = 1`, we add the second array element (`2`) to it and return.
-3. On the 3rd run, `sum = 3` and we add one more element to it, and so on...
+1. 처음 콜백을 호출할 때, `sum`엔 `초깃값` `0`(`reduce`의 마지막 인수)이 할당됩니다. `current`엔 배열의 첫 번째 요소 값인 `1`이 할당됩니다. 따라서 함수의 결과는 `1`이 되죠.
+2. 두 번째 호출 시, `sum = 1` 입니다. 여기에 두 번째 요소(`2`)를 더해주고, 결과를 반환합니다. 
+3. 세 번째 호출 시, `sum = 3`이고, 여기에 다음 요소를 더해줍니다. 이 과정이 계속 이어집니다.
 
-The calculation flow:
+그림으로 이 과정을 살펴보도록 합시다.
 
-![](reduce.png)
+![](reduce.svg)
 
-Or in the form of a table, where each row represents a function call on the next array element:
+표를 이용해 설명하면, 다음과 같습니다. 콜백 호출 시 사용될 인수의 값과, 연산 결과를 열에서 찾을 수 있습니다.
 
 |   |`sum`|`current`|`result`|
 |---|-----|---------|---------|
-|the first call|`0`|`1`|`1`|
-|the second call|`1`|`2`|`3`|
-|the third call|`3`|`3`|`6`|
-|the fourth call|`6`|`4`|`10`|
-|the fifth call|`10`|`5`|`15`|
+|첫 번째 호출|`0`|`1`|`1`|
+|두 번째 호출|`1`|`2`|`3`|
+|세 번째 호출|`3`|`3`|`6`|
+|네 번째 호출|`6`|`4`|`10`|
+|다섯번째 호출|`10`|`5`|`15`|
 
+Here we can clearly see how the result of the previous call becomes the first argument of the next one.
 
-As we can see, the result of the previous call becomes the first argument of the next one.
-
-We also can omit the initial value:
+초깃값을 생략할 수도 있습니다.
 
 ```js run
 let arr = [1, 2, 3, 4, 5];
 
-// removed initial value from reduce (no 0)
+// reduce 메서드에서 초깃값(initial value)을 제거함(0을 없앰)
 let result = arr.reduce((sum, current) => sum + current);
 
 alert( result ); // 15
 ```
 
-The result is the same. That's because if there's no initial, then `reduce` takes the first element of the array as the initial value and starts the iteration from the 2nd element.
+결과는 같네요. 초깃값이 없으면 `reduce` 메서드는 배열의 첫 번째 요소를 초깃값으로 사용하고, 두 번째 요소부터 콜백을 호출하기 때문입니다.
 
-The calculation table is the same as above, minus the first row.
+위 표에서 첫 번째 줄만 없애면, 초깃값 없이 계산한 바로 위 예제의 연산 순서를 나타낼 수 있습니다.
 
-But such use requires an extreme care. If the array is empty, then `reduce` call without initial value gives an error.
+하지만 이렇게 초깃값 없이 `reduce`를 사용할 땐 극도의 주의를 기울여야 합니다. 배열이 비어있는 상태면 `reduce` 호출 시 에러가 발생하기 때문입니다.
 
-Here's an example:
+예시:
 
 ```js run
 let arr = [];
 
 // Error: Reduce of empty array with no initial value
-// if the initial value existed, reduce would return it for the empty arr.
+// 초깃값을 설정해 주었다면, 배열이 비어있는 경우에 그 값을 반환했을 겁니다.
 arr.reduce((sum, current) => sum + current);
 ```
 
 
-So it's advised to always specify the initial value.
+이런 예외상황 때문에, 항상 초깃값을 명시해 줄 것을 권유합니다.
 
-The method [arr.reduceRight](mdn:js/Array/reduceRight) does the same, but goes from right to left.
+[arr.reduceRight](mdn:js/Array/reduceRight) 메서드도 같은 연산을 하지만, 배열의 오른쪽부터 연산을 수행한다는 점만 다릅니다.
 
 
 ## Array.isArray
 
 Arrays do not form a separate language type. They are based on objects.
 
-So `typeof` does not help to distinguish a plain object from an array:
+따라서 일반 객체와 배열을 구분하고 싶을 때 `typeof`는 도움이 되지 않습니다.
 
 ```js run
-alert(typeof {}); // object
-alert(typeof []); // same
+alert(typeof {}); // 객체
+alert(typeof []); // 객체
 ```
 
-...But arrays are used so often that there's a special method for that: [Array.isArray(value)](mdn:js/Array/isArray). It returns `true` if the `value` is an array, and `false` otherwise.
+하지만 배열은 많이 쓰이기 때문에, 배열인지 아닌지를 감별해내는 특별한 메서드가 필요합니다. [Array.isArray(value)](mdn:js/Array/isArray)가 바로 그 역할을 해줍니다. `value`가 배열일 때 이 메서드는 `true`을 반환하고, 배열이 아닐 땐 `false`를 반환합니다.
 
 ```js run
 alert(Array.isArray({})); // false
@@ -635,25 +635,25 @@ alert(Array.isArray({})); // false
 alert(Array.isArray([])); // true
 ```
 
-## Most methods support "thisArg"
+## 대부분의 메서드는 "thisArg"을 지원합니다.
 
-Almost all array methods that call functions -- like `find`, `filter`, `map`, with a notable exception of `sort`, accept an optional additional parameter `thisArg`.
+콜백을 호출하는 대부분의 배열 메서드(`find`, `filter`, `map` 등. `sort`는 제외)는 `thisArg`라는 추가적인 선택 매개변수를 받을 수 있습니다.
 
-That parameter is not explained in the sections above, because it's rarely used. But for completeness we have to cover it.
+쓸 일이 흔치 않기 때문에 각 메서드를 설명할 때 이 매개변수에 대해 언급하지 않았습니다. 하지만 튜토리얼의 완성도를 위해 잠시 언급하고 넘어가도록 하겠습니다.
 
-Here's the full syntax of these methods:
+thisArg는 각 메서드에서 다음과 같이 활용할 수 있습니다.
 
 ```js
 arr.find(func, thisArg);
 arr.filter(func, thisArg);
 arr.map(func, thisArg);
 // ...
-// thisArg is the optional last argument
+// thisArg는 선택적으로 사용할 수 있는 마지막 인수입니다.
 ```
 
-The value of `thisArg` parameter becomes `this` for `func`.
+매개변수인 `thisArg`의 값은 `func`의 `this`가 됩니다.
 
-For instance, here we use an object method as a filter and `thisArg` comes in handy:
+For instance, here we use an object method as a filter and `thisArg` helps with that:
 
 ```js run
 let user = {
@@ -670,63 +670,63 @@ let users = [
 ];
 
 *!*
-// find all users younger than user
+// user보다 나이가 적은 user를 찾음
 let youngerUsers = users.filter(user.younger, user);
 */!*
 
 alert(youngerUsers.length); // 2
 ```
 
-In the call above, we use `user.younger` as a filter and also provide `user` as the context for it. If we didn't provide the context, `users.filter(user.younger)` would call `user.younger` as a standalone function, with `this=undefined`. That would mean an instant error.
+객체의 메서드인 `user.younger`를 필터처럼 사용하고, `user`를 비교 기준으로 삼은 것을 확인할 수 있습니다. `user`를 인수로 써주지 않았다면, `users.filter(user.younger)`에서 `user.younger`는 독립된 콜백 함수로 호출됐을 겁니다. 이렇게 되면, `this=undefined`가 되어 에러가 발생합니다.
 
-## Summary
+## 요약
 
-A cheatsheet of array methods:
+지금까지 살펴본 배열 메서드를 요약해보도록 합시다.
 
-- To add/remove elements:
-  - `push(...items)` -- adds items to the end,
-  - `pop()` -- extracts an item from the end,
-  - `shift()` -- extracts an item from the beginning,
-  - `unshift(...items)` -- adds items to the beginning.
-  - `splice(pos, deleteCount, ...items)` -- at index `pos` delete `deleteCount` elements and insert `items`.
-  - `slice(start, end)` -- creates a new array, copies elements from position `start` till `end` (not inclusive) into it.
-  - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
+- 요소를 더하거나 지우기
+  - `push(...items)` -- 배열 끝에 요소 넣기
+  - `pop()` -- 배열 끝 요소 추출하기
+  - `shift()` -- 첫 요소 추출하기
+  - `unshift(...items)` -- 배열의 처음에 요소 추가하기
+  - `splice(pos, deleteCount, ...items)` -- `pos` 인덱스(위치)부터 `deleteCount`개의 요소를 지우고, `items` 추가하기
+  - `slice(start, end)` -- 배열의 `start`부터 `end` 바로 앞 인덱스까지의 요소를 복사해, 새로운 배열을 만듦
+  - `concat(...items)` --  현재 배열의 모든 요소를 복사하고, 여기에 `items`를 추가해 새로운 배열을 만든 후, 이를 반환함. `items`가 배열이면, 이 배열의 인수를 기존 배열에 더해줌
 
-- To search among elements:
-  - `indexOf/lastIndexOf(item, pos)` -- look for `item` starting from position `pos`, return the index or `-1` if not found.
-  - `includes(value)` -- returns `true` if the array has `value`, otherwise `false`.
-  - `find/filter(func)` -- filter elements through the function, return first/all values that make it return `true`.
-  - `findIndex` is like `find`, but returns the index instead of a value.
-  
-- To iterate over elements:
-  - `forEach(func)` -- calls `func` for every element, does not return anything.
+- 원하는 요소 찾기
+  - `indexOf/lastIndexOf(item, pos)` -- `pos`부터 시작해 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `-1`을 반환함
+  - `includes(value)` -- 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
+  - `find/filter(func)` -- 함수를 조건 기준으로 삼고, 조건을 `true`로 만드는 첫 번째/전체 요소를 반환함
+  - `findIndex`는 `find`와 유사함. 다만, 요소 대신 인덱스를 반환함
 
-- To transform the array:
-  - `map(func)` -- creates a new array from results of calling `func` for every element.
-  - `sort(func)` -- sorts the array in-place, then returns it.
-  - `reverse()` -- reverses the array in-place, then returns it.
-  - `split/join` -- convert a string to array and back.
-  - `reduce(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
+- 배열 전체 순회하기
+  - `forEach(func)` -- 모든 요소에 `func`을 호출하고, 결과를 반환하지 않음
 
-- Additionally:
-  - `Array.isArray(arr)` checks `arr` for being an array.
+- 배열 변형하기
+  - `map(func)` -- 모든 요소에 `func`을 호출하고, 반환된 결과를 가지고 새로운 배열을 만듦
+  - `sort(func)` -- 배열을 정렬하고, 정렬된 배열을 반환함
+  - `reverse()` -- 배열을 뒤집어 반환함
+  - `split/join` -- 문자열을 배열로, 배열을 문자열로 변환함
+  - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출하고, 반환값을 다음 함수 호출 시 전달함. 최종적으로 하나의 값이 도출됨 
 
-Please note that methods `sort`, `reverse` and `splice` modify the array itself.
+- 기타
+  - `Array.isArray(arr)` -- `arr`이 배열인지 여부를 확인함
 
-These methods are the most used ones, they cover 99% of use cases. But there are few others:
+`sort`, `reverse`, `splice`는 기존 배열을 변형시킨다는 점에 주의하시기 바랍니다.
 
-- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) checks the array.
+지금까지 배운 메서드는 가장 많이 쓰이는 메서드이고, 메서드 유스 케이스의 99%에 적용할 수 있습니다. 하지만 이 외에 몇 가지 추가적인 메서드가 있습니다.
 
-  The function `fn` is called on each element of the array similar to `map`. If any/all results are `true`, returns `true`, otherwise `false`.
+- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every)는 배열을 확인합니다.
 
-- [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
+  두 메서드는 `map`과 유사하게 배열 안 모든 요소에 콜백을 호출합니다. 콜백의 특정/모든 반환값이 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.  
 
-- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- copies its elements from position `start` till position `end` into *itself*, at position `target` (overwrites existing).
+- [arr.fill(value, start, end)](mdn:js/Array/fill) 인덱스 `start`부터 `end`까지 `value`를 채워 넣습니다.
 
-For the full list, see the [manual](mdn:js/Array).
+- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- 인덱스 `start`부터 `end`까지 요소를 복사하고, 그 요소를 `target` 위치에 붙여넣습니다. 기존 요소가 있다면 덮어씌워 집니다.
 
-From the first sight it may seem that there are so many methods, quite difficult to remember. But actually that's much easier than it seems.
+배열에 관한 모든 메서드는 [manual](mdn:js/Array)에서 찾아볼 수 있습니다.
 
-Look through the cheatsheet just to be aware of them. Then solve the tasks of this chapter to practice, so that you have experience with array methods.
+처음엔 메서드 종류가 너무 많아서 외우기 힘들 수 있습니다. 하지만 보기보다 쉬우니 너무 걱정하지 않으셨으면 좋겠습니다.
 
-Afterwards whenever you need to do something with an array, and you don't know how -- come here, look at the cheatsheet and find the right method. Examples will help you to write it correctly. Soon you'll automatically remember the methods, without specific efforts from your side.
+요약본을 참고해 이런 메서드가 있다는 정도만 알아두세요. 아래 과제를 풀면서 충분히 연습하다 보면 배열 메서드에 대한 경험치가 쌓일 겁니다.
+
+나중에 배열을 이용해 뭔가를 해야 하는데 어떻게 해야 할지 생각이 떠오르지 않으면 이곳으로 돌아와 요약본을 다시 보고 상황에 맞는 메서드를 찾으면 됩니다. 메서드에 딸린 예시들이 실제 코드 작성시 도움이 될 겁니다. 이런 과정을 반복하다 보면 특별한 노력 없이도 메서드가 저절로 외워질 겁니다.

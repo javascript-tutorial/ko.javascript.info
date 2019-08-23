@@ -15,7 +15,7 @@
 두 가지 방법으로 이벤트의 기본 동작을 취소할 수 있습니다:
 
 - 가장 많이 쓰이는 방법은 `event` 객체의 `event.preventDefault()`메서드를 이용하는 것입니다.
-- 만약 이벤트가 (`addEventListener`이 아니라) `on<event>`를 이용해 할당되었다면, `false`를 반환해 주면 됩니다.
+- 만약 핸들러가 (`addEventListener`이 아니라) `on<event>`을 이용해 할당되었다면, `false`를 반환해 기본동작을 취소할 수도 있습니다.
 
 아래 예제에선 링크를 클릭해도 URL로 연결되지 않습니다.
 
@@ -30,7 +30,7 @@ or
 
 딱 한 가지 예외는 `on<event>`를 이용해 할당한 핸들러에 `return false`이 있을 때입니다.
 
-이 외에 다른 모든 경우는 반환문이 필요 없고, 있더라도 그 반환문은 처리되지 않습니다.
+이 외에는 `return`문이 필요 없고, 있더라도 그 반환문은 처리되지 않습니다.
 ```
 
 ### 예제: 메뉴
@@ -71,27 +71,24 @@ menu.onclick = function(event) {
 };
 ```
 
-위에서 `return false`를 생략했다면, 브라우저 "기본 동작"이 실행돼 `href` 속성에 정의된 URL로 이동하게 됩니다.
+If we omit `return false`, then after our code executes the browser will do its "default action" -- navigating to the URL in `href`. And we don't need that here, as we're handling the click by ourselves.
 
-한편, 위에서 작성한 메뉴에 이벤트 위임을 적용하면 메뉴를 좀 더 유연하게 만들 수 있습니다. 중첩 리스트를 더해주고, CSS를 사용해 이 리스트에 "slide down" 애니메이션을 적용해 줄 수 있습니다. 
+By the way, using event delegation here makes our menu very flexible. We can add nested lists and style them using CSS to "slide down".
 
-
-## 연결되는 이벤트 취소하기
-
-이벤트 흐름이 한 이벤트에서 시작해 다른 이벤트로 흘러갈 때도 있습니다. 이런 경우, 첫 번째 이벤트를 취소하면 다음 이벤트가 발생하지 않습니다.
+````smart header="Follow-up events"
+Certain events flow one into another. If we prevent the first event, there will be no second.
 
 예를 들어 살펴보겠습니다. `<input>` 필드의 `mousedown` 이벤트는 `focus` 이벤트를 유발합니다. 따라서 `mousedown`를 막으면 포커싱도 발생하지 않습니다. 
 
-아래에서 첫 번째 `<input>`을 클릭해보세요. `focus` 이벤트가 발생합니다. 이게 일반적인 경우입니다.
-
-하지만 두 번째 `<input>`을 클릭하면 포커스 이벤트가 발생하지 않는 걸 확인할 수 있습니다.
+Try to click on the first `<input>` below -- the `focus` event happens. But if you click the second one, there's no focus.
 
 ```html run autorun
 <input value="Focus works" onfocus="this.value=''">
 <input *!*onmousedown="return false"*/!* onfocus="this.value=''" value="Click me">
 ```
 
-이는 `mousedown`에서 브라우저 동작을 취소했기 때문입니다. 마우스 클릭 말고 다른 방법을 사용하면 포커싱이 가능합니다. 첫 번째 input에서 `key:Tab` 키를 눌러 두 번째 input으로 이동하면 됩니다. 이렇게 해도 여전히 마우스 클릭을 통한 포커싱은 동작하지 않습니다.
+That's because the browser action is canceled on `mousedown`. The focusing is still possible if we use another way to enter the input. For instance, the `key:Tab` key to switch from the 1st input into the 2nd. But not with the mouse click any more.
+````
 
 ## addEventListener의 "passive" 옵션
 
@@ -116,21 +113,23 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 
 <info:bubbling-and-capturing> 챕터의 `event.stopPropagation()`를 기억하시나요? 여기서 버블링을 막는 게 왜 나쁜지 이야기한 바 있습니다.
 
-`event.defaultPrevented`을 사용하면 버블링을 막지 않고, 원하는 동작을 구현할 수 있습니다.
+Sometimes we can use `event.defaultPrevented` instead, to signal other event handlers that the event was handled.
 
-이벤트 버블링을 막아야 해결되는 이슈지만, 다른 방법으로 해당 이슈를 해결하는 사례를 살펴보도록 합시다.
+Let's see a practical example.
 
 `컨텍스트 메뉴(contextmenu)`는 브라우저에서 마우스 우클릭 시 발생하는 이벤트입니다. 이 이벤트가 발생하면 컨텍스트 메뉴가 뜨죠. 컨텍스트 메뉴 대신 다른 걸 띄울 수도 있습니다. 아래와 같이 말이죠:
 
 ```html autorun height=50 no-beautify run
-<button>Right-click for browser context menu</button>
+<button>Right-click shows browser context menu</button>
 
 <button *!*oncontextmenu="alert('Draw our menu'); return false"*/!*>
-  Right-click for our context menu
+  Right-click shows our context menu
 </button>
 ```
 
-이젠, 문서 전체 영역에서 새로운 컨텍스트 메뉴가 뜨도록 해 봅시다. 그리고 문서 일부 요소에서 또 다른 컨텍스트 메뉴가 필요하다고 가정해 봅시다: 
+Now, in addition to that context menu we'd like to implement document-wide context menu.
+
+Upon right click, the closest context menu should show up.
 
 ```html autorun height=80 no-beautify run
 <p>Right-click here for the document context menu</p>
@@ -151,7 +150,7 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 
 `elem`을 클릭했을 때 두 개의 컨텍스트 메뉴가 뜨는 문제가 발생합니다: 버튼 레벨의 메뉴와 이벤트가 버블링되면서 발생하는 문서 레벨의 메뉴가 뜨죠.
 
-이 문제를 어떻게 해결할까요? 아마 이 해결책을 가장 먼저 떠올리셨을 겁니다. "버튼에 할당한 이벤트 핸들러만 동작하게 하고, `event.stopPropagation()`를 사용해 버블링을 멈추자."라고 말이죠:
+How to fix it? One of solutions is to think like: "When we handle right-click in the button handler, let's stop its bubbling" and use `event.stopPropagation()`:
 
 ```html autorun height=80 no-beautify run
 <p>Right-click for the document menu</p>
@@ -179,7 +178,7 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 
 
 ```html autorun height=80 no-beautify run
-<p>Right-click for the document menu (fixed with event.defaultPrevented)</p>
+<p>Right-click for the document menu (added a check for event.defaultPrevented)</p>
 <button id="elem">Right-click for the button menu</button>
 
 <script>
@@ -206,7 +205,7 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 ```
 
 ```smart header="중첩 컨텍스트 메뉴의 아키텍처"
-다른 방법으로 중첩 컨텍스트 메뉴를 만들 수 있습니다. `document.oncontextmenu`를 다루는 메서드가 있는 특별한 전역 객체를 만들면 됩니다. 이 객체에 "낮은 레벨"의 핸들러를 저장하는 메서드를 정의해서 말이죠.
+There are also alternative ways to implement nested context menus. One of them is to have a single global object with a handler for `document.oncontextmenu`, and also methods that allow to store other handlers in it.
 
 이 전역 객체는 모든 우클릭을 잡아내서 내부의 핸들러를 빠르게 살펴본 후, 적절한 핸들러를 실행시킬 겁니다.
 
@@ -220,7 +219,6 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 - `mousedown` -- (마우스가 움직인 곳에서) 선택을 시작합니다.
 - `<input type="checkbox">`을 `click` -- `input`을 선택/선택해제(check/uncheck) 합니다.
 - `submit` -- 폼 안에서 `<input type="submit">`을 클릭하거나 `key:Enter`를 눌렀을 때 이 이벤트가 발생하고, 브라우저는 폼을 서버로 전송합니다.
-- `wheel` -- 마우스 휠(wheel)을 굴리는 이벤트는 스크롤링을 기본 동작으로 실행합니다.
 - `keydown` -- 키를 누르면 텍스트 박스에 글자를 추가하거나 그 외의 다른 동작을 수행합니다.
 - `contextmenu` -- 마우스 오른쪽 버튼을 클릭하면 발생하는 이벤트로, 브라우저 컨텍스트 메뉴를 보여줍니다. 
 - ...그 외 다양한 동작이 있습니다...

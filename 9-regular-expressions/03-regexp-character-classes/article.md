@@ -43,7 +43,7 @@ Most used are:
 : A space symbol: that includes spaces, tabs, newlines.
 
 `\w` ("w" is from "word")
-: A "wordly" character: either a letter of English alphabet or a digit or an underscore. Non-english letters (like cyrillic or hindi) do not belong to `\w`.
+: A "wordly" character: either a letter of English alphabet or a digit or an underscore. Non-Latin letters (like cyrillic or hindi) do not belong to `\w`.
 
 For instance, `pattern:\d\s\w` means a "digit" followed by a "space character" followed by a "wordly character", like `"1 a"`.
 
@@ -61,12 +61,12 @@ alert( str.match(reg) ); // CSS4
 Also we can use many character classes:
 
 ```js run
-alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // 'HTML5'
+alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
 ```
 
 The match (each character class corresponds to one result character):
 
-![](love-html5-classes.png)
+![](love-html5-classes.svg)
 
 ## Word boundary: \b
 
@@ -89,22 +89,23 @@ When regular expression engine is doing the search, it's moving along the string
 
 When the pattern contains `pattern:\b`, it tests that the position in string is a word boundary, that is one of three variants:
 
-- Immediately before is `\w`, and immediately after -- not `\w`, or vise versa.
-- At string start, and the first string character is `\w`.
-- At string end, and the last string character is `\w`.
+There are three different positions that qualify as word boundaries:
+
+- At string start, if the first string character is a word character `\w`.
+- Between two characters in the string, where one is a word character `\w` and the other is not.
+- At string end, if the last string character is a word character `\w`.
 
 For instance, in the string `subject:Hello, Java!` the following positions match `\b`:
 
-![](hello-java-boundaries.png)
+![](hello-java-boundaries.svg)
 
 So it matches `pattern:\bHello\b`, because:
 
 1. At the beginning of the string the first `\b` test matches.
 2. Then the word `Hello` matches.
-3. Then `\b` matches, as we're between `o` and a space.
+3. Then `\b` matches, as we're between `o` (a word character) and a space (not a word character).
 
 Pattern `pattern:\bJava\b` also matches. But not `pattern:\bHell\b` (because there's no word boundary after `l`) and not `Java!\b` (because the exclamation sign is not a wordly character, so there's no word boundary after it).
-
 
 ```js run
 alert( "Hello, Java!".match(/\bHello\b/) ); // Hello
@@ -115,7 +116,7 @@ alert( "Hello, Java!".match(/\bJava!\b/) ); // null (no match)
 
 Once again let's note that `pattern:\b` makes the searching engine to test for the boundary, so that `pattern:Java\b` finds `match:Java` only when followed by a word boundary, but it does not add a letter to the result.
 
-Usually we use `\b` to find standalone English words. So that if we want `"Java"` language then `pattern:\bJava\b` finds exactly a standalone word and ignores it when it's a part of `"JavaScript"`.
+Usually we use `\b` to find standalone English words. So that if we want `"Java"` language then `pattern:\bJava\b` finds exactly a standalone word and ignores it when it's a part of another word, e.g. it won't match `match:Java` in `subject:JavaScript`.
 
 Another example: a regexp `pattern:\b\d\d\b` looks for standalone two-digit numbers. In other words, it requires that before and after `pattern:\d\d` must be a symbol different from `\w` (or beginning/end of the string).
 
@@ -123,8 +124,10 @@ Another example: a regexp `pattern:\b\d\d\b` looks for standalone two-digit numb
 alert( "1 23 456 78".match(/\b\d\d\b/g) ); // 23,78
 ```
 
-```warn header="Word boundary doesn't work for non-English alphabets"
+```warn header="Word boundary doesn't work for non-Latin alphabets"
 The word boundary check `\b` tests for a boundary between `\w` and something else. But `\w` means an English letter (or a digit or an underscore), so the test won't work for other characters (like cyrillic or hieroglyphs).
+
+Later we'll come by Unicode character classes that allow to solve the similar task for different languages.
 ```
 
 
@@ -223,13 +226,14 @@ alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for
 
 Usually a dot doesn't match a newline character.
 
-For instance, this doesn't match:
+For instance, `pattern:A.B` matches `match:A`, and then `match:B` with any character between them, except a newline.
+
+This doesn't match:
 
 ```js run
 alert( "A\nB".match(/A.B/) ); // null (no match)
 
-// a space character would match
-// or a letter, but not \n
+// a space character would match, or a letter, but not \n
 ```
 
 Sometimes it's inconvenient, we really want "any character", newline included.
@@ -239,7 +243,6 @@ That's what `s` flag does. If a regexp has it, then the dot `"."` match literall
 ```js run
 alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
 ```
-
 
 ## Summary
 
@@ -255,11 +258,13 @@ There exist following character classes:
 
 ...But that's not all!
 
-Modern Javascript also allows to look for characters by their Unicode properties, for instance:
+The Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if a letter) it is it a punctuation sign, etc.
+
+Modern JavaScript allows to use these properties in regexps to look for characters, for instance:
 
 - A cyrillic letter is: `pattern:\p{Script=Cyrillic}` or `pattern:\p{sc=Cyrillic}`.
 - A dash (be it a small hyphen `-` or a long dash `—`): `pattern:\p{Dash_Punctuation}` or `pattern:\p{pd}`.
-- A currency symbol: `pattern:\p{Currency_Symbol}` or `pattern:\p{sc}`.
+- A currency symbol, such as `$`, `€` or another: `pattern:\p{Currency_Symbol}` or `pattern:\p{sc}`.
 - ...And much more. Unicode has a lot of character categories that we can select from.
 
 These patterns require `'u'` regexp flag to work. More about that in the chapter [](info:regexp-unicode).

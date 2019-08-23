@@ -1,12 +1,5 @@
 # F.prototype
 
-전 글에서 말했듯이 모던 자바스크립트에서는 `__proto__`를 사용하여 원형을 설정할 수 있습니다. 하지만 항상 그런 것은 아니죠.
-자바스크립트는 처음부터 원형 상속을 할 수 있었습니다. 이 언어의 핵심적인 특징 중 하나였지요.
-하지만 이 전에는, 설정할 수 있는 다른(또는 유일한) 방법이 있었습니다. 생성자 함수의 `"prototype"`속성을 이용하는 것이지요. 그리고 여전히 많은 스크립트에서 이것을 사용합니다. 
-우리가 이미 알듯이, `new F()`는 새로운 객체를 만듭니다.
-`new F()`로 새로운 객체를 만들 때, 그 객체의 `[[Prototype]]`은 `F.prototype`으로 설정됩니다.
-다른 말로 해서 만약 `F`가 `prototype` 속성을 객체 타입의 값으로 가지고 있다면, `new` 명령은 그 `prototype`을 새로운 객체의 `[[Prototype]]`에 설정하기 위해서 사용할 것입니다. 
-
 Remember, new objects can be created with a constructor function, like `new F()`.
 
 If `F.prototype` is an object, then `new` operator uses it to set `[[Prototype]]` for the new object.
@@ -20,6 +13,7 @@ But in the old times, there was no direct access to it. The only thing that work
 `F.prototype`은 여기서 `F`안에 `"prototype"`이라는 일반적인 속성임을 알아두세요. "원형"이라는 용어랑 비슷하게 들리겠지만, 여기서 진정으로 말하고자 하는 것은 이 이름으로 쓰이는 일반적인 속성입니다.
 
 예를 들어 보죠:
+
 ```js run
 let animal = {
   eats: true
@@ -42,15 +36,14 @@ alert( rabbit.eats ); // true
 
 이게 결과 화면입니다.
 
-![](proto-constructor-animal-rabbit.png)
+![](proto-constructor-animal-rabbit.svg)
 
-On the picture, `"prototype"` is a horizontal arrow, meaning a regular property, and `[[Prototype]]` is vertical, meaning the inheritance of `rabbit` from `animal`.
-다이어그램에, `"prototype"`은 가로화살표입니다. 일반적인 속성이죠. 그리고 `[[Prototype]]`은 세로 화살표입니다. `animal`으로 부터 상속받은 `rabbit` 인스턴스를 뜻하죠.
+위 그림에서 가로 화살표는 일반 프로퍼티인 `"prototype"`, 세로 화살표는 `[[Prototype]]`을 나타냅니다. 세로 화살표는 `rabbit`이 `animal`로 부터 상속받았다는 것을 의미합니다.
 
 ```smart header="`F.prototype` only used at `new F` time"
 `F.prototype` property is only used when `new F` is called, it assigns `[[Prototype]]` of the new object. After that, there's no connection between `F.prototype` and the new object. Think of it as a "one-time gift".
 
-If, after the creation, `F.prototype` property changes (`F.property = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
+If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
 ```
 
 ## 기본 F.prototype, 생성자 속성
@@ -60,6 +53,7 @@ If, after the creation, `F.prototype` property changes (`F.property = <another o
 기본 `"prototype"`은 단 하나의 속성 `constructor`을 갖습니다. 이 속성은 함수 자기 자신을 가리킵니다.  
 
 이렇게 말이죠:
+
 ```js
 function Rabbit() {}
 
@@ -68,9 +62,10 @@ Rabbit.prototype = { constructor: Rabbit };
 */
 ```
 
-![](function-prototype-constructor.png)
+![](function-prototype-constructor.svg)
 
 다음과 같이 이것을 확인할 수 있습니다.
+
 ```js run
 function Rabbit() {}
 // by default:
@@ -91,11 +86,12 @@ let rabbit = new Rabbit(); // inherits from {constructor: Rabbit}
 alert(rabbit.constructor == Rabbit); // true (from prototype)
 ```
 
-![](rabbit-prototype-constructor.png)
+![](rabbit-prototype-constructor.svg)
 
 우리는 이미 존재하는 것과 동일한 `constructor` 속성을 이용해서 새로운 객체를 만들 수 있습니다. 
 
 이렇게요:
+
 ```js run
 function Rabbit(name) {
   this.name = name;
@@ -139,7 +135,6 @@ alert(rabbit.constructor === Rabbit); // false
 function Rabbit() {}
 
 // Not overwrite Rabbit.prototype totally
-// just add to it
 // 그냥 추가하세요.
 Rabbit.prototype.jumps = true
 // the default Rabbit.prototype.constructor is preserved
@@ -165,8 +160,8 @@ Rabbit.prototype = {
 
 모든 것이 간단하죠, 몇 가지만 명확하게 알아두면 됩니다.
 
-- `F.prototype` 속성은 `[[prototype]]` 과 다릅니다. `F.prototype` 은 한 가지만 합니다. `new F()` 가 호출됐을 때 새로운 객체의 `[[Prototype]]`을 설정합니다.
-- `F.prototype` 의 값은 객체이거나 null입니다. 다른 값은 적용이 안 됩니다..
+- `F.prototype` 프로퍼티는 `[[prototype]]`과 다릅니다. `F.prototype` 은 `new F()` 가 호출됐을 때 새로운 객체의 `[[Prototype]]`을 설정하는 일 한 가지만 합니다.
+- `F.prototype` 의 값은 객체이거나 null입니다. 다른 값은 적용이 안 됩니다.
 - `"prototype"` 속성은 특별한 효과만 가지고 있습니다. `new` 와 함께 호출될 때, 생성자 함수로 설정될 때 그 효과가 일어나죠. 
 
 일반적인 객체의 `prototype`은 전혀 특별하지 않죠.

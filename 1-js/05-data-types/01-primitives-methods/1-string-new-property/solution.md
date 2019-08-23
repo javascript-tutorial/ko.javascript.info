@@ -1,31 +1,24 @@
 
-Try running it:
+아래 코드를 실행해 보세요.
 
 ```js run
 let str = "Hello";
 
 str.test = 5; // (*)
 
-alert(str.test); 
+alert(str.test);
 ```
 
-There may be two kinds of result:
-1. `undefined`
-2. An error.
+엄격 모드인지 아닌지에 따라 결과가 나뉩니다.
+1. `undefined` (비 엄격 모드)
+2. An error (엄격 모드)
 
-Why? Let's replay what's happening at line `(*)`:
+`(*)`로 표시한 줄에서 무슨 일이 일어나는지 알아보면서, 왜 위와 같은 결과가 나타나는지 이해해 봅시다.
 
-1. When a property of `str` is accessed, a "wrapper object" is created.
-2. The operation with the property is carried out on it. So, the object gets the `test` property.
-3. The operation finishes and the "wrapper object" disappears.
+1. `str`의 프로퍼티에 접근하려 하면 "래퍼 객체"가 만들어집니다.
+2. 엄격 모드에선 래퍼 객체를 수정하려 할 때 에러가 발생합니다.
+3. 비 엄격 모드에선 에러가 발생하지 않습니다. 래퍼 객체에 프로퍼티 `str`가 추가되죠. 그런데 래퍼 객체는 바로 삭제되기 때문에 마지막 줄이 실행될 땐 프로퍼티 `str`을 찾을 수 없습니다. 
 
-So, on the last line, `str` has no trace of the property. A new wrapper object for every object operation on a string.
+**위 예시를 통해 원시 값과 객체는 다르다는 것을 다시 한번 확인해 보았습니다.**
 
-Some browsers though may decide to further limit the programmer and disallow to assign properties to primitives at all. That's why in practice we can also see errors at line `(*)`. It's a little bit farther from the specification though.
-
-**This example clearly shows that primitives are not objects.**
-
-They just can not store data. 
-
-All property/method operations are performed with the help of temporary objects.
-
+원시값은 추가 데이터를 저장할 수 없습니다.

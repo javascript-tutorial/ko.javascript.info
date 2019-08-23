@@ -3,13 +3,13 @@
 The lifecycle of an HTML page has three important events:
 
 - `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may be not yet loaded.  
-- `load` -- the browser loaded all resources (images, styles etc).
-- `beforeunload/unload` -- when the user is leaving the page.
+- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload/unload` -- the user is leaving the page.
 
 Each event may be useful:
 
 - `DOMContentLoaded` event -- DOM is ready, so the handler can lookup DOM nodes, initialize the interface.
-- `load` event -- additional resources are loaded, we can get image sizes (if not specified in HTML/CSS) etc.
+- `load` event -- external resources are loaded, so styles are applied, image sizes are known etc.
 - `beforeunload` event -- the user is leaving: we can check if the user saved the changes and ask them whether they really want to leave.
 - `unload` -- the user almost left, but we still can initiate some operations, such as sending out statistics.
 
@@ -60,7 +60,7 @@ So DOMContentLoaded definitely happens after such scripts:
 ```html run
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM ready!");
+    alert("DOM ready!");
   });
 </script>
 
@@ -73,11 +73,10 @@ So DOMContentLoaded definitely happens after such scripts:
 
 In the example above, we first see "Library loaded...", and then "DOM ready!" (all scripts are executed).
 
-```warn header="Scripts with `async`, `defer` or `type=\"module\"` don't block DOMContentLoaded"
-
-Script attributes `async` and `defer`, that we'll cover [a bit later](info:script-async-defer), don't block DOMContentLoaded. [Javascript modules](info:modules) behave like `defer`,  they don't block it too.
-
-So here we're talking about "regular" scripts, like `<script>...</script>`, or `<script src="..."></script>`.
+```warn header="Scripts that don't block DOMContentLoaded"
+There are two exceptions from this rule:
+1. Scripts with `async` attribute that we'll cover [a bit later](info:script-async-defer) don't block `DOMContentLoaded`.
+2. Scripts that are generated dynamically with `document.createElement('script')` and then added to page also don't block this event.
 ```
 
 ### DOMContentLoaded and styles
@@ -150,12 +149,12 @@ window.addEventListener("unload", function() {
 ```
 
 - The request is sent as POST.
-- We can send not only a string, but also forms and other formats, as described in the chapter <info:fetch-basics>, but usually it's a stringified object.
+- We can send not only a string, but also forms and other formats, as described in the chapter <info:fetch>, but usually it's a stringified object.
 - The data is limited by 64kb.
 
 When the `sendBeacon` request is finished, the browser probably has already left the document, so there's no way to get server response (which is usually empty for analytics).
 
-There's also a `keepalive` flag for doing such "after-page-left" requests in  [fetch](info:fetch-basics) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
+There's also a `keepalive` flag for doing such "after-page-left" requests in  [fetch](info:fetch) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
 
 
 If we want to cancel the transition to another page, we can't do it here. But we can use  another event -- `onbeforeunload`.

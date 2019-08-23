@@ -2,9 +2,9 @@ importance: 4
 
 ---
 
-# Function pow(x,n)
+# pow(x,n) 함수 만들기
 
-Write a function `pow(x,n)` that returns `x` in power `n`. Or, in other words, multiplies `x` by itself `n` times and returns the result.
+`x`의 `n`제곱을 반환해주는 함수, `pow(x,n)`를 만들어보세요. `x`의 `n` 제곱은 `x`를 `n`번 곱해서 만들 수 있습니다.
 
 ```js
 pow(3, 2) = 3 * 3 = 9
@@ -12,8 +12,8 @@ pow(3, 3) = 3 * 3 * 3 = 27
 pow(1, 100) = 1 * 1 * ...* 1 = 1
 ```
 
-Create a web-page that prompts for `x` and `n`, and then shows the result of `pow(x,n)`.
+프롬프트 대화상자를 띄워 사용자로부터 `x`와 `n`을 입력받고 `pow(x,n)`의 반환 값을 보여주는 코드를 작성해 보세요.
 
 [demo]
 
-P.S. In this task the function should support only natural values of `n`: integers up from `1`.
+주의사항: `n`은 `1` 이상의 자연수이어야 합니다. 이외의 경우엔 자연수를 입력하라는 얼럿창을 띄워주어야 합니다.

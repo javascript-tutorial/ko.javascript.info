@@ -1,79 +1,85 @@
-# 현대적인 모드, "use strict"
+# 엄격 모드
 
-오랫동안 자바스크립트는 호환성 문제없이 발전해왔습니다. 자바스크립트에 새로운 기능이 추가되었으나, 오래된 기능은 변경되지 않았습니다.
+자바스크립트는 꽤 오랫동안 호환성 이슈 없이 발전해왔습니다. 기존의 기능을 변경하지 않으면서 새로운 기능이 추가되었죠.
 
-이것은 기존의 코드를 절대 망가뜨리지 않는다는 장점을 갖고 있었습니다. 하지만 자바스크립트 창시자들이 했던 실수나 불완전한 결정이 자바스크립트 안에 영원히 존재하게 되었다는 단점이 있었습니다.
+덕분에 기존에 작성한 코드는 절대 망가지지 않는다는 장점이 있었습니다. 하지만 자바스크립트 창시자들이 했던 실수나 불완전한 결정이 언어 안에 영원히 박제된다는 단점도 생겼습니다.
 
-이것은 ECMAScript5(ES5)가 등장했던 2009년까지의 일이었습니다. ES5에서는 자바스크립트에 새로운 기능이 추가되었고 기존 기능 중 일부가 변경되었습니다. 이전의 오래된 코드가 계속 작동할 수 있도록, 대부분의 변경사항은 기본적으로 적용되지 않습니다. 변경사항을 적용하고 싶다면 `"use strict"`라는 특별한 지시어를 통해 명시적으로 활성화해야 합니다.
+이런 상황은 ECMAScript5(ES5)가 등장하기 전인 2009년까지 지속되었습니다. 그런데 새롭게 제정된 ES5에서는 새로운 기능이 추가되고 기존 기능 중 일부가 변경되었습니다. 기존 기능을 변경하였기 때문에 하위 호환성 문제가 생길 수 있겠죠? 그래서 변경사항 대부분은 ES5의 기본 모드에선 활성화되지 않도록 설계되었습니다. 대신 `"use strict"`라는 특별한 지시자를 사용해 엄격 모드(strict mode)를 활성화 했을 때만 이 변경사항이 활성화되게 해놓았습니다.
 
 ## "use strict"
 
-지시어는 `"use strict"` 나 `'use strict'` 라는 문자열로 표현됩니다. 지시어를 스크립트 최상단에 작성하면, 스크립트 전체가 "현대적인" 방식으로 실행됩니다.
+지시자 `"use strict"`, 혹은 `'use strict'`는 단순한 문자열처럼 생겼습니다. 하지만 이 지시자가 스크립트 최상단에 오면 스크립트 전체가 "모던한" 방식으로 동작합니다.
 
-예를 들어
+예시:
 
 ```js
 "use strict";
 
-// 이 코드는 현대적인 방식으로 실행됩니다.
+// 이 코드는 모던한 방식으로 실행됩니다.
 ...
 ```
 
-우리는 함수(명령어들을 그룹화하는 방식)에 대해 곧 배울 것입니다.
-
-`"use strict"`가 스크립트 대신 (대부분의) 함수의 시작 위치에 놓일 수 있다는 사실에 주목하세요. 그러면 엄격 모드(strict mode)가 오직 해당 함수에서만 활성화됩니다. 하지만 보통 사람들은 이 모드를 스크립트 전체를 위해 사용합니다.
+명령어를 그룹화하는 방식인 함수에 대해선 곧 학습하도록 하겠습니다. 함수에 대해 학습하기 전에, `"use strict"`는 스크립트 최상단이 아닌 함수 본문 맨 앞에 올 수도 있다는 점을 알아두시기 바랍니다. 이렇게 하면 오직 해당 함수만 엄격 모드로 실행됩니다. 엄격 모드는 대게 스크립트 전체에 적용되지만 말이죠.
 
 
-````warn header="\"use strict\"는 반드시 상단에 위치시키세요."
-`"use strict"`는 스크립트 최상단에 위치한다는 사실을 명심하세요. 그렇지 않으면, 엄격 모드는 활성화되지 않을 수도 있습니다.
+````warn header="\"use strict\"는 반드시 최상단에 위치시키세요."
+`"use strict"`는 스크립트 최상단에 있어야 한다는 점을 잊지 마세요. 그렇지 않으면 엄격 모드가 활성화되지 않을 수도 있습니다.
 
-다음 코드에서는 엄격 모드가 활성화되지 않습니다.:
+다음 코드에서는 엄격 모드가 활성화되지 않습니다.
 
 ```js no-strict
 alert("some code");
-// 하단에 위치한 "use strict"는 무시됩니다. 상단에 위치해야 합니다.
+// 하단에 위치한 "use strict"는 스크립트 상단에 위치하지 않으므로 무시됩니다.
 
 "use strict";
 
 // 엄격 모드가 활성화되지 않습니다.
 ```
 
-주석만 `"use strict"` 위에 위치할 수 있습니다.
+`"use strict"`위의 주석만 나타날 수 있습니다.
 ````
 
-```warn header="`use strict`를 취소할 방법은 존재하지 않습니다."
-`"no use strict"`나 이와 비슷하게 생긴 지시어는 존재하지 않습니다. that would return the old behavior.
+```warn header="`use strict`를 취소할 방법은 없습니다."
+자바스크립트 엔진을 이전 방식으로 되돌리는 `"no use strict"`같은 지시자는 존재하지 않습니다.
 
-엄격 모드를 적용하면, 돌이킬 방법은 없습니다.
+일단 엄격 모드가 적용되면 돌이킬 방법은 없습니다.
 ```
 
-## Browser console
+## 브라우저 콘솔
 
-For the future, when you use a browser console to test features, please note that it doesn't `use strict` by default.
+개발한 기능을 테스트하기 위해 브라우저 내 콘솔을 사용하는 경우, 기본적으로 `use strict`가 적용되어있지 않는다는 점에 주의하셔야 합니다. 
 
-Sometimes, when `use strict` makes a difference, you'll get incorrect results.
+`use strict`가 기능이 동작하는 방식에 영향을 주는 경우라면 기대치 않았던 결과를 얻을 수 있기 때문입니다.
 
-Even if we press `key:Shift+Enter` to input multiple lines, and put `use strict` on top, it doesn't work. That's because of how the console executes the code internally.
+이럴 땐 'use strict'를 입력한 후, `Shift+Enter키`를 눌러 줄 바꿈 해 원하는 스크립트를 테스트해 볼 수 있습니다. 아래와 같이 말이죠.
 
-The reliable way to ensure `use strict` would be to input the code into console like this:
+```js
+'use strict'; <Shift+Enter를 눌러 줄 바꿈 함>
+//  ...테스트하려는 코드 입력
+<Enter를 눌러 실행>
+```
+
+이 기능은 Firefox와 Chrome 같은 유명한 브라우저에서 대부분 사용 가능합니다.
+
+만약 콘솔 창에 `use strict`를 입력하는 게 불가능하다면, `use strict`를 적용하는 가장 확실한 방법은 아래와 같이 코드를 작성하는 것입니다.
 
 ```js
 (function() {
   'use strict';
 
-  // ...your code...
+  // ...테스트하려는 코드...
 })()
 ```
 
 ## 항상 "use strict"를 사용하세요.
 
-We have yet to cover the differences between strict mode and the "default" mode.
+엄격 모드와 "기본" 모드의 차이점에 대해선 아직 다루지 않았습니다.
 
-In the next chapters, as we learn language features, we'll note the differences between the strict and default modes. Luckily, there aren't many and they actually make our lives better.
+다음 챕터에서 자바스크립트에 대해서 좀 더 학습하면서 엄격 모드와 기본 모드의 차이점에 대해 알아볼 예정인데, 다행히도 차이점이 그리 많지는 않습니다. 두 모드의 차이점은 개발을 용이하게 해줍니다. 
 
-For now, it's enough to know about it in general:
+지금까지 살펴본 엄격 모드에 대해 간단히 정리해 보도록 하겠습니다.
 
-1. The `"use strict"` directive switches the engine to the "modern" mode, changing the behavior of some built-in features. We'll see the details later in the tutorial.
-2. Strict mode is enabled by placing `"use strict"` at the top of a script or function. Several language features, like "classes" and "modules", enable strict mode automatically.
-3. Strict mode is supported by all modern browsers.
-4. We recommended always starting scripts with `"use strict"`. All examples in this tutorial assume strict mode unless (very rarely) specified otherwise.
+1. `"use strict"` 지시자는 자바스크립트 엔진을 "모던한" 모드로 전환해줍니다. 이 모드에선 몇 가지 내장 기능의 동작 방식이 변경됩니다. 자세한 변경사항은 추후 살펴보도록 하겠습니다.
+2. `"use strict"`를 스크립트나 함수 본문 최상단에 위치시키면 엄격 모드가 활성화됩니다. "클래스", "모듈" 같은 몇몇 기능은 자동으로 엄격 모드가 활성화되도록 합니다.
+3. 모든 모던 브라우저는 엄격 모드를 지원합니다.
+4. 스크립트는 항상 `"use strict"`로 시작하길 권장합니다. 특별한 언급이 없으면 이 튜토리얼에 등장하는 모든 예시엔 엄격 모드를 적용할 예정입니다.
