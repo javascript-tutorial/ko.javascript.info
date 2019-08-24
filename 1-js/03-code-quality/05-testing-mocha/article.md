@@ -1,4 +1,4 @@
-# Mocha로 하는 테스팅 자동화
+# Automated testing with Mocha
 
 Automated testing will be used in further tasks, and it's also widely used in real projects.
 

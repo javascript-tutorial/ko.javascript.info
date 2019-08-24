@@ -172,9 +172,9 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 
 자세한 내용은 <info:operators>, <info:comparison>, <info:logical-operators>에서 살펴보시기 바랍니다.
 
-## Loops
+## 반복문
 
-- We covered 3 types of loops:
+- while, do-while, for 문은 아래와 같이 작성할 수 있습니다.
 
     ```js
     // 1
@@ -193,12 +193,12 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
     }
     ```
 
-- The variable declared in `for(let...)` loop is visible only inside the loop. But we can also omit `let` and reuse an existing variable.
+- `for(let...)` 안쪽에 선언한 변수는 오직 반복문 내에서만 사용할 수 있습니다. `let`을 생략하고 기존에 선언되어있는 변수를 사용하는 것도 가능합니다.
 - Directives `break/continue` allow to exit the whole loop/current iteration. Use labels to break nested loops.
 
 자세한 내용은 <info:while-for>에서 살펴보시기 바랍니다.
 
-Later we'll study more types of loops to deal with objects.
+자바스크립트는 이 외에도 객체를 다룰 수 있게 해주는 반복문도 제공합니다. 이에 대해선 추후 학습하겠습니다.
 
 ## "switch"문
 
