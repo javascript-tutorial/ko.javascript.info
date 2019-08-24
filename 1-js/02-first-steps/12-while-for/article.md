@@ -232,16 +232,15 @@ alert( 'Sum: ' + sum );
 
 `break` 지시문은 사용자가 빈 줄을 입력하거나 입력을 취소하면 `(*)` 라인에서 활성화됩니다. 이것은 반복문을 즉시 멈추고, 제어권를 반복문 이후 첫번째 라인에 넘깁니다. 즉, `alert`입니다.
 
-The combination "infinite loop + `break` as needed" is great for situations when a loop's condition must be checked not in the beginning or end of the loop, but in the middle or even in several places of its body.
-"무한 루프 + '필요에 따라'브레이크 '조합은 루프의 시작 또는 끝이 아니라 중간 또는 심지어 여러 곳에서 루프의 상태를 점검해야하는 상황에 적합합니다.
+"필요에 따른 무한 루프 + `break`" 조합은 다음 상황에 매우 적합합니다. 반복문의 조건을 시작부분이나 끝부분이 아니라 본문 중간 또는 여러 곳에서 체크해야 하는 상황에 적합합니다. 
 
-## Continue to the next iteration [#continue]
+## 다음 iteration으로 진행 [#continue]
 
-The `continue` directive is a "lighter version" of `break`. It doesn't stop the whole loop. Instead, it stops the current iteration and forces the loop to start a new one (if the condition allows).
+`continue` 지시어는 `break`의 "더 가벼운 버전"입니다. 전체 반복문을 멈추지 않습니다. 대신, 현재 iteration을 중지하고 반복문이 새로운 iteration을 시작하도록 합니다.(조건이 허용하는 경우)
 
-We can use it if we're done with the current iteration and would like to move on to the next one.
+우리는 이것을 현재 iteration을 마치고 다음 iteration으로 넘어가고 싶을 때 사용할 수 있습니다.
 
-The loop below uses `continue` to output only odd values:
+아래 반복문은 `continue`를 사용하여 홀수 값만 출력합니다.
 
 ```js run no-beautify
 for (let i = 0; i < 10; i++) {
@@ -253,10 +252,10 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-For even values of `i`, the `continue` directive stops executing the body and passes control to the next iteration of `for` (with the next number). So the `alert` is only called for odd values.
+`i`의 짝수 값인 경우, `continue` 지시문은 본문 실행을 중지하고 `for`문의 다음 iteration (다음 숫자 포함하여)으로 제어권를 전달합니다. 따라서 `alert`는 홀수 값에 대해서만 호출됩니다.
 
-````smart header="The `continue` directive helps decrease nesting"
-A loop that shows odd values could look like this:
+````smart header="`continue` 지시문은 중첩을 줄이는데 도움이 됩니다."
+홀수 값을 표시하는 루프는 다음과 같습니다.
 
 ```js
 for (let i = 0; i < 10; i++) {
@@ -268,15 +267,17 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-From a technical point of view, this is identical to the example above. Surely, we can just wrap the code in an `if` block instead of using `continue`.
+기술적인 관점에서 이것은 위의 예와 동일합니다. 확실히, 우리는 `continue`를 사용하는 대신 `if` 블록으로 코드를 감쌀 수 있습니다.
 
-But as a side-effect, this created one more level of nesting (the `alert` call inside the curly braces). If the code inside of`if` is longer than a few lines, that may decrease the overall readability.
+그러나 부작용으로, 이것은 또 다른 수준의 중첩 (중괄호 안의 `alert`호출)을 만들었습니다. `if` 내부의 코드가 몇 줄보다 길어지면 전체 가독성이 떨어질 수 있습니다.
 ````
 
 ````warn header="No `break/continue` to the right side of '?'"
-Please note that syntax constructs that are not expressions cannot be used with the ternary operator `?`. In particular, directives such as `break/continue` aren't allowed there.
+````warn header="'?'(삼항 연산자) 오른쪽에 `break/continue`은 안됩니다."
+표현식이 아닌 구문구조(`break/continue`)는 삼항 연산자 `?`와 함께 사용할 수 없다는 것에 유의하세요. 특히 `break/continue`와 같은 지시문은 허용되지 않습니다.
 
 For example, if we take this code:
+예를 들어, 이 코드에 적용해보면:
 
 ```js
 if (i > 5) {
@@ -286,23 +287,23 @@ if (i > 5) {
 }
 ```
 
-...and rewrite it using a question mark:
+...그리고 물응표를 사용해 다시 작성합니다.
 
 
 ```js no-beautify
 (i > 5) ? alert(i) : *!*continue*/!*; // continue isn't allowed here
 ```
 
-...it stops working: there's a syntax error.
+...작동이 중지됩니다. 구문 오류가 있습니다.
 
-This is just another reason not to use the question mark operator `?` instead of `if`.
+이것은 `if`대신 물음표 연산자`?`를 사용하지 않는 또 다른 이유입니다.
 ````
 
-## Labels for break/continue
+## break/continue의 라벨
 
-Sometimes we need to break out from multiple nested loops at once.
+때때로 우리는 한 번에 여러 개의 중첩 반복문에서 벗어날 필요가 있습니다.
 
-For example, in the code below we loop over `i` and `j`, prompting for the coordinates `(i, j)` from `(0,0)` to `(3,3)`:
+예를 들어, 아래 코드에서 `(0,0)`에서`(3,3)`까지 좌표`(i, j)`를 물으며 `i` 와 `j`를 반복합니다.
 
 ```js run no-beautify
 for (let i = 0; i < 3; i++) {
@@ -318,18 +319,18 @@ for (let i = 0; i < 3; i++) {
 alert('Done!');
 ```
 
-We need a way to stop the process if the user cancels the input.
+사용자가 입력을 취소하면 프로세스를 중지할 수 있는 방법이 필요합니다.
 
-The ordinary `break` after `input` would only break the inner loop. That's not sufficient--labels, come to the rescue!
+`input` 이후의 일반적인 `break`는 내부 루프 만 끊습니다. 이것으로 부족합니다.--labels, 구조하러 오세요!
 
-A *label* is an identifier with a colon before a loop:
+*label* 은 반복문 앞에 콜론이 있는 식별자입니다.
 ```js
 labelName: for (...) {
   ...
 }
 ```
 
-The `break <labelName>` statement in the loop below breaks out to the label:
+아래 반복문의 `break <labelName>`구문은 바깥 for문의 label로 탈출합니다.
 
 ```js run no-beautify
 *!*outer:*/!* for (let i = 0; i < 3; i++) {
