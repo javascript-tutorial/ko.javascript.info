@@ -7,7 +7,7 @@
 
 *반복문*은 동일한 코드를 여러 번 반복하는 방법입니다.
 
-## "while" 반복문
+## 반복문 "while" 
 
 `while` 반복문에는 다음과 같은 구문이 있습니다.
 
@@ -18,7 +18,7 @@ while (condition) {
 }
 ```
 
-`조건`이 참값인 동안 반복문 본문의 `코드`는 실행됩니다.
+`조건`이 참 같은 값이면 반복문 본문의 `코드`를 실행합니다.
 
 예를 들어, 아래 반복문은 `i < 3`이 참인 동안 `i`를 출력합니다. :
 
@@ -32,11 +32,11 @@ while (i < 3) { // shows 0, then 1, then 2
 
 반복문 본문의 단일 실행을 *iteration*이라고합니다. 위 예제의 반복문은 3개의 iteration을 만듭니다. 
 
-만약 위 예제에서 `i ++`가 없다면, 반복문은 (이론적으로) 영원히 반복될 것입니다. 실제로 브라우저는 이러한 반복문을 중지하는 방법을 제공하고, server-side JavaScript에서는 프로세스를 종료할 수 있습니다.
+만약 위 예제에서 `i ++`가 없다면, 반복문은 (이론적으로) 영원히 반복될 것입니다. 실제로 브라우저는 이러한 반복문을 중지하는 방법을 제공하고, Server-side JavaScript에서는 프로세스를 종료할 수 있습니다.
 
-Any expression or variable can be a loop condition, not just comparisons: the condition is evaluated and converted to a boolean by `while`.
+비교식이 아니어도 어떠한 표현식이나 변수도 반복문의 조건이 될 수 있습니다. 조건은 `while`에 의해 평가되고 boolean으로 변환됩니다.
 
-For instance, a shorter way to write `while (i != 0)` is `while (i)`:
+예를 들면 `while (i! = 0)`을 더 간결하게 `while (i)`로 쓸 수 있습니다.
 
 ```js run
 let i = 3;
@@ -48,8 +48,8 @@ while (i) { // when i becomes 0, the condition becomes falsy, and the loop stops
 }
 ```
 
-````smart header="Curly braces are not required for a single-line body"
-If the loop body has a single statement, we can omit the curly braces `{…}`:
+````smart header="한 줄짜리 본문에는 중괄호가 필요하지 않습니다."
+반복문 본문에 단일 명령문이 있으면 중괄호를 생략할 수 있습니다. `{…}`: 
 
 ```js run
 let i = 3;
@@ -59,9 +59,9 @@ while (i) alert(i--);
 ```
 ````
 
-## The "do..while" loop
+## 반복문 "do..while" 
 
-The condition check can be moved *below* the loop body using the `do..while` syntax:
+조건 검사는 `do..while` 구문을 사용하여 반복문의 본문 *아래로* 이동할 수 있습니다.
 
 ```js
 do {
@@ -69,9 +69,9 @@ do {
 } while (condition);
 ```
 
-The loop will first execute the body, then check the condition, and, while it's truthy, execute it again and again.
+반복문은 먼저 본문을 실행할 것이고, 그러고 나서 조건을 확인하고, 조건이 참 같은 값인 동안 이것을 반복적으로 실행합니다.
 
-For example:
+예제:
 
 ```js run
 let i = 0;
@@ -81,13 +81,13 @@ do {
 } while (i < 3);
 ```
 
-This form of syntax should only be used when you want the body of the loop to execute **at least once** regardless of the condition being truthy. Usually, the other form is preferred: `while(…) {…}`.
+이 구문 형식은 조건이 참 같은 값인지에 관계없이 반복문 본문을 **한 번 이상** 실행하려는 경우에만 사용해야합니다. 일반적으로 `while (…) {…}`과 같은 다른 형식이 선호됩니다.
 
-## The "for" loop
+## 반복문 "for"
 
-The `for` loop is more complex, but it's also the most commonly used loop.
+`for` 반복문은 더 복잡하지만 가장 일반적으로 사용되는 반복문 이기도합니다.
 
-It looks like this:
+다음과 같이 보입니다.:
 
 ```js
 for (begin; condition; step) {
@@ -95,7 +95,7 @@ for (begin; condition; step) {
 }
 ```
 
-Let's learn the meaning of these parts by example. The loop below runs `alert(i)` for `i` from `0` up to (but not including) `3`:
+이러한 단락의 의미를 예제로서 살펴 보겠습니다. 아래 반복문은 `0`에서 `3`까지(`3`은 포함하지 않고) `i`에 대해 `alert(i)`를 실행합니다.:
 
 ```js run
 for (let i = 0; i < 3; i++) { // shows 0, then 1, then 2
@@ -103,16 +103,16 @@ for (let i = 0; i < 3; i++) { // shows 0, then 1, then 2
 }
 ```
 
-Let's examine the `for` statement part-by-part:
+`for` 문을 부분별로 살펴봅시다.
 
 | part  |          |                                                                            |
 |-------|----------|----------------------------------------------------------------------------|
-| begin | `i = 0`    | Executes once upon entering the loop.                                      |
-| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
-| step| `i++`      | Executes after the body on each iteration but before the condition check. |
-| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| begin | `i = 0`    | 반복이 실행되면 1번 실행합니다.                                     |
+| condition | `i < 3`| 모든 반복문의 iteration 전에 조건을 검사합니다. 거짓이면 반복문을 중지합니다.              |
+| step| `i++`      | 각 iteration에서 본문 이후, 조건 확인 전에 실행합니다. |
+| body | `alert(i)`| 조건이 참 같은 값이면 반복해서 실행합니다.                         |
 
-The general loop algorithm works like this:
+일반적인 반복문 알고리즘은 다음과 같이 작동합니다.
 
 ```
 Run begin
@@ -122,11 +122,11 @@ Run begin
 → ...
 ```
 
-That is, `begin` executes once, and then it iterates: after each `condition` test, `body` and `step` are executed.
+즉, `begin`은 1번만 실행하고 나서 다음 행위를 반복합니다.: 각 `condition` 테스트 후 `body`와 `step`이 실행됩니다.
 
-If you are new to loops, it could help to go back to the example and reproduce how it runs step-by-step on a piece of paper.
+반복문을 처음 사용하는 경우, 예제로 돌아가서 종이에 단계별로 실행되는 방식을 재현해 보는게 도움이 될 수 있습니다.
 
-Here's exactly what happens in our case:
+위의 예제의 경우에 정확히 무슨 일이 일어나는지 확인해봅시다 :
 
 ```js
 // for (let i = 0; i < 3; i++) alert(i)
@@ -142,8 +142,8 @@ if (i < 3) { alert(i); i++ }
 // ...finish, because now i == 3
 ```
 
-````smart header="Inline variable declaration"
-Here, the "counter" variable `i` is declared right in the loop. This is called an "inline" variable declaration. Such variables are visible only inside the loop.
+````smart header="Inline 변수 선언"
+여기, "counter" 변수 `i`는 반목문 안에서 바로 선언됩니다. 이것을 "inline" 변수 선언이라고 합니다. 이러한 변수는 반복문 내부에서만 볼 수 있습니다.
 
 ```js run
 for (*!*let*/!* i = 0; i < 3; i++) {
@@ -153,6 +153,7 @@ alert(i); // error, no such variable
 ```
 
 Instead of defining a variable, we could use an existing one:
+변수를 정의하는 대신 기존 변수를 사용할 수도 있습니다:
 
 ```js run
 let i = 0;
@@ -166,14 +167,13 @@ alert(i); // 3, visible, because declared outside of the loop
 
 ````
 
+### 건너뛰는 부분
 
-### Skipping parts
+`for`의 어떤 부분이라도 건너뛸 수 있습니다.
 
-Any part of `for` can be skipped.
+예를 들어, 반복문을 시작할 때 아무것도 하지 않아도 된다면 `begin`을 생략할 수 있습니다.
 
-For example, we can omit `begin` if we don't need to do anything at the loop start.
-
-Like here:
+이것 처럼요:
 
 ```js run
 let i = 0; // we have i already declared and assigned
@@ -183,7 +183,7 @@ for (; i < 3; i++) { // no need for "begin"
 }
 ```
 
-We can also remove the `step` part:
+`step` 부분을 제거할 수도 있습니다 :
 
 ```js run
 let i = 0;
@@ -193,9 +193,9 @@ for (; i < 3;) {
 }
 ```
 
-This makes the loop identical to `while (i < 3)`.
+이것은 반복문을 `while (i < 3)`과 동일하게 만듭니다.
 
-We can actually remove everything, creating an infinite loop:
+우리는 실제로 모든 것을 제거하여 무한 루프를 만들 수 있습니다.
 
 ```js
 for (;;) {
@@ -203,15 +203,15 @@ for (;;) {
 }
 ```
 
-Please note that the two `for` semicolons `;` must be present. Otherwise, there would be a syntax error.
+두 개의 `for` 세미콜론 `;` 이 있어야합니다. 그렇지 않으면 구문 오류가 발생합니다.
 
-## Breaking the loop
+## 반복문에서 빠져나오기
 
-Normally, a loop exits when its condition becomes falsy.
+일반적으로 반복문의 조건이 거짓 같은 값이 되면 반복문은 종료됩니다.
 
-But we can force the exit at any time using the special `break` directive.
+그러나 특별한 `break` 지시문을 사용하여 언제든지 강제 종료할 수 있습니다.
 
-For example, the loop below asks the user for a series of numbers, "breaking" when no number is entered:
+예를 들어, 아래 반복문은 일련의 숫자를 사용자에게 묻고, 숫자를 입력하지 않으면 "breaking"(강제종료) 합니다.
 
 ```js
 let sum = 0;
@@ -230,9 +230,10 @@ while (true) {
 alert( 'Sum: ' + sum );
 ```
 
-The `break` directive is activated at the line `(*)` if the user enters an empty line or cancels the input. It stops the loop immediately, passing control to the first line after the loop. Namely, `alert`.
+`break` 지시문은 사용자가 빈 줄을 입력하거나 입력을 취소하면 `(*)` 라인에서 활성화됩니다. 이것은 반복문을 즉시 멈추고, 제어권를 반복문 이후 첫번째 라인에 넘깁니다. 즉, `alert`입니다.
 
 The combination "infinite loop + `break` as needed" is great for situations when a loop's condition must be checked not in the beginning or end of the loop, but in the middle or even in several places of its body.
+"무한 루프 + '필요에 따라'브레이크 '조합은 루프의 시작 또는 끝이 아니라 중간 또는 심지어 여러 곳에서 루프의 상태를 점검해야하는 상황에 적합합니다.
 
 ## Continue to the next iteration [#continue]
 
