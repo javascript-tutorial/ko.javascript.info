@@ -1,14 +1,15 @@
-# Loops: while and for
+# 반복문: while 과 for
 
-We often need to repeat actions.
+우리는 자주 반복된 행동을 할 필요가 있습니다.
 
-For example, outputting goods from a list one after another or just running the same code for each number from 1 to 10.
+예를 들어, 목록에서 상품을 차례대로 출력하거나 1에서 10까지 각 번호에 대해 동일한 코드를 실행합니다.
 
-*Loops* are a way to repeat the same code multiple times.
 
-## The "while" loop
+*반복문*은 동일한 코드를 여러 번 반복하는 방법입니다.
 
-The `while` loop has the following syntax:
+## "while" 반복문
+
+`while` 반복문에는 다음과 같은 구문이 있습니다.
 
 ```js
 while (condition) {
@@ -17,9 +18,9 @@ while (condition) {
 }
 ```
 
-While the `condition` is truthy, the `code` from the loop body is executed.
+`조건`이 참값인 동안 반복문 본문의 `코드`는 실행됩니다.
 
-For instance, the loop below outputs `i` while `i < 3`:
+예를 들어, 아래 반복문은 `i < 3`이 참인 동안 `i`를 출력합니다. :
 
 ```js run
 let i = 0;
@@ -29,9 +30,9 @@ while (i < 3) { // shows 0, then 1, then 2
 }
 ```
 
-A single execution of the loop body is called *an iteration*. The loop in the example above makes three iterations.
+반복문 본문의 단일 실행을 *iteration*이라고합니다. 위 예제의 반복문은 3개의 iteration을 만듭니다. 
 
-If `i++` was missing from the example above, the loop would repeat (in theory) forever. In practice, the browser provides ways to stop such loops, and in server-side JavaScript, we can kill the process.
+만약 위 예제에서 `i ++`가 없다면, 반복문은 (이론적으로) 영원히 반복될 것입니다. 실제로 브라우저는 이러한 반복문을 중지하는 방법을 제공하고, server-side JavaScript에서는 프로세스를 종료할 수 있습니다.
 
 Any expression or variable can be a loop condition, not just comparisons: the condition is evaluated and converted to a boolean by `while`.
 
