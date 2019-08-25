@@ -1,1 +1,1 @@
-Just loop over the object and `return false` immediately if there's at least one property.
+객체 프로퍼티를 대상으로 반복문을 실행하다가 프로퍼티가 하나라도 있으면 그 즉시 `false`를 반환하게 코드를 작성하면 됩니다.
