@@ -2,14 +2,14 @@ importance: 3
 
 ---
 
-# Multiply numeric properties by 2
+# 프로퍼티 값 두 배로 부풀리기
 
-Create a function `multiplyNumeric(obj)` that multiplies all numeric properties of `obj` by `2`.
+객체 `obj`의 프로퍼티 값이 숫자인 경우 그 값을 `두 배` 해주는 함수 `multiplyNumeric(obj)`을 만들어보세요.
 
-For instance:
+예시:
 
 ```js
-// before the call
+// 함수 호출 전
 let menu = {
   width: 200,
   height: 300,
@@ -18,7 +18,7 @@ let menu = {
 
 multiplyNumeric(menu);
 
-// after the call
+// 함수 호출 후
 menu = {
   width: 400,
   height: 600,
@@ -26,8 +26,8 @@ menu = {
 };
 ```
 
-Please note that `multiplyNumeric` does not need to return anything. It should modify the object in-place.
+`multiplyNumeric`은 아무것도 반환하지 않아도 괜찮습니다. 객체 자체를 수정해주기만 하면 됩니다.
 
-P.S. Use `typeof` to check for a number here.
+힌트) `typeof`를 사용하면 프로퍼티 값이 숫자인지 확인할 수 있습니다.
 
 
