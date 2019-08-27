@@ -11,7 +11,7 @@ libs:
 
 커링은 함수를 호출하지 않습니다. 단지 변환할 뿐이죠.
 
-먼저 예제를 통해서 커링이 무엇인지 이해하고 그 다음에 실용적인 적용법을 알아보겠습니다.
+먼저 예제를 통해서 커링이 무엇인지 이해하고 그다음에 실용적인 적용법을 알아보겠습니다.
 
 `f`의 두 개의 인수를 커링하는 헬퍼 함수 `curry(f)`를 생성해 보겠습니다. 다르게 표현하면, `curry(f)`를 만들어서 두 개의 인수를 가진 `f(a, b)`를 `f(a)(b)`로 변환하는 것입니다.
 
@@ -36,28 +36,23 @@ let carriedSum = curry(sum);
 alert( carriedSum(1)(2) ); // 3
 ```
 
-As you can see, the implementation is straightforward: it's just two wrappers.
 위의 예시에서 보듯이, 구현은 래퍼를 여러 개 사용한 것과 같습니다.
-
-- The result of `curry(func)` is a wrapper `function(a)`.
-- When it is called like `sum(1)`, the argument is saved in the Lexical Environment, and a new wrapper is returned `function(b)`.
-- Then this wrapper is called with `2` as an argument, and it passes the call to the original `sum`.
 
 - `curry(func)`의 결과는 `function(a)` 래퍼입니다.
 - `sum(1)`과 같은 함수를 호출했을 때, 그 인수는 렉시컬 환경에 저장이 되고 새로운 래퍼 `function(b)`이 반환됩니다.
 - 그리고 래퍼가 `2`라는 인수와 호출됩니다. 그리고 원래의 `sum`으로 넘겨져서 호출됩니다. 
 
-odash 라이브러리의 [_.curry](https://lodash.com/docs#curry) 같은 더 진보적인 커링의 구현은 더욱 정교한 작업을 수행합니다. 모든 인수가 제공될 때 함수가 정상적으로 호출되도록 하는 래퍼를 반환합니다. *또는* 그렇지 않으면 partial을 반환합니다.
+lodash 라이브러리의 [_.curry](https://lodash.com/docs#curry) 같은 더 진보적인 커링의 구현은 더욱 정교한 작업을 수행합니다. 모든 인수가 제공될 때 함수가 정상적으로 호출되도록 하는 래퍼를 반환합니다. *또는* 그렇지 않으면 partial을 반환합니다.
 
 ```js run
 function sum(a, b) {
   return a + b;
 }
 
-let carriedSum = _.curry(sum); // using _.carry from lodash library
+let carriedSum = _.curry(sum); // lodash 라이브러리의 _.carry 사용
 
-alert( carriedSum(1, 2) ); // 3, still callable normally
-alert( carriedSum(1)(2) ); // 3, called partially
+alert( carriedSum(1, 2) ); // 3, 보통 때 처럼 호출가능
+alert( carriedSum(1)(2) ); // 3, partially 호출되었음
 ```
 
 ## 커링? 무엇을 위한 것인가?
@@ -100,7 +95,7 @@ let logNow = log(new Date());
 logNow("INFO", "message"); // [HH:mm] INFO message
 ```
 
-이제 `logNow` 는 `log`의 첫번째 인수를 고정한것입니다, 다른말로하면 "partially 적용된 함수" 또는 짧게하면 "partial" 입니다.
+이제 `logNow` 는 `log`의 첫 번째 인수를 고정한 것입니다, 다른 말로 하면 "partially 적용된 함수" 또는 짧게 하면 "partial" 입니다.
 
 이제 더 나아가서 디버깅 로그를 편리하게 하는 함수를 만들어 보겠습니다.
 
@@ -148,8 +143,8 @@ function sum(a, b, c) {
 
 let curriedSum = curry(sum);
 
-alert( curriedSum(1, 2, 3) ); // 6, 보통방법으로 호출하기
-alert( curriedSum(1)(2,3) ); // 6, 첫번째 인수를 커링하기
+alert( curriedSum(1, 2, 3) ); // 6, 보통 방법으로 호출하기
+alert( curriedSum(1)(2,3) ); // 6, 첫 번째 인수를 커링하기
 alert( curriedSum(1)(2)(3) ); // 6, 모두 커링하기
 ```
 
@@ -173,10 +168,10 @@ function curried(...args) {
 위의 예시를 실행시키면, 두 개의 `if` 분기점이 있습니다.
 
 1. 호출했을 때 :`args` count가 원래 함수에서 정의된 (`func.length`)만큼 또는 그것보다 길다면, 그 함수에 호출을 전달함.
-2. partial 을 받을때: 아니면, `func`이 아직 호출되지 않습니다. 대신에 `pass`라는 다른 래퍼가 반환되고, 그것이 이전 인수들과 함께 새로운 인수들을 제공하는 `curried`에 다시 적용됩니다. 그다음에 새로운 호출에, 다시, 새로운 partial을 받거나 (만약에 인수들이 충분하지 않다면) 최종적으로 결과를 받습니다. 
+2. partial 을 받을때: 아니면, `func`이 아직 호출되지 않습니다. 대신에 `pass`라는 다른 래퍼가 반환되고, 그것이 이전 인수들과 함께 새로운 인수를 제공하는 `curried`에 다시 적용됩니다. 그다음에 새로운 호출에, 다시, 새로운 partial을 받거나 (만약에 인수들이 충분하지 않다면) 최종적으로 결과를 받습니다. 
 
 For instance, let's see what happens in the case of `sum(a, b, c)`. Three arguments, so `sum.length = 3`.
-예를 들면, `sum(a, b, c)` 예시에서 어떻게 진행되었는지 살펴보세요. 인수들이 세개 이므로 `sum.length = 3` 입니다.
+예를 들면, `sum(a, b, c)` 예시에서 어떻게 진행되었는지 살펴보세요. 인수들이 세 개 이므로 `sum.length = 3` 입니다.
 
 `curried(1)(2)(3)`를 호출하기 위해서는
 
@@ -186,8 +181,8 @@ For instance, let's see what happens in the case of `sum(a, b, c)`. Three argume
 
 아직 확실하게 이해되지 않았다면, 호출되는 순서를 마음속이나 종이에 그려보세요.
 
-```smart header="오직 고정된 길이의 함수들만 사용가능합니다"
-커링은 해당 함수가 고정된 개수의 인수들을 가지도록 요구합니다.
+```smart header="오직 고정된 길이의 함수들만 사용 가능합니다"
+커링은 해당 함수가 고정된 개수의 인수를 가지도록 요구합니다.
 
 `f(...args)`같은 나머지 매개변수를 사용하는 함수는 이러한 방법으로 커리할 수 없습니다.
 ```
@@ -195,7 +190,7 @@ For instance, let's see what happens in the case of `sum(a, b, c)`. Three argume
 ```smart header="커링보다는 조금 더"
 커링의 정의에 따르면, 커링은 `sum(a, b, c)`을 `sum(a)(b)(c)`으로 변환해야 합니다.
 
-그러나 커링의 구현은 자바스크립트에서 고급단계입니다. 이번 챕터에서 알아보았듯이 커링은 함수를 다중-인수 변형 형태로 호출 가능할 수 있도록 하는 것 입니다.
+그러나 커링의 구현은 자바스크립트에서 고급단계입니다. 이번 챕터에서 알아보았듯이 커링은 함수를 다중-인수 변형 형태로 호출 가능할 수 있도록 하는 것입니다.
 ```
 
 ## 요약
