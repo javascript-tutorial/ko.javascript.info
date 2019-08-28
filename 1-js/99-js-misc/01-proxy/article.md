@@ -43,9 +43,9 @@ As we can see, without any traps, `proxy` is a transparent wrapper around `targe
 
 To activate more capabilities, let's add traps.
 
-What can we intercept by them?
+What can we intercept with them?
 
-For most operations on objects, there's a so-called "internal method" in JavaScript specificaiton, that describes on the lowest level, how it works. For instance, `[[Get]]` - the internal method to read a property, `[[Set]]` -- the internal method to write a property, and so on. These methods are only used in the specification, we can't them directly by name.
+For most operations on objects, there's a so-called "internal method" in JavaScript specificaiton, that describes on the lowest level, how it works. For instance, `[[Get]]` - the internal method to read a property, `[[Set]]` -- the internal method to write a property, and so on. These methods are only used in the specification, we can't call them directly by name.
 
 Proxy traps inercept invocations of these methods. They are listed in [Proxy specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) and in the table below.
 
@@ -99,7 +99,7 @@ It triggers when a property is read, with following arguments:
 
 Let's use `get` to implement default values for an object.
 
-We'll make a numeric array that returns return `0` for non-existant values.
+We'll make a numeric array that returns `0` for non-existant values.
 
 Usually when one tries to get a non-existing array item, they get `undefined`, but we'll wrap a regular array into proxy that traps reading and returns `0` if there's no such property:
 

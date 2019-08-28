@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Sum object properties
+# 프로퍼티 합계 구하기
 
-We have an object storing salaries of our team:
+모든 팀원의 월급에 대한 정보를 담고 있는 객체가 있다고 해봅시다. 
 
 ```js
 let salaries = {
@@ -14,6 +14,6 @@ let salaries = {
 }
 ```
 
-Write the code to sum all salaries and store in the variable `sum`. Should be `390` in the example above.
+모든 팀원의 월급을 합한 값을 구하고, 그 값을 변수 `sum`에 저장해주는 코드를 작성해보세요. `sum`엔 `390`이 저장되어야겠죠?
 
-If `salaries` is empty, then the result must be `0`.
+주의: `salaries`가 비어있다면 `sum`에 `0`이 저장되어야 합니다.
