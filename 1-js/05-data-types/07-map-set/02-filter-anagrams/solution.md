@@ -1,6 +1,6 @@
-To find all anagrams, let's split every word to letters and sort them. When letter-sorted, all anagrams are same.
+단어를 글자 단위로 쪼갠 후, 알파벳 순으로 정렬하면 애너그램을 찾을 수 있습니다. 이 과정을 거치면 같은 그룹에 속하는 애너그램이 동일한 단어가 되기 때문입니다.
 
-For instance:
+예시:
 
 ```
 nap, pan -> anp
