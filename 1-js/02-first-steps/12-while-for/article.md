@@ -344,43 +344,42 @@ labelName: for (...) {
 alert('Done!');
 ```
 
-In the code above, `break outer` looks upwards for the label named `outer` and breaks out of that loop.
-위의 코드에서 `break outer`는`outer`라는 레이블을 위로보고 해당 루프에서 끊어집니다. 
+위의 코드에서 `break outer`는 `outer`라는 레이블의 위를 바라보면서 반복문을 빠져나옵니다. 
 
-So the control goes straight from `(*)` to `alert('Done!')`.
+그래서 제어권은 `(*)`에서 `alert('Done!')`으로 바로 향합니다. 
 
-We can also move the label onto a separate line:
+또한 레이블을 별도의 줄로 이동할 수도 있습니다.
 
 ```js no-beautify
 outer:
 for (let i = 0; i < 3; i++) { ... }
 ```
 
-The `continue` directive can also be used with a label. In this case, code execution jumps to the next iteration of the labeled loop.
+`continue` 지시어는 레이블과 함께 사용할 수도 있습니다. 이 경우 코드 실행은 레이블이 지정된 반복문의 다음 반복으로 이동합니다.
 
-````warn header="Labels do not allow to \"jump\" anywhere"
-Labels do not allow us to jump into an arbitrary place in the code.
+````warn header="레이블은 아무곳으로나 \"jump\"를 허용하지 않습니다."
+레이블은 코드에서 임의의 위치로 이동할 수 없습니다.
 
-For example, it is impossible to do this:
+예를 들어, 이것은 불가능합니다.
 ```js
 break label; // doesn't jumps to the label below
 
 label: for (...)
 ```
 
-A call to `break/continue` is only possible from inside a loop and the label must be somewhere above the directive.
+`break/continue`에 대한 호출은 반복문 내부에서만 가능하며 레이블은 지시어 위에 어딘가에 있어야합니다.
 ````
 
-## Summary
+## 요약
 
-We covered 3 types of loops:
+3가지 유형의 반복문을 다루었습니다.
 
-- `while` -- The condition is checked before each iteration.
-- `do..while` -- The condition is checked after each iteration.
-- `for (;;)` -- The condition is checked before each iteration, additional settings available.
+- `while` -- 각 반복 전에 조건을 검사합니다.
+- `do..while` -- 각 반복 후에 조건을 검사합니다.
+- `for (;;)` -- 조건은 각 반복 전에 검사하며 추가 설정을 사용할 수 있습니다.
 
-To make an "infinite" loop, usually the `while(true)` construct is used. Such a loop, just like any other, can be stopped with the `break` directive.
+"무한"루프를 만들기 위해 일반적으로 `while (true)`구문이 사용됩니다. 다른 반복문과 마찬가지로 이러한 반복문은 `break`지시어로 중지할 수 있습니다.
 
-If we don't want to do anything in the current iteration and would like to forward to the next one, we can use the `continue` directive.
+현재 반복에서 아무 것도하고 싶지 않고 다음 단계로 넘어가려면 `continue`지시어를 사용할 수 있습니다.
 
-`break/continue` support labels before the loop. A label is the only way for `break/continue` to escape a nested loop to go to an outer one.
+`break/continue`는 반복문 전에 레이블을 지원합니다. 레이블은 'break/continue'이 중첩 반복문을 벗어나 외부 반복문으로 이동하는 유일한 방법입니다.
