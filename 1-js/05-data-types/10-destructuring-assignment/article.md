@@ -356,7 +356,7 @@ let title, width, height;
 }
 ```
 
-So here JavaScript assumes that we have a code block, but why there's an error. We have destructuring instead.
+So here JavaScript assumes that we have a code block, that's why there's an error. We have destructuring instead.
 
 자바스크립트가 이를 코드 블록으로 해석하지 않도록 하게 하려면, 할당문을 괄호`(...)`로 감싸 자바스크립트가 이를 표현식의 일부라고 생각하도록 만들면 됩니다.
 
