@@ -347,6 +347,7 @@ welcome(); // Hello, Guest (중첩함수가 작동합니다)
 
 또한 함수들은 추가적인 프로퍼티를 가질 수 있습니다. 자바스크립트에서 많이 알려진 라이브러리들은 이러한 특징을 훌륭하게 사용하고 있습니다.
 
-라이브러리들은 "main" 함수를 생성하고 다른 많은 "helper" 함수를 붙입니다. 예를 들면 [jQuery](https://jquery.com) 라이브러리는 함수의 이름을 `$`라고 사용합니다. [lodash](https://lodash.com) 라이브러리는 `_`이라는 이름을 사용합니다. 그리고 `_.clone`, `_.keyBy` 같은 함수를 만들었으며 그것들을 배우기 위한 다른 프로퍼티들도 있습니다. ([docs](https://lodash.com/docs) 참고) 사실, 그것들은 전역 지역에 오염을 막기 위한 것입니다. 그래서 하나의 라이브러리는 오직 하나의 전역 변수를 제공하죠. 혹시 일어날 수 있는 이름 충돌을 방지하는 것입니다.
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+
 
 그래서 함수는 스스로 유용한 작업을 행할 수도 있고 다른 여러 기능을 프로퍼티에 가지고 있을 수 있는 것입니다.
