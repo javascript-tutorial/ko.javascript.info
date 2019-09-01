@@ -108,8 +108,8 @@ Let's examine the `for` statement part-by-part:
 |-------|----------|----------------------------------------------------------------------------|
 | begin | `i = 0`    | Executes once upon entering the loop.                                      |
 | condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
-| step| `i++`      | Executes after the body on each iteration but before the condition check. |
 | body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
 
 The general loop algorithm works like this:
 
@@ -300,7 +300,7 @@ This is just another reason not to use the question mark operator `?` instead of
 
 Sometimes we need to break out from multiple nested loops at once.
 
-For example, in the code below we loop over `i` and `j`, prompting for the coordinates `(i, j)` from `(0,0)` to `(3,3)`:
+For example, in the code below we loop over `i` and `j`, prompting for the coordinates `(i, j)` from `(0,0)` to `(2,2)`:
 
 ```js run no-beautify
 for (let i = 0; i < 3; i++) {

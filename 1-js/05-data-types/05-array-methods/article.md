@@ -119,7 +119,7 @@ alert( arr ); // 1,2,3,4,5
 문법:
 
 ```js
-arr.slice(start, end)
+arr.slice([start], [end])
 ```
 
 이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스까지의 요소를 포함하는 메서드를 반환합니다. `start`와 `end` 인덱스는 둘 다 음수일 수도 있습니다. 인덱스가 음수일 땐 배열 끝에서부터의 요소 개수를 의미합니다.
@@ -135,6 +135,8 @@ alert( arr.slice(1, 3) ); // e,s (copy from 1 to 3)
 
 alert( arr.slice(-2) ); // s,t (copy from -2 till the end)
 ```
+
+We can also call it without arguments: `arr.slice()` creates a copy of `arr`. That's often used to obtain a copy for further transformations that should not affect the original array.
 
 ### concat
 
