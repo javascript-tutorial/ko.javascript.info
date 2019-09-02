@@ -33,7 +33,7 @@ An `<iframe>` tag hosts a separate embedded window, with its own separate `docum
 We can access them using properties:
 
 - `iframe.contentWindow` to get the window inside the `<iframe>`.
-- `iframe.contentDocument` to get the document inside the `<iframe>`, короткий аналог `iframe.contentWindow.document`.
+- `iframe.contentDocument` to get the document inside the `<iframe>`, shorthand for `iframe.contentWindow.document`.
 
 When we access something inside the embedded window, the browser checks if the iframe has the same origin. If that's not so then the access is denied (writing to `location` is an exception, it's still permitted).
 
@@ -118,7 +118,7 @@ That's all. Now they can interact without limitations. Again, that's only possib
 
 ## Iframe: wrong document pitfall
 
-When an iframe comes from the same origin, and we may access its  `document`, there's a pitfall. It's not related to cross-domain things, but important to know.
+When an iframe comes from the same origin, and we may access its  `document`, there's a pitfall. It's not related to cross-origin things, but important to know.
 
 Upon its creation an iframe immediately has a document. But that document is different from the one that loads into it!
 
@@ -326,7 +326,7 @@ window.addEventListener("message", function(event) {
   }
 
   alert( "received: " + event.data );
-  
+
   // can message back using event.source.postMessage(...)
 });
 ```

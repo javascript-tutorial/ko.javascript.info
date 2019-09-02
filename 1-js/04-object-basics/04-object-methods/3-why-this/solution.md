@@ -1,22 +1,23 @@
 
-Here's the explanations.
+이유는 다음과 같습니다.
 
-1. That's a regular object method call.
+1. 우리가 알고 있는 일반적인 메서드 호출 방법입니다.
 
-2. The same, brackets do not change the order of operations here, the dot is first anyway.
+2. 역시 일반적인 호출 방법에 속합니다. 괄호가 추가되었긴 하지만 연산 우선순위를 바꾸진 않으므로 점 연산자가 먼저 실행됩니다.
 
-3. Here we have a more complex call `(expression).method()`. The call works as if it were split into two lines:
+3. 좀 더 복잡한 패턴의 호출(`(expression).method()`)이 등장했네요. 세 번째 호출은 아래와 같은 코드 두 줄로 쪼갤 수 있습니다.
 
     ```js no-beautify
-    f = obj.go; // calculate the expression
-    f();        // call what we have
+    f = obj.go; // 표현식 계산하기
+    f();        // 저장된 것 호출하기
     ```
 
-    Here `f()` is executed as a function, without `this`.
+    위 코드에서 `f()`는 (메서드가 아닌) 함수로써 호출되었습니다. `this`에 대한 정보가 전혀 없는 상태에서 말이죠.
 
-4. The similar thing as `(3)`, to the left of the dot `.` we have an expression.
+4. `(3)`과 동일한 패턴의 호출입니다. `expression`이 `obj.go || obj.stop`라는 차이점만 있습니다.
 
-To explain the behavior of `(3)` and `(4)` we need to recall that property accessors (dot or square brackets) return a value of the Reference Type.  
+`(3)`과 `(4)`에서 어떤 일이 일어나는지 알려면 참조 타입을 다시 상기시키셔야 합니다.
+ 점이나 대괄호를 통해 프로퍼티에 접근하려는 경우 참조 타입 값(`(base, name, strict)`)이 반환됩니다.
 
-Any operation on it except a method call (like assignment `=` or `||`) turns it into an ordinary value, which does not carry the information allowing to set `this`.
+메서드 호출을 제외하고, 참조 타입 값에 행해지는 모든 연산은 참조 타입 값을 일반적인 값으로 변환시킵니다. 이 과정에서 `this`에 대한 정보가 누락됩니다. 
 

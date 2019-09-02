@@ -29,9 +29,9 @@ alert(sayHi.name); // sayHi
 ```js run
 let sayHi = function() {
   alert("Hi");
-}
+};
 
-alert(sayHi.name); // sayHi (works!)
+alert(sayHi.name); // sayHi (there's a name!)
 ```
 
 만약에 할당이 기본값을 통해 적용된 경우에도 똑같이 작동합니다.
@@ -93,7 +93,7 @@ alert(many.length); // 2
 
 여기서 나머지 매개변수는 개수를 셀 때 포함되지 않습니다.
 
-가끔 `length` 프로퍼티는 다른 함수들 안에서 동작하는 함수들의 내부검사에 사용됩니다.
+가끔 `length` 프로퍼티는 다른 함수들 안에서 동작하는 함수들의 [내부검사(introspection)](https://en.wikipedia.org/wiki/Type_introspection)에 사용됩니다.
 
 예를 들면, 아래 코드의 함수 `ask`는 질문에 쓰일 `question`을 받는데, 이때 함수 내에서 호출 할 임의의 수의 `handler` 함수도 함께 받습니다.
 
@@ -102,9 +102,9 @@ alert(many.length); // 2
 - 오직 사용자가 긍정의 대답(OK)을 클릭했을 때 호출되는 인수가 없는 함수.
 - 어떤 경우에도 답을 반환하는 매개변수가 있는 함수.
 
-아이디어는 간단합니다. 인수가 없는 핸들러 구문은 긍정적인 경우에만(대부분의 경우), 다른하나는 다목적인 핸들러도 제공하기 위함입니다. 
+To call `handler` the right way, we examine the `handler.length` property.
 
-`handlers` 를 바르게 호출하기 위해서는 `length` 프로퍼티를 검사해야 합니다.
+The idea is that we have a simple, no-arguments handler syntax for positive cases (most frequent variant), but are able to support universal handlers as well:
 
 ```js run
 function ask(question, ...handlers) {
@@ -241,7 +241,7 @@ let sayHi = function *!*func*/!*(who) {
 sayHi("John"); // Hello, John
 ```
 
-`func`이름에는 두 가지 특별한 점이 있습니다.
+There are two special things about the name `func`, that are the reasons for it:
 
 1. 그것은 함수에 내부적으로 자신을 레퍼런스합니다.
 2. 그것은 함수 외부에서 보이지 않습니다.
@@ -282,7 +282,7 @@ let sayHi = function(who) {
 };
 ```
 
-위의 코드의 문제점은 `sayHi`의 value가 바뀔 수 있다는 것입니다. 아마도 함수는 다른 변숫값으로 갈 수 있고 코드가 동작한다면 에러를 출력할 것입니다.
+The problem with that code is that `sayHi` may change in the outer code. If the function gets assigned to another variable instead, the code will start to give errors:
 
 ```js run
 let sayHi = function(who) {
@@ -347,6 +347,7 @@ welcome(); // Hello, Guest (중첩함수가 작동합니다)
 
 또한 함수들은 추가적인 프로퍼티를 가질 수 있습니다. 자바스크립트에서 많이 알려진 라이브러리들은 이러한 특징을 훌륭하게 사용하고 있습니다.
 
-라이브러리들은 "main" 함수를 생성하고 다른 많은 "helper" 함수를 붙입니다. 예를 들면 [jQuery](https://jquery.com) 라이브러리는 함수의 이름을 `$`라고 사용합니다. [lodash](https://lodash.com) 라이브러리는 `_`이라는 이름을 사용합니다. 그리고 `_.clone`, `_.keyBy` 같은 함수를 만들었으며 그것들을 배우기 위한 다른 프로퍼티들도 있습니다. ([docs](https://lodash.com/docs) 참고) 사실, 그것들은 전역 지역에 오염을 막기 위한 것입니다. 그래서 하나의 라이브러리는 오직 하나의 전역 변수를 제공하죠. 혹시 일어날 수 있는 이름 충돌을 방지하는 것입니다.
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+
 
 그래서 함수는 스스로 유용한 작업을 행할 수도 있고 다른 여러 기능을 프로퍼티에 가지고 있을 수 있는 것입니다.

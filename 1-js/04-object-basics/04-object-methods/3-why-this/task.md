@@ -2,11 +2,11 @@ importance: 3
 
 ---
 
-# Explain the value of "this"
+# "this" 값 알아내기
 
-In the code below we intend to call `user.go()` method 4 times in a row.
+아래 예시에선 여러 방법을 이용해 `user.go()`를 호출하고 있습니다. 총 4번 호출하였네요.  
 
-But calls `(1)` and `(2)` works differently from `(3)` and `(4)`. Why?
+그런데 첫 번째(`(1)`)와 두 번째 호출(`(2)`) 결과는 세 번째(`(3)`)와 네 번째(`(4)`) 호출 결과와 다릅니다. 이유가 뭘까요? 
 
 ```js run no-beautify
 let obj, method;

@@ -2,25 +2,25 @@ importance: 5
 
 ---
 
-# Rewrite the "switch" into an "if"
+# "switch"문을 "if"문으로 변환하기
 
-Write the code using `if..else` which would correspond to the following `switch`:
+"switch"문을 사용해 작성된 아래 코드를 `if..else`문을 사용한 코드로 변환해 보세요.
 
 ```js
 switch (browser) {
   case 'Edge':
-    alert( "You've got the Edge!" );
+    alert( "Edge를 사용하고 계시네요!" );
     break;
 
   case 'Chrome':
   case 'Firefox':
   case 'Safari':
   case 'Opera':
-    alert( 'Okay we support these browsers too' );
+    alert( '저희 서비스가 지원하는 브라우저를 사용하고 계시네요.' );
     break;
 
   default:
-    alert( 'We hope that this page looks ok!' );
+    alert( '현재 페이지가 괜찮아 보이길 바랍니다!' );
 }
 ```
 

@@ -1,185 +1,193 @@
-# Ninja code
+# 닌자 코드
 
 
-```quote author="Confucius"
-Learning without thought is labor lost; thought without learning is perilous.
+```quote author="공자"
+생각 없이 배우기만 하면 얻는 것이 없고,<br>
+생각만 하고 배우지 않으면 오류나 독단에 빠질 위험이 있다.
 ```
 
-Programmer ninjas of the past used these tricks to sharpen the mind of code maintainers.
+닌자라 불리던 전설 속 개발자들은 유지보수 담당 개발자를 혹독하게 훈련하고자 (아래에서 소개해 드릴) 다양한 편법을 사용하곤 했습니다.
 
-Code review gurus look for them in test tasks.
+구루 급의 코드 리뷰 전문가들은 테스트 코드에서 이런 편법을 발견하면 박수갈채를 보내곤 했죠.
 
-Novice developers sometimes use them even better than programmer ninjas.
+어떨 때는 초보 개발자가 닌자보다 더 적극적으로 나서서 이런 편법을 사용하곤 합니다.
 
-Read them carefully and find out who you are -- a ninja, a novice, or maybe a code reviewer?
+닌자가 사용하던 편법을 잘 살펴보시고, 자신은 닌자인지, 코드 리뷰어인지, 초보 개발자인지 판단해 보시기 바랍니다.
 
 
-```warn header="Irony detected"
-Many try to follow ninja paths. Few succeed.
+```warn header="방금 들어온 속보입니다!"
+닌자 같은 무림 고수가 되는 게 꿈인 개발자는 많지만, 그 목표를 달성하는 건 아주 극소수라는 소식입니다.
 ```
 
 
-## Brevity is the soul of wit
+## 코드 짧게 쓰기
 
-Make the code as short as possible. Show how smart you are.
+가능한 한 코드를 짧게 써서, 당신이 얼마나 똑똑한 사람인지 보여주십시오.
 
-Let subtle language features guide you.
+지엽적인 문법 지식 등을 총동원하면 코드 양을 획기적으로 줄일 수 있습니다.
 
-For instance, take a look at this ternary operator `'?'`:
+조건부 연산자 `'?'`를 사용한 예시를 살펴봅시다.
 
 ```js
-// taken from a well-known javascript library
+// 출처: 아주 유명한 라이브러리
 i = i ? i < 0 ? Math.max(0, len + i) : i : 0;
 ```
 
-Cool, right? If you write like that, a developer who comes across this line and tries to understand what is the value of `i` is going to have a merry time. Then come to you, seeking for an answer.
+멋지지 않나요? 이렇게 코드를 작성해 놓으면 코드를 접하는 다른 개발자는 아주 즐거운 시간을 보낼겁니다. `i`가 나타내는 게 뭔지 파악하는데 꽤 많은 시간을 소모하고, 결국엔 답을 찾지 못해 당신을 찾아올 겁니다.
 
-Tell them that shorter is always better. Initiate them into the paths of ninja.
+그럼 어깨를 한번 으쓱이면서 이렇게 말해주세요. 코드를 길게 작성하는 것보단 짧게 작성하는 게 일을 잘하는 비결이라고요. 닌자가 되는 길로 안내해 줍시다.
 
-## One-letter variables
+## 글자 하나만 사용하기
 
-```quote author="Laozi (Tao Te Ching)"
-The Dao hides in wordlessness. Only the Dao is well begun and well
-completed.
+```quote author="노자(도덕경)"
+도는 숨어서 이름도 없지만,
+오직 도만이 스스로를 잘 빌려주고 만물이 성하도록 돕는다.
 ```
 
-Another way to code faster is to use single-letter variable names everywhere. Like `a`, `b` or `c`.
+글자 하나만 사용해서 변수 이름을 지읍시다. `a`, `b`, `c`처럼 말이죠.
 
-A short variable disappears in the code like a real ninja in the forest. No one will be able to find it using "search" of the editor. And even if someone does, they won't be able to "decipher" what the name `a` or `b` means.
+변수 이름이 짧아지면 무림 고수가 숲속 깊은 곳에 몸을 숨기는 것처럼 변수를 코드 속에 숨길 수 있습니다. 그 누구도 변수를 찾을 수 없게 되죠. 코드 에디터의 "검색"기능도 통하지 않습니다. 어렵사리 변수가 정의된 곳을 찾더라도 변수 `a`나 `b`가 무엇을 의미하는지 절대 "해석"할 수 없게 됩니다.
 
-...But there's an exception. A real ninja will never use `i` as the counter in a `"for"` loop. Anywhere, but not here. Look around, there are many more exotic letters. For instance, `x` or `y`.
+아, 예외 상황이 하나 있네요. 진짜 닌자들은 `"for"`문에서 변수 `i`를 절대 사용하지 않습니다. 다른 데선 `i`를 아무 거리낌 없이 사용하지만, 반복문에서만큼은 사용하지 않습니다. 대신 for 문에선 생소한 `x`나 `y` 같은 변수를 사용합니다. 
 
-An exotic variable as a loop counter is especially cool if the loop body takes 1-2 pages (make it longer if you can). Then if someone looks deep inside the loop, they won't be able to quickly figure out that the variable named `x` is the loop counter.
+남들이 잘 사용하지 않는 변수를 반복문에서 쓰면 아주 멋져 보입니다. 특히나 반복문이 한, 두 페이지를 차지할 정도로 길면 이런 편법이 더 빛을 발하죠(반복문을 가능한 한 길게 작성하시는 것도 닌자가 되는 훈련 중 하나입니다). 당신의 코드를 읽을 누군가가 카운터 역할을 하는 변수 `i` 대신 `x`가 사용되었다는 걸 빨리 눈치채지 못하도록 합시다.
 
-## Use abbreviations
+## 약어 사용하기
 
-If the team rules forbid the use of one-letter and vague names -- shorten them, make abbreviations.
+팀에 한 글자 짜리 변수나 모호한 변수명을 사용하지 못하게 하는 제약이 있다면 약어를 쓰는 기지를 발휘하세요. 변수명은 짧을수록 좋으니까요.
 
-Like this:
+예시:
 
 - `list` -> `lst`.
 - `userAgent` -> `ua`.
 - `browser` -> `brsr`.
-- ...etc
+- 등등...
 
-Only the one with truly good intuition will be able to understand such names. Try to shorten everything. Only a worthy person should be able to uphold the development of your code.
+모든 걸 줄여서 당신의 코드를 읽을 가치가 있는 직감이 뛰어난 개발자만 유지보수를 담당 할 수 있게 해 놓읍시다.
 
-## Soar high. Be abstract.
+## 포괄적인 명사 사용하기
 
-```quote author="Laozi (Tao Te Ching)"
-The great square is cornerless<br>
-The great vessel is last complete,<br>
-The great note is rarified sound,<br>
-The great image has no form.
+
+```quote author="노자(도덕경)"
+네모가 아주 크면 마치 모서리가 없는 것처럼 보이며,<br>
+큰 그릇은 천천히 만들어지고,<br>
+소리가 너무 크면 들리지 않는 것 같고,<br>
+거대한 형상은 형태가 없다.
 ```
 
-While choosing a name try to use the most abstract word. Like `obj`, `data`, `value`, `item`, `elem` and so on.
+무언가를 명명할 땐 `obj`, `data`, `value`, `item`, `elem` 같이 다양한 개념을 포괄할 수 있는 명사를 사용하십시오. 포괄하는 개념이 많은 명사일수록 더 좋습니다.
 
-- **The ideal name for a variable is `data`.** Use it everywhere you can. Indeed, every variable holds *data*, right?
+- **`data`는 가장 이상적인 변수명입니다.** 가능한 모든 곳에서 이 변수명을 사용하십시오. 변수가 실제로 담고 있는 건 *데이터*니까요.
 
-    ...But what to do if `data` is already taken? Try `value`, it's also universal. After all, a variable eventually gets a *value*.
+    그런데 변수명 `data`가 이미 선점된 상황이라면 어떻게 해야 할까요? 그럴 땐 `value`를 사용하면 됩니다. 이 단어 역시 추상도가 높아서 많은 개념을 포함할 수 있고, 변수에 *값(value)* 이 저장된다는 건 변함없는 사실이니까요.
 
-- **Name a variable by its type: `str`, `num`...**
+- **-`str`, `num` 같이 자료형과 연관된 변수명을 사용하세요.**
 
-    Give them a try. A young initiate may wonder -- are such names really useful for a ninja? Indeed, they are!
+    닌자 훈련소에 갓 입회한 개발자는 이 방식을 보고 고개를 갸우뚱 할 겁니다. 이게 훈련 비법이라고? 네, 맞습니다! 
 
-    Sure, the variable name still means something. It says what's inside the variable: a string, a number or something else. But when an outsider tries to understand the code, they'll be surprised to see that there's actually no information at all! And will ultimately fail to alter your well-thought code.
+    이렇게 변수명을 만들면 누군가 당신의 코드를 봤을 때, 어떤 것도 유추할 수 없게 됩니다! 작성자 당신만 자료형 정보를 보고 어떤 값이 저장될지 유추 할 수 있죠. 그 누구도 해석할 수 없는 변수가 만들어졌습니다. 목표를 달성했네요!
 
-    The value type is easy to find out by debugging. But what's the meaning of the variable? Which string/number does it store?
+    사실 자료형을 파악하는 건 식은 죽 먹기입니다. 디버깅 툴을 사용하면 되죠. 그런데 변수의 의미는 파악이 쉽지 않습니다. 변수 `str`이나 `num`이 실제 어떤 의미를 가진 변수인지 코드만 보고는 쉽게 알 수 없습니다.
 
-    There's just no way to figure out without a good meditation!
+    독심술을 배우지 않는 이상 그 누구도 당신이 작성한 변수의 의미를 파악할 수 없게 됩니다.
 
-- **...But what if there are no more such names?** Just add a number: `data1, item2, elem5`...
+- **새로운 변수명이 더는 떠오르지 않는다면 어떻게 해야 할까요?** `data1, item2, elem5` 처럼 옆에 숫자를 붙여주면 됩니다. 
 
-## Attention test
+## 철자가 유사한 단어 사용하기
 
-Only a truly attentive programmer should be able to understand your code. But how to check that?
+주의력이 깊은 개발자만 닌자가 작성한 코드를 읽을 자격이 있습니다. 이런 개발자는 어떻게 감별할 수 있을까요?
 
-**One of the ways -- use similar variable names, like `date` and `data`.**
+여러 가지 방법이 있는데 그중 하나는 **`date`와 `data`같이 유사한 철자를 가진 단어를 조합해 사용하는 것입니다.**
 
-Mix them where you can.
+가능한 모든 곳에서 이런 조합을 사용해 주의력이 떨어지는 개발자를 걸러냅시다.
 
-A quick read of such code becomes impossible. And when there's a typo... Ummm... We're stuck for long, time to drink tea.
+이렇게 작성해 놓으면 닌자조차도 자신이 작성한 코드를 읽는 데 시간이 많이 소모될 겁니다. 차 한잔 마시면서 코드를 읽으면 되니까 문제는 없을 겁니다.
 
 
-## Smart synonyms
+## 동의어 사용하기
 
-```quote author="Confucius"
-The hardest thing of all is to find a black cat in a dark room, especially if there is no cat.
+```quote author="공자"
+모든 일 중 가장 어려운 일은<br>
+어두운 방에서 검은 고양이를 찾는 일이다.<br><br>
+특히 그 방에 고양이가 없을 때에.
 ```
 
-Using *similar* names for *same* things makes life more interesting and shows your creativity to the public.
+*유사한* 뜻을 가진 단어 여러 개를 *같은*걸 명명하는 데 사용해서 당신의 풍부한 어휘력을 은연중에 드러내 봅시다.
 
-For instance, consider function prefixes. If a function shows a message on the screen -- start it with `display…`, like `displayMessage`. And then if another function shows on the screen something else, like a user name, start it with `show…` (like `showName`).
+스크린에 메시지를 보여주는(display) 동작을 수행하는 함수라면 접두어 `display…`를 사용해 `displayMessage`라고 이름을 짓고, 사용자 이름(user name)을 화면에 보여주는(show) 함수는 접두어 `show…`를 써 `showName`이라고 이름 지으면 좋겠죠.
 
-Insinuate that there's a subtle difference between such functions, while there is none.
+코드를 읽는 사람이 메시지를 보여주는 것과 사용자 이름을 보여주는 것에 미묘한 차이가 있을 것 같다고 착각하게 해야 합니다. 실제론 아무런 차이가 없지만요.
 
-Make a pact with fellow ninjas of the team: if John starts "showing" functions with `display...` in his code, then Peter could use `render..`, and Ann -- `paint...`. Note how much more interesting and diverse the code became.
+다른 동료 닌자에게도 이 방법을 전파하면 효과는 더 좋아집니다. 무언가를 "보여주는(showing)" 함수를 만든다고 가정했을 때, John이 접두어 `display...`를 사용했다면, Peter는 다른 접두어 `render..`를, Ann은 또 다른 접두어 `paint...`를 사용하게끔 말이죠. 코드가 더 다채로워지고 흥미를 유발하네요.
 
-...And now the hat trick!
+해트 트릭도 달성하셨습니다!
 
-For two functions with important differences -- use the same prefix!
+아! 중대한 차이가 있는 두 함수에 같은 접두어를 사용하는 것도 추천해 드립니다.
 
-For instance, the function `printPage(page)` will use a printer. And the function `printText(text)` will put the text on-screen. Let an unfamiliar reader think well over similarly named function `printMessage`: "Where does it put the message? To a printer or on the screen?". To make it really shine, `printMessage(message)` should output it in the new window!
+프린터(printer)를 사용하는 함수는 `printPage(page)`, 화면에 문자(text)를 출력(print)해 주는 함수는 `printText(text)`라고 명명하면 되죠.
 
-## Reuse names
+유지보수를 담당한 지 얼마 안 된 개발자가 코드를 곱씹을 수 있도록 여러 곳에 훈련 장치를 배치해 놓아야 합니다. `printMessage`라는 함수를 보았을 때 "이 함수는 어디에 메시지를 출력하는 걸까? 프린터를 이용해 메시지를 출력하는 걸까? 아니면 그냥 화면에 메시지를 출력해주는 걸까?"라고 생각하게끔 말이죠. 함수 `printMessage(message)`가 새 창에 메시지를 띄우는 동작을 담당한다면 훈련 강도는 더 높아질 겁니다.
 
-```quote author="Laozi (Tao Te Ching)"
-Once the whole is divided, the parts<br>
-need names.<br>
-There are already enough names.<br>
-One must know when to stop.
+## 이름 재사용하기
+
+```quote author="노자(도덕경)"
+무언가를 만들기 시작하면,<br>
+그에 걸맞은 이름이 생기니,<br>
+이미 이름이 있다면,<br>
+무릇 멈출 줄 알아야 하고,<br>
+멈출 줄 알면 위태롭지 않을 수 있다.
 ```
 
-Add a new variable only when absolutely necessary.
+변수 선언은 정말 필요한 경우에만 합시다.
 
-Instead, reuse existing names. Just write new values into them.
+새로운 값을 저장할 때 기존 변수를 활용하면, 변수 선언을 최대한 피할 수 있습니다. 
 
-In a function try to use only variables passed as parameters.
+함수를 구현 중이라면 내부 변수를 선언하지 않고, 매개변수에서 넘어온 값만 사용합시다.
 
-That would make it really hard to identify what's exactly in the variable *now*. And also where it comes from. The purpose is to develop the intuition and memory of a person reading the code. A person with weak intuition would have to analyze the code line-by-line and track the changes through every code branch.
+변수에 *현재* 어떤 값이 들어가 있는지, 값의 유래는 어디인지 쉽게 파악하지 못하게 술수를 부려 개발자의 직관력과 암기력을 높여줍시다. 이름을 재사용하면 코드를 한줄 한줄 읽어가면서 동작 과정을 분석해야 하고, 분기 모두를 다 따라가면서 상황에 따라 값이 어떻게 변하는 지도 관찰해야 하므로 직관력이 부족한 개발자에게 도움이 됩니다. 
 
-**An advanced variant of the approach is to covertly (!) replace the value with something alike in the middle of a loop or a function.**
+**함수나 반복문 중간에서 할당 값을 은밀히(!) 바꾸면 훈련 강도를 좀 더 높일 수 있습니다.**  
 
-For instance:
+예시:
 
 ```js
 function ninjaFunction(elem) {
-  // 20 lines of code working with elem
+  // 매개변수로 받아온 elem을 이용한 코드
 
   elem = clone(elem);
 
-  // 20 more lines, now working with the clone of the elem!
+  // elem의 복제(clone)본을 이용한 코드
 }
 ```
 
-A fellow programmer who wants to work with `elem` in the second half of the function will be surprised... Only during the debugging, after examining the code they will find out that they're working with a clone!
+`elem = clone(elem);` 아래에 있는 코드를 수정하던 개발자는 아마 당신의 탁월함에 놀라움을 금치 못할 겁니다. 디버깅으로 코드를 면밀히 검토한 후에서야 본인이 복제본을 이용해 작업하고 있다는 걸 깨달을 수 있으니까요.  
 
-Seen in code regularly. Deadly effective even against an experienced ninja.
+내공이 높은 닌자도 이렇게 작성된 코드 앞에선 속수무책이기 때문에, 극기 훈련이 필요할 때 이 방법을 아주 추천합니다.
 
-## Underscores for fun
+## 재미로 언더스코어 사용하기
 
-Put underscores `_` and `__` before variable names. Like `_name` or `__value`. It would be great if only you knew their meaning. Or, better, add them just for fun, without particular meaning at all. Or different meanings in different places.
+`_name`이나 `__value`처럼 변수명 앞에 `_`나 `__`(언더스코어, 밑줄 표시)을 붙입시다. 
+코드 작성자만 언더스코어가 무엇을 의미를 알게 해도 좋고, 장난으로 붙이거나 의미를 계속 바꿔가면서 붙이는 건 더 좋습니다.  
 
-You kill two rabbits with one shot. First, the code becomes longer and less readable, and the second, a fellow developer may spend a long time trying to figure out what the underscores mean.
+이렇게 하면 일거양득입니다. 코드 길이가 늘어나 가독성이 떨어지는 효과가 있고, 동료 개발자들은 언더스코어의 의미를 파악하는데 품이 많이 들게 되죠.  
 
-A smart ninja puts underscores at one spot of code and evades them at other places. That makes the code even more fragile and increases the probability of future errors.
+똑똑한 닌자라면 코드 한 영역에 밑줄 표시를 몰아서 쓰고, 다른 곳에서는 쓰지 않는 트릭을 쓰기도 합니다. 이렇게 하면 코드가 에러에 취약해지는데, 다른 개발자를 훈련하기엔 이만한 방법이 없습니다.
 
-## Show your love
+## 과장 형용사 사용하기
 
-Let everyone see how magnificent your entities are! Names like `superElement`, `megaFrame` and `niceItem` will definitely enlighten a reader.
+`superElement`, `megaFrame`, `niceItem`처럼 개체 앞에 적절한 형용사를 붙여 해당 개체가 얼마나 멋진지 알려줍시다.
 
-Indeed, from one hand, something is written: `super..`, `mega..`, `nice..` But from the other hand -- that brings no details. A reader may decide to look for a hidden meaning and meditate for an hour or two of their paid working time.
+사람들은 아무 의미도 없이 붙여놓은 형용사 `super..`, `mega..`, `nice..` 등을 보고, "분명 무슨 의미가 있을 거야"라고 생각하며 눈에 쌍심지를 켜고 코드를 분석하려고 할 겁니다.
 
 
-## Overlap outer variables
+## 외부 변수 덮어쓰기
 
-```quote author="Guan Yin Zi"
-When in the light, can't see anything in the darkness.<br>
-When in the darkness, can see everything in the light.
+```quote author="관윤자"
+빛 속에선 어둠을 볼 수 없고,<br>
+어둠 속에선 빛나는 곳에 있는 모든 것을 볼 수 있습니다.
 ```
 
-Use same names for variables inside and outside a function. As simple. No efforts to invent new names.
+변수 이름을 짓는데 골머리를 썩이지 말고, 함수 내부와 외부에 동일한 이름을 가진 변수를 선언해 사용합시다. 
 
 ```js
 let *!*user*/!* = authenticateUser();
@@ -187,54 +195,53 @@ let *!*user*/!* = authenticateUser();
 function render() {
   let *!*user*/!* = anotherValue();
   ...
-  ...many lines...
+  ...함수 길이가 긺...
   ...
-  ... // <-- a programmer wants to work with user here and...
+  ... // <-- 개발자는 user와 관련된 이 부분의 코드를 수정해야 함
   ...
 }
 ```
 
-A programmer who jumps inside the `render` will probably fail to notice that there's a local `user` shadowing the outer one.
+함수 `render`가 긴 상황에서 user와 관련된 함수 하단부 로직만 수정해야 하는 상황이라고 해 봅시다. 개발자는 코드를 처음부터 읽지 않고 해당 로직이 있는 부분부터 읽을 확률이 높습니다. 그럼 첫 줄에서 `user`가 다시 정의되었다는 것을 놓치게 됩니다.
 
-Then they'll try to work with `user` assuming that it's the external variable, the result of `authenticateUser()`... The trap is sprung! Hello, debugger...
-
-
-## Side-effects everywhere!
-
-There are functions that look like they don't change anything. Like `isReady()`, `checkPermission()`, `findTags()`... They are assumed to carry out calculations, find and return the data, without changing anything outside of them. In other words, without "side-effects".
-
-**A really beautiful trick is to add a "useful" action to them, besides the main task.**
-
-An expression of dazed surprise on the face of your colleague when they see a function named `is..`, `check..` or `find...` changing something -- will definitely broaden your boundaries of reason.
-
-**Another way to surprise is to return a non-standard result.**
-
-Show your original thinking! Let the call of `checkPermission` return not `true/false`, but a complex object with the results of the check.
-
-Those developers who try to write `if (checkPermission(..))`, will wonder why it doesn't work. Tell them: "Read the docs!". And give this article.
+함수 내부에서 변수 `user`를 다시 정의했음에도 불구하고, 개발자는 `user`가 외부 변수(`authenticateUser()`의 호출 결과)인지 착각하며 작업을 진행할 겁니다. 함정이 참 깊네요. 디버거가 나타날 타이밍입니다.
 
 
-## Powerful functions!
+## 부작용이 있는 코드 작성하기
 
-```quote author="Laozi (Tao Te Ching)"
-The great Tao flows everywhere,<br>
-both to the left and to the right.
+`isReady()`, `checkPermission()`, `findTags()`같은 함수들은 단순 확인용으로 사용되고 외부의 무언가를 바꾸진 않습니다. "부작용"이 없는 함수들이죠.
+
+**이런 함수에 본래 기능을 넘어선 "유용한" 기능을 더해줍시다.**
+
+`is..`, `check..`, `find...`등의 접두사가 붙은 함수가 무언가를 바꿀 수 있도록 기능을 더해주면 동료들에게 놀라움을 선사해줄 수 있을 겁니다. 회사에서 당신의 입지는 더 넓어지겠죠.
+
+**예상치 않은 결과를 반환하는 것도 한 방법입니다.**
+
+`checkPermission`이라는 함수를 호출했을 때 반환 값이 `true`나 `false`가 아니라면 좋습니다. 확인 여부와 다른 정보를 함께 엮어 만든 객체를 반환해 당신의 독창성을 뽐내시기 바랍니다.
+
+`if (checkPermission(..))`가 왜 작동하지 않는지 물어보는 개발자에게 "문서를 읽어보세요!"라고 답하며 본 페이지를 보여주세요. 
+
+
+## 함수에 다양한 기능 넣기
+
+```quote author="노자(도덕경)"
+큰 도는 이쪽저쪽 할 것 없이 어디에나 넘쳐흐른다.
 ```
 
-Don't limit the function by what's written in its name. Be broader.
+함수 기능을 확장합시다. 함수가 할 수 있는 동작을 함수 이름에 한정 짓지 맙시다. 
 
-For instance, a function `validateEmail(email)` could (besides checking the email for correctness) show an error message and ask to re-enter the email.
+함수 `validateEmail(email)`에 유효한 이메일 주소인지 확인해 주는 기능 이외에, 잘못된 이메일을 입력했을 때 에러 메시지를 보여준다거나 메일 주소를 다시 입력해달라는 기능을  추가합시다.
 
-Additional actions should not be obvious from the function name. A true ninja coder will make them not obvious from the code as well.
+함수 이름에서 유추할 수 없을 만한 기능을 추가할수록 더 좋습니다. 진정한 닌자라면 상상력을 발휘해 그 누구도 알 수 없을 법한 기능을 추가할 수 있을 겁니다.
 
-**Joining several actions into one protects your code from reuse.**
+**함수 하나에 여러 기능을 욱여넣으면 코드 재사용도 방지할 수 있습니다.**
 
-Imagine, another developer wants only to check the email, and not output any message. Your function  `validateEmail(email)` that does both will not suit them. So they won't break your meditation by asking anything about it.
+어떤 개발자가 메시지를 보여주는 기능 없이, 이메일 주소 유효성만 확인하는 기능을 구현해야 한다고 합시다. 닌자가 작성한 함수 `validateEmail(email)`은 두 가지 기능을 모두 하고 있기 때문에, 재사용할 수 없다는 불상사가 발생합니다. 재사용 자체가 불가능해지니, 질문하는 사람도 없다는 장점이 생기네요.
 
-## Summary
+## 요약
 
-All "pieces of advice" above are from the real code... Sometimes, written by experienced developers. Maybe even more experienced than you are ;)
+지금까지 소개한 모든 방법은 허구가 아닙니다. 숙련된 개발자들도 이렇게 코드를 작성할 때가 있죠. 당신보다 경력이 많은 개발자도 예외는 아닙니다.
 
-- Follow some of them, and your code will become full of surprises.
-- Follow many of them, and your code will become truly yours, no one would want to change it.
-- Follow all, and your code will become a valuable lesson for young developers looking for enlightenment.
+- 편법 중 몇 개만 사용해도, 놀라운 코드를 만들 수 있게 됩니다.
+- 편법을 많이 사용하면 유지 보수하기가 힘들어져서 당신을 해고할 수 없게 됩니다. 
+- 편법을 모두 사용하면 후배 개발자들에게 엄청난 영감을 심어줄 수 있습니다.

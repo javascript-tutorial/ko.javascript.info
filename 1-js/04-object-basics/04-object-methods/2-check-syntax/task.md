@@ -2,9 +2,9 @@ importance: 2
 
 ---
 
-# Syntax check
+# 문법 점검하기
 
-What is the result of this code?
+아래 코드의 실행 결과를 예측해보세요.
 
 
 ```js no-beautify
@@ -16,4 +16,4 @@ let user = {
 (user.go)()
 ```
 
-P.S. There's a pitfall :)
+주의: 함정을 파놓았습니다. (• ◡•)

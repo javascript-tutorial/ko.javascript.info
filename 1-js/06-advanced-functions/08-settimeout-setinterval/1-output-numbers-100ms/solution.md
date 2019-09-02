@@ -1,5 +1,5 @@
 
-Using `setInterval`:
+`setInterval`을 이용한 방법:
 
 ```js run
 function printNumbers(from, to) {
@@ -18,7 +18,7 @@ function printNumbers(from, to) {
 printNumbers(5, 10);
 ```
 
-Using recursive `setTimeout`:
+`setTimeout`을 재귀 실행한 방법:
 
 
 ```js run
@@ -38,9 +38,9 @@ function printNumbers(from, to) {
 printNumbers(5, 10);
 ```
 
-Note that in both solutions, there is an initial delay before the first output. The function is called after `1000ms` the first time.
+두 방법 모두에서 최초 호출 이전에(첫 번째 얼럿 창이 뜨기 전에) `1000ms`의 지연 간격을 두었다는 점에 주목해주시기 바랍니다. 
 
-If we also want the function to run immediately, then we can add an additional call on a separate line, like this:
+초기 지연시간 없이 함수를 바로 실행하려면 아래와 같이 별도의 줄에서 함수를 호출해줘야 합니다. 
 
 ```js run
 function printNumbers(from, to) {

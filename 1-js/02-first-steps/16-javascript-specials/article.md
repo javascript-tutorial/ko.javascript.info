@@ -1,51 +1,51 @@
-# JavaScript specials
+# 기본 기능 톺아보기
 
-This chapter briefly recaps the features of JavaScript that we've learned by now, paying special attention to subtle moments.
+지금까지 배운 내용을 다시 떠올리고 요약해봅시다. 외우기 쉽지 않아 자칫하면 실수할 수 있는 부분을 중심으로 요약해 보도록 하겠습니다.
 
-## Code structure
+## 코드 구조
 
-Statements are delimited with a semicolon:
+여러 개의 구문은 세미콜론을 기준으로 구분할 수 있습니다.
 
 ```js run no-beautify
 alert('Hello'); alert('World');
 ```
 
-Usually, a line-break is also treated as a delimiter, so that would also work:
+줄 바꿈도 여러 개의 구문을 구분하는 데 사용되므로 아래 코드는 정상적으로 동작합니다.
 
 ```js run no-beautify
 alert('Hello')
 alert('World')
 ```
 
-That's called "automatic semicolon insertion". Sometimes it doesn't work, for instance:
+이런 동작 방식을 "세미콜론 자동 삽입(automatic semicolon insertion)"이라고 부릅니다. 그런데 세미콜론 자동 삽입이 동작하지 않을 때도 있습니다.
 
 ```js run
-alert("There will be an error after this message")
+alert("이 메시지가 출력된 후에 에러가 발생합니다.")
 
 [1, 2].forEach(alert)
 ```
 
-Most codestyle guides agree that we should put a semicolon after each statement.
+코딩 컨벤션과 같은 코드 스타일 지침서 대부분은 문의 끝에 세미콜론을 붙이는 걸 강제합니다.
 
-Semicolons are not required after code blocks `{...}` and syntax constructs with them like loops:
+코드 블록(`{...}` )이나 반복문 같은 문법 끝엔 세미콜론을 붙이지 않아도 괜찮습니다.
 
 ```js
 function f() {
-  // no semicolon needed after function declaration
+  // 함수 선언문 끝엔 세미콜론이 필요 없습니다.
 }
 
 for(;;) {
-  // no semicolon needed after the loop
+  // 반복문 끝엔 세미콜론이 필요 없습니다.
 }
 ```
 
-...But even if we can put an "extra" semicolon somewhere, that's not an error. It will be ignored.
+세미콜론이 없어도 되는 자리에 "여분의" 세미콜론을 붙이더라도 해당 세미콜론은 무시되기 때문에 에러가 발생하지 않습니다.
 
-More in: <info:structure>.
+자세한 내용은 <info:structure>에서 살펴보시기 바랍니다.
 
-## Strict mode
+## 엄격 모드
 
-To fully enable all features of modern JavaScript, we should start scripts with `"use strict"`.
+모던 자바스크립트에서 지원하는 모든 기능을 활성화하려면 스크립트 맨 위에 `"use strict"`를 적어줘야 합니다.
 
 ```js
 'use strict';
@@ -53,128 +53,128 @@ To fully enable all features of modern JavaScript, we should start scripts with 
 ...
 ```
 
-The directive must be at the top of a script or at the beginning of a function.
+`"use strict"`는 스크립트 최상단이나 함수 본문 최상단에 있어야 합니다.
 
-Without `"use strict"`, everything still works, but some features behave in the old-fashion, "compatible" way. We'd generally prefer the modern behavior.
+`"use strict"`가 없어도 코드는 정상적으로 동작합니다. 다만, 모던한 방식이 아닌 옛날 방식으로 동작하죠. "하위 호환성"을 지키면서 말이죠. 될 수 있으면 모던한 방식을 사용하는걸 추천해 드립니다.
 
-Some modern features of the language (like classes that we'll study in the future) enable strict mode implicitly.
+참고로, 추후에 배우게 될 클래스와 같은 몇몇 모던 기능은 엄격 모드를 자동으로 활성화합니다.
 
-More in: <info:strict-mode>.
+엄격 모드에 대한 자세한 내용은 <info:strict-mode>에서 살펴보시기 바랍니다.
 
-## Variables
+## 변수
 
-Can be declared using:
+변수는 아래와 같은 키워드를 이용해 선언할 수 있습니다.
 
 - `let`
-- `const` (constant, can't be changed)
-- `var` (old-style, will see later)
+- `const` -- 한 번 값을 할당하면 더는 값을 바꿀 수 없는 상수를 정의할 때 쓰입니다.
+- `var` -- 과거에 쓰이던 키워드로 자세한 내용은 추후에 다룰 예정입니다.
 
-A variable name can include:
-- Letters and digits, but the first character may not be a digit.
-- Characters `$` and `_` are normal, on par with letters.
-- Non-Latin alphabets and hieroglyphs are also allowed, but commonly not used.
+변수 이름 명명 규칙은 다음과 같습니다.
+- 숫자와 문자를 사용하되 첫 글자는 숫자가 될 수 없습니다.
+- 특수기호는 `$`와 `_`만 사용할 수 있습니다.
+- 비 라틴계 언어의 문자나 상형문자도 사용할 수 있지만 잘 쓰이진 않습니다.
 
-Variables are dynamically typed. They can store any value:
+자바스크립트는 동적 타이핑을 허용하기 때문에, 자료형을 바꿔가며 값을 할당할 수 있습니다.   
 
 ```js
 let x = 5;
 x = "John";
 ```
 
-There are 7 data types:
+자바스크립트는 일곱 가지 기본 자료형을 지원합니다.
 
-- `number` for both floating-point and integer numbers,
-- `string` for strings,
-- `boolean` for logical values: `true/false`,
-- `null` -- a type with a single value `null`, meaning "empty" or "does not exist",
-- `undefined` -- a type with a single value `undefined`, meaning "not assigned",
-- `object` and `symbol` -- for complex data structures and unique identifiers, we haven't learnt them yet.
+- 정수와 부동 소수점을 저장하는 데 쓰이는 `숫자형`
+- 문자열을 저장하는 데 쓰이는 `문자형`
+- 논리값 `true/false`을 저장하는 데 쓰이는 `불린형`
+- (비어있는, 존재하지 않음을 나타내는) `null` 값만을 위한 독립 자료형, `null`
+- (값이 할당되지 않은 상태를 나타내는) `undefined` 값만을 위한 독립 자료형 `undefined`
+- 복잡한 자료구조를 저장하는 데 쓰이는 `객체형`과 고유한 식별자를 만들 때 사용되는 `심볼형`  
 
-The `typeof` operator returns the type for a value, with two exceptions:
+`typeof` 연산자는 값의 자료형을 반환해줍니다. 그런데 두 가지 예외 사항이 있습니다.
 ```js
-typeof null == "object" // error in the language
-typeof function(){} == "function" // functions are treated specially
+typeof null == "object" // 언어 자체의 오류
+typeof function(){} == "function" // 함수는 특별하게 취급됩니다.
 ```
 
-More in: <info:variables> and <info:types>.
+자세한 내용은 <info:variables>와 <info:types>에서 살펴보시기 바랍니다.
 
-## Interaction
+## 상호작용
 
-We're using a browser as a working environment, so basic UI functions will be:
+호스트 환경이 브라우저인 경우, 다음과 같은 UI 함수를 이용해 사용자와 상호작용할 수 있습니다. 
 
 [`prompt(question, [default])`](mdn:api/Window/prompt)
-: Ask a `question`, and return either what the visitor entered or `null` if they clicked "cancel".
+: 프롬프트 창에 매개변수로 받은 `question`을 넣어 사용자에게 보여줍니다. 확인 버튼을 눌렀을 땐 사용자가 입력한 값을 반환해주고, 취소 버튼을 눌렀을 땐 `null`을 반환합니다.  
 
 [`confirm(question)`](mdn:api/Window/confirm)
-: Ask a `question` and suggest to choose between Ok and Cancel. The choice is returned as `true/false`.
+: 컨펌 대화상자에 매개변수로 받은 `question`을 넣어 사용자에게 보여줍니다. 사용자가 확인 버튼를 누르면 `true`를, 그 외의 경우는 `false`를 반환합니다.
 
 [`alert(message)`](mdn:api/Window/alert)
-: Output a `message`.
+: `message`가 담긴 얼럿창을 보여줍니다.
 
-All these functions are *modal*, they pause the code execution and prevent the visitor from interacting with the page until they answer.
+세 함수는 모두 모달창을 띄워주는데, 모달창이 닫히기 전까지 코드 실행이 중지됩니다. 사용자는 모달창 외의 페이지에 있는 그 무엇과도 상호작용할 수 없습니다. 
 
-For instance:
+예시:
 
 ```js run
-let userName = prompt("Your name?", "Alice");
-let isTeaWanted = confirm("Do you want some tea?");
+let userName = prompt("이름을 알려주세요.", "영희");
+let isTeaWanted = confirm("차 한 잔 드릴까요?");
 
-alert( "Visitor: " + userName ); // Alice
-alert( "Tea wanted: " + isTeaWanted ); // true
+alert( "방문객: " + userName ); // Alice
+alert( "차 주문 여부: " + isTeaWanted ); // true
 ```
 
-More in: <info:alert-prompt-confirm>.
+자세한 내용은 <info:alert-prompt-confirm>에서 살펴보시기 바랍니다.
 
-## Operators
+## 연산자
 
-JavaScript supports the following operators:
+자바스크립트는 아래와 같은 다양한 연산자를 제공합니다.
 
-Arithmetical
-: Regular: `* + - /`, also `%` for the remainder and `**` for power of a number.
+산술 연산자
+: 사칙 연산에 관련된 연산자 `* + - /`와 나머지 연산자 `%`, 거듭제곱 연산자 `**`가 대표적인 산술 연산자에 속합니다.   
 
-    The binary plus `+` concatenates strings. And if any of the operands is a string, the other one is converted to string too:
+    이항 덧셈 연산자 `+`는 피연산자 중 하나가 문자열일 때 나머지 하나를 문자형으로 바꾸고 두 문자열을 연결합니다.
 
     ```js run
-    alert( '1' + 2 ); // '12', string
-    alert( 1 + '2' ); // '12', string
+    alert( '1' + 2 ); // '12', 문자열
+    alert( 1 + '2' ); // '12', 문자열
     ```
 
-Assignments
-: There is a simple assignment: `a = b` and combined ones like `a *= 2`.
+할당 연산자
+: `a = b` 형태의 할당 연산자와 `a *= 2` 형태의 복합 할당 연산자가 있습니다.
 
-Bitwise
-: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators) when they are needed.
+비트 연산자
+: 비트 연산자는 인수를 32비트 정수로 변환하여 이진 연산을 수행합니다. 자세한 내용은 [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators)에서 볼 수 있습니다.
 
-Conditional
-: The only operator with three parameters: `cond ? resultA : resultB`. If `cond` is truthy, returns `resultA`, otherwise `resultB`.
+조건부 연산자
+: 조건부 연산자는 자바스크립트 연산자 중 유일하게 매개변수가 3개인 연산자입니다. `cond ? resultA : resultB`와 같은 형태로 사용하고, `cond`가 참 같은 값이면 `resultA`를, 아니라면 `resultB`를 반환합니다.
 
-Logical operators
-: Logical AND `&&` and OR `||` perform short-circuit evaluation and then return the value where it stopped. Logical NOT `!` converts the operand to boolean type and returns the inverse value.
+논리 연산자
+: AND 연산자 `&&`와 OR 연산자 `||`은 단락 평가를 수행하고, 평가가 멈춘 시점의 값을 반환합니다(꼭 `true`나 `false`일 필요는 없습니다). NOT 연산자 `!`는 피연산자의 자료형을 불린형으로 바꾼 후 그 역을 반환합니다. 
 
-Comparisons
-: Equality check `==` for values of different types converts them to a number (except `null` and `undefined` that equal each other and nothing else), so these are equal:
+비교 연산자
+: 동등 연산자 `==`는 형이 다른 값끼리 비교할 때 피연산자의 자료형을 숫자형으로 바꾼 후 비교를 진행합니다. `null`과 `undefined`는 자기끼리 비교할 땐 참을 반환하지만 다른 자료형과 비교할 땐 거짓을 반환합니다.
 
     ```js run
     alert( 0 == false ); // true
     alert( 0 == '' ); // true
     ```
 
-    Other comparisons convert to a number as well.
+    기타 비교 연산자들 `< > <= >=` 역시 피연산자의 자료형을 숫자형으로 바꾼 후 비교를 진행합니다.
 
-    The strict equality operator `===` doesn't do the conversion: different types always mean different values for it.
+    일치 연산자 `===`는 피연산자의 형을 변환하지 않습니다. 형이 다르면 무조건 다르다고 평가합니다.
 
-    Values `null` and `undefined` are special: they equal `==` each other and don't equal anything else.
+    `null`과 `undefined`는 특별한 값입니다. 두 값을 `==` 연산자로 비교하면 `true`를 반환하지만, 다른 값과 비교하면 무조건 `false`를 반환합니다.
 
-    Greater/less comparisons compare strings character-by-character, other types are converted to a number.
+    크고 작음을 비교하는 연산자의 피연산자로 문자열이 들어오면 글자 단위로 크기 비교가 이뤄집니다. 다른 타입의 값이 들어오면 숫자형으로 형변환한 후 비교를 진행합니다.
 
-Other operators
-: There are few others, like a comma operator.
+기타 연산자
+: 콤마 연산자 등의 기타 연산자도 있습니다.
 
-More in: <info:operators>, <info:comparison>, <info:logical-operators>.
+자세한 내용은 <info:operators>, <info:comparison>, <info:logical-operators>에서 살펴보시기 바랍니다.
 
-## Loops
+## 반복문
 
-- We covered 3 types of loops:
+- while, do-while, for 문은 아래와 같이 작성할 수 있습니다.
 
     ```js
     // 1
@@ -193,42 +193,42 @@ More in: <info:operators>, <info:comparison>, <info:logical-operators>.
     }
     ```
 
-- The variable declared in `for(let...)` loop is visible only inside the loop. But we can also omit `let` and reuse an existing variable.
+- `for(let...)` 안쪽에 선언한 변수는 오직 반복문 내에서만 사용할 수 있습니다. `let`을 생략하고 기존에 선언되어있는 변수를 사용하는 것도 가능합니다.
 - Directives `break/continue` allow to exit the whole loop/current iteration. Use labels to break nested loops.
 
-Details in: <info:while-for>.
+자세한 내용은 <info:while-for>에서 살펴보시기 바랍니다.
 
-Later we'll study more types of loops to deal with objects.
+자바스크립트는 이 외에도 객체를 다룰 수 있게 해주는 반복문도 제공합니다. 이에 대해선 추후 학습하겠습니다.
 
-## The "switch" construct
+## "switch"문
 
-The "switch" construct can replace multiple `if` checks. It uses `===` (strict equality) for comparisons.
+"switch"문은 `if`문을 사용해 재작성할 수 있습니다. "switch"문은 조건을 확인할 때 내부적으로 일치 연산자 `===`를 사용해 비교를 진행합니다.
 
-For instance:
+예시:
 
 ```js run
-let age = prompt('Your age?', 18);
+let age = prompt('나이를 알려주세요.', 18);
 
 switch (age) {
   case 18:
-    alert("Won't work"); // the result of prompt is a string, not a number
+    alert("Won't work"); // prompt 함수는 항상 문자열을 반환하므로, 이 case문엔 절대 도달할 수 없습니다.
 
   case "18":
-    alert("This works!");
+    alert("낭랑 18세이시군요!");
     break;
 
   default:
-    alert("Any value not equal to one above");
+    alert("어떤 case 문에도 해당하지 않습니다.");
 }
 ```
 
-Details in: <info:switch>.
+자세한 내용은 <info:switch>에서 살펴보시기 바랍니다.
 
-## Functions
+## 함수
 
-We covered three ways to create a function in JavaScript:
+세 가지 방법으로 함수를 만들 수 있습니다.
 
-1. Function Declaration: the function in the main code flow
+1. 함수 선언문: 주요 코드 흐름을 차지하는 방식
 
     ```js
     function sum(a, b) {
@@ -238,7 +238,7 @@ We covered three ways to create a function in JavaScript:
     }
     ```
 
-2. Function Expression: the function in the context of an expression
+2. 함수 표현식: 표현식 형태로 선언된 함수
 
     ```js
     let sum = function(a, b) {
@@ -248,40 +248,32 @@ We covered three ways to create a function in JavaScript:
     };
     ```
 
-    Function expressions can have a name, like `sum = function name(a, b)`, but that `name` is only visible inside that function.
-
-3. Arrow functions:
+3. 화살표 함수:
 
     ```js
-    // expression at the right side
+    // 화살표(=>) 우측엔 표현식이 있음
     let sum = (a, b) => a + b;
 
-    // or multi-line syntax with { ... }, need return here:
+    // 대괄호{ ... }를 사용하면 본문에 여러 줄의 코드를 작성할 수 있음. `return`문이 꼭 있어야 함.
     let sum = (a, b) => {
       // ...
       return a + b;
     }
 
-    // without arguments
+    // 인수가 없는 경우
     let sayHi = () => alert("Hello");
 
-    // with a single argument
+    // 인수가 하나인 경우
     let double = n => n * 2;
     ```
 
 
-- Functions may have local variables: those declared inside its body. Such variables are only visible inside the function.
-- Parameters can have default values: `function sum(a = 1, b = 2) {...}`.
-- Functions always return something. If there's no `return` statement, then the result is `undefined`.
+- 함수는 지역 변수를 가질 수 있습니다. 지역 변수는 함수 몸체 안에 선언된 변수로, 함수 내부에서만 접근할 수 있습니다.
+- 매개변수에 기본값을 설정할 수 있습니다. 문법은 다음과 같습니다. `function sum(a = 1, b = 2) {...}`
+- 함수는 항상 무언가를 반환합니다. `return`문이 없는 경우는 `undefined`를 반환합니다.
 
+자세한 내용은 <info:function-basics>와 <info:function-expressions-arrows>에서 살펴보시기 바랍니다.
 
-| Function Declaration | Function Expression |
-|----------------------|---------------------|
-| visible in the whole code block/script | created when the execution reaches it |
-|    | can have a name, visible only inside the function |
+## 아직 끝이 아닙니다!
 
-More: see <info:function-basics>, <info:function-expressions-arrows>.
-
-## More to come
-
-That was a brief list of JavaScript features. As of now we've studied only basics. Further in the tutorial you'll find more specials and advanced features of JavaScript.
+지금까지 살펴본 기능들은 자바스크립트에서 제공하는 핵심 기능입니다. 이제 겨우 기본을 갖췄네요. 이젠 이 기본을 바탕으로 더 많은 것들을 학습해 보도록 합시다.

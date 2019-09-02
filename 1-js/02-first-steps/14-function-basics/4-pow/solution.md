@@ -14,7 +14,7 @@ let x = prompt("x?", '');
 let n = prompt("n?", '');
 
 if (n < 1) {
-  alert(`Power ${n} is not supported, use a positive integer`);
+  alert(`${n}은 양의 정수이어야 합니다.`);
 } else {
   alert( pow(x, n) );
 }
