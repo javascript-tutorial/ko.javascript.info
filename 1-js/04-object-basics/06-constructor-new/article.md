@@ -161,10 +161,7 @@ function SmallUser() {
 
   this.name = "John";
 
-  return; // 실행이 중지되고, this를 반환함
-
-  // ...
-
+  return; // <-- this를 반환함
 }
 
 alert( new SmallUser().name );  // John

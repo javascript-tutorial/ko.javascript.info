@@ -149,7 +149,7 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 : 조건부 연산자는 자바스크립트 연산자 중 유일하게 매개변수가 3개인 연산자입니다. `cond ? resultA : resultB`와 같은 형태로 사용하고, `cond`가 참 같은 값이면 `resultA`를, 아니라면 `resultB`를 반환합니다.
 
 논리 연산자
-: AND 연산자 `&&`와 OR 연산자 `||`은 단락 평가를 수행하고, 평가가 멈췄을 때 값을 반환합니다. NOT 연산자 `!`는 피연산자의 자료형을 불린형으로 바꾼 후 그 역을 반환합니다. 
+: AND 연산자 `&&`와 OR 연산자 `||`은 단락 평가를 수행하고, 평가가 멈춘 시점의 값을 반환합니다(꼭 `true`나 `false`일 필요는 없습니다). NOT 연산자 `!`는 피연산자의 자료형을 불린형으로 바꾼 후 그 역을 반환합니다. 
 
 비교 연산자
 : 동등 연산자 `==`는 형이 다른 값끼리 비교할 때 피연산자의 자료형을 숫자형으로 바꾼 후 비교를 진행합니다. `null`과 `undefined`는 자기끼리 비교할 땐 참을 반환하지만 다른 자료형과 비교할 땐 거짓을 반환합니다.
@@ -172,9 +172,9 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 
 자세한 내용은 <info:operators>, <info:comparison>, <info:logical-operators>에서 살펴보시기 바랍니다.
 
-## Loops
+## 반복문
 
-- We covered 3 types of loops:
+- while, do-while, for 문은 아래와 같이 작성할 수 있습니다.
 
     ```js
     // 1
@@ -193,12 +193,12 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
     }
     ```
 
-- The variable declared in `for(let...)` loop is visible only inside the loop. But we can also omit `let` and reuse an existing variable.
+- `for(let...)` 안쪽에 선언한 변수는 오직 반복문 내에서만 사용할 수 있습니다. `let`을 생략하고 기존에 선언되어있는 변수를 사용하는 것도 가능합니다.
 - Directives `break/continue` allow to exit the whole loop/current iteration. Use labels to break nested loops.
 
 자세한 내용은 <info:while-for>에서 살펴보시기 바랍니다.
 
-Later we'll study more types of loops to deal with objects.
+자바스크립트는 이 외에도 객체를 다룰 수 있게 해주는 반복문도 제공합니다. 이에 대해선 추후 학습하겠습니다.
 
 ## "switch"문
 

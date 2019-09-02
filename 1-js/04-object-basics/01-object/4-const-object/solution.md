@@ -1,8 +1,8 @@
-Sure, it works, no problem.
+당연히 에러 없이 실행됩니다.
 
-The `const` only protects the variable itself from changing. 
+`const`는 한 번이라도 값을 할당한 변수가 변경되는 걸 막습니다.
 
-In other words, `user` stores a reference to the object. And it can't be changed. But the content of the object can.
+변수 `user`는 객체 참조 값을 저장하고 있는데, `const`는 이 값이 변경되는걸 막는 것이지, 객체의 내용(프로퍼티)을 변경하는 건 막지 않습니다.
 
 ```js run
 const user = {
