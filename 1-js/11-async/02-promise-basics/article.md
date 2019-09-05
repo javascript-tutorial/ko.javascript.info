@@ -2,7 +2,7 @@
 
 탑 가수인 당신이 밤·낮으로 다음 싱글 앨범이 언제 나오는지 물어보는 팬들을 상대해야 한다고 가정해 봅시다. 
 
-당신은 일의 부하를 덜기 위해 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해줄 겁니다. 구독 리스트를 하나 만들어 팬들에게 이를 전달하며, 여기에 자신의 이메일 주소를 적게 만들겠죠. 앨범이 준비되면 약속한 대로 구독 리스트에 자신의 메일을 적은 팬들은 즉시 소식을 받아볼 수 있을 겁니다. 출시 예정인 앨범이 취소되는 불상사가 발생해도 팬들에게 소식을 전할 수 있죠.
+당신은 일의 부하를 덜기 위해 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해줄 겁니다. 구독 리스트를 하나 만들어 팬들에게 이를 전달하며, 여기에 자신의 이메일 주소를 적게 만들겠죠. 앨범이 준비되면 약속한 대로 구독 리스트에 자신의 메일을 적은 팬들은 즉시 소식을 받아볼 수 있을 겁니다. 녹음 스튜디오에 화재가 발생해서 출시 예정인 앨범이 취소되는 불상사가 발생해도 팬들에게 소식을 전할 수 있죠.
 
 이제 모두가 행복해졌습니다. 밤낮으로 질문을 하는 팬들이 사라졌고, 팬들은 앨범 출시를 놓치지 않을 수 있게 되었으니까요.
 
@@ -24,25 +24,27 @@ let promise = new Promise(function(resolve, reject) {
 
 `new Promise`에 전달되는 콜백 함수는 *executor(실행자, 실행 함수)* 라고 불립니다.  executor 함수는 프라미스가 만들어질 때 자동으로 실행되며, 결과물을 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 "가수"가 바로 executor입니다.
 
-결과물로 반환되는 프라미스 객체엔 다음 내부 프로퍼티가 있습니다.
+Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside executor.
 
-- `state` - 처음엔 "pending(대기)" 상태이고, 처리 결과에 따라 "fulfilled(처리)" 혹은 "rejected(거부)"로 바뀝니다.
-- `result` - 임의의 값으로 최초엔 `undefined`입니다.
+When the executor obtains the result, be it soon or late - doesn't matter, it should call one of these callbacks:
 
-executor의 실행이 끝나면, 인자로 받은 함수인 resolve나 reject 중 하나를 반드시 호출해야 합니다.
+- `resolve(value)` — if the job finished successfully, with result `value`.
+- `reject(error)` — if an error occurred, `error` is the error object.
 
-- `resolve(value)` - 일이 성공적으로 끝났을 때 호출됨.
-    - `state`의 값이 `"fulfilled"`이 되고,
-    - `result`의 값이 `value`로 바뀜.
-- `reject(error)` - 일이 실패했을 때 호출됨.
-    - `state`의 값이 `"rejected"`이 되고,
-    - `result`의 값이 `error`로 바뀜.
+So to summarize: the executor runs automatically, it should do a job and then call either `resolve` or `reject`.
 
-![](promise-resolve-reject.png)
+The `promise` object returned by `new Promise` constructor has internal properties:
 
-이 변화가 어떻게 "팬"들에게 전달되는지는 잠시 후 살펴보도록 하겠습니다.
+- `state` — initially `"pending"`, then changes to either `"fulfilled"` when `resolve` is called or `"rejected"` when `reject` is called.
+- `result` — initially `undefined`, then changes to `value` when `resolve(value)` called or `error` when `reject(error)` is called.
 
-그전에, 간단한 executor 함수를 이용해 프라미스를 만들어 봅시다. executor 함수는 `setTimeout`을 이용해 만든 "제작 코드"로 구성하였습니다. 
+So the executor moves `promise` to one of these states:
+
+![](promise-resolve-reject.svg)
+
+Later we'll see how "fans" can subscribe to these changes.
+
+Here's an example of a Promise constructor and a simple executor function with delayed "producing code" (via `setTimeout`):
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
@@ -60,7 +62,7 @@ let promise = new Promise(function(resolve, reject) {
 
 1초 후에 executor는 `resolve("done")`를 호출하고, 결과물을 만들어 냅니다.
 
-![](promise-resolve-1.png)
+![](promise-resolve-1.svg)
 
 지금까진 성공적으로 일이 처리된 경우인 "fulfilled promise(약속이 이행된 프라미스)"에 대해 알아보았습니다.
 
@@ -73,7 +75,7 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-![](promise-reject-1.png)
+![](promise-reject-1.svg)
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이 때 프라미스 객체의 프로퍼티인 state가 변경됩니다.
 
@@ -86,7 +88,9 @@ executor는 `resolve`나 `reject` 함수 중 하나를 반드시 호출해야 �
 
 ```js
 let promise = new Promise(function(resolve, reject) {
+*!*
   resolve("done");
+*/!*
 
   reject(new Error("…")); // 무시됨
   setTimeout(() =&amp;gt; resolve("…")); // 무시됨
@@ -99,7 +103,7 @@ let promise = new Promise(function(resolve, reject) {
 ````
 
 ```smart header="`Error` 객체와 함께 거절하기"
-무언가 잘 못 된 경우, `reject`를 호출할 수 있습니다. 이때 인자는 `resolve`와 마찬가지로 어떤 타입도 가능합니다. 다만, `Error` 객체(또는 `Error`객체를 상속한 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
+무언가 잘 못 된 경우, `reject`를 호출해야만 합니다. 이때 인자는 `resolve`와 마찬가지로 어떤 타입도 가능합니다. 다만, `Error` 객체(또는 `Error`객체를 상속한 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
 ```
 
 ````smart header="`resolve`, `reject` 함수 즉시 호출하기"
@@ -138,15 +142,9 @@ promise.then(
 );
 ```
 
-`.then`의 첫 번째 인수는 함수입니다. 그리고 다음과 같은 특징을 가집니다.
+`.then`의 첫 번째 인수는 프라미스가 이행되었을 때(resolved) 실행되고, 실행 결과(result)를 받는 함수입니다.
 
-1. 프라미스가 이행되었을 때(resolved) 실행됩니다. 그리고
-2. 그 결과(result)를 받습니다.
-
-`.then`의 두 번째 인수 역시 함수이고,
-
-1. 프라미스가 거부되었을 때(rejected) 실행됩니다. 그리고
-2. 에러(error)를 받습니다.
+`.then`의 두 번째 인수는 프라미스가 거부되었을 때(rejected) 실행되고, 에러(error)를 받는 함수입니다.
 
 다음은 프라미스가 성공적으로 이행(resolve)된 경우에 관한 예시입니다.
 
@@ -216,7 +214,7 @@ promise.catch(alert); // 1초 뒤 "Error: Whoops!" 출력
 
 `try {...} catch {...}`에 finally 절이 있는 것처럼, 프라미스에도 `finally`가 있습니다.
 
-프라미스가 처리되면(settled) 항상 실행된다는 점에서 `.finally(f)` 호출은 `.then(f, f)`과 유사합니다. 프라미스가 이행(resolved)이나 거부(rejected) 일 때 실행되죠.
+프라미스가 처리되면(settled) `f`가 항상 실행된다는 점에서 `.finally(f)` 호출은 `.then(f, f)`과 유사합니다. 프라미스가 이행(resolved)이나 거부(rejected) 일 때 실행되죠.
 
 더는 필요치 않은 로딩 인디케이터(loading indicators)를 멈추는 경우같이, 끝마무리에 `finally`를 유용하게 쓸 수 있습니다. 결과가 어떻든 마무리가 필요한 경우 말이죠.
 
@@ -272,8 +270,6 @@ let promise = new Promise(resolve =&amp;gt; resolve("done!"));
 
 promise.then(alert); // done! (바로 출력됨)
 ```
-
-`.then` 핸들러는 시간이 걸리는 프라미스이든, 즉시 이행되는 프라미스이든 상관없이 실행이 보장됩니다.
 ````
 
 이제, 실질적인 예제와 함께 프라미스를 이용해 어떻게 비동기 코드를 작성하는지 알아봅시다.
@@ -324,7 +320,7 @@ promise.then(
   error => alert(`Error: ${error.message}`)
 );
 
-promise.then(script => alert('또 다른 작업을 위한 추가 핸들러'));
+promise.then(script => alert('또 핸들러...'));
 ```
 
 위 예시를 통해 프라미스를 사용한 코드가 콜백 기반 패턴을 구현한 코드에 비해 다음과 같은 이점이 있다는 걸 알 수 있습니다.

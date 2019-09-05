@@ -1,5 +1,11 @@
 # 패턴과 플래그
 
+Regular expressions is a powerful way to search and replace in text.
+
+In JavaScript, they are available as `RegExp` object, and also integrated in methods of strings.
+
+## 정규 표현식
+
 정규 표현식("regexp" 또는 그냥 "reg"라고도 합니다)은 *패턴*과 선택적인 *플래그*로 구성됩니다
 
 정규식 객체를 만드는 데에는 두 가지 문법이 있습니다.

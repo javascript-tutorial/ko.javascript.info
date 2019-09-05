@@ -119,29 +119,28 @@ alert( arr ); // 1,2,3,4,5
 문법:
 
 ```js
-arr.slice(start, end)
+arr.slice([start], [end])
 ```
 
 이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스까지의 요소를 포함하는 메서드를 반환합니다. `start`와 `end` 인덱스는 둘 다 음수일 수도 있습니다. 인덱스가 음수일 땐 배열 끝에서부터의 요소 개수를 의미합니다.
 
 `arr.slice`메서드의 동작은 문자열 메서드인 `str.slice`와 유사하지만, `arr.slice`메서드는 서브 문자열(substring) 대신 서브 배열(subarray)를 반환한다는 점이 다릅니다.
 
-예:
+예시:
 
 ```js run
-let str = "test";
 let arr = ["t", "e", "s", "t"];
 
-alert( str.slice(1, 3) ); // es
-alert( arr.slice(1, 3) ); // e,s
+alert( arr.slice(1, 3) ); // e,s (copy from 1 to 3)
 
-alert( str.slice(-2) ); // st
-alert( arr.slice(-2) ); // s,t
+alert( arr.slice(-2) ); // s,t (copy from -2 till the end)
 ```
+
+We can also call it without arguments: `arr.slice()` creates a copy of `arr`. That's often used to obtain a copy for further transformations that should not affect the original array.
 
 ### concat
 
-[arr.concat](mdn:js/Array/concat) 메서드는 배열의 끝에 다른 배열이나 요소를 추가해줍니다.
+The method [arr.concat](mdn:js/Array/concat) creates a new array that includes values from other arrays and additional items.
 
 문법은 다음과 같습니다.
 
@@ -153,20 +152,20 @@ arr.concat(arg1, arg2...)
 
 메서드를 적용한 결과는 `arr`에 속한 모든 요소와, `arg1`, `arg2` 등에 속한 모든 요소를 합친 배열입니다.
 
-인수가 배열이거나, 인수의 프로퍼티가 `Symbol.isConcatSpreadable`이라면, 인수로 받은 배열의 모든 요소를 복사합니다. 이 외에는 인수 자체를 복사합니다.
+If an argument `argN` is an array, then all its elements are copied. Otherwise, the argument itself is copied.
 
 예시:
 
 ```js run
 let arr = [1, 2];
 
-// 배열 arr을 배열 [3,4]와 병합함
+// create an array from: arr and [3,4]
 alert( arr.concat([3, 4])); // 1,2,3,4
 
-// 배열 arr을 배열 [3,4]와 배열 [5,6]과 병합함
+// create an array from: arr and [3,4] and [5,6]
 alert( arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
-// 배열 arr을 배열 [3,4]와 병합하고, 값5 와 6을 추가함
+// create an array from: arr and [3,4], then add values 5 and 6
 alert( arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
@@ -184,7 +183,7 @@ alert( arr.concat(arrayLike) ); // 1,2,[object Object]
 //[1, 2, arrayLike]
 ```
 
-하지만 유사 배열 객체에 `Symbol.isConcatSpreadable` 프로퍼티가 있으면, 객체의 요소가 더해집니다.
+...But if an array-like object has a special property `Symbol.isConcatSpreadable` property, the it's treated as array by `concat`: its elements are added instead:
 
 ```js run
 let arr = [1, 2];
@@ -280,7 +279,7 @@ let result = arr.find(function(item, index, array) {
 });
 ```
 
-배열 내 모든 요소에 대하여 함수가 호출됩니다. 이때,
+The function is called for elements of the array, one after another:
 
 - `item` 은 요소를 의미합니다.
 - `index` 는 인덱스를 의미합니다.
@@ -304,7 +303,7 @@ alert(user.name); // John
 
 실무에서 객체로 구성된 배열을 자주 만나게 될겁니다. 그렇기 때문에 `find` 메서드는 유용하죠.
 
-위 예제에선 인수가 하나만 있는 함수인 `item => item.id == 1`을 `find` 메서드에 넘겨주었다는 점에 유의하시기 바랍니다. `find` 메서드를 가지고 무언가를 할 때, 다른 인수를 쓰는 경우는 거의 없습니다.
+Note that in the example we provide to `find` the function `item => item.id == 1` with one argument. That's typical, other arguments of this function are rarely used.
 
 [arr.findIndex](mdn:js/Array/findIndex) 메서드는 find 메서드와 동일한 일을 하나, 조건에 맞는 요소를 반환하지 않고, 해당 요소의 인덱스만 반환한다는 점에서 차이가 있습니다. 아무것도 찾지 못한 경우는 `-1`을 반환합니다. 
 
@@ -314,12 +313,12 @@ alert(user.name); // John
 
 만약 조건을 충족하는 요소가 여러 개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
 
-문법은 `find`와 비슷합니다. 하지만 filter 메서드는 `true`가 이미 반환된 경우에도 탐색을 멈추지 않기 때문에 배열의 모든 요소를 검색한다는 점에서 차이가 있습니다.
+The syntax is similar to `find`, but `filter` returns an array of all matching elements:
 
 ```js
 let results = arr.filter(function(item, index, array) {
-  // 조건을 만족하는 요소가 반환되더라도 탐색은 멈추지 않습니다.
-  // 모든 요소가 조건을 충족하지 않으면, 빈 배열이 반환됩니다.
+  // if true item is pushed to results and the iteration continues
+  // returns empty array if nothing found
 });
 ```
 
@@ -340,22 +339,21 @@ alert(someUsers.length); // 2
 
 ## 배열을 변형시키는 메서드
 
-배열을 변형하거나 재정렬하는 메서드를 알아보도록 하겠습니다.
-
+Let's move on to methods that transform and reorder an array.
 
 ### map
 
 [arr.map](mdn:js/Array/map) 메서드는 유용성과 사용 빈도가 아주 높은 메서드 중 하나입니다.
 
-문법은 다음과 같습니다.
+It calls the function for each element of the array and returns the array of results.
+
+The syntax is:
 
 ```js
 let result = arr.map(function(item, index, array) {
-  // 요소가 아닌 새로운 값을 반환합니다
-})
+  // returns the new value instead of item
+});
 ```
-
-map 메서드는 배열의 각 요소에 함수를 호출하고, 결과를 배열로 받아 반환합니다.   
 
 아래는 map 메서드를 활용해 각 요소의 길이를 출력해주는 예시입니다.
 
@@ -366,14 +364,16 @@ alert(lengths); // 5,7,6
 
 ### sort(fn)
 
-[arr.sort](mdn:js/Array/sort) 메서드는 배열의 요소를 *올바른 순서로* 정렬해줍니다.
+The call to [arr.sort()](mdn:js/Array/sort) sorts the array *in place*, changing its element order.
+
+It also returns the sorted array, but the returned value is usually ignored, as `arr` itself is modified.
 
 예시:
 
 ```js run
 let arr = [ 1, 2, 15 ];
 
-// sort 메서드는 arr의 내용을 재정렬하고, 재정렬된 배열을 반환합니다.
+// the method reorders the content of arr
 arr.sort();
 
 alert( arr );  // *!*1, 15, 2*/!*
@@ -385,20 +385,20 @@ alert( arr );  // *!*1, 15, 2*/!*
 
 **요소는 문자열로 취급되어 정렬되기 때문입니다.**
 
-모든 요소는 문자열로 변환되고 나서 비교됩니다. 사전 순으로 재정렬 되기 때문에, `"2" > "15"`라는 결과가 도출되었습니다.
+Literally, all elements are converted to strings for comparisons. For strings,  lexicographic ordering is applied and indeed `"2" > "15"`.
 
-문자열 기준이 아닌 다른 기준을 만들어 정렬하고 싶다면, 인수 두 개를 받는 함수를 만들어 `arr.sort()`의 인수로 전달해 주면 됩니다.
+To use our own sorting order, we need to supply a function as the argument of `arr.sort()`.
 
-`arr.sort()`에 넘겨줄 함수는 아래와 같은 형태이어야 합니다.
+The function should compare two arbitrary values and return:
 ```js
 function compare(a, b) {
-  if (a > b) return 1;
-  if (a == b) return 0;
-  if (a < b) return -1;
+  if (a > b) return 1; // if the first value is greater than the second
+  if (a == b) return 0; // if values are equal
+  if (a < b) return -1; // if the first value is less than the second
 }
 ```
 
-예시:
+For instance, to sort as numbers:
 
 ```js run
 function compareNumeric(a, b) {
@@ -418,9 +418,9 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 이제 의도한 대로 숫자가 오름차순으로 정렬되었습니다.
 
-잠시 멈춰 이 메서드가 어떻게 동작하는지 생각해 봅시다. `arr`의 요소는 어떤 값이든 가능합니다. 숫자, 문자열, HTML 요소 등 모든 것이 요소가 될 수 있죠. *무언가*로 구성된 집합이 arr에 담긴 상황입니다. 이제 이 집합을 정렬해봅시다. 요소를 어떤 기준으로 비교하고 정렬할지 정의하는 *순서를 매겨주는 함수(ordering function)* 가 필요합니다. 아무 매개변수도 넘겨주지 않으면 sort 메서드는 사전 순으로 정렬합니다.
+잠시 멈춰 이 메서드가 어떻게 동작하는지 생각해 봅시다. `arr`의 요소는 어떤 값이든 가능합니다. 숫자, 문자열, 객체 등 모든 것이 요소가 될 수 있죠. *무언가*로 구성된 집합이 arr에 담긴 상황입니다. 이제 이 집합을 정렬해봅시다. 요소를 어떤 기준으로 비교하고 정렬할지 정의하는 *순서를 매겨주는 함수(ordering function)* 가 필요합니다. 아무 매개변수도 넘겨주지 않으면 sort 메서드는 사전 순으로 정렬합니다.
 
-`arr.sort(fn)` 메서드의 정렬 알고리즘은 내부에 구현되어 있습니다. 대부분 최적화된 [quicksort](https://en.wikipedia.org/wiki/Quicksort)를 이용하여 구현하는데, 이 알고리즘이 어떻게 작동하는지는 지금 살펴보지 않겠습니다. `arr.sort(fn)`의 정렬 알고리즘은 매개변수로 넘겨준 함수(비교 함수)를 이용해 배열 내를 돌아다니며 요소를 비교하고, 재정렬합니다. 개발자는 비교에 쓰이는 `fn` 만 제공해 주면 됩니다.  
+The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
 
 정렬 과정에서 어떤 요소끼리 비교가 일어났는지 확인하고 싶다면 아래 코드를 통해 확인하면 됩니다.
 
@@ -508,14 +508,14 @@ alert( str.split('') ); // t,e,s,t
 ```
 ````
 
-[arr.join(separator)](mdn:js/Array/join) 메서드는 `split`의 반대 메서드입니다. 배열 `arr`의 요소를 통으로 묶어 하나의 문자열을 만들어줍니다. 매개변수 `separator`는 접착제 같은 역할을 합니다. 각 요소의 중간마다 삽입되어 하나의 문자열을 만듭니다.
+The call [arr.join(glue)](mdn:js/Array/join) does the reverse to `split`. It creates a string of `arr` items joined by `glue` between them.
 
 예시:
 
 ```js run
 let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
 
-let str = arr.join(';');
+let str = arr.join(';'); // glue the array into a string using ;
 
 alert( str ); // Bilbo;Gandalf;Nazgul
 ```
@@ -533,18 +533,21 @@ alert( str ); // Bilbo;Gandalf;Nazgul
 ```js
 let value = arr.reduce(function(previousValue, item, index, array) {
   // ...
-}, initial);
+}, [initial]);
 ```
 
-매개변수로 받는 함수는 각 요소에 적용됩니다. 함수의 인수로 익숙한 값들이 보이네요.
+The function is applied to all array elements one after another and "carries on" its result to the next call.
 
-- `item`은 현재 배열 요소를 나타냅니다.
-- `index`는 요소의 위치를 나타냅니다.
-- `array`는 배열입니다.
+Arguments:
 
-이 인수만을 봤을 때, `forEach/map`과 다른 게 없어 보이네요. 하지만 못 보던 인수를 하나 발견하셨을 겁니다. 
+- `previousValue` -- is the result of the previous function call, equals `initial` the first time (if `initial` is provided).
+- `item` -- is the current array item.
+- `index` -- is its position.
+- `array` -- is the array.
 
-- `previousValue`는 이전 함수 호출의 결과입니다. `initial`은 함수를 처음 호출할 때 사용할 값(초깃값)이죠.
+As function is applied, the result of the previous function call is passed to the next one as the first argument.
+
+Sounds complicated, but it's not if you think about the first argument as the "accumulator" that stores the combined result of all previous execution. And at the end it becomes the result of `reduce`.
 
 조금 어렵겠지만, 예제를 통해 이 메서드를 이해해 보도록 합시다.
 
@@ -558,17 +561,17 @@ let result = arr.reduce((sum, current) => sum + current, 0);
 alert(result); // 15
 ```
 
-인수 두 개를 사용하는 활용법은 `reduce` 메서드를 이용시 흔하게 쓰이는 패턴입니다.
+The function passed to `reduce` uses only 2 arguments, that's typically enough.
 
 어떤 과정을 거쳐 위 결과가 나왔는지 살펴보도록 합시다.
 
-1. 처음 콜백을 호출할 때, `sum`엔 초깃값 `0`(`reduce`의 마지막 인수)이 할당됩니다. `current`엔 배열의 첫 번째 요소 값인 `1`이 할당됩니다. 따라서 결과는 `1`이 되죠.
+1. 처음 콜백을 호출할 때, `sum`엔 `초깃값` `0`(`reduce`의 마지막 인수)이 할당됩니다. `current`엔 배열의 첫 번째 요소 값인 `1`이 할당됩니다. 따라서 함수의 결과는 `1`이 되죠.
 2. 두 번째 호출 시, `sum = 1` 입니다. 여기에 두 번째 요소(`2`)를 더해주고, 결과를 반환합니다. 
 3. 세 번째 호출 시, `sum = 3`이고, 여기에 다음 요소를 더해줍니다. 이 과정이 계속 이어집니다.
 
 그림으로 이 과정을 살펴보도록 합시다.
 
-![](reduce.png)
+![](reduce.svg)
 
 표를 이용해 설명하면, 다음과 같습니다. 콜백 호출 시 사용될 인수의 값과, 연산 결과를 열에서 찾을 수 있습니다.
 
@@ -580,8 +583,7 @@ alert(result); // 15
 |네 번째 호출|`6`|`4`|`10`|
 |다섯번째 호출|`10`|`5`|`15`|
 
-
-표를 통해 보니 조금 더 명확하네요. 이전 호출 시 결괏값(result)이 다음 호출의 첫 번째 인수가 되는 것을 확인할 수 있습니다. 
+Here we can clearly see how the result of the previous call becomes the first argument of the next one.
 
 초깃값을 생략할 수도 있습니다.
 
@@ -618,7 +620,7 @@ arr.reduce((sum, current) => sum + current);
 
 ## Array.isArray
 
-자바스크립트에서 배열은 독립된 자료형으로 취급되지 않습니다. 객체에 속하죠.
+Arrays do not form a separate language type. They are based on objects.
 
 따라서 일반 객체와 배열을 구분하고 싶을 때 `typeof`는 도움이 되지 않습니다.
 
@@ -653,7 +655,7 @@ arr.map(func, thisArg);
 
 매개변수인 `thisArg`의 값은 `func`의 `this`가 됩니다.
 
-아래와 같이 객체의 메서드를 filter 메서드의 콜백으로 사용 시, `thisArg`를 유용하게 쓸 수 있습니다.   
+For instance, here we use an object method as a filter and `thisArg` helps with that:
 
 ```js run
 let user = {
@@ -697,7 +699,7 @@ alert(youngerUsers.length); // 2
   - `includes(value)` -- 배열에 `value`가 있으면 `true`를, 그렇지 않으면 `false`를 반환함
   - `find/filter(func)` -- 함수를 조건 기준으로 삼고, 조건을 `true`로 만드는 첫 번째/전체 요소를 반환함
   - `findIndex`는 `find`와 유사함. 다만, 요소 대신 인덱스를 반환함
-  
+
 - 배열 전체 순회하기
   - `forEach(func)` -- 모든 요소에 `func`을 호출하고, 결과를 반환하지 않음
 

@@ -1,3 +1,3 @@
-# Object properties configuration
+# 객체 프로퍼티 설정
 
-In this section we return to objects and study their properties even more in-depth.
+객체를 복습하고 객체 프로퍼티에 대해 좀 더 깊게 알아봅시다.

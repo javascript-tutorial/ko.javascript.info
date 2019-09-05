@@ -1,149 +1,147 @@
-# Mocha로 하는 테스팅 자동화
+# 테스트 자동화와 Mocha
 
-테스트 자동화는 추가적인 작업이긴 하지만 많은 프로젝트가 테스트 자동화를 도입하고 있습니다.
+테스트 자동화는 앞으로 풀어야 할 과제에서뿐만 아니라 현업에서도 광범위하게 쓰입니다. 
 
-## 테스트의 필요성
+## 테스트는 왜 해야 하는가?
 
-함수를 작성할 땐, 어떤 매개변수가 들어오면 어떤 결과가 나올 지 상상하며 작업합니다. 
+함수를 하나 만들고 있다고 해 봅시다. 대부분 매개변수-결과 관계를 중심으로 어떻게 코드를 작성할지 구상하실 겁니다.
 
-그리고 함수를 직접 실행 한 결과가 원하는 것과 같은지를 비교하면서 함수를 잘 만들었는지 확인합니다. 콘솔에서 실행 해 확인하는 것 같이 말이죠.
+개발 중엔 콘솔 창 등을 이용해 실제 실행 결과가 기대했던 결과와 같은지 계속 비교하면서 원하는 기능이 잘 구현되고 있는지 확인할 겁니다.
 
-뭔가 잘못 된 경우는, 코드를 고치고, 재 실행해 서 결과를 다시 확인합니다. 함수가 제대로 작동할 때까지 이 작업을 반복하죠.
+실제 실행 결과가 기대했던 결과와 다를 땐, 코드를 수정하고 다시 실행해 그 결과를 기대했던 결과와 다시 비교해 볼 겁니다. 원하는 기능을 완성할 때까지 이 과정을 계속 반복하겠죠.
 
-하지만 이렇게 손으로 "재 실행"하는건 불완전한 방법입니다.
+그런데 이렇게 수동으로 코드를 "재실행"하는 건 상당히 불완전합니다.
 
-**손으로 재 실행 하는 방식의 테스팅은, 뭔가를 놓치기 쉽습니다.**
+**코드를 수동으로 "재 실행" 하면서 테스트를 하면 무언가를 놓치기 쉽습니다.**
 
-함수 `f`를 만들고 있다고 가정해 봅시다. 코드를 작성하고, `f(1)`을 테스트 하는데, 잘 작동합니다. 그런데 `f(2)`는 잘 작동하지 않습니다. 코드를 수정하고 나니 `f(2)`가 잘 작동합니다. 작업이 끝난것 같이 보입니다. 하지만 코드가 수정된 후 `f(1)`을 테스트 하지 못했습니다. 이런 상황은 에러를 발생시킬 수 있습니다.  
+구체적인 예를 들어봅시다. 현재 함수 `f`를 구현하고 있다고 가정해보겠습니다. 코드를 작성하고 `f(1)`이 제대로 동작하는지 확인합니다. 제대로 동작하네요. 그런데 `f(2)`를 테스트해 보니 제대로 동작하지 않습니다. 코드를 수정한 후 다시 `f(2)`를 확인해 봅니다. 제대로 동작하네요. 여기서 끝일까요? 아닙니다. `f(1)`이 제대로 동작하는지 확인하지 않았으니까요. 이렇게 테스트를 수동으로 하면 에러가 발생할 여지를 남깁니다.
 
-이는 전형적인 상황입니다. 개발자는 많은 가능성을 염두하고 코드를 작성합니다. 하지만 코드가 수정되고 난 후, 개발자가 모든 가능성을 다시 확인한다는 보장이 없습니다. 이 때문에 하나를 고치면 다른 하나가 고장날 가능성이 생깁니다.
+이런 일은 아주 흔히 발생합니다. 개발자는 무언가를 만들 때 머릿속에 수많은 유스 케이스를 생각하며 코드를 작성하는데, 코드를 변경해야 할 때마다 모든 유스 케이스를 상기하면서 코드를 수정하는 것은 거의 불가능합니다. 하나를 고치면 또 다른 문제가 튀어나오는 이유가 바로 이 때문입니다.
 
-That's very typical. When we develop something, we keep a lot of possible use cases in mind. But it's hard to expect a programmer to check all of them manually after every change. So it becomes easy to fix one thing and break another one.
+**테스팅 자동화는 테스트 코드가 실제 동작에 관여하는 코드와 별개로 작성되었을 때 가능합니다. 테스트 코드를 이용하면 함수를 다양한 조건에서 실행해 볼 수 있는데, 이때 실행 결과와 기대 결과를 비교할 수 있습니다.**
 
-**Automated testing means that tests are written separately, in addition to the code. They can be executed automatically and check all the main use cases.**
+## Behavior Driven Development
 
-## Behavior Driven Development (BDD)
+[Behavior Driven Development(BDD)](http://en.wikipedia.org/wiki/Behavior-driven_development)라 불리는 방법론에 대해 알아봅시다.
 
-Let's use a technique named [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) or, in short, BDD. That approach is used among many projects. BDD is not just about testing. That's more.
+**BDD는 테스트(test), 문서(documentation), 예시(example)를 한데 모아놓은 개념입니다.**
 
-**BDD is three things in one: tests AND documentation AND examples.**
+실제 개발 사례를 이용해 BDD가 무엇인지 차근차근 설명해 보도록 하겠습니다.
 
-Let's see the example.
+## 거듭제곱 함수와 명세서
 
-## Development of "pow": the spec
+`x`를 `n`번 곱해주는 함수, `pow(x, n)`를 구현하고 있다고 가정해 봅시다.(단, `n`은 자연수이고, 조건 `n≥0`을 만족해야 합니다.) 
 
-Let's say we want to make a function `pow(x, n)` that raises `x` to an integer power `n`. We assume that `n≥0`.
+사실 자바스크립트엔 거듭제곱 연산자 `**`가 있습니다. 그럼에도 불구하고 함수를 직접 구현하는 이유는, 구현 과정에 초점을 두면서 BDD를 직접 적용해 보기 위해서입니다. 기능이 간단한 함수를 구현하면서 BDD를 직접 적용해 보면 큰 문제에 BDD를 적용하는 건 쉬울 테니까요.
 
-That task is just an example: there's the `**` operator in JavaScript that can do that, but here we concentrate on the development flow that can be applied to more complex tasks as well.
+본격적으로 코드를 작성하기 전에 먼저 해야 할 것이 있습니다. 코드가 무슨 일을 하는지 상상한 후 이를 자연어로 표현해야 합니다.
 
-Before creating the code of `pow`, we can imagine what the function should do and describe it.
-
-Such description is called a *specification* or, in short, a spec, and looks like this:
+이때, 만들어진 산출물을 BDD에선 *명세서(specification)* 또는 짧게 줄여 *스펙(spec)* 이라고 부릅니다. 명세서엔 아래와 같이 유스 케이스에 대한 자세한 설명과 테스트가 담겨있습니다. 
 
 ```js
 describe("pow", function() {
 
-  it("raises to n-th power", function() {
+  it("주어진 숫자의 n 제곱", function() {
     assert.equal(pow(2, 3), 8);
   });
 
 });
 ```
 
-A spec has three main building blocks that you can see above:
+스펙은 세 가지 주요 구성 요소로 이루어집니다.
 
 `describe("title", function() { ... })`
-: What functionality we're describing. Uses to group "workers" -- the `it` blocks. In our case we're describing the function `pow`.
+: 구현하고자 하는 기능에 대한 설명이 들어갑니다. 우리 예시에선 함수 `pow`가 어떤 동작을 하는지에 대한 설명이 들어갈 겁니다. `it` 블록을 한데 모아주는 역할도 합니다.
 
-`it("use case description", function() { ... })`
-: In the title of `it` we *in a human-readable way* describe the particular use case, and the second argument is a function that tests it.
+`it("유스 케이스 설명", function() { ... })`
+: `it`의 첫 번째 인수엔 특정 유스 케이스에 대한 설명이 들어갑니다. 이 설명은 *누구나 읽을 수 있고 이해할 수 있는 자연어*로 적어줍니다. 두 번째 인수엔 유스 케이스 테스트 함수가 들어갑니다.
 
 `assert.equal(value1, value2)`
-: The code inside `it` block, if the implementation is correct, should execute without errors.
+: 기능을 제대로 구현했다면 `it` 블록 내의 코드 `assert.equal(value1, value2)`이 에러 없이 실행됩니다.
 
-    Functions `assert.*` are used to check whether `pow` works as expected. Right here we're using one of them -- `assert.equal`, it compares arguments and yields an error if they are not equal. Here it checks that the result of `pow(2, 3)` equals `8`.
+    함수 `assert.*`는 `pow`가 예상한 대로 동작하는지 확인해줍니다. 위 예시에선 `assert.equal`이 사용되었는데, 이 함수는 인수끼리 동등 비교했을 때 다르다고 판단되면 에러를 반환합니다. 예시에선 `pow(2, 3)`의 결괏값과 `8`을 비교하겠죠. 비교나 확인에 쓰이는 다른 함수들은 아래에서 다시 소개해 드리겠습니다.
 
-    There are other types of comparisons and checks that we'll see further.
+명세서는 실행 가능합니다. 명세서를 실행하면 `it` 블록 안의 테스트가 실행됩니다. 자세한 내용은 아래에서 다시 설명하겠습니다. 
 
-## The development flow
+## 개발 순서
 
-The flow of development usually looks like this:
+실제 개발에 착수하면 아래와 같은 순서로 개발이 진행됩니다.
 
-1. An initial spec is written, with tests for the most basic functionality.
-2. An initial implementation is created.
-3. To check whether it works, we run the testing framework [Mocha](http://mochajs.org/) (more details soon) that runs the spec. While the functionality is not complete, errors are displayed. We make corrections until everything works.
-4. Now we have a working initial implementation with tests.
-5. We add more use cases to the spec, probably not yet supported by the implementations. Tests start to fail.
-6. Go to 3, update the implementation till tests give no errors.
-7. Repeat steps 3-6 till the functionality is ready.
+1. 명세서 초안을 작성합니다. 초안엔 기본적인 테스트도 들어갑니다.
+2. 명세서 초안을 보고 코드를 작성합니다.
+3. [Mocha](http://mochajs.org/)라 불리는 테스트 프레임워크를 사용해 명세서를 실행합니다(Mocha에 대해선 아래에서 다룰 예정입니다). 이때, 코드가 잘못 작성되었다면 에러가 출력됩니다. 개발자는 테스트를 모두 통과해 에러가 더는 출력되지 않을 때까지 코드를 수정합니다.
+4. 모든 테스트를 통과하는 코드 초안이 완성되었습니다.
+5. 명세서에 지금까진 고려하지 않았던 유스케이스 몇 가지를 추가합니다. 
+6. 세 번째 단계로 돌아가 테스트를 모두 통과할 때까지 코드를 수정합니다.
+7. 기능이 완성될 때까지 3~6단계를 반복합니다.
 
-So, the development is *iterative*. We write the spec, implement it, make sure tests pass, then write more tests, make sure they work etc. At the end we have both a working implementation and tests for it.
+위와 같은 방법은 *반복적인(iterative)* 성격을 지닙니다. 명세서를 작성하고 실행한 후 테스트를 모두 통과할 때까지 코드를 작성하고, 또 다른 테스트를 추가해 앞의 과정을 반복하니까요. 이렇게 하다 보면 종래에는 완전히 동작하는 코드와 테스트 둘 다를 확보하게 됩니다.
 
-Let's see this development flow in our practical case.
+이제 실제 사례에 위 개발 프로세스를 적용해 보겠습니다.
 
-The first step is complete: we have an initial spec for `pow`. Now, before making the implementaton, let's use few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+함수 `pow`의 스펙 초안은 이미 위에서 작성했으므로, 첫 번째 단계는 이미 끝난 상황입니다. 코드를 본격적으로 작성하기 전에 잠시 자바스크립트 라이브러리 몇 가지를 사용해 테스트를 실행해 보겠습니다. 지금 상태에선 테스트 모두가 실패할 텐데 그런데도 실행해 보는 이유는 테스트가 실제로 돌아가는지 확인하기 위해서입니다.
 
-## The spec in action
+## 스펙 실행하기
 
-Here in the tutorial we'll be using the following JavaScript libraries for tests:
+본 튜토리얼에선 총 3개의 라이브러리를 사용해 테스트를 진행해보겠습니다. 각 라이브러리에 대한 설명은 아래와 같습니다.
 
-- [Mocha](http://mochajs.org/) -- the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
-- [Chai](http://chaijs.com) -- the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
-- [Sinon](http://sinonjs.org/) -- a library to spy over functions, emulate built-in functions and more, we'll need it much later.
+- [Mocha](http://mochajs.org/) -- 핵심 테스트 프레임워크로, `describe`, `it`과 같은 테스팅 함수와 테스트 실행 관련 주요 함수를 제공합니다.  
+- [Chai](http://chaijs.com) -- 다양한 assertion을 제공해 주는 라이브러리입니다. 우리 예시에선 `assert.equal` 정도만 사용해 볼 예정입니다.
+- [Sinon](http://sinonjs.org/) -- 함수의 정보를 캐내는 데 사용되는 라이브러리로, 내장 함수 등을 모방합니다. 본 챕터에선 사용하지 않고, 다른 챕터에서 실제로 사용해 볼 예정입니다.
 
-These libraries are suitable for both in-browser and server-side testing. Here we'll consider the browser variant.
+세 라이브러리 모두, 브라우저나 서버 사이드 환경을 가리지 않고 사용 가능합니다. 여기선 브라우저 환경을 가정하고 사용해 보겠습니다.
 
-The full HTML page with these frameworks and `pow` spec:
+아래 HTML 페이지엔 `pow`의 스펙, 라이브러리 모두가 들어있습니다.
 
 ```html src="index.html"
 ```
 
-The page can be divided into five parts:
+위 페이지는 다섯 부분으로 나눌 수 있습니다.
 
-1. The `<head>` -- add third-party libraries and styles for tests.
-2. The `<script>` with the function to test, in our case -- with the code for `pow`.
-3. The tests -- in our case an external script `test.js` that has `describe("pow", ...)` from above.
-4. The HTML element `<div id="mocha">` will be used by Mocha to output results.
-5. The tests are started by the command `mocha.run()`.
+1. `<head>` -- 테스트에 필요한 서드파티 라이브러리와 스타일을 불러옴
+2. `<script>` -- 테스트할 함수(`pow`)의 코드가 들어감
+3. 테스트 -- `describe("pow", ...)`를 외부 스크립트(`test.js`)에서 불러옴
+4. HTML 요소 `<div id="mocha">` -- Mocha 실행 결과가 출력됨
+5. `mocha.run()` -- 테스트를 실행시켜주는 명령어
 
-The result:
+결과:
 
 [iframe height=250 src="pow-1" border=1 edit]
 
-As of now, the test fails, there's an error. That's logical: we have an empty function code in `pow`, so `pow(2,3)` returns `undefined` instead of `8`.
+지금은 함수 `pow` 본문에 아무런 코드도 없기 때문에 테스트가 실패할 수밖에 없습니다. 지금 상황에선 `pow(2,3)`가 `8`이 아닌 `undefined`를 반환하기 때문에 에러가 발생합니다.
 
-For the future, let's note that there are advanced test-runners, like [karma](https://karma-runner.github.io/) and others. So it's generally not a problem to setup many different tests.
+참고로, [karma](https://karma-runner.github.io/)같은 고수준의 테스트 러너(test-runner)를 사용하면 다양한 종류의 테스트를 자동으로 실행할 수 있습니다.
 
-## Initial implementation
+## 코드 초안
 
-Let's make a simple implementation of `pow`, for tests to pass:
+오로지 테스트 통과만을 목적으로 코드를 간단하게 작성해보겠습니다.
 
 ```js
 function pow(x, n) {
-  return 8; // :) we cheat!
+  return 8; // 속임수를 써봤습니다 :)
 }
 ```
 
-Wow, now it works!
+자, 이제 스펙을 실행해도 에러가 발생하지 않습니다!
 
 [iframe height=250 src="pow-min" border=1 edit]
 
-## Improving the spec
+## 스펙 개선하기
 
-What we've done is definitely a cheat. The function does not work: an attempt to calculate `pow(3,4)` would give an incorrect result, but tests pass.
+지금까진 꼼수를 써서 코드를 작성했기 때문에, `pow(3,4)`를 실행하면 틀린 결과를 내뱉을 겁니다. 하지만 테스트는 모두 통과하죠.
 
-...But the situation is quite typical, it happens in practice. Tests pass, but the function works wrong. Our spec is imperfect. We need to add more use cases to it.
+이렇게 테스트는 모두 통과하지만, 함수가 제 역할을 하지 못하는 경우는 실무에서 빈번하게 발생합니다. 스펙이 불완전해서 그런 것이니 더 많은 유스 케이스를 추가해 봅시다.
 
-Let's add one more test to check that `pow(3, 4) = 81`.
+`pow(3, 4) = 81`을 만족하는지 확인하는 테스트를 추가해 보겠습니다.
 
-We can select one of two ways to organize the test here:
+스펙에 테스트를 추가하는 방법은 아래와 같이 두 가지가 있습니다.
 
-1. The first variant -- add one more `assert` into the same `it`:
+1. 기존 `it` 블록에 `assert`를 하나 더 추가하기
 
     ```js
     describe("pow", function() {
 
-      it("raises to n-th power", function() {
+      it("주어진 숫자의 n 제곱", function() {
         assert.equal(pow(2, 3), 8);
     *!*
         assert.equal(pow(3, 4), 81);
@@ -152,43 +150,43 @@ We can select one of two ways to organize the test here:
 
     });
     ```
-2. The second -- make two tests:
+2. 테스트를 하나 더 추가하기(`it` 블록 하나 더 추가하기)
 
     ```js
     describe("pow", function() {
 
-      it("2 raised to power 3 is 8", function() {
+      it("2를 세 번 곱하면 8입니다.", function() {
         assert.equal(pow(2, 3), 8);
       });
 
-      it("3 raised to power 3 is 27", function() {
+      it("3을 세 번 곱하면 27입니다.", function() {
         assert.equal(pow(3, 3), 27);
       });
 
     });
     ```
 
-The principal difference is that when `assert` triggers an error, the `it` block immediately terminates. So, in the first variant if the first `assert` fails, then we'll never see the result of the second `assert`.
+`assert`에서 에러가 발생하면 `it` 블록은 즉시 종료됩니다. 따라서 기존 `it` 블록에 `assert`를 하나 더 추가하면 첫 번째 `assert`가 실패했을 때 두 번째 `assert`의 결과를 알 수 없습니다. 두 방법의 근본적인 차이는 여기에 있습니다.
 
-Making tests separate is useful to get more information about what's going on, so the second variant is better.
+두 번째 방법처럼 `it` 블록 하나 더 추가해 테스트를 분리해서 작성하면 더 많은 정보를 얻을 수 있기 때문에 두 번째 방법을 추천해 드립니다.
 
-And besides that, there's one more rule that's good to follow.
+여기에 더하여 테스트를 추가할 땐 다음 규칙도 따르는 게 좋습니다.
 
-**One test checks one thing.**
+**테스트 하나에선 한 가지만 확인하기**
 
-If we look at the test and see two independent checks in it, it's better to split it into two simpler ones.
+테스트 하나에서 연관이 없는 사항 두 개를 점검하고 있다면, 이 둘을 분리하는 게 좋습니다. 
 
-So let's continue with the second variant.
+이제 두 번째 방법을 사용해 테스트를 직접 추가해봅시다.
 
-The result:
+결과:
 
 [iframe height=250 src="pow-2" edit border="1"]
 
-As we could expect, the second test failed. Sure, our function always returns `8`, while the `assert` expects `27`.
+두 번째 테스트가 실패했네요. `assert`에선 함수 리턴값이 `27`이 될 것이라 기대하고 있었는데, 함수는 항상 `8`을 반환하고 있기 때문에 당연히 테스트를 통과할 수 없습니다.
 
-## Improving the implementation
+## 코드 개선하기
 
-Let's write something more real for tests to pass:
+두 번째 테스트도 통과할 수 있게 코드를 개선해 봅시다. 이번엔 꼼수를 쓰지 말고 실제 우리가 구현하고자 했던 기능을 생각하면서 코드를 작성합시다.
 
 ```js
 function pow(x, n) {
@@ -202,14 +200,14 @@ function pow(x, n) {
 }
 ```
 
-To be sure that the function works well, let's test it for more values. Instead of writing `it` blocks manually, we can generate them in `for`:
+수동으로 여러 개의 `it` 블록을 만드는 대신 `for`문을 사용해 자동으로 `it` 블록을 만들어보겠습니다.
 
 ```js
 describe("pow", function() {
 
   function makeTest(x) {
     let expected = x * x * x;
-    it(`${x} in the power 3 is ${expected}`, function() {
+    it(`${x}을/를 세 번 곱하면 ${expected}입니다.`, function() {
       assert.equal(pow(x, 3), expected);
     });
   }
@@ -221,26 +219,26 @@ describe("pow", function() {
 });
 ```
 
-The result:
+결과:
 
 [iframe height=250 src="pow-3" edit border="1"]
 
-## Nested describe
+## 중첩 describe
 
-We're going to add even more tests. But before that let's note that the helper function `makeTest` and `for` should be grouped together. We won't need `makeTest` in other tests, it's needed only in `for`: their common task is to check how `pow` raises into the given power.
+테스트를 몇 개 더 추가해 보겠습니다. 아래 예시에서 헬퍼 함수 `makeTest`와 `for`문이 중첩 `describe` 안에 함께 묶여있다는 것을 눈여겨보시기 바랍니다. `makeTest`는 오직 `for`문에서만 사용되고, 다른 데선 사용되지 않기 때문에 이렇게 묶어놓았습니다. 아래 스펙에서 `makeTest`와 `for`문은 함께 어우러져 `pow`가 제대로 동작하는지 확인해주는 역할을 합니다.
 
-Grouping is done with a nested `describe`:
+이렇게 중첩 `describe`를 쓰면 그룹을 만들 수 있습니다.
 
 ```js
 describe("pow", function() {
 
 *!*
-  describe("raises x to power 3", function() {
+  describe("x를 세 번 곱합니다.", function() {
 */!*
 
     function makeTest(x) {
       let expected = x * x * x;
-      it(`${x} in the power 3 is ${expected}`, function() {
+      it(`${x}을/를 세 번 곱하면 ${expected}`입니다.`, function() {
         assert.equal(pow(x, 3), expected);
       });
     }
@@ -253,29 +251,29 @@ describe("pow", function() {
   });
 */!*
 
-  // ... more tests to follow here, both describe and it can be added
+  // describe와 it을 사용해 이 아래에 더 많은 테스트를 추가할 수 있습니다.
 });
 ```
 
-The nested `describe` defines a new "subgroup" of tests. In the output we can see the titled indentation:
+중첩 `describe`은 새로운 테스트 "하위 그룹(subgroup)"을 정의할 때 사용됩니다. 이렇게 새로 정의된 테스트 하위그룹은 테스트 결과 보고서에 들여쓰기 된 상태로 출력됩니다.  
 
 [iframe height=250 src="pow-4" edit border="1"]
 
-In the future we can add more `it` and `describe` on the top level with helper functions of their own, they won't see `makeTest`.
+만약에 미래에 자체 헬퍼 함수를 가진 `it`과 `describe`를 최상위 레벨에 추가한다면, 이들 헬퍼 함수에선 `makeTest`에 접근할 수 없을겁니다.
 
-````smart header="`before/after` and `beforeEach/afterEach`"
-We can setup `before/after` functions that execute before/after running tests, and also `beforeEach/afterEach` functions that execute before/after *every* `it`.
+````smart header="`before/after`와 `beforeEach/afterEach`"
+함수 `before`는 (전체) 테스트가 실행되기 전에 실행되고, 함수 `after`는 (전체) 테스트가 실행된 후에 실행됩니다. 함수 `beforeEach`는 *매* `it`이 실행되기 전에 실행되고, 함수 `afterEach`는 *매* `it`이 실행된 후에 실행됩니다.
 
-For instance:
+예시:
 
 ```js no-beautify
 describe("test", function() {
 
-  before(() => alert("Testing started – before all tests"));
-  after(() => alert("Testing finished – after all tests"));
+  before(() => alert("테스트를 시작합니다 - 테스트가 시작되기 전"));
+  after(() => alert("테스트를 종료합니다 - 테스트가 종료된 후"));
 
-  beforeEach(() => alert("Before a test – enter a test"));
-  afterEach(() => alert("After a test – exit a test"));
+  beforeEach(() => alert("단일 테스트를 시작합니다 - 각 테스트 시작 전"));
+  afterEach(() => alert("단일 테스트를 종료합니다 - 각 테스트 종료 후"));
 
   it('test 1', () => alert(1));
   it('test 2', () => alert(2));
@@ -283,46 +281,46 @@ describe("test", function() {
 });
 ```
 
-The running sequence will be:
+실행 순서는 다음과 같습니다.
 
 ```
-Testing started – before all tests (before)
-Before a test – enter a test (beforeEach)
+테스트를 시작합니다 - 테스트가 시작되기 전          (before)
+단일 테스트를 시작합니다 - 각 테스트 시작 전         (beforeEach)
 1
-After a test – exit a test   (afterEach)
-Before a test – enter a test (beforeEach)
+단일 테스트를 종료합니다 - 각 테스트 종료 후         (afterEach)
+단일 테스트를 시작합니다 - 각 테스트 시작 전         (beforeEach)
 2
-After a test – exit a test   (afterEach)
-Testing finished – after all tests (after)
+단일 테스트를 종료합니다 - 각 테스트 종료 후         (afterEach)
+테스트를 종료합니다 - 테스트가 종료된 후            (after)
 ```
 
 [edit src="beforeafter" title="Open the example in the sandbox."]
 
-Usually, `beforeEach/afterEach` and `before/after` are used to perform initialization, zero out counters or do something else between the tests (or test groups).
+`beforeEach/afterEach`와 `before/after`는 대게 초기화 용도로 사용됩니다. 카운터 변수를 0으로 만들거나 테스트가 바뀔 때(또는 테스트 그룹이 바뀔 때)마다 해줘야 하는 작업이 있으면 이들을 이용할 수 있습니다.
 ````
 
-## Extending the spec
+## 스펙 확장하기
 
-The basic functionality of `pow` is complete. The first iteration of the development is done. When we're done celebrating and drinking champagne -- let's go on and improve it.
+첫 번째 반복(iteration)에선 함수 `pow`의 기본적인 기능을 구현해보았습니다. 그런데 아직 샴페인을 마시며 자축하긴 이릅니다. 또 다른 반복을 돌면서 기능을 개선해 봅시다.
 
-As it was said, the function `pow(x, n)` is meant to work with positive integer values `n`.
+앞서 정의했듯이 함수 `pow(x, n)`의 매개변수 `n`은 양의 정수이어야 합니다.
 
-To indicate a mathematical error, JavaScript functions usually return `NaN`. Let's do the same for invalid values of `n`.
+자바스크립트에선 수학 관련 연산을 수행하다 에러가 발생하면 `NaN`을 반환합니다. 함수 `pow`도 `n`이 조건에 맞지 않으면 `NaN`을 반환해야 합니다.
 
-Let's first add the behavior to the spec(!):
+`n`이 조건에 맞지 않을 때 함수가 `NaN`을 반환하는지 아닌지를 검사해주는 테스트를 추가해보겠습니다.
 
 ```js
 describe("pow", function() {
 
   // ...
 
-  it("for negative n the result is NaN", function() {
+  it("n이 음수일 때 결과는 NaN입니다.", function() {
 *!*
     assert.isNaN(pow(2, -1));
 */!*
   });
 
-  it("for non-integer n the result is NaN", function() {
+  it("n이 정수가 아닐 때 결과는 NaN입니다.", function() {
 *!*
     assert.isNaN(pow(2, 1.5));    
 */!*
@@ -331,27 +329,26 @@ describe("pow", function() {
 });
 ```
 
-The result with new tests:
+스펙을 실행하면 다음과 같은 결과가 출력됩니다.
 
 [iframe height=530 src="pow-nan" edit border="1"]
 
-The newly added tests fail, because our implementation does not support them. That's how BDD is done: first we write failing tests, and then make an implementation for them.
+기존엔 `n`이 음수이거나 정수가 아닌 경우를 생각하지 않고 구현했기 때문에, 새롭게 추가한 테스트는 실패할 수밖에 없습니다. BDD의 핵심은 여기에 있습니다. 실패할 수밖에 없는 테스트를 추가하고, 테스트를 통과할 수 있게(에러가 발생하지 않게) 코드를 개선하는 것이죠.
 
-```smart header="Other assertions"
+```smart header="다양한 assertion"
+위에서 사용한 `assert.isNaN`은 `NaN`인지 아닌지를 확인해줍니다.
 
-Please note the assertion `assert.isNaN`: it checks for `NaN`.
+[Chai](http://chaijs.com)는 이 외에도 다양한 assertion을 지원합니다.
 
-There are other assertions in Chai as well, for instance:
-
-- `assert.equal(value1, value2)` -- checks the equality  `value1 == value2`.
-- `assert.strictEqual(value1, value2)` -- checks the strict equality `value1 === value2`.
-- `assert.notEqual`, `assert.notStrictEqual` -- inverse checks to the ones above.
-- `assert.isTrue(value)` -- checks that `value === true`
-- `assert.isFalse(value)` -- checks that `value === false`
-- ...the full list is in the [docs](http://chaijs.com/api/assert/)
+- `assert.equal(value1, value2)` -- `value1`과 `value2`의 동등성을 확인합니다(`value1 == value2`).
+- `assert.strictEqual(value1, value2)` -- `value1`과 `value2`의 일치성을 확인합니다(`value1 === value2`).
+- `assert.notEqual`, `assert.notStrictEqual` -- 비 동등성, 비 일치성을 확인합니다.
+- `assert.isTrue(value)` -- `value`가 `true`인지 확인합니다(`value === true`).
+- `assert.isFalse(value)` -- `value`가 `false`인지 확인합니다(`value === false`).
+- 이 외의 다양한 assertion은 [docs](http://chaijs.com/api/assert/)에서 확인할 수 있습니다.
 ```
 
-So we should add a couple of lines to `pow`:
+새롭게 추가한 테스트를 통과할 수 있도록 `pow`에 코드를 몇 줄 추가해보겠습니다.
 
 ```js
 function pow(x, n) {
@@ -370,43 +367,43 @@ function pow(x, n) {
 }
 ```
 
-Now it works, all tests pass:
+이제 에러 없이 테스트를 모두 통과하네요.
 
 [iframe height=300 src="pow-full" edit border="1"]
 
-[edit src="pow-full" title="Open the full final example in the sandbox."]
+[edit src="pow-full" title="sandbox 내의 마지막 문제를 열고 풀어보세요."]
 
-## Summary
+## 요약
 
-In BDD, the spec goes first, followed by implementation. At the end we have both the spec and the code.
+BDD에선 스펙을 먼저 작성하고 난 후에 구현을 시작합니다. 구현이 종료된 시점에는 스펙과 코드 둘 다를 확보할 수 있습니다. 
 
-The spec can be used in three ways:
+스펙의 용도는 세 가지입니다.
 
-1. **Tests** guarantee that the code works correctly.
-2. **Docs** -- the titles of `describe` and `it` tell what the function does.
-3. **Examples** -- the tests are actually working examples showing how a function can be used.
+1. **테스트** -- 함수가 의도하는 동작을 제대로 수행하고 있는지 보장함
+2. **문서** -- 함수가 어떤 동작을 수행하고 있는지 설명해줌. `describe`와 `it`에 설명이 들어감
+3. **예시** -- 실제 동작하는 예시를 이용해 함수를 어떻게 사용할 수 있는지 알려줌
 
-With the spec, we can safely improve, change, even rewrite the function from scratch and make sure it still works right.
+스펙이 있기 때문에 개발자는 안전하게 함수를 개선하거나 변경할 수 있습니다. 함수를 밑바닥부터 다시 작성해야 하는 경우가 생겨도 스펙이 있으면 기존 코드와 동일하게 동작한다는 것을 보장할 수 있습니다.  
 
-That's especially important in large projects when a function is used in many places. When we change such a function, there's just no way to manually check if every place that uses it still works right.
+코드가 바뀌어도 기존에 구현된 기능에 영향을 주지 않게 하는 건 대규모 프로젝트에서 매우 중요합니다. 프로젝트 규모가 커지면 함수 하나를 이곳저곳에서 사용하는데, 수동으로 변경된 함수가 이 함수를 사용하는 모든 곳에서 제대로 동작하는지 확인하는 건 불가능하기 때문입니다.
 
-Without tests, people have two ways:
+테스트를 하지 않고 코드를 작성해왔다면 개발자들은 둘 중 한 갈래의 길로 빠져버리고 맙니다.
 
-1. To perform the change, no matter what. And then our users meet bugs, as we probably fail to check something manually.
-2. Or, if the punishment for errors is harsh, as there are no tests, people become afraid to modify such functions, and then the code becomes outdated, no one wants to get into it. Not good for development.
+1. 아무 대책 없이 코드를 변경합니다. 부작용을 생각하지 않고 함수를 수정했기 때문에 어디선가 버그가 발생하고 맙니다.
+2. 수정이나 개선을 기피하게 됩니다. 버그의 대가가 가혹하기 때문이죠. 코드가 구식이 되어도 그 누구도 코드를 건드리려 하지 않습니다. 좋지 않은 상황이죠.
 
-**Automatic testing helps to avoid these problems!**
+**테스팅 자동화는 이런 문제를 피하게 도와줍니다!**
 
-If the project is covered with tests, there's just no such problem. After any changes, we can run tests and see a lot of checks made in a matter of seconds.
+테스팅 자동화를 수행하고 있는 프로젝트라면 이런 문제를 걱정하지 않아도 됩니다. 코드에 변화가 있어도 스펙을 실행해 테스트를 진행하면 몇 초 만에 에러 발생 여부를 확인할 수 있습니다.  
 
-**Besides, a well-tested code has better architecture.**
+장점이 하나 더 있습니다. **잘 테스트 된 코드는 더 나은 아키텍처를 만듭니다.**
 
-Naturally, that's because auto-tested code is easier to modify and improve. But there's also another reason.
+수정과 개선이 쉬우니까 당연히 좋은 아키텍처를 만들 수 있다고 생각할 수 있습니다. 하지만 또 다른 이유가 있습니다.
 
-To write tests, the code should be organized in such a way that every function has a clearly described task, well-defined input and output. That means a good architecture from the beginning.
+테스트를 작성하려면 함수가 어떤 동작을 하는지, 입력값은 무엇이고 출력값은 무엇인지 정의하고 난 후에 구현을 시작합니다. 코드는 정의된 사항을 뒷받침 할 수 있게 작성해야 하죠. 구현을 시작하는 순간부터 이미 좋은 아키텍처가 보장됩니다. 
 
-In real life that's sometimes not that easy. Sometimes it's difficult to write a spec before the actual code, because it's not yet clear how it should behave. But in general writing tests makes development faster and more stable.
+사실, 매번 이런 절차를 따라 구현한다는 게 쉽지만은 않습니다. 함수가 어떻게 동작해야 하는지 확신이 서지 않는 상황에서 코드를 작성하기도 전에 스펙을 작성해야 하므로 익숙하지 않을 수 있습니다. 그렇지만 테스트를 작성하면 일반적으로 개발 속도가 빨라지고 이전보다 코드를 더 안정적으로 작성할 수 있습니다.
 
-Later in the tutorial you will meet many tasks with tests baked-in. So you'll see more practical examples.
+튜토리얼 후반부의 과제에서 테스트 기반의 다양한 과제를 만나볼 수 있습니다. 여기서 사용된 예시보다 더 실용적인 예시를 곧 만나보도록 합시다.
 
-Writing tests requires good JavaScript knowledge. But we're just starting to learn it. So, to settle down everything, as of now you're not required to write tests, but you should already be able to read them even if they are a little bit more complex than in this chapter.
+명세서를 만들때는 어느정도의 자바스크립트 지식이 필요한데, 우리는 이제 막 자바스크립트 학습을 시작한 상황입니다. 지금 당장은 명세서를 작성할 필요가 없지만, 이번 챕터에서 복잡한 명세스를 읽을 수 있는 능력을 함양했기 때문에 뒷 챕터에선 여러분들도 충분히 명세서를 작성할 수 있을것이라 믿습니다. 

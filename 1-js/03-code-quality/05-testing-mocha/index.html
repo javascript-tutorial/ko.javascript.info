@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- add mocha css, to show results -->
+  <!-- 결과 출력에 사용되는 mocha css를 불러옵니다. -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
-  <!-- add mocha framework code -->
+  <!-- Mocha 프레임워크 코드를 불러옵니다. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
   <script>
-    mocha.setup('bdd'); // minimal setup
+    mocha.setup('bdd'); // 기본 셋업
   </script>
-  <!-- add chai -->
+  <!-- chai를 불러옵니다 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
   <script>
-    // chai has a lot of stuff, let's make assert global
+    // chai의 다양한 기능 중, assert를 전역에 선언합니다.
     let assert = chai.assert;
   </script>
 </head>
@@ -20,17 +20,17 @@
 
   <script>
     function pow(x, n) {
-      /* function code is to be written, empty now */
+      /* 코드를 여기에 작성합니다. 지금은 빈칸으로 남겨두었습니다. */
     }
   </script>
 
-  <!-- the script with tests (describe, it...) -->
+  <!-- 테스트(describe, it...)가 있는 스크립트를 불러옵니다. -->
   <script src="test.js"></script>
 
-  <!-- the element with id="mocha" will contain test results -->
+  <!-- 테스트 결과를 id가 "mocha"인 요소에 출력하도록 합니다.-->
   <div id="mocha"></div>
 
-  <!-- run tests! -->
+  <!-- 테스트를 실행합니다! -->
   <script>
     mocha.run();
   </script>

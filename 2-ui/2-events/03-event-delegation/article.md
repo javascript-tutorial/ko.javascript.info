@@ -81,7 +81,7 @@ function highlight(td) {
 
  `<strong>`을 클릭하게 되면 이 요소가 이벤트의 타깃이 됩니다. `event.target`에 이 요소가 저장되고, 원하는 강조 기능이 작동하지 않습니다.
 
-![](bagua-bubble.png)
+![](bagua-bubble.svg)
 
 따라서 `table.onclick`핸들러에서 `event.target`을 이용해 클릭 이벤트가 `<td>`안쪽에서 일어났는지, 아닌지를 알아내야 합니다.
 
@@ -105,13 +105,13 @@ table.onclick = function(event) {
 3. 중첩 테이블이 있는 경우, `event.target`은 현재 테이블 바깥에 있는 `<td>`일 수도 있습니다. 이런 경우를 처리하기 위해, `<td>`가 팔괘도 안에 있는지를 확인합니다.
 4. 이제 진짜 td를 강조해 줍니다.
 
+As the result, we have a fast, efficient highlighting code, that doesn't care about the total number of `<td>` in the table.
+
 ## 이벤트 위임 활용: 마크업 내 이벤트 핸들링 최적화
 
-이벤트 위임은 이벤트 핸들링을 최적화하는데 사용할 수 있습니다. 위의 예제에선 `<td>`를 강조하는 것과 같이, 유사한 동작을 하나의 핸들러로 제어하려는 목적으로 이벤트 위임을 활용했습니다.
+There are other uses for event delegation.
 
-하지만, 하나의 핸들러에서 다양한 동작을 다룰 수도 있습니다. 핸들러를 제어의 시작점으로 활용해서 말이죠.
-
-"Save", "Load", "Search" 등의 버튼이 있는 메뉴를 만든다고 가정해 봅시다. 그리고 `save`, `load`, `search`등의 메서드를 가진 객체가 있다고 해 봅시다.
+Let's say, we want to make a menu with buttons "Save", "Load", "Search" and so on. And there's an object with methods `save`, `load`, `search`... How to match them?
 
 처음엔 버튼 각각에 독립된 핸들러를 할당해 기능을 구현하려고 할 겁니다. 하지만 이 방법보다 더 우아한 해결책이 있습니다. 메뉴 전체에 핸들러를 하나 할당해주고, 각 버튼의 `data-action` 속성에 호출할 메서드를 할당해 주는 방법 말이죠:
 
@@ -161,7 +161,7 @@ table.onclick = function(event) {
 </script>
 ```
 
-`(*)`로 표시한 줄의 `this.onClick`은 `this`에 bind 되었다는 것을 주의해 주세요. 이렇게 하지 않으면 `this`는 menu 객체를 참조하지 않고, DOM 요소(`elem`)를 참조하게 됩니다. . `this[action]`은 우리가 원하는 바가 아닙니다. 
+`(*)`로 표시한 줄의 `this.onClick`은 `this`에 bind 되었다는 것을 주의해 주세요. 이렇게 하지 않으면 `this`는 `Menu` 객체를 참조하지 않고, DOM 요소(`elem`)를 참조하게 됩니다. . `this[action]`은 우리가 원하는 바가 아닙니다. 
 
 이렇게 작성한 코드는 어떤 이점이 있을까요? 아래와 같은 장점이 있습니다.
 
@@ -176,11 +176,11 @@ table.onclick = function(event) {
 
 이벤트 위임을 사용하여 *선언적 방식으로* 요소에 "행동"을 추가할 수도 있습니다. 이때는 특별한 속성과 클래스를 사용합니다.
 
-아래 절차를 통해 이 패턴을 만들 수 있습니다:
-1. 요소에 특별한 속성을 더해줍니다.
+아래 절차를 통해 이 패턴을 만들 수 있습니다.
+1. We add a custom attribute to an element that describes its behavior.
 2. document 전체를 감지하는 핸들러가 이벤트를 추적하게 합니다. 1에서 추가한 속성이 있는 요소에서 이벤트가 발생하면 작업을 수행하도록 말이죠.
 
-### 카운터(counter) 만들기
+### Behavior: Counter
 
 `data-counter`를 사용해 요소에 행동을 더해보도록 하겠습니다. "클릭 시 숫자가 증가"하는 버튼을 만드는 예제입니다:
 
@@ -209,9 +209,9 @@ One more counter: <input type="button" value="2" data-counter>
 코드 곳곳에서 `document`에 다수의 핸들러를 할당할 수 있습니다. 실제 프로젝트에서 이는 자연스러운 일입니다.  
 ```
 
-### 토글러(toggler) 만들기
+### Behavior: Toggler
 
-예시 하나를 더 살펴봅시다. `data-toggle-id` 속성이 있는 요소를 클릭하면, 속성값을 `id`로 가진 요소가 나타나거나 사라지게 할 수 있습니다:
+One more example of behavior. `data-toggle-id` 속성이 있는 요소를 클릭하면, 속성값을 `id`로 가진 요소가 나타나거나 사라지게 할 수 있습니다:
 
 ```html autorun run height=60
 <button *!*data-toggle-id="subscribe-mail"*/!*>

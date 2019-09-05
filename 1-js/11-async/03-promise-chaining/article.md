@@ -42,29 +42,11 @@ new Promise(function(resolve, reject) {
 
 결과가 핸들러의 사슬을 통해 전달되므로, `alert` 창에 `1` -> `2` -> `4`가 순서대로 출력되는것을 확인할 수 있습니다.
 
-![](promise-then-chain.png)
+![](promise-then-chain.svg)
 
 이렇게 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 프라미스가 반환되기 때문에 이 프라미스에 다시 `.then`을 호출할 수 있는 거죠.
 
 핸들러가 값을 반환할 땐, 이 값이 프라미스의 result가 됩니다. 따라서 체인 상의 다음 `.then`은 이 값을 이용해 호출됩니다.  
-
-설명이 조금 복잡해 보이지만 예제를 통해 이해해 보도록 합시다. 아래는 체인의 시작부입니다.
-
-```js run
-new Promise(function(resolve, reject) {
-
-  setTimeout(() => resolve(1), 1000);
-
-}).then(function(result) {
-
-  alert(result);
-  return result * 2; // <-- (1)
-
-}) // <-- (2)
-// .then…
-```
-
-`.then`을 호출하면 프라미스가 반환됩니다. `(2)`에서 또 다른 `.then`을 추가할 수 있는 이유가 바로 이 때문이죠. `(1)`에서 값이 반환되면, 프라미스는 이행상태가 됩니다. 따라서 다음 핸들러는 반환값을 가지고 실행됩니다. 
 
 **초보자가 많이 하는 실수: 프라미스 하나에 `.then`을 원하는 만큼 추가할 순 있지만, 이는 체이닝이 아닙니다.**
 
@@ -94,7 +76,7 @@ promise.then(function(result) {
 
 그림으로 표현하면 다음과 습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
-![](promise-then-many.png)
+![](promise-then-many.svg)
 
 한 프라미스에 등록된 모든 `.then`은 해당 프라미스의 result라는 동일한 결과를 받습니다. 따라서 위 코드에서 모든 `alert` 창은 `1`을 출력합니다.
 
@@ -102,9 +84,9 @@ promise.then(function(result) {
 
 ## 프라미스 반환하기
 
-`.then` 핸들러에 의해 반환된 값은 보통 다음 핸들러에 바로 전달됩니다. 하지만 예외상황이 하나 있습니다.
+A handler, used in `.then(handler)` may create and return a promise.
 
-반환값이 프라미스인 경우가 그렇습니다. 이때는 프라미스가 처리될 때(settled)까지 추가 실행이 중지됩니다. 프라미스가 처리되면 해당 프라미스의 결과가 다음 핸들러로 전달됩니다.
+In that case further handlers wait till it settles, and then get its result.
 
 예시:
 
@@ -138,9 +120,9 @@ new Promise(function(resolve, reject) {
 });
 ```
 
-위 코드에서 첫 번째 `.then`은 `1`을 보여주고 `(*)`로 표시한 줄에서 `new Promise(…)`를 반환합니다. 1초 후 이 프라미스가 이행되고, 그 결과(`resolve`의 인수, 여기선 `result*2`)가 `(**)`로 표시한 두 번째 `.then` 핸들러에 전달됩니다. 두 번째 `.then` 핸들러에선 `2`가 출력되고, 앞의 작업과 동일한 작업이 수행됩니다.
+Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result * 2`) is passed on to handler of the second `.then`. That handler is in the line `(**)`, it shows `2` and does the same thing.
 
-따라서 1 -> 2 -> 4가 순차적으로 출력됩니다. 다만 `alert` 창 사이에 1초의 간격이 생기죠.
+So the output is the same as in the previous example: 1 -> 2 -> 4, but now with 1 second delay between `alert` calls.
 
 이렇게 프라미스를 반환하는 것도 비동기 작업의 체이닝을 가능하게 해줍니다.
 
@@ -207,7 +189,7 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 
 
 ````smart header="Thenables"
-`.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있고, 프라미스와 같은 방식으로 처리됩니다.
+`.then`에 대해 정확히 짚고 넘어가도록 합시다. `.then`은 "thenable"이라 불리는 객체를 반환할 수 있습니다. "thenable"객체는 `.then` 메서드를 가지고 있는 임의의 메서드로, 프라미스와 같은 방식으로 처리됩니다.
 
 "thenable" 객체에 대한 아이디어는 서드파티 라이브러리가 "프라미스와 호환 가능한" 자체 객체를 구현할 수 있다는 점에서 출발했습니다. 이 객체는 추가 메서드를 가질 수 있으면서 `.then`을 구현하고 있기 때문에 네이티브 프라미스와도 호환 가능합니다.
 
@@ -227,7 +209,9 @@ class Thenable {
 
 new Promise(resolve => resolve(1))
   .then(result => {
+*!*
     return new Thenable(result); // (*)
+*/!*
   })
   .then(alert); // 1000 밀리 초 후 2를 보여줌
 ```
@@ -242,7 +226,7 @@ new Promise(resolve => resolve(1))
 
 프론트 단에선 네트워크 요청을 할 때 프라미스를 자주 사용합니다. 이에 관련된 예시를 좀 더 살펴봅시다. 
 
-원격 서버에서 사용자 정보를 가져오기 위해 [fetch](mdn:api/WindowOrWorkerGlobalScope/fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 별도의 챕터에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
+원격 서버에서 사용자 정보를 가져오기 위해 [fetch](info:fetch) 메서드를 사용하겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 이에 대해선 [별도의 챕터](info:fetch)에서 다루기로 하고, 여기선 아래와 같이 `fetch`의 기본 매개변수만 사용해 보도록 하겠습니다.
 
 ```js
 let promise = fetch(url);
@@ -276,7 +260,7 @@ fetch('/article/promise-chaining/user.json')
 // 위 코드와 동일한 기능을 하지만, response.json()은 원격 서버에서 불러온 내용을 JSON으로 변경해줍니다.
 fetch('/article/promise-chaining/user.json')
   .then(response => response.json())
-  .then(user => alert(user.name)); // iliakan
+  .then(user => alert(user.name)); // iliakan, got user name
 ```
 
 자, 이제 사용자 정보를 불러왔으니 이걸 가지고 무언가를 더 해봅시다.
@@ -317,7 +301,7 @@ fetch('/article/promise-chaining/user.json')
   .then(user => fetch(`https://api.github.com/users/${user.name}`))
   .then(response => response.json())
 *!*
-  .then(githubUser => new Promise(function(resolve, reject) {
+  .then(githubUser => new Promise(function(resolve, reject) { // (*)
 */!*
     let img = document.createElement('img');
     img.src = githubUser.avatar_url;
@@ -327,7 +311,7 @@ fetch('/article/promise-chaining/user.json')
     setTimeout(() => {
       img.remove();
 *!*
-      resolve(githubUser);
+      resolve(githubUser); // (**)
 */!*
     }, 3000);
   }))
@@ -335,9 +319,11 @@ fetch('/article/promise-chaining/user.json')
   .then(githubUser => alert(`Finished showing ${githubUser.name}`));
 ```
 
-이제 `setTimeout`에서 `img.remove()`와 `resolve(githubUser)`가 연속으로 실행됩니다. 이후 `.then` 체인으로 흐름이 이어지면서 사용자 데이터가 전달됩니다.
+That is, `.then` handler in the line `(*)` now returns `new Promise`, that becomes settled only after the call of `resolve(githubUser)` in `setTimeout` `(**)`.
 
-이처럼 비동기 작업은 항상 프라미스를 반환하도록 하는 게 좋습니다.
+The next `.then` in chain will wait for that.
+
+As a good rule, an asynchronous action should always return a promise.
 
 지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
 
@@ -382,4 +368,4 @@ loadJson('/article/promise-chaining/user.json')
 
 아래는 이 과정을 그림으로 나타낸 것입니다.
 
-![](promise-handler-variants.png)
+![](promise-handler-variants.svg)

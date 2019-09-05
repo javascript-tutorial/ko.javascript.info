@@ -36,7 +36,7 @@ alert( rabbit.eats ); // true
 
 이게 결과 화면입니다.
 
-![](proto-constructor-animal-rabbit.png)
+![](proto-constructor-animal-rabbit.svg)
 
 위 그림에서 가로 화살표는 일반 프로퍼티인 `"prototype"`, 세로 화살표는 `[[Prototype]]`을 나타냅니다. 세로 화살표는 `rabbit`이 `animal`로 부터 상속받았다는 것을 의미합니다.
 
@@ -62,7 +62,7 @@ Rabbit.prototype = { constructor: Rabbit };
 */
 ```
 
-![](function-prototype-constructor.png)
+![](function-prototype-constructor.svg)
 
 다음과 같이 이것을 확인할 수 있습니다.
 
@@ -86,7 +86,7 @@ let rabbit = new Rabbit(); // inherits from {constructor: Rabbit}
 alert(rabbit.constructor == Rabbit); // true (from prototype)
 ```
 
-![](rabbit-prototype-constructor.png)
+![](rabbit-prototype-constructor.svg)
 
 우리는 이미 존재하는 것과 동일한 `constructor` 속성을 이용해서 새로운 객체를 만들 수 있습니다. 
 

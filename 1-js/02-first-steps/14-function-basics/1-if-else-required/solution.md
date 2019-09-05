@@ -1,1 +1,1 @@
-No difference.
+동일하게 동작합니다.

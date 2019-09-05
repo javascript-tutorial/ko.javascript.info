@@ -158,7 +158,7 @@ alert(surname); // undefined
 
 ```js run
 *!*
-// 기본 값
+// 기본값
 let [name = "Guest", surname = "Anonymous"] = ["Julius"];
 */!*
 
@@ -293,6 +293,21 @@ alert(w);      // 100
 alert(h);      // 200
 ```
 
+If we have a complex object with many properties, we can extract only what we need:
+
+```js run
+let options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+// only extract title as a variable
+let { title } = options;
+
+alert(title); // Menu
+```
+
 ### 나머지 패턴 "..."
 
 만약 분해하려는 객체의 프로퍼티 개수가 할당하려는 변수의 개수보다 많다면 어떨까요? "나머지"를 어딘가에 할당하면 좋지 않겠냐는 라는 생각이 들지 않으시나요?
@@ -319,8 +334,6 @@ alert(rest.height);  // 200
 alert(rest.width);   // 100
 ```
 
-
-
 ````smart header="`let` 없이 사용하기"
 위 예제에서 변수들은 할당 연산 `let {…} = {…}` 안에서 선언되었습니다. `let`을 사용하지 않고 기존에 있던 변수에 분해한 값을 할당할 수도 있는데, 이때는 주의할 점이 있습니다.
 
@@ -343,6 +356,8 @@ let title, width, height;
 }
 ```
 
+So here JavaScript assumes that we have a code block, that's why there's an error. We have destructuring instead.
+
 자바스크립트가 이를 코드 블록으로 해석하지 않도록 하게 하려면, 할당문을 괄호`(...)`로 감싸 자바스크립트가 이를 표현식의 일부라고 생각하도록 만들면 됩니다.
 
 ```js run
@@ -353,7 +368,6 @@ let title, width, height;
 
 alert( title ); // Menu
 ```
-
 ````
 
 ## 중첩 구조 분해(Nested Destructuring)
@@ -391,18 +405,11 @@ alert(item2);  // Donut
 
 패턴에 없는 `extra`를 제외한 모든 `options` 객체의 프로퍼티가 상응하는 변수에 할당된 것을 확인할 수 있습니다.
 
-여기서 주의할 점은 `size`와 `items`는 분해되지 않았다는 점입니다.
-
-![](destructuring-complex.png)
+![](destructuring-complex.svg)
 
 변수 `width`, `height`, `item1`, `item2`에 값이 저장되었습니다. 변수 `title`은 기본값을 통해 그 값을 할당받았습니다.
 
-이렇게 객체 프로퍼티 일부에만 구조분해 할당을 적용하는 것은 꽤 자주 있는 일입니다. 프로퍼티가 많은 복잡한 객체에서 일부 필요한 프로퍼티만 사용하고 싶을 때가 있기 때문입니다.  
-
-```js
-// size만 변수에 할당하고 나머지 프로퍼티들은 전부 무시함
-let { size } = options;
-```
+위 예시에서 `size`와 `items`을 위한 변수는 없다는 점에 유의하시기 바랍니다. `size`와 `items` 내의 내용을 대신 변수에 할당받았습니다. 
 
 ## 똑똑한 함수 매개변수
 
@@ -416,11 +423,12 @@ function showMenu(title = "Untitled", width = 200, height = 100, items = []) {
 }
 ```
 
-이렇게 함수를 작성하면 인수의 순서 때문에 문제가 발생합니다. 문서화가 잘 되어있는 코드의 경우, IDE가 인수의 순서가 틀리지 않도록 도움을 주긴 합니다. 하지만 대부분의 매개변수에 기본값이 설정되어 있어서 인수가 없어도 되는 경우 문제가 발생합니다.  
+In real-life, the problem is how to remember the order of arguments. Usually IDEs try to help us, especially if the code is well-documented, but still... Another problem is how to call a function when most parameters are ok by default.
 
-아래 코드가 보이시나요?
+Like this?
 
 ```js
+// undefined where default values are fine
 showMenu("My Menu", undefined, undefined, ["Item1", "Item2"])
 ```
 
@@ -483,8 +491,7 @@ function({
 구조분해시 `showMenu()`에는 인수가 전달된다고 가정되는것에 유의해 주셔야 합니다. 만약 모든 인수에 기본값을 할당해 주려면 빈 객체를 명시적으로 전달하면 됩니다.
 
 ```js
-showMenu({});
-
+showMenu({}); // 모든 값이 기본값입니다.
 
 showMenu(); // 에러가 발생할 수 있습니다
 ```

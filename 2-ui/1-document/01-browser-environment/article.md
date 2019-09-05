@@ -2,13 +2,13 @@
 
 자바스크립트는 본래 웹 브라우저에서 사용하려고 만들어진 언어입니다. 이후 진화를 거쳐 다양한 사용처와 플랫폼을 지원하는 언어로 변모하였습니다.   
 
-자바스크립트는 다양한 플랫폼에서 돌아갑니다. 브라우저, 웹서버, 심지어는 세탁기에서도 돌아가고, 그 이외의 *호스트(host)* 에서도 구동이 가능합니다. 각 플랫폼은 해당 플랫폼에 특정되는 기능을 제공합니다. 자바스크립트 명세에선 이를 *호스트 환경(host environment)* 이라 부릅니다.
+자바스크립트가 돌아가는 플랫폼은 *호스트(host)* 라고 불립니다. 호스트는 브라우저, 웹서버, 심지어는 커피 머신이 될 수도 있습니다. 각 플랫폼은 해당 플랫폼에 특정되는 기능을 제공하는데, 자바스크립트 명세에선 이를 *호스트 환경(host environment)* 이라고 부릅니다.
 
 호스트 환경은 랭귀지 코어(ECMAScript)에 더하여 플랫폼에 특정되는 객체와 함수를 제공합니다. 웹브라우저는 웹페이지를 제어하기 위한 수단을 제공하고, Node.js는 서버 사이드 기능을 제공해주죠.
 
 아래는 호스트 환경이 웹 브라우저일 때 사용할 수 있는 기능을 개괄적으로 보여주는 그림입니다.
 
-![](windowObjects.png)
+![](windowObjects.svg)
 
 최상단엔 `window` 객체가 있습니다. 이 객체는 2가지 역할을 합니다.
 
@@ -36,7 +36,9 @@ alert(window.innerHeight); // 창 내부 높이
 
 ## DOM(문서 객체 모델)
 
-`문서` 객체(Document Object)를 이용하면 페이지의 콘텐츠에 접근할 수 있습니다. 페이지 상에 콘텐츠를 생성하고 변경하는 게 가능하죠.
+Document Object Model, or DOM for short, represents all page content as objects that can be modified.
+
+The `document` object is the main "entry point" to the page. We can change or create anything on the page using it.
 
 예시:
 ```js run
@@ -51,16 +53,16 @@ setTimeout(() => document.body.style.background = "", 1000);
 
 - **DOM에 관한 표준** 은 <https://dom.spec.whatwg.org>에서 확인할 수 있습니다.
 
-```smart header="DOM은 브라우저에서만 쓰이지 않습니다."
-DOM 명세엔 문서의 구조와 문서를 조작하는데 필요한 객체가 명시되어 있습니다. 이것들은 브라우저 이외의 환경에서도 쓰입니다.
+```smart header="DOM is not only for browsers"
+The DOM specification explains the structure of a document and provides objects to manipulate it. There are non-browser instruments that use DOM too.
 
-서버 사이드 툴이 DOM과 관련된 명세 기능을 전부 지원하진 않지만, HTML 페이지를 다운로드하고 가공할 때 DOM을 사용할 수 있습니다.
+For instance, server-side scripts that download HTML pages and process them can also use DOM. They may support only a part of the specification though.
 ```
 
-```smart header="스타일을 위한 CSSOM"
-CSS와 스타일시트(stylesheet)에 관한 규칙은 HTML처럼 잘 정리된 편은 아닙니다. 이들은 별도의 명세인 [CSSOM(CSS 객체 모델)](https://www.w3.org/TR/cssom-1/) 에서 관리되고 있는데, 객체로의 표현 방법, 객체를 읽고 쓰는 방법 등에 대한 내용이 이 명세에 담겨 있습니다.
+```smart header="CSSOM for styling"
+CSS rules and stylesheets are structured in a different way than HTML. There's a separate specification [CSSOM](https://www.w3.org/TR/cssom-1/) that explains how they are represented as objects, and how to read and write them.
 
-CSSOM은 자바스크립트로 문서의 스타일 규칙을 수정해야 할 때 사용합니다. CSS 규칙은 대개 잘 변하지 않기 때문에 실무에서 CSSOM를 자주 접하진 않을 겁니다. 자바스크립트를 위해 CSS 규칙을 추가하거나 빼는 경우도 흔치 않기 때문에 이 튜토리얼에선 CSSOM을 다루지 않고 넘어가도록 하겠습니다. 
+CSSOM is used together with DOM when we modify style rules for the document. In practice though, CSSOM is rarely required, because usually CSS rules are static. We rarely need to add/remove CSS rules from JavaScript, but that's also possible.
 ```
 
 ## BOM(브라우저 객체 모델)
@@ -83,9 +85,11 @@ if (confirm("위키피디아 페이지로 가시겠습니까?")) {
 
 메서드 `alert/confirm/prompt` 역시 BOM의 일부입니다. 문서와 직접 연결되어 있지 않지만, 사용자와 브라우저 사이의 커뮤니케이션을 도와주는 순수 브라우저 메서드이죠.  
 
-BOM은 [HTML 명세](https://html.spec.whatwg.org)에 속합니다.
+```smart header="다양한 명세"
+[HTML 명세](https://html.spec.whatwg.org)는 BOM에 대한 내용도 다룹니다. BOM에 관련된 명세가 따로 있을 것 같은데도 말이죠.
 
-이상하게 들리겠지만, 맞습니다. <https://html.spec.whatwg.org>에서 볼 수 있는 HTML 명세는 태그(tag)나 속성(attribute) 같은 "HTML 언어"만 다루지 않습니다. 다양한 객체와 메서드, 특정 브라우저에 종속되는 DOM 확장도 다룹니다. 넓게 보면 이 모든 것이 HTML에 속하기 때문입니다. <https://spec.whatwg.org>에도 몇몇 추가 스펙이 명시되어 있습니다.
+<https://html.spec.whatwg.org>에선 태그, HTML 속성(attribute) 같은 "HTML"에 관련된 내용만 다루지 않습니다. 브라우저 전반에서 사용되는 객체, 메서드 부터 특정 브라우저에서만 사용되는 DOM 확장까지도 다룹니다. 이 모든 것이 HTML 기술에 속하기 때문입니다. HTML 명세에서 다루지 않는 것들에 대한 명세는 <https://spec.whatwg.org>에서 확인할 수 있습니다.
+```
 
 ## 요약
 
@@ -108,4 +112,4 @@ When you'd like to read about a property or a method, the Mozilla manual at <htt
 
 To find something, it's often convenient to use an internet search "WHATWG [term]" or "MDN [term]", e.g <https://google.com?q=whatwg+localstorage>, <https://google.com?q=mdn+localstorage>.
 
-문서는 UI(User Interface)에서 가장 핵심적인 역할을 합니다. 그러므로 지금부턴 DOM에 대해 배워보도록 하겠습니다.
+Now we'll get down to learning DOM, because the document plays the central role in the UI.
