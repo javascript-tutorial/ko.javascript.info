@@ -403,7 +403,11 @@ alert(item1);  // Cake
 alert(item2);  // Donut
 ```
 
+<<<<<<< HEAD
 패턴에 없는 `extra`를 제외한 모든 `options` 객체의 프로퍼티가 상응하는 변수에 할당된 것을 확인할 수 있습니다.
+=======
+All properties of `options` object except `extra` that is absent in the left part, are assigned to corresponding variables:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ![](destructuring-complex.svg)
 

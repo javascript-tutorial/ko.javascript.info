@@ -18,7 +18,11 @@ function printNumbers(from, to) {
 printNumbers(5, 10);
 ```
 
+<<<<<<< HEAD
 `setTimeout`을 재귀 실행한 방법:
+=======
+Using nested `setTimeout`:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 
 ```js run

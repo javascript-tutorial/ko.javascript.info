@@ -655,31 +655,46 @@ arr.map(func, thisArg);
 
 매개변수인 `thisArg`의 값은 `func`의 `this`가 됩니다.
 
-For instance, here we use an object method as a filter and `thisArg` helps with that:
+For example, here we use a method of `army` object as a filter, and `thisArg` passes the context:
 
 ```js run
-let user = {
-  age: 18,
-  younger(otherUser) {
-    return otherUser.age < this.age;
+let army = {
+  minAge: 18,
+  maxAge: 27,
+  canJoin(user) {
+    return user.age >= this.minAge && user.age < this.maxAge;
   }
 };
 
 let users = [
-  {age: 12},
   {age: 16},
-  {age: 32}
+  {age: 20},
+  {age: 23},
+  {age: 30}
 ];
 
 *!*
+<<<<<<< HEAD
 // user보다 나이가 적은 user를 찾음
 let youngerUsers = users.filter(user.younger, user);
+=======
+// find users, for who army.canJoin returns true
+let soldiers = users.filter(army.canJoin, army);
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 */!*
 
-alert(youngerUsers.length); // 2
+alert(soldiers.length); // 2
+alert(soldiers[0].age); // 20
+alert(soldiers[1].age); // 23
 ```
 
+<<<<<<< HEAD
 객체의 메서드인 `user.younger`를 필터처럼 사용하고, `user`를 비교 기준으로 삼은 것을 확인할 수 있습니다. `user`를 인수로 써주지 않았다면, `users.filter(user.younger)`에서 `user.younger`는 독립된 콜백 함수로 호출됐을 겁니다. 이렇게 되면, `this=undefined`가 되어 에러가 발생합니다.
+=======
+If in the example above we used `users.filter(army.canJoin)`, then `army.canJoin` would be called as a standalone function, with `this=undefined`, thus leading to an instant error.
+
+A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(user => army.canJoin(user))`, that does the same. The former is used more often, as it's a bit easier to understand for most people.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ## 요약
 

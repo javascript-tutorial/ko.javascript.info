@@ -27,7 +27,11 @@ alert(user.name); // Jack
 alert(user.isAdmin); // false
 ```
 
+<<<<<<< HEAD
 `new User(...)`를 써서 함수를 실행하면 아래와 같은 알고리즘이 동작합니다.
+=======
+When a function is executed with `new`, it does the following steps:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 1. 빈 객체가 만들어지고, 이 객체를 `this`에 할당합니다.
 2. 함수 본문이 실행됩니다. 대게 이때 `this`에 새로운 프로퍼티가 추가되면서, `this`가 갱신됩니다.
@@ -51,7 +55,11 @@ function User(name) {
 }
 ```
 
+<<<<<<< HEAD
 `new User("Jack")`로 아래와 같은 객체를 만들 수 있게 되었습니다.
+=======
+So `let user = new User("Jack")` gives the same result as:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ```js
 let user = {

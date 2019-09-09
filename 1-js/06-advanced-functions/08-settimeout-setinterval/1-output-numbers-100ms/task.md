@@ -8,6 +8,11 @@ importance: 5
 
 두 가지 방법을 사용해 함수를 만드셔야 합니다.
 
+<<<<<<< HEAD
 1. `setInterval`을 이용한 방법
 2. `setTimeout`을 재귀 실행한 방법
 
+=======
+1. Using `setInterval`.
+2. Using nested `setTimeout`.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1

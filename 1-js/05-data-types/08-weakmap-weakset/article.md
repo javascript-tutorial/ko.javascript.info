@@ -153,7 +153,11 @@ countUser(john);
 john = null;
 ```
 
+<<<<<<< HEAD
 이제 `john`을 나타내는 객체는 가비지 컬렉션의 대상이 되어야 하는데, `visitsCountMap`의 키로 사용되고 있어서 메모리에서 삭제되지 않습니다.
+=======
+Now `john` object should be garbage collected, but remains in memory, as it's a key in `visitsCountMap`.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 특정 사용자를 나타내는 객체가 메모리에서 사라지면 해당 객체에 대한 정보(방문 횟수)도 우리가 손수 지워줘야 하는 상황입니다. 이렇게 하지 않으면 `visitsCountMap`가 차지하는 메모리 공간이 한없이 커질 겁니다. 애플리케이션 구조가 복잡할 땐, 이렇게 쓸모 없는 데이터를 수동으로 비워주는 게 꽤 골치 아픕니다.
 

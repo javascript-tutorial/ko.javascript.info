@@ -22,7 +22,11 @@ DOM에 수행하는 모든 연산은 `document` 객체에서 시작합니다. `d
 DOM 트리 꼭대기의 노드는 `document` 프로퍼티로 접근할 수 있습니다.
 
 `<html>` = `document.documentElement`
+<<<<<<< HEAD
 최상단의 문서 노드는 `document.documentElement` 입니다. 이 노드는 `<html>` 태그에 해당하는 DOM 노드입니다.
+=======
+: The topmost document node is `document.documentElement`. That's the DOM node of the `<html>` tag.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 `<body>` = `document.body`
 `document.body`는 `<body>` 요소에 해당하는 DOM 노드로, 자주 쓰이는 노드 중 하나입니다. 
@@ -239,7 +243,11 @@ alert( document.documentElement.parentNode ); // document
 alert( document.documentElement.parentElement ); // null
 ```
 
+<<<<<<< HEAD
 이렇게 반환 값이 다른 이유는 `document.documentElement` (`<html>`)의 부모가 `document`이기 때문입니다. 그런데 `document` 노드는 요소 노드가 아닙니다. 따라서 위 예시에서 `parentNode`는 의도한 대로 `document` 노드를 반환하지만, `parentElement`는 `document` 노드를 반환하지 않습니다.
+=======
+The reason is that the root node `document.documentElement` (`<html>`) has `document` as its parent. But `document` is not an element node, so `parentNode` returns it and `parentElement` does not.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 이런 사소한 차이는 임의의 요소 노드 `elem`에서 시작해 `<html>`까지 거슬러 올라가고 싶은데, `document`까지는 가고 싶지 않은 경우 활용할 수 있습니다.
 ```js
@@ -280,7 +288,11 @@ while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
 
 특정 타입의 DOM 요소는 기본 프로퍼티 외에 추가적인 프로퍼티를 지원합니다. 편의를 위해서이죠. 
 
+<<<<<<< HEAD
 테이블은 추가적인 프로퍼티를 지원하는 요소 중 하나입니다.
+=======
+Tables are a great example and a particularly important case for that.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 **`<table>`** 요소는 위에서 배운 기본 프로퍼티 이외에 아래의 프로퍼티도 지원합니다.
 - `table.rows`는 테이블 내 `<tr>`요소를 담은 컬렉션을 가리킵니다.

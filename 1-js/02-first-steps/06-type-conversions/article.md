@@ -10,7 +10,11 @@
 이 챕터에선 객체에 대해선 다루지 않겠습니다. 객체는 원시형에 대해 학습한 후 다룰 예정입니다. 객체의 형 변환이 어떻게 이뤄지는지 <info:object-toprimitive>에서 알아보겠습니다.
 ```
 
+<<<<<<< HEAD
 ## 문자형으로 변환
+=======
+## String Conversion
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 문자형으로의 형 변환은 문자형의 값이 필요할 때 일어납니다.
 
@@ -30,7 +34,11 @@ alert(typeof value); // string
 
 `false`는 문자열 `"false"`로, `null`은 문자열 `"null"`로 변환되는 것과 같이, 문자형으로의 변환은 대부분 예측 가능한 방식으로 일어납니다.
 
+<<<<<<< HEAD
 ## 숫자형으로 변환
+=======
+## Numeric Conversion
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 숫자형으로의 변환은 수학과 관련된 함수와 표현식에서 자동으로 일어납니다.
 
@@ -94,7 +102,11 @@ alert( '1' + 2 ); // '12' (숫자 2를 문자로 변환)
 인수 중 적어도 하나가 문자형일 때 이런 변환이 발생합니다. 그렇지 않은 경우는 위에서 언급한 바와 같이 숫자형으로의 변환이 일어납니다.
 ````
 
+<<<<<<< HEAD
 ## 불린형으로 변환
+=======
+## Boolean Conversion
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 불린형으로의 변환은 아주 간단합니다.
 
@@ -124,14 +136,24 @@ alert( Boolean(" ") ); // 공백이 있는 문자열도 비어있지 않은 문�
 ```
 ````
 
+<<<<<<< HEAD
 
 ## 요약 
+=======
+## Summary
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 문자, 숫자, 논리형으로의 형 변환은 자주 일어나는 형 변환입니다.
 
+<<<<<<< HEAD
 **`문자형으로의 변환`** 은 무언가를 출력할 때 주로 일어납니다. `String(value)`을 사용하면 문자형으로 명시적 변환이 가능합니다. 원시 자료형을 문자형으로 변환할 땐, 대부분 그 결과를 예상할 수 있을 정도로 명시적인 방식으로 일어납니다.
 
 **`숫자형으로의 변환`** 은 수학 관련 연산시 주로 일어납니다. `Number(value)`로도 형 변환을 할 수 있습니다.
+=======
+**`String Conversion`** -- Occurs when we output something. Can be performed with `String(value)`. The conversion to string is usually obvious for primitive values.
+
+**`Numeric Conversion`** -- Occurs in math operations. Can be performed with `Number(value)`.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 숫자형으로의 변환은 다음 규칙을 따릅니다.
 
@@ -142,7 +164,11 @@ alert( Boolean(" ") ); // 공백이 있는 문자열도 비어있지 않은 문�
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
 | `string` | 전달받은 문자열을 "그대로" 읽되, 처음과 끝의 공백을 무시합니다. 문자열이 비어있다면 `0`이 되고, 오류 발생 시 `NaN`이 됩니다. |
 
+<<<<<<< HEAD
 **`불린형으로의 변환`** 은 논리 연산 시 발생합니다. `Boolean(value)`으로도 변환할 수 있습니다.
+=======
+**`Boolean Conversion`** -- Occurs in logical operations. Can be performed with `Boolean(value)`.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 불린형으로의 형 변환은 다음 규칙을 따릅니다.
 

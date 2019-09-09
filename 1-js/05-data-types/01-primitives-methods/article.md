@@ -50,7 +50,11 @@ john.sayHi(); // 친구야 반갑다!
 
 "래퍼 객체"는 원시 타입에 따라 종류가 다양합니다. 각 래퍼 객체는 원시 자료형의 이름을 그대로 차용해, `String`,`Number`,`Boolean`, `Symbol`라고 부릅니다. 래퍼 객체 마다 제공하는 메서드 역시 다릅니다.
 
+<<<<<<< HEAD
 인수로 받은 문자열의 모든 글자를 대문자로 바꿔주는 메서드 [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase)를 예로 들어보겠습니다.
+=======
+For instance, there exists a string method [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase) that returns a capitalized `str`.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 메서드는 아래와 같이 동작합니다.
 

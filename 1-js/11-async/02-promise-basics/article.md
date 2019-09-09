@@ -2,15 +2,27 @@
 
 탑 가수인 당신이 밤·낮으로 다음 싱글 앨범이 언제 나오는지 물어보는 팬들을 상대해야 한다고 가정해 봅시다. 
 
+<<<<<<< HEAD
 당신은 일의 부하를 덜기 위해 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해줄 겁니다. 구독 리스트를 하나 만들어 팬들에게 이를 전달하며, 여기에 자신의 이메일 주소를 적게 만들겠죠. 앨범이 준비되면 약속한 대로 구독 리스트에 자신의 메일을 적은 팬들은 즉시 소식을 받아볼 수 있을 겁니다. 녹음 스튜디오에 화재가 발생해서 출시 예정인 앨범이 취소되는 불상사가 발생해도 팬들에게 소식을 전할 수 있죠.
 
 이제 모두가 행복해졌습니다. 밤낮으로 질문을 하는 팬들이 사라졌고, 팬들은 앨범 출시를 놓치지 않을 수 있게 되었으니까요.
+=======
+To get some relief, you promise to send it to them when it's published. You give your fans a list. They can fill in their email addresses, so that when the song becomes available, all subscribed parties instantly receive it. And even if something goes very wrong, say, a fire in the studio, so that you can't publish the song, they will still be notified.
+
+Everyone is happy: you, because the people don't crowd you anymore, and fans, because they won't miss the single.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 위 비유는 우리가 코드를 짜면서 자주 만나게 되는 상황을 실제 일어날 법한 일로 바꾼 것입니다. 바로 아래 같은 상황 말이죠.
 
+<<<<<<< HEAD
 1. "제작 코드(producing code)"에선 원격에서 스크립트를 불러오는 것 같은 시간이 걸리는 일을 합니다. 위 비유에선 "가수"가 제작 코드에 해당합니다.
 2. "소비 코드(consuming code)"에선 "제작 코드"가 준비되었을 때, 제작 코드의 결과를 사용합니다. 복수의 함수(소비 코드)가 제작 코드의 결과를 활용하고 싶어 할 수 있습니다. 위 비유에선, 제작 코드의 결과물을 기다리는 함수가 "팬"으로 비유되었습니다.
 3. *프라미스(promise)* 는 "제작 코드"와 "소비 코드"를 연결해 주는 특별한 자바스크립트 객체입니다. 위 비유에선 "구독 리스트"가 프라미스죠. "제작 코드"는 시간이 얼마나 걸리던 상관없이 약속한 결과물을 만들어 냅니다. "프라미스"는 결과물이 준비되었을 때, 모든 구독 코드에서 이 결과를 사용할 수 있도록 해줍니다.
+=======
+1. A "producing code" that does something and takes time. For instance, a code that loads the data over a network. That's a "singer".
+2. A "consuming code" that wants the result of the "producing code" once it's ready. Many functions  may need that result. These are the "fans".
+3. A *promise* is a special JavaScript object that links the "producing code" and the "consuming code" together. In terms of our analogy: this is the "subscription list". The "producing code" takes whatever time it needs to produce the promised result, and the "promise" makes that result available to all of the subscribed code when it's ready.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 자바스크립트 프라미스는 비유에 사용된 구독 리스트보다 훨씬 복잡하기 때문에, 위 비유가 완벽하게 들어맞지는 않습니다. 비유에서 설명하지 못한 추가적인 기능과 한계점도 있죠. 하지만 일단 이 비유를 이용해 프라미스를 학습해보도록 합시다.
 
@@ -22,9 +34,13 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
+<<<<<<< HEAD
 `new Promise`에 전달되는 콜백 함수는 *executor(실행자, 실행 함수)* 라고 불립니다.  executor 함수는 프라미스가 만들어질 때 자동으로 실행되며, 결과물을 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 "가수"가 바로 executor입니다.
+=======
+The function passed to `new Promise` is called the *executor*. When `new Promise` is created, it runs automatically. It contains the producing code, that should eventually produce a result. In terms of the analogy above: the executor is the "singer".
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
-Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside executor.
+Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside the executor.
 
 When the executor obtains the result, be it soon or late - doesn't matter, it should call one of these callbacks:
 
@@ -38,13 +54,13 @@ The `promise` object returned by `new Promise` constructor has internal properti
 - `state` — initially `"pending"`, then changes to either `"fulfilled"` when `resolve` is called or `"rejected"` when `reject` is called.
 - `result` — initially `undefined`, then changes to `value` when `resolve(value)` called or `error` when `reject(error)` is called.
 
-So the executor moves `promise` to one of these states:
+So the executor eventually moves `promise` to one of these states:
 
 ![](promise-resolve-reject.svg)
 
 Later we'll see how "fans" can subscribe to these changes.
 
-Here's an example of a Promise constructor and a simple executor function with delayed "producing code" (via `setTimeout`):
+Here's an example of a promise constructor and a simple executor function with  "producing code" that takes time (via `setTimeout`):
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
@@ -57,12 +73,19 @@ let promise = new Promise(function(resolve, reject) {
 
 위 코드를 통해 두 가지를 확인할 수 있습니다.
 
+<<<<<<< HEAD
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로, 따로 만들 필요는 없습니다. 다만, `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다.
 
 1초 후에 executor는 `resolve("done")`를 호출하고, 결과물을 만들어 냅니다.
+=======
+1. The executor is called automatically and immediately (by `new Promise`).
+2. The executor receives two arguments: `resolve` and `reject` — these functions are pre-defined by the JavaScript engine. So we don't need to create them. We only should call one of them when ready.
 
-![](promise-resolve-1.svg)
+    After one second of "processing" the executor calls `resolve("done")` to produce the result. This changes the state of the `promise` object:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
+
+    ![](promise-resolve-1.svg)
 
 지금까진 성공적으로 일이 처리된 경우인 "fulfilled promise(약속이 이행된 프라미스)"에 대해 알아보았습니다.
 
@@ -75,14 +98,25 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
+The call to `reject(...)` moves the promise object to `"rejected"` state:
+
 ![](promise-reject-1.svg)
 
+<<<<<<< HEAD
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이 때 프라미스 객체의 프로퍼티인 state가 변경됩니다.
 
 이행된(resolved) 혹은 거부된(rejected) 프라미스는 "처리된(settled)" 프라미스라 부릅니다. 반면, "대기 상태의(pending)" 프라미스도 있습니다.
 
 ````smart header="결과 혹은 에러"
 executor는 `resolve`나 `reject` 함수 중 하나를 반드시 호출해야 합니다. 함수가 호출되어 프라미스의 state가 변경되면, state는 더는 변하지 않습니다.
+=======
+To summarize, the executor should do a job (something that takes time usually) and then call `resolve` or `reject` to change the state of the corresponding promise object.
+
+A promise that is either resolved or rejected is called "settled", as opposed to a initially "pending" promise.
+
+````smart header="There can be only a single result or an error"
+The executor should call only one `resolve` or one `reject`. Any state change is final.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 이후의 모든 `resolve`, `reject` 함수 호출은 무시됩니다.
 
@@ -102,8 +136,13 @@ let promise = new Promise(function(resolve, reject) {
 여기에 더하여, `resolve`/`reject`는 인자를 하나(혹은 아무것도 받지 않음)만 받고 그 이외의 인자들은 무시한다는 것도 잊지 마세요.
 ````
 
+<<<<<<< HEAD
 ```smart header="`Error` 객체와 함께 거절하기"
 무언가 잘 못 된 경우, `reject`를 호출해야만 합니다. 이때 인자는 `resolve`와 마찬가지로 어떤 타입도 가능합니다. 다만, `Error` 객체(또는 `Error`객체를 상속한 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
+=======
+```smart header="Reject with `Error` objects"
+In case something goes wrong, the executor should call `reject`. That can be done with any type of argument (just like `resolve`). But it is recommended to use `Error` objects (or objects that inherit from `Error`). The reasoning for that will soon become apparent.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 ```
 
 ````smart header="`resolve`, `reject` 함수 즉시 호출하기"

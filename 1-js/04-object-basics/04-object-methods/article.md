@@ -98,7 +98,11 @@ user = {
 
 `user.sayHi()`의 내부 코드에서 객체 `user`에 저장된 이름(name)을 이용해 인사말을 만드는 경우가 이런 경우에 속합니다.   
 
+<<<<<<< HEAD
 **메서드 내부에서 객체에 접근하고 싶을 땐 `this` 키워드를 사용하면 됩니다.**
+=======
+**To access the object, a method can use `this` keyword.**
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 "점 앞"의 `this`는 객체를 나타냅니다. 정확히는 메서드를 호출할 때 사용된 객체를 나타내죠.
 
@@ -167,9 +171,15 @@ admin.sayHi(); // sayHi()가 엉뚱한 객체를 참고하면서 에러가 발�
 
 ## 자유로운 "this"
 
+<<<<<<< HEAD
 자바스크립트의 "this"는 다른 프로그래밍 언어의 this와 동작 방식이 다릅니다. 자바스크립트에선 모든 함수에 this를 사용할 수 있습니다.
 
 아래와 같이 코드를 작성해도 문법 에러가 발생하지 않습니다.
+=======
+In JavaScript, keyword `this` behaves unlike most other programming languages. It can be used in any function.
+
+There's no syntax error in the following example:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ```js
 function sayHi() {
@@ -220,13 +230,21 @@ sayHi(); // undefined
 
 그런데 엄격 모드가 아닐 때는 `this`가 *전역 객체*를 참조합니다(브라우저 환경에선 `window`. 전역 객체는 [](info:global-object)에서 자세히 다룰 예정입니다). 이런 동작 차이는 `"use strict"'`가 도입된 배경이기도 합니다.
 
+<<<<<<< HEAD
 이런 식의 코드는 대게 실수로 작성된 경우가 많습니다. 함수 본문에 `this`가 사용되었다면, 객체 컨텍스트 내에서 함수를 호출할 것이라고 예상하시면 됩니다.
+=======
+Usually such call is a programming error. If there's `this` inside a function, it expects to be called in an object context.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 ````
 
 ```smart header="자유로운 `this`가 만드는 결과"
 다른 언어를 사용하다 자바스크립트로 넘어온 개발자는 this를 혼동하기 쉽습니다. `this`는 항상 메서드가 정의된 객체를 참조할 것이라고 착각하죠. 이런 개념을 "bound `this`"라고 부릅니다. 
 
+<<<<<<< HEAD
 자바스크립트에서 `this`는 런타임에 결정됩니다. 메서드가 어디서 정의되었는지에 상관없이 `this`는 "점 앞의" 객체가 무엇인가에 따라 "자유롭게" 결정됩니다.
+=======
+In JavaScript `this` is "free", its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is "before the dot".
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 이렇게 `this`가 런타임에 결정되면 좋은 점도 있고 나쁜 점도 있습니다. 함수(메서드)를 하나만 만들어 여러 객체에서 재사용할 수 있다는 것은 장점이지만, 이런 유연함이 실수로 이어질 수 있다는 것은 단점입니다.
 

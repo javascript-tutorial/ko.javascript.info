@@ -4,8 +4,13 @@
 
 호출 스케줄링을 구현하는 방법은 두 가지가 있습니다.
 
+<<<<<<< HEAD
 - `setTimeout`을 이용해 일정 시간이 지난 후에 함수를 실행하는 방법
 - `setInterval`을 이용해 일정 시간 간격을 두고 함수를 실행하는 방법
+=======
+- `setTimeout` allows us to run a function once after the interval of time.
+- `setInterval` allows us to run a function repeatedly, starting after the interval of time, then repeating continuously at that interval.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 자바스크립트 명세서엔 `setTimeout`과 `setInterval`가 명시되어있지 않습니다. 하지만 시중에 나와있는 모든 브라우저, Node.js를 포함한 자바스크립트 호스트 환경 대부분이 이와 유사한 메서드와 내부 스케줄러를 지원합니다.
 
@@ -132,11 +137,19 @@ setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
 위 예시를 실행하고 첫 번째 `alert` 창이 떴을 때 몇 초간 기다렸다가 창을 닫으면, 두 번째 `alert` 창이 바로 나타나는 것을 보고 이를 확인할 수 있습니다. 명시한 지연 시간 2초보다 `alert` 창 간의 간격이 짧아집니다.
 ```
 
+<<<<<<< HEAD
 ## setTimeout과 재귀 실행
+=======
+## Nested setTimeout
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 무언가를 일정 간격을 두고 실행하는 방법에는 크게 2가지가 있습니다.
 
+<<<<<<< HEAD
 하나는 `setInterval`을 이용하는 방법이고, 다른 하나는 아래 예시와 같이 `setTimeout`을 재귀 실행하는 방법입니다.
+=======
+One is `setInterval`. The other one is a nested `setTimeout`, like this:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ```js
 /** setInterval을 사용하지 않고 setTimeout을 이용해 재귀 실행을 할 수 있습니다.
@@ -153,7 +166,11 @@ let timerId = setTimeout(function tick() {
 
 다섯 번째 줄의 `setTimeout`은 `(*)`로 표시한 줄의 실행이 종료되면 다음 호출을 스케줄링합니다.
 
+<<<<<<< HEAD
 `setTimeout`을 재귀 실행해 원하는 작업을 일정 간격으로 실행하는 방법은 `setInterval`을 사용하는 방법보다 유연합니다. 호출 결과에 따라 다음 호출을 원하는 방식으로 조정해 스케줄링 할 수 있기 때문입니다.
+=======
+The nested `setTimeout` is a more flexible method than `setInterval`. This way the next call may be scheduled differently, depending on the results of the current one.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 5초 간격으로 서버에 요청을 보내 데이터를 얻고 있다고 가정해 봅시다. 서버가 과부하 상태라면 요청 간격을 10초, 20초, 40초 등으로 증가시켜주는 게 좋겠죠. 
 
@@ -177,7 +194,11 @@ let timerId = setTimeout(function request() {
 
 CPU 소모가 많은 작업을 주기적으로 실행하는 경우에도 `setTimeout`을 재귀 실행 하는 방법이 유용합니다. 작업에 걸리는 시간에 따라 다음 작업을 유동적으로 계획할 수 있기 때문입니다.
 
+<<<<<<< HEAD
 **`setTimeout`을 재귀 실행하는 방법은 지연 간격을 보장하지만 `setInterval`은 이를 보장하지 않습니다.**
+=======
+**Nested `setTimeout` allows to set the delay between the executions more precisely than `setInterval`.**
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 아래 두 예시를 비교해 봅시다. 첫 번째 예시에선 `setinterval`을 이용했습니다.
 
@@ -188,7 +209,11 @@ setInterval(function() {
 }, 100);
 ```
 
+<<<<<<< HEAD
 두 번째 예시에선 `setTimeout`을 이용했습니다.
+=======
+The second one uses nested `setTimeout`:
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 ```js
 let i = 1;
@@ -214,11 +239,19 @@ setTimeout(function run() {
 
 함수를 호출할 때마다 걸리는 시간이 `delay` 밀리초보다 길면, 모든 함수가 쉼 없이 계속 연속 호출됩니다.
 
+<<<<<<< HEAD
 한편, `setTimeout`을 재귀 실행한 경우엔 아래와 같이 실행 흐름이 이어집니다.
 
 ![](settimeout-interval.svg)
 
 **`setTimeout`을 재귀 실행하면 명시한 지연(여기서는 100ms)이 보장됩니다.**
+=======
+And here is the picture for the nested `setTimeout`:
+
+![](settimeout-interval.svg)
+
+**The nested `setTimeout` guarantees the fixed delay (here 100ms).**
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 이렇게 지연 간격이 보장되는 이유는 이전 함수의 실행이 종료된 이후에 다음 함수 호출에 대한 계획이 세워지기 때문입니다.  
 
@@ -239,9 +272,15 @@ setTimeout(function() {...}, 100);
 
 `setTimeout(func, 0)`이나 `setTimeout(func)`을 사용하면 `setTimeout`의 대기 시간을 0으로 설정할 수 있습니다.
 
+<<<<<<< HEAD
 이렇게 대기 시간을 0으로 설정하면 `func`을 가능한 한 빨리 실행할 수 있습니다. 다만, 이때 스케줄러는 현재 코드의 실행이 종료된 이후에 스케줄링한 함수를 실행합니다.
 
 이런 특징을 이용하면 현재 코드의 실행이 종료된 "직후에" 원하는 함수가 실행될 수 있게 할 수 있습니다.
+=======
+This schedules the execution of `func` as soon as possible. But the scheduler will invoke it only after the currently executing script is complete.
+
+So the function is scheduled to run "right after" the current script.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 아래 예시를 실행하면 얼럿창에 "Hello"와 "World"가 이어서 출력됩니다.
 
@@ -251,7 +290,11 @@ setTimeout(() => alert("World"));
 alert("Hello");
 ```
 
+<<<<<<< HEAD
 위 예시에서 첫 번째 줄은 "'0밀리초 후에 함수 호출하기'라는 할 일을 계획표에 기록"해주는 역할을 합니다. 그런데 스케줄러는 현재 코드(alert 함수)의 실행이 종료되고 나서야 "계획표에 어떤 할 일이 적혀있는지 확인"하므로, `"Hello"`가 먼저, `"World"`은 그다음에 출력됩니다.
+=======
+The first line "puts the call into calendar after 0ms". But the scheduler will only "check the calendar" after the current script is complete, so `"Hello"` is first, and `"World"` -- after it.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 대기 시간이 0인 setTimeout을 활용한 브라우저 환경에서의 사례는 <info:event-loop>에서 자세히 다루도록 하겠습니다. 
 
@@ -286,11 +329,19 @@ setTimeout(function run() {
 
 ## 요약
 
+<<<<<<< HEAD
 - `setInterval(func, delay, ...args)`과 `setTimeout(func, delay, ...args)`은 `delay`밀리초 후에 `func`을 규칙적으로, 또는 한번 실행하도록 해줍니다.
 - `setInterval/setTimeout`을 호출하고 반환받은 값을 `clearInterval/clearTimeout`에 넘겨주면 스케줄링을 취소할 수 있습니다.
 - `setTimeout`을 재귀 실행하는 방법은 `setInterval`보다 유연합니다. *지연 간격*이 보장되는 것 또한 이점입니다.
 - 대기 시간이 0인 setTimeout(`setTimeout(func, 0)`이나 `setTimeout(func)`)을 사용하면 "현재 코드의 실행이 완료된 후 가능한 한 빠르게" 원하는 함수를 호출할 수 있습니다.
 - 지연 없이 중첩 `setTimeout`을 5회 이상 호출하거나 지연 없는 `setInterval`에서 호출이 5회 이상 진행되면, 4밀리초 이상의 지연 간격을 강제적으로 더해줍니다. 이는 브라우저에만 적용되는 사항이며, 하위 호환성을 위해 유지되고 있습니다.
+=======
+- Methods `setTimeout(func, delay, ...args)` and `setInterval(func, delay, ...args)` allow us to run the `func` once/regularly after `delay` milliseconds.
+- To cancel the execution, we should call `clearTimeout/clearInterval` with the value returned by `setTimeout/setInterval`.
+- Nested `setTimeout` calls is a more flexible alternative to `setInterval`, allowing us to set the time *between* executions more precisely.
+- Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current script is complete".
+- The browser limits the minimal delay for five or more nested call of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
+>>>>>>> 3dd8ca09c1a7ed7a7b04eefc69898559902478e1
 
 모든 스케줄링 메서드가 명시한 지연 간격을 *보장*하지 않는다는 점에 유의하시기 바랍니다.
 
