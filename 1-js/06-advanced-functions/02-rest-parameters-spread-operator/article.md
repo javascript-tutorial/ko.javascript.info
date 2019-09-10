@@ -23,7 +23,7 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
-인수 개수는 "초과"하였지만, 오류가 발생하지 않습니다. 하지만 반환값은 당연히 처음 두 개의 인수만을 이용해 계산되죠.
+인수 개수는 "초과"하였지만, 오류가 발생하지 않습니다. 하지만 반환 값은 당연히 처음 두 개의 인수만을 이용해 계산되죠.
 
 The rest of the parameters can be included in the function definition by using three dots `...` followed by the name of the array that will contain them. The dots literally mean "gather the remaining parameters into an array".
 

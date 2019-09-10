@@ -353,7 +353,7 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     지금 단계에선 함수는 만들어졌지만, 아직 호출은 되지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`이 아직 실행되기 전입니다.
 
-4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
+4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환 값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
 
     ![](lexenv-nested-makecounter-4.svg)
 
