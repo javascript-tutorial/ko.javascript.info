@@ -1,40 +1,40 @@
 
-# Property flags and descriptors
+# 프로퍼티 플래그와 설명자
 
-As we know, objects can store properties.
+아시다시피 객체엔 프로퍼티가 저장됩니다.
 
-Till now, a property was a simple "key-value" pair to us. But an object property is actually a more flexible and powerful thing.
+지금까진 프로퍼티를 단순히 "키-값" 쌍의 관점에서만 다뤘습니다. 그런데 사실 프로퍼티는 우리가 생각했던 것보다 더 유연하고 강력한 자료구조입니다. 
 
-In this chapter we'll study additional configuration options, and in the next we'll see how to invisibly turn them into getter/setter functions.
+이 챕터에선 객체 프로퍼티 추가 구성 옵션 몇 가지를 다룰것 입니다. 이어지는 챕터에선 getter나 setter 함수를 사용해 보이지 않는 곳에서 프로퍼티를 다룰 수 있는 방법에 대해 알아보겠습니다. 
 
-## Property flags
+## 프로퍼티 플래그
 
-Object properties, besides a **`value`**, have three special attributes (so-called "flags"):
+객체 프로퍼티는 **`값(value)`** 과 함께 플래그(flag)라 불리는 특별한 속성 세 가지를 갖습니다. 
 
-- **`writable`** -- if `true`, the value can be changed, otherwise it's read-only.
-- **`enumerable`** -- if `true`, then listed in loops, otherwise not listed.
-- **`configurable`** -- if `true`, the property can be deleted and these attributes can be modified, otherwise not.
+- **`writable`** -- `true`이면 값을 수정할 수 있습니다. 그렇지 않다면 읽기만 가능합니다.
+- **`enumerable`** -- `true`이면 반복문을 사용해 나열할 수 있습니다. 그렇지 않다면 반복문을 사용해 나열할 수 없습니다.
+- **`configurable`** -- `true`이면 프로퍼티 삭제나 플래그 수정이 가능합니다. 그렇지 않다면 프로퍼티 삭제와 플래그 수정이 불가능합니다.
 
-We didn't see them yet, because generally they do not show up. When we create a property "the usual way", all of them are `true`. But we also can change them anytime.
+프로퍼티 플래그는 특별한 조작을 가하지 않는 이상 모습을 드러내지 않습니다. 지금까지 객체와 객체 프로퍼티를 많이 다뤄보았지만, 플래그를 처음 접하는 이유가 바로 이 때문입니다. 지금까지 해왔던 "평범한 방식"으로 프로퍼티를 만들면 해당 프로퍼티의 플래그는 모두 `true`가 됩니다. 이렇게 `true`로 설정된 플래그는 언제든 수정할 수 있습니다.
 
-First, let's see how to get those flags.
+자 이제 본격적으로 프로퍼티 플래그에 대해 다뤄봅시다. 먼저, 플래그를 얻는 방법에 대해 알아보겠습니다.
 
-The method [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) allows to query the *full* information about a property.
+[Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor)메서드를 사용하면 특정 프로퍼티에 대한 정보 *모두를* 얻을 수 있습니다.
 
-The syntax is:
+문법:
 ```js
 let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 ```
 
 `obj`
-: The object to get information from.
+: 정보를 얻고자 하는 객체
 
 `propertyName`
-: The name of the property.
+: 정보를 얻고자 하는 객체 내 프로퍼티
 
-The returned value is a so-called "property descriptor" object: it contains the value and all the flags.
+메서드를 호출하면 "프로퍼티 설명자(descriptor)"라고 불리는 객체가 반환되는데, 여기에는 프로퍼티 값과 세 플래그에 대한 정보 모두가 담겨있습니다.
 
-For instance:
+예시:
 
 ```js run
 let user = {
@@ -54,23 +54,23 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 */
 ```
 
-To change the flags, we can use [Object.defineProperty](mdn:js/Object/defineProperty).
+메서드 [Object.defineProperty](mdn:js/Object/defineProperty)를 사용하면 플래그를 변경할 수 있습니다.
 
-The syntax is:
+문법:
 
 ```js
 Object.defineProperty(obj, propertyName, descriptor)
 ```
 
 `obj`, `propertyName`
-: The object and its property to apply the descriptor.
+: 설명자를 적용하고 싶은 객체와 객체 프로퍼티
 
 `descriptor`
-: Property descriptor to apply.
+: 적용하고자하는 프로퍼티 설명자
 
-If the property exists, `defineProperty` updates its flags. Otherwise, it creates the property with the given value and flags; in that case, if a flag is not supplied, it is assumed `false`.
+`defineProperty`메서드는 객체에 해당 프로퍼티가 있으면 플래그를 원하는 대로 변경해줍니다. 프로퍼티가 없으면 인수로 넘겨받은 정보를 이용해 새로운 프로퍼티를 만듭니다. 이때 플래그 정보가 없으면 플래그 값은 자동으로 `false`가 됩니다. 
 
-For instance, here a property `name` is created with all falsy flags:
+아래 예시를 보면 프로퍼티 `name`이 새로 만들어지고, 모든 플래그 값이 `false`가 된 것을 확인할 수 있습니다.
 
 ```js run
 let user = {};
@@ -96,13 +96,11 @@ alert( JSON.stringify(descriptor, null, 2 ) );
  */
 ```
 
-Compare it with "normally created" `user.name` above: now all flags are falsy. If that's not what we want then we'd better set them to `true` in `descriptor`.
+"평범한 방식으로" 객체 프로퍼티 `user.name`을 만들었을 때와 `defineProperty`를 이용해 프로퍼티를 만들었을 때의 가장 큰 차이점은 플래그에 있습니다. `defineProperty`를 사용해 프로퍼티를 만든 경우, `descriptor`에 플래그 값을 명시하지 않으면 플래그 값이 자동으로 `false`가 됩니다. 플래그 값을 `true`로 설정하려면 `descriptor`에 `true`라고 명시해 주어야 합니다. 이제 예시를 통해 플래그의 효과에 대해 알아봅시다.
 
-Now let's see effects of the flags by example.
+## writable 플래그
 
-## Non-writable
-
-Let's make `user.name` non-writable (can't be reassigned) by changing `writable` flag:
+`writable` 플래그를 사용해 `user.name`에 값을 쓰지 못하도록(non-writable) 해봅시다.
 
 ```js run
 let user = {
@@ -120,13 +118,13 @@ user.name = "Pete"; // Error: Cannot assign to read only property 'name'
 */!*
 ```
 
-Now no one can change the name of our user, unless they apply their own `defineProperty` to override ours.
+이제 `defineProperty`를 사용해 `writable` 플래그를 `true`로 변경하지 않는 한 그 누구도 객체의 이름을 변경할 수 없게 되었습니다.
 
-```smart header="Errors appear only in strict mode"
-In the non-strict mode, no errors occur when writing to non-writable properties and such. But the operation still won't succeed. Flag-violating actions are just silently ignored in non-strict.
+```smart header="에러는 엄격 모드에서만 발생합니다."
+비 엄격 모드에선 읽기 전용 프로퍼티에 값을 쓰려고 해도 에러가 발생하지 않습니다. 다만 이때 값을 변경하는 것은 불가능합니다. 비 엄격 모드에선 이와 같이 플래그에서 정한 규칙을 위반하는 행위는 에러 없이 그냥 무시됩니다.
 ```
 
-Here's the same example, but the property is created from scratch:
+아래 예시는 위 예시와 동일하게 동작합니다. 다만 아래 예시에선 `defineProperty` 메서드를 사용해 프로퍼티를 밑바닥부터 만들어 보았습니다.
 
 ```js run
 let user = { };
@@ -134,7 +132,7 @@ let user = { };
 Object.defineProperty(user, "name", {
 *!*
   value: "John",
-  // for new properties need to explicitly list what's true
+  // defineProperty를 사용해 새로운 프로퍼티를 만들 땐, 어떤 플래그를 true로 할지 명시해주어야 합니다.
   enumerable: true,
   configurable: true
 */!*
@@ -144,11 +142,11 @@ alert(user.name); // John
 user.name = "Pete"; // Error
 ```
 
-## Non-enumerable
+## enumerable 플래그
 
-Now let's add a custom `toString` to `user`.
+`user`에 커스텀 메서드 `toString`을 추가해봅시다.
 
-Normally, a built-in `toString` for objects is non-enumerable, it does not show up in `for..in`. But if we add `toString` of our own, then by default it shows up in `for..in`, like this:
+객체 내장 메서드 `toString`는 열거가 불가능(non-enumerable)하기 때문에 `for..in` 사용시 나타나지 않습니다. 하지만 커스텀 `toString`을 추가하면 아래와 같이 `for..in`에 `toString`이 나타납니다.
 
 ```js run
 let user = {
@@ -158,11 +156,11 @@ let user = {
   }
 };
 
-// By default, both our properties are listed:
+//커스텀 toString은 for...in을 사용해 열거할 수 있습니다.
 for (let key in user) alert(key); // name, toString
 ```
 
-If we don't like it, then we can set `enumerable:false`. Then it won't appear in `for..in` loop, just like the built-in one:
+그런데 특정 프로퍼티의 `enumerable` 플래그 값을 `false`로 설정하면 `for..in` 반복문에 나타나지 않게 할 수 있습니다. 커스텀 `toString`도 열거가 불가능하게 할 수 있습니다.
 
 ```js run
 let user = {
@@ -179,24 +177,24 @@ Object.defineProperty(user, "toString", {
 });
 
 *!*
-// Now our toString disappears:
+// 이제 for...in을 사용해 toString을 열거할 수 없게 되었습니다.
 */!*
 for (let key in user) alert(key); // name
 ```
 
-Non-enumerable properties are also excluded from `Object.keys`:
+열거가 불가능한 프로퍼티는 `Object.keys`에도 배제됩니다.
 
 ```js
 alert(Object.keys(user)); // name
 ```
 
-## Non-configurable
+## configurable 플래그
 
-The non-configurable flag (`configurable:false`) is sometimes preset for built-in objects and properties.
+구성 가능하지 않음을 나타내는 플래그(non-configurable flag)인 `configurable:false`는 몇몇 내장 객체나 프로퍼티에 기본으로 설정되어있습니다.
 
-A non-configurable property can not be deleted.
+어떤 프로퍼티의 `configurable` 플래그가 `false`로 설정되어 있다면 해당 프로퍼티는 객체에서 지울 수 없습니다.
 
-For instance, `Math.PI` is non-writable, non-enumerable and non-configurable:
+내장 객체 `Math`의 `PI` 프로퍼티가 대표적인 예입니다. 이 프로퍼티는 쓰기와 열거, 구성이 불가능합니다.
 
 ```js run
 let descriptor = Object.getOwnPropertyDescriptor(Math, 'PI');
@@ -211,23 +209,23 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 }
 */
 ```
-So, a programmer is unable to change the value of `Math.PI` or overwrite it.
+개발자가 코드를 사용해 `Math.PI` 값을 변경하거나 덮어쓰는 것도 불가능합니다.
 
 ```js run
 Math.PI = 3; // Error
 
-// delete Math.PI won't work either
+// 수정도 불가능하지만 지우는 것 역시 불가능합니다.
 ```
 
-Making a property non-configurable is a one-way road. We cannot change it back with `defineProperty`.
+`configurable` 플래그를 `false`로 설정하면 돌이킬 방법이 없습니다. `defineProperty`를 써서 값을 `true`로 수정할 수 없죠.
 
-To be precise, non-configurability imposes several restrictions on `defineProperty`:
-1. Can't change `configurable` flag.
-2. Can't change `enumerable` flag.
-3. Can't change `writable: false` to `true` (the other way round works).
-4. Can't change `get/set` for an accessor property (but can assign them if absent).
+`configurable:false`가 만들어내는 구체적인 제약사항은 아래와 같습니다.
+1. `configurable` 플래그를 수정할 수 없음
+2. `enumerable` 플래그를 수정할 수 없음.
+3. `writable: false`의 값을 `true`로 바꿀 수 없음(`true`를 `false`로 변경하는 것은 가능함).
+4. 접근자 프로퍼티 `get/set`을 변경할 수 없음(새롭게 만드는 것은 가능함).
 
-Here we are making `user.name` a "forever sealed" constant:
+이런 특징을 이용하면 아래와 같이 "영원히 변경할 수 없는" 프로퍼티(`user.name`)를 만들 수 있습니다.
 
 ```js run
 let user = { };
@@ -239,8 +237,8 @@ Object.defineProperty(user, "name", {
 });
 
 *!*
-// won't be able to change user.name or its flags
-// all this won't work:
+// user.name 프로퍼티의 값이나 플래그를 변경할 수 없습니다.
+// 아래와 같이 변경하려고 하면 에러가 발생합니다.
 //   user.name = "Pete"
 //   delete user.name
 //   defineProperty(user, "name", { value: "Pete" })
@@ -248,17 +246,17 @@ Object.defineProperty(user, "name", {writable: true}); // Error
 */!*
 ```
 
-```smart header="\"Non-configurable\" doesn't mean \"non-writable\""
-Notable exception: a value of non-configurable, but writable property can be changed.
+```smart header="\"non-configurable\"은 \"non-writable\"과 등가가 아닙니다."
+`configurable` 플래그가 `false`이더라도 `writable` 플래그가 `true`이면 프로퍼티 값을 변경할 수 있습니다.
 
-The idea of `configurable: false` is to prevent changes to property flags and its deletion, not changes to its value.
+`configurable: false`는 플래그 값 변경이나 프로퍼티 삭제를 막기 위해 만들어졌지, 프로퍼티 값 변경을 막기 위해 만들어 진 게 아닙니다.
 ```
 
 ## Object.defineProperties
 
-There's a method [Object.defineProperties(obj, descriptors)](mdn:js/Object/defineProperties) that allows to define many properties at once.
+[Object.defineProperties(obj, descriptors)](mdn:js/Object/defineProperties) 메서드를 사용하면 프로퍼티 여러 개를 한 번에 정의할 수 있습니다.
 
-The syntax is:
+문법:
 
 ```js
 Object.defineProperties(obj, {
@@ -268,7 +266,7 @@ Object.defineProperties(obj, {
 });
 ```
 
-For instance:
+예시:
 
 ```js
 Object.defineProperties(user, {
@@ -278,19 +276,19 @@ Object.defineProperties(user, {
 });
 ```
 
-So, we can set many properties at once.
+프로퍼티 여러 개를 한 번에 정의해보았습니다.
 
 ## Object.getOwnPropertyDescriptors
 
-To get all property descriptors at once, we can use the method [Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors).
+[Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors) 메서드를 사용하면 프로퍼티 전체의 설명자를 한꺼번에 가져올 수 있습니다.
 
-Together with `Object.defineProperties` it can be used as a "flags-aware" way of cloning an object:
+이 메서드를 `Object.defineProperties`와 함께 사용하면 객체 복사 시 플래그도 함께 복사할 수 있습니다.
 
 ```js
 let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 ```
 
-Normally when we clone an object, we use an assignment to copy properties, like this:
+지금까진 아래처럼 할당 연산자를 사용해 프로퍼티를 복사하는 방법으로 객체를 복사해 왔습니다.
 
 ```js
 for (let key in user) {
@@ -298,34 +296,34 @@ for (let key in user) {
 }
 ```
 
-...But that does not copy flags. So if we want a "better" clone then `Object.defineProperties` is preferred.
+그런데 이 방법은 플래그까지 고려해주지 않으므로, 플래그 정보도 복사하려면 `Object.defineProperties`를 사용하시기 바랍니다.  
 
-Another difference is that `for..in` ignores symbolic properties, but `Object.getOwnPropertyDescriptors` returns *all* property descriptors including symbolic ones.
+위 샘플 코드처럼 `for..in`을 사용해 객체를 복사하면 심볼형 프로퍼티도 놓치게 됩니다. `Object.getOwnPropertyDescriptors`는 심볼형 프로퍼티를 포함한 프로퍼티 설명자 *전체*를 반환하기 때문에, 객체 복사 시엔 이를 염두에 두시기 바랍니다. 
 
-## Sealing an object globally
+## 객체 수정을 막아주는 다양한 메서드
 
-Property descriptors work at the level of individual properties.
+프로퍼티 설명자는 개별 프로퍼티 수준에서 동작합니다.
 
-There are also methods that limit access to the *whole* object:
+아래 메서드를 사용하면 한 객체 내 프로퍼티 *전체*를 대상으로 하는 제약사항을 만들 수 있습니다.
 
 [Object.preventExtensions(obj)](mdn:js/Object/preventExtensions)
-: Forbids the addition of new properties to the object.
+: 객체에 새로운 프로퍼티를 추가할 수 없게 합니다.
 
 [Object.seal(obj)](mdn:js/Object/seal)
-: Forbids adding/removing of properties. Sets `configurable: false` for all existing properties.
+: 새로운 프로퍼티 추가나 기존 프로퍼티 삭제를 막아줍니다. 프로퍼티 전체에 `configurable: false`를 설정하는 것과 동일한 효과입니다.
 
 [Object.freeze(obj)](mdn:js/Object/freeze)
-: Forbids adding/removing/changing of properties. Sets `configurable: false, writable: false` for all existing properties.
+: 새로운 프로퍼티 추가나 기존 프로퍼티 삭제, 수정을 막아줍니다. 프로퍼티 전체에 `configurable: false, writable: false`를 설정하는 것과 동일한 효과입니다.
 
-And also there are tests for them:
+아래 메서드는 위 세 가지 메서드를 사용해서 설정한 제약사항을 확인할 때 사용할 수 있습니다.
 
 [Object.isExtensible(obj)](mdn:js/Object/isExtensible)
-: Returns `false` if adding properties is forbidden, otherwise `true`.
+: 새로운 프로퍼티를 추가하는 게 불가능한 경우 `false`를, 그렇지 않은 경우 `true`를 반환합니다.
 
 [Object.isSealed(obj)](mdn:js/Object/isSealed)
-: Returns `true` if adding/removing properties is forbidden, and all existing properties have `configurable: false`.
+: 프로퍼티 추가, 삭제가 불가능하고 모든 프로퍼티가 `configurable: false`이면 `true`를 반환합니다.
 
 [Object.isFrozen(obj)](mdn:js/Object/isFrozen)
-: Returns `true` if adding/removing/changing properties is forbidden, and all current properties are `configurable: false, writable: false`.
+: 프로퍼티 추가, 삭제, 변경이 불가능하고 모든 프로퍼티가 `configurable: false, writable: false`이면 `true`를 반환합니다.
 
-These methods are rarely used in practice.
+위 메서드들은 실무에선 잘 사용되지 않습니다.
