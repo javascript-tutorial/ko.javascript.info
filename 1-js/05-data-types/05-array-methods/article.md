@@ -226,7 +226,7 @@ arr.forEach(function(item, index, array) {
 });
 ```
 
-함수의 반환값은 (반환값을 어떻게 명시해 줬든 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환값은 undefined가 됩니다).
+함수의 반환 값은 (반환 값을 어떻게 명시해 줬든 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환 값은 undefined가 됩니다).
 
 
 ## 배열 탐색하기
@@ -309,7 +309,7 @@ Note that in the example we provide to `find` the function `item => item.id == 1
 
 ### filter
 
-`find` 메서드는 함수의 반환값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번째 요소만 반환됩니다.
+`find` 메서드는 함수의 반환 값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번째 요소만 반환됩니다.
 
 만약 조건을 충족하는 요소가 여러 개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
 
@@ -708,7 +708,7 @@ alert(youngerUsers.length); // 2
   - `sort(func)` -- 배열을 정렬하고, 정렬된 배열을 반환함
   - `reverse()` -- 배열을 뒤집어 반환함
   - `split/join` -- 문자열을 배열로, 배열을 문자열로 변환함
-  - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출하고, 반환값을 다음 함수 호출 시 전달함. 최종적으로 하나의 값이 도출됨 
+  - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출하고, 반환 값을 다음 함수 호출 시 전달함. 최종적으로 하나의 값이 도출됨 
 
 - 기타
   - `Array.isArray(arr)` -- `arr`이 배열인지 여부를 확인함
@@ -719,7 +719,7 @@ alert(youngerUsers.length); // 2
 
 - [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every)는 배열을 확인합니다.
 
-  두 메서드는 `map`과 유사하게 배열 안 모든 요소에 콜백을 호출합니다. 콜백의 특정/모든 반환값이 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.  
+  두 메서드는 `map`과 유사하게 배열 안 모든 요소에 콜백을 호출합니다. 콜백의 특정/모든 반환 값이 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.  
 
 - [arr.fill(value, start, end)](mdn:js/Array/fill) 인덱스 `start`부터 `end`까지 `value`를 채워 넣습니다.
 
