@@ -226,7 +226,7 @@ arr.forEach(function(item, index, array) {
 });
 ```
 
-함수의 반환값은 (반환값을 어떻게 명시해 줬든 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환값은 undefined가 됩니다).
+함수의 반환 값은 (반환 값을 어떻게 명시해 줬든 간에) 무시됩니다(역주: 결국 forEach 메서드의 반환 값은 undefined가 됩니다).
 
 
 ## 배열 탐색하기
@@ -309,7 +309,7 @@ Note that in the example we provide to `find` the function `item => item.id == 1
 
 ### filter
 
-`find` 메서드는 함수의 반환값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번째 요소만 반환됩니다.
+`find` 메서드는 함수의 반환 값을 `true`로 만드는 단 하나의 요소를 찾습니다. 요소를 찾게 되면 탐색이 중단되기 때문에, 조건에 맞는 첫 번째 요소만 반환됩니다.
 
 만약 조건을 충족하는 요소가 여러 개라면, [arr.filter(fn)](mdn:js/Array/filter)를 사용해 해당하는 객체를 찾을 수 있습니다.
 
@@ -655,31 +655,37 @@ arr.map(func, thisArg);
 
 매개변수인 `thisArg`의 값은 `func`의 `this`가 됩니다.
 
-For instance, here we use an object method as a filter and `thisArg` helps with that:
+For example, here we use a method of `army` object as a filter, and `thisArg` passes the context:
 
 ```js run
-let user = {
-  age: 18,
-  younger(otherUser) {
-    return otherUser.age < this.age;
+let army = {
+  minAge: 18,
+  maxAge: 27,
+  canJoin(user) {
+    return user.age >= this.minAge && user.age < this.maxAge;
   }
 };
 
 let users = [
-  {age: 12},
   {age: 16},
-  {age: 32}
+  {age: 20},
+  {age: 23},
+  {age: 30}
 ];
 
 *!*
-// user보다 나이가 적은 user를 찾음
-let youngerUsers = users.filter(user.younger, user);
+// find users, for who army.canJoin returns true
+let soldiers = users.filter(army.canJoin, army);
 */!*
 
-alert(youngerUsers.length); // 2
+alert(soldiers.length); // 2
+alert(soldiers[0].age); // 20
+alert(soldiers[1].age); // 23
 ```
 
-객체의 메서드인 `user.younger`를 필터처럼 사용하고, `user`를 비교 기준으로 삼은 것을 확인할 수 있습니다. `user`를 인수로 써주지 않았다면, `users.filter(user.younger)`에서 `user.younger`는 독립된 콜백 함수로 호출됐을 겁니다. 이렇게 되면, `this=undefined`가 되어 에러가 발생합니다.
+If in the example above we used `users.filter(army.canJoin)`, then `army.canJoin` would be called as a standalone function, with `this=undefined`, thus leading to an instant error.
+
+A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(user => army.canJoin(user))`, that does the same. The former is used more often, as it's a bit easier to understand for most people.
 
 ## 요약
 
@@ -708,7 +714,7 @@ alert(youngerUsers.length); // 2
   - `sort(func)` -- 배열을 정렬하고, 정렬된 배열을 반환함
   - `reverse()` -- 배열을 뒤집어 반환함
   - `split/join` -- 문자열을 배열로, 배열을 문자열로 변환함
-  - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출하고, 반환값을 다음 함수 호출 시 전달함. 최종적으로 하나의 값이 도출됨 
+  - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출하고, 반환 값을 다음 함수 호출 시 전달함. 최종적으로 하나의 값이 도출됨 
 
 - 기타
   - `Array.isArray(arr)` -- `arr`이 배열인지 여부를 확인함
@@ -719,7 +725,7 @@ alert(youngerUsers.length); // 2
 
 - [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every)는 배열을 확인합니다.
 
-  두 메서드는 `map`과 유사하게 배열 안 모든 요소에 콜백을 호출합니다. 콜백의 특정/모든 반환값이 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.  
+  두 메서드는 `map`과 유사하게 배열 안 모든 요소에 콜백을 호출합니다. 콜백의 특정/모든 반환 값이 `true`이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환합니다.  
 
 - [arr.fill(value, start, end)](mdn:js/Array/fill) 인덱스 `start`부터 `end`까지 `value`를 채워 넣습니다.
 

@@ -47,7 +47,7 @@ What can we intercept with them?
 
 For most operations on objects, there's a so-called "internal method" in JavaScript specificaiton, that describes on the lowest level, how it works. For instance, `[[Get]]` - the internal method to read a property, `[[Set]]` -- the internal method to write a property, and so on. These methods are only used in the specification, we can't call them directly by name.
 
-Proxy traps inercept invocations of these methods. They are listed in [Proxy specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) and in the table below.
+Proxy traps intercept invocations of these methods. They are listed in [Proxy specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) and in the table below.
 
 For every internal method, there's a trap in this table: the name of the method that we can add to `handler` parameter of `new Proxy` to intercept the operation:
 
@@ -95,7 +95,7 @@ It triggers when a property is read, with following arguments:
 
 - `target` -- is the target object, the one passed as the first argument to `new Proxy`,
 - `property` -- property name,
-- `receiver` -- if the target property is a getter, then `receiver` is the object that's going to be used as `this` in its call. Usually that's the `proxy` object itself (or an object that inherits from it, if we inherit from proxy). Right now we don't need this argument, will be explained in more details letter.
+- `receiver` -- if the target property is a getter, then `receiver` is the object that's going to be used as `this` in its call. Usually that's the `proxy` object itself (or an object that inherits from it, if we inherit from proxy). Right now we don't need this argument, will be explained in more details later.
 
 Let's use `get` to implement default values for an object.
 
@@ -497,7 +497,7 @@ alert(50 in range); // false
 
 A nice syntactic sugar, isn't it? And very simple to implement.
 
-## Wrapping functions: "apply"
+## Wrapping functions: "apply" [#proxy-apply]
 
 We can wrap a proxy around a function as well.
 
