@@ -22,9 +22,9 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-`new Promise`에 전달되는 콜백 함수는 *executor(실행자, 실행 함수)* 라고 불립니다.  executor 함수는 프라미스가 만들어질 때 자동으로 실행되며, 결과물을 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 "가수"가 바로 executor입니다.
+`new Promise`에 전달되는 콜백 함수는 *executor(실행자, 실행 함수)* 라고 불립니다.  executor 함수는 새로운 `프라미스`가 만들어질 때 자동으로 실행되며, 결과물을 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 "가수"가 바로 executor입니다.
 
-Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside executor.
+Its arguments `resolve` and `reject` are callbacks provided by JavaScript itself. Our code is only inside the executor.
 
 When the executor obtains the result, be it soon or late - doesn't matter, it should call one of these callbacks:
 
@@ -38,13 +38,13 @@ The `promise` object returned by `new Promise` constructor has internal properti
 - `state` — initially `"pending"`, then changes to either `"fulfilled"` when `resolve` is called or `"rejected"` when `reject` is called.
 - `result` — initially `undefined`, then changes to `value` when `resolve(value)` called or `error` when `reject(error)` is called.
 
-So the executor moves `promise` to one of these states:
+So the executor eventually moves `promise` to one of these states:
 
 ![](promise-resolve-reject.svg)
 
 Later we'll see how "fans" can subscribe to these changes.
 
-Here's an example of a Promise constructor and a simple executor function with delayed "producing code" (via `setTimeout`):
+Here's an example of a promise constructor and a simple executor function with  "producing code" that takes time (via `setTimeout`):
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
@@ -60,9 +60,9 @@ let promise = new Promise(function(resolve, reject) {
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로, 따로 만들 필요는 없습니다. 다만, `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다.
 
-1초 후에 executor는 `resolve("done")`를 호출하고, 결과물을 만들어 냅니다.
+    After one second of "processing" the executor calls `resolve("done")` to produce the result. This changes the state of the `promise` object:
 
-![](promise-resolve-1.svg)
+    ![](promise-resolve-1.svg)
 
 지금까진 성공적으로 일이 처리된 경우인 "fulfilled promise(약속이 이행된 프라미스)"에 대해 알아보았습니다.
 
@@ -74,6 +74,8 @@ let promise = new Promise(function(resolve, reject) {
   setTimeout(() =&amp;gt; *!*reject(new Error("Whoops!"))*/!*, 1000);
 });
 ```
+
+The call to `reject(...)` moves the promise object to `"rejected"` state:
 
 ![](promise-reject-1.svg)
 
@@ -103,7 +105,7 @@ let promise = new Promise(function(resolve, reject) {
 ````
 
 ```smart header="`Error` 객체와 함께 거절하기"
-무언가 잘 못 된 경우, `reject`를 호출해야만 합니다. 이때 인자는 `resolve`와 마찬가지로 어떤 타입도 가능합니다. 다만, `Error` 객체(또는 `Error`객체를 상속한 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
+무언가 잘 못 된 경우, executor함수는 `reject`를 호출해야만 합니다. 이때 인자는 `resolve`와 마찬가지로 어떤 타입도 가능합니다. 다만, `Error` 객체(또는 `Error`객체를 상속한 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
 ```
 
 ````smart header="`resolve`, `reject` 함수 즉시 호출하기"

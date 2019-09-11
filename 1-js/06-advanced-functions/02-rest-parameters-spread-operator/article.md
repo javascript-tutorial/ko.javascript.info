@@ -23,9 +23,9 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
-인수 개수는 "초과"하였지만, 오류가 발생하지 않습니다. 하지만 반환값은 당연히 처음 두 개의 인수만을 이용해 계산되죠.
+인수 개수는 "초과"하였지만, 오류가 발생하지 않습니다. 하지만 반환 값은 당연히 처음 두 개의 인수만을 이용해 계산되죠.
 
-나머지 매개변수(rest parameters)는 함수 선언 시 세 개의 점 '...'과 함께 사용할 수 있습니다. 단어를 보고 유추할 수 있듯이, "나머지 매개변수를 배열로 모아주는" 역할을 합니다.
+The rest of the parameters can be included in the function definition by using three dots `...` followed by the name of the array that will contain them. The dots literally mean "gather the remaining parameters into an array".
 
 아래는 모든 인수를 배열 `args`에 모아주는 예제입니다.
 
