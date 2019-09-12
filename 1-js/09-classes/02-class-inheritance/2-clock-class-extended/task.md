@@ -2,14 +2,14 @@ importance: 5
 
 ---
 
-# Extended clock
+# 시계 확장하기
 
 We've got a `Clock` class. As of now, it prints the time every second.
-
+`Clock`이라는 매초 시간을 출력하는 클래스가 있습니다. 
 
 [js src="source.view/clock.js"]
 
-Create a new class `ExtendedClock` that inherits from `Clock` and adds the parameter `precision` -- the number of `ms` between "ticks". Should be `1000` (1 second) by default.
+`Clock`을 상속하는 `ExtendedClock`을 생성해서 `precision`이라는 매개변수를 추가해보세요 -- "ticks" 사이에 ms의 수 만큼. 1000 (1 second)를 기본값으로 하는것이 좋습니다.
 
-- Your code should be in the file `extended-clock.js`
-- Don't modify the original `clock.js`. Extend it.
+–	코드는 `extended-clock.js`라는 독립적인 파일인 것이 좋습니다.
+–	오리지널 `clock.js`를 수정하지 마세요. 확장하세요.
