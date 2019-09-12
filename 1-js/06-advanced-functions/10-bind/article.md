@@ -3,7 +3,7 @@ libs:
 
 ---
 
-# 함수 바인딩(Function binding)
+# 함수 바인딩
 
 When passing object methods as callbacks, for instance to `setTimeout`, there's a known problem: "losing `this`".
 
@@ -164,7 +164,7 @@ sayHi(); // Hello, John!
 setTimeout(sayHi, 1000); // Hello, John!
 ```
 
-`(*)`줄에서 `user.sayHi` 메소드를 가져와서 `user`에 바인드합니다. `sayHi`는 단독으로 호출되거나 `setTimeout`에 전달될 수 있는 "바운드 (bound)"함수입니다 - 컨텍스트는 맞기 때문에 중요하지는 않습니다.
+`(*)`줄에서 `user.sayHi` 메서드를 가져와서 `user`에 바인드합니다. `sayHi`는 단독으로 호출되거나 `setTimeout`에 전달될 수 있는 "바운드 (bound)"함수입니다 - 컨텍스트는 맞기 때문에 중요하지는 않습니다.
 
 인수는 "있는 그대로" 전달되고, 단지 "this"만이 `bind`에 의해 고정된다는 것을 알 수 있습니다.
 

@@ -31,9 +31,9 @@ function sum(a, b) {
   return a + b;
 }
 
-let carriedSum = curry(sum);
+let curriedSum = curry(sum);
 
-alert( carriedSum(1)(2) ); // 3
+alert( curriedSum(1)(2) ); // 3
 ```
 
 위의 예시에서 보듯이, 실제 구현은 그저 두 개의 래퍼를 사용한 것과 같이 간단합니다.

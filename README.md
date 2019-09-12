@@ -15,7 +15,9 @@
 - 처음 작업을 하는 분들은 [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0) 수정 권한이 필요하니, gmail 아이디를 적은 권한 요청 게시물을 [이슈](https://github.com/Violet-Bora-Lee/javascript-tutorial-ko/issues) 페이지에 등록합니다.
 
 👂 의사소통
-- 질문이나 소통은 [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)에서 가능합니다.
+- [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)
+- [![Gitter](https://badges.gitter.im/javascript-tutorial/ko.javascript.info.svg)](https://gitter.im/javascript-tutorial/ko.javascript.info?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+- Gitter를 주로 사용합니다. 카카오톡 오픈채팅방은 굵직한 공지사항들을 전달하는 용도로 사용합니다. 
 
 번역이 진행되고 있는 언어 목록과 각 언어로의 번역률은 <https://javascript.info/translate>에서 확인할 수 있습니다.
 
