@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# The maximal salary 
+# 최대 급여 계산하기
 
-There is a `salaries` object:
+급여 관련 정보가 저장된 객체 `salaries`가 있다고 가정해 봅시다.
 
 ```js
 let salaries = {
@@ -14,9 +14,9 @@ let salaries = {
 };
 ```
 
-Create the function `topSalary(salaries)` that returns the name of the top-paid person.
+가장 많은 급여를 받는 사람의 이름을 반환해주는 함수 `topSalary(salaries)`를 만들어봅시다. 조건은 아래와 같습니다. 
 
-- If `salaries` is empty, it should return `null`.
-- If there are multiple top-paid persons, return any of them.
+- `salaries`가 비어있으면 함수는 `null`을 반환해야 합니다.
+- 최대 급여를 받는 사람이 여러 명이라면 모든 사람이 반환되어야 합니다. 
 
-P.S. Use `Object.entries` and destructuring to iterate over key/value pairs.
+힌트: `Object.entries`와 구조 분해를 사용해 키-값 쌍을 순회하는 방식을 사용해보세요.

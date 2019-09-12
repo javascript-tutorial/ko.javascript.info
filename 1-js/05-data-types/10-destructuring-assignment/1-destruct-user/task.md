@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Destructuring assignment
+# 구조 분해 할당
 
-We have an object:
+아래와 같은 객체가 있다고 가정해봅시다.
 
 ```js
 let user = {
@@ -13,18 +13,18 @@ let user = {
 };
 ```
 
-Write the destructuring assignment that reads:
+구조 분해 할당을 사용해 아래 미션을 수행해 보세요.
 
-- `name` property into the variable `name`.
-- `years` property into the variable `age`.
-- `isAdmin` property into the variable `isAdmin` (false, if no such property)
+- `name` 프로퍼티의 값을 변수 `name`에 할당하세요.
+- `years` 프로퍼티의 값을 변수 `age`에 할당하세요.
+- `isAdmin` 프로퍼티의 값을 변수 `isAdmin`에 할당하세요. `isAdmin`이라는 프로퍼티가 없으면 false를 할당하세요.
 
-Here's an example of the values after your assignment:
+미션을 달성하면 아래 예시를 제대로 실행할 수 있게 됩니다.
 
 ```js
 let user = { name: "John", years: 30 };
 
-// your code to the left side:
+// 할당 연산자 좌측에 답안을 작성하시면 되겠죠?
 // ... = user
 
 alert( name ); // John
