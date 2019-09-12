@@ -1,7 +1,7 @@
 
-# Class inheritance
+# 클래스 상속
 
-Let's say we have two classes.
+두 개의 클래스가 있다고 가정해 보겠습니다.
 
 `Animal`:
 
@@ -27,7 +27,7 @@ let animal = new Animal("My animal");
 ![](rabbit-animal-independent-animal.svg)
 
 
-...And `Rabbit`:
+...그리고 `Rabbit`:
 
 ```js
 class Rabbit {
@@ -45,13 +45,13 @@ let rabbit = new Rabbit("My rabbit");
 ![](rabbit-animal-independent-rabbit.svg)
 
 
-Right now they are fully independent.
+현재 위의 예시 클래스들은 완전히 독립적입니다.
 
-But we'd want `Rabbit` to extend `Animal`. In other words, rabbits should be based on animals, have access to methods of `Animal` and extend them with its own methods.
+그런데 `Rabbit`을 `Animal`의 연장선에 놓고 싶다고 한다면. 자세히 설명하자면, rabbits는 Animal클래스를 기반으로 두고 있고, `Animal`클래스의 메서드들과 독립적인 메서드들로 구성되게 하고 싶다고 해보죠.
 
-To inherit from another class, we should specify `"extends"` and the parent class before the braces `{..}`.
+다른 클래스로부터 상속받으려면, `"extends"`를 사용해서 braces `{..}`전에 부모 클래스를 명시해야 합니다.
 
-Here `Rabbit` inherits from `Animal`:
+아래코드는 `Rabbit`이 `Animal`을 상속하는 방법을 보여주고 있습니다.
 
 ```js run
 class Animal {
@@ -69,7 +69,7 @@ class Animal {
   }
 }
 
-// Inherit from Animal by specifying "extends Animal"
+// "extends Animal"를 사용해서 Animal로 부터 상속 받습니다
 *!*
 class Rabbit extends Animal {
 */!*
@@ -80,24 +80,24 @@ class Rabbit extends Animal {
 
 let rabbit = new Rabbit("White Rabbit");
 
-rabbit.run(5); // White Rabbit runs with speed 5.
-rabbit.hide(); // White Rabbit hides!
+rabbit.run(5); // 하얀토끼는 스피드 5로 달립니다.
+rabbit.hide(); // 하얀토끼는 숨었습니다!
 ```
 
-Now the `Rabbit` code became a bit shorter, as it uses `Animal` constructor by default, and it also can `run`, as animals do.
+이제 `Rabbit` 코드는 `Animal`의 생성자를 사용함으로써 더 짧아졌고 Animal 클래스에서 정의된 `run` 메서드를 사용할 수 있습니다. 
 
-Internally, `extends` keyword adds `[[Prototype]]` reference from `Rabbit.prototype` to `Animal.prototype`:
+내부적으로, `extends` 키워드는 `[[Prototype]]` 참고하는것을 `Rabbit.prototype`에서 `Animal.prototype`으로 추가합니다.
 
-![](animal-rabbit-extends.svg)
+![](animal-rabbit-extends.png)
 
-So, if a method is not found in `Rabbit.prototype`, JavaScript takes it from `Animal.prototype`.
+그래서 만약에 `Rabbit.prototype` 안에서 메서드를 찾을 수 없으면, 자바스크립트는 `Animal.prototype`에서 가져옵니다.
 
-As we can recall from the chapter <info:native-prototypes>, JavaScript uses prototypal inheritance for build-in objects. E.g. `Date.prototype.[[Prototype]]` is `Object.prototype`, so dates have generic object methods.
+<info:native-prototypes> 챕터에서 살펴봤듯이, 자바스크립트는 내장 객체를 위해 같은 프로토타입을 상속합니다. 예를 들면, `Date.prototype.[[Prototype]]` 은 `Object.prototype` 이기 때문에 dates는 일반적인 객체의 메서드인 것이죠.
 
-````smart header="Any expression is allowed after `extends`"
-Class syntax allows to specify not just a class, but any expression after `extends`.
+````smart header="`extends` 이후에 어떠한 표현형식이든 가능합니다"
+클래스 문법은 오직 클래스만 정의할 수 있게 하는 것이 아니라 `extends` 후에 어떠한 표현 식이든 추가할 수 있습니다.
 
-For instance, a function call that generates the parent class:
+예를 들면, 아래의 함수처럼 부모 클래스를 생성한다고 해보겠습니다.
 
 ```js run
 function f(phrase) {
@@ -112,33 +112,33 @@ class User extends f("Hello") {}
 
 new User().sayHi(); // Hello
 ```
-Here `class User` inherits from the result of `f("Hello")`.
+위의 예제에서 `class User` 는 `f("Hello")`의 결과를 상속합니다.
 
-That may be useful for advanced programming patterns when we use functions to generate classes depending on many conditions and can inherit from them.
+이런 방법은 함수를 사용하여 다양한 조건에 따라 클래스를 생성하고 상속이 요구되는 고급적인 프로그래밍 패턴을 사용할 때 유용합니다.
 ````
 
-## Overriding a method
+## 메서드 오버라이딩
 
-Now let's move forward and override a method. As of now, `Rabbit` inherits the `stop` method that sets `this.speed = 0` from `Animal`.
+이제 더 자세히 배워보겠습니다. 지금까지는 `Rabbit`이 `stop`메서드를 상속하고 `Animal`에서 온 `stop`메서드는 `this.speed = 0`으로 설정했었습니다.
 
-If we specify our own `stop` in `Rabbit`, then it will be used instead:
+만약에 독립적인 `stop`메서드를 `Rabbit` 안에 정의할 수 있다면 다음과 같을 것입니다.
 
 ```js
 class Rabbit extends Animal {
   stop() {
-    // ...this will be used for rabbit.stop()
+    // ...여기에 정의될 메서드가 rabbit.stop() 으로 호출될 것입니다.
   }
 }
 ```
 
-...But usually we don't want to totally replace a parent method, but rather to build on top of it, tweak or extend its functionality. We do something in our method, but call the parent method before/after it or in the process.
+...그러나 일반적으로 부모 메서드를 완전히 대체하기보다는 그 위에 기능을 추가하거나 수정하거나 확장하는 것이 좋습니다. 메서드에서 무언가를 수행하지만 처리 전후 또는 처리 중에 부모 메서드를 호출하기 때문이죠.
 
-Classes provide `"super"` keyword for that.
+이것을 위해 클래스들은 `"super"`라는 키워드를 제공합니다.
 
-- `super.method(...)` to call a parent method.
-- `super(...)` to call a parent constructor (inside our constructor only).
+- `super.method(...)` 는 부모 클래스의 메서드를 호출합니다.
+- `super(...)` 는 부모의 생성자를 호출합니다. (상속받는 생성자의 안에서만 사용해야 합니다).
 
-For instance, let our rabbit autohide when stopped:
+예를 들어 아래의 rabbit에서 stop 되었을 때 어떻게 자동으로 hide를 호출하는지 알아보겠습니다.
 
 ```js run
 class Animal {
@@ -167,52 +167,52 @@ class Rabbit extends Animal {
 
 *!*
   stop() {
-    super.stop(); // call parent stop
-    this.hide(); // and then hide
+    super.stop(); // 부모의 stop을 호출합니다.
+    this.hide(); // 그리고 hide 메서드를 실행합니다.
   }
 */!*
 }
 
 let rabbit = new Rabbit("White Rabbit");
 
-rabbit.run(5); // White Rabbit runs with speed 5.
-rabbit.stop(); // White Rabbit stands still. White rabbit hides!
+rabbit.run(5); // 하얀 토끼는 스피드 5로 달립니다.
+rabbit.stop(); // 하얀 토끼는 그대로 서있습니다. 그리고 숨었습니다!
 ```
 
-Now `Rabbit` has the `stop` method that calls the parent `super.stop()` in the process.
+여기서 `Rabbit`은 부모클래스로부터 `super.stop()`메서드를 호출하는 `stop` 메서드를 가지고 있습니다. 
 
-````smart header="Arrow functions have no `super`"
-As was mentioned in the chapter <info:arrow-functions>, arrow functions do not have `super`.
+````smart header="화살표 함수는 `super`가 없습니다"
+<info:arrow-functions> 챕터에서 언급했듯이, 화살표 함수는 `super`를 가지고 있지 않습니다.
 
-If accessed, it's taken from the outer function. For instance:
+만약에 부모 함수에 접근 가능하다면 외부의 함수에서 가져온 것일 것입니다. 아래 예제를 보면 알수 있습니다.
 ```js
 class Rabbit extends Animal {
   stop() {
-    setTimeout(() => super.stop(), 1000); // call parent stop after 1sec
+    setTimeout(() => super.stop(), 1000); // 부모의 stop을 1초 후에 호출합니다
   }
 }
 ```
 
-The `super` in the arrow function is the same as in `stop()`, so it works as intended. If we specified a "regular" function here, there would be an error:
+화살표 함수 안의 `super`는 `stop()` 안에서 쓰인 것과 같아서 의도한 대로 동작할 것입니다. 그런데 만약에 "정규" 함수를 여기에 정의한다면, 에러가 발생할 것 입니다.
 
 ```js
-// Unexpected super
+// 예상하지못한 super
 setTimeout(function() { super.stop() }, 1000);
 ```
 ````
 
 
-## Overriding constructor
+## 생성자 오버라이딩
 
-With constructors it gets a little bit tricky.
+생성자를 오버라이딩 하는 데에는 기술이 조금 필요합니다.
 
-Till now, `Rabbit` did not have its own `constructor`.
+아직은 `Rabbit` 은 자신만의 `생성자(contructor)`를 가지고 있지 않았습니다.
 
-According to the [specification](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation), if a class extends another class and has no `constructor`, then the following "empty" `constructor` is generated:
+[자바스크립트 명세서](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation)에 따르면 만약 클래스가 다른 클래스를 확장하고 생성된 클래스가 `생성자`를 가지고 있지 않다면, "비어있는" `생성자`를 생성합니다.
 
 ```js
 class Rabbit extends Animal {
-  // generated for extending classes without own constructors
+  // 자신의 생성자가 없는 상속받는 클래스를 생성합니다.
 *!*
   constructor(...args) {
     super(...args);
@@ -221,9 +221,9 @@ class Rabbit extends Animal {
 }
 ```
 
-As we can see, it basically calls the parent `constructor` passing it all the arguments. That happens if we don't write a constructor of our own.
+위에 예시에서처럼 해당 클래스의 생성자를 명시하지 않을 때는 기본적으로 부모의 `생성자`를 모든 인수와 함께 전달합니다.
 
-Now let's add a custom constructor to `Rabbit`. It will specify the `earLength` in addition to `name`:
+이제 `Rabbit`에 특수한 생성자를 추가해 보겠습니다. 생성자에서 `earLength`를 정의하고 `name`을 추가할 것입니다.
 
 ```js run
 class Animal {
@@ -248,29 +248,29 @@ class Rabbit extends Animal {
 }
 
 *!*
-// Doesn't work!
-let rabbit = new Rabbit("White Rabbit", 10); // Error: this is not defined.
+// 아래의 코드는 동작하지 않습니다!
+let rabbit = new Rabbit("White Rabbit", 10); // 에러: 정의되지 않음..
 */!*
 ```
 
-Whoops! We've got an error. Now we can't create rabbits. What went wrong?
+이런! 에러가 발생합니다. 이제 rabbits를 생성할 수 없네요. 무엇이 잘못된 것 일까요?
 
-The short answer is: constructors in inheriting classes must call `super(...)`, and (!) do it before using `this`.
+간단히 설명하자면 상속받은 클래스들 안의 생성자는 `this`를 사용하기 전에 `super(...)`를 반드시 호출 해야 합니다.
 
-...But why? What's going on here? Indeed, the requirement seems strange.
+...그런데 왜 그래야 할까요? 무슨 일이 일어나고 있는 걸까요? 결국, 이런 요구사항은 뭔가 이상해 보입니다.
 
-Of course, there's an explanation. Let's get into details, so you'd really understand what's going on.
+당연히 super를 반드시 호출해야 하는 상황을 설명할 수 있습니다. 자세히 보면 무슨일이 일어나는지 이해할 수 있을 것입니다.
 
-In JavaScript, there's a distinction between a "constructor function of an inheriting class" and all others. In an inheriting class, the corresponding constructor function is labelled with a special internal property `[[ConstructorKind]]:"derived"`.
+자바스크립트에서는 "상속하는 클래스의 생성자 함수"와 다른 모든 클래스 사이에는 구분이 있습니다. 상속 클래스에서 상응하는 생성자 함수는 특별한 내부 속성 `[[ConstructorKind]]:"derived"` 로 레이블이 지정되어 있습니다. 하지만 일반적으로 상위 메소드를 완전히 대체하기보다는 그 위에 기능을 추가하거나 수정하거나 확장하는 것이 좋습니다. 메서드에서 무언가를 수행하는 것처럼 보이지만, 처리 전후 또는 처리 중에 부모 메서드를 호출하기 때문이죠.
 
-The difference is:
+다른 점은 다음과 같습니다.
 
-- When a normal constructor runs, it creates an empty object and assigns it to `this`.
-- But when a derived constructor runs, it doesn't do this. It expects the parent constructor to do this job.
+- 일반 생성자가 실행되면 빈 객체를 `this`로 만들고 계속 진행합니다.
+- 그러나 파생된 생성자가 실행될 때는 파생되지 않습니다. 부모 생성자가 이러한 작업을 수행할 것으로 기대합니다.
 
-So if we're making a constructor of our own, then we must call `super`, because otherwise the object for `this` won't be created. And we'll get an error.
+그래서 만약 생성자를 생성한다면,`super`를 호출해야 합니다. 그렇지 않으면 `this`를 빈 객체로 생성할 것이기 때문입니다. 그래서 오류가 발생한 것 입니다.
 
-For `Rabbit` constructor to work, it needs to call `super()` before using `this`, like here:
+`Rabbit`이 작동하려면, 다음과 같이 `this`를 사용하기 전에 `super()`를 호출해야 합니다.
 
 ```js run
 class Animal {
@@ -306,25 +306,17 @@ alert(rabbit.earLength); // 10
 
 ## Super: internals, [[HomeObject]]
 
-```warn header="Advanced information"
-If you're reading the tutorial for the first time - this section may be skipped.
+super의 숨겨진 부분을 조금 더 깊숙이 들어가 보겠습니다. 흥미로운 것들을 보게 될 것입니다.
 
-It's about the internal mechanisms behind inheritance and `super`.
-```
+먼저 지금까지 배운 모든 것에서, `super`가 전혀 작동하지 않는다는 것을 명심하세요!
 
-Let's get a little deeper under the hood of `super`. We'll see some interesting things by the way.
+실제 기술적으로 어떻게 super가 작동 할 수 있는지 스스로 답해보세요. 객체 메서드가 실행되면 현재 객체를 `this` 로 가져옵니다. `super.method()` 를 호출하면 현재 객체의 프로토타입에서 `method` 를 가져와야합니다.
 
-First to say, from all that we've learned till now, it's impossible for `super` to work at all!
+작업은 단순해 보일 수도 있지만 그렇지 않습니다. 엔진은 현재 객체 `this`를 알고 있음으로, 부모 `method` 를 `this .__ proto __. method`로 얻을 수 있을것 같지만 불행히도 이러한 "간단한" 해결책은 효과가 없습니다.
 
-Yeah, indeed, let's ask ourselves, how it should technically work? When an object method runs, it gets the current object as `this`. If we call `super.method()` then, the engine needs to get the `method` from the prototype of the current object. But how?
+여기에 어떠한 문제가 있는지 설명해 보겠습니다. 클래스가 없으면 단순성을 위해 일반 오브젝트를 사용합니다.
 
-The task may seem simple, but it isn't. The engine knows the current object `this`, so it could get the parent `method` as `this.__proto__.method`. Unfortunately, such a "naive" solution won't work.
-
-Let's demonstrate the problem. Without classes, using plain objects for the sake of simplicity.
-
-You may skip this part and go below to the `[[HomeObject]]` subsection if you don't want to know the details. That won't harm. Or read on if you're interested in understanding things in-depth.
-
-In the example below, `rabbit.__proto__ = animal`. Now let's try: in `rabbit.eat()` we'll call `animal.eat()`, using `this.__proto__`:
+아래 `rabbit .__ proto__ = animal` 예시를 보면, `rabbit.eat ()`에서`this .__ proto__`를 사용하여`animal.eat ()`를 호출하는 것을 시도합니다.
 
 ```js run
 let animal = {
@@ -339,7 +331,7 @@ let rabbit = {
   name: "Rabbit",
   eat() {
 *!*
-    // that's how super.eat() could presumably work
+    // super.eat() 이 작동할 수 있는 방법일 것입니다
     this.__proto__.eat.call(this); // (*)
 */!*
   }
@@ -348,11 +340,11 @@ let rabbit = {
 rabbit.eat(); // Rabbit eats.
 ```
 
-At the line `(*)` we take `eat` from the prototype (`animal`) and call it in the context of the current object. Please note that `.call(this)` is important here, because a simple `this.__proto__.eat()` would execute parent `eat` in the context of the prototype, not the current object.
+`(*)`줄에서는 prototype (`animal`)에서`eat`을 가져와서 현재 객체의 컨텍스트에서 호출합니다. 간단한`this .__ proto __. eat ()`은 현재 객체가 아니라 프로토타입의 맥락에서 부모의 `eat` 을 실행할 것이기 때문에 `.call (this)`이 중요하게 사용되었습니다.
 
-And in the code above it actually works as intended: we have the correct `alert`.
+그래서 위의 코드는 실제 의도 한 대로 작동합니다. `경고` 문구가 올바르게 출력됩니다.
 
-Now let's add one more object to the chain. We'll see how things break:
+이제 하나의 객체를 체인에 추가해 봅시다. 상황이 어떻게 잘못되는지 볼 수 있습니다.
 
 ```js run
 let animal = {
@@ -365,7 +357,7 @@ let animal = {
 let rabbit = {
   __proto__: animal,
   eat() {
-    // ...bounce around rabbit-style and call parent (animal) method
+    // ...rabbit-style 로 바운싱해서 부모(animal)의 메서드를 호출
     this.__proto__.eat.call(this); // (*)
   }
 };
@@ -373,59 +365,59 @@ let rabbit = {
 let longEar = {
   __proto__: rabbit,
   eat() {
-    // ...do something with long ears and call parent (rabbit) method
+    // ...long ears 에서 부모(rabbit)의 메서드를 호출
     this.__proto__.eat.call(this); // (**)
   }
 };
 
 *!*
-longEar.eat(); // Error: Maximum call stack size exceeded
+longEar.eat(); // 에러: 최대 호출 스택 크기를 초과했습니다.
 */!*
 ```
 
-The code doesn't work anymore! We can see the error trying to call `longEar.eat()`.
+코드가 이제는 작동하지 않습니다! `longEar.eat ()`를 호출하는 동안 오류를 볼 수 있습니다.
 
-It may be not that obvious, but if we trace `longEar.eat()` call, then we can see why. In both lines `(*)` and `(**)` the value of `this` is the current object (`longEar`). That's essential: all object methods get the current object as `this`, not a prototype or something.
+정확하게 보이지 않을 수도 있습니다만 `longEar.eat ()` 호출을 추적하면 그 이유를 알 수 있습니다. `(*)` 와 `(**)` 두 줄에서 `this`의 값은 현재 객체 (`longEar`)입니다. 이것은 필수입니다. 그래서 모든 객체 메서드는 현재의 객체를 프로토타입이나 무언가가 아닌 `this`로 얻습니다.
 
-So, in both lines `(*)` and `(**)` the value of `this.__proto__` is exactly the same: `rabbit`. They both call `rabbit.eat` without going up the chain in the endless loop.
+그래서`(*)`와`(**)`두 줄에서 `this .__ proto__` 의 값은 정확히 `rabbit`으로 동일합니다. 그래서 둘 다 무한 루프속에서 `rabbit.eat`을 호출하려고 합니다.
 
-Here's the picture of what happens:
+아래 그림에서 무슨 일이 일어나고 있는지 이해를 도와줄 것입니다.
 
 ![](this-super-loop.svg)
 
-1. Inside `longEar.eat()`, the line `(**)` calls `rabbit.eat` providing it with `this=longEar`.
+1. `longEar.eat ()` 내부에서 `(**)` 는 `this = longEar` 를 가지고 있는 `rabbit.eat` 을 호출합니다.
     ```js
-    // inside longEar.eat() we have this = longEar
+    // longEar.eat() 내부에서는 this = longEar 입니다
     this.__proto__.eat.call(this) // (**)
-    // becomes
+    // 위의 코드는 다음과 같고
     longEar.__proto__.eat.call(this)
-    // that is
+    // longEar의 prototype은 rabbit이므로 이렇게 되는 것을 의미합니다
     rabbit.eat.call(this);
     ```
-2. Then in the line `(*)` of `rabbit.eat`, we'd like to pass the call even higher in the chain, but `this=longEar`, so `this.__proto__.eat` is again `rabbit.eat`!
+2. 그런 다음`rabbit.eat`의`(*)`줄에서 더 위 단계에 호출을 전달하려고 합니다. 그러나 `this = longEar` 이므로 `this .__ proto __. eat` 은 다시 `rabbit.eat` 입니다!
 
     ```js
-    // inside rabbit.eat() we also have this = longEar
+    // rabbit.eat() 내부에서 다시 this = longEar 입니다
     this.__proto__.eat.call(this) // (*)
-    // becomes
+    // 다음과 같고
     longEar.__proto__.eat.call(this)
-    // or (again)
+    // 또는 (또다시) 이렇게 됩니다
     rabbit.eat.call(this);
     ```
 
-3. ...So `rabbit.eat` calls itself in the endless loop, because it can't ascend any further.
+3. ...그래서 `rabbit.eat` 은 더는 올라가서 호출할 수가 없어 스스로들 부르기 때문에 무한 루프가 됩니다.
 
-The problem can't be solved by using `this` alone.
+이런 문제는 `this`를 독립적으로 사용해서는 해결할 수 없습니다.
 
 ### `[[HomeObject]]`
 
-To provide the solution, JavaScript adds one more special internal property for functions: `[[HomeObject]]`.
+해결책을 제공하기 위해 자바스크립트는 함수를 위한 `[[HomeObject]]`라는 하나의 특별한 내부 속성을 추가합니다.
 
-When a function is specified as a class or object method, its `[[HomeObject]]` property becomes that object.
+함수가 클래스 나 객체 메서드로 지정되면, 그것의 [[HomeObject]] 속성은 그 객체가 됩니다.
 
-Then `super` uses it to resolve the parent prototype and its methods.
+그런 다음 `super` 는 [[HomeObject]]를 사용하여 부모 프로토타입과 그 메소드를 결정합니다.
 
-Let's see how it works, first with plain objects:
+먼저 일반 객체로 어떻게 작동하는지 살펴보겠습니다.
 
 ```js run
 let animal = {
@@ -452,22 +444,22 @@ let longEar = {
 };
 
 *!*
-// works correctly
+// 올바르게 작동합니다
 longEar.eat();  // Long Ear eats.
 */!*
 ```
 
-It works as intended, due to `[[HomeObject]]` mechanics. A method, such as `longEar.eat`, knows its `[[HomeObject]]` and takes the parent method from its prototype. Without any use of `this`.
+`[[HomeObject]]`의 메커니즘 때문에 의도한 대로 작동합니다. `longEar.eat` 과 같은 메서드는 그것의 [[HomeObject]]를 알고 프로토타입으로부터 부모 메서드를 취합니다. `this`를 사용하지 않고도 말이죠.
 
-### Methods are not "free"
+### "자유"롭지 않은 메서드
 
-As we've known before, generally functions are "free", not bound to objects in JavaScript. So they can be copied between objects and called with another `this`.
+이전에 알려진 것처럼 일반적으로 함수는 "자유"이며 자바스크립트의 객체에 바인딩 되지 않습니다. 그래서 함수들은 객체 간에 복사될 수 있고 또 다른 `this` 로 호출될 수 있습니다.
 
-The very existance of `[[HomeObject]]` violates that principle, because methods remember their objects. `[[HomeObject]]` can't be changed, so this bond is forever.
+`[[HomeObject]]`의 존재는 메서드가 객체를 기억하기 때문에 위와 같은 원리를 위반합니다. `[[HomeObject]]`는 변경할 수 없음으로 함수와 객체 간의 유대감은 영원합니다.
 
-The only place in the language where `[[HomeObject]]` is used -- is `super`. So, if a method does not use `super`, then we can still consider it free and copy between objects. But with `super` things may go wrong.
+`[[HomeObject]]`가 사용되는 언어의 유일한 장소는 `super` 입니다. 따라서 메서드가 `super` 를 사용하지 않는다면, 여전히 함수들을 자유롭게 다룰 수 있고 객체들 사이에서 복사 할 수 있습니다. 하지만 `super`로도 상황이 잘못될 수 있습니다.
 
-Here's the demo of a wrong `super` result after copying:
+다음은 잘못된 `super`의 사용예시입니다.
 
 ```js run
 let animal = {
@@ -503,28 +495,26 @@ tree.sayHi();  // I'm an animal (?!?)
 */!*
 ```
 
-A call to `tree.sayHi()` shows "I'm an animal". Definitevely wrong.
+`tree.sayHi()`를 호출하면 "I'm an animal"을 출력합니다. 이것은 확실히 잘못된 결과입니다.
 
-The reason is simple:
-- In the line `(*)`, the method `tree.sayHi` was copied from `rabbit`. Maybe we just wanted to avoid code duplication?
-- Its `[[HomeObject]]` is `rabbit`, as it was created in `rabbit`. There's no way to change `[[HomeObject]]`.
-- The code of `tree.sayHi()` has `super.sayHi()` inside. It goes up from `rabbit` and takes the method from `animal`.
-
-Here's the diagram of what happens:
+잘못된 결과가 나온 이유는 간단합니다.
+- `(*)` 줄에서 `tree.sayHi` 메소드는`rabbit` 에서 복사되었습니다. 어쩌면 단지 코드 중복을 피하고 싶었던 걸까요?
+- 그래서 tree 객체의 `[[HomeObject]]`는 rabbit 안에 만들어 졌기 때문에 `rabbit`입니다. `[[HomeObject]]`를 ​​변경할 방법은 없습니다.
+- `tree.sayHi()` 의 코드는 `super.sayHi()` 를 내부에 가지고 있습니다. `rabbit`에서 부모객체인 `animal` 에서 가져온 것이죠.
 
 ![](super-homeobject-wrong.svg)
 
-### Methods, not function properties
+### 메서드는 함수의 프로퍼티가 아닙니다
 
-`[[HomeObject]]` is defined for methods both in classes and in plain objects. But for objects, methods must be specified exactly as `method()`, not as `"method: function()"`.
+`[[HomeObject]]`는 클래스와 일반 객체 모두에서 메서드에 대해 정의됩니다. 그러나 객체의 경우, 메서드는 `method ()` 처럼 정확히 지정되어야 합니다. 예를 들면 `"메서드: function () "`같이 말이죠.
 
-The difference may be non-essential for us, but it's important for JavaScript.
+이러한 차이는 필수는 아니지만, 자바스크립트에서는 중요합니다.
 
-In the example below a non-method syntax is used for comparison. `[[HomeObject]]` property is not set and the inheritance doesn't work:
+아래 예제에서는 비 메서드 구문을 사용하여 비교해 보겠습니다. `[[HomeObject]]`프로퍼티로 설정되지 않고 상속되지 않습니다.
 
 ```js run
 let animal = {
-  eat: function() { // intentially writing like this instead of eat() {...
+  eat: function() { // 짧은 문법으로는 eat() {...} 이 되어야 합니다
     // ...
   }
 };
@@ -537,21 +527,21 @@ let rabbit = {
 };
 
 *!*
-rabbit.eat();  // Error calling super (because there's no [[HomeObject]])
+rabbit.eat();  // super 호출 에러 (왜냐하면 [[HomeObject]]가 없기 때문입니다)
 */!*
 ```
 
-## Summary
+## 요약
 
-1. To extend a class: `class Child extends Parent`:
-    - That means `Child.prototype.__proto__` will be `Parent.prototype`, so methods are inherited.
-2. When overriding a constructor:
-    - We must call parent constructor as `super()` in `Child` constructor before using `this`.
-3. When overriding another method:
-    - We can use `super.method()` in a `Child` method to call `Parent` method.
-4. Internals:
-    - Methods remember their class/object in the internal `[[HomeObject]]` property. That's how `super` resolves parent methods.
-    - So it's not safe to copy a method with `super` from one object to another.
+1. 클래스를 확장하는 법: `class Child extends Parent`
+    - 이 문법은 `Child.prototype.__proto__`이 `Parent.prototype`되는 것을 의미하기 때문에 매서드들이 상속된다.
+2. 생성자를 오버라이딩 할 때는
+    - 부모의 생성자를 `super()`로 `this`가 사용되기 전에 `자식`의 생성자 안에서 호출해야 한다.
+3. 다른 메서드를 오버라이딩 할 때는
+    - `부모`의 메서드를 호출할 때 `super.method()`로 `자식` 안에서 사용할 수 있다.  
+4. Internals
+    - 메서드는 내부 `[[HomeObject]]` 프로퍼티에 그것의 클래스와 오브젝트를 기억한다. `[[HomeObject]]`는 어떻게 `super`가 부모 메서드들을 호출할 수 있게 하는가에 대한 문제를 해결하는 방법이다.
+    - 그래서 메서드를 `super`와 함께 한 객체에서 다른 객체로 복사하는 것은 안전하지 않다.
 
-Also:
-- Arrow functions don't have own `this` or `super`, so they transparently fit into the surrounding context.
+또한,
+- 화살표 함수들은 자신의 `this`나 `super`를 가지고 있지 않다. 그래서 주변 컨텍스트에 영향없이 투명하게 사용할 수 있다.
