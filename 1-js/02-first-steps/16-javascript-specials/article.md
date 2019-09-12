@@ -1,4 +1,4 @@
-# 기본 기능 톺아보기
+# 기초 문법 요약
 
 지금까지 배운 내용을 다시 떠올리고 요약해봅시다. 외우기 쉽지 않아 자칫하면 실수할 수 있는 부분을 중심으로 요약해 보도록 하겠습니다.
 
@@ -194,7 +194,7 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
     ```
 
 - `for(let...)` 안쪽에 선언한 변수는 오직 반복문 내에서만 사용할 수 있습니다. `let`을 생략하고 기존에 선언되어있는 변수를 사용하는 것도 가능합니다.
-- Directives `break/continue` allow to exit the whole loop/current iteration. Use labels to break nested loops.
+- 지시자 `break`나 `continue`는 반복문 전체나 현재 실행 중인 반복을 빠져나가는 데 사용됩니다. 레이블은 중첩 반복문을 빠져나갈 때 사용합니다.
 
 자세한 내용은 <info:while-for>에서 살펴보시기 바랍니다.
 
