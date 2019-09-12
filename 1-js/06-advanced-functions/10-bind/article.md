@@ -3,7 +3,7 @@ libs:
 
 ---
 
-# 함수 바인딩(Function binding)
+# 함수 바인딩
 
 When passing object methods as callbacks, for instance to `setTimeout`, there's a known problem: "losing `this`".
 
