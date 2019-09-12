@@ -411,7 +411,7 @@ checkPermission(..) // 승인 여부를 확인하고 true나 false를 반환함
 
 같은 동작을 하는 함수, `showPrimes(n)`를 두 개 만들어 비교해 봅시다. `showPrimes(n)`은 `n`까지의 [소수(prime numbers)](https://en.wikipedia.org/wiki/Prime_number)를 출력해줍니다.
 
-첫 번째 `showPrimes(n)`에선 라벨을 사용해 반복문을 작성해보았습니다.
+첫 번째 `showPrimes(n)`에선 레이블을 사용해 반복문을 작성해보았습니다.
 
 ```js
 function showPrimes(n) {
