@@ -4,9 +4,9 @@ importance: 5
 
 # Error creating an instance
 
-Here's the code with `Rabbit` extending `Animal`.
+아래에 Animal 클래스를 상속하는 Rabbit 코드가 있습니다.
 
-Unfortunately, `Rabbit` objects can't be created. What's wrong? Fix it.
+아직은 Rabbit 객체를 생성할 수 없습니다. 무엇이 잘못된 것일까요? 코드를 수정해보세요.
 ```js run
 class Animal {
 
@@ -24,7 +24,7 @@ class Rabbit extends Animal {
 }
 
 *!*
-let rabbit = new Rabbit("White Rabbit"); // Error: this is not defined
+let rabbit = new Rabbit("White Rabbit"); // 에러: 정의되지 않음
 */!*
 alert(rabbit.name);
 ```
