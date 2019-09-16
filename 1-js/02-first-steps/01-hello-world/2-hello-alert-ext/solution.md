@@ -1,8 +1,7 @@
-The HTML code:
+HTML 코드:
 
 [html src="index.html"]
 
-For the file `alert.js` in the same folder:
+동일한 폴더에 있는 "alert.js" 파일의 경우
 
 [js src="alert.js"]
-
