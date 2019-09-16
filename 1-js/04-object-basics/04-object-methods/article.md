@@ -60,8 +60,13 @@ user.sayHi = sayHi;
 user.sayHi(); // 안녕하세요!
 ```
 
+<<<<<<< HEAD
 ```smart header="객체 지향 프로그래밍"
 객체를 사용하여 개체를 표현하는 방식을 [객체 지향 프로그래밍(object-oriented programming, OOP)](https://en.wikipedia.org/wiki/Object-oriented_programming) 이라 부릅니다.
+=======
+```smart header="Object-oriented programming"
+When we write our code using objects to represent entities, that's called [object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming), in short: "OOP".
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 OOP는 그 자체만으로도 학문의 분야를 만드는 중요한 주제입니다. 올바른 개체를 선택하는 방법, 개체 사이의 상호작용을 나타내는 방법 등에 관한 의사결정은 (객체 지향) 설계를 기반으로 이뤄집니다. 관련 추천도서로는 에릭 감마의 "GoF의 디자인 패턴", 그래디 부치의 "UML을 활용한 객체지향 분석 설계" 등이 있습니다.
 ```
@@ -228,9 +233,15 @@ sayHi(); // undefined
 
 자바스크립트에서 `this`는 런타임에 결정됩니다. 메서드가 어디서 정의되었는지에 상관없이 `this`는 "점 앞의" 객체가 무엇인가에 따라 "자유롭게" 결정됩니다.
 
+<<<<<<< HEAD
 이렇게 `this`가 런타임에 결정되면 좋은 점도 있고 나쁜 점도 있습니다. 함수(메서드)를 하나만 만들어 여러 객체에서 재사용할 수 있다는 것은 장점이지만, 이런 유연함이 실수로 이어질 수 있다는 것은 단점입니다.
 
 자바스크립트가 this를 다루는 방식이 좋은지, 나쁜지는 우리가 판단할 문제가 아닙니다. 개발자는 this의 동작 방식을 충분히 이해하고, 장점을 취하면서 실수를 피하는 데만 집중하면 됩니다. 
+=======
+The concept of run-time evaluated `this` has both pluses and minuses. On the one hand, a function can be reused for different objects. On the other hand, the greater flexibility creates more possibilities for mistakes.
+
+Here our position is not to judge whether this language design decision is good or bad. We'll understand how to work with it, how to get benefits and avoid problems.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 ```
 
 ## 참조 타입

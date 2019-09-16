@@ -275,7 +275,7 @@ let User = user.default; // the default export
 new User('John');
 ```
 
-### A word agains default exports
+### A word against default exports
 
 named export는 내보냈을 때 이름을 그대로 사용해 가져와야 합니다. 변경의 여지가 없죠. 
 

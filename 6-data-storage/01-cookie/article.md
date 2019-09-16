@@ -6,9 +6,15 @@
 
 쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
+<<<<<<< HEAD
 1. 사용자가 로그인하면, 서버는 HTTP 응답 헤더의 `Set-Cookie`에 "세션 ID(session identifier)" 정보를 담아 브라우저에 전달합니다.
 2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고윳값(세션 ID)을 담아 서버에 요청을 보냅니다.
 3. 서버는 브라우저가 보낸 요청 헤더의 세션 ID를 읽어 사용자를 식별합니다.
+=======
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is set to the same domain, the browser sends the cookie over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 

@@ -347,6 +347,7 @@ Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 �
 
 빌드 툴의 역할은 아래와 같습니다.
 
+<<<<<<< HEAD
 1. HTML의 `<script type="module">`에 넣을 "주요" 모듈("진입점" 역할을 하는 모듈)을 선택합니다. 
 2. "주요" 모듈에 의존하고 있는 모듈 분석을 시작으로 모듈 간의 의존 관계를 파악합니다.
 3. 모듈 전체를 한데 모아 하나의 큰 파일을 만듭니다(설정에 따라 여러 개의 파일을 만드는 것도 가능합니다). 이 과정에서 `import`문이 번들러 내 함수로 대체되므로 기존 기능은 그대로 유지됩니다.
@@ -356,6 +357,17 @@ Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 �
     - `console`, `debugger` 같은 개발 관련 코드가 삭제됩니다.
     - 최신 자바스크립트 문법이 사용된 경우 [바벨(Babel)](https://babeljs.io/)을 사용하여 같은 기능을 하는 낮은 버전의 스크립트로 변환합니다.
     - 공백 제거, 변수 이름 줄이기 등으로 산출물의 크기를 줄입니다.
+=======
+1. Take a "main" module, the one intended to be put in `<script type="module">` in HTML.
+2. Analyze its dependencies: imports and then imports of imports etc.
+3. Build a single file with all modules (or multiple files, that's tunable), replacing native `import` calls with bundler functions, so that it works. "Special" module types like HTML/CSS modules are also supported.
+4. In the process, other transforms and optimizations may be applied:
+    - Unreachable code removed.
+    - Unused exports removed ("tree-shaking").
+    - Development-specific statements like `console` and `debugger` removed.
+    - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
+    - The resulting file is minified (spaces removed, variables replaced with shorter names, etc).
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 번들링 툴을 사용하면 스크립트들은 하나 혹은 여러 개의 파일로 번들링 됩니다. 이때 번들링 전 스크립트에 있던 `import/export`문은 특별한 번들러 함수로 대체됩니다. 번들링 과정이 끝나면 기존 스크립트에서 `import/export`가 사라지기 때문에 `type="module"`이 필요 없어집니다. 따라서 아래와 같이 번들링 과정을 거친 스크립트는 일반 스크립트처럼 취급할 수 있습니다. 
 

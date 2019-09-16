@@ -4,7 +4,11 @@
 
 화살표 함수들은 단지 "짧게 쓰기 위한" 것이 아닙니다. 화살표 함수는 몇가지 독특하고 유용한 기능을 제공합니다.
 
+<<<<<<< HEAD
 자바스크립트는 다른 곳에서 실행되는 작은 함수를 써야 하는 상황이 잦습니다. 
+=======
+JavaScript is full of situations where we need to write a small function that's executed somewhere else.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 예시 :
 

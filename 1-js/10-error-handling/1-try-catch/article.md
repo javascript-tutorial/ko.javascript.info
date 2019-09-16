@@ -1,6 +1,10 @@
 # "try..catch"로 에러 핸들링하기
 
+<<<<<<< HEAD
 아무리 프로그래밍에 능한 사람이더라도 에러가 있는 스크립트를 작성할 수 있습니다. 원인은 아마도 실수, 예상치 못한 사용자 입력, 잘못된 서버 응답 등의 수천만 가지 이유 때문일 겁니다.
+=======
+No matter how great we are at programming, sometimes our scripts have errors. They may occur because of our mistakes, an unexpected user input, an erroneous server response and for a thousand other reasons.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 에러가 발생하면 스크립트는 "죽고" (즉시 중단되고), 콘솔에 에러가 출력됩니다.
 

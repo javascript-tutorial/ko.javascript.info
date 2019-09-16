@@ -328,8 +328,13 @@ welcome(); // Hello, Guest (중첩함수가 작동합니다)
 
 외부코드는 아직도 `sayHi` 또는 `welcome` 변수를 가지고 있습니다. 그리고 `func` 이 내부 함수 이름입니다. 어떻게 함수가 자신을 내부에서 부를 수 있을까요.
 
+<<<<<<< HEAD
 ```smart header="함수 선언과는 관련이 없습니다"
 "내부 이름" 기능은 함수 선언가 아니라 오직 함수 표현 식에서만 가능합니다. 함수를 정의할 때는 내부 이름을 명시할 문법은 존재하지 않습니다.
+=======
+```smart header="There's no such thing for Function Declaration"
+The "internal name" feature described here is only available for Function Expressions, not for Function Declarations. For Function Declarations, there is no syntax for adding an "internal" name.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
 
 가끔, 내부이름이 필요할 때 함수 선언를 명시된 함수표현 식으로 다시 작성할 뿐입니다.
 ```

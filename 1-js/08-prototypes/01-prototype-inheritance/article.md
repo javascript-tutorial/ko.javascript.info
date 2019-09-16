@@ -308,9 +308,9 @@ Here we have the following inheritance chain: `rabbit` inherits from `animal`, t
 
 Note, there's one funny thing. Where is the method `rabbit.hasOwnProperty` coming from? We did not define it. Looking at the chain we can see that the method is provided by `Object.prototype.hasOwnProperty`. In other words, it's inherited.
 
-...But why `hasOwnProperty` does not appear in `for..in` loop, like `eats` and `jumps`, if it lists all inherited properties.
+...But why does `hasOwnProperty` not appear in the `for..in` loop like `eats` and `jumps` do, if `for..in` lists inherited properties?
 
-The answer is simple: it's not enumerable. Just like all other properties of `Object.prototype`, it has `enumerable:false` flag. That's why they are not listed.
+The answer is simple: it's not enumerable. Just like all other properties of `Object.prototype`, it has `enumerable:false` flag. And `for..in` only lists enumerable properties. That's why it and the rest of the `Object.prototype` properties are not listed.
 
 ```smart header="Almost all other key/value-getting methods ignore inherited properties"
 Almost all other key/value-getting methods, such as `Object.keys`, `Object.values` and so on ignore inherited properties.
@@ -320,6 +320,7 @@ They only operate on the object itself. Properties from the prototype are *not* 
 
 ## Summary
 
+<<<<<<< HEAD
 - 자바스크립트에서, 모든 객체는 숨겨진 `[[Prototype]]`속성을 갖는다. 그리고 이 속성은 객체이거나 `null`이다.
 - `obj.__proto__`를 사용하여 이 속성에 접근할 수 있다(다른 방법도 있습니다. 나중에 다루도록 하죠).
 - `[[Prototype]]`에 의해 참조되는 객체를 "원형"이라고 합니다.
@@ -327,3 +328,12 @@ They only operate on the object itself. Properties from the prototype are *not* 
 - Write/delete operations for act directly on the object, they don't use the prototype (assuming it's a data property, not is a setter).
 - 만약 `obj.method()`를 호출한다면, 그리고 `method`가 원형으로부터 가져온다면, `this`는 여전히 `obj`를 가리킵니다. 그래서 설사 상속되었다고 해도 메서드들을 언제나 현재 객체에 적용될 것입니다.
 - The `for..in` loop iterates over both own and inherited properties. All other key/value-getting methods only operate on the object itself.
+=======
+- In JavaScript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
+- We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
+- The object referenced by `[[Prototype]]` is called a "prototype".
+- If we want to read a property of `obj` or call a method, and it doesn't exist, then JavaScript tries to find it in the prototype.
+- Write/delete operations act directly on the object, they don't use the prototype (assuming it's a data property, not a setter).
+- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.
+- The `for..in` loop iterates over both its own and its inherited properties. All other key/value-getting methods only operate on the object itself.
+>>>>>>> 646989dd470395510e1006c220e05e85a06eb78a
