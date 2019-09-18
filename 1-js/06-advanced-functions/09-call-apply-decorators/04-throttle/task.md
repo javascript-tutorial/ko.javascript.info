@@ -2,47 +2,47 @@ importance: 5
 
 ---
 
-# Throttle decorator
+# Throttle 데코레이터
 
-Create a "throttling" decorator `throttle(f, ms)` -- that returns a wrapper, passing the call to `f` at maximum once per `ms` milliseconds. Those calls that fall into the "cooldown" period, are ignored.
+"throttling" 데코레이터라는 `ms` 밀리초가 지난 후 호출을 `f`로 보내는 래퍼를 반환하는 `throttle(f, ms)`를 만들어 봅시다. "cooldown" 시간이 지나면 호출은 무시될 것입니다.
 
-**The difference with `debounce` -- if an ignored call is the last during the cooldown, then it executes at the end of the delay.**
+**`debounce`와의 차이점은 cooldown 중에 무시된 호출이 마지막이면 지연이 끝날 때 실행됩니다.**
 
-Let's check the real-life application to better understand that requirement and to see where it comes from.
+실제 응용 프로그램을 확인하여 해당 요구 사항을 더 잘 이해하고 어디에서 왔는지 확인합시다.
 
-**For instance, we want to track mouse movements.**
+**예를 들어 마우스 움직임을 추적하려고 합니다.**
 
-In browser we can setup a function to run at every mouse movement and get the pointer location as it moves. During an active mouse usage, this function usually runs very frequently, can be something like 100 times per second (every 10 ms).
+브라우저에서 우리는 모든 마우스 움직임에서 실행되고 포인터가 움직일 때 포인터 위치를 얻는 기능을 설정할 수 있습니다. 마우스를 사용하는 동안 이 기능은 일반적으로 매우 자주 실행되며 초당 100회 (매 10ms) 정도일 수 있습니다.
 
-**We'd like to update some information on the web-page when the pointer moves.**
+**포인터가 움직일 때 웹 페이지의 일부 정보를 업데이트하려고 합니다.**
 
-...But updating function `update()` is too heavy to do it on every micro-movement. There is also no sense in updating more often than once per 100ms.
+...그런데 `update()`라는 함수가 미세한 움직임에 매번 업데이트하기에는 너무 무거워 보입니다. 100ms에 한번 보다 더 업데이트하는 건 무의미해 보입니다.
 
-So we'll wrap it into the decorator: use `throttle(update, 100)` as the function to run on each mouse move instead of the original `update()`. The decorator will be called often, but forward the call to `update()` at maximum once per 100ms.
+그래서 원래의 `update()` 함수 대신에 매번 마우스를 움직일 때마다 동작하는 `throttle(update, 100)` 데코레이터를 `update()` 함수에 적용해보겠습니다. 이 데코레이터는 자주 호출되지만 `update()`로의 호출 전달을 최대 100ms에 한 번만 하게 될 것입니다.
 
-Visually, it will look like this:
+시각적으로 다음과 같습니다.
 
-1. For the first mouse movement the decorated variant immediately passes the call to `update`. That's important, the user sees our reaction to their move immediately.
-2. Then as the mouse moves on, until `100ms` nothing happens. The decorated variant ignores calls.
-3. At the end of `100ms` -- one more `update` happens with the last coordinates.
-4. Then, finally, the mouse stops somewhere. The decorated variant waits until `100ms` expire and then runs `update` with last coordinates. So, quite important, the final mouse coordinates are processed.
+1. 첫 번째 마우스 이동의 경우 데코레이터 함수는 즉시 `update` 호출을 전달합니다. 중요한 것은 사용자가 자신의 움직임에 대한 반응을 즉시 볼 수 있다는 것입니다.
+2. 마우스가 움직일 때 `100ms`까지 아무 일도 일어나지 않습니다. 데코레이터 함수는 호출을 무시합니다.
+3. `100ms`의 마지막에서 마지막 좌표로 `update`함수 호출이 한번더 발생합니다.
+4. 마지막으로 마우스가 어딘가에서 멈춥니다. 데코레이터 함수는 `100ms`가 지날 때까지 기다렸다가 마지막 좌표로 `update` 함수를 실행합니다. 그리고 마지막으로 최종 마우스 좌표가 처리됩니다.
 
-A code example:
+코드 예시
 
 ```js
 function f(a) {
   console.log(a)
 };
 
-// f1000 passes calls to f at maximum once per 1000 ms
+// f1000 함수는 f함수에 호출을 최대 1000ms에 한번 전달합니다.
 let f1000 = throttle(f, 1000);
 
-f1000(1); // shows 1
-f1000(2); // (throttling, 1000ms not out yet)
-f1000(3); // (throttling, 1000ms not out yet)
+f1000(1); // 1을 보여줍니다.
+f1000(2); // (throttling, 1000ms 가 아직 아닙니다.)
+f1000(3); // (throttling, 1000ms 가 아직 아닙니다.)
 
-// when 1000 ms time out...
-// ...outputs 3, intermediate value 2 was ignored
+// 1000 ms 가 지나면...
+// ...3을 출력하고, 중간값 2는 무시될 것입니다.
 ```
 
-P.S. Arguments and the context `this` passed to `f1000` should be passed to the original `f`.
+P.S. `f1000`함수로 전달되는 인수와 컨텍스트 `this`는 원래의 `f`함수로 전달되어야 합니다.
