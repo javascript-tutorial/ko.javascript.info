@@ -1,1 +1,1 @@
-The wrapper returned by `spy(f)` should store all arguments and then use `f.apply` to forward the call.
+`spy(f)`에 의해 반환 된 래퍼는 모든 인수를 저장 한 다음 `f.apply`를 사용하여 호출을 전달해야 합니다.
