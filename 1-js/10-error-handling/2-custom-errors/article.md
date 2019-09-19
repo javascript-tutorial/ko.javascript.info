@@ -2,7 +2,7 @@
 
 무언가 개발할 때, 종종 작업에서 잘못될 수 있는 특정한 것들을 반영하기 위해 자체적인 에러 클래스들이 필요합니다. 네트워크 동작시 에러들에 대해 `HttpError`, 데이터베이스 동작시에 `DbError`, 검색 동작시에 `NotFoundError` 등등이 필요할 수 있습니다.
 
-우리의 에러는 `message`, `name` 같은 기본적인 에러 속성을 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 속성들도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 속성으로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
+우리의 에러는 `message`, `name` 같은 기본적인 에러 프로퍼티를 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 프로퍼티들도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 프로퍼티로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
 
 자바스크립트는 `throw` 를 아무 인수와 함께 사용할 수 있게 허용하므로, 기본적으로 커스텀 에러 클래스들은 `Error`를 상속할 필요가 없습니다. 그러나 상속을 하면 `obj instanceof Error`를 사용해서 에러 객체들을 식별하는 것이 가능해집니다. 따라서 상속받는 게 낫습니다.
 
@@ -17,7 +17,7 @@
 let json = `{ "name": "John", "age": 30 }`;
 ```
 
-내부적으로 우리는 `JSON.parse`를 이용할 것입니다. 틀린 `json`을 받으면, `SyntaxError`를 던집니다. 그러나 `json`이 문법적으로 맞다고 하더라도, 유효한 사용자라는 의미는 아닙니다, 그렇죠? 필수 데이터를 빠뜨렸을 수도 있습니다. 예를 들어, 사용자들에게 필수인 `name`과 `age` 속성이 없을 수도 있습니다.
+내부적으로 우리는 `JSON.parse`를 이용할 것입니다. 틀린 `json`을 받으면, `SyntaxError`를 던집니다. 그러나 `json`이 문법적으로 맞다고 하더라도, 유효한 사용자라는 의미는 아닙니다, 그렇죠? 필수 데이터를 빠뜨렸을 수도 있습니다. 예를 들어, 사용자들에게 필수인 `name`과 `age` 프로퍼티가 없을 수도 있습니다.
 
 우리의 함수 `readUser(json)`는 JSON을 읽을뿐만 아니라, 데이터를 확인("검증")하기도 합니다. 필수 입력란이 없거나, 형식이 틀렸다면, 그것은 에러입니다. 그리고 데이터가 문법적으로 맞기 때문에 `SyntaxError`는 아니고, 다른 종류의 에러입니다. 이를 `ValidationError`라고 부를 것이고 이를 위한 클래스를 생성할 것입니다. 이런 종류의 에러는 또한 문제가 되는 필드에 대한 정보를 가지고 있어야 합니다.
 
@@ -61,9 +61,9 @@ try {
 }
 ```
 
-`(1)` 줄에서 부모 생성자를 호출하고 있다는 것에 주목하시기 바랍니다. 자바스크립트에서는 자식 생성자 안에서 `super`를 호출해야 하므로 이는 필수입니다. 부모 생성자는 `message` 속성을 설정합니다.
+`(1)` 줄에서 부모 생성자를 호출하고 있다는 것에 주목하시기 바랍니다. 자바스크립트에서는 자식 생성자 안에서 `super`를 호출해야 하므로 이는 필수입니다. 부모 생성자는 `message` 프로퍼티를 설정합니다.
 
-부모 생성자는 또한 `name` 속성울 `"Error"`로 설정하기 때문에, `(2)` 쥴에서 올바른 값으로 재설정합니다.
+부모 생성자는 또한 `name` 프로퍼티를 `"Error"`로 설정하기 때문에, `(2)` 쥴에서 올바른 값으로 재설정합니다.
 
 `readUser(json)` 안에서 이를 사용해 봅시다.
 
@@ -125,7 +125,7 @@ try {
 
 ## 더 깊게 상속하기
 
-`ValidationError` 클래스는 너무 추상적입니다. 많은 것들이 잘못될 수 있습니다. 속성이 없거나 잘못된 형식(가령 `age`에 문자열 값이 들어가는 것처럼)으로 될 수 있습니다. 속성이 없는 바로 그 경우에 대해서 더 구체적인 클래스인 `PropertyRequiredError`를 만들어 봅시다. 누락된 속성에 대한 추가 정보를 담을 것입니다.
+`ValidationError` 클래스는 너무 추상적입니다. 많은 것들이 잘못될 수 있습니다. 프로퍼티가 없거나 잘못된 형식(가령 `age`에 문자열 값이 들어가는 것처럼)으로 될 수 있습니다. 프로퍼티가 없는 바로 그 경우에 대해서 더 구체적인 클래스인 `PropertyRequiredError`를 만들어 봅시다. 누락된 프로퍼티에 대한 추가 정보를 담을 것입니다.
 
 ```js run
 class ValidationError extends Error {
@@ -178,7 +178,7 @@ try {
 }
 ```
 
-새로운 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. 우리는 단지 속성 이름을 전달하기만 하면 됩니다. `new PropertyRequiredError(property)`. 사람이 읽기 쉬운 `message`는 생성자에 의해 생성됩니다.
+새로운 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. 우리는 단지 프로퍼티 이름을 전달하기만 하면 됩니다. `new PropertyRequiredError(property)`. 사람이 읽기 쉬운 `message`는 생성자에 의해 생성됩니다.
 
 Please note that `this.name` in `PropertyRequiredError` constructor is again assigned manually. That may become a bit tedious -- to assign `this.name = <class name>` in every custom error class. We can avoid it by making our own "basic error" class that assigns `this.name = this.constructor.name`. And then inherit all ours custom errors from it.
 
@@ -219,7 +219,7 @@ The code which calls `readUser` should handle these errors. Right now it uses mu
 
 보통 대답은 "아니요"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
 
-이런 오류들을 나타내는 새로운 `ReadError` 클래스를 만들어 봅시다. If an error occurs inside `readUser` 안에서 오류가 발생하면, 오류를 거기에서 잡아서 `ReadError`를 생성합니다. 우리는 또한  `cause` 속성에 실제 오류에 대한 참조도 보관할 것입니다. 그러면 바깥쪽 코드에서는 `ReadError`만 확인하면 됩니다..
+이런 오류들을 나타내는 새로운 `ReadError` 클래스를 만들어 봅시다. If an error occurs inside `readUser` 안에서 오류가 발생하면, 오류를 거기에서 잡아서 `ReadError`를 생성합니다. 우리는 또한  `cause` 프로퍼티에 실제 오류에 대한 참조도 보관할 것입니다. 그러면 바깥쪽 코드에서는 `ReadError`만 확인하면 됩니다..
 
 여기에 `ReadError`를 정의하고 `readUser`와 `try..catch` 안에서 쓰임을 시연하는 코드가 있습니다.
 
