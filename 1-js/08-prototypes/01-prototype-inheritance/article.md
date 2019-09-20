@@ -2,13 +2,13 @@
 
 우리는 종종 프로그래밍을 하다 보면 확장을 하기를 원합니다. 
 
-예를 들어, 메서드와 속성을 가지고 있는 `user`라는 객체를 가지고 있다고 해 봅시다. 그리고 우리는 이 객체에 살짝 변화를 주면서 `admin`과 `guest`를 추가하고 싶다고 해 봅시다. 우리는 메서드를 복사/구현하는 것이 아니라 `user`가 가지고 있는 것을 재사용하고 싶을 것입니다. 이 위에 새로운 객체를 만드는 것이죠. 
+예를 들어, 메서드와 프로퍼티를 가지고 있는 `user`라는 객체를 가지고 있다고 해 봅시다. 그리고 우리는 이 객체에 살짝 변화를 주면서 `admin`과 `guest`를 추가하고 싶다고 해 봅시다. 우리는 메서드를 복사/구현하는 것이 아니라 `user`가 가지고 있는 것을 재사용하고 싶을 것입니다. 이 위에 새로운 객체를 만드는 것이죠. 
 
 *원형 상속 Prototypal inheritance*은 바로 그것을 돕는 언어 특징입니다. 
 
 ## [[Prototype]]
 
-자바스크립트에서, 객체는 `[[Prototype]]`이라는 숨겨진 속성을 가지고 있습니다(specification에 명명되어 있듯이). 이 속성은 `null`이거나 다른 객체를 참조하고 있습니다. 그 객체가 바로 "원형"이라 불리는 객체입니다. 
+자바스크립트에서, 객체는 `[[Prototype]]`이라는 숨겨진 프로퍼티를 가지고 있습니다(specification에 명명되어 있듯이). 이 프로퍼티는 `null`이거나 다른 객체를 참조하고 있습니다. 그 객체가 바로 "원형"이라 불리는 객체입니다. 
 
 ![prototype](object-prototype-empty.svg)
 
@@ -39,7 +39,7 @@ It exists for historical reasons, in modern language it is replaced with functio
 By the specification, `__proto__` must only be supported by browsers, but in fact all environments including server-side support it. For now, as `__proto__` notation is a little bit more intuitively obvious, we'll use it in the examples.
 ```
 
-만약 우리가 `rabbit` 속성을 찾는다면, 그리고 그게 없다면, 자바스크립트는 자동으로 `animal`에서 그것을 찾을 것입니다.
+만약 우리가 `rabbit` 프로퍼티를 찾는다면, 그리고 그게 없다면, 자바스크립트는 자동으로 `animal`에서 그것을 찾을 것입니다.
 
 예를 들어:
 
@@ -64,13 +64,13 @@ alert( rabbit.jumps ); // true
 
 여기`(*)`가 표시된 줄에서 `animal`을 `rabbit`의 원형으로 설정하고 있습니다.
 
-이후, `alert`가 `(**)`에서 `rabbit.eats`속성을 읽으려 할 때, `rabbit`에서 읽지 않습니다. 즉, 자바스크립트는 `[[Prototype]]`을 따라가서 참조하고 `animal`에서 해당 속성을 찾아냅니다(이때 아래서부터 찾습니다).
+이후, `alert`가 `(**)`에서 `rabbit.eats`프로퍼티를 읽으려 할 때, `rabbit`에서 읽지 않습니다. 즉, 자바스크립트는 `[[Prototype]]`을 따라가서 참조하고 `animal`에서 해당 프로퍼티를 찾아냅니다(이때 아래서부터 찾습니다).
 
 ![](proto-animal-rabbit.svg)
 
 이것을 "`animal`은 `rabbit`의 원형이다"라고 하거나 "`rabbit`은 `animal`으로 부터 원형 상속을 한다."라고 할 수 있습니다.
 
-그래서 만약 `animal`이 많은 유용한 객체와 메서드를 가지고 있다면, `rabbit`에서 자동으로 사용할 수 있게 됩니다. 그런 속성들을 "상속됐다"라고 표현하죠.
+그래서 만약 `animal`이 많은 유용한 객체와 메서드를 가지고 있다면, `rabbit`에서 자동으로 사용할 수 있게 됩니다. 그런 프로퍼티들을 "상속됐다"라고 표현하죠.
 
 만약 우리가 `animal`에 어떤 메서드를 가지고 있다면, `rabbit`에서도 호출할 수 있습니다.
 
@@ -139,9 +139,9 @@ alert(longEar.jumps); // true (from rabbit)
 
 ## Writing doesn't use prototype
 
-원형은 오직 속성들을 읽는 데 사용합니다.
+원형은 오직 프로퍼티들을 읽는 데 사용합니다.
 
-getter/setter가 아닌 데이터 속성들을 쓰고/지우는 명령들은 객체에 직접 적용할 수 있습니다.
+getter/setter가 아닌 데이터 프로퍼티들을 쓰고/지우는 명령들은 객체에 직접 적용할 수 있습니다.
 
 아래 예제에서는, `walk`메서드를 `rabbit`에 할당하고 있습니다:
 
@@ -172,7 +172,7 @@ rabbit.walk(); // Rabbit! Bounce-bounce!
 
 Accessor properties are an exception, as assignment is handled by a setter function. So writing to such a property is actually the same as calling a function.
 
-예를 들어, 아래 코드에서 `admin.fullName`속성을 보시면:
+예를 들어, 아래 코드에서 `admin.fullName`프로퍼티를 보시면:
 
 ```js run
 let user = {
@@ -199,7 +199,7 @@ alert(admin.fullName); // John Smith (*)
 admin.fullName = "Alice Cooper"; // (**)
 ```
 
-여기 `(*)`라인의 `admin.fullName`속성은 `user`원형에서 getter를 가지고 있습니다, 그래서 호출된 것이죠. 그리고 `(**)`라인의 속성은 setter를 원형에 가지고 있습니다. 그렇기 때문에 호출된 것입니다.
+여기 `(*)`라인의 `admin.fullName`프로퍼티는 `user`원형에서 getter를 가지고 있습니다, 그래서 호출된 것이죠. 그리고 `(**)`라인의 프로퍼티는 setter를 원형에 가지고 있습니다. 그렇기 때문에 호출된 것입니다.
 
 ## "this" 값
 
