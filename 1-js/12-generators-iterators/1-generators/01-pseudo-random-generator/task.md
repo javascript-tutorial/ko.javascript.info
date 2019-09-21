@@ -1,29 +1,29 @@
 
-# Pseudo-random generator
+# 의사 난수 생성기
 
-There are many areas where we need random data.
+임의의 데이터가 필요한 영역이 많습니다.
 
-One of them is testing. We may need random data: text, numbers etc, to test things out well.
+그 중 하나는 테스팅입니다. 텍스트, 숫자 등 임의의 데이터가 필요할 수 있습니다.
 
-In JavaScript, we could use `Math.random()`. But if something goes wrong, we'd like to be able to repeat the test, using exactly the same data.
+자바스크립트에서는 `Math.random ()`을 사용할 수 있습니다. 그러나 문제가 발생하면 정확히 동일한 데이터를 사용하여 테스트를 반복할 수 있기를 원합니다.
 
-For that, so called "seeded pseudo-random generators" are used. They take a "seed", the first value, and then generate next ones using a formula. So that the same seed yields the same sequence, and hence the whole flow is easily reproducible. We only need to remember the seed to repeat it.
+이를 위해 이른바 "시드 의사 난수 생성기"가 사용됩니다. 첫 번째 값인 "시드"를 취한 다음, 공식을 사용하여 다음 값을 생성합니다. 동일한 시드가 동일한 결과를 생성하므로 전체 흐름을 쉽게 재현할 수 있습니다. 이를 반복하기위해 시드를 기억하기만 하면 됩니다.
 
-An example of such formula, that generates somewhat uniformly distributed values:
+다소 균일하게 분포된 값을 생성하는 공식의 예:
 
 ```
 next = previous * 16807 % 2147483647
 ```
 
-If we use `1` as the seed, the values will be:
+시드로 "1"을 사용하면 다음과 같습니다.
 1. `16807`
 2. `282475249`
 3. `1622650073`
 4. ...and so on...
 
-The task is to create a generator function `pseudoRandom(seed)` that takes `seed` and creates the generator with this formula.
+과제는 이 공식을 이용하여 생성기를 만들고 '시드'를 통해 생성기 함수인 '의사난수(시드)'를 만드는 것입니다.
 
-Usage example:
+예시:
 
 ```js
 let generator = pseudoRandom(1);
