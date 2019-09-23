@@ -2,10 +2,10 @@ importance: 4
 
 ---
 
-# Eval-calculator
+# Eval 계산기
 
-Create a calculator that prompts for an arithmetic expression and returns its result.
+산술 표현식을 입력받고 결과를 반환하는 계산기를 만들어봅시다.
 
-There's no need to check the expression for correctness in this task. Just evaluate and return the result.
+입력한 표현식이 정확한 지 확인할 필요는 없고, 결과를 평가하고 반환하기만 하면 됩니다.
 
 [demo]
