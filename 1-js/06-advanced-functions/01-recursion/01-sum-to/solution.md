@@ -1,4 +1,4 @@
-반복문 사용하기:
+반복문 사용하기
 
 ```js run
 function sumTo(n) {
@@ -12,7 +12,7 @@ function sumTo(n) {
 alert( sumTo(100) );
 ```
 
-재귀 사용하기:
+재귀 사용하기
 
 ```js run
 function sumTo(n) {
@@ -23,7 +23,7 @@ function sumTo(n) {
 alert( sumTo(100) );
 ```
 
-등차수열의 합공식 `sumTo(n) = n*(n+1)/2` 사용하기:
+등차수열의 합공식 `sumTo(n) = n*(n+1)/2` 사용하기
 
 ```js run
 function sumTo(n) {
