@@ -6,9 +6,33 @@
 
 ## document.getElementById 혹은 id를 사용해 요소 검색하기
 
+<<<<<<< HEAD
 요소에 `id` 속성이 있으면 `id` 속성값을 그대로 딴 전역 변수 하나가 만들어집니다.
 
 요소가 문서 내 어디 있든 상관없이 이 전역변수를 이용하면 요소에 즉시 접근할 수 있습니다.
+=======
+If an element has the `id` attribute, we can get the element using the method `document.getElementById(id)`, no matter where it is.
+
+For instance:
+
+```html run
+<div id="elem">
+  <div id="elem-content">Element</div>
+</div>
+
+<script>
+  // get the element
+*!*
+  let elem = document.getElementById('elem');
+*/!*
+
+  // make its background red
+  elem.style.background = 'red';
+</script>
+```
+
+Also, there's a global variable named by `id` that references the element:
+>>>>>>> 4d654318ccb6d37d6cefc9b859cf111ff3c96b27
 
 ```html run
 <div id="*!*elem*/!*">
@@ -16,6 +40,7 @@
 </div>
 
 <script>
+<<<<<<< HEAD
   alert(elem); // id 속성값이 "elem"인 DOM 요소를 출력합니다.
   alert(window.elem); // 전역 변수를 이용해 해당 요소에 접근할 수도 있습니다.
 
@@ -28,35 +53,45 @@
 `id`에 대응하는 전역변수는 [명세](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현한 것입니다. 이렇게 자바스크립트의 네임스페이스와 DOM을 구분하지 않는 방식은 개발자의 편의성을 도모하고, 하위 호환성을 위해 브라우저가 유지하고 있는 기능입니다. 그런데 이런 방식은 스크립트가 간단할 때는 괜찮지만, 스크립트가 복잡해지면 이름이 충돌한다는 단점이 있습니다. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
 
 아래와 같이, 동일한 이름을 가진 변수를 새로 선언하면 기존 전역 변수를 덮어쓴다는 부작용도 있습니다. 
+=======
+  // elem is a reference to DOM-element with id="elem"
+  elem.style.background = 'red';
+
+  // id="elem-content" has a hyphen inside, so it can't be a variable name
+  // ...but we can access it using square brackets: window['elem-content']
+</script>
+```
+
+...That's unless we declare a JavaScript variable with the same name, then it takes precedence:
+>>>>>>> 4d654318ccb6d37d6cefc9b859cf111ff3c96b27
 
 ```html run untrusted height=0
 <div id="elem"></div>
 
 <script>
-  let elem = 5;
+  let elem = 5; // now elem is 5, not a reference to <div id="elem">
 
   alert(elem); // 5
 </script>
 ```
 
+<<<<<<< HEAD
 `document.getElementById(id)` 메서드를 사용하면 이런 단점들을 극복할 수 있습니다. 좋은 대안이죠.
 
 사용 예시는 다음과 같습니다.
+=======
+```warn header="Please don't use id-named global variables to access elements"
+This behavior is described [in the specification](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem), so it's kind of standard. But it is supported mainly for compatibility.
 
-```html run
-<div id="elem">
-  <div id="elem-content">Element</div>
-</div>
+The browser tries to help us by mixing namespaces of JS and DOM. That's fine for simple scripts, inlined into HTML, but generally isn't a good thing. There may be naming conflicts. Also, when one reads JS code and doesn't have HTML in view, it's not obvious where the variable comes from.
+>>>>>>> 4d654318ccb6d37d6cefc9b859cf111ff3c96b27
 
-<script>
-*!*
-  let elem = document.getElementById('elem');
-*/!*
+Here in the tutorial we use `id` to directly reference an element for brevity, when it's obvious where the element comes from.
 
-  elem.style.background = 'red';
-</script>
+In real life `document.getElementById` is the preferred method.
 ```
 
+<<<<<<< HEAD
 본 튜토리얼에선 `id`를 사용해 요소에 직접 접근하는 방법을 사용해 코드를 간결하게 구현할 예정입니다. 하지만 실무에선 `document.getElementById`를 사용하길 권유합니다.
 
 ```smart header="id는 하나만!"
@@ -67,6 +102,16 @@
 
 ```warn header="`anyNode.getElementById`가 아닌 `document.getElementById`"
 `getElementById`메서드는 `document` 노드(객체)에만 호출할 수 있습니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없습니다. 이 메서드는 문서 노드에서 해당 `id`를 가진 요소 노드를 찾아 줍니다.
+=======
+```smart header="The `id` must be unique"
+The `id` must be unique. There can be only one element in the document with the given `id`.
+
+If there are multiple elements with the same `id`, then the behavior of methods that use it is unpredictable, e.g. `document.getElementById` may return any of such elements at random. So please stick to the rule and keep `id` unique.
+```
+
+```warn header="Only `document.getElementById`, not `anyElem.getElementById`"
+The method `getElementById` that can be called only on `document` object. It looks for the given `id` in the whole document.
+>>>>>>> 4d654318ccb6d37d6cefc9b859cf111ff3c96b27
 ```
 
 ## querySelectorAll [#querySelectorAll]

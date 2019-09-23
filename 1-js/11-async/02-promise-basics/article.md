@@ -267,8 +267,13 @@ new Promise((resolve, reject) => {
 프라미스가 대기(pending)상태일 때, `.then/catch/finally` 핸들러는 결과를 기다립니다. 반면, 프라미스가 처리(settled)되었을 땐 핸들러가 즉각 실행됩니다.
 
 ```js run
+<<<<<<< HEAD
 // 이행상태의 프라미스(즉시 이행됨)
 let promise = new Promise(resolve =&amp;gt; resolve("done!"));
+=======
+// the promise becomes resolved immediately upon creation
+let promise = new Promise(resolve => resolve("done!"));
+>>>>>>> 4d654318ccb6d37d6cefc9b859cf111ff3c96b27
 
 promise.then(alert); // done! (바로 출력됨)
 ```
