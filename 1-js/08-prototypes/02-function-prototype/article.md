@@ -46,7 +46,7 @@ alert( rabbit.eats ); // true
 If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
 ```
 
-## 기본 F.prototype, 생성자 속성
+## 기본 F.prototype, 생성자 프로퍼티
 
 우리가 제공하지 않더라도 모든 함수는 "prototype" 프로퍼티를 갖습니다.  
 
@@ -129,7 +129,7 @@ alert(rabbit.constructor === Rabbit); // false
 */!*
 ```
 
-그래서, `constructor`를 유지하기 위해서는 전체를 덮어쓰기보다는 기본값의 `"prototype"`에서 추가/제거할 프로퍼티들을 선택할 수 있습니다. 
+그래서, `constructor`를 유지하기 위해서는 전체를 덮어쓰기보다는 기본값의 `"prototype"`에서 추가/제거할 프로퍼티를 선택할 수 있습니다. 
 
 ```js
 function Rabbit() {}
