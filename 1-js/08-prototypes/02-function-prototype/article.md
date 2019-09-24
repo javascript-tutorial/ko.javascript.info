@@ -10,7 +10,7 @@ JavaScript had prototypal inheritance from the beginning. It was one of the core
 But in the old times, there was no direct access to it. The only thing that worked reliably was a `"prototype"` property of the constructor function, described in this chapter. So there are many scripts that still use it.
 ```
 
-`F.prototype`은 여기서 `F`안에 `"prototype"`이라는 일반적인 속성임을 알아두세요. "원형"이라는 용어랑 비슷하게 들리겠지만, 여기서 진정으로 말하고자 하는 것은 이 이름으로 쓰이는 일반적인 속성입니다.
+`F.prototype`은 여기서 `F`안에 `"prototype"`이라는 일반적인 프로퍼티임을 알아두세요. "원형"이라는 용어랑 비슷하게 들리겠지만, 여기서 진정으로 말하고자 하는 것은 이 이름으로 쓰이는 일반적인 프로퍼티입니다.
 
 예를 들어 보죠:
 
@@ -46,11 +46,11 @@ alert( rabbit.eats ); // true
 If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
 ```
 
-## 기본 F.prototype, 생성자 속성
+## 기본 F.prototype, 생성자 프로퍼티
 
-우리가 제공하지 않더라도 모든 함수는 "prototype" 속성을 갖습니다.  
+우리가 제공하지 않더라도 모든 함수는 "prototype" 프로퍼티를 갖습니다.  
 
-기본 `"prototype"`은 단 하나의 속성 `constructor`을 갖습니다. 이 속성은 함수 자기 자신을 가리킵니다.  
+기본 `"prototype"`은 단 하나의 프로퍼티 `constructor`을 갖습니다. 이 프로퍼티는 함수 자기 자신을 가리킵니다.  
 
 이렇게 말이죠:
 
@@ -74,7 +74,7 @@ function Rabbit() {}
 alert( Rabbit.prototype.constructor == Rabbit ); // true
 ```
 
-자연적으로, 만약 아무것도 하지 않는다면, `constructor` 속성은 모든 rabbit에서 `[[Prototype]]`을 통해 접근 가능합니다.
+자연적으로, 만약 아무것도 하지 않는다면, `constructor` 프로퍼티는 모든 rabbit에서 `[[Prototype]]`을 통해 접근 가능합니다.
 
 ```js run
 function Rabbit() {}
@@ -88,7 +88,7 @@ alert(rabbit.constructor == Rabbit); // true (from prototype)
 
 ![](rabbit-prototype-constructor.svg)
 
-우리는 이미 존재하는 것과 동일한 `constructor` 속성을 이용해서 새로운 객체를 만들 수 있습니다. 
+우리는 이미 존재하는 것과 동일한 `constructor` 프로퍼티를 이용해서 새로운 객체를 만들 수 있습니다. 
 
 이렇게요:
 
@@ -129,7 +129,7 @@ alert(rabbit.constructor === Rabbit); // false
 */!*
 ```
 
-그래서, `constructor`를 유지하기 위해서는 전체를 덮어쓰기보다는 기본값의 `"prototype"`에서 추가/제거할 속성들을 선택할 수 있습니다. 
+그래서, `constructor`를 유지하기 위해서는 전체를 덮어쓰기보다는 기본값의 `"prototype"`에서 추가/제거할 프로퍼티를 선택할 수 있습니다. 
 
 ```js
 function Rabbit() {}
@@ -140,7 +140,7 @@ Rabbit.prototype.jumps = true
 // the default Rabbit.prototype.constructor is preserved
 ```
 
-혹은 다른 방법으로,  `constructor`속성을 일일이 재생성시킬 수도 있겠죠.
+혹은 다른 방법으로,  `constructor`프로퍼티를 일일이 재생성시킬 수도 있겠죠.
 
 ```js
 Rabbit.prototype = {
@@ -162,7 +162,7 @@ Rabbit.prototype = {
 
 - `F.prototype` 프로퍼티는 `[[prototype]]`과 다릅니다. `F.prototype` 은 `new F()` 가 호출됐을 때 새로운 객체의 `[[Prototype]]`을 설정하는 일 한 가지만 합니다.
 - `F.prototype` 의 값은 객체이거나 null입니다. 다른 값은 적용이 안 됩니다.
-- `"prototype"` 속성은 특별한 효과만 가지고 있습니다. `new` 와 함께 호출될 때, 생성자 함수로 설정될 때 그 효과가 일어나죠. 
+- `"prototype"` 프로퍼티는 특별한 효과만 가지고 있습니다. `new` 와 함께 호출될 때, 생성자 함수로 설정될 때 그 효과가 일어나죠. 
 
 일반적인 객체의 `prototype`은 전혀 특별하지 않죠.
 ```js
@@ -172,4 +172,4 @@ let user = {
 };
 ```
 
-기본값으로 모든 함수는 `F.prototype = { constructor : F }`를 가지고 있습니다, 그래서 우리는 `"constructor"` 속성을 통해서 어떤 객체의 생성자를 얻을 수 있습니다.
+기본값으로 모든 함수는 `F.prototype = { constructor : F }`를 가지고 있습니다, 그래서 우리는 `"constructor"` 프로퍼티를 통해서 어떤 객체의 생성자를 얻을 수 있습니다.

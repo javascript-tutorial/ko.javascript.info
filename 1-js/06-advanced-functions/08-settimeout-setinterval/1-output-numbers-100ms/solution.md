@@ -18,7 +18,7 @@ function printNumbers(from, to) {
 printNumbers(5, 10);
 ```
 
-`setTimeout`을 재귀 실행한 방법:
+중첩 `setTimeout`을 이용한 방법:
 
 
 ```js run

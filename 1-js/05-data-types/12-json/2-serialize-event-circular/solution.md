@@ -26,5 +26,4 @@ alert( JSON.stringify(meetup, function replacer(key, value) {
 */
 ```
 
-Here we also need to test `key==""` to exclude the first call where it is normal that `value` is `meetup`.
-
+함수 최초 호출의 대상이 되는 키-값 쌍은 배제하기 위해 `key==""`, `value == meetup`을 테스트하였습니다. 

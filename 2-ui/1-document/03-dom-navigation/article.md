@@ -280,7 +280,7 @@ while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
 
 특정 타입의 DOM 요소는 기본 프로퍼티 외에 추가적인 프로퍼티를 지원합니다. 편의를 위해서이죠. 
 
-테이블은 추가적인 프로퍼티를 지원하는 요소 중 하나입니다.
+Tables are a great example and a particularly important case for that.
 
 **`<table>`** 요소는 위에서 배운 기본 프로퍼티 이외에 아래의 프로퍼티도 지원합니다.
 - `table.rows`는 테이블 내 `<tr>`요소를 담은 컬렉션을 가리킵니다.
