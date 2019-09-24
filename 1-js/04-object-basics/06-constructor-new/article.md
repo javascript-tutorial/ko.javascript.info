@@ -33,7 +33,7 @@ alert(user.isAdmin); // false
 2. 함수 본문이 실행됩니다. 대게 이때 `this`에 새로운 프로퍼티가 추가되면서, `this`가 갱신됩니다.
 3. `this`가 반환됩니다.
 
-예시를 이용해 `new User(...)`이 실행되면 무슨 일이 일어나는지 살펴 보도록 하겠습니다. 
+예시를 이용해 `new User(...)`가 실행되면 무슨 일이 일어나는지 살펴 보도록 하겠습니다. 
 
 ```js
 function User(name) {
@@ -51,7 +51,7 @@ function User(name) {
 }
 ```
 
-`new User("Jack")`로 아래와 같은 객체를 만들 수 있게 되었습니다.
+이제 `let user = new User("Jack")`는 아래 코드를 입력한 것과 동일하게 동작합니다.
 
 ```js
 let user = {

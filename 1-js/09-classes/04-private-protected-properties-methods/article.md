@@ -248,7 +248,7 @@ Unlike protected ones, private fields are enforced by the language itself. That'
 But if we inherit from `CoffeeMachine`, then we'll have no direct access to `#waterAmount`. We'll need to rely on `waterAmount` getter/setter:
 
 ```js
-class MegaCoffeeMachine extends CoffeeMachine() {
+class MegaCoffeeMachine extends CoffeeMachine {
   method() {
 *!*
     alert( this.#waterAmount ); // Error: can only access from CoffeeMachine
@@ -302,7 +302,7 @@ Supportable
     For users, when a new version comes out, it may be a total overhaul internally, but still simple to upgrade if the external interface is the same.
 
 Hiding complexity
-: People adore to use things that are simple. At least from outside. What's inside is a different thing.
+: People adore using things that are simple. At least from outside. What's inside is a different thing.
 
     Programmers are not an exception.
 

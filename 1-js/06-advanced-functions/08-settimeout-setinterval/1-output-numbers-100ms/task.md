@@ -9,5 +9,4 @@ importance: 5
 두 가지 방법을 사용해 함수를 만드셔야 합니다.
 
 1. `setInterval`을 이용한 방법
-2. `setTimeout`을 재귀 실행한 방법
-
+2. 중첩 `setTimeout`을 이용한 방법

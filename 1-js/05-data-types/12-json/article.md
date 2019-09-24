@@ -1,10 +1,10 @@
-# JSON methods, toJSON
+# JSON과 메서드
 
-Let's say we have a complex object, and we'd like to convert it into a string, to send it over a network, or just to output it for logging purposes.
+복잡한 객체를 다루고 있다고 가정해 봅시다. 네트워크를 통해 객체를 어딘가에 보내거나 로깅 목적으로 객체를 출력해야 한다면 객체를 문자열로 전환해야 할겁니다.
 
-Naturally, such a string should include all important properties.
+이때 전환된 문자열엔 원하는 정보가 있는 객체 프로퍼티 모두가 포함되어야만 합니다.
 
-We could implement the conversion like this:
+아래와 같은 메서드를 구현해 객체를 문자열로 전환해봅시다.
 
 ```js run
 let user = {
@@ -21,20 +21,20 @@ let user = {
 alert(user); // {name: "John", age: 30}
 ```
 
-...But in the process of development, new properties are added, old properties are renamed and removed. Updating such `toString` every time can become a pain. We could try to loop over properties in it, but what if the object is complex and has nested objects in properties? We'd need to implement their conversion as well.
+그런데 개발 과정에서 프로퍼티가 추가되거나 삭제, 수정될 수 있습니다. 이렇게 되면 위에서 구현한 `toString`을 매번 수정해야 하는데 이는 아주 고통스러운 작업이 될 겁니다. 프로퍼티에 반복문을 돌리는 방법을 대안으로 사용할 수 있는데, 중첩 객체 등으로 인해 객체가 복잡한 경우 이를 문자열로 변경하는 건 까다로운 작업이라 이마저도 쉽지 않을 겁니다.
 
-Luckily, there's no need to write the code to handle all this. The task has been solved already.
+다행히 자바스크립트엔 이런 문제를 해결해주는 방법이 있습니다. 관련 기능이 이미 구현되어 있어서 우리가 직접 코드를 짤 필요가 없습니다.
 
 ## JSON.stringify
 
-The [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](http://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well.  So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
+[JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)은 값이나 객체를 나타내주는 범용 포맷으로, [RFC 4627](http://tools.ietf.org/html/rfc4627) 표준에 정의되어 있습니다. JSON은 본래 자바스크립트에서 사용할 목적으로 만들어진 포맷입니다. 그런데 라이브러리를 사용하면 자바스크립트가 아닌 언어에서도 JSON을 충분히 다룰 수 있어서, JSON을 데이터 교환 목적으로 사용하는 경우가 많습니다. 특히 클라이언트 측 언어가 자바스크립트일 때 말이죠. 서버 측 언어는 무엇이든 상관없습니다. 
 
-JavaScript provides methods:
+자바스크립트가 제공하는 JSON 관련 메서드는 아래와 같습니다.
 
-- `JSON.stringify` to convert objects into JSON.
-- `JSON.parse` to convert JSON back into an object.
+- `JSON.stringify` -- 객체를 JSON으로 바꿔줍니다.
+- `JSON.parse` -- JSON을 객체로 바꿔줍니다.
 
-For instance, here we `JSON.stringify` a student:
+객체 `student`에 `JSON.stringify`를 적용해봅시다.
 ```js run
 let student = {
   name: 'John',
@@ -48,11 +48,11 @@ let student = {
 let json = JSON.stringify(student);
 */!*
 
-alert(typeof json); // we've got a string!
+alert(typeof json); // 문자열이네요!
 
 alert(json);
 *!*
-/* JSON-encoded object:
+/* JSON으로 인코딩된 객체:
 {
   "name": "John",
   "age": 30,
@@ -64,35 +64,35 @@ alert(json);
 */!*
 ```
 
-The method `JSON.stringify(student)` takes the object and converts it into a string.
+`JSON.stringify(student)`를 호출하자 `student`가 문자열로 바뀌었습니다.
 
-The resulting `json` string is called a *JSON-encoded* or *serialized* or *stringified* or *marshalled* object. We are ready to send it over the wire or put into a plain data store.
+이렇게 변경된 문자열은 *JSON으로 인코딩된(JSON-encoded)*, *직렬화 처리된(serialized)*, *문자열로 변환된(stringified)*, *결집된(marshalled)* 객체라고 부릅니다. 객체는 이렇게 문자열로 변환된 후에야 비로소 네트워크를 통해 전송하거나 저장소에 저장할 수 있습니다. 
 
 
-Please note that a JSON-encoded object has several important differences from the object literal:
+JSON으로 인코딩된 객체는 일반 객체와 다른 특징을 보입니다.
 
-- Strings use double quotes. No single quotes or backticks in JSON. So `'John'` becomes `"John"`.
-- Object property names are double-quoted also. That's obligatory. So `age:30` becomes `"age":30`.
+- 문자열은 큰따옴표로 감싸야 합니다. JSON에선 작은따옴표나 백틱을 사용할 수 없습니다(`'John'`이 `"John"`으로 변경된 것을 통해 이를 확인할 수 있습니다).
+- 객체 프로퍼티 이름은 큰따옴표로 감싸야 합니다(`age:30`이 `"age":30`으로 변한 것을 통해 이를 확인할 수 있습니다).
 
-`JSON.stringify` can be applied to primitives as well.
+`JSON.stringify`는 객체뿐만 아니라 원시값에도 적용할 수 있습니다.
 
-JSON supports following data types:
+적용할 수 있는 자료형은 아래와 같습니다.
 
-- Objects `{ ... }`
-- Arrays `[ ... ]`
-- Primitives:
-    - strings,
-    - numbers,
-    - boolean values `true/false`,
-    - `null`.
+- 객체 `{ ... }`
+- 배열 `[ ... ]`
+- 원시형:
+    - 문자형
+    - 숫자형
+    - 불린형 값 `true`와 `false`
+    - `null`
 
-For instance:
+예시:
 
 ```js run
-// a number in JSON is just a number
+// 숫자를 JSON으로 인코딩하면 숫자입니다.
 alert( JSON.stringify(1) ) // 1
 
-// a string in JSON is still a string, but double-quoted
+// 문자열을 JSON으로 인코딩하면 문자열입니다(다만, 큰따옴표가 추가됩니다).
 alert( JSON.stringify('test') ) // "test"
 
 alert( JSON.stringify(true) ); // true
@@ -100,31 +100,31 @@ alert( JSON.stringify(true) ); // true
 alert( JSON.stringify([1, 2, 3]) ); // [1,2,3]
 ```
 
-JSON is data-only language-independent specification, so some JavaScript-specific object properties are skipped by `JSON.stringify`.
+JSON은 데이터 교환을 목적으로 만들어진 언어에 종속되지 않는 포맷입니다. 따라서 자바스크립트 특유의 객체 프로퍼티는 `JSON.stringify`가 처리할 수 없습니다.
 
-Namely:
+`JSON.stringify` 호출 시 무시되는 프로퍼티는 아래와 같습니다.
 
-- Function properties (methods).
-- Symbolic properties.
-- Properties that store `undefined`.
+- 함수 프로퍼티 (메서드)
+- 심볼형 프로퍼티 (키가 심볼인 프로퍼티)
+- 값이 `undefined`인 프로퍼티
 
 ```js run
 let user = {
-  sayHi() { // ignored
+  sayHi() { // 무시
     alert("Hello");
   },
-  [Symbol("id")]: 123, // ignored
-  something: undefined // ignored
+  [Symbol("id")]: 123, // 무시
+  something: undefined // 무시
 };
 
-alert( JSON.stringify(user) ); // {} (empty object)
+alert( JSON.stringify(user) ); // {} (빈 객체가 출력됨)
 ```
 
-Usually that's fine. If that's not what we want, then soon we'll see how to customize the process.
+대게 이 프로퍼티들은 무시 되어도 괜찮습니다. 그런데 이들도 문자열에 포함시켜야 하는 경우가 생기곤 하는데 이에 대해선 아래에서 다루도록 하겠습니다. 
 
-The great thing is that nested objects are supported and converted automatically.
+`JSON.stringify`의 장점 중 하나는 중첩 객체도 알아서 문자열로 바꿔준다는 점입니다.
 
-For instance:
+예시:
 
 ```js run
 let meetup = {
@@ -138,7 +138,7 @@ let meetup = {
 };
 
 alert( JSON.stringify(meetup) );
-/* The whole structure is stringified:
+/* 객체 전체가 문자열로 변환되었습니다.
 {
   "title":"Conference",
   "room":{"number":23,"participants":["john","ann"]},
@@ -146,9 +146,9 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-The important limitation: there must be no circular references.
+`JSON.stringify`를 사용할 때 주의하셔야 할 점이 하나 있습니다. 순환 참조가 있으면 원하는 대로 객체를 문자열로 바꾸는 게 불가능합니다.
 
-For instance:
+예시:
 
 ```js run
 let room = {
@@ -160,41 +160,41 @@ let meetup = {
   participants: ["john", "ann"]
 };
 
-meetup.place = room;       // meetup references room
-room.occupiedBy = meetup; // room references meetup
+meetup.place = room;       // meetup은 room을 참조합니다.
+room.occupiedBy = meetup; // room은 meetup을 참조합니다.
 
 *!*
 JSON.stringify(meetup); // Error: Converting circular structure to JSON
 */!*
 ```
 
-Here, the conversion fails, because of circular reference: `room.occupiedBy` references `meetup`, and `meetup.place` references `room`:
+`room.occupiedBy`는 `meetup`을, `meetup.place`는 `room`을 참조하기 때문에 JSON으로의 변환이 실패했습니다.
 
 ![](json-meetup.svg)
 
 
-## Excluding and transforming: replacer
+## replacer로 원하는 프로퍼티만 직렬화하기
 
-The full syntax of `JSON.stringify` is:
+`JSON.stringify`의 전체 문법은 아래와 같습니다.
 
 ```js
 let json = JSON.stringify(value[, replacer, space])
 ```
 
 value
-: A value to encode.
+: 인코딩 하려는 값
 
 replacer
-: Array of properties to encode or a mapping function `function(key, value)`.
+: JSON으로 인코딩 하길 원하는 프로퍼티가 담긴 배열. 또는 매핑 함수 `function(key, value)`
 
 space
-: Amount of space to use for formatting
+: 서식 변경 목적으로 사용할 공백 문자 수
 
-Most of the time, `JSON.stringify` is used with the first argument only. But if we need to fine-tune the replacement process, like to filter out circular references, we can use the second argument of `JSON.stringify`.
+대다수의 경우 `JSON.stringify`엔 인수를 하나만 넘겨서 사용합니다. 그런데 순환 참조를 다뤄야 하는 경우같이 전환 프로세스를 정교하게 조정하려면 두 번째 인수를 사용해야 합니다. 
 
-If we pass an array of properties to it, only these properties will be encoded.
+JSON으로 변환하길 원하는 프로퍼티가 담긴 배열을 두 번째 인수로 넘겨주면 이 프로퍼티들만 인코딩할 수 있습니다.
 
-For instance:
+예시:
 
 ```js run
 let room = {
@@ -204,7 +204,7 @@ let room = {
 let meetup = {
   title: "Conference",
   participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  place: room // meetup은 room을 참조합니다.
 };
 
 room.occupiedBy = meetup; // room references meetup
@@ -213,9 +213,9 @@ alert( JSON.stringify(meetup, *!*['title', 'participants']*/!*) );
 // {"title":"Conference","participants":[{},{}]}
 ```
 
-Here we are probably too strict. The property list is applied to the whole object structure. So the objects in `participants` are empty, because `name` is not in the list.
+배열에 넣어준 프로퍼티가 잘 출력된 것을 확인할 수 있습니다. 그런데 배열에 `name`을 넣지 않아서 출력된 문자열의 `participants`가 텅 비어버렸네요. 규칙이 너무 까다로워서 발생한 문제입니다.
 
-Let's include in the list every property except `room.occupiedBy` that would cause the circular reference:
+순환 참조를 발생시키는 프로퍼티 `room.occupiedBy`만 제외하고 모든 프로퍼티를 배열에 넣어봅시다.
 
 ```js run
 let room = {
@@ -240,13 +240,13 @@ alert( JSON.stringify(meetup, *!*['title', 'participants', 'place', 'name', 'num
 */
 ```
 
-Now everything except `occupiedBy` is serialized. But the list of properties is quite long.
+`occupiedBy`를 제외한 모든 프로퍼티가 직렬화되었습니다. 그런데 배열이 좀 길다는 느낌이 듭니다.
 
-Fortunately, we can use a function instead of an array as the `replacer`.
+`replacer` 자리에 배열 `대신` 함수를 전달해 이 문제를 해결해 봅시다(역주: 매개변수 replacer는 '대신하다'라는 뜻을 가진 영단어 replace에서 그 이름이 왔습니다).
 
-The function will be called for every `(key, value)` pair and should return the "replaced" value, which will be used instead of the original one. Or `undefined` if the value is to be skipped.
+`replacer`에 전달되는 함수(`replacer` 함수)는 프로퍼티 `(키, 값)` 쌍 전체를 대상으로 호출되는데, 반드시 기존 프로퍼티 값을 대신하여 사용할 값을 반환해야 합니다. 특정 프로퍼티를 직렬화에서 누락시키려면 반환 값을 `undefined`로 만들면 됩니다.
 
-In our case, we can return `value` "as is" for everything except `occupiedBy`. To ignore `occupiedBy`, the code below returns `undefined`:
+아래 예시는 `occupiedBy`를 제외한 모든 프로퍼티의 값을 변경 없이 "그대로" 직렬화하고 있습니다. `occupiedBy`는 `undefined`를 반환하게 해 직렬화에 포함하지 않은 것도 확인해 보시길 바랍니다.
 
 ```js run
 let room = {
@@ -256,17 +256,17 @@ let room = {
 let meetup = {
   title: "Conference",
   participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  place: room // meetup은 room을 참조합니다
 };
 
-room.occupiedBy = meetup; // room references meetup
+room.occupiedBy = meetup; // room은 meetup을 참조합니다
 
 alert( JSON.stringify(meetup, function replacer(key, value) {
   alert(`${key}: ${value}`);
   return (key == 'occupiedBy') ? undefined : value;
 }));
 
-/* key:value pairs that come to replacer:
+/* replacer 함수에서 처리하는 키:값 쌍 목록
 :             [object Object]
 title:        Conference
 participants: [object Object],[object Object]
@@ -279,21 +279,20 @@ number:       23
 */
 ```
 
-Please note that `replacer` function gets every key/value pair including nested objects and array items. It is applied recursively. The value of `this` inside `replacer` is the object that contains the current property.
+`replacer` 함수가 중첩 객체와 배열의 요소까지 포함한 모든 키-값 쌍을 처리하고 있다는 점에 주목해주시기 바랍니다. `replacer` 함수는 재귀적으로 키-값 쌍을 처리하는데, 함수 내에서 `this`는 현재 처리하고 있는 프로퍼티가 위치한 객체를 가리킵니다. 
 
-The first call is special. It is made using a special "wrapper object": `{"": meetup}`. In other words, the first `(key, value)` pair has an empty key, and the value is the target object as a whole. That's why the first line is `":[object Object]"` in the example above.
+첫 얼럿창에 예상치 못한 문자열(`":[object Object]"`)이 뜨는걸 볼 수 있는데, 이는 함수가 최초로 호출될 때 `{"": meetup}` 형태의 "래퍼 객체"가 만들어지기 때문입니다. `replacer`함수가 가장 처음으로 처리해야하는 `(key, value)` 쌍에서 키는 빈 문자열, 값은 변환하고자 하는 객체(meetup) 전체가 되는 것이죠.
 
-The idea is to provide as much power for `replacer` as possible: it has a chance to analyze and replace/skip even the whole object if necessary.
+이렇게 `replacer` 함수를 사용하면 중첩 객체 등을 포함한 객체 전체에서 원하는 프로퍼티만 선택해 직렬화 할 수 있습니다.
 
 
-## Formatting: space
+## space로 가독성 높이기
 
-The third argument of `JSON.stringify(value, replacer, space)` is the number of spaces to use for pretty formatting.
+`JSON.stringify(value, replacer, space)`의 세 번째 인수 `space`는 가독성을 높이기 위해 중간에 삽입해 줄 공백 문자 수를 나타냅니다.
 
-Previously, all stringified objects had no indents and extra spaces. That's fine if we want to send an object over a network. The `space` argument is used exclusively for a nice output.
+지금까진 `space` 없이 메서드를 호출했기 때문에 인코딩된 JSON에 들여쓰기나 여분의 공백문자가 하나도 없었습니다. `space`는 가독성을 높이기 위한 용도로 만들어졌기 때문에 단순 전달 목적이라면 `space` 없이 직렬화하는 편입니다.
 
-Here `space = 2` tells JavaScript to show nested objects on multiple lines, with indentation of 2 spaces inside an object:
-
+아래 예시처럼 `space`에 `2`를 넘겨주면 자바스크립트는 중첩 객체를 별도의 줄에 출력해주고 공백 문자 두 개를 써 들여쓰기해 줍니다.
 ```js run
 let user = {
   name: "John",
@@ -305,7 +304,7 @@ let user = {
 };
 
 alert(JSON.stringify(user, null, 2));
-/* two-space indents:
+/* 공백 문자 두 개를 사용하여 들여쓰기함:
 {
   "name": "John",
   "age": 25,
@@ -316,7 +315,7 @@ alert(JSON.stringify(user, null, 2));
 }
 */
 
-/* for JSON.stringify(user, null, 4) the result would be more indented:
+/* JSON.stringify(user, null, 4)라면 아래와 같이 좀 더 들여써집니다.
 {
     "name": "John",
     "age": 25,
@@ -328,13 +327,13 @@ alert(JSON.stringify(user, null, 2));
 */
 ```
 
-The `space` parameter is used solely for logging and nice-output purposes.
+이처럼 매개변수 `space`는 로깅이나 가독성을 높이는 목적으로 사용됩니다.
 
-## Custom "toJSON"
+## 커스텀 "toJSON"
 
-Like `toString` for string conversion, an object may provide method `toJSON` for to-JSON conversion. `JSON.stringify` automatically calls it if available.
+`toString`을 사용해 객체를 문자형으로 변환시키는 것처럼, 객체에 `toJSON`이라는 메서드가 구현되어 있으면 객체를 JSON으로 바꿀 수 있을 겁니다. `JSON.stringify`는 이런 경우를 감지하고 `toJSON`을 자동으로 호출해줍니다.
 
-For instance:
+예시:
 
 ```js run
 let room = {
@@ -359,9 +358,9 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-Here we can see that `date` `(1)` became a string. That's because all dates have a built-in `toJSON` method which returns such kind of string.
+Date 객체의 내장 메서드 `toJSON`이 호출되면서 `date`의 값이 문자열로 변환된 걸 확인할 수 있습니다(`(1)`).
 
-Now let's add a custom `toJSON` for our object `room` `(2)`:
+이번엔 `room`에 직접 커스텀 메서드 `toJSON`을 추가해 봅시다. 그리고 `(2)`로 표시한 줄이 어떻게 변경되는지 확인해 봅시다.
 
 ```js run
 let room = {
@@ -393,28 +392,28 @@ alert( JSON.stringify(meetup) );
 */
 ```
 
-As we can see, `toJSON` is used both for the direct call `JSON.stringify(room)` and when `room` is nested is another encoded object.
+위와 같이 `toJSON`은 `JSON.stringify(room)`를 직접 호출할 때도 사용할 수 있고, `room`과 같은 중첩객체에도 구현하여 사용할 수 있습니다.
 
 
 ## JSON.parse
 
-To decode a JSON-string, we need another method named [JSON.parse](mdn:js/JSON/parse).
+[JSON.parse](mdn:js/JSON/parse)를 사용하면 JSON으로 인코딩된 객체를 다시 객체로 디코딩 할 수 있습니다.
 
-The syntax:
+문법:
 ```js
 let value = JSON.parse(str, [reviver]);
 ```
 
 str
-: JSON-string to parse.
+: JSON 형식의 문자열
 
 reviver
-: Optional function(key,value) that will be called for each `(key, value)` pair and can transform the value.
+: 모든 `(key, value)` 쌍을 대상으로 호출되는 function(key,value) 형태의 함수로 값을 변경시킬 수 있습니다. 
 
-For instance:
+예시:
 
 ```js run
-// stringified array
+// 문자열로 변환된 배열
 let numbers = "[0, 1, 2, 3]";
 
 numbers = JSON.parse(numbers);
@@ -422,7 +421,7 @@ numbers = JSON.parse(numbers);
 alert( numbers[1] ); // 1
 ```
 
-Or for nested objects:
+`JSON.parse`는 아래와 같이 중첩 객체에도 사용할 수 있습니다.
 
 ```js run
 let user = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
@@ -432,40 +431,40 @@ user = JSON.parse(user);
 alert( user.friends[1] ); // 1
 ```
 
-The JSON may be as complex as necessary, objects and arrays can include other objects and arrays. But they must obey the same JSON format.
+중첩 객체나 중쳡 배열이 있다면 JSON도 복잡해지기 마련인데, 그렇더라도 결국엔 JSON 포맷 지켜야 합니다.
 
-Here are typical mistakes in hand-written JSON (sometimes we have to write it for debugging purposes):
+아래에서 디버깅 등의 목적으로 직접 JSON을 만들 때 흔히 저지르는 실수 몇 개를 간추려보았습니다. 참고하시어 이와 같은 실수를 저지르지 않으시길 바랍니다.
 
 ```js
 let json = `{
-  *!*name*/!*: "John",                     // mistake: property name without quotes
-  "surname": *!*'Smith'*/!*,               // mistake: single quotes in value (must be double)
-  *!*'isAdmin'*/!*: false                  // mistake: single quotes in key (must be double)
-  "birthday": *!*new Date(2000, 2, 3)*/!*, // mistake: no "new" is allowed, only bare values
-  "friends": [0,1,2,3]              // here all fine
+  *!*name*/!*: "John",                     // 실수 1: 프로퍼티 이름을 큰따옴표로 감싸지 않았습니다.
+  "surname": *!*'Smith'*/!*,               // 실수 2: 프로퍼티 값은 큰따옴표로 감싸야 하는데, 작은따옴표로 감쌌습니다.
+  *!*'isAdmin'*/!*: false                  // 실수 3: 프로퍼티 키는 큰따옴표로 감싸야 하는데, 작은따옴표로 감쌌습니다.
+  "birthday": *!*new Date(2000, 2, 3)*/!*, // 실수 4: "new"를 사용할 수 없습니다. 순수한 값(bare value)만 사용할 수 있습니다.
+  "friends": [0,1,2,3]              // 이 프로퍼티는 괜찮습니다.
 }`;
 ```
 
-Besides, JSON does not support comments. Adding a comment to JSON makes it invalid.
+JSON은 주석을 지원하지 않는다는 점도 기억해 놓으시기 바랍니다. 주석을 추가하면 유효하지 않은 형식이 됩니다.
 
-There's another format named [JSON5](http://json5.org/), which allows unquoted keys, comments etc. But this is a standalone library, not in the specification of the language.
+키를 큰따옴표로 감싸지 않아도 되고 주석도 지원해주는 [JSON5](http://json5.org/)라는 포맷도 있는데, 이 포맷은 자바스크립트 명세서에서 정의하지 않은 독자적인 라이브러리입니다.
 
-The regular JSON is that strict not because its developers are lazy, but to allow easy, reliable and very fast implementations of the parsing algorithm.
+JSON 포맷이 까다로운 규칙을 가지게 된 이유는 개발자의 귀차니즘 때문이 아니고, 쉽고 빠르며 신뢰할 수 있을 만한 파싱 알고리즘을 구현하기 위해서입니다.
 
-## Using reviver
+## reviver 사용하기
 
-Imagine, we got a stringified `meetup` object from the server.
+서버로부터 문자열로 변환된 `meetup` 객체를 전송받았다고 가정해봅시다. 
 
-It looks like this:
+전송받은 문자열은 아마 아래와 같이생겼을겁니다.
 
 ```js
-// title: (meetup title), date: (meetup date)
+// title: (meetup 제목), date: (meetup 일시)
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 ```
 
-...And now we need to *deserialize* it, to turn back into JavaScript object.
+이제 이 문자열을 *역 직렬화(deserialize)* 해서 자바스크립트 객체를 만들어봅시다.  
 
-Let's do it by calling `JSON.parse`:
+`JSON.parse`를 호출해보죠.
 
 ```js run
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
@@ -473,15 +472,15 @@ let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 let meetup = JSON.parse(str);
 
 *!*
-alert( meetup.date.getDate() ); // Error!
+alert( meetup.date.getDate() ); // 에러!
 */!*
 ```
 
-Whoops! An error!
+엇! 에러가 발생하네요!
 
-The value of `meetup.date` is a string, not a `Date` object. How could `JSON.parse` know that it should transform that string into a `Date`?
+`meetup.date`의 값은 `Date` 객체가 아니고 문자열이기 때문에 발생한 에러입니다. 그렇다면 문자열을 `Date`로 전환해줘야 한다는 걸 어떻게 `JSON.parse`에게 알릴 수 있을까요?
 
-Let's pass to `JSON.parse` the reviving function as the second argument, that returns all values "as is", but `date` will become a `Date`:
+이럴 때 `JSON.parse`의 두 번째 인수 `reviver`를 사용하면 됩니다. 모든 값은 "그대로", 하지만 `date`만큼은 `Date` 객체를 반환하도록 함수를 구현해 봅시다.   
 
 ```js run
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
@@ -493,10 +492,10 @@ let meetup = JSON.parse(str, function(key, value) {
 });
 */!*
 
-alert( meetup.date.getDate() ); // now works!
+alert( meetup.date.getDate() ); // 이제 제대로 동작하네요!
 ```
 
-By the way, that works for nested objects as well:
+참고로 이 방식은 중첩 객체에도 적용할 수 있습니다.
 
 ```js run
 let schedule = `{
@@ -512,16 +511,16 @@ schedule = JSON.parse(schedule, function(key, value) {
 });
 
 *!*
-alert( schedule.meetups[1].date.getDate() ); // works!
+alert( schedule.meetups[1].date.getDate() ); // 잘 동작합니다!
 */!*
 ```
 
 
 
-## Summary
+## 요약
 
-- JSON is a data format that has its own independent standard and libraries for most programming languages.
-- JSON supports plain objects, arrays, strings, numbers, booleans, and `null`.
-- JavaScript provides methods [JSON.stringify](mdn:js/JSON/stringify) to serialize into JSON and [JSON.parse](mdn:js/JSON/parse) to read from JSON.
-- Both methods support transformer functions for smart reading/writing.
-- If an object has `toJSON`, then it is called by `JSON.stringify`.
+- JSON은 독자적인 표준을 가진 데이터 형식으로, 대부분의 언어엔 JSON을 쉽게 다룰 수 있게 해주는 라이브러리가 있습니다. 
+- JSON은 일반 객체, 배열, 문자열, 숫자, 불린값, `null`을 지원합니다.
+- [JSON.stringify](mdn:js/JSON/stringify)를 사용하면 원하는 값을 JSON으로 직렬화 할 수 있고, [JSON.parse](mdn:js/JSON/parse)를 사용하면 JSON을 본래 값으로 역 직렬화 할 수 있습니다.
+- 위 두 메서드에 함수를 인수로 넘겨주면 원하는 값만 읽거나 쓰는 게 가능합니다.
+- `JSON.stringify`는 객체에 `toJSON` 메서드가 있으면 이를 자동으로 호출해줍니다.
