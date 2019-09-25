@@ -2,13 +2,13 @@ importance: 4
 
 ---
 
-# Get average age
+# 평균 나이 구하기
 
-Write the function `getAverageAge(users)` that gets an array of objects with property `age` and returns the average age.
+`age`를 나타내는 프로퍼티를 가진 객체가 여러 개 담긴 배열이 있습니다. 평균 나이를 반환해주는 함수 `getAverageAge(users)`를 작성해보세요.  
 
-The formula for the average is `(age1 + age2 + ... + ageN) / N`.
+평균을 구하는 공식은 `(age1 + age2 + ... + ageN) / N` 입니다. 
 
-For instance:
+예시:
 
 ```js no-beautify
 let john = { name: "John", age: 25 };

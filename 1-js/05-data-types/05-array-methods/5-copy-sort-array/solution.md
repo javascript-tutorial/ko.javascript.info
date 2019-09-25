@@ -1,4 +1,4 @@
-We can use `slice()` to make a copy and run the sort on it:
+`slice()`를 사용해 배열을 복사한 다음 정렬하면 됩니다.
 
 ```js run
 function copySorted(arr) {

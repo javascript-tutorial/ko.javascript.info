@@ -25,9 +25,9 @@ alert( usersMapped[0].id ); // 1
 alert( usersMapped[0].fullName ); // John Smith
 ```
 
-Please note that in for the arrow functions we need to use additional brackets. 
+화살표 함수 우측에 괄호를 썼다는 점에 주목해주시기 바랍니다.
 
-We can't write like this:
+아래와 같이 괄호 없이 코드를 작성할 수 없습니다.
 ```js
 let usersMapped = users.map(user => *!*{*/!*
   fullName: `${user.name} ${user.surname}`,
@@ -35,9 +35,9 @@ let usersMapped = users.map(user => *!*{*/!*
 });
 ```
 
-As we remember, there are two arrow functions: without body `value => expr` and with body `value => {...}`.
+앞서 배웠듯이 화살표 함수는 본문이 없는 형태인 `value => expr`와 본문이 있는 형태인 `value => {...}` 두 방법으로 작성할 수 있습니다.
 
-Here JavaScript would treat `{` as the start of function body, not the start of the object. The workaround is to wrap them in the "normal" brackets:
+중괄호 `{`를 만나면 자바스크립트는 이를 객체의 시작이라 인식하지 않고 함수 본문이 시작되는 것이라 인식합니다. 소괄호를 사용하면 이를 피할 수 있습니다.  
 
 ```js
 let usersMapped = users.map(user => *!*({*/!*
@@ -46,6 +46,6 @@ let usersMapped = users.map(user => *!*({*/!*
 }));
 ```
 
-Now fine.
+이제 코드가 의도한 대로 동작합니다.
 
 
