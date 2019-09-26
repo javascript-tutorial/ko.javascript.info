@@ -9,6 +9,7 @@
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에서 번역 진행 상황을 확인합니다.
 - 번역되지 않은 글이나, 과제, 리뷰가 필요한 글을 선택합니다.
 - [Dashboard](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=0)에 본인의 깃허브 아이디와 진행 상황(Translation Status)을 업데이트합니다.
+  - 리뷰 참여 방법: 대시보드 현황 업데이트 후 수정사항을 커밋 후 바로 PR
 - [본 저장소](https://github.com/javascript-tutorial/ko.javascript.info)를 포크하여 번역 작업을 시작하고, 번역이 끝나면 PR(Pull Request) 합니다.
 
 :exclamation: 권한 요청
@@ -44,12 +45,13 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 ## 번역 규칙
 
 * 경어체를 사용합니다.
-* PR 전 [맞춤법 검사기](http://speller.cs.pusan.ac.kr/)를 사용해 틀린 부분을 교정합니다. **검사기를 돌리지 않았다고 판단되는 커밋은 PR 받지 않겠습니다.** 리뷰자 역시 맞춤법 검사기를 사용해, 맞춤법을 지키고 있는지 재검사합니다.
+* PR 전 [맞춤법 검사기](http://speller.cs.pusan.ac.kr/)를 사용해 틀린 부분을 교정합니다. **검사기를 돌리지 않았다고 판단되는 커밋은 PR 받지 않겠습니다.** 리뷰자 역시 맞춤법 검사기를 사용해, 번역자가 맞춤법을 지켜 번역했는지 확인합니다.
 * 줄 바꿈과 단락은 "원문 그대로"를 유지합니다. 영어 원문 수정사항을 병합할 때 중요합니다. **번역 후 줄 수가 원문의 줄 수와 다른 경우는 PR 받지 않겠습니다.**
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property), 브라우저 객체 모델(Browser Object Model, BOM))`합니다.
 * [합의된 번역어](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)로 번역합니다. 공동작업에선 번역어 통일이 매우 중요합니다.
 * 등록되지 않은 새로운 용어는 번역어를 등록한 후 번역합니다.
 * 번역어는 출판된 도서, 국립국어원의 외래어 표기법 용례, 한글라이즈 사이트 등을 기준으로 선정합니다. 주 참고자료는 다음과 같습니다.
+  * 마이크로소프트 Language Portal의 Terminology Search 페이지([링크]https://www.microsoft.com/en-us/language/Search)
   * 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
   * 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
   * 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
