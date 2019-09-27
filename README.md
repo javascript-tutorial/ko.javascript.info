@@ -51,7 +51,7 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 * [합의된 번역어](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)로 번역합니다. 공동작업에선 번역어 통일이 매우 중요합니다.
 * 등록되지 않은 새로운 용어는 번역어를 등록한 후 번역합니다.
 * 번역어는 출판된 도서, 국립국어원의 외래어 표기법 용례, 한글라이즈 사이트 등을 기준으로 선정합니다. 주 참고자료는 다음과 같습니다.
-  * 마이크로소프트 Language Portal의 Terminology Search 페이지([링크]https://www.microsoft.com/en-us/language/Search)
+  * 마이크로소프트 Language Portal의 Terminology Search 페이지([링크](https://www.microsoft.com/en-us/language/Search)
   * 프론트엔드 개발자를 위한 자바스크립트 프로그래밍([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966260768&orderClick=LIK&Kc=))
   * 인사이드 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968480652))
   * 러닝 자바스크립트([링크](https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788968483387))
