@@ -237,7 +237,7 @@ num = 5; // error: num is not defined
 const myBirthday = '18.04.1982';
 ```
 
-이렇게 `const`로 선언한 변수를 "상수(constant)"라고 부릅니다. 상수는 변하지 않습니다. 상수를 변경하려고 하면 에러가 발생합니다.
+이렇게 `const`로 선언한 변수를 "상수(constant)"라고 부릅니다. 상수는 재할당할 수 없으므로 상수를 변경하려고 하면 에러가 발생합니다.
 
 ```js run
 const myBirthday = '18.04.1982';

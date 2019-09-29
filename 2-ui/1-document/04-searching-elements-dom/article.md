@@ -1,47 +1,14 @@
-# getElement*, querySelector* 를 사용해 검색하기
+# getElement*, querySelector*로 요소 검색하기
 
-요소들이 가까이 붙어있다면, 앞서 학습한 DOM 탐색 프로퍼티를 사용해 목표로 하는 요소에 쉽게 접근할 수 있습니다. 그런데, 요소들이 가까이 붙어있지 않은 경우도 있기 마련입니다. 상대 위치를 이용하지 않으면서, 웹 페이지 내 원하는 (임의의) 요소 노드를 얻을 방법은 없는 걸까요?
+요소들이 가까이 붙어있다면 앞서 학습한 DOM 탐색 프로퍼티를 사용해 목표 요소에 쉽게 접근할 수 있습니다. 그런데, 요소들이 가까이 붙어있지 않은 경우도 있기 마련입니다. 상대 위치를 이용하지 않으면서 웹 페이지 내에서 원하는 요소 노드에 접근하는 방법은 없는 걸까요?
 
 이번 챕터에선 이를 가능하게 해주는 메서드에 대해 알아보도록 하겠습니다.
 
 ## document.getElementById 혹은 id를 사용해 요소 검색하기
 
-요소에 `id` 속성이 있으면 `id` 속성값을 그대로 딴 전역 변수 하나가 만들어집니다.
+요소에 `id` 속성이 있으면 요소의 위치에 상관없이 `document.getElementById(id)`라는 메서드를 이용해 요소에 접근할 수 있습니다.
 
-요소가 문서 내 어디 있든 상관없이 이 전역변수를 이용하면 요소에 즉시 접근할 수 있습니다.
-
-```html run
-<div id="*!*elem*/!*">
-  <div id="*!*elem-content*/!*">Element</div>
-</div>
-
-<script>
-  alert(elem); // id 속성값이 "elem"인 DOM 요소를 출력합니다.
-  alert(window.elem); // 전역 변수를 이용해 해당 요소에 접근할 수도 있습니다.
-
-  // id가 elem-content인 요소를 선택하는 건 조금 복잡합니다.
-  // 속성값에 대시 기호(-)가 있기 때문에, 이 값을 변수의 이름으로 쓸 수 없기 때문입니다.
-  alert(window['elem-content']); // 이럴 땐, 대괄호([...])를 이용하면 됩니다.
-</script>
-```
-
-`id`에 대응하는 전역변수는 [명세](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현한 것입니다. 이렇게 자바스크립트의 네임스페이스와 DOM을 구분하지 않는 방식은 개발자의 편의성을 도모하고, 하위 호환성을 위해 브라우저가 유지하고 있는 기능입니다. 그런데 이런 방식은 스크립트가 간단할 때는 괜찮지만, 스크립트가 복잡해지면 이름이 충돌한다는 단점이 있습니다. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
-
-아래와 같이, 동일한 이름을 가진 변수를 새로 선언하면 기존 전역 변수를 덮어쓴다는 부작용도 있습니다. 
-
-```html run untrusted height=0
-<div id="elem"></div>
-
-<script>
-  let elem = 5;
-
-  alert(elem); // 5
-</script>
-```
-
-`document.getElementById(id)` 메서드를 사용하면 이런 단점들을 극복할 수 있습니다. 좋은 대안이죠.
-
-사용 예시는 다음과 같습니다.
+예시:
 
 ```html run
 <div id="elem">
@@ -49,29 +16,67 @@
 </div>
 
 <script>
+  // 요소 얻기
 *!*
   let elem = document.getElementById('elem');
 */!*
 
+  // 배경색 변경하기
   elem.style.background = 'red';
 </script>
 ```
 
-본 튜토리얼에선 `id`를 사용해 요소에 직접 접근하는 방법을 사용해 코드를 간결하게 구현할 예정입니다. 하지만 실무에선 `document.getElementById`를 사용하길 권유합니다.
+요소에 `id` 속성이 있으면 `id` 속성값을 그대로 딴 전역 변수 하나가 만들어지는데, 이를 이용할 수도 있습니다.
 
-```smart header="id는 하나만!"
+```html run
+<div id="*!*elem*/!*">
+  <div id="*!*elem-content*/!*">Element</div>
+</div>
+
+<script>
+  // 변수 elem은 id가 "elem"인 DOM 요소를 참조합니다.
+  elem.style.background = 'red';
+
+  // id가 elem-content인 요소는 중간에 하이픈(-)이 있기 때문에 변수 이름으로 쓸 수 없습니다.
+  // 이럴 땐, 대괄호([...])를 이용할 수 있습니다. window['elem-content']같이 말이죠. 
+</script>
+```
+
+그런데 이렇게 자동으로 선언된 전역변수는 동일한 이름을 가진 변수가 선언되면 무용지물이 됩니다.
+
+```html run untrusted height=0
+<div id="elem"></div>
+
+<script>
+  let elem = 5; // elem은 더이상 <div id="elem">를 참조하지 않고 5가 됩니다. 
+
+  alert(elem); // 5
+</script>
+```
+
+```warn header="id를 따서 만들어진 전역변수를 요소 접근 시 사용하지 마세요."
+`id`에 대응하는 전역변수는 [명세](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현한 것으로 표준이긴 하지만 하위 호환성을 위해 남겨둔 동작입니다.
+
+브라우저는 스크립트의 네임스페이스와 DOM의 네임스페이스를 함께 사용할 수 있도록 해서 개발자의 편의를 도모합니다. 그런데 이런 방식은 인라인 스크립트같이 스크립트가 간단할 땐 괜찮지만, 좋은 방식은 아닙니다. 이름이 충돌할 가능성이 있기 때문이죠. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
+
+본 튜토리얼에선 코드를 간결하게 작성하기 위해 요소의 출처가 명확하다면 `id`를 사용해 요소에 직접 접근하는 방법을 사용할 예정입니다.
+
+실무에선 `document.getElementById`를 사용하시길 바랍니다.
+```
+
+```smart header="id는 중복되면 안 됩니다."
 `id`는 유일무이해야 합니다. 문서 내 요소의 `id` 속성값은 중복되어선 안 됩니다. 
 
-같은 `id`를 가진 요소가 여러 개 있으면, (`id`를 이용해 요소를 검색하는) 메서드의 행동을 예측할 수 없게 됩니다. 브라우저는 검색된 여러 개의 요소 중 어떤 요소를 반환할지 판단하지 못해, 임의의 요소를 반환하게 됩니다. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
+같은 `id`를 가진 요소가 여러 개 있으면, `document.getElementById`같이 `id`를 이용해 요소를 검색하는 메서드의 동작이 예측 불가능해집니다. 검색된 여러 요소 중 어떤 요소를 반환할지 판단하지 못해 임의의 요소가 반환되죠. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
 ```
 
 ```warn header="`anyNode.getElementById`가 아닌 `document.getElementById`"
-`getElementById`메서드는 `document` 노드(객체)에만 호출할 수 있습니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없습니다. 이 메서드는 문서 노드에서 해당 `id`를 가진 요소 노드를 찾아 줍니다.
+`getElementById`는 `document` 객체를 대상으로 호출할 수 있습니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없죠. 이 메서드는 문서 노드에서 해당 `id`를 가진 요소 노드를 찾아 줍니다.
 ```
 
 ## querySelectorAll [#querySelectorAll]
 
-`elem.querySelectorAll(css)`은 다재다능한 요소 검색 메서드입니다. 이 메서드는 `elem`의 자식 요소 중 주어진 CSS 선택자에 대응하는 요소를 모두 반환합니다.
+`elem.querySelectorAll(css)`은 다재다능한 요소 검색 메서드입니다. 이 메서드는 `elem`의 자식 요소 중 주어진 CSS 선택자에 대응하는 요소 모두를 반환합니다.
 
 아래 예시는 `document` 내 마지막 `<li>`요소 모두를 반환합니다.
 
