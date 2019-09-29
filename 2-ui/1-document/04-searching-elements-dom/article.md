@@ -2,7 +2,7 @@
 
 요소들이 가까이 붙어있다면 앞서 학습한 DOM 탐색 프로퍼티를 사용해 목표 요소에 쉽게 접근할 수 있습니다. 그런데, 요소들이 가까이 붙어있지 않은 경우도 있기 마련입니다. 상대 위치를 이용하지 않으면서 웹 페이지 내에서 원하는 요소 노드에 접근하는 방법은 없는 걸까요?
 
-이번 챕터에선 이를 가능하게 해주는 메서드에 대해 알아보도록 하겠습니다.
+이번 챕터에선 이를 가능하게 해주는 메서드에 대해 알아보겠습니다.
 
 ## document.getElementById 혹은 id를 사용해 요소 검색하기
 
@@ -38,7 +38,7 @@
   elem.style.background = 'red';
 
   // id가 elem-content인 요소는 중간에 하이픈(-)이 있기 때문에 변수 이름으로 쓸 수 없습니다.
-  // 이럴 땐, 대괄호([...])를 이용할 수 있습니다. window['elem-content']같이 말이죠. 
+  // 이럴 땐 window['elem-content']같이 대괄호(`[...]`)를 이용할 수 있습니다.
 </script>
 ```
 
@@ -57,9 +57,9 @@
 ```warn header="id를 따서 만들어진 전역변수를 요소 접근 시 사용하지 마세요."
 `id`에 대응하는 전역변수는 [명세](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현한 것으로 표준이긴 하지만 하위 호환성을 위해 남겨둔 동작입니다.
 
-브라우저는 스크립트의 네임스페이스와 DOM의 네임스페이스를 함께 사용할 수 있도록 해서 개발자의 편의를 도모합니다. 그런데 이런 방식은 인라인 스크립트같이 스크립트가 간단할 땐 괜찮지만, 좋은 방식은 아닙니다. 이름이 충돌할 가능성이 있기 때문이죠. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
+브라우저는 스크립트의 네임스페이스와 DOM의 네임스페이스를 함께 사용할 수 있도록 해서 개발자의 편의를 도모합니다. 그런데 이런 방식은 스크립트가 간단할 땐 괜찮지만, 이름이 충돌할 가능성이 있기 때문에 추천하는 방식은 아닙니다. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있죠.
 
-본 튜토리얼에선 코드를 간결하게 작성하기 위해 요소의 출처가 명확하다면 `id`를 사용해 요소에 직접 접근하는 방법을 사용할 예정입니다.
+본 튜토리얼에선 코드를 간결하게 작성하기 위해 요소의 출처가 명확한 경우, `id`를 사용해 요소에 직접 접근하는 방법을 사용할 예정입니다.
 
 실무에선 `document.getElementById`를 사용하시길 바랍니다.
 ```
@@ -67,11 +67,11 @@
 ```smart header="id는 중복되면 안 됩니다."
 `id`는 유일무이해야 합니다. 문서 내 요소의 `id` 속성값은 중복되어선 안 됩니다. 
 
-같은 `id`를 가진 요소가 여러 개 있으면, `document.getElementById`같이 `id`를 이용해 요소를 검색하는 메서드의 동작이 예측 불가능해집니다. 검색된 여러 요소 중 어떤 요소를 반환할지 판단하지 못해 임의의 요소가 반환되죠. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
+같은 `id`를 가진 요소가 여러 개 있으면 `document.getElementById`같이 `id`를 이용해 요소를 검색하는 메서드의 동작이 예측 불가능해집니다. 검색된 여러 요소 중 어떤 요소를 반환할지 판단하지 못해 임의의 요소가 반환되죠. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
 ```
 
 ```warn header="`anyNode.getElementById`가 아닌 `document.getElementById`"
-`getElementById`는 `document` 객체를 대상으로 호출할 수 있습니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없죠. 이 메서드는 문서 노드에서 해당 `id`를 가진 요소 노드를 찾아 줍니다.
+`getElementById`는 `document` 객체를 대상으로 해당 `id`를 가진 요소 노드를 찾아 줍니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없습니다.
 ```
 
 ## querySelectorAll [#querySelectorAll]
@@ -100,17 +100,17 @@
 </script>
 ```
 
-이 메서드는 CSS 선택자를 활용할 수 있다는 점에서 아주 유용합니다.
+`querySelectorAll`은 CSS 선택자를 활용할 수 있다는 점에서 아주 유용합니다.
 
-```smart header="가상 클래스(pseudo-class)도 사용할 수 있습니다."
-querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클래스도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover 상태인) 요소 모두를 담은 컬렉션이 반환됩니다. 이때, <html>부터 트리 가장 안쪽의 요소 순으로 컬렉션이 채워집니다.
+```smart header="가상 클래스도 사용할 수 있습니다."
+querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클래스(pseudo-class)도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover 상태인) 요소 모두를 담은 컬렉션이 반환됩니다. 참고: 컬렉션은 DOM 트리 최상단에 위치한 `<html>`부터 가장 하단의 요소 순으로 채워집니다.
 ```
 
 ## querySelector [#querySelector]
 
 `elem.querySelector(css)`는 주어진 CSS 선택자에 대응하는 요소 중 첫 번째 요소를 반환합니다. 
 
-반환 결과는 `elem.querySelectorAll(css)[0]`과 동일합니다. 다만, `querySelectorAll`은 선택자에 해당하는 *모든* 요소를 검색해 첫 번째 요소만을 반환한다는 점에서 다릅니다. `elem.querySelector`는 해당하는 요소를 찾으면 검색을 멈추지만 말이죠. 따라서 `elem.querySelector`를 사용하는 방식이 더 빠릅니다. 코드의 길이가 짧다는 장점도 있죠.
+`elem.querySelectorAll(css)[0]`과 동일하죠. `elem.querySelectorAll(css)[0]`은 선택자에 해당하는 *모든* 요소를 검색해 첫 번째 요소만을 반환하고, `elem.querySelector`는 해당하는 요소를 찾으면 검색을 멈춘다는 점에서 차이가 있습니다. `elem.querySelector`가 더 빠른 이유이죠. `querySelector`는 `querySelectorAll`에 비해 코드의 길이가 짧다는 장점도 있습니다.
 
 ## matches
 
@@ -118,7 +118,7 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 [elem.matches(css)](http://dom.spec.whatwg.org/#dom-element-matches)는 DOM을 검색하는 일이 아닌 조금 다른 일을 합니다. 이 메서드는 요소 `elem`이 주어진 CSS 선택자와 일치하는지 여부를 판단해줍니다. 일치한다면 `true`, 아니라면 `false`를 반환하죠.
 
-요소가 담겨있는 배열 등을 대상으로 반복 작업을 수행해 원하는 요소만 걸러내고자 하는 경우, 이 메서드가 유용합니다.
+요소가 담겨있는 배열 등에서 원하는 요소만 걸러내고자 할 때 유용합니다.
 
 예시:
 
@@ -142,7 +142,7 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 부모 요소, 부모 요소의 부모 요소 등 DOM 트리에서 특정 요소의 상위에 있는 요소들을 한데 묶어 해당 요소의 *조상* 요소라고 부릅니다.
 
-`elem.closest(css)`메서드는 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다. 이때, `elem` 자기 자신도 검색 대상에 포함됩니다.
+`elem.closest(css)`메서드는 `elem` 자기 자신을 포함하여 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다.
 
 `closest`메서드는 해당 요소부터 시작해 DOM 트리를 한 단계씩 거슬러 올라가면서 원하는 요소를 찾습니다. CSS 선택자와 일치하는 요소를 찾으면, 검색을 중단하고 해당 요소를 반환합니다.
 
@@ -159,12 +159,12 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 </div>
 
 <script>
-  let chapter = document.querySelector('.chapter'); // li
+  let chapter = document.querySelector('.chapter'); // LI
 
-  alert(chapter.closest('.book')); // ul
-  alert(chapter.closest('.contents')); // div
+  alert(chapter.closest('.book')); // UL
+  alert(chapter.closest('.contents')); // DIV
 
-  alert(chapter.closest('h1')); // h1은 li의 조상 요소가 아니기 때문에 null이 출력됩니다.
+  alert(chapter.closest('h1')); // null(h1은 li의 조상 요소가 아님)
 </script>
 ```
 
@@ -174,11 +174,11 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 `querySelector`를 이용하는 게 더 편리하고 문법도 짧아서, 요즘은 이런 메서드들을 잘 쓰진 않습니다.
 
-오래된 스크립트에서 해당 메서드들을 만날 때 당황하지 않고, 튜토리얼의 완성도를 높이기 위해 이 메서드들을 잠시 언급하고 넘어가도록 하겠습니다.
+튜토리얼의 완성도를 높이고 오래된 스크립트에서 해당 메서드들을 만날 때 당황하지 않으시길 바라면서 이 메서드들을 잠시 언급하도록 하겠습니다.
 
-- `elem.getElementsByTagName(tag)`은 주어진 태그에 해당하는 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, "모든 태그"가 검색됩니다.
-- `elem.getElementsByClassName(className)`는 class 속성값을 기준으로 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다.
-- `document.getElementsByName(name)`은 아주 드물게 쓰이는 메서드로, 문서 전체를 대상으로 검색을 수행합니다. 검색 기준은 `name` 속성값이고, 이 메서드 역시 검색 결과를 담은 컬렉션을 반환합니다.
+- `elem.getElementsByTagName(tag)` --  주어진 태그에 해당하는 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, "모든 태그"가 검색됩니다.
+- `elem.getElementsByClassName(className)` -- class 속성값을 기준으로 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다.
+- `document.getElementsByName(name)` --  아주 드물게 쓰이는 메서드로, 문서 전체를 대상으로 검색을 수행합니다. 검색 기준은 `name` 속성값이고, 이 메서드 역시 검색 결과를 담은 컬렉션을 반환합니다.
 
 예시:
 ```js
@@ -219,7 +219,7 @@ let divs = document.getElementsByTagName('div');
 ```
 
 ```warn header="`\"s\"`를 절대 빠트리지 마세요!"
-개발 초보자들은 가끔 `"s"`를 빼먹는 실수를 하곤 합니다. <code>getElement<b>s</b>ByTagName</code>를 써야 하는데 `"s"`를 빠트리고 `getElementByTagName`을 입력하죠.
+초보 개발자들은 가끔 `"s"`를 빼먹는 실수를 하곤 합니다. <code>getElement<b>s</b>ByTagName</code>를 써야 하는데 `"s"`를 빠트리고 `getElementByTagName`을 입력하곤 하죠.
 
 `getElementById`는 요소 하나만을 반환하기 때문에 `"s"`가 없습니다. `getElementsByTagName`등의 메서드는 대응하는 요소를 담은 컬렉션을 반환하기 때문에 메서드 중간에 `"s"`가 들어갑니다.
 ```
@@ -232,7 +232,7 @@ let divs = document.getElementsByTagName('div');
 document.getElementsByTagName('input').value = 5;
 ```
 
-위 코드는 input 요소 전체를 담은 *컬렉션*에 5를 할당하려 하므로, 동작하지 않습니다. 본래 의도는 컬렉션이 아닌 요소에 값을 대응하는 것이었죠.
+위 코드는 input 요소 전체를 담은 *컬렉션*에 5를 할당하려 하므로, 동작하지 않습니다. 본래 의도는 컬렉션이 아닌 요소에 값을 할당하는 것이었죠.
 
 컬렉션을 순회하거나 인덱스를 사용해 컬렉션이 아닌 요소를 얻고, 그 요소에 값을 할당하면 기존 의도대로 동작합니다. 아래와 같이 말이죠.
 
@@ -262,11 +262,11 @@ document.getElementsByTagName('input')[0].value = 5;
 
 ## 살아있는 컬렉션
 
-`"getElementsBy*"`로 시작하는 모든 메서드는 *살아있는* 컬렉션을 반환합니다. 변경이 있을 때마다 컬렉션을 "자동 갱신"해줘 문서의 최신 상태를 반영할 수 있도록 해주죠.
+`"getElementsBy"`로 시작하는 모든 메서드는 *살아있는* 컬렉션을 반환합니다. 문서에 변경이 있을 때마다 컬렉션을 "자동 갱신"해줘 최신 상태를 반영할 수 있게 해주죠.
 
 아래 예제엔 스크립트 두 개가 있습니다.
 
-1. 첫 번째 스크립트는 `<div>`에 상응하는 요소 컬렉션에 대한 참조를 만듭니다. 스크립트가 실행되는 시점에 이 컬렉션의 길이는 `1`입니다.  
+1. 첫 번째 스크립트는 `<div>`에 상응하는 요소를 담은 컬렉션에 대한 참조를 만듭니다. 스크립트가 실행되는 시점에 이 컬렉션의 길이는 `1`입니다.  
 2. 두 번째 스크립트는 문서에 `<div>`가 하나 더 추가된 이후에 실행됩니다. 따라서 컬렉션의 길이는 `2`가 됩니다. 
 
 ```html run
@@ -286,9 +286,9 @@ document.getElementsByTagName('input')[0].value = 5;
 </script>
 ```
 
-반면, `querySelectorAll`은 *죽어있는* 컬렉션을 반환합니다. 요소를 담은 공간(컬렉션)이 한 번 확정되면 더는 늘어나지 않습니다.
+반면, `querySelectorAll`은 *정적인* 컬렉션을 반환합니다. 요소를 담은 공간인 컬렉션이 한 번 확정되면 더는 늘어나지 않습니다.
 
-이 메서드를 사용하면, 아래에서 보시는 바와 같이 두 스크립트가 동일하게 `1`을 출력합니다.
+이 메서드를 사용하면 아래에서 보시는 바와 같이 두 스크립트가 동일하게 `1`을 출력합니다.
 
 
 ```html run
@@ -308,7 +308,7 @@ document.getElementsByTagName('input')[0].value = 5;
 </script>
 ```
 
-예제를 실행해 보면 두 방식의 차이가 잘 드러납니다. 문서에 새로운 `div`가 추가되어도 `querySelectorAll`이 반환한 컬렉션의 길이는 늘어나지 않습니다.
+예시를 통해 두 방식의 차이를 살펴보았습니다. 문서에 새로운 `div`가 추가되어도 `querySelectorAll`이 반환한 컬렉션은 이를 반영하지 못합니다.
 
 ## 요약
 
@@ -363,7 +363,7 @@ document.getElementsByTagName('input')[0].value = 5;
 </tbody>
 </table>
 
-아마 실무에선 `querySelector`와 `querySelectorAll`을 가장 많이 만나실 겁니다. `getElementBy*`로 시작하는 메서드는 오래된 스크립트나 일부 이 메서드가 꼭 필요한 상황에 쓰이죠.
+아마 실무에선 `querySelector`나 `querySelectorAll`을 가장 많이 사용하실 겁니다. `getElementBy`로 시작하는 메서드는 대게 오래된 스크립트에서 만날 수 있는데, 일부 이 메서드가 꼭 필요한 상황에서 쓰이는 경우도 있습니다.
 
 이 외에 알아두면 좋을 만한 메서드는 아래와 같습니다.
 
