@@ -41,7 +41,6 @@ alert( rabbit.eats ); // true
 위 그림에서 가로 화살표는 일반 프로퍼티인 `"prototype"`, 세로 화살표는 `[[Prototype]]`을 나타냅니다. 세로 화살표는 `rabbit`이 `animal`로 부터 상속받았다는 것을 의미합니다.
 
 ```smart header="`new F`가 호출되었을 때만 `F.prototype` 사용"
-
 `F.prototype` 프로퍼티는 `new F`가 호출되었을 때만 사용되며, 새 객체의 `[[Prototype]]]`을 할당합니다. 그 후, 새로운 객체와  `F.prototype`은 관련이 없습니다. `일회성 선물`이라고 생각하세요.
 
 만약 생성 후에 `F.prototype` 프로퍼티가 변한다면(`F.prototype=<다른 객체>`), `new F`에 의해 생성된 새로운 객체는 `[[Prototype]]`으로 다른 객체를 가질 것입니다. 그러나 이미 생성된 객체는 이전 객체를 유지합니다.
