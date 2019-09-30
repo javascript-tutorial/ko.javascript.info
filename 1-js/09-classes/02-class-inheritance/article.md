@@ -261,7 +261,7 @@ The short answer is: constructors in inheriting classes must call `super(...)`, 
 
 Of course, there's an explanation. Let's get into details, so you'll really understand what's going on.
 
-In JavaScript, there's a distinction between a "constructor function of an inheriting class" and all others. In an inheriting class, the corresponding constructor function is labelled with a special internal property `[[ConstructorKind]]:"derived"`.
+In JavaScript, there's a distinction between a "constructor function of an inheriting class" and all others. In an inheriting class, the corresponding constructor function is labeled with a special internal property `[[ConstructorKind]]:"derived"`.
 
 The difference is:
 
@@ -312,7 +312,7 @@ If you're reading the tutorial for the first time - this section may be skipped.
 It's about the internal mechanisms behind inheritance and `super`.
 ```
 
-Let's get a little deeper under the hood of `super`. We'll see some interesting things by the way.
+Let's get a little deeper under the hood of `super`. We'll see some interesting things along the way.
 
 First to say, from all that we've learned till now, it's impossible for `super` to work at all!
 
