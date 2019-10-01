@@ -17,12 +17,12 @@ let salaries = {
 
 alert( sumSalaries(salaries) ); // 650
 ```
-Or, optionally, we could also get the sum using `Object.values` and `reduce`:
+또는 선택적으로,`Object.values` 와 `reduce`를 이용하여, 합을 구할 수도 있습니다:
 
 ```js
-// reduce loops over array of salaries,
-// adding them up
-// and returns the result
+// salaries 배열 반복문을 reduce 합니다,
+// 값들을 합산합니다
+// 그리고 결과를 반환합니다
 function sumSalaries(salaries) {
   return Object.values(salaries).reduce((a, b) => a + b, 0) // 650
 }
