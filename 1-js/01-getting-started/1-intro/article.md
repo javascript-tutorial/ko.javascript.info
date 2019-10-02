@@ -28,7 +28,7 @@
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
 - IE는 버전에 따라 "Trident"나 "Chakra"라 불리는 엔진을 사용합니다. "ChakraCore"는 Microsoft Edge에 사용되며, "SquirrelFish"는 Safari에 사용됩니다.
 
-위의 용어는 개발 관련 글에서 종종 언급되기 때문에 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 해당 용어를 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
+위의 코드네임은 개발 관련 글에서 종종 언급되기 때문에 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 해당 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
 
 ```smart header="엔진은 어떻게 동작하나요?"
 
