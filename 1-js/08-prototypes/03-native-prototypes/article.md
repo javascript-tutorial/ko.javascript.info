@@ -16,10 +16,7 @@ alert( obj ); // "[object Object]" ?
 `"[object Object]"` 문자열을 생성하는 코드는 어디에 있나요? 이는 내장 `toString` 메서드 입니다. 하지만 어디에 있을까요? `obj`는 비어 있습니다!
 
 
-<!-- ...But the short notation `obj = {}` is the same as `obj = new Object()`, where `Object` is a built-in object constructor function, with its own `prototype` referencing a huge object with `toString` and other methods.
-
-review required
- `obj = {}`의 줄일법은  `obj = new Object()`와 같습니다. `Object` 내장 객체 생성자 함수에서  `prototype`을 가지고 참조하는 큰 객체와 `toString` 과 다른 메서드들 참조하는  -->
+ `obj = {}`의 줄일법은  `obj = new Object()`와 같습니다. `toString`과 다른 메서드들과 함께 큰 객체를 참조하는 `prototype`을 가지고 있는 `Object`는 내장 객체 생성자 함수 입니다.
 
 
 어떤 일이 벌어지는지 보겠습니다.
@@ -75,9 +72,8 @@ alert( arr.__proto__.__proto__ === Object.prototype ); // true
 alert( arr.__proto__.__proto__.__proto__ ); // null
 ```
 
-<!-- 
-Some methods in prototypes may overlap, for instance, `Array.prototype` has its own `toString` that lists comma-delimited elements:
-몇몇 메서드의 프로토 타입이 중복 될 수 도 있습니다. 예를틀면 ,`Array.prototype`은 `toString` 쉼표제한적 요소의 항목에서는  -->
+
+몇 몇 프로토 타입의 메서드가 중복이 될 수 도 있습니다. 예를 들어 `Array.prototype`는 쉼표 구분된 요소들을 나열하는 자기자신의 `toString`를 가집니다.
 
 ```js run
 let arr = [1, 2, 3]
@@ -107,13 +103,15 @@ alert(f.__proto__.__proto__ == Object.prototype); // true, inherit from objects
 이러한 객체들은 눈에 보이지 않게생성되고 대부분의 엔진은 이를 최적화 합니다.명세서에도 이와 같이 묘사됩니다. 객체들의 메서드는 `String.prototype`, `Number.prototype`, `Boolean.prototype` 처럼 사용할 수 있는 프로토 타입안에 존재합니다.
 
 
-```warn header="Values `null` and `undefined` have no object wrappers"
+```warn header="Values `null` 과 `undefined` 값들은 객체 래퍼를 가지지 않습니다."
 Special values `null` and `undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes too.
+``특수값인 `null` 와 `undefined`는 다른것과는 거리가 있습니다. 객체 래퍼가 없기 때문에 메서드와 프로퍼티를 이용 할 수 없습니다. 그리고 해당하는 프로퍼티 존재하지 않습니다.
 ```
 
 ## Changing native prototypes [#native-prototype-change]
-
+## 네이티브 포로토타입 변경 
 Native prototypes can be modified. For instance, if we add a method to `String.prototype`,  it becomes available to all strings:
+네이티브 프로토타입은 변경 될수 있습니다. 예를 들어 만약 메서드를 `String.prototype`에 추가한다면 모든 문자열에서 `String.prototype`를 사용 할 수 있습니다. 
 
 ```js run
 String.prototype.show = function() {
@@ -122,13 +120,11 @@ String.prototype.show = function() {
 
 "BOOM!".show(); // BOOM!
 ```
-
-During the process of development, we may have ideas for new built-in methods we'd like to have, and we may be tempted to add them to native prototypes. But that is generally a bad idea.
+개발과정 중 입맛에 맞는 새로운 내장 메서드를 가질 수 있습니다. 또한 새로운 내장 메서드를 네이티브 프로토 타입에 추가 할 수 도 있습니다. 그러나 일반적으로 좋지 않은 아이디어 입니다. 
 
 ```warn
-Prototypes are global, so it's easy to get a conflict. If two libraries add a method `String.prototype.show`, then one of them will be overwriting the method of the other.
-
-So, generally, modifying a native prototype is considered a bad idea.
+프로토 타입은 전체에 영향을 미칩니다. 그래서 충돌이 쉽게 일어 나는데 두개의 라이브러리에서 `String.prototype.show` 메서드를 추가 할 때 하나의 라이브러리 에서 다른 하나의 라이브러리의 메서드를 덮어 쓰게 됩니다.
+그래서 일반적으로 네이티브 프로퍼티를 수정 하는것은 좋지 않은 아이디어 입니다.
 ```
 
 **In modern programming, there is only one case where modifying native prototypes is approved. That's polyfilling.**
