@@ -5,7 +5,7 @@
 
 지금까진 프로퍼티를 단순히 "키-값" 쌍의 관점에서만 다뤘습니다. 그런데 사실 프로퍼티는 우리가 생각했던 것보다 더 유연하고 강력한 자료구조입니다. 
 
-이 챕터에선 객체 프로퍼티 추가 구성 옵션 몇 가지를 다룰것 입니다. 이어지는 챕터에선 getter나 setter 함수를 사용해 보이지 않는 곳에서 프로퍼티를 다룰 수 있는 방법에 대해 알아보겠습니다. 
+이 챕터에선 객체 프로퍼티 추가 구성 옵션 몇 가지를 다룰것 입니다. 이어지는 챕터에선 이 옵션들을 이용해 손쉽게 getter나 setter 함수를 만드는 법을 알아보겠습니다.
 
 ## 프로퍼티 플래그
 
@@ -15,11 +15,11 @@
 - **`enumerable`** -- `true`이면 반복문을 사용해 나열할 수 있습니다. 그렇지 않다면 반복문을 사용해 나열할 수 없습니다.
 - **`configurable`** -- `true`이면 프로퍼티 삭제나 플래그 수정이 가능합니다. 그렇지 않다면 프로퍼티 삭제와 플래그 수정이 불가능합니다.
 
-프로퍼티 플래그는 특별한 조작을 가하지 않는 이상 모습을 드러내지 않습니다. 지금까지 객체와 객체 프로퍼티를 많이 다뤄보았지만, 플래그를 처음 접하는 이유가 바로 이 때문입니다. 지금까지 해왔던 "평범한 방식"으로 프로퍼티를 만들면 해당 프로퍼티의 플래그는 모두 `true`가 됩니다. 이렇게 `true`로 설정된 플래그는 언제든 수정할 수 있습니다.
+프로퍼티 플래그는 특별한 경우가 아니고선 다룰 일이 없기 때문에 여기서 처음 소개하게 되었습니다. 지금까지 해왔던 "평범한 방식"으로 프로퍼티를 만들면 해당 프로퍼티의 플래그는 모두 `true`가 됩니다. 이렇게 `true`로 설정된 플래그는 언제든 수정할 수 있습니다.
 
-자 이제 본격적으로 프로퍼티 플래그에 대해 다뤄봅시다. 먼저, 플래그를 얻는 방법에 대해 알아보겠습니다.
+자 이제 본격적으로 프로퍼티 플래그에 대해 다뤄봅시다. 먼저 플래그를 얻는 방법을 알아보겠습니다.
 
-[Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor)메서드를 사용하면 특정 프로퍼티에 대한 정보 *모두를* 얻을 수 있습니다.
+[Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor)메서드를 사용하면 특정 프로퍼티에 대한 정보를 *모두* 얻을 수 있습니다.
 
 문법:
 ```js
@@ -32,7 +32,7 @@ let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 `propertyName`
 : 정보를 얻고자 하는 객체 내 프로퍼티
 
-메서드를 호출하면 "프로퍼티 설명자(descriptor)"라고 불리는 객체가 반환되는데, 여기에는 프로퍼티 값과 세 플래그에 대한 정보 모두가 담겨있습니다.
+메서드를 호출하면 "프로퍼티 설명자(descriptor)"라고 불리는 객체가 반환되는데, 여기에는 프로퍼티 값과 세 플래그에 대한 정보가 모두 담겨있습니다.
 
 예시:
 
@@ -146,7 +146,7 @@ user.name = "Pete"; // Error
 
 `user`에 커스텀 메서드 `toString`을 추가해봅시다.
 
-객체 내장 메서드 `toString`는 열거가 불가능(non-enumerable)하기 때문에 `for..in` 사용시 나타나지 않습니다. 하지만 커스텀 `toString`을 추가하면 아래와 같이 `for..in`에 `toString`이 나타납니다.
+객체 내장 메서드 `toString`은 열거가 불가능(non-enumerable)하기 때문에 `for..in` 사용시 나타나지 않습니다. 하지만 커스텀 `toString`을 추가하면 아래와 같이 `for..in`에 `toString`이 나타납니다.
 
 ```js run
 let user = {
@@ -217,7 +217,7 @@ Math.PI = 3; // Error
 // 수정도 불가능하지만 지우는 것 역시 불가능합니다.
 ```
 
-`configurable` 플래그를 `false`로 설정하면 돌이킬 방법이 없습니다. `defineProperty`를 써서 값을 `true`로 수정할 수 없죠.
+`configurable` 플래그를 `false`로 설정하면 돌이킬 방법이 없습니다. `defineProperty`를 써도 값을 `true`로 되돌릴 수 없죠.
 
 `configurable:false`가 만들어내는 구체적인 제약사항은 아래와 같습니다.
 1. `configurable` 플래그를 수정할 수 없음
@@ -246,7 +246,7 @@ Object.defineProperty(user, "name", {writable: true}); // Error
 */!*
 ```
 
-```smart header="\"non-configurable\"은 \"non-writable\"과 등가가 아닙니다."
+```smart header="\"non-configurable\"은 \"non-writable\"과 다릅니다."
 `configurable` 플래그가 `false`이더라도 `writable` 플래그가 `true`이면 프로퍼티 값을 변경할 수 있습니다.
 
 `configurable: false`는 플래그 값 변경이나 프로퍼티 삭제를 막기 위해 만들어졌지, 프로퍼티 값 변경을 막기 위해 만들어 진 게 아닙니다.
@@ -280,7 +280,7 @@ Object.defineProperties(user, {
 
 ## Object.getOwnPropertyDescriptors
 
-[Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors) 메서드를 사용하면 프로퍼티 전체의 설명자를 한꺼번에 가져올 수 있습니다.
+[Object.getOwnPropertyDescriptors(obj)](mdn:js/Object/getOwnPropertyDescriptors) 메서드를 사용하면 프로퍼티 설명자를 전부 한꺼번에 가져올 수 있습니다.
 
 이 메서드를 `Object.defineProperties`와 함께 사용하면 객체 복사 시 플래그도 함께 복사할 수 있습니다.
 
@@ -296,13 +296,13 @@ for (let key in user) {
 }
 ```
 
-그런데 이 방법은 플래그까지 고려해주지 않으므로, 플래그 정보도 복사하려면 `Object.defineProperties`를 사용하시기 바랍니다.  
+그런데 이 방법은 플래그는 복사하지 않습니다. 플래그 정보도 복사하려면 `Object.defineProperties`를 사용하시기 바랍니다.  
 
-위 샘플 코드처럼 `for..in`을 사용해 객체를 복사하면 심볼형 프로퍼티도 놓치게 됩니다. `Object.getOwnPropertyDescriptors`는 심볼형 프로퍼티를 포함한 프로퍼티 설명자 *전체*를 반환하기 때문에, 객체 복사 시엔 이를 염두에 두시기 바랍니다. 
+위 샘플 코드처럼 `for..in`을 사용해 객체를 복사하면 심볼형 프로퍼티도 놓치게 됩니다. 하지만 `Object.getOwnPropertyDescriptors`는 심볼형 프로퍼티를 포함한 프로퍼티 설명자 *전체*를 반환합니다. 
 
 ## 객체 수정을 막아주는 다양한 메서드
 
-프로퍼티 설명자는 개별 프로퍼티 수준에서 동작합니다.
+프로퍼티 설명자는 특정 프로퍼티 하나를 대상으로 합니다.
 
 아래 메서드를 사용하면 한 객체 내 프로퍼티 *전체*를 대상으로 하는 제약사항을 만들 수 있습니다.
 
