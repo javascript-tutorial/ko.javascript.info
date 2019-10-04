@@ -104,13 +104,9 @@ alert(f.__proto__.__proto__ == Object.prototype); // true, inherit from objects
 
 
 ```warn header="Values `null` 과 `undefined` 값들은 객체 래퍼를 가지지 않습니다."
-Special values `null` and `undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes too.
-``특수값인 `null` 와 `undefined`는 다른것과는 거리가 있습니다. 객체 래퍼가 없기 때문에 메서드와 프로퍼티를 이용 할 수 없습니다. 그리고 해당하는 프로퍼티 존재하지 않습니다.
+특수한 값인 `null` 와 `undefined`는 다른것과는 거리가 있습니다. 객체 래퍼가 없기 때문에 메서드와 프로퍼티를 이용 할 수 없습니다. 그리고 해당하는 프로퍼티 존재하지 않습니다.
 ```
-
-## Changing native prototypes [#native-prototype-change]
-## 네이티브 포로토타입 변경 
-Native prototypes can be modified. For instance, if we add a method to `String.prototype`,  it becomes available to all strings:
+## 네이티브 포로토타입 변경[#native-prototype-change] 
 네이티브 프로토타입은 변경 될수 있습니다. 예를 들어 만약 메서드를 `String.prototype`에 추가한다면 모든 문자열에서 `String.prototype`를 사용 할 수 있습니다. 
 
 ```js run
@@ -127,24 +123,24 @@ String.prototype.show = function() {
 그래서 일반적으로 네이티브 프로퍼티를 수정 하는것은 좋지 않은 아이디어 입니다.
 ```
 
-**In modern programming, there is only one case where modifying native prototypes is approved. That's polyfilling.**
+**모던 프로그래밍 에서는 오직 한 경우에만 네이티브 프로퍼티를 변경을 허용 하고 있는데 바로 폴리필링입니다.**
 
-Polyfilling is a term for making a substitute for a method that exists in JavaScript specification, but is not yet supported by current JavaScript engine.
+폴리필링은 자바스크립트 명세서에 존재하는 메서드에 대한 대체제 만들기 위해 사용하는데 현재의 자바스크립트 엔진에서는 아직 지원하지 않습니다.
+따라서 폴리필링을 수동으로 실행하며 내장 프로토타입과 함께 값을 가져 옵니다.
 
-Then we may implement it manually and populate the built-in prototype with it.
-
-For instance:
+예시:
 
 ```js run
-if (!String.prototype.repeat) { // if there's no such method
-  // add it to the prototype
+if (!String.prototype.repeat) { // 해당 메서드가 존재하지 않는다면
+  // 프로토타입을 추가
 
   String.prototype.repeat = function(n) {
-    // repeat the string n times
+    //  String 을 n회 반복
 
-    // actually, the code should be a little bit more complex than that
-    // (the full algorithm is in the specification)
-    // but even an imperfect polyfill is often considered good enough for use
+    // 사실 코드는 이거보다 조금 더 복잡합니다.
+    // 모든 알고리즘은 명세서 안에 있습니다.
+
+    // 그럼에도 이 불완전한 폴리필은 종종 사용되기 충분합니다.
     return new Array(n + 1).join(this);
   };
 }
@@ -153,16 +149,12 @@ alert( "La".repeat(3) ); // LaLaLa
 ```
 
 
-## Borrowing from prototypes
+## 프로토타입으로 부터 빌리기
 
-In the chapter <info:call-apply-decorators#method-borrowing> we talked about method borrowing.
-
-That's when we take a method from one object and copy it into another.
-
-Some methods of native prototypes are often borrowed.
-
-For instance, if we're making an array-like object, we may want to copy some `Array` methods to it.
-
+메서드 빌리기 챕터에서는 메서드 빌리기에 대하여 얘기하였습니다.
+이는 메서드를 하나의 객체로 부터 가져온 다음 다른 객체에 복사하는 것입니다.
+몇몇 네이티브 프로토타입의 메서드들은 자주 사용됩니다.
+예를 들어 객체와 같은 배열을 만든다고 하면 아마 `Array` 메서드를 객체에 복사해야 합니다. 
 E.g.
 
 ```js run
@@ -179,18 +171,16 @@ obj.join = Array.prototype.join;
 alert( obj.join(',') ); // Hello,world!
 ```
 
-It works, because the internal algorithm of the built-in `join` method only cares about the correct indexes and the `length` property, it doesn't check that the object is indeed the array. And many built-in methods are like that.
-
-Another possibility is to inherit by setting `obj.__proto__` to `Array.prototype`, so all `Array` methods are automatically available in `obj`.
-
-But that's impossible if `obj` already inherits from another object. Remember, we only can inherit from one object at a time.
-
+코드는 정상작동 합니다. 왜냐하면 내장 `join`메서드의 내장 알고리즘은 단지 인덱스의 일치 여부만 케어하며 `length` 프로퍼티는 객체가 실제로 배열에 존재하는지 체크하지 않습니다 그리고 수많은 내장 메서드들도 또한 이와 같습니다.
+다른 가능성은 `obj.__proto__`를 `Array.prototype`에 상속시키는 것입니다. 그래서 모든 `Array`메서드가 자동적으로 `obj`에서 사용가능하게 하는 것입니다. 
+ `obj`가 이미 다른 객체로 부터 상속하였다면 그러나 위 방법은 불가능 합니다. 오직 한번에 하나의 객체로부터 상속 가능 함을 기억해 두세요 
 Borrowing methods is flexible, it allows to mix functionality from different objects if needed.
+메서드 빌리기는 유연합니다 만약 필요하다면 함수적기능을 섞는것을 다른 객체로 부터 가능하게 합니다  
 
-## Summary
+## 요약
 
-- All built-in objects follow the same pattern:
-    - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype` etc).
-    - The object itself stores only the data (array items, object properties, the date).
-- Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype`, `Boolean.prototype`. Only `undefined` and `null` do not have wrapper objects.
-- Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. Probably the only allowable cause is when we add-in a new standard, but not yet supported by the engine JavaScript method.
+- 모든 내장 객체는 같은 패턴을 따릅니다.
+    - 메서드는 프로토 타입에 저장됩니다. (`Array.prototype` ,`Object.prototype`, `Date.prototype` etc).
+    - 객체 스스로는 단지 데이터만 저장 합니다. (배열의 아이템 , 객체의 프로퍼티 , 날짜)
+- 원시값 또한 객체 래퍼의 프로토 타입 안에 메서드를 저장합니다  `Number.prototype`, `String.prototype`, `Boolean.prototype`. `undefined` 와 `null` 값만 객체 래퍼을 가지지 않습니다. 
+- 내장 프로토 타입은 수정 가능하며 새로운 메서드와 함께 값을 가져올 수 있습니다. 그러나 내장 프로토 타입을 변경하는 것을 추천 하진 않습니다. 아마 새로운 표준을 추가하려고 할때 만 가능합니다. 그러나 이는 자바스크립트 엔진 메서드에서는 아직 지원하지 않습니다.
