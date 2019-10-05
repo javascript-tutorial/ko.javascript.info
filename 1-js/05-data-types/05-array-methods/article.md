@@ -183,7 +183,7 @@ alert( arr.concat(arrayLike) ); // 1,2,[object Object]
 //[1, 2, arrayLike]
 ```
 
-그런데 인자로 받은 유사 배열 객체에 특수한 프로퍼티 `Symbol.isConcatSpreadable`이 있으면 `concat`은 이 객체를 배열처럼 취급합니다. 따라서 객체 전체가 아닌 객체 요소(프로퍼티) 값이 더해집니다.
+그런데 인자로 받은 유사 배열 객체에 특수한 프로퍼티 `Symbol.isConcatSpreadable`이 있으면 `concat`은 이 객체를 배열처럼 취급합니다. 따라서 객체 전체가 아닌 객체 프로퍼티의 값이 더해집니다.
 
 ```js run
 let arr = [1, 2];
