@@ -44,7 +44,7 @@ rabbit.__proto__ = animal;
 
 예시:
 
-```js run
+```js
 let animal = {
   eats: true
 };
