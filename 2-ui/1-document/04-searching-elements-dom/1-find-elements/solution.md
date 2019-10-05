@@ -1,35 +1,35 @@
-There are many ways to do it.
+다양한 방법으로 문제를 풀 수 있습니다.
 
-Here are some of them:
+그 중 일부를 여기서 소개해드리겠습니다.
 
 ```js
-// 1. The table with `id="age-table"`.
+// 1. `id="age-table"`인 테이블
 let table = document.getElementById('age-table')
 
-// 2. All label elements inside that table
+// 2. 테이블 내의 `label` 요소 모두
 table.getElementsByTagName('label')
-// or
+// 또는
 document.querySelectorAll('#age-table label')
 
-// 3. The first td in that table (with the word "Age")
+// 3. 테이블 내의 첫 번째 `td`(Age가 적힌 곳)
 table.rows[0].cells[0]
-// or
+// 또는
 table.getElementsByTagName('td')[0]
-// or
+// 또는
 table.querySelector('td')
 
-// 4. The form with the name "search"
-// assuming there's only one element with name="search" in the document
+// 4. `name="search"`인 `form`
+// name이 "search"인 요소는 문서에 단 하나뿐이라고 가정합시다.
 let form = document.getElementsByName('search')[0]
-// or, form specifically
+// from을 정확히 지정해 줄 수도 있습니다.
 document.querySelector('form[name="search"]')
 
-// 5. The first input in that form.
+// 5. 폼의 첫 번째 `input`
 form.getElementsByTagName('input')[0]
-// or
+// 또는
 form.querySelector('input')
 
-// 6. The last input in that form
-let inputs = form.querySelectorAll('input') // find all inputs
-inputs[inputs.length-1] // take the last one
+// 6. 폼의 마지막 `input`
+let inputs = form.querySelectorAll('input') // 모든 input 요소를 찾교
+inputs[inputs.length-1] // 마지막 요소를 얻어냅니다.
 ```
