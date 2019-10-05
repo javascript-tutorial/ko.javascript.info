@@ -710,7 +710,7 @@ alert(clone.sizes.width); // 51, 다른 객체에서 변경 사항을 확인할 
 
 이 문제를 해결하려면 `user[key]`의 각 값을 검사하면서 그 값이 객체라면 객체의 구조도 복사해주는 반복문을 사용해야 합니다. 이를 "깊은 복사(deep cloning)"라고 부릅니다.
 
-깊은 복사 시 사용되는 공식 알고리즘, [Structured cloning algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다. 그런데 대다수의 개발자는 이 알고리즘을 이용해 직접 깊은 복사 관련 코드를 구현하기보다는 [lodash](https://lodash.com)라 불리는 자바스크립트 라이브러리의 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) 메서드를 사용해 깊은 복사를 처리합니다. 
+깊은 복사 시 사용되는 공식 알고리즘, [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다. 그런데 대다수의 개발자는 이 알고리즘을 이용해 직접 깊은 복사 관련 코드를 구현하기보다는 [lodash](https://lodash.com)라 불리는 자바스크립트 라이브러리의 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) 메서드를 사용해 깊은 복사를 처리합니다. 
 
 
 

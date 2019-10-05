@@ -100,5 +100,3 @@ alert(doublePrices.meat); // 8
 ```   
 
 지금 당장은 어렵게 느껴지겠지만 한두 번 위와 같은 방법을 적용해 객체에 배열 전용 메서드를 사용하다 보면 이해하기 수월할 겁니다.
-
-We can make powerful one-liners for more complex transforms this way. It’s only important to keep balance, so that the code is still simple enough to understand it.
