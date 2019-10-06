@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Store "unread" flags
+# '읽지 않은' 플래그 저장하기
 
-There's an array of messages:
+아래에 메시지들의 배열이 있습니다.
 
 ```js
 let messages = [
@@ -14,10 +14,10 @@ let messages = [
 ];
 ```
 
-Your code can access it, but the messages are managed by someone else's code. New messages are added, old ones are removed regularly by that code, and you don't know the exact moments when it happens.
+여러분의 코드는 위 메시지들에 접근할 수 있지만 메시지들은 다른 누군가의 코드에 의해 관리됩니다. 그 누군가의 코드에 의해 정기적으로 새로운 메시지가 추가되고 기존에 있던 메시지는 삭제되지만, 여러분은 이런 일이 일어나는 정확한 시점을 알지 못합니다.
 
-Now, which data structure you could use to store information whether the message "have been read"? The structure must be well-suited to give the answer "was it read?" for the given message object.
+그럼, 메시지가 '읽혔는지'에 대한 정보를 저장하려면 어떤 자료구조를 사용하는 것이 좋을까요? 그 자료구조는 주어진 메시지 객체에 대해 "이 메시지가 읽혔는가?"에 대한 답을 줄 수 있도록 하는 적절한 구조여야 합니다.
 
-P.S. When a message is removed from `messages`, it should disappear from your structure as well.
+P.S `messages`에서 어떤 메시지가 삭제될 때는 여러분이 사용한 자료구조에서도 그 메시지가 사라져야 합니다.
 
-P.P.S. We shouldn't modify message objects, add our properties to them. As they are managed by someone else's code, that may lead to bad consequences.
+P.P.S. 메시지 객체들을 수정하거나 객체들에 프로퍼티를 추가하지는 말아야 합니다. 그 객체들이 다른 누군가의 코드로 관리되기 때문에 안 좋은 결과를 초래할 수 있습니다.
