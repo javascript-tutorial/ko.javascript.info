@@ -1,6 +1,10 @@
 # 브라우저 환경과 다양한 명세
 
+<<<<<<< HEAD
 자바스크립트는 본래 웹 브라우저에서 사용하려고 만들어진 언어입니다. 이후 진화를 거쳐 다양한 사용처와 플랫폼을 지원하는 언어로 변모하였습니다.   
+=======
+The JavaScript language was initially created for web browsers. Since then it has evolved and become a language with many uses and platforms.
+>>>>>>> 71ff8f81b05e2438a3c56507888e06c528a71182
 
 자바스크립트가 돌아가는 플랫폼은 *호스트(host)* 라고 불립니다. 호스트는 브라우저, 웹서버, 심지어는 커피 머신이 될 수도 있습니다. 각 플랫폼은 해당 플랫폼에 특정되는 기능을 제공하는데, 자바스크립트 명세에선 이를 *호스트 환경(host environment)* 이라고 부릅니다.
 
@@ -60,14 +64,20 @@ For instance, server-side scripts that download HTML pages and process them can 
 ```
 
 ```smart header="CSSOM for styling"
-CSS rules and stylesheets are structured in a different way than HTML. There's a separate specification [CSSOM](https://www.w3.org/TR/cssom-1/) that explains how they are represented as objects, and how to read and write them.
+CSS rules and stylesheets are structured in a different way than HTML. There's a separate specification, [CSS Object Model (CSSOM)](https://www.w3.org/TR/cssom-1/), that explains how they are represented as objects, and how to read and write them.
 
 CSSOM is used together with DOM when we modify style rules for the document. In practice though, CSSOM is rarely required, because usually CSS rules are static. We rarely need to add/remove CSS rules from JavaScript, but that's also possible.
 ```
 
+<<<<<<< HEAD
 ## BOM(브라우저 객체 모델)
 
 브라우저 객체 모델(Browser Object Model, BOM)은 HTML 명세의 일부로, 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가적인 객체입니다.
+=======
+## BOM (Browser Object Model)
+
+The Browser Object Model (BOM) represents additional objects provided by the browser (host environment) for working with everything except the document.
+>>>>>>> 71ff8f81b05e2438a3c56507888e06c528a71182
 
 예시:
 
