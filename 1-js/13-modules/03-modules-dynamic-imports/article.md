@@ -24,7 +24,7 @@ if(...) {
 
 이런 제약사항이 만들어진 이유는 `import`/`export`는 코드 구조의 중심을 잡아주는 역할을 하기 때문입니다. 코드 구조를 분석해 모듈을 한데 모아 번들링하고, 사용하지 않는 모듈은 제거(가지치기)해야 하는데, 코드 구조가 간단하고 고정되어있을 때만 이런 작업이 가능합니다.
 
-그런데 그럼에도 불구하고 모듈을 동적으로 불러와야 한다면 어떻게 해야 할까요?
+그럼에도 불구하고 모듈을 동적으로 불러와야 한다면 어떻게 해야 할까요?
 
 ## import() 표현식
 
@@ -78,7 +78,7 @@ export default function() {
 ```js
 let obj = await import('./say.js');
 let say = obj.default;
-// or, in one line: let {default: say} = await import('./say.js');
+// 혹은, let {default: say} = await import('./say.js'); 와 같이 한 줄로도 작성할 수 있습니다.
 
 say();
 ```

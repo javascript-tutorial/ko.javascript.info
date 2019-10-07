@@ -27,7 +27,7 @@ alert(firstName); // Ilya
 alert(surname);  // Kantor
 ```
 
-이제 인덱스를 이용해 배열에 접근하지 않고도 변수로 이름과 성을 사용할 수 있게 되없습니다.
+이제 인덱스를 이용해 배열에 접근하지 않고도 변수로 이름과 성을 사용할 수 있게 되었습니다.
 
 아래 예시처럼 `split` 같은 반환 값이 배열인 메서드를 함께 활용해도 좋습니다.
 
@@ -35,8 +35,8 @@ alert(surname);  // Kantor
 let [firstName, surname] = "Ilya Kantor".split(' ');
 ```
 
-````smart header="\"분해(destructuring)\"는 \"파괴(destructive)\"를 수반하지 않습니다."
-구조 분해 할당이란 명칭은 어떤 것을 복사한 이후에 변수로 "분해(destructurizes)"해준다는 의미 때문에 붙여졌습니다. 그런데 이 과정에서 분해 대상은 수정 또는 파괴되지 않습니다.
+````smart header="\"분해(destructuring)\"는 \"파괴(destructive)\"를 의미하지 않습니다."
+구조 분해 할당이란 명칭은 어떤 것을 복사한 이후에 변수로 "분해(destructurizes)"해준다는 의미 때문에 붙여졌습니다. 이 과정에서 분해 대상은 수정 또는 파괴되지 않습니다.
 
 배열의 요소를 직접 변수에 할당하는 것보다 코드 양이 줄어든다는 점만 다릅니다.
 ```js
@@ -58,7 +58,7 @@ let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic
 alert( title ); // Consul
 ```
 
-위 코드에서 두 번째 요소는 걸러졌지만, 세 번째 요소는 `title`이라는 변수에 저장된 것을 확인할 수 있습니다. 할당할 변수가 없기 때문에 그 이외 요소도 역시 걸러졌습니다.
+위 코드에서 두 번째 요소는 생략되었지만, 세 번째 요소는 `title`이라는 변수에 할당된 것을 확인할 수 있습니다. 할당할 변수가 없기 때문에 그 이외 요소도 역시 생략되었습니다.
 ````
 
 ````smart header="할당 연산자 우측엔 모든 이터러블이 올 수 있습니다."
@@ -91,7 +91,7 @@ alert(user.name); // Ilya
 
 [Object.entries(obj)](mdn:js/Object/entries)는 이전 챕터에서 학습한 바 있습니다.
 
-이 메서드와 구조 분해를 조합하면 객체의 키와 값을 변수로 분해할 수 있습니다.
+이 메서드와 구조 분해를 조합하면 객체의 키와 값을 순회해 변수로 분해 할당할 수 있습니다.
 
 ```js run
 let user = {
@@ -302,7 +302,7 @@ let options = {
   height: 200
 };
 
-// only extract title as a variable
+// title만 변수로 뽑아내기
 let { title } = options;
 
 alert(title); // Menu
@@ -329,7 +329,7 @@ let options = {
 let {title, ...rest} = options;
 */!*
 
-// now title="Menu", rest={height: 200, width: 100}
+// 이제 title은 "Menu", rest는 {height: 200, width: 100} 입니다.
 alert(rest.height);  // 200
 alert(rest.width);   // 100
 ```
@@ -383,7 +383,7 @@ let options = {
     height: 200
   },
   items: ["Cake", "Donut"],
-  extra: true    // 분해의 대상이 아닌 기타 요소
+  extra: true
 };
 
 // 코드를 여러 줄에 걸쳐 작성해 의도하는 바를 명확히 드러냄

@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Truncate the text
+# 문자열 줄이기
 
-Create a function `truncate(str, maxlength)` that checks the length of the `str` and, if it exceeds `maxlength` -- replaces the end of `str` with the ellipsis character `"…"`, to make its length equal to `maxlength`.
+`str`의 길이를 확인하고, 최대 길이 `maxlength`를 초과하는 경우 `str`의 끝을 생략 부호 (`"…"`)로 대체해주는 함수 `truncate(str, maxlength)`를 만들어봅시다. 새로 만든 문자열의 길이는 `maxlength`가 되어야 합니다.
 
-The result of the function should be the truncated (if needed) string.
+함수의 반환 값은 원하는 길이로 줄여진 문자열이 되어야 합니다.
 
-For instance:
+예시:
 
 ```js
 truncate("What I'd like to tell on this topic is:", 20) = "What I'd like to te…"
