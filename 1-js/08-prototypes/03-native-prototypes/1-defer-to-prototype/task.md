@@ -2,16 +2,13 @@ importance: 5
 
 ---
 
-# Add method "f.defer(ms)" to functions
+# 메서드"f.defer(ms)"를 함수에 추가하기
 
-Add to the prototype of all functions the method `defer(ms)`, that runs the function after `ms` milliseconds.
-
-After you do it, such code should work:
-
+모든 함수의 포로토타입에 `ms`밀리초 후에 함수를 실행하는 `defer(ms)`함수를 추가하세요
+함수를 추가시 아래 코드는 동작 해야합니다.
 ```js
 function f() {
   alert("Hello!");
 }
 
-f.defer(1000); // shows "Hello!" after 1 second
-```
+f.defer(1000); // 1 초후 "Hello!" 출력 
