@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Map to names
+# 이름 매핑하기
 
-You have an array of `user` objects, each one has `user.name`. Write the code that converts it into an array of names.
+`name`을 나타내는 프로퍼티를 가진 객체 `user`가 담긴 배열이 있습니다. `name`의 값만 담은 새로운 배열을 만들어주는 코드를 작성해보세요.
 
-For instance:
+예시:
 
 ```js no-beautify
 let john = { name: "John", age: 25 };
@@ -15,7 +15,7 @@ let mary = { name: "Mary", age: 28 };
 
 let users = [ john, pete, mary ];
 
-let names = /* ... your code */
+let names = /* 여기에 코드를 작성하세요. */
 
 alert( names ); // John, Pete, Mary
 ```
