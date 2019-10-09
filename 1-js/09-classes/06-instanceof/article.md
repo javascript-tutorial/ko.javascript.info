@@ -1,42 +1,38 @@
-# Class checking: "instanceof"
-
-The `instanceof` operator allows to check whether an object belongs to a certain class. It also takes inheritance into account.
-
-Such a check may be necessary in many cases, here we'll use it for building a *polymorphic* function, the one that treats arguments differently depending on their type.
+# 클래스 확인: "instanceof"
+`instanceof` 연산자는 객체가 특정 클래스에 속해 있는지 없는지를 검사합니다. 또한, 상속 관계에 있는지 확인합니다.
+확인하는 기능은 많은 경우에서 필수 적인데, 여기에 우리는 매개변수의 타입에 의해 처리하는 법이 달라지는 다형적인 함수를 빌드하기 위해 사용할 것입니다.
 
 ## The instanceof operator [#ref-instanceof]
-
-The syntax is:
+## instanceof 연산자 [#ref-instanceof]
+문법은:
 ```js
 obj instanceof Class
 ```
-
 It returns `true` if `obj` belongs to the `Class` or a class inheriting from it.
+만약 `obj`가 `Class`에 속해 있거나 상속하고 있다면, true를 반환합니다.
 
-For instance:
-
+예를 들어:
 ```js run
 class Rabbit {}
 let rabbit = new Rabbit();
 
-// is it an object of Rabbit class?
+// rabbit이 Rabbit class에 속해있는지 물어봅니다.
 *!*
 alert( rabbit instanceof Rabbit ); // true
 */!*
 ```
 
-It also works with constructor functions:
-
+instanceof는 생성자 함수에서도 동작합니다:
 ```js run
 *!*
-// instead of class
+// 함수 Rabbit
 function Rabbit() {}
 */!*
 
 alert( new Rabbit() instanceof Rabbit ); // true
 ```
 
-...And with built-in classes like `Array`:
+...또한, `Array` 같은 클래스의 내장함수로써의 기능도 있습니다:
 
 ```js run
 let arr = [1, 2, 3];
@@ -44,11 +40,11 @@ alert( arr instanceof Array ); // true
 alert( arr instanceof Object ); // true
 ```
 
-Please note that `arr` also belongs to the `Object` class. That's because `Array` prototypally inherits from `Object`.
+`arr`은 또한, `Object` class에 속해있다는 것을 기억하세요. `Array`는 원래 `Object`를 상속하고 있습니다.
 
-Normally, `instanceof` operator examines the prototype chain for the check. We can also set a custom logic in the static method `Symbol.hasInstance`.
+보통, `instanceof` 연산자는 프로토타입 체인의 확인을 검사해줍니다. 또한, 정적인 메소드`Symbol.hasInstance`로 커스텀 로직을 설정할수 있습니다.
 
-The algorithm of `obj instanceof Class` works roughly as follows:
+`obj instanceof Class`의 알고리즘은 대략적으로 다음과 같이 동작합니다:
 
 1. If there's a static method `Symbol.hasInstance`, then just call it: `Class[Symbol.hasInstance](obj)`. It should return either `true` or `false`, and we're done. That's how we can customize the behavior of `instanceof`.
 
