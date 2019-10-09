@@ -55,9 +55,9 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // a,b
 ```js run
 class Rabbit {}
 
-alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true Rabbit의 프로토타입은 객체의 프로토타입입니다.
+alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true Rabbit의 프로토타입은 객체의 프로토타입 입니다.
 alert( Rabbit.__proto__ === Object ); // (2) false (!) Rabbit의 프로토타입은 객체가 아닙니다.
-alert( Rabbit.__proto__ === Function.prototype ); // 어떠한 함수든 기본으로 __proto__는 함수의 프로토타입입니다.
+alert( Rabbit.__proto__ === Function.prototype ); // 어떠한 함수든 기본으로 __proto__는 함수의 프로토타입 입니다.
 
 *!*
 // error, no such function in Rabbit
