@@ -28,7 +28,7 @@ alert( rabbit.hasOwnProperty('name') ); // true
 1. 생성자 함수들의 `"prototype"` 사이에 (메서드를 위한것).
 2. 생성자 함수 자신의 사이에 (정적인 메서드를 위한것).
 
-예제의 경우에는, `class Rabbit extends Object` 가 뜻하는 것은
+예제의 경우에는, `class Rabbit extends Object` 가 뜻하는 것은 아래와 같습니다.
 
 ```js run
 class Rabbit extends Object {}
@@ -55,9 +55,9 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // a,b
 ```js run
 class Rabbit {}
 
-alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true
-alert( Rabbit.__proto__ === Object ); // (2) false (!)
-alert( Rabbit.__proto__ === Function.prototype ); // 어떠한 함수든 기본으로
+alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true Rabbit의 프로토타입은 객체의 프로토타입입니다.
+alert( Rabbit.__proto__ === Object ); // (2) false (!) Rabbit의 프로토타입은 객체가 아닙니다.
+alert( Rabbit.__proto__ === Function.prototype ); // 어떠한 함수든 기본으로 __proto__는 함수의 프로토타입입니다.
 
 *!*
 // error, no such function in Rabbit
