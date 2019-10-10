@@ -297,7 +297,7 @@ describe("test", function() {
 [edit src="beforeafter" title="Open the example in the sandbox."]
 
 `beforeEach/afterEach`와 `before/after`는 대게 초기화 용도로 사용됩니다. 카운터 변수를 0으로 만들거나 테스트가 바뀔 때(또는 테스트 그룹이 바뀔 때)마다 해줘야 하는 작업이 있으면 이들을 이용할 수 있습니다.
-
+````
 
 ## 스펙 확장하기
 
