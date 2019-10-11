@@ -2,17 +2,17 @@ importance: 4
 
 ---
 
-# Search for elements
+# 요소 검색하기
 
-Here's the document with the table and form.
+테이블과 폼이 있는 문서가 있다고 가정합시다.
 
-How to find?...
+아래 조건에 맞는 요소는 어떻게 찾을 수 있을까요?
 
-1. The table with `id="age-table"`.
-2. All `label` elements inside that table (there should be 3 of them).
-3. The first `td` in that table (with the word "Age").
-4. The `form` with `name="search"`.
-5. The first `input` in that form.
-6. The last `input` in that form.
+1. `id="age-table"`인 테이블
+2. 테이블 내의 `label` 요소 모두(총 3개)
+3. 테이블 내의 첫 번째 `td`(Age가 적힌 곳)
+4. `name="search"`인 `form`
+5. 폼의 첫 번째 `input`
+6. 폼의 마지막 `input`
 
-Open the page [table.html](table.html) in a separate window and make use of browser tools for that.
+별도의 창에서 [table.html](table.html)을 열어 브라우저 내 도구를 사용해 문제를 풀어보세요.
