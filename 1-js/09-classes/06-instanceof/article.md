@@ -46,13 +46,12 @@ alert( arr instanceof Object ); // true
 
 `obj instanceof Class`의 알고리즘은 대략적으로 다음과 같이 동작합니다:
 
-1. If there's a static method `Symbol.hasInstance`, then just call it: `Class[Symbol.hasInstance](obj)`. It should return either `true` or `false`, and we're done. That's how we can customize the behavior of `instanceof`.
-
-    For example:
+1. 만약 정적인 매소드 `Symbol.hasInstance`가 있다고 가정한다면, 그저 호출 하면 됩니다: `Class[Symbol.hasInstance](obj)`.
+결과는 `true` 나 `false`값을 반환 할것입니다. 다음은 `instanceof`를 어떻게 커스텀마이즈하는 지에 대한 예시입니다.
+예시:
 
     ```js run
-    // setup instanceOf check that assumes that
-    // anything with canEat property is an animal
+    // instanceOf는 canEat 프로퍼티가 aniaml인지 확인하는 것입니다.
     class Animal {
       static [Symbol.hasInstance](obj) {
         if (obj.canEat) return true;
@@ -61,24 +60,24 @@ alert( arr instanceof Object ); // true
 
     let obj = { canEat: true };
 
-    alert(obj instanceof Animal); // true: Animal[Symbol.hasInstance](obj) is called
+    alert(obj instanceof Animal); // true: Animal에서 저희가 커스터마이즈한 Symbol.hasInstance가 호출 되었기 때문에 true를 리턴했습니다.
     ```
+2. 대부분 클래스들은 `Symbol.hasInstance`를 가지고 있지않습니다. 이번의 경우, 일반적인 로직을 사용되어질 것입니다: `obj instanceOf Class` 는  `Class.prototype`이 `obj` 프로토 체인 내부의 프로토타입들 중 하나와 같은지 확인합니다. 
 
-2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceOf Class` checks whether `Class.prototype` equals to one of prototypes in the `obj` prototype chain.
 
-    In other words, compare one after another:
+    다시 말해서 하나를 다른것들과 같은지 비교하는 것입니다
     ```js
     obj.__proto__ === Class.prototype?
     obj.__proto__.__proto__ === Class.prototype?
     obj.__proto__.__proto__.__proto__ === Class.prototype?
     ...
-    // if any answer is true, return true
-    // otherwise, if we reached the end of the chain, return false
+    // 이중 하나라도 true라면 true를 리턴합니다
+    // 다시말하면, 위의 해당되는 것이 하나도 없다면 false 입니다. 그말은 프르토 체인의 끝에 도달한다는 것을 의미합니다
     ```
 
-    In the example above `rabbit.__proto__ === Rabbit.prototype`, so that gives the answer immediately.
+   위의 예제에서 `rabbit.__proto__ === Rabbit.prototype`에서 true이기 때문에 즉시 응답을 줍니다.
 
-    In the case of an inheritance, the match will be at the second step:
+    상속의 경우는 두번째 단계에서 일치 됩니다:
 
     ```js run
     class Animal {}
