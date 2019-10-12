@@ -67,8 +67,8 @@ alert(user.sayBye.name); // sayBye
 
 몇 가지 경우에는 올바른 이름을 지정해 줄 수 없는 경우도 있습니다. 이런 몇몇 경우에는 name 프로퍼티는 비어있습니다. 아래와 같이 말이죠.
 
-```js
-// 배열안에서 함수가 생성됨
+```js run
+// function created inside array
 let arr = [function() {}];
 
 alert( arr[0].name ); // <빈 문자열>
