@@ -1,15 +1,15 @@
 
 # 전역 객체
 
-전역 객체는 어디에서나 사용 가능한 변수나 함수로, 대게 언어 자체나 실행 환경에 기본적으로 내장되어 있습니다.
+전역 객체를 사용하면 어디서나 사용 가능한 변수나 함수를 만들 수 있습니다. 전역 객체는 언어 자체나 호스트 환경에 기본 내장되어 있는 경우가 많습니다.
 
-전역 객체를 브라우저 환경에선 `window`, Node.js 환경에선 `global`라고 부릅니다. 이 외의 환경에선 다른 이름을 가질 수 있습니다.
+브라우저 환경에선 전역 객체를 `window`, Node.js 환경에선 `global`라고 부르는데, 각 호스트 환경마다 부르는 이름은 다릅니다. 
 
-최근엔 전역 객체의 표준화 된 이름인 `globalThis`가 자바스크립에 추가되었습니다. 자바스크립트가 돌아가는 모든 환경에서 이를 지원해야 하죠. Edge나 IE, Opera같은 브라우저에선 아직 `globalThis`를 지원하진 않지만, 이에 대한 폴리필(polyfill)을 쉽게 찾을 수 있습니다.
+전역 객체의 이름을 `globalThis`로 표준화하자는 내용이 최근에 자바스크립트 명세에 추가되었기 때문에 모든 호스트 환경이 이를 따라야 하죠. Chromium 기반이 아닌 몇몇 브라우저는 아직 `globalThis`를 지원하진 않지만, 이에 대한 폴리필(polyfill)을 쉽게 만들 수 있습니다.
 
-We'll use `window` here, assuming that our environment is a browser. If your script may run in other environments, it's better to use `globalThis` instead.
+본 튜토리얼은 브라우저 환경에서 구동되기 때문에 `window`라는 전역 객체를 사용하도록 하겠습니다. 다른 호스트 환경에서 작업하고 계신다면 `window`대신 `globalThis`를 사용하시면 됩니다.
 
-All properties of the global object can be accessed directly:
+전역 객체의 모든 프로퍼티는 아래와 같이 직접 접근할 수 있습니다.
 
 ```js run
 alert("Hello");
@@ -17,71 +17,71 @@ alert("Hello");
 window.alert("Hello");
 ```
 
-브라우저에서 (`let`이나 `const`가 아닌) `var`로 선언한 전역 함수나 전역 변수는 전역 객체의 프로퍼티가 됩니다.
+브라우저에서 `let`이나 `const`가 아닌 `var`로 선언한 전역 함수나 전역 변수는 전역 객체의 프로퍼티가 됩니다.
 
 ```js run untrusted refresh
 var gVar = 5;
 
-alert(window.gVar); // 5 (전역 객체 window의 프로퍼티)
+alert(window.gVar); // 5 (var로 선언한 변수는 전역 객체 window의 프로퍼티가 됩니다)
 ```
 
-하지만 이런 방식으로 전역 객체를 사용하는 것은 좋지 않습니다. 하위 호환성 때문에 아직까지 동작은 하지만요. 모듈을 사용하는 모던 스크립트에선 이런 일이 일어나지 않습니다. 이에 대해선 [자바스크립트 모듈](info:modules)에서 더 이야기해 보도록 하겠습니다.
+하위 호환성 때문에 이런 방식으로 전역 객체를 사용해도 동작은 하지만, 이 방법은 쓰지 않으시길 바랍니다. [모듈](info:modules)을 사용하는 모던 자바스크립트는 이런 방식을 지원하지 않습니다.
 
-If we used `let` instead, such thing wouldn't happen:
+`var` 대신 `let`을 사용하면 위 예시와는 달리 전역 객체를 통해 변수에 접근할 수 없습니다.
 
 ```js run untrusted refresh
 let gLet = 5;
 
-alert(window.gLet); // undefined (전역 객체의 프로퍼티가 되지 않습니다.)
+alert(window.gLet); // undefined (let으로 선언한 변수는 전역 객체의 프로퍼티가 되지 않습니다.)
 ```
 
-중요한 변수라서 전역 공간에서 모두 참조할 수 있게 하려면, 아래와 같이 프로퍼티를 직접 추가해 주시기 바랍니다.
+중요한 변수라서 모든 곳에서 사용할 수 있게 하려면, 아래와 같이 전역 객체에 직접 프로퍼티를 추가해 주시기 바랍니다.
 
 ```js run
 *!*
-// 현재 사용자(current User)에 대한 정보를 전역 객체에 추가했기 때문에, 모든 스크립트에서 접근할 수 있게 되었습니다.
+// 모든 스크립트에서 현재 사용자(current user)에 접근할 수 있게 이를 전역 객체에 추가함
 window.currentUser = {
   name: "John"
 };
 */!*
 
-// 코드 어딘가에서 참조할 수 있습니다.
+// 아래와 같은 방법으로 모든 스크립트에서 currentUser에 접근할 수 있음
 alert(currentUser.name);  // John
 
-// 또는 "currentUser"라는 이름을 가진 지역 변수가 있다면
-// 전역 객체 window에서 이를 명시적으로 가져올 수 있습니다. 안전한 방법으로 말이죠!
+// 지역 변수 'currentUser'가 있다면
+// 지역 변수와 충돌 없이 전역 객체 window에서 이를 명시적으로 가져올 수 있음
 alert(window.currentUser.name); // John
 ```
 
-That said, using global variables is generally discouraged. There should be as few global variables as possible. The code design where a function gets "input" variables and produces certain "outcome" is clearer, less prone to errors and easier to test than if it uses outer or global variables.
+전역 변수는 되도록 사용하지 않는 것이 좋습니다. 함수를 만들 땐 외부 변수나 전역 변수를 사용하는 것보다 '인풋' 변수를 받고 이를 이용해 '아웃풋'을 만들어내게 해야 테스트도 쉽고, 에러도 덜 만들어냅니다. 
 
 ## 폴리필 사용하기
 
-전역 객체를 이용하면 현재 사용중인 브라우저가 최신 자바스크립트 기능을 지원하는지 여부를 확인할 수 있습니다.
+전역 객체를 이용해 현재 사용중인 브라우저가 최신 자바스크립트 기능을 지원하는지 여부를 확인할 수 있습니다.
 
-예를 들어, 내장 객체인 `Promise`를 지원하는지 여부를 아래와 같이 테스트할 수 있습니다. 오래된 브라우저를 사용 중이라면 `Promise`객체를 지원하지 않기 때문에 `alert` 창이 뜰 겁니다.
+내장 객체 `Promise`를 지원하는지 여부를 아래와 같이 테스트할 수 있죠. 구식 브라우저는 `Promise` 객체를 지원하지 않기 때문에 `alert` 창이 뜰 겁니다.
 ```js run
 if (!window.Promise) {
-  alert("오래된 브라우저를 사용 중이시군요!");
+  alert("구식 브라우저를 사용 중이시군요!");
 }
 ```
 
-최신 명세에는 있지만 오래된 브라우저를 사용하고 있어서 해당 기능을 지원하지 않는다면, 직접 "폴리필"을 만들 수 있습니다. 함수를 만들고 전역 객체에 추가하면 되죠.
+명세에는 있는 기능이지만 해당 기능을 지원하지 않는 오래된 브라우저를 사용하고 있다면 직접 함수를 만들어 전역 객체에 추가하는 방식으로 "폴리필"을 만들 수 있습니다.
 
 ```js run
 if (!window.Promise) {
-  window.Promise = ... // 모던 언어에서 지원하는 기능을 직접 구현
+  window.Promise = ... // 모던 자바스크립트에서 지원하는 기능을 직접 구현함
 }
 ```
 
 ## 요약
 
-- 전역 객체는 어디서든 접근 가능한 변수를 담고 있습니다.
+- 전역 객체를 사용하면 어디서든 접근 가능한 변수를 만들 수 있습니다.
 
-    전역 객체를 통하면 `Array`, 브라우저 환경에서 현재 창의 높이를 가져올 수 있게 해주는 `window.innerHeight`, 등의 자바스크립트 내장 기능을 사용할 수 있습니다.
-- 전역 객체는 `globalThis`라는 보편적인 이름으로 참조할 수 있습니다.
+    전역 객체엔 `Array`와 같은 내장 객체, `window.innerHeight`(뷰포트의 높이를 반환함)같은 브라우저 환경 전용 변수 등이 저장되어 있습니다.
+- 전역 객체는 `globalThis`라는 보편적인 이름으로 불립니다.
 
-    하지만 관습에 따라 브라우저 환경에선 `window`, Node.js에선 `global`이라는 이름으로 전역 객체를 참조할 때가 많습니다. `globalThis`는 제안된지 얼마 안된 스펙이기 때문에, 모든 브라우저에서 지원하지 않습니다. 따라서 폴리필을 구현해 이를 사용해야 합니다.
-- 프로젝트 전역에서 쓰이는 변수일 때만 전역 객체에 변수를 저장하도록 합시다. 전역 변수는 가능한 한 최소한으로 사용합시다.
-- [모듈](info:modules)을 사용하고 있지 않다면, 브라우저 환경에서 `var`로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다.
-- 해석이 용이하고 요구사항 변경에 쉽게 대응할 수 있는 코드를 구현하려면, 전역 객체의 프로퍼티는 직접 접근해야 합니다. `window.x`처럼 말이죠.
+    하지만 '관습'에 따라 브라우저에서는 `window`, Node.js에서는 `global`이라는 이름으로 불릴 때가 많습니다. `globalThis`는 제안 목록에 추가 된 지 얼마 안 된 기능이기 때문에, 비 크로미움 기반 브라우저에선 지원하지 않습니다(폴리필을 구현하면 사용할 수 있습니다).
+- 프로젝트 전체에서 꼭 필요한 변수만 전역 객체에 저장하도록 하고, 전역 변수는 가능한 한 최소한으로 사용합시다.
+- [모듈](info:modules)을 사용하고 있지 않다면, 브라우저에서 `var`로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다.
+- 이해하기 쉽고 요구사항 변경에 쉽게 대응할 수 있는 코드를 구현하려면, `window.x`처럼 전역 객체의 프로퍼티에 직접 접근합시다.
