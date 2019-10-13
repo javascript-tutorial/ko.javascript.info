@@ -52,7 +52,7 @@ alert(Object.prototype.__proto__); // null
 
 구체적으로 모든 내장 프로토타입은 `Object.prototype`을 가장 위에 가집니다. 이 때문에 몇몇 사람들은 "모든 것은 객체로부터 온다"라고 말합니다.
 
-여기 전체적인 사진이 있습니다(3가지 built-ins에 맞는).
+여기 전체적인 3개의 내장객체에 대한 그림이 있습니다.
 ![](native-prototypes-classes.svg)
 
 프로토타입을 각각 확인해 봅시다.
@@ -77,7 +77,7 @@ let arr = [1, 2, 3]
 alert(arr); // 1,2,3 <-- Array.prototype.toString 의 결과
 ```
 
-전에 보았던 대로, `Object.prototype` 또한 `toString`을 가지고 있습니다. 그러나 `Array.prototype`이 체인에 더 가깝기 때문에 배열variant 가 사용되었습니다. 
+전에 보았던 대로, `Object.prototype` 또한 `toString`을 가지고 있습니다. 그러나 `Array.prototype`이 체인에 더 가깝기 때문에 Array의 toString이 사용되었습니다. 
 
 ![](native-prototypes-array-tostring.svg)
 
@@ -115,7 +115,7 @@ String.prototype.show = function() {
 
 "BOOM!".show(); // BOOM!
 ```
-개발과정 중 입맛에 맞는 새로운 내장 메서드를 가질 수 있습니다. 또한 새로운 내장 메서드를네이티브 프로토타입에 추가할 수도 있습니다. 그러나 일반적으로 좋지 않은 아이디어입니다.
+개발과정 도중 사용자의 편의에 따른 새로운 내장 메서드를 생성할 수 있습니다. 또한 새로운 내장 메서드를네이티브 프로토타입에 추가할 수도 있습니다. 그러나 일반적으로 좋지 않은 아이디어입니다.
 
 ```warn
 프로토타입은 전체에 영향을 미칩니다. 그래서 충돌이 쉽게 일어나는데 두 개의 라이브러리에서 `String.prototype.show` 메서드를 추가 할 때 하나의 라이브러리에서 다른 하나의 라이브러리의 메서드를 덮어쓰게 됩니다.
@@ -154,7 +154,8 @@ alert( "La".repeat(3) ); // LaLaLa
 이는 메서드를 하나의 객체로부터 가져온 다음 다른 객체에 복사하는 것입니다.
 몇몇 네이티브 프로토타입의 메서드들은 자주 사용됩니다.
 예를 들어 객체와 같은 배열을 만든다고 하면 아마 `Array` 메서드를 객체에 복사해야 합니다. 
-E.g.
+
+예시
 
 ```js run
 let obj = {
@@ -173,8 +174,7 @@ alert( obj.join(',') ); // Hello,world!
 코드는 정상작동 합니다. 왜냐하면,내장 `join`메서드의 내장 알고리즘은 단지 인덱스의 일치 여부만 케어하며 `length` 프로퍼티는 객체가 실제로 배열에 존재하는지 체크하지 않습니다. 그리고 수많은 내장 메서드들도 또한 이와 같습니다.
 다른 가능성은 `obj.__proto__`를 `Array.prototype`에 상속시키는 것입니다. 그래서 모든 `Array`메서드가 자동으로 `obj`에서 사용 가능하게 하는 것입니다. 
  `obj`가 이미 다른 객체로 부터 상속하였다면 그러나 위 방법은 불가능합니다. 오직 한 번에 하나의 객체로부터 상속 가능함을 기억해 두세요 
-Borrowing methods is flexible, it allows to mix functionality from different objects if needed.
-메서드 빌리기는 유연합니다.만약 필요하다면 함수적 기능을 섞는 것을 다른 객체로부터 가능하게 합니다  
+메서드 빌리기는 유연하여 필요에 따라 함수적 기능을 섞는 것을 다른 객체로부터 가능하게 합니다  
 
 ## 요약
 
