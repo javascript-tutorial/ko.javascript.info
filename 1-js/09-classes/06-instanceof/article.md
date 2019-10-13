@@ -94,16 +94,12 @@ alert( arr instanceof Object ); // true
     */!*
     ```
 
-여기에 `rabbit instanceof Animal`의 무엇과 `Animal.prototype`을 비교하는 지에 대한 설명이 있습니다: 
+여기에 `rabbit instanceof Animal`의 무엇과 `Animal.prototype`을 비교하는 지에 대한 그림이 있습니다: 
 ![](instanceof.svg)
-
-By the way, there's also a method [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf), that returns `true` if `objA` is somewhere in the chain of prototypes for `objB`. So the test of `obj instanceof Class` can be rephrased as `Class.prototype.isPrototypeOf(obj)`.
-
-That's funny, but the `Class` constructor itself does not participate in the check! Only the chain of prototypes and `Class.prototype` matters.
-
-That can lead to interesting consequences when `prototype` property is changed after the object is created.
-
-Like here:
+그런데, `objA`가 `objB`의 프로토타입들의 체인 어딘가에 있다면, `true`를 리턴하는 [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf) 라는메소드가 있습니다.
+`Class` 생성자 그 자체는 확인할 수 없지만!, 오직 프르토 타입 체인과 `Class.prototype`은 매우 중요하므로 확인 해야합니다.
+언제 `prototype`프로퍼티가 오브젝트가 생성된 후에 변화되는지, 흥미로운 결과를 이끌어 낼수 있습니다.
+여기 처럼요:
 
 ```js run
 function Rabbit() {}
@@ -118,9 +114,8 @@ alert( rabbit instanceof Rabbit ); // false
 */!*
 ```
 
-## Bonus: Object.prototype.toString for the type
-
-We already know that plain objects are converted to string as `[object Object]`:
+## 보너스: 타입을 위한 Object.prototype.toString
+우리는 이미 `[object Object]`의 문자열로 변환되는 평편한 오브젝트에 대해 알고 있습니다.
 
 ```js run
 let obj = {};
@@ -128,10 +123,8 @@ let obj = {};
 alert(obj); // [object Object]
 alert(obj.toString()); // the same
 ```
-
-That's their implementation of `toString`. But there's a hidden feature that makes `toString` actually much more powerful than that. We can use it as an extended `typeof` and an alternative for `instanceof`.
-
-Sounds strange? Indeed. Let's demystify.
+그건은 바로 `toString`으로 구현되어 있습니다. 그러나 `toString`를 실질적으로 그것이 가진 기능보다 더 강력하게 만들어 줄수 있는 몇가지 숨겨진 특징들이 있습니다. 우리는 확장된 기능으로써 `typeof`을 사용하는데, 이것은 `instanceof`를 위한 대안이 됩니다.
+이상하게 들리나요? 그럼 미스터리로 두죠.
 
 By [specification](https://tc39.github.io/ecma262/#sec-object.prototype.tostring), the built-in `toString` can be extracted from the object and executed in the context of any other value. And its result depends on that value.
 
