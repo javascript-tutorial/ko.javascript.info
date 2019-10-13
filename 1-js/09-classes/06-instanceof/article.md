@@ -94,8 +94,7 @@ alert( arr instanceof Object ); // true
     */!*
     ```
 
-Here's the illustration of what `rabbit instanceof Animal` compares with `Animal.prototype`:
-
+여기에 `rabbit instanceof Animal`의 무엇과 `Animal.prototype`을 비교하는 지에 대한 설명이 있습니다: 
 ![](instanceof.svg)
 
 By the way, there's also a method [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf), that returns `true` if `objA` is somewhere in the chain of prototypes for `objB`. So the test of `obj instanceof Class` can be rephrased as `Class.prototype.isPrototypeOf(obj)`.
