@@ -2,15 +2,15 @@ importance: 5
 
 ---
 
-# Sum the properties
+# 프로퍼티 값 더하기
 
-There is a `salaries` object with arbitrary number of salaries. 
+급여 정보가 저장되어있는 객체 `salaries`가 있습니다. 
 
-Write the function `sumSalaries(salaries)` that returns the sum of all salaries using `Object.values` and the `for..of` loop.
+`Object.values` 와 `for..of` 반복문을 사용해 모든 급여의 합을 반환하는 함수 `sumSalaries(salaries)`를 만들어보세요.
 
-If `salaries` is empty, then the result must be `0`.
+`salaries`가 빈 객체라면, `0`이 반환되어야 합니다.
 
-For instance:
+예시:
 
 ```js
 let salaries = {

@@ -241,7 +241,7 @@ function sayHi(user) {
 export {sayHi as default};
 ```
 
-흔치 않은 경우지만 `user.js`라는 모듈에 "default" export 하나와 다수의 named export가 있다고 해봅시다.
+흔치 않지만 `user.js`라는 모듈에 "default" export 하나와 다수의 named export가 있다고 해봅시다.
 
 ```js
 // 📁 user.js
@@ -393,7 +393,7 @@ export default class User {
 
 2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다. 
 
-    두 가지를 동시에 다시 내보내고 싶다면 두 문을 동시에 사용해야 합니다.
+    두 가지를 동시에 다시 내보내고 싶다면 두 구문을 동시에 사용해야 합니다.
     ```js
     export * from './user.js'; // named export를 다시 내보내기
     export {default} from './user.js'; // default export를 다시 내보내기

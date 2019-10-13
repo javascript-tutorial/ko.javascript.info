@@ -179,7 +179,7 @@ alert( obj.join(',') ); // Hello,world!
 ## 요약
 
 - 모든 내장 객체는 같은 패턴을 따릅니다.
-    - 메서드는 프로토타입에 저장됩니다. (`Array.prototype` ,`Object.prototype`, `Date.prototype` etc).
+    - 메서드는 프로토타입에 저장됩니다. (`Array.prototype` ,`Object.prototype`, `Date.prototype` 기타 등등).
     - 객체 스스로는 단지 데이터만 저장합니다. (배열의 아이템,객체의 프로퍼티,날짜)
 - 원시값 또한 객체 래퍼의 프로토타입 안에 메서드를 저장합니다  `Number.prototype`, `String.prototype`, `Boolean.prototype`. `undefined` 와 `null` 값만 객체 래퍼를 가지지 않습니다. 
 - 내장 프로토타입은 수정 가능하며 새로운 메서드와 함께 값을 가져올 수 있습니다. 그러나 내장 프로토타입을 변경하는 것을 추천하진 않습니다. 아마 새로운 표준을 추가하려고 할 때 만 가능합니다. 그러나 이는 자바스크립트 엔진 메서드에서는 아직 지원하지 않습니다.

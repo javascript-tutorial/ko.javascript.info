@@ -1,20 +1,20 @@
 
-# 함수 객체, NFE
+# 객체로서의 함수와 기명 함수 표현식
 
-자바스크립트에서 함수는 값이라는 것을 알고 있습니다.
+자바스크립트에서 함수는 값으로 취급됩니다. 이에 대해선 이미 배워서 알고 계실 겁니다.
 
-자바스크립트의 모든 값은 타입을 가지고 있습니다. 함수의 타입은 무엇일까요?
+모든 값은 자료형을 가지고 있는데, 그렇다면 함수의 자료형은 무엇일까요?
 
-자바스크립트에서 함수는 객체입니다.
+함수는 객체입니다.
 
-좋은 의미에서 함수들이 호출할 수 있는 "행동하는 객체"라고 상상해 보세요. 프로퍼티를 추가/제거, 참고로 전달하는 것 등. 호출하기만 하는 것이 아니라 함수를 객체처럼 다루어야 합니다.
+함수는 호출 가능한(callable) '행동 객체'입니다. 호출도 할 수 있고 객체처럼 프로퍼티를 추가/제거하거나 참조를 통해 전달하는 것이 가능하죠.
 
 
-## "name" 프로퍼티
+## 'name' 프로퍼티
 
-함수 객체는 몇 가지 사용 가능한 프로퍼티를 가지고 있습니다.
+함수 객체엔 몇 가지 쓸만한 프로퍼티가 있습니다.
 
-아래 예시처럼 "name" 프로퍼티를 사용하면 함수의 이름을 가져올 수 있죠.
+'name' 프로퍼티를 사용하면 함수 이름을 가져올 수 있죠.
 
 ```js run
 function sayHi() {
@@ -24,29 +24,29 @@ function sayHi() {
 alert(sayHi.name); // sayHi
 ```
 
-재밌는 건 이름을 할당하는 로직은 똑똑하다는 것입니다. 할당에 사용되는 함수에 올바른 이름을 지정합니다.
+함수 객체에 이름을 할당해주는 로직은 아주 똑똑해서 익명 함수라도 자동으로 이름이 할당됩니다.
 
 ```js run
 let sayHi = function() {
   alert("Hi");
 };
 
-alert(sayHi.name); // sayHi (there's a name!)
+alert(sayHi.name); // sayHi (익명 함수이지만 이름이 있네요!)
 ```
 
-만약에 할당이 기본값을 통해 적용된 경우에도 똑같이 작동합니다.
+기본값을 사용해 이름을 할당한 경우에도 마찬가지죠.
 
 ```js run
 function f(sayHi = function() {}) {
-  alert(sayHi.name); // sayHi (works!)
+  alert(sayHi.name); // sayHi (이름이 있네요!)
 }
 
 f();
 ```
 
-자바스크립트 명세서에 따르면, 이러한 기능을 "contextual name"이라고 합니다. 만약에 함수가 이것을 제공하지 않으면 할당할 때 컨텍스트에서 가져옵니다.
+자바스크립트 명세서에서 정의된 이 기능을 'contextual name'이라고 부릅니다. 이름이 없는 함수의 이름을 지정할 땐 컨텍스트에서 이름을 가져오죠.
 
-객체 메서드들도 이름들을 가지고 있습니다.
+객체 메서드의 이름도 'name' 프로퍼티를 이용해 가져올 수 있습니다.
 
 ```js run
 let user = {
@@ -65,21 +65,21 @@ alert(user.sayHi.name); // sayHi
 alert(user.sayBye.name); // sayBye
 ```
 
-몇 가지 경우에는 올바른 이름을 지정해 줄 수 없는 경우도 있습니다. 이런 몇몇 경우에는 name 프로퍼티는 비어있습니다. 아래와 같이 말이죠.
+그런데, 객체 메서드 이름은 함수처럼 자동 할당이 되지 않습니다. 적절한 이름을 추론하는 게 불가능한 상황이 있는데, 이때 name 프로퍼티엔 빈 문자열이 저장됩니다. 아래와 같이 말이죠.
 
-```js
-// 배열안에서 함수가 생성됨
+```js run
+// 배열 안에서 함수를 생성함
 let arr = [function() {}];
 
 alert( arr[0].name ); // <빈 문자열>
-// 엔진이 이름을 설정할 방법이 없으므로 존재하지 않음
+// 엔진이 이름을 설정할 수 없어서 name 프로퍼티의 값이 빈 문자열이 됨
 ```
 
-실제로는 거의 모든 함수는 name을 가지고 있습니다.
+실무에서 대부분의 함수는 이름이 있으므로, 위와 같은 상황은 잘 발생하지 않습니다.
 
-## "length" 프로퍼티
+## 'length' 프로퍼티
 
-또 다른 내부 프로퍼티인 "length"는 함수 매개변수의 개수를 반환합니다. 아래 예시가 있습니다.
+내장 프로퍼티 'length'는 함수 매개변수의 개수를 반환합니다. 예시를 살펴봅시다.
 
 ```js run
 function f1(a) {}
@@ -91,20 +91,20 @@ alert(f2.length); // 2
 alert(many.length); // 2
 ```
 
-여기서 나머지 매개변수는 개수를 셀 때 포함되지 않습니다.
+나머지 매개변수는 개수에 포함되지 않는다는 걸 위 예시를 통해 확인해 보았습니다.
 
-가끔 `length` 프로퍼티는 다른 함수들 안에서 동작하는 함수들의 [내부검사(introspection)](https://en.wikipedia.org/wiki/Type_introspection)에 사용됩니다.
+`length` 프로퍼티는 다른 함수 안에서 동작하는 함수를 [검사(introspection)](https://en.wikipedia.org/wiki/Type_introspection)할 때도 사용됩니다.
 
-예를 들면, 아래 코드의 함수 `ask`는 질문에 쓰일 `question`을 받는데, 이때 함수 내에서 호출 할 임의의 수의 `handler` 함수도 함께 받습니다.
+아래 예시에서 함수 `ask`는 질문에 쓰일 `question`과 조건에 따라 호출할 임의의 수의 `handler` 함수도 함께 받고 있습니다.
 
-사용자가 답을 제공하면, 함수는 핸들러를 호출합니다. 아래 예제에선 두 종류의 핸들러를 `ask` 함수에 전달하였습니다.
+사용자가 답을 제출하면 함수는 핸들러 함수를 호출하죠. 아래 예제에선 두 종류의 핸들러 함수를 `ask` 함수에 전달하였습니다.
 
-- 오직 사용자가 긍정의 대답(OK)을 클릭했을 때 호출되는 인수가 없는 함수.
-- 어떤 경우에도 답을 반환하는 매개변수가 있는 함수.
+- 인수가 없는 함수: 사용자가 OK를 클릭했을 때 호출되는 함수
+- 인수가 있는 함수: 사용자가 OK를 클릭하든, Cancel을 클릭하든 답을 반환하는 함수
 
-To call `handler` the right way, we examine the `handler.length` property.
+`handler.length` 프로퍼티를 확인하면 의도한 대로 `handler`를 호출할 수 있습니다.
 
-The idea is that we have a simple, no-arguments handler syntax for positive cases (most frequent variant), but are able to support universal handlers as well:
+`handler.length` 프로퍼티를 사용하면 인수가 없는 간단한 핸들러 함수(긍정적인 상황에서 호출)와 일반적인 핸들러 함수(조건에 관계없이 호출)를 동시에 구현할 수 있습니다.
 
 ```js run
 function ask(question, ...handlers) {
@@ -120,25 +120,25 @@ function ask(question, ...handlers) {
 
 }
 
-// 유저가 긍정의 대답을 선택할 경우, 두 가지 핸들러 모두 호출 
-// 유저가 부정의 대답을 선택할 경우, 두 번째 것만 호출 
-ask("Question?", () => alert('You said yes'), result => alert(result));
+// 사용자가 OK를 클릭한 경우, 핸들러 두 개를 모두 호출함 
+// 사용자가 Cancel을 클릭한 경우, 두 번째 핸들러만 호출함
+ask("질문 있으신가요?", () => alert('OK를 선택하셨습니다.'), result => alert(result));
 ```
 
-위와 같이 특별한 경우를 [다형성(polymorphism)](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) 이라고 부릅니다 -- 인수를 타입이나, 예제의 경우에는 `length`에 따라 다르게 다루는 경우입니다. 이러한 방법은 자바스크립트 라이브러리에서 사용됩니다.
+인수의 종류에 따라(위 예시에선 인수의 `length` 프로퍼티 값에 따라) 인수를 다르게 처리하는 방식을 프로그래밍 언어에선 [다형성(polymorphism)](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) 이라고 부릅니다. 자바스크립트 라이브러리를 뜯어보다 보면 다형성이 곳곳에서 사용되고 있다는 것을 확인할 수 있습니다.
 
-## 커스텀 프로퍼티
+## 사용자 지정 프로퍼티
 
-또한 자체적으로 만든 프로퍼티도 추가할 수 있습니다.
+함수 객체에 자체적으로 만든 프로퍼티를 추가할 수도 있습니다.
 
-다음 예시는 `counter` 프로퍼티를 추가해 몇 번 호출되었는지 추적합니다.
+함수 호출 횟수를 `counter` 프로퍼티에 저장해봅시다. 
 
 ```js run
 function sayHi() {
   alert("Hi");
   
   *!*
-  // 몇 번 동작하는지 세어봅니다
+  // 함수를 몇 번 호출했는지 세봅시다.
   sayHi.counter++;
   */!*
 }
@@ -147,21 +147,21 @@ sayHi.counter = 0; // 초기값
 sayHi(); // Hi
 sayHi(); // Hi
 
-alert( `Called ${sayHi.counter} times` ); // 2번 호출되었습니다
+alert( `호출 횟수: ${sayHi.counter}회` ); // 호출 횟수: 2회
 ```
 
 ```warn header="프로퍼티는 변수가 아닙니다."
-`sayHi.counter = 0`와 같이 함수에 할당된 프로퍼티는 함수 내에 지역변수 `counter`를 만들지 않습니다. `counter` 프로퍼티와 변수 `let counter` 는 상관관계가 없습니다.
+`sayHi.counter = 0`와 같이 함수에 프로퍼티를 할당해도 함수 내에 지역변수 `counter`가 만들어지지 않습니다. `counter` 프로퍼티와 변수 `let counter`는 전혀 관계가 없습니다.
 
-함수를 객체처럼 다룰 수 있고, 객체엔 프로퍼티를 저장할 수 있습니다. 하지만 이런 특징이 실행에는 아무 영향을 주지 않습니다. 변수는 함수의 프로퍼티가 아니고 함수의 프로퍼티는 변수가 아닙니다. 공통점이 없죠.
+함수를 객체처럼 다룰 수 있고, 객체에 프로퍼티를 저장할 수 있지만, 이는 실행에 아무 영향을 끼치지 않습니다. 변수는 함수 프로퍼티가 아니고 함수 프로퍼티는 변수가 아니기 때문이죠. 둘 사이에는 공통점이 없습니다.
 ```
 
-가끔 함수 프로퍼티들은 클로져(Closures)들을 대체할 수 있습니다. 예를 들면, <info:closure> 챕터에 있는 카운터 함수의 예를 함수 프로퍼티를 사용하는 방법으로 다시 작성할 수 있습니다.  
+클로저를 함수 프로퍼티로 바꿔서 사용할 수도 있습니다. <info:closure> 챕터에서 살펴본 바 있는 counter 함수를 함수 프로퍼티를 사용해 바꿔보도록 하겠습니다. 
 
 ```js run
 function makeCounter() {
-  // 다음과 같이 하는 대신에
-  // let count = 0
+
+  // let count = 0 대신 아래 메서드(프로퍼티)를 사용함
   
   function counter() {
     return counter.count++;
@@ -177,11 +177,11 @@ alert( counter() ); // 0
 alert( counter() ); // 1
 ```
 
-여기서 `count`는 외부 렉시컬 환경이 아니라 함수에 바로 저장되어 있습니다.   
+`count`를 외부 렉시컬 환경이 아닌 함수 프로퍼티에 바로 저장하였습니다.   
 
-클로저를 사용하는 것보다 좋은 방법일까요? 아닐까요?
+이렇게 함수 프로퍼티에 정보를 저장하는 게 클로저를 사용하는 것보다 나은 방법일까요?
 
-가장 다른 점은, 만약 `count`의 값이 외부변수에 존재한다면 외부코드에서는 접근할 수 없다는 것입니다. 오직 중첩함수만이 수정할 수 있을 것입니다. 그리고 만약 그것이 함수에 연결되돼있는 상황이라면 그때는 외부에서도 접근이 가능할 것입니다.
+두 방법의 차이점은 `count` 값이 외부변수에 저장되어있는 경우 드러납니다. 클로저를 사용한 경우는 외부 코드에서 `count`를 수정할 수 없고, 오로지 중첩함수 내에서만 값을 수정할 수 있습니다. 함수 프로퍼티를 사용한 경우는 아래와 같이 외부에서 값을 수정할 수 있습니다.
 
 ```js run
 function makeCounter() {
@@ -203,13 +203,13 @@ alert( counter() ); // 10
 */!*
 ```
 
-그렇다면 구현하는 방법의 선택은 목적에 따라 다를 것입니다.
+어떤 방법을 선택할지는 목적에 따라 달라지겠죠.
 
-## NFE(명시된 함수 표현식)
+## 기명 함수 표현식
 
-명시된 함수표현 식 또는 NFE란 이름을 가진 함수표현 식을 뜻하는 용어입니다.
+기명 함수 표현식(Named Function Expression, NFE)은 이름이 있는 함수 표현식을 나타내는 용어입니다.
 
-일반적인 함수표현 식을 예로 들어보겠습니다.
+먼저, 일반 함수 표현식을 살펴봅시다.
 
 ```js
 let sayHi = function(who) {
@@ -217,7 +217,7 @@ let sayHi = function(who) {
 };
 ```
 
-그리고 여기에 이름을 붙여보겠습니다.
+여기에 이름을 붙여보겠습니다.
 
 ```js
 let sayHi = function *!*func*/!*(who) {
@@ -225,13 +225,13 @@ let sayHi = function *!*func*/!*(who) {
 };
 ```
 
-여기서 무언가 얻은 게 있을까요? `"func"`이름을 붙이는 목적은 무엇일까요?
+이렇게 이름을 붙인다고 해서 뭐가 달라지는 걸까요? `"func"`이라는 이름은 어떤 경우에 붙이는 걸까요?
 
-첫 번째로 함수표현 식을 사용합니다. `"func"`이름을 `function`다음에 붙이는 것은 함수를 정의하지는 않습니다. 왜냐하면 여전히 대입 표현형식의 한 부분이기 때문입니다.
+먼저 이렇게 이름을 붙여도 위 함수는 여전히 함수 표현식이라는 점에 주목해야 합니다. `"func"`이라는 이름을 `function` 다음에 붙이더라도 여전히 표현식을 할당한 형태를 유지하고, 함수 선언문으로 바뀌지 않습니다.
 
-이름을 추가하는 것이 무언가를 망가뜨리지도 않았습니다.
+이름을 추가한다고 해서 무언가 바뀌지 않죠.
 
-함수는 아직도 `sayHi()`로 사용 가능하죠.
+`sayHi()`로 호출하는 것도 여전히 가능합니다.
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -241,12 +241,12 @@ let sayHi = function *!*func*/!*(who) {
 sayHi("John"); // Hello, John
 ```
 
-There are two special things about the name `func`, that are the reasons for it:
+`func`같이 이름을 붙이면 아래와 같이 두 가지가 달라집니다.
 
-1. 그것은 함수에 내부적으로 자신을 레퍼런스합니다.
-2. 그것은 함수 외부에서 보이지 않습니다.
+1. 이름을 사용해 함수 표현식 내부에서 자신을 참조할 수 있습니다.
+2. 함수 표현식 외부에선 이름을 사용할 수 없습니다.
 
-예를 들어, 함수 `sayHi` 아래에서 `who`가 주어지지 않았을 때 자신을 `"Guest"` 로 부르면
+아래 함수 `sayHi`는 `who`에 값이 없는 경우, 인수로 `"Guest"`를 받습니다.
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -254,21 +254,21 @@ let sayHi = function *!*func*/!*(who) {
     alert(`Hello, ${who}`);
   } else {
 *!*
-    func("Guest"); // func를 사용해서 스스로를 호출 합니다.
+    func("Guest"); // func를 사용해서 자신을 호출합니다.
 */!*
   }
 };
 
 sayHi(); // Hello, Guest
 
-// 그러나 이건 동작하지 않습니다.
-func(); // 에러 func 는 정의되지 않았습니다. (함수 밖에서는 보이지 않습니다)
+// 아래와 같이 func를 호출하는 건 불가능합니다.
+func(); // Error, func is not defined (함수 표현식 밖에서는 func을 사용할 수 없습니다.)
 ```
 
-`func`를 사용하는 사람이 있나요? 아마도 중첩함수를 부를 때는 `sayHi`를 사용하지 않습니까? 
+왜 `func`과 같은 이름을 붙여 사용하는 걸까요? 중첩 호출을 사용해도 될 것 같은데 말이죠. 
 
 
-사실 대부분의 경우 아래와 같이 작성하겠죠.
+사실 대부분의 개발자는 아래와 같이 코드를 작성하곤 합니다.
 
 ```js
 let sayHi = function(who) {
@@ -282,7 +282,7 @@ let sayHi = function(who) {
 };
 ```
 
-The problem with that code is that `sayHi` may change in the outer code. If the function gets assigned to another variable instead, the code will start to give errors:
+이렇게 코드를 작성하면 외부 코드에 의해 `sayHi`가 변경될 경우 문제가 생깁니다. 함수 표현식을 새로운 변수에 할당하고, 기존 변수에 `null`을 할당하면 에러가 발생하죠.  
 
 ```js run
 let sayHi = function(who) {
@@ -290,7 +290,7 @@ let sayHi = function(who) {
     alert(`Hello, ${who}`);
   } else {
 *!*
-    sayHi("Guest"); // 에러 sayHi 는 함수가 아님
+    sayHi("Guest"); // Error: sayHi is not a function
 */!*
   }
 };
@@ -298,14 +298,14 @@ let sayHi = function(who) {
 let welcome = sayHi;
 sayHi = null;
 
-welcome(); // 에러 중첩된 sayHi는 더 이상 작동하지 않습니다!
+welcome(); // sayHi는 더 이상 호출할 수 없습니다!
 ```
 
-이런 현상이 일어나는 것은 `sayHi` 함수를 외부 렉시컬 환경에서 가져오기 때문입니다. 지역적으로(local) `sayHi` 는 없습니다. 그래서 외부변수가 사용된 것입니다. 외부의 `sayHi`를 호출하면 `null`인 것입니다.
+에러의 원인은 함수가 `sayHi`를 외부 렉시컬 환경에서 가지고 오기 때문입니다. 지역 렉시컬 환경엔 `sayHi`가 없기 때문에 외부 렉시컬 환경에서 `sayHi`를 찾기 때문이죠. 함수 호출 시점에 외부 렉시컬 환경의 `sayHi`엔 `null`이 저장되어있기 때문에 에러가 발생합니다.
 
-함수 표현식에 이름을 붙이는 것은 정확히 이러한 문제를 해결합니다.
+함수 표현식에 이름을 붙여주면 바로 이런 문제를 해결할 수 있습니다.
 
-다음 코드를 수정해 봅시다.
+코드를 수정해 봅시다.
 
 ```js run
 let sayHi = function *!*func*/!*(who) {
@@ -313,7 +313,7 @@ let sayHi = function *!*func*/!*(who) {
     alert(`Hello, ${who}`);
   } else {
 *!*
-    func("Guest"); // 지금은 괜찮습니다
+    func("Guest"); // 원하는 값이 제대로 출력됩니다.
 */!*
   }
 };
@@ -321,33 +321,33 @@ let sayHi = function *!*func*/!*(who) {
 let welcome = sayHi;
 sayHi = null;
 
-welcome(); // Hello, Guest (중첩함수가 작동합니다)
+welcome(); // Hello, Guest (중첩 호출이 제대로 동작함)
 ```
 
-`"func"`가 함수의 내부(function-local)이기 때문에 지금은 작동합니다. 그건 밖에서 가져온 값이 아닙니다(그리고 밖에선 보이지도 않습니다). 규격에 의하면 항상 현재 함수를 레퍼런스합니다.
+`"func"`은 함수 내부에서 찾을 수 있기 때문에 의도한 대로 예시가 동작합니다. 함수 외부에선 `"func"`을 사용할 수 없고, `"func"`을 외부 렉시컬 환경에서 가져오지도 않습니다. 함수 표현식에 붙인 이름은 현재 함수만 참조하도록 명세서에 정의되어있기 때문입니다.
 
-외부코드는 아직도 `sayHi` 또는 `welcome` 변수를 가지고 있습니다. 그리고 `func` 이 내부 함수 이름입니다. 어떻게 함수가 자신을 내부에서 부를 수 있을까요.
+이렇게 기명 함수 표현식을 이용하면 `sayHi`나 `welcome` 같은 외부 변수의 변경과 관계없이 `func`이라는 '내부 함수 이름'을 사용해 언제든 함수 표현식이 자기 자신을 호출할 수 있게 만들 수 있습니다.
 
-```smart header="There's no such thing for Function Declaration"
-The "internal name" feature described here is only available for Function Expressions, not for Function Declarations. For Function Declarations, there is no syntax for adding an "internal" name.
+```smart header="함수 선언문엔 내부 이름을 지정할 수 없습니다."
+'내부 이름'은 함수 표현식에만 사용할 수 있고, 함수 선언문엔 사용할 수 없습니다. 함수 선언문을 통해 만든 함수엔 '내부' 이름을 지정할 수 있는 문법이 없습니다.
 
-가끔, 내부이름이 필요할 때 함수 선언를 명시된 함수표현 식으로 다시 작성할 뿐입니다.
+내부 이름이 필요하다면 함수 선언문 대신 함수 표현식을 사용해 함수를 다시 정의하면 됩니다.
 ```
 
 ## 요약
 
 함수는 객체입니다.
 
-다음 함수 프로퍼티들에 대해 알아보았습니다.
+다음 함수 객체 프로퍼티는 여러 곳에서 사용할 수 있습니다.
 
-- `name` -- 함수의 이름. 일반적으로 함수를 정의할 때 가져오지만, 아무것도 없는 경우, 자바스크립트에서는 컨텍스트 (예를 들면, 할당할 때)에서 추측합니다.
-- `length` -- 함수 선언에 있는 인수들의 수. 나머지 연산자들은 세지 않는다.
+- `name` -- 함수의 이름이 저장됩니다. 함수 선언부에서 이름을 가져오는데, 익명 함수인 경우는 자바스크립트 엔진이 컨텍스트(할당 등)를 이용해 이름을 추론합니다.
+- `length` -- 함수 선언부에 있는 인수의 수로 나머지 매개변수는 포함하지 않습니다.
 
-만약 함수가 함수 표현식으로 되었다면(중요한 코드의 흐름이 아니라면), 그리고 이름을 가지고 있다면 그것은 명시된(이름을 가진) 함수 표현식입니다. 그 이름은 내부에서 재귀적인 호출 같은 레퍼런스 용도로 사용될 수 있습니다.
+함수 표현식으로 함수를 정의하였는데 이름이 있다면 이를 기명 함수 표현식이라 부릅니다. 기명 함수 표현식의 이름은 재귀 호출과 같이 함수 내부에서 자기 자신을 호출하고자 할 때 사용할 수 있습니다.
 
-또한 함수들은 추가적인 프로퍼티를 가질 수 있습니다. 자바스크립트에서 많이 알려진 라이브러리들은 이러한 특징을 훌륭하게 사용하고 있습니다.
+함수 객체엔 다양한 프로퍼티를 추가할 수 있는데, 잘 알려진 자바스크립트 라이브러리를 뜯어보면 이런 커스텀 프로퍼티에 대한 예시들을 많이 찾아볼 수 있습니다.
 
-They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+이런 라이브러리들은 '주요' 함수 하나를 만들고 여기에 다양한 '헬퍼' 함수를 붙이는 식으로 구성되어있습니다. [jQuery](https://jquery.com)는 주요 함수 `$`를 중심으로 구성되어있죠. [lodash](https://lodash.com)는 주요 함수 `_`에 `_.clone`, `_.keyBy`등의 프로퍼티를 추가하는 식으로 구성되어있습니다. 자세한 정보는 lodash [공식 문서](https://lodash.com/docs)에서 찾아볼 수 있습니다. 이렇게 함수 하나에 다양한 헬퍼 함수를 붙여 라이브러리를 만들면 라이브러리 하나가 전역 변수 하나만 차지하므로 전역 공간을 더럽히지 않는다는 장점이 있습니다. 이름 충돌도 방지할 수 있죠.
 
 
-그래서 함수는 스스로 유용한 작업을 행할 수도 있고 다른 여러 기능을 프로퍼티에 가지고 있을 수 있는 것입니다.
+라이브러리에서 정의한 메인 함수와 여기에 딸린 프로퍼티에 정의된 다양한 기능을 사용하면 다양한 작업을 수행할 수 있습니다.

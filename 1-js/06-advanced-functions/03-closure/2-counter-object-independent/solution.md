@@ -1,7 +1,7 @@
 
-Surely it will work just fine.
+잘 동작합니다.
 
-Both nested functions are created within the same outer Lexical Environment, so they share access to the same `count` variable:
+생성자 함수의 두 중첩 함수는 동일한 외부 렉시컬 환경에서 만들어졌기 때문에 같은 `count` 변수를 공유합니다.
 
 ```js run
 function Counter() {

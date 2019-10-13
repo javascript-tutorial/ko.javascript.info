@@ -1,7 +1,7 @@
 
-# Function in if
+# if 문 안의 함수
 
-Look at the code. What will be the result of the call at the last line?
+아래 예시의 실행 결과를 예측해보세요.
 
 ```js run
 let phrase = "Hello";
