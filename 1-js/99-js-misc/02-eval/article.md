@@ -1,25 +1,25 @@
-# Eval: run a code string
+# Eval: 문자열 코드 실행하기
 
-The built-in `eval` function allows to execute a string of code.
+내장 함수 `eval`을 사용하면 문자열 형태의 코드를 실행할 수 있습니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 let result = eval(code);
 ```
 
-For example:
+예시:
 
 ```js run
 let code = 'alert("Hello")';
 eval(code); // Hello
 ```
 
-A string of code may be long, contain line breaks, function declarations, variables and so on.
+길이가 긴 문자열이 코드가 될 수 있는데, 여기엔 줄 바꿈, 함수 선언, 변수 등이 포함될 수도 있습니다.
 
-The result of `eval` is the result of the last statement.
+마지막 구문의 결과가 `eval`의 결과가 됩니다.
 
-For example:
+예시:
 ```js run
 let value = eval('1+1');
 alert(value); // 2
@@ -30,7 +30,7 @@ let value = eval('let i = 0; ++i');
 alert(value); // 1
 ```
 
-The eval'ed code is executed in the current lexical environment, so it can see outer variables:
+eval로 둘러싼 코드는 현재 렉시컬 환경에서 실행되므로 외부 변수에 접근할 수 있습니다.
 
 ```js run no-beautify
 let a = 1;
@@ -46,56 +46,56 @@ function f() {
 f();
 ```
 
-It can change outer variables as well:
+외부 변수를 변경하는 것도 가능하죠.
 
 ```js untrusted refresh run
 let x = 5;
 eval("x = 10");
-alert(x); // 10, value modified
+alert(x); // 10, 변경된 값
 ```
 
-In strict mode, `eval` has its own lexical environment. So functions and variables, declared inside eval, are not visible outside:
+엄격 모드에서 `eval`은 자체 렉시컬 환경을 갖고 있습니다. 따라서 eval 내부에 선언된 함수와 변수는 외부에서 읽을 수 없습니다.
 
 ```js untrusted refresh run
-// reminder: 'use strict' is enabled in runnable examples by default
+// 참고: 실행 가능한 모든 예시에 'use strict'가 적용되어있습니다.
 
 eval("let x = 5; function f() {}");
 
-alert(typeof x); // undefined (no such variable)
-// function f is also not visible
+alert(typeof x); // undefined (없는 변수)
+// 함수 f도 읽을 수 없음
 ```
 
-Without `use strict`, `eval` doesn't have its own lexical environment, so we would see `x` and `f` outside.
+`use strict`가 적용되어있지 않은 경우엔 `eval`은 자체 렉시컬 환경을 갖지 않기 때문에 외부에 있는 `x`와 `f`를 읽을 수 있습니다.
 
-## Using "eval"
+## 'eval' 사용하기
 
-In modern programming `eval` is used very sparingly. It's often said that "eval is evil".
+`eval`은 모던 프로그래밍에서 잘 사용되지 않습니다. "eval is evil(악마)"이라고까지 불리죠.
 
-The reason is simple: long, long time ago JavaScript was a much weaker language, many things could only be done with `eval`. But that time passed a decade ago.
+이유는 간단합니다. 과거엔 자바스크립트에서 쓸 수 있는 기능이 많지 않았기 때문에 `eval`을 사용해야만 처리할 수 있는 것들이 많았습니다. 하지만 그 이후로 10여 년이 흐르면서 자바스크립트는 강력한 언어로 변모하였죠.
 
-Right now, there's almost no reason to use `eval`. If someone is using it, there's a good chance they can replace it with a modern language construct or a [JavaScript Module](info:modules).
+지금은 `eval`을 사용할 이유가 거의 없습니다. 누군가가 여전히 eval을 사용하고 있다면, 모던한 언어 문법이나 [모듈](info:modules)을 사용해 코드를 바꾸는 걸 권유해 보시기 바랍니다.
 
-Please note that its ability to access outer variables has side-effects.
+eval을 사용할 땐 외부 변수에 접근 시 부작용이 발생한다는 점에 유의하셔야 합니다.
 
-Code minifiers (tools used before JS gets to production, to compress it) rename local variables into shorter ones (like `a`, `b` etc) to make the code smaller. That's usually safe, but not if `eval` is used, as local variables may be accessed from eval'ed code string. So minifiers don't do that renaming for all variables potentially visible from `eval`. That negatively affects code compression ratio.
+애플리케이션이 출시 되기 전에 자바스크립트 파일을 압축해주는 도구인 코드 압축기(minifier)는 스크립트 크기를 줄이기 위해 지역 변수명을 `a`나 `b`같이 짧게 변경합니다. 대개는 이 과정에서 부작용이 발생하지 않지만, `eval`을 사용하면 `eval`로 감싼 코드에서 지역 변수에 접근할 수 있으므로 안전하지 않습니다. 이런 위험을 방지하기 위해 압축기는 `eval` 내부 코드에서 접근할 가능성이 있는 모든 변수의 이름을 변경하지 않습니다. 이는 코드 압축률에 부정적인 영향을 미칩니다.
 
-Using outer local variables inside `eval` is also considered a bad programming practice, as it makes maintaining the code more difficult.
+`eval` 내부에서 외부 지역 변수를 사용하는 것은 코드 유지 보수를 더 어렵게 만들기 때문에 좋지 않은 프로그래밍 관습으로 취급되기도 합니다.
 
-There are two ways how to be totally safe from such problems.
+위와 같은 문제는 아래에서 소개해 드릴 방법 두 개를 사용해 예방할 수 있습니다.
 
-**If eval'ed code doesn't use outer variables, please call `eval` as `window.eval(...)`:**
+**eval로 감싼 코드에서 외부 변수를 사용하지 않는다면 `eval` 대신 `window.eval(...)`을 호출하세요.**
 
-This way the code is executed in the global scope:
+이렇게 하면 eval 내의 코드가 전역 스코프에서 실행됩니다.
 
 ```js untrusted refresh run
 let x = 1;
 {
   let x = 5;
-  window.eval('alert(x)'); // 1 (global variable)
+  window.eval('alert(x)'); // 1 (전역 변수)
 }
 ```
 
-**If eval'ed code needs local variables, change `eval` to `new Function` and pass them as arguments:**
+**eval로 감싼 코드에서 지역 변수를 사용한다면, `eval`이 아닌 `new Function`에 문자열로 된 코드를 전달하세요.**
 
 ```js run
 let f = new Function('a', 'alert(a)');
@@ -103,12 +103,12 @@ let f = new Function('a', 'alert(a)');
 f(5); // 5
 ```
 
-The `new Function` construct is explained in the chapter <info:new-function>. It creates a function from a string, also in the global scope. So it can't see local variables. But it's so much clearer to pass them explicitly as arguments, like in the example above.
+`new Function` 문법(자세한 내용은 <info:new-function> 챕터에서 살펴봄)은 인수로 받은 문자열을 기반으로 전역 스코프에 새로운 함수를 만들어줍니다. 따라서 지역 변수에 접근할 수 없죠. 하지만 위 예시에서처럼 코드 내부에서 지역 변수에 접근하지 말고 인수를 통해 값을 받는 게 훨씬 더 명확하다는 것을 알고 계시기 바랍니다.
 
-## Summary
+## 요약
 
-A call to `eval(code)` runs the string of code and returns the result of the last statement.
-- Rarely used in modern JavaScript, as there's usually no need.
-- Can access outer local variables. That's considered bad practice.
-- Instead, to `eval` the code in the global scope, use `window.eval(code)`.
-- Or, if your code needs some data from the outer scope, use `new Function` and pass it as arguments.
+`eval(code)`을 호출하면 문자열 형태의 `code`가 실행되는데 이때 마지막 구문의 결과가 반환됩니다.
+- 모던 자바스크립트엔 eval을 대체할 수 있는 문법이 많기 때문에, 모던 자바스크립트를 사용하는 코드에선 eval을 잘 사용하지 않습니다.
+- eval을 이용해 만든 코드는 외부 지역 변수에 접근할 수 있는데, 이는 좋지 않은 방법입니다.
+- 전역 스코프에서 `eval`을 사용하지 말고, `window.eval(code)`을 이용하세요.
+- 외부 스코프에 있는 데이터가 필요하다면 `new Function`의 인수에 코드를 전달해 사용하시면 됩니다.
