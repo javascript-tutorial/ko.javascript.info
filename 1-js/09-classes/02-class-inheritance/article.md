@@ -1,9 +1,13 @@
 
 # 클래스 상속
 
-두 개의 클래스가 있다고 가정해 보겠습니다.
+클래스 상속은 하나의 클래스를 다른 클래스로 확장하는 방법입니다.
 
-`Animal`:
+그래서 존재하는 클래스 위에 새로운 기능을 추가할 수 있죠.
+
+## "extends" 키워드
+
+아래와 같이 `Animal`이라는 클래스가 있다고 가정해보죠.
 
 ```js
 class Animal {
@@ -24,52 +28,19 @@ class Animal {
 let animal = new Animal("My animal");
 ```
 
+아래에 `animal`객체와 `Animal`클래스를 표현한 그래프가 있습니다.
+
 ![](rabbit-animal-independent-animal.svg)
 
+그리고 또 다른 `class Rabbit`을 만들고 싶다고 한다면...
 
-...그리고 `Rabbit`:
+토끼가 동물인것처럼, `Rabbit`클래스는 `Animal`클래스에 기반을 두어야 합니다. 동물 메서드에 접근할 수 있어야하고 그렇게 해서 토끼도 "일반적으로" 동물들이 할수 있는것이 가능해야합니다.
+
+다른 클래스를 확장하는 문법은 `class Child extends Parent` 입니다.
+
+`Animal`클래스를 상속하는 `class Rabbit`을 만들어 보죠.
 
 ```js
-class Rabbit {
-  constructor(name) {
-    this.name = name;
-  }
-  hide() {
-    alert(`${this.name} hides!`);
-  }
-}
-
-let rabbit = new Rabbit("My rabbit");
-```
-
-![](rabbit-animal-independent-rabbit.svg)
-
-
-현재 위의 예시 클래스들은 완전히 독립적입니다.
-
-그런데 `Rabbit`을 `Animal`의 연장선에 놓고 싶다고 한다면. 자세히 설명하자면, rabbits는 Animal 클래스를 기반으로 두고 있고, `Animal` 클래스의 메서드들과 독립적인 메서드들로 구성되게 하고 싶다고 해보죠.
-
-다른 클래스로부터 상속받으려면, `"extends"`를 사용해서 braces `{..}`전에 부모 클래스를 명시해야 합니다.
-
-아래 코드는 `Rabbit`이 `Animal`을 상속하는 방법을 보여주고 있습니다.
-
-```js run
-class Animal {
-  constructor(name) {
-    this.speed = 0;
-    this.name = name;
-  }
-  run(speed) {
-    this.speed += speed;
-    alert(`${this.name} runs with speed ${this.speed}.`);
-  }
-  stop() {
-    this.speed = 0;
-    alert(`${this.name} stands still.`);
-  }
-}
-
-// "extends Animal"를 사용해서 Animal로 부터 상속 받습니다
 *!*
 class Rabbit extends Animal {
 */!*
@@ -80,17 +51,20 @@ class Rabbit extends Animal {
 
 let rabbit = new Rabbit("White Rabbit");
 
-rabbit.run(5); // 하얀토끼는 스피드 5로 달립니다.
-rabbit.hide(); // 하얀토끼는 숨었습니다!
+rabbit.run(5); // 하얀 토끼는 스피드 5로 달립니다.
+rabbit.hide(); // 하얀 토끼는 숨었습니다!
 ```
 
-이제 `Rabbit` 코드는 `Animal`의 생성자를 사용함으로써 더 짧아졌고 Animal 클래스에서 정의된 `run` 메서드를 사용할 수 있습니다. 
+`Rabbit` 클래스의 객체는 `rabbit.hide()`와 `rabbit.run()` 처럼 `Animal` 과 `Rabbit` 의 메서드 모두 사용할 수 있습니다.
 
-내부적으로, `extends` 키워드는 `[[Prototype]]` 참고하는 것을 `Rabbit.prototype`에서 `Animal.prototype`으로 추가합니다.
+내부적으로, `extends` 키워드는 오래된 좋은방법인 프로토 타입 매커니즘을 사용합니다. extends 키워드는 `Rabbit.prototype.[[Prototype]]` 를 `Animal.prototype` 로 설정합니다. 그래서 `Rabbit.prototype` 에서 메서드를 찾을 수 없으면 자바스크립트는 `Animal.prototype` 으로 부터 가져옵니다.
 
-![](animal-rabbit-extends.png)
+![](animal-rabbit-extends.svg)
 
-그래서 만약에 `Rabbit.prototype` 안에서 메서드를 찾을 수 없으면, 자바스크립트는 `Animal.prototype`에서 가져옵니다.
+예를 들면 `rabbit.run` 메서드를 찾기위해서 자바스크립트 엔진은 다음을 체크합니다 (그림에서 밑에서 위로)
+1. `rabbit` 객체 (`run`을 가지고 있지 않음).
+2. Rabbit의 프로토타입, `Rabbit.prototype`(`hide`는 있지만 `run`은 없음).
+3. 객체의 프로토타입, 그거은 (`extends`키워드 때문에) `Animal.prototype`이 됩니다. 그리고 마침내 `run`메서드를 가지고 있죠.
 
 <info:native-prototypes> 챕터에서 살펴봤듯이, 자바스크립트는 내장 객체를 위해 같은 프로토타입을 상속합니다. 예를 들면, `Date.prototype.[[Prototype]]` 은 `Object.prototype` 이기 때문에 dates는 일반적인 객체의 메서드인 것이죠.
 
@@ -126,7 +100,8 @@ new User().sayHi(); // Hello
 ```js
 class Rabbit extends Animal {
   stop() {
-    // ...여기에 정의될 메서드가 rabbit.stop() 으로 호출될 것입니다.
+    // ...여기에 정의될 메서드가 rabiit.stop() 으로 호출될 것입니다.
+    // Animal 클래스의 stop() 메서드 대신에 말이죠
   }
 }
 ```
