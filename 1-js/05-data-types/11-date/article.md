@@ -1,134 +1,134 @@
-# Date and time
+# Date 객체와 날짜
 
-Let's meet a new built-in object: [Date](mdn:js/Date). It stores the date, time and provides methods for date/time management.
+날짜를 저장할 수 있고, 날짜와 관련된 메서드도 제공해주는 내장 객체 [Date](mdn:js/Date)에 대해 알아봅시다(이 글에선 일시(날짜/시간)를 날짜와 혼용해서 사용하겠습니다 - 옮긴이).
 
-For instance, we can use it to store creation/modification times, to measure time, or just to print out the current date.
+Date 객체를 활용하면 생성 및 수정 시간을 저장하거나 시간 측정을 측정할 수 있고, 현재 날짜를 출력하는 용도 등으로도 활용할 수 있습니다.
 
-## Creation
+## 객체 생성하기
 
-To create a new `Date` object call `new Date()` with one of the following arguments:
+`new Date()`를 호출하면 새로운 `Date` 객체가 만들어지는데, `new Date()`는 다음과 같은 형태로 호출할 수 있습니다.
 
 `new Date()`
-: Without arguments -- create a `Date` object for the current date and time:
+: 인수 없이 호출하면 현재 날짜와 시간이 저장된 `Date` 객체가 반환됩니다.
 
     ```js run
     let now = new Date();
-    alert( now ); // shows current date/time
+    alert( now ); // 현재 날짜 및 시간이 출력됨
     ```
 
 `new Date(milliseconds)`
-: Create a `Date` object with the time equal to number of milliseconds (1/1000 of a second) passed after the Jan 1st of 1970 UTC+0.
+: UTC 기준(UTC+0) 1970년 1월 1일 0시 0분 0초에서 `milliseconds` 밀리초(1/1000 초) 후의 시점이 저장된 `Date` 객체가 반환됩니다.
 
     ```js run
-    // 0 means 01.01.1970 UTC+0
+    // 1970년 1월 1일 0시 0분 0초(UTC+0)를 나타내는 객체
     let Jan01_1970 = new Date(0);
     alert( Jan01_1970 );
 
-    // now add 24 hours, get 02.01.1970 UTC+0
+    // 1970년 1월 1일의 24시간 후는 1970년 1월 2일(UTC+0)임
     let Jan02_1970 = new Date(24 * 3600 * 1000);
     alert( Jan02_1970 );
     ```
 
-    An integer number representing the number of milliseconds that has passed since the beginning of 1970 is called a *timestamp*.
+    1970년의 첫날을 기준으로 흘러간 밀리초를 나타내는 정수는 *타임스탬프(timestamp)* 라고 부릅니다.
 
-    It's a lightweight numeric representation of a date. We can always create a date from a timestamp using `new Date(timestamp)` and convert the existing `Date` object to a timestamp using the `date.getTime()` method (see below).
+    타임스탬프를 사용하면 날짜를 숫자 형태로 간편하게 나타낼 수 있습니다. `new Date(timestamp)`를 사용해 타임스탬프를 사용해 특정 날짜가 저장된 `Date` 객체를 손쉽게 만들 수 있고 `date.getTime()` 메서드를 사용해 `Date` 객체에서 타임스탬프를 추출하는 것도 가능합니다(자세한 사항은 아래에서 다루도록 하겠습니다).
 
 `new Date(datestring)`
-: If there is a single argument, and it's a string, then it is parsed automatically. The algorithm is the same as `Date.parse` uses, we'll cover it later.
+: 인수가 하나인데, 문자열이라면 해당 문자열은 자동으로 구문 분석(parsed)됩니다. 구분 분석에 적용되는 알고리즘은 `Date.parse`에서 사용하는 알고리즘과 동일한데, 자세한 내용은 아래에서 다루도록 하겠습니다.
 
     ```js run
     let date = new Date("2017-01-26");
     alert(date);
-    // The time is not set, so it's assumed to be midnight GMT and
-    // is adjusted according to the timezone the code is run in
-    // So the result could be
+    // 시간대가 설정되어있지 않기 때문에 현재 시간대를 GMT 자정이라고 가정하고
+    // GMT 자정에 해당하는 코드가 자동으로 문자열에 설정됩니다.
+    // 따라서 얼럿 창엔
     // Thu Jan 26 2017 11:00:00 GMT+1100 (Australian Eastern Daylight Time)
-    // or
-    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)
+    // 혹은
+    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)등이 출력됩니다(실행하는 환경에 따라 달라집니다).
     ```
 
 `new Date(year, month, date, hours, minutes, seconds, ms)`
-: Create the date with the given components in the local time zone. Only the first two arguments are obligatory.
+: 주어진 인수를 조합해 만들 수 있는 날짜가 저장된 객체가 반환됩니다(작업 중인 시간대 기준). 첫 번쨰와 두 번쨰 인수만 필수값입니다.
 
-    - The `year` must have 4 digits: `2013` is okay, `98` is not.
-    - The `month` count starts with `0` (Jan), up to `11` (Dec).
-    - The `date` parameter is actually the day of month, if absent then `1` is assumed.
-    - If `hours/minutes/seconds/ms` is absent, they are assumed to be equal `0`.
+    - `year`는 반드시 네 자리 숫자여야 합니다. `2013`은 괜찮고 `98`은 괜찮지 않습니다.
+    - `month`는 `0`(1월)부터 `11`(12월) 사이의 숫자여야 합니다.
+    - `date`는 일을 나타내는데, 값이 없는 경우엔 1일로 처리됩니다.
+    - `hours/minutes/seconds/ms`에 값이 없는 경우엔 `0`으로 처리됩니다.
 
-    For instance:
+    예시:
 
     ```js
-    new Date(2011, 0, 1, 0, 0, 0, 0); // // 1 Jan 2011, 00:00:00
-    new Date(2011, 0, 1); // the same, hours etc are 0 by default
+    new Date(2011, 0, 1, 0, 0, 0, 0); // 2011년 1월 1일, 00시 00분 00초
+    new Date(2011, 0, 1); // hours를 비롯한 인수는 기본값이 0이므로 위와 동일
     ```
 
-    The minimal precision is 1 ms (1/1000 sec):
+    최소 정밀도는 1밀리초(1/1000초)입니다.
 
     ```js run
     let date = new Date(2011, 0, 1, 2, 3, 4, 567);
-    alert( date ); // 1.01.2011, 02:03:04.567
+    alert( date ); // 2011년 1월 1일, 02시 03분 04.567초
     ```
 
-## Access date components
+## 날짜 구성요소 얻기
 
-There are methods to access the year, month and so on from the `Date` object:
+`Date` 객체의 메서드를 사용하면 연, 월, 일 등의 값을 얻을 수 있습니다.
 
 [getFullYear()](mdn:js/Date/getFullYear)
-: Get the year (4 digits)
+: 연도(네 자릿수)를 반환합니다.
 
 [getMonth()](mdn:js/Date/getMonth)
-: Get the month, **from 0 to 11**.
+: 월을 반환합니다(**0 이상 11 이하**).
 
 [getDate()](mdn:js/Date/getDate)
-: Get the day of month, from 1 to 31, the name of the method does look a little bit strange.
+: 일을 반환합니다(1 이상 31 이하). 어! 그런데 메서드 이름이 뭔가 이상하네요.
 
 [getHours()](mdn:js/Date/getHours), [getMinutes()](mdn:js/Date/getMinutes), [getSeconds()](mdn:js/Date/getSeconds), [getMilliseconds()](mdn:js/Date/getMilliseconds)
-: Get the corresponding time components.
+: 시, 분, 초, 밀리초를 반환합니다.
 
-```warn header="Not `getYear()`, but `getFullYear()`"
-Many JavaScript engines implement a non-standard method `getYear()`. This method is deprecated. It returns 2-digit year sometimes. Please never use it. There is `getFullYear()` for the year.
+```warn header="`getYear()`말고 `getFullYear()`를 사용하세요."
+여러 자바스크립트 엔진이 더는 사용되지 않는(deprecated) 비표준 메서드 `getYear()`을 구현하고 있습니다. 이 메서드는 두 자릿수 연도를 반환하는 경우가 있기 때문에 절대 사용해선 안 됩니다. 연도 정보를 얻고 싶다면 `getFullYear()`를 사용하세요.
 ```
 
-Additionally, we can get a day of week:
+이 외에도 요일을 반환해주는 메서드도 있습니다.
 
 [getDay()](mdn:js/Date/getDay)
-: Get the day of week, from `0` (Sunday) to `6` (Saturday). The first day is always Sunday, in some countries that's not so, but can't be changed.
+: 일요일을 나타내는 `0`부터 토요일을 나타내는 `6`까지의 숫자 중 하나를 반환합니다. 몇몇 나라에서 요일의 첫날이 일요일이 아니긴 하지만, getDay에선 항상 `0`이 일요일을 나타냅니다. 이를 변경할 방법은 없습니다.
 
-**All the methods above return the components relative to the local time zone.**
+**위에서 소개해드린 메서드 모두는 현지 시간 기준 날짜 구성요소를 반환합니다.**
 
-There are also their UTC-counterparts, that return day, month, year and so on for the time zone UTC+0: [getUTCFullYear()](mdn:js/Date/getUTCFullYear), [getUTCMonth()](mdn:js/Date/getUTCMonth), [getUTCDay()](mdn:js/Date/getUTCDay). Just insert the `"UTC"` right after `"get"`.
+위 메서드 이름에 있는 'get' 다음에 'UTC'를 붙여주면 표준시(UTC+0) 기준의 날짜 구성 요소를 반환해주는 메서드 [getUTCFullYear()](mdn:js/Date/getUTCFullYear), [getUTCMonth()](mdn:js/Date/getUTCMonth), [getUTCDay()](mdn:js/Date/getUTCDay)를 만들 수 있습니다.
 
-If your local time zone is shifted relative to UTC, then the code below shows different hours:
+현지 시간대가 UTC 시간대와 다르다면 아래 예시를 실행했을 때 얼럿창엔 다른 값이 출력됩니다.
 
 ```js run
-// current date
+// 현재 일시
 let date = new Date();
 
-// the hour in your current time zone
+// 현지 시간 기준 시
 alert( date.getHours() );
 
-// the hour in UTC+0 time zone (London time without daylight savings)
+// 표준시간대(UTC+0, 일광 절약 시간제를 적용하지 않은 런던 시간) 기준 시
 alert( date.getUTCHours() );
 ```
 
-Besides the given methods, there are two special ones that do not have a UTC-variant:
+아래 두 메서드는 위에서 소개한 메서드와 달리 표준시(UTC+0) 기준의 날짜 구성 요소를 반환해주는 메서드가 없습니다.
 
 [getTime()](mdn:js/Date/getTime)
-: Returns the timestamp for the date -- a number of milliseconds passed from the January 1st of 1970 UTC+0.
+: 주어진 일시와 1970년 1월 1일 00시 00분 00초 사이의 간격(밀리초 단위)인 타임스탬프를 반환합니다.
 
 [getTimezoneOffset()](mdn:js/Date/getTimezoneOffset)
-: Returns the difference between the local time zone and UTC, in minutes:
+: 현지 시간과 표준 시간의 차이(분)를 반환합니다.
 
     ```js run
-    // if you are in timezone UTC-1, outputs 60
-    // if you are in timezone UTC+3, outputs -180
+    // UTC-1 시간대에서 이 예시를 실행하면 60이 출력됩니다.
+    // UTC+3 시간대에서 이 예시를 실행하면 -180이 출력됩니다.
     alert( new Date().getTimezoneOffset() );
 
     ```
 
-## Setting date components
+## 날짜 구성요소 설정하기
 
-The following methods allow to set date/time components:
+아래 메서드를 사용하면 날짜 구성요소를 설정할 수 있습니다.
 
 - [`setFullYear(year, [month], [date])`](mdn:js/Date/setFullYear)
 - [`setMonth(month, [date])`](mdn:js/Date/setMonth)
@@ -137,38 +137,38 @@ The following methods allow to set date/time components:
 - [`setMinutes(min, [sec], [ms])`](mdn:js/Date/setMinutes)
 - [`setSeconds(sec, [ms])`](mdn:js/Date/setSeconds)
 - [`setMilliseconds(ms)`](mdn:js/Date/setMilliseconds)
-- [`setTime(milliseconds)`](mdn:js/Date/setTime) (sets the whole date by milliseconds since 01.01.1970 UTC)
+- [`setTime(milliseconds)`](mdn:js/Date/setTime) (1970년 1월 1일 00:00:00 UTC부터 밀리초 이후를 나타내는 날짜를 설정)
 
-Every one of them except `setTime()` has a UTC-variant, for instance: `setUTCHours()`.
+`setTime()`을 제외한 모든 메서드는 `setUTCHours()`같이 표준시에 따라 날짜 구성 요소를 설정해주는 메서드가 있습니다.
 
-As we can see, some methods can set multiple components at once, for example `setHours`. The components that are not mentioned are not modified.
+`setHours`와 같은 메서드는 여러 개의 날짜 구성요소를 동시에 설정할 수 있는데, 메서드의 인수에 없는 구성요소는 변경되지 않습니다.
 
-For instance:
+예시:
 
 ```js run
 let today = new Date();
 
 today.setHours(0);
-alert(today); // still today, but the hour is changed to 0
+alert(today); // 날짜는 변경되지 않고 시만 0으로 변경됩니다.
 
 today.setHours(0, 0, 0, 0);
-alert(today); // still today, now 00:00:00 sharp.
+alert(today); // 날짜는 변경되지 않고 시, 분, 초가 모두 변경됩니다(00시 00분 00초).
 ```
 
-## Autocorrection
+## 자동 고침
 
-The *autocorrection* is a very handy feature of `Date` objects. We can set out-of-range values, and it will auto-adjust itself.
+`Date` 객체엔 *자동 고침(autocorrection)* 이라는 유용한 기능이 있습니다. 범위를 벗어나는 값을 설정하려고 하면 자동 고침 기능이 활성화되면서 값이 자동으로 수정됩니다.
 
-For instance:
+예시:
 
 ```js run
-let date = new Date(2013, 0, *!*32*/!*); // 32 Jan 2013 ?!?
-alert(date); // ...is 1st Feb 2013!
+let date = new Date(2013, 0, *!*32*/!*); // 2013년 1월 32일은 없습니다.
+alert(date); // 2013년 2월 1일이 출력됩니다.
 ```
 
-Out-of-range date components are distributed automatically.
+입력받은 날짜 구성 요소가 범위를 벗어나면 초과분은 자동으로 다른 날짜 구성요소에 배분됩니다.
 
-Let's say we need to increase the date "28 Feb 2016" by 2 days. It may be "2 Mar" or "1 Mar" in case of a leap-year. We don't need to think about it. Just add 2 days. The `Date` object will do the rest:
+'2016년 2월 28일'의 이틀 뒤 날짜를 구하고 싶다고 가정해봅시다. 답은 3월 2일 혹은 3월 1일(윤년)이 될 텐데, 2016년이 윤년인지 아닌지 생각할 필요 없이 단순히 이틀을 더해주기만 하면 답을 구할 수 있습니다. 나머지 작업은 `Date` 객체가 알아서 처리해 주기 때문이죠.
 
 ```js run
 let date = new Date(2016, 1, 28);
@@ -176,74 +176,74 @@ let date = new Date(2016, 1, 28);
 date.setDate(date.getDate() + 2);
 */!*
 
-alert( date ); // 1 Mar 2016
+alert( date ); // 2016년 3월 1일
 ```
 
-That feature is often used to get the date after the given period of time. For instance, let's get the date for "70 seconds after now":
+자동 고침은 일정 시간이 지난 후의 날짜를 구하는데도 종종 사용됩니다. '지금부터 70초 후'의 날짜를 구해봅시다.
 
 ```js run
 let date = new Date();
 date.setSeconds(date.getSeconds() + 70);
 
-alert( date ); // shows the correct date
+alert( date ); // 70초 후의 날짜가 출력됩니다.
 ```
 
-We can also set zero or even negative values. For example:
+0이나 음수를 날짜 구성요소에 설정하는 것도 가능합니다. 예시를 살펴봅시다.
 
 ```js run
-let date = new Date(2016, 0, 2); // 2 Jan 2016
+let date = new Date(2016, 0, 2); // 2016년 1월 2일
 
-date.setDate(1); // set day 1 of month
+date.setDate(1); // 1일로 변경합니다.
 alert( date );
 
-date.setDate(0); // min day is 1, so the last day of the previous month is assumed
+date.setDate(0); // 일의 최솟값은 1이므로 0을 입력하면 전 달의 마지막 날을 설정한 것과 같은 효과를 봅니다.
 alert( date ); // 31 Dec 2015
 ```
 
-## Date to number, date diff
+## Date 객체를 숫자로 변경해 시간차 측정하기
 
-When a `Date` object is converted to number, it becomes the timestamp same as `date.getTime()`:
+`Date` 객체를 숫자형으로 변경하면 타임스탬프(`date.getTime()`을 호출 시 반환되는 값)가 됩니다.
 
 ```js run
 let date = new Date();
-alert(+date); // the number of milliseconds, same as date.getTime()
+alert(+date); // 타임스탬프(date.getTime()를 호출한 것과 동일함)
 ```
 
-The important side effect: dates can be subtracted, the result is their difference in ms.
+이를 응용하면 날짜에 마이너스 연산자를 적용해 밀리초 기준 시차를 구할 수 있습니다.
 
-That can be used for time measurements:
+시차를 측정해 나만의 스톱워치를 만들어봅시다.
 
 ```js run
-let start = new Date(); // start measuring time
+let start = new Date(); // 측정 시작
 
-// do the job
+// 원하는 작업을 수행
 for (let i = 0; i < 100000; i++) {
   let doSomething = i * i * i;
 }
 
-let end = new Date(); // end measuring time
+let end = new Date(); // 측정 종료
 
-alert( `The loop took ${end - start} ms` );
+alert( `반복문을 모두 도는데 ${end - start} 밀리초가 걸렸습니다.` );
 ```
 
 ## Date.now()
 
-If we only want to measure time, we don't need the `Date` object.
+`Date` 객체를 만들지 않고도 시차를 측정할 방법이 있습니다.
 
-There's a special method `Date.now()` that returns the current timestamp.
+현재 타임스탬프를 반환하는 메서드 `Date.now()`를 응용하면 됩니다.
 
-It is semantically equivalent to `new Date().getTime()`, but it doesn't create an intermediate `Date` object. So it's faster and doesn't put pressure on garbage collection.
+`Date.now()`는 `new Date().getTime()`과 의미론적으로 동일하지만 중간에 `Date` 객체를 만들지 않는다는 점이 다릅니다. 따라서 `new Date().getTime()`를 사용하는 것보다 빠르고 가비지 컬렉터의 일을 덜어준다는 장점이 있습니다. 
 
-It is used mostly for convenience or when performance matters, like in games in JavaScript or other specialized applications.
+자바스크립트를 사용해 게임을 구현한다던가 전문분야의 애플리케이션을 구현할 때와 같이 성능이 중요한 경우에 `Date.now()`가 자주 활용됩니다. 물론 편의를 위해 활용되기도 하죠.
 
-So this is probably better:
+위 예시를 `Date.now()`를 사용해 변경하면 성능이 더 좋습니다.
 
 ```js run
 *!*
-let start = Date.now(); // milliseconds count from 1 Jan 1970
+let start = Date.now(); // 1970년 1월 1일부터 현재까지의 밀리초
 */!*
 
-// do the job
+// 원하는 작업을 수행
 for (let i = 0; i < 100000; i++) {
   let doSomething = i * i * i;
 }
@@ -252,36 +252,36 @@ for (let i = 0; i < 100000; i++) {
 let end = Date.now(); // done
 */!*
 
-alert( `The loop took ${end - start} ms` ); // subtract numbers, not dates
+alert( `반복문을 모두 도는데 ${end - start} 밀리초가 걸렸습니다.` ); // Date 객체가 아닌 숫자끼리 차감함
 ```
 
-## Benchmarking
+## 벤치마크 테스트
 
-If we want a reliable benchmark of CPU-hungry function, we should be careful.
+'벤치마크 테스트'는 비교 대상을 두고 성능을 비교하여 시험하고 평가할 때 쓰입니다.
 
-For instance, let's measure two functions that calculate the difference between two dates: which one is faster?
+CPU를 많이 잡아먹는 함수의 신뢰할만한 벤치마크(평가 기준)를 구하려면 상당한 주의가 필요합니다.
 
-Such performance measurements are often called "benchmarks".
+두 날짜의 차이를 계산해주는 함수 두 개가 있는데, 어느 함수의 성능이 더 좋은지 알아내야 한다고 가정해봅시다.
 
 ```js
-// we have date1 and date2, which function faster returns their difference in ms?
+// 두 함수 중 date1과 date2의 차이를 어떤 함수가 더 빨리 반환할까요?
 function diffSubtract(date1, date2) {
   return date2 - date1;
 }
 
-// or
+// 반환 값은 밀리초입니다.
 function diffGetTime(date1, date2) {
   return date2.getTime() - date1.getTime();
 }
 ```
 
-These two do exactly the same thing, but one of them uses an explicit `date.getTime()` to get the date in ms, and the other one relies on a date-to-number transform. Their result is always the same.
+두 함수는 완전히 동일한 작업을 수행하지만, 한 함수는 날짜를 밀리초 단위로 얻기 위해 `date.getTime()`를 사용하고 있고, 다른 함수는 마이너스 연산자 적용 시 객체가 숫자형으로 변화한다는 특징을 사용하고 있습니다. 두 함수가 반환하는 값은 항상 동일하죠.
 
-So, which one is faster?
+속도는 어떨까요?
 
-The first idea may be to run them many times in a row and measure the time difference. For our case, functions are very simple, so we have to do it at least 100000 times.
+연속해서 함수를 아주 많이 호출한 후, 실제 연산이 종료되는 데 걸리는 시간을 비교하면 두 함수의 성능을 비교할 수 있을 겁니다. `diffSubtract`와 `diffGetTime`는 아주 간단한 함수이기 때문에 유의미한 시차를 구하려면 각 함수를 최소한 십만 번 호출해야 합니다.
 
-Let's measure:
+측정을 시작해봅시다.
 
 ```js run
 function diffSubtract(date1, date2) {
@@ -301,23 +301,23 @@ function bench(f) {
   return Date.now() - start;
 }
 
-alert( 'Time of diffSubtract: ' + bench(diffSubtract) + 'ms' );
-alert( 'Time of diffGetTime: ' + bench(diffGetTime) + 'ms' );
+alert( 'diffSubtract를 십만번 호출하는데 걸린 시간: ' + bench(diffSubtract) + 'ms' );
+alert( 'diffGetTime을 십만번 호출하는데 걸린 시간: ' + bench(diffGetTime) + 'ms' );
 ```
 
-Wow! Using `getTime()` is so much faster! That's because there's no type conversion, it is much easier for engines to optimize.
+형 변환이 없어서 엔진 최적화에 드는 자원이 줄어드므로 `getTime()`을 이용한 방법이 훨씬 빠릅니다.
 
-Okay, we have something. But that's not a good benchmark yet.
+자, 벤치마크로 쓸 뭔가를 구하긴 했습니다. 그런데 이 벤치마크는 그다지 좋은 벤치마크가 아닙니다.
 
-Imagine that at the time of running `bench(diffSubtract)` CPU was doing something in parallel, and it was taking resources. And by the time of running `bench(diffGetTime)` that work has finished.
+`bench(diffSubtract)`를 실행하고 있을 때 CPU가 어떤 작업을 병렬적으로 처리하고 있고, 여기에 CPU의 자원이 투입되고 있었다고 가정해 봅시다. 그리고 `bench(diffGetTime)`을 실행할 땐, 이 작업이 끝난 상태라고 가정해 봅시다.
 
-A pretty real scenario for a modern multi-process OS.
+멀티 프로세스를 지원하는 운영체제에서 이런 시나리오는 흔히 발생합니다.
 
-As a result, the first benchmark will have less CPU resources than the second. That may lead to wrong results.
+첫 번째 `benchmark`가 실행될 땐 사용할 수 있는 CPU 자원이 적었기 때문에 이 벤치마크는 좋지 않습니다.
 
-**For more reliable benchmarking, the whole pack of benchmarks should be rerun multiple times.**
+**좀 더 신뢰할만한 벤치마크 테스트을 만들려면 `benchmark`를 번갈아 가면서 여러 번 돌려야 합니다.**
 
-For example, like this:
+아래와 같이 말이죠.
 
 ```js run
 function diffSubtract(date1, date2) {
@@ -341,25 +341,25 @@ let time1 = 0;
 let time2 = 0;
 
 *!*
-// run bench(upperSlice) and bench(upperLoop) each 10 times alternating
+// 함수 bench를 각 함수(diffSubtract, diffGetTime)별로 10번씩 돌립니다.
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
 }
 */!*
 
-alert( 'Total time for diffSubtract: ' + time1 );
-alert( 'Total time for diffGetTime: ' + time2 );
+alert( 'diffSubtract에 소모된 시간: ' + time1 );
+alert( 'diffGetTime에 소모된 시간: ' + time2 );
 ```
 
-Modern JavaScript engines start applying advanced optimizations only to "hot code" that executes many times (no need to optimize rarely executed things). So, in the example above, first executions are not well-optimized. We may want to add a heat-up run:
+모던 자바스크립트 엔진은 아주 많이 실행된 코드인 'hot code'를 대상으로 최적화를 수행합니다(실행 횟수가 적은 코드는 최적화할 필요가 없죠). 위 예시에서 bench를 첫 번째 실행했을 때는 최적화가 잘 적용되지 않기 때문에 아래 코드처럼 메인 반복문을 실행하기 전에 예열용(heat-up)으로 bench를 실행할 수 있습니다.
 
 ```js
-// added for "heating up" prior to the main loop
+// 메인 반복문 실행 전, "예열용"으로 추가한 코드
 bench(diffSubtract);
 bench(diffGetTime);
 
-// now benchmark
+// 벤치마크 테스트 시작
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
@@ -372,30 +372,30 @@ Modern JavaScript engines perform many optimizations. They may tweak results of 
 The great pack of articles about V8 can be found at <http://mrale.ph>.
 ```
 
-## Date.parse from a string
+## Date.parse와 문자열
 
-The method [Date.parse(str)](mdn:js/Date/parse) can read a date from a string.
+메서드 [Date.parse(str)](mdn:js/Date/parse)를 사용하면 문자열에서 날짜를 읽어올 수 있습니다.
 
-The string format should be: `YYYY-MM-DDTHH:mm:ss.sssZ`, where:
+단, 문자열의 형식은 `YYYY-MM-DDTHH:mm:ss.sssZ`처럼 생겨야 합니다.
 
-- `YYYY-MM-DD` -- is the date: year-month-day.
-- The character `"T"` is used as the delimiter.
-- `HH:mm:ss.sss` -- is the time: hours, minutes, seconds and milliseconds.
-- The optional `'Z'` part denotes the time zone in the format `+-hh:mm`. A single letter `Z` that would mean UTC+0.
+- `YYYY-MM-DD` -- 날짜(연-월-일)
+- `"T"` -- 구분 기호로 쓰임
+- `HH:mm:ss.sss` -- 시:분:초.밀리초
+- `'Z'`(옵션) -- `+-hh:mm` 형식의 시간대를 나타냄. `Z` 한 글자인 경우엔 UTC+0을 나타냄
 
-Shorter variants are also possible, like `YYYY-MM-DD` or `YYYY-MM` or even `YYYY`.
+`YYYY-MM-DD`, `YYYY-MM`, `YYYY`같이 더 짧은 문자열 형식도 가능합니다.
 
-The call to `Date.parse(str)` parses the string in the given format and returns the timestamp (number of milliseconds from 1 Jan 1970 UTC+0). If the format is invalid, returns `NaN`.
+위 조건을 만족하는 문자열을 대상으로 `Date.parse(str)`를 호출하면 문자열과 대응하는 날짜의 타임스탬프가 반환됩니다. 문자열의 형식이 조건에 맞지 않은 경우엔 `NaN`이 반환됩니다.
 
-For instance:
+예시:
 
 ```js run
 let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
 
-alert(ms); // 1327611110417  (timestamp)
+alert(ms); // 1327611110417  (타임스탬프)
 ```
 
-We can instantly create a `new Date` object from the timestamp:
+`Date.parse(str)`를 이용하면 타임스탬프만으로도 새로운 `Date` 객체를 바로 만들 수 있습니다.
 
 ```js run
 let date = new Date( Date.parse('2012-01-26T13:51:50.417-07:00') );
@@ -403,24 +403,24 @@ let date = new Date( Date.parse('2012-01-26T13:51:50.417-07:00') );
 alert(date);  
 ```
 
-## Summary
+## 요약
 
-- Date and time in JavaScript are represented with the [Date](mdn:js/Date) object. We can't create "only date" or "only time": `Date` objects always carry both.
-- Months are counted from zero (yes, January is a zero month).
-- Days of week in `getDay()` are also counted from zero (that's Sunday).
-- `Date` auto-corrects itself when out-of-range components are set. Good for adding/subtracting days/months/hours.
-- Dates can be subtracted, giving their difference in milliseconds. That's because a `Date` becomes the timestamp when converted to a number.
-- Use `Date.now()` to get the current timestamp fast.
+- 자바스크립트에선 [Date](mdn:js/Date) 객체를 사용해 날짜와 시간을 나타냅니다. `Date` 객체엔 '날짜만' 혹은 '시간만' 저장하는 것은 불가능하고, 항상 날짜와 시간이 함께 저장됩니다.
+- 월은 0부터 시작합니다(0은 1월을 나타냅니다).
+- 요일은 `getDay()`를 사용하면 얻을 수 있는데, 요일 역시 0부터 시작합니다(0은 일요일을 나타냅니다).
+- 범위를 넘어가는 구성요소를 설정하려 할 때 `Date` 자동 고침이 활성화됩니다. 이를 이용하면 월/일/시간을 쉽게 날짜에 추가하거나 뺄 수 있습니다.
+- 날짜끼리 빼는 것도 가능한데, 이때 두 날짜의 밀리초 차이가 반환됩니다. 이게 가능한 이유는 `Date` 가 숫자형으로 바뀔 때 타임스탬프가 반환되기 때문입니다.
+- `Date.now()`를 사용하면 현재 시각의 타임스탬프를 빠르게 구할 수 있습니다.
 
-Note that unlike many other systems, timestamps in JavaScript are in milliseconds, not in seconds.
+자바스크립트의 타임스탬프는 초가 아닌 밀리초 기준이라는 점을 항상 유의하시기 바랍니다.
 
-Sometimes we need more precise time measurements. JavaScript itself does not have a way to measure time in microseconds (1 millionth of a second), but most environments provide it. For instance, browser has [performance.now()](mdn:api/Performance/now) that gives the number of milliseconds from the start of page loading with microsecond precision (3 digits after the point):
+간혹 밀리초보다 더 정확한 시간 측정이 필요할 때가 있습니다. 자바스크립트는 마이크로초(1/1,000,000초)를 지원하진 않지만 대다수의 호스트 환경은 마이크로초를 지원합니다. 브라우저 환경의 메서드 [performance.now()](mdn:api/Performance/now)는 페이지 로딩에 걸리는 밀리초를 반환해주는데, 반환되는 숫자는 소수점 아래 세 자리까지 지원합니다.
 
 ```js run
-alert(`Loading started ${performance.now()}ms ago`);
-// Something like: "Loading started 34731.26000000001ms ago"
-// .26 is microseconds (260 microseconds)
-// more than 3 digits after the decimal point are precision errors, but only the first 3 are correct
+alert(`페이지 로딩이 ${performance.now()}밀리초 전에 시작되었습니다.`);
+// 얼럿 창에 "페이지 로딩이 34731.26000000001밀리초 전에 시작되었습니다."와 유사한 메시지가 뜰 텐데
+// 여기서 '.26'은 마이크로초(260마이크로초)를 나타냅니다.
+// 소수점 아래 숫자 세 개 이후의 숫자는 정밀도 에러때문에 보이는 숫자이므로 소수점 아래 숫자 세 개만 유효합니다.
 ```
 
-Node.js has `microtime` module and other ways. Technically, almost any device and environment allows to get more precision, it's just not in `Date`.
+Node.js에선 `microtime` 모듈 등을 사용해 마이크로초를 사용할 수 있습니다. 자바스크립트가 구동되는 대다수의 호스트 환경과 기기에서 마이크로초를 지원하고 있는데 `Date` 객체만 마이크로초를 지원하지 않습니다.
