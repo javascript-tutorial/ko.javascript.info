@@ -44,7 +44,7 @@ func();
 
 위와 같은 예제는 굉장히 특정한 상황에만 사용됩니다. 서버로부터 코드를 받아올 때 아니면 템플릿으로 부터 함수를 유동적으로 컴파일할 때입니다. 이런 것들이 필요할 때는 좀 더 고급스러운 개발단계가 필요할 때입니다.
 
-## 클로져(Closure)
+## 클로져
 
 Usually, a function remembers where it was born in the special property `[[Environment]]`. It references the Lexical Environment from where it's created  (we covered that in the chapter <info:closure>).
 

@@ -2,16 +2,16 @@ importance: 3
 
 ---
 
-# Output prime numbers
+# 소수 출력하기
 
-An integer number greater than `1` is called a [prime](https://en.wikipedia.org/wiki/Prime_number) if it cannot be divided without a remainder by anything except `1` and itself.
+[소수(prime number)](https://ko.wikipedia.org/wiki/%EC%86%8C%EC%88%98_(%EC%88%98%EB%A1%A0))는 자신보다 작은 두 개의 자연수를 곱하여 만들 수 없는 1보다 큰 자연수입니다.
 
-In other words, `n > 1` is a prime if it can't be evenly divided by anything except `1` and `n`.
+`1`과 `그 수 자신` 이외의 자연수로는 나눌 수 없는 자연수를 소수라고 부르죠.
 
-For example, `5` is a prime, because it cannot be divided without a remainder by `2`, `3` and `4`.
+`5`는 `2`나 `3`, `4`로 나눌 수 없기 때문에 소수입니다. `5`를 이들 숫자로 나누먼 나머지가 있기 때문이죠. 
 
-**Write the code which outputs prime numbers in the interval from `2` to `n`.**
+**2부터 `n`까지의 숫자 중 소수만 출력해주는 코드를 작성해봅시다.**
 
-For `n = 10` the result will be `2,3,5,7`.
+`n = 10`이라면 결과는 `2,3,5,7`이 되어야겠죠.
 
-P.S. The code should work for any `n`, not be hard-tuned for any fixed value.
+주의: 작성한 코드는 임의의 숫자 `n`에 대해 동작해야 합니다.

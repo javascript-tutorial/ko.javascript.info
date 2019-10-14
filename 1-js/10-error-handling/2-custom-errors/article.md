@@ -2,7 +2,7 @@
 
 무언가 개발할 때, 종종 작업에서 잘못될 수 있는 특정한 것들을 반영하기 위해 자체적인 에러 클래스들이 필요합니다. 네트워크 동작시 에러들에 대해 `HttpError`, 데이터베이스 동작시에 `DbError`, 검색 동작시에 `NotFoundError` 등등이 필요할 수 있습니다.
 
-우리의 에러는 `message`, `name` 같은 기본적인 에러 프로퍼티를 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 프로퍼티들도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 프로퍼티로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
+우리의 에러는 `message`, `name` 같은 기본적인 에러 프로퍼티를 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 프로퍼티도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 프로퍼티로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
 
 자바스크립트는 `throw` 를 아무 인수와 함께 사용할 수 있게 허용하므로, 기본적으로 커스텀 에러 클래스들은 `Error`를 상속할 필요가 없습니다. 그러나 상속을 하면 `obj instanceof Error`를 사용해서 에러 객체들을 식별하는 것이 가능해집니다. 따라서 상속받는 게 낫습니다.
 
@@ -215,7 +215,7 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 위의 코드에서 함수 `readUser`의 목적은 "사용자 데이터를 읽는 것"입니다. 그런데 그 과정에서 다른 오류들이 발생할 수 있습니다. 지금 당장은 `SyntaxError`와 `ValidationError`만 있지만, 앞으로 `readUser` 함수가 더 커지면 다른 오류들을 만들어 낼 수도 있습니다.
 
-The code which calls `readUser` should handle these errors. Right now it uses multiple `if` in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if `readUser` function generates several kinds of errors -- then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
+The code which calls `readUser` should handle these errors. Right now it uses multiple `if`s in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if the `readUser` function generates several kinds of errors, then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
 
 보통 대답은 "아니요"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
 

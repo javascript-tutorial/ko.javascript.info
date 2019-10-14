@@ -1,7 +1,7 @@
 
-That's because `map.keys()` returns an iterable, but not an array.
+`keys.push`가 동작하지 않은 이유는 `map.keys()`가 배열이 아니라 이터러블을 반환하기 때문입니다.
 
-We can convert it into an array using `Array.from`:
+`Array.from`을 이용하면 맵을 배열로 변환할 수 있습니다.
 
 
 ```js run

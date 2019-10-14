@@ -363,7 +363,7 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-5.svg)
 
-    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where finds it.
+    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where it finds it.
 
     여기서 잠깐 메모리의 상태에 대해 알아봅시다. `makeCounter()` 호출은 이미 끝났지만, 호출 시 생성된 렉시컬 환경은 여전히 메모리에 남아있게 됩니다. 내부 중첩 함수의 `[[Environment]]`가 여전히 이 렉시컬 환경을 참조하고 있기 때문입니다.
 
