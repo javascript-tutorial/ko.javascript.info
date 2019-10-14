@@ -215,7 +215,7 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 위의 코드에서 함수 `readUser`의 목적은 "사용자 데이터를 읽는 것"입니다. 그런데 그 과정에서 다른 오류들이 발생할 수 있습니다. 지금 당장은 `SyntaxError`와 `ValidationError`만 있지만, 앞으로 `readUser` 함수가 더 커지면 다른 오류들을 만들어 낼 수도 있습니다.
 
-The code which calls `readUser` should handle these errors. Right now it uses multiple `if` in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if `readUser` function generates several kinds of errors -- then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
+The code which calls `readUser` should handle these errors. Right now it uses multiple `if`s in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if the `readUser` function generates several kinds of errors, then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
 
 보통 대답은 "아니요"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
 

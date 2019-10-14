@@ -107,7 +107,6 @@ try {
 왜냐하면 함수는 엔진이 이미 `try..catch` 구문을 떠난 다음에야 실행되기 때문입니다.
 
 스케줄 된 함수 내부의 예외를 잡고 싶다면, `try..catch`가 반드시 함수 내부에 있어야 합니다. 
-
 ```js run
 setTimeout(function() {
   try {    
