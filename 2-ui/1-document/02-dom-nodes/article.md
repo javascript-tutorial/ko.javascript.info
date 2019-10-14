@@ -273,4 +273,8 @@ HTML/XML 문서는 브라우저 안에서 DOM 트리로 표현됩니다.
 
 지금까진 가장 많이 사용되며, 중요한 기능을 위주로 개발자 도구 사용법에 대해 소개해 드렸습니다. 이 외에 다른 기능들은 Chrome 개발자 도구 사용법 문서 사이트, <https://developers.google.com/web/tools/chrome-devtools> 에서 더 상세히 확인할 수 있습니다. 개발자 도구 사용법을 금방 익히려면 이리저리 클릭해보고 메뉴를 직접 열어보아야 합니다. 이런 과정을 통해 도구가 어느 정도 손에 익으면 문서를 정독해 부족한 나머지를 채우도록 합시다.
 
+<<<<<<< HEAD
 DOM 노드는 노드 간 이동, 수정 등을 가능하게 해주는 프로퍼티와 메서드를 지원합니다. 다음 챕터에서 이에 대해 다뤄보도록 하겠습니다.
+=======
+DOM nodes have properties and methods that allow us to travel between them, modify them, move around the page, and more. We'll get down to them in the next chapters.
+>>>>>>> a0bfa924a17cad8e7fee213904b27dbf57c2dbac

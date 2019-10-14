@@ -212,7 +212,11 @@ admin.fullName = "Alice Cooper"; // (**)
 
 따라서 위 예시에서 `admin.fullName=`으로 setter 함수를 호출할 때, `this`는 `user`가 아닌 `admin`이 됩니다.
 
+<<<<<<< HEAD
 메서드가 많이 구현되어있는 중심 객체 하나를 상속받아 다른 객체들을 구현하는 경우가 많기 때문에 이런 특징을 잘 알아두어야 합니다. 메서드를 상속받은 객체는 프로토타입이 아닌 자신의 상태를 수정합니다.
+=======
+That is actually a super-important thing, because we may have a big object with many methods, and have objects that inherit from it. And when the inheriting objects run the inherited methods, they will modify only their own states, not the state of the big object.
+>>>>>>> a0bfa924a17cad8e7fee213904b27dbf57c2dbac
 
 예시를 통해 좀 더 알아봅시다. '메서드 저장소'역할을 하는 객체 `animal`을 `rabbit`이 상속받고 있는 상황입니다.
 

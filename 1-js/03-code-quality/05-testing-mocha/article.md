@@ -79,7 +79,11 @@ describe("pow", function() {
 
 이제 실제 사례에 위 개발 프로세스를 적용해 보겠습니다.
 
+<<<<<<< HEAD
 함수 `pow`의 스펙 초안은 이미 위에서 작성했으므로, 첫 번째 단계는 이미 끝난 상황입니다. 코드를 본격적으로 작성하기 전에 잠시 자바스크립트 라이브러리 몇 가지를 사용해 테스트를 실행해 보겠습니다. 지금 상태에선 테스트 모두가 실패할 텐데 그런데도 실행해 보는 이유는 테스트가 실제로 돌아가는지 확인하기 위해서입니다.
+=======
+The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let's use few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+>>>>>>> a0bfa924a17cad8e7fee213904b27dbf57c2dbac
 
 ## 스펙 실행하기
 

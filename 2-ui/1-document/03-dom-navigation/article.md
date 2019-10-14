@@ -320,7 +320,11 @@ Tables are a great example and a particularly important case for that.
 
 테이블과 마찬가지로, HTML 폼(form)에만 쓸 수 있는 몇 가지 탐색 프로퍼티도 존재합니다. 폼을 배우면서 이 프로퍼티에 대해서도 살펴보도록 하겠습니다.
 
+<<<<<<< HEAD
 # 요약
+=======
+## Summary
+>>>>>>> a0bfa924a17cad8e7fee213904b27dbf57c2dbac
 
 탐색 프로퍼티(navigation property)를 사용하면, 특정 DOM 노드에서 이웃해있는 다른 노드로 바로 이동할 수 있습니다.
 
