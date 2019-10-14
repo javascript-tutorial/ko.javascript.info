@@ -166,9 +166,10 @@ let date = new Date(2013, 0, *!*32*/!*); // 32 Jan 2013 ?!?
 alert(date); // ...is 1st Feb 2013!
 ```
 
-Out-of-range date components are distributed automatically.
+입력받은 날짜 구성 요소가 범위를 벗어나면 초과분은 자동으로 다른 날짜 구성요소에 배분됩니다.
 
-Let's say we need to increase the date "28 Feb 2016" by 2 days. It may be "2 Mar" or "1 Mar" in case of a leap-year. We don't need to think about it. Just add 2 days. The `Date` object will do the rest:
+'2016년 2월 28일'의 이틀 뒤 날짜를 구하고 싶다고 가정해봅시다. 답은 3월 2일 혹은 3월 1일(윤년)이 될 텐데, 2016년이 윤년인지 아닌지 생각할 필요 없이 단순히 이틀을 더해주기만 하면 답을 구할 수 있습니다. 나머지 작업은 `Date` 객체가 알아서 처리해 주기 때문이죠.
+
 
 ```js run
 let date = new Date(2016, 1, 28);
