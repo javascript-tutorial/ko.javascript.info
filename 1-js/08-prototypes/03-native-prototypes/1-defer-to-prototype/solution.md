@@ -9,5 +9,5 @@ function f() {
   alert("Hello!");
 }
 
-f.defer(1000); // 1 초후 "Hello!" 출력 
+f.defer(1000); // 1초 후 "Hello!" 출력 
 ```
