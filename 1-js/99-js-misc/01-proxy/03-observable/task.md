@@ -3,7 +3,7 @@
 최종 결과는 아래 조건을 만족해야 합니다.
 
 function makeObservable(target) {
-  /* 여기에 코드를 작성하세요.*/
+  /* 여기에 코드를 작성하세요. */
 }
 
 let user = {};
