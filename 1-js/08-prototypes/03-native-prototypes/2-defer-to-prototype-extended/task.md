@@ -2,18 +2,18 @@ importance: 4
 
 ---
 
-# Add the decorating "defer()" to functions
+# 데코레이팅 "defer()"를 함수에 추가하기
 
-Add to the prototype of all functions the method `defer(ms)`, that returns a wrapper, delaying the call by `ms` milliseconds.
+모든 함수의 프로토타입에 `ms` 밀리세컨초 지연 호출 래퍼를 반환하는 `defer(ms)` 메서드를 추가하세요.
 
-Here's an example of how it should work:
+아래는 동작예시 입니다.
 
 ```js
 function f(a, b) {
   alert( a + b );
 }
 
-f.defer(1000)(1, 2); // shows 3 after 1 second
+f.defer(1000)(1, 2); // 1초 후 3을 출력
 ```
 
-Please note that the arguments should be passed to the original function.
+인수들은 기존 함수에 전달되는 것을 알아두세요.

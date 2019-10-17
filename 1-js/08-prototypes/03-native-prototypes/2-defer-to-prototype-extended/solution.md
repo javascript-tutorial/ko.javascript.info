@@ -8,17 +8,17 @@ Function.prototype.defer = function(ms) {
   }
 };
 
-// check it
+// 확인해 보세요.
 function f(a, b) {
   alert( a + b );
 }
 
-f.defer(1000)(1, 2); // shows 3 after 1 sec
+f.defer(1000)(1, 2); // 1초 후 3 출력
 ```
 
-Please note: we use `this` in `f.apply` to make our decoration work for object methods.
+객체 메서드에 대한 데코레이션 동작을 만들기 위해서 `this`를 `f.apply`안에서 사용하는 것을 알아두세요.
 
-So if the wrapper function is called as an object method, then `this` is passed to the original method `f`.
+그래서 래퍼 함수가 객체 메서드로써 호출된다면 `this`는 기존 메서드 `f`에 전달됩니다.
 
 ```js run
 Function.prototype.defer = function(ms) {
