@@ -1,27 +1,27 @@
 
-# "새로운 함수" 문법
+# 'new Function' 문법
 
-제한적으로 사용하지만, 함수를 생성하는데 한 가지 방법이 더 있습니다. 가끔은 이 방법 외에는 대안이 없을 때도 있죠.
+함수 표현식과 함수 선언문 이외에 함수를 만들 수도 있는 방법이 하나 더 있습니다. 잘 사용하는 방법은 아니지만, 이 방법 외에는 대안이 없을 때 사용합니다.
 
 ## 문법
 
-함수를 만드는 문법은 아래와 같습니다:
+`new Function` 문법을 사용하면 함수를 만들 수 있습니다.
 
 ```js
-let func = new Function ([arg1[, arg2[, ...argN]],] functionBody)
+let func = new Function ([arg1, arg2, ...argN], functionBody);
 ```
 
-함수의 매개 변수(또는 정확히는 함수들의 이름)가 먼저 오고, 본문이 마지막에 따라옵니다. 모든 인수는 문자열입니다. 
+새로 만들어지는 함수는 인수 `arg1...argN`과 함수 본문 `functionBody`로 구성됩니다.
 
-함수와 두 개의 인수가 있는 아래의 예제를 통해 좀 더 쉽게 이해해 보겠습니다.
+인수 두 개가 있는 함수를 직접 만들어 보면서 `new Function` 문법에 대해 이해해보도록 합시다.
 
 ```js run
-let sum = new Function('a', 'b', 'return a + b'); 
+let sum = new Function('a', 'b', 'return a + b');
 
 alert( sum(1, 2) ); // 3
 ```
 
-만약에 인수들이 없다면 오직 하나의 함수 본문을 가진 인수만이 있습니다:
+인수가 없고 함수 본문만 있는 함수를 만들어보겠습니다.
 
 ```js run
 let sayHi = new Function('alert("Hello")');
@@ -29,28 +29,28 @@ let sayHi = new Function('alert("Hello")');
 sayHi(); // Hello
 ```
 
-함수가 문자 그대로 실행될 때 넘겨진다는 것이 가장 다른 점입니다.
+기존에 사용하던 방법과 `new Function`을 사용해 함수를 만드는 방법의 가장 큰 차이는 런타임에 받은 문자열을 사용해 함수를 만들 수 있다는 점입니다.
 
-이전의 모든 함수의 코드 선언문은 스크립트 안에서 쓰였습니다.
+함수 표현식과 함수 선언문은 개발자가 직접 스크립트를 작성해야만 함수를 만들 수 있었죠.
 
-그러나 `new Function`이라는 문법은 어떠한 문자열을 함수로 바꾸어주는 역활을 합니다. 예를 들면, 새로운 함수를 서버에서 받아서 실행해야 할 때처럼 말이죠.
+그러나 `new Function`이라는 문법을 사용하면 어떤 문자열도 함수로 바꿀 수 있습니다. 서버에서 전달받은 문자열을 이용해 새로운 함수를 만들고 이를 실행하는 것도 가능합니다.
 
 ```js
-let str = ... receive the code from a server dynamically ...
+let str = ... 서버에서 동적으로 전달받은 문자열(코드 형태) ...
 
 let func = new Function(str);
 func();
 ```
 
-위와 같은 예제는 굉장히 특정한 상황에만 사용됩니다. 서버로부터 코드를 받아올 때 아니면 템플릿으로 부터 함수를 유동적으로 컴파일할 때입니다. 이런 것들이 필요할 때는 좀 더 고급스러운 개발단계가 필요할 때입니다.
+서버에서 코드를 받거나 템플릿을 사용해 함수를 동적으로 컴파일해야 하는 경우, 복잡한 웹 애플리케이션을 구현할 때와 같이 아주 특별한 경우에 `new Function`을 사용할 수 있습니다.
 
-## 클로져
+## 클로저
 
-Usually, a function remembers where it was born in the special property `[[Environment]]`. It references the Lexical Environment from where it's created  (we covered that in the chapter <info:closure>).
+함수는 특별한 프로퍼티 `[[Environment]]`에 저장된 정보를 이용해 자기 자신이 태어난 곳을 기억합니다. `[[Environment]]`는 함수가 만들어진 렉시컬 환경을 참조합니다(자세한 내용은 <info:closure>에서 다루었습니다).  
 
-But when a function is created using `new Function`, its `[[Environment]]` is set to reference not the current Lexical Environment, but the global one.
+그런데 `new Function`를 이용해 함수를 만들면 함수의 `[[Environment]]` 프로퍼티가 현재 렉시컬 환경이 아닌 전역 렉시켤 환경을 참조하게 됩니다.
 
-So, such function doesn't have access to outer variables, only to the global ones.
+따라서 `new Function`를 이용해 만든 함수는 외부 변수에 접근할 수 없고, 오직 전역 변수에만 접근할 수 있습니다. 
 
 ```js run
 function getFunc() {
@@ -63,12 +63,12 @@ function getFunc() {
   return func;
 }
 
-getFunc()(); // 에러값이 정의되지 않음
+getFunc()(); // ReferenceError: value is not defined
 ```
 
-아래 예제는 일반적인 표현입니다. 비교해보세요:
+일반적인 방법을 사용해 함수를 정의한 예시와 비교해봅시다.
 
-```js run 
+```js run
 function getFunc() {
   let value = "test";
 
@@ -79,47 +79,47 @@ function getFunc() {
   return func;
 }
 
-getFunc()(); // *!*"test"*/!*, from the Lexical Environment of getFunc
+getFunc()(); // getFunc의 렉시컬 환경에 있는 값 *!*"test"*/!*가 출력됩니다.
 ```
 
-특수한 기능인 `new Function`이 이상해 보일 수 있습니다만 아주 유용할 때가 있습니다.
+지금 당장은 `new Function`이 제공하는 특수한 기능이 익숙하지 않을 수 있는데, 실무에선 이 기능이 아주 유용하게 쓰입니다.
 
-문자열로부터 함수를 만들어야 하는 상황이 있어야 한다고 생각해보면. 그 함수의 코드는 스크립트를 작성할 때는 알 수 없습니다. (그래서 보통 함수를 사용하지 않죠) 그러나, 서버 또는 다른 출처로부터 받게 되는 것을 실행되는 프로세스는 알 수 있습니다.
+문자열을 사용해서 함수를 만들어야 한다고 가정해봅시다. 스크립트를 작성하는 시점엔 어떻게 함수를 짤지 알 수 없어서 기존의 함수 선언 방법은 사용하지 못하는데, 스크립트 실행 시점 즈음엔 함수를 어떻게 짜야 할 지 아이디어가 떠오를 수 있을 겁니다. 이때, 서버를 비롯한 외부 출처를 통해 코드를 받아올 수 있겠죠.
 
-새로운 함수는 메인 스크립트와 상호작용해야 할 것입니다.
+그런데 이렇게 만들어진 새 함수는 기존 스크립트와 문제없이 상호작용할 수 있어야 합니다.
 
-그런데 혹시 그렇게 생성된 함수가 외부의 지역변수에 접근해야 한다면 어떨까요?
+`new Function`으로 만든 새로운 함수 내부에서 외부 변수에 접근하려 할 때, 기존 함수 선언 방식으로 작성한 함수와 동일한 동작이 보장되어야 하죠.
 
-문제는 자바스크립트가 운영에 반영되기 직전에 있습니다. 자바스크립트는 *minifier*라는 특수한 프로그램에 의해 압축됩니다 -- 코드의 특수한 주석이나 빈칸 -- 더 중요한 건 minifier가 지역변수를 짧은 이름으로 바꾸는 것 입니다.
+그런데 스크립트가 프로덕션 서버에 반영되기 전, *압축기(minifier)* 에 의해 압축될 때 문제가 발생합니다. 압축기는 스크립트에서 주석이나 여분의 공백 등을 없애 코드 크기를 줄여주는 특수한 프로그램인데 압축기가 지역 변수 이름을 짧게 바꾸면서 문제가 발생하죠.
 
-예를 들어, 만약에 함수가 `let userName` 를 가지고 있다면 minifier 는 그것을 `let a`로 (`let a`을 어딘가 사용하고 있다면 다른 문자로) 대체합니다. 그리고 이런 작업은 모든 코드에서 진행됩니다. 보통 이런 작업은 값들이 지역변수라 안전하지만, 이름이 바뀌어서 외부 함수에서는 접근할 수 없게 됩니다. 그리고 함수의 내부에서 minifier는 선언된 모든 곳을 수정합니다. Minifiers 는 똑똑하고 코드의 구조를 분석하기 때문에 무조건 찾아서 바꾸지는 않기 때문에 어떠한 곳도 망가뜨리진 않지만,
+구체적으로 어떤 부분이 문제가 되는지 예시를 통해 알아봅시다. 함수 내부에 `let userName`라는 변수가 있으면 이 지역변수는 압축기에 의해 `let a` 등(짧은 이름)으로 대체되는데, 이때 `userName` 모두가 `a`로 교체됩니다. `userName`은 지역변수이고, 함수 외부에선 함수 내부에 있는 변수에 접근할 수 없기 때문에 이렇게 해도 전혀 문제가 없죠. 압축기는 단순히 변수를 찾아서 바꾸지 않고 코드 구조를 분석해 기존에 작성한 코드의 기능을 망가뜨리지 않으면서 영리하게 제 역할을 수행합니다.
 
-만약 `new Function` 구문이 외부 변수들에 접근하려 한다면 *이후의* 코드는 minified 되었기 때문에 `userName` 이라는 것은 찾을 수 없을 것입니다. 
+이런 동작 방식 때문에 `new Function` 문법으로 만든 함수 내부에서 외부 변수에 접근하려고 하면 `userName`은 이미 이름이 변경되었기 때문에 찾을 수 없게 됩니다.
 
-**`new Function` 문법이 외부 렉시컬 환경에 접근할 수 있더라도 minifiers에 의한 문제는 여전히 발생할 수 있습니다.**
+**압축기가 동작한 이후엔, `new Function`으로 만든 함수 내부에서 외부 렉시컬 환경에 접근하려고 할 때 문제가 발생할 수 있죠.**
 
 이런 실수로부터 예방하기 위해 `new Function`에는 특별한 기능이 있습니다.
 
-Besides, such code would be architecturally bad and prone to errors.
+함수 내부에서 외부 변수에 접근하는 것은 아키텍처 관점에서도 좋지 않고 에러에 취약합니다.
 
-To pass something to a function, created as `new Function`, we should use its arguments.
+`new Function`으로 만든 함수에 무언갈 넘겨주고 싶다면 인수를 사용하세요.
 
-## Summary
+## 요약
 
-The syntax:
+문법:
 
 ```js
-let func = new Function(arg1, arg2, ..., body);
+let func = new Function ([arg1, arg2, ...argN], functionBody);
 ```
 
-오래전부터 인수들은 콤마로 구별된 리스트로 사용할 수 있습니다.
+인수를 한꺼번에 모아(쉼표로 구분) 전달할 수도 있습니다.
 
-These three declarations mean the same:
+아래 세 선언 방식은 동일하게 동작하죠.
 
-```js 
+```js
 new Function('a', 'b', 'return a + b'); // 기본 문법
-new Function('a,b', 'return a + b'); // 콤마로 구별된
-new Function('a , b', 'return a + b'); // 콤마와 스페이스로 구별된
+new Function('a,b', 'return a + b'); // 쉼표로 구분
+new Function('a , b', 'return a + b'); // 쉼표와 공백으로 구분
 ```
 
-Functions created with `new Function`, have `[[Environment]]` referencing the global Lexical Environment, not the outer one. Hence, they cannot use outer variables. But that's actually good, because it insures us from errors. Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
+`new Function`을 이용해 만든 함수의 `[[Environment]]`는 외부 렉시컬 환경이 아닌 전역 렉시컬 환경을 참조하므로 외부 변수를 사용할 수 없습니다. 단점 같아 보이는 특징이긴 하지만 에러를 예방해 준다는 관점에선 장점이 되기도 합니다. 구조상으론 매개변수를 사용해 값을 받는 게 더 낫습니다. 압축기에 의한 에러도 방지할 수 있죠.
