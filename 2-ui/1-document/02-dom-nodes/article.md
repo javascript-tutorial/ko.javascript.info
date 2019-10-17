@@ -22,7 +22,13 @@ document.body.style.background = 'red'; // make the background red
 setTimeout(() => document.body.style.background = '', 3000); // return back
 ```
 
-That was just a glimpse of the DOM's power. Soon we'll learn more ways to manipulate the DOM, but first we need to know about its structure.
+Here we used `style.background` to change the background color of `document.body`, but there are many other properties, such as:
+
+- `innerHTML` -- HTML contents of the node.
+- `offsetWidth` -- the node width (in pixels)
+- ...and so on.
+
+Soon we'll learn more ways to manipulate the DOM, but first we need to know about its structure.
 
 ## DOM 예제
 
@@ -210,11 +216,11 @@ HTML 문서 제일 처음에 등장하는 `<!DOCTYPE...>` 지시자 역시 DOM �
 
 Another way to explore the DOM is to use the browser developer tools. Actually, that's what we use when developing.
 
-[elks.html](elks.html) 페이지를 열고, 브라우저에서 개발자 도구를 켠 다음 Elements 탭으로 이동해봅시다.
+[elk.html](elk.html) 페이지를 열고, 브라우저에서 개발자 도구를 켠 다음 Elements 탭으로 이동해봅시다.
 
 아래와 같은 화면이 보여야 합니다.
 
-![](elks.png)
+![](elk.svg)
 
 이제 개발자 도구에서 DOM을 볼 수 있게 되었네요. 요소를 클릭하면 자세한 내용을 볼 수도 있습니다.
 
@@ -224,7 +230,7 @@ Another way to explore the DOM is to use the browser developer tools. Actually, 
 
 웹페이지에서 마우스 오른쪽 버튼 클릭 시 나타나는 컨텍스트 메뉴에서 "검사(Inspect)"를 클릭해도 같은 기능을 사용할 수 있습니다.
 
-![](inspect.png)
+![](inspect.svg)
 
 Elements 탭엔 아래와 같은 하위 탭이 있습니다:
 - **Styles** -- 내장 규칙(회색 배경)을 포함하여 현재 선택한 요소에 적용된 CSS 규칙 전체를 보여줍니다. 하단부 박스에 있는 크기(dimension), 마진(margin), 패딩(padding)에 더하여 대부분의 스타일을 이 탭에서 바로 수정해 볼 수 있습니다.
@@ -247,7 +253,7 @@ For the start:
 
 예를 들어 `$0.style.background = 'red'`을 콘솔 창에 입력하면 아래와 같이 첫 번째 list 아이템이 붉은색으로 표시되는 걸 볼 수 있습니다.
 
-![](domconsole0.png)
+![](domconsole0.svg)
 
 That's how to get a node from Elements in Console.
 
@@ -255,7 +261,7 @@ There's also a road back. If there's a variable referencing a DOM node, then we 
 
 Or we can just output the DOM node in the console and explore "in-place", like `document.body` below:
 
-![](domconsole1.png)
+![](domconsole1.svg)
 
 지금까지 소개해 드린 이 팁들은 디버깅 용도입니다. 다음 챕터부턴, 자바스크립트를 이용하여 DOM에 접근하고 수정하는 방법을 배우도록 하겠습니다.  
 

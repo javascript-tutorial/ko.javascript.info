@@ -2,9 +2,19 @@
 
 # 콜백 입문
 
-자바스크립트 내 동작은 상당수가 *비동기적(asynchronous)* 으로 처리됩니다.
+```warn header="We use browser methods here"
+To demonstrate the use of callbacks, promises and other abstract concepts, we'll be using some browser methods; specifically, loading scripts and performing simple document manipulations.
 
-아래 `loadScript(src)` 함수를 살펴봅시다.
+If you're not familiar with these methods, and their usage in the examples is confusing, or if you would just like to understand them better, you may want to read a few chapters from the [next part](/document) of the tutorial.
+```
+
+자바스크립트 내 동작은 상당수가 *비동기적(asynchronous)* 으로 처리됩니다. In other words, we initiate them now, but they finish later.
+
+For instance, we can schedule such actions using `setTimeout`.
+
+There are other real-world examples of asynchronous actions, e.g. loading scripts and modules (we'll cover them in later chapters).
+
+`src`를 통해 받은 주소를 사용해 스크립트를 읽어오는 함수 `loadScript(src)`를 살펴봅시다.
 
 ```js
 function loadScript(src) {
@@ -14,18 +24,18 @@ function loadScript(src) {
 }
 ```
 
-이 함수의 역할은 새로운 스크립트를 불러오는 것입니다. 함수가 실행되고, 문서에 `<script src="…">`가 추가되면, 브라우저는 해당 스크립트를 불러오고 이를 실행하겠죠.
+`loadScript`는 `<script src="…">`를 동적으로 만들고 이를 문서에 더해주는 역할을 합니다. 브라우저는 이 태그를 읽고 실행하겠죠.
 
-사용법은 아래와 같습니다.
+사용법은 다음과 같습니다.
 
 ```js
-// 스크립트를 불러오고 실행함
+// 경로에 위치한 스크립트를 불러오고 실행함
 loadScript('/my/script.js');
 ```
 
-함수 호출은 "비동기적으로" 이뤄집니다. 스크립트를 읽는 데 시간이 걸리기 때문에, 함수에서 수행하려는 동작이 지금이 아니라 나중에 종료되기 때문입니다.
+스크립트를 당장 읽기 시작하더라도 함수 실행이 종료되었을 때 스크립트가 실행되므로 스크립트는 '비동기적으로' 실행된다고 할 수 있습니다.
 
- `loadScript(…)` 아래의 코드들은 스크립트가 로딩되는걸 기다리지 않습니다. 
+`loadScript(…)` 아래에 코드가 있더라도 이 코드들은 스크립트가 로딩이 종료되는 걸 기다리지 않고 실행됩니다.
 
 ```js
 loadScript('/my/script.js');
