@@ -1,8 +1,10 @@
 importance: 5
 
 ---
-# 필드로 정렬
-정렬 할 객체 배열이 있습니다.
+
+# 필드를 기준으로 정렬하기
+
+객체가 담긴 배열을 정렬해야 한다고 가정해봅시다.
 
 ```js
 let users = [
@@ -12,23 +14,23 @@ let users = [
 ];
 ```
 
-그렇게하는 일반적인 방법은 다음과 같습니다.
+아래와 같은 방법을 사용해 정렬할 수 있을 겁니다.
 
 ```js
-// by name (Ann, John, Pete)
+// 이름을 기준으로 정렬(Ann, John, Pete)
 users.sort((a, b) => a.name > b.name ? 1 : -1);
 
-// by age (Pete, Ann, John)
+// 나이를 기준으로 정렬(Pete, Ann, John)
 users.sort((a, b) => a.age > b.age ? 1 : -1);
 ```
 
-우리가 덜 장황하게 만들 수 있을까요?
+그런데, 아래와 같이 함수를 하나 만들어서 정렬하면 더 깔끔해질 것 같네요.
 
 ```js
 users.sort(byField('name'));
 users.sort(byField('age'));
 ```
 
-따라서, 함수를 작성하는 대신 `byField (fieldName)`을 입력하십시오.
+함수를 직접 만들어 `sort`에 넘기는 것보다 `byField(fieldName)`를 넘기는 것처럼 말이죠.
 
-그것을 사용할 수 있는 byField 함수를 작성하십시오.
+필드를 기준으로 정렬을 도와주는 함수 `byField`를 만들어봅시다.

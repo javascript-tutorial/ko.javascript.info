@@ -1,3 +1,3 @@
-The result is **an error**.
+**에러**가 발생합니다.
 
-The function `sayHi` is declared inside the `if`, so it only lives inside it. There is no `sayHi` outside.
+`sayHi`는 `if`문 안에서 정의했기 때문에, 오직 `if`문 안에서만 접근할 수 있습니다. `if`문 밖엔 `sayHi`가 없습니다.
