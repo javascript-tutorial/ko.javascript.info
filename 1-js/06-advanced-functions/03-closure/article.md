@@ -149,7 +149,7 @@ The inner Lexical Environment has a reference to the `outer` one.
 
 **코드가 변수에 접근하려고 하면, 접근하고자 하는 변수에 대응하는 프로퍼티를 내부 렉시컬 환경에서 먼저 찾습니다. 찾지 못하면 외부 렉시컬 환경에서 검색을 시작합니다. 이 과정은 전역 렉시컬 환경에 도달할 때까지 반복됩니다.**
 
-If a variable is not found anywhere, that's an error in strict mode (without `use strict`, an assignment to a non-existing variable, like `user = "John"` creates a new global variable `user`, that's for backwards compatibility).
+If a variable is not found anywhere, that's an error in strict mode. Without `use strict`, an assignment to a non-existing variable like `user = "John"` creates a new global variable `user`. That's for backwards compatibility.
 
 예제 코드와 그림을 보면서 검색이 어떻게 진행되는지 살펴봅시다.
 
@@ -321,17 +321,17 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-1.svg)
 
-    At that starting moment there is only `makeCounter` function, because it's a Function Declaration. It did not run yet.
+    At that starting moment there is only the `makeCounter` function, because it's a Function Declaration. It did not run yet.
 
     **All functions "on birth" receive a hidden property `[[Environment]]` with a reference to the Lexical Environment of their creation.**
 
-    We didn't talk about it yet, that's how the function knows where it was made.
+    We didn't talk about it before. That's how the function knows where it was made.
 
     Here, `makeCounter` is created in the global Lexical Environment, so `[[Environment]]` keeps a reference to it.
 
     In other words, a function is "imprinted" with a reference to the Lexical Environment where it was born. And `[[Environment]]` is the hidden function property that has that reference.
 
-2. The code runs on, the new global variable `counter` is declared and gets the result of `makeCounter()` call. Here's a snapshot of the moment when the execution is on the first line inside `makeCounter()`:
+2. The code runs on, the new global variable `counter` is declared and gets the result of the `makeCounter()` call. Here's a snapshot of the moment when the execution is on the first line inside `makeCounter()`:
 
     ![](lexenv-nested-makecounter-2.svg)
 
@@ -363,7 +363,7 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-5.svg)
 
-    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where finds it.
+    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where it finds it.
 
     여기서 잠깐 메모리의 상태에 대해 알아봅시다. `makeCounter()` 호출은 이미 끝났지만, 호출 시 생성된 렉시컬 환경은 여전히 메모리에 남아있게 됩니다. 내부 중첩 함수의 `[[Environment]]`가 여전히 이 렉시컬 환경을 참조하고 있기 때문입니다.
 

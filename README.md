@@ -58,7 +58,7 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
   * 초보자를 위한 JavaScript 200제([링크](http://www.yes24.com/Product/Goods/70746749?Acode=101))
   * 국립국어원 외래어 표기법 용례 찾기([링크](http://www.korean.go.kr/front/foreignSpell/foreignSpellList.do?mn_id=96))
   * 한글라이즈([링크](https://hangulize.org/))
-
+* 원문에는 없으나 독자의 이해를 돕기 위해 번역자가 추가하는 내용은 문장 중간이나 끝에 `(.....부가설명..... - 옮긴이)` 형태로 부가설명을 추가하도록 합니다.
 
 ### 번역 팁
 

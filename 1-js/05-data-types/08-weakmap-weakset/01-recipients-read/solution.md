@@ -1,6 +1,6 @@
 `위크셋`에 읽음 상태의 메시지를 저장해봅시다.
 
-```js
+```js run
 let messages = [
   {text: "Hello", from: "John"},
   {text: "How goes?", from: "John"},
