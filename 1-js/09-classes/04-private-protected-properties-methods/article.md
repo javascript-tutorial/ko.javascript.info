@@ -53,11 +53,11 @@
 - public: 어디서에서든지 접근할 수 있습니다. 외부 인터페이스를 구성합니다. 지금까지 우리는 public 프로퍼티와 메서드만 사용하고 있었습니다.
 - private: 클래스의 내부에서만 접근할 수 있습니다. 내부 인터페이스를 위한 것입니다.
 
-다른 많은 언어들에는 'protected' 필드도 존재합니다. protected는 클래스의 내부와 상속하는 클래스에서만 접근할 수 있습니다(상속 클래스로부터의 접근 권한이 추가된 private). 내부 인터페이스로 사용되기에 유용합니다. 우리는 보통 상속 클래스가 부모 클래스에 접근할 수 있기를 원하기 때문에 protected는 어떤 의미에서는 private보다 널리 사용된다고 말할 수 있습니다.
+다른 많은 언어들에는 'protected' 필드도 존재합니다. protected는 클래스의 내부와 상속하는 클래스에서만 접근할 수 있습니다(private과 비슷하지만 상속 클래스로부터의 접근 권한이 추가된 개념). 내부 인터페이스로 사용되기에 유용합니다. 우리는 보통 상속 클래스가 부모 클래스에 접근할 수 있기를 원하기 때문에 protected는 어떤 의미에서는 private보다 널리 사용된다고 말할 수 있습니다.
 
 protected 필드는 언어 수준에서 자바스크립트에 구현되어있지 않지만 실제로 protected는 굉장히 편리하기 때문에 에뮬레이트됩니다.
 
-이제 우리는 프로퍼티의 이 모든 타입들을 가지고 자바스크립트로 커피 머신을 만들 수 있습니다. 커피 머신에는 아주 많은 디테일이 있지만 우리는 간단하게 하기 위해서 완전한 모델을 만들지는 않을 것입니다.
+이제 우리는 프로퍼티의 이 모든 타입들을 이용해 자바스크립트로 커피 머신을 만들 수 있습니다. 커피 머신에는 아주 많은 디테일이 있지만 우리는 간단히 하기 위해 완전한 모델을 만들지는 않을 것입니다.
 
 ## protected 프로퍼티
 
@@ -96,7 +96,7 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("물의 양이 음수입니다.");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this._waterAmount = value;
   }
 
@@ -114,7 +114,7 @@ class CoffeeMachine {
 let coffeeMachine = new CoffeeMachine(100);
 
 // 물 추가
-coffeeMachine.waterAmount = -10; // Error: 물의 양이 음수입니다.
+coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
 ```
 
 이제 접근이 더 통제적이라서 물의 양을 0 미만으로 설정하는 것은 실패하게 됩니다. 
@@ -149,7 +149,7 @@ alert(`Power is: ${coffeeMachine.power}W`); // Power is: 100W
 coffeeMachine.power = 25; // Error (setter 없음)
 ```
 
-````smart header="Getter/setter functions"
+````smart header="getter/setter 함수"
 여기서는 getter, setter 문법을 사용했습니다.
 
 하지만 대부분은 아래 코드와 같은 `get.../set...`형식의 함수가 선호됩니다.
@@ -159,7 +159,7 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
-    if (value < 0) throw new Error("물의 양이 음수입니다.");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this._waterAmount = value;
   }
 
@@ -200,8 +200,8 @@ class CoffeeMachine {
 
 *!*
   #checkWater(value) {
-    if (value < 0) throw new Error("물의 양이 음수입니다.");
-    if (value > this.#waterLimit) throw new Error("물이 너무 많습니다.");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+    if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
   }
 */!*
 
@@ -232,7 +232,7 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("물의 양이 음수입니다.");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this.#waterAmount = value;
   }
 }
@@ -243,9 +243,9 @@ machine.waterAmount = 100;
 alert(machine.#waterAmount); // Error
 ```
 
-protected와 달리 private 필드는 언어 자체에 의해 실행됩니다. 이것은 아주 좋은 일입니다. 
+protected와 달리 private 필드는 언어 자체에 의해 실행됩니다. 아주 좋은 일이죠.
 
-하지만 `CoffeeMachine` 클래스를 상속받는다면 `#waterAmount`에 직접 접근할 수는 없을 것입니다. 그래서 `waterAmount`의 getter와 setter에 의존해야 합니다.
+하지만 `CoffeeMachine` 클래스를 상속받는 클래스에서 `#waterAmount`에 직접 접근할 수는 없을 것입니다. 그래서 `waterAmount`의 getter와 setter에 의존해야 합니다.
 
 ```js
 class MegaCoffeeMachine extends CoffeeMachine {
@@ -286,20 +286,20 @@ OOP(Object Oriented Programming, 객체 지향 프로그래밍)의 관점에서,
 사용자들이 스스로 자신의 발등을 찍지 않도록 보호
 : 커피 머신을 사용하는 개발자 팀이 있다고 상상해봅시다. "Best CoffeeMachine"이라는 회사에서 만들었고 잘 작동하지만 보호 커버가 없어져서 내부 인터페이스가 노출되었습니다.
 
-    모든 개발자들은 문명인이라서 의도대로 커피 머신을 사용할 수 있습니다. 하지만 그들 중 한 명인 John이 자신이 가장 똑똑한 사람이라고 판단하고 커피 머신 내부를 살짝 수정했습니다. 이틀 후 커피 머신이 고장 났습니다.
+    모든 개발자들은 문명인이라서 의도대로 커피 머신을 사용할 수 있습니다. 어느 날, 한 개발자 John이 자신이 가장 똑똑한 사람이라고 생각하면서 커피 머신 내부를 살짝 수정했습니다. 이틀 후 커피 머신이 고장 났습니다.
 
     그건 분명히 John의 잘못이라기보다는 보호 커버를 없애고, John이 맘대로 조작하도록 내버려 둔 사람의 잘못입니다. 
 
     프로그래밍에서도 같습니다. 클래스의 사용자가 외부에서 바꾸려고 하지 않은 것을 바꾼다면 결과는 예측할 수 없습니다.
 
 지원 가능한 것
-: 프로그래밍에서 일어나는 상황들이 실생활에서의 커피 머신보다 더 복잡합니다. 그저 한 번 구매하고 마는 것이 아니기 때문입니다. 코드는 거듭해서 개발되고 개선됩니다.
+: 프로그래밍에서 일어나는 상황들이 실생활에서의 커피 머신보다 더 복잡합니다. 그저 한 번 구매하고 마는 것이 아니라 코드는 거듭해서 개발되고 개선되기 때문입니다.
 
-    **만약 우리가 엄격히 내부 인터페이스를 구분한다면 클래스 개발자들은 사용자에게 알리지 않고도 자유롭게 내부 프로퍼티와 메서드들을 수정할 수 있습니다.**
+    **엄격히 내부 인터페이스를 구분한다면 클래스 개발자들은 사용자에게 알리지 않고도 자유롭게 내부 프로퍼티와 메서드들을 수정할 수 있습니다.**
 
-    만약 여러분이 그러한 클래스의 개발자라면, 어떤 외부 코드도 private 메서드에 의존하지 않기 때문에 private 메서드의 이름을 안전하게 바꿀 수 있고, 매개변수들이 변경하거나 없앨 수 있다는 것을 알아 두면 됩니다.
+    만약 여러분이 그러한 클래스의 개발자라면, 어떤 외부 코드도 private 메서드에 의존하지 않기 때문에 private 메서드의 이름을 안전하게 바꿀 수 있고 매개변수를 변경하거나 없앨 수도 있다는 것을 알아 두면 됩니다.
 
-    사용자의 입장에서는 새로운 버전이 출시되면 내부적으로는 전면적인 정비가 이루어지더라도 외부의 인터페이스만 똑같다면 업그레이드 하는 것은 간단합니다.
+    사용자의 입장에서는, 새로운 버전이 출시되면 내부적으로는 전면적인 정비가 이루어지더라도 외부의 인터페이스만 똑같다면 업그레이드 하는 것은 간단합니다.
 
 복잡함을 숨기는 것
 : 사람들은 심플한 것을 사용하기를 좋아합니다. 내부는 심플하지 않을지라도 최소한 외형은 말입니다.
@@ -310,7 +310,7 @@ OOP(Object Oriented Programming, 객체 지향 프로그래밍)의 관점에서,
 
 내부 인터페이스를 숨기기 위해서는 protected나 private 프로퍼티를 사용하세요:
 
-- protected 필드는 `_`로 시작합니다. 이것은 언어 수준에서 강제적인 것은 아니지만 널리 알려진 관습입니다. 프로그래머는 그 클래스와 그 클래스를 상속하는 클래스로부터 `_`로 시작하는 필드에만 접근해야 합니다.
-- private 필드는 `#`로 시작합니다. 자바스크립트가 `#`로 시작하는 필드에는 클래스 내부에서만 접근 가능하도록 만듭니다.
+- protected 필드는 `_`로 시작합니다. 이것은 언어 수준에서 강제적인 것은 아니지만 널리 알려진 관습입니다. 프로그래머는 클래스와 해당 클래스를 상속하는 클래스로부터 `_`로 시작하는 필드에만 접근해야 합니다.
+- private 필드는 `#`로 시작합니다. 자바스크립트 자체적으로 `#`로 시작하는 필드에는 클래스 내부에서만 접근 가능하도록 만듭니다.
 
 현재 private 필드는 브라우저 간에 잘 지원되지는 않지만 폴리필(polyfill)됩니다.
