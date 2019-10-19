@@ -18,7 +18,7 @@ Sources 패널을 처음 열었다면 아래와 같은 화면이 보일 겁니�
 
 ![](chrome-open-sources.svg)
 
-토글 버튼 <span class="devtools" style="background-position:-168px -76px"></span>을 누르면 탭이 하나 열리고 현재 열려있는 사이트와 관련된 파일들이 보입니다.
+토글 버튼 <span class="devtools" style="background-position:-172px -98px"></span>을 누르면 탭이 하나 열리고 현재 열려있는 사이트와 관련된 파일들이 보입니다.
 
 파일 목록 트리에서 `hello.js`를 클릭해 아래와 같이 화면을 바꿔봅시다.
 
@@ -30,7 +30,7 @@ Sources 패널은 크게 세 개의 영역으로 구성됩니다.
 2. **소스 코드 영역** -- 리소스 영역에서 선택한 파일의 소스 코드를 보여주고, 편집 기능도 제공합니다.
 3. **디버깅 영역** -- 디버깅에 관련된 기능을 제공합니다. 곧 자세히 살펴보겠습니다.
 
-토글 버튼 <span class="devtools" style="background-position:-200px -76px"></span>을 다시 누르면 리소스 영역이 사라지고, 소스 코드 영역이 더 넓어집니다.
+토글 버튼 <span class="devtools" style="background-position:-172px -122px"></span>을 다시 누르면 리소스 영역이 사라지고, 소스 코드 영역이 더 넓어집니다.
 
 ## 콘솔
 
@@ -54,7 +54,7 @@ Sources 패널은 크게 세 개의 영역으로 구성됩니다.
 
 *중단점(breakpoint)* 은 말 그대로 자바스크립트의 실행이 중단되는 코드 내 지점을 의미합니다.
 
-0중단점을 이용하면 실행이 중지된 시점에 변수가 어떤 값을 담고 있는지 등의 정보를 얻을 수 있습니다. 또한 콘솔 창에 명령어를 입력해 실행이 중지된 시점을 기준으로 해당 명령어를 실행할 수도 있습니다. 이런 기능을 이용해 디버깅하면 됩니다.  
+중단점을 이용하면 실행이 중지된 시점에 변수가 어떤 값을 담고 있는지 등의 정보를 얻을 수 있습니다. 또한 콘솔 창에 명령어를 입력해 실행이 중지된 시점을 기준으로 해당 명령어를 실행할 수도 있습니다. 이런 기능을 이용해 디버깅하면 됩니다.  
 
 Sources 패널 우측의 디버깅 영역을 보면 중단점 목록을 확인할 수 있습니다. 파일 여러 개에 다수의 중단점을 설정해 놓은 경우, 디버깅 영역을 이용하면 아래와 같은 작업을 할 수도 있습니다.
 - 항목을 클릭해 해당 중단점을 설정한 소스 코드 줄로 바로 이동할 수 있습니다,
@@ -89,7 +89,7 @@ debugger 명령어를 사용하면 중단점을 설정하기 위해 브라우저
 
 ## 멈추면 보이는 것들
 
-예시 페이지를 불러올 때 함수 `hello()`가 호출되므로, 새로 로침 단축키 `key:F5`(Windows, Linux 사용자)나 `key:Cmd+R`키(MacOS 사용자)를 눌러 중단점을 작동시켜봅시다. 중단점이 제대로 설정된 상태에서 말이죠.
+예시 페이지를 불러올 때 함수 `hello()`가 호출되므로, 새로 고침 단축키 `key:F5`(Windows, Linux 사용자)나 `key:Cmd+R`키(MacOS 사용자)를 눌러 중단점을 작동시켜봅시다. 중단점이 제대로 설정된 상태에서 말이죠.
 
 아래 그림과 같이 네 번째 줄에서 실행이 중단되는 걸 확인할 수 있습니다.
 
@@ -119,30 +119,47 @@ debugger 명령어를 사용하면 중단점을 설정하기 위해 브라우저
 이제 본격적으로 실행 단계마다 어떤 일이 일어나는지 *추적* 해보겠습니다.
 
 먼저, 디버깅 영역의 최상단에 있는 버튼이 무슨 일을 하는지 알아봅시다.
-
-<span class="devtools" style="background-position:-7px -76px"></span> -- 다시 시작(단축키 `key:F8`)
+<!-- https://github.com/ChromeDevTools/devtools-frontend/blob/master/front_end/Images/src/largeIcons.svg -->
+<span class="devtools" style="background-position:-146px -168px"></span> -- 다시 시작(단축키 `key:F8`)
 : 다음 중단점까지 실행을 재개합니다. 추가 중단점이 없는 경우 정상 실행이 재개되고, 디버거는 동작하지 않습니다.
 
     버튼을 클릭해봅시다.
-
+    
     ![](chrome-sources-debugger-trace-1.svg)
-
+    
     실행이 다시 시작됩니다. 그러다가 `say()` 안에 설정한 중단점 때문에 실행이 중단됩니다. 이 시점에서 우측의 "Call stack"을 살펴봅시다. 스택 최상단에 콜(`say`)이 하나 더 추가된 것을 확인할 수 있습니다. 현재 실행은 `say()`에 멈춰있는 상황입니다.
 
-<span class="devtools" style="background-position:-137px -76px"></span> -- Step Over(단축키 `key:F10`)
-: 다음 명령어를 실행합니다. 단, 실행하려는 명령어에 함수 호출이 포함된 경우 해당 함수 내로 진입하지 않고 *지나갑니다(step over)*.
+<span class="devtools" style="background-position:-200px -190px"></span> -- "Step": run the next command, hotkey `key:F9`.
+: Run the next statement. If we click it now, `alert` will be shown.
 
-<span class="devtools" style="background-position:-72px -76px"></span> -- Step Into(단축키 `key:F11`)
-: Step Over와 동일한 기능(다음 명령어 실행)을 합니다. 다만 실행하려는 명령어에 함수 호출이 포함되어 있으면 해당 함수 *안으로 진입합니다(step into)*. Step Into는 어떤 함수로 진입하거나 빠져나오든 상관없이 하나의 명령문만 실행되도록 보장하므로 스크립트 전체를 '한 번에 한 줄씩' 실행하고자 할 때 유용합니다.
+    Clicking this again and again will step through all script statements one by one.
 
-<span class="devtools" style="background-position:-104px -76px"></span> -- Step Out(단축키 `key:Shift+F11`)
-: 현재 함수의 나머지 부분을 끝까지 실행하고, 함수 호출 다음 명령문에서 일시 중지합니다. 실수로 <span class="devtools" style="background-position:-72px -76px"></span>를 클릭해 중첩 호출 안으로 들어갔을 때, <span class="devtools" style="background-position:-104px -76px"></span>를 누르면 빠져나갈 수 있습니다.
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
+: Similar to the previous the "Step" command, but behaves differently if the next statement is a function call. That is: not a built-in, like `alert`, but a function of our own.
 
-<span class="devtools" style="background-position:-7px -28px"></span> -- 모든 중단점을 활성화/비활성화
+    The "Step" command goes into it and and pauses the execution at its first line, while "Step over" executes the nested function call invisibly, skipping the function internals.
+
+    The execution is then paused immediately after that function.
+
+    That's good if we're not interested to see what happens inside the function call.
+
+<span class="devtools" style="background-position:-4px -194px"></span> -- "Step into", hotkey `key:F11`.
+: That's similar to "Step", but behaves differently in case of asynchronous function calls. If you're only starting to learn JavaScript, then you can ignore the difference, as we don't have asynchronous calls yet.
+
+<span class="devtools" style="background-position:-61px -74px"></span> -- 모든 중단점을 활성화/비활성화
 : 모든 중단점을 일시적으로 활성화/비활성화합니다. 중단점을 제거하지 않고 전체 실행을 재개하고자 할 때 유용합니다. 
+    For the future, just note that "Step" command ignores async actions, such as `setTimeout` (scheduled function call), that execute later. The "Step into" goes into their code, waiting for them if necessary. See [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async) for more details.
 
-<span class="devtools" style="background-position:-264px -4px"></span> -- 예외시 일시 중지 활성화/비활성화
+<span class="devtools" style="background-position:-32px -194px"></span> -- "Step out": continue the execution till the end of the current function, hotkey `key:Shift+F11`.
+: Continue the execution and stop it at the very last line of the current function. That's handy when we accidentally entered a nested call using <span class="devtools" style="background-position:-200px -190px"></span>, but it does not interest us, and we want to continue to its end as soon as possible.
+
+<span class="devtools" style="background-position:-61px -74px"></span> -- enable/disable all breakpoints.
+: That button does not move the execution. Just a mass on/off for breakpoints.
+
+<span class="devtools" style="background-position:-90px -146px"></span> -- 예외시 일시 중지 활성화/비활성화
 : 예외 발생 시 코드를 자동 중지시켜주는 기능을 활성화/비활성화합니다. 활성화된 상태이고, 개발자 도구가 열려있는 상황에서 스크립트 실행 중에 에러가 발생하면 실행이 중단됩니다. 실행이 중단되었기 때문에, 개발자는 변수 등을 조사해 어디서 에러가 발생했는지 찾을 수 있게 됩니다. 해당 기능이 비활성화된 상태에서 스크립트가 죽었다면, 기능을 활성화 한 후 페이지를 다시 불러오면 위와 같은 절차로 디버깅을 수행할 수 있습니다.
+<span class="devtools" style="background-position:-90px -146px"></span> -- enable/disable automatic pause in case of an error.
+: When enabled, and the developer tools is open, a script error automatically pauses the execution. Then we can analyze variables to see what went wrong. So if our script dies with an error, we can open debugger, enable this option and reload the page to see where it dies and what's the context at that moment.
 
 ```smart header="Continue to here 옵션"
 특정 줄에서 마우스 오른쪽 버튼을 클릭해 컨텍스트 메뉴를 열면 "Continue to here"라는 옵션을 볼 수 있습니다.
@@ -169,10 +186,10 @@ for (let i = 0; i < 5; i++) {
 
 ## 요약
 
-아래와 같은 방법으로 스크립트의 실행을 중단시킬 수 있습니다.
+아래와 같은 경우에 스크립트의 실행이 중단됩니다.
 1. 중단점 설정
-2. `debugger` 명령어 입력
-3. 개발자 도구를 열고, <span class="devtools" style="background-position:-264px -4px"></span> 버튼을 "활성화", (에러가 발생할 때 스크립트가 중지)
+2. `debugger`문 입력
+3. 에러가 발생(개발자 도구가 열려있고 <span class="devtools" style="background-position:-90px -146px"></span> 버튼이 "활성화"되어있는 경우)
 
 스크립트의 실행이 중지되면 중단 시점을 기준으로 변수에 어떤 값이 들어가 있는지 확인할 수 있습니다. 또한 단계별로 코드를 실행해 가며 해당 중단 시점을 기준으로 어디서 문제가 발생했는지 추적할 수도 있습니다. 이런 방식을 통해 디버깅할 수 있습니다.   
 

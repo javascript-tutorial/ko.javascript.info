@@ -90,7 +90,7 @@ class Article {
 
 let article = Article.createTodays();
 
-alert( article.title ); // Todays digest
+alert( article.title ); // Today's digest
 ```
 
 Now every time we need to create a today's digest, we can call `Article.createTodays()`. Once again, that's not a method of an article, but a method of the whole class.
@@ -192,7 +192,7 @@ class Rabbit extends Animal {}
 alert(Rabbit.__proto__ === Animal); // true
 
 // for regular methods
-alert(Rabbit.prototype.__proto__ === Animal.prototype);
+alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 ```
 
 ## Summary

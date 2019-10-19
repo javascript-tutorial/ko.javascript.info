@@ -66,9 +66,9 @@ HTML-속성(HTML-attribute)값에 긴 코드를 할당하는 건 추천하지 �
 
 HTML 속성은 대소문자를 구분하지 않기 때문에, `ONCLICK`은 `onClick`이나 `onCLICK`과 동일하게 작동합니다. 하지만 대개 속성값은 `onclick`와 같이 소문자로 작성합니다.
 
-### DOM 프로퍼티(property)
+### DOM 프로퍼티
 
-DOM 프로퍼티 `on<event>`을 사용하면 핸들러를 할당할 수 있습니다.
+DOM 프로퍼티(property) `on<event>`을 사용하면 핸들러를 할당할 수 있습니다.
 
 `elem.onclick`을 사용한 예시:
 

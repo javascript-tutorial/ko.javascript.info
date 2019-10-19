@@ -1,22 +1,22 @@
-# 프로토타입 상속(Prototypal inheritance)
+# 프로토타입 상속
 
-우리는 종종 프로그래밍을 하다 보면 확장을 하기를 원합니다. 
+개발을 하다 보면 기존에 있는 기능을 가져와 확장해야 하는 경우가 생깁니다.
 
-예를 들어, 메서드와 속성을 가지고 있는 `user`라는 객체를 가지고 있다고 해 봅시다. 그리고 우리는 이 객체에 살짝 변화를 주면서 `admin`과 `guest`를 추가하고 싶다고 해 봅시다. 우리는 메서드를 복사/구현하는 것이 아니라 `user`가 가지고 있는 것을 재사용하고 싶을 것입니다. 이 위에 새로운 객체를 만드는 것이죠. 
+사람에 관한 프로퍼티와 메서드를 가진 `user`라는 객체가 있는데, `user`와 상당히 유사하지만 약간의 차이가 있는 `admin`과 `guest` 객체를 만들어야 한다고 가정해 봅시다. 이때 `user`의 메서드를 복사하거나 다시 구현하지 않고 `user`에 약간의 기능을 얹어 `admin`과 `guest` 객체를 만들 수 있을겁니다.
 
-*원형 상속 Prototypal inheritance*은 바로 그것을 돕는 언어 특징입니다. 
+*프로토타입 상속(prototypal inheritance)* 은 이럴 때 사용할 수 있는 기능입니다.
 
 ## [[Prototype]]
 
-자바스크립트에서, 객체는 `[[Prototype]]`이라는 숨겨진 속성을 가지고 있습니다(specification에 명명되어 있듯이). 이 속성은 `null`이거나 다른 객체를 참조하고 있습니다. 그 객체가 바로 "원형"이라 불리는 객체입니다. 
+자바스크립트에서 객체는 명세서에서 명명한 `[[Prototype]]`이라는 숨김 프로퍼티를 가지고 있는데, 그 값은 `null`이거나 다른 객체에 대한 참조가 됩니다. 만약 다른 객체를 참조하고 있다면 참조 대상을 "프로토타입(prototype)"이라 부릅니다. 
 
 ![prototype](object-prototype-empty.svg)
 
-The prototype is a little bit "magical". When we want to read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, such thing is called "prototypal inheritance". Many cool language features and programming techniques are based on it.
+프로토타입의 동작 방식은 '신비스러운'면이 있습니다. `object`에서 프로퍼티를 읽으려고 하는데 해당 프로퍼티가 없으면 자바스크립트는 자동으로 프로토타입에 원하는 프로퍼티가 있는지 찾기 때문이죠. 프로그래밍에선 이런 동작 방식을 '프로토타입 상속'이라 부릅니다. 언어 차원에서 지원하는 편리한 기능이나 개발 테크닉 중 프로토타입 상속에 기반해 만들어진 것들이 많습니다.
 
-The property `[[Prototype]]` is internal and hidden, but there are many ways to set it.
+`[[Prototype]]` 프로퍼티는 내부 프로퍼티이면서 숨김 프로퍼티이지만 개발자가 값을 설정할 수 있습니다.
 
-One of them is to use `__proto__`, like this:
+아래 예시에서와같이 `__proto__`을 사용하면 됩니다.
 
 ```js run
 let animal = {
@@ -31,19 +31,20 @@ rabbit.__proto__ = animal;
 */!*
 ```
 
-```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
-`__proto__`가 `[[Prototype]]`과 *같지 않다*는 것을 기억해 두세요. `__proto__` 그것의 getter/setter입니다.
+```smart header="`__proto__`는 `[[Prototype]]`용 getter/setter입니다."
+`__proto__`는 `[[Prototype]]`과 *다릅니다*. `__proto__`는 `[[Prototype]]`의 getter(획득자)/setter(설정자)이죠.
 
-It exists for historical reasons, in modern language it is replaced with functions `Object.getPrototypeOf/Object.setPrototypeOf` that also get/set the prototype. We'll study the reasons for that and these functions later.
+하위 호환성 때문에 `__proto__`를 여전히 쓸 순 있지만 비교적 근래에 작성된 스크립트에선 `__proto__`대신 함수 `Object.getPrototypeOf`나 `Object.setPrototypeOf`을 써서 프로토타입을 획득(get)하거나 설정(set)합니다. 근래엔 왜 `__proto__`를 쓰지 않는지와 두 함수의 자세한 설명에 대해선 이어지는 챕터에서 다룰 예정입니다.
 
-By the specification, `__proto__` must only be supported by browsers, but in fact all environments including server-side support it. For now, as `__proto__` notation is a little bit more intuitively obvious, we'll use it in the examples.
+`__proto__`는 브라우저 환경에서만 지원하도록 자바스크립트 명세에서 규정하였는데, 
+실상은 서버 사이드를 포함한 모든 호스트 환경에서 `__proto__`를 지원합니다. `[[Prototype]]`보다는 `__proto__`가 조금 더 직관적이어서 이해하기 쉬우므로, 본 튜토리얼에선 `__proto__`를 사용해 예시를 만들도록 하겠습니다. 
 ```
 
-만약 우리가 `rabbit` 속성을 찾는다면, 그리고 그게 없다면, 자바스크립트는 자동으로 `animal`에서 그것을 찾을 것입니다.
+객체 `rabbit`에서 프로퍼티를 얻고싶은데 해당 프로퍼티가 없다면, 자바스크립트는 자동으로 `animal`이라는 객체에서 프로퍼티를 얻습니다.
 
-예를 들어:
+예시:
 
-```js run
+```js
 let animal = {
   eats: true
 };
@@ -55,31 +56,31 @@ let rabbit = {
 rabbit.__proto__ = animal; // (*)
 */!*
 
-// we can find both properties in rabbit now:
+// 프로퍼티 eats과 jumps를 rabbit에서도 사용할 수 있게 되었습니다.
 *!*
 alert( rabbit.eats ); // true (**)
 */!*
 alert( rabbit.jumps ); // true
 ```
 
-여기`(*)`가 표시된 줄에서 `animal`을 `rabbit`의 원형으로 설정하고 있습니다.
+`(*)`로 표시한 줄에선 `animal`이 `rabbit`의 프로토타입이 되도록 설정하였습니다.
 
-이후, `alert`가 `(**)`에서 `rabbit.eats`속성을 읽으려 할 때, `rabbit`에서 읽지 않습니다. 즉, 자바스크립트는 `[[Prototype]]`을 따라가서 참조하고 `animal`에서 해당 속성을 찾아냅니다(이때 아래서부터 찾습니다).
+`(**)`로 표시한 줄에서 `alert` 함수가 `rabbit.eats` 프로퍼티를 읽으려 했는데, `rabbit`엔 `eats`라는 프로퍼티가 없습니다. 이때 자바스크립트는 `[[Prototype]]`이 참조하고 있는 객체인 `animal`에서 `eats`를 얻어냅니다(아래 그림을 밑에서부터 위로 살펴보세요).
 
 ![](proto-animal-rabbit.svg)
 
-이것을 "`animal`은 `rabbit`의 원형이다"라고 하거나 "`rabbit`은 `animal`으로 부터 원형 상속을 한다."라고 할 수 있습니다.
+이제 "`rabbit`의 프로토타입은 `animal`입니다."나 "`rabbit`은 `animal`을 상속받는다."라고 할 수 있게 되었네요.
 
-그래서 만약 `animal`이 많은 유용한 객체와 메서드를 가지고 있다면, `rabbit`에서 자동으로 사용할 수 있게 됩니다. 그런 속성들을 "상속됐다"라고 표현하죠.
+이제 `rabbit`에서도 `animal`에 구현된 유용한 프로퍼티와 메서드를 사용할 수 있게 되었습니다. 이렇게 프로토타입에서 상속받은 프로퍼티를 "상속받은(inherited)" 프로퍼티라고 부릅니다.
 
-만약 우리가 `animal`에 어떤 메서드를 가지고 있다면, `rabbit`에서도 호출할 수 있습니다.
+`animal`에 정의된 메서드를 `rabbit`에서 호출해 봅시다.
 
 ```js run
 let animal = {
   eats: true,
 *!*
   walk() {
-    alert("Animal walk");
+    alert("동물이 걷습니다.");
   }
 */!*
 };
@@ -89,23 +90,23 @@ let rabbit = {
   __proto__: animal
 };
 
-// walk is taken from the prototype
+// walk라는 메서드는 rabbit의 프로토타입인 animal에서 상속받음
 *!*
-rabbit.walk(); // Animal walk
+rabbit.walk(); // 동물이 걷습니다.
 */!*
 ```
 
-그 메서드는 자동으로 원형에서 가져옵니다. 다음을 보시죠.
+아래 그림과 같이 프로토타입(`animal`)에서 `walk`를 자동으로 상속받았기 때문에 `rabbit`에서도 `walk`를 호출할 수 있습니다.
 
 ![](proto-animal-rabbit-walk.svg)
 
-이러한 원형 체인은 더 길어질 수 있습니다.
+프로토타입 체인은 위 예시보다 더 길어질 수도 있습니다.
 
 ```js run
 let animal = {
   eats: true,
   walk() {
-    alert("Animal walk");
+    alert("동물이 걷습니다.");
   }
 };
 
@@ -123,33 +124,33 @@ let longEar = {
 */!*
 };
 
-// walk는 원형 체인으로부터 얻어옵니다.
-longEar.walk(); // Animal walk
-alert(longEar.jumps); // true (from rabbit)
+// walk라는 메서드는 프로토타입 체인에서 얻어옵니다.
+longEar.walk(); // 동물이 걷습니다.
+alert(longEar.jumps); // true (rabbit에서 상속받음)
 ```
 
 ![](proto-animal-rabbit-chain.svg)
 
-단지 여기에는 2개의 제약이 있습니다.
+프로토타입 체이닝엔 두 가지 제약사항이 있습니다.
 
-1. 참조는 이 순환에 들어가지 않습니다. 만약 우리가 `__proto__`를 원형 체인 순환에 할당하려고 한다면 에러를 던집니다.
-2. `__proto__`의 값은 `null`이거나 객체입니다. 이외의 다른 자료형은 무시됩니다.
+1. 순환 참조(circular reference)는 허용되지 않습니다. `__proto__`를 이용해 닫힌 형태로 다른 객체를 참조하면 에러가 발생합니다.
+2. `__proto__`의 값은 객체나 `null`만 가능합니다. 다른 자료형은 무시됩니다.
 
-또한 당연할지 모르지만, 오직 하나의 `[[Portotype]]`만 있을 수 있습니다. 객체는 두 개의 다른 객체로부터 상속받지 않을 테니까요.
+여기에 더하여 객체엔 오직 하나의 `[[Portotype]]`만 있을 수 있다는 당연한 제약 또한 있습니다. 객체는 두 개의 객체를 상속받지 못합니다.
 
-## Writing doesn't use prototype
+## 쓸 때는 프로토타입을 사용하지 않습니다.
 
-원형은 오직 속성들을 읽는 데 사용합니다.
+프로토타입은 프로퍼티를 읽을 때만 사용합니다.
 
-getter/setter가 아닌 데이터 속성들을 쓰고/지우는 명령들은 객체에 직접 적용할 수 있습니다.
+프로퍼티를 쓰거나(추가하거나) 지우는 연산은 객체에 직접 해야 합니다.
 
-아래 예제에서는, `walk`메서드를 `rabbit`에 할당하고 있습니다:
+아래 예시에서 객체 `rabbit`에 메서드 `walk`를 직접 할당해보았습니다.
 
 ```js run
 let animal = {
   eats: true,
   walk() {
-    /* this method won't be used by rabbit */  
+    /* rabbit은 이제 이 메서드를 사용하지 않습니다. */  
   }
 };
 
@@ -159,20 +160,20 @@ let rabbit = {
 
 *!*
 rabbit.walk = function() {
-  alert("Rabbit! Bounce-bounce!");
+  alert("토끼가 깡충깡충 뜁니다.");
 };
 */!*
 
-rabbit.walk(); // Rabbit! Bounce-bounce!
+rabbit.walk(); // 토끼가 깡충깡충 뜁니다.
 ```
 
-이제 부터, `rabbit.walk()`을 호출하면 메서드를 사용하지 않고 즉시 객체에서 찾고 실행할 것입니다. 
+`rabbit.walk()`를 호출하면 이젠 프로토타입에 있는 메서드가 실행되지 않고 객체 `rabbit`에 설정된 메서드가 실행됩니다. 
 
 ![](proto-animal-rabbit-walk-2.svg)
 
-Accessor properties are an exception, as assignment is handled by a setter function. So writing to such a property is actually the same as calling a function.
+그런데 접근자 프로퍼티(accessor property)는 setter 함수를 통해서 프로퍼티에 값을 할당하므로 예외에 속합니다. 접근자 프로퍼티에 값을 할당하는 것은 함수를 호출하는 것과 같습니다.
 
-예를 들어, 아래 코드에서 `admin.fullName`속성을 보시면:
+아래 예시에서 `admin.fullName`이 의도한 대로 잘 작동하는 것을 확인할 수 있습니다.
 
 ```js run
 let user = {
@@ -195,34 +196,34 @@ let admin = {
 
 alert(admin.fullName); // John Smith (*)
 
-// setter triggers!
+// setter 함수가 실행됩니다!
 admin.fullName = "Alice Cooper"; // (**)
 ```
 
-여기 `(*)`라인의 `admin.fullName`속성은 `user`원형에서 getter를 가지고 있습니다, 그래서 호출된 것이죠. 그리고 `(**)`라인의 속성은 setter를 원형에 가지고 있습니다. 그렇기 때문에 호출된 것입니다.
+`(*)`로 표시한 줄에서 `admin.fullName`은 프로토타입에 있는 getter 함수를 실행시키고, `(**)`로 표시한 줄의 할당 연산은 프로토타입에 있는 setter 함수를 실행시킵니다.
 
-## "this" 값
+## 'this'가 나타내는 것
 
-위의 예제에서 흥미로운 질문을 던질 수 있습니다: `set fullName(valuie)`에서 `this`는 어떤 값을 가지고 있는가? `this.name`과 `this.surname`은 어디에 코딩되어있는가? `user` 또는 `admin`?
+위 예시를 보면서 "`set fullName(value)`안 `this`의 값은 무엇이지?"라는 의문이 생길 수 있습니다. "프로퍼티 `this.name`과 `this.surname`에 값을 쓰면 그 값이 `user`에 저장될까, 아니면 `admin`에 저장될까?"라는 의문도 생길 수 있죠.
 
-답은 간단합니다. `this`는 원형에 의해 전혀 영향을 받지 않습니다.
+답은 간단합니다. `this`는 프로토타입에 전혀 영향을 받지 않습니다.
 
-**그 메서드가 어디서 호출되는지는 중요하지 않습니다. 객체에서 호출되든 이 객체의 원형에서 호출되든. 메서드 호출에서는, `this`는 언제나 `.`연산 앞에 있는 객체를 가리킵니다.**
+**메서드를 객체에서 호출했든 프로토타입에서 호출했든 상관없이 `this`는 언제나 `.` 앞에 있는 객체가 됩니다.**
 
-그래서, setter는 `admin.fullName=`를 호출해서 `admin`을 `this`로 사용합니다. `user`가 아니고요.
+따라서 위 예시에서 `admin.fullName=`으로 setter 함수를 호출할 때, `this`는 `user`가 아닌 `admin`이 됩니다.
 
-That is actually a super-important thing, because we may have a big object with many methods and inherit from it. Then inherited objects can run its methods, and they will modify the state of these objects, not the big one.
+메서드가 많이 구현되어있는 중심 객체 하나를 상속받아 다른 객체들을 구현하는 경우가 많기 때문에 이런 특징을 잘 알아두어야 합니다. 메서드를 상속받은 객체는 프로토타입이 아닌 자신의 상태를 수정합니다.
 
-예를 들어, 여기 `animal`가 "메서드 저장소"라고 해보죠, 그리고 `rabbit`은 이것을 사용합니다.
+예시를 통해 좀 더 알아봅시다. '메서드 저장소'역할을 하는 객체 `animal`을 `rabbit`이 상속받고 있는 상황입니다.
 
-`rabbit.sleep()`호출은 `this.isSleeping`을 `rabbit`객체에 설정할 것입니다.
+`rabbit.sleep()`을 호출하면 `this.isSleeping`이 객체 `rabbit`에 설정되겠죠.
 
 ```js run
-// animal has methods
+// animal엔 다양한 메서드가 있습니다.
 let animal = {
   walk() {
     if (!this.isSleeping) {
-      alert(`I walk`);
+      alert(`동물이 걸어갑니다.`);
     }
   },
   sleep() {
@@ -231,30 +232,30 @@ let animal = {
 };
 
 let rabbit = {
-  name: "White Rabbit",
+  name: "하얀 토끼",
   __proto__: animal
 };
 
-// modifies rabbit.isSleeping
+// rabbit의 프로퍼티 isSleeping을 true로 변경합니다.
 rabbit.sleep();
 
 alert(rabbit.isSleeping); // true
-alert(animal.isSleeping); // undefined (no such property in the prototype)
+alert(animal.isSleeping); // undefined (프로토타입에는 isSleeping이라는 프로퍼티가 없습니다.)
 ```
 
-결과입니다: 
+위 코드를 실행했을 때 객체의 상태를 그림으로 나타내면 아래와 같습니다.
 
 ![](proto-animal-rabbit-walk-3.svg)
 
-If we had other objects like `bird`, `snake` etc inheriting from `animal`, they would also gain access to methods of `animal`. But `this` in each method call would be the corresponding object, evaluated at the call-time (before dot), not `animal`. So when we write data into `this`, it is stored into these objects.
+`rabbit` 말고도 `bird`, `snake` 등이 `animal`을 상속받는다고 해봅시다. 이 객체들도 `rabbit`처럼 `animal`에 구현된 메서드를 사용할 수 있겠죠. 이때 상속받은 메서드의 `this`는 `animal`이 아닌 실제 메서드가 호출되는 시점의 점(`.`) 앞에 있는 객체가 됩니다. 따라서 `this`에 데이터를 쓰면 `animal`이 아닌 해당 객체의 상태가 변화합니다.
 
-결과적으로, 메서드는 공유되지만, 객체의 상태는 아닙니다.
+결론적으로 메서드는 공유되지만, 객체의 상태는 공유되지 않습니다.
 
-## for..in loop
+## for..in 반복문
 
-The `for..in` loops over inherited properties too.
+`for..in`은 상속받은 프로퍼티도 순회대상에 포함시킵니다.
 
-For instance:
+예시:
 
 ```js run
 let animal = {
@@ -267,19 +268,19 @@ let rabbit = {
 };
 
 *!*
-// Object.keys only return own keys
+// Object.keys는 객체 자신의 키만 반환합니다.
 alert(Object.keys(rabbit)); // jumps
 */!*
 
 *!*
-// for..in loops over both own and inherited keys
-for(let prop in rabbit) alert(prop); // jumps, then eats
+// for..in은 객체 자신의 키와 상속받은 프로퍼티의 키 모두를 순회합니다. 
+for(let prop in rabbit) alert(prop); // jumps, eats
 */!*
 ```
 
-If that's not what we want, and we'd like to exclude inherited properties, there's a built-in method [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) property named `key`.
+`key`에 해당하는 프로퍼티가 상속받은 프로퍼티가 아니고 `obj`에 직접 구현되어있는 프로퍼티라면 `true`를 반환하는 내장 메서드, [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty)를 이용하면 상속받은 프로퍼티를 순회 대상에서 제외할 수 있습니다.
 
-So we can filter out inherited properties (or do something else with them):
+아래 예시처럼 상속받은 프로퍼티를 걸러낼 수도 있고, 상속받은 프로퍼티만을 대상으로 무언가를 할 수도 있죠.
 
 ```js run
 let animal = {
@@ -295,35 +296,35 @@ for(let prop in rabbit) {
   let isOwn = rabbit.hasOwnProperty(prop);
 
   if (isOwn) {
-    alert(`Our: ${prop}`); // Our: jumps
+    alert(`객체 자신의 프로퍼티: ${prop}`); // 객체 자신의 프로퍼티: jumps
   } else {
-    alert(`Inherited: ${prop}`); // Inherited: eats
+    alert(`상속받은 프로퍼티: ${prop}`); // 상속받은 프로퍼티: eats
   }
 }
 ```
 
-Here we have the following inheritance chain: `rabbit` inherits from `animal`, that inherits from `Object.prototype` (because `animal` is a literal object `{...}`, so it's by default), and then `null` above it:
+위 예시의 상속 관계를 그림으로 나타내면 아래와 같습니다. `rabbit`은 `animal`을, `animal`은 `Object.prototype`을, `Object.prototype`은 `null`을 상속받습니다(`animal`은 객체 리터럴 방식으로 선언하였기 때문에 `Object.prototype`를 상속받습니다).
 
 ![](rabbit-animal-object.svg)
 
-Note, there's one funny thing. Where is the method `rabbit.hasOwnProperty` coming from? We did not define it. Looking at the chain we can see that the method is provided by `Object.prototype.hasOwnProperty`. In other words, it's inherited.
+`for..in` 안에 쓰인 메서드 `hasOwnProperty`는 `Object.prototype.hasOwnProperty`에서 왔다는 것을 그림을 통해 알 수 있습니다.
 
-...But why `hasOwnProperty` does not appear in `for..in` loop, like `eats` and `jumps`, if it lists all inherited properties.
+어, 그런데 상속받은 프로퍼티인 `eats`는 얼럿 창에 출력되는데, `hasOwnProperty`는 출력되지 않았습니다. 무슨 일이 있는 걸까요?
 
-The answer is simple: it's not enumerable. Just like all other properties of `Object.prototype`, it has `enumerable:false` flag. That's why they are not listed.
+이유는 간단합니다. `hasOwnProperty`는 열거 가능한(enumerable) 프로퍼티가 아니기 때문입니다. `Object.prototype`에 있는 모든 메서드의 `enumerable` 플래그는 `false`인데, `for..in`은 오직 열거 가능한 프로퍼티만 순회 대상에 포함하기 때문에 얼럿창에 출력되지 않았습니다.
 
-```smart header="Almost all other key/value-getting methods ignore inherited properties"
-Almost all other key/value-getting methods, such as `Object.keys`, `Object.values` and so on ignore inherited properties.
+```smart header="키-값을 순회하는 메서드 대부분은 상속받은 프로퍼티를 제외하고 동작합니다."
+`Object.keys`, `Object.values`와 같이 객체의 키-값을 대상으로 무언가를 하는 메서드 대부분은 상속받은 프로퍼티를 제외하고 동작합니다.
 
-They only operate on the object itself. Properties from the prototype are *not* taken into account.
+프로토타입에서 상속받은 프로퍼티는 *제외하고* 해당 객체에서 정의한 프로퍼티만 연산 대상에 포함하죠.
 ```
 
-## Summary
+## 요약
 
-- 자바스크립트에서, 모든 객체는 숨겨진 `[[Prototype]]`속성을 갖는다. 그리고 이 속성은 객체이거나 `null`이다.
-- `obj.__proto__`를 사용하여 이 속성에 접근할 수 있다(다른 방법도 있습니다. 나중에 다루도록 하죠).
-- `[[Prototype]]`에 의해 참조되는 객체를 "원형"이라고 합니다.
-- 만약 `obj`의 속성을 읽고 싶다면, 그리고 그게 존재하지 않는다면, 자바스크립트는 원형에서 그것을 찾으려 할 것입니다. 읽기/지우기 명령은 객체에 직접적으로 적용됩니다. 원형을 사용하지 않습니다(속성이 setter가 아닌 이상).
-- Write/delete operations for act directly on the object, they don't use the prototype (assuming it's a data property, not is a setter).
-- 만약 `obj.method()`를 호출한다면, 그리고 `method`가 원형으로부터 가져온다면, `this`는 여전히 `obj`를 가리킵니다. 그래서 설사 상속되었다고 해도 메서드들을 언제나 현재 객체에 적용될 것입니다.
-- The `for..in` loop iterates over both own and inherited properties. All other key/value-getting methods only operate on the object itself.
+- 자바스크립트의 모든 객체엔 숨김 프로퍼티 `[[Prototype]]`이 있는데, 이 프로퍼티는 객체나 `null`을 가리킵니다.
+- `obj.__proto__`를 사용하면 프로토타입에 접근할 수 있습니다. `__proto__`는 `[[Prototype]]`의 getter/setter로 쓰이는데, 요즘엔 잘 쓰지 않습니다. 자세한 사항은 뒤쪽 챕터에서 다룰 예정입니다.
+- `[[Prototype]]`이 참조하는 객체는 '프로토타입'이라 부릅니다.
+- `obj`에서 프로퍼티를 읽거나 메서드를 호출하려 하는데 해당하는 프로퍼티나 메서드가 없으면 자바스크립트는 프로토타입에서 프로퍼티나 메서드를 찾습니다. 
+- 접근자 프로퍼티가 아니고 데이터 프로퍼티를 다루는 경우라면, 쓰기나 지우기와 관련된 연산은 프로토타입 없이 객체에 직접 수행됩니다.
+- `method`를 프로토타입에서 상속받은 경우라도 `obj.method()`를 호출하면 `method` 안의 `this`는 호출 대상 객체인 `obj`를 가리킵니다.
+- `for..in` 반복문은 객체 자체에서 정의한 프로퍼티뿐만 아니라 상속받은 프로퍼티도 순회 대상에 포함합니다. 반면, 키-값과 관련된 내장 메서드 대부분은 상속받은 프로퍼티는 제외하고 객체 자체 프로퍼티만을 대상으로 동작합니다.

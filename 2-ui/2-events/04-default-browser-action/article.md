@@ -1,23 +1,23 @@
 # 브라우저 기본 동작(browser default action)
 
-상당수의 이벤트는 브라우저 동작을 자동으로 유발합니다.
+Many events automatically lead to certain actions performed by the browser.
 
 예:
 
-- 링크를 클릭 -- 정의된 URL로 이동.
-- 폼(from)안의 제출(submit) 버튼을 클릭 -- 폼을 서버로 전송함.
-- 글자 위에서 마우스 버튼을 누르고, 마우스를 움직임 -- 글자를 선택.
+- A click on a link - initiates navigation to its URL.
+- A click on a form submit button - initiates its submission to the server.
+- Pressing a mouse button over a text and moving it - selects the text.
 
-이벤트를 다루다 보면, 이런 기본 동작이 필요치 않은 경우도 있습니다. 다행히도, 이런 동작을 막을 수 있는 방법이 있습니다.
+If we handle an event in JavaScript, we may not want the corresponding browser action to happen, to implement another behavior instead.
 
 ## 브라우저 기본 동작 취소하기
 
 두 가지 방법으로 이벤트의 기본 동작을 취소할 수 있습니다:
 
-- 가장 많이 쓰이는 방법은 `event` 객체의 `event.preventDefault()`메서드를 이용하는 것입니다.
-- 만약 핸들러가 (`addEventListener`이 아니라) `on<event>`을 이용해 할당되었다면, `false`를 반환해 기본동작을 취소할 수도 있습니다.
+- The main way is to use the `event` object. There's a method `event.preventDefault()`.
+- If the handler is assigned using `on<event>` (not by `addEventListener`), then returning `false` also works the same.
 
-아래 예제에선 링크를 클릭해도 URL로 연결되지 않습니다.
+In this HTML a click on a link doesn't lead to navigation, browser doesn't do anything:
 
 ```html autorun height=60 no-beautify
 <a href="/" onclick="return false">Click here</a>
@@ -25,12 +25,14 @@ or
 <a href="/" onclick="event.preventDefault()">here</a>
 ```
 
-```warn header="`true`를 반환할 필요는 없습니다"
-이벤트 핸들러가 반환하는 값은 대개 무시됩니다.
+In the next example we'll use this technique to create a JavaScript-powered menu.
 
-딱 한 가지 예외는 `on<event>`를 이용해 할당한 핸들러에 `return false`이 있을 때입니다.
+```warn header="Returning `false` from a handler is an exception"
+The value returned by an event handler is usually ignored.
 
-이 외에는 `return`문이 필요 없고, 있더라도 그 반환문은 처리되지 않습니다.
+The only exception is `return false` from a handler assigned using `on<event>`.
+
+In all other cases, `return` value is ignored. In particular, there's no sense in returning `true`.
 ```
 
 ### 예제: 메뉴
@@ -49,7 +51,7 @@ or
 
 [iframe height=70 src="menu" link edit]
 
-메뉴의 각 항목을 버튼이 아닌 `<a>` 링크로 만들었습니다. 이렇게 작성한 이유는 아래와 같은 이점이 있기 때문입니다:
+Menu items are implemented as HTML-links `<a>`, not buttons `<button>`. There are several reasons to do so, for instance:
 
 - 많은 사람이 "마우스 오른쪽 클릭" 후 "새 창에서 열기"를 통해 링크를 열기 때문입니다. `<button>` 이나 `<span>`을 쓰면 이 기능을 쓸 수 없습니다.
 - 검색 엔진은 인덱싱(색인)을 하는 동안 `<a href="...">` 링크를 따라갑니다.

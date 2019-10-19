@@ -68,7 +68,7 @@ DOM에서 `null`값은 "존재하지 않음"이나 "해당하는 노드가 없�
 앞으로 사용할 두 가지 용어를 먼저 정의하고 설명을 이어나가도록 하겠습니다.
 
 - **자식 노드(child node, children)**는 바로 아래의 자식 요소를 나타냅니다. 자식 노드는 부모 노드의 바로 아래에서 중첩 관계를 만듭니다. `<head>`와 `<body>`는 `<html>`요소의 자식 노드입니다.
-- **자손 노드(descendants)**는 중첩 관계에 있는 모든 요소를 의미합니다. 자식 노드, 자식 노드의 모든 자식 노드 등이 자손 노드가 됩니다.
+- **후손 노드(descendants)**는 중첩 관계에 있는 모든 요소를 의미합니다. 자식 노드, 자식 노드의 모든 자식 노드 등이 후손 노드가 됩니다.
 
 아래에서 `<body>`는 `<div>`와 `<ul>` (그리고 몇 개의 빈 텍스트 노드)을 자식 노드로 갖습니다.
 
@@ -86,7 +86,7 @@ DOM에서 `null`값은 "존재하지 않음"이나 "해당하는 노드가 없�
 </html>
 ```
 
-`<div>`나 `<ul>`같은 `<body>`의 자식 요소뿐만 아니라 `<li>`(`<ul>`의 자식 노드)나 `<b>`(`<li>`의 자식 노드)같이 더 깊은 곳에 있는 중첩 요소도 `<body>`의 자손 노드입니다.
+`<div>`나 `<ul>`같은 `<body>`의 자식 요소뿐만 아니라 `<li>`(`<ul>`의 자식 노드)나 `<b>`(`<li>`의 자식 노드)같이 더 깊은 곳에 있는 중첩 요소도 `<body>`의 후손 노드입니다.
 
 **`childNodes` 컬렉션은 텍스트 노드를 포함한 모든 자식 노드를 담고 있습니다.**
 
@@ -280,7 +280,7 @@ while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
 
 특정 타입의 DOM 요소는 기본 프로퍼티 외에 추가적인 프로퍼티를 지원합니다. 편의를 위해서이죠. 
 
-테이블은 추가적인 프로퍼티를 지원하는 요소 중 하나입니다.
+Tables are a great example of that, and a particularly important case.
 
 **`<table>`** 요소는 위에서 배운 기본 프로퍼티 이외에 아래의 프로퍼티도 지원합니다.
 - `table.rows`는 테이블 내 `<tr>`요소를 담은 컬렉션을 가리킵니다.
@@ -303,16 +303,17 @@ while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
 ```html run height=100
 <table id="table">
   <tr>
-    <td>one</td><td>two</td>
+    <td>일</td><td>이</td>
   </tr>
   <tr>
-    <td>three</td><td>four</td>
+    <td>삼</td><td>사</td>
   </tr>
 </table>
 
 <script>
-  // 첫번째 줄, 두번째 칸의 내용을 출력
-  alert( table.*!*rows[0].cells[1]*/!*.innerHTML ) // "two"
+  // '이'가 적힌 td를 가져옴(첫 번째 줄, 두 번째 칸)
+  let td = table.*!*rows[0].cells[1]*/!*;
+  td.style.backgroundColor = "red"; // 강조
 </script>
 ```
 
@@ -320,7 +321,7 @@ while(elem = elem.parentElement) { // <html>까지 거슬러올라갑니다.
 
 테이블과 마찬가지로, HTML 폼(form)에만 쓸 수 있는 몇 가지 탐색 프로퍼티도 존재합니다. 폼을 배우면서 이 프로퍼티에 대해서도 살펴보도록 하겠습니다.
 
-# 요약
+## 요약
 
 탐색 프로퍼티(navigation property)를 사용하면, 특정 DOM 노드에서 이웃해있는 다른 노드로 바로 이동할 수 있습니다.
 

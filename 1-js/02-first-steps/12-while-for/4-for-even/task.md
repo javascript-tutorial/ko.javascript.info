@@ -2,8 +2,8 @@ importance: 5
 
 ---
 
-# Output even numbers in the loop
+# for 반복문을 이용하여 짝수 출력하기
 
-Use the `for` loop to output even numbers from `2` to `10`.
+`for` 반복문을 이용하여 `2`부터 `10`까지 숫자 중 짝수만을 출력해보세요.
 
 [demo]

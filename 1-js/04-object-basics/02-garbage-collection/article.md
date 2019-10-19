@@ -157,7 +157,7 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 - 루트가 참조하고 있는 모든 객체를 방문하고 "mark" 합니다.
 - 마크된 모든 객체에 방문하고 *그 객체들이* 참조하는 객체도 mark 합니다. 한번 방문한 객체는 다 기억해 놓기 때문에 
 같은 객체를 다시 방문하는 일은 없습니다.
-- 모든 객체를 방문할 때까지 위 과정을 반복합니다(단, 루트에서 도달 할 수 있는 객체만 해당함)
+- 루트에서 도달 가능한 모든 객체를 방문할 때까지 위 과정을 반복합니다.
 - 마크되지 않은 모든 객체를 메모리에서 삭제합니다.
 
 다음과 같은 객체 구조가 있다고 해봅시다.
@@ -182,9 +182,9 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 
 ![](garbage-collection-5.svg)
 
-가비지 컬렉션은 이렇게 동작합니다.
+We can also imagine the process as spilling a huge bucket of paint from the roots, that flows through all references and marks all reachable objects. The unmarked ones are then removed.
 
-자바스크립트 엔진은 가비지 컬렉션이 빠르게 수행될 수 있도록 실행에 영향을 주지 않는 범위 내에서 다양한 최적화 기법을 적용합니다.
+That's the concept of how garbage collection works. JavaScript engines apply many optimizations to make it run faster and not affect the execution.
 
 최적화 예시:
 
@@ -192,7 +192,7 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 - **Incremental collection(점진적 수집)** -- 방문 해야 할 객체가 많은 상황에서 모든 객체를 한 번에 방문하고 mark 하게 되면 시간이 많이 소모됩니다. 실행 속도도 눈에 띄게 느려지죠. 자바스크립트 엔진은 이런 현상을 개선하기 위해 가비지 컬렉션을 여러 부분으로 분리한 다음, 각 부분을 별도로 수행합니다. 작업을 분리하고, 변경 사항을 추적하려면 추가 작업이 필요하지만, 긴 지연을 짧은 지연 여러개로 분산시킬 수 있다는 장점이 있습니다.
 - **Idle-time collection(유휴 시간 수집)** -- 가비지 컬렉터는 실행에 주는 영향을 최소화하기 위해 CPU가 유휴 상태일 때에만 가비지 컬렉션을 실행합니다.
 
-이외에도 다양한 최적화 기법과 알고리즘이 있습니다. 최대한 많이 설명해 드리면 좋겠지만 엔진마다 차이가 있고, 사용하는 기법도 다르기 때문에 더는 자세히 설명해 드리지 않도록 하겠습니다.  엔진의 버전이 올라가면 최적화 기법이나 알고리즘도 변화하기 때문에, 원하는 기능을 구현하는데 당장 필요치 않은 내용을 "미리" 심화 학습 하는 건 효율적인 방법이 아닙니다. 순수한 호기심 때문이라면 아래에 있는 링크를 확인해보세요.
+There exist other optimizations and flavours of garbage collection algorithms. As much as I'd like to describe them here, I have to hold off, because different engines implement different tweaks and techniques. And, what's even more important, things change as engines develop, so studying deeper "in advance", without a real need is probably not worth that. Unless, of course, it is a matter of pure interest, then there will be some links for you below.
 
 ## 요약
 
