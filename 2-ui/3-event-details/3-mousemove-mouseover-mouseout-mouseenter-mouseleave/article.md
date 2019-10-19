@@ -46,9 +46,9 @@
 
 ![](mouseover-mouseout-over-elems.svg)
 
-If the mouse moves very fast from `#FROM` to `#TO` elements as painted above, then intermediate `<div>` elements (or some of them) may be skipped. The `mouseout` event may trigger on `#FROM` and then immediately `mouseover` on `#TO`.
+만약 마우스가 위 그림과 같이 `#FROM`에서 `#TO` 요소로 매우 빠르게 움직이면, 그때 `<div>` 요소(또는 일부)를 건너뛸 수 있습니다. `mouseout` 이벤트는 `#FROM`에서 발생 된 다음, `#TO`에서 `mouseover`로 바로 발생할 수 있습니다.
 
-That's good for performance, because there may be many intermediate elements. We don't really want to process in and out of each one.
+요소 건너뛰기는 중간 요소가 많을 수도 있어서 성능에 좋습니다. 각각의 프로세스를 처리하고 싶지 않기 때문입니다. 
 
 다른 한편으로는, 마우스 포인터가 모든 요소를 "방문"하지 않고, "점프"할 수 있다는 것을 명심해야 합니다. 
 
@@ -66,13 +66,13 @@ That's good for performance, because there may be many intermediate elements. We
 [codetabs height=360 src="mouseoverout-fast"]
 ```
 
-```smart header="If `mouseover` triggered, there must be `mouseout`"
-In case of fast mouse movements, intermediate elements may be ignored, but one thing we know for sure: if the pointer "officially" entered an element (`mouseover` event generated), then upon leaving it we always get `mouseout`.
+```smart header="라면, `mouseover`, `mouseout`이 있어야 합니다."
+마우스가 빠르게 이동하는 경우 중간 요소는 무시될 수 있지만, 한 가지 확실한 것은 요소 전체를 건너뛸 수도 있다는 것입니다. "공식적으로" 포인터가 `mouseover`가 있는 요소에 들어갔다면, 해당 요소를 떠날 때 항상 `mouseout`가 발생합니다.
 ```
 
 ## 자식 요소로 떠날 때 발생하는 Mouseout
 
-An important feature of `mouseout` -- it triggers, when the pointer moves from an element to its descendant, e.g. from `#parent` to `#child` in this HTML:
+`mouseout`의 중요한 특징 -- 포인터가 요소에서 후손 요소로 이동할 때 발생합니다. (예를 들어 HTML의 "#parent"에서 "#child"로 이동할 때)
 
 ```html
 <div id="parent">
@@ -80,33 +80,33 @@ An important feature of `mouseout` -- it triggers, when the pointer moves from a
 </div>
 ```
 
-If we're on `#parent` and then move the pointer deeper into `#child`, but we get `mouseout` on `#parent`!
+포인터를 `#parent`에서 `#child`로 더 깊게 움직이면 `#parent`에 대한 `mouseout` 이벤트가 발생합니다!
 
 ![](mouseover-to-child.svg)
 
-That may seem strange, but can be easily explained.
+이상하게 보이지만, 쉽게 설명할 수 있습니다.
 
-**브라우저 논리에 따르면, 마우스 커서는 언제든지 *단일* 요소(z-index에서 가장 내포된 요소 및 맨 위에 있는 요소) 위에만 있을 수 있습니다.
+**브라우저 논리에 따르면, 마우스 커서는 언제든지 *단일* 요소(z-index에서 가장 내포된 요소 및 맨 위에 있는 요소) 위에만 있을 수 있습니다.**
 
 그래서 만약 마우스 커서가 다른 요소(심지어 후손)로 간다면, 그것은 이전 요소에서 떠나게 됩니다.
 
-Please note another important detail of event processing.
+이벤트 처리에 대한 또 다른 중요한 세부 사항을 참고하시기 바랍니다.
 
-The `mouseover` event on a descendant bubbles up. So, if `#parent` has `mouseover` handler, it triggers:
+후손 요소의 `mouseover` 이벤트가 버블링 됩니다. 만약 `#parent`가 `mouseover` 핸들러를 가지고 있다면 발생합니다.
 
 ![](mouseover-bubble-nested.svg)
 
 ```online
-You can see that very well in the example below: `<div id="child">` is inside the `<div id="parent">`. There are `mouseover/out` handlers on `#parent` element that output event details.
+아래 예에서는 `<div id="child">`가 `<div id="parent">` 내부에 있음을 잘 알 수 있습니다. 이벤트 세부 정보를 출력하는 `#parent` 요소에 `mouseover/out` 핸들러가 있습니다.
 
-If you move the mouse from `#parent` to `#child`, you see two events on `#parent`:
-1. `mouseout [target: parent]` (left the parent), then
-2. `mouseover [target: child]` (came to the child, bubbled).
+마우스를 `#parent`에서 `#child`로 이동하면, `#parent`에서 다음 두 가지 이벤트가 표시됩니다.
+1. `mouseout [target: parent]` (부모 요소에서 떠난 후)
+2. `mouseover [target: child]` (자식 요소에서 온 버블링 이벤트)
 
 [codetabs height=360 src="mouseoverout-child"]
 ```
 
-As shown, when the pointer moves from `#parent` element to `#child`, two handlers trigger on the parent element: `mouseout` and `mouseover`:
+그림과 같이 포인터가 `#parent` 요소에서 `#child`로 이동하면 부모 요소에 `mouseout`과 `mouseover`라는 두 개의 핸들러가 발생됩니다.
 
 ```js
 parent.onmouseout = function(event) {
@@ -117,19 +117,19 @@ parent.onmouseover = function(event) {
 };
 ```
 
-**If we don't examine `event.target` inside the handlers, then it may seem that the mouse pointer left `#parent` element, and then immediately came back over it.**
+**만약 핸들러 내부의 코드가 `target`을 바라보지 않는다면, 마우스가 포인터가 `#parent` 요소를 떠났다가 다시 그 위로 온 것으로 보일 수 있습니다.**
 
-But that's not the case! The pointer is still over the parent, it just moved deeper into the child element.
+하지만 그렇지 않습니다! 포인터는 아직 부모 요소 위에 있고, 자식 요소으로 더 깊이 이동한 것 입니다.
 
-If there are some actions upon leaving the parent element, e.g. an animation runs in `parent.onmouseout`, we usually don't want it when the pointer just goes deeper into `#parent`.
+상위 요소를 떠날 때 일부 동작(예를 들어 애니메이션이 `parent.onmouseout`에서 실행됨)이 있는 경우, 일반적으로 포인터가 `#parent`로 더 깊이 들어갈 때는 동작을 원하지 않을 수 있습니다.
 
-To avoid it, we can check `relatedTarget` in the handler and, if the mouse is still inside the element, then ignore such event.
+이를 방지하기 위해 핸들러에 있는 `relatedTarget`을 확인하고, 마우스가 아직 요소 안에 있으면 해당 이벤트를 무시할 수 있습니다.
 
 또는 다른 이벤트인 `mouseenter`와 `mouseleave`를 사용할 수 있는데, 이 이벤트에는 그러한 문제가 없기 때문에 지금 다루겠습니다.
 
 ## mouseenter/mouseleave
 
-`mouseenter/mouseleave` 이벤트는 `mouseover/mouseout` 이벤트와 같습니다. 마우스 포인터가 요소에 들어오거나 떠날 때 트리거 합니다.
+`mouseenter/mouseleave` 이벤트는 `mouseover/mouseout` 이벤트와 같습니다. 마우스 포인터가 요소에 들어오거나 떠날 때 발생합니다.
 
 하지만 두 가지 중요한 차이점이 있습니다.
 
@@ -214,4 +214,4 @@ table.onmouseout = function(event) {
 
 부모 요소에서 자식 요소로 이동할 때도 `mouseover/out` 이벤트가 발생합니다. 브라우저는 마우스가 한 번에 하나의 요소, 즉 가장 깊은 요소 위에 있을 수 있다고 가정합니다.
 
-Events `mouseenter/leave` are different in that aspect: they only trigger when the mouse comes in and out the element as a whole. Also they do not bubble.
+`mouseover/out` 이벤트는 그러한 측면에서 다릅니다. 즉, 마우스는 요소가 전체적으로 들어오고 나올 때만 발생됩니다. 또한 버블링 되지 않습니다.
