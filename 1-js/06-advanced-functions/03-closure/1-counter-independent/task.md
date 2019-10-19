@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# 카운터는 독립적입니까?
+# counter는 독립적일까요?
 
-여기서 우리는 두 개의 카운터를 만듭니다 : `counter` 와 `counter2` 는 같은 `makeCounter` 함수를 사용합니다.
+`makeCounter`를 사용해 두 개의 conuter `counter`와 `counter2`를 만들었습니다.
 
-그것들은 독립적입니까? 두 번째 카운터 결과는 무엇일까요? `0,1` 또는`2,3` 또는 다른 값인가요?
+두 counter는 독립적일까요? 두 번째 카운터는 `0, 1`이나 `2, 3`중 어떤 숫자를 얼럿창에 띄워줄까요? 다른 결과가 출력될까요?
 
 ```js
 function makeCounter() {

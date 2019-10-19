@@ -2,13 +2,13 @@ importance: 4
 
 ---
 
-# Filter unique array members
+# 중복 없는 요소 찾아내기
 
-Let `arr` be an array.
+`arr`은 배열입니다.
 
-Create a function `unique(arr)` that should return an array with unique items of `arr`.
+배열 내 유일한 요소를 찾아주는 함수 `unique(arr)`를 작성해보세요. 
 
-For instance:
+예시:
 
 ```js
 function unique(arr) {

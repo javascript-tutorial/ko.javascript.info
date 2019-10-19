@@ -1,33 +1,33 @@
 
-# Accessing array[-1]
+# 음수 인덱스를 사용해 배열 요소에 접근하기
 
-In some programming languages, we can access array elements using negative indexes, counted from the end.
+몇몇 프로그래밍 언어는 음수 인덱스를 사용해 배열 끝을 기준으로 요소에 접근할 수 있게 해줍니다.  
 
-Like this:
+아래와 같이 말이죠.
 
 ```js
 let array = [1, 2, 3];
 
-array[-1]; // 3, the last element
-array[-2]; // 2, one step from the end
-array[-3]; // 1, two steps from the end
+array[-1]; // 3, 마지막 요소
+array[-2]; // 2, 뒤에서 두 번째 요소
+array[-3]; // 1, 뒤에서 세 번째 요소
 ```
 
-In other words, `array[-N]` is the same as `array[array.length - N]`.
+위 예시에서 `array[-N]`는 `array[array.length - N]`와 동일합니다.
 
-Create a proxy to implement that behavior.
+이렇게 음수 인덱스를 사용해 배열 요소에 접근할 수 있도록 해주는 프락시를 만들어봅시다.
 
-That's how it should work:
+최종 결과는 아래 조건을 만족해야 합니다.
 
 ```js
 let array = [1, 2, 3];
 
 array = new Proxy(array, {
-  /* your code */
+  /* 여기에 코드를 작성하세요. */
 });
 
 alert( array[-1] ); // 3
 alert( array[-2] ); // 2
 
-// Other array functionality should be kept "as is"
+// 배열 기능은 "변함없이 그대로" 동작해야 합니다.
 ```

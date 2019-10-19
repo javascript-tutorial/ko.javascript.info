@@ -185,7 +185,13 @@ alert( pow(2, 3) );
 
 새롭게 만들어진 실행 컨텍스트(굵은 테두리로 표시)는 맨 위에, 기존 컨텍스트는 하단부에 있습니다.
 
-서브 호출이 종료되면, 손쉽게 기존 컨텍스트를 다시 재개할 수 있습니다. 두 변수와 중지된 시점의 정확한 실행 흐름 위치를 모두 저장하고 있기 때문입니다. 여기선 박스 안에 "line"이라는 단어를 써 실행 흐름 위치를 표현했지만, 실제론 당연히 더 정밀한 정보가 저장됩니다.  
+When we finish the subcall -- it is easy to resume the previous context, because it keeps both variables and the exact place of the code where it stopped.
+
+```smart
+Here in the picture we use the word "line", as our example there's only one subcall in line, but generally a single line of code may contain multiple subcalls, like `pow(…) + pow(…) + somethingElse(…)`.
+
+So it would be more precise to say that the execution resumes "immediately after the subcall".
+```
 
 ### pow(2, 1)
 
