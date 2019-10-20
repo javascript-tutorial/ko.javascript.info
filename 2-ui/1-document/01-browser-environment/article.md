@@ -60,14 +60,14 @@ For instance, server-side scripts that download HTML pages and process them can 
 ```
 
 ```smart header="CSSOM for styling"
-CSS rules and stylesheets are structured in a different way than HTML. There's a separate specification [CSSOM](https://www.w3.org/TR/cssom-1/) that explains how they are represented as objects, and how to read and write them.
+CSS rules and stylesheets are structured in a different way than HTML. There's a separate specification, [CSS Object Model (CSSOM)](https://www.w3.org/TR/cssom-1/), that explains how they are represented as objects, and how to read and write them.
 
 CSSOM is used together with DOM when we modify style rules for the document. In practice though, CSSOM is rarely required, because usually CSS rules are static. We rarely need to add/remove CSS rules from JavaScript, but that's also possible.
 ```
 
 ## BOM(브라우저 객체 모델)
 
-브라우저 객체 모델(Browser Object Model, BOM)은 HTML 명세의 일부로, 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가적인 객체입니다.
+브라우저 객체 모델(Browser Object Model, BOM)은 HTML 명세의 일부로, 문서 이외의 모든 것을 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가적인 객체를 나타냅니다.
 
 예시:
 

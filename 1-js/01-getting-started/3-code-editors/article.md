@@ -32,6 +32,7 @@ Windows 사용자라면 "Visual Studio"라는 IDE를 들어보셨을 겁니다. 
 추천하는 에디터는 다음과 같습니다.
 
 - [Atom](https://atom.io/) (크로스 플랫폼, 무료)
+- [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료)
 - [Sublime Text](http://www.sublimetext.com) (크로스 플랫폼, 셰어웨어)
 - [Notepad++](https://notepad-plus-plus.org/) (Windows, 무료)
 - [Vim](http://www.vim.org/)이나 [Emacs](https://www.gnu.org/software/emacs/)도 에디터로 사용법만 잘 숙지하면 충분히 에디터 역할을 잘합니다.

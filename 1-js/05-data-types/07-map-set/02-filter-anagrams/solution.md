@@ -9,14 +9,14 @@ cheaters, hectares, teachers -> aceehrst
 ...
 ```
 
-We'll use the letter-sorted variants as map keys to store only one value per each key:
+알파벳 순으로 정렬된 글자를 맵의 키로 사용해, 키 하나엔 값 하나만 저장되도록 하겠습니다.
 
 ```js run
 function aclean(arr) {
   let map = new Map();
 
   for (let word of arr) {
-    // split the word by letters, sort them and join back
+    // 단어를 글자 단위로 쪼갠 후, 알파벳 순으로 정렬한 다음에 다시 합칩니다.
 *!*
     let sorted = word.toLowerCase().split('').sort().join(''); // (*)
 */!*
@@ -31,9 +31,9 @@ let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 alert( aclean(arr) );
 ```
 
-Letter-sorting is done by the chain of calls in the line `(*)`.
+`(*)`로 표시한 줄에서 여러 메서드를 체이닝 해 글자를 정렬해 보았습니다.
 
-For convenience let's split it into multiple lines:
+`(*)`로 표시한 줄을 여러 줄에 나눠서 작성하면 아래와 같은 코드가 됩니다.
 
 ```js
 let sorted = arr[i] // PAN
@@ -43,21 +43,21 @@ let sorted = arr[i] // PAN
   .join(''); // anp
 ```
 
-Two different words `'PAN'` and `'nap'` receive the same letter-sorted form `'anp'`.
+`'PAN'`과 `'nap'`은 동일하게 `'anp'`라는 글자로 정렬되죠.
 
-The next line put the word into the map:
+아래 코드는 단어를 맵에 저장합니다.
 
 ```js
 map.set(sorted, word);
 ```
 
-If we ever meet a word the same letter-sorted form again, then it would overwrite the previous value with the same key in the map. So we'll always have at maximum one word per letter-form.
+정렬 이후의 글자 구성이 같은 단어를 또다시 만나게 되면, 키가 동일하므로 값이 덮어씌워 집니다. 따라서 맵엔 글자 구성이 같은 단어는 단 한 번만 저장됩니다.
 
-At the end `Array.from(map.values())` takes an iterable over map values (we don't need keys in the result) and returns an array of them.
+함수 마지막 줄의 `map.values()`는 맵의 값을 담은 반복 가능한 객체를 반환하는데, `Array.from`은 이 반복 가능한 객체를 배열로 바꿔줍니다(키는 필요하지 않기 때문에 `map.values()`를 사용함).
 
-Here we could also use a plain object instead of the `Map`, because keys are strings.
+이 문제에서 키는 문자형이므로 `맵` 대신 일반적인 객체를 사용할 수도 있습니다.
 
-That's how the solution can look:
+객체를 사용한 해답은 아래와 같습니다.
 
 ```js run demo
 function aclean(arr) {
