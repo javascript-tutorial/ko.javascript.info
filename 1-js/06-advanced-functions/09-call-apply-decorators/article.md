@@ -75,7 +75,7 @@ let worker = {
   },
 
   slow(x) {
-    // actually, there can be a scary CPU-heavy task here  
+    // scary CPU-heavy task here  
     alert("Called with " + x);
     return x * this.someMethod(); // (*)
   }
@@ -372,7 +372,7 @@ hash(1, 2);
 
 The trick is called *method borrowing*.
 
-We take (borrow) a join method from a regular array `[].join`. And use `[].join.call` to run it in the context of `arguments`.
+We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
 
 Why does it work?
 
