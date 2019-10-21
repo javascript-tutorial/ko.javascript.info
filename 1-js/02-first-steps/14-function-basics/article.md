@@ -235,7 +235,7 @@ function showMessage(from, text) {
 
 ```js
 function showMessage(from, text) {
-  // text가 거짓 같은 값일 때 "기본값"을 할당합니다.
+  // text가 falsy일 때 "기본값"을 할당합니다.
   text = text || 'no text given';
   ...
 }
