@@ -1,64 +1,64 @@
-# Proxy and Reflect
+# Proxy와 Reflect
 
-A `Proxy` object wraps another object and intercepts operations, like reading/writing properties and others, optionally handling them on its own, or transparently allowing the object to handle them.
+`Proxy`는 특정 객체를 감싸 프로퍼티 읽기, 쓰기와 같은 객체에 가해지는 작업을 중간에서 가로채는 객체로, 가로채진 작업은 `Proxy` 자체에서 처리되기도 하고, 원래 객체가 처리하도록 그대로 전달되기도 합니다.
 
-Proxies are used in many libraries and some browser frameworks. We'll see many practical applications in this chapter.
+프락시는 다양한 라이브러리와 몇몇 브라우저 프레임워크에서 사용되고 있습니다. 이번 챕터에선 프락시를 어떻게 실무에 적용할 수 있을지 다양한 예제를 통해 살펴보도록 하겠습니다. 
 
-The syntax:
+문법:
 
 ```js
 let proxy = new Proxy(target, handler)
 ```
 
-- `target` -- is an object to wrap, can be anything, including functions.
-- `handler` -- proxy configuration: an object with "traps", methods that intercept operations. - e.g. `get` trap for reading a property of `target`, `set` trap for writing a property into `target`, and so on.
+- `target` -- 감싸게 될 객체로, 함수를 포함한 모든 객체가 가능합니다.
+- `handler` -- 동작을 가로채는 메서드인 '트랩(trap)'이 담긴 객체로, 여기서 프락시를 설정합니다(예시: `get` 트랩은 `target`의 프로퍼티를 읽을 때, `set` 트랩은 `target`의 프로퍼티를 쓸 때 활성화됨).
 
-For operations on `proxy`, if there's a corresponding trap in `handler`, then it runs, and the proxy has a chance to handle it, otherwise the operation is performed on `target`.
+`proxy`에 작업이 가해지고, `handler`에 상응하는 트랩이 있으면 트랩이 실행되어 프락시가 이 작업을 처리할 기회를 얻게 됩니다. 트랩이 없으면 작업은 `target`에 직접 수행됩니다.
 
-As a starting example, let's create a proxy without any traps:
+먼저, 트랩이 없는 프락시를 사용한 예시를 살펴봅시다.
 
 ```js run
 let target = {};
-let proxy = new Proxy(target, {}); // empty handler
+let proxy = new Proxy(target, {}); // 빈 핸들러
 
-proxy.test = 5; // writing to proxy (1)
-alert(target.test); // 5, the property appeared in target!
+proxy.test = 5; // 프락시에 값을 씁니다. -- (1)
+alert(target.test); // 5, target에 새로운 프로퍼티가 생겼네요!
 
-alert(proxy.test); // 5, we can read it from proxy too (2)
+alert(proxy.test); // 5, 프락시를 사용해 값을 읽을 수도 있습니다. -- (2)
 
-for(let key in proxy) alert(key); // test, iteration works (3)
+for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 ```
 
-As there are no traps, all operations on `proxy` are forwarded to `target`.
+위 예시의 프락시엔 트랩이 없기 때문에 `proxy`에 가해지는 모든 작업은 `target`에 전달됩니다. 
 
-1. A writing operation `proxy.test=` sets the value on `target`.
-2. A reading operation `proxy.test` returns the value from `target`.
-3. Iteration over `proxy` returns values from `target`.
+1. `proxy.test=`를 이용해 값을 쓰면 `target`에 새로운 값이 설정됩니다.
+2. `proxy.test`를 이용해 값을 읽으면 `target`에서 값을 읽어옵니다.
+3. `proxy`를 대상으로 반복 작업을 하면 `target`에 저장된 값이 반환됩니다.
 
-As we can see, without any traps, `proxy` is a transparent wrapper around `target`.
+그림에서 볼 수 있듯이 트랩이 없으면 `proxy`는 `target`을 둘러싸는 투명한 래퍼가 됩니다.
 
 ![](proxy.svg)  
 
-`Proxy` is a special "exotic object". It doesn't have own properties. With an empty `handler` it transparently forwards operations to `target`.
+`Proxy`는 일반 객체와는 다른 행동 양상을 보이는 '특수 객체(exotic object)'입니다. 프로퍼티가 없죠. `handler`가 비어있으면 `Proxy`에 가해지는 작업은 `target`에 곧바로 전달됩니다.
 
-To activate more capabilities, let's add traps.
+자 이제 트랩을 추가해 `Proxy`의 기능을 활성화해봅시다.
 
-What can we intercept with them?
+그 전에 먼저, 트랩을 사용해 가로챌 수 있는 작업은 무엇이 있는지 알아봅시다.
 
-For most operations on objects, there's a so-called "internal method" in the JavaScript specification that describes how it works at the lowest level. For instance `[[Get]]`, the internal method to read a property, `[[Set]]`, the internal method to write a property, and so on. These methods are only used in the specification, we can't call them directly by name.
+객체에 어떤 작업을 할 땐, 자바스크립트 명세서에 정의된 '내부 메서드(internal method)'가 깊숙한 곳에서 관여합니다. 프로퍼티를 읽을 땐 `[[Get]]`이라는 내부 메서드가, 프로퍼티에 쓸 땐 `[[Set]]`이라는 내부 메서드가 관여하게 되죠. 이런 내부 메서드들은 명세서에만 정의된 메서드이기 때문에 개발자가 코드를 사용해 호출할 순 없습니다.
 
-Proxy traps intercept invocations of these methods. They are listed in the [Proxy specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots) and in the table below.
+프락시의 트랩은 내부 메서드의 호출을 가로챕니다. 프락시가 가로채는 내부 메서드 리스트는 [명세서](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots)에서 확인할 수 있는데, 아래 표에도 이를 정리해 놓았습니다.
 
-For every internal method, there's a trap in this table: the name of the method that we can add to the `handler` parameter of `new Proxy` to intercept the operation:
+모든 내부 메서드엔 대응하는 트랩이 있습니다. `new Proxy`의 `handler`에 매개변수로 추가할 수 있는 메서드 이름은 아래 표의 '핸들러 메서드' 열에서 확인하실 수 있습니다.
 
-| Internal Method | Handler Method | Triggers when... |
+| 내부 메서드 | 핸들러 메서드 | 작동 시점 |
 |-----------------|----------------|-------------|
-| `[[Get]]` | `get` | reading a property |
-| `[[Set]]` | `set` | writing to a property |
-| `[[HasProperty]]` | `has` | `in` operator |
-| `[[Delete]]` | `deleteProperty` | `delete` operator |
-| `[[Call]]` | `apply` | function call |
-| `[[Construct]]` | `construct` | `new` operator |
+| `[[Get]]` | `get` | 프로퍼티를 읽을 때 |
+| `[[Set]]` | `set` | 프로퍼티에 쓸 때 |
+| `[[HasProperty]]` | `has` | `in` 연산자가 동작할 때 |
+| `[[Delete]]` | `deleteProperty` | `delete` 연산자가 동작할 때 |
+| `[[Call]]` | `apply` | 함수를 호출할 때 |
+| `[[Construct]]` | `construct` | `new` 연산자가 동작할 때 |
 | `[[GetPrototypeOf]]` | `getPrototypeOf` | [Object.getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) |
 | `[[SetPrototypeOf]]` | `setPrototypeOf` | [Object.setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) |
 | `[[IsExtensible]]` | `isExtensible` | [Object.isExtensible](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible) |
@@ -67,41 +67,41 @@ For every internal method, there's a trap in this table: the name of the method 
 | `[[GetOwnProperty]]` | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries` |
 | `[[OwnPropertyKeys]]` | `ownKeys` | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
 
-```warn header="Invariants"
-JavaScript enforces some invariants -- conditions that must be fulfilled by internal methods and traps.
+```warn header="규칙"
+내부 메서드나 트랩을 쓸 땐 자바스크립트에서 정한 몇 가지 규칙(invariant)을 반드시 따라야 합니다.
 
-Most of them are for return values:
-- `[[Set]]` must return `true` if the value was written successfully, otherwise `false`.
-- `[[Delete]]` must return `true` if the value was deleted successfully, otherwise `false`.
-- ...and so on, we'll see more in examples below.
+대부분의 조건은 반환 값과 관련되어있습니다.
+- 값을 쓰는 게 성공적으로 처리되었으면 `[[Set]]`은 반드시 `true`를 반환해야 합니다. 그렇지 않은 경우는 `false`를 반환해야 합니다.
+- 값을 지우는 게 성공적으로 처리되었으면 `[[Delete]]`는 반드시 `true`를 반환해야 합니다. 그렇지 않은 경우는 `false`를 반환해야 합니다.
+- 기타 등등(아래 예시를 통해 더 살펴보겠습니다.)
 
-There are some other invariants, like:
-- `[[GetPrototypeOf]]`, applied to the proxy object must return the same value as `[[GetPrototypeOf]]` applied to the proxy object's target object. In other words, reading prototype of a proxy must always return the prototype of the target object.
+이 외에 다른 조건도 있습니다.
+- 프락시 객체를 대상으로 `[[GetPrototypeOf]]`가 적용되면 프락시 객체의 타깃 객체에 `[[GetPrototypeOf]]`를 적용한 것과 동일한 값이 반환되어야 합니다. 프락시의 프로토타입을 읽는 것은 타깃 객체의 프로토타입을 읽는 것과 동일해야 하죠. 
 
-Traps can intercept these operations, but they must follow these rules.
+트랩이 연산을 가로챌 땐 위에서 언급한 규칙을 따라야 하죠.
 
-Invariants ensure correct and consistent behavior of language features. The full invariants list is in [the specification](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots). You probably won't violate them if you're not doing something weird.
+규칙은 자바스크립트가 일관된 동작을 하고 잘못된 동작이 있으면 이를 고쳐주는 역할을 합니다. 규칙 목록은 [명세서](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots)에서 확인할 수 있습니다. 이상한 짓을 하지 않는 이상 이 규칙을 어길 일은 거의 없습니다.
 ```
 
-Let's see how that works in practical examples.
+자, 이제 본격적으로 실용적인 예시들을 살펴보면서 프락시 객체가 어떻게 동작하는지 알아봅시다.
 
-## Default value with "get" trap
+## 'get' 트랩으로 프로퍼티 기본값 설정하기
 
-The most common traps are for reading/writing properties.
+가장 흔히 볼 수 있는 트랩은 프로퍼티를 읽거나 쓸 때 사용되는 트랩입니다.
 
-To intercept reading, the `handler` should have a method `get(target, property, receiver)`.
+프로퍼티 읽기를 가로채려면 `handler`에 `get(target, property, receiver)` 메서드가 있어야 합니다.
 
-It triggers when a property is read, with following arguments:
+`get`메서드는 프로퍼티를 읽으려고 할 때 작동합니다. 인수는 다음과 같습니다.
 
-- `target` -- is the target object, the one passed as the first argument to `new Proxy`,
-- `property` -- property name,
-- `receiver` -- if the target property is a getter, then `receiver` is the object that's going to be used as `this` in its call. Usually that's the `proxy` object itself (or an object that inherits from it, if we inherit from proxy). Right now we don't need this argument, so it will be explained in more detail later.
+- `target` -- 동작을 전달할 객체로 `new Proxy`의 첫 번째 인자입니다.
+- `property` -- 프로퍼티 이름
+- `receiver` -- 타깃 프로퍼티가 getter라면 `receiver`는 getter가 호출될 때 `this` 입니다. 대게는 `proxy` 객체 자신이 `this`가 됩니다. 프락시 객체를 상속받은 객체가 있다면 해당 객체가 `this`가 되기도 하죠. 지금 당장은 이 인수가 필요 없으므로 더 자세한 내용은 나중에 다루도록 하겠습니다.
 
-Let's use `get` to implement default values for an object.
+`get`을 활용해 객체에 기본값을 설정해보겠습니다.
 
-We'll make a numeric array that returns `0` for nonexistent values.
+예시에서 만들 것은, 존재하지 않는 요소를 읽으려고 할 때 기본값 `0`을 반환해주는 배열입니다.
 
-Usually when one tries to get a non-existing array item, they get `undefined`, but we'll wrap a regular array into the proxy that traps reading and returns `0` if there's no such property:
+존재하지 않는 요소를 읽으려고 하면 배열은 원래 `undefined`을 반환하는데, 예시에선 배열(객체)을 프락시로 감싸서 존재하지 않는 요소(프로퍼티)를 읽으려고 할 때 `0`이 반환되도록 해보겠습니다.
 
 ```js run
 let numbers = [0, 1, 2];
@@ -111,97 +111,97 @@ numbers = new Proxy(numbers, {
     if (prop in target) {
       return target[prop];
     } else {
-      return 0; // default value
+      return 0; // 기본값
     }
   }
 });
 
 *!*
 alert( numbers[1] ); // 1
-alert( numbers[123] ); // 0 (no such item)
+alert( numbers[123] ); // 0 (해당하는 요소가 배열에 없으므로 0이 반환됨)
 */!*
 ```
 
-As we can see, it's quite easy to do with a `get` trap.
+예시를 통해 알 수 있듯이 `get`을 사용해 트랩을 만드는 건 상당히 쉽습니다.
 
-We can use `Proxy` to implement any logic for "default" values.
+`Proxy`를 사용하면 '기본' 값 설정 로직을 원하는 대로 구현할 수 있죠.
 
-Imagine we have a dictionary, with phrases and their translations:
+구절과 번역문이 저장되어있는 사전이 있다고 가정해봅시다.
 
 ```js run
 let dictionary = {
-  'Hello': 'Hola',
-  'Bye': 'Adiós'
+  'Hello': '안녕하세요',
+  'Bye': '안녕히 가세요'
 };
 
-alert( dictionary['Hello'] ); // Hola
+alert( dictionary['Hello'] ); // 안녕하세요
 alert( dictionary['Welcome'] ); // undefined
 ```
 
-Right now, if there's no phrase, reading from `dictionary` returns `undefined`. But in practice, leaving a phrase untranslated is usually better than `undefined`. So let's make it return an untranslated phrase in that case instead of `undefined`.
+지금 상태론 `dictionary`에 없는 구절에 접근하면 `undefined`가 반환됩니다. 사전에 없는 구절을 검색하려 했을 때 `undefined`가 아닌 구절 그대로를 반환해주는 게 좀 더 나을 것 같다는 생각이 드네요.
 
-To achieve that, we'll wrap `dictionary` in a proxy that intercepts reading operations:
+`dictionary`를 프락시로 감싸서 프로퍼티를 읽으려고 할 때 이를 프락시가 가로채도록 하면 우리가 원하는 기능을 구현할 수 있습니다.
 
 ```js run
 let dictionary = {
-  'Hello': 'Hola',
-  'Bye': 'Adiós'
+  'Hello': '안녕하세요',
+  'Bye': '안녕히 가세요'
 };
 
 dictionary = new Proxy(dictionary, {
 *!*
-  get(target, phrase) { // intercept reading a property from dictionary
+  get(target, phrase) { // 프로퍼티를 읽기를 가로챕니다.
 */!*
-    if (phrase in target) { // if we have it in the dictionary
-      return target[phrase]; // return the translation
+    if (phrase in target) { // 조건: 사전에 구절이 있는 경우
+      return target[phrase]; // 번역문을 반환합니다
     } else {
-      // otherwise, return the non-translated phrase
+      // 구절이 없는 경우엔 구절 그대로를 반환합니다.
       return phrase;
     }
   }
 });
 
-// Look up arbitrary phrases in the dictionary!
-// At worst, they're not translated.
-alert( dictionary['Hello'] ); // Hola
+// 사전을 검색해봅시다!
+// 사전에 없는 구절을 입력하면 입력값이 그대로 반환됩니다.
+alert( dictionary['Hello'] ); // 안녕하세요
 *!*
-alert( dictionary['Welcome to Proxy']); // Welcome to Proxy (no translation)
+alert( dictionary['Welcome to Proxy']); // Welcome to Proxy (입력값이 그대로 출력됨)
 */!*
 ```
 
 ````smart
-Please note how the proxy overwrites the variable:
+프락시 객체가 변수를 어떻게 덮어쓰고 있는지 눈여겨보시기 바랍니다.
 
 ```js
 dictionary = new Proxy(dictionary, ...);
 ```
 
-The proxy should totally replace the target object everywhere. No one should ever reference the target object after it got proxied. Otherwise it's easy to mess up.
+타깃 객체의 위치와 상관없이 프락시 객체는 타깃 객체를 덮어써야만 합니다. 객체를 프락시로 감싼 이후엔 절대로 타깃 객체를 참조하는 코드가 없어야 합니다. 그렇지 않으면 엉망이 될 확률이 아주 높아집니다.
 ````
 
-## Validation with "set" trap
+## 'set' 트랩으로 프로퍼티 값 검증하기 
 
-Let's say we want an array exclusively for numbers. If a value of another type is added, there should be an error.
+숫자만 저장할 수 있는 배열을 만들고 싶다고 가정해봅시다. 숫자형이 아닌 값을 추가하려고 하면 에러가 발생하도록 해야겠죠.
 
-The `set` trap triggers when a property is written.
+프로퍼티에 값을 쓰려고 할 때 이를 가로채는 `set` 트랩을 사용해 이를 구현해보도록 하겠습니다. `set` 메서드의 인수는 아래와 같은 역할을 합니다.
 
 `set(target, property, value, receiver)`:
 
-- `target` -- is the target object, the one passed as the first argument to `new Proxy`,
-- `property` -- property name,
-- `value` -- property value,
-- `receiver` -- similar to `get` trap, matters only for setter properties.
+- `target` -- 동작을 전달할 객체로 `new Proxy`의 첫 번째 인자입니다.
+- `property` -- 프로퍼티 이름
+- `value` -- 프로퍼티 값
+- `receiver` -- `get` 트랩과 유사하게 동작하는 객체로, setter 프로퍼티에만 관여합니다.
 
-The `set` trap should return `true` if setting is successful, and `false` otherwise (triggers `TypeError`).
+우리가 구현해야 할 `set` 트랩은 숫자형 값을 설정하려 할 때만 `true`를, 그렇지 않은 경우엔(`TypeError`가 트리거되고) `false`를 반환하도록 해야 합니다.    
 
-Let's use it to validate new values:
+`set` 트랩을 사용해 배열에 추가하려는 값이 숫자형인지 검증해봅시다. 
 
 ```js run
 let numbers = [];
 
 numbers = new Proxy(numbers, { // (*)
 *!*
-  set(target, prop, val) { // to intercept property writing
+  set(target, prop, val) { // 프로퍼티에 값을 쓰는 동작을 가로챕니다.
 */!*
     if (typeof val == 'number') {
       target[prop] = val;
@@ -212,44 +212,44 @@ numbers = new Proxy(numbers, { // (*)
   }
 });
 
-numbers.push(1); // added successfully
-numbers.push(2); // added successfully
+numbers.push(1); // 추가가 성공했습니다.
+numbers.push(2); // 추가가 성공했습니다.
 alert("Length is: " + numbers.length); // 2
 
 *!*
-numbers.push("test"); // TypeError ('set' on proxy returned false)
+numbers.push("test"); // Error: 'set' on proxy
 */!*
 
-alert("This line is never reached (error in the line above)");
+alert("윗줄에서 에러가 발생했기 때문에 이 줄은 절대 실행되지 않습니다.");
 ```
 
-Please note: the built-in functionality of arrays is still working! Values are added by `push`. The `length` property auto-increases when values are added. Our proxy doesn't break anything.
+배열 관련 기능들은 여전히 사용할 수 있다는 점에 주목해주시기 바랍니다. `push`를 사용해 배열에 새로운 요소를 추가하고 `length` 프로퍼티는 이를 잘 반영하고 있다는 것을 통해 이를 확인할 수 있었습니다. 프락시를 사용해도 기존에 있던 기능은 절대로 손상되지 않습니다.
 
-We don't have to override value-adding array methods like `push` and `unshift`, and so on, to add checks in there, because internally they use the `[[Set]]` operation that's intercepted by the proxy.
+`push`나 `unshift` 같이 배열에 값을 추가해주는 메서드들은 내부에서 `[[Set]]`을 사용하고 있기 때문에 메서드를 오버라이드 하지 않아도 프락시가 동작을 가로채고 값을 검증해줍니다.
 
-So the code is clean and concise.
+코드가 깨끗하고 간결해지는 효과가 있죠.
 
-```warn header="Don't forget to return `true`"
-As said above, there are invariants to be held.
+```warn header="`true`를 잊지 말고 반환해주세요."
+위에서 언급했듯이 꼭 지켜야 할 규칙이 있습니다.
 
-For `set`, it must return `true` for a successful write.
+`set` 트랩을 사용할 땐 값을 쓰는 게 성공했을 때 반드시 `true`를 반환해줘야 합니다.
 
-If we forget to do it or return any falsy value, the operation triggers `TypeError`.
+`true`를 반환하지 않았거나 falsy한 값을 반환하게 되면 `TypeError`가 발생합니다.
 ```
 
-## Iteration with "ownKeys" and "getOwnPropertyDescriptor"
+## 'ownKeys'와 'getOwnPropertyDescriptor'로 반복 작업하기
 
-`Object.keys`, `for..in` loop and most other methods that iterate over object properties use `[[OwnPropertyKeys]]` internal method (intercepted by `ownKeys` trap) to get a list of properties.
+`Object.keys`, `for..in` 반복문을 비롯한 프로퍼티 순환 관련 메서드 대다수는 내부 메서드 `[[OwnPropertyKeys]]`(트랩 메서드는 `ownKeys`임)를 사용해 프로퍼티 목록을 얻습니다.
 
-Such methods differ in details:
-- `Object.getOwnPropertyNames(obj)` returns non-symbol keys.
-- `Object.getOwnPropertySymbols(obj)` returns symbol keys.
-- `Object.keys/values()` returns non-symbol keys/values with `enumerable` flag (property flags were explained in the chapter <info:property-descriptors>).
-- `for..in` loops over non-symbol keys with `enumerable` flag, and also prototype keys.
+그런데 세부 동작 방식엔 차이가 있습니다.
+- `Object.getOwnPropertyNames(obj)` -- 심볼형이 아닌 키만 반환합니다.
+- `Object.getOwnPropertySymbols(obj)` -- 심볼형 키만 반환합니다.
+- `Object.keys/values()` -- `enumerable` 플래그가 `true`이면서 심볼형이 아닌 키나 심볼형이 아닌 키에 해당하는 값 전체를 반환합니다(프로퍼티 플래그에 관한 내용은 <info:property-descriptors>에서 찾아보실 수 있습니다).
+- `for..in` 반복문 -- `enumerable` 플래그가 `true`인 심볼형이 아닌 키, 프로토타입 키를 순회합니다.
 
-...But all of them start with that list.
+메서드마다 차이는 있지만 `[[OwnPropertyKeys]]`를 통해 프로퍼티 목록을 얻는다는 점은 동일합니다.
 
-In the example below we use `ownKeys` trap to make `for..in` loop over `user`, and also `Object.keys` and `Object.values`, to skip properties starting with an underscore `_`:
+아래 예시에선 `ownKeys` 트랩을 사용해 `_`로 시작하는 프로퍼티는 `for..in` 반복문의 순환 대상에서 제외하도록 해보았습니다. `ownKeys`를 사용했기 때문에 `Object.keys`와 `Object.values`에도 동일한 로직이 적용되는 것을 확인할 수 있습니다.
 
 ```js run
 let user = {
@@ -266,17 +266,17 @@ user = new Proxy(user, {
   }
 });
 
-// "ownKeys" filters out _password
-for(let key in user) alert(key); // name, then: age
+// "ownKeys" 트랩은 _password를 건너뜁니다.
+for(let key in user) alert(key); // name, age
 
-// same effect on these methods:
+// 아래 두 메서드에도 동일한 로직이 적용됩니다.
 alert( Object.keys(user) ); // name,age
 alert( Object.values(user) ); // John,30
 ```
 
-So far, it works.
+지금까진 의도한 대로 예시가 잘 동작하네요.
 
-Although, if we return a key that doesn't exist in the object, `Object.keys` won't list it:
+그런데 객체 내에 존재하지 않는 키를 반환하려고 하면 `Object.keys`는 이 키를 제대로 보여주지 않습니다.
 
 ```js run
 let user = { };
@@ -289,28 +289,28 @@ user = new Proxy(user, {
   }
 });
 
-alert( Object.keys(user) ); // <empty>
+alert( Object.keys(user) ); // <빈 문자열>
 ```
 
-Why? The reason is simple: `Object.keys` returns only properties with the `enumerable` flag. To check for it, it calls the internal method `[[GetOwnProperty]]` for every property to get [its descriptor](info:property-descriptors). And here, as there's no property, its descriptor is empty, no `enumerable` flag, so it's skipped.
+이유가 무엇일까요? 답은 간단합니다. `Object.keys`는 `enumerable` 플래그가 있는 프로퍼티만 반환하기 때문이죠. 이를 확인하기 위해 `Object.keys`는 내부 메서드인 `[[GetOwnProperty]]`를 호출해 모든 프로퍼티의 [설명자](info:property-descriptors)를 확인합니다. 위 예시의 프로퍼티는 설명자가 하나도 없고 `enumerable` 플래그도 없으므로 순환 대상에서 제외되는 것이죠.
 
-For `Object.keys` to return a property, we need it to either exist in the object, with the `enumerable` flag, or we can intercept calls to `[[GetOwnProperty]]` (the trap `getOwnPropertyDescriptor` does it), and return a descriptor with `enumerable: true`.
+`Object.keys` 호출 시 프로퍼티를 반환하게 하려면 `enumerable` 플래그를 붙여줘 프로퍼티가 객체에 존재하도록 하거나 `[[GetOwnProperty]]`가 호출될 때 이를 중간에서 가로채서 설명자 `enumerable: true`를 반환하게 해주면 됩니다.  `getOwnPropertyDescriptor` 트랩이 바로 이때 사용되죠.
 
-Here's an example of that:
+예시를 살펴봅시다.
 
 ```js run
 let user = { };
 
 user = new Proxy(user, {
-  ownKeys(target) { // called once to get a list of properties
+  ownKeys(target) { // 프로퍼티 리스트를 얻을 때 딱 한 번 호출됩니다.
     return ['a', 'b', 'c'];
   },
 
-  getOwnPropertyDescriptor(target, prop) { // called for every property
+  getOwnPropertyDescriptor(target, prop) { // 모든 프로퍼티를 대상으로 호출됩니다.
     return {
       enumerable: true,
       configurable: true
-      /* ...other flags, probable "value:..."" */
+      /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능하죠. */
     };
   }
 
@@ -319,32 +319,32 @@ user = new Proxy(user, {
 alert( Object.keys(user) ); // a, b, c
 ```
 
-Let's note once again: we only need to intercept `[[GetOwnProperty]]` if the property is absent in the object.
+객체에 프로퍼티가 없을 때 `[[GetOwnProperty]]`만 가로채면 된다는 점을 다시 한번 상기하시기 바랍니다.
 
-## Protected properties with "deleteProperty" and other traps
+## 'deleteProperty'와 여러 트랩을 사용해 프로퍼티 보호하기
 
-There's a widespread convention that properties and methods prefixed by an underscore `_` are internal. They shouldn't be accessed from outside the object.
+`_`(밑줄)이 앞에 붙은 프로퍼티나 메서드는 내부용으로만 쓰도록 하는 컨벤션은 널리 사용되고 있는 컨벤션 중 하나입니다. `_`이 앞에 붙으면 객체 바깥에선 이 프로퍼티에 접근해선 안 됩니다. 
 
-Technically that's possible though:
+그런데 기술적으론 가능하죠.
 
 ```js run
 let user = {
   name: "John",
-  _password: "secret"
+  _password: "비밀"
 };
 
-alert(user._password); // secret  
+alert(user._password); // 비밀  
 ```
 
-Let's use proxies to prevent any access to properties starting with `_`.
+프락시를 사용해 `_`로 시작하는 프로퍼티에 접근하지 못하도록 막아봅시다.
 
-We'll need the traps:
-- `get` to throw an error when reading such property,
-- `set` to throw an error when writing,
-- `deleteProperty` to throw an error when deleting,
-- `ownKeys` to exclude properties starting with `_` from `for..in` and methods like `Object.keys`.
+원하는 기능을 구현하려면 아래와 같은 트랩이 필요합니다.
+- `get` -- 프로퍼티를 읽으려고 하면 에러를 던져줌
+- `set` -- 프로퍼티에 쓰려고 하면 에러를 던져줌
+- `deleteProperty` -- 프로퍼티를 지우려고 하면 에러를 던져줌
+- `ownKeys` -- `for..in`이나 `Object.keys`같은 프로퍼티 순환 메서드를 사용할 때 `_`로 시작하는 메서드는 제외함
 
-Here's the code:
+구현 결과는 다음과 같습니다.
 
 ```js run
 let user = {
@@ -357,58 +357,58 @@ user = new Proxy(user, {
   get(target, prop) {
 */!*
     if (prop.startsWith('_')) {
-      throw new Error("Access denied");
+      throw new Error("접근이 제한되어있습니다.");
     }
     let value = target[prop];
     return (typeof value === 'function') ? value.bind(target) : value; // (*)
   },
 *!*
-  set(target, prop, val) { // to intercept property writing
+  set(target, prop, val) { // 프로퍼티 쓰기를 가로챕니다.
 */!*
     if (prop.startsWith('_')) {
-      throw new Error("Access denied");
+      throw new Error("접근이 제한되어있습니다.");
     } else {
       target[prop] = val;
       return true;
     }
   },
 *!*
-  deleteProperty(target, prop) { // to intercept property deletion
+  deleteProperty(target, prop) { // 프로퍼티 삭제를 가로챕니다.
 */!*  
     if (prop.startsWith('_')) {
-      throw new Error("Access denied");
+      throw new Error("접근이 제한되어있습니다.");
     } else {
       delete target[prop];
       return true;
     }
   },
 *!*
-  ownKeys(target) { // to intercept property list
+  ownKeys(target) { // 프로퍼티 순회를 가로챕니다.
 */!*
     return Object.keys(target).filter(key => !key.startsWith('_'));
   }
 });
 
-// "get" doesn't allow to read _password
+// "get" 트랩이 _password 읽기를 막습니다.
 try {
-  alert(user._password); // Error: Access denied
+  alert(user._password); // Error: 접근이 제한되어있습니다.
 } catch(e) { alert(e.message); }
 
-// "set" doesn't allow to write _password
+// "set" 트랩이 _password에 값을 쓰는것을 막습니다.
 try {
-  user._password = "test"; // Error: Access denied
+  user._password = "test"; // Error: 접근이 제한되어있습니다.
 } catch(e) { alert(e.message); }
 
-// "deleteProperty" doesn't allow to delete _password
+// "deleteProperty" 트랩이 _password 삭제를 막습니다.
 try {
-  delete user._password; // Error: Access denied
+  delete user._password; // Error: 접근이 제한되어있습니다.
 } catch(e) { alert(e.message); }
 
-// "ownKeys" filters out _password
+// "ownKeys" 트랩이 순회 대상에서 _password를 제외시킵니다.
 for(let key in user) alert(key); // name
 ```
 
-Please note the important detail in the `get` trap, in the line `(*)`:
+`get` 트랩의 `(*)`로 표시한 줄을 눈여겨 봐주시기 바랍니다.
 
 ```js
 get(target, prop) {
@@ -420,42 +420,42 @@ get(target, prop) {
 }
 ```
 
-Why do we need a function to call `value.bind(target)`?
+함수인지 여부를 확인하여 `value.bind(target)`를 호출 하고 있네요. 왜그럴까요?
 
-The reason is that object methods, such as `user.checkPassword()`, must be able to access `_password`:
+이유는 `user.checkPassword()`같은 객체 메서드가 `_password`에 접근할 수 있도록 해주기 위해서입니다.
 
 ```js
 user = {
   // ...
   checkPassword(value) {
-    // object method must be able to read _password
+    // checkPassword(비밀번호 확인)는 _password를 읽을 수 있어야 합니다.
     return value === this._password;
   }
 }
 ```
 
 
-A call to `user.checkPassword()` call gets proxied `user` as `this` (the object before dot becomes `this`), so when it tries to access `this._password`, the `get` trap activates (it triggers on any property read) and throws an error.
+`user.checkPassword()`를 호출하면 점 앞의 객체가 `this`가 되므로 프락시로 감싼 `user`에 접근하게 되는데, `this._password`는 `get` 트랩(프로퍼티를 읽으려고 하면 동작함)을 활성화하므로 에러가 던져집니다.
 
-So we bind the context of object methods to the original object, `target`, in the line `(*)`. Then their future calls will use `target` as `this`, without any traps.
+`(*)`로 표시한 줄에선 객체 메서드의 컨텍스트를 원본 객체인 `target`에 바인딩시켜준 이유가 바로 여기에 있습니다. `checkPassword()`를 호출할 땐 언제든 트랩 없이 `target`이 `this`가 되게 하기 위해서이죠.
 
-That solution usually works, but isn't ideal, as a method may pass the unproxied object somewhere else, and then we'll get messed up: where's the original object, and where's the proxied one?
+이 방법은 대부분 잘 작동하긴 하는데 메서드가 어딘가에서 프락시로 감싸지 않은 객체를 넘기게 되면 엉망진창이 되어버리기 때문에 이상적인 방법은 아닙니다. 기존 객체와 프락시로 감싼 객체가 어디에 있는지 파악할 수 없기 때문이죠.
 
-Besides, an object may be proxied multiple times (multiple proxies may add different "tweaks" to the object), and if we pass an unwrapped object to a method, there may be unexpected consequences.
+한 객체를 여러 번 프락시로 감쌀 경우 각 프락시마다 객체에 가하는 '수정'이 다를 수 있다는 점 또한 문제입니다. 프락시로 감싸지 않은 객체를 메서드에 넘기는 경우처럼 예상치 않은 결과가 나타날 수 있습니다.
 
-So, such a proxy shouldn't be used everywhere.
+따라서 이런 형태의 프락시는 어디서든 사용해선 안 됩니다.
 
-```smart header="Private properties of a class"
-Modern JavaScript engines natively support private properties in classes, prefixed with `#`. They are described in the chapter <info:private-protected-properties-methods>. No proxies required.
+```smart header="클래스와 private 프로퍼티"
+모던 자바스크립트 엔진은 클래스 내 private 프로퍼티를 사용할 수 있게 해줍니다. private 프로퍼티는 프로퍼티 앞에 `#`을 붙이면 만들 수 있는데, 자세한 내용은 <info:private-protected-properties-methods>에서 찾아볼 수 있습니다. private 프로퍼티를 사용하면 프락시 없이도 프로퍼티를 보호할 수 있습니다.
 
-Such properties have their own issues though. In particular, they are not inherited.
+그런데 private 프로퍼티는 상속이 불가능하다는 단점이 있습니다.
 ```
 
-## "In range" with "has" trap
+## 'has' 트랩으로 '범위` 내 여부 확인하기 
 
-Let's see more examples.
+좀 더 많은 예시를 살펴봅시다.
 
-We have a range object:
+범위를 담고 있는 객체가 있습니다.
 
 ```js
 let range = {
@@ -464,16 +464,16 @@ let range = {
 };
 ```
 
-We'd like to use the `in` operator to check that a number is in `range`.
+`in` 연산자를 사용해 특정 숫자가 `range` 내에 있는지 확인해봅시다.
 
-The `has` trap intercepts `in` calls.
+`has` 트랩은 `in` 호출을 가로챕니다.
 
 `has(target, property)`
 
-- `target` -- is the target object, passed as the first argument to `new Proxy`,
-- `property` -- property name
+- `target` -- `new Proxy`의 첫 번째 인자로 전달되는 타깃 객체
+- `property` -- 프로퍼티 이름
 
-Here's the demo:
+예시:
 
 ```js run
 let range = {
@@ -495,27 +495,27 @@ alert(50 in range); // false
 */!*
 ```
 
-Nice syntactic sugar, isn't it? And very simple to implement.
+정말 멋진 편의 문법이지 않나요? 구현도 아주 간단합니다.
 
-## Wrapping functions: "apply" [#proxy-apply]
+## 'apply' 트랩으로 함수 감싸기 [#proxy-apply]
 
-We can wrap a proxy around a function as well.
+함수 역시 프락시로 감쌀 수 있습니다.
 
-The `apply(target, thisArg, args)` trap handles calling a proxy as function:
+`apply(target, thisArg, args)` 트랩은 프락시를 함수처럼 호출하려고 할 때 동작합니다.
 
-- `target` is the target object (function is an object in JavaScript),
-- `thisArg` is the value of `this`.
-- `args` is a list of arguments.
+- `target` -- 타깃 객체(자바스크립트에서 함수는 객체임)
+- `thisArg` -- `this`의 값
+- `args` -- 인수 목록
 
-For example, let's recall `delay(f, ms)` decorator, that we did in the chapter <info:call-apply-decorators>.
+<info:call-apply-decorators> 챕터에서 살펴보았던 `delay(f, ms)` 데코레이터(decorator)를 떠올려봅시다.
 
-In that chapter we did it without proxies. A call to `delay(f, ms)` returned a function that forwards all calls to `f` after `ms` milliseconds.
+해당 챕터 에선 프락시를 사용하지 않고 데코레이터를 구현하였습니다. `delay(f, ms)`를 호출하면 함수가 반환되는데, 이 함수는 함수 `f`가 `ms`밀리초 후에 호출되도록 해주었죠.  
 
-Here's the previous, function-based implementation:
+함수를 기반으로 작성했던 데코레이터는 다음과 같습니다.
 
 ```js run
 function delay(f, ms) {
-  // return a wrapper that passes the call to f after the timeout
+  // 지정한 시간이 흐른 다음에 f 호출을 전달해주는 래퍼 함수를 반환합니다.
   return function() { // (*)
     setTimeout(() => f.apply(this, arguments), ms);
   };
@@ -525,15 +525,15 @@ function sayHi(user) {
   alert(`Hello, ${user}!`);
 }
 
-// after this wrapping, calls to sayHi will be delayed for 3 seconds
+// 래퍼 함수로 감싼 다음에 sayHi를 호출하면 3초 후 함수가 호출됩니다.
 sayHi = delay(sayHi, 3000);
 
-sayHi("John"); // Hello, John! (after 3 seconds)
+sayHi("John"); // Hello, John! (3초 후)
 ```
 
-As we've seen already, that mostly works. The wrapper function `(*)` performs the call after the timeout.
+이미 살펴봤듯이 이 데코레이터는 대부분의 경우 잘 동작합니다. `(*)`로 표시 한곳의 래퍼 함수는 일정 시간 후 함수를 호출할 수 있게 해주죠. 
 
-But a wrapper function does not forward property read/write operations or anything else. After the wrapping, the access is lost to properties of the original functions, such as `name`, `length` and others:
+그런데 래퍼 함수는 프로퍼티 읽기/쓰기 등의 연산은 전달해주지 못합니다. 래퍼 함수로 감싸고 난 다음엔 기존 함수의 프로퍼티(`name`, `length` 등) 정보가 사라집니다.
 
 ```js run
 function delay(f, ms) {
@@ -547,19 +547,19 @@ function sayHi(user) {
 }
 
 *!*
-alert(sayHi.length); // 1 (function length is the arguments count in its declaration)
+alert(sayHi.length); // 1 (함수 정의부에서 명시한 인수의 개수)
 */!*
 
 sayHi = delay(sayHi, 3000);
 
 *!*
-alert(sayHi.length); // 0 (in the wrapper declaration, there are zero arguments)
+alert(sayHi.length); // 0 (래퍼 함수 정의부엔 인수가 없음)
 */!*
 ```
 
-`Proxy` is much more powerful, as it forwards everything to the target object.
+`Proxy` 객체는 타깃 객체에 모든 것을 전달해주므로 훨씬 강력합니다.
 
-Let's use `Proxy` instead of a wrapping function:
+래퍼 함수 대신 `Proxy`를 사용해봅시다.
 
 ```js run
 function delay(f, ms) {
@@ -577,17 +577,17 @@ function sayHi(user) {
 sayHi = delay(sayHi, 3000);
 
 *!*
-alert(sayHi.length); // 1 (*) proxy forwards "get length" operation to the target
+alert(sayHi.length); // 1 (*) 프락시는 "get length" 연산까지 타깃 객체에 전달해줍니다.
 */!*
 
-sayHi("John"); // Hello, John! (after 3 seconds)
+sayHi("John"); // Hello, John! (3초 후)
 ```
 
-The result is the same, but now not only calls, but all operations on the proxy are forwarded to the original function. So `sayHi.length` is returned correctly after the wrapping in the line `(*)`.
+결과는 같지만 이번엔 호출뿐만 아니라 프락시에 가하는 모든 연산이 원본 함수에 전달된 것을 확인할 수 있습니다. 원본 함수를 프락시로 감싼 이후엔 `(*)`로 표시한 줄에서 `sayHi.length`가 제대로 된 결과를 반환하고 있는 것을 확인할 수 있습니다.
 
-We've got a "richer" wrapper.
+좀 더 성능이 좋은 래퍼를 갖게 되었네요.
 
-Other traps exist: the full list is in the beginning of this chapter. Their usage pattern is similar to the above.
+이 외에도 다양한 트랩이 존재합니다. 트랩 전체 리스트는 상단부 표에 정리되어있으니 확인하시면 됩니다. 지금까지 소개해 드린 예시를 응용하면 충분히 프락시를 활용하실 수 있을 겁니다. 
 
 ## Reflect
 
@@ -685,7 +685,7 @@ let userProxy = new Proxy(user, {
 alert(userProxy.name); // Guest
 ```
 
-The `get` trap is "transparent" here, it returns the original property, and doesn't do anything else. That's enough for our example.
+The `get` trap is 'transparent' here, it returns the original property, and doesn't do anything else. That's enough for our example.
 
 Everything seems to be all right. But let's make the example a little bit more complex.
 
@@ -732,7 +732,7 @@ The problem is actually in the proxy, in the line `(*)`.
 
 To fix such situations, we need `receiver`, the third argument of `get` trap. It keeps the correct `this` to be passed to a getter. In our case that's `admin`.
 
-How to pass the context for a getter? For a regular function we could use `call/apply`, but that's a getter, it's not "called", just accessed.
+How to pass the context for a getter? For a regular function we could use `call/apply`, but that's a getter, it's not 'called', just accessed.
 
 `Reflect.get` can do that. Everything will work right if we use it.
 
@@ -786,7 +786,7 @@ Proxies provide a unique way to alter or tweak the behavior of the existing obje
 
 ### Built-in objects: Internal slots
 
-Many built-in objects, for example `Map`, `Set`, `Date`, `Promise` and others make use of so-called "internal slots".
+Many built-in objects, for example `Map`, `Set`, `Date`, `Promise` and others make use of so-called 'internal slots'.
 
 These are like properties, but reserved for internal, specification-only purposes. For instance, `Map` stores items in the internal slot `[[MapData]]`. Built-in methods access them directly, not via `[[Get]]/[[Set]]` internal methods. So `Proxy` can't intercept that.
 
@@ -987,7 +987,7 @@ alert(proxy.data); // Error (revoked)
 
 The benefit of such an approach is that we don't have to carry `revoke` around. We can get it from the map by `proxy` when needed.
 
-We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes "unreachable" (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
+We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes 'unreachable' (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
 
 ## References
 
