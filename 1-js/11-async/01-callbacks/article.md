@@ -2,17 +2,17 @@
 
 # 콜백 입문
 
-```warn header="We use browser methods here"
-To demonstrate the use of callbacks, promises and other abstract concepts, we'll be using some browser methods; specifically, loading scripts and performing simple document manipulations.
+```warn header="브라우저 메서드를 사용합니다."
+본 챕터에선 콜백을 어떻게 사용하는지 보여드리기 위해 프라미스 등의 브라우저 전용 메서드를 사용할 예정입니다. 스크립트를 불러오고 완성된 문서에 간단한 조작을 하는 예시에서 특히 이 메서드들을 사용하도록 하겠습니다.
 
-If you're not familiar with these methods, and their usage in the examples is confusing, or if you would just like to understand them better, you may want to read a few chapters from the [next part](/document) of the tutorial.
+이 메서드들이 익숙하지 않거나 이 메서드들을 사용하고 있는 예시가 잘 이해 가지 않는다면 문서 객체 모델을 다루고 있는 [다음 파트]의 챕터 몇 개를 읽어보시기 바랍니다. 이 과정을 거치면 예시를 더 잘 이해할 수 있게 될 겁니다. 
 ```
 
-자바스크립트 내 동작은 상당수가 *비동기적(asynchronous)* 으로 처리됩니다. In other words, we initiate them now, but they finish later.
+자바스크립트 내 동작 상당수는 *비동기적(asynchronous)* 으로 처리됩니다. 지금 동작을 시작해도 나중에 종료될 수 있죠.
 
-For instance, we can schedule such actions using `setTimeout`.
+`setTimeout`을 사용하여 동작을 스케줄링 하는 것이 대표적인 예이죠.
 
-There are other real-world examples of asynchronous actions, e.g. loading scripts and modules (we'll cover them in later chapters).
+이 외도 다양한 예시가 있는데 스크립트나 모듈을 로딩하는 것 또한 예시가 될 수 있습니다.
 
 `src`를 통해 받은 주소를 사용해 스크립트를 읽어오는 함수 `loadScript(src)`를 살펴봅시다.
 
