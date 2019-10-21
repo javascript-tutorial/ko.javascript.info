@@ -1,4 +1,4 @@
 
-1. `true`, taken from `rabbit`.
-2. `null`, taken from `animal`.
-3. `undefined`, there's no such property any more.
+1. `true`, `rabbit`에서 가져옵니다.
+2. `null`, `animal`에서 가져옵니다.
+3. `undefined`, 더는 해당하는 프로퍼티가 없습니다.
