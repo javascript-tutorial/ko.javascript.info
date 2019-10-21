@@ -1,71 +1,71 @@
 
-# Private and protected properties and methods
+# private, protected 프로퍼티와 메서드
 
-One of the most important principles of object oriented programming -- delimiting internal interface from the external one.
+객체 지향 프로그래밍에서 가장 중요한 원리 중 하나는 '내부 인터페이스와 외부 인터페이스를 구분 짓는 것'입니다.
 
-That is "a must" practice in developing anything more complex than a "hello world" app.
+내부 인터페이스와 외부 인터페이스를 구분 짓는 것은 'hello word'앱보다 더 복잡한 것을 개발한다면 필수적으로 연습되어야 합니다.
 
-To understand this, let's break away from development and turn our eyes into the real world.
+쉽게 이해하기 위해, 잠시 개발에서 벗어나 현실 세계로 눈을 돌려봅시다.
 
-Usually, devices that we're using are quite complex. But delimiting the internal interface from the external one allows to use them without problems.
+보통 우리가 사용하는 장치들은 꽤 복잡하지만 내부 인터페이스가 외부 인터페이스와 구분 지어졌기 때문에 문제없이 사용할 수 있습니다. 
 
-## A real-life example
+## 실생활 예제
 
-For instance, a coffee machine. Simple from outside: a button, a display, a few holes...And, surely, the result -- great coffee! :)
+커피 머신으로 예를 들어봅시다. 외형은 심플합니다: 버튼 하나, 화면 하나, 구멍 몇 개... 물론, 결과물인 훌륭한 커피도 있습니다! :)
 
 ![](coffee.jpg)
 
-But inside... (a picture from the repair manual)
+하지만 안쪽은... (수리 매뉴얼에 있는 사진)
 
 ![](coffee-inside.jpg)
 
-A lot of details. But we can use it without knowing anything.
+세세한 것들이 아주 많습니다. 하지만 우리는 이 세세한 것들에 대해 아무것도 몰라도 커피 머신을 사용할 수 있습니다.
 
-Coffee machines are quite reliable, aren't they? We can use one for years, and only if something goes wrong -- bring it for repairs.
+커피 머신은 상당히 믿을만하지 않나요? 하나를 수 년 동안 사용할 수 있고, 고장이 난다면 수리를 받으면 됩니다.
 
-The secret of reliability and simplicity of a coffee machine -- all details are well-tuned and *hidden* inside.
+커피 머신의 신뢰성과 단순함의 비밀은 모든 디테일들이 잘 조정되어 안쪽에 *숨겨져* 있다는 것에 있습니다.
 
-If we remove the protective cover from the coffee machine, then using it will be much more complex (where to press?), and dangerous (it can electrocute).
+커피 머신에서 보호 커버를 없앤다면 커피머신을 사용하는 것이 훨씬 복잡해지고 위험해질 것입니다.(어디를 눌러야 하는지 헷갈릴 것이고, 감전이 될 수도 있습니다.)
 
-As we'll see, in programming objects are like coffee machines.
+이제부터 보게 될 것처럼, 프로그래밍에서 객체란 커피 머신 같은 것입니다.
 
-But in order to hide inner details, we'll use not a protective cover, but rather special syntax of the language and conventions.
+다만, 안쪽의 세세한 것들을 숨기기 위해서 보호 커버가 아니라 언어와 관습의 특별한 문법을 사용할 것입니다.
 
-## Internal and external interface
+## 내부 인터페이스와 외부 인터페이스
 
-In object-oriented programming, properties and methods are split into two groups:
+객체 지향 프로그래밍에서 프로퍼티와 메서드는 두 그룹으로 나누어집니다.
 
-- *Internal interface* -- methods and properties, accessible from other methods of the class, but not from the outside.
-- *External interface* -- methods and properties, accessible also from outside the class.
+- *내부 인터페이스* -- 메서드와 프로퍼티에 해당 클래스의 다른 메서드로부터는 접근 가능하지만, 클래스의 밖에서는 접근할 수 없습니다.
+- *외부 인터페이스* -- 메서드와 프로퍼티에 클래스의 외부에서도 접근할 수 있습니다.
 
-If we continue the analogy with the coffee machine -- what's hidden inside: a boiler tube, heating element, and so on -- is its internal interface.
+커피 머신으로 분석을 이어가자면 가열된 물이 지나가는 튜브, 발열 장치 등 안쪽에 숨겨진 것이 바로 내부 인터페이스입니다.
 
-An internal interface is used for the object to work, its details use each other. For instance, a boiler tube is attached to the heating element.
+내부 인터페이스는 객체를 작동시키기 위해 사용되고 그 세부 사항들은 서로 사용됩니다. 예를 들면 가열된 물이 지나가는 튜브는 발열 장치에 부착됩니다.
 
-But from the outside a coffee machine is closed by the protective cover, so that no one can reach those. Details are hidden and inaccessible. We can use its features via the external interface.
+그러나 커피 머신은 보호 커버에 의해 닫혀 있어서 외부로부터 아무도 내부에 접근할 수 없습니다. 세부 사항들은 숨겨져있고 접근이 불가능합니다. 우리는 외부 인터페이스를 통해서 내부의 기능을 사용할 수 있습니다.
 
-So, all we need to use an object is to know its external interface. We may be completely unaware how it works inside, and that's great.
+그렇기 때문에 우리가 객체를 사용하기 위해 알아야 할 것은 외부 인터페이스입니다. 우리는 객체의 안이 어떻게 작동하는지 완전히 알지 못해도 충분합니다.
 
-That was a general introduction.
+지금까지 일반적인 소개였습니다.
 
-In JavaScript, there are two types of object fields (properties and methods):
+자바스크립트에는 아래와 같이 두 가지 타입의 객체 필드(프로퍼티와 메서드)가 있습니다. 
 
-- Public: accessible from anywhere. They comprise the external interface. Till now we were only using public properties and methods.
-- Private: accessible only from inside the class. These are for the internal interface.
+- public: 어디서에서든지 접근할 수 있습니다. 외부 인터페이스를 구성합니다. 지금까지 우리는 public 프로퍼티와 메서드만 사용하고 있었습니다.
+- private: 클래스의 내부에서만 접근할 수 있습니다. 내부 인터페이스를 위한 것입니다.
 
-In many other languages there also exist "protected" fields: accessible only from inside the class and those extending it (like private, but plus access from inheriting classes). They are also useful for the internal interface. They are in a sense more widespread than private ones, because we usually want inheriting classes to gain access to them.
+다른 많은 언어들에는 'protected' 필드도 존재합니다. protected는 클래스의 내부와 상속하는 클래스에서만 접근할 수 있습니다(private과 비슷하지만 상속 클래스로부터의 접근 권한이 추가된 개념). 내부 인터페이스로 사용되기에 유용합니다. 우리는 보통 상속 클래스가 부모 클래스에 접근할 수 있기를 원하기 때문에 protected는 어떤 의미에서는 private보다 널리 사용된다고 말할 수 있습니다.
 
-Protected fields are not implemented in JavaScript on the language level, but in practice they are very convenient, so they are emulated.
+protected 필드는 언어 수준에서 자바스크립트에 구현되어있지 않지만 실제로 protected는 굉장히 편리하기 때문에 에뮬레이트됩니다.
 
-Now we'll make a coffee machine in JavaScript with all these types of properties. A coffee machine has a lot of details, we won't model them to stay simple (though we could).
+이제 우리는 프로퍼티의 이 모든 타입들을 이용해 자바스크립트로 커피 머신을 만들 수 있습니다. 커피 머신에는 아주 많은 디테일이 있지만 우리는 간단히 하기 위해 완전한 모델을 만들지는 않을 것입니다.
 
-## Protecting "waterAmount"
+## protected 프로퍼티
 
-Let's make a simple coffee machine class first:
+첫 번째로, 간단한 커피 머신 클래스를 만들어봅시다.
 
 ```js run
 class CoffeeMachine {
-  waterAmount = 0; // the amount of water inside
+  waterAmount = 0; // 안에 들어있는 물의 양
 
   constructor(power) {
     this.power = power;
@@ -74,29 +74,29 @@ class CoffeeMachine {
 
 }
 
-// create the coffee machine
+// 커피 머신 생성
 let coffeeMachine = new CoffeeMachine(100);
 
-// add water
+// 물 추가
 coffeeMachine.waterAmount = 200;
 ```
 
-Right now the properties `waterAmount` and `power` are public. We can easily get/set them from the outside to any value.
+현재 `waterAmount`프로퍼티와 `power`프로퍼티는 public입니다. 외부에서 쉽게 그 프로퍼티를 읽거나 어느 값으로든 바꿀 수도 있습니다.
 
-Let's change `waterAmount` property to protected to have more control over it. For instance, we don't want anyone to set it below zero.
+`waterAmount`프로퍼티를 protected로 바꿔서 더 통제시켜 봅시다. 아무도 이것을 0 미만으로는 설정하지 못하도록 만들어 봅시다.
 
-**Protected properties are usually prefixed with an underscore `_`.**
+**protected 프로퍼티는 대게 프로퍼티명 앞에 밑줄 `_` 을 붙입니다.**
 
-That is not enforced on the language level, but there's a well-known convention between programmers that such properties and methods should not be accessed from the outside.
+이것은 언어 수준에서 강제적인 것은 아니지만 프로그래머들 사이에서는 외부에서 접근하면 안 되는 프로퍼티나 메서드를 표현하는 잘 알려진 관습입니다.
 
-So our property will be called `_waterAmount`:
+그러니 이제 `waterAmount`도 `_waterAmount`로 바꿉니다. 
 
 ```js run
 class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this._waterAmount = value;
   }
 
@@ -110,22 +110,22 @@ class CoffeeMachine {
 
 }
 
-// create the coffee machine
+// 커피 머신 생성
 let coffeeMachine = new CoffeeMachine(100);
 
-// add water
-coffeeMachine.waterAmount = -10; // Error: Negative water
+// 물 추가
+coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
 ```
 
-Now the access is under control, so setting the water below zero fails.
+이제 접근이 더 통제적이라서 물의 양을 0 미만으로 설정하는 것은 실패하게 됩니다. 
 
-## Read-only "power"
+## 읽기 전용 프로퍼티
 
-For `power` property, let's make it read-only. It sometimes happens that a property must be set at creation time only, and then never modified.
+`power` 프로퍼티를 읽기만 가능하도록 만들어봅시다. 프로퍼티를 생성 할 때만 값을 할당할 수 있고, 그 이후에는 절대 값을 수정하지 말아야 하는 경우가 종종 있는데, 이때 읽기 전용 프로퍼티를 활용할 수 있습니다.
 
-That's exactly the case for a coffee machine: power never changes.
+커피 머신의 경우에는 전력이 그러한 것에 해당합니다.
 
-To do so, we only need to make getter, but not the setter:
+읽기 전용 프로퍼티를 만들기 위해서는 setter(설정자)는 만들지 않고 getter(획득자)만 만들어야 합니다.
 
 ```js run
 class CoffeeMachine {
@@ -141,25 +141,25 @@ class CoffeeMachine {
 
 }
 
-// create the coffee machine
+// 커피 머신 생성
 let coffeeMachine = new CoffeeMachine(100);
 
 alert(`Power is: ${coffeeMachine.power}W`); // Power is: 100W
 
-coffeeMachine.power = 25; // Error (no setter)
+coffeeMachine.power = 25; // Error (setter 없음)
 ```
 
-````smart header="Getter/setter functions"
-Here we used getter/setter syntax.
+````smart header="getter/setter 함수"
+여기서는 getter, setter 문법을 사용했습니다.
 
-But most of the time `get.../set...` functions are preferred, like this:
+하지만 대부분은 아래 코드와 같은 `get.../set...`형식의 함수가 선호됩니다.
 
 ```js
 class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this._waterAmount = value;
   }
 
@@ -171,26 +171,26 @@ class CoffeeMachine {
 new CoffeeMachine().setWaterAmount(100);
 ```
 
-That looks a bit longer, but functions are more flexible. They can accept multiple arguments (even if we don't need them right now).
+다소 길더라도 위의 방식은 다수의 인자를 수용할 수 있기 때문에 좀 더 유연하게 사용할 수 있습니다.(위의 코드에서는 다수의 인자를 사용하고 있지 않습니다.) 
 
-On the other hand, get/set syntax is shorter, so ultimately there's no strict rule, it's up to you to decide.
+위의 방식과는 달리 get/set 문법은 더 짧다는 장점이 있습니다. 정해진 엄격한 규칙은 없으므로 원하는 방식을 선택해서 사용하면 됩니다.
 ````
 
-```smart header="Protected fields are inherited"
-If we inherit `class MegaMachine extends CoffeeMachine`, then nothing prevents us from accessing `this._waterAmount` or `this._power` from the methods of the new class.
+```smart header="Protected 필드는 상속됩니다."
+만약 `CoffeeMachine`클래스를 상속하는 `MegaMachine`클래스를 만든다면, 이 새로운 클래스의 메서드에서 `this._waterAmount`나 `this._power`에 접근하는 것에 아무런 문제가 없을 것입니다.
 
-So protected fields are naturally inheritable. Unlike private ones that we'll see below.
+그래서 protected 필드는 자연스레 상속이 가능합니다. 아래에서 보게 될 private 과는 달리 말이죠.
 ```
 
-## Private "#waterLimit"
+## private 프로퍼티
 
 [recent browser=none]
 
-There's a finished JavaScript proposal, almost in the standard, that provides language-level support for private properties and methods.
+표준에 등재되기 직전인 자바스크립트 제안서에서 private 프로퍼티와 메서드에 대해 언어 수준의 지원을 제공합니다.
 
-Privates should start with `#`. They are only accessible from inside the class.
+private 프로퍼티는 '#'으로 시작합니다. 이렇게 쓰인 프로퍼티나 메서드는 오직 클래스 안에서만 접근이 가능합니다.
 
-For instance, here's a private `#waterLimit` property and the water-checking private method `#checkWater`:
+private 프로퍼티인 `#waterLimit`과 물을 체크하는 private 메서드인 `#checkWater`를 살펴봅시다.
 
 ```js run
 class CoffeeMachine {
@@ -200,8 +200,8 @@ class CoffeeMachine {
 
 *!*
   #checkWater(value) {
-    if (value < 0) throw new Error("Negative water");
-    if (value > this.#waterLimit) throw new Error("Too much water");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+    if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
   }
 */!*
 
@@ -210,17 +210,17 @@ class CoffeeMachine {
 let coffeeMachine = new CoffeeMachine();
 
 *!*
-// can't access privates from outside of the class
+// 클래스 외부에서 private에 접근할 수 없음
 coffeeMachine.#checkWater(); // Error
 coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
 
-On the language level, `#` is a special sign that the field is private. We can't access it from outside or from inheriting classes.
+언어 수준에서 `#`은 private 필드를 의미하는 특별한 표시입니다. 클래스의 외부에서나 상속된 클래스로부터 접근할 수 없습니다.
 
-Private fields do not conflict with public ones. We can have both private `#waterAmount` and public `waterAmount` fields at the same time.
+private 필드는 public 필드와 상충하지 않습니다. 따라서 private 프로퍼티인 `#waterAmount`와 public 프로퍼티인 `waterAmount`를 동시에 사용할 수 있습니다.
 
-For instance, let's make `waterAmount` an accessor for `#waterAmount`:
+예시로 다음과 같이 `waterAmount`가 `#waterAmount`에 접근하도록 만들어봅시다.
 
 ```js run
 class CoffeeMachine {
@@ -232,7 +232,7 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
-    if (value < 0) throw new Error("Negative water");
+    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     this.#waterAmount = value;
   }
 }
@@ -243,9 +243,9 @@ machine.waterAmount = 100;
 alert(machine.#waterAmount); // Error
 ```
 
-Unlike protected ones, private fields are enforced by the language itself. That's a good thing.
+protected와 달리 private 필드는 언어 자체에 의해 실행됩니다. 아주 좋은 일이죠.
 
-But if we inherit from `CoffeeMachine`, then we'll have no direct access to `#waterAmount`. We'll need to rely on `waterAmount` getter/setter:
+하지만 `CoffeeMachine` 클래스를 상속받는 클래스에서 `#waterAmount`에 직접 접근할 수는 없을 것입니다. 그래서 `waterAmount`의 getter와 setter에 의존해야 합니다.
 
 ```js
 class MegaCoffeeMachine extends CoffeeMachine {
@@ -257,12 +257,12 @@ class MegaCoffeeMachine extends CoffeeMachine {
 }
 ```
 
-In many scenarios such limitation is too severe. If we extend a `CoffeeMachine`, we may have legitimate reason to access its internals. That's why protected fields are used more often, even though they are not supported by the language syntax.
+많은 상황에서 이런 제한은 너무 엄격합니다. `CoffeeMachine`을 상속했다면 `CoffeeMachine`의 내부에 접근해야 하는 정당한 이유가 있을 것입니다. 이것이 바로 protected 필드가 언어적 문법의 지원을 받지 못함에도 불구하고 더 자주 쓰이는 이유입니다. 
 
-````warn header="Private fields are not available as this[name]"
-Private fields are special.
+````warn header="Private 필드는 this[name]로 사용할 수 없습니다."
+private 필드는 특별합니다.
 
-As we know, usually we can access fields using `this[name]`:
+알다시피, 보통은 아래 코드처럼 `this[name]`을 이용해서 필드에 접근할 수 있습니다.
 
 ```js
 class User {
@@ -274,43 +274,43 @@ class User {
 }
 ```
 
-With private fields that's impossible: `this['#name']` doesn't work. That's a syntax limitation to ensure privacy.
+하지만 private 필드에는 불가능합니다. `this['#name']`는 작동되지 않습니다. 프라이버시를 보장하기 위한 문법적 제한입니다.
 ````
 
-## Summary
+## 요약
 
-In terms of OOP, delimiting of the internal interface from the external one is called [encapsulation]("https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)").
+OOP(Object Oriented Programming, 객체 지향 프로그래밍)의 관점에서, 내부 인터페이스와 외부 인터페이스를 구분하는 것을 [캡슐화(encapsulation)]라고 합니다.
 
-It gives the following benefits:
+캡슐화는 다음과 같은 이점이 있습니다.
 
-Protection for users, so that they don't shoot themselves in the feet
-: Imagine, there's a team of developers using a coffee machine. It was made by the "Best CoffeeMachine" company, and works fine, but a protective cover was removed. So the internal interface is exposed.
+사용자들이 스스로 자신의 발등을 찍지 않도록 보호
+: 커피 머신을 사용하는 개발자 팀이 있다고 상상해봅시다. "Best CoffeeMachine"이라는 회사에서 만들었고 잘 작동하지만 보호 커버가 없어져서 내부 인터페이스가 노출되었습니다.
 
-    All developers are civilized -- they use the coffee machine as intended. But one of them, John, decided that he's the smartest one, and made some tweaks in the coffee machine internals. So the coffee machine failed two days later.
+    모든 개발자들은 문명인이라서 의도대로 커피 머신을 사용할 수 있습니다. 어느 날, 한 개발자 John이 자신이 가장 똑똑한 사람이라고 생각하면서 커피 머신 내부를 살짝 수정했습니다. 이틀 후 커피 머신이 고장 났습니다.
 
-    That's surely not John's fault, but rather the person who removed the protective cover and let John do his manipulations.
+    그건 분명히 John의 잘못이라기보다는 보호 커버를 없애고, John이 맘대로 조작하도록 내버려 둔 사람의 잘못입니다. 
 
-    The same in programming. If a user of a class will change things not intended to be changed from the outside -- the consequences are unpredictable.
+    프로그래밍에서도 같습니다. 클래스의 사용자가 외부에서 바꾸려고 하지 않은 것을 바꾼다면 결과는 예측할 수 없습니다.
 
-Supportable
-: The situation in programming is more complex than with a real-life coffee machine, because we don't just buy it once. The code constantly undergoes development and improvement.
+지원 가능한 것
+: 프로그래밍에서 일어나는 상황들이 실생활에서의 커피 머신보다 더 복잡합니다. 그저 한 번 구매하고 마는 것이 아니라 코드는 거듭해서 개발되고 개선되기 때문입니다.
 
-    **If we strictly delimit the internal interface, then the developer of the class can freely change its internal properties and methods, even without informing the users.**
+    **엄격히 내부 인터페이스를 구분한다면 클래스 개발자들은 사용자에게 알리지 않고도 자유롭게 내부 프로퍼티와 메서드들을 수정할 수 있습니다.**
 
-    If you're a developer of such class, it's great to know that private methods can be safely renamed, their parameters can be changed, and even removed, because no external code depends on them.
+    만약 여러분이 그러한 클래스의 개발자라면, 어떤 외부 코드도 private 메서드에 의존하지 않기 때문에 private 메서드의 이름을 안전하게 바꿀 수 있고 매개변수를 변경하거나 없앨 수도 있다는 것을 알아 두면 됩니다.
 
-    For users, when a new version comes out, it may be a total overhaul internally, but still simple to upgrade if the external interface is the same.
+    사용자의 입장에서는, 새로운 버전이 출시되면 내부적으로는 전면적인 정비가 이루어지더라도 외부의 인터페이스만 똑같다면 업그레이드 하는 것은 간단합니다.
 
-Hiding complexity
-: People adore using things that are simple. At least from outside. What's inside is a different thing.
+복잡함을 숨기는 것
+: 사람들은 심플한 것을 사용하기를 좋아합니다. 내부는 심플하지 않을지라도 최소한 외형은 말입니다.
 
-    Programmers are not an exception.
+    프로그래머들도 예외는 아닙니다.
 
-    **It's always convenient when implementation details are hidden, and a simple, well-documented external interface is available.**
+    **구현 세부 사항이 숨겨져 있는 것은 언제나 편리하고, 간단하고 잘 문서화된 외부 인터페이스가 가능합니다.**
 
-To hide internal interface we use either protected or private properties:
+내부 인터페이스를 숨기기 위해서는 protected나 private 프로퍼티를 사용하세요:
 
-- Protected fields start with `_`. That's a well-known convention, not enforced at the language level. Programmers should only access a field starting with `_` from its class and classes inheriting from it.
-- Private fields start with `#`. JavaScript makes sure we only can access those from inside the class.
+- protected 필드는 `_`로 시작합니다. 이것은 언어 수준에서 강제적인 것은 아니지만 널리 알려진 관습입니다. 프로그래머는 클래스와 해당 클래스를 상속하는 클래스로부터 `_`로 시작하는 필드에만 접근해야 합니다.
+- private 필드는 `#`로 시작합니다. 자바스크립트 자체적으로 `#`로 시작하는 필드에는 클래스 내부에서만 접근 가능하도록 만듭니다.
 
-Right now, private fields are not well-supported among browsers, but can be polyfilled.
+현재 private 필드는 브라우저 간에 잘 지원되지는 않지만 폴리필(polyfill)됩니다.
