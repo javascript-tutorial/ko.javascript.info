@@ -1,5 +1,5 @@
 
-1. Let's add `__proto__`:
+1. `__proto__`를 추가해봅시다.
 
     ```js run
     let head = {
@@ -27,6 +27,6 @@
     alert( table.money ); // undefined
     ```
 
-2. In modern engines, performance-wise, there's no difference whether we take a property from an object or its prototype. They remember where the property was found and reuse it in the next request.
+2. 모던한 엔진에서는 성능 면에서, 객체에서 프로퍼티를 가져오는 것과 객체의 프로토타입에서 프로퍼티를 가져오는 것 사이에 차이가 없습니다. 프로퍼티가 어디서 발견됐는지 기억하고 다음 요청에서 재사용합니다.
 
-    For instance, for `pockets.glasses` they remember where they found `glasses` (in `head`), and next time will search right there. They are also smart enough to update internal caches if something changes, so that optimization is safe.
+    예를 들면, `pockets.glasses`의 경우에 `glasses`(`head`에 있습니다)가 발견된 곳을 기억하고, 다음번에 발견된 곳부터 바로 검색할 것입니다. 어떤 변화가 일어나면 내부 캐시를 업데이트할 만큼 충분히 똑똑해서, 최적화가 안전합니다.
