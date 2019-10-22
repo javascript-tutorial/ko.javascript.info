@@ -62,7 +62,7 @@ let ms = 1e-6; // six zeroes to the left from 1
 
 ```js run
 alert( 0xff ); // 255
-alert( 0xFF ); // 255 (이 경우는 같은 것입니다.)
+alert( 0xFF ); // 255 (이 경우는 같은 것입니다)
 ```
 
 2진수와 8진수는 거의 쓰이지 않지만 `0b` 과 `0o` 접두사들을 통해 지원합니다.
@@ -152,7 +152,7 @@ alert( num.toString(2) );   // 11111111
     alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
     ```
 
-2. [toFixed(n)] (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) 메서드는 점 다음에 숫자를 'n' 자리로 반올림하고 리턴합니다.
+2. [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) 메서드는 점 다음에 숫자를 'n' 자리로 반올림하고 리턴합니다.
 
     ```js run
     let num = 12.34;
@@ -300,7 +300,7 @@ Infinity와 Nan은 'number' 숫자형에 속하지만 "정상적인" 숫자는 �
     alert( NaN === NaN ); // false
     ```
     
-`isFinite (value)`는 인수를 숫자로 변환하고 `NaN / Infinity / -Infinity` 가 아닌 일반 숫자인 경우 true를 반환합니다.
+`isFinite(value)`는 인수를 숫자로 변환하고 `NaN / Infinity / -Infinity` 가 아닌 일반 숫자인 경우 true를 반환합니다.
     ```js run
     alert( isFinite("15") ); // true
     alert( isFinite("str") ); // false, NaN이기 때문에
