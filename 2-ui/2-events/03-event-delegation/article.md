@@ -172,9 +172,9 @@ Let's say, we want to make a menu with buttons "Save", "Load", "Search" and so o
 
 `.action-save`, `.action-load` 같은 클래스를 사용할 수도 있지만, `data-action` 속성이 좀 더 의미론적으로 낫습니다. CSS 규칙을 적용할 수도 있게 됩니다.
 
-## "행동(behavior)" 패턴
+## "행동" 패턴
 
-이벤트 위임을 사용하여 *선언적 방식으로* 요소에 "행동"을 추가할 수도 있습니다. 이때는 특별한 속성과 클래스를 사용합니다.
+이벤트 위임을 사용하여 *선언적 방식으로* 요소에 "행동(behavior)"을 추가할 수도 있습니다. 이때는 특별한 속성과 클래스를 사용합니다.
 
 아래 절차를 통해 이 패턴을 만들 수 있습니다.
 1. We add a custom attribute to an element that describes its behavior.

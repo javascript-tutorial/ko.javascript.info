@@ -1,29 +1,29 @@
-There are many algorithms for this task.
+소수를 만들어주는 알고리즘은 다양합니다.
 
-Let's use a nested loop:
+먼저 중첩 반복문을 사용한 알고리즘을 살펴봅시다.
 
 ```js
-For each i in the interval {
-  check if i has a divisor from 1..i
-  if yes => the value is not a prime
-  if no => the value is a prime, show it
+범위 내 모든 숫자 i에 대해서 {
+  1과 i 사이에 제수가 있는지를 확인
+  있으면 => 소수가 아님
+  없으면 => 소수이므로 출력해줌
 }
 ```
 
-The code using a label:
+레이블을 사용해 위 알고리즘을 구현한 코드는 다음과 같습니다.
 
 ```js run
 let n = 10;
 
 nextPrime:
-for (let i = 2; i <= n; i++) { // for each i...
+for (let i = 2; i <= n; i++) { // 각 i에 대하여 반복문을 돌림
 
-  for (let j = 2; j < i; j++) { // look for a divisor..
-    if (i % j == 0) continue nextPrime; // not a prime, go next i
+  for (let j = 2; j < i; j++) { // 제수(나눗수)를 찾음
+    if (i % j == 0) continue nextPrime; // 소수가 아니므로 다음 i로 넘어감
   }
 
-  alert( i ); // a prime
+  alert( i ); // 소수
 }
 ```
 
-There's a lot of space to opimize it. For instance, we could look for the divisors from `2` to square root of `i`. But anyway, if we want to be really efficient for large intervals, we need to change the approach and rely on advanced maths and complex algorithms like [Quadratic sieve](https://en.wikipedia.org/wiki/Quadratic_sieve), [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve) etc.
+위에서 사용한 알고리즘은 최적화할 부분이 많습니다. 제수를 2와 i의 제곱근 사이에서 찾으면 좀 더 나아지겠죠. `n`이 아주 많이 커진다면 [이차 체(Quadratic sieve)](https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%B0%A8_%EC%B2%B4)나 [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve)라 불리는 알고리즘같이 좀 더 어려운 수학 알고리즘을 이용해 소수 검색 알고리즘을 개선할 수 있을 겁니다. 

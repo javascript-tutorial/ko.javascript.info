@@ -8,11 +8,11 @@ libs:
 
 HTML의 근간은 태그(tag)입니다.
 
-According to Document Object Model (DOM), every HTML-tag is an object. Nested tags are  "children" of the enclosing one. The text inside a tag it is an object as well.
+According to the Document Object Model (DOM), every HTML tag is an object. Nested tags are  "children" of the enclosing one. The text inside a tag is an object as well.
 
-All these objects are accessible using JavaScript, we can use them to modify the page.
+All these objects are accessible using JavaScript, and we can use them to modify the page.
 
-For example, `document.body` is the object representing `<body>` tag.
+For example, `document.body` is the object representing the `<body>` tag.
 
 Running this code will make the `<body>` red for 3 seconds:
 
@@ -22,11 +22,17 @@ document.body.style.background = 'red'; // make the background red
 setTimeout(() => document.body.style.background = '', 3000); // return back
 ```
 
-That was just a glimpse of DOM power. Soon we'll learn more ways to manipulate DOM, but first we need to know about its structure.
+Here we used `style.background` to change the background color of `document.body`, but there are many other properties, such as:
+
+- `innerHTML` -- HTML contents of the node.
+- `offsetWidth` -- the node width (in pixels)
+- ...and so on.
+
+Soon we'll learn more ways to manipulate the DOM, but first we need to know about its structure.
 
 ## DOM 예제
 
-Let's start with the following simple docment:
+Let's start with the following simple document:
 
 ```html run no-beautify
 <!DOCTYPE HTML>
@@ -56,7 +62,7 @@ drawHtmlTree(node1, 'div.domtree', 690, 320);
 
 Every tree node is an object.
 
-Tags are *element nodes* (or just elements), they form the tree structure: `<html>` is at the root, then `<head>` and `<body>` are its children, etc.
+Tags are *element nodes* (or just elements) and form the tree structure: `<html>` is at the root, then `<head>` and `<body>` are its children, etc.
 
 요소 안쪽의 문자는 *텍스트(text) 노드*가 됩니다. 위에서 `#text`로 표시하고 있죠. 텍스트 노드는 오로지 문자열만 담습니다. 자식을 가질 수 없고 트리의 끝에서 잎 노드(leaf node)로만 존재합니다.
 
@@ -67,11 +73,11 @@ Tags are *element nodes* (or just elements), they form the tree structure: `<htm
 - 새 줄(newline): `↵` (자바스크립트에선 `\n`로 표시)
 - 공백(space): `␣`
 
-Spaces and newlines -- are totally valid characters, like letters and digits. They form text nodes and become a part of the DOM. So, for instance, in the example above the `<head>` tag contains some spaces before `<title>`, and that text becomes a `#text` node (it contains a newline and some spaces only).
+Spaces and newlines are totally valid characters, like letters and digits. They form text nodes and become a part of the DOM. So, for instance, in the example above the `<head>` tag contains some spaces before `<title>`, and that text becomes a `#text` node (it contains a newline and some spaces only).
 
-텍스트 노드 생성엔 두 가지 예외가 있습니다.
-1. 역사적인 이유로, `<head>` 이전의 공백과 새 줄은 무시됩니다.
-2. HTML 명세에서 모든 콘텐츠는 `body` 안쪽에 있어야 한다고 했으므로, `</body>` 뒤에 뭔가를 넣더라도 그 콘텐츠는 자동으로 `body` 안쪽으로 옮겨집니다. 따라서 `</body>` 뒤엔 공백이 있을 수 없습니다.
+There are only two top-level exclusions:
+1. Spaces and newlines before `<head>` are ignored for historical reasons.
+2. If we put something after `</body>`, then that is automatically moved inside the `body`, at the end, as the HTML spec requires that all content must be inside `<body>`. So there can't be any spaces after `</body>`.
 
 두 예외를 제외하곤 아주 간단합니다. 문서 내에 공백이 있다면 다른 문자와 마찬가지로 텍스트 노드가 됩니다. 그리고 공백을 지우면 그 노드는 사라집니다. 
 
@@ -210,11 +216,11 @@ HTML 문서 제일 처음에 등장하는 `<!DOCTYPE...>` 지시자 역시 DOM �
 
 Another way to explore the DOM is to use the browser developer tools. Actually, that's what we use when developing.
 
-[elks.html](elks.html) 페이지를 열고, 브라우저에서 개발자 도구를 켠 다음 Elements 탭으로 이동해봅시다.
+[elk.html](elk.html) 페이지를 열고, 브라우저에서 개발자 도구를 켠 다음 Elements 탭으로 이동해봅시다.
 
 아래와 같은 화면이 보여야 합니다.
 
-![](elks.png)
+![](elk.svg)
 
 이제 개발자 도구에서 DOM을 볼 수 있게 되었네요. 요소를 클릭하면 자세한 내용을 볼 수도 있습니다.
 
@@ -224,7 +230,7 @@ Another way to explore the DOM is to use the browser developer tools. Actually, 
 
 웹페이지에서 마우스 오른쪽 버튼 클릭 시 나타나는 컨텍스트 메뉴에서 "검사(Inspect)"를 클릭해도 같은 기능을 사용할 수 있습니다.
 
-![](inspect.png)
+![](inspect.svg)
 
 Elements 탭엔 아래와 같은 하위 탭이 있습니다:
 - **Styles** -- 내장 규칙(회색 배경)을 포함하여 현재 선택한 요소에 적용된 CSS 규칙 전체를 보여줍니다. 하단부 박스에 있는 크기(dimension), 마진(margin), 패딩(padding)에 더하여 대부분의 스타일을 이 탭에서 바로 수정해 볼 수 있습니다.
@@ -247,15 +253,15 @@ For the start:
 
 예를 들어 `$0.style.background = 'red'`을 콘솔 창에 입력하면 아래와 같이 첫 번째 list 아이템이 붉은색으로 표시되는 걸 볼 수 있습니다.
 
-![](domconsole0.png)
+![](domconsole0.svg)
 
 That's how to get a node from Elements in Console.
 
 There's also a road back. If there's a variable referencing a DOM node, then we can use the command `inspect(node)` in Console to see it in the Elements pane.
 
-Or we can just output DOM-node in the console and explore "at-place", like `document.body` below:
+Or we can just output the DOM node in the console and explore "in-place", like `document.body` below:
 
-![](domconsole1.png)
+![](domconsole1.svg)
 
 지금까지 소개해 드린 이 팁들은 디버깅 용도입니다. 다음 챕터부턴, 자바스크립트를 이용하여 DOM에 접근하고 수정하는 방법을 배우도록 하겠습니다.  
 

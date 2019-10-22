@@ -193,7 +193,6 @@ alert(Rabbit.__proto__ === Animal); // true
 
 // 정규 메서드를 위한것
 alert(Rabbit.prototype.__proto__ === Animal.prototype);
-```
 
 ## 요약
 

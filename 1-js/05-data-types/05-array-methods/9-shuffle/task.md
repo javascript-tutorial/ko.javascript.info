@@ -2,11 +2,11 @@ importance: 3
 
 ---
 
-# Shuffle an array
+# 배열 요소 무작위로 섞기
 
-Write the function `shuffle(array)` that shuffles (randomly reorders) elements of the array.
+배열의 요소를 무작위로 섞어주는 함수 `shuffle(array)`을 작성해 보세요.
 
-Multiple runs of `shuffle` may lead to different orders of elements. For instance:
+`shuffle`을 여러 번 실행하면 요소의 정렬 순서가 달라야 합니다. 예시를 살펴봅시다.
 
 ```js
 let arr = [1, 2, 3];
@@ -22,4 +22,4 @@ shuffle(arr);
 // ...
 ```
 
-All element orders should have an equal probability. For instance, `[1,2,3]` can be reordered as `[1,2,3]` or `[1,3,2]` or `[3,1,2]` etc, with equal probability of each case.
+문제를 풀 때 주의할 점은 모든 순열이 동일한 확률로 일어나야 한다는 점입니다. 예를 들어 `[1,2,3]` 은 `[1,2,3]`이나 `[1,3,2]`, `[3,1,2]`로 재정렬 될 수 있는데, 이 배열들이 만들어지는 빈도는 같아야 합니다.

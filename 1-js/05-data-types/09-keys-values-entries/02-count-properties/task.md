@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Count properties
+# 프로퍼티 개수 세기
 
-Write a function `count(obj)` that returns the number of properties in the object:
+객체 프로퍼티 개수를 반환하는 함수 `count(obj)`를 만들어보세요.
 
 ```js
 let user = {
@@ -15,7 +15,7 @@ let user = {
 alert( count(user) ); // 2
 ```
 
-Try to make the code as short as possible.
+가능한 짧게 코드를 작성해 보세요.
 
-P.S. Ignore symbolic properties, count only "regular" ones.
+주의: 심볼형 프로퍼티는 무시하고 "일반" 프로퍼티 개수만 세주세요.
 

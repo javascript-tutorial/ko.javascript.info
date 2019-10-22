@@ -1,4 +1,4 @@
-The answer: `1`.
+답: `1`
 
 ```js run
 let i = 3;
@@ -8,18 +8,18 @@ while (i) {
 }
 ```
 
-Every loop iteration decreases `i` by `1`. The check `while(i)` stops the loop when `i = 0`.
+반복이 하나씩 끝날 때마다 `i`는 `1`씩 줄어듭니다. `while(i)`은 `i = 0`일 때 멈춥니다.
 
-Hence, the steps of the loop form the following sequence ("loop unrolled"):
+따라서 전체 반복문은 아래 순서를 따라 실행됩니다.
 
 ```js
 let i = 3;
 
-alert(i--); // shows 3, decreases i to 2
+alert(i--); // 3이 출력되고 i는 2로 줄어듭니다.
 
-alert(i--) // shows 2, decreases i to 1
+alert(i--) // 2가 출력되고 i는 1로 줄어듭니다.
 
-alert(i--) // shows 1, decreases i to 0
+alert(i--) // 1이 출력되고 i는 0으로 줄어듭니다.
 
-// done, while(i) check stops the loop
+// i가 0이 되었기 때문에 while(i)는 종료됩니다.
 ```

@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Store read dates
+# 읽은 날짜 저장하기
 
-There's an array of messages as in the [previous task](info:task/recipients-read). The situation is similar.
+[이전 과제](info:task/recipients-read)처럼 배열에 메시지를 저장하고 있다고 가정해 봅시다.
 
 ```js
 let messages = [
@@ -14,8 +14,8 @@ let messages = [
 ];
 ```
 
-The question now is: which data structure you'd suggest to store the information: "when the message was read?".
+이번 문제에선 "메시지를 언제 읽었나요?"라는 질문을 던지면 제대로 된 답이 반환되는 자료구조가 무엇인지 생각해봅시다.
 
-In the previous task we only needed to store the "yes/no" fact. Now we need to store the date, and it should only remain in memory until the message is garbage collected.
+위 문제에선 'yes'나 'no'만 저장해도 괜찮았는데, 이제는 날짜 정보를 저장해야 하고, 이 날짜 정보는 메시지가 기비지 컬렉션의 대상이 되기 전까지만 메모리에 남아있어야 합니다.
 
-P.S. Dates can be stored as objects of built-in `Date` class, that we'll cover later.
+참고: `Data`라는 내장 클래스의 구현체(객체)를 사용하면 날짜를 저장할 수 있습니다(`Date`클래스에 대해선 추후에 학습할 예정입니다). 
