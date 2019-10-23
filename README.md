@@ -51,6 +51,8 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 * [번역 모범 사례](https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%B2%88%EC%97%AD-%EB%AA%A8%EB%B2%94-%EC%82%AC%EB%A1%80)와 [KIGO 번역 스타일가이드](https://www.facebook.com/groups/kigostyleguide/permalink/930262127127479/), [자주 하는 실수](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=579221672)를 읽어보시고 작업에 참여해주세요.
 * 주제에서 새롭게 등장하는 키워드는 한-영 병기`(예: 프로퍼티(property), 브라우저 객체 모델(Browser Object Model, BOM))`합니다.
 * [합의된 번역어](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)로 번역합니다. 공동작업에선 번역어 통일이 매우 중요합니다.
+* 에러 내용은 번역하지 않습니다.
+  * 예시: let rabbit = new Rabbit("White Rabbit"); // Error: this is not defined에서 주석은 번역하지 않습니다.
 * 등록되지 않은 새로운 용어는 [용어집](https://docs.google.com/spreadsheets/u/1/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)에 용어를 등록한 후 번역합니다.
 * 번역어는 출판된 도서, 국립국어원의 외래어 표기법 용례, 한글라이즈 사이트 등을 기준으로 선정합니다. 주 참고자료는 다음과 같습니다.
   * 마이크로소프트 Language Portal의 Terminology Search 페이지([링크](https://www.microsoft.com/en-us/language/Search))
