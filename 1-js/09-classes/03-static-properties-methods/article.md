@@ -1,9 +1,9 @@
 
-# Static properties and methods
+# 정적 메서드와 정적 프로퍼티
 
-We can also assign a method to the class function itself, not to its `"prototype"`. Such methods are called *static*.
+`"prototype"`이 아닌 클래스 함수 자체에 메서드를 설정할 수도 있습니다. 이런 메서드를 *정적(static)* 메서드라고 부릅니다.
 
-In a class, they are prepended by `static` keyword, like this:
+정적 메서드는 아래와 같이 클래스 안에서 `static` 키워드를 붙여 만들 수 있습니다.   
 
 ```js run
 class User {
@@ -17,7 +17,7 @@ class User {
 User.staticMethod(); // true
 ```
 
-That actually does the same as assigning it as a property directly:
+정적 메서드는 메서드를 프로퍼티 형태로 직접 할당하는 것과 동일한 일을 합니다. 
 
 ```js
 class User() { }
@@ -27,11 +27,11 @@ User.staticMethod = function() {
 };
 ```
 
-The value of `this` in `User.staticMethod()` call is the class constructor `User` itself (the "object before dot" rule).
+`User.staticMethod()`가 호출될 때 `this`의 값은 클래스 생성자인 `User` 자체가 됩니다(점 앞 객체).
 
-Usually, static methods are used to implement functions that belong to the class, but not to any particular object of it.
+정적 메서드는 어떤 특정한 객체가 아닌 클래스에 속한 함수를 구현하고자 할 때 주로 사용됩니다.
 
-For instance, we have `Article` objects and need a function to compare them. A natural solution would be to add `Article.compare` method, like this:
+객체 `Article`이 여러 개 있고 이들을 비교해줄 함수가 필요하다고 가정해 봅시다. 가장 먼저 아래와 같이 `Article.compare`를 추가하는 방법이 떠오를 겁니다.
 
 ```js run
 class Article {
@@ -47,7 +47,7 @@ class Article {
 */!*
 }
 
-// usage
+// 사용법
 let articles = [
   new Article("HTML", new Date(2019, 1, 1)),
   new Article("CSS", new Date(2019, 0, 1)),
@@ -61,17 +61,17 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-Here `Article.compare` stands "above" articles, as a means to compare them. It's not a method of an article, but rather of the whole class.
+여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, 글을 '위에서' 바라보며 비교를 수행합니다. `Article.compare`이 글의 메서드가 아닌 전체 클래스의 메서드여야 하는 이유가 여기에 있습니다.
 
-Another example would be a so-called "factory" method. Imagine, we need few ways to create an article:
+이번에 살펴볼 예시는 '팩토리' 메서드를 구현한 코드입니다. article을 만드는 방법 몇 가지가 필요하다고 가정해 봅시다.
 
-1. Create by given parameters (`title`, `date` etc).
-2. Create an empty article with today's date.
-3. ...or else somehow.
+1. 주어진 매개변수(`title`, `date` 등)를 사용해 생성
+2. 오늘 날짜를 기반으로 비어있는 article을 생성
+3. 기타 등등
 
-The first way can be implemented by the constructor. And for the second one we can make a static method of the class.
+첫 번째 방법은 생성자를 사용해 구현할 수 있습니다. 두 번째 방법은 클래스에 정적 메서드를 만들어 구현할 수 있습니다.
 
-Like `Article.createTodays()` here:
+아래 `Article.createTodays()`같이 말이죠.
 
 ```js run
 class Article {
@@ -82,7 +82,7 @@ class Article {
 
 *!*
   static createTodays() {
-    // remember, this = Article
+    // this는 Article입니다.
     return new this("Today's digest", new Date());
   }
 */!*
@@ -93,21 +93,21 @@ let article = Article.createTodays();
 alert( article.title ); // Today's digest
 ```
 
-Now every time we need to create a today's digest, we can call `Article.createTodays()`. Once again, that's not a method of an article, but a method of the whole class.
+이제 Today's digest라는 글이 필요할 때마다 `Article.createTodays()`를 호출하면 됩니다. 여기서도 마찬가지로 `Article.createTodays()`는 article의 메서드가 아닌 전체 클래스의 메서드 입니다.
 
-Static methods are also used in database-related classes to search/save/remove entries from the database, like this:
+정적 메서드는 아래 예시와 같이 항목 검색, 저장, 삭제 등을 수행해주는 데이터베이스 관련 클래스에도 사용됩니다.
 
 ```js
-// assuming Article is a special class for managing articles
-// static method to remove the article:
+// Article은 article을 관리해주는 특별 클래스라고 가정합시다.
+// article 삭제에 쓰이는 정적 메서드
 Article.remove({id: 12345});
 ```
 
-## Static properties
+## 정적 프로퍼티
 
 [recent browser=Chrome]
 
-Static properties are also possible, they look like regular class properties, but prepended by `static`:
+정적 프로퍼티도 물론 만들 수 있습니다. 정적 프로퍼티는 일반 클래스 프로퍼티와 유사하게 생겼는데 앞에 `static`이 붙는다는 점만 다릅니다.
 
 ```js run
 class Article {
@@ -117,17 +117,17 @@ class Article {
 alert( Article.publisher ); // Ilya Kantor
 ```
 
-That is the same as a direct assignment to `Article`:
+위 예시는 `Article`에 직접 할당한 것과 동일합니다.
 
 ```js
 Article.publisher = "Ilya Kantor";
 ```
 
-## Inheritance of static methods
+## 정적 메서드 상속
 
-Static methods are inherited.
+정적 메서드는 상속이 가능합니다.
 
-For instance, `Animal.compare` in the code below is inherited and accessible as `Rabbit.compare`:
+아래 예시에서 `Animal.compare`는 상속되어서 `Rabbit.compare`에서 접근할 수 있습니다.
 
 ```js run
 class Animal {
@@ -139,7 +139,7 @@ class Animal {
 
   run(speed = 0) {
     this.speed += speed;
-    alert(`${this.name} runs with speed ${this.speed}.`);
+    alert(`${this.name}가 속도 ${this.speed}로 달립니다.`);
   }
 
 *!*
@@ -150,62 +150,62 @@ class Animal {
 
 }
 
-// Inherit from Animal
+// Animal을 상속받음
 class Rabbit extends Animal {
   hide() {
-    alert(`${this.name} hides!`);
+    alert(`${this.name}가 숨었습니다!`);
   }
 }
 
 let rabbits = [
-  new Rabbit("White Rabbit", 10),
-  new Rabbit("Black Rabbit", 5)
+  new Rabbit("흰 토끼", 10),
+  new Rabbit("검은 토끼", 5)
 ];
 
 *!*
 rabbits.sort(Rabbit.compare);
 */!*
 
-rabbits[0].run(); // Black Rabbit runs with speed 5.
+rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
 ```
 
-Now when we can call `Rabbit.compare`, the inherited `Animal.compare` will be called.
+이제 `Rabbit.compare`을 호출하면 `Animal.compare`가 호출됩니다.
 
-How does it work? Again, using prototypes. As you might have already guessed, `extends` gives `Rabbit` the `[[Prototype]]` reference to `Animal`.
+이게 가능한 이유는 프로토타입 때문입니다. 이미 예상하셨겠지만, `extends` 키워드는 `Rabbit`의 `[[Prototype]]`이 `Animal`을 참조하도록 해줍니다.
 
 ![](animal-rabbit-static.svg)
 
-So, `Rabbit extends Animal` creates two `[[Prototype]]` references:
+따라서 `Rabbit extends Animal`은 두 개의 `[[Prototype]]` 참조를 만들어 냅니다.
 
-1. `Rabbit` function prototypally inherits from `Animal` function.
-2. `Rabbit.prototype` prototypally inherits from `Animal.prototype`.
+1. 함수 `Rabbit`은 프로토타입을 통해 함수 `Animal`을 상속받습니다.
+2. `Rabbit.prototype`은 프로토타입을 통해 `Animal.prototype`을 상속받습니다.
 
-As the result, inheritance works both for regular and static methods.
+이런 과정이 있기 때문에 일반 메서드 상속과 정적 메서드 상속이 가능합니다.
 
-Here, let's check that by code:
+코드로 직접 확인해봅시다.
 
 ```js run
 class Animal {}
 class Rabbit extends Animal {}
 
-// for statics
+// 정적 메서드
 alert(Rabbit.__proto__ === Animal); // true
 
-// for regular methods
+// 일반 메서드
 alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 ```
 
-## Summary
+## 요약
 
-Static methods are used for the functionality that belongs to the class "as a whole", doesn't relate to a concrete class instance.
+정적 메서드는 특정 클래스 인스턴스가 아닌 클래스 '전체'에 필요한 기능을 만들 때 사용할 수 있습니다. 
 
-For example, a method for comparison `Article.compare(article1, article2)` or a factory method `Article.createTodays()`.
+비교를 위한 메서드 `Article.compare(article1, article2)`나 팩터리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
 
-They are labeled by the word `static` in class declaration.
+정적 메서드는 클래스 선언부 안에 위치하고 앞에 `static`이라는 키워드가 붙습니다.
 
-Static properties are used when we'd like to store class-level data, also not bound to an instance.
+정적 프로퍼티는 데이터를 클래스 수준에 저장하고 싶을 때 사용합니다. 정적 프로퍼티 역시 개별 인스턴스에 묶이지 않습니다.
 
-The syntax is:
+문법:
 
 ```js
 class MyClass {
@@ -217,13 +217,13 @@ class MyClass {
 }
 ```
 
-Technically, static declaration is the same as assigning to the class itself:
+static을 사용한 선언은 기술적으론 클래스 자체에 직접 할당하는것과 동일합니다.
 
 ```js
 MyClass.property = ...
 MyClass.method = ...
 ```
 
-Static properties and methods are inherited.
+정적 프로퍼티와 정적 메서드는 상속이 가능합니다.
 
-For `class B extends A` the prototype of the class `B` itself points to `A`: `B.[[Prototype]] = A`. So if a field is not found in `B`, the search continues in `A`.
+`class B extends A`는 클래스 `B`의 프로토타입이 클래스 `A`를 가리키게 합니다(`B.[[Prototype]] = A`). 따라서 `B`에서 원하는 프로퍼티나 메서드를 찾지 못하면 `A`로 검색이 이어집니다.
