@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Error creating an instance
+# 인스턴스 생성 오류
 
-Here's the code with `Rabbit` extending `Animal`.
+아래 코드에서 `Rabbit`은 `Animal`을 상속받습니다.
 
-Unfortunately, `Rabbit` objects can't be created. What's wrong? Fix it.
+그런데 `Rabbit` 객체를 만들 수가 없습니다. 무엇이 잘못된 것일까요? 코드를 수정해보세요.
 ```js run
 class Animal {
 

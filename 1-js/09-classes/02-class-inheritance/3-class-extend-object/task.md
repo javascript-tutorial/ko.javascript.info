@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Class extends Object?
+# Object를 상속받는 클래스
 
-As we know, all objects normally inherit from `Object.prototype` and get access to "generic" object methods like `hasOwnProperty` etc.
+아시다시피, 객체는 보통 `Object.prototype`를 상속받고 `hasOwnProperty`같은 '일반' 객체 메서드에 접근할 수 있습니다.
 
-For instance:
+예시:
 
 ```js run
 class Rabbit {
@@ -18,16 +18,16 @@ class Rabbit {
 let rabbit = new Rabbit("Rab");
 
 *!*
-// hasOwnProperty method is from Object.prototype
+// 메서드 hasOwnProperty는 Object.prototype에서 왔습니다.
 alert( rabbit.hasOwnProperty('name') ); // true
 */!*
 ```
 
-But if we spell it out explicitly like `"class Rabbit extends Object"`, then the result would be different from a simple `"class Rabbit"`?
+그런데 `"class Rabbit extends Object"`같이 상속을 명시적으로 해주는 경우와 그냥 `"class Rabbit"`를 사용하는 경우, 결과가 다를까요? 
 
-What's the difference?
+만약 다르다면 어떤 것이 다를까요?
 
-Here's an example of such code (it doesn't work -- why? fix it?):
+아래 예시에서 `"class Rabbit extends Object"`를 사용한 코드가 있는데, 실행해보면 동작하지 않습니다. 어디서 문제가 생긴걸까요? 코드를 수정해보세요.
 
 ```js
 class Rabbit extends Object {
