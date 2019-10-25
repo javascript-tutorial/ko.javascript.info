@@ -105,10 +105,10 @@ alert( arr instanceof Object ); // true
 function Rabbit() {}
 let rabbit = new Rabbit();
 
-// changed the prototype
+// 프로토 타입을 변형 했습니다.
 Rabbit.prototype = {};
 
-// ...not a rabbit any more!
+// ...더이상 Rabbit이 아닙니다!!
 *!*
 alert( rabbit instanceof Rabbit ); // false
 */!*
@@ -138,20 +138,17 @@ alert(obj.toString()); // 같습니다.
 해결해봅시다:
 
 ```js run
-// copy toString method into a variable for convenience
+// 편의를 위햐ㅐ toString 메소드를 변수에 복사합니다. 
 let objectToString = Object.prototype.toString;
 
-// what type is this?
+// 이것의 타입은 무엇일까요?
 let arr = [];
 
 alert( objectToString.call(arr) ); // [object *!*Array*/!*]
 ```
-
-Here we used [call](mdn:js/function/call) as described in the chapter [](info:call-apply-decorators) to execute the function `objectToString` in the context `this=arr`.
-
-Internally, the `toString` algorithm examines `this` and returns the corresponding result. More examples:
-
-```js run
+이번 챕터에서 [](info:call-apply-decorators)에 서술 되어있는 [call](mdn:js/function/call)는 우리가 `objectToString`함수를 `this=arr` 컨텍스트에 실행하기 위해서 사용했습니다.
+내부적으로, `toString` 알고리즘은 `this`를 검사하고, 일치하는 결과를 반환합니다. 예를 들어:
+```js 실행 
 let s = Object.prototype.toString;
 
 alert( s.call(123) ); // [object Number]
@@ -160,46 +157,41 @@ alert( s.call(alert) ); // [object Function]
 ```
 
 ### Symbol.toStringTag
+오브젝트 `toString`의 기능은 특별한 오브젝트 프로퍼터 `Symbol.toStringTag`를 사용함으로써 커스터마이즈 될수있습니다. 
 
-The behavior of Object `toString` can be customized using a special object property `Symbol.toStringTag`.
+예를 들어:
 
-For instance:
-
-```js run
+```js 실행:
 let user = {
   [Symbol.toStringTag]: "User"
 };
 
 alert( {}.toString.call(user) ); // [object User]
 ```
+대부분의 특정 환경 오브젝트들을 위해, 프로퍼티같은 것들이 있습니다. 
+여기에 몇가지 예시들이 있습니다:
 
-For most environment-specific objects, there is such a property. Here are few browser specific examples:
-
-```js run
-// toStringTag for the environment-specific object and class:
+```js 실행
+// 특정 환경의 오브젝트와 클래스를 위한 toStringTag :
 alert( window[Symbol.toStringTag]); // window
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
 alert( {}.toString.call(window) ); // [object Window]
 alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
+여러분도 아시다시피, 그 결과는 정확히 `Symbol.toStringTag`(이 속성을 가지고 있다면)와 내부`[object ...]`로 감싸줍니다.
 
-As you can see, the result is exactly `Symbol.toStringTag` (if exists), wrapped into `[object ...]`.
+끝으로 우리가 원시적인 데이터 타입으로 동작할 뿐 아니라, 내장된 오브젝트를 위한 "typeof on steroids"를 가지고 있고 심지어 커스텀마이즈도 가능합니다.
+우리는 `{}.toString.call` 대신 `instanceof` 내장된 오브젝트들을 우리가 단순히 타입 확인을 넘어 문자열로 타입을 얻기를 원할 때, 사용할수 있습니다.
 
-At the end we have "typeof on steroids" that not only works for primitive data types, but also for built-in objects and even can be customized.
+##요약
+우리가 알고있는 타입확인 메소드를 요약 해봅시다:
 
-We can use `{}.toString.call` instead of `instanceof` for built-in objects when we want to get the type as a string rather than just to check.
-
-## Summary
-
-Let's summarize the type-checking methods that we know:
-
-|               | works for   |  returns      |
+|               | 동작대상      |  리턴타입      |
 |---------------|-------------|---------------|
 | `typeof`      | primitives  |  string       |
-| `{}.toString` | primitives, built-in objects, objects with `Symbol.toStringTag`   |       string |
+| `{}.toString` | primitives, 내장된 오브젝트, `Symbol.toStringTag`를 가진 오브젝트   |       string |
 | `instanceof`  | objects     |  true/false   |
 
-As we can see, `{}.toString` is technically a "more advanced" `typeof`.
-
-And `instanceof` operator really shines when we are working with a class hierarchy and want to check for the class taking into account inheritance.
+여러분도 아시다시피,`{}.toString`은 기술적으로 `typeof` "더 진보된" 것 입니다.. 
+그리고 `instanceof` 연산자는 우리가 클래스 계층에 작업하거나, 상속을 고려하여 클래스 확인을 원할때, 정말 큰 빛을 발합니다. 
