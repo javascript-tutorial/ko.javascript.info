@@ -117,7 +117,7 @@ alert( rabbit instanceof Rabbit ); // false
 ```
 
 ## 보너스: 타입을 위한 Object.prototype.toString
-우리는 이미 `[object Object]`의 문자열로 변환되는 평편한 객에 대해 알고 있습니다.
+우리는 이미 `[object Object]`의 문자열로 변환되는 평편한 객체에 대해 알고 있습니다.
 
 ```js run
 let obj = {};
@@ -130,7 +130,7 @@ alert(obj.toString()); // 같습니다.
 이상하게 들리나요? 그럼 미스터리로 두죠.
 
 
-[이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 오브젝트와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
+[이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 객체와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
 
 - 숫자의 경우, 그것은 `[object Number]`가 될 것입니다.
 - 참거짓(불린)의 경우, 그것은 `[object Boolean]`가 될 것입니다.
@@ -161,7 +161,7 @@ alert( s.call(alert) ); // [object Function]
 ```
 
 ### Symbol.toStringTag
-오브젝트 `toString`의 기능은 특별한 오브젝트 프로퍼터 `Symbol.toStringTag`를 사용함으로써 커스터마이즈 될수있습니다. 
+객체 `toString`의 기능은 특별한 객체 프로퍼터 `Symbol.toStringTag`를 사용함으로써 커스터마이즈 될수있습니다. 
 
 예를 들어:
 
@@ -172,11 +172,11 @@ let user = {
 
 alert( {}.toString.call(user) ); // [object User]
 ```
-대부분의 특정 환경 오브젝트들을 위해, 프로퍼티같은 것들이 있습니다. 
+대부분의 특정 환경 객체들을 위해, 프로퍼티같은 것들이 있습니다. 
 여기에 몇가지 예시들이 있습니다:
 
 ```js 실행
-// 특정 환경의 오브젝트와 클래스를 위한 toStringTag :
+// 특정 환경의 객체와 클래스를 위한 toStringTag :
 alert( window[Symbol.toStringTag]); // window
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
@@ -185,8 +185,8 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
 여러분도 아시다시피, 그 결과는 정확히 `Symbol.toStringTag`(이 속성을 가지고 있다면)와 내부`[object ...]`로 감싸줍니다.
 
-끝으로 우리가 원시적인 데이터 타입으로 동작할 뿐 아니라, 내장된 오브젝트를 위한 "typeof on steroids"를 가지고 있고 심지어 커스텀마이즈도 가능합니다.
-우리는 `{}.toString.call` 대신 `instanceof` 내장된 오브젝트들을 우리가 단순히 타입 확인을 넘어 문자열로 타입을 얻기를 원할 때, 사용할수 있습니다.
+끝으로 우리가 원시적인 데이터 타입으로 동작할 뿐 아니라, 내장된 객체를 위한 "typeof on steroids"를 가지고 있고 심지어 커스텀마이즈도 가능합니다.
+우리는 `{}.toString.call` 대신 `instanceof` 내장된 객체들을 우리가 단순히 타입 확인을 넘어 문자열로 타입을 얻기를 원할 때, 사용할수 있습니다.
 
 ##요약
 우리가 알고있는 타입확인 메소드를 요약 해봅시다:
@@ -194,7 +194,7 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 |               | 동작대상      |  리턴타입      |
 |---------------|-------------|---------------|
 | `typeof`      | primitives  |  string       |
-| `{}.toString` | primitives, 내장된 오브젝트, `Symbol.toStringTag`를 가진 오브젝트   |       string |
+| `{}.toString` | primitives, 내장된 객체, `Symbol.toStringTag`를 가진 객체   |       string |
 | `instanceof`  | objects     |  true/false   |
 
 여러분도 아시다시피,`{}.toString`은 기술적으로 `typeof` "더 진보된" 것 입니다.. 
