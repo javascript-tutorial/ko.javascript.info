@@ -1,49 +1,49 @@
-The test demonstrates one of the temptations a developer meets when writing tests.
+개발자는 위와 같이 테스트 코드를 작성하려는 유혹에 빠지곤 합니다.
 
-What we have here is actually 3 tests, but layed out as a single function with 3 asserts.
+위 코드엔 세 개의 assert, 즉 세 개의 테스트가 있지만 결론적으로 테스트 함수는 하나뿐입니다.
 
-Sometimes it's easier to write this way, but if an error occurs, it's much less obvious what went wrong.
+이렇게 테스트 코드를 작성하면 당장은 쉽게 테스트를 진행할 수 있지만, 에러가 발생했을 때 에러의 원인을 찾기가 힘들어집니다.
 
-If an error happens in the middle of a complex execution flow, then we'll have to figure out the data at that point. We'll actually have to *debug the test*.
+실행 흐름이 복잡한 경우 에러가 발생하면 에러를 만든 입력값이 무엇이었는지를 일일이 확인해야 합니다. *테스트 코드를 디버깅* 해야 하는 상황이 웃픈 상황이 발생하는 거죠.
 
-It would be much better to break the test into multiple `it` blocks with clearly written inputs and outputs.
+테스트는 명확한 입력값, 출력값과 함께 여러 개의 `it` 블록으로 쪼개 작성하는 것이 좋습니다.
 
-Like this:
+아래와 같이 말이죠.
 ```js
-describe("Raises x to power n", function() {
-  it("5 in the power of 1 equals 5", function() {
+describe("주어진 숫자의 n 제곱", function() {
+  it("5를 1 제곱하면 5", function() {
     assert.equal(pow(5, 1), 5);
   });
 
-  it("5 in the power of 2 equals 25", function() {
+  it("5를 2 제곱하면 25", function() {
     assert.equal(pow(5, 2), 25);
   });
 
-  it("5 in the power of 3 equals 125", function() {
+  it("5를 3 제곱하면 125", function() {
     assert.equal(pow(5, 3), 125);
   });
 });
 ```
 
-We replaced the single `it` with `describe` and a group of `it` blocks. Now if something fails we would see clearly what the data was.
+기존에 하나만 있던 `it` 블록을 여러 개로 쪼개 `describe` 안에 넣어보았습니다. 이렇게 하면 에러가 발생했을 때 입력값이 무엇인지 쉽게 파악할 수 있습니다. 
 
-Also we can isolate a single test and run it in standalone mode by writing `it.only` instead of `it`:
+여기에 더하여 위와 같이 `it` 블록을 여러 개로 쪼개면 `it` 대신 `it.only`를 사용해 원하는 테스트만 실행해 볼 수 있습니다.
 
 
 ```js
-describe("Raises x to power n", function() {
-  it("5 in the power of 1 equals 5", function() {
+describe("주어진 숫자의 n 제곱", function() {
+  it("5를 1 제곱하면 5", function() {
     assert.equal(pow(5, 1), 5);
   });
 
 *!*
-  // Mocha will run only this block
-  it.only("5 in the power of 2 equals 25", function() {
+  // Mocha는 아래 블록만 실행합니다.
+  it.only("5를 2 제곱하면 25", function() {
     assert.equal(pow(5, 2), 25);
   });
 */!*
 
-  it("5 in the power of 3 equals 125", function() {
+  it("5를 3 제곱하면 125", function() {
     assert.equal(pow(5, 3), 125);
   });
 });

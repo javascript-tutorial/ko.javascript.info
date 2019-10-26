@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Sort users by age
+# 나이를 기준으로 객체 정렬하기
 
-Write the function `sortByAge(users)` that gets an array of objects with the `age` property and sorts them by `age`.
+프로퍼티 `age`가 있는 객체가 담긴 배열이 있습니다. 이 배열을 `age`를 기준으로 정렬해주는 함수 `sortByAge(users)`를 만들어보세요.
 
-For instance:
+예시:
 
 ```js no-beautify
 let john = { name: "John", age: 25 };

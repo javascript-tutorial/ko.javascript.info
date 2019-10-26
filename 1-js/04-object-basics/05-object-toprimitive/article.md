@@ -1,87 +1,86 @@
 
-# Object to primitive conversion
+# 객체를 원시형으로 변환하기
 
-What happens when objects are added `obj1 + obj2`, subtracted `obj1 - obj2` or printed using `alert(obj)`?
+`obj1 + obj2` 처럼 객체끼리 더하는 연산을 하거나, `obj1 - obj2` 처럼 객체끼리 빼는 연산을 하면 어떤 일이 일어날까요? `alert(obj)`로 객체를 출력할 때는 무슨 일이 발생할까요?
 
-In that case, objects are auto-converted to primitives, and then the operation is carried out.
+이 모든 경우에 자동 형 변환이 일어납니다. 객체는 원시값으로 변환되고, 그 이후 의도한 연산이 수행됩니다.
 
-In the chapter <info:type-conversions> we've seen the rules for numeric, string and boolean conversions of primitives. But we left a gap for objects. Now, as we know about methods and symbols it becomes possible to fill it.
+<info:type-conversions> 챕터에선 객체의 형 변환은 다루지 않았습니다. 원시형 자료가 어떻게 문자, 숫자, 논리형으로 변환되는지만 알아보았죠. 이젠 메서드와 심볼에 대한 지식을 갖추었으니 본격적으로 이 공백을 메꿔보도록 합시다.
 
-1. All objects are `true` in a boolean context. There are only numeric and string conversions.
-2. The numeric conversion happens when we subtract objects or apply mathematical functions. For instance, `Date` objects (to be covered in the chapter <info:date>) can be subtracted, and the result of `date1 - date2` is the time difference between two dates.
-3. As for the string conversion -- it usually happens when we output an object like `alert(obj)` and in similar contexts.
+1. 객체는 논리 평가 시 `true`를 반환합니다. 단 하나의 예외도 없기 때문에 객체는 숫자형이나 문자형으로만 형 변환이 일어난다고 생각하시면 됩니다.
+2. 숫자형으로의 형 변환은 객체끼리 빼는 연산을 할 때나 수학 관련 함수를 적용할 때 일어납니다. 객체 `Date`(<info:date>챕터에서 다룰 예정임)끼리 차감하면(`date1 - date2`) 두 날짜의 시간 차이가 반환됩니다.
+3. 문자형으로의 형 변환은 대게 `alert(obj)`같이 객체를 출력하려고 할 때 일어납니다.  
 
 ## ToPrimitive
 
-We can fine-tune string and numeric conversion, using special object methods.
+특별한 객체 메서드를 사용하면 숫자형이나 문자형으로의 형 변환을 원하는 대로 조절할 수 있습니다.
 
-There are three variants of type conversion, so-called "hints", described in the [specification](https://tc39.github.io/ecma262/#sec-toprimitive):
+객체 형 변환은 세종류로 구분되는데, "hint"라 불리는 값이 구분 기준이 됩니다. "hint"가 무엇인지는 [명세](https://tc39.github.io/ecma262/#sec-toprimitive)에 자세히 설명되어 있는데, "목표로 하는 자료형" 정도로 이해하시면 될 것 같습니다. 
 
 `"string"`
-: For an object-to-string conversion, when we're doing an operation on an object that expects a string, like `alert`:
+: `alert` 함수같이 문자열을 기대하는 연산을 수행할 때(객체-문자형 변환), hint가 `string`이 됩니다.
 
     ```js
-    // output
+    // 객체를 출력하려고 함
     alert(obj);
 
-    // using object as a property key
+    // 객체를 프로퍼티 키로 사용하고 있음
     anotherObj[obj] = 123;
     ```
 
 `"number"`
-: For an object-to-number conversion, like when we're doing maths:
+: 수학 연산을 적용하려 할 때(객체-숫자형 변환), hint는 `number`가 됩니다.
 
     ```js
-    // explicit conversion
+    // 명시적 형 변환
     let num = Number(obj);
 
-    // maths (except binary plus)
-    let n = +obj; // unary plus
+    // (이항 덧셈 연산을 제외한) 수학 연산 
+    let n = +obj; // 단항 덧셈 연산
     let delta = date1 - date2;
 
-    // less/greater comparison
+    // 크고 작음 비교하기
     let greater = user1 > user2;
     ```
 
 `"default"`
-: Occurs in rare cases when the operator is "not sure" what type to expect.
+: 연산자가 기대하는 자료형이 "확실치 않을 때", hint는 `default`가 됩니다. 아주 드물게 발생합니다.
 
-    For instance, binary plus `+` can work both with strings (concatenates them) and numbers (adds them), so both strings and numbers would do. Or when an object is compared using `==` with a string, number or a symbol, it's also unclear which conversion should be done.
+    이항 덧셈 연산자 `+`는 피연산자의 자료형에 따라 문자열을 합쳐주는 연산을 할 수도 있고 숫자를 더해주는 연산을 할 수도 있습니다. 허용되는 자료형이 두 가지이므로 어떤 자료형이 올지 확신할 수 없죠. 동등 연산자 `==`를 사용해 객체-문자형, 객체-숫자형, 객체-심볼형끼리 비교할 때도, 객체를 어떤 자료형으로 바꿔야 할지 확신이 안 서므로 hint는 default가 됩니다.
 
     ```js
-    // binary plus
+    // 이항 덧셈 연산
     let total = car1 + car2;
 
     // obj == string/number/symbol
     if (user == 1) { ... };
     ```
 
-    The greater/less operator `<>` can work with both strings and numbers too. Still, it uses "number" hint, not "default". That's for historical reasons.
+    참고로, 크고 작음을 비교할 때 쓰이는 연산자 `<`, `>` 역시 피연산자에 문자형과 숫자형 둘 다를 허용하는데, 이 연산자들은 hint를 "number"로 고정하게 시킵니다. hint가 "default"가 되는 일이 없죠. 이는 하위 호환성 때문에 정해진 규칙입니다.
 
-    In practice, all built-in objects except for one case (`Date` object, we'll learn it later) implement `"default"` conversion the same way as `"number"`. And probably we should do the same.
+    `Date` 객체를 제외한 모든 내장 객체는 hint가 `"default"`인 경우와 `"number"`인 경우를 동일하게 처리합니다. 우리도 커스텀 객체를 만들 땐 이런 규칙을 따르는 게 좋겠죠?
 
-Please note -- there are only three hints. It's that simple. There is no "boolean" hint (all objects are `true` in boolean context) or anything else. And if we treat `"default"` and `"number"` the same, like most built-ins do, then there are only two conversions.
+hint는 총 세 가지입니다. 아주 간단하죠. hint가 "boolean"인 경우는 존재하지 않습니다. 모든 객체는 그냥 `true`로 평가될 뿐입니다. 게다가 우리도 내장 객체처럼 `"default"`와 `"number"`를 동일하게 처리하면, 결국엔 두 종류의 형변환(객체-문자형, 객체-숫자형)만 남게 됩니다.
 
-**To do the conversion, JavaScript tries to find and call three object methods:**
+**자바스크립트는 형 변환이 필요할 때, 아래와 같은 알고리즘에 따라 원하는 메서드를 찾고 호출합니다.**
 
-1. Call `obj[Symbol.toPrimitive](hint)` - the method with the symbolic key `Symbol.toPrimitive` (system symbol), if such method exists,
-2. Otherwise if hint is `"string"`
-    - try `obj.toString()` and `obj.valueOf()`, whatever exists.
-3. Otherwise if hint is `"number"` or `"default"`
-    - try `obj.valueOf()` and `obj.toString()`, whatever exists.
+1. 객체에 `obj[Symbol.toPrimitive](hint)`메서드가 있는지 찾고, 있다면 메서드를 호출합니다. `Symbol.toPrimitive`는 시스템 심볼로, 심볼형 키로 사용됩니다.
+2. 1에 해당하지 않고 hint가 `"string"`이라면,
+    - `obj.toString()`과 `obj.valueOf()`를 호출합니다(존재하는 메서드만 실행됨).
+3. 1과 2에 해당하지 않고, hint가 `"number"`나 `"default"`라면
+    - `obj.valueOf()`와 `obj.toString()`을 호출합니다(존재하는 메서드만 실행됨).
 
 ## Symbol.toPrimitive
 
-Let's start from the first method. There's a built-in symbol named `Symbol.toPrimitive` that should be used to name the conversion method, like this:
-
+첫 번째 메서드부터 살펴봅시다. 자바스크립트엔 `Symbol.toPrimitive`라는 내장 심볼이 존재하는데, 이 심볼은 아래와 같이 목표로 하는 자료형(hint)을 명명하는 데 사용됩니다.
 ```js
 obj[Symbol.toPrimitive] = function(hint) {
-  // must return a primitive value
-  // hint = one of "string", "number", "default"
+  // 반드시 원시값을 반환해야 합니다.
+  // hint는 "string", "number", "default" 중 하나가 될 수 있습니다.
 };
 ```
 
-For instance, here `user` object implements it:
+이제 실제 돌아가는 코드를 구현해 보도록 하겠습니다. `user` 객체에 객체-원시형 변환 메서드 `obj[Symbol.toPrimitive](hint)`를 구현해봅시다.
 
 ```js run
 let user = {
@@ -94,37 +93,37 @@ let user = {
   }
 };
 
-// conversions demo:
+// 데모:
 alert(user); // hint: string -> {name: "John"}
 alert(+user); // hint: number -> 1000
 alert(user + 500); // hint: default -> 1500
 ```
 
-As we can see from the code, `user` becomes a self-descriptive string or a money amount depending on the conversion. The single method `user[Symbol.toPrimitive]` handles all conversion cases.
+이렇게 메서드를 구현해 놓으면 `user`는 hint에 따라 (자기 자신을 설명해주는) 문자열로 변환되기도 하고 (가지고 있는 돈의 액수를 나타내는) 숫자로 변환되기도 합니다. `user[Symbol.toPrimitive]`를 사용하면 메서드 하나로 모든 종류의 형 변환을 다룰 수 있습니다.
 
 
 ## toString/valueOf
 
-Methods `toString` and `valueOf` come from ancient times. They are not symbols (symbols did not exist that long ago), but rather "regular" string-named methods. They provide an alternative "old-style" way to implement the conversion.
+`toString`과 `valueOf`는 심볼이 생기기 이전부터 존재해 왔던 "평범한" 메서드입니다. 이 메서드를 이용하면 "구식(old-style)"이긴 하지만 형 변환을 직접 구현할 수 있습니다.
 
-If there's no `Symbol.toPrimitive` then JavaScript tries to find them and try in the order:
+객체에 `Symbol.toPrimitive`가 없으면 자바스크립트는 아래 규칙에 따라 `toString`이나 `valueOf`를 호출합니다.
 
-- `toString -> valueOf` for "string" hint.
-- `valueOf -> toString` otherwise.
+- hint가 "string"인 경우: `toString -> valueOf` (toString이 있다면 toString을 호출, toString이 없다면 valueOf를 호출함)
+- 그 외: `valueOf -> toString` (valueOf가 있다면 valueOf를 호출, valueOf가 없다면 toString을 호출함)
 
-For instance, here `user` does the same as above using a combination of `toString` and `valueOf`:
+`toString`과 `valueOf`를 조합해 위 예시와 동일하게 동작하는 객체를 만들어 봅시다.
 
 ```js run
 let user = {
   name: "John",
   money: 1000,
 
-  // for hint="string"
+  // hint가 "string"인 경우
   toString() {
     return `{name: "${this.name}"}`;
   },
 
-  // for hint="number" or "default"
+  // hint가 "number"나 "default"인 경우
   valueOf() {
     return this.money;
   }
@@ -136,9 +135,9 @@ alert(+user); // valueOf -> 1000
 alert(user + 500); // valueOf -> 1500
 ```
 
-As we can see, the behavior is the same as the previous example with `Symbol.toPrimitive`.
+출력 결과가 `Symbol.toPrimitive`를 사용한 예제와 완전히 동일하다는 걸 확인할 수 있습니다.
 
-Often we want a single "catch-all" place to handle all primitive conversions. In this case, we can implement `toString` only, like this:
+그런데 간혹 모든 형 변환을 한 곳에서 처리해야 하는 경우도 생깁니다. 이럴 땐 아래와 같이 `toString`만 구현해 주면 됩니다. 
 
 ```js run
 let user = {
@@ -153,42 +152,42 @@ alert(user); // toString -> John
 alert(user + 500); // toString -> John500
 ```
 
-In the absence of `Symbol.toPrimitive` and `valueOf`, `toString` will handle all primitive conversions.
+객체에 `Symbol.toPrimitive`와 `valueOf`가 없으면, `toString`이 모든 형 변환을 처리합니다.
 
-## Return types
+## 반환 타입
 
-The important thing to know about all primitive-conversion methods is that they do not necessarily return the "hinted" primitive.
+위에 소개해드린 세 개의 메서드는 "hint"에 명시된 자료형으로의 형 변환을 보장해 주지 않습니다.
 
-There is no control whether `toString()` returns exactly a string, or whether `Symbol.toPrimitive` method returns a number for a hint "number".
+`toString()`이 항상 문자열을 반환하리라는 보장이 없고, `Symbol.toPrimitive`의 hint가 "number"일 때 항상 숫자형 자료가 반환되리라는 보장이 없습니다.
 
-The only mandatory thing: these methods must return a primitive, not an object.
+확신할 수 있는 단 한 가지는 객체가 아닌 원시값을 반환해 준다는 것뿐입니다.
 
-```smart header="Historical notes"
-For historical reasons, if `toString` or `valueOf` returns an object, there's no error, but such value is ignored (like if the method didn't exist). That's because in ancient times there was no good "error" concept in JavaScript.
+```smart header="과거의 잔재"
+`toString`이나 `valueOf`가 객체를 반환해도 에러가 발생하지 않습니다. 다만 이때는 반환 값이 무시되고, 메서드 자체가 존재하지 않았던 것처럼 동작합니다. 이렇게 동작하는 이유는 과거 자바스크립트엔 "에러"라는 개념이 잘 정립되어있지 않았기 때문입니다. 
 
-In contrast, `Symbol.toPrimitive` *must* return a primitive, otherwise there will be an error.
+반면에 `Symbol.toPrimitive`는 *무조건* 원시자료를 반환해야 합니다. 그렇지 않으면 에러가 발생합니다.
 ```
 
-## Further operations
+## 추가 형 변환
 
-An operation that initiated the conversion gets the primitive, and then continues to work with it, applying further conversions if necessary.
+형 변환이 수반되는 연산은 (형 변환 후 받은) 원시값을 이용해 원하는 연산을 수행하는데, 이 과정에서 또 다른 형 변환이 일어날 수 있습니다.
 
-For instance:
+예시:
 
-- Mathematical operations, except binary plus, convert the primitive to a number:
+- 이항 덧셈 연산을 제외한 수학 연산은 연산 과정에서 원시형을 숫자형으로 바꿉니다. 
 
     ```js run
     let obj = {
-      // toString handles all conversions in the absence of other methods
+      // toString에서 모든 형 변환을 처리하고 있습니다.
       toString() {
         return "2";
       }
     };
 
-    alert(obj * 2); // 4, object converted to primitive "2", then multiplication made it a number
+    alert(obj * 2); // 4, 객체가 문자열 "2"로 바뀌고, 곱셈 연산 과정에서 문자열 "2"는 숫자 2로 변경됩니다.
     ```
 
-- Binary plus will concatenate strings in the same situation:
+- 이항 덧셈 연산은 위와 같은 상황에서 문자열을 연결합니다. 
     ```js run
     let obj = {
       toString() {
@@ -196,26 +195,26 @@ For instance:
       }
     };
 
-    alert(obj + 2); // 22 (ToPrimitive returned string => concatenation)
+    alert(obj + 2); // 22 (toString은 문자열을 반환하므로, 이항 덧셈 연산자는 문자열을 연결해줍니다.)
     ```
 
-## Summary
+## 요약
 
-The object-to-primitive conversion is called automatically by many built-in functions and operators that expect a primitive as a value.
+원시값을 기대하는 내장 함수나 연산자를 사용할 때 객체-원시형으로의 형 변환이 자동으로 일어납니다.
 
-There are 3 types (hints) of it:
-- `"string"` (for `alert` and other operations that need a string)
-- `"number"` (for maths)
-- `"default"` (few operators)
+객체-원시형으로의 형 변환은 hint를 기준으로 세 종류로 구분할 수 있습니다.
+- `"string"` (`alert` 같이 문자열을 필요로 하는 연산)
+- `"number"` (수학 연산)
+- `"default"` (드물게 발생함)
 
-The specification describes explicitly which operator uses which hint. There are very few operators that "don't know what to expect" and use the `"default"` hint. Usually for built-in objects `"default"` hint is handled the same way as `"number"`, so in practice the last two are often merged together.
+연산자별로 어떤 hint가 적용되는지는 명세에서 찾아볼 수 있습니다. 연산자가 기대하는 피연산자를 "확신할 수 없을 땐" hint는 `"default"`가 됩니다. 이런 경우는 아주 드물지만 말이죠. 내장 객체는 대게 hint가 `"default"`이면, hint가 `"number"`일 때와 동일하게 처리합니다. 따라서 실무에선 hint가 `"default"`인 경우와 `"number"`인 경우를 합쳐서 처리할 때가 많습니다.
 
-The conversion algorithm is:
+객체-원시형 변환엔 다음 알고리즘이 적용됩니다.
 
-1. Call `obj[Symbol.toPrimitive](hint)` if the method exists,
-2. Otherwise if hint is `"string"`
-    - try `obj.toString()` and `obj.valueOf()`, whatever exists.
-3. Otherwise if hint is `"number"` or `"default"`
-    - try `obj.valueOf()` and `obj.toString()`, whatever exists.
+1. 객체에 `obj[Symbol.toPrimitive](hint)`메서드가 있는지 찾고, 있다면 메서드를 호출합니다.
+2. 1에 해당하지 않고 hint가 `"string"`이라면,
+    - `obj.toString()`과 `obj.valueOf()`를 호출합니다(존재하는 메서드만 실행됨).
+3. 1과 2에 해당하지 않고, hint가 `"number"`나 `"default"`라면
+    - `obj.valueOf()`와 `obj.toString()`을 호출합니다(존재하는 메서드만 실행됨).
 
-In practice, it's often enough to implement only `obj.toString()` as a "catch-all" method for all conversions that return a "human-readable" representation of an object, for logging or debugging purposes.  
+`obj.toString()`만 사용해도 "모든 변환"을 다 다룰 수 있기 때문에, 실무에선 `obj.toString()`만 구현해도 충분한 경우가 많습니다. 반환 값도 "사람이 읽고 이해할 수 있는" 형식이기 때문에 실용성 측면에서 다른 메서드에 뒤처지지도 않죠. `obj.toString()`은 로깅이나 디버깅 목적으로도 자주 사용됩니다.

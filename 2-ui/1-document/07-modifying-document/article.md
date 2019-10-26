@@ -286,7 +286,7 @@ We could make a function and put the code there. But the alternative way would b
 
 큰 요소를 다룰 땐 이 대안이 좀 더 빠르고 간단합니다.
 
-- `elem.cloneNode(true)`는 자신을 호출한 노드의 "깊은" 복제본을 생성합니다. 매개변수가 true이면 자손 노드 전체를 복제합니다. `elem.cloneNode(false)`은 해당 노드 하나만 복제합니다.
+- `elem.cloneNode(true)`는 자신을 호출한 노드의 "깊은" 복제본을 생성합니다. 매개변수가 true이면 후손 노드 전체를 복제합니다. `elem.cloneNode(false)`은 해당 노드 하나만 복제합니다.
 
 이를 이용해 메시지 띄어주기 예시를 다시 작성해봅시다:
 

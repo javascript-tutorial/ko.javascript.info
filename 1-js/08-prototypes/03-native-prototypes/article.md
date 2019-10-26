@@ -129,7 +129,7 @@ So, generally, modifying a native prototype is considered a bad idea.
 
 **In modern programming, there is only one case where modifying native prototypes is approved. That's polyfilling.**
 
-Polyfilling is a term for making a substitute for a method that exists in JavaScript specification, but not yet supported by current JavaScript engine.
+Polyfilling is a term for making a substitute for a method that exists in JavaScript specification, but is not yet supported by current JavaScript engine.
 
 Then we may implement it manually and populate the built-in prototype with it.
 
@@ -193,4 +193,4 @@ Borrowing methods is flexible, it allows to mix functionality from different obj
     - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype` etc).
     - The object itself stores only the data (array items, object properties, the date).
 - Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype`, `Boolean.prototype`. Only `undefined` and `null` do not have wrapper objects.
-- Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. Probably the only allowable cause is when we add-in a new standard, but not yet supported by the engine JavaScript method.
+- Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. Probably the only allowable case is when we add-in a new standard, but not yet supported by the engine JavaScript method.

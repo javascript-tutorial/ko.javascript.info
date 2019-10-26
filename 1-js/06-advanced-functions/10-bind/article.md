@@ -3,7 +3,7 @@ libs:
 
 ---
 
-# 함수 바인딩(Function binding)
+# 함수 바인딩
 
 When passing object methods as callbacks, for instance to `setTimeout`, there's a known problem: "losing `this`".
 
@@ -164,7 +164,7 @@ sayHi(); // Hello, John!
 setTimeout(sayHi, 1000); // Hello, John!
 ```
 
-`(*)`줄에서 `user.sayHi` 메소드를 가져와서 `user`에 바인드합니다. `sayHi`는 단독으로 호출되거나 `setTimeout`에 전달될 수 있는 "바운드 (bound)"함수입니다 - 컨텍스트는 맞기 때문에 중요하지는 않습니다.
+`(*)`줄에서 `user.sayHi` 메서드를 가져와서 `user`에 바인드합니다. `sayHi`는 단독으로 호출되거나 `setTimeout`에 전달될 수 있는 "바운드 (bound)"함수입니다 - 컨텍스트는 맞기 때문에 중요하지는 않습니다.
 
 인수는 "있는 그대로" 전달되고, 단지 "this"만이 `bind`에 의해 고정된다는 것을 알 수 있습니다.
 
@@ -258,7 +258,7 @@ alert( triple(5) ); // = mul(3, 5) = 15
 
 Why do we usually make a partial function?
 
-The benefit is that we can create an independent function with a readable name (`double`, `triple`). We can use it and not provide first argument of every time as it's fixed with `bind`.
+The benefit is that we can create an independent function with a readable name (`double`, `triple`). We can use it and not provide the first argument every time as it's fixed with `bind`.
 
 In other cases, partial application is useful when we have a very generic function and want a less universal variant of it for convenience.
 

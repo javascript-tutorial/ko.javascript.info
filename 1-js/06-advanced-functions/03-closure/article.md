@@ -78,7 +78,7 @@
 
 이렇게 스크립트 전체와 연관된 렉시컬 환경을 전역 렉시컬 환경(global Lexical Environment)이라 부릅니다.
 
-위 그림에서 사각형은 (변수가 저장되어있는) 환경 레코드를 나타내고, 화살표는 외부 렉시컬 환경에 대한 참조를 나타냅니다. 글로벌 렉시컬 환경은 외부 참조가 없기 때문에 화살표가 'null'을 가리키는 걸 확인하실 수 있을 겁니다.
+위 그림에서 사각형은 (변수가 저장되어있는) 환경 레코드를 나타내고, 화살표는 외부 렉시컬 환경에 대한 참조를 나타냅니다. 전역 렉시컬 환경은 외부 참조가 없기 때문에 화살표가 'null'을 가리키는 걸 확인하실 수 있을 겁니다.
 
 And that's how it changes when a variable is defined and assigned:
 
@@ -149,7 +149,7 @@ The inner Lexical Environment has a reference to the `outer` one.
 
 **코드가 변수에 접근하려고 하면, 접근하고자 하는 변수에 대응하는 프로퍼티를 내부 렉시컬 환경에서 먼저 찾습니다. 찾지 못하면 외부 렉시컬 환경에서 검색을 시작합니다. 이 과정은 전역 렉시컬 환경에 도달할 때까지 반복됩니다.**
 
-If a variable is not found anywhere, that's an error in strict mode (without `use strict`, an assignment to a non-existing variable, like `user = "John"` creates a new global variable `user`, that's for backwards compatibility).
+If a variable is not found anywhere, that's an error in strict mode. Without `use strict`, an assignment to a non-existing variable like `user = "John"` creates a new global variable `user`. That's for backwards compatibility.
 
 예제 코드와 그림을 보면서 검색이 어떻게 진행되는지 살펴봅시다.
 
@@ -185,7 +185,7 @@ sayHi(); // Pete
 
 1. 전역 렉시컬 환경에 `name : "John"`이 저장됩니다.
 2. `(*)`로 표시한 줄에서 전역 변수가 변경되면서, 전역 렉시컬 환경의 해당 부분이 `name : "Pete"`로 변합니다.
-3. 함수 `sayHi()`가 실행될 때, 외부에서 `name` 값을 가져옵니다. 이 예제에선 외부 렉시컬 환경이 글로벌 렉시컬 환경이므로, 글로벌 렉시컬 환경에 저장된 값인 `"Pete"`가 출력됩니다.
+3. 함수 `sayHi()`가 실행될 때, 외부에서 `name` 값을 가져옵니다. 이 예제에선 외부 렉시컬 환경이 전역 렉시컬 환경이므로, 전역 렉시컬 환경에 저장된 값인 `"Pete"`가 출력됩니다.
 
 
 ```smart header="실행 하나에 렉시컬 환경 하나."
@@ -321,17 +321,17 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-1.svg)
 
-    At that starting moment there is only `makeCounter` function, because it's a Function Declaration. It did not run yet.
+    At that starting moment there is only the `makeCounter` function, because it's a Function Declaration. It did not run yet.
 
     **All functions "on birth" receive a hidden property `[[Environment]]` with a reference to the Lexical Environment of their creation.**
 
-    We didn't talk about it yet, that's how the function knows where it was made.
+    We didn't talk about it before. That's how the function knows where it was made.
 
     Here, `makeCounter` is created in the global Lexical Environment, so `[[Environment]]` keeps a reference to it.
 
     In other words, a function is "imprinted" with a reference to the Lexical Environment where it was born. And `[[Environment]]` is the hidden function property that has that reference.
 
-2. The code runs on, the new global variable `counter` is declared and gets the result of `makeCounter()` call. Here's a snapshot of the moment when the execution is on the first line inside `makeCounter()`:
+2. The code runs on, the new global variable `counter` is declared and gets the result of the `makeCounter()` call. Here's a snapshot of the moment when the execution is on the first line inside `makeCounter()`:
 
     ![](lexenv-nested-makecounter-2.svg)
 
@@ -353,7 +353,7 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     지금 단계에선 함수는 만들어졌지만, 아직 호출은 되지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`이 아직 실행되기 전입니다.
 
-4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
+4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환 값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
 
     ![](lexenv-nested-makecounter-4.svg)
 
@@ -363,7 +363,7 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-5.svg)
 
-    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where finds it.
+    Now when the call looks for `count` variable, it first searches its own Lexical Environment (empty), then the Lexical Environment of the outer `makeCounter()` call, where it finds it.
 
     여기서 잠깐 메모리의 상태에 대해 알아봅시다. `makeCounter()` 호출은 이미 끝났지만, 호출 시 생성된 렉시컬 환경은 여전히 메모리에 남아있게 됩니다. 내부 중첩 함수의 `[[Environment]]`가 여전히 이 렉시컬 환경을 참조하고 있기 때문입니다.
 

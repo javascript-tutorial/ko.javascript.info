@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# What's wrong in the test?
+# 잘못된 점 찾기
 
-What's wrong in the test of `pow` below?
+함수 `pow`의 테스트 코드를 보고 무엇이 잘못되었나 알아보세요.
 
 ```js
-it("Raises x to the power n", function() {
+it("주어진 숫자의 n 제곱", function() {
   let x = 5;
 
   let result = x;
@@ -21,4 +21,4 @@ it("Raises x to the power n", function() {
 });
 ```
 
-P.S. Syntactically the test is correct and passes.
+참고: 문법 오류는 없고, 모든 테스트가 문제없이 통과합니다.
