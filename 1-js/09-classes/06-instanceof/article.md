@@ -99,7 +99,6 @@ alert( arr instanceof Object ); // true
 그런데, `objA`가 `objB`의 프로토타입들의 체인 어딘가에 있다면, `true`를 리턴하는 [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf) 라는메소드가 있습니다.
 `Class` 생성자 그 자체는 확인할 수 없지만!, 오직 프르토 타입 체인과 `Class.prototype`은 매우 중요하므로 확인 해야합니다.
 언제 `prototype`프로퍼티가 객가 생성된 후에 변화되는지, 흥미로운 결과를 이끌어 낼수 있습니다.
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 여기 처럼요:
 
 ```js run
