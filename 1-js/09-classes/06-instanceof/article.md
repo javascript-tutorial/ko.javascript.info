@@ -126,7 +126,7 @@ alert(obj.toString()); // 같습니다.
 그건은 바로 `toString`으로 구현되어 있습니다. 그러나 `toString`를 실질적으로 그것이 가진 기능보다 더 강력하게 만들어 줄수 있는 몇가지 숨겨진 특징들이 있습니다. 우리는 확장된 기능으로써 `typeof`을 사용하는데, 이것은 `instanceof`를 위한 대안이 됩니다.
 이상하게 들리나요? 그럼 미스터리로 두죠.
 
- [이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 오브젝트와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
+[이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 오브젝트와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
 
 - 숫자의 경우, 그것은 `[object Number]`가 될 것입니다.
 - 참거짓(불린)의 경우, 그것은 `[object Boolean]`가 될 것입니다.
