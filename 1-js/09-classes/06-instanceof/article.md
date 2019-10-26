@@ -98,11 +98,6 @@ alert( arr instanceof Object ); // true
 ![](instanceof.svg)
 그런데, `objA`가 `objB`의 프로토타입들의 체인 어딘가에 있다면, `true`를 리턴하는 [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf) 라는메소드가 있습니다.
 `Class` 생성자 그 자체는 확인할 수 없지만!, 오직 프르토 타입 체인과 `Class.prototype`은 매우 중요하므로 확인 해야합니다.
-<<<<<<< HEAD
-
-언제 `prototype`프로퍼티가 객체가 생성된 후에 변화되는지에 따라 흥미로운 결과가 될 수도 있습니다.
-
-=======
 언제 `prototype`프로퍼티가 객가 생성된 후에 변화되는지, 흥미로운 결과를 이끌어 낼수 있습니다.
 >>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 여기 처럼요:
@@ -121,11 +116,7 @@ alert( rabbit instanceof Rabbit ); // false
 ```
 
 ## 보너스: 타입을 위한 Object.prototype.toString
-<<<<<<< HEAD
-우리는 이미 `[object Object]`의 문자열로 변환되는 평편한 객체에 대해 알고 있습니다.
-=======
 우리는 이미 `[object Object]`의 문자열로 변환되는 평편한 객에 대해 알고 있습니다.
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 
 ```js run
 let obj = {};
@@ -134,21 +125,6 @@ alert(obj); // [object Object]
 alert(obj.toString()); // 같습니다.
 ```
 그건은 바로 `toString`으로 구현되어 있습니다. 그러나 `toString`를 실질적으로 그것이 가진 기능보다 더 강력하게 만들어 줄수 있는 몇가지 숨겨진 특징들이 있습니다. 우리는 확장된 기능으로써 `typeof`을 사용하는데, 이것은 `instanceof`를 위한 대안이 됩니다.
-<<<<<<< HEAD
-
-이상하게 들리나요? 그럼 미스터리로 두죠.
-
-
-[이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 객체와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
-
-- 숫자의 경우, 그것은 `[object Number]`가 될 것입니다.
-- 참거짓(불린)의 경우, 그것은 `[object Boolean]`가 될 것입니다.
-- null의 경우, 그것은 `[object Null]`가 될 것입니다.
-- `undefined`의 경우, 그것은 `[object Undefined]`가 될 것입니다.
-- 배열의 경우, 그것은 `[object Array]`가 될 것입니다.
-- 기타 등등이 있는데, 그에 따라 맞춰집니다.
-
-=======
 이상하게 들리나요? 그럼 미스터리로 두죠.
 
  [이곳](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 명시 되어 있듯이, 오브젝트와 실행중인 다른 값의 컨텍스트로부터 내장함수 `toString`를 사용하여  추출할 수 있습니다. 그리고 그 결과는 그 값에 의존합니다.
@@ -160,7 +136,6 @@ alert(obj.toString()); // 같습니다.
 - 배열의 경우, 그것은 `[object Array]`가 될 것입니다.
 - 기타 등등이 있는데, 그에 따라 맞춰집니다.
 
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 해결해봅시다:
 
 ```js run
@@ -183,11 +158,7 @@ alert( s.call(alert) ); // [object Function]
 ```
 
 ### Symbol.toStringTag
-<<<<<<< HEAD
-객체 `toString`의 기능은 특별한 객체 프로퍼터 `Symbol.toStringTag`를 사용함으로써 커스터마이즈 될수있습니다. 
-=======
 오브젝트 `toString`의 기능은 특별한 오브젝트 프로퍼터 `Symbol.toStringTag`를 사용함으로써 커스터마이즈 될수있습니다. 
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 
 예를 들어:
 
@@ -198,19 +169,11 @@ let user = {
 
 alert( {}.toString.call(user) ); // [object User]
 ```
-<<<<<<< HEAD
-대부분의 특정 환경 객체들을 위해, 프로퍼티같은 것들이 있습니다. 
-여기에 몇가지 예시들이 있습니다:
-
-```js 실행
-// 특정 환경의 객체와 클래스를 위한 toStringTag :
-=======
 대부분의 특정 환경 오브젝트들을 위해, 프로퍼티같은 것들이 있습니다. 
 여기에 몇가지 예시들이 있습니다:
 
 ```js 실행
 // 특정 환경의 오브젝트와 클래스를 위한 toStringTag :
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 alert( window[Symbol.toStringTag]); // window
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 
@@ -219,18 +182,6 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
 여러분도 아시다시피, 그 결과는 정확히 `Symbol.toStringTag`(이 속성을 가지고 있다면)와 내부`[object ...]`로 감싸줍니다.
 
-<<<<<<< HEAD
-끝으로 우리가 원시적인 데이터 타입으로 동작할 뿐 아니라, 내장된 객체를 위한 "typeof on steroids"를 가지고 있고 심지어 커스텀마이즈도 가능합니다.
-우리는 `{}.toString.call` 대신 `instanceof` 내장된 객체들을 우리가 단순히 타입 확인을 넘어 문자열로 타입을 얻기를 원할 때, 사용할수 있습니다.
-
-##요약
-우리가 알고있는 타입확인 메소드를 요약 해봅시다:
-
-|               | 동작대상      |  리턴타입      |
-|---------------|-------------|---------------|
-| `typeof`      | primitives  |  string       |
-| `{}.toString` | primitives, 내장된 객체, `Symbol.toStringTag`를 가진 객체   |       string |
-=======
 끝으로 우리가 원시적인 데이터 타입으로 동작할 뿐 아니라, 내장된 오브젝트를 위한 "typeof on steroids"를 가지고 있고 심지어 커스텀마이즈도 가능합니다.
 우리는 `{}.toString.call` 대신 `instanceof` 내장된 오브젝트들을 우리가 단순히 타입 확인을 넘어 문자열로 타입을 얻기를 원할 때, 사용할수 있습니다.
 
@@ -241,7 +192,6 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 |---------------|-------------|---------------|
 | `typeof`      | primitives  |  string       |
 | `{}.toString` | primitives, 내장된 오브젝트, `Symbol.toStringTag`를 가진 오브젝트   |       string |
->>>>>>> c411b8429f66485441b2988f4f3b770913e50ac8
 | `instanceof`  | objects     |  true/false   |
 
 여러분도 아시다시피,`{}.toString`은 기술적으로 `typeof` "더 진보된" 것 입니다.. 
