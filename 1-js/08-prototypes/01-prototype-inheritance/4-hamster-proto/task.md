@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Why two hamsters are full?
+# 왜 햄스터 두 마리의 배가 꽉 찰까요?
 
-We have two hamsters: `speedy` and `lazy` inheriting from the general `hamster` object. 
+두 마리의 햄스터가 있습니다. 일반적인 `hamster` 객체로부터 상속받은 `speedy`와 `lazy` 입니다.
 
-When we feed one of them, the other one is also full. Why? How to fix it?
+둘 중 한 마리에게 먹이를 줬을 때, 다른 한 마리도 배가 꽉 찹니다. 왜 그럴까요? 어떻게 고칠까요?
 
 ```js run
 let hamster = {
@@ -25,11 +25,11 @@ let lazy = {
   __proto__: hamster
 };
 
-// This one found the food
+// 햄스터 한 마리가 음식을 찾았습니다.
 speedy.eat("apple");
 alert( speedy.stomach ); // apple
 
-// This one also has it, why? fix please.
+// 이 햄스터도 같은 음식을 가지고 있습니다. 왜 그럴까요? 고쳐주세요.
 alert( lazy.stomach ); // apple
 ```
 
