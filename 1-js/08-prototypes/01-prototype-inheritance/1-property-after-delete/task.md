@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Working with prototype
+# 프로토타입 이해하기
 
-Here's the code that creates a pair of objects, then modifies them.
+객체 두 개를 이용해 쌍을 만들고 이를 수정하는 코드가 아래에 있습니다.
 
-Which values are shown in the process?
+얼럿창에 어떤 값이 나올지 예측해보세요.
 
 ```js
 let animal = {
@@ -28,4 +28,4 @@ delete animal.jumps;
 alert( rabbit.jumps ); // ? (3)
 ```
 
-There should be 3 answers.
+세 개의 답을 제출하셔야 합니다.

@@ -1,7 +1,7 @@
-**The answer: `rabbit`.**
+**정답: `rabbit`**
 
-That's because `this` is an object before the dot, so `rabbit.eat()` modifies `rabbit`.
+점 앞에 있는 객체가 `this`가 되기 때문에, `rabbit.eat()`은 `rabbit`을 변경합니다.
 
-Property lookup and execution are two different things.
+프로퍼티를 찾는 것과 프로퍼티에 뭔가를 실행하는 것은 서로 다른 일입니다.
 
-The method `rabbit.eat` is first found in the prototype, then executed with `this=rabbit`.
+메서드 `rabbit.eat`은 프로토타입에서 처음으로 발견되지만, `this`엔 `rabbit`이 할당되어 실행됩니다.
