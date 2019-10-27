@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Strange instanceof
+# 이상한 instanceof
 
-Why `instanceof` below returns `true`? We can easily see that `a` is not created by `B()`.
+아래의 `instanceof`는 왜 `true`를 반환하나요? `a`가 `B()`에 의해 만들어지지 않았다는 걸 쉽게 확인할 수 있습니다.
 
 ```js run
 function A() {}
