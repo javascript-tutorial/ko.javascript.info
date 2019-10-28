@@ -98,7 +98,11 @@ user = { sayHi() { alert("Another user in setTimeout!"); } };
 기본 문법:
 
 ```js
+<<<<<<< HEAD
 // 더 복잡한 문법은 나중에 다루겠습니다
+=======
+// more complex syntax will come a little later
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 let boundFunc = func.bind(context);
 ````
 

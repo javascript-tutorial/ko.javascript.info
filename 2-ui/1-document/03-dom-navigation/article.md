@@ -224,10 +224,17 @@ alert( document.body.previousSibling ); // HTMLHeadElement
 
 그림 속 관계는 위쪽에서 다뤘던 모든 종류의 노드 간 관계와 유사해 보입니다. `요소(Element)`라는 단어가 추가된 점만 다르네요.
 
+<<<<<<< HEAD
 - `children` 프로퍼티는 해당 요소의 자식 요소 노드를 가리킵니다.
 - `firstElementChild`와 `lastElementChild` 프로퍼티는 각각 첫 번째 자식 요소와 마지막 자식 요소를 가리킵니다.
 - `previousElementSibling`와 `nextElementSibling`는 형제 요소를 가리킵니다.
 - `parentElement` 는 부모 요소를 가리킵니다.
+=======
+- `children` -- only those children that are element nodes.
+- `firstElementChild`, `lastElementChild` -- first and last element children.
+- `previousElementSibling`, `nextElementSibling` -- neighbor elements.
+- `parentElement` -- parent element.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 ````smart header="부모가 요소라는 보장이 *없는데* 왜 `parentElement`를 쓰나요?"
 `parentElement` 프로퍼티는 부모 "요소(노드)"를 반환합니다. 반면, `parentNode` 프로퍼티는 "모든 종류의 부모 노드"를 반환하죠. 대다수의 경우에 두 프로퍼티는 같은 노드를 반환합니다.
@@ -323,7 +330,11 @@ Tables are a great example of that, and a particularly important case.
 
 ## 요약
 
+<<<<<<< HEAD
 탐색 프로퍼티(navigation property)를 사용하면, 특정 DOM 노드에서 이웃해있는 다른 노드로 바로 이동할 수 있습니다.
+=======
+Given a DOM node, we can go to its immediate neighbors using navigation properties.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 탐색 프로퍼티는 크게 두 개의 집합으로 나뉩니다.
 

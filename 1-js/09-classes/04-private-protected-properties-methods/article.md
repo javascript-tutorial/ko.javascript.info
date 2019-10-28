@@ -50,8 +50,13 @@
 
 자바스크립트에는 아래와 같이 두 가지 타입의 객체 필드(프로퍼티와 메서드)가 있습니다. 
 
+<<<<<<< HEAD
 - public: 어디서에서든지 접근할 수 있습니다. 외부 인터페이스를 구성합니다. 지금까지 우리는 public 프로퍼티와 메서드만 사용하고 있었습니다.
 - private: 클래스의 내부에서만 접근할 수 있습니다. 내부 인터페이스를 위한 것입니다.
+=======
+- Public: accessible from anywhere. They comprise the external interface. Until now we were only using public properties and methods.
+- Private: accessible only from inside the class. These are for the internal interface.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 다른 많은 언어들에는 'protected' 필드도 존재합니다. protected는 클래스의 내부와 상속하는 클래스에서만 접근할 수 있습니다(private과 비슷하지만 상속 클래스로부터의 접근 권한이 추가된 개념). 내부 인터페이스로 사용되기에 유용합니다. 우리는 보통 상속 클래스가 부모 클래스에 접근할 수 있기를 원하기 때문에 protected는 어떤 의미에서는 private보다 널리 사용된다고 말할 수 있습니다.
 
@@ -257,7 +262,11 @@ class MegaCoffeeMachine extends CoffeeMachine {
 }
 ```
 
+<<<<<<< HEAD
 많은 상황에서 이런 제한은 너무 엄격합니다. `CoffeeMachine`을 상속했다면 `CoffeeMachine`의 내부에 접근해야 하는 정당한 이유가 있을 것입니다. 이것이 바로 protected 필드가 언어적 문법의 지원을 받지 못함에도 불구하고 더 자주 쓰이는 이유입니다. 
+=======
+In many scenarios such limitation is too severe. If we extend a `CoffeeMachine`, we may have legitimate reasons to access its internals. That's why protected fields are used more often, even though they are not supported by the language syntax.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 ````warn header="Private 필드는 this[name]로 사용할 수 없습니다."
 private 필드는 특별합니다.
@@ -283,8 +292,13 @@ OOP(Object Oriented Programming, 객체 지향 프로그래밍)의 관점에서,
 
 캡슐화는 다음과 같은 이점이 있습니다.
 
+<<<<<<< HEAD
 사용자들이 스스로 자신의 발등을 찍지 않도록 보호
 : 커피 머신을 사용하는 개발자 팀이 있다고 상상해봅시다. "Best CoffeeMachine"이라는 회사에서 만들었고 잘 작동하지만 보호 커버가 없어져서 내부 인터페이스가 노출되었습니다.
+=======
+Protection for users, so that they don't shoot themselves in the foot
+: Imagine, there's a team of developers using a coffee machine. It was made by the "Best CoffeeMachine" company, and works fine, but a protective cover was removed. So the internal interface is exposed.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
     모든 개발자들은 문명인이라서 의도대로 커피 머신을 사용할 수 있습니다. 어느 날, 한 개발자 John이 자신이 가장 똑똑한 사람이라고 생각하면서 커피 머신 내부를 살짝 수정했습니다. 이틀 후 커피 머신이 고장 났습니다.
 
@@ -308,9 +322,16 @@ OOP(Object Oriented Programming, 객체 지향 프로그래밍)의 관점에서,
 
     **구현 세부 사항이 숨겨져 있는 것은 언제나 편리하고, 간단하고 잘 문서화된 외부 인터페이스가 가능합니다.**
 
+<<<<<<< HEAD
 내부 인터페이스를 숨기기 위해서는 protected나 private 프로퍼티를 사용하세요:
 
 - protected 필드는 `_`로 시작합니다. 이것은 언어 수준에서 강제적인 것은 아니지만 널리 알려진 관습입니다. 프로그래머는 클래스와 해당 클래스를 상속하는 클래스로부터 `_`로 시작하는 필드에만 접근해야 합니다.
 - private 필드는 `#`로 시작합니다. 자바스크립트 자체적으로 `#`로 시작하는 필드에는 클래스 내부에서만 접근 가능하도록 만듭니다.
+=======
+To hide an internal interface we use either protected or private properties:
+
+- Protected fields start with `_`. That's a well-known convention, not enforced at the language level. Programmers should only access a field starting with `_` from its class and classes inheriting from it.
+- Private fields start with `#`. JavaScript makes sure we can only access those from inside the class.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 현재 private 필드는 브라우저 간에 잘 지원되지는 않지만 폴리필(polyfill)됩니다.

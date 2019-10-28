@@ -169,7 +169,11 @@ rabbits.sort(Rabbit.compare);
 rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
 ```
 
+<<<<<<< HEAD
 이제 `Rabbit.compare`을 호출하면 `Animal.compare`가 호출됩니다.
+=======
+Now when we call `Rabbit.compare`, the inherited `Animal.compare` will be called.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 이게 가능한 이유는 프로토타입 때문입니다. 이미 예상하셨겠지만, `extends` 키워드는 `Rabbit`의 `[[Prototype]]`이 `Animal`을 참조하도록 해줍니다.
 
@@ -180,7 +184,11 @@ rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
 1. 함수 `Rabbit`은 프로토타입을 통해 함수 `Animal`을 상속받습니다.
 2. `Rabbit.prototype`은 프로토타입을 통해 `Animal.prototype`을 상속받습니다.
 
+<<<<<<< HEAD
 이런 과정이 있기 때문에 일반 메서드 상속과 정적 메서드 상속이 가능합니다.
+=======
+As a result, inheritance works both for regular and static methods.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 코드로 직접 확인해봅시다.
 
@@ -197,7 +205,11 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 
 ## 요약
 
+<<<<<<< HEAD
 정적 메서드는 특정 클래스 인스턴스가 아닌 클래스 '전체'에 필요한 기능을 만들 때 사용할 수 있습니다. 
+=======
+Static methods are used for the functionality that belongs to the class "as a whole". It doesn't relate to a concrete class instance.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 비교를 위한 메서드 `Article.compare(article1, article2)`나 팩터리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
 

@@ -286,11 +286,19 @@ setTimeout(function run() {
 
 ## 요약
 
+<<<<<<< HEAD
 - `setInterval(func, delay, ...args)`과 `setTimeout(func, delay, ...args)`은 `delay`밀리초 후에 `func`을 규칙적으로, 또는 한번 실행하도록 해줍니다.
 - `setInterval/setTimeout`을 호출하고 반환받은 값을 `clearInterval/clearTimeout`에 넘겨주면 스케줄링을 취소할 수 있습니다.
 - 중첩 `setTimeout`을 사용하면 `setInterval`을 사용한 것 보다 유연한 코드를 작성할 수 있습니다. *지연 간격*이 보장되는 것 또한 이점입니다.
 - 대기 시간이 0인 setTimeout(`setTimeout(func, 0)`이나 `setTimeout(func)`)을 사용하면 "현재 스크립트의 실행이 완료된 후 가능한 한 빠르게" 원하는 함수를 호출할 수 있습니다.
 - 지연 없이 중첩 `setTimeout`을 5회 이상 호출하거나 지연 없는 `setInterval`에서 호출이 5회 이상 진행되면, 4밀리초 이상의 지연 간격을 강제적으로 더해줍니다. 이는 브라우저에만 적용되는 사항이며, 하위 호환성을 위해 유지되고 있습니다.
+=======
+- Methods `setTimeout(func, delay, ...args)` and `setInterval(func, delay, ...args)` allow us to run the `func` once/regularly after `delay` milliseconds.
+- To cancel the execution, we should call `clearTimeout/clearInterval` with the value returned by `setTimeout/setInterval`.
+- Nested `setTimeout` calls are a more flexible alternative to `setInterval`, allowing us to set the time *between* executions more precisely.
+- Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current script is complete".
+- The browser limits the minimal delay for five or more nested call of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
+>>>>>>> 70ca842bef2390bc26d13dea2b856838aa890fe0
 
 모든 스케줄링 메서드가 명시한 지연 간격을 *보장*하지 않는다는 점에 유의하시기 바랍니다.
 
