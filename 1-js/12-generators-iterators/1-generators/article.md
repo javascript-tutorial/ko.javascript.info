@@ -1,14 +1,14 @@
-# Generators
+# 제너레이터
 
-Regular functions return only one, single value (or nothing).
+일반 함수는 하나의 단일 값(또는 없음)만 반환합니다.
 
-Generators can return ("yield") multiple values, one after another, on-demand. They work great with [iterables](info:iterable), allowing to create data streams with ease.
+제너레이터(generator)는 필요에 따라 여러 값을 차례로 반환("yield") 할 수 있습니다. 이것은 [iterable(이터러블)](info:itarables)과 함께 사용했을 때 잘 동작하여 데이터 스트림을 쉽게 생성할 수 있습니다.
 
-## Generator functions
+## 제너레이터 함수
 
-To create a generator, we need a special syntax construct: `function*`, so-called "generator function".
+제너레이터를 만드려면 특별한 함수 구문인 `function*`, 이른바 "제너레이터 함수"가 필요합니다.
 
-It looks like this:
+제너레이터 함수는 다음과 같이 생겼습니다.
 
 ```js
 function* generateSequence() {
@@ -18,9 +18,9 @@ function* generateSequence() {
 }
 ```
 
-Generator functions behave differently from regular ones. When such function is called, it doesn't run its code. Instead it returns a special object, called "generator object", to manage the execution.
+제너레이터 함수는 일반 함수와 다르게 작동합니다. 제너레이터 함수가 호출되면 코드가 실행되지 않습니다. 대신 "제너레이터 객체"라는 특수 객체를 반환하여 실행을 관리합니다.
 
-Here, take a look:
+여기를 보세요.
 
 ```js run
 function* generateSequence() {
@@ -29,24 +29,24 @@ function* generateSequence() {
   return 3;
 }
 
-// "generator function" creates "generator object"
+// "제너레이터 함수"는 "제너레이터 객체"를 생성합니다.
 let generator = generateSequence();
 *!*
 alert(generator); // [object Generator]
 */!*
 ```
 
-The function code execution hasn't started yet:
+아직 함수 코드가 실행되지 않았습니다.
 
 ![](generateSequence-1.svg)
 
-The main method of a generator is `next()`. When called, it runs the execution till the nearest `yield <value>` statement (`value` can be omitted, then it's `undefined`). Then the function execution pauses, and the yielded `value` is returned to the outer code.
+제너레이터의 주요 메서드는 `next()`입니다. 메서드가 호출되면 가장 가까운 `yield<value>`문까지 실행합니다.(`value`는 생략될 수 있어 생략된 경우 'value'는 `undefined`입니다.) 그 후 함수 실행이 잠시 멈추고 산출된 `value`가 외부 코드로 반환됩니다.
 
-The result of `next()` is always an object with two properties:
-- `value`: the yielded value.
-- `done`: `true` if the function code has finished, otherwise `false`.
+`next()`의 결과는 항상 두 가지 속성을 가진 객체입니다.
+- `value`: 산출된 값
+- `done`: 함수 코드가 끝났을 경우 `true`, 그렇지 않은 경우 `false`
 
-For instance, here we create the generator and get its first yielded value:
+예를 들어 여기서 제너레이터를 생성하고 첫 번째 산출값을 얻습니다.
 
 ```js run
 function* generateSequence() {
@@ -64,11 +64,11 @@ let one = generator.next();
 alert(JSON.stringify(one)); // {value: 1, done: false}
 ```
 
-As of now, we got the first value only, and the function execution is on the second line:
+현재는 첫 번째 값만을 얻었고 함수 실행은 두 번째 줄에 있습니다.
 
 ![](generateSequence-2.svg)
 
-Let's call `generator.next()` again. It resumes the code execution and returns the next `yield`:
+`generator.next()`를 다시 호출해봅시다. 코드 실행을 재개하고 다음 `yield`를 반환합니다.
 
 ```js
 let two = generator.next();
@@ -78,7 +78,7 @@ alert(JSON.stringify(two)); // {value: 2, done: false}
 
 ![](generateSequence-3.svg)
 
-And, if we call it the third time, then the execution reaches `return` statement that finishes the function:
+그리고 세 번째 호출하면 실행은 함수가 끝나는 `return`문에 도달합니다.
 
 ```js
 let three = generator.next();
@@ -88,21 +88,22 @@ alert(JSON.stringify(three)); // {value: 3, *!*done: true*/!*}
 
 ![](generateSequence-4.svg)
 
-Now the generator is done. We should see it from `done:true` and process `value:3` as the final result.
+이제 제너레이터가 끝났습니다. `done:true`에서 끝난 것을 확인하고 `value:3`을 최종 결과로 처리해야합니다.
 
-New calls `generator.next()` don't make sense any more. If we do them, they return the same object: `{done: true}`.
+`generator.next()`라는 새로운 호출은 더 이상 의미가 없습니다. 새로운 호출을 하면 동일한 객체 `{done:true}`를 반환합니다.
 
-```smart header="`function* f(…)` or `function *f(…)`?"
-Both syntaxes are correct.
+```
+smart header="`function* f(…)` 또는 `function *f(…)`?"
+두 문법 모두 맞습니다.
 
-But usually the first syntax is preferred, as the star `*` denotes that it's a generator function, it describes the kind, not the name, so it should stick with the `function` keyword.
+일반적으로 첫 번째 문법이 선호되지만 별표 `*`가 제너레이터 함수임을 의미하여 함수의 이름이 아닌 종류를 묘사하므로 `function` 키워드를 사용해야합니다.
 ```
 
-## Generators are iterable
+## 제너레이터는 이터러블입니다.
 
-As you probably already guessed looking at the `next()` method, generators are [iterable](info:iterable).
+이미 `next()` 메서드를 보며 짐작했겠지만 제너레이터는 [iterable](info:iterable)입니다.
 
-We can get loop over values by `for..of`:
+`for..of`로 반복하여 값을 얻을 수 있습니다.
 
 ```js run
 function* generateSequence() {
@@ -118,11 +119,11 @@ for(let value of generator) {
 }
 ```
 
-Looks a lot nicer than calling `.next().value`, right?
+`.next().value`를 호출하는 것보다 훨씬 좋습니다. 그렇죠?
 
-...But please note: the example above shows `1`, then `2`, and that's all. It doesn't show `3`!
+그러나 위의 예는 `1`, `2`를 보여준다는 것에 유의하세요. 그게 전부입니다. `3`을 보여주지 않습니다!
 
-It's because `for..of` iteration ignores the last `value`, when `done: true`. So, if we want all results to be shown by `for..of`, we must return them with `yield`:
+`for..of` 반복은 `done:true`일 때 마지막 `value`를 무시하기 때문입니다. 따라서 모든 결과를 `for..of`로 보여주려면 결과를 `yield`로 반환해야합니다.
 
 ```js run
 function* generateSequence() {
@@ -140,7 +141,7 @@ for(let value of generator) {
 }
 ```
 
-As generators are iterable, we can call all related functionality, e.g. the spread operator `...`:
+제너레이터는 이터러블이므로 모든 관련 기능(예: 스프레드 연산자 `...`)를 호출할 수 있습니다.
 
 ```js run
 function* generateSequence() {
@@ -154,30 +155,30 @@ let sequence = [0, ...generateSequence()];
 alert(sequence); // 0, 1, 2, 3
 ```
 
-In the code above, `...generateSequence()` turns the iterable generator object into array of items (read more about the spread operator in the chapter [](info:rest-parameters-spread-operator#spread-operator))
+위의 코드에서 `...generateSequence()`는 이터러블 제너레이터 객체를 항목의 배열로 변환합니다. ([](info:rest-parameters-spread-operator#spread-operator) 장에서 스프레드 연산자에 대해 자세히 알아보세요.)
 
-## Using generators for iterables
+## 이터러블을 위한 제너레이터 사용
 
-Some time ago, in the chapter [](info:iterable) we created an iterable `range` object that returns values `from..to`.
+조금 전 [](info:iterable) 장에서 `from..to` 값을 반환하는 이터러블 `range` 객체를 만들었습니다.
 
-Here, let's remember the code:
+여기 코드를 기억해보세요.
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  // for..of range calls this method once in the very beginning
+// for..of range는 처음에 Symbol.iterator 메서드를 한 번 호출합니다.
   [Symbol.iterator]() {
-    // ...it returns the iterator object:
-    // onward, for..of works only with that object, asking it for next values
+    // Symbol.iterator는 이터레이터 객체를 반환합니다.
+    // 이후 for..of는 반환된 이터레이터 객체만을 대상으로 동작하는데, 이때 다음 값도 정해집니다.
     return {
       current: this.from,
       last: this.to,
 
-      // next() is called on each iteration by the for..of loop
+      // for..of 반복문에 의해 반복마다 next()가 호출됩니다.
       next() {
-        // it should return the value as an object {done:.., value :...}
+        // next()는 값을 객체 {done:.., value :...}형태로 반환해야 합니다.
         if (this.current <= this.last) {
           return { done: false, value: this.current++ };
         } else {
@@ -188,20 +189,20 @@ let range = {
   }
 };
 
-// iteration over range returns numbers from range.from to range.to
+// range에 대한 반복은 range에서 range까지의 숫자를 반환합니다. 
 alert([...range]); // 1,2,3,4,5
 ```
 
-We can use a generator function for iteration by providing it as `Symbol.iterator`.
+`Symbol.iterator`로 제공함으로써 반복을 위한 제너레이터 함수를 사용할 수 있습니다.
 
-Here's the same `range`, but much more compact:
+다음은 동일한 `range`이지만 훨씬 더 간단합니다.
 
 ```js run
 let range = {
   from: 1,
   to: 5,
 
-  *[Symbol.iterator]() { // a shorthand for [Symbol.iterator]: function*()
+  *[Symbol.iterator]() { // [Symbol.iterator]의 약자: function*()
     for(let value = this.from; value <= this.to; value++) {
       yield value;
     }
@@ -211,25 +212,25 @@ let range = {
 alert( [...range] ); // 1,2,3,4,5
 ```
 
-That works, because `range[Symbol.iterator]()` now returns a generator, and generator methods are exactly what `for..of` expects:
-- it has `.next()` method
-- that returns values in the form `{value: ..., done: true/false}`
+이제 `range[Symbol.iterator]()`가 제너레이터를 반환하고 제너레이터 메서드는 `for..of`의 결과와 정확히 일치하기 때문에 작동합니다.
+- Symbol.iterator는 `.next ()` 메소드를 갖고 있습니다
+- Symbol.iterator는 `{value : ..., done : true / false}` 형식으로 값을 반환합니다.
 
-That's not a coincidence, of course. Generators were added to JavaScript language with iterators in mind, to implement them easier.
+물론 우연의 일치는 아닙니다. 제너레이터는 반복문을 보다 쉽게 구현하기 위해 이터레이터를 염두에 두고 JavaScript 언어에 추가되었습니다.
 
-The variant with a generator is much more concise than the original iterable code of `range`, and keeps the same functionality.
+제너레이터가 있는 변형은 원래 반복 가능한 `range` 코드보다 훨씬 간결하며 동일한 기능을 유지합니다.
 
-```smart header="Generators may generate values forever"
-In the examples above we generated finite sequences, but we can also make a generator that yields values forever. For instance, an unending sequence of pseudo-random numbers.
+```smart header = "제너레이터는 영원히 값을 생성 할 수 있습니다"
+위의 예제에서 유한 시퀀스를 생성했지만 값을 영원히 생성하는 제너레이터를 만들 수도 있습니다. 예를 들어 끝없는 일련의 의사 난수와 같은 것 말입니다.
 
-That surely would require a `break` (or `return`) in `for..of` over such generator, otherwise the loop would repeat forever and hang.
+의사 난수 생성기는 반드시 값을 영원히 생성하는 제너레이터에게 `for..of`안에 `break'(또는 `return`) 사용을 요구할 것입니다. 그렇지 않으면 반복문은 영원히 반복될 것입니다.
 ```
 
-## Generator composition
+##제너레이터 구성
 
-Generator composition is a special feature of generators that allows to transparently "embed" generators in each other.
+제너레이터 구성은 제너레이터의 특별한 기능으로 제너레이터를 서로 투명하게 "포함" 할 수 있습니다.
 
-For instance, we have a function that generates a sequence of numbers:
+예를 들어 일련의 숫자를 생성하는 함수가 있습니다.
 
 ```js
 function* generateSequence(start, end) {
@@ -237,18 +238,18 @@ function* generateSequence(start, end) {
 }
 ```
 
-Now we'd like to reuse it for generation of a more complex sequence:
-- first, digits `0..9` (with character codes 48..57),
-- followed by uppercase alphabet letters `A..Z` (character codes 65..90)
-- followed by lowercase alphabet letters `a..z` (character codes 97..122)
+이제 더 복잡한 시퀀스를 생성하기 위해 수를 재사용하려 합니다.
+- 먼저 숫자 `0..9`(문자 코드 48..57)가 생성됩니다.
+- 그 뒤에 알파벳 대문자`A..Z` (문자 코드 65..90)가 붙습니다.
+- 그 뒤에 알파벳 소문자 `a..z` (문자 코드 97..122)가 붙습니다.
 
-We can use this sequence e.g. to create passwords by selecting characters from it (could add syntax characters as well), but let's generate it first.
+이렇게 만들어진 시퀀스는 이 시퀀스에서 문자를 선택하여 암호를 생성하는데 이용할 수 있지만(구문 문자도 추가할 수 있음), 시퀀스를 먼저 생성하세요.
 
-In a regular function, to combine results from multiple other functions, we call them, store the results, and then join at the end.
+일반 함수에서는 여러 다른 함수의 결과를 조합하기 위해 시퀀스를 호출하고 결과를 저장 한 다음 끝에 결합합니다.
 
-For generators, there's a special `yield*` syntax to "embed" (compose) one generator into another.
+제너레이터의 경우 한 제너레이터를 다른 제너레이터에 "포함(구성)"하는 특별한 `yield*` 구문이 있습니다.
 
-The composed generator:
+구성된 제너레이터 :
 
 ```js run
 function* generateSequence(start, end) {
@@ -279,9 +280,9 @@ for(let code of generatePasswordCodes()) {
 alert(str); // 0..9A..Za..z
 ```
 
-The `yield*` directive *delegates* the execution to another generator. This term means that `yield* gen` iterates over the generator `gen` and transparently forwards its yields outside. As if the values were yielded by the outer generator.
+`yield*` 지시어는 실행을 다른 제너레이터로 *위임*합니다. 이 용어는 `yield* gen`이 제너레이터 `gen`을 반복하고 외부의 'yield'를 투명하게 전달함을 의미합니다. 마치 외부 제너레이터에 의해 값이 산출된 것처럼 말입니다.
 
-The result is the same as if we inlined the code from nested generators:
+위 실행의 결과는 중첩된 제너레이터에서 코드를 인라인(inlined)하는 것과 같습니다.
 
 ```js run
 function* generateSequence(start, end) {
@@ -312,22 +313,22 @@ for(let code of generateAlphaNum()) {
 alert(str); // 0..9A..Za..z
 ```
 
-A generator composition is a natural way to insert a flow of one generator into another. It doesn't use extra memory to store intermediate results.
+제너레이터 구성은 한 제너레이터의 흐름을 다른 제너레이터에 삽입하는 자연스러운 방법입니다. 중간 결과를 저장하기 위해 추가 메모리를 사용하지 않습니다.
 
-## "yield" is a two-way road
+## "yield"는 양방향 도로입니다.
 
-Till this moment, generators were similar to iterable objects, with a special syntax to generate values. But in fact they are much more powerful and flexible.
+이 시점까지 제너레이터는 값을 생성하기 위한 특수 구문이 있는 이터러블 객체와 유사했습니다. 그러나 실제로 제너레이터는 훨씬 더 강력하고 유연합니다.
 
-That's because `yield` is a two-way road: it not only returns the result outside, but also can pass the value inside the generator.
+그 이유는 `yield`가 양방향 도로이기 때문입니다. 'yield'는 결과를 외부로 반환할 뿐만 아니라 제너레이터 내부의 값을 전달할 수도 있습니다.
 
-To do so, we should call `generator.next(arg)`, with an argument. That argument becomes the result of `yield`.
+그렇게 하려면 인자와 함께 `generator.next(arg)`를 호출해야합니다. 그 인자는 `yield`의 결과가 됩니다.
 
-Let's see an example:
+예시를 봅시다.
 
 ```js run
 function* gen() {
 *!*
-  // Pass a question to the outer code and wait for an answer
+  // 질문을 외부 코드로 전달하고 회신을 기다리세요.
   let result = yield "2 + 2 = ?"; // (*)
 */!*
 
@@ -336,29 +337,29 @@ function* gen() {
 
 let generator = gen();
 
-let question = generator.next().value; // <-- yield returns the value
+let question = generator.next().value; // <-- yield는 값을 반환합니다.
 
-generator.next(4); // --> pass the result into the generator  
+generator.next(4); // --> 결과를 제너레이터에 전달합니다.
 ```
 
 ![](genYield2.svg)
 
-1. The first call `generator.next()` is always without an argument. It starts the execution and returns the result of the first `yield "2+2=?"`. At this point the generator pauses the execution (still on that line).
-2. Then, as shown at the picture above, the result of `yield` gets into the `question` variable in the calling code.
-3. On `generator.next(4)`, the generator resumes, and `4` gets in as the result: `let result = 4`.
+1. 첫 번째 호출 `generator.next()`는 항상 인수가 없습니다. 실행을 시작하고 첫 번째 `yield "2 + 2 = ?`의 결과를 반환합니다. 이 시점에서 제너레이터는 실행을 일시 멈춥니다.(여전히 해당 라인에 있습니다.)
+2. 그 후 위의 그림에서와 같이 `yield`의 결과가 호출 코드의 `question` 변수에 들어갑니다.
+3. `generator.next(4)`에서 제너레이터가 재개되고 결과로 `4`가 나타납니다. `let result = 4`.
 
-Please note, the outer code does not have to immediately call`next(4)`. It may take time. That's not a problem: the generator will wait.
+외부 코드는 즉시 `next(4)`를 호출 할 필요가 없습니다. 시간이 걸릴 수 있지만 제너레이터가 대기할 것이기 때문에 문제가 되지는 않습니다.
 
-For instance:
+예시 :
 
 ```js
-// resume the generator after some time
+// 얼마 후 제너레이터를 재개합니다.
 setTimeout(() => generator.next(4), 1000);
 ```
 
-As we can see, unlike regular functions, a generator and the calling code can exchange results by passing values in `next/yield`.
+보다시피 일반 함수와는 다르게 제너레이터와 호출 코드는 `next/yield`에 값을 전달함으로써 결과를 교환 할 수 있습니다.
 
-To make things more obvious, here's another example, with more calls:
+보다 명확하게 하기 위해 더 많은 호출이 있는 또 다른 예가 있습니다.
 
 ```js run
 function* gen() {
@@ -380,27 +381,27 @@ alert( generator.next(4).value ); // "3 * 3 = ?"
 alert( generator.next(9).done ); // true
 ```
 
-The execution picture:
+실행 사진:
 
 ![](genYield2-2.svg)
 
-1. The first `.next()` starts the execution... It reaches the first `yield`.
-2. The result is returned to the outer code.
-3. The second `.next(4)` passes `4` back to the generator as the result of the first `yield`, and resumes the execution.
-4. ...It reaches the second `yield`, that becomes the result of the generator call.
-5. The third `next(9)` passes `9` into the generator as the result of the second `yield` and resumes the execution that reaches the end of the function, so `done: true`.
+1. 첫 번째 `.next()`는 실행을 시작합니다 ... '.next()'는 첫 번째 `yield`에 도달합니다.
+2. 'yield'의 결과가 외부 코드로 반환됩니다.
+3. 두 번째 `.next(4)`는 첫번째 `yield`의 결과인 `4`를 제너레이터로 다시 전달하고 실행을 재개합니다.
+4. 실행이 두 번째 `yield`에 도달하면 그 값은 제너레이터 호출의 결과가 됩니다.
+5. 세 번째 `next(9)`는 두 번째 `yield`의 결과인 `9`를 제너레이터로 전달하고 함수의 끝에 도달한 실행을 재개하므로 `done : true`입니다.
 
-It's like a "ping-pong" game. Each `next(value)` (excluding the first one) passes a value into the generator, that becomes the result of the current `yield`, and then gets back the result of the next `yield`.
+ 이 과정은 "핑퐁" 게임과 같습니다. 각 `next(value)`(첫 번째 값 제외)은 현재 `yield`의 결과가 되는 값을 제너레이터에 전달하고, 다음 `yield`의 결과를 다시 얻습니다.
 
 ## generator.throw
 
-As we observed in the examples above, the outer code may pass a value into the generator, as the result of `yield`.
+위 예제에서 봤듯이, 외부 코드는 `yield`의 결과로 제너레이터에 값을 전달할 수 있습니다.
 
-...But it can also initiate (throw) an error there. That's natural, as an error is a kind of result.
+하지만 전달하는 과정에서 에러를 접할(던질) 수도 있습니다. 에러는 일종의 결과이기 때문에 자연스럽습니다.
 
-To pass an error into a `yield`, we should call `generator.throw(err)`. In that case, the `err` is thrown in the line with that `yield`.
+`yield`에 에러를 전달하려면 `generator.throw(err)`를 호출해야합니다. 이 경우 `err`는 해당 `yield`와 같은 줄에서 던져집니다.
 
-For instance, here the yield of `"2 + 2 = ?"` leads to an error:
+예를 들어 여기에서 `"2 + 2 = ?"`의 'yield'은 오류를 초래합니다.
 
 ```js run
 function* gen() {
@@ -422,15 +423,15 @@ generator.throw(new Error("The answer is not found in my database")); // (2)
 */!*
 ```
 
-The error, thrown into the generator at the line `(2)` leads to an exception in the line `(1)` with `yield`. In the example above, `try..catch` catches it and shows.
+`(2)`줄에서 제너레이터로 던져진 에러는 `(1)`줄에서 `yield`와 함께 예외로 던져집니다. 위의 예에서 `try..catch`문이 던져진 에러를 잡아 보여줍니다.
 
-If we don't catch it, then just like any exception, it "falls out" the generator into the calling code.
+우리가 그것을 잡지 않으면 예외와 마찬가지로 제너레이터가 호출 코드로 "떨어집니다".
 
-The current line of the calling code is the line with `generator.throw`, labelled as `(2)`. So we can catch it here, like this:
+호출 코드의 현재 줄은 `(2)`로 표시된 `generator.throw`가 있는 줄입니다. 'generator.throw'는 다음과 같이 잡을 수 있습니다.
 
 ```js run
 function* generate() {
-  let result = yield "2 + 2 = ?"; // Error in this line
+  let result = yield "2 + 2 = ?"; // 이 부분에서 에러가 발생합니다.
 }
 
 let generator = generate();
@@ -439,23 +440,23 @@ let question = generator.next().value;
 
 *!*
 try {
-  generator.throw(new Error("The answer is not found in my database"));
+  generator.throw(new Error("내 데이터베이스에서 답을 찾을 수 없음"));
 } catch(e) {
-  alert(e); // shows the error
+  alert(e); // 에러를 보여줍니다.
 }
 */!*
 ```
 
-If we don't catch the error there, then, as usual, it falls through to the outer calling code (if any) and, if uncaught, kills the script.
+에러를 잡지 않으면 평소처럼 외부 호출 코드(있는 경우)로 에러를 던져 넘어가고 던진 에러가 잡히지 않으면 스크립트를 종료합니다.
 
-## Summary
+## 요약
 
-- Generators are created by generator functions `function* f(…) {…}`.
-- Inside generators (only) there exists a `yield` operator.
-- The outer code and the generator may exchange results via `next/yield` calls.
+- 제너레이터는 제너레이터 함수 `function* f(…) {…}`로 생성됩니다.
+- 내부 제너레이터 (만)에는 `yield` 연산자가 있습니다.
+- 외부 코드와 제너레이터는 `next/yield` 호출을 통해 결과를 교환 할 수 있습니다.
 
-In modern JavaScript, generators are rarely used. But sometimes they come in handy, because the ability of a function to exchange data with the calling code during the execution is quite unique. And, surely, they are great for making iterable objects.
+현대의 JavaScript에서 제너레이터는 거의 사용되지 않습니다. 하지만 실행 중 호출 코드와 데이터를 교환하는 기능이 매우 독특하기 때문에 때때로 편리합니다. 그리고 제너레이터는 iterable 객체를 만들기에 좋습니다.
 
-Also, in the next chapter we'll learn async generators, which are used to read streams of asynchronously generated data (e.g paginated fetches over a network) in `for await ... of` loop.
+다음 장에서는 `for await ... of` 루프에서 비동기 적으로 생성 된 데이터 스트림 (예 : 네트워크를 통한 페이지 매김 패치)을 읽는 데 사용되는 비동기 제너레이터를 학습합니다.
 
-In web-programming we often work with streamed data, so that's another very important use case.
+웹 프로그래밍에서는 종종 스트리밍 데이터로 작업하기 때문에 제너레이터의 매우 중요한 또 다른 사용 사례입니다.
