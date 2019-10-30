@@ -1,4 +1,4 @@
-The result is `4`:
+정답은 `4`입니다.
 
 
 ```js run
@@ -13,5 +13,5 @@ alert( fruits.length ); // 4
 */!*
 ```
 
-That's because arrays are objects. So both `shoppingCart` and `fruits` are the references to the same array.
+배열은 객체이기 때문입니다. 따라서 `shoppingCart`와 `fruits`는 모두 같은 배열을 참조합니다.
 

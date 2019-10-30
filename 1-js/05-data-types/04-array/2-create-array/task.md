@@ -2,17 +2,17 @@ importance: 5
 
 ---
 
-# Array operations.
+# 배열과 관련된 연산
 
-Let's try 5 array operations.
+배열과 관련된 5가지 연산을 해봅시다.
 
-1. Create an array `styles` with items "Jazz" and "Blues".
-2. Append "Rock-n-Roll" to the end.
-3. Replace the value in the middle by "Classics". Your code for finding the middle value should work for any arrays with odd length.
-4. Strip off the first value of the array and show it.
-5. Prepend `Rap` and `Reggae` to the array.
+1. 'Jazz', 'Blues' 요소을 가지고 있는 `styles` 배열을 생성합니다.
+2. 'Rock-n-Roll' 요소을 배열 끝에 추가합니다.
+3. 배열의 중간 요소을 'Classics'로 바꿉니다. 가운데 요소을 찾는 코드는 홀수 개의 요소을 가지는 배열에서 잘 작동해야 합니다.
+4. 배열의 첫 번째 요소을 꺼내서 출력하세요.
+5. `Rap`과 `Reggae`를 배열의 앞에 추가하세요.
 
-The array in the process:
+단계별로 바뀌는 배열의 모습입니다.
 
 ```js no-beautify
 Jazz, Blues

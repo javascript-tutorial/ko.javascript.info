@@ -2,18 +2,18 @@ importance: 3
 
 ---
 
-# Is array copied?
+# 배열은 복사가 될까요?
 
-What is this code going to show?
+아래 코드를 실행하면 어떤 결과가 나올까요?
 
 ```js
 let fruits = ["Apples", "Pear", "Orange"];
 
-// push a new value into the "copy"
+// 배열을 "복사"한 후, push 메서드를 이용해 새로운 값을 추가합니다.
 let shoppingCart = fruits;
 shoppingCart.push("Banana");
 
-// what's in fruits?
+// fruits에 어떤 값이 들어 있을까요?
 alert( fruits.length ); // ?
 ```
 
