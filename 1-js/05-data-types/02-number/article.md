@@ -1,10 +1,10 @@
 # 숫자형
 
-자바스크립트에 있는 모든 숫자는 "배정밀도 부동소수점 숫자들"(double precision floating point numbers)"로 알려진 64-비트 형식 [IEEE-754]에 저장되어 있습니다.
+자바스크립트에 있는 모든 숫자는 "배정밀도 부동소수점 숫자"(double precision floating point numbers)"로 알려진 64-비트 형식 [IEEE-754]에 저장되어 있습니다.
 
 현재 알고 있는 내용을 한번 요약해 보겠습니다.
 
-## 숫자를 입력하는 다양한 방법들
+## 숫자를 입력하는 다양한 방법
 
 10억을 입력해야 한다고 상상해 봅니다. 가장 분명한 방법이 있습니다.
 
@@ -65,7 +65,7 @@ alert( 0xff ); // 255
 alert( 0xFF ); // 255 (이 경우는 같은 것입니다)
 ```
 
-2진수와 8진수는 거의 쓰이지 않지만 `0b` 과 `0o` 접두사들을 통해 지원합니다.
+2진수와 8진수는 거의 쓰이지 않지만 `0b` 과 `0o` 접두사를 통해 지원합니다.
 
 
 ```js run
@@ -75,7 +75,7 @@ let b = 0o377; // 255의 8진법
 alert( a == b ); // true, a == b는 같은 것을 의미합니다.
 ```
 
-이처럼 3개의 숫자형만 지원합니다. 다른 진법에는 `parseInt`(이 챕터에서 나중에 보게 될) 라는 함수를 사용해야 합니다.
+이처럼 3개의 숫자형만 지원합니다. 다른 진법에는 `parseInt`(이 챕터에서 나중에 보게 될)라는 함수를 사용해야 합니다.
 
 ## toString(base)
 
@@ -89,7 +89,7 @@ alert( num.toString(16) );  // ff
 alert( num.toString(2) );   // 11111111
 ```
 
-`base`는 `2`에서 `36`까지 다양합니다. default문은 `10` 입니다.
+`base`는 `2`에서 `36`까지 다양합니다. default문은 `10`입니다.
 
 아래는 이에 대한 유스 케이스입니다.
 
@@ -101,10 +101,10 @@ alert( num.toString(2) );   // 11111111
     alert( 123456..toString(36) ); // 2n9c
     ```
 
-```warn header="함수를 불러오기 위한 두 개의 점들"
-`123456..toString(36)`에 있는 두 개의 점들은 오타가 아니라는 점에 유의하세요. 위에 있는 `toString`의 예시처럼 만약에 숫자에 함수를 불러오고 싶으면, 숫자 다음에 점 두 개인 `..`를 배치하세요.
+```warn header="함수를 불러오기 위한 두 개의 점"
+`123456..toString(36)`에 있는 두 개의 점은 오타가 아니라는 점에 유의하세요. 위에 있는 `toString`의 예시처럼 만약에 숫자에 함수를 불러오고 싶으면, 숫자 다음에 점 두 개인 `..`를 배치하세요.
 
-`123456.toString(36)`처럼 한 개의 점만 배치하면 이것은 에러일 수 있는데 그 이유는 자바스크립트 문법에서 첫 번째 점 이후 부분은 소수 부분으로 인식하기 때문입니다. 그리고 하나 이상의 점들을 배치하면 자바스크립트는 소수 부분이 비어있다는 것을 알고 함수로 이동합니다.
+`123456.toString(36)`처럼 한 개의 점만 배치하면 이것은 에러일 수 있는데 그 이유는 자바스크립트 문법에서 첫 번째 점 이후 부분은 소수 부분으로 인식하기 때문입니다. 그리고 하나 이상의 점을 배치하면 자바스크립트는 소수 부분이 비어있다는 것을 알고 함수로 이동합니다.
 
 또한 이처럼 `(123456).toString(36)` 입력할 수 있습니다.
 ```
@@ -300,7 +300,7 @@ Infinity와 Nan은 'number' 숫자형에 속하지만 "정상적인" 숫자는 �
     alert( NaN === NaN ); // false
     ```
     
-`isFinite(value)`는 인수를 숫자로 변환하고 `NaN / Infinity / -Infinity` 가 아닌 일반 숫자인 경우 true를 반환합니다.
+`isFinite(value)`는 인수를 숫자로 변환하고 `NaN / Infinity / -Infinity`가 아닌 일반 숫자인 경우 true를 반환합니다.
     ```js run
     alert( isFinite("15") ); // true
     alert( isFinite("str") ); // false, NaN이기 때문에
@@ -361,7 +361,8 @@ alert( parseFloat('12.3.4') ); // 12.3, 두 번째 점은 무시합니다.
 alert( parseInt('a123') ); // NaN, a는 디버깅이 실패합니다.
 ```
 
-smart header="`parseInt(str, radix)`의 두 번째 인수" `parseInt()` 함수에는 선택적으로 두 번째 매개 변수가 있습니다. radix는 숫자 시스템의 밑을 지정하므로, `parseInt`는 16진수, 2진수 등의 문자열을 구문 분석 할 수 있습니다.
+smart header="`parseInt(str, radix)`의 두 번째 인수"
+ `parseInt()` 함수에는 선택적으로 두 번째 매개 변수가 있습니다. radix는 숫자 시스템의 밑을 지정하므로, `parseInt`는 16진수, 2진수 등의 문자열을 구문 분석 할 수 있습니다.
 
 ```js run
 alert( parseInt('0xff', 16) ); // 255
@@ -424,6 +425,6 @@ alert( parseInt('2n9c', 36) ); // 123456
 - `Math.floor`,`Math.ceil`,`Math.trunc`,`Math.round` 또는`num.toFixed(precision)`을 사용하여 반올림합니다.
 - 분수로 작업할 때 정밀도가 떨어짐을 기억하십시오.
 
-더 많은 수학적 함수 
+더 많은 수학 함수 
 
 - 필요할 때 [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) 객체를 참조하십시오. 라이브러리는 매우 작지만 기본적인 요구를 충족시킬 수 있습니다.
