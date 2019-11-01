@@ -81,7 +81,7 @@ let promise = new Promise(function(resolve, reject) {
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이때 프라미스 객체의 상태가 변화합니다.
 
-이행(resolved)되거나 거절(rejected)된 상태의 promise는 '처리된(settled)' 프라미스라고 부르는데, 이는 '대기(pending)' promise에 반대됩니다.
+이행(resolved)되거나 거부(rejected)된 상태의 프라미스는 '처리된(settled)' 프라미스라고 부르는데, 이는 '대기(pending)'상태의 프라미스와 반대입니다.
 
 ````smart header="성공 혹은 에러"
 executor는 `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다. 이때 변경된 상태는 변경이 불가능합니다.
@@ -104,7 +104,7 @@ executor에 의해 끝난 일은 하나의 결과 혹은 에러만 가질 수 �
 여기에 더하여, `resolve`나 `reject`는 인수를 하나만 받고(혹은 아무것도 받지 않음) 그 이외의 인수는 무시합니다.
 ````
 
-```smart header="`Error` 객체와 함께 거절하기"
+```smart header="`Error` 객체와 함께 거부하기"
 무언가 잘 못 된 경우, executor는 `reject`를 호출해야만 합니다. 이때 인수는 `resolve`와 마찬가지로 어떤 타입도 가능하지만 `Error` 객체(또는 `Error`를 상속받은 객체)를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
 ```
 
@@ -166,7 +166,7 @@ promise.then(
 
 첫 번째 함수가 실행되었습니다.
 
-프라미스가 거절(reject)된 경우에는 아래와 같이 두 번째 함수가 실행됩니다.
+프라미스가 거부(reject)된 경우에는 아래와 같이 두 번째 함수가 실행됩니다.
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
