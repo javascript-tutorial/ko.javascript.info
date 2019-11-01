@@ -71,7 +71,7 @@ let promise = new Promise(function(resolve, reject) {
 ```js
 let promise = new Promise(function(resolve, reject) {
   // 1초 뒤에 에러와 함께 실행이 종료되었다는 신호를 보냅니다.
-  setTimeout(() =&amp;gt; *!*reject(new Error("Whoops!"))*/!*, 1000);
+  setTimeout(() =&amp;gt; *!*reject(new Error("에러 발생!"))*/!*, 1000);
 });
 ```
 
@@ -170,14 +170,14 @@ promise.then(
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
-  setTimeout(() =&amp;gt; reject(new Error("Whoops!")), 1000);
+  setTimeout(() =&amp;gt; reject(new Error("에러 발생!")), 1000);
 });
 
 // reject 함수는 .then의 두 번째 함수를 실행합니다.
 promise.then(
   result =&amp;gt; alert(result), // 실행되지 않음
 *!*
-  error =&amp;gt; alert(error) // 1초 후 "Error: Whoops!"를 출력
+  error =&amp;gt; alert(error) // 1초 후 "Error: 에러 발생!"를 출력
 */!*
 );
 ```
@@ -201,12 +201,12 @@ promise.then(alert); // 1초 뒤 "done!" 출력
 
 ```js run
 let promise = new Promise((resolve, reject) =&amp;gt; {
-  setTimeout(() =&amp;gt; reject(new Error("Whoops!")), 1000);
+  setTimeout(() =&amp;gt; reject(new Error("에러 발생!")), 1000);
 });
 
 *!*
 // .catch(f)는 promise.then(null, f)과 동일하게 작동합니다
-promise.catch(alert); // 1초 뒤 "Error: Whoops!" 출력
+promise.catch(alert); // 1초 뒤 "Error: 에러 발생!" 출력
 */!*
 ```
 
@@ -251,7 +251,7 @@ new Promise((resolve, reject) => {
 
     ```js run
     new Promise((resolve, reject) => {
-      throw new Error("error");
+      throw new Error("에러 발생!");
     })
       .finally(() => alert("Promise ready"))
       .catch(err => alert(err)); // <-- .catch에서 에러 객체를 다룸
