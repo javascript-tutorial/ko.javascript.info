@@ -2,18 +2,18 @@ importance: 4
 
 ---
 
-# Which values get shown by the "for" loop?
+# "for" 반복문의 출력값 예상하기
 
-For each loop write down which values it is going to show. Then compare with the answer.
+for 반복문이 순차적으로 실행될 때마다 얼럿 창에 어떤 값이 출력될지 예상해보세요.
 
-Both loops `alert` same values or not?
+아래 두 예시는 같은 값을 출할까요?
 
-1. The postfix form:
+1. 후위형 증가 연산자를 사용한 경우(`i++`):
 
     ```js
     for (let i = 0; i < 5; i++) alert( i );
     ```
-2. The prefix form:
+2. 전위형 증가 연산자를 사용한 경우(`++i`):
 
     ```js
     for (let i = 0; i < 5; ++i) alert( i );

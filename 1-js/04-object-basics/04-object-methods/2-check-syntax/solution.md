@@ -11,7 +11,7 @@ let user = {
 (user.go)() // error!
 ```
 
-브라우저에 출력되는 에러 메시지를 보고 원인이 무엇인지 파악하셨나요? 아마도 명확한 원인을 못 찾으셨을 겁니다.
+The error message in most browsers does not give us much of a clue about what went wrong.
 
 **에러는 `user = {...}`뒤에 세미콜론이 없어서 발생했습니다.**
 

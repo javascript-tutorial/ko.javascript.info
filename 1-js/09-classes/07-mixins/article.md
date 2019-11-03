@@ -1,26 +1,26 @@
-# Mixins
+# 믹스인
 
-In JavaScript we can only inherit from a single object. There can be only one `[[Prototype]]` for an object. And a class may extend only one other class.
+자바스크립트는 단일상속만을 허용하는 언어입니다. 객체엔 단 하나의 `[[Prototype]]`만 있을 수 있고, 클래스는 클래스 하나만 상속받을 수 있습니다.
 
-But sometimes that feels limiting. For instance, we have a class `StreetSweeper` and a class `Bicycle`, and want to make their mix: a `StreetSweepingBicycle`.
+그런데 가끔 이런 제약이 한계처럼 느껴질 때가 있습니다. 예시를 들어봅시다. 클래스 `StreetSweeper`(도시의 거리를 청소하는 차량 - 옮긴이)와 클래스 `Bicycle`이 있는데, 이 둘을 섞어 `StreetSweepingBicycle`를 만들고 싶다고 해봅시다.
 
-Or we have a class `User` and a class `EventEmitter` that implements event generation, and we'd like to add the functionality of `EventEmitter` to `User`, so that our users can emit events.
+또는 클래스 `User`와 이벤트를 생성해주는 코드가 담긴 클래스 `EventEmitter`가 있는데, `EventEmitter`의 기능을 `User`에 추가해 사용자가 이벤트를 내뿜을 수 있게(emit) 해주고 싶다고 해봅시다.
 
-There's a concept that can help here, called "mixins".
+이럴 때 믹스인이라 불리는 개념을 사용하면 도움이 됩니다.
 
-As defined in Wikipedia, a [mixin](https://en.wikipedia.org/wiki/Mixin) is a class containing methods that can be used by other classes without a need to inherit from it.
+Wikipedia에선 [믹스인(mixin)](https://en.wikipedia.org/wiki/Mixin)을 다른 클래스를 상속받을 필요 없이 이들 클래스에 구현되어있는 메서드를 담고 있는 클래스라고 정의합니다.  
 
-In other words, a *mixin* provides methods that implement a certain behavior, but we do not use it alone, we use it to add the behavior to other classes.
+다시 말해서 *믹스인*은 특정 행동을 실행해주는 메서드를 제공하는데 단독으로 쓰이지 않고 다른 클래스에 행동을 더해주는 용도로 사용됩니다.
 
-## A mixin example
+## 믹스인 예시
 
-The simplest way to implement a mixin in JavaScript is to make an object with useful methods, so that we can easily merge them into a prototype of any class.
+자바스크립트에서 믹스인을 구현할 수 있는 가장 쉬운 방법은 유용한 메서드 여러 개가 담긴 객체를 하나 만드는 것입니다. 이렇게 하면 다수의 메서드를 원하는 클래스의 프로토타입에 쉽게 병합할 수 있습니다.
 
-For instance here the mixin `sayHiMixin` is used to add some "speech" for `User`:
+아래 예시의 믹스인 `sayHiMixin`은 `User`에게 '언어 능력'을 부여해줍니다.
 
 ```js run
 *!*
-// mixin
+// 믹스인
 */!*
 let sayHiMixin = {
   sayHi() {
@@ -32,7 +32,7 @@ let sayHiMixin = {
 };
 
 *!*
-// usage:
+// 사용법:
 */!*
 class User {
   constructor(name) {
@@ -40,14 +40,14 @@ class User {
   }
 }
 
-// copy the methods
+// 메서드 복사
 Object.assign(User.prototype, sayHiMixin);
 
-// now User can say hi
+// 이제 User가 인사를 할 수 있습니다.
 new User("Dude").sayHi(); // Hello Dude!
 ```
 
-There's no inheritance, but a simple method copying. So `User` may inherit from another class and also include the mixin to "mix-in" the additional methods, like this:
+상속 없이 메서드만 간단히 복사했습니다. 믹스인을 활용하면 `User`가 아래 예시처럼 다른 클래스를 상속받는 동시에, 믹스인에 구현된 추가 메서드도 사용할 수 있습니다. 
 
 ```js
 class User extends Person {
@@ -57,9 +57,9 @@ class User extends Person {
 Object.assign(User.prototype, sayHiMixin);
 ```
 
-Mixins can make use of inheritance inside themselves.
+믹스인 안에서 믹스인 상속을 사용하는 것도 가능합니다.
 
-For instance, here `sayHiMixin` inherits from `sayMixin`:
+아래 예시에서 `sayHiMixin`은 `sayMixin`을 상속받습니다.
 
 ```js run
 let sayMixin = {
@@ -69,11 +69,11 @@ let sayMixin = {
 };
 
 let sayHiMixin = {
-  __proto__: sayMixin, // (or we could use Object.create to set the prototype here)
+  __proto__: sayMixin, // (Object.create를 사용해 프로토타입을 설정할 수도 있습니다.)
 
   sayHi() {
     *!*
-    // call parent method
+    // 부모 메서드 호출
     */!*
     super.say(`Hello ${this.name}`); // (*)
   },
@@ -88,44 +88,44 @@ class User {
   }
 }
 
-// copy the methods
+// 메서드 복사
 Object.assign(User.prototype, sayHiMixin);
 
-// now User can say hi
+// 이제 User가 인사를 할 수 있습니다.
 new User("Dude").sayHi(); // Hello Dude!
 ```
 
-Please note that the call to the parent method `super.say()` from `sayHiMixin` (at lines labelled with `(*)`) looks for the method in the prototype of that mixin, not the class.
+`sayHiMixin`에서 부모 메서드 `super.say()`를 호출하면(`(*)`로 표시한 줄) 클래스가 아닌 `sayHiMixin`의 프로토타입에서 메서드를 찾는다는 점에 주목해주시기 바랍니다.
 
-Here's the diagram (see the right part):
+그림의 우측을 봅시다.
 
 ![](mixin-inheritance.svg)
 
-That's because methods `sayHi` and `sayBye` were initially created in `sayHiMixin`. So even though they got copied, their `[[HomeObject]]` internal property references `sayHiMixin`, as shown on the picture above.
+이는 `sayHi`와 `sayBye`가 생성된 곳이 `sayHiMixin`이기 때문입니다. 따라서 메서드를 복사했더라도, 이 메서드들의 내부 프로퍼티인 `[[HomeObject]]`는 위 그림처럼 `sayHiMixin`을 참조합니다.
 
-As `super` looks for parent methods in `[[HomeObject]].[[Prototype]]`, that means it searches `sayHiMixin.[[Prototype]]`, not `User.[[Prototype]]`.
+메서드의 `super`가 `[[HomeObject]].[[Prototype]]`내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색합니다. 
 
-## EventMixin
+## 이벤트 믹스인
 
-Now let's make a mixin for real life.
+실제로 사용할 수 있는 믹스인을 만들어봅시다.
 
-An important feature of many browser objects (for instance) is that they can generate events. Events is a great way to "broadcast information" to anyone who wants it. So let's make a mixin that allows to easily add event-related functions to any class/object.
+상당수 브라우저 객체는 이벤트를 생성이라는 중요한 기능을 가지고 있습니다. 이벤트는 정보를 필요로 하는 곳에 '정보를 널리 알리는(broadcast)' 훌륭한 수단입니다. 아래 예시에선 클래스나 객체에 이벤트 관련 함수를 쉽게 추가할 수 있도록 해주는 믹스인을 만들어 보겠습니다.
 
-- The mixin will provide a method `.trigger(name, [...data])` to "generate an event" when something important happens to it. The `name` argument is a name of the event, optionally followed by additional arguments with event data.
-- Also the method `.on(name, handler)` that adds `handler` function as the listener to events with the given name. It will be called when an event with the given `name` triggers, and get the arguments from `.trigger` call.
-- ...And the method `.off(name, handler)` that removes `handler` listener.
+- 믹스인은 뭔가 중요한 일이 발생했을 때 '이벤트를 생성하는' 메서드, `.trigger(name, [...data])`를 제공합니다. 인수 `name`은 이벤트 이름이고, 뒤따르는 선택 인수는 이벤트 데이터 정보를 담습니다.
+- 메서드 `.on(name, handler)`은 `name`에 해당하는 이벤트에 리스너로 `handler` 함수를 추가합니다. `.on()`은 이벤트(`name`)가 트리거 될 때 호출되고, `.trigger` 호출에서 인수를 얻습니다.
+- 메서드 `.off(name, handler)`는 `handler` 리스너를 제거합니다.
 
-After adding the mixin, an object `user` will become able to generate an event `"login"` when the visitor logs in. And another object, say, `calendar` may want to listen to such events to load the calendar for the logged-in person.
+믹스인을 추가하면, 사용자가 로그인할 때 객체 `user`가 `"login"`이라는 이벤트를 생성할 수 있게 됩니다. 또 다른 객체 `calendar`는 `user`가 생성한 이벤트인 `"login"`을 듣고 사용자에 맞는 달력을 보여줄 수 있겠죠.
 
-Or, a `menu` can generate the event `"select"` when a menu item is selected, and other objects may assign handlers to react on that event. And so on.
+메뉴의 항목을 선택했을 때 객체 `menu`가 `"select"`라는 이벤트를 생성하고, 다른 객체는 `"select"`에 반응하는 이벤트 핸들러를 할당할 수도 있을 겁니다. 이벤트 믹스인은 이런 용도로 활용 가능합니다.
 
-Here's the code:
+이벤트 믹스인을 구현해봅시다.
 
 ```js run
 let eventMixin = {
   /**
-   * Subscribe to event, usage:
-   *  menu.on('select', function(item) { ... }
+   *  이벤트 구독
+   *  사용패턴: menu.on('select', function(item) { ... }
   */
   on(eventName, handler) {
     if (!this._eventHandlers) this._eventHandlers = {};
@@ -136,8 +136,8 @@ let eventMixin = {
   },
 
   /**
-   * Cancel the subscription, usage:
-   *  menu.off('select', handler)
+   *  구독 취소
+   *  사용패턴: menu.off('select', handler)
    */
   off(eventName, handler) {
     let handlers = this._eventHandlers && this._eventHandlers[eventName];
@@ -150,59 +150,59 @@ let eventMixin = {
   },
 
   /**
-   * Generate an event with the given name and data
-   *  this.trigger('select', data1, data2);
+   *  주어진 이름과 데이터를 기반으로 이벤트 생성
+   *  사용패턴: this.trigger('select', data1, data2);
    */
   trigger(eventName, ...args) {
     if (!this._eventHandlers || !this._eventHandlers[eventName]) {
       return; // no handlers for that event name
     }
 
-    // call the handlers
+    // 핸들러 호출
     this._eventHandlers[eventName].forEach(handler => handler.apply(this, args));
   }
 };
 ```
 
 
-- `.on(eventName, handler)` -- assigns function `handler` to run when the event with that name happens. Technically, there's `_eventHandlers` property, that stores an array of handlers for each event name. So it just adds it to the list.
-- `.off(eventName, handler)` -- removes the function from the handlers list.
-- `.trigger(eventName, ...args)` -- generates the event: all handlers from `_eventHandlers[eventName]` are called, with a list of arguments `...args`.
+- `.on(eventName, handler)` -- `eventName`에 해당하는 이벤트가 발생하면 실행시킬 함수 `handler`를 할당합니다. 한 이벤트에 대응하는 핸들러가 여러 개 있을 때, 프로퍼티 `_eventHandlers`는 핸들러가 담긴 배열을 저장합니다. 여기선 핸들러가 배열에 추가만 됩니다.
+- `.off(eventName, handler)` -- 핸들러 리스트에서 `handler`를 제거합니다.
+- `.trigger(eventName, ...args)` -- 이벤트를 생성합니다. `_eventHandlers[eventName]`에 있는 모든 핸들러가 `...args`와 함께 호출됩니다. 
 
-Usage:
+사용법:
 
 ```js run
-// Make a class
+// 클래스 생성
 class Menu {
   choose(value) {
     this.trigger("select", value);
   }
 }
-// Add the mixin with event-related methods
+// 이벤트 관련 메서드가 구현된 믹스인 추가
 Object.assign(Menu.prototype, eventMixin);
 
 let menu = new Menu();
 
-// add a handler, to be called on selection:
+// 메뉴 항목을 선택할 때 호출될 핸들러 추가
 *!*
-menu.on("select", value => alert(`Value selected: ${value}`));
+menu.on("select", value => alert(`선택된 값: ${value}`));
 */!*
 
-// triggers the event => the handler above runs and shows:
-// Value selected: 123
+// 이벤트가 트리거 되면 핸들러가 실행되어 얼럿창이 뜸
+// 얼럿창 메시지: Value selected: 123
 menu.choose("123");
 ```
 
-Now if we'd like any code to react on menu selection, we can listen to it with `menu.on(...)`.
+이제 `menu.on(...)`을 사용해 메뉴 선택이라는 정보를 들을 수 있게 되었고, 이에 반응하는 코드를 추가할 수 있게 되었습니다.
 
-And `eventMixin` mixin makes it easy to add such behavior to as many classes as we'd like, without interfering with the inheritance chain.
+그리고 믹스인 `eventMixin`을 사용하면 이런 동작을 상속 체이닝에 끼어들지 않고도 원하는 클래스에 모두에 추가할 수 있습니다.
 
-## Summary
+## 요약
 
-*Mixin* -- is a generic object-oriented programming term: a class that contains methods for other classes.
+*믹스인* 은 객체 지향 언어에서 범용적으로 쓰이는 용어로, 다른 클래스들의 메서드 조합을 포함하는 클래스를 의미합니다.
 
-Some other languages like allow multiple inheritance. JavaScript does not support multiple inheritance, but mixins can be implemented by copying methods into prototype.
+몇몇 언어는 다중상속을 허용합니다. 자바스크립트는 다중상속을 지원하지 않는데, 믹스인을 사용하면 메서드를 복사해 프로토타입에 구현할 수 있습니다.
 
-We can use mixins as a way to augment a class by multiple behaviors, like event-handling as we have seen above.
+이벤트 믹스인 예시에서 본 것처럼, 믹스인은 이벤트 핸들링 등의 행동을 추가하여 클래스를 확장하는 용도로 사용할 수 있습니다.
 
-Mixins may become a point of conflict if they accidentally overwrite existing class methods. So generally one should think well about the naming methods of a mixin, to minimize the probability of that.
+mixin이 실수로 기존 클래스 메서드를 덮어쓰면 충돌이 발생할 수 있습니다. 따라서 mixin을 만들 땐 충돌이 발생하지 않ㄷ록 메서드 이름을 신중하게 정하셔야 합니다. 

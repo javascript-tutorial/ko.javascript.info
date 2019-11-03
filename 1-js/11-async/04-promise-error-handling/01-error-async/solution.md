@@ -3,7 +3,7 @@ The answer is: **no, it won't**:
 ```js run
 new Promise(function(resolve, reject) {
   setTimeout(() => {
-    throw new Error("Whoops!");
+    throw new Error("에러 발생!");
   }, 1000);
 }).catch(alert);
 ```

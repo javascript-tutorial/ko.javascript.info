@@ -1,5 +1,5 @@
-The answer: **0,1.**
+얼럿창엔 **0과 1** 이 출력됩니다.
 
-Functions `counter` and `counter2` are created by different invocations of `makeCounter`.
+함수 `counter`와 `counter2`는 각각 다른 `makeCounter` 호출에 의해 만들어졌습니다.
 
-So they have independent outer Lexical Environments, each one has its own `count`.
+두 함수는 독립적인 렉시컬 환경을 갖게 되므로 각 함수는 자신만의 `count`를 갖게 됩니다.

@@ -8,4 +8,4 @@ for (let i = 2; i <= 10; i++) {
 }
 ```
 
-We use the "modulo" operator `%` to get the remainder and check for the evenness here.
+나머지 연산자 `%`를 사용하면 짝수인지를 확인할 수 있습니다.

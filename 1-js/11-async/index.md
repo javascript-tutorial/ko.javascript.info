@@ -1,2 +1,2 @@
 
-# Promises, async/await
+# 프라미스와 async, await
