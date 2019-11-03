@@ -16,9 +16,9 @@
 let promise = Promise.all([...promises...]);
 ```
 
-`Promise.all`은 프라미스 배열(엄밀히 따지면 반복 가능한 객체나 보통 배열을 말합니다.)을 가져가고 새로운 프라미스를 반환합니다.
+`Promise.all`은 프라미스 배열(엄밀히 따지면 반복 가능한(iterable, 이터러블) 객체나 보통 배열을 말합니다.)을 가져가고 새로운 프라미스를 반환합니다.
 
-연결된 모든 프라미스가 처리되고 결괏값으로 배열을 반환할 때 새로운 프라미스가 이행됩니다.
+나열된 프라미스가 모두 처리되면 새로운 프라미스가 resolve 되고 나열된 프라미스의 결괏값 배열이 반환됩니다.
 
 예를 들어 아래 `Promise.all`이 3초 후에 처리된다면 결과는 `[1, 2, 3]` 입니다.
 
@@ -30,9 +30,9 @@ Promise.all([
 ]).then(alert); // 프라미스가 준비되었을 때 1, 2, 3을 반환합니다. 프라미스 하나는 배열 구성원 하나가 됩니다.
 ```
 
-배열 구성원의 순서는 원천 프라미스의 순서와 같다는 것을 유의하세요. 첫 번째 프라미스가 resolve 되는 시간이 길어도 결괏값의 첫 번째 요소입니다.
+배열 구성원의 순서는 원천 프라미스의 순서와 같다는 것을 유의하세요. 첫 번째 프라미스가 resolve 되는 시간이 길어도 결괏값 배열의 첫 번째 배열 요소입니다.
 
-주로 작업 데이터를 프라미스 배열로 매핑하고 다시 전체를 `Promise.all`로 감쌉니다.
+주로 쓰는 수법은 작업 데이터를 프라미스 배열로 매핑하고 다시 전체를 `Promise.all`로 감싸는 것입니다.
 
 예를 들어 URL 배열은 다음과 같이 불러옵니다.
 
@@ -53,7 +53,7 @@ Promise.all(requests)
   ));
 ```
 
-깃허브 사용자들의 이름 배열하고 사용자 정보를 가져오는 더 큰 예제입니다. (사용자 아이디로 상품 배열을 가져올 수 있습니다. 로직은 같습니다.)
+깃허브 사용자들의 이름 배열하고 사용자 정보를 가져오는 더 큰 예제입니다.(사용자 아이디로 상품 배열을 가져올 수 있습니다. 로직은 같습니다.)
 
 ```js run
 let names = ['iliakan', 'remy', 'jeresig'];
@@ -69,13 +69,13 @@ Promise.all(requests)
 
     return responses;
   })
-  // 응답 배열을 response.json() 로 매핑하여 응답 내용을 읽습니다.
+  // 응답 배열을 response.json()로 매핑하여 응답 내용을 읽습니다.
   .then(responses => Promise.all(responses.map(r => r.json())))
-  // 모든 JSON 응답은 구문 분석됩니다. "users"는 응답의 배열입니다.
+  // 모든 JSON 응답은 구문 분석됩니다. "users"는 배열로 응답됩니다.
   .then(users => users.forEach(user => alert(user.name)));
 ```
 
-**`Promise.all`에서 프라미스가 하나라도 거부된다면 즉시 에러가 발생합니다.**
+**프라미스가 하나라도 거부된다면 `Promise.all`가 반환한 프라미스는 즉시 에러를 발생합니다.**
 
 예시:
 
@@ -94,13 +94,13 @@ Promise.all([
 ```warn header="에러가 날 때 다른 프라미스는 무시됩니다"
 프라미스 하나가 실패하면 `Promise.all` 은 즉시 실패하고 전체 목록에서 다른 프라미스는 완전히 잊어버립니다. 다른 프라미스의 결과는 무시됩니다.
 
-For example, if there are multiple `fetch` calls, like in the example above, and one fails, other ones will still continue to execute, but `Promise.all` don't watch them any more. They will probably settle, but the result will be ignored.
+예를 들어, 위의 예제처럼 `fetch` 요청이 여러 번 있다면 하나가 실패해도 다른 요청은 계속 실행됩니다. 그러나 `Promise.all`은 다른 요청을 신경 쓰지 않습니다. 다른 요청이 처리되나 결괏값은 무시됩니다.
 
 프라미스에 취소라는 개념이 없어서 `Promise.all` 가 프라미스를 취소하지는 않습니다. [다음 챕터](info:fetch-abort)에서 이와 관련된 `AbortController`에 대해서 다룰 것입니다.
 ```
 
-````smart header="`Promise.all(반복 가능한(iterable, 이터러블) 객체)`는 `반복 가능한 객체`에서 프라미스가 아닌 \"일반\" 값을 허용합니다."
-보통, `Promise.all(...)`는 프라미스의 이러터블 객체(대부분 배열)를 인정합니다. 그러나 그 객체 중 하나라도 프라미스가 아니면, 배열 결과 "그대로" 보냅니다.
+````smart header="`Promise.all(iterable)`는 `반복 가능한 객체`에서 프라미스가 아닌 \"일반\" 값을 허용합니다."
+보통, `Promise.all(...)`은 프라미스의 이러터블 객체(대부분 배열)를 받아들입니다. 그러나 그 객체 중 하나라도 프라미스가 아니면, 배열 결과 "그대로" 보냅니다.
 
 결괏값이 `[1, 2, 3]`인 예제를 봅시다.
 
@@ -114,14 +114,14 @@ Promise.all([
 ]).then(alert); // 1, 2, 3
 ```
 
-그래서 준비된 값들을 `Promise.all`로 보낼 수 있습니다.
+그래서 준비된 값들을 간편하게 `Promise.all`로 보낼 수 있습니다.
 ````
 
 ## Promise.allSettled
 
 [recent browser="new"]
 
-`Promise.all`는 프라미스가 하나라도 거절되면 전체 다 거절됩니다. *모든* 결괏값이 필요한 경우에 "전부냐 아니냐"의 경우에 좋습니다.
+`Promise.all`는 프라미스가 하나라도 거절되면 전체가 다 거절됩니다. *모든* 결괏값이 필요한 "전부냐 아니냐"의 경우에 좋습니다.
 
 ```js
 Promise.all([
@@ -160,7 +160,7 @@ Promise.allSettled(urls.map(url => fetch(url)))
   });
 ```
 
-위에서 `(*)` 줄에서 `results`는 다음과 같이 나올 것입니다.
+`(*)`라고 표시된 줄에서 `results`는 다음과 같이 나올 것입니다.
 ```js
 [
   {status: 'fulfilled', value: ...response...},
