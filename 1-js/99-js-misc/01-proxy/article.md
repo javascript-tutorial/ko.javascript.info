@@ -310,7 +310,11 @@ user = new Proxy(user, {
     return {
       enumerable: true,
       configurable: true
+<<<<<<< HEAD
       /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능하죠. */
+=======
+      /* ...other flags, probable "value:..." */
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
     };
   }
 
@@ -603,7 +607,7 @@ Here are examples of operations and `Reflect` calls that do the same:
 |-----------------|----------------|-------------|
 | `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
 | `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[HasProperty]]` |
+| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
 | `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
 | ... | ... | ... |
 

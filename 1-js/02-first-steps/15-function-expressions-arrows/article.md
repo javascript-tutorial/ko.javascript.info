@@ -351,7 +351,11 @@ welcome(); // 제대로 동작합니다.
 ```smart header="함수 선언문과 함수 표현식 중 무엇을 선택해야 하나요?"
 제 경험에 따르면 함수 선언문을 이용해 함수를 선언하는 걸 먼저 고려하는 게 좋습니다. 함수 선언문으로 함수를 정의하면, 함수가 선언되기 전에 호출할 수 있어서 코드 구성을 좀 더 자유롭게 할 수 있습니다.
 
+<<<<<<< HEAD
 함수 선언문을 사용하면 가독성도 좋아집니다. 코드에서 `let f = function(…) {…}`보다 `function f(…) {…}` 을 찾는 게 더 쉽죠. 함수 선언 방식이 더 "눈길을 사로잡습니다".
+=======
+That's also better for readability, as it's easier to look up `function f(…) {…}` in the code than `let f = function(…) {…};`. Function Declarations are more "eye-catching".
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 그러나 어떤 이유로 함수 선언 방식이 적합하지 않거나, (위 예제와 같이) 조건에 따라 함수를 선언해야 한다면 함수 표현식을 사용해야 합니다.
 ```

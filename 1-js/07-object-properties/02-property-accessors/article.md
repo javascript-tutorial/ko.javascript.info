@@ -3,7 +3,11 @@
 
 두 종류의 프로퍼티가 있습니다.
 
+<<<<<<< HEAD
 첫 번째는 *데이터 프로퍼티(data properties)* 입니다. 이미 데이터 프로퍼티가 어떻게 작동하는지 알고 있습니다. 지금까지 사용해온 모든 프로퍼티는 데이터 프로퍼티입니다.
+=======
+The first kind is *data properties*. We already know how to work with them. All properties that we've been using until now were data properties.
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 두 번째 프로퍼티는 새로운 것입니다. *접근자 프로퍼티(accessor properties)* 입니다. 접근자 프로퍼티는 기본적으로 값을 획득하고 설정하는 일을 하는 함수입니다. 하지만 외부 코드에서는 일반적인 프로퍼티처럼 보입니다.
 
@@ -189,9 +193,15 @@ user.name = ""; // Name이 너무 짧습니다...
 
 ## 호환성을 위한 사용
 
+<<<<<<< HEAD
 접근자의 주요 용도중 하나는, '정규' 데이터 프로퍼티를 getter와 setter로 교체하고 행동을 수정하여 언제든지 제어할 수 있도록 한다는 것입니다.
 
 데이터 프로퍼티 `name`과 `age`를 사용해서 유저 객체를 구현했다고 해봅시다.
+=======
+One of the great uses of accessors is that they allow to take control over a "regular" data property at any moment by replacing it with a getter and a setter and tweak its behavior.
+
+Imagine we started implementing user objects using data properties `name` and `age`:
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 ```js
 function User(name, age) {

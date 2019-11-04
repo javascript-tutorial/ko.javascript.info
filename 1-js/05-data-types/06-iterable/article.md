@@ -142,7 +142,11 @@ for (let char of str) {
 
 이터레이터를 어떻게 명시적으로 사용할 수 있는지 살펴보면서 좀 더 깊게 이해해봅시다.
 
+<<<<<<< HEAD
 `for..of`를 사용했을 때와 동일한 방법으로 문자열을 순회할 건데, 이번엔 직접 호출을 통해서 순회해보겠습니다. 다음 코드는 문자열 이터레이터를 만들고, 여기서 값을 '수동으로' 가져옵니다.
+=======
+We'll iterate over a string in exactly the same way as `for..of`, but with direct calls. This code creates a string iterator and gets values from it "manually":
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 ```js run
 let str = "Hello";
@@ -150,7 +154,9 @@ let str = "Hello";
 // for..of를 사용한 것과 동일한 작업을 합니다.
 // for (let char of str) alert(char);
 
+*!*
 let iterator = str[Symbol.iterator]();
+*/!*
 
 while (true) {
   let result = iterator.next();
@@ -268,7 +274,11 @@ for (let char of str) {
 alert(chars);
 ```
 
+<<<<<<< HEAD
 어쨌든 `Array.from`을 사용한 예시가 더 짧습니다.
+=======
+...But it is shorter.    
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 `Array.from`을 사용하면 서로게이트 쌍을 처리할 수 있는 `slice`를 직접 구현할 수도 있습니다.
 

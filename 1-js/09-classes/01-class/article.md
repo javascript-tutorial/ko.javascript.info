@@ -68,7 +68,11 @@ user.sayHi();
 
 클래스가 보여주는 다양한 마법의 원리를 하나씩 알아보며 클래스가 정확히 무엇인지 알아봅시다. 이 과정을 거치고 나면 자바스크립트의 복잡한 기능을 이해할 수 있게 됩니다.
 
+<<<<<<< HEAD
 자바스크립트에서 클래스는 함수의 한 종류입니다.
+=======
+In JavaScript, a class is a kind of function.
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 코드를 통해 이를 확인해봅시다.
 
@@ -179,7 +183,11 @@ user.sayHi();
 
 ## 클래스 표현식
 
+<<<<<<< HEAD
 함수와 마찬가지로 클래스도 또 다른 표현식 내부에서 정의, 전달, 반환, 할당될 수 있습니다. 
+=======
+Just like functions, classes can be defined inside another expression, passed around, returned, assigned, etc.
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 아래는 클래스 표현식에 대한 예시입니다.
 
@@ -344,6 +352,10 @@ class MyClass {
 }
 ```
 
+<<<<<<< HEAD
 `MyClass`는 `constructor`의 코드를 본문으로 갖는 함수입니다. `MyClass`에서 정의한 일반 메서드나 getter, setter는 `MyClass.prototype`에 쓰여집니다.
+=======
+`MyClass` is technically a function (the one that we provide as `constructor`), while methods, getters and setters are written to `MyClass.prototype`.
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 
 이어지는 챕터에선 상속을 비롯한 클래스의 다양한 기능에 대해 알아보겠습니다.

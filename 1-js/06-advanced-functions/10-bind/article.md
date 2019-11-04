@@ -83,10 +83,19 @@ let user = {
 
 setTimeout(() => user.sayHi(), 1000);
 
+<<<<<<< HEAD
 // ...1초 안에
 user = { sayHi() { alert("Another user in setTimeout!"); } };
 
 // setTimeout에 또 다른 user 가?!?
+=======
+// ...the value of user changes within 1 second
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+};
+
+// Another user in setTimeout!
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 ```
 
 두 번째 해결방법은 갑자기 값이 변경되는 현상이 일어나는 걸 방지합니다.
@@ -98,7 +107,11 @@ user = { sayHi() { alert("Another user in setTimeout!"); } };
 기본 문법:
 
 ```js
+<<<<<<< HEAD
 // 더 복잡한 문법은 나중에 다루겠습니다
+=======
+// more complex syntax will come a little later
+>>>>>>> ec21af8aef6930388c06ee4cd8f8f6769f9d305b
 let boundFunc = func.bind(context);
 ````
 
@@ -159,9 +172,16 @@ let user = {
 let sayHi = user.sayHi.bind(user); // (*)
 */!*
 
+// can run it without an object
 sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
+
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+};
 ```
 
 `(*)`줄에서 `user.sayHi` 메서드를 가져와서 `user`에 바인드합니다. `sayHi`는 단독으로 호출되거나 `setTimeout`에 전달될 수 있는 "바운드 (bound)"함수입니다 - 컨텍스트는 맞기 때문에 중요하지는 않습니다.
