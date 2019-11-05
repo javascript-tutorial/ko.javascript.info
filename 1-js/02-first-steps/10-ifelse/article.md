@@ -43,7 +43,7 @@ if (year == 2015) {
 이 규칙에 따르면 아래 예시의 코드 블록은 절대 실행되지 않습니다.
 
 ```js
-if (0) { // 0은 거짓 같은 값입니다.
+if (0) { // 0은 falsy입니다.
   ...
 }
 ```
@@ -51,7 +51,7 @@ if (0) { // 0은 거짓 같은 값입니다.
 아래 예시의 코드 블록은 항상 실행됩니다.
 
 ```js
-if (1) { // 1은 참 같은 값입니다.
+if (1) { // 1은 truthy입니다.
   ...
 }
 ```
@@ -133,7 +133,7 @@ alert(accessAllowed);
 let result = condition ? value1 : value2;
 ```
 
-평가 대상인 `condition`이 참 같은 값이라면 `value1`이, 그렇지 않으면 `value2`가 반환됩니다.
+평가 대상인 `condition`이 truthy라면 `value1`이, 그렇지 않으면 `value2`가 반환됩니다.
 
 예시:
 

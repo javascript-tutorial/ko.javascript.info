@@ -1,12 +1,12 @@
 
-# Extending built-in classes
+# 내장 클래스 확장하기
 
-Built-in classes like Array, Map and others are extendable also.
+배열, 맵 같은 내장 클래스도 확장 가능합니다.
 
-For instance, here `PowerArray` inherits from the native `Array`:
+아래 예시에서 `PowerArray`는 기본 `Array`를 상속받아 만들었습니다.
 
 ```js run
-// add one more method to it (can do more)
+// 메서드 하나를 추가합니다(더 많이 추가하는 것도 가능).
 class PowerArray extends Array {
   isEmpty() {
     return this.length === 0;
@@ -21,20 +21,20 @@ alert(filteredArr); // 10, 50
 alert(filteredArr.isEmpty()); // false
 ```
 
-Please note a very interesting thing. Built-in methods like `filter`, `map` and others -- return new objects of exactly the inherited type `PowerArray`. Their internal implementation uses the object's `constructor` property for that.
+뭔가 흥미로운 점이 하나 보이네요. `filter`, `map` 등의 내장 메서드가 상속받은 클래스인 `PowerArray`의 인스턴스(객체)를 반환합니다. 이 객체를 구현할 땐 내부에서 객체의 `constructor` 프로퍼티를 사용합니다.
 
-In the example above,
+따라서 아래와 같은 관계를 갖습니다.
 ```js
 arr.constructor === PowerArray
 ```
 
-When `arr.filter()` is called, it internally creates the new array of results using exactly `arr.constructor`, not basic `Array`. That's actually very cool, because we can keep using `PowerArray` methods further on the result.
+`arr.filter()`가 호출될 때, 내부에선 기본 `Array`가 아닌 `arr.constructor`를 기반으로 새로운 배열이 만들어지고 여기에 필터 후 결과가 담깁니다. 이렇게 되면 `PowerArray`에 구현된 메서드를 사용할 수 있다는 장점이 생깁니다.
 
-Even more, we can customize that behavior.
+물론 동작 방식을 변경할 수 있습니다.
 
-We can add a special static getter `Symbol.species` to the class. If exists, it should return the constructor that JavaScript will use internally to create new entities in `map`, `filter` and so on.
+특수 정적 getter인 `Symbol.species`를 클래스에 추가할 수 있는데, `Symbol.species`가 있으면 `map`, `filter` 등의 메서드를 호출할 때 만들어지는 개체의 생성자를 지정할 수 있습니다. 원하는 생성자를 반환하기만 하면 되죠. 
 
-If we'd like built-in methods like `map` or `filter` to return regular arrays, we can return `Array` in `Symbol.species`, like here:
+`map`이나 `filter`같은 내장 메서드가 일반 배열을 반환하도록 하려면 아래 예시처럼 `Symbol.species`가 `Array`를 반환하도록 해주면 됩니다.
 
 ```js run
 class PowerArray extends Array {
@@ -43,7 +43,7 @@ class PowerArray extends Array {
   }
 
 *!*
-  // built-in methods will use this as the constructor
+  // 내장 메서드는 반환 값에 명시된 클래스를 생성자로 사용합니다.
   static get [Symbol.species]() {
     return Array;
   }
@@ -53,37 +53,37 @@ class PowerArray extends Array {
 let arr = new PowerArray(1, 2, 5, 10, 50);
 alert(arr.isEmpty()); // false
 
-// filter creates new array using arr.constructor[Symbol.species] as constructor
+// filter는 arr.constructor[Symbol.species]를 생성자로 사용해 새로운 배열을 만듭니다.
 let filteredArr = arr.filter(item => item >= 10);
 
 *!*
-// filteredArr is not PowerArray, but Array
+// filteredArr는 PowerArray가 아닌 Array의 인스턴스입니다.
 */!*
 alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
 ```
 
-As you can see, now `.filter` returns `Array`. So the extended functionality is not passed any further.
+보시다시피 이제 `.filter`가 `Array`를 반환합니다. 따라서 더는 확장 기능이 전달되지 않습니다.
 
-```smart header="Other collections work similarly"
-Other collections, such as `Map` and `Set`, work alike. They also use `Symbol.species`.
+```smart header="다른 컬렉션도 유사하게 동작합니다."
+`Map`, `Set` 같은 컬렉션도 위외 같이 동작합니다. 이 컬렉션들도 `Symbol.species`를 사용합니다.
 ```
 
-## No static inheritance in built-ins
+## 내장 객체와 정적 메서드 상속
 
-Built-in objects have their own static methods, for instance `Object.keys`, `Array.isArray` etc.
+내장 객체는 `Object.keys`, `Array.isArray` 등의 자체 정적 메서드를 갖습니다.
 
-As we already know, native classes extend each other. For instance, `Array` extends `Object`.
+앞서 학습한 바와 같이 네이티브 클래스들은 서로 상속 관계를 맺습니다. `Array`는 `Object`를 상속받죠.
 
-Normally, when one class extends another, both static and non-static methods are inherited. That was thoroughly explained in the article [](info:static-properties-methods#statics-and-inheritance).
+일반적으론 한 클래스가 다른 클래스를 상속받으면 정적 메서드와 그렇지 않은 메서드 모두를 상속받습니다. 이와 관련된 내용은 [](info:static-properties-methods#statics-and-inheritance)에서 자세히 설명해 드린 바 있습니다. 
 
-But built-in classes are an exception. They don't inherit statics from each other.
+그런데 내장 클래스는 다릅니다. 내장클래스는 정적 메서드를 상속받지 못합니다.
 
-For example, both `Array` and `Date` inherit from `Object`, so their instances have methods from `Object.prototype`. But `Array.[[Prototype]]` does not reference `Object`, so there's no, for instance, `Array.keys()` (or `Date.keys()`) static method.
+예를 들어봅시다. `Array`와 `Date`는 모두 `Object`를 상속받기 때문에 두 클래스의 인스턴스에선 `Object.prototype`에 구현된 메서드를 사용할 수 있습니다. 그런데 `Array.[[Prototype]]`은 `Object`를 참조하지 않고, `Date.[[Prototype]]`은 `Object`를 참조하지 않기 때문에 `Array.keys()`나 `Date.keys()`같은 정적 메서드를 인스턴스에서 사용할 수 없습니다.
 
-Here's the picture structure for `Date` and `Object`:
+아래는 `Date`와 `Object`의 관계를 나타낸 그림입니다.
 
 ![](object-date-inheritance.svg)
 
-As you can see, there's no link between `Date` and `Object`. They are independent, only `Date.prototype` inherits from `Object.prototype`.
+보시다시피 `Date`와 `Object`를 직접 이어주는 링크가 없습니다. `Date`와 `Object`는 독립적이죠. `Date.prototype`만 `Object.prototype`를 상속받습니다.
 
-That's an important difference of inheritance between built-in objects compared to what we get with `extends`.
+내장 객체 간의 상속과 `extends`를 사용한 상속의 가장 큰 차이점이 여기에 있습니다.

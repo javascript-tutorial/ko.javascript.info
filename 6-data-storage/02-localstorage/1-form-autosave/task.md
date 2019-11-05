@@ -1,10 +1,10 @@
 
-# Autosave a form field
+# 양식 필드를 자동으로 저장하기
 
-Create a `textarea` field that "autosaves" its value on every change.
+변화가 생길 때마다 값을 '자동으로 저장'하는 `textarea` 필드를 만들어보세요.
 
-So, if the user accidentally closes the page, and opens it again, he'll find his unfinished input at place.
+사용자가 실수로 페이지를 닫은 경우, 다시 열었을 때 미처 마무리하지 못했던 입력을 이어서 할 수 있도록 해줍시다.
 
-Like this:
+바로 이렇게요.
 
 [iframe src="solution" height=120]

@@ -49,13 +49,13 @@ class ValidationError extends Error {
 }
 
 function test() {
-  throw new ValidationError("Whoops!");
+  throw new ValidationError("에러 발생!");
 }
 
 try {
   test();
 } catch(err) {
-  alert(err.message); // Whoops!
+  alert(err.message); // 에러 발생!
   alert(err.name); // ValidationError
   alert(err.stack); // 각 행 번호가 있는 중첩된 호출들의 목록
 }

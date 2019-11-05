@@ -27,7 +27,7 @@ f(); // cleanup!
 function f() {
   try {
     alert('start');
-    throw new Error("an error");
+    throw new Error("에러 발생!");
   } catch (e) {
     // ...
     if("can't handle the error") {
