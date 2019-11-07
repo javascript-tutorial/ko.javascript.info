@@ -2,7 +2,7 @@
 
 `instanceof` 연산자를 사용하면 객체가 특정 클래스에 속하는지 아닌지를 확인할 수 있습니다. `instanceof`는 상속 관계도 확인해줍니다.
 
-확인 기능은 다양한 곳에서 쓰이는데, 이번 챕터에선 `instanceof`를 사용해 인수의 타입에 따라 이를 다르게 처리하는 *다형적인(polymorphic)* 함수를 만드는데 사용해보겠습니다.
+확인 기능은 다양한 곳에서 쓰이는데, 이번 챕터에선 `instanceof`를 사용해 인수의 타입에 이를 다르게 처리하는 *다형적인* 함수를 만드는 용도로 사용해보겠습니다.
 
 ## instanceof 연산자 [#ref-instanceof]
 
@@ -44,13 +44,13 @@ alert( arr instanceof Array ); // true
 alert( arr instanceof Object ); // true
 ```
 
-위 예시에서 `arr`은 클래스 `Object`에도 속한다는 점에 주목해주시기 바랍니다. `Array`는 프로토타입 기반으로 `Object`를 상속받습니다.
+위 예시에서 `arr`은 클래스 `Object`에도 속한다는 점에 주목해주시기 바랍니다. `Array`는 프로토타입 상속을 통해 `Object`를 상속받습니다.
 
-`instanceof` 연산자는 보통, 프로토타입 체인을 사용해 확인을 진행합니다. 정적 메서드 `Symbol.hasInstance`을 사용하면 직접 검사 로직을 설정할 수도 있습니다.
+`instanceof` 연산자는 보통 프로토타입 체인을 사용해 확인을 진행합니다. 정적 메서드 `Symbol.hasInstance`을 사용하면 직접 검사 로직을 설정하는것도 가능합니다.
 
 `obj instanceof Class`는 대략 아래와 같은 알고리즘으로 동작합니다.
 
-1. 클래스에 정적 메서드 `Symbol.hasInstance`가 구현되어 있으면 `Class[Symbol.hasInstance](obj)`를 호출합니다. 호출 결과는 `true`나 `false`이어야 합니다. 이렇게 하면 `instanceof`의 검사 로직을 커스터마이징 할 수 있습니다.
+1. 정적 메서드 `Symbol.hasInstance`가 구현되어 있으면 `Class[Symbol.hasInstance](obj)`를 호출합니다. 호출 결과는 `true`나 `false`이어야 합니다. 이렇게 하면 `instanceof`의 검사 로직을 커스터마이징 할 수 있습니다.
 
     예시:
 
@@ -68,9 +68,9 @@ alert( arr instanceof Object ); // true
     alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
     ```
 
-2. 클래스 대부분엔 `Symbol.hasInstance`가 없습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 내부의 프로토타입 중 하나와 일치하는지 확인합니다.
+2. 클래스 대부분엔 `Symbol.hasInstance`가 없습니다. 이럴땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 내부의 프로토타입 중 하나와 일치하는지 확인합니다.
 
-    비교는 차례 차례 진행됩니다.
+    비교를 하나씩 진행합니다.
     ```js
     obj.__proto__ === Class.prototype?
     obj.__proto__.__proto__ === Class.prototype?
@@ -99,13 +99,13 @@ alert( arr instanceof Object ); // true
     */!*
     ```
 
-아래 그림은 `rabbit instanceof Animal`을 사용했을 때 `Animal.prototype`과 무엇을 비교하는지를 나타냅니다.
+아래 그림은 `rabbit instanceof Animal`을 사용했을 때 `Animal.prototype`과 무엇을 비교하는 지를 나타냅니다.
 
 ![](instanceof.svg)
 
-한편, `objA`가 `objB`의 프로토타입 체인 상 어딘가에 있으면 `true`를 반환해주는 메서드, [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf)도 있습니다. `obj instanceof Class`는 `Class.prototype.isPrototypeOf(obj)`와 동일하죠.
+한편, `objA`가 `objB`의 프로토타입 체인상 어딘가에 있으면 `true`를 반환해주는 메서드, [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf)도 있습니다. `obj instanceof Class`는 `Class.prototype.isPrototypeOf(obj)`와 동일하죠.
 
-`isPrototypeOf`는 `Class` 생성자를 포함하지 않고 검사하는 점이 조금 특이합니다. 검사 시 프로토타입 체인과 `Class.prototype`만 고려하죠.
+`isPrototypeOf`는 `Class` 생성자를 포함하지 않고 검사하는 점이 조금 특이합니다. 검사시 프로토타입 체인과 `Class.prototype`만 고려하죠.
 
 `isPrototypeOf`의 이런 특징은 객체 생성 후 `prototype` 프로퍼티가 변경되면 특이한 결과를 초래하기도 합니다. 아래와 같이 말이죠.
 
@@ -124,9 +124,9 @@ alert( rabbit instanceof Rabbit ); // false
 */!*
 ```
 
-## 보너스: 타입 확인을 위한 Object.prototype.toString
+## 보너스: 타입을 위한 Object.prototype.toString
 
-일반 객체를 문자열로 변화하면 `[object Object]`가 된다는 것을 알고 계실 겁니다.
+일반 객체를 문자열로 변화하면 `[object Object]`가 된다는 것을 알고계실겁니다.
 
 ```js run
 let obj = {};
@@ -135,11 +135,11 @@ alert(obj); // [object Object]
 alert(obj.toString()); // 같은 결과가 출력됨
 ```
 
-이렇게 `[object Object]`가 되는 이유는 `toString`의 구현방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져 있습니다. We can use it as an extended `typeof` and an alternative for `instanceof`.
+이렇게 `[object Object]`가 되는 이유는 `toString`의 구현방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져있습니다. We can use it as an extended `typeof` and an alternative for `instanceof`.
 
-이상하게 들리시겠지만, 미스터리를 파헤쳐보도록 하겠습니다.
+이상하게 들리시겠지만, 미스테리를 파헤쳐보도록 하겠습니다.
 
-[명세서](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 따르면, 내장 `toString`을 객체에서 추출하는 게 가능합니다. 그리고 이렇게 추출한 메서드는 어떤 값에도 실행할 수 있습니다. 값별 호출 결과는 다음과 같습니다.  
+[명세서](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 따르면, 내장 `toString`을 객체에서 추출하는게 가능합니다. 그리고 이렇게 추출한 메서드는 어떤 값에도 실행할 수 있습니다. 값 별 호출결과는 다음과 같습니다.  
 
 - 숫자형 -- `[object Number]`
 - 불린형 -- `[object Boolean]`
@@ -186,7 +186,7 @@ let user = {
 alert( {}.toString.call(user) ); // [object User]
 ```
 
-대부분의 호스트 환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 환경 관련 예시 몇 가지를 살펴봅시다.
+대부분의 호스트환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 환경 관련 예시 몇가지를 살펴봅시다.
 
 ```js run
 // 특정 호스트 환경의 객체와 클래스에 구현된 toStringTag
