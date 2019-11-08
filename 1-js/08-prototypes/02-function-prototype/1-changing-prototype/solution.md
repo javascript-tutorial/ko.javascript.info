@@ -1,7 +1,7 @@
 
 Answers:
 
-1. `true`. 
+1. `true`. yaho
 
     The assignment to `Rabbit.prototype` sets up `[[Prototype]]` for new objects, but it does not affect the existing ones. 
 
