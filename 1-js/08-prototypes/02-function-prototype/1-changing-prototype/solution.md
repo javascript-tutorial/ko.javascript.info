@@ -1,20 +1,89 @@
+importance: 5
 
-Answers:
+---
 
-1. `true`. 
+# "prototype" 변경하기
 
-    The assignment to `Rabbit.prototype` sets up `[[Prototype]]` for new objects, but it does not affect the existing ones. 
+아래 코드에선 `new Rabbit`를 만들고 `Rabbit`의 `"prototype"`을 변겅합니다.
 
-2. `false`. 
+시작 코드는 다음과 같습니다.
 
-    Objects are assigned by reference. The object from `Rabbit.prototype` is not duplicated, it's still a single object referenced both by `Rabbit.prototype` and by the `[[Prototype]]` of `rabbit`. 
+```js run
+function Rabbit() {}
+Rabbit.prototype = {
+  eats: true
+};
 
-    So when we change its content through one reference, it is visible through the other one.
+let rabbit = new Rabbit();
 
-3. `true`.
+alert( rabbit.eats ); // true
+```
 
-    All `delete` operations are applied directly to the object. Here `delete rabbit.eats` tries to remove `eats` property from `rabbit`, but it doesn't have it. So the operation won't have any effect.
 
-4. `undefined`.
+1. 아래와 같은 코드를 추가(강조된 줄)하면 얼럿창엔 무엇이 출력될까요?
 
-    The property `eats` is deleted from the prototype, it doesn't exist any more.
+    ```js
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    *!*
+    Rabbit.prototype = {};
+    */!*
+
+    alert( rabbit.eats ); // ?
+    ```
+
+2. 아래와 같이 코드를 변경하면 얼럿창엔 무엇이 출력될까요?
+
+    ```js
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    *!*
+    Rabbit.prototype.eats = false;
+    */!*
+
+    alert( rabbit.eats ); // ?
+    ```
+
+3. 아래와 같이 `delete`를 사용하면 얼럿창엔 무엇이 출력될까요?
+
+    ```js
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    *!*
+    delete rabbit.eats;
+    */!*
+
+    alert( rabbit.eats ); // ?
+    ```
+
+4. 마지막 코드를 실행하면 얼럿창엔 무엇이 출력될까요?
+
+    ```js
+    function Rabbit() {}
+    Rabbit.prototype = {
+      eats: true
+    };
+
+    let rabbit = new Rabbit();
+
+    *!*
+    delete Rabbit.prototype.eats;
+    */!*
+
+    alert( rabbit.eats ); // ?
+    ```
