@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Changing "prototype"
+# "prototype" 변경하기
 
-In the code below we create `new Rabbit`, and then try to modify its prototype.
+아래 코드에선 `new Rabbit`를 만들고 `Rabbit`의 `"prototype"`을 변겅합니다.
 
-In the start, we have this code:
+시작 코드는 다음과 같습니다.
 
 ```js run
 function Rabbit() {}
@@ -20,7 +20,7 @@ alert( rabbit.eats ); // true
 ```
 
 
-1. We added one more string (emphasized), what `alert` shows now?
+1. 아래와 같은 코드를 추가(강조된 줄)하면 얼럿창엔 무엇이 출력될까요?
 
     ```js
     function Rabbit() {}
@@ -37,7 +37,7 @@ alert( rabbit.eats ); // true
     alert( rabbit.eats ); // ?
     ```
 
-2. ...And if the code is like this (replaced one line)?
+2. 아래와 같이 코드를 변경하면 얼럿창엔 무엇이 출력될까요?
 
     ```js
     function Rabbit() {}
@@ -54,7 +54,7 @@ alert( rabbit.eats ); // true
     alert( rabbit.eats ); // ?
     ```
 
-3. Like this (replaced one line)?
+3. 아래와 같이 `delete`를 사용하면 얼럿창엔 무엇이 출력될까요?
 
     ```js
     function Rabbit() {}
@@ -71,7 +71,7 @@ alert( rabbit.eats ); // true
     alert( rabbit.eats ); // ?
     ```
 
-4. The last variant:
+4. 마지막 코드를 실행하면 얼럿창엔 무엇이 출력될까요?
 
     ```js
     function Rabbit() {}
