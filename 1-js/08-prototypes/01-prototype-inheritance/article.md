@@ -71,7 +71,7 @@ alert( rabbit.jumps ); // true
 
 이제 "`rabbit`의 프로토타입은 `animal`입니다."나 "`rabbit`은 `animal`을 상속받는다."라고 할 수 있게 되었네요.
 
-덕분에 `rabbit`에서도 `animal`에 구현된 유용한 프로퍼티와 메서드를 사용할 수 있게 되었습니다. 이렇게 프로토타입에서 상속받은 프로퍼티는 "상속받은(inherited)" 프로퍼티라고 합니다.
+덕분에 `rabbit`에서도 `animal`에 구현된 유용한 프로퍼티와 메서드를 사용할 수 있게 되었습니다. 이렇게 프로토타입에서 상속받은 프로퍼티를 '상속 프로퍼티(inherited property)'라고 합니다.
 
 `animal`에 정의된 메서드를 `rabbit`에서 호출해 봅시다.
 
@@ -124,7 +124,7 @@ let longEar = {
 */!*
 };
 
-// 메서드 walk는 프로토타입 체인에서 얻어옵
+// 메서드 walk는 프로토타입 체인에서 얻어옴
 longEar.walk(); // 동물이 걷습니다.
 alert(longEar.jumps); // true (rabbit에서 상속받음)
 ```
@@ -142,9 +142,9 @@ alert(longEar.jumps); // true (rabbit에서 상속받음)
 
 프로토타입은 프로퍼티를 읽을 때만 사용합니다.
 
-프로퍼티를 쓰거나(추가하거나) 지우는 연산은 객체에 직접 해야 합니다.
+프로퍼티를 추가, 수정하거나 지우는 연산은 객체에 직접 해야 합니다.
 
-아래 예시에서 객체 `rabbit`에 메서드 `walk`를 직접 할당해보았습니다.
+아래 예시에선 객체 `rabbit`에 메서드 `walk`를 직접 할당합니다.
 
 ```js run
 let animal = {
@@ -167,11 +167,11 @@ rabbit.walk = function() {
 rabbit.walk(); // 토끼가 깡충깡충 뜁니다.
 ```
 
-`rabbit.walk()`를 호출하면 이젠 프로토타입에 있는 메서드가 실행되지 않고 객체 `rabbit`에 설정된 메서드가 실행됩니다. 
+`rabbit.walk()`를 호출하면 프로토타입에 있는 메서드가 실행되지 않고, 객체 `rabbit`에 추가한 메서드가 실행됩니다. 
 
 ![](proto-animal-rabbit-walk-2.svg)
 
-그런데 접근자 프로퍼티(accessor property)는 setter 함수를 통해서 프로퍼티에 값을 할당하므로 예외에 속합니다. 접근자 프로퍼티에 값을 할당하는 것은 함수를 호출하는 것과 같기 때문입니다.
+한편, 접근자 프로퍼티(accessor property)는 setter 함수를 통해서 프로퍼티에 값을 할당하므로 이 규칙이 적용되지 않습니다. 접근자 프로퍼티에 값을 할당하는 것은 함수를 호출하는 것과 같기 때문입니다.
 
 아래 예시에서 `admin.fullName`이 의도한 대로 잘 작동하는 것을 확인할 수 있습니다.
 
@@ -210,7 +210,7 @@ admin.fullName = "Alice Cooper"; // (**)
 
 **메서드를 객체에서 호출했든 프로토타입에서 호출했든 상관없이 `this`는 언제나 `.` 앞에 있는 객체가 됩니다.**
 
-위 예시에서 `admin.fullName=`으로 setter 함수를 호출할 때, `this`는 `user`가 아닌 `admin`이 되죠.
+`admin.fullName=`으로 setter 함수를 호출할 때, `this`는 `user`가 아닌 `admin`이 되죠.
 
 메서드가 많이 구현되어있는 중심 객체 하나를 만들고, 이 객체를 상속받는 다양한 객체를 구현하는 경우가 많기 때문에 이런 특징을 잘 알아두셔야 합니다. 상속받은 메서드를 사용하더라도 객체는 프로토타입이 아닌 자신의 상태를 수정합니다.
 
@@ -243,7 +243,7 @@ alert(rabbit.isSleeping); // true
 alert(animal.isSleeping); // undefined (프로토타입에는 isSleeping이라는 프로퍼티가 없습니다.)
 ```
 
-위 코드를 실행한 후, 객체의 상태를 그림으로 나타내면 아래와 같습니다.
+위 코드를 실행한 후, 객체의 상태를 그림으로 나타내면 다음과 같습니다.
 
 ![](proto-animal-rabbit-walk-3.svg)
 
@@ -253,7 +253,7 @@ alert(animal.isSleeping); // undefined (프로토타입에는 isSleeping이라�
 
 ## for..in 반복문
 
-`for..in`은 상속받은 프로퍼티도 순회대상에 포함시킵니다.
+`for..in`은 상속 프로퍼티도 순회대상에 포함시킵니다.
 
 예시:
 
@@ -273,14 +273,14 @@ alert(Object.keys(rabbit)); // jumps
 */!*
 
 *!*
-// for..in은 객체 자신의 키와 상속받은 프로퍼티의 키 모두를 순회합니다. 
+// for..in은 객체 자신의 키와 상속 프로퍼티의 키 모두를 순회합니다. 
 for(let prop in rabbit) alert(prop); // jumps, eats
 */!*
 ```
 
-[obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty)를 이용하면 상속받은 프로퍼티를 순회 대상에서 제외할 수 있습니다. 이 내장 메서드는 `key`에 대응하는 프로퍼티가 상속받은 프로퍼티가 아니고 `obj`에 직접 구현되어있는 프로퍼티라면 `true`를 반환합니다.
+[obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty)를 이용하면 상속 프로퍼티를 순회 대상에서 제외할 수 있습니다. 이 내장 메서드는 `key`에 대응하는 프로퍼티가 상속 프로퍼티가 아니고 `obj`에 직접 구현되어있는 프로퍼티라면 `true`를 반환합니다.
 
-`obj.hasOwnProperty(key)`를 사용하면 아래 예시에서처럼 상속받은 프로퍼티를 걸러낼 수도 있고, 상속받은 프로퍼티만을 대상으로 무언가를 할 수 있습니다.
+`obj.hasOwnProperty(key)`를 사용하면 아래 예시에서처럼 상속 프로퍼티를 걸러낼 수 있고, 상속 프로퍼티만을 대상으로 무언가를 할 수도 있습니다.
 
 ```js run
 let animal = {
@@ -298,7 +298,7 @@ for(let prop in rabbit) {
   if (isOwn) {
     alert(`객체 자신의 프로퍼티: ${prop}`); // 객체 자신의 프로퍼티: jumps
   } else {
-    alert(`상속받은 프로퍼티: ${prop}`); // 상속받은 프로퍼티: eats
+    alert(`상속 프로퍼티: ${prop}`); // 상속 프로퍼티: eats
   }
 }
 ```
@@ -309,14 +309,14 @@ for(let prop in rabbit) {
 
 `for..in` 안에 쓰인 메서드 `hasOwnProperty`는 `Object.prototype.hasOwnProperty`에서 왔다는 것을 그림을 통해 알 수 있습니다.
 
-엇? 그런데 상속받은 프로퍼티인 `eats`는 얼럿 창에 출력되는데, `hasOwnProperty`는 출력되지 않았습니다. 무슨 일이 있는 걸까요?
+엇? 그런데 상속 프로퍼티인 `eats`는 얼럿 창에 출력되는데, `hasOwnProperty`는 출력되지 않았습니다. 무슨 일이 있는 걸까요?
 
-이유는 간단합니다. `hasOwnProperty`는 열거 가능한(enumerable) 프로퍼티가 아니기 때문입니다. `Object.prototype`에 있는 모든 메서드의 `enumerable` 플래그는 `false`인데, `for..in`은 오직 열거 가능한 프로퍼티만 순회 대상에 포함하기 때문에 얼럿창에 출력되지 않았습니다.
+이유는 간단합니다. `hasOwnProperty`는 열거 가능한(enumerable) 프로퍼티가 아니기 때문입니다. `Object.prototype`에 있는 모든 메서드의 `enumerable` 플래그는 `false`인데, `for..in`은 오직 열거 가능한 프로퍼티만 순회 대상에 포함하기 때문에 `hasOwnProperty`는 얼럿창에 출력되지 않습니다.
 
-```smart header="키-값을 순회하는 메서드 대부분은 상속받은 프로퍼티를 제외하고 동작합니다."
-`Object.keys`, `Object.values`와 같이 객체의 키-값을 대상으로 무언가를 하는 메서드 대부분은 상속받은 프로퍼티를 제외하고 동작합니다.
+```smart header="키-값을 순회하는 메서드 대부분은 상속 프로퍼티를 제외하고 동작합니다."
+`Object.keys`, `Object.values` 같이 객체의 키-값을 대상으로 무언가를 하는 메서드 대부분은 상속 프로퍼티를 제외하고 동작합니다.
 
-프로토타입에서 상속받은 프로퍼티는 *제외하고* 해당 객체에서 정의한 프로퍼티만 연산 대상에 포함하죠.
+프로토타입에서 상속받은 프로퍼티는 *제외하고*, 해당 객체에서 정의한 프로퍼티만 연산 대상에 포함합니다.
 ```
 
 ## 요약
@@ -327,4 +327,4 @@ for(let prop in rabbit) {
 - `obj`에서 프로퍼티를 읽거나 메서드를 호출하려 하는데 해당하는 프로퍼티나 메서드가 없으면 자바스크립트는 프로토타입에서 프로퍼티나 메서드를 찾습니다. 
 - 접근자 프로퍼티가 아닌 데이터 프로퍼티를 다루고 있다면, 쓰기나 지우기와 관련 연산은 프로토타입을 통하지 않고 객체에 직접 적용됩니다.
 - 프로토타입에서 상속받은 `method`라도 `obj.method()`를 호출하면 `method` 안의 `this`는 호출 대상 객체인 `obj`를 가리킵니다.
-- `for..in` 반복문은 객체 자체에서 정의한 프로퍼티뿐만 아니라 상속받은 프로퍼티도 순회 대상에 포함합니다. 반면, 키-값과 관련된 내장 메서드 대부분은 상속받은 프로퍼티는 제외하고 객체 자체 프로퍼티만을 대상으로 동작합니다.
+- `for..in` 반복문은 객체 자체에서 정의한 프로퍼티뿐만 아니라 상속 프로퍼티도 순회 대상에 포함합니다. 반면, 키-값과 관련된 내장 메서드 대부분은 상속 프로퍼티는 제외하고 객체 자체 프로퍼티만을 대상으로 동작합니다.
