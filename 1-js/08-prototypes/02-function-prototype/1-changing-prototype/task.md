@@ -1,89 +1,20 @@
-importance: 5
 
----
+정답:
 
-# Changing "prototype"
+1. `true`
 
-In the code below we create `new Rabbit`, and then try to modify its prototype.
+    `Rabbit.prototype`에 무언가를 할당하면 그 값이 새로운 객체의 `[[Prototype]]`이 됩니다. 다만 이미 만들어진 객체엔 이 규칙이 적용되지 않습니다.
 
-In the start, we have this code:
+2. `false`
 
-```js run
-function Rabbit() {}
-Rabbit.prototype = {
-  eats: true
-};
+    객체는 참조에 의해 할당됩니다. `Rabbit.prototype`이 참조하는 객체는 단 하나뿐인데, 이 객체는 `Rabbit.prototype`과 `rabbit`의 `[[Prototype]]`을 사용해 참조할 수 있습니다.
 
-let rabbit = new Rabbit();
+    따라서 둘 중 하나의 참조를 사용해 객체의 내용을 변경하면 다른 참조를 통해서도 변경 내용을 볼 수 있습니다.
 
-alert( rabbit.eats ); // true
-```
+3. `true`
 
+    `delete` 연산은 객체에 직접 적용됩니다. `delete rabbit.eats`는 `rabbit`에서 `eats` 프로퍼티를 제거하는데, `rabbit`엔 `eats`가 없습니다. 따라서 `delete`는 아무런 영향을 주지 않습니다.
 
-1. We added one more string (emphasized), what `alert` shows now?
+4. `undefined`.
 
-    ```js
-    function Rabbit() {}
-    Rabbit.prototype = {
-      eats: true
-    };
-
-    let rabbit = new Rabbit();
-
-    *!*
-    Rabbit.prototype = {};
-    */!*
-
-    alert( rabbit.eats ); // ?
-    ```
-
-2. ...And if the code is like this (replaced one line)?
-
-    ```js
-    function Rabbit() {}
-    Rabbit.prototype = {
-      eats: true
-    };
-
-    let rabbit = new Rabbit();
-
-    *!*
-    Rabbit.prototype.eats = false;
-    */!*
-
-    alert( rabbit.eats ); // ?
-    ```
-
-3. Like this (replaced one line)?
-
-    ```js
-    function Rabbit() {}
-    Rabbit.prototype = {
-      eats: true
-    };
-
-    let rabbit = new Rabbit();
-
-    *!*
-    delete rabbit.eats;
-    */!*
-
-    alert( rabbit.eats ); // ?
-    ```
-
-4. The last variant:
-
-    ```js
-    function Rabbit() {}
-    Rabbit.prototype = {
-      eats: true
-    };
-
-    let rabbit = new Rabbit();
-
-    *!*
-    delete Rabbit.prototype.eats;
-    */!*
-
-    alert( rabbit.eats ); // ?
-    ```
+    프로퍼티 `eats`가 프로토타입에서 삭제되었기 때문에 `eats`는 더이상 존재하지 않습니다.
