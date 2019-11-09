@@ -1,20 +1,20 @@
 
-Á¤´ä:
+ì •ë‹µ:
 
-1. `true`. 
+1. `true`
 
-    `Rabbit.prototype`¿¡ ¹«¾ð°¡¸¦ ÇÒ´çÇÏ¸é ±× °ªÀÌ »õ·Î¿î °´Ã¼ÀÇ `[[Prototype]]`ÀÌ µË´Ï´Ù. ´Ù¸¸ ÀÌ¹Ì ¸¸µé¾îÁø °´Ã¼¿£ ÀÌ ±ÔÄ¢ÀÌ Àû¿ëµÇÁö ¾Ê½À´Ï´Ù.
+    `Rabbit.prototype`ì— ë¬´ì–¸ê°€ë¥¼ í• ë‹¹í•˜ë©´ ê·¸ ê°’ì´ ìƒˆë¡œìš´ ê°ì²´ì˜ `[[Prototype]]`ì´ ë©ë‹ˆë‹¤. ë‹¤ë§Œ ì´ë¯¸ ë§Œë“¤ì–´ì§„ ê°ì²´ì—” ì´ ê·œì¹™ì´ ì ìš©ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 
-2. `false`. 
+2. `false`
 
-    °´Ã¼´Â ÂüÁ¶¿¡ ÀÇÇØ ÇÒ´çµË´Ï´Ù. `Rabbit.prototype`ÀÌ ÂüÁ¶ÇÏ´Â °´Ã¼´Â ´Ü ÇÏ³ª»ÓÀÎµ¥, ÀÌ °´Ã¼´Â `Rabbit.prototype`°ú `rabbit`ÀÇ `[[Prototype]]`À» »ç¿ëÇØ ÂüÁ¶ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    ê°ì²´ëŠ” ì°¸ì¡°ì— ì˜í•´ í• ë‹¹ë©ë‹ˆë‹¤. `Rabbit.prototype`ì´ ì°¸ì¡°í•˜ëŠ” ê°ì²´ëŠ” ë‹¨ í•˜ë‚˜ë¿ì¸ë°, ì´ ê°ì²´ëŠ” `Rabbit.prototype`ê³¼ `rabbit`ì˜ `[[Prototype]]`ì„ ì‚¬ìš©í•´ ì°¸ì¡°í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
-    µû¶ó¼­ µÑ Áß ÇÏ³ªÀÇ ÂüÁ¶¸¦ »ç¿ëÇØ °´Ã¼ÀÇ ³»¿ëÀ» º¯°æÇÏ¸é ´Ù¸¥ ÂüÁ¶¸¦ ÅëÇØ¼­µµ º¯°æ ³»¿ëÀ» º¼ ¼ö ÀÖ½À´Ï´Ù.
+    ë”°ë¼ì„œ ë‘˜ ì¤‘ í•˜ë‚˜ì˜ ì°¸ì¡°ë¥¼ ì‚¬ìš©í•´ ê°ì²´ì˜ ë‚´ìš©ì„ ë³€ê²½í•˜ë©´ ë‹¤ë¥¸ ì°¸ì¡°ë¥¼ í†µí•´ì„œë„ ë³€ê²½ ë‚´ìš©ì„ ë³¼ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
-3. `true`.
+3. `true`
 
-    `delete` ¿¬»êÀº °´Ã¼¿¡ Á÷Á¢ Àû¿ëµË´Ï´Ù. `delete rabbit.eats`´Â `rabbit`¿¡¼­ `eats` ÇÁ·ÎÆÛÆ¼¸¦ Á¦°ÅÇÏ´Âµ¥, `rabbit`¿£ `eats`°¡ ¾ø½À´Ï´Ù. µû¶ó¼­ `delete`´Â ¾Æ¹«·± ¿µÇâÀ» ÁÖÁö ¾Ê½À´Ï´Ù.
+    `delete` ì—°ì‚°ì€ ê°ì²´ì— ì§ì ‘ ì ìš©ë©ë‹ˆë‹¤. `delete rabbit.eats`ëŠ” `rabbit`ì—ì„œ `eats` í”„ë¡œí¼í‹°ë¥¼ ì œê±°í•˜ëŠ”ë°, `rabbit`ì—” `eats`ê°€ ì—†ìŠµë‹ˆë‹¤. ë”°ë¼ì„œ `delete`ëŠ” ì•„ë¬´ëŸ° ì˜í–¥ì„ ì£¼ì§€ ì•ŠìŠµë‹ˆë‹¤.
 
-4. `undefined`.
+4. `undefined`
 
-    ÇÁ·ÎÆÛÆ¼ `eats`°¡ ÇÁ·ÎÅäÅ¸ÀÔ¿¡¼­ »èÁ¦µÇ¾ú±â ¶§¹®¿¡ `eats`´Â ´õÀÌ»ó Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.
+    í”„ë¡œí¼í‹° `eats`ê°€ í”„ë¡œí† íƒ€ìž…ì—ì„œ ì‚­ì œë˜ì—ˆê¸° ë•Œë¬¸ì— `eats`ëŠ” ë”ì´ìƒ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
