@@ -20,7 +20,11 @@ alert( rabbit.eats ); // true
 ```
 
 
+<<<<<<< HEAD
 1. 아래와 같은 코드를 추가(강조된 줄)하면 얼럿창엔 무엇이 출력될까요?
+=======
+1. We added one more string (emphasized). What will `alert` show now?
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
     ```js
     function Rabbit() {}
@@ -54,7 +58,11 @@ alert( rabbit.eats ); // true
     alert( rabbit.eats ); // ?
     ```
 
+<<<<<<< HEAD
 3. 아래와 같이 `delete`를 사용하면 얼럿창엔 무엇이 출력될까요?
+=======
+3. And like this (replaced one line)?
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
     ```js
     function Rabbit() {}

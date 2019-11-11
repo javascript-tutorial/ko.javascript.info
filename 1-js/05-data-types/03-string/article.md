@@ -394,7 +394,11 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     ```js run
     let str = "st*!*ringify*/!*";
+<<<<<<< HEAD
     alert( str.slice(2) ); // ringify, 2번째부터 끝까지
+=======
+    alert( str.slice(2) ); // 'ringify', from the 2nd position till the end
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
     ```
 
     `start`와 `end`에 음수를 넘기면 문자열 끝에서부터 카운팅을 시작합니다.
@@ -402,8 +406,13 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```js run
     let str = "strin*!*gif*/!*y";
 
+<<<<<<< HEAD
     // 끝에서부터 4번째부터 시작해 끝에서부터 1번째 위치까지
     alert( str.slice(-4, -1) ); // gif
+=======
+    // start at the 4th position from the right, end at the 1st from the right
+    alert( str.slice(-4, -1) ); // 'gif'
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
     ```
 
 `str.substring(start [, end])`
@@ -435,14 +444,22 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     ```js run
     let str = "st*!*ring*/!*ify";
+<<<<<<< HEAD
     alert( str.substr(2, 4) ); // ring, 두 번째부터 문자 네 개
+=======
+    alert( str.substr(2, 4) ); // 'ring', from the 2nd position get 4 characters
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
     ```
 
     첫 번째 인수가 음수라면 뒤에서부터 개수를 셉니다.
 
     ```js run
     let str = "strin*!*gi*/!*fy";
+<<<<<<< HEAD
     alert( str.substr(-4, 2) ); // gi, 끝에서 네 번째 문자부터 문자 두 개
+=======
+    alert( str.substr(-4, 2) ); // 'gi', from the 4th position get 2 characters
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
     ```
 
 부분 문자열 추출과 관련된 메서드 세 개를 요약해 보겠습니다.

@@ -2,11 +2,19 @@
 
 무언가 개발할 때, 종종 작업에서 잘못될 수 있는 특정한 것들을 반영하기 위해 자체적인 에러 클래스들이 필요합니다. 네트워크 동작시 에러들에 대해 `HttpError`, 데이터베이스 동작시에 `DbError`, 검색 동작시에 `NotFoundError` 등등이 필요할 수 있습니다.
 
+<<<<<<< HEAD
 우리의 에러는 `message`, `name` 같은 기본적인 에러 프로퍼티를 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 프로퍼티도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 프로퍼티로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
+=======
+Our errors should support basic error properties like `message`, `name` and, preferably, `stack`. But they also may have other properties of their own, e.g. `HttpError` objects may have a `statusCode` property with a value like `404` or `403` or `500`.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
 자바스크립트는 `throw` 를 아무 인수와 함께 사용할 수 있게 허용하므로, 기본적으로 커스텀 에러 클래스들은 `Error`를 상속할 필요가 없습니다. 그러나 상속을 하면 `obj instanceof Error`를 사용해서 에러 객체들을 식별하는 것이 가능해집니다. 따라서 상속받는 게 낫습니다.
 
+<<<<<<< HEAD
 애플리케이션의 크기가 점점 증가함에 따라, 자체 에러들은 자연스레 계층 구조를 형성합니다. 예를 들어 `HttpTimeoutError`는 `HttpError`를 상속받는 등입니다.
+=======
+As the application grows, our own errors naturally form a hierarchy. For instance, `HttpTimeoutError` may inherit from `HttpError`, and so on.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
 ## 에러 확장하기
 
@@ -180,7 +188,7 @@ try {
 
 새로운 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. 우리는 단지 프로퍼티 이름을 전달하기만 하면 됩니다. `new PropertyRequiredError(property)`. 사람이 읽기 쉬운 `message`는 생성자에 의해 생성됩니다.
 
-Please note that `this.name` in `PropertyRequiredError` constructor is again assigned manually. That may become a bit tedious -- to assign `this.name = <class name>` in every custom error class. We can avoid it by making our own "basic error" class that assigns `this.name = this.constructor.name`. And then inherit all ours custom errors from it.
+Please note that `this.name` in `PropertyRequiredError` constructor is again assigned manually. That may become a bit tedious -- to assign `this.name = <class name>` in every custom error class. We can avoid it by making our own "basic error" class that assigns `this.name = this.constructor.name`. And then inherit all our custom errors from it.
 
 이 클래스를 `MyError`라고 부릅시다.
 
@@ -291,12 +299,22 @@ try {
 
 위의 코드에서 `readUser`는 정확히 설명한대로 동작합니다. 문법 및 유효성 검사 오류들을 잡아서  `ReadError` 오류를 던집니다 (알려지지 않은 오류들은 보통처럼 다시 던져집니다).
 
+<<<<<<< HEAD
 따라서 바깥쪽 코드는 `instanceof ReadError`만 체크하면 끝입니다. 발생할 수 있는 모든 오류 유형들을 나열할 필요가 없습니다.
+=======
+So the outer code checks `instanceof ReadError` and that's it. No need to list all possible error types.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
 이런 접근법을 "예외 감싸기"라고 합니다. "로우레벨 예외"들을 가져다가 `ReadError` 안으로 "감싸서", 더 추상적이고 호출하는 코드에서 사용하기 편리하기 때문입니다. 객체지향 프로그래밍에서 보편적으로 사용됩니다.
 
 ## 요약
 
+<<<<<<< HEAD
 - `Error`나 다른 내장 오류 클래스로부터 상속받는 게 가능합니다. 이때 `name` 프로퍼티와 `super`를 호출하는 것만 잊지 않으시면 됩니다.
 - 특정 오류를 확인하는데 `instanceof`를 사용할 수 있습니다. 상속된 클래스에도 마찬가지죠. 그러나 서드파티 라이브러리에서부터 온 오류 객체의 경우엔 클래스를 알아내는 것이 쉽지 않습니다. 이때는 `name` 프로퍼티를 사용해 확인할 수 있습니다.
 - 예외 감싸기는 널리 사용되는 기법입니다. 함수는 로우-레벨 예외를 처리하고, 이때 로우-레벨 에러를 만드는 대신에 하이-레벨 에러를 만듭니다. 로우-레벨 예외는 위의 예시처럼 가끔 해당 객체의 프로퍼티가 되곤 합니다. `err.cause`처럼 말이죠. 다만 필수사항은 아닙니다.
+=======
+- We can inherit from `Error` and other built-in error classes normally. We just need to take care of the `name` property and don't forget to call `super`.
+- We can use `instanceof` to check for particular errors. It also works with inheritance. But sometimes we have an error object coming from a 3rd-party library and there's no easy way to get its class. Then `name` property can be used for such checks.
+- Wrapping exceptions is a widespread technique: a function handles low-level exceptions and creates higher-level errors instead of various low-level ones. Low-level exceptions sometimes become properties of that object like `err.cause` in the examples above, but that's not strictly required.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd

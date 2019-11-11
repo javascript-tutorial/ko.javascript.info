@@ -459,6 +459,7 @@ let list = { value: 1 };
 list.next = { value: 2 };
 list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
+list.next.next.next.next = null;
 ```
 
 여러 객체가 있는것이 분명해 집니다. 각 객체는 이웃을 가리키는 `value`와 `next`를 가지고 있죠. `list` 변수는 체인의 첫 번째 객체이므로, `next` 포인터를 따라가면 모든 요소에 도달할 수 있습니다.

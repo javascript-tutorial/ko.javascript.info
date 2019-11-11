@@ -351,7 +351,11 @@ Hopefully, the situation with outer variables is clear now. For most situations 
 
     ![](lexenv-nested-makecounter-3.svg)
 
+<<<<<<< HEAD
     지금 단계에선 함수는 만들어졌지만, 아직 호출은 되지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`이 아직 실행되기 전입니다.
+=======
+    Please note that on this step the inner function was created, but not yet called. The code inside `return count++;` is not running.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 
 4. 실행이 진행되면서, `makeCounter()`에 대한 호출이 종료되고, 반환 값(익명 중첩 함수)이 전역 변수`counter`에 할당됩니다.
 
@@ -565,7 +569,12 @@ function f() {
 */!*
 }
 
+<<<<<<< HEAD
 let g = f(); // g는 도달할 수 있는 상태이기 때문에, g가 참조하는 외부 렉시컬 환경은 메모리에 유지됨
+=======
+let func = f(); // func gets a reference to g
+// so it stays and memory and its outer lexical environment stays as well
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 ```
 
 Please note that if `f()` is called many times, and resulting functions are saved, then all corresponding Lexical Environment objects will also be retained in memory. All 3 of them in the code below:
@@ -595,10 +604,16 @@ function f() {
   return g;
 }
 
+<<<<<<< HEAD
 let g = f(); // g가 살아있는 동안엔
 // 연관되는 렉시컬 환경은 살아있습니다.
 
 g = null; // 도달할 수 없는 상태가 되었으므로, 메모리에서 지워집니다.
+=======
+let func = f(); // while func has a reference to g, it stays in memory
+
+func = null; // ...and now the memory is cleaned up
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd
 ```
 
 ### 실제 최적화 프로세스

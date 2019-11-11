@@ -118,9 +118,18 @@ function defer(f, ms) {
 
 화살표 함수는
 
+<<<<<<< HEAD
 - `this`를 가지지 않습니다.
 - 인수를 가지지 않습니다.
 - `new` 키워드로 호출할 수 없습니다.
 - (화살표 함수들은 물론 `super`를 가지지 않습니다만, 아직 해당 부분은 다루지 않았습니다. 해당 내용은 <info:class-inheritance> 챕터에서 다룰 것입니다.)
 
 화살표 함수들은 자신의 "컨텍스트"가 없고, 오히려 현재 컨텍스트에서 작동하는 짧은 코드를 위해 만들어졌습니다. 그리고 이 목적에 매우 합치합니다.
+=======
+- Do not have `this`
+- Do not have `arguments`
+- Can't be called with `new`
+- They also don't have `super`, but we didn't study it yet. We will on the chapter <info:class-inheritance>
+
+That's because they are meant for short pieces of code that do not have their own "context", but rather work in the current one. And they really shine in that use case.
+>>>>>>> 2b5ac971c1bd8abe7b17cdcf724afd84799b6cbd

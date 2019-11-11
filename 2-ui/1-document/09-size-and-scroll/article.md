@@ -55,13 +55,13 @@ Let's start exploring the properties starting from the outside of the element.
 
 These properties are rarely needed, but still they are the "most outer" geometry properties, so we'll start with them.
 
-The `offsetParent` is the nearest ancestor, that browser uses for calculating coordinates during rendering.
+The `offsetParent` is the nearest ancestor that the browser uses for calculating coordinates during rendering.
 
-That's the nearest ancestor, that satisfies following conditions:
+That's the nearest ancestor that is one of the following:
 
-1. CSS-positioned (`position` is `absolute`, `relative`, `fixed` or `sticky`),
-2. or `<td>`, `<th>`, `<table>`,
-2. or `<body>`.
+1. CSS-positioned (`position` is `absolute`, `relative`, `fixed` or `sticky`),  or
+2. `<td>`, `<th>`, or `<table>`,  or
+3. `<body>`.
 
 Properties `offsetLeft/offsetTop` provide x/y coordinates relative to `offsetParent` upper-left corner.
 
@@ -104,7 +104,7 @@ For our sample element:
 ````smart header="Geometry properties are zero/null for elements that are not displayed"
 Geometry properties are calculated only for displayed elements.
 
-If an element (or any of its ancestors) has `display:none` or is not in the document, then all geometry properties are zero (or `null` if that's `offsetParent`).
+If an element (or any of its ancestors) has `display:none` or is not in the document, then all geometry properties are zero (or `null` for `offsetParent`).
 
 For example, `offsetParent` is `null`, and `offsetWidth`, `offsetHeight` are `0` when we created an element, but haven't inserted it into the document yet, or it (or it's ancestor) has `display:none`.
 
@@ -243,9 +243,9 @@ Why should we use geometry properties instead? There are two reasons:
     </script>
     ```
 
-    From the CSS standpoint, `width:auto` is perfectly normal, but in JavaScript we need an exact size in `px` that we can use in calculations. So here CSS width is useless at all.
+    From the CSS standpoint, `width:auto` is perfectly normal, but in JavaScript we need an exact size in `px` that we can use in calculations. So here CSS width is useless.
 
-And there's one more reason: a scrollbar. Sometimes the code that works fine without a scrollbar starts to bug with it, because a scrollbar takes the space from the content in some browsers. So the real width available for the content is *less* than CSS width. And `clientWidth/clientHeight` take that into account.
+And there's one more reason: a scrollbar. Sometimes the code that works fine without a scrollbar becomes buggy with it, because a scrollbar takes the space from the content in some browsers. So the real width available for the content is *less* than CSS width. And `clientWidth/clientHeight` take that into account.
 
 ...But with `getComputedStyle(elem).width` the situation is different. Some browsers (e.g. Chrome) return the real inner width, minus the scrollbar, and some of them (e.g. Firefox) -- CSS width (ignore the scrollbar). Such cross-browser differences is the reason not to use `getComputedStyle`, but rather rely on geometry properties.
 
