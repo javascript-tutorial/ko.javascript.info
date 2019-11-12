@@ -220,7 +220,7 @@ Promise.race([
 
 ## Promise.resolve/reject
 
-프라미스 메서드 `Promise.resolve`와 `Promise.reject`는 `async/await` 문법([뒤에서](info:async-await) 다룸) 때문에 쓸모없어졌기 때문에 근래에는 거의 사용하지 않습니다.
+프라미스 메서드 `Promise.resolve`와 `Promise.reject`는 `async/await` 문법([뒤에서](info:async-await) 다룸)이 생긴 후로 쓸모없어졌기 때문에 근래에는 거의 사용하지 않습니다.
 
 여기선 튜토리얼의 완성도를 높이고 어떤 이유 때문이라도 `async/await`를 사용하지 못하는 분들을 위해 이 메서드들에 대해서 다루겠습니다.
 
