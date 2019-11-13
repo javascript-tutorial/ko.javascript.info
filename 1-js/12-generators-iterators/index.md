@@ -1,2 +1,2 @@
 
-# Generators, advanced iteration
+# 제너레이터와 고급 이터레이션
