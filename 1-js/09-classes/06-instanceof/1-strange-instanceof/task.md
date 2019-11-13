@@ -4,7 +4,7 @@ importance: 5
 
 # 이상한 instanceof
 
-아래의 `instanceof`는 왜 `true`를 반환하나요? `a`가 `B()`에 의해 만들어지지 않았다는 걸 쉽게 확인할 수 있습니다.
+아래 예시에서 `a`는 `B()`를 통해 생성하지 않았습니다. 그런데도 `instanceof`는 왜 `true`를 반환할까요? 
 
 ```js run
 function A() {}

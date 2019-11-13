@@ -1,7 +1,7 @@
-그래요, 정말 이상해 보입니다.
+네, 실제로 이상해 보이긴 합니다.
 
-그러나 `instanceof`는 함수가 아니라 프로토 체인에 대해 일치하는 `prototype`을 고려하지 않습니다.
+그런데 `instanceof`는 평가 시, 함수는 고려하지 않고 평가 대상의 `prototype`을 고려합니다. 평가 대상의 `prototype`이 프로토타입 체인 상에 있는 프로토타입과 일치하는지 여부를 고려하죠. 
 
-그러면 여기는 `a.__proto__ == B.prototype`이 되므로, `instanceof`는 `true`를 반환합니다.
+문제에서 `a.__proto__ == B.prototype`이므로, `instanceof`는 `true`를 반환합니다.
 
-따라서, `instanceof`의 논리에 의해, `prototype`은 실제로 생성자 함수가 아니라 타입을 정의합니다.
+`instanceof`의 내부 알고리즘에 의해 `prototype`은 생성자 함수가 아닌 타입을 정의합니다.

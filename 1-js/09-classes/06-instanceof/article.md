@@ -46,11 +46,11 @@ alert( arr instanceof Object ); // true
 
 위 예시에서 `arr`은 클래스 `Object`에도 속한다는 점에 주목해주시기 바랍니다. `Array`는 프로토타입 기반으로 `Object`를 상속받습니다.
 
-`instanceof` 연산자는 보통, 프로토타입 체인을 사용해 확인을 진행합니다. 정적 메서드 `Symbol.hasInstance`을 사용하면 직접 검사 로직을 설정할 수도 있습니다.
+`instanceof` 연산자는 보통, 프로토타입 체인을 거슬러 올라가며 인스턴스 여부나 상속 여부를 확인합니다. 그런데 정적 메서드 `Symbol.hasInstance`을 사용하면 직접 확인 로직을 설정할 수도 있습니다.
 
-`obj instanceof Class`는 대략 아래와 같은 알고리즘으로 동작합니다.
+`obj instanceof Class`은 대략 아래와 같은 알고리즘으로 동작합니다.
 
-1. 클래스에 정적 메서드 `Symbol.hasInstance`가 구현되어 있으면 `Class[Symbol.hasInstance](obj)`를 호출합니다. 호출 결과는 `true`나 `false`이어야 합니다. 이렇게 하면 `instanceof`의 검사 로직을 커스터마이징 할 수 있습니다.
+1. 클래스에 정적 메서드 `Symbol.hasInstance`가 구현되어 있으면, `obj instanceof Class`문이 실행될 때, `Class[Symbol.hasInstance](obj)`가 호출됩니다. 호출 결과는 `true`나 `false`이어야 합니다. 이런 규칙을 기반으로 `instanceof`의 동작을 커스터마이징 할 수 있습니다.
 
     예시:
 
@@ -68,7 +68,7 @@ alert( arr instanceof Object ); // true
     alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
     ```
 
-2. 클래스 대부분엔 `Symbol.hasInstance`가 없습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 내부의 프로토타입 중 하나와 일치하는지 확인합니다.
+2. 그런데, 대부분의 클래스엔 `Symbol.hasInstance`가 구현되어있지 않습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 상의 프로토타입 중 하나와 일치하는지 확인합니다.
 
     비교는 차례 차례 진행됩니다.
     ```js
@@ -99,15 +99,15 @@ alert( arr instanceof Object ); // true
     */!*
     ```
 
-아래 그림은 `rabbit instanceof Animal`을 사용했을 때 `Animal.prototype`과 무엇을 비교하는지를 나타냅니다.
+아래 그림은 `rabbit instanceof Animal`을 실행했을 때 `Animal.prototype`과 비교되는 대상들을 보여줍니다.
 
 ![](instanceof.svg)
 
-한편, `objA`가 `objB`의 프로토타입 체인 상 어딘가에 있으면 `true`를 반환해주는 메서드, [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf)도 있습니다. `obj instanceof Class`는 `Class.prototype.isPrototypeOf(obj)`와 동일하죠.
+한편, `objA`가 `objB`의 프로토타입 체인 상 어딘가에 있으면 `true`를 반환해주는 메서드, [objA.isPrototypeOf(objB)](mdn:js/object/isPrototypeOf)도 있습니다. `obj instanceof Class`는 `Class.prototype.isPrototypeOf(obj)`와 동일합니다.
 
-`isPrototypeOf`는 `Class` 생성자를 포함하지 않고 검사하는 점이 조금 특이합니다. 검사 시 프로토타입 체인과 `Class.prototype`만 고려하죠.
+`isPrototypeOf`는 `Class` 생성자를 제외하고 포함 여부를 검사하는 점이 조금 특이합니다. 검사 시, 프로토타입 체인과 `Class.prototype`만 고려합니다.
 
-`isPrototypeOf`의 이런 특징은 객체 생성 후 `prototype` 프로퍼티가 변경되면 특이한 결과를 초래하기도 합니다. 아래와 같이 말이죠.
+`isPrototypeOf`의 이런 특징은 객체 생성 후 `prototype` 프로퍼티가 변경되는 경우 특이한 결과를 초래하기도 합니다. 아래와 같이 말이죠.
 
 예시:
 
@@ -135,11 +135,11 @@ alert(obj); // [object Object]
 alert(obj.toString()); // 같은 결과가 출력됨
 ```
 
-이렇게 `[object Object]`가 되는 이유는 `toString`의 구현방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져 있습니다. We can use it as an extended `typeof` and an alternative for `instanceof`.
+이렇게 `[object Object]`가 되는 이유는 `toString`의 구현방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져 있습니다. `toString`의 숨겨진 기능을 사용하면 확장 `typeof`, `instanceof`의 대안을 만들 수 있습니다.
 
-이상하게 들리시겠지만, 미스터리를 파헤쳐보도록 하겠습니다.
+아직 감이 안 잡히시겠지만, 구체적으로 설명하겠습니다.
 
-[명세서](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 따르면, 내장 `toString`을 객체에서 추출하는 게 가능합니다. 그리고 이렇게 추출한 메서드는 어떤 값에도 실행할 수 있습니다. 값별 호출 결과는 다음과 같습니다.  
+[명세서](https://tc39.github.io/ecma262/#sec-object.prototype.tostring)에 따르면, 객체에서 내장 `toString`을 추출하는 게 가능합니다. 이렇게 추출한 메서드는 모든 값을 대상으로 실행할 수 있습니다. 호출 결과는 값에 따라 달라집니다.
 
 - 숫자형 -- `[object Number]`
 - 불린형 -- `[object Boolean]`
@@ -151,7 +151,7 @@ alert(obj.toString()); // 같은 결과가 출력됨
 예시:
 
 ```js run
-// 편의를 위해 toString을 변수에 복사함
+// 편의를 위해 toString 메서드를 변수에 복사함
 let objectToString = Object.prototype.toString;
 
 // 아래 변수의 타입은 무엇일까요?
@@ -160,7 +160,7 @@ let arr = [];
 alert( objectToString.call(arr) ); // [object *!*Array*/!*]
 ```
 
-위 예시에서 [call](mdn:js/function/call)은 [](info:call-apply-decorators) 챕터에서 설명한 바와 같이 `this=arr`이라는 컨텍스트를 지정하여 함수 `objectToString`를 실행하기 위해 사용했습니다.
+[](info:call-apply-decorators) 챕터에서 설명한 [call](mdn:js/function/call)을 사용해 컨텍스트를 `this=arr`로 설정하고 함수 `objectToString`를 실행하였습니다.
 
 `toString` 알고리즘은 내부적으로 `this`를 검사하고 상응하는 결과를 반환합니다. 예시를 더 살펴봅시다.
 
@@ -174,7 +174,7 @@ alert( s.call(alert) ); // [object Function]
 
 ### Symbol.toStringTag
 
-특별 객체 프로퍼티 `Symbol.toStringTag`를 사용하면 `Object`의 메서드 `toString`을 커스터마이징 할 수 있습니다. 
+특수 객체 프로퍼티 `Symbol.toStringTag`를 사용하면 `toString`의 동작을 커스터마이징 할 수 있습니다. 
 
 예시:
 
@@ -186,7 +186,7 @@ let user = {
 alert( {}.toString.call(user) ); // [object User]
 ```
 
-대부분의 호스트 환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 환경 관련 예시 몇 가지를 살펴봅시다.
+대부분의 호스트 환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 관련 예시 몇 가지를 살펴봅시다.
 
 ```js run
 // 특정 호스트 환경의 객체와 클래스에 구현된 toStringTag
@@ -197,11 +197,11 @@ alert( {}.toString.call(window) ); // [object Window]
 alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
 
-As you can see, the result is exactly `Symbol.toStringTag` (if exists), wrapped into `[object ...]`.
+실행 결과에서 보듯이 호스트 환경 고유 객체의 `Symbol.toStringTag` 값은 `[object ...]`로 쌓여진 값과 동일합니다.
 
-At the end we have "typeof on steroids" that not only works for primitive data types, but also for built-in objects and even can be customized.
+이처럼 'typeof' 연산자의 강력한 변형들(`toString`과 `toStringTag` - 옮긴이)은 원시 자료형뿐만 아니라 내장 객체에도 사용할 수 있습니다. 그리고 커스터마이징까지 가능합니다. 
 
-We can use `{}.toString.call` instead of `instanceof` for built-in objects when we want to get the type as a string rather than just to check.
+내장 객체의 타입 확인을 넘어서 타입을 문자열 형태로 받고 싶다면 `instanceof` 대신, `{}.toString.call`을 사용할 수 있습니다.
 
 ## 요약
 
@@ -213,6 +213,6 @@ We can use `{}.toString.call` instead of `instanceof` for built-in objects when 
 | `{}.toString` | 원시형, 내장 객체, `Symbol.toStringTag`가 있는 객체   |       문자열 |
 | `instanceof`  | 객체     |  true나 false   |
 
-위에서 보았듯이 `{}.toString`은 `typeof`보다 '기능이 더' 많습니다.
+예시에서 보았듯이 `{}.toString`은 `typeof`보다 '기능이 더' 많습니다.
 
-And `instanceof` operator really shines when we are working with a class hierarchy and want to check for the class taking into account inheritance.
+`instanceof` 연산자는 계층구조를 가진 클래스를 다룰 때나 클래스의 상속 여부를 확인하고자 할 때 그 진가를 발휘합니다.
