@@ -1,4 +1,4 @@
-소수를 만들어주는 알고리즘은 다양합니다.
+소수를 판단하는 알고리즘은 다양합니다.
 
 먼저 중첩 반복문을 사용한 알고리즘을 살펴봅시다.
 
@@ -26,4 +26,4 @@ for (let i = 2; i <= n; i++) { // 각 i에 대하여 반복문을 돌림
 }
 ```
 
-위에서 사용한 알고리즘은 최적화할 부분이 많습니다. 제수를 2와 i의 제곱근 사이에서 찾으면 좀 더 나아지겠죠. `n`이 아주 많이 커진다면 [이차 체(Quadratic sieve)](https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%B0%A8_%EC%B2%B4)나 [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve)라 불리는 알고리즘같이 좀 더 어려운 수학 알고리즘을 이용해 소수 검색 알고리즘을 개선할 수 있을 겁니다. 
+위에서 사용한 알고리즘은 최적화할 부분이 많습니다. 제수를 `2`와 `i`의 제곱근 사이에서 찾으면 좀 더 나아지겠죠. 아주 큰 `n`에 대해서 [이차 체(Quadratic sieve)](https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%B0%A8_%EC%B2%B4)나 [수 체(General number field sieve)](https://en.wikipedia.org/wiki/General_number_field_sieve)와 같이 좀 더 어려운 수학과 복잡한 알고리즘을 이용해 소수 검색 알고리즘을 개선할 수 있을 겁니다.
