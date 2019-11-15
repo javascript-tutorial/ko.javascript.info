@@ -4,7 +4,7 @@ importance: 5
 
 # ´ÞÀÇ ¸¶Áö¸· ÀÏ
 
-Æ¯Á¤ ´ÞÀÇ ¸¶Áö¸· ÀÏÀ» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö `getLastDayOfMonth(year, month)`¸¦ ÀÛ¼ºÇØº¸¼¼¼¿ä ¹ÝÈ¯ °ªÀº 30ÀÌ³ª 31, 29(2¿ù), 28(2¿ù)ÀÌ µÉ °Ì´Ï´Ù.
+Æ¯Á¤ ´ÞÀÇ ¸¶Áö¸· ÀÏÀ» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö `getLastDayOfMonth(year, month)`¸¦ ÀÛ¼ºÇØº¸¼¼¿ä ¹ÝÈ¯ °ªÀº 30ÀÌ³ª 31, 29(2¿ù), 28(2¿ù)ÀÌ µÉ °Ì´Ï´Ù.
 
 ¸Å°³º¯¼ö:
 
