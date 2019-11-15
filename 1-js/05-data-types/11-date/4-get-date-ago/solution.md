@@ -1,5 +1,4 @@
-The idea is simple: to substract given number of days from `date`:
-
+이 아이디어는 단순 : "날짜"로부터 주어진 일수를 변경하는 것이다.
 ```js
 function getDateAgo(date, days) {
   date.setDate(date.getDate() - days);
@@ -7,9 +6,9 @@ function getDateAgo(date, days) {
 }
 ```
 
-...But the function should not change `date`. That's an important thing, because the outer code which gives us the date does not expect it to change.
+...하지만 이 기능은 '날짜'를 바꾸어서는 안 됩니다. 중요한 건, 날짜를 알려주는 외부 코드가 바뀌기를 예측하지 않기 때문입니다.
 
-To implement it let's clone the date, like this:
+이를 구현하기 위해 다음과 같이 날짜를 복제하세요.
 
 ```js run demo
 function getDateAgo(date, days) {
