@@ -1,4 +1,4 @@
-The idea is simple: to substract given number of days from `date`:
+아이디어는 간단하다: "날짜"로부터 날들의 주어진 수를 빼는것:
 
 ```js
 function getDateAgo(date, days) {
