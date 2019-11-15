@@ -1,6 +1,6 @@
-The `new Date` constructor uses the local time zone. So the only important thing to remember is that months start from zero.
+`new Date` 생성자는 로컬 시간대를 사용하기 때문에 특별히 지정해주지 않아도 됩니다. 주의할 점은 월이 0부터 시작한다는 것입니다.
 
-So February has number 1.
+따라서 2월은 숫자 1을 사용해 만듭니다.
 
 ```js run
 let d = new Date(2012, 1, 20, 3, 12);
