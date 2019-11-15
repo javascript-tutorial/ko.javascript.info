@@ -2,7 +2,7 @@ function getLocalDay(date) {
 
   let day = date.getDay();
 
-  if (day == 0) { // 유럽에서 주일은 0 (일요일)은 7 입니다.
+  if (day == 0) { // weekday 0 (sunday) is 7 in european
     day = 7;
   }
 
