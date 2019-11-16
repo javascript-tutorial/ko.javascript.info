@@ -1,22 +1,22 @@
-To get the number of seconds, we can generate a date using the current day and time 00:00:00, then substract it from "now".
+경과 초를 알려면 오늘 00시 00분 00초를 나타내는 `Date` 객체를 만들고, '지금'을 나타내는 객체에서 이 객체를 빼야 합니다. 
 
-The difference is the number of milliseconds from the beginning of the day, that we should divide by 1000 to get seconds:
+차이는 밀리초 기준이기 때문에 1000을 나눠 초로 변경해야 합니다.
 
 ```js run
 function getSecondsToday() {
   let now = new Date();
 
-  // create an object using the current day/month/year
+  // 현재 년, 월, 일을 나타내는 객체를 생성
   let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  let diff = now - today; // ms difference
-  return Math.round(diff / 1000); // make seconds
+  let diff = now - today; // 차이(ms)
+  return Math.round(diff / 1000); // 초로 변환
 }
 
 alert( getSecondsToday() );
 ```
 
-An alternative solution would be to get hours/minutes/seconds and convert them to seconds:
+경과 시간, 분, 초를 초로 변환하는 것도 방법이 될 수 있습니다.
 
 ```js run
 function getSecondsToday() {
