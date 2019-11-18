@@ -3,7 +3,7 @@
 
 `"prototype"`이 아닌 클래스 함수 자체에 메서드를 설정할 수도 있습니다. 이런 메서드를 *정적(static)* 메서드라고 부릅니다.
 
-정적 메서드는 아래와 같이 클래스 안에서 `static` 키워드를 붙여 만들 수 있습니다.   
+정적 메서드는 아래와 같이 클래스 안에서 `static` 키워드를 붙여 만들 수 있습니다.
 
 ```js run
 class User {
@@ -19,12 +19,14 @@ User.staticMethod(); // true
 
 정적 메서드는 메서드를 프로퍼티 형태로 직접 할당하는 것과 동일한 일을 합니다. 
 
-```js
+```js run
 class User() { }
 
 User.staticMethod = function() {
   alert(this === User);
 };
+
+User.staticMethod(); // true
 ```
 
 `User.staticMethod()`가 호출될 때 `this`의 값은 클래스 생성자인 `User` 자체가 됩니다(점 앞 객체).
@@ -93,7 +95,7 @@ let article = Article.createTodays();
 alert( article.title ); // Today's digest
 ```
 
-이제 Today's digest라는 글이 필요할 때마다 `Article.createTodays()`를 호출하면 됩니다. 여기서도 마찬가지로 `Article.createTodays()`는 article의 메서드가 아닌 전체 클래스의 메서드 입니다.
+이제 Today's digest라는 글이 필요할 때마다 `Article.createTodays()`를 호출하면 됩니다. 여기서도 마찬가지로 `Article.createTodays()`는 article의 메서드가 아닌 전체 클래스의 메서드입니다.
 
 정적 메서드는 아래 예시와 같이 항목 검색, 저장, 삭제 등을 수행해주는 데이터베이스 관련 클래스에도 사용됩니다.
 
@@ -127,10 +129,11 @@ Article.publisher = "Ilya Kantor";
 
 정적 메서드는 상속이 가능합니다.
 
-아래 예시에서 `Animal.compare`는 상속되어서 `Rabbit.compare`에서 접근할 수 있습니다.
+아래 예시에서 `Animal.compare`와 `Animal.planet`은 상속되어서 각각 `Rabbit.compare`와 `Rabbit.planet`에서 접근할 수 있습니다.
 
 ```js run
 class Animal {
+  static planet = "지구";
 
   constructor(name, speed) {
     this.speed = speed;
@@ -167,6 +170,8 @@ rabbits.sort(Rabbit.compare);
 */!*
 
 rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
+
+alert(Rabbit.planet); // 지구
 ```
 
 이제 `Rabbit.compare`을 호출하면 `Animal.compare`가 호출됩니다.
@@ -199,7 +204,7 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 
 정적 메서드는 특정 클래스 인스턴스가 아닌 클래스 '전체'에 필요한 기능을 만들 때 사용할 수 있습니다. 
 
-비교를 위한 메서드 `Article.compare(article1, article2)`나 팩터리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
+비교를 위한 메서드 `Article.compare(article1, article2)`나 팩토리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
 
 정적 메서드는 클래스 선언부 안에 위치하고 앞에 `static`이라는 키워드가 붙습니다.
 
@@ -217,7 +222,7 @@ class MyClass {
 }
 ```
 
-static을 사용한 선언은 기술적으론 클래스 자체에 직접 할당하는것과 동일합니다.
+static을 사용한 선언은 기술적으론 클래스 자체에 직접 할당하는 것과 동일합니다.
 
 ```js
 MyClass.property = ...
