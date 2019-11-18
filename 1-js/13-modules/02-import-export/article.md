@@ -155,14 +155,25 @@ say.*!*bye*/!*('John'); // Bye, John!
 
 모듈은 크게 두 종류로 나뉩니다.
 
+<<<<<<< HEAD
 1. 위 예시의 `say.js`처럼 복수의 함수가 있는 라이브리리 형태의 모듈
 2. 위 예시의 `user.js`(`class User` 하나만 내보내기 함)처럼 개체(entity) 하나만 선언되어있는 모듈
+=======
+1. Modules that contain a library, pack of functions, like `say.js` above.
+2. Modules that declare a single entity, e.g. a module `user.js` exports only `class User`.
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 
 대게는 두 번째 방식으로 모듈을 만드는 걸 선호하기 때문에 함수, 클래스, 변수 등의 개체는 전용 모듈 안에 구현됩니다.
 
+<<<<<<< HEAD
 그런데 이렇게 모듈을 만들다 보면 파일 수가 많아질 수밖에 없습니다. 그렇더라도 모듈 이름을 잘 지어주고, 폴더에 파일을 잘 나눠 프로젝트를 구성하면 코드 탐색이 어렵지 않으므로 이는 전혀 문제가 되지 않습니다.
 
 `export default`라는 특별한 문법을 사용하면 "개체가 하나만 있는 모듈"을 더 잘 표시할 수 있습니다. 이런 방식을 "default export(기본 내보내기)"라고 합니다.
+=======
+Naturally, that requires a lot of files, as everything wants its own module, but that's not a problem at all. Actually, code navigation becomes easier if files are well-named and structured into folders.
+
+Modules provide special `export default` ("the default export") syntax to make the "one thing per module" way look better.
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 
 내보내고자 하는 개체 앞에 `export default`를 붙여봅시다.
 
@@ -289,9 +300,15 @@ import {User} from './user.js';
 이와는 다르게 default export는 가져오기 할 때 개발자가 원하는 대로 이름을 지정해 줄 수 있습니다.
 
 ```js
+<<<<<<< HEAD
 import User from './user.js'; // 동작
 import MyUser from './user.js'; // 동작
 // 어떤 이름이든 에러 없이 동작합니다.
+=======
+import User from './user.js'; // works
+import MyUser from './user.js'; // works too
+// could be import Anything... and it'll still work
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 ```
 
 그런데 이렇게 자유롭게 이름을 짓다 보면 같은 걸 가져오는데도 이름이 다를 수 있기 때문에 혼란의 여지가 생깁니다.
@@ -319,7 +336,11 @@ export {sayHi} from './say.js'; // sayHi를 다시 내보내기 함
 export {default as User} from './user.js'; // default export를 다시 내보내기 함
 ```
 
+<<<<<<< HEAD
 다시 내보내기를 왜 해야 하는지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
+=======
+Why would that be needed? Let's see a practical use case.
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 
 NPM을 통해 외부에 공개할 "패키지(package)"를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 "헬퍼" 역할을 담당하고 있습니다.
 
@@ -389,9 +410,15 @@ export default class User {
 
 1. `export User from './user.js'`로 다시 내보내기를 시도하면 문법 에러가 발생합니다.
 
+<<<<<<< HEAD
     default export를 다시 내보내려면 `export {default as User}`와 같은 코드를 사용해야 합니다.    
 
 2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다. 
+=======
+    To re-export the default export, we have to write `export {default as User}`, as in the example above.    
+
+2. `export * from './user.js'` re-exports only named exports, but ignores the default one.
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 
     두 가지를 동시에 다시 내보내고 싶다면 두 구문을 동시에 사용해야 합니다.
     ```js
@@ -399,7 +426,11 @@ export default class User {
     export {default} from './user.js'; // default export를 다시 내보내기
     ```
 
+<<<<<<< HEAD
 default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 좋아하지 않습니다. 
+=======
+Such oddities of re-exporting the default export are one of the reasons why some developers don't like them.
+>>>>>>> e515f80a9f076115a6e3fef8a30cd73e6db20054
 
 ## 요약
 
