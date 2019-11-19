@@ -2,30 +2,30 @@ importance: 5
 
 ---
 
-# 사전에 toString을 추가해보자
+# Add toString to the dictionary
 
-`key/value`쌍을 저장하기 위해 `Object.create(null)`로 생성된 `dictionary`객체가 있습니다.
+There's an object `dictionary`, created as `Object.create(null)`, to store any `key/value` pairs.
 
-그 안에 쉼표로 구분된 키 목록을 반환하는 `dictionary.toString()`메소드를 추가하십시오. `toString`은 객체 위의 `for..in`에 나타나서는 안됩니다.
+Add method `dictionary.toString()` into it, that should return a comma-delimited list of keys. Your `toString` should not show up in `for..in` over the object.
 
-작동 방식은 다음과 같습니다.
+Here's how it should work:
 
 ```js
 let dictionary = Object.create(null);
 
 *!*
-// dictionary.toString 메소드를 추가하는 코드
+// your code to add dictionary.toString method
 */!*
 
-// 데이터를 추가합니다.
+// add some data
 dictionary.apple = "Apple";
-dictionary.__proto__ = "test"; // __proto__는 여기서 일반적인 속성 키입니다.
+dictionary.__proto__ = "test"; // __proto__ is a regular property key here
 
-// 반복문에는 apple과 __proto__ 만 있습니다.
+// only apple and __proto__ are in the loop
 for(let key in dictionary) {
-  alert(key); // "apple" 다음 "__proto__"입니다.
+  alert(key); // "apple", then "__proto__"
 }  
 
-// toString이 동작하는 부분입니다.
+// your toString in action
 alert(dictionary); // "apple,__proto__"
 ```
