@@ -1,7 +1,7 @@
 
-# async¿Í await¸¦ »ç¿ëÇÏ¿© ÄÚµå º¯°æÇÏ±â
+# asyncì™€ awaitë¥¼ ì‚¬ìš©í•˜ì—¬ ì½”ë“œ ë³€ê²½í•˜ê¸°
 
-<info:promise-chaining> Ã©ÅÍÀÇ ¿¹½Ã Áß ÇÏ³ª¸¦ `.then/catch` ´ë½Å `async/await`¸¦ »ç¿ëÇØ ´Ù½Ã ÀÛ¼ºÇØº¾½Ã´Ù.
+<info:promise-chaining> ì±•í„°ì˜ ì˜ˆì‹œ ì¤‘ í•˜ë‚˜ë¥¼ `.then/catch` ëŒ€ì‹  `async/await`ë¥¼ ì‚¬ìš©í•´ ë‹¤ì‹œ ì‘ì„±í•´ë´…ì‹œë‹¤.
 
 ```js run
 function loadJson(url) {
@@ -17,4 +17,4 @@ function loadJson(url) {
 
 loadJson('no-such-user.json') // (3)
   .catch(alert); // Error: 404
-``` 
+```

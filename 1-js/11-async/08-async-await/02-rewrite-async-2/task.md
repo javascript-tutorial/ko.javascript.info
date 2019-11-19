@@ -1,9 +1,9 @@
 
-# async¿Í await¸¦ »ç¿ëÇØ¼­ '´Ù½Ã ´øÁö±â' ¿¹½Ã ÀçÀÛ¼ºÇÏ±â
+# asyncì™€ awaitë¥¼ ì‚¬ìš©í•´ì„œ 'ë‹¤ì‹œ ë˜ì§€ê¸°' ì˜ˆì‹œ ì¬ì‘ì„±í•˜ê¸°
 
-<info:promise-chaining> Ã©ÅÍ¿¡¼­ ´Ù·ğ´ø '´Ù½Ã ´øÁö±â(rethrow)' °ü·Ã ¿¹½Ã¸¦ ±â¾ïÇÏ½Ç °Ì´Ï´Ù. ÀÌ ¿¹½Ã¸¦ `.then/catch` ´ë½Å `async/await`¸¦ »ç¿ëÇØ ´Ù½Ã ÀÛ¼ºÇØ º¾½Ã´Ù.
+<info:promise-chaining> ì±•í„°ì—ì„œ ë‹¤ë¤˜ë˜ 'ë‹¤ì‹œ ë˜ì§€ê¸°(rethrow)' ê´€ë ¨ ì˜ˆì‹œë¥¼ ê¸°ì–µí•˜ì‹¤ ê²ë‹ˆë‹¤. ì´ ì˜ˆì‹œë¥¼ `.then/catch` ëŒ€ì‹  `async/await`ë¥¼ ì‚¬ìš©í•´ ë‹¤ì‹œ ì‘ì„±í•´ ë´…ì‹œë‹¤.
 
-±×¸®°í `demoGithubUser` ¾ÈÀÇ ¹İº¹(recursion)Àº ¹İº¹¹®(loop)À» »ç¿ëÇØ ÀÛ¼ºÇÏµµ·Ï ÇÕ½Ã´Ù. `async/await`¸¦ »ç¿ëÇÏ¸é ½±°Ô ÀÛ¼ºÇÒ ¼ö ÀÖ½À´Ï´Ù.
+ê·¸ë¦¬ê³  `demoGithubUser` ì•ˆì˜ ë°˜ë³µ(recursion)ì€ ë°˜ë³µë¬¸(loop)ì„ ì‚¬ìš©í•´ ì‘ì„±í•˜ë„ë¡ í•©ì‹œë‹¤. `async/await`ë¥¼ ì‚¬ìš©í•˜ë©´ ì‰½ê²Œ ì‘ì„±í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 
 ```js run
 class HttpError extends Error {
@@ -25,18 +25,18 @@ function loadJson(url) {
     })
 }
 
-// À¯È¿ÇÑ »ç¿ëÀÚ¸¦ Ã£À» ¶§±îÁö ¹İº¹ÇØ¼­ usernameÀ» ¹°¾îº½
+// ìœ íš¨í•œ ì‚¬ìš©ìë¥¼ ì°¾ì„ ë•Œê¹Œì§€ ë°˜ë³µí•´ì„œ usernameì„ ë¬¼ì–´ë´„
 function demoGithubUser() {
-  let name = prompt("GitHub usernameÀ» ÀÔ·ÂÇÏ¼¼¿ä.", "iliakan");
+  let name = prompt("GitHub usernameì„ ì…ë ¥í•˜ì„¸ìš”.", "iliakan");
 
   return loadJson(`https://api.github.com/users/${name}`)
     .then(user => {
-      alert(`ÀÌ¸§: ${user.name}.`);
+      alert(`ì´ë¦„: ${user.name}.`);
       return user;
     })
     .catch(err => {
       if (err instanceof HttpError && err.response.status == 404) {
-        alert("ÀÏÄ¡ÇÏ´Â »ç¿ëÀÚ°¡ ¾ø½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        alert("ì¼ì¹˜í•˜ëŠ” ì‚¬ìš©ìê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
         return demoGithubUser();
       } else {
         throw err;
