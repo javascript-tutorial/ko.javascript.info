@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# The difference between calls
+# 호출 간의 차이점
 
-Let's create a new `rabbit` object:
+새로운 `rabbit` 오브젝트를 만들어 봅시다.
 
 ```js
 function Rabbit(name) {
@@ -17,7 +17,7 @@ Rabbit.prototype.sayHi = function() {
 let rabbit = new Rabbit("Rabbit");
 ```
 
-These calls do the same thing or not?
+이 호출들은 똑같이 동작합니까?
 
 ```js
 rabbit.sayHi();
