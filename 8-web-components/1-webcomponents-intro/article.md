@@ -1,76 +1,76 @@
-# From the orbital height
+# 궤도의 높이에서
 
-This section describes a set of modern standards for "web components".
+이 섹션에서는 '웹 컴포넌트'에 대한 최신 표준 세트를 설명합니다.
 
-As of now, these standards are under development. Some features are well-supported and integrated into the modern HTML/DOM standard, while others are yet in draft stage. You can try examples in any browser, Google Chrome is probably the most up to date with these features. Guess, that's because Google fellows are behind many of the related specifications.
+현재로서 이 표준 규격은 개발 중입니다. 일부 기능은 잘 지원되고 최신 HTML/DOM 표준규격에 통합되어 있으며 일부 기능은 아직 초안 단계에 있습니다. 당신은 모든 브라우저에서 예제를 시도할 수 있으며, 구글 크롬이 이러한 기능을 갖춘 최신 버전일 것입니다. 구글 동료들이 많은 관력 사항을 따른다는 것이 그 이유입니다.
 
-## What's common between...
+## 국제 우주정거장과 웹 컴포넌트 사이의 공통점
 
-The whole component idea is nothing new. It's used in many frameworks and elsewhere.
+전체 컴포넌트에 대한 아이디어는 새로운 것이 아닙니다. 이미 많은 프레임워크와 그밖에 다른 곳에서 사용되고 있습니다.
 
-Before we move to implementation details, take a look at this great achievement of humanity:
+구현 세부사항으로 들어가기에 앞서 인류의 위대한 업적을 살펴보겠습니다.
 
 ![](satellite.jpg)
 
-That's the International Space Station (ISS).
+국제 우주정거장의 모습입니다 (ISS).
 
-And this is how it's made inside (approximately):
+국제 우주정거장의 대략적인 내부 구성은 다음과 같습니다.
 
 ![](satellite-expanded.jpg)
 
-The International Space Station:
-- Consists of many components.
-- Each component, in its turn, has many smaller details inside.
-- The components are very complex, much more complicated than most websites.
-- Components are developed internationally, by teams from different countries, speaking different languages.
+국제 우주정거장:
+- 많은 부품으로 이루어져 있습니다.
+- 각 부품은 그 안에 더 작고 많은 부품이 있습니다.
+- 부품들은 매우 복잡한데, 대부분의 웹사이트 보다 훨씬 복잡합니다.
+- 부품은 서로 다른 국가들의 팀이 다른 언어를 사용하여 개발합니다.
 
-...And this thing flies, keeps humans alive in space!
+그리고 이것은 인간이 우주에서 날고, 살아있을 수 있게 해줍니다!
 
-How such complex devices are created?
+어떻게 이렇게 복잡한 장치가 만들어졌을까요?
 
-Which principles we could borrow to make our development same-level reliable and scalable? Or, at least, close to it.
+개발을 안정적이고 확장 가능한 수준으로 만들기 위해 또는 그에 가깝게 만들기 위해 어떤 원칙을 빌려올 수 있을까요?
 
-## Component architecture
+## 컴포넌트 아키텍처
 
-The well known rule for developing complex software is: don't make complex software.
+복잡한 소프트웨어 개발에 대한 잘 알려진 규칙은 바로 복잡한 소프트웨어를 만들지 않는 것입니다.
 
-If something becomes complex -- split it into simpler parts and connect in the most obvious way.
+만약 복잡해진다면 더 간단한 부분들로 나누고 가장 확실한 방법으로 연결하십시오.
 
-**A good architect is the one who can make the complex simple.**
+**좋은 아키텍트는 복잡한 것을 간단하게 만들 수 있는 사람입니다.**
 
-We can split user interface into visual components: each of them has own place on the page, can "do" a well-described task, and is separate from the others.
+사용자 인터페이스를 시각적 컴포넌트들로 나눌 수 있고, 각 컴포넌트는 페이지에서 고유한 위치를 차지하고 잘 설명된 작업을 '수행'할 수 있으며 다른 작업과 분리됩니다.
 
-Let's take a look at a website, for example Twitter.
+웹 사이트의 예로 트위터를 살펴보겠습니다.
 
-It naturally splits into components:
+자연스럽게 컴포넌트들로 나뉘는 것을 볼 수 있습니다.
 
 ![](web-components-twitter.svg)
 
-1. Top navigation.
-2. User info.
-3. Follow suggestions.
-4. Submit form.
-5. (and also 6, 7) -- messages.
+1. 상단 내비게이션 바
+2. 사용자 정보
+3. 추천 팔로우
+4. 글쓰기 양식
+5. (6, 7 포함) 메시지들
 
-Components may have subcomponents, e.g. messages may be parts of a higher-level "message list" component. A clickable user picture itself may be a component, and so on.
+컴포넌트에는 하위 컴포넌트가 있을 수 있습니다. 예를 들어 메시지는 상위 '메시지 목록' 컴포넌트의 일부일 수 있습니다. 클릭 가능한 사용자 사진 자체는 컴포넌트 등일 수 있습니다.
 
-How do we decide, what is a component? That comes from intuition, experience and common sense. Usually it's a separate visual entity that we can describe in terms of what it does and how it interacts with the page. In the case above, the page has blocks, each of them plays its own role, it's logical to make these components.
+무엇이 컴포넌트인지 어떻게 결정하겠습니까? 그것은 직관, 경험 및 상식에서 비롯됩니다. 일반적으로 컴포넌트는 기능과 페이지의 상호 작용 방식으로 설명할 수 있는 별도의 시각적 개체입니다. 위의 경우 페이지에는 블록이 있으며 각 블록은 고유한 역할을 수행하기에 이러한 컴포넌트를 만드는 것이 논리적입니다.
 
-A component has:
-- Its own JavaScript class.
-- DOM structure, managed solely by its class, outside code doesn't access it ("encapsulation" principle).
-- CSS styles, applied to the component.
-- API: events, class methods etc, to interact with other components.
+컴포넌트가 갖춰야 할 것:
+- 고유한 자바스크립트 클래스
+- 외부코드가 접근할 수 없으며 해당 클래스에서만 관리되는 DOM 구조('캡슐화' 원칙)
+- 구성요소에 적용되는 CSS 스타일
+- 다른 구성요소와 상호작용하기 위한 이벤트, 클래스, 메소드 등을 일컫는 API
 
-Once again, the whole "component" thing is nothing special.
+다시 한번 말하지만, 전체 '컴포넌트'는 특별한 것이 아닙니다.
 
-There exist many frameworks and development methodologies to build them, each with its own bells and whistles. Usually, special CSS classes and conventions are used to provide "component feel" -- CSS scoping and DOM encapsulation.
+컴포넌트를 구축하기 위한 많은 프레임워크와 개발 방법론이 존재하는데, 각각은 특수한 기능을 갖고 있습니다. 일반적으로 CSS 범위지정과 DOM 캡슐화와 같은 '컴포넌트 느낌'을 제공하기 위해 특수 CSS 클래스 및 규칙이 사용됩니다.
 
-"Web components" provide built-in browser capabilities for that, so we don't have to emulate them any more.
+'웹 컴포넌트'는 이를 위해 기본적으로 브라우저 기능을 제공하므로 더 이상 모방할 필요가 없습니다.
 
-- [Custom elements](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements) -- to define custom HTML elements.
-- [Shadow DOM](https://dom.spec.whatwg.org/#shadow-trees) -- to create an internal DOM for the component, hidden from the others.
-- [CSS Scoping](https://drafts.csswg.org/css-scoping/) -- to declare styles that only apply inside the Shadow DOM of the component.
-- [Event retargeting](https://dom.spec.whatwg.org/#retarget) and other minor stuff to make custom components better fit the development.
+- [Custom elements](https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements) -- 사용자 정의 HTML 요소를 정의합니다.
+- [Shadow DOM](https://dom.spec.whatwg.org/#shadow-trees) -- 다른 컴포넌트에 대해 숨겨져있는 내부 DOM을 생성합니다.
+- [CSS Scoping](https://drafts.csswg.org/css-scoping/) -- 컴포넌트의 Shadow DOM 내부에만 적용되는 스타일을 선언합니다.
+- [Event retargeting](https://dom.spec.whatwg.org/#retarget)과 사용자 정의 컴포넌트를 개발환경에 더욱 적합하게 만드는 다른 사소한 것들도 있습니다.
 
-In the next chapter we'll go into details of "Custom Elements" -- the fundamental and well-supported feature of web components, good on its own.
+다음 챕터에서는 웹 구성요소의 기본적이고 잘 지원되는 기능인 '커스텀 엘리먼트'에 대해 자세히 살펴보겠습니다.
