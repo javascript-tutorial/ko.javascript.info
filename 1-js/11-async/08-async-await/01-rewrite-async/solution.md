@@ -1,5 +1,5 @@
 
-The notes are below the code:
+ÀÚ¼¼ÇÑ ¼³¸íÀº ¾Æ·¡¿¡¼­ È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù.
 
 ```js run
 async function loadJson(url) { // (1)
@@ -17,11 +17,11 @@ loadJson('no-such-user.json')
   .catch(alert); // Error: 404 (4)
 ```
 
-Notes:
+¼³¸í:
 
-1. The function `loadJson` becomes `async`.
-2. All `.then` inside are replaced with `await`.
-3. We can `return response.json()` instead of awaiting for it, like this:
+1. ÇÔ¼ö `loadJson`Àº `async` ÇÔ¼ö°¡ µË´Ï´Ù.
+2. ÇÔ¼ö ¾ÈÀÇ `.then`À» ÀüºÎ `await`·Î ¹Ù²ß´Ï´Ù.
+3. À§ ´ä¾ÈÃ³·³ `await`¸¦ »ç¿ëÇØµµ µÇÁö¸¸, ¾Æ·¡Ã³·³ `return response.json()`¸¦ »ç¿ëÇØµµ µË´Ï´Ù.
 
     ```js
     if (response.status == 200) {
@@ -29,5 +29,5 @@ Notes:
     }
     ```
 
-    Then the outer code would have to `await` for that promise to resolve. In our case it doesn't matter.
-4. The error thrown from `loadJson` is handled by `.catch`. We can't use `await loadJson(â€¦)` there, because we're not in an `async` function.
+    ´ë½Å, ÀÌ·¸°Ô ÀÛ¼ºÇÏ¸é ÇÁ¶ó¹Ì½º°¡ ÀÌÇàµÇ´Â°É `await`¸¦ »ç¿ëÇØ ¹Ù±ù ÄÚµå¿¡¼­ ±â´Ù·Á¾ß ÇÕ´Ï´Ù. À§ ¿¹½Ã´Â ÇØ´ç »çÇ×ÀÌ ¾øÁö¸¸ ¸»ÀÌÁÒ.
+4. `loadJson`¿¡¼­ ´øÁ®Áø ¿¡·¯´Â `.catch`¿¡¼­ Ã³¸®µË´Ï´Ù. `loadJson`À» È£ÃâÇÏ´Â ÄÚµå´Â `async` ÇÔ¼ö ³»ºÎ°¡ ¾Æ´Ï±â ¶§¹®¿¡ `await loadJson(¡¦)`À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
