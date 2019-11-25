@@ -125,6 +125,7 @@ alert( Article.publisher ); // Ilya Kantor
 Article.publisher = "Ilya Kantor";
 ```
 
+<<<<<<< HEAD
 ## 정적 메서드 상속
 
 정적 메서드는 상속이 가능합니다.
@@ -134,6 +135,17 @@ Article.publisher = "Ilya Kantor";
 ```js run
 class Animal {
   static planet = "지구";
+=======
+## Inheritance of static properties and methods
+
+Static properties and methods are inherited.
+
+For instance, `Animal.compare` and `Animal.planet` in the code below are inherited and accessible as `Rabbit.compare` and `Rabbit.planet`:
+
+```js run
+class Animal {
+  static planet = "Earth";
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
   constructor(name, speed) {
     this.speed = speed;
@@ -169,12 +181,21 @@ let rabbits = [
 rabbits.sort(Rabbit.compare);
 */!*
 
+<<<<<<< HEAD
 rabbits[0].run(); // 검은 토끼가 속도 5로 달립니다.
 
 alert(Rabbit.planet); // 지구
 ```
 
 이제 `Rabbit.compare`을 호출하면 `Animal.compare`가 호출됩니다.
+=======
+rabbits[0].run(); // Black Rabbit runs with speed 5.
+
+alert(Rabbit.planet); // Earth
+```
+
+Now when we call `Rabbit.compare`, the inherited `Animal.compare` will be called.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 이게 가능한 이유는 프로토타입 때문입니다. 이미 예상하셨겠지만, `extends` 키워드는 `Rabbit`의 `[[Prototype]]`이 `Animal`을 참조하도록 해줍니다.
 
@@ -185,7 +206,11 @@ alert(Rabbit.planet); // 지구
 1. 함수 `Rabbit`은 프로토타입을 통해 함수 `Animal`을 상속받습니다.
 2. `Rabbit.prototype`은 프로토타입을 통해 `Animal.prototype`을 상속받습니다.
 
+<<<<<<< HEAD
 이런 과정이 있기 때문에 일반 메서드 상속과 정적 메서드 상속이 가능합니다.
+=======
+As a result, inheritance works both for regular and static methods.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 코드로 직접 확인해봅시다.
 
@@ -202,7 +227,11 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 
 ## 요약
 
+<<<<<<< HEAD
 정적 메서드는 특정 클래스 인스턴스가 아닌 클래스 '전체'에 필요한 기능을 만들 때 사용할 수 있습니다. 
+=======
+Static methods are used for the functionality that belongs to the class "as a whole". It doesn't relate to a concrete class instance.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 비교를 위한 메서드 `Article.compare(article1, article2)`나 팩토리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
 

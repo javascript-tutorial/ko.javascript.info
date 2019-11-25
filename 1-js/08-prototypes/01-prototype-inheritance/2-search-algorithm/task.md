@@ -6,7 +6,11 @@ importance: 5
 
 이번에 풀 과제는 두 부분으로 구성됩니다.
 
+<<<<<<< HEAD
 먼저, 아래 객체를 살펴봅시다.
+=======
+Given the following objects:
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 ```js
 let head = {

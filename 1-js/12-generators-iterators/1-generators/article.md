@@ -40,7 +40,11 @@ alert(generator); // [object Generator]
 
 ![](generateSequence-1.svg)
 
+<<<<<<< HEAD
 `next()`는 제너레이터의 주요 메서드입니다. `next()`를 호출하면 가장 가까운 `yield <value>`문을 만날 때까지 실행이 지속됩니다(`value`를 생략할 수도 있는데, 이 경우엔 `undefined`가 됩니다). 이후, `yield <value>`문을 만나면 실행이 멈추고 산출하고자 하는 값인 `value`가 바깥 코드에 반환됩니다(yield는 '생산하다, 산출하다'라는 뜻을 가짐 - 옮긴이).
+=======
+The main method of a generator is `next()`. When called, it runs the execution until the nearest `yield <value>` statement (`value` can be omitted, then it's `undefined`). Then the function execution pauses, and the yielded `value` is returned to the outer code.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 `next()`는 항상 아래 두 프로퍼티를 가진 객체를 반환합니다.
 - `value`: 산출 값
@@ -78,7 +82,11 @@ alert(JSON.stringify(two)); // {value: 2, done: false}
 
 ![](generateSequence-3.svg)
 
+<<<<<<< HEAD
 `generator.next()`를 또 호출하면 실행은 `return`문에 다다르고 함수가 종료됩니다.
+=======
+And, if we call it a third time, the execution reaches the `return` statement that finishes the function:
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 ```js
 let three = generator.next();
@@ -90,7 +98,11 @@ alert(JSON.stringify(three)); // {value: 3, *!*done: true*/!*}
 
 이제 제너레이터가 종료되었습니다. 마지막 결과인 `value:3`과 `done:true`를 통해 이를 확인할 수 있습니다. 
 
+<<<<<<< HEAD
 제너레이터가 종료되었기 때문에 지금 상태에선 `generator.next()`를 호출해도 아무 소용이 없습니다. `generator.next()`를 여러번 호출해도 객체 `{done: true}`가 반환될 뿐입니다.
+=======
+New calls to `generator.next()` don't make sense any more. If we do them, they return the same object: `{done: true}`.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 ```smart header="`function* f(…)`가 맞나요 아니면 `function *f(…)`가 맞나요?"
 둘 다 맞습니다.
@@ -154,7 +166,11 @@ let sequence = [0, ...generateSequence()];
 alert(sequence); // 0, 1, 2, 3
 ```
 
+<<<<<<< HEAD
 위 예시에서 `...generateSequence()`는 반복 가능한 제너레이터 객체를 배열 요소로 바꿔줍니다. 전개 연산자에 대한 자세한 설명은 [](info:rest-parameters-spread-operator#spread-operator)에서 볼 수 있습니다.
+=======
+In the code above, `...generateSequence()` turns the iterable generator object into an array of items (read more about the spread operator in the chapter [](info:rest-parameters-spread-operator#spread-operator))
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 ## 이터러블 대신 제너레이터 사용하기
 
@@ -211,18 +227,30 @@ let range = {
 alert( [...range] ); // 1,2,3,4,5
 ```
 
+<<<<<<< HEAD
 `range[Symbol.iterator]()`는 제너레이터를 반환하고, 제너레이터 메서드는 `for..of`가 동작하는데 필요한 사항(아래 설명)을 충족시키므로 예시가 잘 동작합니다.
 - `.next()` 메서드가 있음
 - 반환 값의 형태는 `{value: ..., done: true/false}`이어야 함
 
 이렇게 이터러블 객체 대신 제너레이터를 사용할 수 있는 것은 우연이 아닙니다. 제너레이터는 이터레이터를 어떻게 하면 쉽게 구현할지를 염두에 두며 자바스크립트에 추가되었습니다.
+=======
+That works, because `range[Symbol.iterator]()` now returns a generator, and generator methods are exactly what `for..of` expects:
+- it has a `.next()` method
+- that returns values in the form `{value: ..., done: true/false}`
+
+That's not a coincidence, of course. Generators were added to JavaScript language with iterators in mind, to implement them easily.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 제너레이터를 사용해 구현한 예시는 이터러블을 사용해 구현한 기존 예시보다 훨씬 간결합니다. 그리고 동일한 기능을 제공합니다.
 
 ```smart header="제너레이터는 무한한 값을 만들 수도 있습니다."
 위 예시에선 유한한 연속 값을 생성했지만, 값을 끊임없이 생성하는 제너레이터를 만드는 것도 가능합니다. 끊임없는 의사 난수를 생성하는 것처럼 말이죠. 
 
+<<<<<<< HEAD
 끊임없는 값을 생성하는 제너레이터를 만들었다면 당연히 `for..of` 안에 `break`나 `return`이 있어야 합니다. 그렇지 않으면 무한 반복문이 되어서 스크립트가 멈춥니다.
+=======
+That surely would require a `break` (or `return`) in `for..of` over such generator. Otherwise, the loop would repeat forever and hang.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 ```
 
 ## 제너레이터 컴포지션
@@ -237,10 +265,17 @@ function* generateSequence(start, end) {
 }
 ```
 
+<<<<<<< HEAD
 그리고 이 함수를 기반으로 좀 더 복잡한 값을 연속해서 생성하는 함수를 만들어봅시다. 값 생성 규칙은 다음과 같습니다.  
 - 처음엔 숫자 `0`부터 `9`까지를 생성합니다(문자 코드 48부터 57까지),
 - 이어서 알파벳 대문자 `A`부터 `Z`까지를 생성합니다(문자 코드 65부터 90까지).
 - 이어서 알파벳 소문자 `a`부터 `z`까지를 생성합니다(문자 코드 97부터 122까지).
+=======
+Now we'd like to reuse it to generate a more complex sequence:
+- first, digits `0..9` (with character codes 48..57),
+- followed by uppercase alphabet letters `A..Z` (character codes 65..90)
+- followed by lowercase alphabet letters `a..z` (character codes 97..122)
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 이런 규칙을 충족하는 연속 값은 비밀번호를 만들 때 응용할 수 있습니다(물론 특수 문자도 추가 할 수 있습니다). 
 
@@ -316,7 +351,11 @@ alert(str); // 0..9A..Za..z
 
 ## 'yield'를 사용해 제너레이터 안/밖으로 정보 교환하기
 
+<<<<<<< HEAD
 지금까지 배운 제너레이터는 값을 생성해주는 특수 문법을 가진 이터러블 객체와 유사했습니다. 그런데 사실 제너레이터는 더 강력하고 유연한 기능을 제공합니다. 
+=======
+Until this moment, generators were similar to iterable objects, with a special syntax to generate values. But in fact they are much more powerful and flexible.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 `yield`가 양방향 길과 같은 역할을 하기 때문입니다. `yield`는 결과를 바깥으로 전달할 뿐만 아니라 값을 제너레이터 안으로 전달하기까지 합니다.
 
@@ -343,9 +382,15 @@ generator.next(4); // --> 결과를 제너레이터 안으로 전달합니다.
 
 ![](genYield2.svg)
 
+<<<<<<< HEAD
 1. `generator.next()`를 처음 호출할 땐 항상 인수가 없어야 합니다. `generator.next()`를 호출하면 실행이 시작되고 첫 번째 `yield "2+2=?"`의 결과가 반환됩니다. 이 시점에는 제너레이터가 `(*)`로 표시한 줄에서 실행을 잠시 멈춥니다
 2. 그 후, 위 그림에서 보듯이 `yield`의 결과가 제너레이터를 호출하는 외부 코드에 있는 변수, `question`에 할당됩니다. 
 3. 마지막 줄, `generator.next(4)`에서 제너레이터가 다시 시작되고 `4`는 `result`에 할당됩니다(`let result = 4`).
+=======
+1. The first call `generator.next()` should be always made without an argument (the argument is ignored if passed). It starts the execution and returns the result of the first `yield "2+2=?"`. At this point the generator pauses the execution, while staying on the line `(*)`.
+2. Then, as shown at the picture above, the result of `yield` gets into the `question` variable in the calling code.
+3. On `generator.next(4)`, the generator resumes, and `4` gets in as the result: `let result = 4`.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 외부 코드에선 `next(4)`를 즉시 호출하지 않고 있다는 점에 주목해 주시기 바랍니다. 제너레이터가 기다려주기 때문에 호출을 나중에 해도 문제가 되지 않습니다.  
 
@@ -422,7 +467,11 @@ generator.throw(new Error("데이터베이스에서 답을 찾지 못했습니�
 */!*
 ```
 
+<<<<<<< HEAD
 `(2)`에서 제너레이터 안으로 던진 에러는 `yield`와 함께 라인 `(1)`에서 예외를 만듭니다. 예외는 `try..catch`에서 잡히고, 관련 정보가 얼럿창에 출력됩니다.
+=======
+The error, thrown into the generator at line `(2)` leads to an exception in line `(1)` with `yield`. In the example above, `try..catch` catches it and shows it.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 제너레이터 안에서 예외를 처리하지 않았다면 예외는 여타 예외와 마찬가지로 제너레이터 호출 코드(외부 코드)로 '떨어져 나옵니다'.
 
@@ -456,6 +505,10 @@ try {
 
 모던 자바스크립트에서는 제너레이터를 잘 사용하지 않습니다. 그러나 제너레이터를 사용하면 실행 중에도 제너레이터 호출 코드와 데이터를 교환할 수 있기 때문에 유용하게 사용되는 경우가 종종 있습니다. 그리고 제너레이터를 사용하면 이터러블 객체를 쉽게 만들 수 있다는 장점도 있습니다.
 
+<<<<<<< HEAD
 다음 챕터에서 배울 비동기 제너레이터(asnyc generator)를 사용하면 비동기적으로 생성된 데이터 스트림을 손쉽게 읽을 수 있다는 장점도 있습니다.
+=======
+Also, in the next chapter we'll learn async generators, which are used to read streams of asynchronously generated data (e.g paginated fetches over a network) in `for await ... of` loops.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 웹 프로그래밍에선 데이터 스트림을 다뤄야 하는 경우가 많은데, 제너레이터는 이 경우에 자주 사용됩니다.

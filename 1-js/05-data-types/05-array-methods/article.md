@@ -36,7 +36,11 @@ alert( arr.length ); // 3
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
+<<<<<<< HEAD
 [arr.splice(str)](mdn:js/Array/splice)는 만능 스위스 맥가이버 칼 같은 메서드입니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드를 사용하면 요소 추가, 삭제, 교체가 모두 가능합니다.
+=======
+The [arr.splice(start)](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 문법은 다음과 같습니다.
 
@@ -268,7 +272,11 @@ alert( arr.includes(NaN) );// true (NaN의 여부를 확인하였습니다.)
 
 객체로 이루어진 배열이 있다고 가정해 봅시다. 특정 조건에 부합하는 객체를 배열 내에서 어떻게 찾을 수 있을까요?
 
+<<<<<<< HEAD
 이럴 때 [arr.find](mdn:js/Array/find)를 사용할 수 있습니다.
+=======
+Here the [arr.find(fn)](mdn:js/Array/find) method comes in handy.
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 문법:
 ```js
@@ -446,8 +454,13 @@ alert(arr);  // *!*1, 2, 15*/!*
 ```
 ````
 
+<<<<<<< HEAD
 ````smart header="화살표 함수를 사용합시다."
 [화살표 함수](info:function-expressions-arrows#arrow-functions)를 사용하면 정렬 함수를 더 깔끔하게 만들 수 있습니다. 
+=======
+````smart header="Arrow functions for the best"
+Remember [arrow functions](info:arrow-functions-basics)? We can use them here for neater sorting:
+>>>>>>> 79417c6e73645d37f184f0cc7e4bc3353e85224f
 
 ```js
 arr.sort( (a, b) => a - b );
@@ -574,7 +587,7 @@ alert(result); // 15
 
 표를 이용해 설명하면 아래와 같습니다. 함수가 호출될 때마다 넘겨지는 인수와 연산 결과는 각 열에서 확인할 수 있습니다.
 
-|   |`sum`|`current`|`result`|
+|   |`sum`|`current`|result|
 |---|-----|---------|---------|
 |첫 번째 호출|`0`|`1`|`1`|
 |두 번째 호출|`1`|`2`|`3`|
