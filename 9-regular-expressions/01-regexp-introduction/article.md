@@ -16,14 +16,14 @@ In JavaScript, they are available as [RegExp](mdn:js/RegExp) object, and also in
 regexp = new RegExp("pattern", "flags");
 ```
 
-그리고 짧게는, 슬래시 ``/ "`를 사용합니다.
+그리고 짧게는, 슬래시 `"/"`를 사용합니다.
 
 ```js
 regexp = /pattern/; // 플래그 없음
 regexp = /pattern/gmi; // 플래그 g, m, i가 있는 경우 (곧 다룰 예정)
 ```
 
-슬래시``/ "`는 자바스크립트에 정규 표현식을 생성하고 있다는 것을 알려줍니다. 문자열에 따옴표를 쓰는 것과 동일한 역할을 합니다.
+슬래시`"/"`는 자바스크립트에 정규 표현식을 생성하고 있다는 것을 알려줍니다. 문자열에 따옴표를 쓰는 것과 동일한 역할을 합니다.
 
 In both cases `regexp` becomes an object of the built-in `RegExp` class.
 
