@@ -79,8 +79,10 @@ let range = {
         // (객체는 async에 의해 자동으로 프라미스로 감싸집니다.)
 */!*
 
+*!*
         // 비동기로 무언가를 하기 위해 await를 사용할 수 있습니다.
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
+*/!*
 
         if (this.current <= this.last) {
           return { done: false, value: this.current++ };
