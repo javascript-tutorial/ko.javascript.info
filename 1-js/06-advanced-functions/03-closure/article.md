@@ -349,7 +349,11 @@ alert( counter2() ); // 0 (count2와 count1은 각자의 렉시컬 환경을 갖
 
     ![](lexenv-nested-makecounter-3.svg)
 
+<<<<<<< HEAD
     지금 단계에선 내부 함수(중첩 함수)는 만들어졌지만, 아직 호출은 하지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`의 본문는 아직 실행 전입니다.
+=======
+    Please note that on this step the inner function was created, but not yet called. The code inside `return count++;` is not running.
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 4. 실행이 이어지면서 `makeCounter()`에 대한 호출이 종료되고, 반환 값(익명 중첩 함수)이 전역 변수 `counter`에 할당됩니다.
 
@@ -563,8 +567,13 @@ function f() {
 */!*
 }
 
+<<<<<<< HEAD
 let func = f(); // func는 g의 참조값을 얻음
 // 따라서 func는 메모리에 남고, func가 참조하는 외부 렉시컬 환경 역시 메모리에 유지됨
+=======
+let func = f(); // func gets a reference to g
+// so it stays and memory and its outer lexical environment stays as well
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 ```
 
 `f()`를 여러 번 호출하고 그 결과가 어딘가에 저장되는 경우, 렉시컬 환경 각각 모두가 메모리에 유지된다는 점에 유의하시기 바랍니다. 아래 예시를 실행하면 3개의 렉시컬 환경이 만들어지는데, 각 렉시컬 환경은 메모리에서 삭제되지 않습니다.
@@ -594,10 +603,16 @@ function f() {
   return g;
 }
 
+<<<<<<< HEAD
 let g = f(); // g가 살아있는 동안엔
 // 연관되는 렉시컬 환경은 살아있습니다.
 
 g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭제됩니다.
+=======
+let func = f(); // while func has a reference to g, it stays in memory
+
+func = null; // ...and now the memory is cleaned up
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 ```
 
 ### 최적화 프로세스

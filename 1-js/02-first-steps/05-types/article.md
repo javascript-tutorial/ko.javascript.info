@@ -10,9 +10,15 @@ message = 123456;
 
 이처럼 자료의 타입은 있지만, 변수의 타입은 언제든지 바꿀 수 있는 언어를 "동적 타입(dynamically typed)" 언어라고 부릅니다.
 
+<<<<<<< HEAD
 자바스크립트에는 일곱 가지 기본 자료형이 있습니다. 이번 챕터에선 이 자료형 모두를 전반적으로 다루도록 하겠습니다. 각 자료형에 대한 세부 사항들은 이어지는 챕터에서 다루도록 하겠습니다.
 
 ## 숫자형
+=======
+There are eight basic data types in JavaScript. Here, we'll cover them in general and in the next chapters we'll talk about each of them in detail.
+
+## Number
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 ```js
 let n = 123;
@@ -62,14 +68,37 @@ n = 12.345;
 
 숫자를 다루는 방법에 대해선 <info:number> 챕터에서 자세히 알아보도록 하겠습니다.
 
+<<<<<<< HEAD
 ## 문자형
+=======
+## BigInt
+
+In JavaScript, the "number" type cannot represent integer values larger than <code>2<sup>53</sup></code> (or less than <code>-2<sup>53</sup></code> for negatives), that's a technical limitation caused by their internal representation. That's about 16 decimal digits, so for most purposes the limitation isn't a problem, but sometimes we need really big numbers, e.g. for cryptography or microsecond-precision timestamps.
+
+`BigInt` type was recently added to the language to represent integers of arbitrary length.
+
+A `BigInt` is created by appending `n` to the end of an integer literal:
+
+```js
+// the "n" at the end means it's a BigInt
+const bigInt = 1234567890123456789012345678901234567890n;
+```
+
+As `BigInt` numbers are rarely needed, we devoted them a separate chapter <info:bigint>.
+
+```smart header="Compatability issues"
+Right now `BigInt` is supported in Firefox and Chrome, but not in Safari/IE/Edge.
+```
+
+## String
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 자바스크립트에선 문자열(string)을 따옴표로 묶습니다.
 
 ```js
 let str = "Hello";
 let str2 = 'Single quotes are ok too';
-let phrase = `can embed ${str}`;
+let phrase = `can embed another ${str}`;
 ```
 
 따옴표는 아래와 같이 세 종류가 있습니다.
@@ -78,7 +107,11 @@ let phrase = `can embed ${str}`;
 2. 작은따옴표: `'Hello'`
 3. 역 따옴표(백틱, backtick): <code>&#96;Hello&#96;</code>
 
+<<<<<<< HEAD
 큰따옴표와 작은따옴표는 "기본적인" 따옴표로, 자바스크립트에서는 이 둘에 차이를 두지 않습니다.
+=======
+Double and single quotes are "simple" quotes. There's practically no difference between them in JavaScript.
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 역 따옴표로 변수나 표현식을 감싼 후 `${…}`안에 넣어주면, 원하는 변수나 표현식을 문자열 중간에 손쉽게 넣을 수 있습니다. 아래와 같이 말이죠.
 
@@ -101,13 +134,22 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (큰따옴표는 �
 
 문자열은 <info:string>챕터에서 더 자세히 다루도록 하겠습니다. 
 
+<<<<<<< HEAD
 ```smart header="*글자형*은 없습니다."
 일부 언어는 글자 하나를 저장할 때 쓰이는 자료형, "글자(character)"형을 따로 지원합니다. C 언어와 Java의 `char`가 그 대표적인 예입니다.
+=======
+```smart header="There is no *character* type."
+In some languages, there is a special "character" type for a single character. For example, in the C language and in Java it is called "char".
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 자바스크립트는 글자형을 지원하지 않습니다. 한 글자 혹은 여러 글자로 구성된 `문자열`을 저장할 때 쓰이는 자료형인 문자형만 지원합니다.
 ```
 
+<<<<<<< HEAD
 ## 불린형
+=======
+## Boolean (logical type)
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 불린형(논리 타입)은 `true`와 `false` 두 가지 값밖에 없는 자료형입니다.
 
@@ -198,6 +240,8 @@ typeof undefined // "undefined"
 
 typeof 0 // "number"
 
+typeof 10n // "bigint"
+
 typeof true // "boolean"
 
 typeof "foo" // "string"
@@ -223,6 +267,7 @@ typeof alert // "function"  (3)
 2. `typeof null`의 결과는 `"object"`입니다. `null`은 별도의 고유한 자료형을 가지는 특수 값으로 객체가 아니지만, 자바스크립트에선 호환성을 유지하기 위해 이런 오류를 수정하지 않고 남겨둔 상황입니다. 언어 자체의 오류이므로 `null`이 객체가 아님에 유의하시기 바랍니다.
 3. `typeof`는 피연산자가 함수면 `"function"`을 반환합니다. 그러므로 `typeof alert`는 `"function"`을 출력해줍니다. 그런데 자바스크립트엔 "함수"형이 없습니다. 함수는 객체형에 속합니다. 이런 동작 방식이 형식적으론 잘못되긴 했지만, 실무에선 매우 유용하게 사용되고 있습니다. 함수에 관한 내용은 이후 챕터에서 자세히 다루도록 하겠습니다.
 
+<<<<<<< HEAD
 
 ## 요약
 
@@ -235,6 +280,20 @@ typeof alert // "function"  (3)
 - `undefined` -- `undefined` 값만을 위한 독립 자료형입니다. `undefined`는 할당되지 않은 값을 나타냅니다. 
 - `객체형` -- 복잡한 데이터 구조를 표현할 때 사용합니다.
 - `심볼형` -- 객체의 고유 식별자를 만들 때 사용합니다.
+=======
+## Summary
+
+There are 8 basic data types in JavaScript.
+
+- `number` for numbers of any kind: integer or floating-point, integers are limited by ±2<sup>53</sup>.
+- `bigint` is for integer numbers of arbitrary length.
+- `string` for strings. A string may have one or more characters, there's no separate single-character type.
+- `boolean` for `true`/`false`.
+- `null` for unknown values -- a standalone type that has a single value `null`.
+- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
+- `object` for more complex data structures.
+- `symbol` for unique identifiers.
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 `typeof` 연산자는 피연산자의 자료형을 알려줍니다.
 

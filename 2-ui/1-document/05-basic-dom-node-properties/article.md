@@ -187,8 +187,13 @@ alert( document.body.tagName ); // BODY
 
 요소만 다루고 있다면 `tagName`과 `nodeName`을 사용하면 됩니다. 둘에는 차이가 없습니다.
 
+<<<<<<< HEAD
 ```smart header="태그 이름은 XHTML을 제외하고 항상 대문자입니다"
 브라우저는 HTML과 XML유형의 문서를 다른 방법으로 처리합니다. 웹페이지는 대게 HTML 모드로 처리됩니다. 헤더가 `Content-Type: application/xml+xhtml`인 XML-문서의 경우는 XML 모드로 처리됩니다.
+=======
+```smart header="The tag name is always uppercase except in XML mode"
+The browser has two modes of processing documents: HTML and XML. Usually the HTML-mode is used for webpages. XML-mode is enabled when the browser receives an XML-document with the header: `Content-Type: application/xml+xhtml`.
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 HTML 모드에선 `tagName/nodeName`이 모두 대문자를 리턴합니다. `<body>` 이든 `<BoDy>` 상관없이 `BODY`를 리턴합니다.
 
@@ -284,7 +289,7 @@ Here's an example:
 </script>
 ```
 
-**Beware: unlike `innerHTML`, writing to `outerHTML` does not change the element. Instead, it replaces it as a whole in the outer context.**
+**Beware: unlike `innerHTML`, writing to `outerHTML` does not change the element. Instead, it replaces it in the DOM.**
 
 Yeah, sounds strange, and strange it is, that's why we make a separate note about it here. Take a look.
 
@@ -302,7 +307,7 @@ Consider the example:
   div.outerHTML = '<p>A new element</p>'; // (*)
 
 *!*
-  // Wow! The div is still the same!
+  // Wow! 'div' is still the same!
 */!*
   alert(div.outerHTML); // <div>Hello, world!</div> (**)
 </script>
@@ -310,18 +315,18 @@ Consider the example:
 
 Looks really odd, right?
 
-In the line `(*)` we replaced `div` with `<p>A new element</p>`. In the outer document we can see the new content instead of the `<div>`. But, as we can see in line `(**)`, the old `div` variable is still the same!
+In the line `(*)` we replaced `div` with `<p>A new element</p>`. In the outer document (the DOM) we can see the new content instead of the `<div>`. But, as we can see in line `(**)`, the value of the old `div` variable hasn't changed!
 
-The `outerHTML` assignment does not modify the DOM element, but removes it from the outer context and inserts a new piece of HTML instead of it.
+The `outerHTML` assignment does not modify the DOM element (the object referenced by, in this case, the variable 'div'), but removes it from the DOM and inserts the new HTML in its place.
 
 So what happened in `div.outerHTML=...` is:
 - `div` was removed from the document.
-- Another HTML `<p>A new element</p>` was inserted instead.
-- `div` still has the old value. The new HTML wasn't saved to any variable.
+- Another piece of HTML `<p>A new element</p>` was inserted in its place.
+- `div` still has its old value. The new HTML wasn't saved to any variable.
 
 It's so easy to make an error here: modify `div.outerHTML` and then continue to work with `div` as if it had the new content in it. But it doesn't. Such thing is correct for `innerHTML`, but not for `outerHTML`.
 
-We can write to `elem.outerHTML`, but should keep in mind that it doesn't change the element we're writing to. It creates the new HTML on its place instead. We can get references to new elements by querying DOM.
+We can write to `elem.outerHTML`, but should keep in mind that it doesn't change the element we're writing to ('elem'). It puts the new HTML in its place instead. We can get references to the new elements by querying the DOM.
 
 ## nodeValue/data: text node content
 
@@ -474,7 +479,7 @@ Each DOM node belongs to a certain class. The classes form a hierarchy. The full
 Main DOM node properties are:
 
 `nodeType`
-: We can use it to see if a node is a text or an element node. It has a numeric value: `1` -- for elements,`3` -- for text nodes, and few other for other node types. Read-only.
+: We can use it to see if a node is a text or an element node. It has a numeric value: `1` for elements,`3` for text nodes, and a few others for other node types. Read-only.
 
 `nodeName/tagName`
 : For elements, tag name (uppercased unless XML-mode). For non-element nodes `nodeName` describes what it is. Read-only.
@@ -496,4 +501,4 @@ Main DOM node properties are:
 
 정리하자면 `innerHTML+=` 은 다음과 같은 기능을 수행합니다:
 
-Although, HTML attributes and DOM properties are not always the same, as we'll see in the next chapter.
+However, HTML attributes and DOM properties are not always the same, as we'll see in the next chapter.

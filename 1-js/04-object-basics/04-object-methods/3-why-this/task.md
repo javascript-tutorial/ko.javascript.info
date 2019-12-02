@@ -4,7 +4,11 @@ importance: 3
 
 # "this" 값 알아내기
 
+<<<<<<< HEAD
 아래 예시에선 여러 방법을 이용해 `user.go()`를 호출하고 있습니다. 총 4번 호출하였네요.  
+=======
+In the code below we intend to call `obj.go()` method 4 times in a row.
+>>>>>>> 47d186598add3a0ea759615596a12e277ce8fb5a
 
 그런데 첫 번째(`(1)`)와 두 번째 호출(`(2)`) 결과는 세 번째(`(3)`)와 네 번째(`(4)`) 호출 결과와 다릅니다. 이유가 뭘까요? 
 
