@@ -146,7 +146,7 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 <span class="devtools" style="background-position:-4px -194px"></span> -- 'Step into' (단축키 `key:F11`)
 : 'Step'과 유사한데, 비동기 함수 호출에서 'Step'과는 다르게 동작합니다. 이제 막 자바스크립트를 배우기 시작한 분이라면 비동기 호출에 대해 아직 배우지 않았기 때문에 'Step'과 'Step into'의 차이를 몰라도 괜찮습니다.
 
-    'Step'은 `setTimeout`(함수 호출 스케줄링에 쓰이는 내장 메서드)같은 비동기 동작은 무시합니다. 반면 'Step into'는 비동기 동작을 담당하는 코드로 진입하고, 필요하다면 실행을 중단시키거나 비동기 동작이 완료될 때까지 대기합니다. 자세한 내용은 [개발자 도구 매뉴얼](https://developers.google.com/web/updates/2018/01/devtools#async)에서 확인하시기 바랍니다.
+    'Step'은 `setTimeout`(함수 호출 스케줄링에 쓰이는 내장 메서드)같은 비동기 동작은 무시합니다. 반면 'Step into'는 비동기 동작을 담당하는 코드로 진입하고, 필요하다면 비동기 동작이 완료될 때까지 대기합니다. 자세한 내용은 [개발자 도구 매뉴얼](https://developers.google.com/web/updates/2018/01/devtools#async)에서 확인하시기 바랍니다.
 
 <span class="devtools" style="background-position:-32px -194px"></span> -- 'Step out': 실행 중인 함수의 실행이 끝날 때 까지 실행을 계속함 (단축키 `key:Shift+F11`)
 : 현재 실행 중인 함수의 실행을 계속 이어가다가 함수 본문 마지막 줄에서 실행을 멈춥니다. 실수로 <span class="devtools" style="background-position:-200px -190px"></span>을 눌러 내부 동작을 알고 싶지 않은 중첩 함수로 진입했거나 가능한 한 빨리 함수 실행을 끝내고 싶은 경우 유용합니다,
