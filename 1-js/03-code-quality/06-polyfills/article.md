@@ -19,7 +19,11 @@
 
 바벨의 주요 역할은 다음과 같습니다.
 
+<<<<<<< HEAD
 1. 트랜스파일러 -- 바벨은 코드를 재작성해주는 트랜스파일러 프로그램입니다. 바벨은 개발자의 컴퓨터에서 돌아가는데, 이를 실행하면 기존 코드가 구 표준을 준수하는 코드로 변경됩니다. 변경된 코드는 웹사이트 형태로 사용자에게 전달됩니다. [웹팩(webpack)](http://webpack.github.io/)과 같은 모던 프로젝트 빌드 시스템은 코드가 수정될 때마다 자동으로 트랜스파일러를 동작시켜줍니다. 이런 과정이 없으면 개발이 끝난 코드를 한데 통합하는 데 어려움이 있을 수 있습니다.
+=======
+1. First, the transpiler program, which rewrites the code. The developer runs it on their own computer. It rewrites the code into the older standard. And then the code is delivered to the website for users. Modern project build systems like [webpack](http://webpack.github.io/) provide means to run transpiler automatically on every code change, so that it's very easy to integrate into development process.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 2. 폴리필
 

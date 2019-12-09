@@ -56,7 +56,11 @@ async function f() {
   });
 
 *!*
+<<<<<<< HEAD
   let result = await promise; // 프라미스가 이행될 때까지 기다림 (*)
+=======
+  let result = await promise; // wait until the promise resolves (*)
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 */!*
 
   alert(result); // "완료!"
@@ -168,7 +172,11 @@ async function f() {
 f();
 ```
 
+<<<<<<< HEAD
 `await`는 `.then`이 구현되어있으면서 프라미스가 아닌 객체를 받으면, 네이티브 함수 `resolve`와 `reject`를 인수로 제공하는 메서드인 `.then`을 호출합니다(일반 `Promise` executor가 하는 일과 동일합니다). `await`는 둘 중 하나가 호출되길 기다렸다가(`(*)`로 표시한 줄) 호출 결과를 가지고 다음 일을 진행합니다.
+=======
+If `await` gets a non-promise object with `.then`, it calls that method providing built-in functions `resolve`, `reject` as arguments (just as it does for a regular `Promise` executor). Then `await` waits until one of them is called (in the example above it happens in the line `(*)`) and then proceeds with the result.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 ````
 
 ````smart header="async 클래스 메서드"

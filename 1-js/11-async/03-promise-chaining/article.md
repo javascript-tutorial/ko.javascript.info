@@ -86,7 +86,11 @@ promise.then(function(result) {
 
 `.then(handler)`에 사용된 핸들러가 프라미스를 생성하거나 반환하는 경우도 있습니다.
 
+<<<<<<< HEAD
 이런 경우에 이어지는 핸들러는 프라미스가 처리될 때까지 기다리다가 처리가 완료되면 그 결과를 받습니다.
+=======
+In that case further handlers wait until it settles, and then get its result.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 예시:
 
@@ -165,7 +169,11 @@ loadScript("/article/promise-chaining/one.js")
 
 `loadScript`를 호출할 때마다 프라미스가 반환되고 다음 `.then`은 이 프라미스가 이행되었을 때 실행됩니다. 이후에 다음 스크립트를 로딩하기 위한 초기화가 진행됩니다. 스크립트는 이런 과정을 거쳐 순차적으로 로드됩니다.
 
+<<<<<<< HEAD
 체인에 더 많은 비동기 동작을 추가할 수도 있습니다. 추가 작업이 많아져도 코드가 오른쪽으로 길어지지 않고, 아래로만 증가한다는 점에 주목해 주시기 바랍니다. '멸망'의 피라미드가 만들어지지 않습니다.
+=======
+We can add more asynchronous actions to the chain. Please note that the code is still "flat", it grows down, not to the right. There are no signs of "pyramid of doom".
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 한편, 아래와 같이 각 `loadScript`에 `.then`을 바로 붙일 수도 있습니다.
 
@@ -189,10 +197,17 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 중첩 함수에서 외부 스코프에 접근할 수 있기 때문에 `.then`을 바로 쓰는 게 괜찮은 경우도 있습니다. 위 예제에서 가장 깊은 곳에 있는 중첩 콜백은  `script1`, `script2`, `script3` 안에 있는 변수 모두에 접근할 수 있습니다. 이런 예외 상황이 있다는 정도만 알아두도록 합시다. 
 
 
+<<<<<<< HEAD
 ````smart header="thenable"
 핸들러는 프라미스가 아닌 `thenable`이라 불리는 객체를 반환하기도 합니다. 메서드 `.then`을 가진 객체는 모두 `thenable`객체라고 부르는데, 이 객체는 프라미스와 같은 방식으로 처리됩니다.  
 
 'thenable' 객체에 대한 아이디어는 서드파티 라이브러리가 '프라미스와 호환 가능한' 자체 객체를 구현할 수 있다는 점에서 나왔습니다. 이 객체들엔 자체 확장 메서드가 구현되어 있겠지만, `.then`이 있기 때문에 네이티브 프라미스와도 호환 가능합니다.
+=======
+````smart header="Thenables"
+To be precise, a handler may return not exactly a promise, but a so-called "thenable" object - an arbitrary object that has a method `.then`. It will be treated the same way as a promise.
+
+The idea is that 3rd-party libraries may implement "promise-compatible" objects of their own. They can have an extended set of methods, but also be compatible with native promises, because they implement `.then`.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 아래는 thenable 객체에 대한 예시입니다.
 
@@ -217,7 +232,11 @@ new Promise(resolve => resolve(1))
   .then(alert); // 1000밀리 초 후 2를 보여줌
 ```
 
+<<<<<<< HEAD
 자바스크립트는 `(*)`로 표시한 줄에서 `.then` 핸들러가 반환한 객체를 확인합니다. 이 객체에 호출 가능한 메서드 `then`이 있으면 `then`이 호출됩니다. `then`은 `resolve`와 `reject`라는 네이티브 함수를 인수로 받고(executor과 유사함), 둘 중 하나가 호출될 때까지 기다립니다. 위 예시에서 `resolve(2)`는 1초 후에 호출됩니다(`(**)`). 호출 후 결과는 체인을 따라 아래로 전달됩니다.
+=======
+JavaScript checks the object returned by the `.then` handler in line `(*)`: if it has a callable method named `then`, then it calls that method providing native functions `resolve`, `reject` as arguments (similar to an executor) and waits until one of them is called. In the example above `resolve(2)` is called after 1 second `(**)`. Then the result is passed further down the chain.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 이런 식으로 구현하면 `Promise`를 상속받지 않고도 커스텀 객체를 사용해 프라미스 체이닝을 만들 수 있습니다.
 ````
@@ -235,7 +254,11 @@ let promise = fetch(url);
 
 위 코드는 `url`에 네트워크 요청을 보내고 프라미스를 반환합니다.  
 
+<<<<<<< HEAD
 를 실행하면 `url`에 네트워크 요청이 가고 프라미스가 반환됩니다. 원격 서버가 헤더와 함께 응답을 보내면, 프라미스는 `response` 객체와 함께 이행됩니다. 그런데 *response 전체가 완전히 다운로드되기 전*에 이행 상태가 되어버리죠.  
+=======
+To read the full response, we should call the method `response.text()`: it returns a promise that resolves when the full text is downloaded from the remote server, with that text as a result.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 응답 전체를 읽으려면 메서드 `response.text()`를 호출해야 합니다. `response.text()`는 원격 서버에서 전송한 텍스트 전체가 다운로드되면, 이 텍스트를 `result` 값으로 갖는 이행된 프라미스를 반환합니다.
 
@@ -268,7 +291,11 @@ fetch('/article/promise-chaining/user.json')
 
 불러온 사용자 정보를 가지고 무언가를 더 해보겠습니다.
 
+<<<<<<< HEAD
 GitHub에 요청을 보내 사용자 프로필을 불러오고 아바타를 출력해 보는 것같이 말이죠.
+=======
+For instance, we can make one more requests to GitHub, load the user profile and show the avatar:
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 ```js run
 // user.json에 요청을 보냅니다.
@@ -290,7 +317,11 @@ fetch('/article/promise-chaining/user.json')
   });
 ```
 
+<<<<<<< HEAD
 코드는 주석에 적은 대로 잘 동작합니다. 그런데 위 코드엔 프로미스를 다루는데 서툰 개발자가 자주 저지르는 잠재적 문제가 내재돼 있습니다.
+=======
+The code works, see comments about the details. However, there's a potential problem in it, a typical error of those who begin to use promises.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 `(*)`로 표시한 줄을 봅시다. 만약 아바타가 잠깐 보였다가 사라진 *이후에* 무언가를 하고 싶으면 어떻게 해야 할까요? 사용자 정보를 수정할 수 있게 해주는 폼을 보여주는 것 같은 작업을 추가하는 경우같이 말이죠. 지금으로선 방법이 없습니다.
 
@@ -322,11 +353,19 @@ fetch('/article/promise-chaining/user.json')
   .then(githubUser => alert(`Finished showing ${githubUser.name}`));
 ```
 
+<<<<<<< HEAD
 `(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다.
+=======
+That is, `.then` handler in line `(*)` now returns `new Promise`, that becomes settled only after the call of `resolve(githubUser)` in `setTimeout` `(**)`.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 체인의 다음 `.then`은 이를 기다리죠.
 
+<<<<<<< HEAD
 비동기 동작은 항상 프라미스를 반환하도록 하는 것이 좋습니다.
+=======
+As a good practice, an asynchronous action should always return a promise.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
 

@@ -8,7 +8,7 @@ Many events automatically lead to certain actions performed by the browser.
 - A click on a form submit button - initiates its submission to the server.
 - Pressing a mouse button over a text and moving it - selects the text.
 
-If we handle an event in JavaScript, we may not want the corresponding browser action to happen, to implement another behavior instead.
+If we handle an event in JavaScript, we may not want the corresponding browser action to happen, and want to implement another behavior instead.
 
 ## 브라우저 기본 동작 취소하기
 
@@ -206,8 +206,13 @@ How to fix it? One of solutions is to think like: "When we handle right-click in
 위 예제를 통해 보았듯이, `event.stopPropagation()`와 (`return false`로 알려진)`event.preventDefault()` 는 명백히 다른 메서드입니다. 두 메서드는 연관성이 없습니다.
 ```
 
+<<<<<<< HEAD
 ```smart header="중첩 컨텍스트 메뉴의 아키텍처"
 There are also alternative ways to implement nested context menus. One of them is to have a single global object with a handler for `document.oncontextmenu`, and also methods that allow to store other handlers in it.
+=======
+```smart header="Nested context menus architecture"
+There are also alternative ways to implement nested context menus. One of them is to have a single global object with a handler for `document.oncontextmenu`, and also methods that allow us to store other handlers in it.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 
 이 전역 객체는 모든 우클릭을 잡아내서 내부의 핸들러를 빠르게 살펴본 후, 적절한 핸들러를 실행시킬 겁니다.
 
@@ -240,5 +245,9 @@ There are also alternative ways to implement nested context menus. One of them i
 
 이렇게 요소가 가진 의미를 해치지 않으면서 코드를 작성하면 "좋은 코드"가 될 뿐만 아니라, 접근성 측면에서도 도움이 됩니다.
 
+<<<<<<< HEAD
 `<a>`를 이용한 예제를 고려한다면 다음에 주의하시길 권합니다: 브라우저가 제공해주는 기능 덕분에 사용자는 마우스 우클릭 등의 방법을 이용해 새 창에서 링크를 열 수 있습니다. 이 기능은 인기가 많죠. 하지만, 버튼을 자바스크립트 코드로 조작해 링크처럼 동작하게 만들고, CSS를 이용해 링크처럼 꾸미더라도, 브라우저가 제공하는 `<a>`와 관련된 기능은 버튼에선 작동하지 않습니다.
+=======
+Also if we consider the example with `<a>`, then please note: a browser allows us to open such links in a new window (by right-clicking them and other means). And people like that. But if we make a button behave as a link using JavaScript and even look like a link using CSS, then `<a>`-specific browser features still won't work for it.
+>>>>>>> 5b195795da511709faf79a4d35f9c5623b6dbdbd
 ```
