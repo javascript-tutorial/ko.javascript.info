@@ -1,6 +1,6 @@
 # 동적으로 모듈 가져오기
 
-이전 챕터에서 다뤘던 export 문이나 import 문은 "정적인" 방식입니다. 문법이 단순하고 제약사항이 있죠.
+이전 챕터에서 다뤘던 export 문이나 import 문은 '정적인' 방식입니다. 문법이 단순하고 제약사항이 있죠.
 
 첫 번째 제약은 `import`문에 동적 매개변수를 사용할 수 없다는 것이었습니다.
 
@@ -40,18 +40,18 @@ import(modulePath)
   .catch(err => <로딩 에러, e.g. 해당하는 모듈이 없는 경우>)
 ```
 
-비동기 함수 안에선 `let module = await import(modulePath)`와 같이 사용할 수도 있습니다.
+async 함수 안에서 `let module = await import(modulePath)`와 같이 사용하는 것도 가능합니다.
 
-예시를 들어보겠습니다. 현재 `say.js`라는 모듈이 있는 상황입니다.
+모듈 `say.js`를 이용해 예시를 만들어보겠습니다.
 
 ```js
 // 📁 say.js
 export function hi() {
-  alert(`Hello`);
+  alert(`안녕하세요.`);
 }
 
 export function bye() {
-  alert(`Bye`);
+  alert(`안녕히 가세요.`);
 }
 ```
 
@@ -64,7 +64,7 @@ hi();
 bye();
 ```
 
-`say.js`에 아래와 같이 default export가 있는 경우를 가정해 봅시다.
+`say.js`에 default export를 추가해보겠습니다.
 
 ```js
 // 📁 say.js
@@ -73,26 +73,26 @@ export default function() {
 }
 ```
 
- 아래와 같이 모듈 객체의 `default` 프로퍼티를 사용하면 이 모듈에 접근할 수 있습니다.
+default export 한 모듈을 사용하려면 아래와 같이 모듈 객체의 `default` 프로퍼티를 사용하면 됩니다.
 
 ```js
 let obj = await import('./say.js');
 let say = obj.default;
-// 혹은, let {default: say} = await import('./say.js'); 와 같이 한 줄로도 작성할 수 있습니다.
+// 위 두 줄을 let {default: say} = await import('./say.js'); 같이 한 줄로 줄일 수 있습니다.
 
 say();
 ```
 
-아래는 실제 동작하는 코드입니다.
+아래는 실제 동작하는 예시입니다.
 
 [codetabs src="say" current="index.html"]
 
 ```smart
-동적 import는 `script type="module"`가 없는 일반 스크립트에서도 동작합니다.
+동적 import는 일반 스크립트에서도 동작합니다. `script type="module"`가 없어도 됩니다. 
 ```
 
 ```smart
-`import()`는 함수 호출과 문법이 유사해 보이긴 하지만 함수 호출은 아닙니다. `super()`처럼 괄호를 쓰는 특별한 문법 중 하나입니다. 
+`import()`는 함수 호출과 문법이 유사해 보이긴 하지만 함수 호출은 아닙니다. `super()`처럼 괄호를 쓰는 특별한 문법 중 하나입니다.
 
-따라서 `import`를 복사해 변수에 넣는다거나 `call/apply`를 사용하는 것이 불가능합니다. 함수가 아니기 때문이죠.
+따라서 `import`를 변수에 복사한다거나 `call/apply`를 사용하는 것이 불가능합니다. 함수가 아니기 때문이죠.
 ```
