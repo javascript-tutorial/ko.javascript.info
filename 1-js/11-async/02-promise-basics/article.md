@@ -71,7 +71,7 @@ let promise = new Promise(function(resolve, reject) {
 ```js
 let promise = new Promise(function(resolve, reject) {
   // 1초 뒤에 에러와 함께 실행이 종료되었다는 신호를 보냅니다.
-  setTimeout(() =&amp;gt; *!*reject(new Error("에러 발생!"))*/!*, 1000);
+  setTimeout(() => *!*reject(new Error("에러 발생!"))*/!*, 1000);
 });
 ```
 
@@ -95,7 +95,7 @@ let promise = new Promise(function(resolve, reject) {
 */!*
 
   reject(new Error("…")); // 무시됨
-  setTimeout(() =&amp;gt; resolve("…")); // 무시됨
+  setTimeout(() => resolve("…")); // 무시됨
 });
 ```
 
@@ -158,9 +158,9 @@ let promise = new Promise(function(resolve, reject) {
 // resolve 함수는 .then의 첫 번째 함수(인수)를 실행합니다.
 promise.then(
 *!*
-  result =&amp;gt; alert(result), // 1초 후 "done!"을 출력
+  result => alert(result), // 1초 후 "done!"을 출력
 */!*
-  error =&amp;gt; alert(error) // 실행되지 않음
+  error => alert(error) // 실행되지 않음
 );
 ```
 
@@ -170,14 +170,14 @@ promise.then(
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
-  setTimeout(() =&amp;gt; reject(new Error("에러 발생!")), 1000);
+  setTimeout(() => reject(new Error("에러 발생!")), 1000);
 });
 
 // reject 함수는 .then의 두 번째 함수를 실행합니다.
 promise.then(
-  result =&amp;gt; alert(result), // 실행되지 않음
+  result => alert(result), // 실행되지 않음
 *!*
-  error =&amp;gt; alert(error) // 1초 후 "Error: 에러 발생!"를 출력
+  error => alert(error) // 1초 후 "Error: 에러 발생!"를 출력
 */!*
 );
 ```
@@ -185,8 +185,8 @@ promise.then(
 작업이 성공적으로 처리된 경우만 다루고 싶다면, `.then`에 인수를 하나만 전달하면 됩니다.
 
 ```js run
-let promise = new Promise(resolve =&amp;gt; {
-  setTimeout(() =&amp;gt; resolve("done!"), 1000);
+let promise = new Promise(resolve => {
+  setTimeout(() => resolve("done!"), 1000);
 });
 
 *!*
@@ -200,8 +200,8 @@ promise.then(alert); // 1초 뒤 "done!" 출력
 
 
 ```js run
-let promise = new Promise((resolve, reject) =&amp;gt; {
-  setTimeout(() =&amp;gt; reject(new Error("에러 발생!")), 1000);
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("에러 발생!")), 1000);
 });
 
 *!*
