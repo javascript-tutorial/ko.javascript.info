@@ -136,7 +136,7 @@ Promise.all([
 - 응답이 성공할 경우 -- `{status:"fulfilled", value:result}`
 - 에러가 발생한 경우 -- `{status:"rejected", reason:error}`
 
-`fetch`를 사용해 여러 사람의 정보를 가져오고 있다고 해봅시다. 여러 요청 충 하나가 실패해도 다른 요청 결과는 여전히 있어야 합니다.
+`fetch`를 사용해 여러 사람의 정보를 가져오고 있다고 해봅시다. 여러 요청 중 하나가 실패해도 다른 요청 결과는 여전히 있어야 합니다.
 
 이럴 때 `Promise.allSettled`를 사용할 수 있습니다.
 
