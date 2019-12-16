@@ -1,12 +1,16 @@
 # 문서 수정하기
 
+<<<<<<< HEAD
 "살아있는" 페이지를 만들기 위해선 DOM 조작이 필요합니다.
+=======
+DOM modification is the key to creating "live" pages.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 이번 주제에선 새롭게 요소를 생성하는 방법과 페이지 상에 이미 존재하는 콘텐츠를 어떻게 수정하는지 살펴보도록 하겠습니다.
 
 ## 예제: 메시지 보여주기
 
-Let's see the methods on example. We'll add a message on the page that looks nicer than `alert`.
+Let's demonstrate using an example. We'll add a message on the page that looks nicer than `alert`.
 
 아래와 같은 alert 창을 살펴봅시다:
 
@@ -92,11 +96,19 @@ There's a special method `append` for that: `document.body.append(div)`.
 
 This set of methods provides more ways to insert:
 
+<<<<<<< HEAD
 - `node.append(...nodes or strings)` -- 노드나 문자열을 `node` 끝에 삽입해줍니다.
 - `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` 맨 앞에 삽입해줍니다.
 - `node.before(...nodes or strings)` –-  노드나 문자열을 `node` 이전에 삽입해줍니다.
 - `node.after(...nodes or strings)` –- 노드나 문자열을 `node` 다음에 삽입해줍니다.
 - `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
+=======
+- `node.append(...nodes or strings)` -- append nodes or strings at the end of `node`,
+- `node.prepend(...nodes or strings)` -- insert nodes or strings at the beginning of `node`,
+- `node.before(...nodes or strings)` –- insert nodes or strings before `node`,
+- `node.after(...nodes or strings)` –- insert nodes or strings after `node`,
+- `node.replaceWith(...nodes or strings)` –- replaces `node` with the given nodes or strings.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 Here's an example of using these methods to add items to a list and the text before/after it:
 
@@ -199,7 +211,11 @@ For that we can use another, pretty versatile method: `elem.insertAdjacentHTML(w
 <p>Bye</p>
 ```
 
+<<<<<<< HEAD
 이렇게 하면 HTML을 페이지에 삽입할 수 있습니다.
+=======
+That's how we can append arbitrary HTML to the page.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 insertAdjacentHTML을 사용한 삽입을 도식화하면 다음과 같습니다:
 
@@ -534,13 +550,13 @@ So it works blazingly fast, because there's *no DOM modification* involved. It w
 
     All these methods return `node`.
 
-- Given a piece of HTML: `elem.insertAdjacentHTML(where, html)`, inserts depending on `where`:
+- Given some HTML in `html`, `elem.insertAdjacentHTML(where, html)` inserts it depending on the value of `where`:
     - `"beforebegin"` -- insert `html` right before `elem`,
     - `"afterbegin"` -- insert `html` into `elem`, at the beginning,
     - `"beforeend"` -- insert `html` into `elem`, at the end,
     - `"afterend"` -- insert `html` right after `elem`.
 
-    Also there are similar methods `elem.insertAdjacentText` and `elem.insertAdjacentElement`, they insert text strings and elements, but they are rarely used.
+    Also there are similar methods, `elem.insertAdjacentText` and `elem.insertAdjacentElement`, that insert text strings and elements, but they are rarely used.
 
 - To append HTML to the page before it has finished loading:
     - `document.write(html)`

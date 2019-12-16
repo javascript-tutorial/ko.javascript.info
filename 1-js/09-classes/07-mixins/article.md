@@ -101,7 +101,11 @@ new User("Dude").sayHi(); // Hello Dude!
 
 ![](mixin-inheritance.svg)
 
+<<<<<<< HEAD
 이는 `sayHi`와 `sayBye`가 생성된 곳이 `sayHiMixin`이기 때문입니다. 따라서 메서드를 복사했더라도, 이 메서드들의 내부 프로퍼티인 `[[HomeObject]]`는 위 그림처럼 `sayHiMixin`을 참조합니다.
+=======
+That's because methods `sayHi` and `sayBye` were initially created in `sayHiMixin`. So even though they got copied, their `[[HomeObject]]` internal property references `sayHiMixin`, as shown in the picture above.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 메서드의 `super`가 `[[HomeObject]].[[Prototype]]`내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색합니다. 
 
@@ -111,9 +115,15 @@ new User("Dude").sayHi(); // Hello Dude!
 
 상당수 브라우저 객체는 이벤트를 생성이라는 중요한 기능을 가지고 있습니다. 이벤트는 정보를 필요로 하는 곳에 '정보를 널리 알리는(broadcast)' 훌륭한 수단입니다. 아래 예시에선 클래스나 객체에 이벤트 관련 함수를 쉽게 추가할 수 있도록 해주는 믹스인을 만들어 보겠습니다.
 
+<<<<<<< HEAD
 - 믹스인은 뭔가 중요한 일이 발생했을 때 '이벤트를 생성하는' 메서드, `.trigger(name, [...data])`를 제공합니다. 인수 `name`은 이벤트 이름이고, 뒤따르는 선택 인수는 이벤트 데이터 정보를 담습니다.
 - 메서드 `.on(name, handler)`은 `name`에 해당하는 이벤트에 리스너로 `handler` 함수를 추가합니다. `.on()`은 이벤트(`name`)가 트리거 될 때 호출되고, `.trigger` 호출에서 인수를 얻습니다.
 - 메서드 `.off(name, handler)`는 `handler` 리스너를 제거합니다.
+=======
+- The mixin will provide a method `.trigger(name, [...data])` to "generate an event" when something important happens to it. The `name` argument is a name of the event, optionally followed by additional arguments with event data.
+- Also the method `.on(name, handler)` that adds `handler` function as the listener to events with the given name. It will be called when an event with the given `name` triggers, and get the arguments from the `.trigger` call.
+- ...And the method `.off(name, handler)` that removes the `handler` listener.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 믹스인을 추가하면, 사용자가 로그인할 때 객체 `user`가 `"login"`이라는 이벤트를 생성할 수 있게 됩니다. 또 다른 객체 `calendar`는 `user`가 생성한 이벤트인 `"login"`을 듣고 사용자에 맞는 달력을 보여줄 수 있겠죠.
 

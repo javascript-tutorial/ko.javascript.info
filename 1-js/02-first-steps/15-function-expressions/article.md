@@ -1,4 +1,8 @@
+<<<<<<< HEAD:1-js/02-first-steps/15-function-expressions-arrows/article.md
 # 함수 표현식과 화살표 함수
+=======
+# Function expressions
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd:1-js/02-first-steps/15-function-expressions/article.md
 
 자바스크립트는 함수를 특별한 종류의 값으로 취급합니다. 다른 언어에서처럼 "특별한 동작을 하는 구조"로 취급되지 않습니다.
 
@@ -351,11 +355,16 @@ welcome(); // 제대로 동작합니다.
 ```smart header="함수 선언문과 함수 표현식 중 무엇을 선택해야 하나요?"
 제 경험에 따르면 함수 선언문을 이용해 함수를 선언하는 걸 먼저 고려하는 게 좋습니다. 함수 선언문으로 함수를 정의하면, 함수가 선언되기 전에 호출할 수 있어서 코드 구성을 좀 더 자유롭게 할 수 있습니다.
 
+<<<<<<< HEAD:1-js/02-first-steps/15-function-expressions-arrows/article.md
 함수 선언문을 사용하면 가독성도 좋아집니다. 코드에서 `let f = function(…) {…}`보다 `function f(…) {…}` 을 찾는 게 더 쉽죠. 함수 선언 방식이 더 "눈길을 사로잡습니다".
+=======
+That's also better for readability, as it's easier to look up `function f(…) {…}` in the code than `let f = function(…) {…};`. Function Declarations are more "eye-catching".
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd:1-js/02-first-steps/15-function-expressions/article.md
 
 그러나 어떤 이유로 함수 선언 방식이 적합하지 않거나, (위 예제와 같이) 조건에 따라 함수를 선언해야 한다면 함수 표현식을 사용해야 합니다.
 ```
 
+<<<<<<< HEAD:1-js/02-first-steps/15-function-expressions-arrows/article.md
 
 ## 화살표 함수 [#arrow-functions]
 
@@ -458,6 +467,9 @@ alert( sum(1, 2) ); // 3
 ```
 
 ## 요약
+=======
+## Summary
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd:1-js/02-first-steps/15-function-expressions/article.md
 
 - 함수는 값입니다. 따라서 함수도 값처럼 할당, 복사, 선언할 수 있습니다.
 - "함수 선언(문)" 방식으로 함수를 생성하면, 함수가 독립된 구문 형태로 존재하게 됩니다. 
@@ -467,9 +479,13 @@ alert( sum(1, 2) ); // 3
 
 함수를 선언해야 한다면 함수가 선언되기 이전에도 함수를 활용할 수 있기 때문에, 함수 선언문 방식을 따르는 게 좋습니다. 함수 선언 방식은 코드를 유연하게 구성할 수 있도록 해주고, 가독성도 좋습니다.
 
+<<<<<<< HEAD:1-js/02-first-steps/15-function-expressions-arrows/article.md
 함수 표현식은 함수 선언문을 사용하는게 부적절할 때에 사용하는 것이 좋습니다. 이번 챕터에서 함수 선언문을 사용해야만 하는 경우를 몇 가지 알아보았는데, 튜토리얼 뒤쪽에서 좀 더 깊게 해당 사례를 살펴보도록 하겠습니다.
 
 화살표 함수는 본문이 한 줄인 함수를 작성할 때 유용합니다. 만약 본문이 한 줄이 아니라면 다른 방법으로 화살표 함수를 작성해야 합니다. 
 
 1. 중괄호 없이 작성: `(...args) => expression` -- 화살표 오른쪽에 표현식을 둡니다. 함수는 이 표현식을 평가하고, 평가 결과를 반환합니다.
 2. 중괄호와 함께 작성: `(...args) => { body }` -- 본문이 여러 줄로 구성되었다면 중괄호를 사용해야 합니다. 다만, 이 경우는 반드시 `return` 지시자를 사용해 반환 값을 명기해 주어야 합니다.
+=======
+So we should use a Function Expression only when a Function Declaration is not fit for the task. We've seen a couple of examples of that in this chapter, and will see more in the future.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd:1-js/02-first-steps/15-function-expressions/article.md

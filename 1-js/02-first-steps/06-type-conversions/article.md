@@ -1,6 +1,10 @@
 # 형 변환
 
+<<<<<<< HEAD
 함수와 연산자에 전달되는 값은 대부분 적절한 자료형으로 자동 변환됩니다. 이런 과정을 "형 변환(type conversion)"이라고 합니다.
+=======
+Most of the time, operators and functions automatically convert the values given to them to the right type.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 `alert`가 전달받은 값의 자료형과 관계없이 이를 문자열로 자동 변환하여 보여주는 것이나, 수학 관련 연산자가 전달받은 값을 숫자로 변환하는 경우가 형 변환의 대표적인 예시입니다.
 
@@ -81,6 +85,7 @@ alert( Number(false) );       // 0
 
  `null`과 `undefined`은 숫자형으로 변환 시 결과가 다르다는 점에 유의하시기 바랍니다. `null`은 `0`이 되고 `undefined`는 `NaN`이 됩니다.
 
+<<<<<<< HEAD
 ````smart header="덧셈 연산자 '+'는 문자열을 합쳐줍니다."
 대부분의 수학 연산은 전달받은 값을 숫자형으로 변환합니다. 하지만 이항 덧셈 연산자 `+`는 예외에 속합니다. 피연산자 중 하나가 문자형이면, 다른 피연산자를 문자형으로 변환합니다.
 
@@ -93,6 +98,9 @@ alert( '1' + 2 ); // '12' (숫자 2를 문자로 변환)
 
 인수 중 적어도 하나가 문자형일 때 이런 변환이 발생합니다. 그렇지 않은 경우는 위에서 언급한 바와 같이 숫자형으로의 변환이 일어납니다.
 ````
+=======
+Most mathematical operators also perform such conversion, we'll see that in the next chapter.
+>>>>>>> 524d59884650be539544c34f71d821432b7280fd
 
 ## 불린형으로 변환
 
