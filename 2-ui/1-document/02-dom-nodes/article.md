@@ -167,7 +167,7 @@ drawHtmlTree(node5,  'div.domtree', 600, 200);
 
 요소와 텍스트 노드 외에도 다양한 노드 타입이 있습니다.
 
-For example, comments:
+주석도 노드가 됩니다.
 
 ```html
 <!DOCTYPE HTML>
