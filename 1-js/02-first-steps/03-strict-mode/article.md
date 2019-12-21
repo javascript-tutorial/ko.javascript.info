@@ -36,7 +36,7 @@ alert("some code");
 // 엄격 모드가 활성화되지 않습니다.
 ```
 
-`"use strict"`위의 주석만 나타날 수 있습니다.
+`"use strict"`의 위에는 주석만 사용할 수 있습니다.
 ````
 
 ```warn header="`use strict`를 취소할 방법은 없습니다."

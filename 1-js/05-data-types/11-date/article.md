@@ -34,21 +34,21 @@ Date 객체를 활용하면 생성 및 수정 시간을 저장하거나 시간 �
     타임스탬프를 사용하면 날짜를 숫자 형태로 간편하게 나타낼 수 있습니다. `new Date(timestamp)`를 사용해 타임스탬프를 사용해 특정 날짜가 저장된 `Date` 객체를 손쉽게 만들 수 있고 `date.getTime()` 메서드를 사용해 `Date` 객체에서 타임스탬프를 추출하는 것도 가능합니다(자세한 사항은 아래에서 다루도록 하겠습니다).
 
 `new Date(datestring)`
-: 인수가 하나인데, 문자열이라면 해당 문자열은 자동으로 구문 분석(parsed)됩니다. 구분 분석에 적용되는 알고리즘은 `Date.parse`에서 사용하는 알고리즘과 동일한데, 자세한 내용은 아래에서 다루도록 하겠습니다.
+: 인수가 하나인데, 문자열이라면 해당 문자열은 자동으로 구문 분석(parsed)됩니다. 구문 분석에 적용되는 알고리즘은 `Date.parse`에서 사용하는 알고리즘과 동일한데, 자세한 내용은 아래에서 다루도록 하겠습니다.
 
     ```js run
     let date = new Date("2017-01-26");
     alert(date);
-    // 시간대가 설정되어있지 않기 때문에 현재 시간대를 GMT 자정이라고 가정하고
-    // GMT 자정에 해당하는 코드가 자동으로 문자열에 설정됩니다.
+    // 인수로 시간은 지정하지 않았기 때문에 GMT 자정이라고 가정하고
+    // 코드가 실행되는 시간대(timezone)에 따라 출력 문자열이 바뀝니다.
     // 따라서 얼럿 창엔
     // Thu Jan 26 2017 11:00:00 GMT+1100 (Australian Eastern Daylight Time)
     // 혹은
-    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)등이 출력됩니다(실행하는 환경에 따라 달라집니다).
+    // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)등이 출력됩니다.
     ```
 
 `new Date(year, month, date, hours, minutes, seconds, ms)`
-: 주어진 인수를 조합해 만들 수 있는 날짜가 저장된 객체가 반환됩니다(작업 중인 시간대 기준). 첫 번쨰와 두 번쨰 인수만 필수값입니다.
+: 주어진 인수를 조합해 만들 수 있는 날짜가 저장된 객체가 반환됩니다(지역 시간대 기준). 첫 번째와 두 번째 인수만 필수값입니다.
 
     - `year`는 반드시 네 자리 숫자여야 합니다. `2013`은 괜찮고 `98`은 괜찮지 않습니다.
     - `month`는 `0`(1월)부터 `11`(12월) 사이의 숫자여야 합니다.
@@ -305,7 +305,7 @@ alert( 'diffSubtract를 십만번 호출하는데 걸린 시간: ' + bench(diffS
 alert( 'diffGetTime을 십만번 호출하는데 걸린 시간: ' + bench(diffGetTime) + 'ms' );
 ```
 
-형 변환이 없어서 엔진 최적화에 드는 자원이 줄어드므로 `getTime()`을 이용한 방법이 훨씬 빠릅니다.
+형 변환이 없어서 엔진 최적화에 드는 자원이 줄어들므로 `getTime()`을 이용한 방법이 훨씬 빠릅니다.
 
 자, 벤치마크로 쓸 뭔가를 구하긴 했습니다. 그런데 이 벤치마크는 그다지 좋은 벤치마크가 아닙니다.
 
@@ -315,7 +315,7 @@ alert( 'diffGetTime을 십만번 호출하는데 걸린 시간: ' + bench(diffGe
 
 첫 번째 `benchmark`가 실행될 땐 사용할 수 있는 CPU 자원이 적었기 때문에 이 벤치마크는 좋지 않습니다.
 
-**좀 더 신뢰할만한 벤치마크 테스트을 만들려면 `benchmark`를 번갈아 가면서 여러 번 돌려야 합니다.**
+**좀 더 신뢰할만한 벤치마크 테스트를 만들려면 `benchmark`를 번갈아 가면서 여러 번 돌려야 합니다.**
 
 아래와 같이 말이죠.
 
@@ -366,10 +366,10 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-```warn header="Be careful doing microbenchmarking"
-Modern JavaScript engines perform many optimizations. They may tweak results of "artificial tests" compared to "normal usage", especially when we benchmark something very small, such as how an operator works, or a built-in function. So if you seriously want to understand performance, then please study how the JavaScript engine works. And then you probably won't need microbenchmarks at all.
+```warn header="세밀한 벤치마킹을 할 때는 주의하세요"
+모던 자바스크립트 엔진은 최적화를 많이 합니다. 이로 인해 '만들어진 테스트'가 '실제 사례'와는 결과가 다를 수 있습니다. 특히 연산자, 내장 함수와 같이 아주 작은 것일수록 더 결과가 다를 수 있습니다. 그러니 진지하게 성능을 이해하고 싶다면 자바스크립트 엔진이 어떻게 동작하는지 공부하시길 바랍니다. 그러면 아마 세밀한 벤치마킹을 할 필요가 없을 겁니다. 
 
-The great pack of articles about V8 can be found at <http://mrale.ph>.
+<http://mrale.ph>에서 V8 엔진을 설명한 좋은 글들을 보실 수 있습니다.
 ```
 
 ## Date.parse와 문자열

@@ -1,87 +1,90 @@
-# Numbers
+# 숫자형
 
-All numbers in JavaScript are stored in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), also known as "double precision floating point numbers".
+모던 자바스크립트는 숫자를 나타내는 두 가지 자료형을 지원합니다.
 
-Let's expand upon what we currently know about them.
+1. 일반적인 숫자는 '배정밀도 부동소수점 숫자(double precision floating point number)'로 알려진 64비트 형식의 [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)에 저장됩니다. 튜토리얼 전체에서 이 형식을 사용하여 숫자를 표현할 예정입니다.
 
-## More ways to write a number
+2. 임의의 길이를 가진 정수는 BigInt 숫자로 나타낼 수 있습니다. 일반적인 숫자는 <code>2<sup>53</sup></code>이상이거나 <code>-2<sup>53</sup></code>이하일 수 없다는 제약 때문에 BigInt라는 새로운 자료형이 만들어졌습니다. BigInt는 아주 특별한 경우에만 사용되므로, 별도의 챕터 <info:bigint>에서 자세한 내용을 다루겠습니다.
 
-Imagine we need to write 1 billion. The obvious way is:
+자, 그럼 일반적인 숫자에 대해서 자세히 알아봅시다.
+
+## 숫자를 입력하는 다양한 방법
+
+10억을 입력해야 한다고 상상해 봅니다. 가장 분명한 방법은 아래와 같이 직접 10억(one billion)을 써주는 것입니다.
 
 ```js
 let billion = 1000000000;
 ```
 
-But in real life, we usually avoid writing a long string of zeroes as it's easy to mistype. Also, we are lazy. We will usually write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
+그런데 이렇게 0을 많이 사용해 숫자를 표현하다 보면 잘못 입력하기 쉽기 때문에, 실제로는 이런 방법을 잘 사용하지 않습니다. 0을 많이 입력하는 게 귀찮기도 하지요. 그래서 대개는 10억(`billion`)을 나타낼 땐 `'1bn'`을 사용하고, 73억을 나타낼 땐 `'7.3bn'`을 사용합니다. 큰 숫자를 나타낼 땐 이런 방법이 주로 사용되죠.
 
-In JavaScript, we shorten a number by appending the letter `"e"` to the number and specifying the zeroes count:
+자바스크립트에서도 숫자 옆에 `'e'`를 붙이고 0의 개수를 그 옆에 붙여주면 숫자를 줄일 수 있습니다.
 
 ```js run
-let billion = 1e9;  // 1 billion, literally: 1 and 9 zeroes
+let billion = 1e9;  // 10억, 1과 9개의 0
 
-alert( 7.3e9 );  // 7.3 billions (7,300,000,000)
+alert( 7.3e9 );  // 73억 (7,300,000,000)
 ```
 
-In other words, `"e"` multiplies the number by `1` with the given zeroes count.
+즉, `'e'`는 e 왼쪽의 수에 e 오른쪽에 있는 수만큼의 10의 거듭제곱을 곱하는 효과가 있습니다.
 
 ```js
 1e3 = 1 * 1000
 1.23e6 = 1.23 * 1000000
 ```
 
-
-Now let's write something very small. Say, 1 microsecond (one millionth of a second):
+이제 아주 작은 숫자인 1마이크로초(백만 분의 1초)를 표현해보겠습니다.
 
 ```js
 let ms = 0.000001;
 ```
 
-Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could say:
+작은 숫자를 표현할 때도 큰 숫자를 표현할 때처럼 `'e'`를 사용할 수 있습니다. 0을 명시적으로 쓰고 싶지 않다면 다음과 같이 숫자를 표현할 수 있죠.
 
 ```js
-let ms = 1e-6; // six zeroes to the left from 1
+let ms = 1e-6; // 1에서 왼쪽으로 6번 소수점 이동
 ```
 
-If we count the zeroes in `0.000001`, there are 6 of them. So naturally it's `1e-6`.  
+`0.000001`에서 0의 개수를 세면 6이므로 `0.000001`은 당연히 `1e-6`이 되죠.
 
-In other words, a negative number after `"e"` means a division by 1 with the given number of zeroes:
+이렇게 `'e'` 우측에 음수가 있으면, 이 음수의 절댓값 만큼 10을 거듭제곱한 수로 나누는 것을 의미합니다.
 
 ```js
-// -3 divides by 1 with 3 zeroes
+// 10을 세 번 거듭제곱한 수로 나눔
 1e-3 = 1 / 1000 (=0.001)
 
-// -6 divides by 1 with 6 zeroes
+// 10을 여섯 번 거듭제곱한 수로 나눔
 1.23e-6 = 1.23 / 1000000 (=0.00000123)
 ```
 
-### Hex, binary and octal numbers
+### 16진수, 2진수, 8진수
 
-[Hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) numbers are widely used in JavaScript to represent colors, encode characters, and for many other things. So naturally, there exists a shorter way to write them: `0x` and then the number.
+[16진수](https://en.wikipedia.org/wiki/Hexadecimal)는 색을 나타내거나 문자를 인코딩할 때 등 다양한 곳에서 두루 쓰입니다. 다양한 곳에서 쓰이는 만큼 당연히 16진수를 짧게 표현하는 방법도 존재하겠죠. 16진수는 `0x`를 사용해 표현할 수 있습니다.
 
-For instance:
+예시:
 
 ```js run
 alert( 0xff ); // 255
-alert( 0xFF ); // 255 (the same, case doesn't matter)
+alert( 0xFF ); // 255 (대/소문자를 가리지 않으므로 둘 다 같은 값을 나타냅니다.)
 ```
 
-Binary and octal numeral systems are rarely used, but also supported using the `0b` and `0o` prefixes:
+2진수와 8진수는 아주 드물게 쓰이긴 하지만, 접두사 `0b`와 `0o`를 사용해 간단히 나타낼 수 있습니다.
 
 
 ```js run
-let a = 0b11111111; // binary form of 255
-let b = 0o377; // octal form of 255
+let a = 0b11111111; // 255의 2진수
+let b = 0o377; // 255의 8진수
 
-alert( a == b ); // true, the same number 255 at both sides
+alert( a == b ); // true, 진법은 다르지만, a와 b는 같은 수임
 ```
 
-There are only 3 numeral systems with such support. For other numeral systems, we should use the function `parseInt` (which we will see later in this chapter).
+자바스크립트에서 지원하는 진법은 3개입니다. 이 외의 진법을 사용하려면 함수 `parseInt`를 사용해야 합니다(챕터 후반부에서 다룸).
 
 ## toString(base)
 
-The method `num.toString(base)` returns a string representation of `num` in the numeral system with the given `base`.
+`num.toString(base)` 메서드는 `base`진법으로 `num`을 표현한 후, 이를 문자형으로 변환해 반환합니다.
 
-For example:
+예시:
 ```js run
 let num = 255;
 
@@ -89,45 +92,45 @@ alert( num.toString(16) );  // ff
 alert( num.toString(2) );   // 11111111
 ```
 
-The `base` can vary from `2` to `36`. By default it's `10`.
+`base`는 `2`에서 `36`까지 쓸 수 있는데, 기본값은 `10`입니다.
 
-Common use cases for this are:
+`base`별 유스 케이스는 다음과 같습니다.
 
-- **base=16** is used for hex colors, character encodings etc, digits can be `0..9` or `A..F`.
-- **base=2** is mostly for debugging bitwise operations, digits can be `0` or `1`.
-- **base=36** is the maximum, digits can be `0..9` or `A..Z`. The whole latin alphabet is used to represent a number. A funny, but useful case for `36` is when we need to turn a long numeric identifier into something shorter, for example to make a short url. Can simply represent it in the numeral system with base `36`:
+- **base=16** -- 16진수 색, 문자 인코딩 등을 표현할 때 사용합니다. 숫자는 `0`부터 `9`, 10 이상의 수는 `A`부터 `F`를 사용하여 나타냅니다.
+- **base=2** -- 비트 연산 디버깅에 주로 쓰입니다. 숫자는 `0` 또는 `1`이 될 수 있습니다.
+- **base=36** -- 사용할 수 있는 `base` 중 최댓값으로, `0..9`와 `A..Z`를 사용해 숫자를 표현합니다. 알파벳 전체가 숫자를 나타내는 데 사용되죠. `36` 베이스는 url을 줄이는 것과 같이 숫자로 된 긴 식별자를 짧게 줄일 때 유용합니다. 예시를 살펴봅시다.
 
     ```js run
     alert( 123456..toString(36) ); // 2n9c
     ```
 
-```warn header="Two dots to call a method"
-Please note that two dots in `123456..toString(36)` is not a typo. If we want to call a method directly on a number, like `toString` in the example above, then we need to place two dots `..` after it.
+```warn header="점 두 개와 메서드 호출"
+`123456..toString(36)`에 있는 점 두 개는 오타가 아닙니다. 위 예시처럼 숫자를 대상으로 메서드 `toString`을 직접 호출하고 싶다면 숫자 다음에 점 두 개 `..`를 붙여야 합니다.
 
-If we placed a single dot: `123456.toString(36)`, then there would be an error, because JavaScript syntax implies the decimal part after the first dot. And if we place one more dot, then JavaScript knows that the decimal part is empty and now goes the method.
+`123456.toString(36)`처럼 점을 한 개만 사용하면, 첫 번째 점 이후는 소수부로 인식되어 에러가 발생할 수 있습니다. 점을 하나 더 추가하면 자바스크립트는 소수부가 없다고 판단하고 함수를 호출합니다.
 
-Also could write `(123456).toString(36)`.
+`(123456).toString(36)`도 가능합니다.
 ```
 
-## Rounding
+## 어림수 구하기
 
-One of the most used operations when working with numbers is rounding.
+어림수를 구하는 것(rounding)은 숫자를 다룰 때 가장 많이 사용되는 연산 중 하나입니다.
 
-There are several built-in functions for rounding:
+어림수 관련 내장 함수 몇 가지를 살펴봅시다.
 
 `Math.floor`
-: Rounds down: `3.1` becomes `3`, and `-1.1` becomes `-2`.
+: 소수점 첫째 자리에서 내림(버림). `3.1`은 `3`, `-1.1`은 `-2`가 됩니다.
 
 `Math.ceil`
-: Rounds up: `3.1` becomes `4`, and `-1.1` becomes `-1`.
+: 소수점 첫째 자리에서 올림. `3.1`은 `4`, `-1.1`은 `-1`이 됩니다.
 
 `Math.round`
-: Rounds to the nearest integer: `3.1` becomes `3`, `3.6` becomes `4` and `-1.1` becomes `-1`.
+: 소수점 첫째 자리에서 반올림. `3.1`은 `3`, `3.6`은 `4`, `-1.1`은 `-1`이 됩니다.
 
-`Math.trunc` (not supported by Internet Explorer)
-: Removes anything after the decimal point without rounding: `3.1` becomes `3`, `-1.1` becomes `-1`.
+`Math.trunc` (Internet Explorer에서는 지원하지 않음)
+: 소수부를 무시. `3.1`은 `3`이 되고 `-1.1`은 `-1`이 됩니다.
 
-Here's the table to summarize the differences between them:
+각 내장 함수의 차이를 표로 나타내면 다음과 같습니다.
 
 |   | `Math.floor` | `Math.ceil` | `Math.round` | `Math.trunc` |
 |---|---------|--------|---------|---------|
@@ -137,261 +140,259 @@ Here's the table to summarize the differences between them:
 |`-1.6`|  `-2`    |   `-1`  |    `-2`  |   `-1`   |
 
 
-These functions cover all of the possible ways to deal with the decimal part of a number. But what if we'd like to round the number to `n-th` digit after the decimal?
+위에서 소개한 내장 함수들만으로도 소수부에 관련된 연산 대부분을 처리할 수 있습니다. 그런데 소수점 `n-th`번째 수를 기준으로 어림수를 구해야 하는 상황이라면 어떻게 해야 할까요?
 
-For instance, we have `1.2345` and want to round it to 2 digits, getting only `1.23`.
+예를 들어 `1.2345`가 있는데 소수점 두 번째 자릿수까지만 남겨 `1.23`을 만들고 싶은 경우처럼 말이죠.
 
-There are two ways to do so:
+두 가지 방법이 있습니다.
 
-1. Multiply-and-divide.
+1. 곱하기와 나누기
 
-    For example, to round the number to the 2nd digit after the decimal, we can multiply the number by `100`, call the rounding function and then divide it back.
-    ```js run
+   소수점 두 번째 자리 숫자까지만 남기고 싶은 경우, 숫자에 `100`을 곱한 후, 원하는 어림수 내장 함수를 호출하고 다시 `100`으로 나누면 됩니다.
+   ```js run
     let num = 1.23456;
 
     alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
     ```
 
-2. The method [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) rounds the number to `n` digits after the point and returns a string representation of the result.
+2. 소수점 `n` 번째 수까지의 어림수를 구한 후 이를 문자형으로 반환해주는 메서드인 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)를 사용합니다.
 
     ```js run
     let num = 12.34;
     alert( num.toFixed(1) ); // "12.3"
     ```
 
-    This rounds up or down to the nearest value, similar to `Math.round`:
+    `toFixed`는 `Math.round`와 유사하게 가장 가까운 값으로 올림 혹은 버림해줍니다. 
 
     ```js run
     let num = 12.36;
     alert( num.toFixed(1) ); // "12.4"
     ```
 
-    Please note that result of `toFixed` is a string. If the decimal part is shorter than required, zeroes are appended to the end:
+    `toFixed`를 사용할 때 주의할 점은 이 메서드의 반환 값이 문자열이라는 것입니다. 소수부의 길이가 인수보다 작으면 끝에 0이 추가됩니다.
 
     ```js run
     let num = 12.34;
-    alert( num.toFixed(5) ); // "12.34000", added zeroes to make exactly 5 digits
+    alert( num.toFixed(5) ); // "12.34000", 소수부의 길이를 5로 만들기 위해 0이 추가되었습니다.
     ```
 
-    We can convert it to a number using the unary plus or a `Number()` call: `+num.toFixed(5)`.
+    참고로, `+num.toFixed(5)`처럼 단항 덧셈 연산자를 앞에 붙이거나 `Number()`를 호출하면 문자형의 숫자를 숫자형으로 변환할 수 있습니다.
 
-## Imprecise calculations
+## 부정확한 계산
 
-Internally, a number is represented in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), so there are exactly 64 bits to store a number: 52 of them are used to store the digits, 11 of them store the position of the decimal point (they are zero for integer numbers), and 1 bit is for the sign.
+숫자는 내부적으로 64비트 형식 [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)으로 표현되기 때문에 숫자를 저장하려면 정확히 64비트가 필요합니다. 64비트 중 52비트는 숫자를 저장하는 데 사용되고, 11비트는 소수점 위치를(정수는 0), 1비트는 부호를 저장하는 데 사용됩니다.
 
-If a number is too big, it would overflow the 64-bit storage, potentially giving an infinity:
+그런데 숫자가 너무 커지면 64비트 공간이 넘쳐서 Infinity로 처리됩니다.
 
 ```js run
 alert( 1e500 ); // Infinity
 ```
 
-What may be a little less obvious, but happens quite often, is the loss of precision.
+원인을 이해하려면 집중이 필요하긴 하지만, 꽤 자주 발생하는 현상인 정밀도 손실(loss of precision)도 있습니다.
 
-Consider this (falsy!) test:
+예시를 살펴봅시다.
 
 ```js run
 alert( 0.1 + 0.2 == 0.3 ); // *!*false*/!*
 ```
 
-That's right, if we check whether the sum of `0.1` and `0.2` is `0.3`, we get `false`.
+`0.1`과 `0.2`의 합이 `0.3`과 일치하는지 확인 했는데 `false`가 출력되었습니다.
 
-Strange! What is it then if not `0.3`?
+이상하네요! 합의 결과가 `0.3`이 아니라면 대체 무엇일까요?
 
 ```js run
 alert( 0.1 + 0.2 ); // 0.30000000000000004
 ```
 
-Ouch! There are more consequences than an incorrect comparison here. Imagine you're making an e-shopping site and the visitor puts `$0.10` and `$0.20` goods into their chart. The order total will be `$0.30000000000000004`. That would surprise anyone.
+부정확한 비교 연산이 만들어내는 결과는 여기서 그치지 않습니다. 인터넷 쇼핑몰 사이트를 운영하고 있다고 가정해 봅시다. 사용자가 `$0.10`와 `$0.20` 짜리 물품을 장바구니에 넣었다고 상상해 보죠. 주문 총액이 `$0.30000000000000004`인 것을 보고 놀라지 않을 사용자는 없을 겁니다.
 
-But why does this happen?
+왜 이런 일이 발생하는 걸까요?
 
-A number is stored in memory in its binary form, a sequence of bits - ones and zeroes. But fractions like `0.1`, `0.2` that look simple in the decimal numeric system are actually unending fractions in their binary form.
+숫자는 0과 1로 이루어진 이진수로 변환되어 연속된 메모리 공간에 저장됩니다. 그런데 10진법을 사용하면 쉽게 표현할 수 있는 `0.1`, `0.2` 같은 분수는 이진법으로 표현하면 무한 소수가 됩니다.
 
-In other words, what is `0.1`? It is one divided by ten `1/10`, one-tenth. In decimal numeral system such numbers are easily representable. Compare it to one-third: `1/3`. It becomes an endless fraction `0.33333(3)`.
+`0.1`은 1을 10으로 나눈 수인 `1/10`입니다. 10진법을 사용하면 이러한 숫자를 쉽게 표현할 수 있죠. `1/10`과 `1/3`을 비교해봅시다. `1/3`은 무한 소수 `0.33333(3)`이 됩니다.
 
-So, division by powers `10` is guaranteed to work well in the decimal system, but division by `3` is not. For the same reason, in the binary numeral system, the division by powers of `2` is guaranteed to work, but `1/10` becomes an endless binary fraction.
+이렇게 `10`의 거듭제곱으로 나눈 값은 10진법에서 잘 동작하지만 `3`으로 나누게 되면 10진법에서 제대로 동작하지 않습니다. 같은 이유로 2진법 체계에서 `2`의 거듭제곱으로 나눈 값은 잘 동작하지만 `1/10`같이 `2`의 거듭제곱이 아닌 값으로 나누게 되면 무한 소수가 되어버립니다.
 
-There's just no way to store *exactly 0.1* or *exactly 0.2* using the binary system, just like there is no way to store one-third as a decimal fraction.
+10진법에서 1/3을 정확히 나타낼 수 없듯이, 2진법을 사용해 *0.1* 또는 *0.2*를 **정확하게** 저장하는 방법은 없습니다.
 
-The numeric format IEEE-754 solves this by rounding to the nearest possible number. These rounding rules normally don't allow us to see that "tiny precision loss", but it exists.
+IEEE-754에선 가능한 가장 가까운 숫자로 반올림하는 방법을 사용해 이런 문제를 해결합니다. 그런데 반올림 규칙을 적용하면 발생하는 '작은 정밀도 손실'을 우리가 볼 수는 없지만 실제로 손실은 발생합니다.
 
-We can see this in action:
+아래와 같이 코드를 작성하면 정밀도 손실을 눈으로 확인할 수 있죠.
 ```js run
 alert( 0.1.toFixed(20) ); // 0.10000000000000000555
 ```
 
-And when we sum two numbers, their "precision losses" add up.
+그리고 두 숫자를 합하면 '정밀도 손실'도 더해집니다.
 
-That's why `0.1 + 0.2` is not exactly `0.3`.
+`0.1 + 0.2`가 정확히 `0.3`이 아닌 이유가 여기에 있습니다.
 
-```smart header="Not only JavaScript"
-The same issue exists in many other programming languages.
+```smart header="자바스크립트뿐만이 아닙니다."
+다른 언어에서도 같은 이슈가 있습니다.
 
-PHP, Java, C, Perl, Ruby give exactly the same result, because they are based on the same numeric format.
+자바스크립트와 동일한 숫자 형식을 사용하기 때문에 PHP, Java, C, Perl, Ruby에서도 똑같은 결과를 얻습니다.
 ```
 
-Can we work around the problem? Sure, the most reliable method is to round the result with the help of a method [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed):
+문제를 해결하는 방법은 없을까요? 물론 있습니다. 가장 신뢰할만한 방법은 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)메서드를 사용해 어림수를 만드는 것입니다.
 
 ```js run
 let sum = 0.1 + 0.2;
 alert( sum.toFixed(2) ); // 0.30
 ```
 
-Please note that `toFixed` always returns a string. It ensures that it has 2 digits after the decimal point. That's actually convenient if we have an e-shopping and need to show `$0.30`. For other cases, we can use the unary plus to coerce it into a number:
+이때 `toFixed`는 항상 문자열을 반환한다는 점에 유의해야 합니다. 문자열을 반환하기 때문에 소수점 다음에 오는 숫자가 항상 2개가 될 수 있습니다. 인터넷 쇼핑몰을 구축 중이고 `$0.30`를 보여줘야 할 때 유용하죠. 문자형으로 바뀐 숫자를 다시 숫자형으로 강제 변환하려면 단항 덧셈 연산자를 사용하면 됩니다.
 
 ```js run
 let sum = 0.1 + 0.2;
 alert( +sum.toFixed(2) ); // 0.3
 ```
 
-We also can temporarily multiply the numbers by 100 (or a bigger number) to turn them into integers, do the maths, and then divide back. Then, as we're doing maths with integers, the error somewhat decreases, but we still get it on division:
+숫자에 임시로 100(또는 더 큰 숫자)을 곱하여 정수로 바꾸고, 원하는 연산을 한 후 다시 100으로 나누는 것도 하나의 방법이 될 수 있습니다. 정수를 대상으로 하는 수학 연산은 소수를 대상으로 하는 연산보다 에러가 적기 때문입니다. 그런데 어쨌든 마지막에 나눗셈이 들어가기 때문에 소수가 다시 등장할 수 있다는 단점이 있습니다.
 
 ```js run
 alert( (0.1 * 10 + 0.2 * 10) / 10 ); // 0.3
 alert( (0.28 * 100 + 0.14 * 100) / 100); // 0.4200000000000001
 ```
 
-So, multiply/divide approach reduces the error, but doesn't remove it totally.
+이렇게 10의 거듭제곱을 곱하고 다시 동일한 숫자로 나누는 전략은 오류를 줄여주긴 하지만 완전히 없애지는 못합니다.
 
-Sometimes we could try to evade fractions at all. Like if we're dealing with a shop, then we can store prices in cents instead of dollars. But what if we apply a discount of 30%? In practice, totally evading fractions is rarely possible. Just round them to cut "tails" when needed.
+구현을 하다 보면 무한 소수가 나오는 경우를 완전히 차단해야 하는 경우가 생기곤 합니다. 달러가 아닌 센트 단위로 물품 가격을 저장하는 쇼핑몰을 담당하고 있는데, 행사 때문에 가격을 30% 할인해야 하는 경우가 그렇죠. 무한소수를 방지하는 완벽한 방법은 사실 없습니다. 필요할 때마다 '꼬리'를 잘라 어림수를 만드는 방법뿐이죠.
 
-````smart header="The funny thing"
-Try running this:
+````smart header="흥미로운 발견"
+아래 예시를 실행해보세요.
 
 ```js run
-// Hello! I'm a self-increasing number!
-alert( 9999999999999999 ); // shows 10000000000000000
+// 숫자가 스스로 증가하네요!
+alert( 9999999999999999 ); // 10000000000000000이 출력됩니다.
 ```
 
-This suffers from the same issue: a loss of precision. There are 64 bits for the number, 52 of them can be used to store digits, but that's not enough. So the least significant digits disappear.
+문제의 원인은 역시나 정밀도 손실 때문입니다. 숫자를 저장할 땐 64비트가 사용되는데, 이 중 실제 숫자를 저장하는 데 사용되는 52비트에 위 숫자를 저장하기엔 공간이 모자랍니다. 따라서 최소 유효 숫자(the least significant digit)가 손실되어 버렸습니다.
 
-JavaScript doesn't trigger an error in such events. It does its best to fit the number into the desired format, but unfortunately, this format is not big enough.
+자바스크립트는 숫자 손실이 일어나도 오류를 발생시키지 않습니다. 적절한 포맷으로 숫자를 맞추는 데 최선을 다하긴 하지만 유감스럽게도 위 예시의 숫자를 담기엔 포맷이 충분하지 않네요.
 ````
 
-```smart header="Two zeroes"
-Another funny consequence of the internal representation of numbers is the existence of two zeroes: `0` and `-0`.
+```smart header="두 종류의 0"
+자바스크립트 내부에서 숫자를 표현하는 방식 때문에 발생하는 또 다른 흥미로운 현상은 `0`과 `-0`이라는 두 종류의 0이 존재한다는 사실입니다.
 
-That's because a sign is represented by a single bit, so every number can be positive or negative, including a zero.
+자바스크립트에선 숫자의 부호가 단일 비트에 저장되는데 0을 포함한 모든 숫자에 부호를 설정할 수도, 설정하지 않을 수도 있기 때문입니다.
 
-In most cases the distinction is unnoticeable, because operators are suited to treat them as the same.
+대부분의 연산은 `0`과 `-0`을 동일하게 취급하기 때문에 두 0의 차이는 두드러지지 않는 편입니다.
 ```
 
+## isNaN과 isFinite
+
+아래 두 특수 숫자 값이 기억나시나요?
+
+- `Infinity`와 `-Infinity` -- 그 어떤 숫자보다 큰 혹은 작은 특수 숫자 값
+- `NaN` -- 에러를 나타내는 값
+
+두 특수 숫자는 `숫자형`에 속하지만 '정상적인' 숫자는 아니기 때문에, 정상적인 숫자와 구분하기 위한 특별한 함수가 존재합니다.
 
 
-## Tests: isFinite and isNaN
-
-Remember these two special numeric values?
-
-- `Infinity` (and `-Infinity`) is a special numeric value that is greater (less) than anything.
-- `NaN` represents an error.
-
-They belong to the type `number`, but are not "normal" numbers, so there are special functions to check for them:
-
-
-- `isNaN(value)` converts its argument to a number and then tests it for being `NaN`:
+- `isNaN(value)` -- 인수를 숫자로 변환한 다음 `NaN`인지 테스트함
 
     ```js run
     alert( isNaN(NaN) ); // true
     alert( isNaN("str") ); // true
     ```
 
-    But do we need this function? Can't we just use the comparison `=== NaN`? Sorry, but the answer is no. The value `NaN` is unique in that it does not equal anything, including itself:
+    그런데 굳이 이 함수가 필요할까요? "`=== NaN` 비교를 하면 되지 않을까?"라는 생각이 들 수 있습니다. 안타깝게도 대답은 '필요하다'입니다. `NaN`은 `NaN` 자기 자신을 포함하여 그 어떤 값과도 같지 않다는 점에서 독특합니다.
 
     ```js run
     alert( NaN === NaN ); // false
     ```
 
-- `isFinite(value)` converts its argument to a number and returns `true` if it's a regular number, not `NaN/Infinity/-Infinity`:
+- `isFinite(value)` -- 인수를 숫자로 변환하고 변환한 숫자가 `NaN/Infinity/-Infinity`가 아닌 일반 숫자인 경우 `true`를 반환함
 
     ```js run
     alert( isFinite("15") ); // true
-    alert( isFinite("str") ); // false, because a special value: NaN
-    alert( isFinite(Infinity) ); // false, because a special value: Infinity
+    alert( isFinite("str") ); // false, NaN이기 때문입니다.
+    alert( isFinite(Infinity) ); // false, Infinity이기 때문입니다.
     ```
 
-Sometimes `isFinite` is used to validate whether a string value is a regular number:
+`isFinite`는 문자열이 일반 숫자인지 검증하는 데 사용되곤 합니다.
 
 
 ```js run
-let num = +prompt("Enter a number", '');
+let num = +prompt("숫자를 입력하세요.", '');
 
-// will be true unless you enter Infinity, -Infinity or not a number
+// 숫자가 아닌 값을 입력하거나 Infinity, -Infinity를 입력하면 false가 출력됩니다.
 alert( isFinite(num) );
 ```
 
-Please note that an empty or a space-only string is treated as `0` in all numeric functions including `isFinite`.  
+빈 문자열이나 공백만 있는 문자열은 `isFinite`를 포함한 모든 숫자 관련 내장 함수에서 `0`으로 취급된다는 점에 유의하시기 바랍니다.
 
-```smart header="Compare with `Object.is`"
+```smart header="`Object.is`와 비교하기"
 
-There is a special built-in method [Object.is](mdn:js/Object/is) that compares values like `===`, but is more reliable for two edge cases:
+[Object.is](mdn:js/Object/is)는 `===`처럼 값을 비교할 때 사용되는 특별한 내장 메서드인데, 아래와 같은 두 가지 에지 케이스에선 `===`보다 좀 더 신뢰할만한 결과를 보여줍니다.
 
-1. It works with `NaN`: `Object.is(NaN, NaN) === true`, that's a good thing.
-2. Values `0` and `-0` are different: `Object.is(0, -0) === false`, technically that's true, because internally the number has a sign bit that may be different even if all other bits are zeroes.
+1. `NaN`을 대상으로 비교할 때: `Object.is(NaN, NaN) === true`임
+2.`0`과 `-0`이 다르게 취급되어야 할 때: `Object.is(0, -0) === false`임. 숫자를 나타내는 비트가 모두 0이더라도 부호를 나타내는 비트는 다르므로 `0`과 `-0`은 사실 다른 값이긴 합니다.
 
-In all other cases, `Object.is(a, b)` is the same as `a === b`.
+이 두 에지 케이스를 제외하곤, `Object.is(a, b)`와 `a === b`의 결과는 같습니다.
 
-This way of comparison is often used in JavaScript specification. When an internal algorithm needs to compare two values for being exactly the same, it uses `Object.is` (internally called [SameValue](https://tc39.github.io/ecma262/#sec-samevalue)).
+이런 식의 비교는 자바스크립트 명세서에서 종종 찾아볼 수 있습니다. 내부 알고리즘에서 두 값을 비교해야 하는데, 비교 결과가 정확해야 하는 경우 `Object.is`를 사용하죠. `Object.is`에서 사용되는 비교방식은 명세서에서 [SameValue](https://tc39.github.io/ecma262/#sec-samevalue)라고 불립니다.
 ```
 
 
-## parseInt and parseFloat
+## parseInt와 parseFloat
 
-Numeric conversion using a plus `+` or `Number()` is strict. If a value is not exactly a number, it fails:
+단항 덧셈 연산자 `+` 또는 `Number()`를 사용하여 숫자형으로 변형할 때 적용되는 규칙은 꽤 엄격합니다. 피연산자가 숫자가 아니면 형 변환이 실패합니다.
 
 ```js run
 alert( +"100px" ); // NaN
 ```
 
-The sole exception is spaces at the beginning or at the end of the string, as they are ignored.
+엄격한 규칙이 적용되지 않는 유일한 예외는 문자열의 처음 또는 끝에 공백이 있어서 공백을 무시할 때입니다.
 
-But in real life we often have values in units, like `"100px"` or `"12pt"` in CSS. Also in many countries the currency symbol goes after the amount, so we have `"19€"` and would like to extract a numeric value out of that.
+그런데 실무에선 CSS 등에서 `'100px'`, `'12pt'`와 같이 숫자와 단위를 함께 쓰는 경우가 흔합니다. 대다수 국가에서 `'19€'`처럼 금액 뒤에 통화 기호를 붙여 표시하기도 하죠. 숫자만 추출하는 방법이 필요해 보이네요.
 
-That's what `parseInt` and `parseFloat` are for.
+내장 함수 `parseInt`와 `parseFloat`는 이런 경우를 위해 만들어졌습니다.
 
-They "read" a number from a string until they can't. In case of an error, the gathered number is returned. The function `parseInt` returns an integer, whilst `parseFloat` will return a floating-point number:
+두 함수는 불가능할 때까지 문자열에서 숫자를 '읽습니다'. 숫자를 읽는 도중 오류가 발생하면 이미 수집된 숫자를 반환하죠. `parseInt`는 정수, `parseFloat`는 부동 소수점 숫자를 반환합니다.
 
 ```js run
 alert( parseInt('100px') ); // 100
 alert( parseFloat('12.5em') ); // 12.5
 
-alert( parseInt('12.3') ); // 12, only the integer part is returned
-alert( parseFloat('12.3.4') ); // 12.3, the second point stops the reading
+alert( parseInt('12.3') ); // 12, 정수 부분만 반환됩니다.
+alert( parseFloat('12.3.4') ); // 12.3, 두 번째 점에서 숫자 읽기를 멈춥니다.
 ```
 
-There are situations when `parseInt/parseFloat` will return `NaN`. It happens when no digits could be read:
+`parseInt`와 `parseFloat`가 `NaN`을 반환할 때도 있습니다. 읽을 수 있는 숫자가 없을 때 그렇죠.
 
 ```js run
-alert( parseInt('a123') ); // NaN, the first symbol stops the process
+alert( parseInt('a123') ); // NaN, a는 숫자가 아니므로 숫자를 읽는 게 중지됩니다.
 ```
 
-````smart header="The second argument of `parseInt(str, radix)`"
-The `parseInt()` function has an optional second parameter. It specifies the base of the numeral system, so `parseInt` can also parse strings of hex numbers, binary numbers and so on:
+````smart header="`parseInt(str, radix)`의 두 번째 인수"
+ `parseInt()`의 두 번째 매개 변수는 선택적으로 사용할 수 있습니다. `radix`는 원하는 진수를 지정해 줄 때 사용합니다. 따라서 `parseInt`를 사용하면 16진수 문자열, 2진수 문자열 등을 파싱할 수 있습니다.
 
 ```js run
 alert( parseInt('0xff', 16) ); // 255
-alert( parseInt('ff', 16) ); // 255, without 0x also works
+alert( parseInt('ff', 16) ); // 255, 0x가 없어도 동작합니다.
 
 alert( parseInt('2n9c', 36) ); // 123456
 ```
 ````
 
-## Other math functions
+## 기타 수학 함수
 
-JavaScript has a built-in [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object which contains a small library of mathematical functions and constants.
+자바스크립트에서 제공하는 내장 객체 [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math)엔 다양한 수학 관련 함수와 상수들이 들어있습니다.
 
-A few examples:
+몇 가지 예시를 살펴봅시다.
 
 `Math.random()`
-: Returns a random number from 0 to 1 (not including 1)
+: 0과 1 사이의 난수를 반환합니다(1은 제외).
 
     ```js run
     alert( Math.random() ); // 0.1234567894322
     alert( Math.random() ); // 0.5435252343232
-    alert( Math.random() ); // ... (any random numbers)
+    alert( Math.random() ); // ... (무작위 수)
     ```
 
 `Math.max(a, b, c...)` / `Math.min(a, b, c...)`
-: Returns the greatest/smallest from the arbitrary number of arguments.
+: 인수 중 최대/최솟값을 반환합니다.
 
     ```js run
     alert( Math.max(3, 5, -10, 0, 1) ); // 5
@@ -399,36 +400,36 @@ A few examples:
     ```
 
 `Math.pow(n, power)`
-: Returns `n` raised the given power
+: `n`을 power번 거듭제곱한 값을 반환합니다.
 
     ```js run
-    alert( Math.pow(2, 10) ); // 2 in power 10 = 1024
+    alert( Math.pow(2, 10) ); // 2의 10제곱 = 1024
     ```
 
-There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object.
+이 외에도 삼각법을 포함한 다양한 함수와 상수가 `Math`에 있습니다. 자세한 내용은 [MDN 문서](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math)에서 읽어보시기 바랍니다.
 
-## Summary
+## 요약
 
-To write big numbers:
+0이 많이 붙은 큰 숫자는 다음과 같은 방법을 사용해 씁니다.
 
-- Append `"e"` with the zeroes count to the number. Like: `123e6` is `123` with 6 zeroes.
-- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. That's for one-millionth or such.
+- 0의 개수를 `'e'` 뒤에 추가합니다. `123e6`은 0이 6개인 숫자, `123000000`을 나타냅니다.
+- `'e'` 다음에 음수가 오면, 음수의 절댓값 만큼 10을 거듭제곱한 숫자로 주어진 숫자를 나눕니다. `123e-6`은 `0.000123`을 나타냅니다.
 
-For different numeral systems:
+다양한 진법을 사용할 수도 있습니다.
 
-- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems
-- `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
-- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+- 자바스크립트는 특별한 변환 없이 16진수(`0x`), 8진수(`0o`), 2진수(`0b`)를 바로 사용할 수 있게 지원합니다.
+- `parseInt(str, base)`를 사용하면 `str`을 `base`진수로 바꿔줍니다(단, `2 ≤ base ≤ 36`).
+- `num.toString(base)`는 숫자를 `base`진수로 바꾸고, 이를 문자열 형태로 반환합니다.
 
-For converting values like `12pt` and `100px` to a number:
+`12pt`나 `100px`과 같은 값을 숫자로 변환하는 것도 가능합니다.
 
-- Use `parseInt/parseFloat` for the "soft" conversion, which reads a number from a string and then returns the value they could read before the error.
+- `parseInt/parseFloat`를 사용하면 문자열에서 숫자만 읽고, 읽은 숫자를 에러가 발생하기 전에 반환해주는 '약한' 형 변환을 사용할 수 있습니다.
 
-For fractions:
+소수를 처리하는 데 쓰이는 메서드는 다음과 같습니다.
 
-- Round using `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` or `num.toFixed(precision)`.
-- Make sure to remember there's a loss of precision when working with fractions.
+- `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round`, `num.toFixed(precision)`를 사용하면 어림수를 구할 수 있습니다.
+- 소수를 다룰 땐 정밀도 손실에 주의하세요. 
 
-More mathematical functions:
+이 외에도 다양한 수학 함수가 있습니다.
 
-- See the [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) object when you need them. The library is very small, but can cover basic needs.
+- 수학 연산이 필요할 때 [Math](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math) 객체를 찾아보세요. 작은 객체이지만 기본적인 연산은 대부분 다룰 수 있습니다.

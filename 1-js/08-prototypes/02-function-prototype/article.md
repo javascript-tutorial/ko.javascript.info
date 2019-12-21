@@ -105,7 +105,7 @@ let rabbit2 = new rabbit.constructor("Black Rabbit");
 */!*
 ```
 
-객체가 있는데 이 객체를 만들 때 어떤 생성자가 사용되었는지 알 수 없는 경우(예: 객체가 서드 파티 라이브러리에서 온 경우)에 이 방식이 유용합니다.
+객체가 있는데 이 객체를 만들 때 어떤 생성자가 사용되었는지 알 수 없는 경우(예: 객체가 서드 파티 라이브러리에서 온 경우), 이 방식법을 유용하게 쓸 수 있습니다.
 
 어느 방식을 사용해 객체를 만들든 `"constructor"`에서 가장 중요한 점은 다음과 같습니다.
 
@@ -129,7 +129,7 @@ alert(rabbit.constructor === Rabbit); // false
 */!*
 ```
 
-이런 상황을 방지하고 알맞은 `constructor`를 유지하려면 `"prototype"` 전체를 덮어쓰지 말고 기본 `"prototype"`에 원하는 프로퍼티를 추가/제거하시기 바랍니다.
+이런 상황을 방지하고 알맞은 `constructor`를 유지하려면 `"prototype"` 전체를 덮어쓰지 말고 기본 `"prototype"`에 원하는 프로퍼티를 추가/제거해야 합니다.
 
 ```js
 function Rabbit() {}
@@ -162,7 +162,7 @@ Rabbit.prototype = {
 
 - `F.prototype` 프로퍼티(`[[prototype]]`과는 다름)는 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
 - `F.prototype`의 값은 객체나 null만 가능합니다. 다른 값은 무시됩니다.
-- `"prototype"` 프로퍼티는 생성자 함수에 설정하고 `new`를 사용할 때만 위와 같은 효과를 발휘합니다.
+- 지금까지 배운 내용은 생성자 함수에 `"prototype"`를 설정하고, 이 생성자 함수를 `new`를 사용해 호출할 때만 적용됩니다.
 
 일반 객체에 `"prototype"` 프로퍼티를 사용하면 아무런 일이 일어나지 않습니다.
 ```js

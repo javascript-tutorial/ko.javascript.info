@@ -1,7 +1,7 @@
-Yeah, looks strange indeed.
+네, 실제로 이상해 보이긴 합니다.
 
-But `instanceof` does not care about the function, but rather about its `prototype`, that it matches against the prototype chain.
+그런데 `instanceof`는 평가 시, 함수는 고려하지 않고 평가 대상의 `prototype`을 고려합니다. 평가 대상의 `prototype`이 프로토타입 체인 상에 있는 프로토타입과 일치하는지 여부를 고려하죠. 
 
-And here `a.__proto__ == B.prototype`, so `instanceof` returns `true`.
+문제에서 `a.__proto__ == B.prototype`이므로, `instanceof`는 `true`를 반환합니다.
 
-So, by the logic of `instanceof`, the `prototype` actually defines the type, not the constructor function.
+`instanceof`의 내부 알고리즘에 의해 `prototype`은 생성자 함수가 아닌 타입을 정의합니다.

@@ -1,7 +1,7 @@
 
-# Rewrite using async/await
+# async와 await를 사용하여 코드 변경하기
 
-Rewrite the one of examples from the chapter <info:promise-chaining> using `async/await` instead of `.then/catch`:
+<info:promise-chaining> 챕터의 예시 중 하나를 `.then/catch` 대신 `async/await`를 사용해 다시 작성해봅시다.
 
 ```js run
 function loadJson(url) {

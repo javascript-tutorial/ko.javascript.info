@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# European weekday
+# 유럽 기준 달력
 
-European countries have days of week starting with Monday (number 1), then Tuesday (number 2) and till Sunday (number 7). Write a function `getLocalDay(date)` that returns the "European" day of week for `date`.
+유럽국가의 달력은 월요일부터 시작합니다(월요일-1, 화요일-2, ... 일요일-7). '유럽' 기준 숫자를 반환해주는 함수 `getLocalDay(date)`를 만들어보세요. 
 
 ```js no-beautify
-let date = new Date(2012, 0, 3);  // 3 Jan 2012
-alert( getLocalDay(date) );       // tuesday, should show 2
+let date = new Date(2012, 0, 3);  // 2019년 11월 5일
+alert( getLocalDay(date) );       // 금요일이므로, 5가 출력되어야 함
 ```

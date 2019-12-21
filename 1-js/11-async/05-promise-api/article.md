@@ -1,40 +1,40 @@
-# Promise API
+# 프라미스 API
 
-There are 5 static methods in the `Promise` class. We'll quickly cover their use cases here.
+`Promise` 클래스에는 5가지 정적 메서드가 있습니다. 이번 챕터에선 다섯 메서드의 유스 케이스에 대해서 빠르게 알아보겠습니다.
 
 ## Promise.all
 
-Let's say we want to run many promises to execute in parallel, and wait till all of them are ready.
+여러 개의 프라미스를 동시에 실행시키고 모든 프라미스가 준비될 때까지 기다린다고 해봅시다.
 
-For instance, download several URLs in parallel and process the content when all are done.
+복수의 URL에 동시에 요청을 보내고, 다운로드가 모두 완료된 후에 콘텐츠를 처리할 때 이런 상황이 발생합니다.
 
-That's what `Promise.all` is for.
+`Promise.all`은 이럴 때 사용할 수 있습니다.
 
-The syntax is:
+문법:
 
 ```js
 let promise = Promise.all([...promises...]);
 ```
 
-`Promise.all` takes an array of promises (technically can be any iterable, but usually an array) and returns a new promise.
+`Promise.all`은 요소 전체가 프라미스인 배열(엄밀히 따지면 이터러블 객체이지만, 대개는 배열임)을 받고 새로운 프라미스를 반환합니다.
 
-The new promise resolves when all listed promises are settled and the array of their results becomes its result.
+배열 안 프라미스가 모두 처리되면 새로운 프라미스가 이행되는데, 배열 안 프라미스의 결괏값을 담은 배열이 새로운 프라미스의 `result`가 됩니다.
 
-For instance, the `Promise.all` below settles after 3 seconds, and then its result is an array `[1, 2, 3]`:
+아래 `Promise.all`은 3초 후에 처리되고, 반환되는 프라미스의 `result`는 배열 `[1, 2, 3]`이 됩니다.
 
 ```js run
 Promise.all([
   new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
   new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
   new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
-]).then(alert); // 1,2,3 when promises are ready: each promise contributes an array member
+]).then(alert); // 프라미스 전체가 처리되면 1, 2, 3이 반환됩니다. 각 프라미스는 배열을 구성하는 요소가 됩니다.
 ```
 
-Please note that the order of resulting array members is the same as source promises. Even though the first promise takes the longest time to resolve, it's still first in the array of results.
+배열 `result`의 요소 순서는 `Promise.all`에 전달되는 프라미스 순서와 상응한다는 점에 주목해 주시기 바랍니다. `Promise.all`의 첫 번째 프라미스는 가장 늦게 이행되더라도 처리 결과는 배열의 첫 번째 요소에 저장됩니다.
 
-A common trick is to map an array of job data into an array of promises, and then wrap that into `Promise.all`.
+작업해야 할 데이터가 담긴 배열을 프라미스 배열로 매핑하고, 이 배열을 `Promise.all`로 감싸는 트릭은 자주 사용됩니다.
 
-For instance, if we have an array of URLs, we can fetch them all like this:
+URL이 담긴 배열을 `fetch`를 써서 처리하는 예시를 살펴봅시다.
 
 ```js run
 let urls = [
@@ -43,17 +43,17 @@ let urls = [
   'https://api.github.com/users/jeresig'
 ];
 
-// map every url to the promise of the fetch
+// fetch를 사용해 url을 프라미스로 매핑합니다.
 let requests = urls.map(url => fetch(url));
 
-// Promise.all waits until all jobs are resolved
+// Promise.all은 모든 작업이 이행될 때까지 기다립니다.
 Promise.all(requests)
   .then(responses => responses.forEach(
     response => alert(`${response.url}: ${response.status}`)
   ));
 ```
 
-A bigger example with fetching user information for an array of GitHub users by their names (we could fetch an array of goods by their ids, the logic is same):
+GitHub 유저네임이 담긴 배열을 사용해 사용자 정보를 가져오는 예시를 살펴봅시다(id를 기준으로 장바구니 목록을 불러올 때도 같은 로직을 사용할 수 있습니다).
 
 ```js run
 let names = ['iliakan', 'remy', 'jeresig'];
@@ -62,47 +62,47 @@ let requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
 
 Promise.all(requests)
   .then(responses => {
-    // all responses are resolved successfully
+    // 모든 응답이 성공적으로 이행되었습니다.
     for(let response of responses) {
-      alert(`${response.url}: ${response.status}`); // shows 200 for every url
+      alert(`${response.url}: ${response.status}`); // 모든 url의 응답코드가 200입니다.
     }
 
     return responses;
   })
-  // map array of responses into array of response.json() to read their content
+  // 응답 메시지가 담긴 배열을 response.json()로 매핑해, 내용을 읽습니다.
   .then(responses => Promise.all(responses.map(r => r.json())))
-  // all JSON answers are parsed: "users" is the array of them
+  // JSON 형태의 응답 메시지는 파싱 되어 배열 'users'에 저장됩니다.
   .then(users => users.forEach(user => alert(user.name)));
 ```
 
-**If any of the promises is rejected, the promise returned by `Promise.all` immediately rejects with that error.**
+**`Promise.all`에 전달되는 프라미스 중 하나라도 거부되면, `Promise.all`이 반환하는 프라미스는 에러와 함께 바로 거부됩니다.**
 
-For instance:
+예시:
 
 ```js run
 Promise.all([
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
 *!*
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("에러 발생!")), 2000)),
 */!*
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
-]).catch(alert); // Error: Whoops!
+]).catch(alert); // Error: 에러 발생!
 ```
 
-Here the second promise rejects in two seconds. That leads to immediate rejection of `Promise.all`, so `.catch` executes: the rejection error becomes the outcome of the whole `Promise.all`.
+2초 후 두 번째 프라미스가 거부되면서 `Promise.all` 전체가 거부되고, `.catch`가 실행됩니다. 거부 에러는 `Promise.all` 전체의 결과가 됩니다.
 
-```warn header="In case of an error, other promises are ignored"
-If one promise rejects, `Promise.all` immediately rejects, completely forgetting about the other ones in the list. Their results are ignored.
+```warn header="에러가 발생하면 다른 프라미스는 무시됩니다."
+프라미스가 하나라도 거부되면 `Promise.all`은 즉시 거부되고 배열에 저장된 다른 프라미스의 결과는 완전히 잊힙니다. 이행된 프라미스의 결과도 무시되죠.
 
-For example, if there are multiple `fetch` calls, like in the example above, and one fails, other ones will still continue to execute, but `Promise.all` won't watch them anymore. They will probably settle, but the result will be ignored.
+`fetch`를 사용해 호출 여러 개를 만들면, 그중 하나가 실패하더라도 호출은 계속 일어납니다. 그렇더라도 `Promise.all`은 다른 호출을 더는 신경 쓰지 않습니다. 프라미스가 처리되긴 하겠지만 그 결과는 무시됩니다.
 
-`Promise.all` does nothing to cancel them, as there's no concept of "cancellation" in promises. In [another chapter](info:fetch-abort) we'll cover `AbortController` that can help with that, but it's not a part of the Promise API.
+프라미스에는 '취소'라는 개념이 없어서 `Promise.all`도 프라미스를 취소하지 않습니다. [또 다른 챕터](info:fetch-abort)에서 배울 `AbortController`를 사용하면 프라미스 취소가 가능하긴 하지만, 프라미스 API는 아닙니다.
 ```
 
-````smart header="`Promise.all(iterable)` allows non-promise \"regular\" values in `iterable`"
-Normally, `Promise.all(...)` accepts an iterable (in most cases an array) of promises. But if any of those objects is not a promise, it's passed to the resulting array "as is".
+````smart header="`이터러블 객체`가 아닌 '일반' 값도 `Promise.all(iterable)`에 넘길 수 있습니다."
+`Promise.all(...)`은 대게 프라미스가 요소인 이러터블 객체(대부분 배열)를 받습니다. 그런데 프라미스가 아닌 객체가 배열을 구성하면, 요소가 '그대로' 결과 배열로 전달됩니다.
 
-For instance, here the results are `[1, 2, 3]`:
+아래 예시의 결과는 `[1, 2, 3]`입니다.
 
 ```js run
 Promise.all([
@@ -110,35 +110,35 @@ Promise.all([
     setTimeout(() => resolve(1), 1000)
   }),
   2,
-  3  
+  3
 ]).then(alert); // 1, 2, 3
 ```
 
-So we are able to pass ready values to `Promise.all` where convenient.
+이미 결과를 알고 있는 값은 `Promise.all`로 그냥 전달하면 됩니다.
 ````
 
 ## Promise.allSettled
 
 [recent browser="new"]
 
-`Promise.all` rejects as a whole if any promise rejects. That's good for "all or nothing" cases, when we need *all* results to go on:
+`Promise.all`은 프라미스가 하나라도 거절되면 전체를 거절합니다. 따라서, 프라미스 결과가 *모두* 필요할 때같이 '모 아니면 도' 일 때 유용합니다.
 
 ```js
 Promise.all([
   fetch('/template.html'),
   fetch('/style.css'),
   fetch('/data.json')
-]).then(render); // render method needs results of all fetches
+]).then(render); // render 메서드는 fetch 결과 전부가 있어야 제대로 동작합니다.
 ```
 
-`Promise.allSettled` waits for all promises to settle. The resulting array has:
+반면, `Promise.allSettled`는 모든 프라미스가 처리될 때까지 기다립니다. 반환되는 배열은 다음과 같은 요소를 갖습니다.
 
-- `{status:"fulfilled", value:result}` for successful responses,
-- `{status:"rejected", reason:error}` for errors.
+- 응답이 성공할 경우 -- `{status:"fulfilled", value:result}`
+- 에러가 발생한 경우 -- `{status:"rejected", reason:error}`
 
-For example, we'd like to fetch the information about multiple users. Even if one request fails, we're still interested in the others.
+`fetch`를 사용해 여러 사람의 정보를 가져오고 있다고 해봅시다. 여러 요청 중 하나가 실패해도 다른 요청 결과는 여전히 있어야 합니다.
 
-Let's use `Promise.allSettled`:
+이럴 때 `Promise.allSettled`를 사용할 수 있습니다.
 
 ```js run
 let urls = [
@@ -160,20 +160,20 @@ Promise.allSettled(urls.map(url => fetch(url)))
   });
 ```
 
-The `results` in the line `(*)` above will be:
+`(*)`로 표시한 줄의 `results`는 다음과 같을 겁니다.
 ```js
 [
-  {status: 'fulfilled', value: ...response...},
-  {status: 'fulfilled', value: ...response...},
-  {status: 'rejected', reason: ...error object...}
+  {status: 'fulfilled', value: ...응답...},
+  {status: 'fulfilled', value: ...응답...},
+  {status: 'rejected', reason: ...에러 객체...}
 ]
 ```
 
-So, for each promise we get its status and `value/error`.
+`Promise.allSettled`를 사용하면 이처럼 각 프라미스의 상태와 `값 또는 에러`를 받을 수 있습니다.
 
-### Polyfill
+### 폴리필
 
-If the browser doesn't support `Promise.allSettled`, it's easy to polyfill:
+브라우저가 `Promise.allSettled`를 지원하지 않는다면 폴리필을 구현하면 됩니다.
 
 ```js
 if(!Promise.allSettled) {
@@ -189,52 +189,54 @@ if(!Promise.allSettled) {
 }
 ```
 
-In this code, `promises.map` takes input values, turns into promises (just in case a non-promise was passed) with `p => Promise.resolve(p)`, and then adds `.then` handler to every one.
+여기서 `promises.map`은 입력값을 받아  `p => Promise.resolve(p)`로 입력값을 프라미스로 변화시킵니다(프라미스가 아닌 값을 받은 경우). 그리고 모든 프라미스에 `.then` 핸들러가 추가됩니다.
 
-That handler turns a successful result `v` into `{state:'fulfilled', value:v}`, and an error `r` into `{state:'rejected', reason:r}`. That's exactly the format of `Promise.allSettled`.
+`then` 핸들러는 성공한 프라미스의 결괏값 `v`를 `{state:'fulfilled', value:v}`로, 실패한 프라미스의 결괏값 `r`을 `{state:'rejected', reason:r}`로 변경합니다. `Promise.allSettled`의 구성과 동일하게 말이죠.
 
-Then we can use `Promise.allSettled` to get the results or *all* given promises, even if some of them reject.
+이렇게 폴리필을 구현하면 프라미스 일부가 거부되더라도 `Promise.allSettled`를 사용해 프라미스 *전체*의 결과를 얻을 수 있습니다.
 
 ## Promise.race
 
-Similar to `Promise.all`, but waits only for the first settled promise, and gets its result (or error).
+`Promise.race`는 `Promise.all`과 비슷합니다. 다만 가장 먼저 처리되는 프라미스의 결과(혹은 에러)를 반환합니다.
 
-The syntax is:
+문법:
 
 ```js
 let promise = Promise.race(iterable);
 ```
 
-For instance, here the result will be `1`:
+아래 예시의 결과는 `1`입니다.
 
 ```js run
 Promise.race([
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("에러 발생!")), 2000)),
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
 ]).then(alert); // 1
 ```
 
-The first promise here was fastest, so it became the result. After the first settled promise "wins the race", all further results/errors are ignored.
+첫 번째 프라미스가 가장 빨리 처리상태가 되기 때문에 첫 번째 프라미스의 결과가 result 값이 됩니다. 이렇게 `Promise.race`를 사용하면 '경주(race)의 승자'가 나타난 순간 다른 프라미스의 결과 또는 에러는 무시됩니다.
 
 
 ## Promise.resolve/reject
 
-Methods `Promise.resolve` and `Promise.reject` are rarely needed in modern code, because `async/await` syntax (we'll cover it in [a bit later](info:async-await)) makes them somewhat obsolete.
+프라미스 메서드 `Promise.resolve`와 `Promise.reject`는 `async/await` 문법([뒤에서](info:async-await) 다룸)이 생긴 후로 쓸모없어졌기 때문에 근래에는 거의 사용하지 않습니다.
 
-We cover them here for completeness, and for those who can't use `async/await` for some reason.
+여기선 튜토리얼의 완성도를 높이고 어떤 이유 때문이라도 `async/await`를 사용하지 못하는 분들을 위해서 이 두 메서드에 대해 알아보겠습니다.
 
-- `Promise.resolve(value)` creates a resolved promise with the result `value`.
+### Promise.resolve
 
-Same as:
+- `Promise.resolve(value)`는 결괏값이 `value`인 이행 상태 프라미스를 생성합니다.
+
+아래 코드와 동일한 일을 수행합니다.
 
 ```js
 let promise = new Promise(resolve => resolve(value));
 ```
 
-The method is used for compatibility, when a function is expected to return a promise.
+`Promise.resolve`는 호환성을 위해 함수가 프라미스를 반환하도록 해야 할 때 사용할 수 있습니다.
 
-For example, `loadCached` function below fetches URL and remembers (caches) its content. For future calls with the same URL it immediately gets the previous content from cache, but uses `Promise.resolve` to make a promise of it, so that the returned value is always a promise:
+아래 함수 `loadCached`는 인수로 받은 URL을 대상으로 `fetch`를 호출하고, 그 결과를 기억(cache)합니다. 나중에 동일한 URL을 대상으로 `fetch`를 호출하면 캐시에서 호출 결과를 즉시 가져오는데, 이때 `Promise.resolve`를 사용해 캐시 된 내용을 프라미스로 만들어 반환 값이 항상 프라미스가 되게 합니다.
 
 ```js
 let cache = new Map();
@@ -255,30 +257,30 @@ function loadCached(url) {
 }
 ```
 
-We can write `loadCached(url).then(…)`, because the function is guaranteed to return a promise. We can always use `.then` after `loadCached`. That's the purpose of `Promise.resolve` in the line `(*)`.
+`loadCached`를 호출하면 프라미스가 반환된다는 것이 보장되기 때문에 `loadCached(url).then(…)`을 사용할 수 있습니다. `loadCached` 뒤에 언제나 `.then`을 쓸 수 있게 됩니다. `(*)`로 표시한 줄에서 `Promise.resolve`를 사용한 이유가 바로 여기에 있습니다.
 
 ### Promise.reject
 
-- `Promise.reject(error)` creates a rejected promise with `error`.
+- `Promise.reject(error)`는 결괏값이 `error`인 거부 상태 프라미스를 생성합니다.
 
-Same as:
+아래 코드와 동일한 일을 수행합니다.
 
 ```js
 let promise = new Promise((resolve, reject) => reject(error));
 ```
 
-In practice, this method is almost never used.
+실무에서 이 메서드를 쓸 일은 거의 없습니다.
 
-## Summary
+## 요약
 
-There are 5 static methods of `Promise` class:
+`Promise` 클래스에는 5가지 정적 메서드가 있습니다.
 
-1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, then it becomes the error of `Promise.all`, and all other results are ignored.
-2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as array of objects with:
-    - `state`: `"fulfilled"` or `"rejected"`
-    - `value` (if fulfilled) or `reason` (if rejected).
-3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
-4. `Promise.resolve(value)` -- makes a resolved promise with the given value.
-5. `Promise.reject(error)` -- makes a rejected promise with the given error.
+1. `Promise.all(promises)` -- 모든 프라미스가 이행될 때까지 기다렸다가 그 결괏값을 담은 배열을 반환합니다. 주어진 프라미스 중 하나라도 실패하면 `Promise.all`는 거부되고, 나머지 프라미스의 결과는 무시됩니다.
+2. `Promise.allSettled(promises)` -- 최근에 추가된 메서드로 모든 프라미스가 처리될 때까지 기다렸다가 그 결과(객체)를 담은 배열을 반환합니다. 객체엔 다음과 같은 정보가 담깁니다.
+    - `state`: `"fulfilled"` 또는 `"rejected"`
+    - `value`(프라미스가 성공한 경우) 또는 `reason`(프라미스가 실패한 경우)
+3. `Promise.race(promises)` -- 가장 먼저 처리된 프라미스의 결과 또는 에러를 담은 프라미스를 반환합니다.
+4. `Promise.resolve(value)` -- 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
+5. `Promise.reject(error)` -- 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
 
-Of these five, `Promise.all` is probably the most common in practice.
+실무에선 다섯 메서드 중 `Promise.all`을 가장 많이 사용합니다.

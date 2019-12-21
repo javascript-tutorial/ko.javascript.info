@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Show a weekday
+# 요일 보여주기
 
-Write a function `getWeekDay(date)` to show the weekday in short format: 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'.
+날짜를 입력하면 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU' 형식으로 요일을 보여주는 함수 `getWeekDay(date)`를 만들어보세요.
 
-For instance:
+예시:
 
 ```js no-beautify
-let date = new Date(2012, 0, 3);  // 3 Jan 2012
-alert( getWeekDay(date) );        // should output "TU"
+let date = new Date(2012, 0, 3);  // 2012년 1월 3일
+alert( getWeekDay(date) );        // "TU"가 출력되어야 합니다.
 ```

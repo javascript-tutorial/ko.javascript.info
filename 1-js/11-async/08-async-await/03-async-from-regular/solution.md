@@ -1,7 +1,7 @@
 
-That's the case when knowing how it works inside is helpful.
+`async/await`가 내부에서 어떻게 동작하는지 알아야 문제를 풀 수 있습니다.
 
-Just treat `async` call as promise and attach `.then` to it:
+`async` 함수를 호출하면 프라미스가 반환되므로, `.then`을 붙이면 됩니다.
 ```js run
 async function wait() {
   await new Promise(resolve => setTimeout(resolve, 1000));

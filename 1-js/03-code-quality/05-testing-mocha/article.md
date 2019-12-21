@@ -238,7 +238,7 @@ describe("pow", function() {
 
     function makeTest(x) {
       let expected = x * x * x;
-      it(`${x}을/를 세 번 곱하면 ${expected}`입니다.`, function() {
+      it(`${x}을/를 세 번 곱하면 ${expected}입니다.`, function() {
         assert.equal(pow(x, 3), expected);
       });
     }

@@ -1,7 +1,7 @@
 
-The first call has `this == rabbit`, the other ones have `this` equal to `Rabbit.prototype`, because it's actually the object before the dot.
+`this`는 실제 점 앞에 있는 객체를 나타내기 때문에, 첫 번째 호출에선 `this`가 `rabbit`이고, 다른 호출에선 `Rabbit.prototype`입니다.
 
-So only the first call shows `Rabbit`, other ones show `undefined`:
+따라서 첫 번째 호출만이 `Rabbit`을 출력하고 다른 호출은 `undefined`를 출력합니다.
 
 ```js run
 function Rabbit(name) {

@@ -1,33 +1,33 @@
-The difference becomes obvious when we look at the code inside a function.
+차이점은 함수 내부의 코드를 보면 분명해집니다.
 
-The behavior is different if there's a "jump out" of `try..catch`.
+`try..catch`에서 '빠져나오게 하는' 코드가 있다면 함수의 행동이 달라집니다.
 
-For instance, when there's a `return` inside `try..catch`. The `finally` clause works in case of *any* exit from `try..catch`, even via the `return` statement: right after `try..catch` is done, but before the calling code gets the control.
+아래 예시와 같이 `try..catch` 내부에 `return`이 있을 때가 대표적인 예입니다. `finally` 절은 `return`문을 통해 `try..catch`를 빠져나가는 경우를 포함하여 `try..catch`가 종료되는 *모든* 상황에서 실행됩니다. `try..catch`가 종료되었지만, 함수 호출 코드가 제어권을 갖기 직전에 실행되죠.
 
 ```js run
 function f() {
   try {
-    alert('start');
+    alert('시작');
 *!*
-    return "result";
+    return "결과";
 */!*
   } catch (e) {
     /// ...
   } finally {
-    alert('cleanup!');
+    alert('초기화!');
   }
 }
 
 f(); // cleanup!
 ```
 
-...Or when there's a `throw`, like here:
+또는, 아래와 같이 `throw`가 있어도 함수의 행동이 달라집니다.
 
 ```js run
 function f() {
   try {
-    alert('start');
-    throw new Error("an error");
+    alert('시작');
+    throw new Error("에러 발생!");
   } catch (e) {
     // ...
     if("can't handle the error") {
@@ -37,11 +37,11 @@ function f() {
     }
 
   } finally {
-    alert('cleanup!')
+    alert('초기화!')
   }
 }
 
 f(); // cleanup!
 ```
 
-It's `finally` that guarantees the cleanup here. If we just put the code at the end of `f`, it wouldn't run in these situations.
+이렇게 `finally` 절을 붙여주면 초기화가 보장됩니다. 작업 내역을 초기화해주는 코드를 단순히 `f`의 끝에 붙였다면, 위 예시와 같은 상황에선, 초기화 코드가 실행되지 않습니다.
