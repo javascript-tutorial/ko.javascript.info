@@ -31,5 +31,9 @@ army[5](); // 5번째 shooter 역시 10을 출력함
 // 모든 shooter가 자신의 번호 대신 10을 출력하고 있음
 ```
 
+<<<<<<< HEAD
 왜 모든 shooter가 동일한 숫자를 출력하는 걸까요? 제대로 된 번호가 출력될 수 있게 코드를 수정해 보세요.
+=======
+Why do all of the shooters show the same value? Fix the code so that they work as intended.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 

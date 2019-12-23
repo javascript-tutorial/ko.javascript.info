@@ -34,7 +34,11 @@ rabbit.__proto__ = animal;
 ```smart header="`__proto__`는 `[[Prototype]]`용 getter/setter입니다."
 `__proto__`는 `[[Prototype]]`과 *다릅니다*. `__proto__`는 `[[Prototype]]`의 getter(획득자)/setter(설정자) 입니다.
 
+<<<<<<< HEAD
 하위 호환성 때문에 `__proto__`를 여전히 쓸 순 있지만 비교적 근래에 작성된 스크립트에선 `__proto__`대신 함수 `Object.getPrototypeOf`나 `Object.setPrototypeOf`을 써서 프로토타입을 획득(get)하거나 설정(set)합니다. 근래엔 왜 `__proto__`를 쓰지 않는지와 두 함수의 자세한 설명에 대해선 이어지는 챕터에서 다룰 예정입니다.
+=======
+It exists for historical reasons. In modern language it is replaced with functions `Object.getPrototypeOf/Object.setPrototypeOf` that also get/set the prototype. We'll study the reasons for that and these functions later.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 `__proto__`는 브라우저 환경에서만 지원하도록 자바스크립트 명세에서 규정하였는데, 
 실상은 서버 사이드를 포함한 모든 호스트 환경에서 `__proto__`를 지원합니다. `[[Prototype]]`보다는 `__proto__`가 조금 더 직관적이어서 이해하기 쉬우므로, 본 튜토리얼에선 `__proto__`를 사용해 예시를 만들도록 하겠습니다. 
@@ -204,7 +208,11 @@ admin.fullName = "Alice Cooper"; // (**)
 
 ## 'this'가 나타내는 것
 
+<<<<<<< HEAD
 위 예시를 보면서 "`set fullName(value)`안 `this`의 값은 무엇이지?"라는 의문이 생길 수 있습니다. "프로퍼티 `this.name`과 `this.surname`에 값을 쓰면 그 값이 `user`에 저장될까, 아니면 `admin`에 저장될까?"라는 의문도 생길 수 있죠.
+=======
+An interesting question may arise in the example above: what's the value of `this` inside `set fullName(value)`? Where are the properties `this.name` and `this.surname` written: into `user` or `admin`?
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 답은 간단합니다. `this`는 프로토타입에 전혀 영향을 받지 않습니다.
 
@@ -247,13 +255,21 @@ alert(animal.isSleeping); // undefined (프로토타입에는 isSleeping이라�
 
 ![](proto-animal-rabbit-walk-3.svg)
 
+<<<<<<< HEAD
 `rabbit` 말고도 `bird`, `snake` 등이 `animal`을 상속받는다고 해봅시다. 이 객체들도 `rabbit`처럼 `animal`에 구현된 메서드를 사용할 수 있겠죠. 이때 상속받은 메서드의 `this`는 `animal`이 아닌 실제 메서드가 호출되는 시점의 점(`.`) 앞에 있는 객체가 됩니다. 따라서 `this`에 데이터를 쓰면 `animal`이 아닌 해당 객체의 상태가 변화합니다.
+=======
+If we had other objects, like `bird`, `snake`, etc., inheriting from `animal`, they would also gain access to methods of `animal`. But `this` in each method call would be the corresponding object, evaluated at the call-time (before dot), not `animal`. So when we write data into `this`, it is stored into these objects.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 결론을 말씀드리자면 메서드는 공유되지만, 객체의 상태는 공유되지 않습니다.
 
 ## for..in 반복문
 
+<<<<<<< HEAD
 `for..in`은 상속 프로퍼티도 순회대상에 포함시킵니다.
+=======
+The `for..in` loop iterates over inherited properties too.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 예시:
 
@@ -268,7 +284,11 @@ let rabbit = {
 };
 
 *!*
+<<<<<<< HEAD
 // Object.keys는 객체 자신의 키만 반환합니다.
+=======
+// Object.keys only returns own keys
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 alert(Object.keys(rabbit)); // jumps
 */!*
 

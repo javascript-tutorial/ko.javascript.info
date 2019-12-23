@@ -75,8 +75,13 @@ let worker = {
   },
 
   slow(x) {
+<<<<<<< HEAD
     // CPU 집약적인 작업이라 가정
     alert(`slow(${x})을/를 호출함`);
+=======
+    // scary CPU-heavy task here  
+    alert("Called with " + x);
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
     return x * this.someMethod(); // (*)
   }
 };
@@ -148,9 +153,15 @@ function sayHi() {
 let user = { name: "John" };
 let admin = { name: "Admin" };
 
+<<<<<<< HEAD
 // call을 사용해 원하는 객체가 'this'가 되도록 합니다.
 sayHi.call( user ); // this = John
 sayHi.call( admin ); // this = Admin
+=======
+// use call to pass different objects as "this"
+sayHi.call( user ); // John
+sayHi.call( admin ); // Admin
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 ```
 
 아래 예시에선 `call`을 사용해 컨텍스트와 `phrase`에 원하는 값을 지정해 보았습니다.
@@ -372,7 +383,11 @@ hash(1, 2);
 
 이런 트릭을 *메서드 빌리기(method borrowing)* 라고 합니다.
 
+<<<<<<< HEAD
 일반 배열에서 `join` 메서드를 빌려오고(`[].join`), `[].join.call`를 사용해 `arguments`를 컨텍스트로 고정한 후 `join`메서드를 호출하는 것이죠.
+=======
+We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 이게 어떻게 가능할까요?
 

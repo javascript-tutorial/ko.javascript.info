@@ -57,8 +57,13 @@ let promise = new Promise(function(resolve, reject) {
 
 위 예시를 실행하면 두 가지를 알 수 있습니다.
 
+<<<<<<< HEAD
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로, 개발자가 따로 만들 필요가 없습니다. 다만, `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다.
+=======
+1. The executor is called automatically and immediately (by `new Promise`).
+2. The executor receives two arguments: `resolve` and `reject` — these functions are pre-defined by the JavaScript engine. So we don't need to create them. We should only call one of them when ready.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
     '처리'가 시작 된지 1초 후, executor는 결과를 만들기 위해 `resolve("done")`를 호출합니다. 이는 `promise` 객체의 상태를 다음과 같이 변화시킵니다.
 
@@ -81,7 +86,11 @@ let promise = new Promise(function(resolve, reject) {
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이때 프라미스 객체의 상태가 변화합니다.
 
+<<<<<<< HEAD
 이행(resolved)되거나 거부(rejected)된 상태의 프라미스는 '처리된(settled)' 프라미스라고 부르는데, 이는 '대기(pending)'상태의 프라미스와 반대입니다.
+=======
+A promise that is either resolved or rejected is called "settled", as opposed to an initially "pending" promise.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 ````smart header="성공 혹은 에러"
 executor는 `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다. 이때 변경된 상태는 변경이 불가능합니다.
@@ -205,8 +214,13 @@ let promise = new Promise((resolve, reject) => {
 });
 
 *!*
+<<<<<<< HEAD
 // .catch(f)는 promise.then(null, f)과 동일하게 작동합니다
 promise.catch(alert); // 1초 뒤 "Error: 에러 발생!" 출력
+=======
+// .catch(f) is the same as .then(null, f)
+promise.catch(alert); // shows "Error: Whoops!" after 1 second
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 */!*
 ```
 
@@ -263,8 +277,13 @@ new Promise((resolve, reject) => {
 
 3. `.finally(f)`는 함수 `f`를 중복해서 쓸 필요가 없기 때문에 `.then(f, f)`보다 문법 측면에서 더 편리합니다.
 
+<<<<<<< HEAD
 ````smart header="처리된 프라미스의 핸들러는 즉각 실행됩니다."
 프라미스가 대기 상태일 때, `.then/catch/finally` 핸들러는 프라미스가 처리되길 기다립니다. 반면, 프라미스가 이미 처리상태라면 핸들러가 즉각 실행됩니다.
+=======
+````smart header="On settled promises handlers run immediately"
+If a promise is pending, `.then/catch/finally` handlers wait for it. Otherwise, if a promise has already settled, they execute immediately:
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 ```js run
 // 아래 프라미스는 생성과 동시에 이행됩니다.
@@ -274,7 +293,11 @@ promise.then(alert); // done! (바로 출력됨)
 ```
 ````
 
+<<<<<<< HEAD
 이제, 실질적인 예제와 함께 프라미스를 이용해 어떻게 비동기 코드를 작성하는지 알아봅시다.
+=======
+Next, let's see more practical examples of how promises can help us write asynchronous code.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
 ## 예시 : loadScript [#loadscript]
 

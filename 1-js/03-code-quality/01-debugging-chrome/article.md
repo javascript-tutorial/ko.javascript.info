@@ -137,7 +137,11 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 <span class="devtools" style="background-position:-62px -192px"></span> -- 'Step over': 다음 명령어를 실행하되, *함수 안으로 들어가진 않음* (단축키 `key:F10`)
 : 'Step'과 유사하지만, 다음 문이 함수 호출일 때 'Step'과는 다르게 동작합니다(`alert` 같은 내장함수에는 해당하지 않고, 직접 작성한 함수일 때만 동작이 다릅니다).
 
+<<<<<<< HEAD
     'Step'은 함수 내부로 들어가 함수 본문 첫 번째 줄에서 실행을 멈춥니다. 반면 'Step over'는 보이지 않는 곳에서 중첩 함수를 실행하긴 하지만 함수 내로 진입하지 않습니다.
+=======
+    The "Step" command goes into it and pauses the execution at its first line, while "Step over" executes the nested function call invisibly, skipping the function internals.
+>>>>>>> e92bb83e995dfea982dcdc5065036646bfca13f0
 
     실행은 함수 실행이 끝난 후에 즉시 멈춥니다.
 
