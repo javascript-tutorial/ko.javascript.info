@@ -6,7 +6,7 @@
 
 ## document.getElementById 혹은 id를 사용해 요소 검색하기
 
-요소에 `id` 속성이 있으면 요소의 위치에 상관없이 `document.getElementById(id)`라는 메서드를 이용해 요소에 접근할 수 있습니다.
+요소에 `id` 속성이 있으면 위치에 상관없이 메서드 `document.getElementById(id)`를 이용해 접근할 수 있습니다.
 
 예시:
 
@@ -26,7 +26,7 @@
 </script>
 ```
 
-요소에 `id` 속성이 있으면 `id` 속성값을 그대로 딴 전역 변수 하나가 만들어지는데, 이를 이용할 수도 있습니다.
+이에 더하여 `id` 속성값을 그대로 딴 전역 변수를 이용해 접근할 수도 있습니다.
 
 ```html run
 <div id="*!*elem*/!*">
@@ -34,15 +34,15 @@
 </div>
 
 <script>
-  // 변수 elem은 id가 "elem"인 DOM 요소를 참조합니다.
+  // 변수 elem은 id가 'elem'인 요소를 참조합니다.
   elem.style.background = 'red';
 
   // id가 elem-content인 요소는 중간에 하이픈(-)이 있기 때문에 변수 이름으로 쓸 수 없습니다.
-  // 이럴 땐 window['elem-content']같이 대괄호(`[...]`)를 이용할 수 있습니다.
+  // 이럴 땐 대괄호(`[...]`)를 사용해서 window['elem-content']로 접근하면 됩니다.
 </script>
 ```
 
-그런데 이렇게 자동으로 선언된 전역변수는 동일한 이름을 가진 변수가 선언되면 무용지물이 됩니다.
+그런데 이렇게 요소 id를 따서 자동으로 선언된 전역변수는 동일한 이름을 가진 변수가 선언되면 무용지물이 됩니다.
 
 ```html run untrusted height=0
 <div id="elem"></div>
@@ -55,11 +55,11 @@
 ```
 
 ```warn header="id를 따서 만들어진 전역변수를 요소 접근 시 사용하지 마세요."
-`id`에 대응하는 전역변수는 [명세](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현한 것으로 표준이긴 하지만 하위 호환성을 위해 남겨둔 동작입니다.
+`id`에 대응하는 전역변수는 [명세서](http://www.whatwg.org/specs/web-apps/current-work/#dom-window-nameditem)의 내용을 구현해 만들어진 것으로 표준이긴 하지만 하위 호환성을 위해 남겨둔 동작입니다.
 
-브라우저는 스크립트의 네임스페이스와 DOM의 네임스페이스를 함께 사용할 수 있도록 해서 개발자의 편의를 도모합니다. 그런데 이런 방식은 스크립트가 간단할 땐 괜찮지만, 이름이 충돌할 가능성이 있기 때문에 추천하는 방식은 아닙니다. 뷰 영역을 관장하는 HTML을 보지 않은 상황에서 스크립트만 보고 변수의 출처를 알기 힘들다는 단점도 있죠.
+브라우저는 스크립트의 네임스페이스와 DOM의 네임스페이스를 함께 사용할 수 있도록 해서 개발자의 편의를 도모합니다. 그런데 이런 방식은 스크립트가 간단할 땐 괜찮지만, 이름이 충돌할 가능성이 있기 때문에 추천하는 방식은 아닙니다. HTML을 보지 않은 상황에서 코드만 보고 변수의 출처를 알기 힘들다는 단점도 있습니다.
 
-본 튜토리얼에선 코드를 간결하게 작성하기 위해 요소의 출처가 명확한 경우, `id`를 사용해 요소에 직접 접근하는 방법을 사용할 예정입니다.
+본 튜토리얼에선 간결성을 위해 요소의 출처가 명확한 경우, `id`를 사용해 요소에 직접 접근하는 방법을 사용할 예정입니다.
 
 실무에선 `document.getElementById`를 사용하시길 바랍니다.
 ```
@@ -78,16 +78,16 @@
 
 `elem.querySelectorAll(css)`은 다재다능한 요소 검색 메서드입니다. 이 메서드는 `elem`의 자식 요소 중 주어진 CSS 선택자에 대응하는 요소 모두를 반환합니다.
 
-아래 예시는 `document` 내 마지막 `<li>`요소 모두를 반환합니다.
+아래 예시는 마지막 `<li>`요소 모두를 반환합니다.
 
 ```html run
 <ul>
-  <li>The</li>
-  <li>test</li>
+  <li>1-1</li>
+  <li>1-2</li>
 </ul>
 <ul>
-  <li>has</li>
-  <li>passed</li>
+  <li>2-1</li>
+  <li>2-2</li>
 </ul>
 <script>
 *!*
@@ -95,7 +95,7 @@
 */!*
 
   for (let elem of elements) {
-    alert(elem.innerHTML); // "test", "passed"
+    alert(elem.innerHTML); // "1-2", "2-2"
   }
 </script>
 ```
@@ -103,7 +103,7 @@
 `querySelectorAll`은 CSS 선택자를 활용할 수 있다는 점에서 아주 유용합니다.
 
 ```smart header="가상 클래스도 사용할 수 있습니다."
-querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클래스(pseudo-class)도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover 상태인) 요소 모두를 담은 컬렉션이 반환됩니다. 참고: 컬렉션은 DOM 트리 최상단에 위치한 `<html>`부터 가장 하단의 요소 순으로 채워집니다.
+querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클래스(pseudo-class)도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover 상태인) 요소 모두를 담은 컬렉션이 반환됩니다. 이때 컬렉션은 DOM 트리 최상단에 위치한 `<html>`부터 가장 하단의 요소 순으로 채워집니다.
 ```
 
 ## querySelector [#querySelector]
@@ -140,9 +140,9 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 ## closest
 
-부모 요소, 부모 요소의 부모 요소 등 DOM 트리에서 특정 요소의 상위에 있는 요소들을 한데 묶어 해당 요소의 *조상* 요소라고 부릅니다.
+부모 요소, 부모 요소의 부모 요소 등 DOM 트리에서 특정 요소의 상위에 있는 요소들은 *조상(ancestor)* 요소라고 합니다.
 
-`elem.closest(css)`메서드는 `elem` 자기 자신을 포함하여 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다.
+메서드 `elem.closest(css)`는 `elem` 자기 자신을 포함하여 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다.
 
 `closest`메서드는 해당 요소부터 시작해 DOM 트리를 한 단계씩 거슬러 올라가면서 원하는 요소를 찾습니다. CSS 선택자와 일치하는 요소를 찾으면, 검색을 중단하고 해당 요소를 반환합니다.
 
@@ -176,7 +176,7 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 튜토리얼의 완성도를 높이고 오래된 스크립트에서 해당 메서드들을 만날 때 당황하지 않으시길 바라면서 이 메서드들을 잠시 언급하도록 하겠습니다.
 
-- `elem.getElementsByTagName(tag)` --  주어진 태그에 해당하는 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, "모든 태그"가 검색됩니다.
+- `elem.getElementsByTagName(tag)` --  주어진 태그에 해당하는 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, '모든 태그'가 검색됩니다.
 - `elem.getElementsByClassName(className)` -- class 속성값을 기준으로 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다.
 - `document.getElementsByName(name)` --  아주 드물게 쓰이는 메서드로, 문서 전체를 대상으로 검색을 수행합니다. 검색 기준은 `name` 속성값이고, 이 메서드 역시 검색 결과를 담은 컬렉션을 반환합니다.
 
@@ -218,10 +218,10 @@ let divs = document.getElementsByTagName('div');
 </script>
 ```
 
-```warn header="`\"s\"`를 절대 빠트리지 마세요!"
-초보 개발자들은 가끔 `"s"`를 빼먹는 실수를 하곤 합니다. <code>getElement<b>s</b>ByTagName</code>를 써야 하는데 `"s"`를 빠트리고 `getElementByTagName`을 입력하곤 하죠.
+```warn header="`'s'`를 절대 빠트리지 마세요!"
+초보 개발자들은 가끔 `'s'`를 빼먹는 실수를 하곤 합니다. <code>getElement<b>s</b>ByTagName</code>를 써야 하는데 `getElementByTagName`을 입력하곤 하죠.
 
-`getElementById`는 요소 하나만을 반환하기 때문에 `"s"`가 없습니다. `getElementsByTagName`등의 메서드는 대응하는 요소를 담은 컬렉션을 반환하기 때문에 메서드 중간에 `"s"`가 들어갑니다.
+`getElementById`는 요소 하나만을 반환하기 때문에 `s`가 없습니다. `getElementsByTagName` 등의 메서드는 대응하는 요소를 담은 컬렉션을 반환하기 때문에 메서드 중간에 `"s"`가 들어갑니다.
 ```
 
 ````warn header="요소 하나가 아닌, 컬렉션을 반환합니다!"
@@ -232,9 +232,9 @@ let divs = document.getElementsByTagName('div');
 document.getElementsByTagName('input').value = 5;
 ```
 
-위 코드는 input 요소 전체를 담은 *컬렉션*에 5를 할당하려 하므로, 동작하지 않습니다. 본래 의도는 컬렉션이 아닌 요소에 값을 할당하는 것이었죠.
+input 요소 전체를 담은 *컬렉션*에 5를 할당하는 위 코드는 동작하지 않습니다. 아마도 본래 의도는 컬렉션 내 요소에 값을 할당하는 것이었을 겁니다.
 
-컬렉션을 순회하거나 인덱스를 사용해 컬렉션이 아닌 요소를 얻고, 그 요소에 값을 할당하면 기존 의도대로 동작합니다. 아래와 같이 말이죠.
+컬렉션을 순회하거나 인덱스를 사용해 요소를 얻고 그 요소에 값을 할당하면 기존 의도대로 동작합니다. 아래와 같이 말이죠.
 
 ```js
 // (문서에 input 요소가 있다면) 아래 코드는 잘 동작합니다.
@@ -251,22 +251,22 @@ document.getElementsByTagName('input')[0].value = 5;
 </form>
 
 <script>
-  // name 속성을 이용해 봅시다.
+  // name 속성을 이용해 검색
   let form = document.getElementsByName('my-form')[0];
 
-  // 클래스 이름을 이용해 봅시다.
+  // fomr 내에서 클래스 이름을 이용해 검색
   let articles = form.getElementsByClassName('article');
-  alert(articles.length); // 클래스 속성값이 "article"인 요소는 2개입니다.
+  alert(articles.length); // 2. 클래스 속성값이 'article'인 요소는 2개입니다.
 </script>
 ```
 
 ## 살아있는 컬렉션
 
-`"getElementsBy"`로 시작하는 모든 메서드는 *살아있는* 컬렉션을 반환합니다. 문서에 변경이 있을 때마다 컬렉션을 "자동 갱신"해줘 최신 상태를 반영할 수 있게 해주죠.
+`'getElementsBy'`로 시작하는 모든 메서드는 *살아있는* 컬렉션을 반환합니다. 문서에 변경이 있을 때마다 컬렉션이 '자동 갱신'되어 최신 상태를 유지합니다.
 
-아래 예제엔 스크립트 두 개가 있습니다.
+예시 내엔 스크립트 두 개가 있습니다.
 
-1. 첫 번째 스크립트는 `<div>`에 상응하는 요소를 담은 컬렉션에 대한 참조를 만듭니다. 스크립트가 실행되는 시점에 이 컬렉션의 길이는 `1`입니다.  
+1. 첫 번째 스크립트는 `<div>`에 상응하는 요소를 담은 컬렉션에 대한 참조를 만듭니다. 스크립트가 실행되는 시점에 이 컬렉션의 길이는 `1`입니다.
 2. 두 번째 스크립트는 문서에 `<div>`가 하나 더 추가된 이후에 실행됩니다. 따라서 컬렉션의 길이는 `2`가 됩니다. 
 
 ```html run
@@ -286,9 +286,9 @@ document.getElementsByTagName('input')[0].value = 5;
 </script>
 ```
 
-반면, `querySelectorAll`은 *정적인* 컬렉션을 반환합니다. 요소를 담은 공간인 컬렉션이 한 번 확정되면 더는 늘어나지 않습니다.
+반면, `querySelectorAll`은 *정적인* 컬렉션을 반환합니다. 컬렉션이 한 번 확정되면 더는 늘어나지 않습니다.
 
-이 메서드를 사용하면 아래에서 보시는 바와 같이 두 스크립트가 동일하게 `1`을 출력합니다.
+`querySelectorAll`을 사용하면 두 스크립트가 동일하게 `1`을 출력합니다.
 
 
 ```html run
@@ -312,7 +312,7 @@ document.getElementsByTagName('input')[0].value = 5;
 
 ## 요약
 
-아래 6가지 메서드는 DOM에서 원하는 노드를 찾을 수 있게 도와줍니다.
+DOM에서 원하는 노드를 검색하게 해주는 주요 메서드 6가지는 다음과 같습니다.
 
 <table>
 <thead>
@@ -320,7 +320,7 @@ document.getElementsByTagName('input')[0].value = 5;
 <td>메서드</td>
 <td>검색 기준</td>
 <td>호출 대상이 요소가 될 수 있는지에 대한 여부</td>
-<td>컬렉션 갱신 가능 여부</td>
+<td>컬렉션 갱신 여부</td>
 </tr>
 </thead>
 <tbody>
