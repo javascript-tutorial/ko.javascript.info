@@ -224,10 +224,17 @@ alert( document.body.previousSibling ); // HTMLHeadElement
 
 위 그림 속 관계는 챕터 앞쪽에서 다뤘던 관계와 유사해 보입니다. `Element`라는 단어가 추가된 점만 다르네요.
 
+<<<<<<< HEAD
 - `children` 프로퍼티는 해당 요소의 자식 노드 중 요소 노드만을 가리킵니다.
 - `firstElementChild`와 `lastElementChild` 프로퍼티는 각각 첫 번째 자식 요소 노드와 마지막 자식 요소 노드를 가리킵니다.
 - `previousElementSibling`과 `nextElementSibling`은 형제 요소 노드를 가리킵니다.
 - `parentElement` 는 부모 요소 노드를 가리킵니다.
+=======
+- `children` -- only those children that are element nodes.
+- `firstElementChild`, `lastElementChild` -- first and last element children.
+- `previousElementSibling`, `nextElementSibling` -- neighbor elements.
+- `parentElement` -- parent element.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 ````smart header="부모가 요소가 *아니라면* `parentElement`는 어떻게 되나요?"
 `parentElement` 프로퍼티는 부모 '요소 노드'를 반환하는 반면 `parentNode` 프로퍼티는 '종류에 상관없이 부모 노드'를 반환합니다. 대개 두 프로퍼티는 같은 노드를 반환합니다.
@@ -280,12 +287,21 @@ while(elem = elem.parentElement) { // <html>까지 거슬러 올라갑니다.
 
 그런데 일부 DOM 요소 노드는 편의를 위해 기본 프로퍼티 외에 추가적인 프로퍼티를 지원합니다.
 
+<<<<<<< HEAD
 테이블이 가장 대표적입니다. 좀 더 자세히 알아봅시다.
 
 **`<table>`** 요소는 기본 프로퍼티 이외에 다음과 같은 프로퍼티를 지원합니다.
 - `table.rows`는 `<tr>`요소를 담은 컬렉션을 참조합니다.
 - `table.caption/tHead/tFoot`은 각각 `<caption>`, `<thead>`, `<tfoot>` 요소를 참조합니다.
 - `table.tBodies`는 `<tbody>` 요소를 담은 컬렉션을 참조합니다. 표준에 따르면, 테이블 내에 여러 개의 `<tbody>`가 존재하는 게 가능한데, 최소한 하나는 무조건 있어야 합니다. HTML 문서에는 `<tbody>`가 없더라도 브라우저는 `<tbody>` 노드를 DOM에 자동으로 추가합니다.
+=======
+Tables are a great example of that, and represent a particularly important case:
+
+**The `<table>`** element supports (in addition to the given above) these properties:
+- `table.rows` -- the collection of `<tr>` elements of the table.
+- `table.caption/tHead/tFoot` -- references to elements `<caption>`, `<thead>`, `<tfoot>`.
+- `table.tBodies` -- the collection of `<tbody>` elements (can be many according to the standard, but there will always be at least one -- even if it is not in the source HTML, the browser will put it in the DOM).
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 **`<thead>`, `<tfoot>`, `<tbody>`** 요소는 `rows` 프로퍼티를 지원합니다.
 - `tbody.rows`는 tbody 내 `<tr>` 요소 컬렉션을 참조합니다.
@@ -323,7 +339,11 @@ while(elem = elem.parentElement) { // <html>까지 거슬러 올라갑니다.
 
 ## 요약
 
+<<<<<<< HEAD
 탐색 프로퍼티를 사용하면 이웃 노드로 바로 이동할 수 있습니다.
+=======
+Given a DOM node, we can go to its immediate neighbors using navigation properties.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 탐색 프로퍼티는 크게 두 개의 집합으로 나뉩니다.
 

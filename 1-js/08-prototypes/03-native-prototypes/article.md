@@ -99,12 +99,21 @@ alert(f.__proto__.__proto__ == Object.prototype); // true, inherit from objects
 
 가장 복잡한 것은 문자열, 숫자 그리고 불값과 함께 생깁니다.
 
+<<<<<<< HEAD
 기억하다시피 이것들은 객체가 아닙니다. 그러나 그들의 프로퍼티에 접근하려고 시도한다면 내장 생성자 `String`, `Number`, `Boolean`을 사용하는 임시 래퍼 객체가 생성되며 메서드를 제공하고 사라집니다.
+=======
+As we remember, they are not objects. But if we try to access their properties, temporary wrapper objects are created using built-in constructors `String`, `Number` and `Boolean`. They provide the methods and disappear.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 이러한 객체들은 눈에 보이지 않게 생성되고 대부분의 엔진은 이를 최적화합니다. 명세서에도 이처럼 묘사됩니다. 객체들의 메서드는 `String.prototype`, `Number.prototype`, `Boolean.prototype`처럼 사용할 수 있는 프로토타입 안에 존재합니다.
 
+<<<<<<< HEAD
 ```warn header="`null`과 `undefined`의 값은 객체 래퍼를 가지지 않습니다."
 특수한 값인 `null`과 `undefined`는 다른 것과는 거리가 있습니다. 객체 래퍼가 없기 때문에 메서드와 프로퍼티를 이용할 수 없습니다. 그리고 해당하는 프로퍼티도 존재하지 않습니다.
+=======
+```warn header="Values `null` and `undefined` have no object wrappers"
+Special values `null` and `undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes either.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 ```
 
 ## 네이티브 프로토타입 변경[#native-prototype-change]
@@ -129,9 +138,15 @@ String.prototype.show = function() {
 
 **모던 프로그래밍에서는 오직 한 경우에만 네이티브 프로토타입 변경을 허용하고 있는데 바로 폴리필링입니다.**
 
+<<<<<<< HEAD
 폴리필링은 자바스크립트 명세서에 존재하는 메서드에 대한 대체재를 만드는 데 사용하는데 현재의 자바스크립트 엔진에서는 아직 지원하지 않습니다.
 
 따라서 폴리필링을 수동으로 실행하며 내장 프로토타입과 함께 값을 가져옵니다.
+=======
+Polyfilling is a term for making a substitute for a method that exists in the JavaScript specification, but is not yet supported by a particular JavaScript engine.
+
+We may then implement it manually and populate the built-in prototype with it.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 예시:
 
@@ -142,9 +157,15 @@ if (!String.prototype.repeat) { // 해당 메서드가 존재하지 않는다면
   String.prototype.repeat = function(n) {
     // string을 n회 반복
 
+<<<<<<< HEAD
     // 사실 코드는 이거보다 조금 더 복잡합니다.
     // 모든 알고리즘은 명세서 안에 있습니다.
     // 그런데도 이 불완전한 폴리필은 종종 사용되기 충분합니다.
+=======
+    // actually, the code should be a little bit more complex than that
+    // (the full algorithm is in the specification)
+    // but even an imperfect polyfill is often considered good enough
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
     return new Array(n + 1).join(this);
   };
 }
@@ -179,7 +200,11 @@ obj.join = Array.prototype.join;
 alert( obj.join(',') ); // Hello,world!
 ```
 
+<<<<<<< HEAD
 코드는 정상작동 합니다. 왜냐하면,내장 `join`메서드의 내장 알고리즘은 단지 인덱스의 일치 여부만 케어하며 `length` 프로퍼티는 객체가 실제로 배열에 존재하는지 체크하지 않습니다. 그리고 수많은 내장 메서드들도 또한 이와 같습니다.
+=======
+It works because the internal algorithm of the built-in `join` method only cares about the correct indexes and the `length` property. It doesn't check if the object is indeed an array. Many built-in methods are like that.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 다른 가능성은 `obj.__proto__`를 `Array.prototype`에 상속시키는 것입니다. 그래서 모든 `Array`메서드가 자동으로 `obj`에서 사용 가능하게 하는 것입니다. 
  
@@ -187,6 +212,7 @@ alert( obj.join(',') ); // Hello,world!
 
 메서드 빌리기는 유연하여 필요에 따라 함수적 기능을 섞는 것을 다른 객체로부터 가능하게 합니다.
 
+<<<<<<< HEAD
 ## 요약
 
 - 모든 내장 객체는 같은 패턴을 따릅니다.
@@ -194,3 +220,14 @@ alert( obj.join(',') ); // Hello,world!
     - 객체 스스로는 단지 데이터만 저장합니다(배열의 아이템, 객체의 프로퍼티, 날짜).
 - 원시값 또한 객체 래퍼의 프로토타입 안에 `Number.prototype`, `String.prototype`, `Boolean.prototype`과 같은 메서드를 저장합니다. `undefined` 와 `null` 값만 객체 래퍼를 가지지 않습니다. 
 - 내장 프로토타입은 수정 가능하며 새로운 메서드와 함께 값을 가져올 수 있습니다. 그러나 내장 프로토타입을 변경하는 것을 추천하진 않습니다. 아마 새로운 표준을 추가하려고 할 때 만 가능합니다. 그러나 이는 자바스크립트 엔진 메서드에서는 아직 지원하지 않습니다.
+=======
+Borrowing methods is flexible, it allows to mix functionalities from different objects if needed.
+
+## Summary
+
+- All built-in objects follow the same pattern:
+    - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype`, etc.)
+    - The object itself stores only the data (array items, object properties, the date)
+- Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype` and `Boolean.prototype`. Only `undefined` and `null` do not have wrapper objects
+- Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. The only allowable case is probably when we add-in a new standard, but it's not yet supported by the JavaScript engine
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117

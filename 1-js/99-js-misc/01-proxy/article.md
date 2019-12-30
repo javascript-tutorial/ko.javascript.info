@@ -310,7 +310,11 @@ user = new Proxy(user, {
     return {
       enumerable: true,
       configurable: true
+<<<<<<< HEAD
       /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능하죠. */
+=======
+      /* ...other flags, probable "value:..." */
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
     };
   }
 
@@ -593,7 +597,7 @@ sayHi("John"); // Hello, John! (3초 후)
 
 `Reflect` is a built-in object that simplifies creation of `Proxy`.
 
-It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specifiction only, they can't be called directly.
+It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specification-only, they can't be called directly.
 
 The `Reflect` object makes that somewhat possible. Its methods are minimal wrappers around the internal methods.
 
@@ -603,7 +607,7 @@ Here are examples of operations and `Reflect` calls that do the same:
 |-----------------|----------------|-------------|
 | `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
 | `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[HasProperty]]` |
+| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
 | `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
 | ... | ... | ... |
 

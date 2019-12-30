@@ -142,7 +142,11 @@ for (let char of str) {
 
 이터레이터를 어떻게 명시적으로 사용할 수 있는지 살펴보면서 좀 더 깊게 이해해봅시다.
 
+<<<<<<< HEAD
 `for..of`를 사용했을 때와 동일한 방법으로 문자열을 순회할 건데, 이번엔 직접 호출을 통해서 순회해보겠습니다. 다음 코드는 문자열 이터레이터를 만들고, 여기서 값을 '수동으로' 가져옵니다.
+=======
+We'll iterate over a string in exactly the same way as `for..of`, but with direct calls. This code creates a string iterator and gets values from it "manually":
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 ```js run
 let str = "Hello";
@@ -150,7 +154,9 @@ let str = "Hello";
 // for..of를 사용한 것과 동일한 작업을 합니다.
 // for (let char of str) alert(char);
 
+*!*
 let iterator = str[Symbol.iterator]();
+*/!*
 
 while (true) {
   let result = iterator.next();
@@ -212,7 +218,11 @@ let arr = Array.from(arrayLike); // (*)
 alert(arr.pop()); // World (메서드가 제대로 동작합니다.)
 ```
 
+<<<<<<< HEAD
 `(*)`로 표시한 줄의 `Array.from`는 객체를 받고, 이것이 이터러블인지 혹은 유사 배열인지 검사한 후, 객체 요소 모두를 복제해 새로운 배열을 만듭니다.
+=======
+`Array.from` at the line `(*)` takes the object, examines it for being an iterable or array-like, then makes a new array and copies all items to it.
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 이터러블을 사용한 예시는 다음과 같습니다.
 
@@ -268,7 +278,11 @@ for (let char of str) {
 alert(chars);
 ```
 
+<<<<<<< HEAD
 어쨌든 `Array.from`을 사용한 예시가 더 짧습니다.
+=======
+...But it is shorter.    
+>>>>>>> 28ed5a3f7df9e015cf81c126423c76c9408d7117
 
 `Array.from`을 사용하면 서로게이트 쌍을 처리할 수 있는 `slice`를 직접 구현할 수도 있습니다.
 
