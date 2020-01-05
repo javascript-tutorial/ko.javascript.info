@@ -1,4 +1,4 @@
-The solution is to return the object itself from every call.
+메서드를 호출할 때마다 객체 자신을 반환하게 하면 됩니다.
 
 ```js run demo
 let ladder = {
@@ -26,7 +26,7 @@ let ladder = {
 ladder.up().up().down().up().down().showStep(); // 1
 ```
 
-We also can write a single call per line. For long chains it's more readable:
+메서드 호출 하나씩 한 줄에 작성할 수도 있습니다. 체이닝이 길어질 경우 이렇게 작성하면 가독성이 좋아집니다.
 
 ```js
 ladder

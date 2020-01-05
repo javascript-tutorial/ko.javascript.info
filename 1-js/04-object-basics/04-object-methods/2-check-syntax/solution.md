@@ -11,7 +11,7 @@ let user = {
 (user.go)() // error!
 ```
 
-The error message in most browsers does not give us much of a clue about what went wrong.
+브라우저에서 출력되는 에러 메시지만 봐서는 무엇이 잘못되었는지 파악하기 어려울 겁니다.
 
 **에러는 `user = {...}`뒤에 세미콜론이 없어서 발생했습니다.**
 
@@ -21,7 +21,7 @@ The error message in most browsers does not give us much of a clue about what we
 let user = { go:... }(user.go)()
 ```
 
-Then we can also see that such a joint expression is syntactically a call of the object `{ go: ... }` as a function with the argument `(user.go)`. And that also happens on the same line with `let user`, so the `user` object has not yet even been defined, hence the error.
+이렇게 두 표현식이 합쳐지면서 인수가 `(user.go)`인 객체 형태의 함수를 호출한 것처럼 보입니다. 게다가 객체 `user`가 정의되지 않은 상태에서 같은 줄에 `let user`를 사용했기 때문에 에러가 발생합니다.
 
 `user = {...}`뒤에 세미콜론을 붙여서 에러를 해결해봅시다.
 
