@@ -6,8 +6,13 @@
 
 원시값:
 
+<<<<<<< HEAD
 - 원시형 값입니다.
 - 원시형의 종류는 `문자(string)`, `숫자(number)`, `불린(boolean)`, `심볼(symbol)`, `null`, `undefined`형으로 총 여섯 가지 입니다.
+=======
+- Is a value of a primitive type.
+- There are 7 primitive types: `string`, `number`, `bigint`, `boolean`, `symbol`, `null` and `undefined`.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 객체:
 

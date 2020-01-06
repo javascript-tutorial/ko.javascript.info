@@ -31,5 +31,9 @@ army[5](); // 5번째 shooter 역시 10을 출력함
 // 모든 shooter가 자신의 번호 대신 10을 출력하고 있음
 ```
 
+<<<<<<< HEAD:1-js/06-advanced-functions/03-closure/8-make-army/task.md
 왜 모든 shooter가 동일한 숫자를 출력하는 걸까요? 제대로 된 번호가 출력될 수 있게 코드를 수정해 보세요.
+=======
+Why do all of the shooters show the same value? Fix the code so that they work as intended.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/03-closure/10-make-army/task.md
 

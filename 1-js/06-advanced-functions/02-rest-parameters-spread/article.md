@@ -1,4 +1,8 @@
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 # 나머지 매개변수와 전개 연산자
+=======
+# Rest parameters and spread syntax
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 상당수의 자바스크립트 내장 함수는 임의의 수의 인수를 허용합니다.
 
@@ -122,7 +126,11 @@ f(1); // 1
 ````
 
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 ## 전개 연산자 [# spread-operator]
+=======
+## Spread syntax [#spread-syntax]
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 지금까지 매개변수 리스트를 배열로 가져오는 방법에 대해 살펴보았습니다.
 
@@ -148,7 +156,11 @@ alert( Math.max(arr) ); // NaN
 
 `Math.max (arr [0], arr [1], arr [2])` 처럼 숫자를 수동으로 나열할 수도 있는데 배열 길이를 알 수 없기 때문에 이마저도 불가능합니다. 스크립트가 돌아갈 때 배열 내 요소가 아주 많을 수도, 아예 없을 수도 있죠. 수동으로 이걸 다 처리하다 보면 코드가 지저분해집니다.
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 *전개 연산자(spread operator)*는 이럴 때 사용하기 위해 만들어졌습니다. 전개 연산자는 `...`를 사용하기 때문에 나머지 매개변수와 비슷해 보이지만, 나머지 매개변수와 반대의 역할을 해주죠.
+=======
+*Spread syntax* to the rescue! It looks similar to rest parameters, also using `...`, but does quite the opposite.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 함수를 호출할 때 `... arr`를 사용하면, 반복 가능한 객체 `arr`이 인수 리스트로 "확장"됩니다.
 
@@ -169,7 +181,11 @@ let arr2 = [8, 3, -8, 1];
 alert( Math.max(...arr1, ...arr2) ); // 8
 ```
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 전개 연산자를 평범한 값과 혼합해 사용하는 것도 가능하죠.
+=======
+We can even combine the spread syntax with normal values:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 
 ```js run
@@ -179,7 +195,11 @@ let arr2 = [8, 3, -8, 1];
 alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
 ```
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 전개 연산자를 활용해 배열을 병합할 수도 있습니다.
+=======
+Also, the spread syntax can be used to merge arrays:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 ```js run
 let arr = [3, 5, 1];
@@ -192,9 +212,15 @@ let merged = [0, ...arr, 2, ...arr2];
 alert(merged); // 0,3,5,1,2,8,9,15 (0, arr, 2, arr2 순서로 합쳐집니다.)
 ```
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 위 예시에선 배열을 대상으로 어떻게 전개 연산자가 동작하는지 보여줬는데 배열이 아니더라도 이터러블이라면 전개 연산자를 사용할 수 있습니다.
 
 아래 예시에선 전개 연산자를 사용해 문자열을 문자 배열로 변환 시켜 보았습니다.
+=======
+In the examples above we used an array to demonstrate the spread syntax, but any iterable will do.
+
+For instance, here we use the spread syntax to turn the string into array of characters:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 ```js run
 let str = "Hello";
@@ -202,7 +228,11 @@ let str = "Hello";
 alert( [...str] ); // H,e,l,l,o
 ```
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 전개 연산자는 내부에서 iterator(반복자)를 사용해 요소를 수집합니다. `for..of`와 같은 방식으로 말이죠.
+=======
+The spread syntax internally uses iterators to gather elements, the same way as `for..of` does.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 문자열에 `for..of`를 사용하면 문자열을 구성하는 문자를 반환하는 것 같이, `...str`도 `"H","e","l","l","o"`가 되고, 이 문자 리스트는 `[...str]`의 배열 초기자(array initializer)로 전달됩니다.
 
@@ -219,25 +249,44 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 그런데 `Array.from (obj)`과 `[... obj]`에는 아래와 같은 미묘한 차이가 있습니다.
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 - `Array.from` 은 유사 배열 객체와 반복 가능한 객체 둘 다에 사용할 수 있습니다.
 - 전개 연산자는 이터러블에만 사용할 수 있습니다.
+=======
+- `Array.from` operates on both array-likes and iterables.
+- The spread syntax works only with iterables.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 이런 이유때문에 무언가를 배열로 바꿀 때는 `Array.from`이 전개 연산자보다 보편적으로 사용되는 편입니다.
 
 
 ## 요약
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 `"..."`는 나머지 매개변수나 전개 연산자로 사용됩니다.
+=======
+When we see `"..."` in the code, it is either rest parameters or the spread syntax.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 나머지 매개변수와 전개 연산자는 아래의 방법으로 구분할 수 있습니다.
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 - `...`이 함수 매개변수의 끝에 있으면 인수 목록의 나머지를 배열로 모아주는 "나머지 매개변수"입니다.
 - `...`이 함수 호출 시 사용되면 배열을 목록으로 확장해주는 "전개 연산자"입니다.
+=======
+- When `...` is at the end of function parameters, it's "rest parameters" and gathers the rest of the list of arguments into an array.
+- When `...` occurs in a function call or alike, it's called a "spread syntax" and expands an array into a list.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 사용 패턴:
 
+<<<<<<< HEAD:1-js/06-advanced-functions/02-rest-parameters-spread-operator/article.md
 - 인수 개수에 제한이 없는 함수를 만들 때 나머지 매개변수를 사용합니다.
 - 많은 수의 인수를 받는 함수에 배열을 전달할 때 전개 연산자를 사용합니다.
+=======
+- Rest parameters are used to create functions that accept any number of arguments.
+- The spread syntax is used to pass an array to functions that normally require a list of many arguments.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a:1-js/06-advanced-functions/02-rest-parameters-spread/article.md
 
 둘을 함께 사용하면 매개변수 목록과 배열 간 전환을 쉽게 할 수 있습니다.
 

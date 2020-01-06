@@ -2,10 +2,19 @@
 
 # 콜백 입문
 
+<<<<<<< HEAD
 ```warn header="브라우저 메서드를 사용합니다."
 콜백, 프라미스 등을 을 어떻게 사용하는지 보여드리기 본 챕터에선 브라우저 전용 메서드를 사용할 예정입니다. 스크립트를 불러오고 완성된 문서에 간단한 조작을 하는 예시에서 특히 이 메서드들을 사용하도록 하겠습니다.
 
 이 메서드들이 익숙하지 않아 예시가 잘 이해되지 않거나 예시를 더 잘 이해하고 싶다면 [문서 객체 모델](/document)의 챕터 몇 개를 읽어보시기 바랍니다. 
+=======
+```warn header="We use browser methods in examples here"
+To demonstrate the use of callbacks, promises and other abstract concepts, we'll be using some browser methods: specifically, loading scripts and performing simple document manipulations.
+
+If you're not familiar with these methods, and their usage in the examples is confusing, you may want to read a few chapters from the [next part](/document) of the tutorial.
+
+Although, we'll try to make things clear anyway. There won't be anything really complex browser-wise.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 ```
 
 자바스크립트 내 동작 상당수는 *비동기(asynchronous)* 로 처리됩니다. 이는 지금 당장 동작을 시작해도 동작이 끝나는 시점은 나중이라는 것을 의미합니다.
@@ -18,13 +27,19 @@
 
 ```js
 function loadScript(src) {
+  // creates a <script> tag and append it to the page
+  // this causes the script with given src to start loading and run when complete
   let script = document.createElement('script');
   script.src = src;
   document.head.append(script);
 }
 ```
 
+<<<<<<< HEAD
 위 함수는 `<script src="…">`를 동적으로 만들고 이를 문서에 추가합니다. 브라우저는 이 태그를 읽고 실행합니다.
+=======
+It appends to the document the new, dynamically created, tag `<script src="…">` with given `src`. The browser automatically starts loading it and executes when complete.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 함수 사용법은 다음과 같습니다.
 
@@ -33,9 +48,15 @@ function loadScript(src) {
 loadScript('/my/script.js');
 ```
 
+<<<<<<< HEAD
 스크립트 읽기가 지금 당장 시작되더라도 실행은 함수가 종료되고 난 후에야 실행되므로 스크립트는 '비동기적으로' 실행되었다고 할 수 있습니다.
 
 `loadScript(…)` 아래에 코드가 있더라도 이 코드들은 스크립트 로딩이 종료되는 걸 기다리지 않습니다.
+=======
+The script is executed "asynchronously", as it starts loading now, but runs later, when the function has already finished.
+
+If there's any code below `loadScript(…)`, it doesn't wait until the script loading finishes.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 ```js
 loadScript('/my/script.js');
@@ -97,8 +118,13 @@ function loadScript(src, callback) {
 
 *!*
 loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
+<<<<<<< HEAD
   alert(`${script.src}가 로드되었습니다.`);
   alert( _ ); // 스크립트에 정의된 함수
+=======
+  alert(`Cool, the script ${script.src} is loaded`);
+  alert( _ ); // function declared in the loaded script
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 });
 */!*
 ```
@@ -155,7 +181,7 @@ loadScript('/my/script.js', function(script) {
 
 아래 `loadScript`는 로딩 에러를 추적할 수 있습니다.
 
-```js run
+```js
 function loadScript(src, callback) {
   let script = document.createElement('script');
   script.src = src;
@@ -229,7 +255,11 @@ loadScript('1.js', function(error, script) {
 2. `2.js`를 로드합니다, 그 후 에러가 없으면,
 3. `3.js`를 로드합니다, 그 후 에러가 없으면 `(*)`로 표시한 줄에서 또 다른 작업을 수행합니다.
 
+<<<<<<< HEAD
 호출이 계속 중첩되면서 코드가 깊어지고 있습니다. 본문 중간중간 `...`로 표시한 곳에 반복문과 조건문이 있는 코드가 실제로 들어가면 관리는 특히나 더 힘들어질 겁니다.
+=======
+As calls become more nested, the code becomes deeper and increasingly more difficult to manage, especially if we have real code instead of `...` that may include more loops, conditional statements and so on.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 이를 '콜백 지옥(callback hell)' 혹는 '멸망의 피라미드(pyramid of doom)'라고 부릅니다.
 
@@ -299,7 +329,11 @@ function step3(error, script) {
 
 이렇게 작성해도 문제는 없습니다만, 코드가 찢어진 종잇조각 같아 보이네요. 읽는 것도 어렵습니다. 눈을 이리저리 움직이며 코드를 읽어야 하죠. 코드에 익숙지 않아 눈을 어디로 옮겨야 할지 모르면 더욱더 불편합니다. 
 
+<<<<<<< HEAD
 `step*`이라고 명명한 함수들은 '멸망의 피라미드'를 피하려는 용도만으로 만들었기 때문에 재사용도 할 수 없습니다. 연쇄 동작이 이뤄지는 코드 밖에선 아무도 이 함수를 재활용하지 않을 겁니다. 네임스페이스가 약간 복잡해졌습니다(namespace cluttering).
+=======
+Also, the functions named `step*` are all of single use, they are created only to avoid the "pyramid of doom." No one is going to reuse them outside of the action chain. So there's a bit of namespace cluttering here.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 더 나은 무언가가 필요한 상황입니다.
 

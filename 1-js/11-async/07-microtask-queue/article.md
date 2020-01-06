@@ -30,17 +30,29 @@ alert("코드 종료"); // 이 얼럿 창이 가장 먼저 나타납니다.
 - 마이크로태스크 큐는 먼저 들어온 작업을 먼저 실행합니다(FIFO, first-in-first-out).
 - 실행할 것이 아무것도 남아있지 않을 때만 큐에 있는 작업이 실행되기 시작합니다.
 
+<<<<<<< HEAD
 요약하자면, 어떤 프라미스가 준비되었을 때, 이 프라미스의 `.then/catch/finally` 핸들러가 큐에 들어간다고 생각하시면 됩니다. 이때 핸들러들은 여전히 실행되지 않습니다. 현재 코드에서 자유로운 상태가 되었을 때에서야 자바스크립트 엔진은 큐에서 작업을 꺼내 실행합니다.
+=======
+Or, to say that simply, when a promise is ready, its `.then/catch/finally` handlers are put into the queue. They are not executed yet. When the JavaScript engine becomes free from the current code, it takes a task from the queue and executes it.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 위 예시에서 '코드 종료'가 먼저 출력되는 이유가 여기에 있습니다.
 
 ![](promiseQueue.svg)
 
+<<<<<<< HEAD
 프라미스 핸들러는 항상 내부 큐를 통과하게 됩니다.
+=======
+Promise handlers always go through this internal queue.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 `.then/catch/finally`가 여러 개 있어서 체인이 만들어진 경우엔 모든 핸들러가 각각 비동기로 실행됩니다. 각 핸들러는 먼저 큐에 들어갔다가 현재 코드가 완료되고, 큐에 있는 이전 핸들러의 실행이 완료되었을 때 실행됩니다.
 
+<<<<<<< HEAD
 **그런데 실행 순서가 중요해서 `코드 종료`를 `프라미스 성공!`보다 나중에 출력되게 하려면 어떻게 해야 할까요?** 
+=======
+**What if the order matters for us? How can we make `code finished` run after `promise done`?**
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 방법은 아주 쉽습니다. `.then`을 사용해 큐에 넣으면 됩니다.
 
@@ -54,9 +66,15 @@ Promise.resolve()
 
 ## 처리되지 못한 거부
 
+<<<<<<< HEAD
 이전 챕터,  <info:promise-error-handling>에서 학습한 `unhandledrejection` 이벤트를 기억하고 계시나요?
 
 이제 자바스크립트 엔진이 어떻게 처리되지 못한 거부(unhandled rejection)를 찾는지 정확히 알 수 있습니다. 
+=======
+Remember the `unhandledrejection` event from the chapter <info:promise-error-handling>?
+
+Now we can see exactly how JavaScript finds out that there was an unhandled rejection.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 **'처리되지 못한 거부'는 마이크로태스크 큐 끝에서 프라미스 에러가 처리되지 못할 때 발생합니다.**
 
@@ -93,9 +111,15 @@ setTimeout(() => promise.catch(err => alert('잡았다!')), 1000);
 window.addEventListener('unhandledrejection', event => alert(event.reason));
 ```
 
+<<<<<<< HEAD
 예시를 실행하면 `프라미스 실패!`가 먼저, `잡았다!`가 나중에 출력되는 걸 확인할 수 있습니다. 
 
 마이크로태스크 큐에 대해 몰랐다면 "에러를 잡았는데도 왜 `unhandledrejection` 핸들러가 실행되는 거지?"라는 의문을 가졌을 겁니다.
+=======
+Now, if you run it, we'll see `Promise Failed!` first and then `caught`. 
+
+If we didn't know about the microtasks queue, we could wonder: "Why did `unhandledrejection` handler run? We did catch the error!".
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 이제 우리는 마이크로태스크 큐에 있는 작업 모두가 완료되었을 때 `unhandledrejection`이 실행된다는 것을 알기 때문에 이런 의문을 품지 않을 겁니다. 엔진은 프라미스를 검사하고 이 중 하나라도 '거부(rejected)' 상태이면 `unhandledrejection` 핸들러를 트리거 하기 때문입니다. 
 
@@ -109,4 +133,8 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 어떤 코드 조각을 `.then/catch/finally`가 호출된 이후에 실행하고 싶다면 `.then`을 체인에 추가하고 이 안에 코드 조각을 넣으면 됩니다.
 
+<<<<<<< HEAD
 브라우저와 Node.js를 포함하는 대부분의 자바스크립트 엔진에선, 마이크로태스크가 '이벤트 루프(event loop)'와 '매크로태스크(macrotask)'와 깊은 연관 관계를 맺습니다. 이 둘은 프라미스와는 직접적인 연관성이 없기 때문에, <info:event-loop> 챕터에서 따로 다루도록 하겠습니다.
+=======
+In most JavaScript engines, including browsers and Node.js, the concept of microtasks is closely tied with "event loop" and "macrotasks". As these have no direct relation to promises, they are covered in another part of the tutorial, in the chapter <info:event-loop>.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a

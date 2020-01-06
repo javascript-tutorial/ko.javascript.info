@@ -42,7 +42,11 @@ alert("some code");
 ```warn header="`use strict`를 취소할 방법은 없습니다."
 자바스크립트 엔진을 이전 방식으로 되돌리는 `"no use strict"`같은 지시자는 존재하지 않습니다.
 
+<<<<<<< HEAD
 일단 엄격 모드가 적용되면 돌이킬 방법은 없습니다.
+=======
+Once we enter strict mode, there's no going back.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 ```
 
 ## 브라우저 콘솔

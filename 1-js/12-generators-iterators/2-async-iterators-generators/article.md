@@ -9,7 +9,11 @@
 
 비동기 이터레이터는 일반 이터레이터와 유사하며, 약간의 문법적인 차이가 있습니다.
 
+<<<<<<< HEAD
 <info:iterable> 챕터에서 살펴본 바와 같이 '일반' 이터러블은 객체입니다.
+=======
+A "regular" iterable object, as described in the chapter <info:iterable>, looks like this:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 ```js run
 let range = {
@@ -80,7 +84,11 @@ let range = {
 */!*
 
 *!*
+<<<<<<< HEAD
         // 비동기로 무언가를 하기 위해 await를 사용할 수 있습니다.
+=======
+        // can use await inside, do async stuff:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
 */!*
 
@@ -120,11 +128,18 @@ let range = {
 | `next()`가 반환하는 값              | 모든 값         | `Promise`  |
 | 반복 작업을 위해 사용하는 반복문                          | `for..of`         | `for await..of` |
 
+<<<<<<< HEAD
 
 ````warn header="전개 연산자 `...`은 비동기적으로 동작하지 않습니다."
 일반적인 동기 이터레이터가 필요한 기능은 비동기 이터레이터와 함께 사용할 수 없습니다.
 
 전개 연산자는 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
+=======
+````warn header="The spread syntax `...` doesn't work asynchronously"
+Features that require regular, synchronous iterators, don't work with asynchronous ones.
+
+For instance, a spread syntax won't work:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 ```js
 alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```
@@ -269,7 +284,11 @@ let range = {
 
 상당히 많은 온라인 서비스가 페이지네이션(pagination)을 구현해 데이터를 전송합니다. 사용자 목록이 필요해서 서버에 요청을 보내면, 서버는 일정 숫자(예를 들어 100명의 사용자) 단위로 사용자를 끊어 정보를 '한 페이지'로 구성한 후, 다음 페이지를 볼 수 있는 URL과 함께 응답합니다.
 
+<<<<<<< HEAD
 이런 패턴은 사용자 목록 전송뿐만 아니라, 다양한 서비스에서 찾아볼 수 있습니다. GitHub에서 커밋 이력을 볼 때도 페이지네이션이 사용됩니다.
+=======
+This pattern is very common. It's not about users, but just about anything. For instance, GitHub allows to retrieve commits in the same, paginated fashion:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 - 클라이언트는 `https://api.github.com/repos/<repo>/commits` 형태의 URL로 요청을 보냅니다.
 - GitHub에선 커밋 30개의 정보가 담긴 JSON과 함께, 다음 페이지에 대한 정보를 `Link` 헤더에 담아 응답합니다.
@@ -285,7 +304,11 @@ for await (let commit of fetchCommits(repo)) {
 }
 ```
 
+<<<<<<< HEAD
 필요할 때마다 요청을 보내 커밋 정보를 가져오는 함수 `fetchCommits(repo)`를 만들어 API를 구성하도록 하겠습니다. `fetchCommits(repo)`에서 페이지네이션 관련 일들을 모두 처리하도록 하면 원하는 대로 `for await..of`에서 각 커밋을 처리할 수 있을 겁니다.
+=======
+We'd like to make a function `fetchCommits(repo)` that gets commits for us, making requests whenever needed. And let it care about all pagination stuff. For us it'll be a simple `for await..of`.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 async 제너레이터를 이용하면 쉽게 함수를 구현할 수 있습니다.
 

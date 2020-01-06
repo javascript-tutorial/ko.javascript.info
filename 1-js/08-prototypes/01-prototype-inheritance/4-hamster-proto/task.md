@@ -2,11 +2,19 @@ importance: 5
 
 ---
 
+<<<<<<< HEAD
 # 왜 햄스터 두 마리의 배가 꽉 찰까요?
+=======
+# Why are both hamsters full?
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 두 마리의 햄스터가 있습니다. 일반적인 `hamster` 객체로부터 상속받은 `speedy`와 `lazy` 입니다.
 
+<<<<<<< HEAD
 둘 중 한 마리에게 먹이를 줬을 때, 다른 한 마리도 배가 꽉 찹니다. 왜 그럴까요? 어떻게 고칠까요?
+=======
+When we feed one of them, the other one is also full. Why? How can we fix it?
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 ```js run
 let hamster = {

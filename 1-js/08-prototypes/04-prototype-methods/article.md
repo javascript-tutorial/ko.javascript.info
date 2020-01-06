@@ -65,9 +65,15 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 ## 간략한 역사
 
+<<<<<<< HEAD
 `[[Prototype]]`을 다루기 위한 방법은 아주 많습니다! 같은 것을 하기 위한 여러 방법이 있는 것입니다!
 
 왜 그럴까요?
+=======
+If we count all the ways to manage `[[Prototype]]`, there are a lot! Many ways to do the same!
+
+Why?
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 역사적인 이유가 있습니다.
 
@@ -79,10 +85,17 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 왜 `__proto__`를 함수 `getPrototypeOf/setPrototypeOf`로 대체했을까요? 흥미로운 질문입니다. 이 질문에 대한 답은 `__proto__`가 왜 나쁜지 이해하면 얻을 수 있습니다. 답을 얻기 위해 계속 읽어 봅시다.
 
+<<<<<<< HEAD
 ```warn header="속도가 중요하다면 이미 존재하는 객체의 `[[Prototype]]`을 바꾸지 마세요."
 기술적으로는 `[[Prototype]]`을 언제든지 get/set할 수 있습니다. 하지만 일반적으로 생성 시점에만 `[[Prototype]]`을 설정하고 이후엔 수정하지 않습니다. `rabbit`은 `animal`을 상속하고 그 사실은 변하지 않습니다.
 
 자바스크립트 엔진은 이를 토대로 최적화되어 있습니다. `Object.setPrototypeOf`나 `obj.__proto__=`를 써서 프로토타입을 그때그때 바꾸는 것은 매우 느립니다. 객체의 프로퍼티에 접근하는 동작의 최적화를 깨기 때문입니다. 그러므로 `[[Prototype]]`을 바꾸는 것이 어떤 결과를 초래할지 확실히 알거나 자바스크립트의 속도가 전혀 중요하지 않은 경우가 아니라면 `[[Prototype]]`을 바꾸지 마세요.
+=======
+```warn header="Don't change `[[Prototype]]` on existing objects if speed matters"
+Technically, we can get/set `[[Prototype]]` at any time. But usually we only set it once at the object creation time and don't modify it anymore: `rabbit` inherits from `animal`, and that is not going to change.
+
+And JavaScript engines are highly optimized for this. Changing a prototype "on-the-fly" with `Object.setPrototypeOf` or `obj.__proto__=` is a very slow operation as it breaks internal optimizations for object property access operations. So avoid it unless you know what you're doing, or JavaScript speed totally doesn't matter for you.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 ```
 
 ## '매우 단순한' 객체 [#very-plain]
@@ -102,25 +115,45 @@ obj[key] = "some value";
 alert(obj[key]); // "some value"가 아니라 [object Object]입니다!
 ```
 
+<<<<<<< HEAD
 여기서 사용자가 `__proto__`를 입력하면 할당이 되지 않습니다.
 
 사실 놀랄 일은 아닙니다. `__proto__` 프로퍼티는 특별하기 때문입니다. `__proto__`는 항상 객체이거나 `null`이어야 합니다. 문자열 타입은 프로토타입으로 사용할 수 없습니다.
+=======
+Here, if the user types in `__proto__`, the assignment is ignored!
+
+That shouldn't surprise us. The `__proto__` property is special: it must be either an object or `null`. A string can not become a prototype.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 하지만 *의도치 않게* 그런 식으로 구현할 수 있습니다. 그렇죠? 키/값 쌍을 저장하려는데 키의 이름이 `"__proto__"`이면 제대로 저장되지 않습니다. 그러니 이건 버그가 맞습니다.
 
+<<<<<<< HEAD
 여기선 그 결과가 그리 치명적이진 않습니다. 그렇지만 객체를 값으로 할당하는 경우엔 프로토타입이 정말 바뀔 수 있습니다. 그렇게 되면 완전히 기대하지 않은 것이 실행될 수 있습니다.
+=======
+Here the consequences are not terrible. But in other cases we may be assigning object values, and then the prototype may indeed be changed. As a result, the execution will go wrong in totally unexpected ways.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 설상가상으로 개발자들은 대게 프로토타입이 바뀔 가능성을 전혀 생각하지 않습니다. 그래서 프로토타입이 바뀐 것은 눈치채기도 힘들고, 서버 사이드에서 자바스크립트를 사용중일 땐 심지어 취약점이 되기도 합니다.
 
 이런 기대하지 않은 동작은 원래 함수인 `toString`이나 다른 내장 메서드에 할당을 할 때도 일어날 수 있습니다.
 
+<<<<<<< HEAD
 이 문제를 어떻게 피할 수 있을까요?
+=======
+How can we avoid this problem?
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 우선 `맵`을 사용하면 모든 것이 해결됩니다.
 
+<<<<<<< HEAD
 하지만 `객체`를 써도 괜찮습니다. 언어를 만든 사람들이 오래전에 이 문제를 고려했기 때문입니다.
 
 `__proto__`는 객체의 프로퍼티가 아니라 `Object.prototype`의 접근자입니다.
+=======
+But `Object` can also serve us well here, because language creators gave thought to that problem long ago.
+
+`__proto__` is not a property of an object, but an accessor property of `Object.prototype`:
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 ![](object-prototype-2.svg)
 
@@ -147,7 +180,11 @@ alert(obj[key]); // "some value"
 
 그러므로 `__proto__` getter/setter를 상속하지 않습니다. 이제 `"__proto__"`는 일반적인 데이터 프로퍼티로 처리되므로 위의 예제는 잘 동작하게 됩니다.
 
+<<<<<<< HEAD
 이런 객체를 '매우 단순한(very plain)' 객체 혹은 '순수 사전식 객체(pure dictionary objects)'라고 부릅니다. 일반적으로 많이 사용하는 단순한 객체 `{...}` 보다 훨씬 단순하기 때문이죠.
+=======
+We can call such objects "very plain" or "pure dictionary" objects, because they are even simpler than the regular plain object `{...}`.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 이 방식의 단점은 이런 객체들은 내장 객체 메서드가 없다는 것입니다. `toString`을 예로 들 수 있습니다.
 
@@ -174,6 +211,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 ## 요약
 
+<<<<<<< HEAD
 프로토타입을 설정하고 프로토타입에 접근하기 위한 모던한 방식은 다음과 같습니다.
 
 - [Object.create(proto[, descriptors])](mdn:js/Object/create) -- 인자로 넘긴 `proto`를 `[[Prototype]]`으로 하는 객체를 만듭니다(`null`일 수 있습니다). 선택적으로 설명자를 넘길 수도 있습니다.
@@ -181,6 +219,15 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- `obj`의 `[[Prototype]]`을 `proto`로 설정합니다(`__proto__` setter와 같습니다).
 
 사용자가 만든 키를 객체에 저장할 때, 내장 `__proto__` getter/setter는 안전하지 않습니다. 사용자가 `"__proto__"`를 키로 입력할 수도 있기 때문에 에러가 생길 수 있습니다. 단순한 에러면 좋겠지만 보통 예측 불가능한 결과가 생깁니다.
+=======
+Modern methods to set up and directly access the prototype are:
+
+- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+
+The built-in `__proto__` getter/setter is unsafe if we'd want to put user-generated keys into an object. Just because a user may enter `"__proto__"` as the key, and there'll be an error, with hopefully light, but generally unpredictable consequences.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 그러므로 이럴 땐 `Object.create(null)`을 사용해 `__proto__`가 없는 '매우 단순한 객체'를 만들거나, `맵` 객체를 일관되게 사용하는 것이 좋습니다.
 
@@ -196,6 +243,7 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 살펴볼 만한 다른 메서드들은 다음과 같습니다.
 
+<<<<<<< HEAD
 - [Object.keys(obj)](mdn:js/Object/keys) / [Object.values(obj)](mdn:js/Object/values) / [Object.entries(obj)](mdn:js/Object/entries) -- 객체가 소유한 열거가능한 프로퍼티의 이름/값/키-값 배열을 반환합니다.
 - [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) -- 객체가 소유한 심볼 키의 배열을 반환합니다.
 - [Object.getOwnPropertyNames(obj)](mdn:js/Object/getOwnPropertyNames) -- 객체가 소유한 모든 문자열 키의 배열을 반환합니다.
@@ -203,3 +251,12 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 - [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): `obj`가 소유한(상속하지 않은) 키 중 이름이 `key`인 것이 있으면 `true`를 반환합니다.
 
 객체의 프로퍼티를 반환하는 모든 메서드(`Object.keys` 등) 은 '객체가 소유한' 프로퍼티만 반환합니다. 상속한 프로퍼티는 `for..in`를 사용해 얻을 수 있습니다.
+=======
+- [Object.keys(obj)](mdn:js/Object/keys) / [Object.values(obj)](mdn:js/Object/values) / [Object.entries(obj)](mdn:js/Object/entries) -- returns an array of enumerable own string property names/values/key-value pairs.
+- [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) -- returns an array of all own symbolic keys.
+- [Object.getOwnPropertyNames(obj)](mdn:js/Object/getOwnPropertyNames) -- returns an array of all own string keys.
+- [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) -- returns an array of all own keys.
+- [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty): returns `true` if `obj` has its own (not inherited) key named `key`.
+
+All methods that return object properties (like `Object.keys` and others) -- return "own" properties. If we want inherited ones, we can use `for..in`.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a

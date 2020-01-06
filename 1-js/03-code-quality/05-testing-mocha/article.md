@@ -159,8 +159,13 @@ function pow(x, n) {
         assert.equal(pow(2, 3), 8);
       });
 
+<<<<<<< HEAD
       it("3을 세 번 곱하면 27입니다.", function() {
         assert.equal(pow(3, 3), 27);
+=======
+      it("3 raised to power 4 is 81", function() {
+        assert.equal(pow(3, 4), 81);
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
       });
 
     });
@@ -182,7 +187,11 @@ function pow(x, n) {
 
 [iframe height=250 src="pow-2" edit border="1"]
 
+<<<<<<< HEAD
 두 번째 테스트가 실패했네요. `assert`에선 함수 리턴값이 `27`이 될 것이라 기대하고 있었는데, 함수는 항상 `8`을 반환하고 있기 때문에 당연히 테스트를 통과할 수 없습니다.
+=======
+As we could expect, the second test failed. Sure, our function always returns `8`, while the `assert` expects `81`.
+>>>>>>> 14e4e9f96bcc2bddc507f409eb4716ced897f91a
 
 ## 코드 개선하기
 
