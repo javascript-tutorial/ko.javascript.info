@@ -61,7 +61,7 @@ let group = {
 group.showList();
 ```
 
-이 에러가 나는 이유는 `forEach`의 함수에서 사용하는 `this`가 기본적으로는  `undefined`이기 때문입니다. 이것을 풀어 써보면, `undefinde.title`이므로, `undefinde`에 접근을 시도합니다.
+이 에러가 나는 이유는 `forEach`의 함수에서 사용하는 `this`가 기본적으로는  `undefined`이기 때문입니다. 이것을 풀어 써보면, `undefined.title`이므로, `undefined`에 접근을 시도합니다.
 
 화살표 함수는 `this` 가 없을 뿐만 아니라, `this`로 화살표 함수 기능에 영향을 줄 수도 없습니다.
 
