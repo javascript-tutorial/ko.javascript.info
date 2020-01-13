@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# What's in the nodeType?
+# 노드 타입 맞추기
 
-What does the script show?
+스크립트를 실행 결과를 예측해보세요.
 
 ```html
 <html>

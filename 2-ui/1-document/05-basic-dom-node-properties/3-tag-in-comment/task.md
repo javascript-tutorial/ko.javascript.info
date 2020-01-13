@@ -2,9 +2,9 @@ importance: 3
 
 ---
 
-# ÁÖ¼® ¾ÈÀÇ ÅÂ±×
+# ì£¼ì„ ì•ˆì˜ íƒœê·¸
 
-½ºÅ©¸³Æ®¸¦ ½ÇÇà °á°ú¸¦ ¿¹ÃøÇØº¸¼¼¿ä.
+ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‹¤í–‰ ê²°ê³¼ë¥¼ ì˜ˆì¸¡í•´ë³´ì„¸ìš”.
 
 ```html
 <script>
@@ -12,6 +12,6 @@ importance: 3
 
   body.innerHTML = "<!--" + body.tagName + "-->";
 
-  alert( body.firstChild.data ); // ¾ó·µ Ã¢¿£ ¾î¶² ³»¿ëÀÌ Ãâ·ÂµÉ±î¿ä?
+  alert( body.firstChild.data ); // ì–¼ëŸ¿ ì°½ì—” ì–´ë–¤ ë‚´ìš©ì´ ì¶œë ¥ë ê¹Œìš”?
 </script>
 ```
