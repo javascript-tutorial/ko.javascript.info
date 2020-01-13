@@ -3,7 +3,11 @@
 
 프로퍼티는 두 종류로 나뉩니다.
 
+<<<<<<< HEAD
 첫 번째 종류는 *데이터 프로퍼티(data property)* 입니다. 지금까지 사용한 모든 프로퍼티는 데이터 프로퍼티입니다. 데이터 프로퍼티 조작 방법에 대해선 모두 알고 계실 것이라 생각합니다.
+=======
+The first kind is *data properties*. We already know how to work with them. All properties that we've been using until now were data properties.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 두 번째는 *접근자 프로퍼티(accessor property)* 라 불리는 새로운 종류의 프로퍼티입니다. 접근자 프로퍼티의 본질은 함수인데, 이 함수는 값을 획득(get)하고 설정(set)하는 역할을 담당합니다. 그런데 외부 코드에서는 함수가 아닌 일반적인 프로퍼티처럼 보입니다.
 
@@ -94,11 +98,15 @@ alert(user.name); // Alice
 alert(user.surname); // Cooper
 ```
 
+<<<<<<< HEAD
 이렇게 getter와 setter 메서드를 구현하면 객체엔 `fullName`이라는 '가상'의 프로퍼티가 생깁니다. 가상의 프로퍼티는 읽고 쓸 순 있지만 실제로는 존재하지 않습니다.
 
 ```smart header="`delete` 메서드는 없습니다."
 접근자 프로퍼티를 삭제해 주는 메서드는 존재하지 않습니다. 접근자 프로퍼티엔 오직 getter/setter 메서드만 사용할 수 있습니다.
 ```
+=======
+As the result, we have a "virtual" property `fullName`. It is readable and writable.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 ## 접근자 프로퍼티 설명자
 
@@ -189,9 +197,15 @@ user.name = ""; // 너무 짧은 이름을 할당하려 함
 
 ## 호환성을 위해 사용하기 
 
+<<<<<<< HEAD
  접근자 프로퍼티는 언제 어느 때나 getter와 setter를 사용해 데이터 프로퍼티의 행동과 값을 원하는 대로 조정할 수 있게 해준다는 점에서 유용합니다.
 
 데이터 프로퍼티 `name`과 `age`를 사용해서 사용자를 나타내는 객체를 구현한다고 가정해봅시다.
+=======
+One of the great uses of accessors is that they allow to take control over a "regular" data property at any moment by replacing it with a getter and a setter and tweak its behavior.
+
+Imagine we started implementing user objects using data properties `name` and `age`:
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 ```js
 function User(name, age) {

@@ -1,14 +1,18 @@
 # 패턴과 플래그
 
-Regular expressions is a powerful way to search and replace in text.
+Regular expressions are patterns that provide a powerful way to search and replace in text.
 
-In JavaScript, they are available as [RegExp](mdn:js/RegExp) object, and also integrated in methods of strings.
+In JavaScript, they are available via the [RegExp](mdn:js/RegExp) object, as well as being integrated in methods of strings.
 
 ## 정규 표현식
 
 정규 표현식("regexp" 또는 그냥 "reg"라고도 합니다)은 *패턴*과 선택적인 *플래그*로 구성됩니다
 
+<<<<<<< HEAD
 정규식 객체를 만드는 데에는 두 가지 문법이 있습니다.
+=======
+There are two syntaxes that can be used to create a regular expression object.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 긴 문법입니다.
 
@@ -16,7 +20,11 @@ In JavaScript, they are available as [RegExp](mdn:js/RegExp) object, and also in
 regexp = new RegExp("pattern", "flags");
 ```
 
+<<<<<<< HEAD
 그리고 짧게는, 슬래시 `"/"`를 사용합니다.
+=======
+And the "short" one, using slashes `"/"`:
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 ```js
 regexp = /pattern/; // 플래그 없음
@@ -25,11 +33,11 @@ regexp = /pattern/gmi; // 플래그 g, m, i가 있는 경우 (곧 다룰 예정)
 
 슬래시`"/"`는 자바스크립트에 정규 표현식을 생성하고 있다는 것을 알려줍니다. 문자열에 따옴표를 쓰는 것과 동일한 역할을 합니다.
 
-In both cases `regexp` becomes an object of the built-in `RegExp` class.
+In both cases `regexp` becomes an instance of the built-in `RegExp` class.
 
-The main difference between these two syntaxes is that slashes `pattern:/.../` do not allow to insert expressions (like strings with `${...}`). They are fully static.
+The main difference between these two syntaxes is that pattern using slashes `/.../` does not allow for expressions to be inserted (like string template literals with `${...}`). They are fully static.
 
-Slashes are used when we know the regular expression at the code writing time -- and that's the most common situation. While `new RegExp` is used when we need to create a regexp "on the fly", from a dynamically generated string, for instance:
+Slashes are used when we know the regular expression at the code writing time -- and that's the most common situation. While `new RegExp`, is more often used when we need to create a regexp "on the fly" from a dynamically generated string. For instance:
 
 ```js
 let tag = prompt("What tag do you want to find?", "h2");
@@ -47,7 +55,11 @@ let regexp = new RegExp(`<${tag}>`); // same as /<h2>/ if answered "h2" in the p
 : 이 플래그를 사용하면 대소문자 구분 없이 검색합니다. `A`와 `a`는 차이가 없습니다(아래 예 참조).
 
 `pattern:g`
+<<<<<<< HEAD
 : 이 플래그를 사용하면 일치하는 처음 항목 뿐만 아니라 일치하는 모든 항목을 검색합니다.
+=======
+: With this flag the search looks for all matches, without it -- only the first match is returned.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 `pattern:m`
 : 다중 행 모드(<info:regexp-multiline-mode> 챕터 참조)
@@ -71,7 +83,7 @@ let regexp = new RegExp(`<${tag}>`); // same as /<h2>/ if answered "h2" in the p
 
 ## Searching: str.match
 
-As it was said previously, regular expressions are integrated with string methods.
+As mentioned previously, regular expressions are integrated with string methods.
 
 The method `str.match(regexp)` finds all matches of `regexp` in the string `str`.
 
@@ -102,7 +114,7 @@ It has 3 working modes:
 
 3. And, finally, if there are no matches, `null` is returned (doesn't matter if there's flag `pattern:g` or not).
 
-    That's a very important nuance. If there are no matches, we get not an empty array, but `null`. Forgetting about that may lead to errors, e.g.:
+    This a very important nuance. If there are no matches, we don't receive an empty array, but instead receive `null`. Forgetting about that may lead to errors, e.g.:
 
     ```js run
     let matches = "JavaScript".match(/HTML/); // = null
@@ -112,7 +124,7 @@ It has 3 working modes:
     }
     ```
 
-    If we'd like the result to be always an array, we can write it this way:
+    If we'd like the result to always be an array, we can write it this way:
 
     ```js run
     let matches = "JavaScript".match(/HTML/)*!* || []*/!*;
@@ -124,7 +136,7 @@ It has 3 working modes:
 
 ## Replacing: str.replace
 
-The method `str.replace(regexp, replacement)` replaces matches with `regexp` in string `str` with `replacement` (all matches, if there's flag `pattern:g`, otherwise only the first one).
+The method `str.replace(regexp, replacement)` replaces matches found using `regexp` in string `str` with `replacement` (all matches if there's flag `pattern:g`, otherwise, only the first one).
 
 For instance:
 
@@ -164,14 +176,14 @@ let regexp = /LOVE/i;
 alert( regexp.test(str) ); // true
 ```
 
-Further in this chapter we'll study more regular expressions, come across many other examples and also meet other methods.
+Later in this chapter we'll study more regular expressions, walk through more examples, and also meet other methods.
 
 Full information about the methods is given in the article <info:regexp-methods>.
 
 ## Summary
 
 - A regular expression consists of a pattern and optional flags: `pattern:g`, `pattern:i`, `pattern:m`, `pattern:u`, `pattern:s`, `pattern:y`.
-- Without flags and special symbols that we'll study later, the search by a regexp is the same as a substring search.
-- The method `str.match(regexp)` looks for matches: all of them if there's `pattern:g` flag, otherwise only the first one.
-- The method `str.replace(regexp, replacement)` replaces matches with `regexp` by `replacement`: all of them if there's `pattern:g` flag, otherwise only the first one.
-- The method `regexp.test(str)` returns `true` if there's at least one match, otherwise `false`.
+- Without flags and special symbols  (that we'll study later), the search by a regexp is the same as a substring search.
+- The method `str.match(regexp)` looks for matches: all of them if there's `pattern:g` flag, otherwise, only the first one.
+- The method `str.replace(regexp, replacement)` replaces matches found using `regexp` with `replacement`: all of them if there's `pattern:g` flag, otherwise only the first one.
+- The method `regexp.test(str)` returns `true` if there's at least one match, otherwise, it returns `false`.

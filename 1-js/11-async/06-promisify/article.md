@@ -1,8 +1,14 @@
 # 프라미스화
 
+<<<<<<< HEAD
 콜백을 받는 함수를 프라미스를 반환하는 함수로 바꾸는 것을 '프라미스화(promisification)'라고 합니다.
 
 콜백보다는 프라미스가 더 편리하기 때문에, 구현을 하다 보면 콜백 기반 함수와 라이브러리를 프라미스를 반환하는 함수로 바꾸는 게 좋은 경우가 종종 생길 겁니다.
+=======
+"Promisification" is a long word for a simple transformation. It's the conversion of a function that accepts a callback into a function that returns a promise.
+
+Such transformations are often required in real-life, as many functions and libraries are callback-based. But promises are more convenient, so it makes sense to promisify them.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 <info:callbacks> 챕터에서 사용했던 `loadScript(src, callback)` 예시를 사용해 프라미스화에 대해 좀 더 자세히 알아봅시다.
 
@@ -21,7 +27,11 @@ function loadScript(src, callback) {
 // loadScript('path/script.js', (err, script) => {...})
 ```
 
+<<<<<<< HEAD
 `loadScript(src, callback)`를 이제 프라미스화해봅시다. 새로운 함수 `loadScriptPromise(src)`는 `loadScript`와 동일하게 동작하지만 `callback`을 제외한 `src`만 인수로 받아야 하고, 프라미스를 반환해야 합니다.
+=======
+Let's promisify it. The new `loadScriptPromise(src)` function achieves the same result, but it accepts only `src` (no `callback`) and returns a promise.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 ```js
 let loadScriptPromise = function(src) {
@@ -41,9 +51,13 @@ let loadScriptPromise = function(src) {
 
 예시에서 볼 수 있듯이, `loadScriptPromise`는 기존 함수 `loadScript`에 모든 일을 위임합니다. `loadScript`의 콜백은 스크립트 로딩 상태에 따라 `이행` 혹은 `거부`상태의 프라미스를 반환합니다. 
 
+<<<<<<< HEAD
 그런데 실무에선 함수 하나가 아닌 여러 개의 함수를 프라미스화 해야 할 겁니다. 헬퍼 함수를 만드는 게 좋을 것 같네요.
 
 프라미스화를 적용 할 함수 `f`를 받고 래퍼 함수를 반환하는 함수 `promisify(f)`를 만들어봅시다.
+=======
+In practice we'll probably need to promisify many functions, so it makes sense to use a helper. We'll call it `promisify(f)`: it accepts a to-promisify function `f` and returns a wrapper function.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 `promisify(f)`가 반환하는 래퍼 함수는 위 예시와 동일하게 동작할 겁니다. 프라미스를 반환하고 호출을 기존 함수 `f`에 전달하여 커스텀 콜백 내의 결과를 추적해야 하죠.
 
@@ -103,7 +117,11 @@ f = promisify(f, true);
 f(...).then(arrayOfResults => ..., err => ...)
 ```
 
+<<<<<<< HEAD
 `callback(result)`같이 `err`이 없는 형태나 지금까지 언급하지 않은 형태의 이색적인 콜백도 있을 수 있는데, 이런 경우엔 헬퍼 함수를 사용하지 않고 직접 프라미스화 하면 됩니다.
+=======
+For more exotic callback formats, like those without `err` at all: `callback(result)`, we can promisify such functions manually without using the helper.
+>>>>>>> a4a84083a7656f2b25de8b766b2457d3aae17874
 
 본 챕터에서 설명한 헬퍼 함수보다 더 유용한 형태의 프라미스화를 도와주는 함수를 제공하는 모둘도 많습니다. [es6-promisify](https://github.com/digitaldesignlabs/es6-promisify)가 대표적인 예입니다. Node.js에선 내장 함수 `util.promisify`를 사용해 프라미스화를 할 수 있습니다.
 
