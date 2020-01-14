@@ -19,7 +19,7 @@ alert(document.constructor.name); // HTMLDocument
 
 `__proto__`를 사용해 프로토타입 체인을 거슬러 올라가 봅시다.
 
-아시다시피 11클래스의 메서드는 생성자의 `prototype`에 구현되어있습니다. `document`의 메서드는 `HTMLDocument.prototype`에 구현되어 있죠.  
+아시다시피 클래스의 메서드는 생성자의 `prototype`에 구현되어있습니다. `document`의 메서드는 `HTMLDocument.prototype`에 구현되어 있죠.  
 
 여기에 더하여 `prototype` 안에는 생성자 함수의 참조 역시 저장되어 있습니다. 이를 확인해 봅시다.
 
