@@ -1,8 +1,8 @@
 
-# Re-resolve a promise?
+# 두 번 resolve 하기?
 
 
-What's the output of the code below? 
+아래 코드의 실행 결과를 예측해보세요.
 
 ```js
 let promise = new Promise(function(resolve, reject) {
