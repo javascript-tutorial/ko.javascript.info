@@ -2,7 +2,11 @@
 
 `new F()`와 같은 생성자 함수를 이용하면 새로운 객체를 만들 수 있다는 걸 앞서 배운 바 있습니다.
 
+<<<<<<< HEAD
 `F.prototype`이 객체라면 `new` 연산자는 `F.prototype`을 사용해 새롭게 생성된 객체의 [[Prototype]]을 설정합니다.
+=======
+If `F.prototype` is an object, then the `new` operator uses it to set `[[Prototype]]` for the new object.
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 ```smart
 자바스크립트가 처음 만들어졌을 땐 프로토타입 기반 상속이 주요 기능 중 하나였습니다.
@@ -158,11 +162,19 @@ Rabbit.prototype = {
 
 이번 챕터에선 생성자 함수를 이용해 만든 객체에 `[[Prototype]]`을 설정해 주는 방법에 대해 간략히 알아보았습니다. 이 방법을 기반으로 하는 고급 프로그래밍 패턴에 대해선 추후 학습할 예정입니다. 
 
+<<<<<<< HEAD
 몇 가지 사항만 명확하게 이해하고 있으면 지금까지 배운 것들은 복잡하지 않습니다.
 
 - `F.prototype` 프로퍼티(`[[prototype]]`과는 다름)는 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
 - `F.prototype`의 값은 객체나 null만 가능합니다. 다른 값은 무시됩니다.
 - 지금까지 배운 내용은 생성자 함수에 `"prototype"`를 설정하고, 이 생성자 함수를 `new`를 사용해 호출할 때만 적용됩니다.
+=======
+Everything is quite simple, just a few notes to make things clear:
+
+- The `F.prototype` property (don't mistake it for `[[Prototype]]`) sets `[[Prototype]]` of new objects when `new F()` is called.
+- The value of `F.prototype` should be either an object or `null`: other values won't work.
+-  The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 일반 객체에 `"prototype"` 프로퍼티를 사용하면 아무런 일이 일어나지 않습니다.
 ```js

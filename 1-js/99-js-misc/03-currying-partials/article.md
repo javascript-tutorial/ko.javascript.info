@@ -73,7 +73,11 @@ function log(date, importance, message) {
 log = _.curry(log);
 ```
 
+<<<<<<< HEAD
 위와 같이 커링을 적용한 후에도 기존 함수 `log` 는 정상적으로 작동합니다.
+=======
+After that `log` works normally:
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 ```js
 log(new Date(), "DEBUG", "some debug"); // log(a, b, c)

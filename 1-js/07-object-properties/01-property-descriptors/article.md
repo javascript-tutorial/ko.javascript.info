@@ -3,7 +3,11 @@
 
 아시다시피 객체엔 프로퍼티가 저장됩니다.
 
+<<<<<<< HEAD
 지금까진 프로퍼티를 단순히 "키-값" 쌍의 관점에서만 다뤘습니다. 그런데 사실 프로퍼티는 우리가 생각했던 것보다 더 유연하고 강력한 자료구조입니다. 
+=======
+Until now, a property was a simple "key-value" pair to us. But an object property is actually a more flexible and powerful thing.
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 이 챕터에선 객체 프로퍼티 추가 구성 옵션 몇 가지를 다룰것 입니다. 이어지는 챕터에선 이 옵션들을 이용해 손쉽게 getter나 setter 함수를 만드는 법을 알아보겠습니다.
 
@@ -66,7 +70,11 @@ Object.defineProperty(obj, propertyName, descriptor)
 : 설명자를 적용하고 싶은 객체와 객체 프로퍼티
 
 `descriptor`
+<<<<<<< HEAD
 : 적용하고자하는 프로퍼티 설명자
+=======
+: Property descriptor object to apply.
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 `defineProperty`메서드는 객체에 해당 프로퍼티가 있으면 플래그를 원하는 대로 변경해줍니다. 프로퍼티가 없으면 인수로 넘겨받은 정보를 이용해 새로운 프로퍼티를 만듭니다. 이때 플래그 정보가 없으면 플래그 값은 자동으로 `false`가 됩니다. 
 
@@ -132,7 +140,11 @@ let user = { };
 Object.defineProperty(user, "name", {
 *!*
   value: "John",
+<<<<<<< HEAD
   // defineProperty를 사용해 새로운 프로퍼티를 만들 땐, 어떤 플래그를 true로 할지 명시해주어야 합니다.
+=======
+  // for new properties we need to explicitly list what's true
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
   enumerable: true,
   configurable: true
 */!*
@@ -146,7 +158,11 @@ user.name = "Pete"; // Error
 
 `user`에 커스텀 메서드 `toString`을 추가해봅시다.
 
+<<<<<<< HEAD
 객체 내장 메서드 `toString`은 열거가 불가능(non-enumerable)하기 때문에 `for..in` 사용시 나타나지 않습니다. 하지만 커스텀 `toString`을 추가하면 아래와 같이 `for..in`에 `toString`이 나타납니다.
+=======
+Normally, a built-in `toString` for objects is non-enumerable, it does not show up in `for..in`. But if we add a `toString` of our own, then by default it shows up in `for..in`, like this:
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 ```js run
 let user = {
@@ -160,7 +176,11 @@ let user = {
 for (let key in user) alert(key); // name, toString
 ```
 
+<<<<<<< HEAD
 그런데 특정 프로퍼티의 `enumerable` 플래그 값을 `false`로 설정하면 `for..in` 반복문에 나타나지 않게 할 수 있습니다. 커스텀 `toString`도 열거가 불가능하게 할 수 있습니다.
+=======
+If we don't like it, then we can set `enumerable:false`. Then it won't appear in a `for..in` loop, just like the built-in one:
+>>>>>>> db3b3f8e7a08c153ad8fa0ae50633cdf95fa8912
 
 ```js run
 let user = {
