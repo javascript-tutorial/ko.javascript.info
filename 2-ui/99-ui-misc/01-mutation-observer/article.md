@@ -3,7 +3,7 @@
 
 `MutationObserver` is a built-in object that observes a DOM element and fires a callback in case of changes.
 
-We'll first see syntax, and then explore a real-world use case.
+We'll first take a look at the syntax, and then explore a real-world use case, to see where such thing may be useful.
 
 ## Syntax
 
@@ -46,7 +46,7 @@ Then after any changes, the `callback` is executed: changes are passed in the fi
 - `attributeName/attributeNamespace` -- the name/namespace (for XML) of the changed attribute,
 - `oldValue` -- the previous value, only for attribute or text changes, if the corresponding option is set `attributeOldValue`/`characterDataOldValue`.
 
-For example, here's a `<div>` with `contentEditable` attribute. That attribute allows us to focus on it and edit.
+For example, here's a `<div>` with a `contentEditable` attribute. That attribute allows us to focus on it and edit.
 
 ```html run
 <div contentEditable id="elem">Click and <b>edit</b>, please</div>
@@ -65,7 +65,7 @@ observer.observe(elem, {
 </script>
 ```
 
-Now if we change the text inside `<b>edit</b>`, we'll get a single mutation:
+If we run this code in the browser, then focus on the given `<div>` and change the text inside `<b>edit</b>`, `console.log` will show one mutation:
 
 ```js
 mutationRecords = [{
@@ -76,7 +76,7 @@ mutationRecords = [{
 }];
 ```
 
-If we select and remove the `<b>edit</b>` altogether, we'll get multiple mutations:
+If we make more complex editing operations, e.g. remove the `<b>edit</b>`, the mutation event may contain multiple mutation records:
 
 ```js
 mutationRecords = [{
@@ -101,15 +101,15 @@ So, `MutationObserver` allows to react on any changes within DOM subtree.
 
 When such thing may be useful?
 
-Imagine the situation when you attach a third-party script that adds useful functionality on the page, but also does something unwanted, e.g. shows ads `<div class="ads">Unwanted ads</div>`.
+Imagine the situation when you need to add a third-party script that contains useful functionality, but also does something unwanted, e.g. shows ads `<div class="ads">Unwanted ads</div>`.
 
 Naturally, the third-party script provides no mechanisms to remove it.
 
-Using `MutationObserver`, we can detect when such element appears in our DOM and remove it. While leaving the useful functionality intact. Surely though, creators of that script won't be happy that you took their useful stuff and removed the ads.
+Using `MutationObserver`, we can detect when the unwanted element appears in our DOM and remove it.
 
 There are other situations when a third-party script adds something into our document, and we'd like to detect, when it happens, to adapt our page, dynamically resize something etc.
 
-`MutationObserver` can easily handle this.
+`MutationObserver` allows to implement this.
 
 ## Usage for architecture
 
@@ -117,7 +117,7 @@ There are also situations when `MutationObserver` is good from architectural sta
 
 Let's say we're making a website about programming. Naturally, articles and other materials may contain source code snippets.
 
-Such snippet in HTML markup looks like this:
+Such snippet in an HTML markup looks like this:
 
 ```html
 ...
@@ -130,7 +130,7 @@ Such snippet in HTML markup looks like this:
 
 Also we'll use a JavaScript highlighting library on our site, e.g. [Prism.js](https://prismjs.com/). A call to `Prism.highlightElem(pre)` examines the contents of such `pre` elements and adds into them special tags and styles for colored syntax highlighting, similar to what you see in examples here, at this page.
 
-When exactly to run that highlighting method? We can do it on `DOMContentLoaded` event, or at the bottom of the page. At that moment we have DOM ready, can search for elements `pre[class*="language"]` and call `Prism.highlightElem` on them:
+When exactly to run that highlighting method? We can do it on `DOMContentLoaded` event, or at the bottom of the page. At that moment we have our DOM ready, can search for elements `pre[class*="language"]` and call `Prism.highlightElem` on them:
 
 ```js
 // highlight all code snippets on the page
@@ -207,13 +207,13 @@ let demoElem = document.getElementById('highlight-demo');
 observer.observe(demoElem, {childList: true, subtree: true});
 ```
 
-Here's HTML-element and JavaScript that dynamically fills it using `innerHTML`.
+Here, below, there's an HTML-element and JavaScript that dynamically fills it using `innerHTML`.
 
 Please run the previous code (above, observes that element), and then the code below. You'll see how `MutationObserver` detects and highlights the snippet.
 
-<p id="highlight-demo" style="border: 1px solid #ddd">Демо-элемент с <code>id="highlight-demo"</code>, за которым следит код примера выше.</p>
+<p id="highlight-demo" style="border: 1px solid #ddd">A demo-element with <code>id="highlight-demo"</code>, run the code above to observe it.</p>
 
-The code below populates `innerHTML`. Please run the code above first, it will watch and highlight the new content:
+The following code populates its `innerHTML`, that causes the `MutationObserver` to react and highlight its contents:
 
 ```js run
 let demoElem = document.getElementById('highlight-demo');
@@ -236,22 +236,26 @@ There's a method to stop observing the node:
 
 - `observer.disconnect()` -- stops the observation.
 
-Another method often used with it:
+When we stop the observing, it might be possible that some changes were not processed by the observer yet.
 
-- `mutationRecords = observer.takeRecords()` -- gets a list of unprocessed mutation records, those that happened, but the callback did not handle them.
+- `observer.takeRecords()` -- gets a list of unprocessed mutation records, those that happened, but the callback did not handle them.
+
+These methods can be used together, like this:
 
 ```js
 // we'd like to stop tracking changes
 observer.disconnect();
 
-// it might have not yet handled some mutations
+// handle unprocessed some mutations
 let mutationRecords = observer.takeRecords();
-// process mutationRecords
+...
 ```
 
-## Garbage collection
+```smart header="Garbage collection interaction"
+Observers use weak references to nodes internally. That is: if a node is removed from DOM, and becomes unreachable, then it becomes garbage collected.
 
-Observers use weak references to nodes internally. That is: if a node is removed from DOM, and becomes unreachable, then it becomes garbage collected, an observer doesn't prevent that.
+The mere fact that a DOM node is observed doesn't prevent the garbage collection.
+```
 
 ## Summary  
 

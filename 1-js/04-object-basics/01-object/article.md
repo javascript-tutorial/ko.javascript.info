@@ -321,8 +321,13 @@ let key = "age";
 alert( *!*key*/!* in user ); // true, 변수 key에 저장된 값("age")을 사용해 프로퍼티 존재 여부를 확인합니다.
 ```
 
+<<<<<<< HEAD
 ````smart header="값이 `undefined`인 프로퍼티에 'in' 사용하기"
 일치 연산자를 사용해서 프로퍼티 존재 여부를 알아내는 방법(`"=== undefined"`)은 꽤 잘 동작합니다. 이 방법이 실패할 때도 가끔 있는데, 그럴 때는 `in`을 사용하면 프로퍼티 존재 여부를 제대로 판별할 수 있습니다.
+=======
+````smart header="Using \"in\" for properties that store `undefined`"
+Usually, the strict comparison `"=== undefined"` check the property existence just fine. But there's a special case when it fails, but `"in"` works correctly.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 프로퍼티는 존재하는데, 값에 `undefined`를 할당한 예시를 살펴봅시다.
 

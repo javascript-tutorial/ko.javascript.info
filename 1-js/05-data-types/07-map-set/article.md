@@ -41,7 +41,17 @@ alert( map.size ); // 3
 
 맵은 객체와는 달리 키를 문자형으로 변환하지 않습니다. 키엔 자료형 제약이 없습니다.
 
+<<<<<<< HEAD
 **맵에는 객체도 키로 사용할 수 있습니다.**
+=======
+```smart header="`map[key]` isn't the right way to use a `Map`"
+Although `map[key]` also works, e.g. we can set `map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (no object keys and so on).
+
+So we should use `map` methods: `set`, `get` and so on.
+```
+
+**Map can also use objects as keys.**
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 예시:
 

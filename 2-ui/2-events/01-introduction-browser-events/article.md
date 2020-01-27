@@ -148,7 +148,11 @@ elem.onclick = sayThanks;
 
 ## 자주 하는 실수
 
+<<<<<<< HEAD
 이벤트를 다룰 때, 아래의 주의사항을 기억하세요.
+=======
+If you're starting to work with events -- please note some subtleties.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 **함수는 `sayThanks`와 같이 할당해야 합니다. `sayThanks()`과 같이 쓰면 동작하지 않습니다.**
 
@@ -181,7 +185,11 @@ button.onclick = function() {
 
 **문자열(strings)보다는 함수를 쓰세요.**
 
+<<<<<<< HEAD
 `elem.onclick = "alert(1)"`은 잘 작동하긴 합니다(역주: 큰따옴표로 둘러싸인 문자열을 대입). 호환성 때문에 이렇게 작성해도 문제가 없도록 만들어졌지만, 이 방법을 쓰지 않기를 강력히 권고합니다.
+=======
+The assignment `elem.onclick = "alert(1)"` would work too. It works for compatibility reasons, but is strongly not recommended.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 **`setAttribute`를 써서 핸들러를 할당하지 마세요.**
 

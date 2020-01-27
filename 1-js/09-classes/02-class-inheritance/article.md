@@ -7,7 +7,11 @@
 
 ## 'extends' 키워드 
 
+<<<<<<< HEAD
 먼저, 클래스 `Animal`을 만들어보겠습니다.
+=======
+Let's say we have class `Animal`:
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 ```js
 class Animal {
@@ -66,7 +70,11 @@ rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
 2. `rabbit`의 프로토타입인 `Rabbit.prototype`에 메서드가 있나 확인합니다(`hide`는 있는데 `run`은 없네요).
 3. `Rabbit.prototype`의 프로토타입인 `Animal.prototype`(`extends`를 통해 관계가 만들어짐)에 메서드가 있나 확인합니다. 드디어 메서드 `run`을 찾았습니다.
 
+<<<<<<< HEAD
 <info:native-prototypes>에서 알아본 바와 같이 자바스크립트의 내장 객체는 프로토타입을 기반으로 상속 관계를 맺습니다. `Date.prototype.[[Prototype]]`이 `Object.prototype`인 것처럼 말이죠. 
+=======
+As we can recall from the chapter <info:native-prototypes>, JavaScript itself uses prototypal inheritance for built-in objects. E.g. `Date.prototype.[[Prototype]]` is `Object.prototype`. That's why dates have access to generic object methods.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 ````smart header="`extends` 뒤에는 모든 표현식이 올 수 있습니다."
 클래스 문법은 클래스를 명시해줄 뿐만 아니라 `extends` 뒤에 어떤 표현식이 오든 이를 처리해줍니다.
@@ -181,7 +189,11 @@ setTimeout(function() { super.stop() }, 1000);
 
 생성자 오버라이딩은 좀 더 까다롭습니다.
 
+<<<<<<< HEAD
 지금까진 `Rabbit`에 자체 `constructor`가 없었습니다.
+=======
+Until now, `Rabbit` did not have its own `constructor`.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 [명세서](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation)에 따르면, 클래스가 다른 클래스를 상속받고 있으며 `constructor`가 없는 경우엔 아래처럼 '비어있는' `constructor`가 만들어집니다.
 
@@ -236,6 +248,7 @@ let rabbit = new Rabbit("흰 토끼", 10); // Error: this is not defined.
 
 물론 여기에도 이유가 있습니다. 이유를 살펴보며 상속 클래스의 생성자가 호출될 때 어떤 일이 일어나는지 알아봅시다.
 
+<<<<<<< HEAD
 자바스크립트는 '상속 클래스의 생성자 함수'와 그렇지 않은 클래스의 생성자 함수를 구분합니다. 상속 클래스의 생성자 함수엔 특수 내부 프로퍼티인 `[[ConstructorKind]]:"derived"`가 이름표처럼 붙습니다.
 
 차이는 다음과 같습니다.
@@ -246,6 +259,18 @@ let rabbit = new Rabbit("흰 토끼", 10); // Error: this is not defined.
 이런 차이 때문에 상속 클래스에서 커스텀 생성자를 만들 땐 `super`를 반드시 호출해야 합니다. 그렇지 않으면 `this`가 될 객체가 만들어지지 않습니다. 당연히 에러가 발생하겠죠.
 
 `Rabbit`의 생성자가 제대로 동작하게 하려면, 아래 예시와 같이 `super()`를 호출해야 합니다. `super()`는 `this`를 사용하기 전에 호출해주세요.
+=======
+In JavaScript, there's a distinction between a constructor function of an inheriting class (so-called "derived constructor") and other functions. A derived constructor has a special internal property `[[ConstructorKind]]:"derived"`. That's a special internal label.
+
+That label affects its behavior with `new`.
+
+- When a regular function is executed with `new`, it creates an empty object and assigns it to `this`.
+- But when a derived constructor runs, it doesn't do this. It expects the parent constructor to do this job.
+
+So a derived constructor must call `super` in order to execute its parent (non-derived) constructor, otherwise the object for `this` won't be created. And we'll get an error.
+
+For the `Rabbit` constructor to work, it needs to call `super()` before using `this`, like here:
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
 
 ```js run
 class Animal {
@@ -499,7 +524,7 @@ In the example below a non-method syntax is used for comparison. `[[HomeObject]]
 
 ```js run
 let animal = {
-  eat: function() { // intentially writing like this instead of eat() {...
+  eat: function() { // intentionally writing like this instead of eat() {...
     // ...
   }
 };
@@ -528,5 +553,10 @@ rabbit.eat();  // Error calling super (because there's no [[HomeObject]])
     - Methods remember their class/object in the internal `[[HomeObject]]` property. That's how `super` resolves parent methods.
     - So it's not safe to copy a method with `super` from one object to another.
 
+<<<<<<< HEAD
 추가 사항:
 - 화살표 함수는 `this`나 `super`를 갖지 않으므로 주변 컨텍스트에 잘 들어맞습니다.
+=======
+Also:
+- Arrow functions don't have their own `this` or `super`, so they transparently fit into the surrounding context.
+>>>>>>> ff042a03191dfad1268219ae78758193a5803b38
