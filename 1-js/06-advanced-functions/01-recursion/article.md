@@ -459,6 +459,7 @@ let list = { value: 1 };
 list.next = { value: 2 };
 list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
+list.next.next.next.next = null;
 ```
 
 이렇게 연결 리스트를 만드니 객체 가 여러개 있고, 각 객체엔 `value`와 이웃 객체를 가리키는 `next` 프로퍼티가 있는 게 명확히 보이네요. 변수 `list`는 체인의 시작 객체이기 때문에 `list`에선 이어지는 객체들의 `next` 프로퍼티를 이용해 원하는 객체 어디든 도달할 수 있습니다.

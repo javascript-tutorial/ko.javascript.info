@@ -8,7 +8,11 @@
 
 ## DOM 프로퍼티
 
+<<<<<<< HEAD
 앞서 내장 DOM 프로퍼티에 대해 살펴본 바 있습니다. DOM 프로퍼티의 종류는 엄청나게 많습니다. 하지만 이런 내장 프로퍼티만으로 충분하지 않은 경우 자신만의 프로퍼티를 만들 수도 있습니다.
+=======
+We've already seen built-in DOM properties. There are a lot. But technically no one limits us, and if there aren't enough, we can add our own.
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 
 DOM 노드(DOM node)는 자바스크립트 객체입니다. 객체를 바꿔보겠습니다.
 
@@ -298,16 +302,26 @@ HTML을 작성할 때 우리는 대부분 표준 속성을 사용합니다. 하�
 </div>
 ```
 
+<<<<<<< HEAD
 이렇게 커스텀 속성을 사용하는 게 `.order-state-new`, `.order-state-pending`, `order-state-canceled`같은 클래스를 사용하는 것보다 왜 선호될까요?
 
 이유는 속성은 클래스보다 다루기 편리하다는 점 때문입니다. 속성의 상태는 아래와 같이 쉽게 변경할 수 있습니다.
+=======
+Why would using an attribute be preferable to having classes like `.order-state-new`, `.order-state-pending`, `order-state-canceled`?
+
+Because an attribute is more convenient to manage. The state can be changed as easy as:
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 
 ```js
 // 새 클래스를 추가하거나 지우는 것보다 더 쉽게 상태(state)를 바꿀 수 있습니다
 div.setAttribute('order-state', 'canceled');
 ```
 
+<<<<<<< HEAD
 물론 커스텀 속성에도 문제가 발생할 수 있습니다. 비표준 속성을 사용해 코드를 작성했는데 나중에 그 속성이 표준으로 등록되게 되면 문제가 발생합니다. HTML은 살아있는 언어이기 때문에 개발자들의 요구를 반영하기 위해 지속해서 발전합니다. 따라서 이런 경우 예기치 못한 부작용이 발생할 수 있습니다.
+=======
+But there may be a possible problem with custom attributes. What if we use a non-standard attribute for our purposes and later the standard introduces it and makes it do something? The HTML language is alive, it grows, and more attributes appear to suit the needs of developers. There may be unexpected effects in such case.
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 
 이런 충돌 상황을 방지하기 위한 속성인 [data-*](https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes) 가 있습니다.
 

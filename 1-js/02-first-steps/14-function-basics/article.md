@@ -267,7 +267,7 @@ alert( result ); // 3
 
 ```js run
 function checkAge(age) {
-  if (age > 18) {
+  if (age >= 18) {
 *!*
     return true;
 */!*

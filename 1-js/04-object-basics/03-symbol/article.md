@@ -18,8 +18,13 @@ let id = Symbol();
 
 심볼을 만들 때 심볼 이름이라 불리는 설명을 붙일 수도 있습니다. 심볼 이름은 디버깅 시 아주 유용합니다.
 
+<<<<<<< HEAD
 ```js run
 // 심볼 id에는 "id"라는 설명이 붙습니다.
+=======
+```js
+// id is a symbol with the description "id"
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 let id = Symbol("id");
 ```
 

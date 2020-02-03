@@ -83,10 +83,19 @@ let user = {
 
 setTimeout(() => user.sayHi(), 1000);
 
+<<<<<<< HEAD
 // 1초가 지나기 전에 user의 값이 바뀜
 user = { sayHi() { alert("또 다른 사용자!"); } };
 
 // 또 다른 사용자!
+=======
+// ...the value of user changes within 1 second
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+};
+
+// Another user in setTimeout!
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 ```
 
 두 번째 방법을 사용하면 이런 일이 발생하지 않습니다.
@@ -98,7 +107,11 @@ user = { sayHi() { alert("또 다른 사용자!"); } };
 기본 문법은 다음과 같습니다.
 
 ```js
+<<<<<<< HEAD
 // 더 복잡한 문법은 뒤에 나옵니다.
+=======
+// more complex syntax will come a little later
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 let boundFunc = func.bind(context);
 ````
 
@@ -159,15 +172,26 @@ let user = {
 let sayHi = user.sayHi.bind(user); // (*)
 */!*
 
+<<<<<<< HEAD
 // 이제 객체 없이도 객체 메서드를 호출할 수 있습니다.
+=======
+// can run it without an object
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
+<<<<<<< HEAD
 // 1초 이내에 user 값이 변화해도
 // sayHi는 기존 값을 사용합니다.
 user = {
   sayHi() { alert("또 다른 사용자!"); }
+=======
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 };
 ```
 
@@ -277,7 +301,11 @@ alert( triple(5) ); // = mul(3, 5) = 15
 
 네이티브 `bind`만으로는 컨텍스트를 생략하고 인수로 바로 뛰어넘지 못합니다.
 
+<<<<<<< HEAD
 다행히도 인수만 바인딩해주는 헬퍼 함수 `partial`를 구현하는 건 쉽습니다. 
+=======
+Fortunately, a function `partial` for binding only arguments can be easily implemented.
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 
 아래와 같이 말이죠.
 
@@ -311,7 +339,11 @@ user.sayNow("Hello");
 - `partial`을 호출할 때 받은 인수(`"10:00"`)는 `...argsBound`에 전달됩니다.
 - 래퍼에 전달된 인수(`"Hello"`)는 `...args`가 됩니다.
 
+<<<<<<< HEAD
 전개 연산자 덕분에 이 모든 과정이 쉬워졌습니다.
+=======
+So easy to do it with the spread syntax, right?
+>>>>>>> d10b50ae7f67d91606a751926cb06aa06f10c1b4
 
 lodash 라이브러리의 [_.partial](https://lodash.com/docs#partial)을 사용하면 컨텍스트 없는 부분 적용을 직접 구현하지 않아도 됩니다.
 
