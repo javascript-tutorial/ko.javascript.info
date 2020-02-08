@@ -215,4 +215,4 @@ alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 
 예시에서 보았듯이 `{}.toString`은 `typeof`보다 '기능이 더' 많습니다.
 
-`instanceof` 연산자는 계층구조를 가진 클래스를 다룰 때나 클래스의 상속 여부를 확인하고자 할 때 그 진가를 발휘합니다.
+`instanceof` 연산자는 계층 구조를 가진 클래스를 다룰 때나 클래스의 상속 여부를 확인하고자 할 때 그 진가를 발휘합니다.
