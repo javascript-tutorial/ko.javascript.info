@@ -203,7 +203,7 @@ alert( str ); // hi
 
 유사한 예시는 이어지는 절에서 살펴보겠습니다.
 
-## 대/소문자 변경하기
+## 대·소문자 변경하기
 
 메서드 [toLowerCase()](mdn:js/String/toLowerCase)와 [toUpperCase()](mdn:js/String/toUpperCase)는 대문자를 소문자로, 소문자를 대문자로 변경(케이스 변경)시켜줍니다.
 
@@ -234,7 +234,7 @@ alert( 'Interface'[0].toLowerCase() ); // 'i'
 let str = 'Widget with id';
 
 alert( str.indexOf('Widget') ); // 0, str은 'Widget'으로 시작함
-alert( str.indexOf('widget') ); // -1, indexOf는 대/소문자를 따지므로 원하는 문자열을 찾지 못함
+alert( str.indexOf('widget') ); // -1, indexOf는 대·소문자를 따지므로 원하는 문자열을 찾지 못함
 
 alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Widget에서 id)
 ```
@@ -550,7 +550,7 @@ ECMA-402엔 언어가 다를 때 적용할 수 있는 문자열 비교 규칙과
 alert( 'Österreich'.localeCompare('Zealand') ); // -1
 ```
 
-`localeCompare`엔 선택 인수 두 개를 더 전달할 수 있습니다. 기준이 되는 언어를 지정(아무것도 지정하지 않았으면 호스트 환경의 언어가 기준 언어가 됨)해주는 인수와 대/소문자를 구분할지나 `"a"`와 `"á"`를 다르게 취급할지에 대한 것을 설정해주는 인수가 더 있죠. 자세한 사항은 관련 [페이지](mdn:js/String/localeCompare)에서 확인해 보시기 바랍니다.
+`localeCompare`엔 선택 인수 두 개를 더 전달할 수 있습니다. 기준이 되는 언어를 지정(아무것도 지정하지 않았으면 호스트 환경의 언어가 기준 언어가 됨)해주는 인수와 대·소문자를 구분할지나 `"a"`와 `"á"`를 다르게 취급할지에 대한 것을 설정해주는 인수가 더 있죠. 자세한 사항은 관련 [페이지](mdn:js/String/localeCompare)에서 확인해 보시기 바랍니다.
 
 ## 문자열 심화
 
