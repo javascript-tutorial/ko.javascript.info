@@ -4,7 +4,11 @@
 
 에러가 발생하면 스크립트는 '죽고'(즉시 중단되고), 콘솔에 에러가 출력됩니다.
 
+<<<<<<< HEAD
 그러나 `try..catch` 문법을 사용하면 스크립트가 죽는 걸 방지하고, 에러를 '잡아서(catch)' 더 합당한 무언가를 할 수 있게 됩니다.
+=======
+But there's a syntax construct `try..catch` that allows us to "catch" errors so the script can, instead of dying, do something more reasonable.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ## 'try..catch' 문법
 
@@ -24,6 +28,7 @@ try {
 
 동작 알고리즘은 다음과 같습니다.
 
+<<<<<<< HEAD
 1. 먼저, `try {...}` 안의 코드가 실행됩니다.
 2. 에러가 없다면, `try` 안의 마지막 줄까지 실행되고, `catch` 블록은 건너뜁니다.
 3. 에러가 있다면, `try`의 실행이 중단되고, `catch(err)` 블록으로 제어 흐름이 넘어갑니다. 변수 `err`(아무 이름이나 사용 가능)은 무슨 일이 일어났는지에 대한 설명이 담긴 에러 객체를 포함합니다.
@@ -33,6 +38,17 @@ try {
 따라서 `try {…}` 블록 안에서 에러가 발생해도 `catch`에서 에러를 다루기 때문에 스크립트가 죽지 않습니다.
 
 예제를 살펴봅시다.
+=======
+1. First, the code in `try {...}` is executed.
+2. If there were no errors, then `catch(err)` is ignored: the execution reaches the end of `try` and goes on, skipping `catch`.
+3. If an error occurs, then the `try` execution is stopped, and control flows to the beginning of `catch(err)`. The `err` variable (we can use any name for it) will contain an error object with details about what happened.
+
+![](try-catch-flow.svg)
+
+So, an error inside the `try {…}` block does not kill the script -- we have a chance to handle it in `catch`.
+
+Let's look at some examples.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 - 에러가 없는 예제 -- `(1)`과 `(2)`를 `alert` 창에 보여줌
 
@@ -87,7 +103,11 @@ try {
 
 자바스크립트 엔진은 코드를 읽고 난 후 코드를 실행합니다. 코드를 읽는 중에 발생하는 에러는 'parse-time' 에러라고 부르는데, 엔진은 이 코드를 이해할 수 없기 때문에 parse-time 에러는 (코드 안에서) 복구가 불가능합니다.
 
+<<<<<<< HEAD
 `try..catch`는 유효한 코드에서 발생하는 에러만 처리할 수 있습니다. 이런 에러를 '런타임 에러(runtime error)' 혹은 '예외(exception)'라고 부릅니다.
+=======
+So, `try..catch` can only handle errors that occur in valid code. Such errors are called "runtime errors" or, sometimes, "exceptions".
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ````
 
 
@@ -201,7 +221,11 @@ JSON에 관한 자세한 정보는 <info:json> 챕터에서 찾을 수 있습니
 
 **`json`의 형식이 잘못된 경우, `JSON.parse`가 에러를 만들기 때문에 스크립트가 '죽습니다'.**
 
+<<<<<<< HEAD
 스크립트가 죽는 것에 만족해야 할까요? 당연히 아니죠!
+=======
+Should we be satisfied with that? Of course not!
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 서버에서 전달받은 데이터가 잘못되어 스크립트가 죽는 경우, 사용자는 (개발자 콘솔을 열지 않는 이상) 원인을 절대 알 수 없습니다. 그런데 사람들은 에러의 원인을 알려주는 메시지 없이 무언가가 '그냥 죽는 것'을 정말 싫어합니다.
 
@@ -298,7 +322,7 @@ try {
 *!*
   alert(e.name); // SyntaxError
 */!*
-  alert(e.message); // Unexpected token o in JSON at position 2
+  alert(e.message); // Unexpected token b in JSON at position 2
 }
 ```
 
@@ -334,9 +358,15 @@ try {
 
 ## 에러 다시 던지기
 
+<<<<<<< HEAD
 위 예제에선 `try..catch`를 사용해 불완전한 데이터를 처리하였습니다. 그런데 *또 다른 예기치 않은 에러*가 `try {...}` 블록 안에서 발생 할 수도 있습니다. 정의하지 않은 변수 등의 프로그래밍 에러가 발생할 가능성은 항상 있습니다.
 
 예시:
+=======
+In the example above we use `try..catch` to handle incorrect data. But is it possible that *another unexpected error* occurs within the `try {...}` block? Like a programming error (variable is not defined) or something else, not just this "incorrect data" thing.
+
+For example:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 let json = '{ "age": 30 }'; // 불완전한 데이터
@@ -373,9 +403,15 @@ try {
 
 '다시 던지기' 기술을 자세히 설명해보겠습니다.
 
+<<<<<<< HEAD
 1. `catch`에서 모든 에러를 받습니다.
 2. `catch(err) {...}` 블록에서 에러 객체, `err`을 분석합니다.
 3. 에러를 어떻게 처리할지 모르는 경우는 `throw err`로 처리합니다.
+=======
+1. Catch gets all errors.
+2. In the `catch(err) {...}` block we analyze the error object `err`.
+2. If we don't know how to handle it, we do `throw err`.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 다시 던지기를 사용하여 `catch` 블록에선 `SyntaxError`만 처리하도록 해보겠습니다.
 
@@ -582,11 +618,19 @@ function func() {
 이 절은 코어 자바스크립트가 아닙니다.
 ```
 
+<<<<<<< HEAD
 `try..catch` 바깥에서 치명적인 에러가 발생해 스크립트가 죽었다고 상상해봅시다.
 
 대처 방법은 무엇이 있을까요? 에러를 기록하거나 사용자에게 무언가를 보여주는 것 등을 할 수 있을 겁니다.
 
 자바스크립트 명세에는 이런 치명적인 에러에 대응하는 방법이 적혀있지 않습니다. 하지만 `try..catch` 밖의 에러를 잡는 것은 아주 중요하기 때문에, 자바스크립트 호스트 환경 대다수는 에러 처리 기능을 제공합니다. Node.js의 [`process.on("uncaughtException")`](https://nodejs.org/api/process.html#process_event_uncaughtexception)이 그 예입니다. 브라우저 환경에선 [window.onerror](mdn:api/GlobalEventHandlers/onerror)를 이용해 에러를 처리합니다. window.onerror프로퍼티에 함수를 할당하면, 예상치 못한 에러가 발생했을 때 이 함수가 실행됩니다.
+=======
+Let's imagine we've got a fatal error outside of `try..catch`, and the script died. Like a programming error or some other terrible thing.
+
+Is there a way to react on such occurrences? We may want to log the error, show something to the user (normally they don't see error messages), etc.
+
+There is none in the specification, but environments usually provide it, because it's really useful. For instance, Node.js has [`process.on("uncaughtException")`](https://nodejs.org/api/process.html#process_event_uncaughtexception) for that. And in the browser we can assign a function to the special [window.onerror](mdn:api/GlobalEventHandlers/onerror) property, that will run in case of an uncaught error.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 문법:
 

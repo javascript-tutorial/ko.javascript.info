@@ -394,7 +394,11 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     ```js run
     let str = "st*!*ringify*/!*";
+<<<<<<< HEAD
     alert( str.slice(2) ); // ringify, 2번째부터 끝까지
+=======
+    alert( str.slice(2) ); // 'ringify', from the 2nd position till the end
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     ```
 
     `start`와 `end`는 음수가 될 수도 있습니다. 음수를 넘기면 문자열 끝에서부터 카운팅을 시작합니다.
@@ -402,8 +406,13 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```js run
     let str = "strin*!*gif*/!*y";
 
+<<<<<<< HEAD
     // 끝에서부터 4번째부터 시작해 끝에서부터 1번째 위치까지
     alert( str.slice(-4, -1) ); // gif
+=======
+    // start at the 4th position from the right, end at the 1st from the right
+    alert( str.slice(-4, -1) ); // 'gif'
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     ```
 
 `str.substring(start [, end])`
@@ -435,14 +444,22 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     ```js run
     let str = "st*!*ring*/!*ify";
+<<<<<<< HEAD
     alert( str.substr(2, 4) ); // ring, 두 번째부터 글자 네 개
+=======
+    alert( str.substr(2, 4) ); // 'ring', from the 2nd position get 4 characters
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     ```
 
     첫 번째 인수가 음수면 뒤에서부터 개수를 셉니다.
 
     ```js run
     let str = "strin*!*gi*/!*fy";
+<<<<<<< HEAD
     alert( str.substr(-4, 2) ); // gi, 끝에서 네 번째 위치부터 글자 두 개
+=======
+    alert( str.substr(-4, 2) ); // 'gi', from the 4th position get 2 characters
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     ```
 
 부분 문자열 추출과 관련된 메서드를 요약해 봅시다.
@@ -534,7 +551,11 @@ alert( str );
 
 문자열을 비교하려면 일단 페이지에서 어떤 언어를 사용하고 있는지 브라우저가 알아야 합니다.
 
+<<<<<<< HEAD
 다행히도 모던 브라우저 대부분이 국제화 관련 표준인 [ECMA-402](http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf)를 지원합니다(IE10은 아쉽게도 [Intl.js](https://github.com/andyearnshaw/Intl.js/) 라이브러리를 사용해야 합니다).
+=======
+Luckily, all modern browsers (IE10- requires the additional library [Intl.js](https://github.com/andyearnshaw/Intl.js/)) support the internationalization standard [ECMA-402](http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf).
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ECMA-402엔 언어가 다를 때 적용할 수 있는 문자열 비교 규칙과 이를 준수하는 메서드가 정의되어있습니다.
 

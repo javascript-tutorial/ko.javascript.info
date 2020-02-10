@@ -148,7 +148,11 @@ elem.onclick = sayThanks;
 
 ## 자주 하는 실수
 
+<<<<<<< HEAD
 이벤트를 다룰 때는 아래 주의사항을 항상 염두에 두시기 바랍니다.
+=======
+If you're starting to work with events -- please note some subtleties.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 **함수는 `sayThanks`처럼 할당해야 합니다. `sayThanks()`를 할당하면 동작하지 않습니다.**
 
@@ -181,7 +185,11 @@ button.onclick = function() {
 
 **문자열이 아닌 함수를 쓰세요.**
 
+<<<<<<< HEAD
 `elem.onclick = "alert(1)"`도 잘 작동하긴 합니다. 호환성 유지를 위해 문자열을 프로퍼티에 할당해도 문제가 없게 만들어놨지만, 이 방법을 쓰지 않기를 강력히 권유합니다.
+=======
+The assignment `elem.onclick = "alert(1)"` would work too. It works for compatibility reasons, but is strongly not recommended.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 **`setAttribute`로 핸들러를 할당하지 마세요.**
 
@@ -293,6 +301,7 @@ input.removeEventListener("click", handler);
 ````warn header="어떤 이벤트는 `addEventListener`를 써야만 작동합니다."
 DOM 프로퍼티에 할당할 수 없는 이벤트가 몇몇 있습니다. 이런 이벤트는 무조건  `addEventListener`를 써야 합니다.
 
+<<<<<<< HEAD
 CSS 애니메이션이 끝날 때 발생하는 `transitionend` 이벤트가 대표적인 예입니다.
 
 아래 코드를 실행해 보세요. 대부분 브라우저에서 두 번째 핸들러만 작동하고, 첫 번째는 작동하지 않을 겁니다.
@@ -322,7 +331,22 @@ CSS 애니메이션이 끝날 때 발생하는 `transitionend` 이벤트가 대�
   });
 */!*
 </script>
+=======
+For instance, the event `DOMContentLoaded`, that triggers when the document is loaded and DOM is built.
+
+```js
+document.onDOMContentLoaded = function() {
+  alert("DOM built"); // will never run
+};
 ```
+
+```js
+document.addEventListener("DOMContentLoaded", function() {
+  alert("DOM built"); // this way it works
+});
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+```
+So `addEventListener` is more universal. Although, such events are an exception rather than the rule.
 ````
 
 ## 이벤트 객체

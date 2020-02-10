@@ -146,8 +146,12 @@ function countUser(user) {
 // 📁 main.js
 let john = { name: "John" };
 
+<<<<<<< HEAD
 countUser(john); // John의 방문 횟수를 증가시킵니다.
 countUser(john);
+=======
+countUser(john); // count his visits
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 // John의 방문 횟수를 셀 필요가 없어지면 아래와 같이 john을 null로 덮어씁니다.
 john = null;

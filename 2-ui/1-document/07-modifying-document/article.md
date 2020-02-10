@@ -1,12 +1,20 @@
 # 문서 수정하기
 
+<<<<<<< HEAD
 '생동감 있는' 웹페이지를 만들기 위한 핵심은 DOM 조작입니다.
+=======
+DOM modification is the key to creating "live" pages.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 이번 챕터에선 필요할 때 요소를 새롭게 생성하는 방법과 페이지에 있는 기존 콘텐츠를 어떻게 수정할 수 있는지 알아보겠습니다.
 
 ## 예제: 메시지 보여주기
 
+<<<<<<< HEAD
 `alert` 창보다 보기 좋은 메시지 창을 출력해주는 예시를 살펴보겠습니다.
+=======
+Let's demonstrate using an example. We'll add a message on the page that looks nicer than `alert`.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 예시:
 
@@ -92,11 +100,19 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 
 아래 메서드들을 사용해도 원하는 곳에 노드를 삽입할 수 있습니다.
 
+<<<<<<< HEAD
 - `node.append(...nodes or strings)` -- 노드나 문자열을 `node` 끝에 삽입합니다.
 - `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` 맨 앞에 삽입합니다.
 - `node.before(...nodes or strings)` –-  노드나 문자열을 `node` 이전에 삽입합니다.
 - `node.after(...nodes or strings)` –- 노드나 문자열을 `node` 다음에 삽입합니다.
 - `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
+=======
+- `node.append(...nodes or strings)` -- append nodes or strings at the end of `node`,
+- `node.prepend(...nodes or strings)` -- insert nodes or strings at the beginning of `node`,
+- `node.before(...nodes or strings)` –- insert nodes or strings before `node`,
+- `node.after(...nodes or strings)` –- insert nodes or strings after `node`,
+- `node.replaceWith(...nodes or strings)` –- replaces `node` with the given nodes or strings.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 위 메서드들을 사용해 리스트에 항목 몇 개를 추가하고, 목록 앞·뒤에 텍스트를 추가해보겠습니다.
 
@@ -199,7 +215,11 @@ after
 <p>Bye</p>
 ```
 
+<<<<<<< HEAD
 임의의 HTML을 페이지에 삽입하려면 이런 방법을 사용하면 됩니다.
+=======
+That's how we can append arbitrary HTML to the page.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 아래는 매개변수에 따라 변하는 삽입 위치를 표현한 그림입니다.
 
@@ -534,6 +554,7 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 
     이 메서드들은 전부 `node`를 반환합니다.
 
+<<<<<<< HEAD
 - `html`에 HTML을 넣으면 메서드 `elem.insertAdjacentHTML(where, html)`은 아래 `where`의 위치에 따라 HTML을 삽입해줌
     - `"beforebegin"` -- `elem` 바로 앞에 `html`을 삽입
     - `"afterbegin"` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입
@@ -541,6 +562,15 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
     - `"afterend"` -- `elem` 바로 다음에 `html`을 삽입
 
     각각 문자열과 요소를 삽입해주는 유사 메서드 `elem.insertAdjacentText`와 `elem.insertAdjacentElement`도 있는데, 잘 쓰이지는 않음
+=======
+- Given some HTML in `html`, `elem.insertAdjacentHTML(where, html)` inserts it depending on the value of `where`:
+    - `"beforebegin"` -- insert `html` right before `elem`,
+    - `"afterbegin"` -- insert `html` into `elem`, at the beginning,
+    - `"beforeend"` -- insert `html` into `elem`, at the end,
+    - `"afterend"` -- insert `html` right after `elem`.
+
+    Also there are similar methods, `elem.insertAdjacentText` and `elem.insertAdjacentElement`, that insert text strings and elements, but they are rarely used.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 - 페이지 로딩이 끝나기 전에 HTML을 삽입해주는 메서드:
     - `document.write(html)`

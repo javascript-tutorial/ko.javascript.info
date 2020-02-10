@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 # 클로저
 
 자바스크립트는 함수 지향 언어입니다. 이런 특징은 개발자에게 많은 자유도를 줍니다. 함수를 동적으로 생성할 수 있고, 다른 변수에 함수를 복사할 수 있으며, 함수를 다른 함수의 인수로 전달할 수 있고, 함수가 생성된 곳이 아닌 다른 곳에서 함수를 호출할 수도 있기 때문입니다.
@@ -155,9 +156,59 @@
 
 - `say` 내부의 `alert`에서 `name`에 접근하려고 하면, 먼저 함수의 렉시컬 환경(내부 렉시컬 환경)을 살펴봅니다. 변수 `name`에 상응하는 프로퍼티가 내부 렉시컬 환경에 있네요!
 - `say` 내부의 `alert`에서 `phrase`에 접근하려고 했는데, `phrase`에 상응하는 프로퍼티가 내부 렉시컬 환경엔 없네요. 검색 범위를 내부 렉시컬 환경이 참조하는 렉시컬 환경(외부 렉시컬 환경)으로 넓혀 `phrase`에 상응하는 프로퍼티가 있는지 찾아봅시다. 해당 프로퍼티가 외부 렉시컬 환경엔 있네요!
+=======
+# Variable scope
 
-![lexical environment lookup](lexical-environment-simple-lookup.svg)
+JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created dynamically, passed as an argument to another function and called from a totally different place of code later.
 
+We already know that a function can access variables outside of it.
+
+Now let's expand our knowledge to include more complex scenarios.
+
+```smart header="We'll talk about `let/const` variables here"
+In JavaScript, there are 3 ways to declare a variable: `let`, `const` (the modern ones), and `var` (the remnant of the past).
+
+- In this article we'll use `let` variables in examples.
+- Variables, declared with `const`, behave the same, so this article is about `const` too.
+- The old `var` has some notable differences, they will be covered in the article <info:var>.
+```
+
+## Code blocks
+
+If a variable is declared inside a code block `{...}`, it's only visible inside that block.
+
+For example:
+
+```js run
+{
+  // do some job with local variables that should not be seen outside
+
+  let message = "Hello"; // only visible in this block
+
+  alert(message); // Hello
+}
+
+alert(message); // Error: message is not defined
+```
+
+We can use this to isolate a piece of code that does its own task, with variables that only belong to it:
+
+```js run
+{
+  // show message
+  let message = "Hello";
+  alert(message);
+}
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+{
+  // show another message
+  let message = "Goodbye";
+  alert(message);
+}
+```
+
+<<<<<<< HEAD
 이제 이 챕터를 시작할 때 가정했던 2가지 상황 중, 첫 번째 상황의 답을 찾았습니다.
 
 **함수는 현재 실행 중인 위치를 기준으로 외부 변숫값을 얻기 때문에 최신 값을 사용합니다.**
@@ -165,29 +216,51 @@
 기존 변숫값은 어디에도 저장되지 않기 때문에 이런 결과가 도출됩니다. 함수 내부에서 변수를 사용할 때, 함수 렉시컬 환경(내부 렉시컬 환경)에 변수에 상응하는 프로퍼티가 있으면 해당 프로퍼티의 값을 사용하고, 상응하는 프로퍼티가 없으면 외부 렉시컬 환경에서 값을 찾습니다.
 
 따라서 첫 번째 상황에선 `Pete`가 출력됩니다.
+=======
+````smart header="There'd be an error without blocks"
+Please note, without separate blocks there would be an error, if we use `let` with the existing variable name:
 
 ```js run
-let name = "John";
+// show message
+let message = "Hello";
+alert(message);
 
-function sayHi() {
-  alert("Hi, " + name);
+// show another message
+*!*
+let message = "Goodbye"; // Error: variable already declared
+*/!*
+alert(message);
+```
+````
+
+For `if`, `for`, `while` and so on, variables declared in `{...}` are also only visible inside:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+```js run
+if (true) {
+  let phrase = "Hello!";
+
+  alert(phrase); // Hello!
 }
 
-name = "Pete"; // (*)
-
-*!*
-sayHi(); // Pete
-*/!*
+alert(phrase); // Error, no such variable!
 ```
 
+Here, after `if` finishes, the `alert` below won't see the `phrase`, hence the error.
 
+<<<<<<< HEAD
 위 코드의 실행 흐름은 아래와 같습니다.
 
 1. 전역 렉시컬 환경에 `name : "John"`이 저장됩니다.
 2. `(*)`로 표시한 줄에서 전역 변수 `name`의 값이 변경되고, 전역 렉시컬 환경 역시 `name : "Pete"`로 변경됩니다.
 3. `sayHi()`가 호출되면, 외부에서 `name` 값을 가져옵니다. 이 예제에선 함수 렉시컬 환경의 외부 렉시컬 환경이 전역 렉시컬 환경이므로 전역 렉시컬 환경에 저장된 값인 `"Pete"`가 얼럿 창에 출력됩니다.
+=======
+That's great, as it allows us to create block-local variables, specific to an `if` branch.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
+The similar thing holds true for `for` and `while` loops:
 
+<<<<<<< HEAD
 ```smart header="호출 하나에 렉시컬 환경 하나"
 함수가 실행될 때마다 새로운 렉시컬 환경이 만들어진다는 점을 꼭 기억하시길 바랍니다.
 
@@ -196,8 +269,18 @@ sayHi(); // Pete
 
 ```smart header="렉시컬 환경은 수정할 수 없습니다."
 '렉시컬 환경'은 자바스크립트 동작 원리를 설명할 때 사용되는 [명세서](https://tc39.es/ecma262/#sec-lexical-environments) 전용 가상 객체입니다. 따라서 렉시컬 환경 객체에 직접 접근하거나 조작하는 것은 불가능합니다. 자바스크립트 엔진은 명세서에 언급된 사항을 준수하면서 엔진 고유의 방법을 사용해 렉시컬 환경을 최적화합니다. 사용하지 않는 변수를 버려 메모리를 절약하거나 기타 내부 트릭을 써서 말이죠.
+=======
+```js run
+for (let i = 0; i < 3; i++) {
+  // the variable i is only visible inside this for
+  alert(i); // 0, then 1, then 2
+}
+
+alert(i); // Error, no such variable
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
+Visually, `let i` is outside of `{...}`. But the `for` construct is special here: the variable, declared inside it, is considered a part of the block.
 
 ## 중첩 함수
 
@@ -223,6 +306,7 @@ function sayHiBye(firstName, lastName) {
 
 위 예시에서 외부 변수에 접근해 이름 전체를 반환해주는 *중첩* 함수 `getFullName()`은 편의상 만든 함수입니다. 이렇게 자바스크립트에선 중첩 함수가 흔하게 사용됩니다.
 
+<<<<<<< HEAD
 한편, 외부 함수가 메서드가 있는 객체를 생성하는 경우, 중첩함수는 해당 객체의 프로퍼티 형태로 반환될 수 있습니다. 물론 중첩 함수를 함수 그 자체로 반환하는 것도 가능합니다. 이렇게 반환된 중첩함수는 어디서 쓰이느냐에 상관없이 일반 함수와 마찬가지로 외부 변수에 접근할 수 있습니다.
 
 아래 예시에선 익명 중첩 함수가 [생성자(constructor) 함수](info:constructor-new) `User`가 만든 객체의 메서드에 할당되고 있습니다.
@@ -242,13 +326,22 @@ user.sayHi(); // 메서드 'sayHi'에서 외부 변수 'name'에 접근함
 ```
 
 아래 예시와 같이 숫자를 세주는 간단한 익명 중첩 함수를 만들고, 함수 자체를 반환하는 것도 가능합니다.
+=======
+What's much more interesting, a nested function can be returned: either as a property of a new object or as a result by itself. It can then be used somewhere else. No matter where, it still has access to the same outer variables.
+
+Below, `makeCounter` creates the "counter" function that returns the next number on each invocation:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 function makeCounter() {
   let count = 0;
 
   return function() {
+<<<<<<< HEAD
     return count++; // 중첩 함수 본문에서 외부 변수 'count'에 접근함
+=======
+    return count++;
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
   };
 }
 
@@ -259,14 +352,19 @@ alert( counter() ); // 1
 alert( counter() ); // 2
 ```
 
+<<<<<<< HEAD
 함수 `makeCounter`를 좀 더 살펴봅시다. `makeCounter`를 실행하면 숫자를 세주는 카운터(counter) 함수가 반환됩니다. 보고 계시는 예시 코드 자체는 상당히 단순하지만, 여기에 약간의 변형을 가하면 [난수 생성기](https://en.wikipedia.org/wiki/Pseudorandom_number_generator)와 같은 실용성 있는 함수를 만들 수 있습니다.
 
 이젠 어떤 방식으로 카운터가 동작하는지 알아보겠습니다.
 
 내부 함수가 실행되면 `count++`에서 사용하는 변수인 `count`를 안쪽부터 시작해 바깥쪽으로 나아가면서 찾게 됩니다. 검색 영역이 아래 그림처럼 점차 확장되죠.
+=======
+Despite being simple, slightly modified variants of that code have practical uses, for instance, as a [random number generator](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) to generate random values for automated tests.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
-![](lexical-search-order.svg)
+How does this work? If we create multiple counters, will they be independent? What's going on with the variables here?
 
+<<<<<<< HEAD
 1. 중첩 함수의 지역 변수
 2. 외부 함수의 변수
 3. 영역은 전역 변수를 만날 때까지 계속 확장됩니다.
@@ -301,14 +399,25 @@ function makeCounter() {
 
 let counter1 = makeCounter();
 let counter2 = makeCounter();
+=======
+Undestanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
 
-alert( counter1() ); // 0
-alert( counter1() ); // 1
+## Lexical Environment
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
+```warn header="Here be dragons!"
+The in-depth technical explanation lies ahead.
+
+<<<<<<< HEAD
 alert( counter2() ); // 0 (count2와 count1은 각자의 렉시컬 환경을 갖습니다.)
+=======
+As far as I'd like to avoid low-level language details, any understanding without them would be lacking and incomplete, so get ready.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
+For clarity, the explanation is split into multiple steps.
 
+<<<<<<< HEAD
 이제 외부 변수를 참조하는 중첩 함수가 어떻게 동작하는지 이해하셨죠? 여기까지 학습한 내용만 알아두어도 대부분의 상황에서 코드의 동작을 예상할 수 있습니다. 그런데 지금까진 설명을 간결하게 하려고 명세서에 언급된 몇 가지 세부사항은 다루지 않고 넘어갔습니다. 다음 절부턴 지금까지 생략해 왔던 부분에 대해 이야기해보겠습니다.
 
 ## Environment 자세히 알아보기
@@ -346,21 +455,40 @@ alert( counter2() ); // 0 (count2와 count1은 각자의 렉시컬 환경을 갖
     중첩함수가 함수 선언문으로 만들어졌는지, 함수 표현식으로 만들어졌는지 아닌지는 중요하지 않습니다. 생성 방식에 상관없이 모든 함수는 생성되는 시점의 렉시컬 환경을 참조하는 `[[Environment]]` 프로퍼티를 가집니다. 예제의 익명 함수 역시 새로운 `[[Environment]]` 프로퍼티를 갖게 됩니다.
     
     새로운 중첩 익명 함수의 `[[Environment]]`는 `makeCounter()`의 렉시컬 환경에서 만들어졌기 때문에 `makeCounter()` 생성 시 만들어진 렉시컬 환경을 참조합니다.
+=======
+### Step 1. Variables
 
-    ![](lexenv-nested-makecounter-3.svg)
+In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
+The Lexical Environment object consists of two parts:
+
+<<<<<<< HEAD
     지금 단계에선 내부 함수(중첩 함수)는 만들어졌지만, 아직 호출은 하지 않았다는 점에 유의하시기 바랍니다. `function() { return count++; }`의 본문는 아직 실행 전입니다.
 
 4. 실행이 이어지면서 `makeCounter()`에 대한 호출이 종료되고, 반환 값(익명 중첩 함수)이 전역 변수 `counter`에 할당됩니다.
+=======
+1. *Environment Record* -- an object that stores all local variables as its properties (and some other information like the value of `this`).
+2. A reference to the *outer lexical environment*, the one associated with the outer code.
 
-    ![](lexenv-nested-makecounter-4.svg)
+**A "variable" is just a property of the special internal object, `Environment Record`. "To get or change a variable" means "to get or change a property of that object".**
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
+In this simple code without functions, there is only one Lexical Environment:
+
+<<<<<<< HEAD
     내부 중첩 함수의 바디는 `return count ++`라는 코드 한 줄로만 이루어져 있는데, 이 코드는 `counter`를 호출할 때 실행됩니다.
 
 5. `counter()`를 호출하면 새로운 렉시컬 환경이 만들어지는데, 익명 중첩 함수엔 지역 변수가 없기 때문에 이 렉시컬 환경은 비어있게 됩니다. 그런데 `counter`의 `[[Environment]]`는 `counter`의 `외부` 렉시컬 환경을 참조하기 때문에, `counter()에서 `makeCounter()`가 호출될 때 만들어진 렉시컬 환경에 저장된 변수에 접근할 수 있게 됩니다.
+=======
+![lexical environment](lexical-environment-global.svg)
 
-    ![](lexenv-nested-makecounter-5.svg)
+This is the so-called *global* Lexical Environment, associated with the whole script.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
+On the picture above, the rectangle means Environment Record (variable store) and the arrow means the outer reference. The global Lexical Environment has no outer reference, that's why the arrow points to `null`.
+
+<<<<<<< HEAD
    이제 변수 `count`는 자신의 렉시컬 환경(비어있음), `makeCounter()`를 호출할 때 만들어진 렉시컬 환경 순서로 검색됩니다. 그리고 변수 `count`는 `makeCounter()`를 호출할 때 만들어진 렉시컬 환경에서 발견되죠.
 
     여기서 잠깐 메모리 관리가 어떻게 이뤄지는지 알아봅시다. `makeCounter()` 호출은 이미 끝났지만, 내부 중첩 함수의 `[[Environment]]`가 여전히 `makeCounter()`의 렉시컬 환경을 참조하고 있기 때문에, `makeCounter()` 호출 시 생성된 렉시컬 환경은 여전히 메모리에 남아있게 됩니다.
@@ -368,17 +496,42 @@ alert( counter2() ); // 0 (count2와 count1은 각자의 렉시컬 환경을 갖
     렉시컬 환경 객체는 자신을 참조하는 것이 하나라도 남아 있다면 대개 메모리에서 제거되지 않습니다. 자신을 참조하는 것이 없을 때 메모리에서 지워집니다.
 
 6. `counter()`를 호출하면 `count` 값이 반환될 뿐만 아니라 값도 증가합니다. 그런데 위에서 배운 바와 같이 변숫값 수정은 변수가 발견된 '그 자리에서' 이뤄지므로, `count`의 값은 `count`가 발견된 렉시컬 환경에서 수정됩니다.
+=======
+As the code starts executing and goes on, the Lexical Environment changes.
 
-    ![](lexenv-nested-makecounter-6.svg)
+Here's a little bit longer code:
 
+![lexical environment](closure-variable-phrase.svg)
+
+Rectangles on the right-hand side demonstrate how the global Lexical Environment changes during the execution:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
+    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but won't allow to use it before `let`. It's almost the same as if the variable didn't exist.
+2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable since this moment.
+3. `phrase` is assigned a value.
+4. `phrase` changes the value.
+
+<<<<<<< HEAD
 7. `counter()`를 다시 호출해도 위와 같은 과정이 반복됩니다.
 
 이제 두 번째 상황에 대한 답을 찾았습니다.
 
 아래 코드에서 함수 `work()`는 함수가 만들어졌을 때의 렉시컬 환경을 기준으로, 점차 영역을 확대해 나가면서 `name`을 검색합니다.
+=======
+Everything looks simple for now, right?
 
-![](lexenv-nested-work.svg)
+- A variable is a property of a special internal object, associated with the currently executing block/function/script.
+- Working with variables is actually working with the properties of that object.
 
+```smart header="Lexical Environment is a specification object"
+"Lexical Environment" is a specification object: it only exists "theoretically" in the [language specification](https://tc39.es/ecma262/#sec-lexical-environments) to describe how things work. We can't get this object in our code and manipulate it directly.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+JavaScript engines also may optimize it, discard variables that are unused to save memory and perform other internal tricks, as long as the visible behavior remains as described.
+```
+
+<<<<<<< HEAD
 따라서 `Pete`가 출력됩니다.
 
 `makeWorker()`에 `let name`이 없었다면 검색 영역이 전역 렉시컬 환경까지 확대되어 전역 변수 `name`의 값 `"John"`이 출력되었을 겁니다.
@@ -402,20 +555,42 @@ alert( counter2() ); // 0 (count2와 count1은 각자의 렉시컬 환경을 갖
 ### if
 
 아래 예시에서 변수 `user`는 `if` 블록 안에만 존재합니다.
+=======
+### Step 2. Function Declarations
+
+A function is also a value, like a variable.
+
+**The difference is that a Function Declaration is instantly fully initialized.**
+
+When a Lexical Environment is created, a Function Declaration immediately becomes a ready-to-use function (unlike `let`, that is unusable till the declaration).
+
+That's why we can use a function, declared as Function Declaration, even before the declaration itself.
+
+For example, here's the initial state of the global Lexical Environment when we add a function:
+
+![](closure-function-declaration.svg)
+
+Naturally, this behavior only applies to Function Declarations, not Function Expressions where we assign a function to a variable, such as `let say = function(name)...`.
+
+### Step 3. Inner and outer Lexical Environment
+
+When a function runs, at the beginning of the call, a new Lexical Environment is created automatically to store local variables and parameters of the call.
+
+For instance, for `say("John")`, it looks like this (the execution is at the line, labelled with an arrow):
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 <!--
-    ```js run
+    ```js
     let phrase = "Hello";
 
-    if (true) {
-        let user = "John";
-
-        alert(`${phrase}, ${user}`); // Hello, John
+    function say(name) {
+     alert( `${phrase}, ${name}` );
     }
 
-    alert(user); // Error, can't see such variable!
+    say("John"); // Hello, John
     ```-->
 
+<<<<<<< HEAD
 ![](lexenv-if.svg)
 
 실행이 `if` 블록에 도달하면 'if 전용' 렉시컬 환경이 새롭게 만들어집니다.
@@ -456,13 +631,46 @@ alert(i); // Error, i is not defined
   // 외부에서 접근이 불가능한 지역변수를 만듦
 
   let message = "Hello";
+=======
+![](lexical-environment-simple.svg)
 
-  alert(message); // Hello
+During the function call we have two Lexical Environments: the inner one (for the function call) and the outer one (global):
+
+- The inner Lexical Environment corresponds to the current execution of `say`. It has a single property: `name`, the function argument. We called `say("John")`, so the value of the `name` is `"John"`.
+- The outer Lexical Environment is the global Lexical Environment. It has the `phrase` variable and the function itself.
+
+The inner Lexical Environment has a reference to the `outer` one.
+
+**When the code wants to access a variable -- the inner Lexical Environment is searched first, then the outer one, then the more outer one and so on until the global one.**
+
+If a variable is not found anywhere, that's an error in strict mode (without `use strict`, an assignment to a non-existing variable creates a new global variable, for compatibility with old code).
+
+In this example the search proceeds as follows:
+
+- For the `name` variable, the `alert` inside `say` finds it immediately in the inner Lexical Environment.
+- When it wants to access `phrase`, then there is no `phrase` locally, so it follows the reference to the outer Lexical Environment and finds it there.
+
+![lexical environment lookup](lexical-environment-simple-lookup.svg)
+
+
+### Step 4. Returning a function
+
+Let's return to the `makeCounter` example.
+
+```js
+function makeCounter() {
+  let count = 0;
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+  return function() {
+    return count++;
+  };
 }
 
-alert(message); // Error: message is not defined
+let counter = makeCounter();
 ```
 
+<<<<<<< HEAD
 블록 바깥의 코드(혹은 다른 스크립트에 있는 코드)는 블록 내 변수에 접근할 수 없습니다. 블록이 자체 렉시컬 환경을 형성하기 때문입니다.
 
 ### 즉시 실행 함수 표현식
@@ -474,17 +682,29 @@ alert(message); // Error: message is not defined
 근래에는 자주 사용하지 않지만 오래된 스크립트에서 즉시 실행 함수 표현식을 만날 수 있기 때문에, 즉시 실행 함수 표현식이 무엇인지 알아 둘 필요가 있습니다.
 
 IIFE는 다음과 같이 생겼습니다.
+=======
+At the beginning of each `makeCounter()` call, a new Lexical Environment object is created, to store variables for this `makeCounter` run.
 
-```js run
-(function() {
+So we have two nested Lexical Environments, just like in the example above:
 
-  let message = "Hello";
+![](closure-makecounter.svg)
 
-  alert(message); // Hello
+What's different is that, during the execution of `makeCounter()`, a tiny nested function is created of only one line: `return count++`. We don't run it yet, only create.
 
-})();
-```
+All functions remember the Lexical Environment in which they were made. Technically, there's no magic here: all functions have the hidden property named `[[Environment]]`, that keeps the reference to the Lexical Environment where the function was created:
 
+![](closure-makecounter-environment.svg)
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+So, `counter.[[Environment]]` has the reference to `{count: 0}` Lexical Environment. That's how the function remembers where it was created, no matter where it's called. The `[[Environment]]` reference is set once and forever at function creation time.
+
+Later, when `counter()` is called, a new Lexical Environment is created for the call, and its outer Lexical Environment reference is taken from `counter.[[Environment]]`:
+
+![](closure-makecounter-nested-call.svg)
+
+Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where finds it and changes.
+
+<<<<<<< HEAD
 함수 표현식이 만들어지고 바로 호출되면서, 해당 함수가 바로 실행되었습니다. 그리고 이 함수는 자신만의 변수를 갖게 됩니다.
 
 즉시 실행 함수를 만들 땐, 함수 표현식을 괄호로 둘러쌓아 `(function {...})`와 같은 형태로 만듭니다. 이렇게 괄호로 둘러싸지 않으면 에러가 발생합니다. 자바스크립트는 `"function"`이라는 키워드를 만나면 함수 선언문이 시작될 것이라 이해하는데, 함수 선언문으로 함수를 만들 땐 반드시 함수의 이름이 있어야 하기 때문입니다. 
@@ -492,9 +712,17 @@ IIFE는 다음과 같이 생겼습니다.
 ```js run
 // 함수를 선언과 동시에 실행하려고 함
 function() { // <-- Error: Function statements require a function name
+=======
+**A variable is updated in the Lexical Environment where it lives.**
 
-  let message = "Hello";
+Here's the state after the execution:
 
+![](closure-makecounter-nested-call-2.svg)
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+If we call `counter()` multiple times, the `count` variable will be increased to `2`, `3` and so on, at the same place.
+
+<<<<<<< HEAD
   alert(message); // Hello
 
 }();
@@ -538,33 +766,50 @@ function go() {
 ## 가비지 컬렉션
 
 렉시컬 환경은 보통, 함수 실행 후 정리되고 삭제됩니다. 예를 들어 살펴보겠습니다.
+=======
+```smart header="Closure"
+There is a general programming term "closure", that developers generally should know.
 
-```js
-function f() {
-  let value1 = 123;
-  let value2 = 456;
-}
+A [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is a function that remembers its outer variables and can access them. In some languages, that's not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in <info:new-function>).
 
-f();
+That is: they automatically remember where they were created using a hidden `[[Environment]]` property, and then their code can access outer variables.
+
+When on an interview, a frontend developer gets a question about "what's a closure?", a valid answer would be a definition of the closure and an explanation that all functions in JavaScript are closures, and maybe a few more words about technical details: the `[[Environment]]` property and how Lexical Environments work.
 ```
 
+## Garbage collection
+
+Usually, a Lexical Environment is removed from memory with all the variables after the function call finishes. That's because there are no references to it. As any JavaScript object, it's only kept in memory while it's reachable.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
+
+...But if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+
+<<<<<<< HEAD
 여기서 두 변수는 렉시컬 환경의 프로퍼티입니다. 그런데 `f()`가 종료되면 렉시컬 환경에 도달할 수 없으므로, 두 변수는 해당 렉시컬 환경과 함께 메모리에서 삭제됩니다.
 
 그런데 `f`가 끝나도 도달 가능한 중첩 함수가 있으면 이 중첩함수는 외부 렉시컬 환경을 참조하는 `[[Environment]]` 프로퍼티를 갖기 때문에, `f()`는 종료되어도 여전히 메모리에서 살아남습니다(도달 가능하기 때문). 
+=======
+In that case the Lexical Environment is still reachable even after the completion of the function, so it stays alive.
+
+For example:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js
 function f() {
   let value = 123;
 
-  function g() { alert(value); }
-
-*!*
-  return g;
-*/!*
+  return function() {
+    alert(value);
+  }
 }
 
+<<<<<<< HEAD
 let func = f(); // func는 g의 참조값을 얻음
 // 따라서 func는 메모리에 남고, func가 참조하는 외부 렉시컬 환경 역시 메모리에 유지됨
+=======
+let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
+// of the corresponding f() call
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
 `f()`를 여러 번 호출하고 그 결과가 어딘가에 저장되는 경우, 렉시컬 환경 각각 모두가 메모리에 유지된다는 점에 유의하시기 바랍니다. 아래 예시를 실행하면 3개의 렉시컬 환경이 만들어지는데, 각 렉시컬 환경은 메모리에서 삭제되지 않습니다.
@@ -583,19 +828,27 @@ let arr = [f(), f(), f()];
 
 렉시컬 환경 객체는 다른 객체와 마찬가지로 도달할 수 없을 때 메모리에서 삭제됩니다. 해당 렉시컬 환경 객체를 참조하는 중첩 함수가 하나라도 있으면 사라지지 않죠.
 
+<<<<<<< HEAD
 아래 코드와 같이 `g`가 도달할 수 없는 상태가 되고 난 후에야, 중첩 함수를 감싸는 렉시컬 환경(그리고 그 안의 변수인 `value`)이 메모리에서 제거됩니다.
+=======
+In the code below, after the nested function is removed, its enclosing Lexical Environment (and hence the `value`) is cleaned from memory;
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js
 function f() {
   let value = 123;
 
-  function g() { alert(value); }
-
-  return g;
+  return function() {
+    alert(value);
+  }
 }
 
+<<<<<<< HEAD
 let g = f(); // g가 살아있는 동안엔
 // 연관되는 렉시컬 환경은 살아있습니다.
+=======
+let g = f(); // while g function exists, the value stays in memory
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭제됩니다.
 ```
@@ -648,8 +901,14 @@ let g = f();
 g();
 ```
 
+<<<<<<< HEAD
 ```warn header="다시 만나요!"
 Chrome이나 Opera를 사용해 디버깅 하는 경우, V8의 최적화에 대한 내용을 알아두는 게 좋습니다. 조만간 이런 상황을 만나게 될 확률이 아주 높으니까요.
 
 이런 동작 방식은 버그는 아닙니다. V8의 특별한 기능이죠. 언젠간 이 기능이 바뀔지도 모릅니다. 기능이 바뀌었는지 궁금하다면 언제라도 이 페이지로 돌아와 위의 예제를 실행해 봅시다.
 ```
+=======
+This feature of V8 is good to know. If you are debugging with Chrome/Opera, sooner or later you will meet it.
+
+That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You always can check for it by running the examples on this page.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080

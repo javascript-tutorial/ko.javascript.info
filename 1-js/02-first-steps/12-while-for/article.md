@@ -268,7 +268,11 @@ for (let i = 0; i < 10; i++) {
 
 기술적인 관점에서 봤을 때, 이 예시는 위쪽에 있는 예시와 동일합니다. `continue`를 사용하는 대신 코드를 `if` 블럭으로 감싼 점만 다릅니다.
 
+<<<<<<< HEAD
 그런데 이렇게 코드를 작성하면 부작용으로 중첩 레벨(대괄호 안의 `alert` 호출)이 하나 더 늘어납니다. `if` 안의 코드가 길어진다면 전체 가독성이 떨어질 수 있습니다.
+=======
+But as a side-effect, this created one more level of nesting (the `alert` call inside the curly braces). If the code inside of `if` is longer than a few lines, that may decrease the overall readability.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ````
 
 ````warn header="'?' 오른쪽엔 `break`나 `continue`가 올 수 없습니다."

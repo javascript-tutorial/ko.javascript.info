@@ -21,9 +21,9 @@ HTML은 다음과 같이 작성되었습니다:
     <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
   </tr>
   <tr>
-    <td>...<strong>Northwest</strong>...</td>
-    <td>...</td>
-    <td>...</td>
+    <td class="nw"><strong>Northwest</strong><br>Metal<br>Silver<br>Elders</td>
+    <td class="n">...</td>
+    <td class="ne">...</td>
   </tr>
   <tr>...2 more lines of this kind...</tr>
   <tr>...2 more lines of this kind...</tr>
@@ -121,7 +121,7 @@ Let's say, we want to make a menu with buttons "Save", "Load", "Search" and so o
 
 핸들러는 속성값을 읽고 메서드를 실행합니다. 아래 코드를 실행해 봅시다:
 
-```html autorun height=60 run
+```html autorun height=60 run untrusted
 <div id="menu">
   <button data-action="save">Save</button>
   <button data-action="load">Load</button>
@@ -163,7 +163,11 @@ Let's say, we want to make a menu with buttons "Save", "Load", "Search" and so o
 
 `(*)`로 표시한 줄의 `this.onClick`은 `this`에 bind 되었다는 것을 주의해 주세요. 이렇게 하지 않으면 `this`는 `Menu` 객체를 참조하지 않고, DOM 요소(`elem`)를 참조하게 됩니다. . `this[action]`은 우리가 원하는 바가 아닙니다. 
 
+<<<<<<< HEAD
 이렇게 작성한 코드는 어떤 이점이 있을까요? 아래와 같은 장점이 있습니다.
+=======
+So, what advantages does delegation give us here?
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```compare
 + 각 버튼마다 핸들러 할당을 위한 코드를 작성할 필요가 없어집니다. 버튼에 해당하는 메서드를 만들고, 마크업에 그 메서드를 써주기만 하면 됩니다.
@@ -242,13 +246,21 @@ One more example of behavior. `data-toggle-id` 속성이 있는 요소를 클릭
 
 여러 개의 행동을 조합해 한 요소에 적용하는 것도 가능합니다.
 
+<<<<<<< HEAD
 이런 "행동" 패턴은 자바스크립트 내 프래그먼트의 대안이 될 수 있습니다.
+=======
+The "behavior" pattern can be an alternative to mini-fragments of JavaScript.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ## 요약
 
 이벤트 위임은 멋집니다! DOM 이벤트에 사용할 수 있는 아주 유용한 패턴입니다.
 
+<<<<<<< HEAD
 유사한 요소를 하나의 핸들러로 다루는 데 주로 사용하지만, 꼭 이런 경우에만 사용하는 건 아닙니다.
+=======
+It's often used to add the same handling for many similar elements, but not only for that.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 다음과 같은 알고리즘으로 이벤트 핸들러는 동작합니다:
 
@@ -259,14 +271,25 @@ One more example of behavior. `data-toggle-id` 속성이 있는 요소를 클릭
 장점:
 
 ```compare
+<<<<<<< HEAD
 + 단순한 초기화와 메모리 절약: 많은 핸들러를 할당하지 않아도 되기 때문입니다.
 + 적은 코드: 요소를 더하거나 뺄 때, 핸들러를 추가하거나 제거할 필요가 없습니다.
 + DOM 수정: `innerHTML`이나 유사한 기능을 하는 스크립트로 요소 덩어리를 더하거나 뺄 수 있습니다.
+=======
++ Simplifies initialization and saves memory: no need to add many handlers.
++ Less code: when adding or removing elements, no need to add/remove handlers.
++ DOM modifications: we can mass add/remove elements with `innerHTML` and the like.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
 이벤트 위임에도 물론 단점이 있습니다:
 
 ```compare
+<<<<<<< HEAD
 - 이벤트 위임을 사용하려면, 이벤트가 반드시 버블링 되어야 합니다. 하지만 몇몇 이벤트는 버블링 되지 않습니다. 그리고, 낮은 레벨에 할당한 핸들러엔 `event.stopPropagation()`를 쓸 수 없습니다.
 - CPU 작업 부하가 늘어날 수 있습니다. 컨테이너 수준에 할당된 핸들러가 모든 하위 컨테이너에서 발생하는 이벤트에 응답해야 하기 때문입니다. 응답할 필요가 있는 이벤트이든 아니든 상관없이 말이죠.
+=======
+- First, the event must be bubbling. Some events do not bubble. Also, low-level handlers should not use `event.stopPropagation()`.
+- Second, the delegation may add CPU load, because the container-level handler reacts on events in any place of the container, no matter whether they interest us or not. But usually the load is negligible, so we don't take it into account.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```

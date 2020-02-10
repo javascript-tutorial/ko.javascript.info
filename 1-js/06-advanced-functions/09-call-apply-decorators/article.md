@@ -75,8 +75,13 @@ let worker = {
   },
 
   slow(x) {
+<<<<<<< HEAD
     // CPU 집약적인 작업이라 가정
     alert(`slow(${x})을/를 호출함`);
+=======
+    // scary CPU-heavy task here  
+    alert("Called with " + x);
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     return x * this.someMethod(); // (*)
   }
 };
@@ -148,9 +153,15 @@ function sayHi() {
 let user = { name: "John" };
 let admin = { name: "Admin" };
 
+<<<<<<< HEAD
 // call을 사용해 원하는 객체가 'this'가 되도록 합니다.
 sayHi.call( user ); // this = John
 sayHi.call( admin ); // this = Admin
+=======
+// use call to pass different objects as "this"
+sayHi.call( user ); // John
+sayHi.call( admin ); // Admin
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
 아래 예시에선 `call`을 사용해 컨텍스트와 `phrase`에 원하는 값을 지정해 보았습니다.
@@ -299,14 +310,24 @@ func.apply(context, args)
 따라서 아래 코드 두 줄은 거의 같은 역할을 합니다.
 
 ```js
+<<<<<<< HEAD
 func.call(context, ...args); // 전개 연산자를 사용해 인수가 담긴 배열을 전달하는 것과
 func.apply(context, args);   // apply를 사용하는 것은 동일합니다.
+=======
+func.call(context, ...args); // pass an array as list with spread syntax
+func.apply(context, args);   // is same as using apply
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
 그런데 약간의 차이가 있긴 합니다.
 
+<<<<<<< HEAD
 - 전개 연산자 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
 - `apply`는 오직 *유사 배열* 형태의 `args`만 받습니다.
+=======
+- The spread syntax `...` allows to pass *iterable* `args` as the list to `call`.
+- The `apply` accepts only *array-like* `args`.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 이 차이만 빼면 두 메서드는 완전히 동일하게 동작합니다. 인수가 이터러블 형태라면 `call`을, 유사 배열 형태라면 `apply`를 사용하면 됩니다.
 
@@ -372,7 +393,11 @@ hash(1, 2);
 
 이런 트릭을 *메서드 빌리기(method borrowing)* 라고 합니다.
 
+<<<<<<< HEAD
 일반 배열에서 `join` 메서드를 빌려오고(`[].join`), `[].join.call`를 사용해 `arguments`를 컨텍스트로 고정한 후 `join`메서드를 호출하는 것이죠.
+=======
+We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 이게 어떻게 가능할까요?
 

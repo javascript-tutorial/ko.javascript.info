@@ -14,7 +14,11 @@ async function f() {
 
 function 앞에 `async`를 붙이면 해당 함수는 항상 프라미스를 반환합니다. 프라미스가 아닌 값을 반환하더라도 이행 상태의 프라미스(resolved promise)로 값을 감싸 이행된 프라미스가 반환되도록 합니다.
 
+<<<<<<< HEAD
 아래 예시의 함수를 호출하면 `result`가 `1`인 이행 프라미스가 반환됩니다. 직접 확인해 봅시다.
+=======
+For instance, this function returns a resolved promise with the result of `1`; let's test it:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 async function f() {
@@ -24,7 +28,11 @@ async function f() {
 f().then(alert); // 1
 ```
 
+<<<<<<< HEAD
 명시적으로 프라미스를 반환하는 것도 가능한데, 결과는 동일합니다.
+=======
+...We could explicitly return a promise, which would be the same:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 async function f() {
@@ -56,7 +64,11 @@ async function f() {
   });
 
 *!*
+<<<<<<< HEAD
   let result = await promise; // 프라미스가 이행될 때까지 기다림 (*)
+=======
+  let result = await promise; // wait until the promise resolves (*)
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 */!*
 
   alert(result); // "완료!"
@@ -67,7 +79,11 @@ f();
 
 함수를 호출하고, 함수 본문이 실행되는 도중에 `(*)`로 표시한 줄에서 실행이 잠시 '중단'되었다가 프라미스가 처리되면 실행이 재개됩니다. 이때 프라미스 객체의 `result` 값이 변수 result에 할당됩니다. 따라서 위 예시를 실행하면 1초 뒤에 '완료!'가 출력됩니다.
 
+<<<<<<< HEAD
 `await`('기다리다'라는 뜻을 가진 영단어 - 옮긴이)는 말 그대로 프라미스가 처리될 때까지 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
+=======
+Let's emphasize: `await` literally makes JavaScript wait until the promise settles, and then go on with the result. That doesn't cost any CPU resources, because the engine can do other jobs in the meantime: execute other scripts, handle events, etc.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 `await`는 `promise.then`보다 좀 더 세련되게 프라미스의 `result` 값을 얻을 수 있도록 해주는 문법입니다. `promise.then`보다 가독성 좋고 쓰기도 쉽습니다.
 
@@ -130,7 +146,11 @@ let response = await fetch('/article/promise-chaining/user.json');
 let user = await response.json();
 ```
 
+<<<<<<< HEAD
 익명 async 함수로 코드를 감싸면 최상위 레벨 코드에도 `await`를 사용할 수 있습니다.
+=======
+But we can wrap it into an anonymous async function, like this:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js
 (async () => {
@@ -142,10 +162,17 @@ let user = await response.json();
 
 
 ````
+<<<<<<< HEAD
 ````smart header="`await`는 \'thenable\' 객체를 받습니다."
 `promise.then`처럼 `await`에도 thenable 객체(`then` 메서드가 있는 호출 가능한 객체)를 사용할 수 있습니다. thenable 객체는 서드파티 객체가 프라미스가 아니지만 프라미스와 호환 가능한 객체를 제공할 수 있다는 점에서 생긴 기능입니다. 서드파티에서 받은 객체가 `.then`을 지원하면 이 객체를 `await`와 함께 사용할 수 있습니다.
 
 `await`는 데모용 클래스 `Thenable`의 인스턴스를 받을 수 있습니다.
+=======
+````smart header="`await` accepts \"thenables\""
+Like `promise.then`, `await` allows us to use thenable objects (those with a callable `then` method). The idea is that a third-party object may not be a promise, but promise-compatible: if it supports `.then`, that's enough to use it with `await`.
+
+Here's a demo `Thenable` class; the `await` below accepts its instances:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 class Thenable {
@@ -168,7 +195,11 @@ async function f() {
 f();
 ```
 
+<<<<<<< HEAD
 `await`는 `.then`이 구현되어있으면서 프라미스가 아닌 객체를 받으면, 네이티브 함수 `resolve`와 `reject`를 인수로 제공하는 메서드인 `.then`을 호출합니다(일반 `Promise` executor가 하는 일과 동일합니다). `await`는 둘 중 하나가 호출되길 기다렸다가(`(*)`로 표시한 줄) 호출 결과를 가지고 다음 일을 진행합니다.
+=======
+If `await` gets a non-promise object with `.then`, it calls that method providing the built-in functions `resolve` and `reject` as arguments (just as it does for a regular `Promise` executor). Then `await` waits until one of them is called (in the example above it happens in the line `(*)`) and then proceeds with the result.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ````
 
 ````smart header="async 클래스 메서드"
@@ -192,7 +223,11 @@ new Waiter()
 ````
 ## 에러 핸들링
 
+<<<<<<< HEAD
 프라미스가 정상적으로 이행되면 `await promise`는 프라미스 객체의 `result`에 저장된 값을 반환합니다. 반면 프라미스가 거부되면 마치 `throw`문을 작성한 것처럼 에러가 던져집니다.
+=======
+If a promise resolves normally, then `await promise` returns the result. But in the case of a rejection, it throws the error, just as if there were a `throw` statement at that line.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 예시:
 
@@ -204,7 +239,11 @@ async function f() {
 }
 ```
 
+<<<<<<< HEAD
 위 코드는 아래 코드와 동일합니다.
+=======
+...is the same as this:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js
 async function f() {
@@ -233,7 +272,11 @@ async function f() {
 f();
 ```
 
+<<<<<<< HEAD
 에러가 발생하면 제어 흐름이 `catch` 블록으로 넘어갑니다. 여러 줄의 코드를 `try`로 감싸는 것도 가능합니다.
+=======
+In the case of an error, the control jumps to the `catch` block. We can also wrap multiple lines:
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ```js run
 async function f() {
@@ -263,6 +306,7 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 */!*
 ```
 
+<<<<<<< HEAD
 `.catch`를 추가하는 걸 잊으면, 처리되지 않은 프라미스 에러가 발생합니다(콘솔에서 확인). 이런 에러는 <info:promise-error-handling> 챕터에서 설명한 전역 이벤트 핸들러를 사용해 잡을 수 있습니다.
 
 
@@ -272,6 +316,15 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 그런데 문법 제약 때문에 `async`함수 바깥의 최상위 레벨 코드에선 `await`를 사용할 수 없으므로, 관행처럼 `.then/catch`를 추가해 최종 결과나 처리되지 못한 에러를 다룹니다.
 
 위 예시의 `(*)`로 표시한 줄처럼 말이죠.
+=======
+If we forget to add `.catch` there, then we get an unhandled promise error (viewable in the console). We can catch such errors using a global `unhandledrejection` event handler as described in the chapter <info:promise-error-handling>.
+
+
+```smart header="`async/await` and `promise.then/catch`"
+When we use `async/await`, we rarely need `.then`, because `await` handles the waiting for us. And we can use a regular `try..catch` instead of `.catch`. That's usually (but not always) more convenient.
+
+But at the top level of the code, when we're outside any `async` function, we're syntactically unable to use `await`, so it's a normal practice to add `.then/catch` to handle the final result or falling-through error, like in the line `(*)` of the example above.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ```
 
 ````smart header="`async/await` works well with `Promise.all`"
@@ -286,21 +339,40 @@ let results = await Promise.all([
 ]);
 ```
 
+<<<<<<< HEAD
 실패한 프라미스에서 발생한 에러는 보통 에러와 마찬가지로 `Promise.all`로 전파됩니다. 에러 때문에 생긴 예외는 `try..catch`로 감싸 잡을 수 있습니다.
+=======
+In the case of an error, it propagates as usual, from the failed promise to `Promise.all`, and then becomes an exception that we can catch using `try..catch` around the call.
+
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 ````
 
 ## 요약
 
 function 앞에 `async` 키워드를 추가하면 두 가지 효과가 있습니다.
 
+<<<<<<< HEAD
 1. 함수는 언제나 프라미스를 반환합니다.
 2. 함수 안에서 `await`를 사용할 수 있습니다.
+=======
+1. Makes it always return a promise.
+2. Allows `await` to be used in it.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 프라미스 앞에 `await` 키워드를 붙이면 자바스크립트는 프라미스가 처리될 때까지 대기합니다. 처리가 완료되면 조건에 따라 아래와 같은 동작이 이어집니다.
 
+<<<<<<< HEAD
 1. 에러 발생 --  예외가 생성됨(에러가 발생한 장소에서 `throw error`를 호출한 것과 동일함)
 2. 에러 미발생 -- 프라미스 객체의 result 값을 반환
 
 `async/await`를 함께 사용하면 읽고, 쓰기 쉬운 비동기 코드를 작성할 수 있습니다.
 
 `async/await`를 사용하면 `promise.then/catch`가 거의 필요 없습니다. 하지만 가끔 `promise.then/catch`를 써야만 하는 경우가 생기기 때문에(예: 가장 바깥 스코프에서 비동기 처리가 필요할 때) `async/await`가 프라미스를 기반으로 한다는 사실을 알고 계셔야 합니다. 여러 작업이 있고, 이 작업들이 모두 완료될 때까지 기다리려면 `Promise.all`을 활용할 수 있다는 점도 알고 계시기 바랍니다.
+=======
+1. If it's an error, the exception is generated — same as if `throw error` were called at that very place.
+2. Otherwise, it returns the result.
+
+Together they provide a great framework to write asynchronous code that is easy to both read and write.
+
+With `async/await` we rarely need to write `promise.then/catch`, but we still shouldn't forget that they are based on promises, because sometimes (e.g. in the outermost scope) we have to use these methods. Also `Promise.all` is nice when we are waiting for many tasks simultaneously.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080

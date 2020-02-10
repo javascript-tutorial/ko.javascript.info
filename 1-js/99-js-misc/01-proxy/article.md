@@ -2,7 +2,11 @@
 
 `Proxy`는 특정 객체를 감싸 프로퍼티 읽기, 쓰기와 같은 객체에 가해지는 작업을 중간에서 가로채는 객체로, 가로채진 작업은 `Proxy` 자체에서 처리되기도 하고, 원래 객체가 처리하도록 그대로 전달되기도 합니다.
 
+<<<<<<< HEAD
 프락시는 다양한 라이브러리와 몇몇 브라우저 프레임워크에서 사용되고 있습니다. 이번 챕터에선 프락시를 어떻게 실무에 적용할 수 있을지 다양한 예제를 통해 살펴보도록 하겠습니다. 
+=======
+Proxies are used in many libraries and some browser frameworks. We'll see many practical applications in this article.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 문법:
 
@@ -241,11 +245,19 @@ alert("윗줄에서 에러가 발생했기 때문에 이 줄은 절대 실행되
 
 `Object.keys`, `for..in` 반복문을 비롯한 프로퍼티 순환 관련 메서드 대다수는 내부 메서드 `[[OwnPropertyKeys]]`(트랩 메서드는 `ownKeys`임)를 사용해 프로퍼티 목록을 얻습니다.
 
+<<<<<<< HEAD
 그런데 세부 동작 방식엔 차이가 있습니다.
 - `Object.getOwnPropertyNames(obj)` -- 심볼형이 아닌 키만 반환합니다.
 - `Object.getOwnPropertySymbols(obj)` -- 심볼형 키만 반환합니다.
 - `Object.keys/values()` -- `enumerable` 플래그가 `true`이면서 심볼형이 아닌 키나 심볼형이 아닌 키에 해당하는 값 전체를 반환합니다(프로퍼티 플래그에 관한 내용은 <info:property-descriptors>에서 찾아보실 수 있습니다).
 - `for..in` 반복문 -- `enumerable` 플래그가 `true`인 심볼형이 아닌 키, 프로토타입 키를 순회합니다.
+=======
+Such methods differ in details:
+- `Object.getOwnPropertyNames(obj)` returns non-symbol keys.
+- `Object.getOwnPropertySymbols(obj)` returns symbol keys.
+- `Object.keys/values()` returns non-symbol keys/values with `enumerable` flag (property flags were explained in the article <info:property-descriptors>).
+- `for..in` loops over non-symbol keys with `enumerable` flag, and also prototype keys.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 메서드마다 차이는 있지만 `[[OwnPropertyKeys]]`를 통해 프로퍼티 목록을 얻는다는 점은 동일합니다.
 
@@ -310,7 +322,11 @@ user = new Proxy(user, {
     return {
       enumerable: true,
       configurable: true
+<<<<<<< HEAD
       /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능하죠. */
+=======
+      /* ...other flags, probable "value:..." */
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
     };
   }
 
@@ -445,15 +461,24 @@ user = {
 
 따라서 이런 형태의 프락시는 어디서든 사용해선 안 됩니다.
 
+<<<<<<< HEAD
 ```smart header="클래스와 private 프로퍼티"
 모던 자바스크립트 엔진은 클래스 내 private 프로퍼티를 사용할 수 있게 해줍니다. private 프로퍼티는 프로퍼티 앞에 `#`을 붙이면 만들 수 있는데, 자세한 내용은 <info:private-protected-properties-methods>에서 찾아볼 수 있습니다. private 프로퍼티를 사용하면 프락시 없이도 프로퍼티를 보호할 수 있습니다.
+=======
+```smart header="Private properties of a class"
+Modern JavaScript engines natively support private properties in classes, prefixed with `#`. They are described in the article <info:private-protected-properties-methods>. No proxies required.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 그런데 private 프로퍼티는 상속이 불가능하다는 단점이 있습니다.
 ```
 
 ## 'has' 트랩으로 '범위` 내 여부 확인하기 
 
+<<<<<<< HEAD
 좀 더 많은 예시를 살펴봅시다.
+=======
+Let's see more examples.ar
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 범위를 담고 있는 객체가 있습니다.
 
@@ -507,9 +532,15 @@ alert(50 in range); // false
 - `thisArg` -- `this`의 값
 - `args` -- 인수 목록
 
+<<<<<<< HEAD
 <info:call-apply-decorators> 챕터에서 살펴보았던 `delay(f, ms)` 데코레이터(decorator)를 떠올려봅시다.
 
 해당 챕터 에선 프락시를 사용하지 않고 데코레이터를 구현하였습니다. `delay(f, ms)`를 호출하면 함수가 반환되는데, 이 함수는 함수 `f`가 `ms`밀리초 후에 호출되도록 해주었죠.  
+=======
+For example, let's recall `delay(f, ms)` decorator, that we did in the article <info:call-apply-decorators>.
+
+In that article we did it without proxies. A call to `delay(f, ms)` returned a function that forwards all calls to `f` after `ms` milliseconds.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 함수를 기반으로 작성했던 데코레이터는 다음과 같습니다.
 
@@ -587,13 +618,17 @@ sayHi("John"); // Hello, John! (3초 후)
 
 좀 더 성능이 좋은 래퍼를 갖게 되었네요.
 
+<<<<<<< HEAD
 이 외에도 다양한 트랩이 존재합니다. 트랩 전체 리스트는 상단부 표에 정리되어있으니 확인하시면 됩니다. 지금까지 소개해 드린 예시를 응용하면 충분히 프락시를 활용하실 수 있을 겁니다. 
+=======
+Other traps exist: the full list is in the beginning of this article. Their usage pattern is similar to the above.
+>>>>>>> 10c7807f49122f475f7cda5d07a324247091c080
 
 ## Reflect
 
 `Reflect` is a built-in object that simplifies creation of `Proxy`.
 
-It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specifiction only, they can't be called directly.
+It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specification-only, they can't be called directly.
 
 The `Reflect` object makes that somewhat possible. Its methods are minimal wrappers around the internal methods.
 
@@ -603,7 +638,7 @@ Here are examples of operations and `Reflect` calls that do the same:
 |-----------------|----------------|-------------|
 | `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
 | `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[HasProperty]]` |
+| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
 | `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
 | ... | ... | ... |
 
@@ -619,7 +654,7 @@ alert(user.name); // John
 
 In particular, `Reflect` allows us to call operators (`new`, `delete`...) as functions (`Reflect.construct`, `Reflect.deleteProperty`, ...). That's an interesting capability, but here another thing is important.
 
-**For every internal method, trappable by `Proxy`, there's a corresponding method in `Reflect`, with the same name and arguments as `Proxy` trap.**
+**For every internal method, trappable by `Proxy`, there's a corresponding method in `Reflect`, with the same name and arguments as the `Proxy` trap.**
 
 So we can use `Reflect` to forward an operation to the original object.
 
