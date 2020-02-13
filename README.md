@@ -72,5 +72,6 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 - 충돌이 있는 경우 빠르게 수정하여 병합할 수 있도록 PR하나에 챕터 하나만 번역하길 권유 드립니다.
 - 번역기 사용을 지양하는 바는 아닙니다. 다만, 번역 투가 심하거나 번역되지 않은 대명사 등 때문에 가독성이 떨어지는 경우는 수정을 권유하고 있습니다.
 ---
-♥
-Ilya Kantor @iliakan
+by the Modern JavaScript Tutorial Project Owner, Ilya Kantor(@iliakan)
+
+모던 JavaScript 튜토리얼 한국어 프로젝트 오너, 이보라(@Violet-Bora-Lee)
