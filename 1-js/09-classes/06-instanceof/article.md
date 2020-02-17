@@ -2,7 +2,11 @@
 
 `instanceof` 연산자를 사용하면 객체가 특정 클래스에 속하는지 아닌지를 확인할 수 있습니다. `instanceof`는 상속 관계도 확인해줍니다.
 
+<<<<<<< HEAD
 확인 기능은 다양한 곳에서 쓰이는데, 이번 챕터에선 `instanceof`를 사용해 인수의 타입에 따라 이를 다르게 처리하는 *다형적인(polymorphic)* 함수를 만드는데 사용해보겠습니다.
+=======
+Such a check may be necessary in many cases. Here we'll use it for building a *polymorphic* function, the one that treats arguments differently depending on their type.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ## instanceof 연산자 [#ref-instanceof]
 
@@ -46,7 +50,11 @@ alert( arr instanceof Object ); // true
 
 위 예시에서 `arr`은 클래스 `Object`에도 속한다는 점에 주목해주시기 바랍니다. `Array`는 프로토타입 기반으로 `Object`를 상속받습니다.
 
+<<<<<<< HEAD
 `instanceof` 연산자는 보통, 프로토타입 체인을 거슬러 올라가며 인스턴스 여부나 상속 여부를 확인합니다. 그런데 정적 메서드 `Symbol.hasInstance`을 사용하면 직접 확인 로직을 설정할 수도 있습니다.
+=======
+Normally, `instanceof` examines the prototype chain for the check. We can also set a custom logic in the static method `Symbol.hasInstance`.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 `obj instanceof Class`은 대략 아래와 같은 알고리즘으로 동작합니다.
 
@@ -68,7 +76,11 @@ alert( arr instanceof Object ); // true
     alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
     ```
 
+<<<<<<< HEAD
 2. 그런데, 대부분의 클래스엔 `Symbol.hasInstance`가 구현되어있지 않습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 상의 프로토타입 중 하나와 일치하는지 확인합니다.
+=======
+2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceOf Class` checks whether `Class.prototype` is equal to one of the prototypes in the `obj` prototype chain.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
     비교는 차례 차례 진행됩니다.
     ```js
@@ -107,7 +119,11 @@ alert( arr instanceof Object ); // true
 
 `isPrototypeOf`는 `Class` 생성자를 제외하고 포함 여부를 검사하는 점이 조금 특이합니다. 검사 시, 프로토타입 체인과 `Class.prototype`만 고려합니다.
 
+<<<<<<< HEAD
 `isPrototypeOf`의 이런 특징은 객체 생성 후 `prototype` 프로퍼티가 변경되는 경우 특이한 결과를 초래하기도 합니다. 아래와 같이 말이죠.
+=======
+That can lead to interesting consequences when a `prototype` property is changed after the object is created.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 예시:
 
@@ -186,7 +202,11 @@ let user = {
 alert( {}.toString.call(user) ); // [object User]
 ```
 
+<<<<<<< HEAD
 대부분의 호스트 환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 관련 예시 몇 가지를 살펴봅시다.
+=======
+For most environment-specific objects, there is such a property. Here are some browser specific examples:
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```js run
 // 특정 호스트 환경의 객체와 클래스에 구현된 toStringTag

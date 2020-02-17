@@ -1,8 +1,18 @@
 # 숫자형
 
+<<<<<<< HEAD
 모던 자바스크립트는 숫자를 나타내는 두 가지 자료형을 지원합니다.
 
 1. 일반적인 숫자는 '배정밀도 부동소수점 숫자(double precision floating point number)'로 알려진 64비트 형식의 [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)에 저장됩니다. 튜토리얼 전체에서 이 형식을 사용하여 숫자를 표현할 예정입니다.
+=======
+In modern JavaScript, there are two types of numbers:
+
+1. Regular numbers in JavaScript are stored in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), also known as "double precision floating point numbers". These are numbers that we're using most of the time, and we'll talk about them in this chapter.
+
+2. BigInt numbers, to represent integers of arbitrary length. They are sometimes needed, because a regular number can't exceed <code>2<sup>53</sup></code> or be less than <code>-2<sup>53</sup></code>. As bigints are used in few special areas, we devote them a special chapter <info:bigint>.
+
+So here we'll talk about regular numbers. Let's expand our knowledge of them.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 2. 임의의 길이를 가진 정수는 BigInt 숫자로 나타낼 수 있습니다. 일반적인 숫자는 <code>2<sup>53</sup></code>이상이거나 <code>-2<sup>53</sup></code>이하일 수 없다는 제약 때문에 BigInt라는 새로운 자료형이 만들어졌습니다. BigInt는 아주 특별한 경우에만 사용되므로, 별도의 챕터 <info:bigint>에서 자세한 내용을 다루겠습니다.
 
@@ -33,13 +43,21 @@ alert( 7.3e9 );  // 73억 (7,300,000,000)
 1.23e6 = 1.23 * 1000000
 ```
 
+<<<<<<< HEAD
 이제 아주 작은 숫자인 1마이크로초(백만 분의 1초)를 표현해보겠습니다.
+=======
+Now let's write something very small. Say, 1 microsecond (one millionth of a second):
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```js
 let ms = 0.000001;
 ```
 
+<<<<<<< HEAD
 작은 숫자를 표현할 때도 큰 숫자를 표현할 때처럼 `'e'`를 사용할 수 있습니다. 0을 명시적으로 쓰고 싶지 않다면 다음과 같이 숫자를 표현할 수 있죠.
+=======
+Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could say the same as:
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```js
 let ms = 1e-6; // 1에서 왼쪽으로 6번 소수점 이동
@@ -204,7 +222,11 @@ alert( 0.1 + 0.2 == 0.3 ); // *!*false*/!*
 alert( 0.1 + 0.2 ); // 0.30000000000000004
 ```
 
+<<<<<<< HEAD
 부정확한 비교 연산이 만들어내는 결과는 여기서 그치지 않습니다. 인터넷 쇼핑몰 사이트를 운영하고 있다고 가정해 봅시다. 사용자가 `$0.10`와 `$0.20` 짜리 물품을 장바구니에 넣었다고 상상해 보죠. 주문 총액이 `$0.30000000000000004`인 것을 보고 놀라지 않을 사용자는 없을 겁니다.
+=======
+Ouch! There are more consequences than an incorrect comparison here. Imagine you're making an e-shopping site and the visitor puts `$0.10` and `$0.20` goods into their cart. The order total will be `$0.30000000000000004`. That would surprise anyone.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 왜 이런 일이 발생하는 걸까요?
 
@@ -274,17 +296,30 @@ alert( 9999999999999999 ); // 10000000000000000이 출력됩니다.
 ```smart header="두 종류의 0"
 자바스크립트 내부에서 숫자를 표현하는 방식 때문에 발생하는 또 다른 흥미로운 현상은 `0`과 `-0`이라는 두 종류의 0이 존재한다는 사실입니다.
 
+<<<<<<< HEAD
 자바스크립트에선 숫자의 부호가 단일 비트에 저장되는데 0을 포함한 모든 숫자에 부호를 설정할 수도, 설정하지 않을 수도 있기 때문입니다.
+=======
+That's because a sign is represented by a single bit, so it can be set or not set for any number including a zero.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 대부분의 연산은 `0`과 `-0`을 동일하게 취급하기 때문에 두 0의 차이는 두드러지지 않는 편입니다.
 ```
 
+<<<<<<< HEAD
 ## isNaN과 isFinite
 
 아래 두 특수 숫자 값이 기억나시나요?
 
 - `Infinity`와 `-Infinity` -- 그 어떤 숫자보다 큰 혹은 작은 특수 숫자 값
 - `NaN` -- 에러를 나타내는 값
+=======
+## Tests: isFinite and isNaN
+
+Remember these two special numeric values?
+
+- `Infinity` (and `-Infinity`) is a special numeric value that is greater (less) than anything.
+- `NaN` represents an error.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 두 특수 숫자는 `숫자형`에 속하지만 '정상적인' 숫자는 아니기 때문에, 정상적인 숫자와 구분하기 위한 특별한 함수가 존재합니다.
 
@@ -410,10 +445,17 @@ alert( parseInt('2n9c', 36) ); // 123456
 
 ## 요약
 
+<<<<<<< HEAD
 0이 많이 붙은 큰 숫자는 다음과 같은 방법을 사용해 씁니다.
 
 - 0의 개수를 `'e'` 뒤에 추가합니다. `123e6`은 0이 6개인 숫자, `123000000`을 나타냅니다.
 - `'e'` 다음에 음수가 오면, 음수의 절댓값 만큼 10을 거듭제곱한 숫자로 주어진 숫자를 나눕니다. `123e-6`은 `0.000123`을 나타냅니다.
+=======
+To write numbers with many zeroes:
+
+- Append `"e"` with the zeroes count to the number. Like: `123e6` is the same as `123` with 6 zeroes `123000000`.
+- A negative number after `"e"` causes the number to be divided by 1 with given zeroes. E.g. `123e-6` means `0.000123` (`123` millionths).
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 다양한 진법을 사용할 수도 있습니다.
 

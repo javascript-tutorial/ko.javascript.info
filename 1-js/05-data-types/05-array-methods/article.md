@@ -36,7 +36,11 @@ alert( arr.length ); // 3
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
+<<<<<<< HEAD
 [arr.splice(str)](mdn:js/Array/splice)는 만능 스위스 맥가이버 칼 같은 메서드입니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드를 사용하면 요소 추가, 삭제, 교체가 모두 가능합니다.
+=======
+The [arr.splice(start)](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 문법은 다음과 같습니다.
 
@@ -268,7 +272,11 @@ alert( arr.includes(NaN) );// true (NaN의 여부를 확인하였습니다.)
 
 객체로 이루어진 배열이 있다고 가정해 봅시다. 특정 조건에 부합하는 객체를 배열 내에서 어떻게 찾을 수 있을까요?
 
+<<<<<<< HEAD
 이럴 때 [arr.find](mdn:js/Array/find)를 사용할 수 있습니다.
+=======
+Here the [arr.find(fn)](mdn:js/Array/find) method comes in handy.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 문법:
 ```js
@@ -385,7 +393,11 @@ alert( arr );  // *!*1, 15, 2*/!*
 
 **요소는 문자열로 취급되어 재 정렬되기 때문입니다.**
 
+<<<<<<< HEAD
 모든 요소는 문자형으로 변환된 이후에 재 정렬됩니다. 앞서 배웠듯이 문자열 비교는 사전편집 순으로 진행되기 때문에 2는 15보다 큰 값으로 취급됩니다(`"2" > "15"`).
+=======
+Literally, all elements are converted to strings for comparisons. For strings, lexicographic ordering is applied and indeed `"2" > "15"`.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 기본 정렬 기준 대신 새로운 정렬 기준을 만들려면 `arr.sort()`에 새로운 함수를 넘겨줘야 합니다.
 
@@ -430,10 +442,17 @@ alert(arr);  // *!*1, 2, 15*/!*
 });
 ```
 
+<<<<<<< HEAD
 참고로 정렬 중에 한 요소가 특정 요소와 여러 번 비교되는 일이 생기곤 하는데 비교 횟수를 최소화 하려다 보면 이런 일이 발생할 수 있습니다.
 
 ````smart header="정렬 함수는 어떤 숫자든 반환할 수 있습니다."
 정렬 함수의 반환 값엔 제약이 없습니다. 양수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 "크다"를 나타내고, 음수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 "작다"를 나타내기만 하면 됩니다.
+=======
+The algorithm may compare an element with multiple others in the process, but it tries to make as few comparisons as possible.
+
+````smart header="A comparison function may return any number"
+Actually, a comparison function is only required to return a positive number to say "greater" and a negative number to say "less".
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 이 점을 이용하면 정렬 함수를 더 간결하게 만들 수 있습니다.
 
@@ -446,14 +465,35 @@ alert(arr);  // *!*1, 2, 15*/!*
 ```
 ````
 
+<<<<<<< HEAD
 ````smart header="화살표 함수를 사용합시다."
 [화살표 함수](info:function-expressions-arrows#arrow-functions)를 사용하면 정렬 함수를 더 깔끔하게 만들 수 있습니다. 
+=======
+````smart header="Arrow functions for the best"
+Remember [arrow functions](info:arrow-functions-basics)? We can use them here for neater sorting:
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```js
 arr.sort( (a, b) => a - b );
 ```
 
 화살표 함수를 활용한 코드와 함수 선언문을 사용한 코드는 동일하게 작동합니다.
+````
+
+````smart header="Use `localeCompare` for strings"
+Remember [strings](info:string#correct-comparisons) comparison algorithm? It compares letters by their codes by default.
+
+For many alphabets, it's better to use `str.localeCompare` method to correctly sort letters, such as `Ö`.
+
+For example, let's sort a few countries in German:
+
+```js run
+let countries = ['Österreich', 'Andorra', 'Vietnam'];
+
+alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (wrong)
+
+alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (correct!)
+```
 ````
 
 ### reverse
@@ -530,7 +570,7 @@ alert( str ); // Bilbo;Gandalf;Nazgul
 문법:
 
 ```js
-let value = arr.reduce(function(previousValue, item, index, array) {
+let value = arr.reduce(function(accumulator, item, index, array) {
   // ...
 }, [initial]);
 ```
@@ -539,14 +579,27 @@ let value = arr.reduce(function(previousValue, item, index, array) {
 
 함수의 인수는 다음과 같습니다.
 
+<<<<<<< HEAD
 - `previousValue` -- 이전 함수 호출의 결과. `initial`은 함수 최초 호출 시 사용되는 초깃값을 나타냄(옵션)
 - `item` -- 현재 배열 요소
 - `index` -- 요소의 위치
 - `array` -- 배열
+=======
+- `accumulator` -- is the result of the previous function call, equals `initial` the first time (if `initial` is provided).
+- `item` -- is the current array item.
+- `index` -- is its position.
+- `array` -- is the array.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 이전 함수 호출의 결과는 다음 함수를 호출할 때 첫 번째 인수(`previousValue`)로 사용됩니다. 
 
+<<<<<<< HEAD
 뭔가 복잡해 보이지만 함수의 첫 번째 인수를 앞서 호출했던 함수들의 결과를 누적시켜주는 "누산기"라고 생각하면 어렵지 않습니다. 마지막 함수까지 호출되면 이 값은 `reduce`의 반환 값이 됩니다.
+=======
+So, the first argument is essentially the accumulator that stores the combined result of all previous executions. And at the end it becomes the result of `reduce`.
+
+Sounds complicated?
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 예제를 통해 이 메서드를 이해해 봅시다.
 
@@ -574,7 +627,7 @@ alert(result); // 15
 
 표를 이용해 설명하면 아래와 같습니다. 함수가 호출될 때마다 넘겨지는 인수와 연산 결과는 각 열에서 확인할 수 있습니다.
 
-|   |`sum`|`current`|`result`|
+|   |`sum`|`current`|result|
 |---|-----|---------|---------|
 |첫 번째 호출|`0`|`1`|`1`|
 |두 번째 호출|`1`|`2`|`3`|
@@ -611,8 +664,12 @@ let arr = [];
 arr.reduce((sum, current) => sum + current);
 ```
 
+<<<<<<< HEAD
 
 이런 예외상황 때문에 항상 초깃값을 명시해 줄 것을 권장합니다.
+=======
+So it's advised to always specify the initial value.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 [arr.reduceRight](mdn:js/Array/reduceRight)는 `reduce`와 동일한 기능을 하지만 배열의 오른쪽부터 연산을 수행한다는 점이 다른 메서드입니다.
 

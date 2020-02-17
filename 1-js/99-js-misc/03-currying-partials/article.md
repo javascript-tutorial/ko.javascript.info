@@ -73,7 +73,11 @@ function log(date, importance, message) {
 log = _.curry(log);
 ```
 
+<<<<<<< HEAD
 위와 같이 커링을 적용한 후에도 기존 함수 `log` 는 정상적으로 작동합니다.
+=======
+After that `log` works normally:
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```js
 log(new Date(), "DEBUG", "some debug"); // log(a, b, c)
@@ -111,7 +115,11 @@ debugNow("message"); // [HH:mm] DEBUG 메세지
 
 ## 고급 커리 구현
 
+<<<<<<< HEAD
 만약 좀 더 깊이 공부하고 싶다면 (필수는 아닙니다!), 예제를 통해서 다중-인수를 허용하는 "고급"커리를 구현하는 방법을 알아보겠습니다.
+=======
+In case you'd like to get in to the details, here's the "advanced" curry implementation for multi-argument functions that we could use above.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 사실 꽤 짧습니다.
 
@@ -175,7 +183,11 @@ function curried(...args) {
 2. `pass`래퍼가 `(2)`와 함께 호출됩니다. 이전의 인수인 (`1`)을 가져서 `(2)`와 연결하고`curried (1, 2)`를 함께 호출합니다. 인수의 개수는 아직 3보다 작기때문에 `curry`는 `pass`를 반환합니다.
 3. `pass` 래퍼가 다시 `(3)`과 함께 호출됩니다. 다음 호출인 `pass(3)`가 이전의 인수들인 (`1`, `2`)를 가져오고 `3`을 추가하고 `curried(1, 2, 3)` 호출을 합니다 -- 여기에 `3`인수는 마지막으로, 원래의 함수에 전달됩니다.
 
+<<<<<<< HEAD
 아직 확실하게 이해되지 않았다면, 호출되는 순서를 마음속이나 종이에 그려보세요.
+=======
+If that's still not obvious, just trace the calls sequence in your mind or on paper.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ```smart header="오직 고정된 길이의 함수들만 사용 가능합니다"
 커링은 해당 함수가 고정된 개수의 인수를 가지도록 요구합니다.
@@ -191,6 +203,12 @@ function curried(...args) {
 
 ## 요약
 
+<<<<<<< HEAD
 *커링*은 `f(a,b,c)`를 `f(a)(b)(c)` 와 같이 다중 callable 프로세스 형태로 변환하는 기술입니다. 보통 자바스크립트에서의 커링되어진 함수는 평소처럼 호출도 하고 만약에 인수들이 충분하지 않을 때에는 partial을 반환합니다. 
 
 커링은 partials를 쉽게 적용할 수 있도록 합니다. 로그 예시에서 보았듯이 다목적으로 쓰였던 `log(date, importance, message)` 함수는 커링후에 `log(date)`같이 하나의 인수를 가진 형태나 `log(date, importance)`처럼 두 개의 인수를 가진 형태로 호출할 수 있었습니다.
+=======
+*Currying* is a transform that makes `f(a,b,c)` callable as `f(a)(b)(c)`. JavaScript implementations usually both keep the function callable normally and return the partial if the arguments count is not enough.
+
+Currying allows us to easily get partials. As we've seen in the logging example, after currying the three argument universal function `log(date, importance, message)` gives us partials when called with one argument (like `log(date)`) or two arguments (like `log(date, importance)`).  
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8

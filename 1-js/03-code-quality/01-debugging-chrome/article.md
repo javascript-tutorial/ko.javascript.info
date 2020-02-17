@@ -4,7 +4,11 @@
 
 [디버깅(debugging)](https://en.wikipedia.org/wiki/Debugging)은 스크립트 내 에러를 검출해 제거하는 일련의 과정을 의미합니다. 모던 브라우저와 호스트 환경 대부분은 개발자 도구 안에 UI 형태로 디버깅 툴을 구비해 놓습니다. 디버깅 툴을 사용하면 디버깅이 훨씬 쉬워지고, 실행 단계마다 어떤 일이 일어나는지를 코드 단위로 추적할 수 있습니다.
 
+<<<<<<< HEAD
 이 글에선 Chrome 브라우저에서 제공하는 디버깅 툴을 사용하도록 하겠습니다. 기능이 다양하고, Chrome에 익숙해지면 다른 브라우저에서 지원하는 디버깅 툴은 쉽게 익힐 수 있기 때문입니다.
+=======
+We'll be using Chrome here, because it has enough features, most other browsers have a similar process.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 ## 'Sources' 패널
 
@@ -24,11 +28,19 @@ Sources 패널을 처음 열었다면 아래와 같은 화면이 보일 겁니�
 
 ![](chrome-tabs.svg)
 
+<<<<<<< HEAD
 Sources 패널은 크게 세 개의 영역으로 구성됩니다.
 
 1. **리소스 영역** --  페이지를 구성하는 데 쓰인 모든 리소스(HTML, JavaScript, CSS, 이미지 파일 등)를 트리 형태로 보여줍니다. Chrome 익스텐션이 여기 나타날 때도 있습니다.
 2. **소스 코드 영역** -- 리소스 영역에서 선택한 파일의 소스 코드를 보여줍니다. 여기서 소스 코드를 편집할 수도 있습니다.
 3. **디버깅 영역** -- 디버깅에 관련된 기능을 제공합니다. 곧 자세히 살펴보겠습니다.
+=======
+The Sources panel has 3 parts:
+
+1. The **File Navigator** pane lists HTML, JavaScript, CSS and other files, including images that are attached to the page. Chrome extensions may appear here too.
+2. The **Code Editor** pane shows the source code.
+3. The **JavaScript Debugging** pane is for debugging, we'll explore it soon.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 토글 버튼 <span class="devtools" style="background-position:-172px -122px"></span>을 다시 누르면 리소스 영역이 사라지고, 소스 코드 영역이 더 넓어집니다.
 
@@ -137,7 +149,11 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 <span class="devtools" style="background-position:-62px -192px"></span> -- 'Step over': 다음 명령어를 실행하되, *함수 안으로 들어가진 않음* (단축키 `key:F10`)
 : 'Step'과 유사하지만, 다음 문이 함수 호출일 때 'Step'과는 다르게 동작합니다(`alert` 같은 내장함수에는 해당하지 않고, 직접 작성한 함수일 때만 동작이 다릅니다).
 
+<<<<<<< HEAD
     'Step'은 함수 내부로 들어가 함수 본문 첫 번째 줄에서 실행을 멈춥니다. 반면 'Step over'는 보이지 않는 곳에서 중첩 함수를 실행하긴 하지만 함수 내로 진입하지 않습니다.
+=======
+    The "Step" command goes into it and pauses the execution at its first line, while "Step over" executes the nested function call invisibly, skipping the function internals.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
     실행은 함수 실행이 끝난 후에 즉시 멈춥니다.
 

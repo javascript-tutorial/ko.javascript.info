@@ -68,8 +68,13 @@
 
 `form.onclick` 핸들러 내의 `this`와 `event.target`은 다음과 같습니다.
 
+<<<<<<< HEAD
 - `this`(`event.currentTarget`) -- `<form>` 요소에 있는 핸들러가 동작했기 때문에 `<form>` 요소를 가리킵니다.
 - `event.target` -- 폼 안쪽에 실제 클릭한 요소를 가리킵니다.
+=======
+- `this` (=`event.currentTarget`) is the `<form>` element, because the handler runs on it.
+- `event.target` is the actual element inside the form that was clicked.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 직접 확인해 봅시다.
 
@@ -101,8 +106,13 @@
 버블링을 멈추고, 요소에 할당된 다른 핸들러의 동작도 막으려면 `event.stopImmediatePropagation()`을 사용해야 합니다. 이 메서드를 사용하면 요소에 할당된 특정 이벤트를 처리하는 핸들러 모두가 동작하지 않습니다.
 ```
 
+<<<<<<< HEAD
 ```warn header="꼭 필요한 경우를 제외하곤 버블링을 막지 마세요!"
 버블링은 유용합니다. 버블링을 꼭 멈춰야 하는 명백한 상황이 아니라면 버블링을 막지 마세요. 구조를 잘 고려해서 진짜 멈춰야 하는 상황에만 버블링을 막으세요.
+=======
+```warn header="Don't stop bubbling without a need!"
+Bubbling is convenient. Don't stop it without a real need: obvious and architecturally well thought out.
+>>>>>>> 9acc1302a14a3bbabbc9bf95d04581094bd0f1a8
 
 `event.stopPropagation()`은 추후에 문제가 될 수 있는 상황을 만들어낼 수 있습니다.
 
