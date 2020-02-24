@@ -187,8 +187,13 @@ alert( document.body.tagName ); // BODY
 
 요소 노드만 다루고 있다면 `tagName`과 `nodeName`에는 차이가 없으므로 둘 다 사용할 수 있습니다.
 
+<<<<<<< HEAD
 ```smart header="태그 이름은 XML 모드를 제외하고 항상 대문자입니다."
 브라우저에서 HTML과 XML을 처리하는 모드는 다릅니다. 웹페이지는 대게 HTML 모드로 처리됩니다. 헤더가 `Content-Type: application/xml+xhtml`인 XML 문서를 받으면 XML 모드로 문서를 처리합니다.
+=======
+```smart header="The tag name is always uppercase except in XML mode"
+The browser has two modes of processing documents: HTML and XML. Usually the HTML-mode is used for webpages. XML-mode is enabled when the browser receives an XML-document with the header: `Content-Type: application/xml+xhtml`.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 HTML 모드에선 `tagName`과 `nodeName`이 모두 대문자로 변경됩니다. `<body>` 이든 `<BoDy>`이든 `BODY`가 되죠.
 
@@ -285,7 +290,11 @@ elem.innerHTML = elem.innerHTML + "..."
 </script>
 ```
 
+<<<<<<< HEAD
 **`innerHTML`과 달리 `outerHTML`은 요소 자체를 바꾸지 않습니다. 대신 `outerHTML`은 DOM 안의 요소를 교체합니다.**
+=======
+**Beware: unlike `innerHTML`, writing to `outerHTML` does not change the element. Instead, it replaces it in the DOM.**
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 네, 뭔가 이상하게 들리실 겁니다. 실제로도 이상하고요. 그럴 것을 예상하고 설명을 따로 만들어 놓았습니다.
 
@@ -303,7 +312,11 @@ elem.innerHTML = elem.innerHTML + "..."
   div.outerHTML = '<p>새로운 요소</p>'; // (*)
 
 *!*
+<<<<<<< HEAD
   // 어! div는 그대로네요!
+=======
+  // Wow! 'div' is still the same!
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 */!*
   alert(div.outerHTML); // <div>Hello, world!</div> (**)
 </script>
@@ -311,6 +324,7 @@ elem.innerHTML = elem.innerHTML + "..."
 
 뭔가 이상합니다.
 
+<<<<<<< HEAD
 `(*)`로 표시한 줄에서 `div`를 `<p>새로운 요소</p>`로 교체했기 때문에 예시를 실행하면 의도한 대로 문서(DOM)에 `<div>`가 아닌 새로운 내용이 보입니다. 그런데 `(**)`에서 기존의 `div`를 출력하네요!
 
 이런 결과가 나타난 이유는 `outerHTML`에 하는 할당 연산이 DOM 요소(outerHTML 연산의 대상으로, 위 예시에선 변수 `div`)를 수정하지 않기 때문입니다. 할당 연산은 요소를 DOM에서 제거하고 새로운 HTML 조각을 넣습니다.
@@ -319,10 +333,24 @@ elem.innerHTML = elem.innerHTML + "..."
 - '문서'에서 `div`를 삭제
 - 새로운 HTML 조각인 `<p>A new element</p>`을 삭제 후 생긴 공간에 삽입
 - `div`엔 여전히 기존 값이 저장되어 있고 새로운 HTML 조각은 어디에도 저장되어있지 않음
+=======
+In the line `(*)` we replaced `div` with `<p>A new element</p>`. In the outer document (the DOM) we can see the new content instead of the `<div>`. But, as we can see in line `(**)`, the value of the old `div` variable hasn't changed!
+
+The `outerHTML` assignment does not modify the DOM element (the object referenced by, in this case, the variable 'div'), but removes it from the DOM and inserts the new HTML in its place.
+
+So what happened in `div.outerHTML=...` is:
+- `div` was removed from the document.
+- Another piece of HTML `<p>A new element</p>` was inserted in its place.
+- `div` still has its old value. The new HTML wasn't saved to any variable.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 `outerHTML`의 이런 동작 방식 때문에 실수 할 여지가 많습니다. `div.outerHTML`을 수정한 후 `div`에 새로운 내용이 들어갔다고 착각하며 작업하는 경우가 많죠. `innerHTML`은 `div`를 수정하지만 `outerHTML`은 `div`를 수정하지 않습니다.
 
+<<<<<<< HEAD
 `elem.outerHTML`에 무언가를 쓸 때는 `elem`이 수정되지 않는다는 점을 꼭 명심하셔야 합니다. 할당받은 HTML은 `elem`이 있던 공간에 들어갑니다. 새롭게 만들어진 요소를 참조하려면 DOM 쿼리 메서드를 사용합시다.
+=======
+We can write to `elem.outerHTML`, but should keep in mind that it doesn't change the element we're writing to ('elem'). It puts the new HTML in its place instead. We can get references to the new elements by querying the DOM.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ## nodeValue/data로 텍스트 노드 내용 조작하기
 
@@ -475,7 +503,11 @@ elem.innerHTML = elem.innerHTML + "..."
 주요 DOM 노드 프로퍼티는 다음과 같습니다.
 
 `nodeType`
+<<<<<<< HEAD
 : 요소 타입을 알고 싶을 때 사용합니다. 요소 노드라면 `1`을, 텍스트 노드라면 `3`을 반환합니다. 두 타입 외에도 각 노드 타입엔 대응하는 상숫값이 있습니다. 읽기 전용입니다.
+=======
+: We can use it to see if a node is a text or an element node. It has a numeric value: `1` for elements,`3` for text nodes, and a few others for other node types. Read-only.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 `nodeName/tagName`
 : 요소 노드의 태그 이름을 알아낼 때 사용합니다. XML 모드일 때를 제외하고 태그 이름은 항상 대문자로 변환됩니다. 요소 노드가 아닌 노드에는 `nodeName`을 사용하면 됩니다. 읽기 전용입니다.
@@ -497,4 +529,8 @@ elem.innerHTML = elem.innerHTML + "..."
 
 DOM 노드는 클래스에 따라 이 외에도 다른 프로퍼티를 가집니다. `<input>` 요소(`HTMLInputElement`)는 `value`, `type` 프로퍼티를, `<a>` 요소(`HTMLAnchorElement`)는 `href` 프로퍼티를 지원하는 것 같이 말이죠. 대부분의 표준 HTML 속성은 대응하는 DOM 프로퍼티를 가집니다.
 
+<<<<<<< HEAD
 그런데 HTML 요소와 DOM 프로퍼티가 항상 같은 것은 아닙니다. 관련 내용은 다음 챕터에서 살펴보도록 하겠습니다.
+=======
+However, HTML attributes and DOM properties are not always the same, as we'll see in the next chapter.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46

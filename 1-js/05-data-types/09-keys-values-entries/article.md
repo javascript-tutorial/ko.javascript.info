@@ -11,7 +11,11 @@
 
 - `Map`
 - `Set`
+<<<<<<< HEAD
 - `Array` (`arr.values()`는 제외)
+=======
+- `Array`
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 일반 객체에도 유사한 메서드가 있는데, `Map`, `Set`, `Array`에 적용되는 메서드와는 문법이 약간 다릅니다.
 

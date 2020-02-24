@@ -2,7 +2,11 @@ importance: 5
 
 ---
 
+<<<<<<< HEAD
 # 어디에서 쓸까요?
+=======
+# Where does it write?
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 `animal`에서 상속받은 `rabbit`이 있습니다.
 

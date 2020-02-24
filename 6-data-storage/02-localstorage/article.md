@@ -19,7 +19,11 @@
 - `key(index)` -- 주어진 위치의 키를 받아옵니다.
 - `length` -- 저장된 항목의 개수를 나타냅니다.
 
+<<<<<<< HEAD
 이들은 마치 `Map` 컬렉션(`setItem/getItem/removeItem`) 같으면서도 순서를 가지고 있어서 `key(index)`를 이용해 인덱스로 접근할 수 있습니다.
+=======
+As you can see, it's like a `Map` collection (`setItem/getItem/removeItem`), but also allows to access by index with `key(index)`.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 이제 어떻게 동작하는지 살펴봅시다.
 

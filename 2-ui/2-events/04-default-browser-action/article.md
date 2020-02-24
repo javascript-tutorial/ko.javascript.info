@@ -8,7 +8,11 @@
 - 폼 전송 버튼을 클릭하면 서버에 폼이 전송됩니다.
 - 마우스 버튼을 누른 채로 글자 위에서 커서를 움직이면 글자가 선택됩니다.
 
+<<<<<<< HEAD
 그런데 어떨 때는 이런 브라우저 기본 동작 대신에 자바스크립트를 사용해 직접 동작을 구현해야 하는 경우가 생깁니다. 
+=======
+If we handle an event in JavaScript, we may not want the corresponding browser action to happen, and want to implement another behavior instead.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ## 브라우저 기본 동작 막기
 
@@ -206,8 +210,13 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 위 예시를 통해 보았듯이, `event.stopPropagation()`과 `return false`로 알려진 `event.preventDefault()`는 명백히 다른 메서드입니다. 두 메서드는 연관성이 없습니다.
 ```
 
+<<<<<<< HEAD
 ```smart header="중첩 컨텍스트 메뉴의 아키텍처"
 중첩 컨텍스트 메뉴를 구현하는 다른 방법도 있습니다. 전역 객체에 `document.oncontextmenu` 전용 핸들러를 구현하고 다른 핸들러를 저장할 수 있게 메서드를 구현한느 방법입니다.
+=======
+```smart header="Nested context menus architecture"
+There are also alternative ways to implement nested context menus. One of them is to have a single global object with a handler for `document.oncontextmenu`, and also methods that allow us to store other handlers in it.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 이 전역 객체는 모든 우클릭을 잡아내서 내부의 핸들러를 빠르게 살펴본 후 적절한 핸들러를 실행시킬 겁니다.
 
@@ -240,5 +249,9 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 
 이렇게 요소가 가진 의미를 해치지 않으면서 코드를 작성하면 '좋은 코드'가 될 뿐만 아니라 접근성 측면에서도 도움이 됩니다.
 
+<<<<<<< HEAD
 `<a>`와 기본동작 막기를 조합한 코드를 구상하신다면 주의하실 것이 있습니다. 사용자는 브라우저 기본 동작을 사용해 마우스 우클릭 등의 방법으로 새 창에서 링크를 열 수 있습니다. 이 기능은 인기가 많죠. 하지만 자바스크립트로 버튼을 조작해 링크처럼 동작하게 만들고 CSS를 이용해 버튼을 링크처럼 꾸미더라도 브라우저에서 제공하는 `<a>` 관련 기능은 버튼에선 작동하지 않습니다.
+=======
+Also if we consider the example with `<a>`, then please note: a browser allows us to open such links in a new window (by right-clicking them and other means). And people like that. But if we make a button behave as a link using JavaScript and even look like a link using CSS, then `<a>`-specific browser features still won't work for it.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 ```

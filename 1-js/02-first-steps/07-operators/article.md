@@ -138,17 +138,30 @@ alert( +apples + +oranges ); // 5
 | 순위 | 연산자 이름 | 기호 |
 |------------|------|------|
 | ... | ... | ... |
+<<<<<<< HEAD
 | 16 | 단항 덧셈 | `+` |
 | 16 | 단항 부정 | `-` |
 | 14 | 곱셈 | `*` |
 | 14 | 나눗셈 | `/` |
 | 13 | 덧셈 | `+` |
 | 13 | 뺄셈 | `-` |
+=======
+| 17 | unary plus | `+` |
+| 17 | unary negation | `-` |
+| 15 | multiplication | `*` |
+| 15 | division | `/` |
+| 13 | addition | `+` |
+| 13 | subtraction | `-` |
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 | ... | ... | ... |
 | 3 | 할당 | `=` |
 | ... | ... | ... |
 
+<<<<<<< HEAD
 "단항 덧셈 연산자"는 우선순위 `16`으로, "(이항) 덧셈 연산자"의 우선순위 `13`보다 높습니다. 표현식 `"+apples + +oranges"`에서 단항 덧셈 연산자가 덧셈보다 먼저 수행되는 이유가 바로 이 때문입니다.
+=======
+As we can see, the "unary plus" has a priority of `17` which is higher than the `13` of "addition" (binary plus). That's why, in the expression `"+apples + +oranges"`, unary pluses work before the addition.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ## 할당 연산자
 

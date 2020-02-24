@@ -86,7 +86,7 @@ if (condition) {
 ```js
 // 백틱(`)을 사용하면 문자열을 여러 줄로 쉽게 나눌 수 있습니다.
 let str = `
-  Ecma International's TC39 is a group of JavaScript developers,
+  ECMA International's TC39 is a group of JavaScript developers,
   implementers, academics, and more, collaborating with the community
   to maintain and evolve the definition of JavaScript.
 `;

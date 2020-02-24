@@ -23,8 +23,13 @@
 
 모듈에 특수한 지시자 `export`와 `import`를 적용하면 다른 모듈을 불러와 불러온 모듈에 있는 함수를 호출하는 것과 같은 기능 공유가 가능합니다. 
 
+<<<<<<< HEAD
 - `export` 지시자를 변수나 함수 앞에 붙이면 외부 모듈에서 해당 변수나 함수에 접근할 수 있습니다(`모듈 내보내기`).
 - `import` 지시자를 사용하면 외부 모듈의 기능을 가져올 수 있습니다(`모듈 가져오기`).
+=======
+- `export` keyword labels variables and functions that should be accessible from outside the current module.
+- `import` allows the import of functionality from other modules.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 `export` 지시자를 사용해 파일 `sayHi.js` 내부의 함수 `sayHi`를 외부로 내보내 봅시다.
 
@@ -45,11 +50,19 @@ alert(sayHi); // 함수
 sayHi('John'); // Hello, John!
 ```
 
+<<<<<<< HEAD
 위 예시에서 `import` 지시자는 상대 경로(`./sayHi.js`)를 이용해 모듈을 가져오고 `sayHi.js`에서 내보낸 함수 `sayHi`를 상응하는 변수에 할당합니다.
+=======
+The `import` directive loads the module by path `./sayHi.js` relative to the current file, and assigns exported function `sayHi` to the corresponding variable.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 이제 브라우저에서 모듈이 어떻게 동작하는지 예시를 이용해 알아봅시다.
 
+<<<<<<< HEAD
 모듈은 특수한 키워드나 기능과 함께 사용되므로 `<script type="module">` 같은 속성을 설정해 해당 스크립트가 모듈이란 걸 브라우저가 알 수 있게 해줘야 합니다.
+=======
+As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute `<script type="module">`.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 아래와 같이 말이죠.
 
@@ -85,7 +98,11 @@ sayHi('John'); // Hello, John!
 
  전역변수를 대신하여 `hello.js`에 `user.js`를 가져와 필요한 기능을 얻을 수 있습니다.
 
+<<<<<<< HEAD
 아래와 같이 코드를 수정하면 정상적으로 동작합니다.
+=======
+This is the correct variant:
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 [codetabs src="scopes-working" height="140" current="hello.js"]
 
@@ -110,7 +127,11 @@ sayHi('John'); // Hello, John!
 
 동일한 모듈이 여러 곳에서 사용되더라도 모듈은 최초 호출 시 단 한 번만 실행됩니다. 실행 후 결과는 이 모듈을 가져가려는 모든 모듈에 내보내 집니다. 
 
+<<<<<<< HEAD
 이런 작동방식은 중요한 결과를 초래합니다. 예시를 통해 이에 대해 알아봅시다.
+=======
+That has important consequences. Let's look at them using examples:
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 alert 함수가 있는 모듈(`alert.js`)을 여러 모듈에서 가져오기로 해봅시다. alert 창은 단 한 번만 나타납니다.
 
@@ -163,9 +184,15 @@ alert(admin.name); // Pete
 
 자, 다시 한번 말씀드리겠습니다. 모듈은 단 한 번만 실행되고 실행된 모듈은 필요한 곳에 공유되므로 어느 한 모듈에서 `admin` 객체를 수정하면 다른 모듈에서도 변경사항을 확인할 수 있습니다. 
 
+<<<<<<< HEAD
 이런 특징을 이용하면 모듈 *설정*을 쉽게 할 수 있습니다. 최초로 실행되는 모듈의 객체 프로퍼티를 원하는 대로 설정하면 다른 모듈에서 이 설정을 그대로 사용할 수 있기 때문이죠.
 
 예시를 통해 이에 대해 자세히 알아봅시다. 아래 `admin.js` 모듈은 어떤 특정한 기능을 제공해주는데, 이 기능을 사용하려면 외부에서 `admin` 객체와 관련된 인증 정보를 받아와야 한다고 가정해봅시다.
+=======
+Such behavior allows us to *configure* modules on first import. We can setup its properties once, and then in further imports it's ready.
+
+For instance, the `admin.js` module may provide certain functionality, but expect the credentials to come into the `admin` object from outside:
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ```js
 // 📁 admin.js
@@ -235,10 +262,17 @@ sayHi(); // *!*Pete*/!*님, 안녕하세요!
 
 모듈 스크립트는 *항상* 지연 실행됩니다. 외부 스크립트, 인라인 스크립트와 관계없이 마치 `defer` 속성을 붙인 것처럼 실행됩니다(`defer`속성에 대한 자세한 내용은 [](info:script-async-defer)에서 확인할 수 있습니다).
 
+<<<<<<< HEAD
 따라서 모듈 스크립트는 아래와 같은 특징을 보입니다.
 - 외부 모듈 스크립트 `<script type="module" src="...">`를 다운로드할 때 브라우저의 HTML 처리가 멈추지 않습니다. 브라우저는 외부 모듈 스크립트와 기타 리소스를 병렬적으로 불러옵니다.
 - 모듈 스크립트는 HTML 문서가 완전히 준비될 때까지 대기 상태에 있다가 HTML 문서가 완전히 만들어진 이후에 실행됩니다. 모듈의 크기가 아주 작아서 HTML보다 빨리 불러온 경우에도 말이죠.
 - 스크립트의 상대적 순서가 유지됩니다. 문서상 위쪽의 스크립트부터 차례로 실행됩니다.
+=======
+In other words:
+- downloading external module scripts `<script type="module" src="...">` doesn't block HTML processing, they load in parallel with other resources.
+- module scripts wait until the HTML document is fully ready (even if they are tiny and load faster than HTML), and then run.
+- relative order of scripts is maintained: scripts that go first in the document, execute first.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 이런 특징 때문에 모듈 스크립트는 항상 완전한 HTML 페이지를 "볼 수" 있고 문서 내 요소에도 접근할 수 있습니다.
 
@@ -264,14 +298,23 @@ sayHi(); // *!*Pete*/!*님, 안녕하세요!
 <button id="button">Button</button>
 ```
 
+<<<<<<< HEAD
 위 예시에서 일반 스크립트는 첫 번째 모듈 스크립트보다 먼저 실행된다는 점에 주의하시기 바랍니다. `undefined`가 먼저, `object`는 나중에 출력됩니다.
 
 모듈 스크립트는 지연 실행되기 때문에 문서 전체가 처리되기 전까지 실행되지 않고, 일반 스크립트는 바로 실행되므로 위와 같은 결과가 나타났습니다.
 
 모듈을 사용할 땐 HTML 페이지가 완전히 나타난 이후에 모듈이 실행된다는 점에 항상 유의해야 합니다. 페이지 내 특정 기능이 모듈 스크립트에 의존적인 경우, 모듈이 완전히 로딩되기 전에 페이지만 먼저 사용자에게 노출되면 사용자가 혼란을 느낄 수 있기 때문입니다. 모듈 스크립트를 불러오는 동안엔 투명 오버레이나 "로딩 인디케이터(loading indicator)"를 보여주어 사용자의 혼란을 예방해 주도록 합시다. 
+=======
+Please note: the second script actually runs before the first! So we'll see `undefined` first, and then `object`.
+
+That's because modules are deferred, so we wait for the document to be processed. The regular script runs immediately, so we see its output first.
+
+When using modules, we should be aware that the HTML page shows up as it loads, and JavaScript modules run after that, so the user may see the page before the JavaScript application is ready. Some functionality may not work yet. We should put "loading indicators", or otherwise ensure that the visitor won't be confused by that.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ### 인라인 스크립트의 비동기 처리
 
+<<<<<<< HEAD
 모듈이 아닌 일반 스크립트에서 `async` 속성은 외부 스크립트를 불러올 때만 유효합니다. `async` 속성이 붙은 스크립트는 로딩이 끝나면 다른 스크립트나 HTML 문서가 처리되길 기다리지 않고 바로 실행됩니다.
 
 반면, 모듈 스크립트에선 외부/내부 스크립트 상관없이 `async` 속성을 적용할 수 있습니다.
@@ -279,6 +322,15 @@ sayHi(); // *!*Pete*/!*님, 안녕하세요!
 아래 모듈 스크립트엔 `async` 속성이 붙었기 때문에 다른 스크립트나 HTML이 처리되길 기다리지 않고 바로 실행됩니다.
 
 가져오기(`./analytics.js`) 작업이 끝나면 HTML 파싱이 끝나지 않았거나 다른 스크립트가 대기 상태에 있더라도 모듈이 바로 실행됩니다.
+=======
+For non-module scripts, the `async` attribute only works on external scripts. Async scripts run immediately when ready, independently of other scripts or the HTML document.
+
+For module scripts, it works on inline scripts as well.
+
+For example, the inline script below has `async`, so it doesn't wait for anything.
+
+It performs the import (fetches `./analytics.js`) and runs when ready, even if the HTML document is not finished yet, or if other scripts are still pending.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 이런 특징은 광고나 문서 레벨 이벤트 리스너, 카운터 같이 어디에도 종속되지 않는 기능을 구현할 때 유용하게 사용할 수 있습니다. 
 
@@ -296,7 +348,11 @@ sayHi(); // *!*Pete*/!*님, 안녕하세요!
 
 `type="module"`가 붙은 외부 모듈 스크립트엔 두 가지 큰 특징이 있습니다.
 
+<<<<<<< HEAD
 1. `src` 속성값이 동일한 외부 스크립트는 한 번만 실행됩니다.
+=======
+1. External scripts with the same `src` run only once:
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
     ```html
     <!-- my.js는 한번만 로드 및 실행됩니다. -->
     <script type="module" src="my.js"></script>
@@ -322,11 +378,19 @@ import {sayHi} from 'sayHi'; // Error!
 // './sayHi.js'와 같이 경로 정보를 지정해 주어야 합니다.
 ```
 
+<<<<<<< HEAD
 Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 방법을 알기 때문에 경로가 없는 모듈을 사용할 수 있습니다. 하지만 브라우저는 경로 없는 모듈을 지원하지 않습니다.
+=======
+Certain environments, like Node.js or bundle tools allow bare modules, without any path, as they have their own ways for finding modules and hooks to fine-tune them. But browsers do not support bare modules yet.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ### 호환을 위한 "nomodule"
 
+<<<<<<< HEAD
 구식 브라우저는 `type="module"`을 해석하지 못하기 때문에 모듈 타입의 스크립트를 만나면 이를 무시하고 넘어갑니다. `nomodule` 속성을 사용하면 이런 상황을 대비할 수 있습니다.
+=======
+Old browsers do not understand `type="module"`. Scripts of an unknown type are just ignored. For them, it's possible to provide a fallback using the `nomodule` attribute:
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 ```html run
 <script type="module">
@@ -347,6 +411,7 @@ Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 �
 
 빌드 툴의 역할은 아래와 같습니다.
 
+<<<<<<< HEAD
 1. HTML의 `<script type="module">`에 넣을 "주요" 모듈("진입점" 역할을 하는 모듈)을 선택합니다. 
 2. "주요" 모듈에 의존하고 있는 모듈 분석을 시작으로 모듈 간의 의존 관계를 파악합니다.
 3. 모듈 전체를 한데 모아 하나의 큰 파일을 만듭니다(설정에 따라 여러 개의 파일을 만드는 것도 가능합니다). 이 과정에서 `import`문이 번들러 내 함수로 대체되므로 기존 기능은 그대로 유지됩니다.
@@ -356,6 +421,17 @@ Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 �
     - `console`, `debugger` 같은 개발 관련 코드가 삭제됩니다.
     - 최신 자바스크립트 문법이 사용된 경우 [바벨(Babel)](https://babeljs.io/)을 사용하여 같은 기능을 하는 낮은 버전의 스크립트로 변환합니다.
     - 공백 제거, 변수 이름 줄이기 등으로 산출물의 크기를 줄입니다.
+=======
+1. Take a "main" module, the one intended to be put in `<script type="module">` in HTML.
+2. Analyze its dependencies: imports and then imports of imports etc.
+3. Build a single file with all modules (or multiple files, that's tunable), replacing native `import` calls with bundler functions, so that it works. "Special" module types like HTML/CSS modules are also supported.
+4. In the process, other transformations and optimizations may be applied:
+    - Unreachable code removed.
+    - Unused exports removed ("tree-shaking").
+    - Development-specific statements like `console` and `debugger` removed.
+    - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
+    - The resulting file is minified (spaces removed, variables replaced with shorter names, etc).
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 번들링 툴을 사용하면 스크립트들은 하나 혹은 여러 개의 파일로 번들링 됩니다. 이때 번들링 전 스크립트에 있던 `import/export`문은 특별한 번들러 함수로 대체됩니다. 번들링 과정이 끝나면 기존 스크립트에서 `import/export`가 사라지기 때문에 `type="module"`이 필요 없어집니다. 따라서 아래와 같이 번들링 과정을 거친 스크립트는 일반 스크립트처럼 취급할 수 있습니다. 
 
@@ -379,7 +455,11 @@ Node.js나 번들링 툴은 경로가 없어도 해당 모듈을 찾수 있는 �
 3. 항상 엄격 모드로 실행(`use strict`)됩니다.
 4. 모듈 내 코드는 단 한 번만 실행됩니다. 모듈을 내보내면 이 모듈을 가져오기 하는 모듈 모두가 내보내진 모듈을 공유합니다.
 
+<<<<<<< HEAD
 모듈 내 함수나 객체 등은 `export` 키워드로 내보낼 수 있습니다. 이렇게 내보내진 기능은 `import` 키워드를 사용해 가져와 사용할 수 있습니다. 브라우저는 자동으로 스크립트를 불러오고 평가합니다.
+=======
+When we use modules, each module implements the functionality and exports it. Then we use `import` to directly import it where it's needed. The browser loads and evaluates the scripts automatically.
+>>>>>>> 405150f1f286db19a3c1ed913fa3e905fcefbe46
 
 실제 애플리케이션을 출시할 땐 성능 개선 등의 이점 때문에 [웹팩](https://webpack.js.org)과 같은 번들러를 사용합니다.
 
