@@ -2,7 +2,7 @@
 
 배열은 다양한 메서드를 제공합니다. 학습 편의를 위해 본 챕터에선 배열 메서드를 몇 개의 그룹으로 나눠 소개하도록 하겠습니다.
 
-## 요소 추가/제거 메서드
+## 요소 추가·제거 메서드
 
 배열의 맨 앞이나 끝에 요소(item)를 추가하거나 제거하는 메서드는 이미 학습한 바 있습니다.
 
@@ -30,7 +30,7 @@ alert( arr[1] ); // undefined
 alert( arr.length ); // 3
 ```
 
-원하는 대로 요소를 지웠지만, 배열의 요소는 여전히 세 개이네요. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
+원하는 대로 요소를 지웠지만 배열의 요소는 여전히 세 개이네요. `arr.length == 3`을 통해 이를 확인할 수 있습니다.
 
 이는 자연스러운 결과입니다. `delete obj.key`는 `key`를 이용해 해당 키에 상응하는 값을 지우기 때문이죠. `delete` 메서드는 제 역할을 다 한 것입니다. 그런데 우리는 삭제된 요소가 만든 빈 공간을 나머지 요소들이 자동으로 채울 것이라 기대하며 이 메서드를 썼습니다. 배열의 길이가 더 짧아지길 기대하며 말이죠. 
 
@@ -67,13 +67,13 @@ alert( arr ); // ["I", "JavaScript"]
 ```js run
 let arr = [*!*"I", "study", "JavaScript",*/!* "right", "now"];
 
-// 처음 세 개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
+// 처음(0) 세 개(3)의 요소를 지우고, 이 자리를 다른 요소로 대체합니다.
 arr.splice(0, 3, "Let's", "dance");
 
 alert( arr ) // now [*!*"Let's", "dance"*/!*, "right", "now"]
 ```
 
-`splice` 메서드는 삭제된 요소로 구성된 배열을 반환합니다. 아래 예시를 통해 확인해 봅시다. 
+`splice`는 삭제된 요소로 구성된 배열을 반환합니다. 아래 예시를 통해 확인해 봅시다. 
 
 ```js run
 let arr = [*!*"I", "study",*/!* "JavaScript", "right", "now"];
@@ -84,7 +84,7 @@ let removed = arr.splice(0, 2);
 alert( removed ); // "I", "study" <-- 삭제된 요소로 구성된 배열
 ```
 
-`splice` 메서드의 `deleteCount`를 `0`으로 설정하면 요소를 제거하지 않고도 새로운 요소를 추가할 수 있습니다.
+`splice` 메서드의 `deleteCount`를 `0`으로 설정하면 요소를 제거하지 않으면서 새로운 요소를 추가할 수 있습니다.
 
 ```js run
 let arr = ["I", "study", "JavaScript"];
@@ -98,7 +98,7 @@ alert( arr ); // "I", "study", "complex", "language", "JavaScript"
 ```
 
 ````smart header="음수 인덱스도 사용할 수 있습니다."
-slice 메서드 뿐만 아니라 배열 관련 메서드엔 음수 인덱스를 사용할 수 있습니다. 음수 인덱스를 사용할 때 마이너스 부호 앞의 숫자는 배열 끝에서부터 센 요소의 위치를 나타냅니다. 아래와 같이 말이죠.
+slice 메서드 뿐만 아니라 배열 관련 메서드엔 음수 인덱스를 사용할 수 있습니다. 이때 마이너스 부호 앞의 숫자는 배열 끝에서부터 센 요소 위치를 나타냅니다. 아래와 같이 말이죠.
 
 ```js run
 let arr = [1, 2, 5];
@@ -114,7 +114,7 @@ alert( arr ); // 1,2,3,4,5
 
 ### slice
 
-[arr.slice](mdn:js/Array/slice)는 `arr.splice`와 유사해 보이지만 훨씬 간단한 메서드입니다.
+[arr.slice](mdn:js/Array/slice)는 `arr.splice`와 유사해 보이지만 훨씬 간단합니다.
 
 문법:
 
@@ -122,7 +122,7 @@ alert( arr ); // 1,2,3,4,5
 arr.slice([start], [end])
 ```
 
-이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스까지의 요소를 포함하는 메서드를 반환합니다. `start`와 `end`는 둘 다 음수일 수도 있는데 이땐, 배열 끝에서부터의 요소 개수를 의미합니다.
+이 메서드는 `"start"` 인덱스부터 (`"end"`를 제외한) `"end"`인덱스까지의 요소를 포함하는 메서드를 반환합니다. `start`와 `end`는 둘 다 음수일 수 있는데 이땐, 배열 끝에서부터의 요소 개수를 의미합니다.
 
 `arr.slice`는 문자열 메서드인 `str.slice`와 유사하게 동작하는데 `arr.slice`는 서브 문자열(substring) 대신 서브 배열(subarray)을 반환한다는 점이 다릅니다.
 
@@ -140,7 +140,7 @@ alert( arr.slice(-2) ); // s,t (인덱스가 -2인 요소부터 제일 끝 요�
 
 ### concat
 
-[arr.concat](mdn:js/Array/concat)은 기존 배열의 요소를 사용해 새로운 배열을 만들거나 기존 배열에 요소를 추가해 주고자 할 때 사용할 수 있습니다. 
+[arr.concat](mdn:js/Array/concat)은 기존 배열의 요소를 사용해 새로운 배열을 만들거나 기존 배열에 요소를 추가하고자 할 때 사용할 수 있습니다. 
 
 문법은 다음과 같습니다.
 
@@ -148,11 +148,11 @@ alert( arr.slice(-2) ); // s,t (인덱스가 -2인 요소부터 제일 끝 요�
 arr.concat(arg1, arg2...)
 ```
 
-인수는 배열이나 값을 받을 수 있는데, 인수의 개수엔 제한이 없습니다. 
+인수엔 배열이나 값이 올 수 있는데, 인수 개수엔 제한이 없습니다. 
 
 메서드를 호출하면 `arr`에 속한 모든 요소와 `arg1`, `arg2` 등에 속한 모든 요소를 한데 모은 새로운 배열이 반환됩니다.
 
-인수 `argN`가 배열일 경우 이 배열의 모든 요소가 복사됩니다. 그렇지 않은경우(단순 값인 경우)는 인수가 그대로 복사됩니다.
+인수 `argN`가 배열일 경우 배열의 모든 요소가 복사됩니다. 그렇지 않은경우(단순 값인 경우)는 인수가 그대로 복사됩니다.
 
 예시:
 
@@ -169,7 +169,7 @@ alert( arr.concat([3, 4], [5, 6]) ); // 1,2,3,4,5,6
 alert( arr.concat([3, 4], 5, 6) ); // 1,2,3,4,5,6
 ```
 
-concat 메서드는 제공받은 배열의 요소를 복사해 활용합니다. 만약에 객체가 인자로 넘어왔다면 (배열처럼 보이는 유사 배열 객체이더라도) 객체는 분해되지 않고 통으로 복사되어 더해집니다.  
+`concat` 메서드는 제공받은 배열의 요소를 복사해 활용합니다. 객체가 인자로 넘어오면 (배열처럼 보이는 유사 배열 객체이더라도) 객체는 분해되지 않고 통으로 복사되어 더해집니다.  
 
 ```js run
 let arr = [1, 2];
@@ -225,7 +225,7 @@ arr.forEach(function(item, index, array) {
 });
 ```
 
-참고로, 인수로 넘겨준 함수가 값을 반환하더라도 이 값은 무시됩니다.
+참고로, 인수로 넘겨준 함수의 반환값은 무시됩니다.
 
 
 ## 배열 탐색하기
@@ -282,7 +282,7 @@ let result = arr.find(function(item, index, array) {
 
 - `item` -- 함수를 호출할 요소
 - `index` -- 요소의 인덱스
-- `array` -- 배열 그 자체
+- `array` -- 배열 자기 자신
 
 함수가 참을 반환하면 탐색은 중단되고 해당 `요소`가 반환됩니다. 원하는 요소를 찾지 못했으면 `undefined`가 반환됩니다.
 
@@ -345,7 +345,7 @@ alert(someUsers.length); // 2
 
 [arr.map](mdn:js/Array/map)은 유용성과 사용 빈도가 아주 높은 메서드 중 하나입니다.
 
-`map`은 배열 요소 전체를 대상으로 함수를 호출하고, 함수 호출 결과를 배열 형태로 반환해줍니다. 
+`map`은 배열 요소 전체를 대상으로 함수를 호출하고, 함수 호출 결과를 배열로 반환해줍니다.
 
 문법:
 
@@ -418,9 +418,9 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 이제 기대했던 대로 요소가 정렬되었습니다.
 
-여기서 잠시 멈춰 위 예시에서 어떤 일이 일어났는지 생각해 봅시다. 사실 `arr`엔 숫자, 문자열, 객체 등이 들어갈 수 있습니다. 알 수 없는 *무언가*로 구성된 집합이 되는 거죠. 이제 이 비 동질적인 집합을 정렬해야 한다고 가정해봅시다. 무언가를 정렬하려면 기준이 필요하겠죠? 이때 *정렬 기준을 정의해주는 함수(ordering function, 정렬 함수)* 가 필요합니다. sort에 정렬 함수를 인수로 넘겨주지 않으면 이 메서드는 사전편집 순으로 요소를 정렬합니다. 
+여기서 잠시 멈춰 위 예시에서 어떤 일이 일어났는지 생각해 봅시다. 사실 `arr`엔 숫자, 문자열, 객체 등이 들어갈 수 있습니다. 알 수 없는 *무언가*로 구성된 집합이 되는 거죠. 이제 이 비 동질적인 집합을 정렬해야 한다고 가정해봅시다. 무언가를 정렬하려면 기준이 필요하겠죠? 이때 *정렬 기준을 정의해주는 함수(ordering function, 정렬 함수)* 가 필요합니다. `sort`에 정렬 함수를 인수로 넘겨주지 않으면 이 메서드는 사전편집 순으로 요소를 정렬합니다. 
 
-`arr.sort(fn)`는 포괄적인 정렬 알고리즘을 이용해 구현되어있습니다. 대게 최적화시킨 [퀵 소트(quicksort)](https://en.wikipedia.org/wiki/Quicksort)를 사용하는데, `arr.sort(fn)`는 주어진 함수를 사용해 정렬 기준을 만들고 이 기준에 따라 요소들을 재배열 하므로 개발자는 내부 정렬 동작 원리를 알 필요가 없습니다. 우리가 해야 할 것은 정렬 함수 `fn`을 만들고 이를 인수로 넘겨주는 것뿐입니다.
+`arr.sort(fn)`는 포괄적인 정렬 알고리즘을 이용해 구현되어있습니다. 대게 최적화된 [퀵 소트(quicksort)](https://en.wikipedia.org/wiki/Quicksort)를 사용하는데, `arr.sort(fn)`는 주어진 함수를 사용해 정렬 기준을 만들고 이 기준에 따라 요소들을 재배열하므로 개발자는 내부 정렬 동작 원리를 알 필요가 없습니다. 우리가 해야 할 일은 정렬 함수 `fn`을 만들고 이를 인수로 넘겨주는 것뿐입니다.
 
 정렬 과정에서 어떤 요소끼리 비교가 일어났는지 확인하고 싶다면 아래 코드를 활용하시면 됩니다.
 
@@ -430,10 +430,10 @@ alert(arr);  // *!*1, 2, 15*/!*
 });
 ```
 
-참고로 정렬 중에 한 요소가 특정 요소와 여러 번 비교되는 일이 생기곤 하는데 비교 횟수를 최소화 하려다 보면 이런 일이 발생할 수 있습니다.
+정렬 중에 한 요소가 특정 요소와 여러 번 비교되는 일이 생기곤 하는데 비교 횟수를 최소화 하려다 보면 이런 일이 발생할 수 있습니다.
 
 ````smart header="정렬 함수는 어떤 숫자든 반환할 수 있습니다."
-정렬 함수의 반환 값엔 제약이 없습니다. 양수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 "크다"를 나타내고, 음수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 "작다"를 나타내기만 하면 됩니다.
+정렬 함수의 반환 값엔 제약이 없습니다. 양수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 '크다'를 나타내고, 음수를 반환하는 경우 첫 번째 인수가 두 번째 인수보다 '작다'를 나타내기만 하면 됩니다.
 
 이 점을 이용하면 정렬 함수를 더 간결하게 만들 수 있습니다.
 
@@ -456,19 +456,19 @@ arr.sort( (a, b) => a - b );
 화살표 함수를 활용한 코드와 함수 선언문을 사용한 코드는 동일하게 작동합니다.
 ````
 
-````smart header="Use `localeCompare` for strings"
-Remember [strings](info:string#correct-comparisons) comparison algorithm? It compares letters by their codes by default.
+````smart header="문자열엔 `localeCompare`를 사용하세요."
+[strings](info:string#correct-comparisons)에서 배운 비교 알고리즘이 기억나시나요? 이 알고리즘은 유니코드를 기준으로 글자를 비교합니다.
 
-For many alphabets, it's better to use `str.localeCompare` method to correctly sort letters, such as `Ö`.
+`Ö`같은 문자가 있는 언어에도 대응하려면 `str.localeCompare` 메서드를 사용해 문자열을 비교하는 게 좋습니다.
 
-For example, let's sort a few countries in German:
+독일어로 나타낸 국가가 요소인 배열을 정렬해봅시다.
 
 ```js run
 let countries = ['Österreich', 'Andorra', 'Vietnam'];
 
-alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (wrong)
+alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (제대로 정렬이 되지 않았습니다.)
 
-alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (correct!)
+alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (제대로 정렬되었네요!)
 ```
 ````
 
@@ -560,11 +560,11 @@ let value = arr.reduce(function(accumulator, item, index, array) {
 - `index` -- 요소의 위치
 - `array` -- 배열
 
-이전 함수 호출의 결과는 다음 함수를 호출할 때 첫 번째 인수(`previousValue`)로 사용됩니다.
+이전 함수 호출 결과는 다음 함수를 호출할 때 첫 번째 인수(`previousValue`)로 사용됩니다.
 
-뭔가 복잡해 보이지만 함수의 첫 번째 인수를 앞서 호출했던 함수들의 결과를 누적시켜주는 "누산기"라고 생각하면 어렵지 않습니다. 마지막 함수까지 호출되면 이 값은 `reduce`의 반환 값이 됩니다.
+첫 번째 인수는 앞서 호출했던 함수들의 결과가 누적되어 저장되는 '누산기(accumulator)'라고 생각하면 됩니다. 마지막 함수까지 호출되면 이 값은 `reduce`의 반환 값이 됩니다.
 
-예제를 통해 이 메서드를 이해해 봅시다.
+복잡해 보이긴 하지만 예제를 통해 메서드를 이해해 봅시다.
 
 `reduce`를 이용해 코드 한 줄로 배열의 모든 요소를 더한 값을 구해보겠습니다.
 
@@ -576,7 +576,7 @@ let result = arr.reduce((sum, current) => sum + current, 0);
 alert(result); // 15
 ```
 
-`reduce`에 전달한 함수는 오직 두 개의 인수만 받고 있습니다. 대개 이렇게 인수를 두 개만 받습니다.
+`reduce`에 전달한 함수는 오직 인수 두 개만 받고 있습니다. 대개 이렇게 인수를 두 개만 받습니다.
 
 이제 어떤 과정을 거쳐 위와 같은 결과가 나왔는지 자세히 살펴보겠습니다.
 
@@ -613,7 +613,7 @@ alert( result ); // 15
 
 초깃값을 없애도 결과는 동일하네요. 초깃값이 없으면 `reduce`는 배열의 첫 번째 요소를 초깃값으로 사용하고 두 번째 요소부터 함수를 호출하기 때문입니다.
 
-위 표에서 첫 번째 호출에 관련된 줄만 없애면 초깃값 없이 계산한 위 예제의 연산 순서를 나타낼 수 있습니다.
+위 표에서 첫 번째 호출에 관련된 줄만 없애면 초깃값 없이 계산한 위 예제의 계산 흐름이 됩니다.
 
 하지만 이렇게 초깃값 없이 `reduce`를 사용할 땐 극도의 주의를 기울여야 합니다. 배열이 비어있는 상태면 `reduce` 호출 시 에러가 발생하기 때문입니다.
 
@@ -622,7 +622,7 @@ alert( result ); // 15
 ```js run
 let arr = [];
 
-// Error: Reduce of empty array with no initial value
+// TypeError: Reduce of empty array with no initial value
 // 초깃값을 설정해 주었다면 초깃값이 반환되었을 겁니다.
 arr.reduce((sum, current) => sum + current);
 ```
@@ -632,7 +632,7 @@ arr.reduce((sum, current) => sum + current);
 [arr.reduceRight](mdn:js/Array/reduceRight)는 `reduce`와 동일한 기능을 하지만 배열의 오른쪽부터 연산을 수행한다는 점이 다른 메서드입니다.
 
 
-## isArray로 배열 여부 알아내기 
+## Array.isArray로 배열 여부 알아내기 
 
 자바스크립트에서 배열은 독립된 자료형으로 취급되지 않고 객체형에 속합니다.
 
@@ -651,7 +651,7 @@ alert(Array.isArray({})); // false
 alert(Array.isArray([])); // true
 ```
 
-## 배열 메서드와 "thisArg"
+## 배열 메서드와 'thisArg'
 
 함수를 호출하는 대부분의 배열 메서드(`find`, `filter`, `map` 등. `sort`는 제외)는 `thisArg`라는 매개변수를 옵션으로 받을 수 있습니다.
 
@@ -669,7 +669,7 @@ arr.map(func, thisArg);
 
 `thisArg`는 `func`의 `this`가 됩니다.
 
-아래 예시에서 객체 `army`의 메서드를 filter의 인자로 넘겨주고 있는데, 이때 `thisArg`는 `canJoin`에 컨텍스트 정보를 넘겨주고 있습니다.
+아래 예시에서 객체 `army`의 메서드를 `filter`의 인자로 넘겨주고 있는데, 이때 `thisArg`는 `canJoin`의 컨텍스트 정보를 넘겨줍니다.
 
 ```js run
 let army = {
@@ -697,7 +697,7 @@ alert(soldiers[0].age); // 20
 alert(soldiers[1].age); // 23
 ```
 
-만약 `thisArgs`에 `army`를 지정하지 않고 단순히 `users.filter(army.canJoin)`를 사용했다면 `army.canJoin`은 단독 함수처럼 취급되고, 함수 본문 내 `this`는 `undefined`가 되어 에러가 발생했을 겁니다.   
+`thisArgs`에 `army`를 지정하지 않고 단순히 `users.filter(army.canJoin)`를 사용했다면 `army.canJoin`은 단독 함수처럼 취급되고, 함수 본문 내 `this`는 `undefined`가 되어 에러가 발생했을 겁니다.   
 
 `users.filter(user => army.canJoin(user))`를 사용하면 `users.filter(army.canJoin, army)`를 대체할 수 있긴 한데 `thisArg`를 사용하는 방식이 좀 더 이해하기 쉬우므로 더 자주 사용됩니다.
 
