@@ -129,7 +129,7 @@ let range = {
 alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```
 
-전개 연산자는 `await`가 없는 `for..of`와 마찬가지로, `Symbol.asyncIterator`가 아닌 `Symbol.iterator`를 찾기 때문에 에러가 발생하는 것은 당연합니다.
+전개 문법은 `await`가 없는 `for..of`와 마찬가지로, `Symbol.asyncIterator`가 아닌 `Symbol.iterator`를 찾기 때문에 에러가 발생하는 것은 당연합니다.
 ````
 
 ## async 제너레이터
