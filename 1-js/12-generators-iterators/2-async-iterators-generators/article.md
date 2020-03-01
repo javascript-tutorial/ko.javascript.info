@@ -1,7 +1,7 @@
 
 # async 이터레이터와 제너레이터
 
-비동기 이터레이터(asynchronous iterator)를 사용하면 비동기적으로 들어오는 데이터를 필요에 따라 처리할 수 있습니다. 네트워크를 통해 데이터가 여러 번에 걸쳐 들어오는 상황을 처리할 수 있게 되죠. 비동기 제너레이터(asynchronous generator)를 사용하면 이런 데이터를 좀 더 편리하게 처리할 수 있습니다.
+비동기 이터레이터(asynchronous iterator)를 사용하면 비동기적으로 들어오는 데이터를 필요에 따라 처리할 수 있습니다. 네트워크를 통해 데이터가 여러 번에 걸쳐 들어오는 상황을 처리할 수 있게 되죠. 비동기 이터레이터에 더하여 비동기 제너레이터(asynchronous generator)를 사용하면 이런 데이터를 좀 더 편리하게 처리할 수 있습니다.
 
 먼저 간단한 예시를 살펴보며 문법을 익힌 후, 실무에서 벌어질 법한 사례를 가지고 async 이터레이터와 제너레이터가 어떻게 사용되는지 알아보겠습니다.
 
@@ -107,10 +107,10 @@ let range = {
 
 위 예시에서 볼 수 있듯이, async 이터레이터는 일반 이터레이터와 구조가 유사합니다. 하지만 아래와 같은 차이가 있습니다.
 
-1. 객체를 비동기적으로 반복 가능하도록 하려면, `Symbol.asyncIterator`메서드가 반드시 구현되어 있어야 합니다. -- `(1)`
-2. `Symbol.asyncIterator`는 프라미스를 반환하는 메서드인 `next()`가 구현된 객체를 반환해야 합니다. -- `(2)`
-3. `next()`는 `async` 메서드일 필요는 없습니다. 프라미스를 반환하는 메서드라면 일반 메서드도 괜찮습니다. 다만, `async`를 사용하면 `await`도 사용할 수 있기 때문에, 여기선 편의상 `async`메서드를 사용해 일 초의 딜레이가 생기도록 했습니다. -- `(3)`
-4. 반복 작업을 하려면 'for' 뒤에 'await'를 붙인 `for await(let value of range)`를 사용하면 됩니다. `for await(let value of range)`가 실행될 때 `range[Symbol.asyncIterator]()`가 일회 호출되는데, 그 이후엔 각 값을 대상으로 `next()`가 호출됩니다. --  `(4)`
+1. To make an object asynchronously iterable, it must have a method `Symbol.asyncIterator` `(1)`.
+2. This method must return the object with `next()` method returning a promise `(2)`.
+3. The `next()` method doesn't have to be `async`, it may be a regular method returning a promise, but `async` allows to use `await`, so that's convenient. Here we just delay for a second `(3)`.
+4. To iterate, we use `for await(let value of range)` `(4)`, namely add "await" after "for". It calls `range[Symbol.asyncIterator]()` once, and then its `next()` for values.
 
 일반 이터레이터와 async 이터레이터를 간략하게 비교하면 다음과 같습니다.
 
@@ -121,10 +121,10 @@ let range = {
 | 반복 작업을 위해 사용하는 반복문                          | `for..of`         | `for await..of` |
 
 
-````warn header="전개 연산자 `...`은 비동기적으로 동작하지 않습니다."
+````warn header="전개 문법 `...`은 비동기적으로 동작하지 않습니다."
 일반적인 동기 이터레이터가 필요한 기능은 비동기 이터레이터와 함께 사용할 수 없습니다.
 
-전개 연산자는 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
+전개 문법은 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
 ```js
 alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```

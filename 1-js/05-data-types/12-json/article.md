@@ -424,9 +424,9 @@ alert( numbers[1] ); // 1
 `JSON.parse`는 아래와 같이 중첩 객체에도 사용할 수 있습니다.
 
 ```js run
-let user = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
 
-user = JSON.parse(user);
+let user = JSON.parse(userData);
 
 alert( user.friends[1] ); // 1
 ```

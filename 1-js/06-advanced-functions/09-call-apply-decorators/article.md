@@ -299,13 +299,13 @@ func.apply(context, args)
 따라서 아래 코드 두 줄은 거의 같은 역할을 합니다.
 
 ```js
-func.call(context, ...args); // 전개 연산자를 사용해 인수가 담긴 배열을 전달하는 것과
+func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과
 func.apply(context, args);   // apply를 사용하는 것은 동일합니다.
 ```
 
 그런데 약간의 차이가 있긴 합니다.
 
-- 전개 연산자 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
+- 전개 문법 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
 - `apply`는 오직 *유사 배열* 형태의 `args`만 받습니다.
 
 이 차이만 빼면 두 메서드는 완전히 동일하게 동작합니다. 인수가 이터러블 형태라면 `call`을, 유사 배열 형태라면 `apply`를 사용하면 됩니다.
@@ -370,7 +370,7 @@ function hash() {
 hash(1, 2);
 ```
 
-이런 트릭을 *메서드 빌리기(method borrowing)* 라고 합니다.
+The trick is called *method borrowing*.
 
 일반 배열에서 `join` 메서드를 빌려오고(`[].join`), `[].join.call`를 사용해 `arguments`를 컨텍스트로 고정한 후 `join`메서드를 호출하는 것이죠.
 

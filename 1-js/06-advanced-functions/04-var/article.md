@@ -1,8 +1,13 @@
 
 # 오래된 'var'
 
-[변수](info:variables)를 다룬 첫 번째 장에서 변수 선언 방법 세 가지를 배운 바 있습니다.
+```smart header="This article is for understanding old scripts"
+The information in this article is useful for understanding old scripts.
 
+That's not how we write a new code.
+```
+
+[변수](info:variables)를 다룬 첫 번째 장에서 변수 선언 방법 세 가지를 배운 바 있습니다.
 1. `let`
 2. `const`
 3. `var`
@@ -147,7 +152,7 @@ sayHi();
 
 **선언은 호이스팅 되지만 할당은 호이스팅 되지 않습니다.**
 
-예제를 통해 이에 대해 알아보도록 합시다.
+That's best demonstrated with an example:
 
 ```js run
 function sayHi() {
@@ -187,6 +192,74 @@ sayHi();
 이처럼 모든 `var` 선언은 함수 시작 시 처리되기 때문에, `var`로 선언한 변수는 어디서든 참조할 수 있습니다. 하지만 변수에 무언갈 할당하기 전까진 값이 undefined이죠.
 
 바로 위의 두 예시에서 `alert`를 호출하기 전에 변수 `phrase`는 선언이 끝난 상태이기 때문에 에러 없이 얼럿 창이 뜹니다. 그러나 값이 할당되기 전이기 때문에 얼럿 창엔 `undefined`가 출력되죠.
+
+### IIFE
+
+As in the past there was only `var`, and it has no block-level visibility, programmers invented a way to emulate it. What they did was called "immediately-invoked function expressions" (abbreviated as IIFE).
+
+That's not something we should use nowadays, but you can find them in old scripts.
+
+An IIFE looks like this:
+
+```js run
+(function() {
+
+  let message = "Hello";
+
+  alert(message); // Hello
+
+})();
+```
+
+Here a Function Expression is created and immediately called. So the code executes right away and has its own private variables.
+
+The Function Expression is wrapped with parenthesis `(function {...})`, because when JavaScript meets `"function"` in the main code flow, it understands it as the start of a Function Declaration. But a Function Declaration must have a name, so this kind of code will give an error:
+
+```js run
+// Try to declare and immediately call a function
+function() { // <-- Error: Unexpected token (
+
+  let message = "Hello";
+
+  alert(message); // Hello
+
+}();
+```
+
+Even if we say: "okay, let's add a name", that won't work, as JavaScript does not allow Function Declarations to be called immediately:
+
+```js run
+// syntax error because of parentheses below
+function go() {
+
+}(); // <-- can't call Function Declaration immediately
+```
+
+So, the parentheses around the function is a trick to show JavaScript that the function is created in the context of another expression, and hence it's a Function Expression: it needs no name and can be called immediately.
+
+There exist other ways besides parentheses to tell JavaScript that we mean a Function Expression:
+
+```js run
+// Ways to create IIFE
+
+(function() {
+  alert("Parentheses around the function");
+}*!*)*/!*();
+
+(function() {
+  alert("Parentheses around the whole thing");
+}()*!*)*/!*;
+
+*!*!*/!*function() {
+  alert("Bitwise NOT operator starts the expression");
+}();
+
+*!*+*/!*function() {
+  alert("Unary plus starts the expression");
+}();
+```
+
+In all the above cases we declare a Function Expression and run it immediately. Let's note again: nowadays there's no reason to write such code.
 
 ## 요약
 

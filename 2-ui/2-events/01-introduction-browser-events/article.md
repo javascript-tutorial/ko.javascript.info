@@ -22,7 +22,7 @@
 - `DOMContentLoaded` -- HTML이 전부 로드 및 처리되어 DOM 생성이 완료되었을 때 발생합니다.
 
 **CSS 이벤트:**
-- `transitionend` -- CSS 애니메이션(CSS-animation)이 종료되었을 때 발생합니다.
+- `transitionend` -- CSS 애니메이션이 종료되었을 때 발생합니다.
 
 이 외에도 다양한 이벤트가 있는데, 몇몇 이벤트는 다음 챕터에서 자세히 다룰 예정입니다.
 
@@ -38,7 +38,7 @@
 
 HTML 안의 `on<event>` 속성에 핸들러를 할당할 수 있습니다.
 
-아래와 같이 `input` 태그의 `onclick` 속성에 `click` 핸들러를 할당하는 것 같이 말이죠.
+아래 같이 `input` 태그의 `onclick` 속성에 `click` 핸들러를 할당하는 것 같이 말이죠.
 
 ```html run
 <input value="클릭해 주세요." *!*onclick="alert('클릭!')"*/!* type="button">
@@ -85,7 +85,7 @@ DOM 프로퍼티 `on<event>`을 사용해도 핸들러를 할당할 수 있습�
 
 핸들러를 HTML 속성을 사용해 할당하면, 브라우저는 속성값을 이용해 새로운 함수를 만듭니다. 그리고 생성된 함수를 DOM 프로퍼티에 할당합니다.
 
-따라서 DOM 프로퍼티를 사용해 핸들러를 만든 위쪽 예시는 HTML 속성을 사용해 만든 바로 위 예시와 동일하게 작동합니다.
+따라서 DOM 프로퍼티를 사용해 핸들러를 만든 위 예시는 HTML 속성을 사용해 만든 바로 위쪽 예시와 동일하게 작동합니다.
 
 **핸들러는 언제나 DOM 프로퍼티에 할당됩니다. HTML 속성을 사용해 핸들러를 정의하는 방법은 DOM 프로퍼티를 초기화하는 여러 방법의 하나일 뿐입니다.**
 
@@ -181,7 +181,7 @@ button.onclick = function() {
 
 **문자열이 아닌 함수를 쓰세요.**
 
-`elem.onclick = "alert(1)"`도 잘 작동하긴 합니다. 호환성 유지를 위해 문자열을 프로퍼티에 할당해도 문제가 없게 만들어놨지만, 이 방법을 쓰지 않기를 강력히 권유합니다.
+`elem.onclick = "alert(1)"`도 잘 작동하긴 합니다. 호환성 유지를 위해 문자열을 프로퍼티에 할당해도 문제가 없게 만들어 놓았기 때문이죠. 하지만 이 방법은 쓰지 않으시길 강력히 권유합니다.
 
 **`setAttribute`로 핸들러를 할당하지 마세요.**
 
@@ -288,41 +288,25 @@ input.removeEventListener("click", handler);
 </script>
 ```
 
-지금까지 살펴본 바와 같이 핸들러는 DOM 프로퍼티와 `addEventListener` 를 사용하는 방법 *두 가지*를 사용해 할당할 수 있습니다. 하지만 대개는 두 방법 중 하나만을 사용해 할당합니다.
+지금까지 살펴본 바와 같이 핸들러는 DOM 프로퍼티와 `addEventListener` 를 사용하는 방법 *두 가지*를 사용해 할당할 수 있습니다. 대개는 두 방법 중 하나만을 사용해 할당합니다.
 
-````warn header="어떤 이벤트는 `addEventListener`를 써야만 작동합니다."
-DOM 프로퍼티에 할당할 수 없는 이벤트가 몇몇 있습니다. 이런 이벤트는 무조건  `addEventListener`를 써야 합니다.
+````warn header="어떤 이벤트는 `addEventListener`를 써야만 동작합니다."
+DOM 프로퍼티에 할당할 수 없는 이벤트가 몇몇 있습니다. 이런 이벤트는 무조건 `addEventListener`를 써야 합니다.
 
-CSS 애니메이션이 끝날 때 발생하는 `transitionend` 이벤트가 대표적인 예입니다.
+문서를 읽고 DOM 트리 생성이 완료되었을 때 트리거되는 이벤트인 `DOMContentLoaded`가 대표적인 예입니다.
 
-아래 코드를 실행해 보세요. 대부분 브라우저에서 두 번째 핸들러만 작동하고, 첫 번째는 작동하지 않을 겁니다.
-
-```html run
-<style>
-  input {
-    transition: width 1s;
-    width: 100px;
-  }
-
-  .wide {
-    width: 300px;
-  }
-</style>
-
-<input type="button" id="elem" onclick="this.classList.toggle('wide')" value="클릭해 주세요.">
-
-<script>
-  elem.ontransitionend = function() {
-    alert("DOM 프로퍼티"); // 실행 안 됨
-  };
-
-*!*
-  elem.addEventListener("transitionend", function() {
-    alert("addEventListener"); // 애니메이션이 종료되면 나타남
-  });
-*/!*
-</script>
+```js
+document.onDOMContentLoaded = function() {
+  alert("DOM이 완성되었습니다."); // 이 얼럿창은 절대 뜨지 않습니다.
+};
 ```
+
+```js
+document.addEventListener("DOMContentLoaded", function() {
+  alert("DOM이 완성되었습니다."); // 이 얼럿창은 제대로 뜹니다.
+});
+```
+이처럼 `addEventListener`는 좀 더 범용적입니다. `addEventListener`를 써야만 동작하는 이벤트들은 예외적인 경우라고 생각하시면 될 것 같습니다.
 ````
 
 ## 이벤트 객체

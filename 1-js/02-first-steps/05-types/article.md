@@ -10,7 +10,7 @@ message = 123456;
 
 이처럼 자료의 타입은 있지만, 변수의 타입은 언제든지 바꿀 수 있는 언어를 "동적 타입(dynamically typed)" 언어라고 부릅니다.
 
-자바스크립트에는 일곱 가지 기본 자료형이 있습니다. 이번 챕터에선 이 자료형 모두를 전반적으로 다루도록 하겠습니다. 각 자료형에 대한 세부 사항들은 이어지는 챕터에서 다루도록 하겠습니다.
+자바스크립트에는 여덟 가지 기본 자료형이 있습니다. 이번 챕터에선 이 자료형 모두를 전반적으로 다루도록 하겠습니다. 각 자료형에 대한 세부 사항들은 이어지는 챕터에서 다루도록 하겠습니다.
 
 ## 숫자형
 
@@ -62,6 +62,25 @@ n = 12.345;
 
 숫자를 다루는 방법에 대해선 <info:number> 챕터에서 자세히 알아보도록 하겠습니다.
 
+## BigInt
+
+In JavaScript, the "number" type cannot represent integer values larger than <code>2<sup>53</sup></code> (or less than <code>-2<sup>53</sup></code> for negatives), that's a technical limitation caused by their internal representation. That's about 16 decimal digits, so for most purposes the limitation isn't a problem, but sometimes we need really big numbers, e.g. for cryptography or microsecond-precision timestamps.
+
+`BigInt` type was recently added to the language to represent integers of arbitrary length.
+
+A `BigInt` is created by appending `n` to the end of an integer literal:
+
+```js
+// the "n" at the end means it's a BigInt
+const bigInt = 1234567890123456789012345678901234567890n;
+```
+
+As `BigInt` numbers are rarely needed, we devoted them a separate chapter <info:bigint>.
+
+```smart header="Compatability issues"
+Right now `BigInt` is supported in Firefox and Chrome, but not in Safari/IE/Edge.
+```
+
 ## 문자형
 
 자바스크립트에선 문자열(string)을 따옴표로 묶습니다.
@@ -69,7 +88,7 @@ n = 12.345;
 ```js
 let str = "Hello";
 let str2 = 'Single quotes are ok too';
-let phrase = `can embed ${str}`;
+let phrase = `can embed another ${str}`;
 ```
 
 따옴표는 아래와 같이 세 종류가 있습니다.
@@ -198,6 +217,8 @@ typeof undefined // "undefined"
 
 typeof 0 // "number"
 
+typeof 10n // "bigint"
+
 typeof true // "boolean"
 
 typeof "foo" // "string"
@@ -223,12 +244,12 @@ typeof alert // "function"  (3)
 2. `typeof null`의 결과는 `"object"`입니다. `null`은 별도의 고유한 자료형을 가지는 특수 값으로 객체가 아니지만, 자바스크립트에선 호환성을 유지하기 위해 이런 오류를 수정하지 않고 남겨둔 상황입니다. 언어 자체의 오류이므로 `null`이 객체가 아님에 유의하시기 바랍니다.
 3. `typeof`는 피연산자가 함수면 `"function"`을 반환합니다. 그러므로 `typeof alert`는 `"function"`을 출력해줍니다. 그런데 자바스크립트엔 "함수"형이 없습니다. 함수는 객체형에 속합니다. 이런 동작 방식이 형식적으론 잘못되긴 했지만, 실무에선 매우 유용하게 사용되고 있습니다. 함수에 관한 내용은 이후 챕터에서 자세히 다루도록 하겠습니다.
 
-
 ## 요약
 
 자바스크립트에는 일곱 가지 기본 자료형이 있습니다.
 
 - `숫자형` -- 정수, 부동 소수점 숫자 등의 숫자를 나타낼 때 사용합니다.
+- `bigint` is for integer numbers of arbitrary length.
 - `문자형` -- 하나 혹은 그 이상의 문자로 만들어진 문자열을 나타낼 때 사용합니다. 단일 문자를 나타내는 별도의 자료형은 없습니다.
 - `불린형` -- `true`/`false`(참/거짓)를 나타낼 때 사용합니다.
 - `null` -- `null` 값만을 위한 독립 자료형입니다. `null`은 알 수 없는 값을 나타냅니다.

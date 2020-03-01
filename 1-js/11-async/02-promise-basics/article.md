@@ -22,7 +22,7 @@ let promise = new Promise(function(resolve, reject) {
 });
 ```
 
-`new Promise`에 전달되는 함수는 *executor(실행자, 실행 함수)* 라고 불립니다. executor 함수는 `new Promise`가 만들어질 때 자동으로 실행됩니다. executor는 결과를 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 '가수'가 바로 executor입니다.
+`new Promise`에 전달되는 함수는 *executor(실행자, 실행 함수)* 라고 불립니다. executor는 `new Promise`가 만들어질 때 자동으로 실행되는데, 결과를 최종적으로 만들어내는 제작 코드를 포함하고 있습니다. 위 비유에서 '가수'가 바로 executor입니다.
 
 executor의 인수 `resolve`와 `reject`는 자바스크립트가 자체적으로 제공하는 콜백입니다. 개발자는 executor 안에만 코드를 작성하면 됩니다.
 
@@ -31,7 +31,7 @@ executor는 결과 즉시 얻든, 늦게 얻든 상관없이 아래 콜백 중 �
 - `resolve(value)` — 일이 성공적으로 끝난 경우 결과를 나타내는 `value`와 함께 호출
 - `reject(error)` — 에러가 발생한 경우 에러 객체를 나타내는 `error`와 함께 호출
 
-요약하면 다음과 같습니다. executor는 자동으로 실행되는데 여기서 원하는 일을 처리하고 처리가 끝나면 `resolve`나 `reject`를 호출해야 한다.
+요약하면 다음과 같습니다. executor는 자동으로 실행되는데 여기서 원하는 일을 처리합니다. 처리가 끝나면 executor는 처리 성공 여부에 따라 `resolve`나 `reject`를 호출합니다.
 
 `new Promise` 생성자가 반환하는 `promise` 객체는 다음과 같은 내부 프로퍼티를 갖습니다.
 
@@ -81,7 +81,7 @@ let promise = new Promise(function(resolve, reject) {
 
 지금까지 배운 내용을 요약해 봅시다. executor는 보통 시간이 걸리는 일을 수행합니다. 일이 끝나면 `resolve`나 `reject` 함수를 호출하는데, 이때 프라미스 객체의 상태가 변화합니다.
 
-이행(resolved)되거나 거부(rejected)된 상태의 프라미스는 '처리된(settled)' 프라미스라고 부르는데, 이는 '대기(pending)'상태의 프라미스와 반대입니다.
+이행(resolved)되거나 거부(rejected)된 상태의 프라미스는 '처리된(settled)' 프라미스라고 부릅니다. 반대되는 프라미스로 '대기(pending)'상태의 프라미스가 있습니다.
 
 ````smart header="성공 혹은 에러"
 executor는 `resolve`나 `reject` 중 하나를 반드시 호출해야 합니다. 이때 변경된 상태는 변경이 불가능합니다.
@@ -272,6 +272,10 @@ let promise = new Promise(resolve => resolve("done!"));
 
 promise.then(alert); // done! (바로 출력됨)
 ```
+
+Note that this is different, and more powerful than the real life "subscription list" scenario. If the singer has already released their song and then a person signs up on the subscription list, they probably won't receive that song. Subscriptions in real life must be done prior to the event.
+
+Promises are more flexible. We can add handlers any time: if the result is already there, our handlers get it immediately.
 ````
 
 이제, 실질적인 예제와 함께 프라미스를 이용해 어떻게 비동기 코드를 작성하는지 알아봅시다.
@@ -299,7 +303,7 @@ function loadScript(src, callback) {
 새롭게 작성한 함수 `loadScript`엔 콜백 함수가 필요하지 않습니다. 대신, 이 함수는 스크립트 로딩이 완전히 끝났을 때 이행되는 프라미스 객체를 만들고, 이를 반환합니다. 외부 코드에선 `.then`을 이용해 핸들러(구독 함수)를 더할 수 있습니다.
 
 ```js run
-function loadScript(src) {  
+function loadScript(src) {
   return new Promise(function(resolve, reject) {
     let script = document.createElement('script');
     script.src = src;

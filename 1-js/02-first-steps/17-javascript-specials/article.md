@@ -272,7 +272,7 @@ switch (age) {
 - 매개변수에 기본값을 설정할 수 있습니다. 문법은 다음과 같습니다. `function sum(a = 1, b = 2) {...}`
 - 함수는 항상 무언가를 반환합니다. `return`문이 없는 경우는 `undefined`를 반환합니다.
 
-자세한 내용은 <info:function-basics>와 <info:function-expressions-arrows>에서 살펴보시기 바랍니다.
+자세한 내용은 <info:function-basics>와 <info:arrow-functions-basics>에서 살펴보시기 바랍니다.
 
 ## 아직 끝이 아닙니다!
 

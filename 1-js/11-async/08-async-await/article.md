@@ -130,7 +130,7 @@ let response = await fetch('/article/promise-chaining/user.json');
 let user = await response.json();
 ```
 
-익명 async 함수로 코드를 감싸면 최상위 레벨 코드에도 `await`를 사용할 수 있습니다.
+하지만 익명 async 함수로 코드를 감싸면 최상위 레벨 코드에도 `await`를 사용할 수 있습니다.
 
 ```js
 (async () => {
@@ -168,7 +168,7 @@ async function f() {
 f();
 ```
 
-`await`는 `.then`이 구현되어있으면서 프라미스가 아닌 객체를 받으면, 네이티브 함수 `resolve`와 `reject`를 인수로 제공하는 메서드인 `.then`을 호출합니다(일반 `Promise` executor가 하는 일과 동일합니다). `await`는 둘 중 하나가 호출되길 기다렸다가(`(*)`로 표시한 줄) 호출 결과를 가지고 다음 일을 진행합니다.
+`await`는 `.then`이 구현되어있으면서 프라미스가 아닌 객체를 받으면, 내장 함수 `resolve`와 `reject`를 인수로 제공하는 메서드인 `.then`을 호출합니다(일반 `Promise` executor가 하는 일과 동일합니다). 그리고 나서 `await`는 `resolve`와 `reject` 중 하나가 호출되길 기다렸다가(`(*)`로 표시한 줄) 호출 결과를 가지고 다음 일을 진행합니다.
 ````
 
 ````smart header="async 클래스 메서드"
@@ -263,15 +263,13 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 */!*
 ```
 
-`.catch`를 추가하는 걸 잊으면, 처리되지 않은 프라미스 에러가 발생합니다(콘솔에서 확인). 이런 에러는 <info:promise-error-handling> 챕터에서 설명한 전역 이벤트 핸들러를 사용해 잡을 수 있습니다.
+`.catch`를 추가하는 걸 잊으면, 처리되지 않은 프라미스 에러가 발생합니다(콘솔에서 직접 확인해 봅시다). 이런 에러는 <info:promise-error-handling> 챕터에서 설명한 전역 이벤트 핸들러 `unhandledrejection`을 사용해 잡을 수 있습니다.
 
 
 ```smart header="`async/await`와 `promise.then/catch`"
 `async/await`을 사용하면 `await`가 대기를 처리해주기 때문에 `.then`이 거의 필요하지 않습니다. 여기에 더하여 `.catch` 대신 일반 `try..catch`를 사용할 수 있다는 장점도 생깁니다. 항상 그러한 것은 아니지만, `promise.then`을 사용하는 것보다 `async/await`를 사용하는 것이 대게는 더 편리합니다.
 
-그런데 문법 제약 때문에 `async`함수 바깥의 최상위 레벨 코드에선 `await`를 사용할 수 없으므로, 관행처럼 `.then/catch`를 추가해 최종 결과나 처리되지 못한 에러를 다룹니다.
-
-위 예시의 `(*)`로 표시한 줄처럼 말이죠.
+그런데 문법 제약 때문에 `async`함수 바깥의 최상위 레벨 코드에선 `await`를 사용할 수 없습니다. 그렇기 때문에 관행처럼 `.then/catch`를 추가해 최종 결과나 처리되지 못한 에러를 다룹니다. 위 예시의 `(*)`로 표시한 줄처럼 말이죠.
 ```
 
 ````smart header="`async/await` works well with `Promise.all`"
@@ -303,4 +301,4 @@ function 앞에 `async` 키워드를 추가하면 두 가지 효과가 있습니
 
 `async/await`를 함께 사용하면 읽고, 쓰기 쉬운 비동기 코드를 작성할 수 있습니다.
 
-`async/await`를 사용하면 `promise.then/catch`가 거의 필요 없습니다. 하지만 가끔 `promise.then/catch`를 써야만 하는 경우가 생기기 때문에(예: 가장 바깥 스코프에서 비동기 처리가 필요할 때) `async/await`가 프라미스를 기반으로 한다는 사실을 알고 계셔야 합니다. 여러 작업이 있고, 이 작업들이 모두 완료될 때까지 기다리려면 `Promise.all`을 활용할 수 있다는 점도 알고 계시기 바랍니다.
+`async/await`를 사용하면 `promise.then/catch`가 거의 필요 없습니다. 하지만 가끔 가장 바깥 스코프에서 비동기 처리가 필요할 때같이 `promise.then/catch`를 써야만 하는 경우가 생기기 때문에 `async/await`가 프라미스를 기반으로 한다는 사실을 알고 계셔야 합니다. 여러 작업이 있고, 이 작업들이 모두 완료될 때까지 기다리려면 `Promise.all`을 활용할 수 있다는 점도 알고 계시기 바랍니다.

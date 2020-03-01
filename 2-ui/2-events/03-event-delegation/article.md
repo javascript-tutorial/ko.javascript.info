@@ -21,9 +21,9 @@ HTML은 대략 다음과 같습니다.
     <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
   </tr>
   <tr>
-    <td>...<strong>Northwest</strong>...</td>
-    <td>...</td>
-    <td>...</td>
+    <td class="nw"><strong>Northwest</strong><br>Metal<br>Silver<br>Elders</td>
+    <td class="n">...</td>
+    <td class="ne">...</td>
   </tr>
   <tr>...2 more lines of this kind...</tr>
   <tr>...2 more lines of this kind...</tr>
@@ -121,7 +121,7 @@ table.onclick = function(event) {
 
 핸들러는 속성값을 읽고 적절한 메서드를 실행할 겁니다. 아래 예시를 실행해봅시다.
 
-```html autorun height=60 run
+```html autorun height=60 run untrusted
 <div id="menu">
   <button data-action="save">저장하기</button>
   <button data-action="load">불러오기</button>
@@ -242,7 +242,7 @@ table.onclick = function(event) {
 
 한 요소에 여러 개의 행동을 조합해 적용하는 것도 가능합니다.
 
-이런 '행동' 패턴은 자바스크립트 프래그먼트의 대안이 될 수 있습니다.
+이런 '행동' 패턴은 자바스크립트 미니 프래그먼트의 대안이 될 수 있습니다.
 
 ## 요약
 

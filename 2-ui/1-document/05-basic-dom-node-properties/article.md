@@ -281,7 +281,6 @@ elem.innerHTML = elem.innerHTML + "..."
 
 <script>
   alert(elem.outerHTML); // <div id="elem">Hello <b>World</b></div>
-  alert(elem.innerHTML); // Hello <b>World</b>
 </script>
 ```
 

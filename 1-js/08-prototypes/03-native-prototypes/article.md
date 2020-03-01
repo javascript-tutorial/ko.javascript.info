@@ -142,9 +142,9 @@ if (!String.prototype.repeat) { // 해당 메서드가 존재하지 않는다면
   String.prototype.repeat = function(n) {
     // string을 n회 반복
 
-    // 사실 코드는 이거보다 조금 더 복잡합니다.
-    // 모든 알고리즘은 명세서 안에 있습니다.
-    // 그런데도 이 불완전한 폴리필은 종종 사용되기 충분합니다.
+    // actually, the code should be a little bit more complex than that
+    // (the full algorithm is in the specification)
+    // but even an imperfect polyfill is often considered good enough
     return new Array(n + 1).join(this);
   };
 }

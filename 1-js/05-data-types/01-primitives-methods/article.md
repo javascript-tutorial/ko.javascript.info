@@ -7,7 +7,7 @@
 원시값:
 
 - 원시형 값입니다.
-- 원시형의 종류는 `문자(string)`, `숫자(number)`, `불린(boolean)`, `심볼(symbol)`, `null`, `undefined`형으로 총 여섯 가지 입니다.
+- 원시형의 종류는 `문자(string)`, `숫자(number)`, `bigint`, `불린(boolean)`, `심볼(symbol)`, `null`, `undefined`형으로 총 일곱 가지 입니다.
 
 객체:
 

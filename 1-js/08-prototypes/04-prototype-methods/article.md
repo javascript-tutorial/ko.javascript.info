@@ -79,8 +79,8 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 왜 `__proto__`를 함수 `getPrototypeOf/setPrototypeOf`로 대체했을까요? 흥미로운 질문입니다. 이 질문에 대한 답은 `__proto__`가 왜 나쁜지 이해하면 얻을 수 있습니다. 답을 얻기 위해 계속 읽어 봅시다.
 
-```warn header="속도가 중요하다면 이미 존재하는 객체의 `[[Prototype]]`을 바꾸지 마세요."
-기술적으로는 `[[Prototype]]`을 언제든지 get/set할 수 있습니다. 하지만 일반적으로 생성 시점에만 `[[Prototype]]`을 설정하고 이후엔 수정하지 않습니다. `rabbit`은 `animal`을 상속하고 그 사실은 변하지 않습니다.
+```warn header="Don't change `[[Prototype]]` on existing objects if speed matters"
+Technically, we can get/set `[[Prototype]]` at any time. But usually we only set it once at the object creation time, and then do not modify: `rabbit` inherits from `animal`, and that is not going to change.
 
 자바스크립트 엔진은 이를 토대로 최적화되어 있습니다. `Object.setPrototypeOf`나 `obj.__proto__=`를 써서 프로토타입을 그때그때 바꾸는 것은 매우 느립니다. 객체의 프로퍼티에 접근하는 동작의 최적화를 깨기 때문입니다. 그러므로 `[[Prototype]]`을 바꾸는 것이 어떤 결과를 초래할지 확실히 알거나 자바스크립트의 속도가 전혀 중요하지 않은 경우가 아니라면 `[[Prototype]]`을 바꾸지 마세요.
 ```

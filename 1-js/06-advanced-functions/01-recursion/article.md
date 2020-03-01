@@ -302,7 +302,7 @@ let company = {
     salary: 1000
   }, {
     name: 'Alice',
-    salary: 600
+    salary: 1600
   }],
 
   development: {
@@ -350,7 +350,7 @@ let company = {
 
 ```js run
 let company = { // 동일한 객체(간결성을 위해 약간 압축함)
-  sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 600 }],
+  sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 1600 }],
   development: {
     sites: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
     internals: [{name: 'Jack', salary: 1300}]
@@ -372,7 +372,7 @@ function sumSalaries(department) {
 }
 */!*
 
-alert(sumSalaries(company)); // 6700
+alert(sumSalaries(company)); // 7700
 ```
 
 짧고 이해하기 쉬운 코드로 원하는 기능을 구현하였습니다. 재귀의 강력함이 여기에 있죠. 하위 부서의 깊이와 상관없이 원하는 값을 구할 수 있습니다.
@@ -459,6 +459,7 @@ let list = { value: 1 };
 list.next = { value: 2 };
 list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
+list.next.next.next.next = null;
 ```
 
 이렇게 연결 리스트를 만드니 객체 가 여러개 있고, 각 객체엔 `value`와 이웃 객체를 가리키는 `next` 프로퍼티가 있는 게 명확히 보이네요. 변수 `list`는 체인의 시작 객체이기 때문에 `list`에선 이어지는 객체들의 `next` 프로퍼티를 이용해 원하는 객체 어디든 도달할 수 있습니다.

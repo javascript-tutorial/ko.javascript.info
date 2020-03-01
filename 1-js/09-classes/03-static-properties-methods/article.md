@@ -20,7 +20,7 @@ User.staticMethod(); // true
 정적 메서드는 메서드를 프로퍼티 형태로 직접 할당하는 것과 동일한 일을 합니다. 
 
 ```js run
-class User() { }
+class User { }
 
 User.staticMethod = function() {
   alert(this === User);
@@ -125,9 +125,9 @@ alert( Article.publisher ); // Ilya Kantor
 Article.publisher = "Ilya Kantor";
 ```
 
-## 정적 메서드 상속
+## 정적 프로퍼티와 메서드 상속
 
-정적 메서드는 상속이 가능합니다.
+정적 프로퍼티와 메서드는 상속됩니다.
 
 아래 예시에서 `Animal.compare`와 `Animal.planet`은 상속되어서 각각 `Rabbit.compare`와 `Rabbit.planet`에서 접근할 수 있습니다.
 

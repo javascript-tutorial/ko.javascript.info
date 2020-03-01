@@ -26,7 +26,7 @@
 ```
 
 ````smart header="클래스나 함수를 내보낼 땐 세미콜론을 붙이지 마세요."
-클래스나 함수 선언 시, 선언부 앞에 `export`를 붙인다고 해서 함수 선언 방식이 함수 선언문에서 [함수 표현식(function expression)](info:function-expressions-arrows) 으로 바뀌지 않습니다.
+클래스나 함수 선언 시, 선언부 앞에 `export`를 붙인다고 해서 함수 선언 방식이 함수 선언문에서 [함수 표현식(function expression)](info:function-expressions) 으로 바뀌지 않습니다. 내보내 지긴 했지만 여전히 함수 선언문입니다.
 
 대부분의 자바스크립트 스타일 가이드는 함수나 클래스 선언 끝에 세미콜론을 붙이지 말라고 권유합니다.
 
@@ -89,7 +89,7 @@ say.sayHi('John');
 say.sayBye('John');
 ```
 
-이와 같이 "한꺼번에 모든 걸 가져오는 방식"을 취하면 코드가 짧아집니다. 그런데도 어떤 걸 가져올 땐 그 대상을 구체적으로 명시하는 게 좋습니다.
+이렇게 '한꺼번에 모든 걸 가져오는 방식'을 사용하면 코드가 짧아집니다. 그런데도 어떤 걸 가져올 땐 그 대상을 구체적으로 명시하는 게 좋습니다.
 
 이렇게 하는 데는 몇 가지 이유가 있습니다.
 
@@ -108,12 +108,12 @@ say.sayBye('John');
     // 📁 main.js
     import {sayHi} from './say.js';
     ```
-    빌드 툴은 실제 사용되는 함수가 무엇인지 파악해, 그렇지 않은 함수는 최종 번들링 결과물에 포함하지 않습니다. 이 과정에서 불필요한 코드가 제거되기 때문에 빌드 결과물의 크기가 작아집니다. 이런 최적화 과정은 "가지치기(tree-shaking)"라고 불립니다.
+    빌드 툴은 실제 사용되는 함수가 무엇인지 파악해, 그렇지 않은 함수는 최종 번들링 결과물에 포함하지 않습니다. 이 과정에서 불필요한 코드가 제거되기 때문에 빌드 결과물의 크기가 작아집니다. 이런 최적화 과정은 '가지치기(tree-shaking)'라고 불립니다.
 
 2. 어떤 걸 가지고 올지 명시하면 이름을 간결하게 써줄 수 있습니다. `say.sayHi()`보다 `sayHi()`가 더 간결하네요.
 3. 어디서 어떤 게 쓰이는지 명확하기 때문에 코드 구조를 파악하기가 쉬워 리팩토링이나 유지보수에 도움이 됩니다.
 
-## Import "as"
+## Import 'as'
 
 `as`를 사용하면 이름을 바꿔서 모듈을 가져올 수 있습니다.
 
@@ -129,7 +129,7 @@ hi('John'); // Hello, John!
 bye('John'); // Bye, John!
 ```
 
-## Export "as"
+## Export 'as'
 
 `export`에도 `as`를 사용할 수 있습니다.
 
@@ -162,13 +162,13 @@ say.*!*bye*/!*('John'); // Bye, John!
 
 그런데 이렇게 모듈을 만들다 보면 파일 수가 많아질 수밖에 없습니다. 그렇더라도 모듈 이름을 잘 지어주고, 폴더에 파일을 잘 나눠 프로젝트를 구성하면 코드 탐색이 어렵지 않으므로 이는 전혀 문제가 되지 않습니다.
 
-`export default`라는 특별한 문법을 사용하면 "개체가 하나만 있는 모듈"을 더 잘 표시할 수 있습니다. 이런 방식을 "default export(기본 내보내기)"라고 합니다.
+`export default`라는 특별한 문법을 사용하면 '개체가 하나만 있는 모듈'을 더 잘 표시할 수 있습니다. 이런 방식을 'default export(기본 내보내기)'라고 합니다.
 
 내보내고자 하는 개체 앞에 `export default`를 붙여봅시다.
 
 ```js
 // 📁 user.js
-export *!*default*/!* class User { // export 옆에 "default"를 추가해보았습니다.
+export *!*default*/!* class User { // export 옆에 'default'를 추가해보았습니다.
   constructor(name) {
     this.name = name;
   }
@@ -226,7 +226,7 @@ export class { // 에러! (default export가 아닌 경우엔 이름이 꼭 필�
 }
 ```     
 
-### "default" name
+### 'default' name
 
 몇몇 상황에서 `default` 키워드는 기본 내보내기를 참조하는 용도로 사용됩니다.
 
@@ -237,11 +237,11 @@ function sayHi(user) {
   alert(`Hello, ${user}!`);
 }
 
-// 함수 선언부 앞에 "export default"를 붙여준 것과 동일합니다.
+// 함수 선언부 앞에 'export default'를 붙여준 것과 동일합니다.
 export {sayHi as default};
 ```
 
-흔치 않지만 `user.js`라는 모듈에 "default" export 하나와 다수의 named export가 있다고 해봅시다.
+흔치 않지만 `user.js`라는 모듈에 'default' export 하나와 다수의 named export가 있다고 해봅시다.
 
 ```js
 // 📁 user.js
@@ -311,7 +311,7 @@ import func from '/path/to/func.js';
 
 ## export ... from ...으로 다시 내보내기
 
-`export ... from ...` 문법을 사용하면 가져온 것을 즉시 "다시 내보내기(re-export)" 할 수 있습니다. 이름을 바꿔서 내보낼 수도 있습니다. 예시를 살펴봅시다. 
+`export ... from ...` 문법을 사용하면 가져온 것을 즉시 '다시 내보내기(re-export)' 할 수 있습니다. 이름을 바꿔서 내보낼 수도 있습니다. 예시를 살펴봅시다. 
 
 ```js
 export {sayHi} from './say.js'; // sayHi를 다시 내보내기 함
@@ -321,7 +321,7 @@ export {default as User} from './user.js'; // default export를 다시 내보내
 
 다시 내보내기를 왜 해야 하는지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
 
-NPM을 통해 외부에 공개할 "패키지(package)"를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 "헬퍼" 역할을 담당하고 있습니다.
+NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있습니다.
 
 패키지 구조는 아래와 같습니다.
 ```
@@ -337,7 +337,7 @@ auth/
         ...
 ```
 
-진입점 역할을 하는 "주요 파일"인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.   
+진입점 역할을 하는 '주요 파일'인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.   
 
 ```js
 import {login, logout} from 'auth/index.js'
@@ -389,9 +389,9 @@ export default class User {
 
 1. `export User from './user.js'`로 다시 내보내기를 시도하면 문법 에러가 발생합니다.
 
-    default export를 다시 내보내려면 `export {default as User}`와 같은 코드를 사용해야 합니다.    
+    default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.    
 
-2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다. 
+2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다.
 
     두 가지를 동시에 다시 내보내고 싶다면 두 구문을 동시에 사용해야 합니다.
     ```js
@@ -399,7 +399,7 @@ export default class User {
     export {default} from './user.js'; // default export를 다시 내보내기
     ```
 
-default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 좋아하지 않습니다. 
+default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 선호하지 않습니다.
 
 ## 요약
 

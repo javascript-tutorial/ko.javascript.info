@@ -36,7 +36,7 @@ alert( aclean(arr) );
 `(*)`로 표시한 줄을 여러 줄에 나눠서 작성하면 아래와 같은 코드가 됩니다.
 
 ```js
-let sorted = arr[i] // PAN
+let sorted = word // PAN
   .toLowerCase() // pan
   .split('') // ['p','a','n']
   .sort() // ['a','n','p']

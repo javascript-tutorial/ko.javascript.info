@@ -41,9 +41,7 @@ let loadScriptPromise = function(src) {
 
 예시에서 볼 수 있듯이, `loadScriptPromise`는 기존 함수 `loadScript`에 모든 일을 위임합니다. `loadScript`의 콜백은 스크립트 로딩 상태에 따라 `이행` 혹은 `거부`상태의 프라미스를 반환합니다. 
 
-그런데 실무에선 함수 하나가 아닌 여러 개의 함수를 프라미스화 해야 할 겁니다. 헬퍼 함수를 만드는 게 좋을 것 같네요.
-
-프라미스화를 적용 할 함수 `f`를 받고 래퍼 함수를 반환하는 함수 `promisify(f)`를 만들어봅시다.
+그런데 실무에선 함수 하나가 아닌 여러 개의 함수를 프라미스화 해야 할 겁니다. 헬퍼 함수를 만드는 게 좋을 것 같네요. 프라미스화를 적용 할 함수 `f`를 받고 래퍼 함수를 반환하는 함수 `promisify(f)`를 만들어봅시다.
 
 `promisify(f)`가 반환하는 래퍼 함수는 위 예시와 동일하게 동작할 겁니다. 프라미스를 반환하고 호출을 기존 함수 `f`에 전달하여 커스텀 콜백 내의 결과를 추적해야 하죠.
 
@@ -53,7 +51,7 @@ function promisify(f) {
     return new Promise((resolve, reject) => {
       function callback(err, result) { // f에 사용할 커스텀 콜백
         if (err) {
-          return reject(err);
+          reject(err);
         } else {
           resolve(result);
         }
@@ -84,7 +82,7 @@ function promisify(f, manyArgs = false) {
     return new Promise((resolve, reject) => {
       function *!*callback(err, ...results*/!*) { // f에 사용할 커스텀 콜백
         if (err) {
-          return reject(err);
+          reject(err);
         } else {
           // manyArgs가 구체적으로 명시되었다면, 콜백의 성공 케이스와 함께 이행 상태가 됩니다.
           *!*resolve(manyArgs ? results : results[0]);*/!*

@@ -147,7 +147,6 @@ function countUser(user) {
 let john = { name: "John" };
 
 countUser(john); // John의 방문 횟수를 증가시킵니다.
-countUser(john);
 
 // John의 방문 횟수를 셀 필요가 없어지면 아래와 같이 john을 null로 덮어씁니다.
 john = null;

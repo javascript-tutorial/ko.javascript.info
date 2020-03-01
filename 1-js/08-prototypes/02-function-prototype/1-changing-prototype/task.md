@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# "prototype" 변경하기
+# 'prototype' 변경하기
 
 아래 코드에선 `new Rabbit`를 만들고 `Rabbit`의 `"prototype"`을 변겅합니다.
 

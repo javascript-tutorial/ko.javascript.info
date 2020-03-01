@@ -61,7 +61,7 @@ setTimeout(sayHi, 1000, "Hello", "John"); // Hello, John
 setTimeout("alert('Hello')", 1000);
 ```
 
-그런데 이렇게 문자열을 사용하는 방법은 추천하지 않습니다. 아래 예시와 같이 인수는 함수 형태로 넘겨주시기 바랍니다.
+그런데 이렇게 문자열을 사용하는 방법은 추천하지 않습니다. 아래 예시와 같이 화살표 함수를 사용하세요.
 
 ```js run no-beautify
 setTimeout(() => alert('Hello'), 1000);
@@ -184,7 +184,7 @@ CPU 소모가 많은 작업을 주기적으로 실행하는 경우에도 `setTim
 ```js
 let i = 1;
 setInterval(function() {
-  func(i);
+  func(i++);
 }, 100);
 ```
 
@@ -193,12 +193,12 @@ setInterval(function() {
 ```js
 let i = 1;
 setTimeout(function run() {
-  func(i);
+  func(i++);
   setTimeout(run, 100);
 }, 100);
 ```
 
-`setInterval`을 이용한 예시에선, 내부 스케줄러가 `func(i)`를 100밀리초마다 실행합니다.
+`setInterval`을 이용한 예시에선, 내부 스케줄러가 `func(i++)`를 100밀리초마다 실행합니다.
 
 ![](setinterval-interval.svg)
 

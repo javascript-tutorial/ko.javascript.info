@@ -226,7 +226,7 @@ Promise.race([
 
 ### Promise.resolve
 
-- `Promise.resolve(value)`는 결괏값이 `value`인 이행 상태 프라미스를 생성합니다.
+`Promise.resolve(value)`는 결괏값이 `value`인 이행 상태 프라미스를 생성합니다.
 
 아래 코드와 동일한 일을 수행합니다.
 
@@ -261,7 +261,7 @@ function loadCached(url) {
 
 ### Promise.reject
 
-- `Promise.reject(error)`는 결괏값이 `error`인 거부 상태 프라미스를 생성합니다.
+`Promise.reject(error)`는 결괏값이 `error`인 거부 상태 프라미스를 생성합니다.
 
 아래 코드와 동일한 일을 수행합니다.
 

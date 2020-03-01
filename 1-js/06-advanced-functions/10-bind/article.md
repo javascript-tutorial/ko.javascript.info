@@ -86,7 +86,7 @@ setTimeout(() => user.sayHi(), 1000);
 // 1초가 지나기 전에 user의 값이 바뀜
 user = { sayHi() { alert("또 다른 사용자!"); } };
 
-// 또 다른 사용자!
+// setTimeout에 또 다른 사용자!
 ```
 
 두 번째 방법을 사용하면 이런 일이 발생하지 않습니다.
@@ -100,7 +100,7 @@ user = { sayHi() { alert("또 다른 사용자!"); } };
 ```js
 // 더 복잡한 문법은 뒤에 나옵니다.
 let boundFunc = func.bind(context);
-````
+```
 
 `func.bind(context)`는 함수처럼 호출 가능한 '특수 객체(exotic object)'를 반환합니다. 이 객체를 호출하면 `this`가 `context`로 고정된 함수 `func`가 반환됩니다.
 
@@ -311,7 +311,7 @@ user.sayNow("Hello");
 - `partial`을 호출할 때 받은 인수(`"10:00"`)는 `...argsBound`에 전달됩니다.
 - 래퍼에 전달된 인수(`"Hello"`)는 `...args`가 됩니다.
 
-전개 연산자 덕분에 이 모든 과정이 쉬워졌습니다.
+전개 문법 덕분에 이 모든 과정이 쉬워졌습니다.
 
 lodash 라이브러리의 [_.partial](https://lodash.com/docs#partial)을 사용하면 컨텍스트 없는 부분 적용을 직접 구현하지 않아도 됩니다.
 

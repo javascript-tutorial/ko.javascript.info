@@ -36,7 +36,7 @@ alert( arr.length ); // 3
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
-[arr.splice(str)](mdn:js/Array/splice)는 만능 스위스 맥가이버 칼 같은 메서드입니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드를 사용하면 요소 추가, 삭제, 교체가 모두 가능합니다.
+[arr.splice(start)](mdn:js/Array/splice)는 만능 스위스 맥가이버 칼 같은 메서드입니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드를 사용하면 요소 추가, 삭제, 교체가 모두 가능합니다.
 
 문법은 다음과 같습니다.
 
@@ -268,7 +268,7 @@ alert( arr.includes(NaN) );// true (NaN의 여부를 확인하였습니다.)
 
 객체로 이루어진 배열이 있다고 가정해 봅시다. 특정 조건에 부합하는 객체를 배열 내에서 어떻게 찾을 수 있을까요?
 
-이럴 때 [arr.find](mdn:js/Array/find)를 사용할 수 있습니다.
+이럴 때 [arr.find(fn)](mdn:js/Array/find)을 사용할 수 있습니다.
 
 문법:
 ```js
@@ -447,13 +447,29 @@ alert(arr);  // *!*1, 2, 15*/!*
 ````
 
 ````smart header="화살표 함수를 사용합시다."
-[화살표 함수](info:function-expressions-arrows#arrow-functions)를 사용하면 정렬 함수를 더 깔끔하게 만들 수 있습니다. 
+[화살표 함수](info:arrow-functions-basics)를 사용하면 정렬 함수를 더 깔끔하게 만들 수 있습니다. 
 
 ```js
 arr.sort( (a, b) => a - b );
 ```
 
 화살표 함수를 활용한 코드와 함수 선언문을 사용한 코드는 동일하게 작동합니다.
+````
+
+````smart header="Use `localeCompare` for strings"
+Remember [strings](info:string#correct-comparisons) comparison algorithm? It compares letters by their codes by default.
+
+For many alphabets, it's better to use `str.localeCompare` method to correctly sort letters, such as `Ö`.
+
+For example, let's sort a few countries in German:
+
+```js run
+let countries = ['Österreich', 'Andorra', 'Vietnam'];
+
+alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (wrong)
+
+alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (correct!)
+```
 ````
 
 ### reverse
@@ -530,7 +546,7 @@ alert( str ); // Bilbo;Gandalf;Nazgul
 문법:
 
 ```js
-let value = arr.reduce(function(previousValue, item, index, array) {
+let value = arr.reduce(function(accumulator, item, index, array) {
   // ...
 }, [initial]);
 ```
@@ -539,12 +555,12 @@ let value = arr.reduce(function(previousValue, item, index, array) {
 
 함수의 인수는 다음과 같습니다.
 
-- `previousValue` -- 이전 함수 호출의 결과. `initial`은 함수 최초 호출 시 사용되는 초깃값을 나타냄(옵션)
+- `accumulator` -- 이전 함수 호출의 결과. `initial`은 함수 최초 호출 시 사용되는 초깃값을 나타냄(옵션)
 - `item` -- 현재 배열 요소
 - `index` -- 요소의 위치
 - `array` -- 배열
 
-이전 함수 호출의 결과는 다음 함수를 호출할 때 첫 번째 인수(`previousValue`)로 사용됩니다. 
+이전 함수 호출의 결과는 다음 함수를 호출할 때 첫 번째 인수(`previousValue`)로 사용됩니다.
 
 뭔가 복잡해 보이지만 함수의 첫 번째 인수를 앞서 호출했던 함수들의 결과를 누적시켜주는 "누산기"라고 생각하면 어렵지 않습니다. 마지막 함수까지 호출되면 이 값은 `reduce`의 반환 값이 됩니다.
 
@@ -574,7 +590,7 @@ alert(result); // 15
 
 표를 이용해 설명하면 아래와 같습니다. 함수가 호출될 때마다 넘겨지는 인수와 연산 결과는 각 열에서 확인할 수 있습니다.
 
-|   |`sum`|`current`|`result`|
+|   |`sum`|`current`|result|
 |---|-----|---------|---------|
 |첫 번째 호출|`0`|`1`|`1`|
 |두 번째 호출|`1`|`2`|`3`|
@@ -610,7 +626,6 @@ let arr = [];
 // 초깃값을 설정해 주었다면 초깃값이 반환되었을 겁니다.
 arr.reduce((sum, current) => sum + current);
 ```
-
 
 이런 예외상황 때문에 항상 초깃값을 명시해 줄 것을 권장합니다.
 

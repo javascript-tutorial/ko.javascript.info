@@ -322,13 +322,9 @@ fetch('/article/promise-chaining/user.json')
   .then(githubUser => alert(`Finished showing ${githubUser.name}`));
 ```
 
-`(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다.
+`(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다. 체인의 다음 `.then`은 이를 기다리죠.
 
-체인의 다음 `.then`은 이를 기다리죠.
-
-비동기 동작은 항상 프라미스를 반환하도록 하는 것이 좋습니다.
-
-지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
+비동기 동작은 항상 프라미스를 반환하도록 하는 것이 좋습니다. 지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
 
 이제 코드를 재사용 가능한 함수 단위로 분리해 마무리하겠습니다.
 

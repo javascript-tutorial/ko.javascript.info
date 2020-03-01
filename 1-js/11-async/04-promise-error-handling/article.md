@@ -60,7 +60,7 @@ new Promise((resolve, reject) => {
 new Promise((resolve, reject) => {
 *!*
   reject(new Error("에러 발생!"));
-*/!*  
+*/!*
 }).catch(alert); // Error: 에러 발생!
 ```
 
