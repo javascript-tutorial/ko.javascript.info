@@ -10,9 +10,9 @@ DOM 노드는 종류에 따라 각각 다른 프로퍼티를 지원합니다. �
 
 각 DOM 노드는 대응하는 내장 클래스에 속합니다.
 
-계층구조의 꼭대기엔 [EventTarget](https://dom.spec.whatwg.org/#eventtarget)이 있고 [Node](http://dom.spec.whatwg.org/#interface-node)는 EventTarget을, 다른 DOM 노드들은 Node를 상속받습니다.
+계층 구조의 꼭대기엔 [EventTarget](https://dom.spec.whatwg.org/#eventtarget)이 있고 [Node](http://dom.spec.whatwg.org/#interface-node)는 EventTarget을, 다른 DOM 노드들은 Node를 상속받습니다.
 
-계층구조를 그림으로 나타내면 다음과 같습니다.
+계층 구조를 그림으로 나타내면 다음과 같습니다.
 
 ![](dom-class-hierarchy.svg)
 
@@ -469,7 +469,7 @@ elem.innerHTML = elem.innerHTML + "..."
 
 ## 요약
 
-각 DOM 노드는 고유한 클래스에 속합니다. 클래스들은 계층 구조를 형성합니다. DOM 노드에서 지원하는 프로퍼티와 메서드는 계층구조에서 어떤 클래스를 상속받느냐에 따라 결정됩니다.
+각 DOM 노드는 고유한 클래스에 속합니다. 클래스들은 계층 구조를 형성합니다. DOM 노드에서 지원하는 프로퍼티와 메서드는 계층 구조에서 어떤 클래스를 상속받느냐에 따라 결정됩니다.
 
 주요 DOM 노드 프로퍼티는 다음과 같습니다.
 

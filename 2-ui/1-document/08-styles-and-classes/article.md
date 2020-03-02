@@ -86,7 +86,7 @@ elem.style.top = top; // 예시: '456px'
 
 `elem.style` 프로퍼티는 `"style"` 속성에 대응되는 객체입니다. `elem.style.width="100px"`는 `style` 속성값을 문자열 `width:100px`로 설정한 것과 같습니다.
 
-여러 단어를 이어서 만든 프로퍼티는 아래와 같이 카멜 케이스로 이름 지을 수 있습니다.
+여러 단어를 이어서 만든 프로퍼티는 아래와 같이 카멜 표기법으로 이름 지을 수 있습니다.
 
 ```js no-beautify
 background-color  => elem.style.backgroundColor
@@ -101,7 +101,7 @@ document.body.style.backgroundColor = prompt('배경은 무슨 색인가요?', '
 ```
 
 ````smart header="브라우저 지정 프로퍼티"
-`-moz-border-radius`, `-webkit-border-radius`같이 브라우저에서 미리 지정한 프로퍼티 역시 카멜 케이스를 사용합니다. 대시(-)는 대문자로 해석하면 됩니다.
+`-moz-border-radius`, `-webkit-border-radius`같이 브라우저에서 미리 지정한 프로퍼티 역시 카멜 표기법을 사용합니다. 대시(-)는 대문자로 해석하면 됩니다.
 
 예시:
 
@@ -294,7 +294,7 @@ JavaScript may not see the styles applied by `:visited`. And also, there's a lim
 
 스타일 변경 방법:
 
-- `style` 프로퍼티는 카멜 케이스를 이용해 변경한 스타일이 있는 객체로, 이 객체를 조작하는 것은 `"style"` 속성과 대응하는 개별 프로퍼티를 조작하는 것과 같습니다. `important` 등의 규칙을 어떻게 적용할 수 있는지 알아보려면 [MDN](mdn:api/CSSStyleDeclaration)에서 관련 메서드를 살펴보시기 바랍니다. 
+- `style` 프로퍼티는 카멜 표기법을 이용해 변경한 스타일이 있는 객체로, 이 객체를 조작하는 것은 `"style"` 속성과 대응하는 개별 프로퍼티를 조작하는 것과 같습니다. `important` 등의 규칙을 어떻게 적용할 수 있는지 알아보려면 [MDN](mdn:api/CSSStyleDeclaration)에서 관련 메서드를 살펴보시기 바랍니다. 
 
 - `style.cssText` 프로퍼티는 `"style"` 속성 전체에 대응하므로 스타일 전체에 대한 문자열이 저장됩니다.
 
