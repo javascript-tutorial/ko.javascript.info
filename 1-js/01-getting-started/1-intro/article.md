@@ -38,7 +38,11 @@
 2. 읽어 들인 스크립트를 기계어로 전환합니다("컴파일").
 3. 기계어로 전환된 코드가 실행됩니다. 기계어로 전환되었기 때문에 실행 속도가 빠릅니다.
 
+<<<<<<< HEAD
 엔진은 프로세스 각 단계마다 최적화를 진행합니다. 심지어 컴파일이 끝나고 실행 중인 코드를 감시하면서, 이 코드로 흘러가는 데이터를 분석하고, 분석 결과를 토대로 기계어로 전환된 코드를 다시 최적화하기도 합니다. 이런 과정을 거치면 스크립트 실행 속도는 더욱 더 빨라집니다.
+=======
+The engine applies optimizations at each step of the process. It even watches the compiled script as it runs, analyzes the data that flows through it, and further optimizes the machine code based on that knowledge.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```
 
 ## 브라우저에서 할 수 있는 일
@@ -63,7 +67,11 @@
 
 몇 가지 제약사항을 소개해 드리겠습니다.
 
+<<<<<<< HEAD
 - 웹페이지 내 스크립트는 디스크에 저장된 임의의 파일을 읽거나 쓰고, 복사하거나 실행할 때 제약을 받을 수 있습니다. 운영체제가 지원하는 기능을 브라우저가 직접 쓰지 못하게 막혀있기 때문입니다.
+=======
+- JavaScript on a webpage may not read/write arbitrary files on the hard disk, copy them or execute programs. It has no direct access to OS functions.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
     모던 브라우저를 사용하면 파일을 다룰 순 있습니다. 하지만 접근은 제한되어 있습니다. 사용자가 브라우저 창에 파일을 "끌어다 두거나" `<input>` 태그를 통해 파일을 선택할 때와 같이 특정 상황에서만 파일 접근을 허용합니다.
 

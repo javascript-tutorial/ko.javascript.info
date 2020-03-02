@@ -29,10 +29,19 @@
 - 빨간색 에러 메시지가 보일 겁니다. "lalala"가 정의되지 않았다(not defined)라는 메시지입니다.
 - 에러 메시지 우측에 링크 `bug.html:12`가 있습니다. bug.html은 해당 에러가 발생한 파일, 12는 에러가 발생한 줄을 나타냅니다.
 
+<<<<<<< HEAD
 에러 메시지 아래에 파란색 기호 `>`가 있는데, 이 기호가 있는 곳엔 자바스크립트 명령어(command)를 입력할 수 있습니다. 이를 "커맨드 라인(command line)"이라 부릅니다. 커맨드 라인에 명령어(command)를 입력한 후 `key:Enter`를 누르면 해당 명령어가 실행됩니다. 명령어를 여러 줄에 걸쳐 작성하고 싶다면 `key:Shift+Enter`를 활용할 수 있습니다. 해당 키를 누르면 명령어를 실행시키지 않고 줄 바꿈만 할 수 있습니다.
+=======
+Below the error message, there is a blue `>` symbol. It marks a "command line" where we can type JavaScript commands. Press `key:Enter` to run them.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 자 이제 에러를 확인하는 방법을 알았습니다. 시작치곤 나쁘지 않네요. 에러를 확인하고 고치는 방법(디버깅)은 <info:debugging-chrome>에서 다루도록 하겠습니다.
 
+```smart header="Multi-line input"
+Usually, when we put a line of code into the console, and then press `key:Enter`, it executes.
+
+To insert multiple lines, press `key:Shift+Enter`. This way one can enter long fragments of JavaScript code.
+```
 
 ## Firefox, Edge 및 기타 브라우저
 
@@ -50,6 +59,7 @@ Mac 전용 브라우저인 Safari에서 개발자 도구를 사용하려면 "개
 
 이제 `key:Cmd+Opt+C`를 눌러 개발자 콘솔을 여닫을 수 있게 되었습니다. Safari 상단에 "개발자용(Develop)" 메뉴가 새로 생긴 것도 볼 수 있습니다. 개발자용 메뉴엔 다양한 명령어와 옵션이 있습니다.
 
+<<<<<<< HEAD
 ````smart header="여러 줄 입력하기"
 우리는 대부분 한 줄짜리 명령어를 입력하고 `key:Enter`를 눌러 해당 명령어를 실행하는 작업을 많이 합니다.
 
@@ -57,6 +67,9 @@ Mac 전용 브라우저인 Safari에서 개발자 도구를 사용하려면 "개
 ````
 
 ## 요약
+=======
+## Summary
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 - 개발자 도구를 이용하면 에러를 확인하고, 명령어를 실행하고, 변수를 분석해보는 등의 일을 할 수 있습니다.
 - Windows 사용자는 `key:F12`를 눌러 개발자 도구를 열 수 있습니다. Mac 사용자는 Chrome에선 `key:Cmd+Opt+J`, Safari에선 `key:Cmd+Opt+C`를 누르면 됩니다. Safari는 개발자 메뉴를 활성화 해 줘야 개발자 도구를 사용할 수 있습니다.

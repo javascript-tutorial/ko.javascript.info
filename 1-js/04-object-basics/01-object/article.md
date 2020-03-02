@@ -1,7 +1,11 @@
 
 # 객체
 
+<<<<<<< HEAD
 <info:types> 챕터에서 배웠듯이 자바스크립트엔 일곱 가지 자료형이 있습니다. 이 중 여섯 개는 오직 하나의 데이터(문자열, 숫자 등)만 담을 수 있어 '원시형(primitive type)'이라 부릅니다.
+=======
+As we know from the chapter <info:types>, there are eight data types in JavaScript. Seven of them are called "primitive", because their values contain only a single thing (be it a string or a number or whatever).
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 그런데 객체형은 원시형과 달리 다양한 데이터를 담을 수 있습니다. 키로 구분된 데이터 집합이나 복잡한 개체(entity)를 저장할 수 있죠. 객체는 자바스크립트 거의 모든 면에 녹아있는 개념이므로 자바스크립트를 잘 다루려면 객체를 잘 이해하고 있어야 합니다.
 
@@ -101,7 +105,13 @@ let user = {
 user.likes birds = true
 ```
 
+<<<<<<< HEAD
 점 표기법은 키가 '유효한 변수 식별자'인 경우에만 사용할 수 있습니다(유효한 변수 식별자가 되려면 공백이 있으면 안 됩니다).
+=======
+JavaScript doesn't understand that. It thinks that we address `user.likes`, and then gives a syntax error when comes across unexpected `birds`.
+
+The dot requires the key to be a valid variable identifier. That implies: contains no spaces, doesn't start with a digit and doesn't include special characters (`$` и `_` are allowed).
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 키가 유효한 변수 식별자가 아닌 경우엔 점 표기법 대신에 '대괄호 표기법(square bracket notation)'이라불리는 방법을 사용할 수 있습니다. 대괄호 표기법은 키에 어떤 문자열이 있던지 상관없이 동작합니다.
 
@@ -203,6 +213,7 @@ let bag = {
 
 이런 이유로 (프로퍼티 이름이 확정된 상황이고, 이름도 단순하다면) 처음엔 점 표기법을 사용하다가 뭔가 복잡한 상황이 발생했을 때 대괄호 표기법으로 바꾸는 경우가 많습니다.
 
+<<<<<<< HEAD
 
 
 ````smart header="예약어도 프로퍼티 이름으로 사용할 수 있습니다."
@@ -241,6 +252,9 @@ alert(obj.__proto__); // 5 대신 [object Object]가 출력됩니다.
 
 
 ## 단축 프로퍼티
+=======
+## Property value shorthand
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 실무에선 프로퍼티 값을 기존 변수에서 받아와 사용하는 경우가 종종 있습니다.
 
@@ -284,7 +298,67 @@ let user = {
 };
 ```
 
+<<<<<<< HEAD
 ## 프로퍼티 존재 여부 확인하기
+=======
+## Property names limitations
+
+Property names (keys) must be either strings or symbols (a special type for identifiers, to be covered later).
+
+Other types are automatically converted to strings.
+
+For instance, a number `0` becomes a string `"0"` when used as a property key:
+
+```js run
+let obj = {
+  0: "test" // same as "0": "test"
+};
+
+// both alerts access the same property (the number 0 is converted to string "0")
+alert( obj["0"] ); // test
+alert( obj[0] ); // test (same property)
+```
+
+**Reserved words are allowed as property names.**
+
+As we already know, a variable cannot have a name equal to one of language-reserved words like "for", "let", "return" etc.
+
+But for an object property, there's no such restriction. Any name is fine:
+
+```js run
+let obj = {
+  for: 1,
+  let: 2,
+  return: 3
+};
+
+alert( obj.for + obj.let + obj.return );  // 6
+```
+
+We can use any string as a key, but there's a special property named `__proto__` that gets special treatment for historical reasons.
+
+For instance, we can't set it to a non-object value:
+
+```js run
+let obj = {};
+obj.__proto__ = 5; // assign a number
+alert(obj.__proto__); // [object Object] - the value is an object, didn't work as intended
+```
+
+As we see from the code, the assignment to a primitive `5` is ignored.
+
+The nature of `__proto__` will be revealed in detail later in the chapter [](info:prototype-inheritance).
+
+As for now, it's important to know that such behavior of `__proto__` can become a source of bugs and even vulnerabilities if we intend to store user-provided keys in an object.
+
+The problem is that a visitor may choose `__proto__` as the key, and the assignment logic will be ruined (as shown above).
+
+There are two workarounds for the problem:
+1. Modify the object's behavior to treat `__proto__` as a regular property. We'll learn how to do it in the chapter [](info:prototype-methods).
+2. Using [Map](info:map-set) data structure which supports arbitrary keys. We'll learn it in the chapter <info:map-set>.
+
+## Property existence test, "in" operator
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 객체의 중요한 특징 중 하나는 존재하지 않는 프로퍼티에 접근하려 해도 에러가 발생하지 않고 `undefined`를 반환한다는 것입니다. 이런 특징을 응용하면 프로퍼티 존재 여부를 확인할 수 있습니다. 
 
@@ -321,8 +395,13 @@ let key = "age";
 alert( *!*key*/!* in user ); // true, 변수 key에 저장된 값("age")을 사용해 프로퍼티 존재 여부를 확인합니다.
 ```
 
+<<<<<<< HEAD
 ````smart header="값이 `undefined`인 프로퍼티에 'in' 사용하기"
 일치 연산자를 사용해서 프로퍼티 존재 여부를 알아내는 방법(`"=== undefined"`)은 꽤 잘 동작합니다. 이 방법이 실패할 때도 가끔 있는데, 그럴 때는 `in`을 사용하면 프로퍼티 존재 여부를 제대로 판별할 수 있습니다.
+=======
+````smart header="Using \"in\" for properties that store `undefined`"
+Usually, the strict comparison `"=== undefined"` check the property existence just fine. But there's a special case when it fails, but `"in"` works correctly.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 프로퍼티는 존재하는데, 값에 `undefined`를 할당한 예시를 살펴봅시다.
 

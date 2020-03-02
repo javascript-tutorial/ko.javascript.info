@@ -1,7 +1,11 @@
 
 # async 이터레이터와 제너레이터
 
+<<<<<<< HEAD
 비동기 이터레이터(asynchronous iterator)를 사용하면 비동기적으로 들어오는 데이터를 필요에 따라 처리할 수 있습니다. 네트워크를 통해 데이터가 여러 번에 걸쳐 들어오는 상황을 처리할 수 있게 되죠. 비동기 제너레이터(asynchronous generator)를 사용하면 이런 데이터를 좀 더 편리하게 처리할 수 있습니다.
+=======
+Asynchronous iterators allow us to iterate over data that comes asynchronously, on-demand. Like, for instance, when we download something chunk-by-chunk over a network. And asynchronous generators make it even more convenient.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 먼저 간단한 예시를 살펴보며 문법을 익힌 후, 실무에서 벌어질 법한 사례를 가지고 async 이터레이터와 제너레이터가 어떻게 사용되는지 알아보겠습니다.
 
@@ -9,7 +13,11 @@
 
 비동기 이터레이터는 일반 이터레이터와 유사하며, 약간의 문법적인 차이가 있습니다.
 
+<<<<<<< HEAD
 <info:iterable> 챕터에서 살펴본 바와 같이 '일반' 이터러블은 객체입니다.
+=======
+A "regular" iterable object, as described in the chapter <info:iterable>, looks like this:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 ```js run
 let range = {
@@ -49,10 +57,17 @@ for(let value of range) {
 
 일반 이터레이터에 대한 설명은 <info:iterable>에서 자세히 다루고 있으니, 꼭 살펴보시기 바랍니다.
 
+<<<<<<< HEAD
 이제, 이터러블 객체를 비동기적으로 만들려면 어떤 작업이 필요한지 알아봅시다.
 1. `Symbol.iterator` 대신, `Symbol.asyncIterator`를 사용해야 합니다. 
 2. `next()`는 프라미스를 반환해야 합니다.
 3. 비동기 이터러블 객체를 대상으로 하는 반복 작업은 `for await (let item of iterable)` 반복문을 사용해 처리해야 합니다.
+=======
+To make the object iterable asynchronously:
+1. We need to use `Symbol.asyncIterator` instead of `Symbol.iterator`.
+2. `next()` should return a promise.
+3. To iterate over such an object, we should use a `for await (let item of iterable)` loop.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 익숙한 예시인 이터러블 객체 `range`를 토대로, 일초마다 비동기적으로 값을 반환하는 이터러블 객체를 만들어보겠습니다.
 
@@ -80,7 +95,11 @@ let range = {
 */!*
 
 *!*
+<<<<<<< HEAD
         // 비동기로 무언가를 하기 위해 await를 사용할 수 있습니다.
+=======
+        // can use await inside, do async stuff:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
         await new Promise(resolve => setTimeout(resolve, 1000)); // (3)
 */!*
 
@@ -107,10 +126,17 @@ let range = {
 
 위 예시에서 볼 수 있듯이, async 이터레이터는 일반 이터레이터와 구조가 유사합니다. 하지만 아래와 같은 차이가 있습니다.
 
+<<<<<<< HEAD
 1. 객체를 비동기적으로 반복 가능하도록 하려면, `Symbol.asyncIterator`메서드가 반드시 구현되어 있어야 합니다. -- `(1)`
 2. `Symbol.asyncIterator`는 프라미스를 반환하는 메서드인 `next()`가 구현된 객체를 반환해야 합니다. -- `(2)`
 3. `next()`는 `async` 메서드일 필요는 없습니다. 프라미스를 반환하는 메서드라면 일반 메서드도 괜찮습니다. 다만, `async`를 사용하면 `await`도 사용할 수 있기 때문에, 여기선 편의상 `async`메서드를 사용해 일 초의 딜레이가 생기도록 했습니다. -- `(3)`
 4. 반복 작업을 하려면 'for' 뒤에 'await'를 붙인 `for await(let value of range)`를 사용하면 됩니다. `for await(let value of range)`가 실행될 때 `range[Symbol.asyncIterator]()`가 일회 호출되는데, 그 이후엔 각 값을 대상으로 `next()`가 호출됩니다. --  `(4)`
+=======
+1. To make an object asynchronously iterable, it must have a method `Symbol.asyncIterator` `(1)`.
+2. This method must return the object with `next()` method returning a promise `(2)`.
+3. The `next()` method doesn't have to be `async`, it may be a regular method returning a promise, but `async` allows us to use `await`, so that's convenient. Here we just delay for a second `(3)`.
+4. To iterate, we use `for await(let value of range)` `(4)`, namely add "await" after "for". It calls `range[Symbol.asyncIterator]()` once, and then its `next()` for values.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 일반 이터레이터와 async 이터레이터를 간략하게 비교하면 다음과 같습니다.
 
@@ -120,11 +146,18 @@ let range = {
 | `next()`가 반환하는 값              | 모든 값         | `Promise`  |
 | 반복 작업을 위해 사용하는 반복문                          | `for..of`         | `for await..of` |
 
+<<<<<<< HEAD
 
 ````warn header="전개 연산자 `...`은 비동기적으로 동작하지 않습니다."
 일반적인 동기 이터레이터가 필요한 기능은 비동기 이터레이터와 함께 사용할 수 없습니다.
 
 전개 연산자는 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
+=======
+````warn header="The spread syntax `...` doesn't work asynchronously"
+Features that require regular, synchronous iterators, don't work with asynchronous ones.
+
+For instance, a spread syntax won't work:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```js
 alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```
@@ -269,7 +302,11 @@ let range = {
 
 상당히 많은 온라인 서비스가 페이지네이션(pagination)을 구현해 데이터를 전송합니다. 사용자 목록이 필요해서 서버에 요청을 보내면, 서버는 일정 숫자(예를 들어 100명의 사용자) 단위로 사용자를 끊어 정보를 '한 페이지'로 구성한 후, 다음 페이지를 볼 수 있는 URL과 함께 응답합니다.
 
+<<<<<<< HEAD
 이런 패턴은 사용자 목록 전송뿐만 아니라, 다양한 서비스에서 찾아볼 수 있습니다. GitHub에서 커밋 이력을 볼 때도 페이지네이션이 사용됩니다.
+=======
+This pattern is very common. It's not about users, but just about anything. For instance, GitHub allows us to retrieve commits in the same, paginated fashion:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 - 클라이언트는 `https://api.github.com/repos/<repo>/commits` 형태의 URL로 요청을 보냅니다.
 - GitHub에선 커밋 30개의 정보가 담긴 JSON과 함께, 다음 페이지에 대한 정보를 `Link` 헤더에 담아 응답합니다.
@@ -285,7 +322,11 @@ for await (let commit of fetchCommits(repo)) {
 }
 ```
 
+<<<<<<< HEAD
 필요할 때마다 요청을 보내 커밋 정보를 가져오는 함수 `fetchCommits(repo)`를 만들어 API를 구성하도록 하겠습니다. `fetchCommits(repo)`에서 페이지네이션 관련 일들을 모두 처리하도록 하면 원하는 대로 `for await..of`에서 각 커밋을 처리할 수 있을 겁니다.
+=======
+We'd like to make a function `fetchCommits(repo)` that gets commits for us, making requests whenever needed. And let it care about all pagination stuff. For us it'll be a simple `for await..of`.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 async 제너레이터를 이용하면 쉽게 함수를 구현할 수 있습니다.
 
@@ -313,10 +354,17 @@ async function* fetchCommits(repo) {
 }
 ```
 
+<<<<<<< HEAD
 1. 다운로드는 [fetch](info:fetch) 메서드로 하겠습니다. `fetch`를 사용하면 인증 정보나 헤더 등을 함께 실어 요청할 수 있습니다. GitHub에서 강제하는 `User-Agent`를 헤더에 실어 보내겠습니다.
 2. `fetch` 전용 메서드인 `response.json()`을 사용해 요청 결과를 JSON으로 파싱합니다.
 3. 응답의 `Link` 헤더에서 다음 페이지의 URL을 얻습니다. 헤더에서 `https://api.github.com/repositories/93253246/commits?page=2`형태의 URL만 추출하기 위해 정규표현식을 사용하였습니다.
 4. 커밋을 하나씩 반환하는데, 전체 다 반환되면 다음 `while(url)` 반복문이 트리거 되어 서버에 다시 요청을 보냅니다.
+=======
+1. We use the browser [fetch](info:fetch) method to download from a remote URL. It allows us to supply authorization and other headers if needed -- here GitHub requires `User-Agent`.
+2. The fetch result is parsed as JSON. That's again a `fetch`-specific method.
+3. We should get the next page URL from the `Link` header of the response. It has a special format, so we use a regexp for that. The next page URL may look like `https://api.github.com/repositories/93253246/commits?page=2`. It's generated by GitHub itself.
+4. Then we yield all commits received, and when they finish, the next `while(url)` iteration will trigger, making one more request.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 사용법은 다음과 같습니다(콘솔 창을 열어 각 커밋의 author를 확인해보세요).
 
@@ -362,4 +410,8 @@ async function* fetchCommits(repo) {
 
 웹 개발을 하다 보면 띄엄띄엄 들어오는 데이터 스트림을 다뤄야 하는 경우가 자주 생깁니다. 용량이 큰 파일을 다운로드하거나 업로드 할 때와 같이 말이죠. 
 
+<<<<<<< HEAD
 이런 데이터를 처리할 때 async 제너레이터를 사용할 수 있습니다. 참고로 브라우저 등의 몇몇 호스트 환경은 데이터 스트림을 처리할 수 있게 해주는 API인 Streams을 제공하기도 합니다. Streams API에서 제공하는 특별한 인터페이스를 사용하면, 데이터를 변경하여 한 스트림에서 다른 스트림으로 데이터를 전달할 수 있습니다. 따라서 한쪽에서 받은 데이터를 다른 쪽에 즉각 전달하는 게 가능해집니다.
+=======
+We can use async generators to process such data. It's also noteworthy that in some environments, like in browsers, there's also another API called Streams, that provides special interfaces to work with such streams, to transform the data and to pass it from one stream to another (e.g. download from one place and immediately send elsewhere).
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a

@@ -63,7 +63,11 @@ user.sayHi(); // 안녕하세요!
 ```smart header="객체 지향 프로그래밍"
 객체를 사용하여 개체를 표현하는 방식을 [객체 지향 프로그래밍(object-oriented programming, OOP)](https://en.wikipedia.org/wiki/Object-oriented_programming) 이라 부릅니다.
 
+<<<<<<< HEAD
 OOP는 그 자체만으로도 학문의 분야를 만드는 중요한 주제입니다. 올바른 개체를 선택하는 방법, 개체 사이의 상호작용을 나타내는 방법 등에 관한 의사결정은 (객체 지향) 설계를 기반으로 이뤄집니다. 관련 추천도서로는 에릭 감마의 "GoF의 디자인 패턴", 그래디 부치의 "UML을 활용한 객체지향 분석 설계" 등이 있습니다.
+=======
+OOP is a big thing, an interesting science of its own. How to choose the right entities? How to organize the interaction between them? That's architecture, and there are great books on that topic, like "Design Patterns: Elements of Reusable Object-Oriented Software" by E. Gamma, R. Helm, R. Johnson, J. Vissides or "Object-Oriented Analysis and Design with Applications" by G. Booch, and more.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```
 ### 메서드 단축 구문
 

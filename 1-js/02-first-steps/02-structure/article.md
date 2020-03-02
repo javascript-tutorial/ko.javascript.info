@@ -94,7 +94,11 @@ alert("에러가 발생합니다.")[1, 2].forEach(alert)
 
 줄 바꿈으로 문을 나눴더라도, 문 사이엔 세미콜론을 넣는 것이 좋습니다. 자바스크립트 커뮤니티에서도 이를 규칙으로 정해 권장하고 있습니다. 다시 한번 정리하도록 하겠습니다. 세미콜론은 *생략할 수 있습니다.* 하지만 세미콜론을 사용하는 것이 더 안전하므로 이를 기억하고 따르도록 합시다. 입문자라면 이를 더 잘 지키도록 합시다.
 
+<<<<<<< HEAD
 ## 주석
+=======
+## Comments [#code-comments]
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 시간이 흐름에 따라 자바스크립트 프로그램은 더욱더 복잡해졌습니다. 이로 인해 무슨 일이 왜 벌어지고 있는지를 설명해주는 *주석(comment)* 의 필요성이 요구되었습니다.
 
@@ -135,8 +139,13 @@ alert('Hello');
 alert('World');
 ```
 
+<<<<<<< HEAD
 ```smart header="단축키 사용하기"
 대부분의 에디터는 주석 처리 단축키를 지원합니다. 블록을 지정하고 단축키를 누르면 원하는 코드를 주석 처리할 수 있죠. `key:Ctrl+/` 를 사용하면 해당 줄의 코드를 한 줄짜리 주석으로 처리할 수 있으며, 여러 줄의 주석은 `key:Ctrl+Shift+/` 를 통해 처리할 수 있습니다. Mac에서는 `key:Ctrl` 대신 `key:Cmd`를 사용하세요.
+=======
+```smart header="Use hotkeys!"
+In most editors, a line of code can be commented out by pressing the `key:Ctrl+/` hotkey for a single-line comment and something like `key:Ctrl+Shift+/` -- for multiline comments (select a piece of code and press the hotkey). For Mac, try `key:Cmd` instead of `key:Ctrl` and `key:Option` instead of `key:Shift`.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```
 
 ````warn header="중첩 주석은 지원하지 않습니다."

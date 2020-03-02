@@ -58,7 +58,7 @@ alert( new TextDecoder().decode(binaryString) ); // Hello
 
 문법은 다음과 같습니다.
 
-```js run
+```js
 let encoder = new TextEncoder();
 ```
 

@@ -94,5 +94,9 @@ say();
 ```smart
 `import()`는 함수 호출과 문법이 유사해 보이긴 하지만 함수 호출은 아닙니다. `super()`처럼 괄호를 쓰는 특별한 문법 중 하나입니다.
 
+<<<<<<< HEAD
 따라서 `import`를 변수에 복사한다거나 `call/apply`를 사용하는 것이 불가능합니다. 함수가 아니기 때문이죠.
+=======
+So we can't copy `import` to a variable or use `call/apply` with it. It's not a function.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```

@@ -68,7 +68,11 @@ user.sayHi();
 
 클래스가 보여주는 다양한 마법의 원리를 하나씩 알아보며 클래스가 정확히 무엇인지 알아봅시다. 이 과정을 거치고 나면 자바스크립트의 복잡한 기능을 이해할 수 있게 됩니다.
 
+<<<<<<< HEAD
 자바스크립트에서 클래스는 함수의 한 종류입니다.
+=======
+In JavaScript, a class is a kind of function.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 코드를 통해 이를 확인해봅시다.
 
@@ -116,9 +120,15 @@ alert(User.prototype.sayHi); // alert(this.name);
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 ```
 
+<<<<<<< HEAD
 ## 클래스는 단순한 편의 문법이 아닙니다.
 
 어떤 사람들은 `class`라는 키워드 없이도 클래스 역할을 하는 함수를 선언할 수 있어서 `클래스`는 '편의 문법(syntax sugar, 기존 문법을 편리하게 읽기 위해 만든 문법으로, 기존 문법과 기능은 동일함)'에 불과하다고 이야기합니다.
+=======
+## Not just a syntactic sugar
+
+Sometimes people say that `class` is a "syntactic sugar" (syntax that is designed to make things easier to read, but doesn't introduce anything new), because we could actually declare the same without `class` keyword at all:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 ```js run
 // 순수 함수만으로 class User와 동일한 기능을 하는 코드를 만들어보겠습니다.
@@ -140,7 +150,11 @@ let user = new User("John");
 user.sayHi();
 ```
 
+<<<<<<< HEAD
 위 예시처럼 순수 함수로 클래스 역할을 하는 함수를 선언하는 방법과 `class` 키워드를 사용하는 방법의 결과는 거의 같습니다. `class`를 사용하는 방법이 단순한 편의 문법이라고 생각하는 이유가 여기에 있습니다. 
+=======
+The result of this definition is about the same. So, there are indeed reasons why `class` can be considered a syntactic sugar to define a constructor together with its prototype methods.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 그럼에도 불구하고, 두 방법에는 다음과 같은 중요한 차이점 몇 가지가 있습니다.
 
@@ -179,7 +193,11 @@ user.sayHi();
 
 ## 클래스 표현식
 
+<<<<<<< HEAD
 함수와 마찬가지로 클래스도 또 다른 표현식 내부에서 정의, 전달, 반환, 할당될 수 있습니다. 
+=======
+Just like functions, classes can be defined inside another expression, passed around, returned, assigned, etc.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 아래는 클래스 표현식에 대한 예시입니다.
 
@@ -264,7 +282,11 @@ class User {
 let user = new User("John");
 alert(user.name); // John
 
+<<<<<<< HEAD
 user = new User(""); // 이름이 너무 짧습니다.
+=======
+user = new User(""); // Name is too short.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```
 
 클래스를 선언하면 아래와 같이 `User.prototype`에 getter와 setter가 만들어지므로 get과 set을 사용할 수 있습니다.
@@ -282,7 +304,11 @@ Object.defineProperties(User.prototype, {
 });
 ```
 
+<<<<<<< HEAD
 아래 예시와 같이 대괄호 `[...]`를 이용한 계산된 프로퍼티도 사용할 수 있습니다.
+=======
+Here's an example with a computed property name in brackets `[...]`:
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 ```js run
 class User {
@@ -318,6 +344,9 @@ class User {
 }
 
 new User().sayHi();
+
+alert(User.prototype.sayHi); // placed in User.prototype
+alert(User.prototype.name); // undefined, not placed in User.prototype
 ```
 
 프로퍼티 `name`은 `User.prototype`에 있지 않습니다. 대신 생성자를 호출하기 전, `new`에 의해 생성됩니다. `name`은 객체 자체의 프로퍼티입니다.
@@ -344,6 +373,10 @@ class MyClass {
 }
 ```
 
+<<<<<<< HEAD
 `MyClass`는 `constructor`의 코드를 본문으로 갖는 함수입니다. `MyClass`에서 정의한 일반 메서드나 getter, setter는 `MyClass.prototype`에 쓰여집니다.
+=======
+`MyClass` is technically a function (the one that we provide as `constructor`), while methods, getters and setters are written to `MyClass.prototype`.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 이어지는 챕터에선 상속을 비롯한 클래스의 다양한 기능에 대해 알아보겠습니다.

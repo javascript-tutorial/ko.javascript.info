@@ -18,8 +18,13 @@ let id = Symbol();
 
 심볼을 만들 때 심볼 이름이라 불리는 설명을 붙일 수도 있습니다. 심볼 이름은 디버깅 시 아주 유용합니다.
 
+<<<<<<< HEAD
 ```js run
 // 심볼 id에는 "id"라는 설명이 붙습니다.
+=======
+```js
+// id is a symbol with the description "id"
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 let id = Symbol("id");
 ```
 
@@ -178,6 +183,7 @@ alert( clone[id] ); // 123
 
 뭔가 모순이 있는 것으로 보이지만, 이는 의도적으로 설계된 것입니다. 객체를 복사하거나 병합할 때, 대개 `id`와 같은 심볼을 포함한 프로퍼티 *모두*를 사용하고 싶어 할 것이라는 생각에서 이렇게 구현된 것이죠.
 
+<<<<<<< HEAD
 ````smart header="프로퍼티 키는 문자열로 강제 변환됩니다."
 객체의 키는 문자형과 심볼형 값만 가능합니다. 이 두 자료형 외의 값이 키에 사용되면 문자형으로 강제 변환됩니다.
 
@@ -195,6 +201,9 @@ alert( obj[0] ); // test (동일 프로퍼티)
 ````
 
 ## 전역 심볼
+=======
+## Global symbols
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 앞서 살펴본 것처럼, 심볼은 이름이 같더라도 모두 별개로 취급됩니다. 그런데 이름이 같은 심볼이 같은 개체를 가리키길 원하는 경우도 가끔 있습니다. 애플리케이션 곳곳에서 심볼 `"id"`를 이용해 특정 프로퍼티에 접근해야 한다고 가정해 봅시다.
 
@@ -241,7 +250,11 @@ alert( Symbol.keyFor(sym) ); // name
 alert( Symbol.keyFor(sym2) ); // id
 ```
 
+<<<<<<< HEAD
 `Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져서 해당 심볼의 이름을 얻어냅니다. 검색 범위가 전역 심볼 레지스트리이기 때문에 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 전역 심볼이 아닌 인자가 들어오면 `Symbol.keyFor`는 `undefined`를 반환합니다.
+=======
+The `Symbol.keyFor` internally uses the global symbol registry to look up the key for the symbol. So it doesn't work for non-global symbols. If the symbol is not global, it won't be able to find it and returns `undefined`.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 전역 심볼이 아닌 심볼을 포함한 모든 심볼엔 `description` 프로퍼티가 있기 때문에, 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
 

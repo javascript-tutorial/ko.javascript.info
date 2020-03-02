@@ -59,9 +59,15 @@ new Promise((resolve, reject) => {
 ```js run
 new Promise((resolve, reject) => {
 *!*
+<<<<<<< HEAD
   reject(new Error("에러 발생!"));
 */!*  
 }).catch(alert); // Error: 에러 발생!
+=======
+  reject(new Error("Whoops!"));
+*/!*
+}).catch(alert); // Error: Whoops!
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 ```
 
 executor 주위의 '암시적 `try..catch`'는 자동으로 에러를 잡고, 이를 거부상태의 프라미스로 변경시킵니다.
@@ -92,15 +98,25 @@ new Promise((resolve, reject) => {
 }).catch(alert); // ReferenceError: blabla is not defined
 ```
 
+<<<<<<< HEAD
 마지막 `.catch`는 이렇게 명시적인 거부뿐만 아니라 핸들러 위쪽에서 비정상적으로 발생한 에러 또한 잡습니다.
+=======
+The final `.catch` not only catches explicit rejections, but also accidental errors in the handlers above.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 ## 다시 던지기
 
 체인 마지막의 `.catch`는 `try..catch`와 유사한 역할을 합니다. `.then` 핸들러를 원하는 만큼 사용하다 마지막에 `.catch` 하나만 붙이면, `.then` 핸들러에서 발생한 모든 에러를 처리할 수 있습니다.
 
+<<<<<<< HEAD
 일반 `try..catch`에선 에러를 분석하고, 처리할 수 없는 에러라 판단되면 다시 던질 때가 있습니다. 프라미스에도 유사한 일을 할 수 있습니다.
 
 `.catch` 안에서 `throw`를 사용하면 제어 흐름이 가장 가까운 곳에 있는 에러 핸들러로 넘어갑니다. 여기서 에러가 성공적으로 처리되면 가장 가까운 곳에 있는 `.then` 핸들러로 제어 흐름이 넘어가 실행이 이어집니다.
+=======
+In a regular `try..catch` we can analyze the error and maybe rethrow it if it can't be handled. The same thing is possible for promises.
+
+If we `throw` inside `.catch`, then the control goes to the next closest error handler. And if we handle the error and finish normally, then it continues to the next closest successful `.then` handler.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 아래 예시의 `.catch`는 에러를 성공적으로 처리합니다.
 
@@ -166,11 +182,19 @@ new Promise(function() {
 
 에러가 발생하면 프라미스는 거부상태가 되고, 실행 흐름은 가장 가까운 rejection 핸들러로 넘어갑니다. 그런데 위 예시엔 예외를 처리해 줄 핸들러가 없어서 에러가 '갇혀버립니다'. 에러를 처리할 코드가 없기 때문입니다. 
 
+<<<<<<< HEAD
 이런 식으로 코드에 처리하지 못한 에러가 남게 되면 실무에선 끔찍한 일이 발생합니다.
 
 일반적인 에러가 발생하고 이를 `try..catch`에서 처리하지 못하는 경우를 생각해봅시다. 스크립트가 죽고 콘솔 창에 메시지가 출력되겠죠. 거부된 프라미스를 처리하지 못했을 때도 유사한 일이 발생합니다.
 
 자바스크립트 엔진은 프라미스 거부를 추적하다가 위와 같은 상황이 발생하면 전역 에러를 생성합니다. 콘솔창을 열고 위 예시를 실행하면 전역 에러를 확인할 수 있습니다.
+=======
+In practice, just like with regular unhandled errors in code, it means that something has gone terribly wrong.
+
+What happens when a regular error occurs and is not caught by `try..catch`? The script dies with a message in the console. A similar thing happens with unhandled promise rejections.
+
+The JavaScript engine tracks such rejections and generates a global error in that case. You can see it in the console if you run the example above.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 브라우저 환경에선 이런 에러를 `unhandledrejection` 이벤트로 잡을 수 있습니다.
 
@@ -198,7 +222,14 @@ Node.js같은 기타 호스트 환경에도 처리하지 못한 에러를 다루
 
 ## 요약
 
+<<<<<<< HEAD
 - `.catch` 는 프라미스에서 발생한 모든 에러를 다룹니다. `reject()`가 호출되거나 에러가 던져지면 `.catch`에서 이를 처리합니다.
 - `.catch`는 에러를 처리하고 싶은 지점에 정확히 위치시켜야 합니다. 물론 어떻게 에러를 처리할지 알고 있어야 하죠. 핸들러 에선 에러를 분석하고(커스텀 에러 클래스가 이때 도움이 됩니다) 알 수 없는 에러(프로그래밍 실수로 발생한 에러일 확률이 높습니다)는 다시 던질 수 있습니다.   
 - 에러 발생 시, 회복할 방법이 없다면 `.catch`를 사용하지 않아도 괜찮습니다.
 - `unhandledrejection` 이벤트 핸들러를 사용해 처리되지 않은 에러를 추적하고, 이를 사용자(혹은 서버에)에게 알려서(브라우저 환경에선 `unhandledrejection`을, 다른 환경에선 유사한 핸들러를 사용). 애플리케이션이 아무런 설명도 없이 '그냥 죽는걸' 방지합시다.
+=======
+- `.catch` handles errors in promises of all kinds: be it a `reject()` call, or an error thrown in a handler.
+- We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones (maybe they are programming mistakes).
+- It's ok not to use `.catch` at all, if there's no way to recover from an error.
+- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments) to track unhandled errors and inform the user (and probably our server) about them, so that our app never "just dies".
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a

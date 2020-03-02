@@ -32,7 +32,11 @@ arr.constructor === PowerArray
 
 물론 동작 방식을 변경할 수 있습니다.
 
+<<<<<<< HEAD
 특수 정적 getter인 `Symbol.species`를 클래스에 추가할 수 있는데, `Symbol.species`가 있으면 `map`, `filter` 등의 메서드를 호출할 때 만들어지는 개체의 생성자를 지정할 수 있습니다. 원하는 생성자를 반환하기만 하면 되죠. 
+=======
+We can add a special static getter `Symbol.species` to the class. If it exists, it should return the constructor that JavaScript will use internally to create new entities in `map`, `filter` and so on.
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
 
 `map`이나 `filter`같은 내장 메서드가 일반 배열을 반환하도록 하려면 아래 예시처럼 `Symbol.species`가 `Array`를 반환하도록 해주면 됩니다.
 
