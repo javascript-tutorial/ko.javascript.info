@@ -3,14 +3,14 @@
 
 지금까진 아래와 같은 복잡한 자료구조를 학습해 보았습니다.
 
-- 객체 -- 키가 있는 컬렉션을 저장해줌
-- 배열 -- 순서가 있는 컬렉션을 저장해줌
+- 객체 -- 키가 있는 컬렉션을 저장함
+- 배열 -- 순서가 있는 컬렉션을 저장함
 
 하지만 현실 세계를 반영하기엔 이 두 자료구조 만으론 부족해서 `맵(Map)`과 `셋(Set)`이 등장하게 되었습니다.
 
 ## 맵
 
-[맵(Map)](mdn:js/Map)은 키가 있는 데이터를 저장한다는 점에서 `객체`와 유사합니다. 다만, `맵`은 키에 다양한 자료형을 허용한다는 점이 객체와 다릅니다.
+[맵(Map)](mdn:js/Map)은 키가 있는 데이터를 저장한다는 점에서 `객체`와 유사합니다. 다만, `맵`은 키에 다양한 자료형을 허용한다는 점에서 차이가 있습니다.
 
 맵에는 다음과 같은 주요 메서드와 프로퍼티가 있습니다.
 
@@ -39,15 +39,15 @@ alert( map.get('1') ); // 'str1'
 alert( map.size ); // 3
 ```
 
-맵은 객체와는 달리 키를 문자형으로 변환하지 않습니다. 키엔 자료형 제약이 없습니다.
+맵은 객체와 달리 키를 문자형으로 변환하지 않습니다. 키엔 자료형 제약이 없습니다.
 
-```smart header="`map[key]` isn't the right way to use a `Map`"
-Although `map[key]` also works, e.g. we can set `map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (no object keys and so on).
+```smart header="`map[key]`는 `Map`을 쓰는 바른 방법이 아닙니다."
+`map[key] = 2`로 값을 설정하는 것 같이 `map[key]`를 사용할 수 있긴 합니다. 하지만 이 방법은 `map`을 일반 객체처럼 취급하게 됩니다. 따라서 여러 제약이 생기게 되죠.
 
-So we should use `map` methods: `set`, `get` and so on.
+`map`을 사용할 땐 `map`전용 메서드 `set`, `get` 등을 사용해야만 합니다.
 ```
 
-**맵에는 객체도 키로 사용할 수 있습니다.**
+**맵은 키로 객체를 허용합니다.**
 
 예시:
 
@@ -63,9 +63,9 @@ visitsCountMap.set(john, 123);
 alert( visitsCountMap.get(john) ); // 123
 ```
 
-객체를 키로 사용할 수 있다는 점은 `맵`의 가장 중요한 기능 중 하나입니다. 키가 문자열만으로 이뤄졌다면 `객체`를 자료구조로 쓸 수 있습니다. 하지만 객체형 키를 `객체`에는 쓸 수 없습니다. 
+객체를 키로 사용할 수 있다는 점은 `맵`의 가장 중요한 기능 중 하나입니다. `객체`에는 문자열 키를 사용할 수 있습니다. 하지만 객체 키는 사용할 수 없습니다.
 
-객체형 키를 `객체`에 써보도록 합시다.
+객체형 키를 `객체`에 써봅시다.
 
 ```js run
 let john = { name: "John" };
@@ -80,7 +80,7 @@ alert( visitsCountObj["[object Object]"] ); // 123
 */!*
 ```
 
-`visitsCountObj`는 객체이기 때문에 모든 키를 문자형으로 변환시킵니다. 이 과정에서 `john`도 문자형으로 형 변환되어 `"[object Object]"`가 됩니다.
+`visitsCountObj`는 객체이기 때문에 모든 키를 문자형으로 변환시킵니다. 이 과정에서 `john`은 문자형으로 변환되어 `"[object Object]"`가 됩니다.
 
 ```smart header="`맵`이 키를 비교하는 방식"
 `맵`은 [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero)라 불리는 알고리즘을 사용해 값의 등가 여부를 확인합니다. 이 알고리즘은 일치 연산자 `===`와 거의 유사하지만, `NaN`과 `NaN`을 같다고 취급하는 것에서 일치 연산자와 차이가 있습니다. 따라서 맵에선 `NaN`도 키로 쓸 수 있습니다.
