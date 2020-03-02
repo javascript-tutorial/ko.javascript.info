@@ -2,10 +2,10 @@
 
 `new F()`와 같은 생성자 함수를 이용하면 새로운 객체를 만들 수 있다는 걸 앞서 배운 바 있습니다.
 
-`F.prototype`이 객체라면 `new` 연산자는 `F.prototype`을 사용해 새롭게 생성된 객체의 [[Prototype]]을 설정합니다.
+그런데 `F.prototype`이 객체면 `new` 연산자는 `F.prototype`을 사용해 새롭게 생성된 객체의 [[Prototype]]을 설정합니다.
 
 ```smart
-자바스크립트가 처음 만들어졌을 땐 프로토타입 기반 상속이 주요 기능 중 하나였습니다.
+자바스크립트가 만들어졌을 때는 프로토타입 기반 상속이 주요 기능 중 하나였습니다.
 
 그런데 과거엔 프로로타입에 직접 접근할 방법이 없었습니다. 그나마 믿고 사용할 수 있었던 방법은 이번 챕터에서 설명할 생성자 함수의 `"prototype"` 프로퍼티를 이용하는 방법뿐이었죠. 많은 스크립트가 아직 이 방법을 사용하는 이유가 여기에 있습니다.
 ```
@@ -32,25 +32,25 @@ let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
 alert( rabbit.eats ); // true
 ```
 
-`Rabbit.prototype = animal`은 "`new Rabbit`이 생성되었을 때, 이것의 `[[Prototype]]`을 `animal`로 할당하라."라는 것을 의미합니다.
+`Rabbit.prototype = animal`은 "`new Rabbit`을 호출해 만든 새로운 객체의 `[[Prototype]]`을 `animal`로 설정하라."라는 것을 의미합니다.
 
-이를 그림으로 나타내봅시다.
+그림으로 나타내면 다음과 같습니다.
 
 ![](proto-constructor-animal-rabbit.svg)
 
 그림에서 가로 화살표는 일반 프로퍼티인 `"prototype"`을, 세로 화살표는 `[[Prototype]]`을 나타냅니다. 세로 화살표는 `rabbit`이 `animal`을 상속받았다는 것을 의미합니다.
 
-```smart header="`F.prototype`은 `new F`이 호출될 때만 사용됩니다."
-`F.prototype` 프로퍼티는 `new F`가 호출될 때만 사용되어 새롭게 만들어진 객체의 `[[Prototype]]`을 할당해줍니다. 이 작업 이후엔 `F.prototype`과 새로운 객체의 연관 관계가 사라집니다. `F.prototype`는 '한 번만 쓸 수 있는 선물'이라고 생각하시면 됩니다.
+```smart header="`F.prototype`은 `new F`를 호출할 때만 사용됩니다."
+`F.prototype` 프로퍼티는 `new F`가 호출될 때만 사용됩니다. `new F`를 호출해 새롭게 만든 객체의 `[[Prototype]]`을 할당해 주죠. 할당 후엔 `F.prototype`과 새 객체의 연관 관계가 사라집니다. `F.prototype`는 '딱 한 번만 쓸 수 있는 이용권'이라고 생각하면 됩니다.
 
-새로운 객체가 만들어진 이후에 `F.prototype` 프로퍼티가 바뀐다면(`F.prototype = <another object>`) `new F`로 만들어지는 새로운 객체는 또 다른 객체를 `[[Prototype]]`으로 갖게 됩니다. 다만, 기존에 있던 객체의 `[[Prototype]]`은 그대로 유지됩니다.
+새로운 객체가 만들어진 후에 `F.prototype` 프로퍼티가 바뀌면(`F.prototype = <another object>`) `new F`로 만들어지는 새로운 객체는 또 다른 객체(<another object>)를 `[[Prototype]]`으로 갖게 됩니다. 다만, 기존에 있던 객체의 `[[Prototype]]`은 그대로 유지됩니다.
 ```
 
 ## 함수의 prototype 프로퍼티와 constructor 프로퍼티
 
-개발자가 특별히 할당하지 않더라도 모든 함수는 "prototype" 프로퍼티를 갖습니다.
+개발자가 특별히 할당하지 않더라도 모든 함수는 `"prototype"` 프로퍼티를 갖습니다.
 
-기본 프로퍼티인 `"prototype"`은 `constructor` 프로퍼티 하나만 있는 객체를 가리키는데, `constructor` 프로퍼티는 함수 자신을 가리킵니다.
+기본 프로퍼티인 `"prototype"`은 `constructor` 프로퍼티 하나만 있는 객체를 가리키는데, 이 `constructor` 프로퍼티는 함수 자신을 가리킵니다.
 
 이 관계를 코드와 그림으로 나타내면 다음과 같습니다.
 
@@ -64,7 +64,7 @@ Rabbit.prototype = { constructor: Rabbit };
 
 ![](function-prototype-constructor.svg)
 
-아래 코드를 실행해 이를 확인해봅시다.
+아래 코드를 실행해 직접 확인해봅시다.
 
 ```js run
 function Rabbit() {}
@@ -81,7 +81,7 @@ function Rabbit() {}
 // 기본 prototype:
 // Rabbit.prototype = { constructor: Rabbit }
 
-let rabbit = new Rabbit(); // {constructor: Rabbit}에서 상속
+let rabbit = new Rabbit(); // {constructor: Rabbit}을 상속받음
 
 alert(rabbit.constructor == Rabbit); // true (프로토타입을 거쳐 접근함)
 ```
@@ -105,7 +105,7 @@ let rabbit2 = new rabbit.constructor("Black Rabbit");
 */!*
 ```
 
-객체가 있는데 이 객체를 만들 때 어떤 생성자가 사용되었는지 알 수 없는 경우(예: 객체가 서드 파티 라이브러리에서 온 경우), 이 방식법을 유용하게 쓸 수 있습니다.
+객체가 있는데 이 객체를 만들 때 어떤 생성자가 사용되었는지 알 수 없는 경우(예: 객체가 서드 파티 라이브러리에서 온 경우), 이 방법을 유용하게 쓸 수 있습니다.
 
 어느 방식을 사용해 객체를 만들든 `"constructor"`에서 가장 중요한 점은 다음과 같습니다.
 
@@ -160,7 +160,7 @@ Rabbit.prototype = {
 
 몇 가지 사항만 명확하게 이해하고 있으면 지금까지 배운 것들은 복잡하지 않습니다.
 
-- `F.prototype` 프로퍼티(`[[prototype]]`과는 다름)는 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
+- `F.prototype` 프로퍼티는 `[[prototype]]`과는 다릅니다. `F.prototype`은 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
 - `F.prototype`의 값은 객체나 null만 가능합니다. 다른 값은 무시됩니다.
 - 지금까지 배운 내용은 생성자 함수에 `"prototype"`를 설정하고, 이 생성자 함수를 `new`를 사용해 호출할 때만 적용됩니다.
 
