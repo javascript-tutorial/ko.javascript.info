@@ -28,13 +28,13 @@ class Animal {
 let animal = new Animal("동물");
 ```
 
-객체 `animal`과  클래스 `Animal`의 관계를 그림으로 나타내면 다음과 같습니다.
+객체 `animal`과 클래스 `Animal`의 관계를 그림으로 나타내면 다음과 같습니다.
 
 ![](rabbit-animal-independent-animal.svg)
 
-또 다른 `class Rabbit`을 만들어보겠습니다.
+또 다른 크래스 `Rabbit`을 만들어보겠습니다.
 
-토끼는 동물이므로 클래스 `Rabbit`은 동물 관련 메서드가 담긴 `Animal`을 확장해서 만들어야 합니다. 이렇게 해야만 토끼가 동물이 할 수 있는 '일반적인' 동작을 수행할 수 있습니다.
+토끼는 동물이므로 `Rabbit`은 동물 관련 메서드가 담긴 `Animal`을 확장해서 만들어야 합니다. 이렇게 하면 토끼가 동물이 할 수 있는 '일반적인' 동작을 수행할 수 있습니다.
 
 클래스 확장 문법 `class Child extends Parent`를 사용해 클래스를 확장해 보겠습니다.
 
@@ -57,21 +57,21 @@ rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
 
 클래스 `Rabbit`을 사용해 만든 객체는 `rabbit.hide()`같은 `Rabbit`에 정의된 메서드에도 접근할 수 있고, `rabbit.run()`같은 `Animal`에 정의된 메서드에도 접근할 수 있습니다.
 
-`extends` 키워드는 프로토타입을 기반으로 동작합니다(프로토타입은 오래되었지만 여러 곳에서 사용되고 있는 자바스크립트 핵심 동작 원리입니다). `extends`는 `Rabbit.prototype.[[Prototype]]`을 `Animal.prototype`으로 설정합니다. 따라서 `Rabbit.prototype`에서 메서드를 찾지 못하면 `Animal.prototype`에서 메서드를 가져옵니다.
+`extends` 키워드는 프로토타입을 기반으로 동작합니다. `extends`는 `Rabbit.prototype.[[Prototype]]`을 `Animal.prototype`으로 설정합니다. 그렇기 때문에 `Rabbit.prototype`에서 메서드를 찾지 못하면 `Animal.prototype`에서 메서드를 가져옵니다.
 
 ![](animal-rabbit-extends.svg)
 
-`rabbit.run` 메서드를 찾기 위해 엔진은 다음 절차를 따라 메서드의 존재를 확인합니다(그림을 아래서 위로 읽어보세요).
-1. 객체 `rabbit`에 `run`이 있나 확인합니다(`rabbit`엔 `run`이 없습니다).
-2. `rabbit`의 프로토타입인 `Rabbit.prototype`에 메서드가 있나 확인합니다(`hide`는 있는데 `run`은 없네요).
-3. `Rabbit.prototype`의 프로토타입인 `Animal.prototype`(`extends`를 통해 관계가 만들어짐)에 메서드가 있나 확인합니다. 드디어 메서드 `run`을 찾았습니다.
+엔진은 다음 절차를 따라 `rabbit.run` 메서드의 존재를 확인합니다(그림을 아래부터 보세요).
+1. 객체 `rabbit`에 `run`이 있나 확인합니다. `run`이 없네요.
+2. `rabbit`의 프로토타입인 `Rabbit.prototype`에 메서드가 있나 확인합니다. `hide`는 있는데 `run`은 없습니다.
+3. `extends`를 통해 관계가 만들어진 `Rabbit.prototype`의 프로토타입, `Animal.prototype`에 메서드가 있나 확인합니다. 드디어 메서드 `run`을 찾았습니다.
 
-<info:native-prototypes>에서 알아본 바와 같이 자바스크립트의 내장 객체는 프로토타입을 기반으로 상속 관계를 맺습니다. `Date.prototype.[[Prototype]]`이 `Object.prototype`인 것처럼 말이죠. 
+<info:native-prototypes>에서 알아본 것처럼 자바스크립트의 내장 객체는 프로토타입을 기반으로 상속 관계를 맺습니다. `Date.prototype.[[Prototype]]`이 `Object.prototype`인 것처럼 말이죠. `Date` 객체에서 일반 객체 메서드를 사용할 수 있는 이유가 바로 여기에 있습니다. 
 
-````smart header="`extends` 뒤에는 모든 표현식이 올 수 있습니다."
-클래스 문법은 클래스를 명시해줄 뿐만 아니라 `extends` 뒤에 어떤 표현식이 오든 이를 처리해줍니다.
+````smart header="`extends` 뒤에는 표현식이 올 수 있습니다."
+클래스 문법은 `extends` 뒤 클래스를 처리해 줄 뿐만 아니라 표현식이 와도 처리해줍니다.
 
-아래 예시와 같이 `extends` 뒤에서 부모 클래스를 만들어주는 함수를 호출할 수도 있습니다.
+아래처럼 `extends` 뒤에서 부모 클래스를 만들어주는 함수를 호출할 수도 있습니다.
 
 ```js run
 function f(phrase) {
@@ -86,34 +86,34 @@ class User extends f("Hello") {}
 
 new User().sayHi(); // Hello
 ```
-여기서 `class User`는 `f("Hello")`의 결과를 상속받습니다.
+여기서 `class User`는 `f("Hello")`의 반환 값을 상속받습니다.
 
-이 방법은 조건에 따라 다른 클래스를 상속받고 싶을 때 유용합니다(고급 프로그래밍 패턴). 조건에 따라 다른 클래스를 반환하는 함수를 만들고, 함수 호출 결과를 상속받게 해주면 되죠.
+이 방법은 조건에 따라 다른 클래스를 상속받고 싶을 때 유용합니다. 조건에 따라 다른 클래스를 반환하는 함수를 만들고, 함수 호출 결과를 상속받게 하면 됩니다.
 ````
 
 ## 메서드 오버라이딩
 
-이제 한발 더 나아가, 메서드를 오버라이딩 해봅시다. 특별한 사항이 없으면 `class Animal`에 있는 메서드는 '그대로' `class Rabbit`에 상속됩니다. 
+이제 한발 더 나아가, 메서드를 오버라이딩 해봅시다. 특별한 사항이 없으면 `class Rabbit`은 `class Animal`에 있는 메서드를 '그대로' 상속받습니다. 
 
-그런데 `Rabbit`에서 `stop()` 등의 자체 메서드를 정의하면, 상속받은 메서드가 아닌 자체 메서드가 사용됩니다.
+그런데 `Rabbit`에서 `stop()` 등의 메서드를 자체적으로 정의하면, 상속받은 메서드가 아닌 자체 메서드가 사용됩니다.
 
 ```js
 class Rabbit extends Animal {
   stop() {
     // rabbit.stop()을 호출할 때 
-    // Animal의 stop()이 아닌, 이 메서드가 사용됨 
+    // Animal의 stop()이 아닌, 이 메서드가 사용됩니다.
   }
 }
 ```
 
-개발을 하다 보면 부모 메서드 전체를 교체하지 않고, 부모 메서드를 토대로 일부 기능만 변경하고 싶을 때가 생깁니다. 부모 메서드의 기능을 확장하고 싶을 때도 있죠. 이럴 때, 커스텀 메서드를 만들어 작업해야 하는데, 커스텀 메서드를 호출하기 전, 후나 커스텀 메서드 중간에서 부모 메서드를 호출해야 합니다.
+개발을 하다 보면 부모 메서드 전체를 교체하지 않고, 부모 메서드를 토대로 일부 기능만 변경하고 싶을 때가 생깁니다. 부모 메서드의 기능을 확장하고 싶을 때도 있죠. 이럴 때, 커스텀 메서드를 만들어 작업하게 되는데, 커스텀 메서드를 만들었다손 치더라도 이 과정 전·후에 부모 메서드를 호출하고 싶을 때가 있습니다. 
 
-클래스의 `"super"` 키워드는 이럴 때 사용합니다.
+키워드 `"super"`는 이럴 때 사용합니다.
 
-- `super.method(...)` --  부모클래스에 정의된 메서드, `method`를 호출함
-- `super(...)` -- 부모 생성자를 호출함(자식 생성자 내부에서만 사용 가능)
+- `super.method(...)`는 부모 클래스에 정의된 메서드, `method`를 호출합니다.
+- `super(...)`는 부모 생성자를 호출하는데, 자식 생성자 내부에서만 사용 할 수 있습니다.
 
-토끼가 멈추면 자동으로 숨도록 하는 코드를 만들어봅시다.
+이런 특징을 이용해 토끼가 멈추면 자동으로 숨도록 하는 코드를 만들어보겠습니다.
 
 ```js run
 class Animal {
@@ -125,19 +125,19 @@ class Animal {
 
   run(speed) {
     this.speed += speed;
-    alert(`${this.name} 은/는 속도 ${this.speed}로 달립니다.`);
+    alert(`${this.name}가 속도 ${this.speed}로 달립니다.`);
   }
 
   stop() {
     this.speed = 0;
-    alert(`${this.name} 이/가 멈췄습니다.`);
+    alert(`${this.name}가 멈췄습니다.`);
   }
 
 }
 
 class Rabbit extends Animal {
   hide() {
-    alert(`${this.name} 이/가 숨었습니다!`);
+    alert(`${this.name}가 숨었습니다!`);
   }
 
 *!*
@@ -150,14 +150,14 @@ class Rabbit extends Animal {
 
 let rabbit = new Rabbit("흰 토끼");
 
-rabbit.run(5); // 흰 토끼 은/는 속도 5로 달립니다.
-rabbit.stop(); // 흰 토끼 이/가 멈췄습니다. 흰 토끼 이/가 숨었습니다!
+rabbit.run(5); // 흰 토끼가 속도 5로 달립니다.
+rabbit.stop(); // 흰 토끼가 멈췄습니다. 흰 토끼가 숨었습니다!
 ```
 
-이제 `Rabbit`에서 정의한 메서드 `stop`은 실행 중간에 부모 클래스에 정의된 메서드인 `super.stop()`을 호출할 수 있습니다.
+이제 `Rabbit`에서 정의한 메서드 `stop`가 실행되는 중간에 부모 클래스에 정의된 메서드 `super.stop()`을 호출할 수 있게 되었습니다.
 
-````smart header="화살표 함수는 `super`가 없습니다."
-<info:arrow-functions>에서 살펴본 바와 같이, 화살표 함수는 `super`를 갖지 않습니다.
+````smart header="화살표 함수엔 `super`가 없습니다."
+<info:arrow-functions>에서 살펴본 바와 같이, 화살표 함수는 `super`를 지원하지 않습니다.
 
 `super`에 접근하면, 아래 예시와 같이 `super`를 외부 함수에서 가져옵니다.
 ```js
@@ -168,7 +168,7 @@ class Rabbit extends Animal {
 }
 ```
 
-화살표 함수의 `super`는 `stop()`의 `super`와 같기 때문에 위 예시는 의도한 대로 동작합니다. `setTimeout`안에서 '일반' 함수를 사용했다면 에러가 발생했을 겁니다.
+화살표 함수의 `super`는 `stop()`의 `super`와 같아서 위 예시는 의도한 대로 동작합니다. 그렇지만 `setTimeout`안에서 '일반' 함수를 사용했다면 에러가 발생했을 겁니다.
 
 ```js
 // Unexpected super
@@ -183,11 +183,11 @@ setTimeout(function() { super.stop() }, 1000);
 
 지금까진 `Rabbit`에 자체 `constructor`가 없었습니다.
 
-[명세서](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation)에 따르면, 클래스가 다른 클래스를 상속받고 있으며 `constructor`가 없는 경우엔 아래처럼 '비어있는' `constructor`가 만들어집니다.
+[명세서](https://tc39.github.io/ecma262/#sec-runtime-semantics-classdefinitionevaluation)에 따르면, 클래스가 다른 클래스를 상속받고 `constructor`가 없는 경우엔 아래처럼 '비어있는' `constructor`가 만들어집니다.
 
 ```js
 class Rabbit extends Animal {
-  // 자체 생성자가 없는 상속 클래스를 위해 생성됨
+  // 자체 생성자가 없는 클래스를 상속받는 클래스를 위해 생성됨
 *!*
   constructor(...args) {
     super(...args);
@@ -196,9 +196,9 @@ class Rabbit extends Animal {
 }
 ```
 
-위 예시에서 알 수 있듯이, 생성자는 기본적으로 부모 `constructor`를 호출합니다. 부모 `constructor`에 인수도 모두 전달되죠. 상속 클래스에 자체 생성자가 없으면 이 일은 자동으로 발생합니다.
+보시다시피 생성자는 기본적으로 부모 `constructor`를 호출합니다. 이때 부모 `constructor`에도 인수를 모두 전달합니다. 이런 일은 클래스에 자체 생성자를 지정하지 않으면 자동으로 발생합니다.
 
-이제 `Rabbit`에 커스텀 생성자를 추가해보겠습니다. 커스텀 생성자는 `name`과  `earLength`를 명시합니다.
+이제 `Rabbit`에 커스텀 생성자를 추가해보겠습니다. 커스텀 생성자에서 `name`과  `earLength`를 지정해보겠습니다.
 
 ```js run
 class Animal {
@@ -224,28 +224,28 @@ class Rabbit extends Animal {
 
 *!*
 // 동작하지 않습니다!
-let rabbit = new Rabbit("흰 토끼", 10); // Error: this is not defined.
+let rabbit = new Rabbit("흰 토끼", 10); // Error: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
 */!*
 ```
 
 아이코! 에러가 발생하네요. 토끼를 만들 수 없습니다. 무엇이 잘못된 걸까요?
 
-상속 클래스의 생성자는 반드시 `super(...)`를 호출해야 하는데, 위 예시에선 `super(...)`를 호출하지 않아 에러가 발생했습니다. `super(...)`는 `this`를 사용하기 전에 호출해야 한다는 점도 잊지 마셔야 합니다.
+상속 클래스의 생성자에선 반드시 `super(...)`를 호출해야 하는데, `super(...)`를 호출하지 않아 에러가 발생했습니다. `super(...)`는 `this`를 사용하기 전에 호출해야 한다는 점도 잊지 마셔야 합니다.
 
-그런데 왜 이런 작업을 해야 하는 걸까요? 따라야 하는 요구사항이 이상해 보이기까지 하는데 말이죠.
+그런데 왜 `super(...)`를 반드시 호출해야 하는 걸까요?
 
-물론 여기에도 이유가 있습니다. 이유를 살펴보며 상속 클래스의 생성자가 호출될 때 어떤 일이 일어나는지 알아봅시다.
+물론 이유가 있습니다. 상속 클래스의 생성자가 호출될 때 어떤 일이 일어나는지 알아보며 이유를 찾아봅시다.
 
-자바스크립트는 '상속 클래스의 생성자 함수(derived constructor)'와 그렇지 않은 클래스의 생성자 함수를 구분합니다. 상속 클래스의 생성자 함수엔 특수 내부 프로퍼티인 `[[ConstructorKind]]:"derived"`가 이름표처럼 붙습니다.
+자바스크립트는 '상속 클래스의 생성자 함수(derived constructor)'와 그렇지 함수를 구분합니다. 상속 클래스의 생성자 함수엔 특수 내부 프로퍼티인 `[[ConstructorKind]]:"derived"`가 이름표처럼 붙습니다.
 
 두 생성자 함수의 차이는 `new`와 함께 드러납니다.
 
-- 일반 생성자가 `new`와 함께 실행되면, 빈 객체가 만들어지고 `this`에 이 객체를 할당합니다.
-- 반면, 상속 클래스의 생성자가 실행되면, 위와 같은 일이 일어나지 않습니다. 상속 클래스의 생성자는 빈 객체를 만들고 `this`에 이 객체를 할당하는 일은 부모 클래스의 생성자가 처리해주길 기대합니다.
+- 일반 함수가 `new`와 함께 실행되면, 빈 객체가 만들어지고 `this`에 이 객체를 할당합니다.
+- 반면, 상속 클래스의 생성자 함수가 실행되면, 일반 함수에서 일어난 일이 일어나지 않습니다. 상속 클래스의 생성자 함수는 빈 객체를 만들고 `this`에 이 객체를 할당하는 일을 부모 클래스의 생성자가 처리해주길 기대합니다.
 
-이런 차이 때문에 상속 클래스의 생성자 함수에선 `super`를 반드시 호출해 부모 생성자를 실행해 주어야 합니다. 그렇지 않으면 `this`가 될 객체가 만들어지지 않습니다. 당연히 에러가 발생하겠죠.
+이런 차이 때문에 상속 클래스의 생성자에선 `super`를 호출해 부모 생성자를 실행해 주어야 합니다. 그렇지 않으면 `this`가 될 객체가 만들어지지 않습니다. 당연히 에러가 발생하겠죠.
 
-`Rabbit`의 생성자가 제대로 동작하게 하려면, 아래 예시와 같이 `super()`를 호출해야 합니다. `super()`는 `this`를 사용하기 전에 호출해주세요.
+`Rabbit`의 생성자가 제대로 동작하게 하려면, 아래 예시와 같이 `this`를 사용하기 전에 `super()`를 호출해야 합니다.
 
 ```js run
 class Animal {
@@ -279,15 +279,15 @@ alert(rabbit.earLength); // 10
 ```
 
 
-## Super: internals, [[HomeObject]]
+## Super: internals와 [[HomeObject]]
 
-```warn header="Advanced information"
-If you're reading the tutorial for the first time - this section may be skipped.
+```warn header="어렵습니다."
+튜토리얼을 처음 읽는 분이라면 이번 절은 넘어가서도 좋습니다.
 
-It's about the internal mechanisms behind inheritance and `super`.
+이번 절에선 상속과 `super`의 내부 메커니즘에 대해 다룰 예정입니다. 
 ```
 
-Let's get a little deeper under the hood of `super`. We'll see some interesting things along the way.
+`super`에 대해서 좀 더 깊이 파보겠습니다. 중간중간 흥미로운 점을 발견할 수 있을 겁니다.
 
 First to say, from all that we've learned till now, it's impossible for `super` to work at all!
 
