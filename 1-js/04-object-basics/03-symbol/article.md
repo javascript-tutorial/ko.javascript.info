@@ -102,7 +102,7 @@ alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있�
 // ...
 let id = Symbol("id");
 
-user[id] = "Their id value";
+user[id] = "제3 스크립트 id 값";
 ```
 
 심볼은 유일성이 보장되므로 우리가 만든 식별자와 제3의 스크립트에서 만든 식별자가 충돌하지 않습니다. 이름이 같더라도 말이죠.
@@ -113,11 +113,11 @@ user[id] = "Their id value";
 let user = { name: "John" };
 
 // 문자열 "id"를 사용해 식별자를 만들었습니다.
-user.id = "Our id value";
+user.id = "스크립트 id 값";
 
 // 만약 제3의 스크립트가 우리 스크립트와 동일하게 문자열 "id"를 이용해 식별자를 만들었다면...
 
-user.id = "Their id value"
+user.id = "제3 스크립트 id 값"
 // 의도치 않게 값이 덮어 쓰여서 우리가 만든 식별자는 무의미해집니다.
 ```
 
@@ -154,14 +154,14 @@ let user = {
 };
 
 *!*
-for (let key in user) alert(key); // name, age만 출력되고, 심볼은 출력되지 않습니다.
+for (let key in user) alert(key); // name과 age만 출력되고, 심볼은 출력되지 않습니다.
 */!*
 
 // 심볼로 직접 접근하면 잘 작동합니다.
-alert( "Direct: " + user[id] );
+alert( "직접 접근한 값: " + user[id] );
 ```
 
-`Object.keys(user)`에서도 키가 심볼인 프로퍼티는 배제됩니다. '심볼형 프로퍼티 숨기기(hiding symbolic properties)'라 불리는 이런 원칙 덕분에 외부 스크립트나 라이브러리는 심볼형 키를 가진 프로퍼티에 접근하지 못합니다.
+`Object.keys(user)`에서도 키가 심볼인 프로퍼티는 배제됩니다. '심볼형 프로퍼티 숨기기(hiding symbolic property)'라 불리는 이런 원칙 덕분에 외부 스크립트나 라이브러리는 심볼형 키를 가진 프로퍼티에 접근하지 못합니다.
 
 그런데 [Object.assign](mdn:js/Object/assign)은 키가 심볼인 프로퍼티를 배제하지 않고 객체 내 모든 프로퍼티를 복사합니다.
 
@@ -176,7 +176,7 @@ let clone = Object.assign({}, user);
 alert( clone[id] ); // 123
 ```
 
-뭔가 모순이 있는 것으로 보이지만, 이는 의도적으로 설계된 것입니다. 객체를 복사하거나 병합할 때, 대개 `id`와 같은 심볼을 포함한 프로퍼티 *모두*를 사용하고 싶어 할 것이라는 생각에서 이렇게 구현된 것이죠.
+뭔가 모순이 있는 것 같아 보이지만, 이는 의도적으로 설계된 것입니다. 객체를 복사하거나 병합할 때, 대개 `id` 같은 심볼을 포함한 프로퍼티 *전부*를 사용하고 싶어 할 것이라는 생각에서 이렇게 설계되었습니다.
 
 ## 전역 심볼
 
@@ -194,7 +194,7 @@ alert( clone[id] ); // 123
 // 전역 레지스트리에서 심볼을 읽습니다.
 let id = Symbol.for("id"); // 심볼이 존재하지 않으면 새로운 심볼을 만듭니다.
 
-// 동일한 이름을 이용해 심볼을 다시 읽습니다. (좀 더 멀리 떨어진 코드에서도 가능함)
+// 동일한 이름을 이용해 심볼을 다시 읽습니다(좀 더 멀리 떨어진 코드에서도 가능합니다).
 let idAgain = Symbol.for("id");
 
 // 두 심볼은 같습니다.
@@ -225,9 +225,9 @@ alert( Symbol.keyFor(sym) ); // name
 alert( Symbol.keyFor(sym2) ); // id
 ```
 
-`Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져서 해당 심볼의 이름을 얻어냅니다. 검색 범위가 전역 심볼 레지스트리이기 때문에 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 전역 심볼이 아닌 인자가 들어오면 `Symbol.keyFor`는 `undefined`를 반환합니다.
+`Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져서 해당 심볼의 이름을 얻어냅니다. 검색 범위가 전역 심볼 레지스트리이기 때문에 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 전역 심볼이 아닌 인자가 넘어오면 `Symbol.keyFor`는 `undefined`를 반환합니다.
 
-전역 심볼이 아닌 심볼을 포함한 모든 심볼엔 `description` 프로퍼티가 있기 때문에, 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
+전역 심볼이 아닌 심볼을 포함한 심볼 모두에는 `description` 프로퍼티가 있습니다. 일반 심볼에서 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
 
 예시:
 
@@ -245,7 +245,7 @@ alert( localSymbol.description ); // name
 
 '시스템 심볼(system symbol)'은 자바스크립트 내부에서 사용되는 심볼입니다. 시스템 심볼을 활용하면 객체를 미세 조정할 수 있습니다.
 
-명세서 내의 표, [잘 알려진 심볼(Well-known symbols)](https://tc39.github.io/ecma262/#sec-well-known-symbols)에서 어떤 시스템 심볼이 있는지 살펴보십시오.
+명세서 내의 표, [잘 알려진 심볼(well-known symbols)](https://tc39.github.io/ecma262/#sec-well-known-symbols)에서 어떤 시스템 심볼이 있는지 살펴보세요.
 
 - `Symbol.hasInstance`
 - `Symbol.isConcatSpreadable`
@@ -259,7 +259,7 @@ alert( localSymbol.description ); // name
 
 ## 요약
 
-`Symbol`은 원시형 자료로, 유일무이한 식별자를 만드는 데 사용됩니다.
+`Symbol`은 원시형 데이터로, 유일무이한 식별자를 만드는 데 사용됩니다.
 
 `Symbol()`을 호출하면 심볼을 만들 수 있습니다. 설명(이름)은 선택적으로 추가할 수 있습니다.
 
@@ -270,7 +270,7 @@ alert( localSymbol.description ); // name
 1. 객체의 '숨김' 프로퍼티 -- 
     외부 스크립트나 라이브러리에 '속한' 객체에 새로운 프로퍼티를 추가해 주고 싶다면 심볼을 만들고, 이를 프로퍼티 키로 사용하면 됩니다. 키가 심볼인 경우엔 `for..in`의 대상이 되지 않아서 의도치 않게 프로퍼티가 수정되는 것을 예방할 수 있습니다. 외부 스크립트나 라이브러리는 심볼 정보를 갖고 있지 않아서 프로퍼티에 직접 접근하는 것도 불가능합니다. 심볼형 키를 사용하면 프로퍼티가 우연히라도 사용되거나 덮어씌워 지는 걸 예방할 수 있습니다.
 
-    이런 특징을 이용하면 '은밀히' 원하는 것을 객체 안에 숨길 수 있습니다. 외부 스크립트에선 우리가 숨긴 것을 절대 볼 수 없습니다.
+    이런 특징을 이용하면 원하는 것을 객체 안에 '은밀하게' 숨길 수 있습니다. 외부 스크립트에선 우리가 숨긴 것을 절대 볼 수 없습니다.
 
 2. 자바스크립트 내부에서 사용되는 시스템 심볼은 `Symbol.*`로 접근할 수 있습니다. 시스템 심볼을 이용하면 내장 메서드 등의 기본 동작을 입맛대로 변경할 수 있습니다. [iterable 객체](info:iterable)에선 `Symbol.iterator`를, [객체를 원시형으로 변환하기](info:object-toprimitive)에선 `Symbol.toPrimitive`이 어떻게 사용되는지 알아보겠습니다.
 
