@@ -1,6 +1,6 @@
-**Answer: an error.**
+**에러**가 발생합니다.
 
-Try it:
+직접 실행해 봅시다.
 ```js run
 function makeUser() {
   return {
@@ -14,26 +14,26 @@ let user = makeUser();
 alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
 ```
 
-That's because rules that set `this` do not look at object definition. Only the moment of call matters.
+에러가 발생하는 이유는 `this` 값을 설정할 땐 객체 정의가 사용되지 않기 때문입니다. `this` 값은 호출 시점에 결정됩니다.
 
-Here the value of `this` inside `makeUser()` is `undefined`, because it is called as a function, not as a method with "dot" syntax.
+위 코드에서 `makeUser()` 내 `this`는 `undefined`가 됩니다. 메서드로써 호출된 게 아니라 함수로써 호출되었기 때문입니다.
 
-The value of `this` is one for the whole function, code blocks and object literals do not affect it.
+`this` 값은 전체 함수가 됩니다. 코드 블럭과 객체 리터럴은 여기에 영향을 주지 않습니다. 
 
-So `ref: this` actually takes current `this` of the function.
+따라서 `ref: this`는 함수의 현재 `this` 값을 가져옵니다.
 
-We can rewrite the function and return the same `this` with `undefined` value: 
+`this`의 값이 `undefined`가 되게 함수를 다시 작성하면 다음과 같습니다.
 
 ```js run
 function makeUser(){
-  return this; // this time there's no object literal
+  return this; // 이번엔 객체 리터럴을 사용하지 않았습니다.
 }
 
 alert( makeUser().name ); // Error: Cannot read property 'name' of undefined
 ```
-As you can see the result of `alert( makeUser().name )` is the same as the result of `alert( user.ref.name )` from the previous example.
+보시다시피 `alert( makeUser().name )`와 위쪽에서 살펴본 `alert( user.ref.name )`의 결과가 같은 것을 확인할 수 있습니다.
 
-Here's the opposite case:
+에러가 발생하지 않게 하려면 코드를 다음과 같이 수정하면 됩니다.
 
 ```js run
 function makeUser() {
@@ -52,4 +52,4 @@ let user = makeUser();
 alert( user.ref().name ); // John
 ```
 
-Now it works, because `user.ref()` is a method. And the value of `this` is set to the object before dot `.`.
+이렇게 하면 `user.ref()`가 메서드가 되고 `this`는 `.` 앞의 객체가 되기 때문에 에러가 발생하지 않습니다.
