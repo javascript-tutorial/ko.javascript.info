@@ -16,8 +16,13 @@ class Animal {
     this.name = name;
   }
   run(speed) {
+<<<<<<< HEAD
     this.speed += speed;
     alert(`${this.name} 은/는 속도 ${this.speed}로 달립니다.`);
+=======
+    this.speed = speed;
+    alert(`${this.name} runs with speed ${this.speed}.`);
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
   }
   stop() {
     this.speed = 0;
@@ -124,8 +129,13 @@ class Animal {
   }
 
   run(speed) {
+<<<<<<< HEAD
     this.speed += speed;
     alert(`${this.name}가 속도 ${this.speed}로 달립니다.`);
+=======
+    this.speed = speed;
+    alert(`${this.name} runs with speed ${this.speed}.`);
+>>>>>>> fcfef6a07842ed56144e04a80c3a24de049a952a
   }
 
   stop() {
