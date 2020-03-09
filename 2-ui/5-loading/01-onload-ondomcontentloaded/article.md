@@ -1,40 +1,40 @@
-# Page: DOMContentLoaded, load, beforeunload, unload
+# DOMContentLoaded, load, beforeunload, unload 이벤트
 
-The lifecycle of an HTML page has three important events:
+HTML 문서의 생명주기엔 다음과 같은 3가지 주요 이벤트가 관여합니다.
 
-- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may be not yet loaded.  
-- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
-- `beforeunload/unload` -- the user is leaving the page.
+- `DOMContentLoaded` -- 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생합니다. 이미지 파일(`<img>`)이나 스타일시트 등의 기타 자원은 기다리지 않습니다.
+- `load` -- HTML로 DOM 트리를 만드는 게 완성되었을 뿐만 아니라 이미지, 스타일시트 같은 외부 자원도 모두 불러오는 것이 끝났을 때 발생합니다.
+- `beforeunload/unload` -- 사용자가 페이지를 떠날 때 발생합니다.
 
-Each event may be useful:
+세 이벤트는 다음과 같은 상황에서 활용할 수 있습니다.
 
-- `DOMContentLoaded` event -- DOM is ready, so the handler can lookup DOM nodes, initialize the interface.
-- `load` event -- external resources are loaded, so styles are applied, image sizes are known etc.
-- `beforeunload` event -- the user is leaving: we can check if the user saved the changes and ask them whether they really want to leave.
-- `unload` -- the user almost left, but we still can initiate some operations, such as sending out statistics.
+- `DOMContentLoaded` -- DOM이 준비된 것을 확인한 후 원하는 DOM 노드를 찾아 핸들러를 등록해 인터페이스를 초기화할 때
+- `load` -- 이미지 사이즈를 확인할 때 등. 외부 자원이 로드된 후이기 때문에 스타일이 적용된 상태이므로 화면에 뿌려지는 요소의 실제 크기를 확인할 수 있음
+- `beforeunload` -- 사용자가 사이트를 떠나려 할 때, 변경되지 않은 사항들을 저장했는지 확인시켜줄 때
+- `unload` -- 사용자가 진짜 떠나기 전에 사용자 분석 정보를 담은 통계자료를 전송하고자 할 때
 
-Let's explore the details of these events.
+이제 각 이벤트에 대하여 자세히 살펴보도록 합시다.
 
 ## DOMContentLoaded
 
-The `DOMContentLoaded` event happens on the `document` object.
+`DOMContentLoaded` 이벤트는 `document` 객체에서 발생합니다.
 
-We must use `addEventListener` to catch it:
+따라서 이 이벤트를 다루려면 `addEventListener`를 사용해야 합니다.
 
 ```js
 document.addEventListener("DOMContentLoaded", ready);
-// not "document.onDOMContentLoaded = ..."
+// "document.onDOMContentLoaded = ..."는 동작하지 않습니다.
 ```
 
-For instance:
+예시:
 
 ```html run height=200 refresh
 <script>
   function ready() {
-    alert('DOM is ready');
+    alert('DOM이 준비되었습니다!');
 
-    // image is not yet loaded (unless was cached), so the size is 0x0
-    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+    // 이미지가 로드되지 않은 상태이기 때문에 사이즈는 0x0입니다.
+    alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
   }
 
 *!*
@@ -45,80 +45,80 @@ For instance:
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
 ```
 
-In the example the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+위 예시에서 `DOMContentLoaded` 핸들러는 문서가 로드되었을 때 실행됩니다. 따라서 핸들러 아래쪽에 위치한 `<img>`뿐만 아니라 모든 요소에 접근할 수 있습니다.
 
-But it doesn't wait for the image to load. So `alert` shows zero sizes.
+그렇지만 이미지가 로드되는 것은 기다리지 않기 때문에 `alert` 창엔 이미지 사이즈가 0이라고 뜹니다. 
 
-At first sight, the `DOMContentLoaded` event is very simple. The DOM tree is ready -- here's the event. There are few peculiarities though.
+처음 `DOMContentLoaded` 이벤트를 접하면 그다지 복잡하지 않은 이벤트라는 생각이 듭니다. "DOM 트리가 완성되면 `DOMContentLoaded` 이벤트가 발생한다"라고 생각하기 때문이죠. 그런데 `DOMContentLoaded`에는 몇 가지 특이사항이 있습니다.
 
-### DOMContentLoaded and scripts
+### DOMContentLoaded와 scripts
 
-When the browser processes an HTML-document and comes across a `<script>` tag, it needs to execute before continuing building the DOM. That's a precaution, as scripts may want to modify DOM, and even `document.write` into it, so `DOMContentLoaded` has to wait.
+브라우저는 HTML 문서를 처리하는 도중에 `<script>` 태그를 만나면, DOM 트리 구성을 멈추고 `<script>`를 실행합니다. 스크립트실행이 끝난 후에야 나머지 HTML 문서를 처리하죠. `<script>`에 있는 스크립트가 DOM 조작 관련 로직을 담고 있을 수 있기 때문에 이런 방지책이 만들어 졌습니다. 따라서 `DOMContentLoaded` 이벤트 역시 `<script>` 안에있는 스크립트가 처리고 난 후에 발생합니다.
 
-So DOMContentLoaded definitely happens after such scripts:
+예시를 통해 이를 살펴봅시다.
 
 ```html run
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    alert("DOM ready!");
+    alert("DOM이 준비되었습니다!");
   });
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
 
 <script>
-  alert("Library loaded, inline script executed");
+  alert("라이브러리 로딩이 끝나고 인라인 스크립트가 실행되었습니다.");
 </script>
 ```
 
-In the example above, we first see "Library loaded...", and then "DOM ready!" (all scripts are executed).
+예시를 실행하면 "라이브러리 로딩이 끝나고..."가 먼저 보인 후 "DOM이 준비되었습니다!"가 출력되는 것을 확인할 수 있습니다. 스크립트가 모두 실행되고 난 후에야 `DOMContentLoaded` 이벤트가 발생한 것이죠.
 
-```warn header="Scripts that don't block DOMContentLoaded"
-There are two exceptions from this rule:
-1. Scripts with the `async` attribute, that we'll cover [a bit later](info:script-async-defer), don't block `DOMContentLoaded`.
-2. Scripts that are generated dynamically with `document.createElement('script')` and then added to the webpage also don't block this event.
+```warn header="DOMContentLoaded를 막지 않는 스크립트"
+위와 같은 규칙엔 두 가지 예외사항이 있습니다.
+1. `async` 속성이 있는 스크립트는 `DOMContentLoaded`를 막지 않습니다. [`async` 속성](info:script-async-defer)에 대해선 곧 학습할 예정입니다.
+2. `document.createElement('script')`로 동적으로 생성되고 웹페이지에 추가된 스크립트는 `DOMContentLoaded`를 막지 않습니다.
 ```
 
-### DOMContentLoaded and styles
+### DOMContentLoaded와 styles
 
-External style sheets don't affect DOM, so `DOMContentLoaded` does not wait for them.
+외부 스타일시트는 DOM에 영향을 주지 않기 때문에 `DOMContentLoaded`는 외부 스타일시트가 로드되기를 기다리지 않습니다. 
 
-But there's a pitfall. If we have a script after the style, then that script must wait until the stylesheet loads:
+그런데 한 가지 예외가 있습니다. 스타일시트를 불러오는 태그 바로 다음에 스크립트가 위치하면 이 스크립트는 스타일시트가 로드되기 전까지 실행되지 않습니다.
 
-```html
+```html run
 <link type="text/css" rel="stylesheet" href="style.css">
 <script>
-  // the script doesn't not execute until the stylesheet is loaded
+  // 이 스크립트는 위 스타일시트가 로드될 때까지 실행되지 않습니다.
   alert(getComputedStyle(document.body).marginTop);
 </script>
 ```
 
-The reason for this is that the script may want to get coordinates and other style-dependent properties of elements, like in the example above. Naturally, it has to wait for styles to load.
+이런 예외는 스크립트에서 스타일에 영향을 받는 요소의 프로퍼티를 사용할 가능성이 있기 때문에 만들어졌습니다. 위 예시에선 스크립트에서 요소의 좌표 정보를 사용하고 있네요. 스타일이 로드되고, 적용되고 난 다음에야 좌표 정보가 확정되기 때문에 자연스레 이런 제약이 생겼습니다.
 
-As `DOMContentLoaded` waits for scripts, it now waits for styles before them as well.
+`DOMContentLoaded`는 스크립트가 로드되길 기다립니다. 위의 경우라면 당연히 스타일시트 역시 기다리게 됩니다.
 
-### Built-in browser autofill
+### 브라우저 내장 자동완성
 
-Firefox, Chrome and Opera autofill forms on `DOMContentLoaded`.
+Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded`에서 일어납니다.
 
-For instance, if the page has a form with login and password, and the browser remembered the values, then on `DOMContentLoaded` it may try to autofill them (if approved by the user).
+페이지에 아이디와 비밀번호를 적는 폼이 있고, 브라우저에 아이디, 비밀번호 정보가 저장되어 있다면 `DOMContentLoaded` 이벤트가 발생할 때 인증 정보가 자동으로 채워집니다. 물론 사용자가 자동 완성을 허용했을 때 그렇겠죠. 
 
-So if `DOMContentLoaded` is postponed by long-loading scripts, then autofill also awaits. You probably saw that on some sites (if you use browser autofill) -- the login/password fields don't get autofilled immediately, but there's a delay till the page fully loads. That's actually the delay until the `DOMContentLoaded` event.
+따라서 실행해야 할 스크립트가 길어서 `DOMContentLoaded` 이벤트가 지연된다면 자동완성 역시 뒤늦게 처리됩니다. 브라우저 자동 완성 기능을 켜 놓은 사용자라면 특정 사이트에서 자동 완성이 늦게 처리되는 걸 경험 해 보셨을 겁니다. 이런 사이트에선 페이지 로딩이 다 끝난 후에야 아이디나 패스워드 같은 브라우저에 저장한 정보가 폼에 뜨죠. 이런 지연이 발생하는 이유는 `DOMContentLoaded` 이벤트가 실행되는 시점 때문입니다.
 
 
 ## window.onload [#window-onload]
 
-The `load` event on the `window` object triggers when the whole page is loaded including styles, images and other resources.
+`window` 객체의 `load` 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행됩니다.
 
-The example below correctly shows image sizes, because `window.onload` waits for all images:
+아래 예시에서 `window.onload`는 이미지가 모두 로드되고 난 후 실행되기 때문에 이미지 사이즈가 제대로 출력되는 것을 확인할 수 있습니다. 
 
 ```html run height=200 refresh
 <script>
   window.onload = function() {
-    alert('Page loaded');
+    alert('페이지 전체가 로드되었습니다.');
 
-    // image is loaded at this time
-    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+    // 이번엔 이미지가 제대로 불러와 진 후에 얼럿창이 실행됩니다.
+    alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
   };
 </script>
 
@@ -127,45 +127,45 @@ The example below correctly shows image sizes, because `window.onload` waits for
 
 ## window.onunload
 
-When a visitor leaves the page, the `unload` event triggers on `window`. We can do something there that doesn't involve a delay, like closing related popup windows.
+`window` 객체의 `unload` 이벤트는 사용자가 페이지를 떠날 때, 즉 문서를 완전히 닫을 때 실행됩니다. `unload` 이벤트에선 팝업창을 닫는 것과 같은 딜레이가 없는 작업을 수행할 수 있습니다.
 
-The notable exception is sending analytics.
+그런데 분석 정보를 보내는 것은 예외사항에 속합니다.
 
-Let's say we gather data about how the page is used: mouse clicks, scrolls, viewed page areas, and so on.
+사용자가 웹사이트에서 어떤 행동을 하는지에 대한 분석 정보를 모으고 있다고 가정해봅시다.
 
-Naturally, `unload` event is when the user leaves us, and we'd like to save the data on our server.
+`unload` 이벤트는 사용자가 페이지를 떠날 때 발생하므로 자연스럽게 `unload` 이벤트에서 분석 정보를 서버로 보내는 게 어떨까 하는 생각이 드네요.
 
-There exists a special `navigator.sendBeacon(url, data)` method for such needs, described in the specification <https://w3c.github.io/beacon/>.
+메서드 `navigator.sendBeacon(url, data)`은 바로 이런 용도를 위해 만들어졌습니다. 메서드에 대한 자세한 설명은 <https://w3c.github.io/beacon/>에서 찾아볼 수 있습니다.
 
-It sends the data in background. The transition to another page is not delayed: the browser leaves the page, but still performs `sendBeacon`.
+`sendBeacon`는 데이터를 백그라운드에서 전송합니다. 다른 페이지로 전환시 분석 정보는 제대로 서버에 전송되지만, 딜레이가 없는 것은 바로 이 때문입니다.  
 
-Here's how to use it:
+`sendBeacon`은 다음과 같이 사용할 수 있습니다.
 ```js
-let analyticsData = { /* object with gathered data */ };
+let analyticsData = { /* 분석 정보가 담긴 객체 */ };
 
 window.addEventListener("unload", function() {
   navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
 };
 ```
 
-- The request is sent as POST.
-- We can send not only a string, but also forms and other formats, as described in the chapter <info:fetch>, but usually it's a stringified object.
-- The data is limited by 64kb.
+- 요청은 POST 메서드로 전송됩니다.
+- 요청 시 문자열뿐만 아니라 폼이나 <info:fetch>에서 설명하는 기타 포맷들도 보낼 수 있습니다. 대개는 문자열 형태의 객체가 전송됩니다.
+- 전송 데이터는 64kb를 넘을 수 없습니다.
 
-When the `sendBeacon` request is finished, the browser probably has already left the document, so there's no way to get server response (which is usually empty for analytics).
+`sendBeacon` 요청이 종료된 시점엔 브라우저가 다른 페이지로 전환을 마친 상태일 확률이 높습니다. 따라서 서버 응답을 받을 수 있는 방법이 없죠. 사용자 분석 정보에 관한 응답은 대개 빈 상태입니다.
 
-There's also a `keepalive` flag for doing such "after-page-left" requests in  [fetch](info:fetch) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
+[fetch](info:fetch) 메서드는 '페이지를 떠난 후'에도 요청이 가능하도록 해주는 플래그 `keepalive`를 지원합니다. 자세한 내용은 <info:fetch-api>에서 확인해보세요.
 
 
-If we want to cancel the transition to another page, we can't do it here. But we can use  another event -- `onbeforeunload`.
+한편, 다른 페이지로 전환 중에 이를 취소하고 싶은 경우가 생기곤 합니다. `unload`에선 페이지 전환을 취소할 수 없고 `onbeforeunload`를 사용하면 가능합니다.
 
 ## window.onbeforeunload [#window.onbeforeunload]
 
-If a visitor initiated navigation away from the page or tries to close the window, the `beforeunload` handler asks for additional confirmation.
+사용자가 현재 페이지를 떠나 다른 페이지로 이동하려 할 때나 창을 닫으려고 할 때 `beforeunload` 핸들러에서 추가 확인을 요청할 수 있습니다.
 
-If we cancel the event, the browser may ask the visitor if they are sure.
+`beforeunload` 이벤트를 취소하려 하면 브라우저는 사용자에게 확인을 요청합니다.
 
-You can try it by running this code and then reloading the page:
+아래 예시를 실행하고, 브라우저에서 새로 고침을 해 직접 확인해봅시다.
 
 ```js run
 window.onbeforeunload = function() {
@@ -173,69 +173,69 @@ window.onbeforeunload = function() {
 };
 ```
 
-For historical reasons, returning a non-empty string also counts as canceling the event. Some time ago browsers used to show it as a message, but as the [modern specification](https://html.spec.whatwg.org/#unloading-documents) says, they shouldn't.
+`false`말고도 비어있지 않은 문자열을 반환하면 이벤트를 취소한 것과 같은 효과를 볼 수 있는데, 이는 역사적인 이유 때문에 남아있는 기능입니다. 과거엔 문자열을 반환하면 브라우저에서 이 문자열을 보여줬었는데, [근래의 명세서](https://html.spec.whatwg.org/#unloading-documents)에선 이를 권장하지 않습니다.
 
-Here's an example:
+예시를 살펴봅시다.
 
 ```js run
 window.onbeforeunload = function() {
-  return "There are unsaved changes. Leave now?";
+  return "저장되지 않은 변경사항이 있습니다. 정말 페이지를 떠나실 건 가요?";
 };
 ```
 
-The behavior was changed, because some webmasters abused this event handler by showing misleading and annoying messages. So right now old browsers still may show it as a message, but aside of that -- there's no way to customize the message shown to the user.
+이렇게 문자열을 반환하도록 해도 얼럿창에 문자열이 보이지 않게 된 이유는 몇몇 사이트 관리자들이 오해가 생길 법하거나 성가신 메시지를 띄우면서 `beforeunload`를 남용했기 때문입니다. 오래된 브라우저에서 위 예시를 실행하고 새로 고침을 누르면 "저장되지 않은..." 메시지가 뜨긴 합니다. 하지만 모던 브라우저에선 `beforeunload` 이벤트를 취소할 때 보이는 메시지를 커스터마이징 할 수 없습니다.
 
 ## readyState
 
-What happens if we set the `DOMContentLoaded` handler after the document is loaded?
+문서가 완전히 로드된 후에 `DOMContentLoaded` 핸들러를 설정하면 어떤 일이 발생할까요?
 
-Naturally, it never runs.
+아마도 절대 실행되지 않을 겁니다.
 
-There are cases when we are not sure whether the document is ready or not. We'd like our function to execute when the DOM is loaded, be it now or later.
+그런데 가끔은 문서가 로드되었는지 아닌지를 판단할 수 없는 경우가 있습니다. DOM이 완전히 구성된 후에 특정 함수를 실행해야 할 때는 DOM 트리 완성 여부를 알 수 없어 조금 난감하죠. 
 
-The `document.readyState` property tells us about the current loading state.
+이럴 때 현재 로딩 상태를 알려주는 `document.readyState` 프로퍼티를 사용할 수 있습니다.
 
-There are 3 possible values:
+프로퍼티의 값은 세 종류가 있습니다.
 
-- `"loading"` -- the document is loading.
-- `"interactive"` -- the document was fully read.
-- `"complete"` -- the document was fully read and all resources (like images) are loaded too.
+- `"loading"` -- 문서를 불러오는 중일 때
+- `"interactive"` -- 문서가 완전히 불러와졌을 때
+- `"complete"` -- 문서를 비롯한 이미지 등의 리소스들도 모두 불러와졌을 때
 
-So we can check `document.readyState` and setup a handler or execute the code immediately if it's ready.
+우리는 `document.readyState`의 값을 확인하고 상황에 맞게 핸들러를 설정하거나 코드를 실행하면 됩니다.
 
-Like this:
+예시:
 
 ```js
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
-  // loading yet, wait for the event
+  // 아직 로딩 중이므로 이벤트를 기다립니다.
   document.addEventListener('DOMContentLoaded', work);
 } else {
-  // DOM is ready!
+  // DOM이 완성되었습니다!
   work();
 }
 ```
 
-There's also the `readystatechange` event that triggers when the state changes, so we can print all these states like this:
+이 외에도 상태가 변경되었을 때 실행되는 이벤트 `readystatechange`를 사용하면 상태에 맞게 원하는 작업을 할 수 있습니다. 개발자 도구의 콘솔창을 열고 아래 예시를 실행해 상태 변화를 직접 출력해봅시다.
 
 ```js run
-// current state
+// 현재 상태
 console.log(document.readyState);
 
-// print state changes
+// 상태 변경 출력
 document.addEventListener('readystatechange', () => console.log(document.readyState));
 ```
 
-The `readystatechange` event is an alternative mechanics of tracking the document loading state, it appeared long ago. Nowadays, it is rarely used.
+이렇게 아주 오래전부터 있었던 `readystatechange` 이벤트라는 대안을 사용해도 문서 로딩 상태를 파악할 수 있습니다. 그런데 이 이벤트는 요즘엔 잘 사용하지 않습니다.
 
-Let's see the full events flow for the completeness.
+이제 마무리로 지금까지 배운 이벤트들의 순서에 대해 정리해봅시다.
 
-Here's a document with `<iframe>`, `<img>` and handlers that log events:
+아래 예시엔 이벤트를 로깅하는 `<iframe>`과 `<img>`를 비롯한 여러 이벤트 핸들러가 있습니다.
 
 ```html
 <script>
-  log('initial readyState:' + document.readyState);
+  log('초기 readyState:' + document.readyState);
 
   document.addEventListener('readystatechange', () => log('readyState:' + document.readyState));
   document.addEventListener('DOMContentLoaded', () => log('DOMContentLoaded'));
@@ -251,9 +251,9 @@ Here's a document with `<iframe>`, `<img>` and handlers that log events:
 </script>
 ```
 
-The working example is [in the sandbox](sandbox:readystate).
+[샌드박스](sandbox:readystate)를 열어 직접 예시를 실행해보세요.
 
-The typical output:
+실행 결과는 다음과 같습니다.
 1. [1] initial readyState:loading
 2. [2] readyState:interactive
 3. [2] DOMContentLoaded
@@ -262,23 +262,23 @@ The typical output:
 6. [4] readyState:complete
 7. [4] window onload
 
-The numbers in square brackets denote the approximate time of when it happens. Events labeled with the same digit happen approximately at the same time (+- a few ms).
+대괄호 안에 있는 숫자는 실제 해당 로그가 출력되기까지 걸린 시간을 나타냅니다. 같은 숫자는 1 미리 초 오차 범위 내에서 동시에 실행된 이벤트라는 것을 의미합니다.
 
-- `document.readyState` becomes `interactive` right before `DOMContentLoaded`. These two things actually mean the same.
-- `document.readyState` becomes `complete` when all resources (`iframe` and `img`) are loaded. Here we can see that it happens in about the same time as `img.onload` (`img` is the last resource) and `window.onload`. Switching to `complete` state means the same as `window.onload`. The difference is that `window.onload` always works after all other `load` handlers.
+- `document.readyState`는 `DOMContentLoaded`가 실행되기 바로 직전에 `interactive`가 됩니다. 따라서 `DOMContentLoaded`와 `interactive`는 같은 상태를 나타낸다고 볼 수 있습니다.
+- `document.readyState`는 `iframe`, `img`를 비롯한 리소스 전부가 로드되었을 때 `complete`가 됩니다. 위 예시에서 우리는 `readyState`의 값이 `img.onload`와 `window.onload`가 실행된 시점과 거의 동일한 시점에 `complete`로 바뀌었다는 것을 확인할 수 있습니다. `readyState`의 값이 `complete`로 바뀐다는 것은 `window.onload`가 실행된다는 것과 동일한 의미입니다. 이 둘의 차이점은 `window.onload`는 다른 `load` 핸들러가 전부 실행된 후에야 동작한다는 것에 있습니다.
 
 
-## Summary
+## 요약
 
-Page load events:
+페이지 로드 관련 이벤트는 다음과 같습니다.
 
-- The `DOMContentLoaded` event triggers on `document` when the DOM is ready. We can apply JavaScript to elements at this stage.
-  - Script such as `<script>...</script>` or `<script src="..."></script>` block DOMContentLoaded, the browser waits for them to execute.
-  - Images and other resources may also still continue loading.
-- The `load` event on `window` triggers when the page and all resources are loaded. We rarely use it, because there's usually no need to wait for so long.
-- The `beforeunload` event on `window` triggers when the user wants to leave the page. If we cancel the event, browser asks whether the user really wants to leave (e.g we have unsaved changes).
-- `The unload` event on `window` triggers when the user is finally leaving, in the handler we can only do simple things that do not involve delays or asking a user. Because of that limitation, it's rarely used. We can send out a network request with `navigator.sendBeacon`.
-- `document.readyState` is the current state of the document, changes can be tracked in the `readystatechange` event:
-  - `loading` -- the document is loading.
-  - `interactive` -- the document is parsed, happens at about the same time as `DOMContentLoaded`, but before it.
-  - `complete` -- the document and resources are loaded, happens at about the same time as `window.onload`, but before it.
+- `DOMContentLoaded` -- DOM 구성이 완료되었을 때 `document` 객체에서 실행됩니다. 자바스크립트를 사용해 요소를 조작하는 것은 이 이벤트가 실행된 후입니다.
+  - `<script>...</script>`나 `<script src="..."></script>`를 사용해 삽입한 스크립트는 DOMContentLoaded가 실행되는 것을 막습니다. 브라우저는 이 스크립트가 실행되길 기다립니다.
+  - `DOMContentLoaded`는 실행되어도 이미지를 비롯한 기타 리소스들은 여전히 로드 중일 수 있습니다.
+- `load` -- 페이지를 비롯한 이미지 등의 자원 전부가 모두 불러와졌을 때 `window` 객체에서 실행됩니다. 모든 자원이 로드되는 걸 기다리기에는 시간이 오래 걸릴 수 있으므로 이 이벤트는 잘 사용되지 않습니다.
+- `beforeunload` -- 사용자가 페이지를 떠나려 할 때 `window` 객체에서 발생합니다. 이 이벤트를 취소하려 하면 브라우저는 사용자에게 "we have unsaved changes..."등의 메시지를 띄워 정말 페이지를 떠날 건지 물어봅니다.
+- `unload` -- 사용자가 최종적으로 사이트를 떠날 때 `window` 객체에서 발생합니다. `unload` 이벤트 핸들러에선 지연을 유발하는 복잡한 작업이나 사용자와의 상호작용은 할 수 없습니다. 이 제약사항 때문에 `unload` 이벤트는 아주 드물게 사용됩니다. 하지만 예외적으로 `navigator.sendBeacon`을 사용해 네트워크 요청을 보낼 수 있습니다.
+- `document.readyState` -- 문서의 현재 상태를 나타내줍니다. `readystatechange` 이벤트를 사용하면 변화를 추적할 수 있습니다.
+  - `loading` -- 문서를 불러오는 중일 때
+  - `interactive` -- 문서가 완전히 불러와졌을 때. `DOMContentLoaded`가 실행되기 바로 직전에 해당 값으로 변경됩니다.
+  - `complete` -- 문서를 비롯한 이미지 등의 리소스들도 모두 불러와졌을 때. `window.onload`가 실행되기 바로 직전에 해당 값으로 변경됩니다.
