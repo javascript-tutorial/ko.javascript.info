@@ -1,111 +1,111 @@
 
 # 변수의 스코프
 
-자바스크립트는 함수 지향 언어입니다. 이런 특징은 개발자에게 많은 자유도를 줍니다. 함수를 동적으로 생성할 수 있고, 다른 변수에 생성된 함수를 인수로 넘길 수 있으며, 함수가 생성된 곳이 아닌 다른 곳에서 함수를 호출할 수도 있기 때문입니다.
+자바스크립트는 함수 지향 언어입니다. 이런 특징은 개발자에게 많은 자유도를 줍니다. 함수를 동적으로 생성할 수 있고, 생성한 함수를 다른 함수에 인수로 넘길 수 있으며, 생성된 곳이 아닌 곳에서 함수를 호출할 수도 있기 때문입니다.
 
 함수 내부에서 함수 외부에 있는 변수에 접근할 수 있다는 사실은 앞서 학습해서 알고 계실 겁니다.
 
-Now let's expand our knowledge to include more complex scenarios.
+이젠 좀 더 복잡한 시나리오를 기반으로 지식을 확장해 봅시다.
 
-```smart header="We'll talk about `let/const` variables here"
-In JavaScript, there are 3 ways to declare a variable: `let`, `const` (the modern ones), and `var` (the remnant of the past).
+```smart header="여기선 `let`, `const`로 선언한 변수만 다룹니다."
+자바스크립트에서는 3개의 키워드를 사용해 변수를 선언할 수 있습니다. 모던한 방식인 `let`, `const`가 있고, 과거의 잔재인 `var`도 있습니다.
 
-- In this article we'll use `let` variables in examples.
-- Variables, declared with `const`, behave the same, so this article is about `const` too.
-- The old `var` has some notable differences, they will be covered in the article <info:var>.
+- 이번 주제에선 모든 예시에서 `let` 변수를 사용할 예정입니다.
+- `const`로 선언한 변수 역시 `let` 변수와 동일하게 동작합니다. 따라서 예시의 `let`을 `const`로 바꿔도 동일한 동작을 기대할 수 있습니다.
+- `var`는 `let`과 `const`로 선언한 변수와 몇 가지 중요한 차이가 있습니다. 자세한 내용은 <info:var>에서 다루겠습니다.
 ```
 
-## Code blocks
+## 코드 블록
 
-If a variable is declared inside a code block `{...}`, it's only visible inside that block.
+코드 블록 `{...}` 안에서 선언한 변수는 블록 안에서만 사용할 수 있습니다.
 
-For example:
+예시:
 
 ```js run
 {
-  // do some job with local variables that should not be seen outside
+  // 지역 변수에 몇 가지 조작을 하면, 그 결과를 밖에선 볼 수 없습니다.
 
-  let message = "Hello"; // only visible in this block
+  let message = "Hello"; // 블록 내에서만 변수 값을 얻을 수 있습니다.
 
   alert(message); // Hello
 }
 
-alert(message); // Error: message is not defined
+alert(message); // ReferenceError: message is not defined
 ```
 
-We can use this to isolate a piece of code that does its own task, with variables that only belong to it:
+이런 특징은 고유한 작업을 수행하는 코드를 한데 묶는데 사용할 수 있습니다. 이 블록 안엔 해당 작업을 수행하기 위해 사용된 변수가 들어갑니다.
 
 ```js run
 {
-  // show message
-  let message = "Hello";
+  // 메시지 출력
+  let message = "안녕하세요.";
   alert(message);
 }
 
 {
-  // show another message
-  let message = "Goodbye";
+  // 또 다른 메시지 출력
+  let message = "안녕히 가세요.";
   alert(message);
 }
 ```
 
-````smart header="There'd be an error without blocks"
-Please note, without separate blocks there would be an error, if we use `let` with the existing variable name:
+````smart header="블록이 없으면 에러가 발생할 수 있습니다."
+이미 선언된 변수와 동일한 이름을 가진 변수를 별도의 블록 없이 `let`으로 선언하면 에러가 발생합니다.
 
 ```js run
-// show message
-let message = "Hello";
+// 메시지 출력
+let message = "안녕하세요.";
 alert(message);
 
-// show another message
+// 또 다른 메시지 출력
 *!*
-let message = "Goodbye"; // Error: variable already declared
+let message = "안녕히 가세요."; // SyntaxError: Identifier 'message' has already been declared
 */!*
 alert(message);
 ```
 ````
 
-For `if`, `for`, `while` and so on, variables declared in `{...}` are also only visible inside:
+`if`, `for`, `while` 등에서도 마찬가지로 `{...}` 안에서 선언한 변수는 오직 블록 안에서만 접근 가능합니다.
 
 ```js run
 if (true) {
-  let phrase = "Hello!";
+  let phrase = "안녕하세요!";
 
-  alert(phrase); // Hello!
+  alert(phrase); // 안녕하세요!
 }
 
-alert(phrase); // Error, no such variable!
+alert(phrase); // ReferenceError: phrase is not defined
 ```
 
-Here, after `if` finishes, the `alert` below won't see the `phrase`, hence the error.
+`if` 블록 아래에 있는 `alert`에선 `phrase`에 접근할 수 없기 때문에 위 예시를 실행하면 에러가 발생합니다. 
 
-That's great, as it allows us to create block-local variables, specific to an `if` branch.
+이런 특징은 블록 레벨 변수를 사용할 수 있게 해주므로 좋습니다. `if` 분기문을 사용할 때 더 그렇겠죠. 
 
-The similar thing holds true for `for` and `while` loops:
+`if` 뿐만 아니라 `for`, `while` 반복문에서도 동일한 특징이 적용됩니다.
 
 ```js run
 for (let i = 0; i < 3; i++) {
-  // the variable i is only visible inside this for
-  alert(i); // 0, then 1, then 2
+  // 변수 i는 for 안에서만 사용할 수 있습니다.
+  alert(i); // 0, 1, 2가 출력
 }
 
-alert(i); // Error, no such variable
+alert(i); // ReferenceError: i is not defined
 ```
 
-Visually, `let i` is outside of `{...}`. But the `for` construct is special here: the variable, declared inside it, is considered a part of the block.
+`let i`가 `{...}` 밖에 있긴 합니다. 하지만 `for` 문법 구조는 조금 특별합니다. `for` 옆 괄호 안에서 선언한 변수는 블록에 속하는 코드로 취급됩니다.
 
-## Nested functions
+## 중첩 함수
 
-A function is called "nested" when it is created inside another function.
+함수 내부에서 선언한 함수는 '중첩(nested)' 함수라고 부릅니다.
 
-It is easily possible to do this with JavaScript.
+자바스크립트에선 중첩 함수를 손쉽게 만들 수 있습니다.
 
-We can use it to organize our code, like this:
+중첩 함수는 아래와 같이 코드를 정돈하는데 사용할 수 있습니다.
 
 ```js
 function sayHiBye(firstName, lastName) {
 
-  // helper nested function to use below
+  // 헬퍼(helper) 중첩 함수
   function getFullName() {
     return firstName + " " + lastName;
   }
@@ -116,11 +116,11 @@ function sayHiBye(firstName, lastName) {
 }
 ```
 
-Here the *nested* function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
+위 예시에서 외부 변수에 접근해 이름 전체를 반환해주는 *중첩* 함수 `getFullName()`은 편의상 만든 함수입니다. 이렇게 자바스크립트에선 중첩 함수가 흔히 사용됩니다.
 
-What's much more interesting, a nested function can be returned: either as a property of a new object or as a result by itself. It can then be used somewhere else. No matter where, it still has access to the same outer variables.
+중첩 함수는 반환될 수 있다는 점에서 흥미롭습니다. 새로운 객체의 프로퍼티 형태로나 중첩 함수 그 자체로 반환되죠. 이렇게 반환되고 난 후에는 호출되어 사용됩니다. 호출 위치에 상관없이 외부 변수에 접근할 수 있다는 사실은 변함없죠.
 
-Below, `makeCounter` creates the "counter" function that returns the next number on each invocation:
+아래 함수 `makeCounter`는 숫자를 세주는 '카운터' 함수를 만듭니다. 카운터 함수는 호출될 때마다 다음 숫자를 반환합니다.
 
 ```js run
 function makeCounter() {
@@ -138,87 +138,87 @@ alert( counter() ); // 1
 alert( counter() ); // 2
 ```
 
-Despite being simple, slightly modified variants of that code have practical uses, for instance, as a [random number generator](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) to generate random values for automated tests.
+`makeCounter` 자체는 단순하지만, 여기에 약간의 변형을 가하면 [난수 생성기](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) 같은 실용성 있는 함수를 만들 수 있습니다.
 
-How does this work? If we create multiple counters, will they be independent? What's going on with the variables here?
+그런데 `makeCounter`를 살펴보다 보면 "`counter`를 여러 개 만들었을 때, 이 함수들은 서로 독립적일까? 함수와 중첩 함수 내 `count` 변수엔 어떤 값이 할당될까?" 같은 의문이 들기 마련입니다.  
 
-Undestanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+이런 의문을 해결할 수 있게 되면 자바스크립트 숙련도가 크게 올라갑니다. 좀 더 복잡한 시나리오도 다룰 수 있게 되죠. 자, 긴말할 필요 없이 바로 시작해봅시다.
 
 ## 렉시컬 환경
 
-```warn header="Here be dragons!"
-The in-depth technical explanation lies ahead.
+```warn header="호랑이 굴에 들어가야 합니다!"
+이제 다루게 될 내용은 어렵습니다.
 
-As far as I'd like to avoid low-level language details, any understanding without them would be lacking and incomplete, so get ready.
+지금까진 로우 레벨 영역은 최대한 피하는 방식으로 튜토리얼을 전개했습니다. 하지만 여기서 다루는 내용을 알지 못하면 자바스크립트를 완전히 이해하지 못합니다. 호랑이 굴에 들어가 호랑이를 잡아봅시다!
 ```
 
-For clarity, the explanation is split into multiple steps.
+명확한 이해를 돕기 위해 설명을 몇 개의 단계로 나눠서 진행하겠습니다.
 
-### Step 1. Variables
+### 단계 1. 변수
 
-자바스크립트에선 실행 중인 함수, 실행 중인 코드 블록 `{...}`, 실행 중인 스크립트 전체는 *렉시컬 환경(Lexical Environment)* 이라 불리는 숨김 내부 연관 객체를 갖습니다.
+자바스크립트에선 실행 중인 함수, 코드 블록 `{...}`, 스크립트 전체는 *렉시컬 환경(Lexical Environment)* 이라 불리는 내부 숨김 연관 객체(internal hidden associated object)를 갖습니다.
 
 렉시컬 환경은 두 부분으로 구성됩니다.
 
-1. *환경 레코드(Environment Record)* -- 모든 지역 변수를 프로퍼티로 저장하고 있는 객체. `this`가 참조하는 값 등의 정보도 저장됩니다.
-2. *외부 렉시컬 환경(Outer Lexical Environment)* 에 대한 참조 -- 외부 코드와 연관되어 있습니다.
+1. *환경 레코드(Environment Record)* -- 모든 지역 변수를 프로퍼티로 저장하고 있는 객체. `this` 값과 같은 기타 정보도 여기에 저장됩니다.
+2. *외부 렉시컬 환경(Outer Lexical Environment)* 에 대한 참조 -- 외부 코드와 연관됨
 
-**'변수'는 특수 내부 객체인 `환경 레코드`의 프로퍼티에 불과합니다. '변수를 가져오거나 변경'하는 행위는 '환경 레코드의 프로퍼티를 가져오거나 변경'하는 행위와 동일합니다.**
+**'변수'는 특수 내부 객체인 `환경 레코드`의 프로퍼티입니다. '변수를 가져오거나 변경'하는 것은 '환경 레코드의 프로퍼티를 가져오거나 변경'함을 의미합니다.**
 
-아래 예시엔 렉시컬 환경이 하나만 존재합니다.
+아래 두 줄짜리 코드엔 렉시컬 환경이 하나만 존재합니다.
 
 ![lexical environment](lexical-environment-global.svg)
 
-이렇게 스크립트 전체와 관련된 렉시컬 환경을 전역 렉시컬 환경(global Lexical Environment)이라고 부릅니다.
+이렇게 스크립트 전체와 관련된 렉시컬 환경을 전역 렉시컬 환경(global Lexical Environment)이라고 합니다.
 
-그림에서 네모 상자는 변수가 저장되는 환경 레코드를 나타내고, 붉은 화살표는 외부 참조(outer reference)를 나타냅니다. 전역 렉시컬 환경은 외부 참조를 갖지 않기 때문에 화살표가 `null`을 가리키는 걸 확인할 수 있습니다.
+위 그림에서 네모 상자는 변수가 저장되는 환경 레코드를 나타내고 붉은 화살표는 외부 참조(outer reference)를 나타냅니다. 전역 렉시컬 환경은 외부 참조를 갖지 않기 때문에 화살표가 `null`을 가리키는 걸 확인할 수 있습니다.
 
-아래 그림은 코드가 실행됨에 따라 렉시컬 환경이 어떻게 변하는지 보여줍니다.
+코드가 실행되고 실행 흐름이 이어져 나가면서 렉시컬 환경은 변화합니다.
 
-Here's a little bit longer code:
+좀 더 긴 코드를 살펴봅시다.
 
 ![lexical environment](closure-variable-phrase.svg)
 
 우측의 네모 상자들은 코드가 한 줄, 한 줄 실행될 때마다 전역 렉시컬 환경이 어떻게 변화하는지 보여줍니다.
 
-1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
-    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but won't allow to use it before `let`. It's almost the same as if the variable didn't exist.
-2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable since this moment.
-3. `phrase` is assigned a value.
-4. `phrase` changes the value.
+1. 스크립트가 시작되면 스크립트 내에서 선언한 변수 전체가 렉시컬 환경에 올라갑니다(pre-populated).
+    - 이때 변수의 상태는 특수 내부 상태(special internal state)인 'uninitialized'가 됩니다. 자바스크립트 엔진은 'uninitialized' 상태의 변수를 인지할 수 있지만, 변수 앞에 `let`이 오지 않으면 사용할 수 없습니다. 
+2. `let phrase`가 나타났네요. 아직 값을 할당하기 전이므로 프로퍼티 값은 `undefined`입니다. 이 시점 이후부터 우리는 `phrase`를 사용할 수 있습니다.
+3. `phrase`에 값이 할당되었습니다.
+4. `phrase`의 값이 변경되었습니다.
 
-아직까진 어려운 게 없어 보이네요.
+아직까진 어려운 게 없어 보이네요. 지금까지 배운 내용을 잠시 요약해 봅시다.
 
-- A variable is a property of a special internal object, associated with the currently executing block/function/script.
-- Working with variables is actually working with the properties of that object.
+- 변수는 특수 내부 객체인 환경 레코드의 프로퍼티입니다. 환경 레코드는 현재 실행 중인 함수와 코드 블록, 스크립트와 연관되어 있습니다.
+- 변수를 변경하면 환경 레코드의 프로퍼티가 변경됩니다.
 
-```smart header="Lexical Environment is a specification object"
-"Lexical Environment" is a specification object: it only exists "theoretically" in the [language specification](https://tc39.es/ecma262/#sec-lexical-environments) to describe how things work. We can't get this object in our code and manipulate it directly.
+```smart header="렉시컬 환경은 명세서에만 존재합니다."
+'렉시컬 환경'은 [명세서](https://tc39.es/ecma262/#sec-lexical-environments)에서 자바스크립가 어떻게 동작하는지 설명하는 데 쓰이는 '이론상의' 객체입니다. 개발자는 코드를 사용해 직접 이 객체를 얻거나 조작할 수 없습니다. 
 
-JavaScript engines also may optimize it, discard variables that are unused to save memory and perform other internal tricks, as long as the visible behavior remains as described.
+자바스크립트 엔진들은 명세서에 언급된 사항을 준수하면서 고유의 방법을 사용해 렉시컬 환경을 최적화합니다. 사용하지 않는 변수를 버려 메모리를 절약하거나 기타 내부 트릭을 써서 말이죠.
 ```
 
-### Step 2. Function Declarations
+### 단계 2. 함수 선언문
 
-A function is also a value, like a variable.
+함수는 변수와 마찬가지로 값으로 취급됩니다.
 
-**The difference is that a Function Declaration is instantly fully initialized.**
+하지만 차이가 하나 있는데 **함수 선언문(function declaration)으로 선언한 함수는 바로 초기화된다는 점입니다.**
 
-When a Lexical Environment is created, a Function Declaration immediately becomes a ready-to-use function (unlike `let`, that is unusable till the declaration).
+함수 선언문으로 선언한 함수는 렉시컬 환경이 만들어지는 즉시 사용할 수 있습니다. 변수는 `let`을 만나 선언이 될 때까지 사용 불가능하지만 말이죠. 
 
-That's why we can use a function, declared as Function Declaration, even before the declaration itself.
+선언되기 전에도 함수를 사용할 수 있는 것은 바로 이 때문입니다.
 
-For example, here's the initial state of the global Lexical Environment when we add a function:
+아래 그림은 스크립트에 함수를 추가했을 때 전역 렉시컬 환경 초기 상태가 어떻게 변하는지 보여줍니다.
 
 ![](closure-function-declaration.svg)
 
-Naturally, this behavior only applies to Function Declarations, not Function Expressions where we assign a function to a variable, such as `let say = function(name)...`.
+이런 변화는 함수 선언문으로 정의한 함수일 때만 일어납니다. `let say = function(name)...`같이 함수를 변수에 할당한 함수 표현식(Function Expression)은 해당하지 않습니다.
 
-### Step 3. Inner and outer Lexical Environment
+### 단계 3. 내부와 외부 렉시컬 환경
 
-When a function runs, at the beginning of the call, a new Lexical Environment is created automatically to store local variables and parameters of the call.
+함수가 호출되고 실행될 때 새로운 렉시컬 환경이 자동으로 만들어집니다. 그리고 이 렉시컬 환경엔 함수 호출 시 넘겨받은 매개변수와 함수의 지역 변수가 저장됩니다. 
 
-따라서 `say("John")`을 호출하면 아래와 같은 내부 변화가 일어납니다(현재 실행 흐름은 붉은색 화살표로 나타낸 줄에 멈춰있는 상황입니다).
+`say("John")`을 호출하면 아래와 같은 내부 변화가 일어나죠(현재 실행 흐름은 붉은색 화살표로 나타낸 줄에 멈춰있는 상황입니다).
 
 <!--
     ```js
@@ -235,26 +235,26 @@ When a function runs, at the beginning of the call, a new Lexical Environment is
 
 보시는 바와 같이 함수가 호출 중일 때는 두 개의 렉시컬 환경이 만들어집니다. 호출 중인 함수를 위한 내부 렉시컬 환경과 이 렉시컬 환경이 가리키는 외부(전역) 렉시컬 환경이 만들어지죠.
 
-- 내부 렉시컬 환경은 현재 실행 중인 함수인 `say`에 상응합니다. 내부 렉시컬 환경은 함수의 인자인 `name`을 프로퍼티로 갖습니다. `say("John")`을 호출했기 때문에 프로퍼티 `name`의 값은 `"John"`이 됩니다.
-- 외부 렉시컬 환경은 전역 렉시컬 환경입니다. 전역 렉시컬 환경은 변수 `phrase`와 함수 `say`를 프로퍼티로 갖습니다.
+- 예시의 내부(inner) 렉시컬 환경은 현재 실행 중인 함수인 `say`에 상응합니다. 내부 렉시컬 환경엔 함수의 인자인 `name`으로부터 만들어진 프로퍼티 하나만 있네요. `say("John")`을 호출했기 `name`의 값은 `"John"`이 됩니다.
+- 예시의 외부(outer) 렉시컬 환경은 전역 렉시컬 환경입니다. 전역 렉시컬 환경은 `phrase`와 함수 `say`를 프로퍼티로 갖습니다.
 
-그리고 내부 렉시컬 환경은 `외부` 렉시컬 환경을 참조합니다.
+내부 렉시컬 환경은 `외부` 렉시컬 환경을 참조합니다.
 
-**코드에서 변수에 접근할 때는 먼저 내부 렉시컬 환경을 검색 범위로 잡고 변수에 상응하는 프로퍼티가 내부 렉시컬 환경에 있는지 찾습니다. 이때 원하는 대상을 찾지 못하면 검색 범위를 내부 렉시컬 환경이 참조하는 외부 렉시컬 환경으로 확장합니다. 이 과정은 검색 범위가 전역 렉시컬 환경으로 확장될 때까지 반복됩니다.**
+**코드에서 변수에 접근할 땐, 먼저 내부 렉시컬 환경을 검색 범위로 잡습니다. 내부 렉시컬 환경에서 원하는 변수를 찾지 못하면 검색 범위를 내부 렉시컬 환경이 참조하는 외부 렉시컬 환경으로 확장합니다. 이 과정은 검색 범위가 전역 렉시컬 환경으로 확장될 때까지 반복됩니다.**
 
-전역 렉시컬 환경에 도달할 때까지 변수에 상응하는 프로퍼티를 찾지 못하면 엄격 모드에선 에러가 발생합니다. 참고로 정의되지 않은 변수에 `user = "John"`같이 값을 할당하려고 하면 비 엄격 모드에선 새로운 전역 변수 `user`가 만들어지는데, 이는 하위 호환성을 위해 존재하는 기능입니다.
+전역 렉시컬 환경에 도달할 때까지 변수를 찾지 못하면 엄격 모드에선 에러가 발생합니다. 비 엄격 모드에선 정의되지 않은 변수에 값을 할당하려고 하면 새로운 전역 변수가 만들어지는데, 이는 하위 호환성을 위해 존재하는 기능입니다.
 
-예시와 그림을 보면서 검색이 어떻게 진행되는지 살펴봅시다.
+예시와 그림을 보면서 검색이 어떻게 진행되는지 좀 더 자세히 살펴봅시다.
 
-- `say` 내부의 `alert`에서 `name`에 접근하려고 하면, 먼저 내부 렉시컬 환경을 살펴봅니다.
-- `phrase`에 접근하려는데, `phrase`에 상응하는 프로퍼티가 내부 렉시컬 환경엔 없기 때문에 검색 범위를 외부 렉시컬 환경으로 넓혀 `phrase`에 상응하는 프로퍼티가 있는지 찾아봅시다.
+- 함수 `say` 내부의 `alert`에서 `name`에 접근하려고 하면, 먼저 내부 렉시컬 환경을 살펴봅니다.
+- `phrase`에 접근하려는데, `phrase`에 상응하는 프로퍼티가 내부 렉시컬 환경엔 없기 때문에 검색 범위를 외부 렉시컬 환경으로 넓힙니다. 외부 렉시컬 환경에서 `phrase`를 찾았습니다. 
 
 ![lexical environment lookup](lexical-environment-simple-lookup.svg)
 
 
-### Step 4. Returning a function
+### 단계 4. 함수 반환하기
 
-Let's return to the `makeCounter` example.
+`makeCounter` 예시로 돌아가 봅시다.
 
 ```js
 function makeCounter() {
@@ -268,53 +268,53 @@ function makeCounter() {
 let counter = makeCounter();
 ```
 
-At the beginning of each `makeCounter()` call, a new Lexical Environment object is created, to store variables for this `makeCounter` run.
+`makeCounter()`를 호출할 때마다 새로운 렉시컬 환경이 만들어지고, `makeCounter`를 실행하는데 필요한 변수들이 이 렉시컬 환경에 저장됩니다.
 
-So we have two nested Lexical Environments, just like in the example above:
+`say("John")`를 호출할 때와 마찬가지로 `makeCounter()`를 호출할 때도 두 개의 렉시컬 환경이 만들어지죠. 
 
 ![](closure-makecounter.svg)
 
-What's different is that, during the execution of `makeCounter()`, a tiny nested function is created of only one line: `return count++`. We don't run it yet, only create.
+그런데 `say("John")`와 `makeCounter()` 예시에는 차이점이 하나 있습니다. `makeCounter()`가 실행되는 도중에 한 줄짜리 본문(`return count++`)을 가진 중첩 함수가 만들어진다는 점입니다. 지금은 이 중첩함수가 만들어지기만 했지 실행되진 않은 상태입니다. 
 
-All functions remember the Lexical Environment in which they were made. Technically, there's no magic here: all functions have the hidden property named `[[Environment]]`, that keeps the reference to the Lexical Environment where the function was created:
+여기서 중요한 사실이 하나 있습니다. 모든 함수는 함수가 생성된 곳의 렉시컬 환경을 기억한다는 점입니다. 모든 함수는 `[[Environment]]`라는 숨김 프로퍼티를 갖는데, 여기에 함수가 만들어진 곳의 렉시컬 환경에 대한 참조가 저장됩니다.
 
 ![](closure-makecounter-environment.svg)
 
-So, `counter.[[Environment]]` has the reference to `{count: 0}` Lexical Environment. That's how the function remembers where it was created, no matter where it's called. The `[[Environment]]` reference is set once and forever at function creation time.
+`makeCounter()`예시에서도 역시 동일한 규칙이 적용됩니다. `counter.[[Environment]]`엔 `{count: 0}`이 있는 렉시컬 환경에 대한 참조가 저장되죠. 호출 장소와 상관없이 함수가 자신이 태어난 곳을 기억할 수 있는 건 바로 `[[Environment]]` 프로퍼티 덕분입니다. `[[Environment]]`는 함수가 생성될 때 딱 한 번 그 값이 세팅됩니다. 그리고 이 값은 영원히 변하지 않습니다.
 
-Later, when `counter()` is called, a new Lexical Environment is created for the call, and its outer Lexical Environment reference is taken from `counter.[[Environment]]`:
+이제 `counter()`가 호출될 때마다 만들어지는 새 렉시컬 환경은 `counter.[[Environment]]`에 저장된 렉시컬 환경을 외부 렉시컬 환경으로서 참조하게 됩니다.
 
 ![](closure-makecounter-nested-call.svg)
 
-Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where finds it and changes.
+지금은 실행 흐름이 중첩 함수의 본문으로 넘어온 상태입니다. `count` 변수가 필요하네요. 먼저 `counter()` 의 렉시컬 환경에서 변수를 찾습니다. 그런데 `counter()`엔 지역변수가 없기 때문에 이 렉시컬 환경은 비어있습니다(`<empty>`). 이제 `counter()`의 렉시컬 환경이 참조하는 외부 렉시컬 환경에서 `count`를 찾아봅시다. 여기엔 `count`가 있네요!
 
-**A variable is updated in the Lexical Environment where it lives.**
+**변숫값 갱신은 변수가 저장된 렉시컬 환경에서 이뤄집니다.**
 
-Here's the state after the execution:
+이제 `return count++`가 실행된 이후에 렉시컬 환경에 어떤 변화가 있는지 살펴봅시다.
 
 ![](closure-makecounter-nested-call-2.svg)
 
-If we call `counter()` multiple times, the `count` variable will be increased to `2`, `3` and so on, at the same place.
+`counter()`를 여러 번 호출하면 `count` 변수가 `2`, `3`으로 증가하는 이유가 바로 여기에 있습니다.
 
 ```smart header="클로저"
 '클로저(closure)'는 개발자라면 필수로 알아야 하는 프로그래밍 용어입니다.
 
-[클로저](https://en.wikipedia.org/wiki/Closure_(computer_programming))는 외부 변수를 기억하고 액세스할 수 있는 함수입니다. 몇몇 언어에서는 클로저를 구현하는 게 불가능하거나 특수한 방식으로 함수를 작성해야 클로저를 만들 수 있습니다. 하지만 자바스크립트에선 모든 함수가 자연스럽게 클로저가 됩니다(예외가 하나 있는데, 이에 대해선 <info:new-function>에서 다루도록 하겠습니다).
+[클로저](https://en.wikipedia.org/wiki/Closure_(computer_programming))는 외부 변수를 기억하고 이 외부 변수에 접근할 수 있는 함수를 의미합니다. 몇몇 언어에선 클로저를 구현하는 게 불가능하거나 특수한 방식으로 함수를 작성해야 클로저를 만들 수 있습니다. 하지만 자바스크립트에선 모든 함수가 자연스럽게 클로저가 됩니다. 예외가 하나 있긴 한데 이에 대해선 <info:new-function>에서 다루도록 하겠습니다.
 
-요점을 정리해 봅시다. 자바스크립트의 함수는 숨김 프로퍼티인 `[[Environment]]`를 이용해 자신이 어디서 만들어졌는지 알 수 있습니다. 또한, 자바스크립트 함수는 외부 변수에 접근할 수 있습니다.
+요점을 정리해 봅시다. 자바스크립트의 함수는 숨김 프로퍼티인 `[[Environment]]`를 이용해 자신이 어디서 만들어졌는지를 기억합니다. 그리고 함수는 `[[Environment]]`를 사용해 외부 변수에 접근합니다.
 
-채용 인터뷰에서 "클로저가 무엇입니까?"라는 질문을 받으면, 클로저의 정의를 말하고 자바스크립트에선 모든 함수가 클로저라고 이야기하면 될 것 같습니다. 그리고 `[[Environment]]` 프로퍼티와 렉시컬 환경이 어떤 방식으로 동작하는지에 대한 설명을 덧붙이면 됩니다.
+프런트엔드 개발자 채용 인터뷰에서 "클로저가 무엇입니까?"라는 질문을 받으면, 클로저의 정의를 말하고 자바스크립트에서 왜 모든 함수가 클로저인지에 관해 설명하면 될 것 같습니다. 이때 `[[Environment]]` 프로퍼티와 렉시컬 환경이 어떤 방식으로 동작하는지에 대한 설명을 덧붙이면 좋습니다.
 ```
 
 ## 가비지 컬렉션
 
-Usually, a Lexical Environment is removed from memory with all the variables after the function call finishes. That's because there are no references to it. As any JavaScript object, it's only kept in memory while it's reachable.
+함수 호출이 끝나면 함수에 대응하는 렉시컬 환경이 메모리에서 제거됩니다. 함수와 관련된 변수들은 이때 모두 사라지죠. 함수 호출이 끝나면 관련 변수를 참조할 수 없는 이유가 바로 여기에 있습니다. 자바스크립트에서 모든 객체는 도달 가능한 상태일 때만 메모리에 유지됩니다.
 
-...But if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+그런데 호출이 끝난 후에도 여전히 도달 가능한 중첩 함수가 있을 수 있습니다. 이때는 이 중첩함수의 `[[Environment]]` 프로퍼티에 외부 함수 렉시컬 환경에 대한 정보가 저장됩니다. 도달 가능한 상태가 되는 것이죠.
 
-In that case the Lexical Environment is still reachable even after the completion of the function, so it stays alive.
+함수 호출은 끝났지만 렉시컬 환경이 메모리에 유지되는 이유는 바로 이 때문입니다.
 
-For example:
+예시:
 
 ```js
 function f() {
@@ -325,11 +325,11 @@ function f() {
   }
 }
 
-let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
-// of the corresponding f() call
+let g = f(); // g.[[Environment]]에 f() 호출 시 만들어지는 
+// 렉시컬 환경 정보가 저장됩니다.
 ```
 
-`f()`를 여러 번 호출하고 그 결과가 어딘가에 저장되는 경우, 렉시컬 환경 각각 모두가 메모리에 유지된다는 점에 유의하시기 바랍니다. 아래 예시를 실행하면 3개의 렉시컬 환경이 만들어지는데, 각 렉시컬 환경은 메모리에서 삭제되지 않습니다.
+그런데 이렇게 중첩함수를 사용할 때는 주의할 점이 있습니다. `f()`를 여러 번 호출하고 그 결과를 어딘가에 저장하는 경우, 호출 시 만들어지는 각 렉시컬 환경 모두가 메모리에 유지된다는 점입니다. 아래 예시를 실행하면 3개의 렉시컬 환경이 만들어지는데, 각 렉시컬 환경은 메모리에서 삭제되지 않습니다.
 
 ```js
 function f() {
@@ -345,7 +345,7 @@ let arr = [f(), f(), f()];
 
 렉시컬 환경 객체는 다른 객체와 마찬가지로 도달할 수 없을 때 메모리에서 삭제됩니다. 해당 렉시컬 환경 객체를 참조하는 중첩 함수가 하나라도 있으면 사라지지 않죠.
 
-아래 코드와 같이 중첩 함수가 삭제되고 난 후에야, 이를 감싸는 렉시컬 환경(그리고 그 안의 변수인 `value`)이 메모리에서 제거됩니다.
+아래 예시 같이 중첩 함수가 메모리에서 삭제되고 난 후에야, 이를 감싸는 렉시컬 환경(그리고 그 안의 변수인 `value`)도 메모리에서 제거됩니다.
 
 ```js
 function f() {
@@ -356,29 +356,29 @@ function f() {
   }
 }
 
-let g = f(); // g가 살아있는 동안엔 연관 렉시컬 환경은 살아있습니다.
+let g = f(); // g가 살아있는 동안엔 연관 렉시컬 환경도 메모리에 살아있습니다.
 
 g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭제됩니다.
 ```
 
 ### 최적화 프로세스
 
-앞에서 보았듯이, 함수가 살아있는 동안엔 이론상으론 모든 외부 변수가 메모리에 유지됩니다.
+앞에서 보았듯이, 함수가 살아있는 동안엔 이론상으론 모든 외부 변수 역시 메모리에 유지됩니다.
 
-그러나 실제로는 자바스크립트 엔진이 이를 최적화하려고 합니다. 자바스크립트 엔진은 변수 사용을 분석하고 외부 변수가 사용되지 않는다고 판단되면 이를 메모리에서 제거합니다. 
+그러나 실제로는 자바스크립트 엔진이 이를 지속해서 최적화합니다. 자바스크립트 엔진은 변수 사용을 분석하고 외부 변수가 사용되지 않는다고 판단되면 이를 메모리에서 제거합니다.
 
-**디버깅 시, 최적화 과정에서 제거된 변수를 사용할 수 없다는 점이 V8 (Chrome, Opera) 엔진의 주요 부작용입니다.**
+**디버깅 시, 최적화 과정에서 제거된 변수를 사용할 수 없다는 점은 V8 엔진(Chrome, Opera에서 쓰임)의 주요 부작용입니다.**
 
 Chrome 브라우저에서 개발자 도구를 열고 아래의 코드를 실행해봅시다.
 
-일시 중지된 곳에서 콘솔을 열고 `alert(value)`를 입력해 보죠.
+그리고 실행이 일시 중지되었을 때 콘솔에 `alert(value)`를 입력해 보세요.
 
 ```js run
 function f() {
   let value = Math.random();
 
   function g() {
-    debugger; // 이 시점에서 콘솔에 alert(value);를 입력하면 "value is not defined"가 출력됩니다.
+    debugger; // Uncaught ReferenceError: value is not defined가 출력됩니다.
   }
 
   return g;
@@ -388,18 +388,18 @@ let g = f();
 g();
 ```
 
-보다시피 정의되지 않은 변수라는 에러가 출력됩니다. 이론상으로는 이 변수에 접근할 수 있어야 하지만 최적화 과정에서 외부 변수도 함께 최적화 대상이 되어서 이런 에러가 발생했습니다.
+정의되지 않은 변수라는 에러가 출력되네요! 이론상으로는 `value`에 접근할 수 있어야 하지만 최적화 대상이 되어서 이런 에러가 발생했습니다.
 
-최적화는 흥미로운 디버깅 이슈를 발생시킬 수 있습니다(원인을 찾는 데 많은 시간을 허비하지 않을 때야 재밌겠지만 말이죠). 발생할 수 있는 상황 중 하나를 여기서 소개해 드리도록 하겠습니다. 의도한 변수 대신 같은 이름을 가진 다른 외부 변수가 출력되는 걸 확인해 보시죠.
+이런 외부 변수 최적화는 흥미로운 디버깅 이슈를 발생시키곤 합니다. 원인을 찾는 데 많은 시간을 허비하게 되면 흥미롭진 않겠지만 말이죠. 발생할 수 있는 상황 중 하나를 여기서 소개해 드리도록 하겠습니다. 예시를 실행해 의도한 변수 대신 같은 이름을 가진 다른 외부 변수가 출력되는 걸 확인해 봅시다.
 
 ```js run global
-let value = "Surprise!";
+let value = "이름이 같은 다른 변수";
 
 function f() {
-  let value = "the closest value";
+  let value = "가장 가까운 변수";
 
   function g() {
-    debugger; // 콘솔에 alert(value);를 입력하면 Surprise!가 출력됩니다.
+    debugger; // 콘솔에 alert(value);를 입력하면 '이름이 같은 다른 변수'가 출력됩니다.
   }
 
   return g;
@@ -409,6 +409,6 @@ let g = f();
 g();
 ```
 
-This feature of V8 is good to know. If you are debugging with Chrome/Opera, sooner or later you will meet it.
+이런 V8만의 부작용을 미리 알아 놓는 것이 좋습니다. Chrome이나 Opera에서 디버깅하는 경우라면 언젠간 이 이슈를 만나게 될 테니까요.
 
-That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You always can check for it by running the examples on this page.
+이 부작용은 버그라기보다는 V8만의 특별한 기능이라고 생각하시면 될 것 같습니다. 미래에 이 기능은 변경될 수 있습니다. 최적화 과정에서 외부 변수가 어떻게 처리되었는지 확인하고 싶다면 이 페이지로 돌아오셔서 예시를 실행해 보세요.
