@@ -21,15 +21,15 @@ elem.style.left = left; // 예시: '123px', 런타임으로 좌표를 계산할 
 elem.style.top = top; // 예시: '456px'
 ```
 
-텍스트를 빨간색으로 만든다거나 배경에 이미지를 추가하는 등의 작업은 CSS에 관련 스타일을 명시한 클래스를 만들고. 자바스크립트를 사용해 이 클래스를 요소에 추가해 주는 방식이 좋습니다. 이렇게 하면 더 유연성이 확보돼 유지보수가 쉬워집니다.
+텍스트를 빨간색으로 만든다거나 배경에 이미지를 추가하는 등의 작업은 CSS에 관련 스타일을 명시한 클래스를 만들고, 자바스크립트를 사용해 이 클래스를 요소에 추가해 주는 방식이 좋습니다. 이렇게 하면 유연성이 확보돼 유지보수가 쉬워집니다.
 
 ## className과 classList
 
-스크립트를 사용해 클래스를 변경하는 것은 흔히 일어나는 동작 중 하나입니다.
+클래스 변경은 스크립트를 통해 자주 하게 되는 동작 중 하나입니다.
 
-아주 오래전 자바스크립트엔 `"class"`같은 예약어는 객체의 프로퍼티가 될 수 없다는 제약사항이 하나 있었습니다. 현재는 이런 제약사항이 없지만, 과거엔 `"class"` 프로퍼티를 사용할 수 없었기 때문에 `elem.class`를 사용하는 것 역시 불가능했습니다. 
+아주 오래전 자바스크립트엔 `"class"`같은 예약어는 객체의 프로퍼티가 될 수 없다는 제약사항이 있었습니다. 지금은 이런 제약사항이 사라졌지만, 과거엔 `"class"` 프로퍼티를 사용할 수 없었기 때문에 `elem.class`를 사용하는 것 역시 불가능했습니다.
 
-따라서 클래스를 위한 프로퍼티인 `"className"`가 도입되게 되었습니다. `"class"` 속성에 대응하는 `elem.className`가 도입된 것이죠.
+이런 배경 때문에 클래스를 위한 프로퍼티 `"className"`가 도입되게 되었습니다. `elem.className`는 `"class"` 속성에 대응합니다.
 
 예시:
 
@@ -41,11 +41,11 @@ elem.style.top = top; // 예시: '456px'
 </body>
 ```
 
-`elem.className`에 무언가를 대입하면 클래스 문자열 전체가 바뀝니다. 그런데 이렇게 속성값 전체를 바꾸는 게 아니고 클래스 하나만 추가하거나 제거해야 하는 경우가 있습니다.
+`elem.className`에 무언가를 대입하면 클래스 문자열 전체가 바뀝니다. 그런데 이렇게 속성값 전체를 바꾸는 게 아니고 클래스 하나만 추가하거나 제거하고 싶은 경우도 있기 마련입니다.
 
 이럴 때 `elem.classList`라는 프로퍼티를 사용할 수 있습니다.
 
-`elem.classList`엔 클래스 하나를 조작하게 해주는 메서드인 `add/remove/toggle`가 구현되어 있습니다.
+`elem.classList`엔 클래스 하나만 조작하게 해주는 메서드인 `add/remove/toggle`가 구현되어 있습니다.
 
 예시:
 
@@ -70,7 +70,7 @@ elem.style.top = top; // 예시: '456px'
 - `elem.classList.toggle("class")` -- `class`가 존재할 경우 `class`를 제거하고, 그렇지 않은 경우엔 추가
 - `elem.classList.contains("class")` -- `class` 존재 여부에 따라 `true/false`를 반환
 
-`classList`는 이터러블이기 때문에 아래 예시와 같이 `for..of`를 사용해 나열하는 것도 가능합니다.
+이 외에 `classList`는 이터러블 객체이기 때문에 아래 예시와 같이 `for..of`를 사용해 클래스를 나열할 수 있다는 특징이 있습니다.
 
 ```html run
 <body class="main page">
@@ -84,9 +84,9 @@ elem.style.top = top; // 예시: '456px'
 
 ## 요소의 스타일
 
-`elem.style` 프로퍼티는 `"style"` 속성에 대응되는 객체입니다. `elem.style.width="100px"`는 `style` 속성값을 문자열 `width:100px`로 설정한 것과 같습니다.
+프로퍼티 `elem.style`은 속성 `"style"`에 쓰인 값에 대응되는 객체입니다. `elem.style.width="100px"`은 `style` 속성값을 문자열 `width:100px`로 설정한 것과 같죠.
 
-여러 단어를 이어서 만든 프로퍼티는 아래와 같이 카멜 표기법으로 이름 지을 수 있습니다.
+여러 단어를 이어서 만든 프로퍼티는 다음와 같이 카멜 표기법을 사용해 이름 짓습니다.
 
 ```js no-beautify
 background-color  => elem.style.backgroundColor
@@ -97,11 +97,11 @@ border-left-width => elem.style.borderLeftWidth
 예시:
 
 ```js run
-document.body.style.backgroundColor = prompt('배경은 무슨 색인가요?', 'green');
+document.body.style.backgroundColor = prompt('배경을 무슨 색으로 바꿀까요?', 'green');
 ```
 
-````smart header="브라우저 지정 프로퍼티"
-`-moz-border-radius`, `-webkit-border-radius`같이 브라우저에서 미리 지정한 프로퍼티 역시 카멜 표기법을 사용합니다. 대시(-)는 대문자로 해석하면 됩니다.
+````smart header="특정 브라우저 전용 프로퍼티"
+`-moz-border-radius`, `-webkit-border-radius`같이 브라우저 관련 접두사가 붙은 프로퍼티(browser-prefixed property) 역시 카멜 표기법을 사용합니다. 대시(-)는 대문자를 의미합니다.
 
 예시:
 
@@ -113,25 +113,25 @@ button.style.WebkitBorderRadius = '5px';
 
 ## style 프로퍼티 재지정하기
 
-style 프로퍼티에 값을 할당했다가 시간이 지나 이를 제거해야 할 때가 종종 있습니다.
+`style` 프로퍼티에 값을 할당했다가 시간이 지나 이를 제거해야 할 때가 종종 있습니다.
 
 요소를 숨기기 위해 `elem.style.display = "none"`를 적용했다고 가정해봅시다.
 
-시간이 지나 원래 없었던 것처럼 `style.display`를 지우고 싶은 경우가 생길 수 있습니다. 이럴 때 `delete elem.style.display`를 사용해 프로퍼티를 삭제하는 대신 `elem.style.display = ""`같이 빈 문자열을 할당해주어야 합니다.
+시간이 지나 처음부터 `style.display`를 설정하지 않았던 것처럼 되돌리고 싶어졌습니다. 이럴 땐 `delete elem.style.display`를 사용해 프로퍼티를 삭제하는 대신 `elem.style.display = ""`같이 빈 문자열을 할당해주어야 합니다.
 
 ```js run
 // 예시를 실행하면 페이지의 <body>가 깜빡입니다.
 document.body.style.display = "none"; // hide
 
-setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <body>의 내용이 복구됩니다.
+setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 원래 상태로 돌아옵니다.
 ```
 
-`style.display`에 빈 문자열을 할당하면 브라우저는 마치 처음부터 `style.display` 프로퍼티가 없었던 것처럼 CSS 클래스와 내장 스타일을 페이지에 적용합니다.
+이렇게 `style.display`에 빈 문자열을 할당하면 브라우저는 마치 처음부터 `style.display` 프로퍼티가 없었던 것처럼 CSS 클래스와 브라우저 내장 스타일을 페이지에 적용합니다.
 
 ````smart header="`style.cssText`로 완전히 다시 쓰기"
-보통은 개별 스타일 프로퍼티를 적용할 때 `style.*`를 사용합니다. 그런데 `div.style` 은 객체이고 읽기 전용이기 때문에 `div.style="color: red; width: 100px"`같은 방식으론 전체 스타일을 설정할 수 없습니다.  
+개별 스타일 프로퍼티를 적용할 때는 보통 `style.*`를 사용합니다. 그런데 `div.style` 은 객체이고 읽기 전용이기 때문에 `div.style="color: red; width: 100px"`같은 방식으론 전체 스타일을 설정할 수 없습니다.  
 
-문자열을 사용해 전체 스타일을 설정하려면 특별한 프로퍼티인 `style.cssText`를 사용해야 합니다.
+문자열을 사용해 전체 스타일을 설정하려면 프로퍼티 `style.cssText`를 사용해야 합니다.
 
 ```html run
 <div id="div">버튼</div>
@@ -148,14 +148,14 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <bo
 </script>
 ```
 
-`style.cssText`를 사용하면 기존 스타일에 스타일을 추가하는 게 아니라 전체를 교체해버립니다. 이런 단점 때문에 이 프로퍼티를 자주 쓰는 편은 아닙니다. 실수로 잘 사용하고 있는 스타일이 지워진다는 위험이 있기 때문입니다. 그렇지만 새로운 요소에 스타일을 적용할 때는 기존에 존재하는 스타일이 없기 때문에 `style.cssText`를 사용할 수 있습니다.
+`style.cssText`를 사용하면 기존 스타일에 스타일을 추가하는 게 아니라 전체를 교체해버리기 때문에 잘 쓰이지 않습니다. 잘 사용하고 있는 스타일이 실수로 지워진다는 위험이 있죠. 그렇지만 요소를 새로 만들고, 여기에 스타일을 적용할 때는 기존 스타일이 없기 때문에 `style.cssText`를 사용할 수 있습니다.
 
-`style.cssText`말고 `div.setAttribute('style', 'color: red...')`를 사용해 속성을 설정하면 같은 작업을 수행할 수 있습니다.
+`div.setAttribute('style', 'color: red...')`를 사용해 속성을 설정해도 `style.cssText`과 같은 효과를 볼 수 있습니다.
 ````
 
 ## 단위에 주의하기
 
-자바스크립트를 사용해 스타일의 값을 설정할 때 단위를 붙여주는 걸 잊지 마세요.
+자바스크립트를 사용해 스타일 값을 설정할 때는 단위를 붙여주는 걸 잊지 말아야 합니다.
 
 `elem.style.top`에 값을 설정할 때 `10px`이 아닌 `10`을 설정하면 제대로 동작하지 않습니다.
 
@@ -163,12 +163,12 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <bo
 <body>
   <script>
   *!*
-    // 동작하지 않음
+    // 동작하지 않습니다!
     document.body.style.margin = 20;
     alert(document.body.style.margin); // '' (값이 제대로 할당되지 않았기 때문에 빈 문자열이 출력됩니다.)
   */!*
 
-    // CSS 단위(px)를 추가하면 제대로 동작합니다.
+    // CSS 단위(px)를 추가해봅시다. 제대로 동작하네요!
     document.body.style.margin = '20px';
     alert(document.body.style.margin); // 20px
 
@@ -178,17 +178,17 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <bo
 </body>
 ```
 
-참고로 끝부분의 `style.marginLeft`와 `style.marginTop`엔 브라우저가 프로퍼티 `style.margin`를 '분석' 및 추론한 결과가 할당됩니다. 
+참고로 브라우저는 위 예시와 같이 `style.margin`를 '분석' 및 추론한 결과를 `style.marginLeft`와 `style.marginTop`에 할당해줍니다.
 
 ## getComputedStyle로 계산된 스타일 얻기
 
-지금까지 배운 내용을 응용하면 스타일을 쉽게 수정할 수 있습니다. 그럼 스타일은 어떻게 *읽을 수* 있을까요?
+지금까지 배운 내용을 응용하면 스타일을 쉽게 수정할 수 있습니다. 그럼 어떻게 하면 스타일을 *읽을 수* 있을까요?
 
-요소의 사이즈(size)와 마진(margin), 색(color)을 알고 싶다면 어떻게 해야 할까요?
+요소의 크기와 마진, 색을 알고 싶다면 어떻게 해야 할까요?
 
-**`style` 프로퍼티는 `"style"` 속성의 값에만 유효합니다. CSS 종속(CSS cascade)은 다루지 못합니다.**
+`style` 프로퍼티 값을 읽으면 되지 않을까 생각할 수 있겠지만, **`style` 프로퍼티는 `"style"` 속성의 값을 읽을 때만 사용할 수 있습니다. `style` 프로퍼티만으론 CSS 종속(CSS cascade)값을 다루지 못합니다.**
 
-이런 특징 때문에 `elem.style`만으로는 CSS 클래스를 통해 받은 값들을 읽을 수 없습니다.
+이런 특징 때문에 `elem.style`만으로는 CSS 클래스를 사용해 적용한 스타일을 읽을 수 없습니다.
 
 `style` 프로퍼티를 사용해도 마진값을 읽을 수 없다는 것을 직접 확인해봅시다.
 
@@ -198,7 +198,7 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <bo
 </head>
 <body>
 
-  The red text
+  붉은 글씨
   <script>
 *!*
     alert(document.body.style.color); // 빈 문자열
@@ -208,11 +208,11 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 <bo
 </body>
 ```
 
-그렇다면 마진을 현재 크기보다 `20px` 더 크게 하려면 어떻게 해야 할까요? 먼저 현재 값을 읽어야 하는데 말이죠.
+그렇다면 마진을 현재 크기보다 `20px` 더 크게 하려면 어떻게 해야 할까요? 원하는 작업을 하려먼 먼저 현재 크기를 알 수 있어야 합니다.
 
-이를 가능하게 해주는 메서드 `getComputedStyle`이 있습니다.
+이럴 때 `getComputedStyle` 메서드를 사용할 수 있습니다.
 
-문법은 다음과 같습니다.
+`getComputedStyle` 메서드의 문법은 다음과 같습니다.
 
 ```js
 getComputedStyle(element, [pseudo])
@@ -224,7 +224,7 @@ element
 pseudo
 : `::before`같이 의사 요소(pseudo-element)가 필요한 경우 명시해줌. 빈 문자열을 넘겨주거나 아무런 값을 입력하지 않은 경우 요소 자체를 의미함
 
-`getComputedStyle`를 호출하면 `elem.style`같이 스타일 정보가 들어 있는 객체가 반환되는데, `elem.style`과는 달리 CSS 클래스 정보도 함께 받을 수 있습니다.
+`getComputedStyle`을 호출하면 `elem.style`같이 스타일 정보가 들어 있는 객체가 반환되는데, 여기엔 `elem.style`과는 달리 전체 CSS 클래스 정보도 함께 담기게 됩니다.
 
 예시:
 
@@ -250,17 +250,17 @@ pseudo
 [CSS](https://drafts.csswg.org/cssom/#resolved-values)에는 속성과 관련된 두 가지 개념이 있습니다.
 
 1. *계산 값(computed style value)* -- CSS 규칙과 CSS 상속이 모두 적용된 후의 값을 의미합니다. 값의 형태는 `height:1em`나 `font-size:125%` 같이 생겼습니다.
-2. *결정 값(resolved style value) -- 요소에 최종적으로 적용되는 값을 의미합니다. `1em`나 `125%`은 상대 단위를 사용하는 상댓값입니다. 브라우저는 계산 값을 받아 단위를 전환해 `height:20px`나 `font-size:16px`같이 고정 단위를 사용하는 값(절댓값)으로 값을 변환합니다. 기하 관련 프로퍼티의 결정 값에는 `width:50.5px`같이 소수점 단위가 있을 수 있습니다.
+2. *결정 값(resolved style value)* -- 요소에 최종적으로 적용되는 값을 의미합니다. 계산 값에서 사용한 `1em`나 `125%`은 상대 단위를 사용하는 상댓값인데, 브라우저는 계산 값을 받아 단위를 전환해 `height:20px`나 `font-size:16px`같이 고정 단위를 사용하는 값(절댓값)으로 값을 변환합니다. 기하 관련 프로퍼티의 결정 값에는 `width:50.5px`같이 소수점 단위가 있을 수 있습니다.
 
-`getComputedStyle`은 계산 값을 얻기 위해서 아주 오래전에 만들어진 메서드입니다. 그런데 계산 값보다는 결정 값을 사용하는 게 훨씬 편리하기 때문에 표준이 개정되었습니다.
+`getComputedStyle`은 계산 값을 얻기 위해서 만들어진 아주 오래된 메서드입니다. 그런데 계산 값보다는 결정 값을 사용하는 게 훨씬 편리하기 때문에 표준이 개정되었습니다.
 
 따라서 지금은 `getComputedStyle`을 호출하면 프로퍼티의 결정 값이 반환됩니다. 기하 프로퍼티의 경우 주로 `px`가 단위로 사용됩니다.
 ```
 
 ````warn header="`getComputedStyle`엔 프로퍼티 전체 이름이 필요합니다."
-`getComputedStyle`을 사용할 때는 `paddingLeft`, `marginTop`, `borderTopWidth`같이 프로퍼티 전체 이름을 알고 있어야 합니다. 그렇지 않으면 원하는 값을 얻을 수 없는 경우도 생깁니다.
+`getComputedStyle`을 사용할 때는 `paddingLeft`, `marginTop`, `borderTopWidth`같이 프로퍼티 이름 전체를 정확히 알고 있어야 합니다. 그렇지 않으면 원하는 값을 얻을 수 없는 경우가 생깁니다.
 
-프로퍼티 `paddingLeft`나 `paddingTop`엔 값이 지정되어있는데 `getComputedStyle(elem).padding`을 사용하면 어떤 값을 얻을 수 있을까요? 아무것도 얻지 못할까요 아니면 값이 설정되어 있는 `paddingLeft`나 `paddingTop`에서 값을 가져올까요? 이런 상황에 적용할만한 표준은 아직 없습니다.
+`paddingLeft`나 `paddingTop`엔 값이 지정되어있는데 `getComputedStyle(elem).padding`을 사용해 값을 얻으려 하는 경우를 생각해 봅시다. 어떤 값을 얻을 수 있을까요? 아무것도 얻지 못할까요 아니면 값이 설정되어 있는 `paddingLeft`나 `paddingTop`에서 값을 가져올까요? 이런 상황에 적용할만한 표준은 아직 제정되어있지 않습니다.
 
 따라서 브라우저마다 동작 방식이 다릅니다. Chrome 같은 몇몇 브라우저는 아래 예시와 같이 `10px`을 출력해주는데 Firefox에서 빈 문자열이 출력됩니다. 
 
@@ -277,27 +277,27 @@ pseudo
 ```
 ````
 
-```smart header="Styles applied to `:visited` links are hidden!"
-Visited links may be colored using `:visited` CSS pseudoclass.
+```smart header="`:visited` 링크 관련 스타일은 숨겨져 있습니다."
+방문한 적이 있는 링크엔 `:visited`라는 CSS 의사 클래스를 사용해 색을 입힐 수 있습니다.  
 
-But `getComputedStyle` does not give access to that color, because otherwise an arbitrary page could find out whether the user visited a link by creating it on the page and checking the styles.
+그런데 `getComputedStyle`을 사용해서 이 색을 얻을 수 없습니다. 색을 얻을 수 있도록 하면 임의의 페이지에서 사용자가 해당 링크를 방문했는지 아닌지를 `getComputedStyle`을 사용해 알아낼 수 있기 때문입니다.
 
-JavaScript may not see the styles applied by `:visited`. And also, there's a limitation in CSS that forbids applying geometry-changing styles in `:visited`. That's to guarantee that there's no side way for an evil page to test if a link was visited and hence to break the privacy.
+자바스크립트로는 `:visited`에 적용된 스타일을 얻지 못합니다. 여기에 더하여 CSS에는 `:visited`에 기하학적 변화를 가져오는 스타일을 적용하는 것을 금지하는 제약도 있습니다. 이런 제약들은 악의를 가진 페이지가 사용자가 링크를 방문했는지 여부를 테스트 하고, 방문 여부에 따라 사생활을 침해할 만한 어떠한 것도 하지 못하도록 하려고 만들어졌습니다.
 ```
 
 ## 요약
 
-클래스를 조작하게 해주는 DOM 프로퍼티:
+클래스를 관리할 수 있게 해주는 DOM 프로퍼티:
 
-- `className` -- 클래스 전체를 문자열 형태로 반환해주는 프로퍼티로 클래스 전체를 조작할 때 유용합니다.
-- `classList` -- 클래스 하나를 조작하게 해주는 메서드입니다. `add/remove/toggle/contains`가 구현된 객체를 반환합니다. 개별 클래스를 조작할 때 유용합니다.
+- `className` -- 클래스 전체를 문자열 형태로 반환해주는 프로퍼티로 클래스 전체를 관리할 때 유용합니다.
+- `classList` -- 클래스 하나를 관리할 수 있게 해주는 메서드입니다. `add/remove/toggle/contains`가 구현된 객체를 반환합니다. 개별 클래스를 조작할 때 유용합니다.
 
 스타일 변경 방법:
 
-- `style` 프로퍼티는 카멜 표기법을 이용해 변경한 스타일이 있는 객체로, 이 객체를 조작하는 것은 `"style"` 속성과 대응하는 개별 프로퍼티를 조작하는 것과 같습니다. `important` 등의 규칙을 어떻게 적용할 수 있는지 알아보려면 [MDN](mdn:api/CSSStyleDeclaration)에서 관련 메서드를 살펴보시기 바랍니다. 
+- `style` 프로퍼티 -- 카멜 표기법을 이용해 변경한 스타일이 있는 객체로, 이 객체를 조작하는 것은 `"style"` 속성과 대응하는 개별 프로퍼티를 조작하는 것과 같습니다. `important` 등의 규칙을 어떻게 적용할 수 있는지 알아보려면 [MDN](mdn:api/CSSStyleDeclaration)에서 관련 메서드를 살펴보시기 바랍니다. 
 
 - `style.cssText` 프로퍼티는 `"style"` 속성 전체에 대응하므로 스타일 전체에 대한 문자열이 저장됩니다.
 
-요소에 최종적으로 적용되는 스타일인 스타일 결정 값을 읽는 방법:
+요소의 스타일 결정 값을 읽는 방법:
 
-- 스타일 정보가 들어 있는 객체를 반환하는 메서드인 `getComputedStyle(elem, [pseudo])`를 사용합니다. 읽기 전용입니다.
+- 스타일 정보가 들어 있는 객체를 반환해주는 메서드 `getComputedStyle(elem, [pseudo])`를 사용합니다. 이 메서드는 읽기 전용입니다.
