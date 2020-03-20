@@ -1,50 +1,50 @@
-# Fetch: Cross-Origin Requests
+# fetch와 Cross-Origin 요청
 
-If we send a `fetch` request to another web-site, it will probably fail.
+`fetch`로 요청을 보내게 될 사이트가 현재 접속 사이트와 다르다면 요청이 실패할 수 있습니다.
 
-For instance, let's try fetching `http://example.com`:
+직접 `http://example.com`라는 사이트에 요청을 보내봅시다.
 
 ```js run async
 try {
   await fetch('http://example.com');
 } catch(err) {
-  alert(err); // Failed to fetch
+  alert(err); // TypeError: Failed to fetch
 }
 ```
 
-Fetch fails, as expected.
+요청이 실패한 것을 확인할 수 있네요.
 
-The core concept here is *origin* -- a domain/port/protocol triplet.
+왜 요청이 실패하는지 알기 위해선 도메인·프로토콜·포트 세 가지에 의해 결정되는 *오리진(origin)* 이라는 핵심 개념을 알아야 합니다.
 
-Cross-origin requests -- those sent to another domain (even a subdomain) or protocol or port -- require special headers from the remote side.
+도메인이나 서브도메인, 프로토콜, 포트가 다른 곳에 요청을 보내는 것을 Cross-Origin Request(크로스 오리진 요청)라고 합니다. 크로스 오리진 요청을 보내려면 리모트 오리진에서 전송받은 특별한 헤더가 필요합니다.
 
-That policy is called "CORS": Cross-Origin Resource Sharing.
+이러한 정책을 'CORS(Cross-Origin Resource Sharing, 크로스 오리진 리소스 공유)'라고 부릅니다.
 
-## Why is CORS needed? A brief history
+## 왜 CORS가 필요한가에 대한 짧은 역사
 
-CORS exists to protect the internet from evil hackers.
+CORS는 악의를 가진 해커로부터 인터넷을 보호하기 위해 만들어졌습니다.
 
-Seriously. Let's make a very brief historical digression.
+지금부턴 어떤 사건 때문에 CORS가 만들어졌는지를 짧은 역사를 통해 살펴보겠습니다.
 
-**For many years a script from one site could not access the content of another site.**
+**과거 수 년 동안, 한 사이트의 스크립트에서 다른 사이트에 있는 콘텐츠에 접근할 수 없다는 제약이 있었습니다.**
 
-That simple, yet powerful rule was a foundation of the internet security. E.g. an evil script from website `hacker.com` could not access user's mailbox at website `gmail.com`. People felt safe.
+이런 간단하지만 강력한 규칙은 인터넷 보안을 위한 근간이었습니다. 보안 규칙 덕분에 해커가 만든 웹 사이트 `hacker.com`에서 `gmail.com`에 있는 메일 박스에 접근할 수 없던 것이죠. 사람들은 이런 제약 덕분에 안전하게 인터넷을 사용할 수 있었습니다.
 
-JavaScript also did not have any special methods to perform network requests at that time. It was a toy language to decorate a web page.
+그런데 이 당시의 자바스크립트는 네트워크 요청을 보낼 수 있을 만한 메서드를 지원하지 않았습니다. 자바스크립트는 웹 페이지를 꾸미기 위한 토이 랭귀지 수준이었죠.
 
-But web developers demanded more power. A variety of tricks were invented to work around the limitation and make requests to other websites.
+하지만 많은 웹 개발자들이 강력한 기능을 원하기 시작하면서 위와 같은 제약을 피해 다른 웹 사이트에 요청을 보내기 위한 트릭들을 만들기 시작했습니다.
 
-### Using forms
+### 폼 사용하기
 
-One way to communicate with another server was to submit a `<form>` there. People submitted it into `<iframe>`, just to stay on the current page, like this:
+트릭 중 하나로 `<form>`이 사용되곤 했습니다. 개발자들은 `<form>`안에 `<iframe>`을 넣어 `<form>`을 전송했습니다. 이렇게 해 현재 사이트에 남아있으면서 네트워크 요청을 보냈었죠. 예시를 살펴봅시다.
 
 ```html
-<!-- form target -->
+<!-- 폼 target -->
 *!*
 <iframe name="iframe"></iframe>
 */!*
 
-<!-- a form could be dynamically generated and submited by JavaScript -->
+<!-- 자바스크립트를 사용해 폼을 동적으로 생성하고 보냄-->
 *!*
 <form target="iframe" method="POST" action="http://another.com/…">
 */!*
@@ -52,88 +52,88 @@ One way to communicate with another server was to submit a `<form>` there. Peopl
 </form>
 ```
 
-So, it was possible to make a GET/POST request to another site, even without networking methods, as forms can send data anywhere. But as it's forbidden to access the content of an `<iframe>` from another site, it wasn't possible to read the response.
+이 당시엔 네트워크 관련 메서드가 없었지만, 폼은 어디든 데이터를 보낼 수 있다는 특징을 이용해 폼을 사용해 다른 사이트에 GET, POST 요청을 보냈었습니다. 하지만 다른 사이트에서 `<iframe>`에 있는 콘텐츠를 읽는 것은 금지되었기 때문에 응답을 읽는 것은 불가능했습니다.
 
-To be precise, there were actually tricks for that, they required special scripts at both the iframe and the page. So the communication with the iframe was technically possible. Right now there's no point to go into details, let these dinosaurs rest in peace.
+개발자들은 iframe과 페이지에 특별한 스크립트를 심어 이런 제약 역시 피할 수 있는 트릭을 만들었습니다. 이렇게 iframe을 사용한 트릭은 오리진이 다른 사이트끼리도 양방향 통신이 가능하도록 해주었죠. 어떤 스크립트를 사용하면 가능한지에 대해선 다뤄도 의미가 없기 때문에 상세한 내용은 넘어가도록 하겠습니다.
 
-### Using scripts
+### 스크립트 사용하기
 
-Another trick was to use a `script` tag. A script could have any `src`, with any domain, like `<script src="http://another.com/…">`. It's possible to execute a script from any website.
+`script` 태그를 사용하는 것 역시 제약을 피하기 위한 트릭으로 사용되었습니다. `script` 태그의 `src` 속성값엔 도메인 제약이 없기 때문입니다. 이 특징을 이용하면 어디서든 스크립트를 실행할 수 있습니다.
 
-If a website, e.g. `another.com` intended to expose data for this kind of access, then a so-called "JSONP (JSON with padding)" protocol was used.
+`script` 태그를 사용해 `<script src="http://another.com/…">` 형태로 `another.com`에 데이터를 요청하게 되면 'JSONP(JSON with padding)'라 불리는 프로토콜을 사용해 데이터를 가져오게 됩니다.
 
-Here's how it worked.
+어떤 방식으로 데이터를 가져올 수 있는지 단계별로 살펴봅시다.
 
-Let's say we, at our site, need to get the data from `http://another.com`, such as the weather:
+날씨 정보가 저장되어 있는 `http://another.com`에 있는 데이터를 가져와야 한다고 가정하겠습니다.
 
-1. First, in advance, we declare a global function to accept the data, e.g. `gotWeather`.
+1.  먼저 데이터를 서버에서 받아온 데이터를 소비하는 전역 함수 `gotWeather`를 선언합니다.
 
     ```js
-    // 1. Declare the function to process the weather data
+    // 1. 날씨 데이터를 처리하는데 사용되는 함수를 선언
     function gotWeather({ temperature, humidity }) {
       alert(`temperature: ${temperature}, humidity: ${humidity}`);
     }
     ```
-2. Then we make a `<script>` tag with `src="http://another.com/weather.json?callback=gotWeather"`, using the name of our function as the `callback` URL-parameter.
+2. 다음으로 `src="http://another.com/weather.json?callback=gotWeather"`를 속성으로 갖는 `<script>` 태그를 만들겠습니다. 1에서 만든 함수를 URL 매개변수 `callback`의 값으로 사용하였습니다.
 
     ```js
     let script = document.createElement('script');
     script.src = `http://another.com/weather.json?callback=gotWeather`;
     document.body.append(script);
     ```
-3. The remote server `another.com` dynamically generates a script that calls `gotWeather(...)` with the data it wants us to receive.
+3. 리모트 서버 `another.com`에선 날씨 정보와 함께 `gotWeather(...)`를 호출하는 스크립트를 동적으로 생성합니다.
     ```js
-    // The expected answer from the server looks like this:
+    // 서버로부터 다음과 같은 형태의 응답을 전송받길 기대합니다.
     gotWeather({
       temperature: 25,
       humidity: 78
     });
     ```
-4. When the remote script loads and executes, `gotWeather` runs, and, as it's our function, we have the data.
+4. 리모트 서버에서 받아온 스크립트가 로드 및 실행되면 `gotWeather` 역시 실행됩니다. `gotWeather`는 현재 페이지에서 만든 함수이기 때문에 리모트 서버에서 받아온 데이터를 사용할 수 있습니다.
 
-That works, and doesn't violate security, because both sides agreed to pass the data this way. And, when both sides agree, it's definitely not a hack. There are still services that provide such access, as it works even for very old browsers.
+이런 꼼수를 쓰면 보안 규칙을 깨지 않으면서도 양방향으로 데이터를 전달할 수 있습니다. 양쪽에서 동의한 상황이라면 해킹도 아니죠. 아직도 이런 방식을 사용해 통신을 하는 서비스가 있습니다. 이 방식은 오래된 브라우저도 지원합니다.
 
-After a while, networking methods appeared in browser JavaScript.
+그러던 와중에 브라우저에서 돌아가는 자바스크립트에 네트워크 관련 메서드가 추가됩니다.
 
-At first, cross-origin requests were forbidden. But as a result of long discussions, cross-origin requests were allowed, but with any new capabilities requiring an explicit allowance by the server, expressed in special headers.
+그런데 처음엔 크로스 오리진 요청이 불가능했습니다. 하지만 긴 논의 끝에 크로스 오리진 요청을 허용하기로 결정합니다. 대신 크로스 오리진 요청은 서버에서 명시적으로 크로스 오리진 요청을 '허가' 하는지 안 하는지를 알려주는 특별한 헤더를 전송받았을 때만 가능하도록 제약을 걸게 됩니다.
 
-## Simple requests
+## simple 요청
 
-There are two types of cross-origin requests:
+크로스 오리진 요청은 두 가지 종류가 있습니다.
 
-1. Simple requests.
-2. All the others.
+1. simple 요청
+2. non-simple 요청(simple 요청이 아닌 요청)
 
-Simple Requests are, well, simpler to make, so let's start with them.
+simple 요청은 그 이름처럼 상대적으로 만들기 쉬운 요청입니다. simple 요청부터 살펴보도록 합시다.
 
-A [simple request](http://www.w3.org/TR/cors/#terminology) is a request that satisfies two conditions:
+[simple request(simple 요청)](http://www.w3.org/TR/cors/#terminology)은 다음과 같은 두 가지 조건 모두를 충족하는 요청입니다.
 
-1. [Simple method](http://www.w3.org/TR/cors/#simple-method): GET, POST or HEAD
-2. [Simple headers](http://www.w3.org/TR/cors/#simple-header) -- the only allowed custom headers are:
-    - `Accept`,
-    - `Accept-Language`,
-    - `Content-Language`,
-    - `Content-Type` with the value `application/x-www-form-urlencoded`, `multipart/form-data` or `text/plain`.
+1. [simple method(simple 메서드)](http://www.w3.org/TR/cors/#simple-method) -- GET이나 POST, HEAD 메서드를 사용한 요청
+2. [simple header(simple 헤더)](http://www.w3.org/TR/cors/#simple-header) -- 다음 목록에 속하는 헤더
+    - `Accept`
+    - `Accept-Language`
+    - `Content-Language`
+    - 값이 `application/x-www-form-urlencoded`이나 `multipart/form-data`, `text/plain`인 `Content-Type`
 
-Any other request is considered "non-simple". For instance, a request with `PUT` method or with an `API-Key` HTTP-header does not fit the limitations.
+두 조건을 충족하지 않는 요청은 모두 'non-simple 요청'으로 취급됩니다. `PUT` 메서드를 사용하거나 헤더에 `API-Key`가 명시된 요청의 경우, non-simple 요청으로 취급되죠.
 
-**The essential difference is that a "simple request" can be made with a `<form>` or a `<script>`, without any special methods.**
+**'simple 요청'은 특별한 방법을 사용하지 않아도 `<form>`이나 `<script>`를 사용해 만들 수 있다는 점에서 non-simple 요청과 근본적인 차이가 있습니다.**
 
-So, even a very old server should be ready to accept a simple request.
+아주 오래된 웹 서버라도 simple 요청을 처리할 수 있죠.
 
-Contrary to that, requests with non-standard headers or e.g. method `DELETE` can't be created this way. For a long time JavaScript was unable to do such requests. So an old server may assume that such requests come from a privileged source, "because a webpage is unable to send them".
+반면 `DELETE` 메서드를 사용한 요청 같은 non-simple 요청은 simple 요청처럼 만들 수 없습니다. 아주 오래전에는 자바스크립트를 사용해 이런 요청을 보내는 것이 불가능 했습니다. 따라서 만들어진지 오래 된 서버는 이런 요청을 받게 되면 "웹 페이지라면 이런 요청을 보낼 수 없어!"라고 생각하기 때문이죠.
 
-When we try to make a non-simple request, the browser sends a special "preflight" request that asks the server -- does it agree to accept such cross-origin requests, or not?
+non-simple 요청을 할 때 브라우저는 사전에 preflight 요청을 서버에 전송해 서버가 '크로스 오리진 요청을 받을 준비가 되어있는지'를 확인합니다.
 
-And, unless the server explicitly confirms that with headers, a non-simple request is not sent.
+서버에서 이런 요청을 허용하지 않는다는 정보가 담긴 헤더를 담아 브라우저에 응답을 보내면 non-simple 요청은 서버로 전송되지 않습니다. 
 
-Now we'll go into details.
+이제 개괄적인 설명이 끝났으니 CORS에 대해 좀 더 자세히 알아봅시다.
 
-## CORS for simple requests
+## CORS와 simple 요청
 
-If a request is cross-origin, the browser always adds `Origin` header to it.
+크로스 오리진 요청을 보낼 경우 브라우저는 항상 `Origin`이라는 헤더를 요청에 추가합니다.
 
-For instance, if we request `https://anywhere.com/request` from `https://javascript.info/page`, the headers will be like:
+`https://javascript.info/page`에서 `https://anywhere.com/request`에 요청을 보낸다고 가정해 봅시다. 헤더는 다음과 같은 형태가 됩니다.
 
 ```http
 GET /request
@@ -144,17 +144,17 @@ Origin: https://javascript.info
 ...
 ```
 
-As you can see, `Origin` header contains exactly the origin (domain/protocol/port), without a path.
+보시다시피 `Origin` 헤더엔 요청이 이뤄지는 페이지 경로가 아닌 오리진(도메인·프로토콜·포트) 정보가 담기게 됩니다.
 
-The server can inspect the `Origin` and, if it agrees to accept such a request, adds a special header `Access-Control-Allow-Origin` to the response. That header should contain the allowed origin (in our case `https://javascript.info`), or a star `*`. Then the response is successful, otherwise an error.
+서버는 요청 헤더에 있는 `Origin`를 검사하고, 요청을 받아들이기로 동의한 상태라면 특별한 헤더 `Access-Control-Allow-Origin`를 응답에 추가합니다. `Access-Control-Allow-Origin` 헤더엔 허가된 오리진(위 예시에선 `https://javascript.info`)에 대한 정보나 `*`이 명시됩니다. 오리진 정보나 `*`이 있는 `Access-Control-Allow-Origin` 헤더를 받으면 `fetch`는 성공하고, 그렇지 않으면 실패하게 됩니다.
 
-The browser plays the role of a trusted mediator here:
-1. It ensures that the correct `Origin` is sent with a cross-origin request.
-2. It checks for permitting `Access-Control-Allow-Origin` in the response, if it exists, then JavaScript is allowed to access the response, otherwise it fails with an error.
+이 과정에서 브라우저는 중재인의 역할을 합니다.
+1. 브라우저는 크로스 오리진 요청 시 헤더 `Origin`이 제대로 설정 및 전송되었는지 확인합니다.
+2. 브라우저는 서버로부터 받은 응답에 `Access-Control-Allow-Origin`이 있는지를 확인해 서버가 해당 요청을 허용했는지 아닌지를 확인합니다. 헤더에 `Access-Control-Allow-Origin`이 있다면 자바스크립트를 사용해 응답에 접근할 수 있고 아닌 경우엔 에러가 발생합니다.
 
 ![](xhr-another-domain.svg)
 
-Here's an example of a permissive server response:
+크로스 오리진 요청을 서버가 허용한 경우엔 preflight 요청에 대한 응답은 다음과 같은 형태를 띕니다.
 ```http
 200 OK
 Content-Type:text/html; charset=UTF-8
@@ -163,9 +163,9 @@ Access-Control-Allow-Origin: https://javascript.info
 */!*
 ```
 
-## Response headers
+## 응답 헤더
 
-For cross-origin request, by default JavaScript may only access so-called "simple" response headers:
+크로스 오리진 요청이 이뤄진 경우, 자바스크립트는 기본적으로 'simple' 응답 헤더라 불리는 헤더에만 접속할 수 있습니다. 'simple' 응답 헤더 목록은 다음과 같습니다.
 
 - `Cache-Control`
 - `Content-Language`
@@ -174,17 +174,17 @@ For cross-origin request, by default JavaScript may only access so-called "simpl
 - `Last-Modified`
 - `Pragma`
 
-Accessing any other response header causes an error.
+이 외의 다른 응답 헤더에 접근하려 하면 에러가 발생합니다.
 
 ```smart
-There's no `Content-Length` header in the list!
+위 리스트에 `Content-Length` 헤더는 없네요!
 
-This header contains the full response length. So, if we're downloading something and would like to track the percentage of progress, then an additional permission is required to access that header (see below).
+`Content-Length`는 응답 본문 크기 정보를 담고 있는 헤더입니다. 무언가를 다운로드하는데, 다운로드가 몇 퍼센트나 진행되었는지 확인하려면 이 헤더에 접근할 수 있어야 합니다. 그런데 이 헤더에 접근하려면 특별한 권한이 필요합니다. 자세한 내용은 아래에서 다루겠습니다.
 ```
 
-To grant JavaScript access to any other response header, the server must send  `Access-Control-Expose-Headers` header. It contains a comma-separated list of non-simple header names that should be made accessible.
+자바스크립트를 사용해 'simple' 응답 헤더 이외의 응답 헤더에 접근하려면 서버에서 `Access-Control-Expose-Headers`라는 헤더를 보내줘야만 합니다. `Access-Control-Expose-Headers`엔 자바스크립트 접근을 허용하는 non-simple 헤더 목록이 담겨있습니다. 각 항목은 콤마로 구분됩니다.
 
-For example:
+예시:
 
 ```http
 200 OK
@@ -197,30 +197,30 @@ Access-Control-Expose-Headers: Content-Length,API-Key
 */!*
 ```
 
-With such `Access-Control-Expose-Headers` header, the script is allowed to read `Content-Length` and `API-Key` headers of the response.
+이렇게 `Access-Control-Expose-Headers` 헤더가 응답 헤더에 있어야만 스크립트를 사용해 응답 헤더의 `Content-Length`와 `API-Key`를 읽을 수 있습니다.
 
-## "Non-simple" requests
+## 'non-simple' 요청
 
-We can use any HTTP-method: not just `GET/POST`, but also `PATCH`, `DELETE` and others.
+요즘엔 `GET`, `POST` 뿐만 아니라 `PATCH`, `DELETE` 등의 HTTP 메서드를 사용해 요청을 보낼 수 있습니다.
 
-Some time ago no one could even imagine that a webpage could make such requests. So there may still exist webservices that treat a non-standard method as a signal: "That's not a browser". They can take it into account when checking access rights.
+그런데 과거엔 웹페이지에서 `GET`, `POST` 이외의 HTTP 메서드를 사용해 요청을 보낼 수 있게 될 것이라는 상상조차 할 수 없었습니다. 아직까지도 이런 메서드를 다룰 수 없는 웹서버들이 있죠. 이런 서버들은 `GET`, `POST` 이외의 메서드를 사용한 요청이 들어오면 "이건 브라우저가 보낸 요청이 아니야"라고 판단하고 접근 권한을 확인합니다.
 
-So, to avoid misunderstandings, any "non-simple" request -- that couldn't be done in the old times, the browser does not make such requests right away. Before it sends a preliminary, so-called "preflight" request, asking for permission.
+이런 혼란스러운 상황을 피하고자 'non-simple' 요청이 이뤄지는 경우, 브라우저는 서버에 바로 요청을 보내지 않고, 'preflight' 요청이라 불리는 사전 요청을 서버에 먼저 보내 권한이 있는지를 확인합니다.
 
-A preflight request uses method `OPTIONS`, no body and two headers:
+preflight 요청은 `OPTIONS` 메서드를 사용합니다. 헤더엔 아래 두 항목이 들어가고, 본문은 비어있습니다.
 
-- `Access-Control-Request-Method` header has the method of the non-simple request.
-- `Access-Control-Request-Headers` header provides a comma-separated list of its non-simple HTTP-headers.
+- `Access-Control-Request-Method` 헤더 -- non-simple 요청에서 사용하는 메서드 정보가 담겨있습니다.
+- `Access-Control-Request-Headers` 헤더 -- non-simple 요청에서 사용하는 헤더 정보가 담겨있습니다. 각 항목은 쉼표로 구분됩니다.
 
-If the server agrees to serve the requests, then it should respond with empty body, status 200 and headers:
+non-simple 요청을 받아들이기로 동의한 경우, 서버는 본문이 비어있고 상태 코드가 200인 응답을 다음과 같은 헤더와 함께 브라우저로 보냅니다.
 
-- `Access-Control-Allow-Methods` must have the allowed method.
-- `Access-Control-Allow-Headers` must have a list of allowed headers.
-- Additionally, the header `Access-Control-Max-Age` may specify a number of seconds to cache the permissions. So the browser won't have to send a preflight for subsequent requests that satisfy given permissions.
+- `Access-Control-Allow-Methods` -- 허용된 메서드 정보가 담겨있습니다.
+- `Access-Control-Allow-Headers` -- 허용된 헤더 목록이 담겨있습니다.
+- `Access-Control-Max-Age` -- 퍼미션 체크 여부를 몇 초간 캐싱해 놓을지를 명시합니다. 이렇게 퍼미션 정보를 캐싱해 놓으면 브라우저는 일정 기간 동안 preflight 요청을 생략하고 non-simple 요청을 보낼 수 있습니다.
 
 ![](xhr-preflight.svg)
 
-Let's see how it works step-by-step on example, for a cross-origin `PATCH` request (this method is often used to update data):
+필요한 개념은 충분히 다뤘으니 이제 실제 어떻게 non-simple 크로스 오리진 요청이 이뤄지는지 예시를 통해 살펴봅시다. 예시에선 `PATCH` 메서드를 사용해 요청을 보내보겠습니다. 참고로 `PATCH` 메서드는 데이터를 갱신할 때 자주 쓰입니다.
 
 ```js
 let response = await fetch('https://site.com/service.json', {
@@ -232,14 +232,14 @@ let response = await fetch('https://site.com/service.json', {
 });
 ```
 
-There are three reasons why the request is not simple (one is enough):
-- Method `PATCH`
-- `Content-Type` is not one of: `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain`.
-- "Non-simple" `API-Key` header.
+참고로 위 요청이 non-simple 요청인 데는 세 가지 이유가 있습니다.
+- `PATCH` 메서드를 사용하고 있습니다.
+- `Content-Type`이 `application/x-www-form-urlencoded`나 `multipart/form-data`, `text/plain`가 아닙니다.
+- 'Non-simple' 헤더인 `API-Key` 헤더를 사용합니다.
 
-### Step 1 (preflight request)
+### 단계 1 (preflight 요청)
 
-Prior to sending such request, the browser, on its own, sends a preflight request that looks like this:
+본 요청을 보내기 전에 브라우저는 자체적으로 다음과 같은 preflight 요청을 보냅니다.
 
 ```http
 OPTIONS /service.json
@@ -249,22 +249,22 @@ Access-Control-Request-Method: PATCH
 Access-Control-Request-Headers: Content-Type,API-Key
 ```
 
-- Method: `OPTIONS`.
-- The path -- exactly the same as the main request: `/service.json`.
-- Cross-origin special headers:
-    - `Origin` -- the source origin.
-    - `Access-Control-Request-Method` -- requested method.
-    - `Access-Control-Request-Headers` -- a comma-separated list of "non-simple" headers.
+- 메서드 -- `OPTIONS`
+- 경로 -- 본 요청과 동일한 경로(`/service.json`)
+- 크로스 오리진 헤더:
+    - `Origin` -- 본 요청의 오리진
+    - `Access-Control-Request-Method` -- 본 요청에서 사용하는 메서드
+    - `Access-Control-Request-Headers` -- 본 요청의 'non-simple' 헤더 목록(콤마로 구분)
 
-### Step 2 (preflight response)
+### 단계 2 (preflight 응답)
 
-The server should respond with status 200 and headers:
+서버는 상태 코드 200과 함께 다음과 같은 헤더를 담은 응답을 보냅니다.
 - `Access-Control-Allow-Methods: PATCH`
-- `Access-Control-Allow-Headers: Content-Type,API-Key`.
+- `Access-Control-Allow-Headers: Content-Type,API-Key`
 
-That allows future communication, otherwise an error is triggered.
+이렇게 응답이 와야 브라우저와 서버 간 통신이 가능해집니다. 그렇지 않으면 에러가 발생합니다.
 
-If the server expects other methods and headers in the future, it makes sense to allow them in advance by adding to the list:
+서버에서 `PATCH` 이외의 메서드와 다양한 헤더를 허용하게 하려면 `Access-Control-Allow-Methods`와 `Access-Control-Allow-Headers`에 다음과 같은 목록을 추가해 놓으면 됩니다.
 
 ```http
 200 OK
@@ -273,15 +273,15 @@ Access-Control-Allow-Headers: API-Key,Content-Type,If-Modified-Since,Cache-Contr
 Access-Control-Max-Age: 86400
 ```
 
-Now the browser can see that `PATCH` is in `Access-Control-Allow-Methods` and `Content-Type,API-Key` are in the list `Access-Control-Allow-Headers`, so it sends out the main request.
+이렇게 서버에서 응답이 오면 브라우저는 `Access-Control-Allow-Methods`에 `PATCH`가 있는 것을 확인하고, 이어서 `Access-Control-Allow-Headers`에 `Content-Type`과 `API-Key`가 있는 것을 확인합니다. 둘 다 있는 것을 확인했기 때문에 이제 브라우저는 본 요청을 서버에 보냅니다.
 
-Besides, the preflight response is cached for time, specified by `Access-Control-Max-Age` header (86400 seconds, one day), so subsequent requests will not cause a preflight. Assuming that they fit the cached allowances, they will be sent directly.
+서버에서 위와 같은 응답이 온 경우, 하루 동안은 브라우저가 preflight 요청을 보내지 않습니다. `Access-Control-Max-Age` 헤더에 퍼미션 체크 여부가 86400초(하루)간 캐싱 되기 때문입니다.
 
-### Step 3 (actual request)
+### 단계 3 (실제 요청)
 
-When the preflight is successful, the browser now makes the main request. The algorithm here is the same as for simple requests.
+preflight 요청이 성공적으로 이뤄진 후에야 브라우저는 본 요청을 보내게 됩니다. 지금부터의 프로세스는 simple 요청과 동일합니다.
 
-The main request has `Origin` header (because it's cross-origin):
+지금 보내려는 요청은 크로스 오리진 요청이기 때문에 요청에 `Origin` 헤더가 붙습니다.
 
 ```http
 PATCH /service.json
@@ -291,37 +291,37 @@ API-Key: secret
 Origin: https://javascript.info
 ```
 
-### Step 4 (actual response)
+### 단계 4 (실제 응답)
 
-The server should not forget to add `Access-Control-Allow-Origin` to the main response. A successful preflight does not relieve from that:
+서버에선 본 응답에 `Access-Control-Allow-Origin` 헤더를 붙이는 걸 잊지 말아야 합니다. preflight 요청에 잘 응답했더라도 본 요청에 대한 응답엔 `Access-Control-Allow-Origin` 헤더를 반드시 붙여줘야 합니다.
 
 ```http
 Access-Control-Allow-Origin: https://javascript.info
 ```
 
-Then JavaScript is able to read the main server response.
+이 모든 과정이 끝나야 자바스크립트를 사용해 서버에서 온 응답을 읽을 수 있습니다.
 
 ```smart
-Preflight request occurs "behind the scenes", it's invisible to JavaScript.
+preflight 요청은 '무대 밖에서' 일어나기 때문에 자바스크립트를 사용해 관찰할 수는 없습니다.
 
-JavaScript only gets the response to the main request or an error if there's no server permission.
+자바스크립트로는 본 요청의 응답을 받는 일만 할 수 있죠. 서버에서 크로스 오리진 요청을 허용하지 않는 경우엔 에러가 발생합니다.
 ```
 
-## Credentials
+## 자격 증명
 
-A cross-origin request by default does not bring any credentials (cookies or HTTP authentication).
+크로스 오리진 요청의 경우 기본적으로 쿠키나 HTTP 인증 같은 자격 증명(credential)이 함께 전송되지 않습니다.
 
-That's uncommon for HTTP-requests. Usually, a request to `http://site.com` is accompanied by all cookies from that domain. But cross-origin requests made by JavaScript methods are an exception.
+HTTP 요청의 경우 대게 쿠키가 함께 전송되는데, 자바스크립트 메서드를 사용해 만든 크로스 오리진 요청은 예외이죠.
 
-For example, `fetch('http://another.com')` does not send any cookies, even those  (!) that belong to `another.com` domain.
+따라서 `fetch('http://another.com')`를 사용해 요청을 보내도 `another.com` 관련 쿠키가 함께 전송되지 않습니다.
 
-Why?
+왜 그럴까요?
 
-That's because a request with credentials is much more powerful than without them. If allowed, it grants JavaScript the full power to act on behalf of the user and access sensitive information using their credentials.
+이런 예외가 생긴 이유는 자격 증명과 함께 전송되는 요청의 경우 영향력이 강하기 때문입니다. 크로스 오리진 요청 시 자격 증명이 함께 전송되도록 하면 자바스크립트는 사용자를 대신해 민감한 정보에 접근할 수 있게 됩니다.
 
-Does the server really trust the script that much? Then it must explicitly allow requests with credentials with an additional header.
+그럼에도 불구하고 서버에서 이를 허용하고 싶다면, 자격 증명이 담긴 헤더를 명시적으로 허용하겠다는 세팅을 서버에 해줘야 합니다.
 
-To send credentials in `fetch`, we need to add the option `credentials: "include"`, like this:
+`fetch` 메서드에 자격 증명 정보를 함께 전송하려면 다음과 같이 `credentials: "include"` 옵션을 추가해줘야 합니다.
 
 ```js
 fetch('http://another.com', {
@@ -329,11 +329,11 @@ fetch('http://another.com', {
 });
 ```
 
-Now `fetch` sends cookies originating from `another.com` without request to that site.
+이렇게 옵션을 추가하면 `fetch`로 요청을 보낼 때 `another.com`에 대응하는 쿠키가 함께 전송됩니다.
 
-If the server agrees to accept the request *with credentials*, it should add a header `Access-Control-Allow-Credentials: true` to the response, in addition to `Access-Control-Allow-Origin`.
+*자격 증명 정보가 담긴* 요청을 서버에서 받아들이기로 동의했다면 서버는 응답에 `Access-Control-Allow-Origin` 헤더와 함께 `Access-Control-Allow-Credentials: true` 헤더를 추가해서 보냅니다.
 
-For example:
+예시:
 
 ```http
 200 OK
@@ -341,42 +341,42 @@ Access-Control-Allow-Origin: https://javascript.info
 Access-Control-Allow-Credentials: true
 ```
 
-Please note: `Access-Control-Allow-Origin` is prohibited from using a star `*` for requests with credentials. Like shown above, it must provide the exact origin there. That's an additional safety measure, to ensure that the server really knows who it trusts to make such requests.
+자격 증명이 함께 전송되는 요청을 보낼 땐 `Access-Control-Allow-Origin`에 `*`을 쓸 수 없습니다. 위 예시에서처럼 `Access-Control-Allow-Origin`엔 정확한 오리진 정보만 명시되어야 합니다. 이런 제약이 있어야 어떤 오리진에서 요청이 왔는지에 대한 정보를 서버가 신뢰할 수 있기 때문입니다.
 
-## Summary
+## 요약
 
-From the browser point of view, there are two kinds of cross-origin requests: "simple" and all the others.
+브라우저 관점에선 크로스 오리진 요청이 simple 크로스 오리진 요청과 non-simple 크로스 오리진 요청 두 분류로 나뉩니다.
 
-[Simple requests](http://www.w3.org/TR/cors/#terminology) must satisfy the following conditions:
-- Method: GET, POST or HEAD.
-- Headers -- we can set only:
+[simple 요청](http://www.w3.org/TR/cors/#terminology)은 다음 조건을 모두 충족하는 요청입니다.
+- 메서드: GET이나 POST. HEAD
+- 헤더:
     - `Accept`
     - `Accept-Language`
     - `Content-Language`
-    - `Content-Type` to the value `application/x-www-form-urlencoded`, `multipart/form-data` or `text/plain`.
+    - 값이 `application/x-www-form-urlencoded`나 `multipart/form-data`, `text/plain`인 `Content-Type`
 
-The essential difference is that simple requests were doable since ancient times using `<form>` or `<script>` tags, while non-simple were impossible for browsers for a long time.
+simple 요청은 아주 오래전 부터 `<form>`이나 `<script>`태그를 사용해도 가능했던 요청인 반면 non-simple 요청은 브라우저에선 보낼 수 없었던 요청이라는 점이 두 요청의 근본적인 차이입니다.
 
-So, the practical difference is that simple requests are sent right away, with `Origin` header, while for the other ones the browser makes a preliminary "preflight" request, asking for permission.
+실무 관점에서 두 요청의 차이는 simple 요청은 `Origin` 헤더와 함께 바로 요청이 전송되는 반면 non-simple 요청은 브라우저에서 본 요청이 이뤄지기 전에 preflight 요청이라 불리는 사전 요청을 보내 퍼미션 여부를 물어본다는 점입니다.
 
-**For simple requests:**
+**simple 요청** 절차는 다음과 같습니다.
 
-- → The browser sends `Origin` header with the origin.
-- ← For requests without credentials (not sent default), the server should set:
-    - `Access-Control-Allow-Origin` to `*` or same value as `Origin`
-- ← For requests with credentials, the server should set:
-    - `Access-Control-Allow-Origin` to same value as `Origin`
-    - `Access-Control-Allow-Credentials` to `true`
+- → 오리진 정보가 담긴 `Origin` 헤더와 함께 브라우저가 요청을 보냅니다.
+- ← 자격 증명이 없는 요청의 경우(기본), 서버는 아래와 같은 응답을 보냅니다.
+    - `Origin` 값과 동일하거나 `*`인 `Access-Control-Allow-Origin`
+- ← 자격 증명이 있는 요청의 경우 서버는 아래와 같은 응답을 보냅니다.
+    - `Origin` 값과 동일한 `Access-Control-Allow-Origin`
+    - 값이 `true`인 `Access-Control-Allow-Credentials`
 
-Additionally, to grant JavaScript access to any response headers except `Cache-Control`,  `Content-Language`, `Content-Type`, `Expires`, `Last-Modified` or `Pragma`, the server should list the allowed ones in `Access-Control-Expose-Headers` header.
+자바스크립트를 사용해 `Cache-Control`나  `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, `Pragma`를 제외한 응답 헤더에 접근하려면 응답 헤더의 `Access-Control-Expose-Headers`에 접근을 허용하는 헤더가 명시돼 있어야 합니다. 
 
-**For non-simple requests, a preliminary "preflight" request is issued before the requested one:**
+**non-simple 요청**의 절차는 다음과 같습니다. 사전 요청인 'preflight' 요청이 본 요청 전에 전송됩니다.
 
-- → The browser sends `OPTIONS` request to the same URL, with headers:
-    - `Access-Control-Request-Method` has requested method.
-    - `Access-Control-Request-Headers` lists non-simple requested headers.
-- ← The server should respond with status 200 and headers:
-    - `Access-Control-Allow-Methods` with a list of allowed methods,
-    - `Access-Control-Allow-Headers` with a list of allowed headers,
-    - `Access-Control-Max-Age` with a number of seconds to cache permissions.
-- Then the actual request is sent, the previous "simple" scheme is applied.
+- → 브라우저는 동일한 URL에 `OPTIONS` 메서드를 사용한 preflight 요청을 보내게 되는데, 이때 헤더엔 다음과 같은 정보가 들어갑니다.
+    - `Access-Control-Request-Method` -- 본 요청의 메서드 정보가 담김
+    - `Access-Control-Request-Headers` -- 본 요청의 헤더 정보가 담김
+- ← 서버는 상태 코드 200과 아래와 같은 헤더를 담은 응답을 전송합니다.
+    - `Access-Control-Allow-Methods` -- 허용되는 메서드 목록이 담김
+    - `Access-Control-Allow-Headers` -- 허용되는 헤더 목록이 담김
+    - `Access-Control-Max-Age` -- 몇 초간 preflight 요청 없이 크로스 오리진 요청 바로 처리할지에 대한 정보가 담김
+- 이후엔 본 요청이 전송되고, 절차는 'simple' 요청과 동일합니다.
