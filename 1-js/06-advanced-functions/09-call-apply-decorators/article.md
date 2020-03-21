@@ -411,7 +411,7 @@ The trick is called *method borrowing*.
 - [func.call(context, arg1, arg2...)](mdn:js/Function/call) -- 주어진 컨텍스트와 인수를 사용해 `func`를 호출합니다.
 - [func.apply(context, args)](mdn:js/Function/apply) -- `this`에 `context`가 할당되고, 유사 배열 `args`가 인수로 전달되어 `func`이 호출됩니다.
 
-*콜 포워딩*은 대게 `apply`를 사용해 구현합니다.
+*콜 포워딩*은 대개 `apply`를 사용해 구현합니다.
 
 ```js
 let wrapper = function() {

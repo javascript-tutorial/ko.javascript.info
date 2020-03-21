@@ -109,7 +109,7 @@ executor에 의해 끝난 일은 하나의 결과 혹은 에러만 가질 수 �
 ```
 
 ````smart header="`resolve`/`reject` 함수 즉시 호출하기"
-executor는 대게 무언가를 비동기적으로 수행하고, 약간의 시간이 지난 후에 `resolve`/`reject`를 호출하는데, 꼭 이렇게 할 필요는 없습니다. 아래와 같이 `resolve`나 `reject`를 즉시 호출할 수도 있습니다.
+executor는 대개 무언가를 비동기적으로 수행하고, 약간의 시간이 지난 후에 `resolve`/`reject`를 호출하는데, 꼭 이렇게 할 필요는 없습니다. 아래와 같이 `resolve`나 `reject`를 즉시 호출할 수도 있습니다.
 
 ```js
 let promise = new Promise(function(resolve, reject) {

@@ -97,7 +97,7 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 
 - `target` -- 동작을 전달할 객체로 `new Proxy`의 첫 번째 인자입니다.
 - `property` -- 프로퍼티 이름
-- `receiver` -- 타깃 프로퍼티가 getter라면 `receiver`는 getter가 호출될 때 `this` 입니다. 대게는 `proxy` 객체 자신이 `this`가 됩니다. 프락시 객체를 상속받은 객체가 있다면 해당 객체가 `this`가 되기도 하죠. 지금 당장은 이 인수가 필요 없으므로 더 자세한 내용은 나중에 다루도록 하겠습니다.
+- `receiver` -- 타깃 프로퍼티가 getter라면 `receiver`는 getter가 호출될 때 `this` 입니다. 대개는 `proxy` 객체 자신이 `this`가 됩니다. 프락시 객체를 상속받은 객체가 있다면 해당 객체가 `this`가 되기도 하죠. 지금 당장은 이 인수가 필요 없으므로 더 자세한 내용은 나중에 다루도록 하겠습니다.
 
 `get`을 활용해 객체에 기본값을 설정해보겠습니다.
 

@@ -188,7 +188,7 @@ alert( document.body.tagName ); // BODY
 요소 노드만 다루고 있다면 `tagName`과 `nodeName`에는 차이가 없으므로 둘 다 사용할 수 있습니다.
 
 ```smart header="태그 이름은 XML 모드를 제외하고 항상 대문자입니다."
-브라우저에서 HTML과 XML을 처리하는 모드는 다릅니다. 웹페이지는 대게 HTML 모드로 처리됩니다. 헤더가 `Content-Type: application/xml+xhtml`인 XML 문서를 받으면 XML 모드로 문서를 처리합니다.
+브라우저에서 HTML과 XML을 처리하는 모드는 다릅니다. 웹페이지는 대개 HTML 모드로 처리됩니다. 헤더가 `Content-Type: application/xml+xhtml`인 XML 문서를 받으면 XML 모드로 문서를 처리합니다.
 
 HTML 모드에선 `tagName`과 `nodeName`이 모두 대문자로 변경됩니다. `<body>` 이든 `<BoDy>`이든 `BODY`가 되죠.
 
