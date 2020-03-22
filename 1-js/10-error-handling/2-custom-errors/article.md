@@ -1,42 +1,42 @@
-# 커스텀 에러, 에러 확장하기
+# 커스텀 에러와 에러 확장
 
-무언가 개발할 때, 종종 작업에서 잘못될 수 있는 특정한 것들을 반영하기 위해 자체적인 에러 클래스들이 필요합니다. 네트워크 동작시 에러들에 대해 `HttpError`, 데이터베이스 동작시에 `DbError`, 검색 동작시에 `NotFoundError` 등등이 필요할 수 있습니다.
+개발을 하다 보면 자체 에러 클래스가 필요한 경우가 종종 생깁니다. 네트워크 관련 작업 중 에러가 발생했다면 `HttpError`, 데이터베이스 관련 작업 중 에러가 발생했다면 `DbError`, 검색 관련 작업 중 에러가 발생했다면 `NotFoundError`를 사용하는 것이 직관적이기 때문이죠.
 
-우리의 에러는 `message`, `name` 같은 기본적인 에러 프로퍼티를 지원해야 하고, `stack`을 지원하는 것도 권장됩니다. 또한 그밖에 다른 프로퍼티도 가질 수 있습니다. 예를 들어 `HttpError` 객체들은 `statusCode` 프로퍼티로 `404` 또는 `403` 또는 `500` 같은 값을 가질 수 있습니다.
+직접 에러 클래스를 만든 경우, 이 에러들은 `message`이나 `name`, 가능하다면 `stack` 프로퍼티를 지원해야 합니다. 물론 이런 필수 프로퍼티 이외에도 다른 프로퍼티를 명시할 수 있습니다. `HttpError` 클래스의 객체에 `statusCode` 프로퍼티를 만들고 `404`나 `403`, `500`같은 숫자를 값으로 지정할 수 있을 겁니다.
 
-자바스크립트는 `throw` 를 아무 인수와 함께 사용할 수 있게 허용하므로, 기본적으로 커스텀 에러 클래스들은 `Error`를 상속할 필요가 없습니다. 그러나 상속을 하면 `obj instanceof Error`를 사용해서 에러 객체들을 식별하는 것이 가능해집니다. 따라서 상속받는 게 낫습니다.
+앞서 배운 바와 같이 `throw`의 인수엔 아무런 제약이 없기 때문에 커스텀 에러 클래스는 반드시 `Error`를 상속할 필요가 없습니다. 그렇지만 `Error`를 상속받아 커스텀 에러 클래스를 만들게 되면 `obj instanceof Error`를 사용해서 에러 객체를 식별할 수 있다는 장점이 생깁니다. 이런 장점 때문에 맨땅에서 커스텀 에러 객체를 만드는 것보다 `Error`를 상속받아 에러 객체를 만드는 것이 낫습니다.
 
-애플리케이션의 크기가 점점 증가함에 따라, 자체 에러들은 자연스레 계층 구조를 형성합니다. 예를 들어 `HttpTimeoutError`는 `HttpError`를 상속받는 등입니다.
+애플리케이션 크기가 점점 커지면 우리가 만들게 될 커스텀 에러 클래스들은 자연스레 계층 구조를 형성하게 됩니다. `HttpTimeoutError`는 `HttpError`를 상속받는 식으로 말이죠.
 
 ## 에러 확장하기
 
-예를 들어, 사용자 데이터를 가진 JSON을 읽어야 하는 `readUser(json)`라는 함수를 생각해 봅시다.
+사용자 데이터가 저장된 JSON을 읽는 함수 `readUser(json)`가 있다고 해봅시다.
 
-다음은 유효한 `json`의 모습에 대한 예입니다.
+유효한 `json`은 다음과 같은 형태를 띄워야 합니다.
 ```js
 let json = `{ "name": "John", "age": 30 }`;
 ```
 
-내부적으로 우리는 `JSON.parse`를 이용할 것입니다. 틀린 `json`을 받으면, `SyntaxError`를 던집니다. 그러나 `json`이 문법적으로 맞다고 하더라도, 유효한 사용자라는 의미는 아닙니다, 그렇죠? 필수 데이터를 빠뜨렸을 수도 있습니다. 예를 들어, 사용자들에게 필수인 `name`과 `age` 프로퍼티가 없을 수도 있습니다.
+`readUser` 내부에선 `JSON.parse`를 이용할 겁니다. 잘못된 형식의 `json`이 들어오면 `SyntaxError`가 발생하겠죠. 그러나 인수로 받은 데이터가 JSON 형식이긴 하지만, 유효한 사용자일 것이라는 보장은 없습니다. 사용자 데이터라면 필수적으로 있어야 할 `name`이나 `age`가 없을 수 있죠.
 
-우리의 함수 `readUser(json)`는 JSON을 읽을뿐만 아니라, 데이터를 확인("검증")하기도 합니다. 필수 입력란이 없거나, 형식이 틀렸다면, 그것은 에러입니다. 그리고 데이터가 문법적으로 맞기 때문에 `SyntaxError`는 아니고, 다른 종류의 에러입니다. 이를 `ValidationError`라고 부를 것이고 이를 위한 클래스를 생성할 것입니다. 이런 종류의 에러는 또한 문제가 되는 필드에 대한 정보를 가지고 있어야 합니다.
+따라서 `readUser(json)`은 JSON을 읽을 수 있을 뿐만 아니라, 데이터를 검증할 수도 있어야 합니다. 필수 프로퍼티가 없거나, 위 형식에 맞지 않으면 에러를 발생시킬 수 있어야 하죠. 그런데 이때 발생하는 에러는 `SyntaxError`가 아닙니다. JSON 형식은 맞지만, 자체 기준에 맞지 않기 때문에 발생한 에러이므로 전혀 다른 종류의 에러이죠. 여기선 이 에러를 `ValidationError`라고 부르겠습니다. 그리고 `ValidationError`를 위한 클래스를 만들어보겠습니다.  
 
-우리의 `ValidationError` 클래스는 내장된 `Error` 클래스로부터 상속받아야 합니다.
+`ValidationError` 클래스엔 문제가 되는 필드 정보가 저장될 수 있어야합니다. 내장 클래스인 `Error`를 상속받아 `ValidationError` 클래스를 만들어봅시다. 
 
-그 클래스는 내장 클래스지만, 우리 눈 앞에 대략적인 코드가 있어야만 우리가 확장하고 있는 것에 대해 이해할 수 있겠죠. 아래 수도 코드를 살펴봅시다.
+먼저 슈도 코드를 통해 `Error` 클래스가 어떻게 생겼는지 알아봅시다.
 
 ```js
-// 자바스크립트 자체에서 정의한 내장 에러 클래스의 "수도코드"
+// 자바스크립트에서 자체적으로 정의한 내장 에러 클래스의 "슈도 코드"
 class Error {
   constructor(message) {
     this.message = message;
-    this.name = "Error"; // (서로 다른 내장 에러 클래스들의 서로 다른 이름들)
-    this.stack = <call stack>;  // 표준은 아니지만, 대다수의 환경이 지원합니다
+    this.name = "Error"; // (내장 에러 클래스마다 이름이 다릅니다.)
+    this.stack = <call stack>;  // 표준은 아니지만, 대다수의 환경이 지원합니다.
   }
 }
 ```
 
-이제 계속해서 `ValidationError`이 그걸 상속 받도록 해 봅시다.
+이제 `ValidationError`에서 `Error`를 상속받아보겠습니다.
 
 ```js run untrusted
 *!*
@@ -61,11 +61,11 @@ try {
 }
 ```
 
-`(1)` 줄에서 부모 생성자를 호출하고 있다는 것에 주목하시기 바랍니다. 자바스크립트에서는 자식 생성자 안에서 `super`를 호출해야 하므로 이는 필수입니다. 부모 생성자는 `message` 프로퍼티를 설정합니다.
+`(1)`에서 부모 생성자를 호출하고 있다는 것에 주목해 주시기 바랍니다. 자바스크립트에서는 자식 생성자 안에서 `super`를 반드시 호출해야 합니다. 부모 생성자에서 `message` 프로퍼티가 설정됩니다.
 
-부모 생성자는 또한 `name` 프로퍼티를 `"Error"`로 설정하기 때문에, `(2)` 쥴에서 올바른 값으로 재설정합니다.
+부모 생성자에서 `name` 프로퍼티가 `"Error"`로 설정되기 때문에, `(2)`에서 원하는 값으로 재설정해주었습니다.
 
-`readUser(json)` 안에서 이를 사용해 봅시다.
+이제 `readUser(json)` 안에서 `ValidationError`를 사용해 봅시다.
 
 ```js run
 class ValidationError extends Error {
@@ -75,7 +75,7 @@ class ValidationError extends Error {
   }
 }
 
-// 사용
+// 사용법
 function readUser(json) {
   let user = JSON.parse(json);
 
@@ -89,7 +89,7 @@ function readUser(json) {
   return user;
 }
 
-// try..catch와 함께 사용한 동작 예제
+// try..catch와 readUser를 함께 사용하면 다음과 같습니다.
 
 try {
   let user = readUser('{ "age": 25 }');
@@ -101,31 +101,31 @@ try {
   } else if (err instanceof SyntaxError) { // (*)
     alert("JSON Syntax Error: " + err.message);
   } else {
-    throw err; // 알려지지 않은 에러, 재던지기를 합니다 (**)
+    throw err; // 알려지지 않은 에러는 재던지기 합니다. (**)
   }
 }
 ```
 
-위의 코드에서 `try..catch` 블록은 `JSON.parse`에서 우리가 만든 `ValidationError`와 내장된 `SyntaxError` 둘 다 처리합니다.
+이제 `try..catch` 블록에서 우리가 만든 커스텀 에러인 `ValidationError`와  `JSON.parse`에서 발생하는 `SyntaxError` 둘 다를 처리할 수 있게 되었네요.
 
-`instanceof`를 사용하여 `(*)` 줄에서 에러 유형을 확인하는 방법을 살펴 보세요. 
+이 과정에서 `instanceof`로 에러 유형을 확인(`(*)`)하였습니다.
 
-다음과 같이 `err.name`를 볼 수도 있습니다.
+`instanceof` 말고 `err.name`을 사용해 에러 종류를 확인하는 것도 가능합니다.
 
 ```js
 // ...
-// instead of (err instanceof SyntaxError)
+// (err instanceof SyntaxError) 대신 사용 가능
 } else if (err.name == "SyntaxError") { // (*)
 // ...
 ```  
 
-`instanceof`를 사용하는 게 훨씬 좋습니다. 왜냐하면 나중에 `ValidationError`를 확장하여 `PropertyRequiredError` 같은 서브 타입을 만들 것이기 때문입니다. 그리고 `instanceof` 검사는 상속받은 새로운 클래스들에서도 동작할 것입니다. 따라서 나중에 대비할 수 있게 됩니다.
+그런데 `err.name`보다는 `instanceof`를 사용하는 게 훨씬 좋습니다. 나중에 `ValidationError`를 확장하여 `PropertyRequiredError` 같은 새로운 확장 에러를 만들게 될 경우, `instanceof`는 상속받은 새로운 클래스에서도 동작하기 때문입니다. 
 
-또한 `catch`가 알려지지 않은 에러를 만나면 `(**)` 줄에서 재던지기를 한다는 것이 중요합니다. `catch` 블록은 유효성 검사와 문법 오류를 처리하는 방법만 알고 있으며, 다른 종류(코드 오타 등)는 빠져나가야 합니다. 
+알려지지 않은 에러를 만났을 때 `catch`에서 재 던지기를 한다는 점(`(**)`) 또한 주목해서 봐주시기 바랍니다. `catch` 블록에선 유효성 검사와 문법 오류만 처리하고, 다른 종류의 에러는 밖으로 던져야 합니다.
 
 ## 더 깊게 상속하기
 
-`ValidationError` 클래스는 너무 추상적입니다. 많은 것들이 잘못될 수 있습니다. 프로퍼티가 없거나 잘못된 형식(가령 `age`에 문자열 값이 들어가는 것처럼)으로 될 수 있습니다. 프로퍼티가 없는 바로 그 경우에 대해서 더 구체적인 클래스인 `PropertyRequiredError`를 만들어 봅시다. 누락된 프로퍼티에 대한 추가 정보를 담을 것입니다.
+앞서 만든 `ValidationError` 클래스는 너무 포괄적이어서 뭔가 잘못될 확률이 있습니다. 꼭 필요한 프로퍼티가 누락되거나 `age`에 문자열 값이 들어가는 것처럼 형식이 잘못된 경우를 처리할 수 없습니다. 필수 프로퍼티가 없는 경우에 대응할 수 있도록 좀 더 구체적인 클래스 `PropertyRequiredError`를 만들어 봅시다. `PropertyRequiredError`엔 누락된 프로퍼티에 대한 추가 정보가 담겨야 합니다.
 
 ```js run
 class ValidationError extends Error {
@@ -145,7 +145,7 @@ class PropertyRequiredError extends ValidationError {
 }
 */!*
 
-// Usage
+// 사용법
 function readUser(json) {
   let user = JSON.parse(json);
 
@@ -159,7 +159,7 @@ function readUser(json) {
   return user;
 }
 
-// try..catch와 함께 사용한 동작 예제
+// try..catch와 readUser를 함께 사용하면 다음과 같습니다.
 
 try {
   let user = readUser('{ "age": 25 }');
@@ -173,18 +173,18 @@ try {
   } else if (err instanceof SyntaxError) {
     alert("JSON Syntax Error: " + err.message);
   } else {
-    throw err; // unknown error, rethrow it
+    throw err; // 알려지지 않은 에러는 재던지기 합니다.
   }
 }
 ```
 
-새로운 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. 우리는 단지 프로퍼티 이름을 전달하기만 하면 됩니다. `new PropertyRequiredError(property)`. 사람이 읽기 쉬운 `message`는 생성자에 의해 생성됩니다.
+새롭게 만든 클래스 `PropertyRequiredError`는 사용하기 쉽습니다. `new PropertyRequiredError(property)`처럼 프로퍼티 이름을 전달하기만 하면 됩니다. 사람이 읽을 수 있는 `message`는 생성자가 알아서 만들어줍니다.
 
-Please note that `this.name` in `PropertyRequiredError` constructor is again assigned manually. That may become a bit tedious -- to assign `this.name = <class name>` in every custom error class. We can avoid it by making our own "basic error" class that assigns `this.name = this.constructor.name`. And then inherit all our custom errors from it.
+여기서 주목할 점은 `PropertyRequiredError` 생성자 안에서 `this.name`을 수동으로 할당해 주었다는 것입니다. 이렇게 매번 커스텀 에러 클래스의 생성자 안에서 `this.name`를 할당해 주는 것은 귀찮아 보이긴 합니다. 이런 번거로운 작업은 '기본 에러' 클래스를 만들고 커스텀 에러들이 이 클래스를 상속받게 하면 피할 수 있습니다. 기본 에러의 생성자에 `this.name = this.constructor.name`를 추가하면 되죠.
 
-이 클래스를 `MyError`라고 부릅시다.
+이 클래스를 `MyError`라고 부르겠습니다.
 
-여기 `MyError`와 다른 커스텀 에러 클래스들의 간단한 코드가 있습니다.
+`MyError`를 사용하면 다음과 같이 커스텀 에러 클래스를 간결하게 할 수 있습니다.
 
 ```js run
 class MyError extends Error {
@@ -205,7 +205,7 @@ class PropertyRequiredError extends ValidationError {
   }
 }
 
-// name is correct
+// 제대로 된 이름이 출력됩니다.
 alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 ```
 
@@ -213,15 +213,15 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 ## 예외 감싸기
 
-위의 코드에서 함수 `readUser`의 목적은 "사용자 데이터를 읽는 것"입니다. 그런데 그 과정에서 다른 오류들이 발생할 수 있습니다. 지금 당장은 `SyntaxError`와 `ValidationError`만 있지만, 앞으로 `readUser` 함수가 더 커지면 다른 오류들을 만들어 낼 수도 있습니다.
+함수 `readUser`는 '사용자 데이터를 읽기' 위해 만들어졌습니다. 그런데 사용자 데이터를 읽는 과정에서 다른 오류들이 발생할 수 있습니다. 지금 당장은 `SyntaxError`와 `ValidationError`만 있지만, 앞으로 `readUser` 함수가 더 커지면 다른 커스텀 에러 클래스를 만들어야 할 수 있습니다.
 
-The code which calls `readUser` should handle these errors. Right now it uses multiple `if`s in the `catch` block, that check the class and handle known errors and rethrow the unknown ones. But if the `readUser` function generates several kinds of errors, then we should ask ourselves: do we really want to check for all error types one-by-one in every code that calls `readUser`?
+물론 `readUser`는 이런 에러를 모두 처리할 수 있어야 합니다. 그런데 지금은 `catch` 블록 안에 `if`문 여러 개를 넣어 에러를 처리하고 있죠. 미래에 커스텀 에러 클래스가 더 추가될 텐데 앞으로도 이렇게 `readUser`를 호출하는 곳에서 모든 에러를 종류에 따라 하나하나 처리해야만 할까요?
 
-보통 대답은 "아니요"입니다. 바깥쪽 코드는 "모든 것들의 한 수준 위"가 되고 싶어합니다. 바깥쪽 코드는 일종의 "data reading error"를 원합니다. 정확히 왜 그런 일이 발생했는지는 보통 무의미합니다. (에러 메시지가 그것을 설명합니다). 또는, 필요한 경우에만 오류 상세를 얻는 방법이 있으면 훨씬 좋습니다.
+Often the answer is "No": the outer code wants to be "one level above all that", it just wants to have some kind of "data reading error" -- why exactly it happened is often irrelevant (the error message describes it). Or, even better, it could have a way to get the error details, but only if we need to.
 
-이런 오류들을 나타내는 새로운 `ReadError` 클래스를 만들어 봅시다. If an error occurs inside `readUser` 안에서 오류가 발생하면, 오류를 거기에서 잡아서 `ReadError`를 생성합니다. 우리는 또한  `cause` 프로퍼티에 실제 오류에 대한 참조도 보관할 것입니다. 그러면 바깥쪽 코드에서는 `ReadError`만 확인하면 됩니다..
+So let's make a new class `ReadError` to represent such errors. If an error occurs inside `readUser`, we'll catch it there and generate `ReadError`. We'll also keep the reference to the original error in its `cause` property. Then the outer code will only have to check for `ReadError`.
 
-여기에 `ReadError`를 정의하고 `readUser`와 `try..catch` 안에서 쓰임을 시연하는 코드가 있습니다.
+Here's the code that defines `ReadError` and demonstrates its use in `readUser` and `try..catch`:
 
 ```js run
 class ReadError extends Error {
@@ -289,14 +289,14 @@ try {
 }
 ```
 
-위의 코드에서 `readUser`는 정확히 설명한대로 동작합니다. 문법 및 유효성 검사 오류들을 잡아서  `ReadError` 오류를 던집니다 (알려지지 않은 오류들은 보통처럼 다시 던져집니다).
+In the code above, `readUser` works exactly as described -- catches syntax and validation errors and throws `ReadError` errors instead (unknown errors are rethrown as usual).
 
-따라서 바깥쪽 코드는 `instanceof ReadError`만 체크하면 끝입니다. 발생할 수 있는 모든 오류 유형들을 나열할 필요가 없습니다.
+So the outer code checks `instanceof ReadError` and that's it. No need to list all possible error types.
 
-이런 접근법을 "예외 감싸기"라고 합니다. "로우레벨 예외"들을 가져다가 `ReadError` 안으로 "감싸서", 더 추상적이고 호출하는 코드에서 사용하기 편리하기 때문입니다. 객체지향 프로그래밍에서 보편적으로 사용됩니다.
+The approach is called "wrapping exceptions", because we take "low level exceptions" and "wrap" them into `ReadError` that is more abstract and more convenient to use for the calling code. It is widely used in object-oriented programming.
 
 ## 요약
 
-- `Error`나 다른 내장 오류 클래스로부터 상속받는 게 가능합니다. 이때 `name` 프로퍼티와 `super`를 호출하는 것만 잊지 않으시면 됩니다.
-- 특정 오류를 확인하는데 `instanceof`를 사용할 수 있습니다. 상속된 클래스에도 마찬가지죠. 그러나 서드파티 라이브러리에서부터 온 오류 객체의 경우엔 클래스를 알아내는 것이 쉽지 않습니다. 이때는 `name` 프로퍼티를 사용해 확인할 수 있습니다.
-- 예외 감싸기는 널리 사용되는 기법입니다. 함수는 로우-레벨 예외를 처리하고, 이때 로우-레벨 에러를 만드는 대신에 하이-레벨 에러를 만듭니다. 로우-레벨 예외는 위의 예시처럼 가끔 해당 객체의 프로퍼티가 되곤 합니다. `err.cause`처럼 말이죠. 다만 필수사항은 아닙니다.
+- 커스텀 클래스는 `Error`나 다른 내장 오류 클래스를 상속받아 만들 수 있습니다. 이때 `super`를 호출해야 한다는 점과 `name` 프로퍼티를 신경써야 한다는 점을 잊지 마세요.
+- `instanceof`를 사용하면 오류 종류를 판별할 수 있습니다. 상속된 클래스에도 마찬가지죠. 그러나 서드파티 라이브러리에서 온 오류 객체는 클래스를 알아내는 것이 쉽지 않습니다. 이때는 `name` 프로퍼티를 사용해 오류 종류를 확인할 수 있습니다.
+- Wrapping exceptions is a widespread technique: a function handles low-level exceptions and creates higher-level errors instead of various low-level ones. Low-level exceptions sometimes become properties of that object like `err.cause` in the examples above, but that's not strictly required.
