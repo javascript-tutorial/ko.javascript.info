@@ -1,7 +1,11 @@
 
 # 객체
 
+<<<<<<< HEAD
 <info:types> 챕터에서 배웠듯이 자바스크립트엔 여덟 가지 자료형이 있습니다. 이 중 일곱 개는 오직 하나의 데이터(문자열, 숫자 등)만 담을 수 있어 '원시형(primitive type)'이라 부릅니다.
+=======
+As we know from the chapter <info:types>, there are eight data types in JavaScript. Seven of them are called "primitive", because their values contain only a single thing (be it a string or a number or whatever).
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 
 그런데 객체형은 원시형과 달리 다양한 데이터를 담을 수 있습니다. 키로 구분된 데이터 집합이나 복잡한 개체(entity)를 저장할 수 있죠. 객체는 자바스크립트 거의 모든 면에 녹아있는 개념이므로 자바스크립트를 잘 다루려면 객체를 잘 이해하고 있어야 합니다.
 
@@ -215,8 +219,13 @@ let bag = {
 function makeUser(name, age) {
   return {
     name: name,
+<<<<<<< HEAD
     age: age
     // ...등등
+=======
+    age: age,
+    // ...other properties
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
   };
 }
 
@@ -232,8 +241,13 @@ alert(user.name); // John
 function makeUser(name, age) {
 *!*
   return {
+<<<<<<< HEAD
     name, // name: name 과 같음
     age   // age: age 와 같음
+=======
+    name, // same as name: name
+    age,  // same as age: age
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
     // ...
   };
 */!*

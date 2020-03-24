@@ -123,7 +123,11 @@ trailing(길게 늘어지는) 쉼표를 사용하면 모든 줄의 생김새가 
 
 자바스크립트 배열을 사용하면 큐와 스택 둘 다를 만들 수 있습니다. 이 자료구조들은 배열의 처음이나 끝에 요소를 더하거나 빼는 데 사용되죠. 
 
+<<<<<<< HEAD
 이렇게 처음이나 끝에 요소를 더하거나 빼주는 연산을 제공하는 자료구조를 컴퓨터 과학 분야에선 [데큐(deque, Double Ended Queue)](https://en.wikipedia.org/wiki/Double-ended_queue)라고 부릅니다.
+=======
+In computer science the data structure that allows this, is called [deque](https://en.wikipedia.org/wiki/Double-ended_queue).
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 
 **아래는 배열 끝에 무언가를 해주는 메서드입니다.**
 

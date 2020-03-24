@@ -125,6 +125,7 @@ function addJuice(container) {
 함수 용례와 매개변수 정보를 담고 있는 주석
 :  [JSDoc](http://en.wikipedia.org/wiki/JSDoc)이라는 특별한 문법을 사용하면 함수에 관한 문서를 쉽게 작성할 수 있습니다. 여기엔 함수 용례, 매개변수, 반환 값 정보가 들어갑니다.
 
+<<<<<<< HEAD
     예시:
     ```js
     /**
@@ -144,6 +145,27 @@ function addJuice(container) {
     [WebStorm](https://www.jetbrains.com/webstorm/) 등의 다양한 에디터는 이런 주석을 이용해 자동 완성 기능, 자동 에러 검출 기능 등을 제공합니다. 
 
     [JSDoc 3](https://github.com/jsdoc3/jsdoc)이나 기타 유사한 툴을 사용하면 주석으로 HTML 문서를 만들 수 있습니다. 자세한 정보는 <http://usejsdoc.org/>에서 확인하시기 바랍니다.
+=======
+For instance:
+```js
+/**
+ * Returns x raised to the n-th power.
+ *
+ * @param {number} x The number to raise.
+ * @param {number} n The power, must be a natural number.
+ * @return {number} x raised to the n-th power.
+ */
+function pow(x, n) {
+  ...
+}
+```
+
+Such comments allow us to understand the purpose of the function and use it the right way without looking in its code.
+
+By the way, many editors like [WebStorm](https://www.jetbrains.com/webstorm/) can understand them as well and use them to provide autocomplete and some automatic code-checking.
+
+Also, there are tools like [JSDoc 3](https://github.com/jsdoc3/jsdoc) that can generate HTML-documentation from the comments. You can read more information about JSDoc at <http://usejsdoc.org/>.
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 
 왜 이런 방법으로 문제를 해결했는지를 설명하는 주석
 : 무엇이 적혀있는지는 중요합니다. 그런데 무슨 일이 일어나고 있는지 파악하려면 무엇이 *적혀있지 않은 지*가 더 중요할 수 있습니다. '왜 이 문제를 이런 방법으로 해결했나?'라는 질문에 코드는 답을 해 줄 수 없기 때문입니다.

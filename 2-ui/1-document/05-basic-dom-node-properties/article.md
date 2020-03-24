@@ -18,6 +18,7 @@ DOM 노드는 종류에 따라 각각 다른 프로퍼티를 지원합니다. �
 
 각 노드에 대응하는 클래스는 다음과 같이 정의할 수 있습니다.
 
+<<<<<<< HEAD
 - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 루트에 있는 '추상(abstract)' 클래스로, 이 클래스에 대응하는 객체는 실제로 만들어지지 않습니다. 모든 DOM 노드의 베이스 역할을 하므로 DOM 노드에서 '이벤트'를 사용할 수 있습니다. 자세한 내용은 곧 다루겠습니다.
 - [Node](http://dom.spec.whatwg.org/#interface-node) -- 이 역시 '추상' 클래스로 DOM 노드의 베이스 역할을 합니다. getter 역할을 하는 `parentNode`, `nextSibling`, `childNodes` 등의 주요 트리 탐색 기능을 제공합니다. `Node` 클래스의 객체는 절대 생성되지 않지만 이 클래스를 상속받는 클래스가 여럿 있습니다. 텍스트 노드를 위한 `Text` 클래스와 요소 노드를 위한 `Element` 클래스, 주석 노드를 위한 `Comment`클래스는 `Node`클래스를 상속받습니다.
 - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소를 위한 베이스 클래스입니다. `nextElementSibling`, `children` 같은 요소 전용 탐색 기능과 `getElementsByTagName`, `querySelector` 같은 요소 전용 검색 기능을 제공합니다. 브라우저는 HTML뿐만 아니라 XML, SVG도 지원하는데 `Element` 클래스는 이와 관련된 `SVGElement`, `XMLElement`, `HTMLElement` 클래스의 베이스 역할을 합니다.
@@ -26,6 +27,16 @@ DOM 노드는 종류에 따라 각각 다른 프로퍼티를 지원합니다. �
     - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- `<body>` 요소를 위한 클래스
     - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- `<a>` 요소를 위한 클래스
     - 이외에도 다른 클래스가 많은데, 각 태그에 해당하는 클래스는 고유한 프로퍼티와 메서드를 지원합니다.
+=======
+- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class. Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
+- [Node](http://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes. It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are concrete node classes that inherit from it, namely: `Text` for text nodes, `Element` for element nodes and more exotic ones like `Comment` for comment nodes.
+- [Element](http://dom.spec.whatwg.org/#interface-element) -- is a base class for DOM elements. It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`. A browser supports not only HTML, but also XML and SVG. The `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` and `HTMLElement`.
+- [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- is finally the basic class for all HTML elements. It is inherited by concrete HTML elements:
+    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
+    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
+    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
+    - ...and so on, each tag has its own class that may provide specific properties and methods.
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 
 위와 같이 특정 노드에서 사용할 수 있는 프로퍼티와 메서드는 상속을 기반으로 결정됩니다.
 
@@ -33,12 +44,21 @@ DOM 노드는 종류에 따라 각각 다른 프로퍼티를 지원합니다. �
 
 객체엔 아래에 나열한 클래스에서 상속받은 프로퍼티와 메서드가 있을 겁니다.
 
+<<<<<<< HEAD
 - `HTMLInputElement` -- 입력 관련 프로퍼티를 제공하는 클래스
 - `HTMLElement` -- HTML 요소 메서드와 getter, setter를 제공하는 클래스
 - `Element` -- 요소 노드 메서드를 제공하는 클래스
 - `Node` -- 공통 DOM 노드 프로퍼티를 제공하는 클래스
 - `EventTarget` -- 이벤트 관련 기능을 제공하는 클래스
 - `Object` -- `hasOwnProperty`같이 '일반 객체' 메서드를 제공하는 클래스
+=======
+- `HTMLInputElement` -- this class provides input-specific properties,
+- `HTMLElement` -- it provides common HTML element methods (and getters/setters),
+- `Element` -- provides generic element methods,
+- `Node` -- provides common DOM node properties,
+- `EventTarget` -- gives the support for events (to be covered),
+- ...and finally it inherits from `Object`, so "plain object" methods like `hasOwnProperty` are also available.
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 
 앞서 배운 객체는 `constructor` 프로퍼티를 가진다는 점을 이용하면 DOM 노드 클래스 이름을 확인할 수 있습니다. `constructor` 프로퍼티는 클래스 생성자를 참조하고 `constructor.name`에 이름이 저장되어있다는 점을 이용하면 되죠.
 

@@ -216,7 +216,11 @@ IIFE는 다음과 같이 생겼습니다.
 즉시 실행 함수를 만들 땐, 함수 표현식을 괄호로 둘러쌓아 (function {...})와 같은 형태로 만듭니다. 이렇게 괄호로 둘러싸지 않으면 에러가 발생합니다. 자바스크립트는 'function'이라는 키워드를 만나면 함수 선언문이 시작될 것이라 예상합니다. 그런데 함수 선언문으로 함수를 만들 땐 반드시 함수의 이름이 있어야 합니다. 따라서 아래와 예시를 실행하면 에러가 발생합니다.
 
 ```js run
+<<<<<<< HEAD
 // 함수를 선언과 동시에 실행하려고 함
+=======
+// Try to declare and immediately call a function
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
 function() { // <-- Error: Function statements require a function name
 
   let message = "Hello";

@@ -201,8 +201,13 @@ alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 두 창에서 모두 `storage` 이벤트를 수신하고 있기 때문에 한 창에서 아래 예시를 실행해 데이터를 갱신하면 다른 창에 해당 사항이 반영되는 것을 확인할 수 있습니다.
 
 ```js run
+<<<<<<< HEAD
 // 문서는 다르지만, 갱신은 같은 스토리지에 반영됩니다.
 window.onstorage = event => {
+=======
+// triggers on updates made to the same storage from other documents
+window.onstorage = event => { // same as window.addEventListener('storage', () => {
+>>>>>>> 162280b6d238ce32bbd8ff7a3f7992be82c2311a
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };
