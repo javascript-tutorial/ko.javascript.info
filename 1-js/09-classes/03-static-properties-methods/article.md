@@ -63,12 +63,12 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, 글을 '위에서' 바라보며 비교를 수행합니다. `Article.compare`이 글의 메서드가 아닌 전체 클래스의 메서드여야 하는 이유가 여기에 있습니다.
+여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, 글 전체를 '위에서' 바라보며 비교를 수행합니다. `Article.compare`이 글 하나의 메서드가 아닌 클래스의 메서드여야 하는 이유가 여기에 있습니다.
 
-이번에 살펴볼 예시는 '팩토리' 메서드를 구현한 코드입니다. article을 만드는 방법 몇 가지가 필요하다고 가정해 봅시다.
+이번에 살펴볼 예시는 '팩토리' 메서드를 구현한 코드입니다. 다양한 방법을 사용해 조건에 맞는 article 인스턴스를 만들어야 한다고 가정해 봅시다.
 
-1. 주어진 매개변수(`title`, `date` 등)를 사용해 생성
-2. 오늘 날짜를 기반으로 비어있는 article을 생성
+1. 매개변수(`title`, `date` 등)를 이용해 관련 정보가 담긴 article 생성
+2. 오늘 날짜를 기반으로 비어있는 article 생성
 3. 기타 등등
 
 첫 번째 방법은 생성자를 사용해 구현할 수 있습니다. 두 번째 방법은 클래스에 정적 메서드를 만들어 구현할 수 있습니다.
@@ -119,7 +119,7 @@ class Article {
 alert( Article.publisher ); // Ilya Kantor
 ```
 
-위 예시는 `Article`에 직접 할당한 것과 동일합니다.
+위 예시는 `Article`에 프로퍼티를 직접 할당한 것과 동일하게 동작합니다.
 
 ```js
 Article.publisher = "Ilya Kantor";
@@ -204,7 +204,7 @@ alert(Rabbit.prototype.__proto__ === Animal.prototype); // true
 
 정적 메서드는 특정 클래스 인스턴스가 아닌 클래스 '전체'에 필요한 기능을 만들 때 사용할 수 있습니다. 
 
-비교를 위한 메서드 `Article.compare(article1, article2)`나 팩토리 메서드 `Article.createTodays()`가 정적 메서드의 예입니다.
+인스턴스끼리 비교해주는 메서드 `Article.compare(article1, article2)`이나 팩토리 메서드 `Article.createTodays()`를 만들 때 정적 메서드가 쓰입니다.
 
 정적 메서드는 클래스 선언부 안에 위치하고 앞에 `static`이라는 키워드가 붙습니다.
 
@@ -222,7 +222,7 @@ class MyClass {
 }
 ```
 
-static을 사용한 선언은 기술적으론 클래스 자체에 직접 할당하는 것과 동일합니다.
+`static`을 사용한 선언은 기술적으론 클래스 자체에 직접 할당하는 것과 동일합니다.
 
 ```js
 MyClass.property = ...
