@@ -1,7 +1,11 @@
 
 # 객체
 
+<<<<<<< HEAD
 <info:types> 챕터에서 배웠듯이 자바스크립트엔 여덟 가지 자료형이 있습니다. 이 중 일곱 개는 오직 하나의 데이터(문자열, 숫자 등)만 담을 수 있어 '원시형(primitive type)'이라 부릅니다.
+=======
+As we know from the chapter <info:types>, there are eight data types in JavaScript. Seven of them are called "primitive", because their values contain only a single thing (be it a string or a number or whatever).
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 그런데 객체형은 원시형과 달리 다양한 데이터를 담을 수 있습니다. 키로 구분된 데이터 집합이나 복잡한 개체(entity)를 저장할 수 있죠. 객체는 자바스크립트 거의 모든 면에 녹아있는 개념이므로 자바스크립트를 잘 다루려면 객체를 잘 이해하고 있어야 합니다.
 
@@ -103,7 +107,11 @@ user.likes birds = true
 
 자바스크립트는 위와 같은 코드를 이해하지 못합니다. `user.likes`까지는 이해하다가 예상치 못한 `birds`를 만나면 문법 에러를 뱉어냅니다.
 
+<<<<<<< HEAD
 '점'은 키가 '유효한 변수 식별자'인 경우에만 사용할 수 있습니다. 유효한 변수 식별자엔 공백이 없어야 합니다. 또한 숫자로 시작하지 않아야 하며 `$`와 `_`를 제외한 특수 문자가 없어야 합니다.
+=======
+The dot requires the key to be a valid variable identifier. That implies: contains no spaces, doesn't start with a digit and doesn't include special characters (`$` and `_` are allowed).
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 키가 유효한 변수 식별자가 아닌 경우엔 점 표기법 대신에 '대괄호 표기법(square bracket notation)'이라 불리는 방법을 사용할 수 있습니다. 대괄호 표기법은 키에 어떤 문자열이 있던지 상관없이 동작합니다.
 
@@ -215,8 +223,13 @@ let bag = {
 function makeUser(name, age) {
   return {
     name: name,
+<<<<<<< HEAD
     age: age
     // ...등등
+=======
+    age: age,
+    // ...other properties
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
   };
 }
 
@@ -232,8 +245,13 @@ alert(user.name); // John
 function makeUser(name, age) {
 *!*
   return {
+<<<<<<< HEAD
     name, // name: name 과 같음
     age   // age: age 와 같음
+=======
+    name, // same as name: name
+    age,  // same as age: age
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
     // ...
   };
 */!*

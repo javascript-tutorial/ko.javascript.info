@@ -181,11 +181,19 @@ alert( counter() ); // 2
 
 우측의 네모 상자들은 코드가 한 줄, 한 줄 실행될 때마다 전역 렉시컬 환경이 어떻게 변화하는지 보여줍니다.
 
+<<<<<<< HEAD
 1. 스크립트가 시작되면 스크립트 내에서 선언한 변수 전체가 렉시컬 환경에 올라갑니다(pre-populated).
     - 이때 변수의 상태는 특수 내부 상태(special internal state)인 'uninitialized'가 됩니다. 자바스크립트 엔진은 'uninitialized' 상태의 변수를 인지할 수 있지만, 변수 앞에 `let`이 오지 않으면 사용할 수 없습니다. 
 2. `let phrase`가 나타났네요. 아직 값을 할당하기 전이므로 프로퍼티 값은 `undefined`입니다. 이 시점 이후부터 우리는 `phrase`를 사용할 수 있습니다.
 3. `phrase`에 값이 할당되었습니다.
 4. `phrase`의 값이 변경되었습니다.
+=======
+1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
+    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
+2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable since this moment.
+3. `phrase` is assigned a value.
+4. `phrase` changes the value.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 아직까진 어려운 게 없어 보이네요. 지금까지 배운 내용을 잠시 요약해 봅시다.
 

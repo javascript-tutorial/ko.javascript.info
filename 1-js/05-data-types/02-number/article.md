@@ -324,7 +324,11 @@ alert( isFinite(num) );
 
 ```smart header="`Object.is`와 비교하기"
 
+<<<<<<< HEAD
 [Object.is](mdn:js/Object/is)는 `===`처럼 값을 비교할 때 사용되는 특별한 내장 메서드인데, 아래와 같은 두 가지 에지 케이스에선 `===`보다 좀 더 신뢰할만한 결과를 보여줍니다.
+=======
+There is a special built-in method [`Object.is`](mdn:js/Object/is) that compares values like `===`, but is more reliable for two edge cases:
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 1. `NaN`을 대상으로 비교할 때: `Object.is(NaN, NaN) === true`임
 2.`0`과 `-0`이 다르게 취급되어야 할 때: `Object.is(0, -0) === false`임. 숫자를 나타내는 비트가 모두 0이더라도 부호를 나타내는 비트는 다르므로 `0`과 `-0`은 사실 다른 값이긴 합니다.
@@ -417,9 +421,15 @@ alert( parseInt('2n9c', 36) ); // 123456
 
 다양한 진법을 사용할 수도 있습니다.
 
+<<<<<<< HEAD
 - 자바스크립트는 특별한 변환 없이 16진수(`0x`), 8진수(`0o`), 2진수(`0b`)를 바로 사용할 수 있게 지원합니다.
 - `parseInt(str, base)`를 사용하면 `str`을 `base`진수로 바꿔줍니다(단, `2 ≤ base ≤ 36`).
 - `num.toString(base)`는 숫자를 `base`진수로 바꾸고, 이를 문자열 형태로 반환합니다.
+=======
+- Can write numbers directly in hex (`0x`), octal (`0o`) and binary (`0b`) systems.
+- `parseInt(str, base)` parses the string `str` into an integer in numeral system with given `base`, `2 ≤ base ≤ 36`.
+- `num.toString(base)` converts a number to a string in the numeral system with the given `base`.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 `12pt`나 `100px`과 같은 값을 숫자로 변환하는 것도 가능합니다.
 

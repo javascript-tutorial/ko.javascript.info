@@ -49,8 +49,13 @@
 
 ## 카스텔조 알고리즘(De Casteljau's algorithm)
 
+<<<<<<< HEAD
 베지어 곡선(Bezier curves)을 위한 수학 공식이 있는데, 나중에 설명하겠습니다,
 [카스텔조 알고리즘(De Casteljau's algorithm)](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm)과 동일한 수학적 정의와 시각적으로 어떻게 구성되었는지 보여주기 때문입니다.
+=======
+There's a mathematical formula for Bezier curves, but let's cover it a bit later, because
+[De Casteljau's algorithm](https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm) is identical to the mathematical definition and visually shows how it is constructed.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 먼저 세 점의 예를 보시죠.
 
@@ -174,7 +179,7 @@ N개의 제어점이 주어질 경우:
 예를 들어, 제어점이 `(0,0)`, `(0.5, 1)` 그리고 `(1, 0)`이라면, 방정식은:
 
 - <code>x = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 0.5 + t<sup>2</sup> * 1 = (1-t)t + t<sup>2</sup> = t</code>
-- <code>y = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 1 + t<sup>2</sup> * 0 = 2(1-t)t = –t<sup>2</sup> + 2t</code>
+- <code>y = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 1 + t<sup>2</sup> * 0 = 2(1-t)t = –2t<sup>2</sup> + 2t</code>
 
 이제 `t`를 `0`부터 `1`까지 돌리면서, 각 `t`를 위한 `(x,y)`값의 집합은 제어점과 같은 곡선을 구성합니다.
 

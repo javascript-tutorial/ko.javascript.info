@@ -215,11 +215,43 @@ alert( new PropertyRequiredError("field").name ); // PropertyRequiredError
 
 함수 `readUser`는 '사용자 데이터를 읽기' 위해 만들어졌습니다. 그런데 사용자 데이터를 읽는 과정에서 다른 오류들이 발생할 수 있습니다. 지금 당장은 `SyntaxError`와 `ValidationError`만 있지만, 앞으로 `readUser` 함수가 더 커지면 다른 커스텀 에러 클래스를 만들어야 할 수 있습니다.
 
+<<<<<<< HEAD
 물론 `readUser`는 이런 에러를 모두 처리할 수 있어야 합니다. 그런데 지금은 `catch` 블록 안에 `if`문 여러 개를 넣어 에러를 처리하고 있죠. 미래에 커스텀 에러 클래스가 더 추가될 텐데 앞으로도 이렇게 `readUser`를 호출하는 곳에서 모든 에러를 종류에 따라 하나하나 처리해야만 할까요?
+=======
+The code which calls `readUser` should handle these errors. Right now it uses multiple `if`s in the `catch` block, that check the class and handle known errors and rethrow the unknown ones.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
-Often the answer is "No": the outer code wants to be "one level above all that", it just wants to have some kind of "data reading error" -- why exactly it happened is often irrelevant (the error message describes it). Or, even better, it could have a way to get the error details, but only if we need to.
+The scheme is like this:
 
-So let's make a new class `ReadError` to represent such errors. If an error occurs inside `readUser`, we'll catch it there and generate `ReadError`. We'll also keep the reference to the original error in its `cause` property. Then the outer code will only have to check for `ReadError`.
+```js
+try {
+  ...
+  readUser()  // the potential error source
+  ...
+} catch (err) {
+  if (err instanceof ValidationError) {
+    // handle validation errors
+  } else if (err instanceof SyntaxError) {
+    // handle syntax errors
+  } else {
+    throw err; // unknown error, rethrow it
+  }
+}
+```
+
+In the code above we can see two types of errors, but there can be more.
+
+If the `readUser` function generates several kinds of errors, then we should ask ourselves: do we really want to check for all error types one-by-one every time?
+
+Often the answer is "No": we'd like to be "one level above all that". We just want to know if there was a "data reading error" -- why exactly it happened is often irrelevant (the error message describes it). Or, even better, we'd like to have a way to get the error details, but only if we need to.
+
+The technique that we describe here is called "wrapping exceptions".
+
+1. We'll make a new class `ReadError` to represent a generic "data reading" error.
+2. The function `readUser` will catch data reading errors that occur inside it, such as `ValidationError` and `SyntaxError`, and generate a `ReadError` instead.
+3. The `ReadError` object will keep the reference to the original error in its `cause` property.
+
+Then the code that calls `readUser` will only have to check for `ReadError`, not for every kind of data reading errors. And if it needs more details of an error, it can check its `cause` property.
 
 Here's the code that defines `ReadError` and demonstrates its use in `readUser` and `try..catch`:
 
@@ -293,7 +325,7 @@ In the code above, `readUser` works exactly as described -- catches syntax and v
 
 So the outer code checks `instanceof ReadError` and that's it. No need to list all possible error types.
 
-The approach is called "wrapping exceptions", because we take "low level exceptions" and "wrap" them into `ReadError` that is more abstract and more convenient to use for the calling code. It is widely used in object-oriented programming.
+The approach is called "wrapping exceptions", because we take "low level" exceptions and "wrap" them into `ReadError` that is more abstract. It is widely used in object-oriented programming.
 
 ## 요약
 

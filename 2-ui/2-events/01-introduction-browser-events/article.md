@@ -216,7 +216,7 @@ input.onclick = function() { alert(2); } // 이전 핸들러를 덮어씀
 문법은 다음과 같습니다.
 
 ```js
-element.addEventListener(event, handler[, options]);
+element.addEventListener(event, handler, [options]);
 ```
 
 `event`
@@ -235,7 +235,7 @@ element.addEventListener(event, handler[, options]);
 핸들러 삭제는 `removeEventListener`로 합니다.
 
 ```js
-element.removeEventListener(event, handler[, options]);
+element.removeEventListener(event, handler, [options]);
 ```
 
 ````warn header="삭제는 동일한 함수만 할 수 있습니다."
@@ -446,7 +446,11 @@ HTML 속성을 이용한 이벤트 핸들러 할당은 자주 쓰이지 않습�
 
 DOM 프로퍼티를 사용한 방법은 괜찮습니다. 하지만 복수의 핸들러 할당이 불가능하다는 단점이 있습니다. 여러 상황에서 이런 제약이 큰 단점이 되진 않지만요.
 
+<<<<<<< HEAD
 메서드를 사용하는 방법은 가장 유연하지만, 코드는 가장 깁니다. `transtionend`와 `DOMContentLoaded`(추후 다룰 예정)같은 일부 이벤트는 이 방법으로만 처리할 수 있습니다. `addEventListener`는 객체 형태의 이벤트를 지원합니다. 이 경우엔 이벤트 발생 시 객체 안에 구현된 메서드인 `handleEvent`가 호출됩니다.
+=======
+The last way is the most flexible, but it is also the longest to write. There are few events that only work with it, for instance `transitionend` and `DOMContentLoaded` (to be covered). Also `addEventListener` supports objects as event handlers. In that case the method `handleEvent` is called in case of the event.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 어떤 방법으로 이벤트 핸들러를 할당하던, 첫 번째 인자는 이벤트 객체입니다. 이벤트 객체는 어떤 일이 일어났는지에 대한 상세한 정보를 담고 있습니다.
 

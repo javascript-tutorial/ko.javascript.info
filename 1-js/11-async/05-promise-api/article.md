@@ -191,7 +191,11 @@ if(!Promise.allSettled) {
 
 여기서 `promises.map`은 입력값을 받아  `p => Promise.resolve(p)`로 입력값을 프라미스로 변화시킵니다(프라미스가 아닌 값을 받은 경우). 그리고 모든 프라미스에 `.then` 핸들러가 추가됩니다.
 
+<<<<<<< HEAD
 `then` 핸들러는 성공한 프라미스의 결괏값 `v`를 `{state:'fulfilled', value:v}`로, 실패한 프라미스의 결괏값 `r`을 `{state:'rejected', reason:r}`로 변경합니다. `Promise.allSettled`의 구성과 동일하게 말이죠.
+=======
+That handler turns a successful result `value` into `{state:'fulfilled', value}`, and an error `reason` into `{state:'rejected', reason}`. That's exactly the format of `Promise.allSettled`.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 이렇게 폴리필을 구현하면 프라미스 일부가 거부되더라도 `Promise.allSettled`를 사용해 프라미스 *전체*의 결과를 얻을 수 있습니다.
 

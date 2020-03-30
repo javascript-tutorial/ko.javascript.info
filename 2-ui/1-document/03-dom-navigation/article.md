@@ -202,7 +202,11 @@ DOM을 변경하려면 다른 메서드가 필요합니다. 다음 챕터에서 
 예시:
 
 ```js run
+<<<<<<< HEAD
 // <body>의 부모 노드는 <html>입니다
+=======
+// parent of <body> is <html>
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 alert( document.body.parentNode === document.documentElement ); // true
 
 // <head>의 다음 형제 노드는 <body>입니다.

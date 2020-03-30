@@ -65,7 +65,11 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 ## 비하인드 스토리
 
+<<<<<<< HEAD
 `[[Prototype]]`을 다룰 수 있는 방법은 다양합니다. 목표는 하나인데 목표를 이루기 위한 수단은 여러 가지인 상황이죠.
+=======
+If we count all the ways to manage `[[Prototype]]`, there are a lot! Many ways to do the same thing!
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 왜 그럴까요?
 

@@ -249,8 +249,13 @@ pseudo
 ```smart header="계산 값과 결정 값"
 [CSS](https://drafts.csswg.org/cssom/#resolved-values)에는 속성과 관련된 두 가지 개념이 있습니다.
 
+<<<<<<< HEAD
 1. *계산 값(computed style value)* -- CSS 규칙과 CSS 상속이 모두 적용된 후의 값을 의미합니다. 값의 형태는 `height:1em`나 `font-size:125%` 같이 생겼습니다.
 2. *결정 값(resolved style value)* -- 요소에 최종적으로 적용되는 값을 의미합니다. 계산 값에서 사용한 `1em`나 `125%`은 상대 단위를 사용하는 상댓값인데, 브라우저는 계산 값을 받아 단위를 전환해 `height:20px`나 `font-size:16px`같이 고정 단위를 사용하는 값(절댓값)으로 값을 변환합니다. 기하 관련 프로퍼티의 결정 값에는 `width:50.5px`같이 소수점 단위가 있을 수 있습니다.
+=======
+1. A *computed* style value is the value after all CSS rules and CSS inheritance is applied, as the result of the CSS cascade. It can look like `height:1em` or `font-size:125%`.
+2. A *resolved* style value is the one finally applied to the element. Values like `1em` or `125%` are relative. The browser takes the computed value and makes all units fixed and absolute, for instance: `height:20px` or `font-size:16px`. For geometry properties resolved values may have a floating point, like `width:50.5px`.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 `getComputedStyle`은 계산 값을 얻기 위해서 만들어진 아주 오래된 메서드입니다. 그런데 계산 값보다는 결정 값을 사용하는 게 훨씬 편리하기 때문에 표준이 개정되었습니다.
 

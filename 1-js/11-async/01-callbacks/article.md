@@ -10,9 +10,15 @@
 독자를 위해 최대한 브라우저 메서드를 덜 쓰도록 하겠습니다.
 ```
 
+<<<<<<< HEAD
 자바스크립트 내 동작 상당수는 *비동기(asynchronous)* 로 처리됩니다. 이는 지금 당장 동작을 시작해도 동작이 끝나는 시점은 나중이라는 것을 의미합니다.
 
 `setTimeout`을 사용해 비동기 동작을 스케줄링하는 것이 대표적인 예시입니다.
+=======
+Many functions are provided by JavaScript host environments that allow you to schedule *asynchronous* actions. In other words, actions that we initiate now, but they finish later.
+
+For instance, one such function is the `setTimeout` function.
+>>>>>>> 62299ed853674c4fd1427cd310516d5535bce648
 
 비동기 동작에 대한 예시는 다양합니다. 스크립트나 모듈을 로딩(뒤에서 다루게 될 내용)하는 것 또한 비동기 동작입니다.
 
