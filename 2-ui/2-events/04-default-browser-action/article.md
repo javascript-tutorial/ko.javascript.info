@@ -113,7 +113,11 @@ Firefox, Chrome 같은 몇몇 브라우저에서 `touchstart` 와 `touchmove` �
 
 이를 이용한 흥미로운 유스 케이스가 있습니다.
 
+<<<<<<< HEAD
 <info:bubbling-and-capturing> 챕터에서 배운 `event.stopPropagation()`를 기억하시나요? 여기서 버블링을 막는 게 왜 나쁜지 이야기한 바 있습니다.
+=======
+You remember in the chapter <info:bubbling-and-capturing> we talked about `event.stopPropagation()` and why stopping bubbling is bad?
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 가끔은 `event.stopPropagation()`대신에 `event.defaultPrevented`를 사용해 이벤트가 적절히 처리되었다고 다른 이벤트에게 알릴 수도 있습니다.
 

@@ -45,8 +45,13 @@
 
 `<script>` 태그엔 몇 가지 속성(attribute)이 있습니다. 요즘엔 잘 사용하진 않지만, 오래된 코드에서 종종 이 속성을 발견할 수 있습니다.
 
+<<<<<<< HEAD
 `type` 속성: <code>&lt;script <u>type</u>=...&gt;</code>
  : HTML4에선 스크립트에 `type`을 명시하는 것이 필수였습니다. 따라서 `type="text/javascript"` 속성이 붙은 스크립트를 어렵지 않게 찾을 수 있었습니다. 이젠 타입 명시가 필수가 아닙니다. 게다가 모던 HTML 표준에선 이 속성의 의미가 바뀌었습니다. 이제 이 속성은 자바스크립트 모듈에 사용할 수 있습니다. 모듈은 심화 내용이기 때문에 다른 파트에서 다시 이야기하도록 하겠습니다.
+=======
+The `type` attribute: <code>&lt;script <u>type</u>=...&gt;</code>
+: The old HTML standard, HTML4, required a script to have a `type`. Usually it was `type="text/javascript"`. It's not required anymore. Also, the modern HTML standard totally changed the meaning of this attribute. Now, it can be used for JavaScript modules. But that's an advanced topic, we'll talk about modules in another part of the tutorial.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
  `language` 속성: <code>&lt;script <u>language</u>=...&gt;</code>
   : 이 속성은 현재 사용하고 있는 스크립트 언어를 나타냅니다. 지금은 자바스크립트가 기본 언어이므로 속성의 의미가 퇴색된 상황입니다. 더는 사용할 필요가 없어졌죠.

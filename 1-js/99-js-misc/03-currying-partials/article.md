@@ -38,9 +38,15 @@ alert( curriedSum(1)(2) ); // 3
 
 위의 예시에서 보듯이, 실제 구현은 그저 두 개의 래퍼를 사용한 것과 같이 간단합니다.
 
+<<<<<<< HEAD
 - `curry(func)`의 반환값은 `function(a)`형태의 래퍼입니다.
 - `carriedSum`이 `sum(1)`과 같은 함수를 호출했을 때처럼, 그 인수는 렉시컬 환경에 저장이 되고 새로운 래퍼 `function(b)`이 반환됩니다.
 - 그리고 반환된 `function(b)`래퍼 함수가 `2`를 인수로 호출됩니다. 그리고 반환값이 원래의 `sum`으로 넘겨져서 호출됩니다. 
+=======
+- The result of `curry(func)` is a wrapper `function(a)`.
+- When it is called like `curriedSum(1)`, the argument is saved in the Lexical Environment, and a new wrapper is returned `function(b)`.
+- Then this wrapper is called with `2` as an argument, and it passes the call to the original `sum`.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 lodash 라이브러리의 [_.curry](https://lodash.com/docs#curry) 같이 래퍼를 반환할 때 함수가 보통 때처럼 또는 partial 적으로 호출하는 것을 허용하는 더 진보적으로 구현된 커링도 있습니다.
 

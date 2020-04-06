@@ -3,7 +3,11 @@
 
 1. 우리가 알고 있는 일반적인 메서드 호출 방법입니다.
 
+<<<<<<< HEAD
 2. 역시 일반적인 호출 방법에 속합니다. 괄호가 추가되었긴 하지만 연산 우선순위를 바꾸진 않으므로 점 연산자가 먼저 실행됩니다.
+=======
+2. The same, parentheses do not change the order of operations here, the dot is first anyway.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 3. 좀 더 복잡한 패턴의 호출(`(expression).method()`)이 등장했네요. 세 번째 호출은 아래와 같은 코드로 쪼갤 수 있습니다.
 

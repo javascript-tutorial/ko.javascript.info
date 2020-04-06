@@ -81,6 +81,7 @@ let x = 5;
 x = "John";
 ```
 
+<<<<<<< HEAD
 자바스크립트는 일곱 가지 기본 자료형을 지원합니다.
 
 - 정수와 부동 소수점을 저장하는 데 쓰이는 `숫자형`
@@ -89,6 +90,17 @@ x = "John";
 - '비어있음', '존재하지 않음'을 나타내는 `null` 값만을 위한 독립 자료형 `null`
 - 값이 할당되지 않은 상태를 나타내는 `undefined` 값만을 위한 독립 자료형 `undefined`
 - 복잡한 자료구조를 저장하는 데 쓰이는 `객체형`과 고유한 식별자를 만들 때 사용되는 `심볼형`  
+=======
+There are 8 data types:
+
+- `number` for both floating-point and integer numbers,
+- `bigint` for integer numbers of arbitrary length,
+- `string` for strings,
+- `boolean` for logical values: `true/false`,
+- `null` -- a type with a single value `null`, meaning "empty" or "does not exist",
+- `undefined` -- a type with a single value `undefined`, meaning "not assigned",
+- `object` and `symbol` -- for complex data structures and unique identifiers, we haven't learnt them yet.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 `typeof` 연산자는 값의 자료형을 반환해줍니다. 그런데 두 가지 예외 사항이 있습니다.
 ```js

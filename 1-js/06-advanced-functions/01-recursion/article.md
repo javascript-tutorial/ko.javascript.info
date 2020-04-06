@@ -462,7 +462,11 @@ list.next.next.next = { value: 4 };
 list.next.next.next.next = null;
 ```
 
+<<<<<<< HEAD
 이렇게 연결 리스트를 만드니 객체가 여러개 있고, 각 객체엔 `value`와 이웃 객체를 가리키는 프로퍼티인 `next`가 있는 게 명확히 보이네요. 체인의 시작 객체는 변수 `list`에 저장되어 있습니다. 우리는 `list`의 `next` 프로퍼티를 이용해 이어지는 객체 어디든 도달할 수 있습니다.
+=======
+Here we can even more clearly see that there are multiple objects, each one has the `value` and `next` pointing to the neighbour. The `list` variable is the first object in the chain, so following `next` pointers from it we can reach any element.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 연결 리스트를 사용하면 전체 리스트를 여러 부분으로 쉽게 나눌 수 있고, 다시 합치는 것도 가능합니다.
 

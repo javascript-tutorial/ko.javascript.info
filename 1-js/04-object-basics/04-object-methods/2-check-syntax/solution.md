@@ -34,4 +34,8 @@ let user = {
 (user.go)() // John
 ```
 
+<<<<<<< HEAD
 참고로, `(user.go)`를 감싸는 괄호는 아무런 역할을 하지 않습니다. 괄호는 대개 연산자 우선순위를 바꾸는 데 사용되는데, `(user.go)`에선 점 `.` 연산자가 먼저 동작하기 때문에 의미가 없습니다. 문제 출제 의도는 세미콜론 여부였습니다.
+=======
+Please note that parentheses around `(user.go)` do nothing here. Usually they setup the order of operations, but here the dot `.` works first anyway, so there's no effect. Only the semicolon thing matters.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622

@@ -117,7 +117,7 @@ switch (+a) {
 `case 3`과 `case 5`에서 실행하려는 코드가 같은 경우에 대한 예시를 살펴봅시다.
 
 ```js run no-beautify
-let a = 2 + 2;
+let a = 3;
 
 switch (a) {
   case 4:

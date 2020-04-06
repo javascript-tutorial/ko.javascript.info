@@ -108,14 +108,23 @@ Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded
 
 ## window.onload [#window-onload]
 
+<<<<<<< HEAD
 `window` 객체의 `load` 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행됩니다.
+=======
+The `load` event on the `window` object triggers when the whole page is loaded including styles, images and other resources. This event is available via the `onload` property.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 아래 예시에서 `window.onload`는 이미지가 모두 로드되고 난 후 실행되기 때문에 이미지 사이즈가 제대로 출력되는 것을 확인할 수 있습니다. 
 
 ```html run height=200 refresh
 <script>
+<<<<<<< HEAD
   window.onload = function() {
     alert('페이지 전체가 로드되었습니다.');
+=======
+  window.onload = function() { // same as window.addEventListener('load', (event) => {
+    alert('Page loaded');
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
     // 이번엔 이미지가 제대로 불러와 진 후에 얼럿창이 실행됩니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
@@ -157,7 +166,11 @@ window.addEventListener("unload", function() {
 [fetch](info:fetch) 메서드는 '페이지를 떠난 후'에도 요청이 가능하도록 해주는 플래그 `keepalive`를 지원합니다. 자세한 내용은 <info:fetch-api>에서 확인해보세요.
 
 
+<<<<<<< HEAD
 한편, 다른 페이지로 전환 중에 이를 취소하고 싶은 경우가 생기곤 합니다. `unload`에선 페이지 전환을 취소할 수 없고 `onbeforeunload`를 사용하면 가능합니다.
+=======
+If we want to cancel the transition to another page, we can't do it here. But we can use another event -- `onbeforeunload`.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 ## window.onbeforeunload [#window.onbeforeunload]
 
@@ -272,6 +285,7 @@ document.addEventListener('readystatechange', () => console.log(document.readySt
 
 페이지 로드 관련 이벤트는 다음과 같습니다.
 
+<<<<<<< HEAD
 - `DOMContentLoaded` -- DOM 구성이 완료되었을 때 `document` 객체에서 실행됩니다. 자바스크립트를 사용해 요소를 조작하는 것은 이 이벤트가 실행된 후입니다.
   - `<script>...</script>`나 `<script src="..."></script>`를 사용해 삽입한 스크립트는 DOMContentLoaded가 실행되는 것을 막습니다. 브라우저는 이 스크립트가 실행되길 기다립니다.
   - `DOMContentLoaded`는 실행되어도 이미지를 비롯한 기타 리소스들은 여전히 로드 중일 수 있습니다.
@@ -282,3 +296,15 @@ document.addEventListener('readystatechange', () => console.log(document.readySt
   - `loading` -- 문서를 불러오는 중일 때
   - `interactive` -- 문서가 완전히 불러와졌을 때. `DOMContentLoaded`가 실행되기 바로 직전에 해당 값으로 변경됩니다.
   - `complete` -- 문서를 비롯한 이미지 등의 리소스들도 모두 불러와졌을 때. `window.onload`가 실행되기 바로 직전에 해당 값으로 변경됩니다.
+=======
+- The `DOMContentLoaded` event triggers on `document` when the DOM is ready. We can apply JavaScript to elements at this stage.
+  - Script such as `<script>...</script>` or `<script src="..."></script>` block DOMContentLoaded, the browser waits for them to execute.
+  - Images and other resources may also still continue loading.
+- The `load` event on `window` triggers when the page and all resources are loaded. We rarely use it, because there's usually no need to wait for so long.
+- The `beforeunload` event on `window` triggers when the user wants to leave the page. If we cancel the event, browser asks whether the user really wants to leave (e.g we have unsaved changes).
+- The `unload` event on `window` triggers when the user is finally leaving, in the handler we can only do simple things that do not involve delays or asking a user. Because of that limitation, it's rarely used. We can send out a network request with `navigator.sendBeacon`.
+- `document.readyState` is the current state of the document, changes can be tracked in the `readystatechange` event:
+  - `loading` -- the document is loading.
+  - `interactive` -- the document is parsed, happens at about the same time as `DOMContentLoaded`, but before it.
+  - `complete` -- the document and resources are loaded, happens at about the same time as `window.onload`, but before it.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622

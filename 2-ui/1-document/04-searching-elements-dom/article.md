@@ -102,8 +102,13 @@
 
 `querySelectorAll`은 CSS 선택자를 활용할 수 있다는 점에서 아주 유용합니다.
 
+<<<<<<< HEAD
 ```smart header="가상 클래스도 사용할 수 있습니다."
 querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클래스(pseudo-class)도 사용할 수 있습니다. `document.querySelectorAll(':hover')`을 사용하면 마우스 포인터가 위에 있는(hover 상태인) 요소 모두를 담은 컬렉션이 반환됩니다. 이때 컬렉션은 DOM 트리 최상단에 위치한 `<html>`부터 가장 하단의 요소 순으로 채워집니다.
+=======
+```smart header="Can use pseudo-classes as well"
+Pseudo-classes in the CSS selector like `:hover` and `:active` are also supported. For instance, `document.querySelectorAll(':hover')` will return the collection with elements that the pointer is over now (in nesting order: from the outermost `<html>` to the most nested one).
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 ```
 
 ## querySelector [#querySelector]
@@ -176,9 +181,15 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 튜토리얼의 완성도를 높이고 오래된 스크립트에서 해당 메서드들을 만날 때 당황하지 않으시길 바라면서 이 메서드들을 잠시 언급하도록 하겠습니다.
 
+<<<<<<< HEAD
 - `elem.getElementsByTagName(tag)` --  주어진 태그에 해당하는 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다. 매개변수 `tag`에 `"*"`이 들어가면, '모든 태그'가 검색됩니다.
 - `elem.getElementsByClassName(className)` -- class 속성값을 기준으로 요소를 찾고, 대응하는 요소를 담은 컬렉션을 반환합니다.
 - `document.getElementsByName(name)` --  아주 드물게 쓰이는 메서드로, 문서 전체를 대상으로 검색을 수행합니다. 검색 기준은 `name` 속성값이고, 이 메서드 역시 검색 결과를 담은 컬렉션을 반환합니다.
+=======
+- `elem.getElementsByTagName(tag)` looks for elements with the given tag and returns the collection of them. The `tag` parameter can also be a star `"*"` for "any tags".
+- `elem.getElementsByClassName(className)` returns elements that have the given CSS class.
+- `document.getElementsByName(name)` returns elements with the given `name` attribute, document-wide. Very rarely used.
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
 예시:
 ```js

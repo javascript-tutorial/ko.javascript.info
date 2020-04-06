@@ -299,8 +299,13 @@ func.apply(context, args)
 따라서 아래 코드 두 줄은 거의 같은 역할을 합니다.
 
 ```js
+<<<<<<< HEAD
 func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과
 func.apply(context, args);   // apply를 사용하는 것은 동일합니다.
+=======
+func.call(context, ...args); // pass an array as list with spread syntax
+func.apply(context, args);   // is same as using call
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 ```
 
 그런데 약간의 차이가 있긴 합니다.

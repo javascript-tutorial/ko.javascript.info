@@ -124,7 +124,11 @@ alert( date.getUTCHours() );
 : 주어진 일시와 1970년 1월 1일 00시 00분 00초 사이의 간격(밀리초 단위)인 타임스탬프를 반환합니다.
 
 [getTimezoneOffset()](mdn:js/Date/getTimezoneOffset)
+<<<<<<< HEAD
 : 현지 시간과 표준 시간의 차이(분)를 반환합니다.
+=======
+: Returns the difference between UTC and the local time zone, in minutes:
+>>>>>>> c89ddc5d92195e08e2c32e30526fdb755fec4622
 
     ```js run
     // UTC-1 시간대에서 이 예시를 실행하면 60이 출력됩니다.
