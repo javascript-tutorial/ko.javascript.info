@@ -63,7 +63,7 @@ export {sayHi, sayBye}; // 두 함수를 내보냄
 
 참고로 `export`문을 함수 선언부 위에 적어주는 것도 동일하게 동작합니다.
 
-## Import *
+## import *
 
 무언갈 가져오고 싶다면 아래와 같이 이에 대한 목록을 만들어 `import {...}`안에 적어주면 됩니다.
 
@@ -113,7 +113,7 @@ say.sayBye('John');
 2. 어떤 걸 가지고 올지 명시하면 이름을 간결하게 써줄 수 있습니다. `say.sayHi()`보다 `sayHi()`가 더 간결하네요.
 3. 어디서 어떤 게 쓰이는지 명확하기 때문에 코드 구조를 파악하기가 쉬워 리팩토링이나 유지보수에 도움이 됩니다.
 
-## Import 'as'
+## import 'as'
 
 `as`를 사용하면 이름을 바꿔서 모듈을 가져올 수 있습니다.
 
@@ -151,18 +151,18 @@ say.*!*hi*/!*('John'); // Hello, John!
 say.*!*bye*/!*('John'); // Bye, John!
 ```
 
-## Export default
+## export default
 
 모듈은 크게 두 종류로 나뉩니다.
 
-1. 위 예시의 `say.js`처럼 복수의 함수가 있는 라이브리리 형태의 모듈
-2. 위 예시의 `user.js`(`class User` 하나만 내보내기 함)처럼 개체(entity) 하나만 선언되어있는 모듈
+1. 복수의 함수가 있는 라이브러리 형태의 모듈(위 예시의 `say.js`)
+2. 개체 하나만 선언되어있는 모듈(아래의 `user.js`. `class User` 하나만 내보내기 함)
 
 대개는 두 번째 방식으로 모듈을 만드는 걸 선호하기 때문에 함수, 클래스, 변수 등의 개체는 전용 모듈 안에 구현됩니다.
 
-그런데 이렇게 모듈을 만들다 보면 파일 수가 많아질 수밖에 없습니다. 그렇더라도 모듈 이름을 잘 지어주고, 폴더에 파일을 잘 나눠 프로젝트를 구성하면 코드 탐색이 어렵지 않으므로 이는 전혀 문제가 되지 않습니다.
+그런데 이렇게 모듈을 만들다 보면 자연스레 파일 개수가 많아질 수밖에 없습니다. 그렇더라도 모듈 이름을 잘 지어주고, 폴더에 파일을 잘 나눠 프로젝트를 구성하면 코드 탐색이 어렵지 않으므로 이는 전혀 문제가 되지 않습니다.
 
-`export default`라는 특별한 문법을 사용하면 '개체가 하나만 있는 모듈'을 더 잘 표시할 수 있습니다. 이런 방식을 'default export(기본 내보내기)'라고 합니다.
+모듈은 `export default`라는 특별한 문법을 지원합니다. `export default`를 사용하면 '해당 모듈엔 개체가 하나만 있다'는 사실을 명확히 나태낼 수 있습니다.
 
 내보내고자 하는 개체 앞에 `export default`를 붙여봅시다.
 
@@ -181,7 +181,7 @@ export *!*default*/!* class User { // export 옆에 'default'를 추가해보았
 
 ```js
 // 📁 main.js
-import *!*User*/!* from './user.js'; // {User}를 사용하지 않고 중괄호 없이 User 클래스를 가져왔습니다.
+import *!*User*/!* from './user.js'; // {User}가 아닌 User로 클래스를 가져왔습니다.
 
 new User('John');
 ```
@@ -193,9 +193,9 @@ new User('John');
 | `export class User {...}` | `export default class User {...}` |
 | `import {User} from ...` | `import User from ...`|
 
-사실 named export와 default export를 같은 모듈에서 동시에 사용해도 괜찮습니다. 그런데 실무에선 이렇게 섞어 쓰는 사례가 흔치 않고, 한 파일엔 named export나 default export 둘 중 하나만 사용합니다.
+사실 named export와 default export를 같은 모듈에서 동시에 사용해도 문제는 없습니다. 그런데 실무에선 이렇게 섞어 쓰는 사례가 흔치 않습니다. 한 파일엔 named export나 default export 둘 중 하나만 사용합니다.
 
-파일당 최대 하나의 default export가 있을 수 있으므로 내보낼 엔티티엔 이름이 없어도 괜찮습니다.
+파일당 최대 하나의 default export가 있을 수 있으므로 내보낼 개체엔 이름이 없어도 괜찮습니다.
 
 아래 예시의 개체엔 이름이 없지만 모두 에러 없이 잘 동작합니다.
 
@@ -228,7 +228,7 @@ export class { // 에러! (default export가 아닌 경우엔 이름이 꼭 필�
 
 ### 'default' name
 
-몇몇 상황에서 `default` 키워드는 기본 내보내기를 참조하는 용도로 사용됩니다.
+`default` 키워드는 기본 내보내기를 참조하는 용도로 종종 사용됩니다.
 
 함수를 내보낼 때 아래와 같이 함수 선언부와 떨어진 곳에서 `default` 키워드를 사용하면, 해당 함수를 기본 내보내기 할 수 있습니다.
 
@@ -265,7 +265,7 @@ import {*!*default as User*/!*, sayHi} from './user.js';
 new User('John');
 ```
 
-`*` 를 사용할 수도 있는데, 이렇게 객체 형태로 모든 걸 가져온 경우엔 `default` 프로퍼티는 정확히 default export를 가리킵니다.
+`*` 를 사용해 모든 것을 객체 형태로 가져오는 방법도 있는데, 이 경우엔 `default` 프로퍼티는 정확히 default export를 가리킵니다.
 
 ```js
 // 📁 main.js
@@ -279,14 +279,14 @@ new User('John');
 
 named export는 내보냈을 때 사용한 이름 그대로 가져오므로 관련 정보를 파악하기 쉽습니다.
 
-다만 아래와 같이 내보내기 할 때 쓴 이름과 가져오기 할 때 쓸 이름이 동일해야 한다는 제약이 있죠. 
+그런데 아래와 같이 내보내기 할 때 쓴 이름과 가져오기 할 때 쓸 이름이 동일해야 한다는 제약이 있죠.
 
 ```js
 import {User} from './user.js';
 // import {MyUser}은 사용할 수 없습니다. 반드시 {User}이어야 합니다.
 ```
 
-이와는 다르게 default export는 가져오기 할 때 개발자가 원하는 대로 이름을 지정해 줄 수 있습니다.
+named export와는 다르게 default export는 가져오기 할 때 개발자가 원하는 대로 이름을 지정해 줄 수 있습니다.
 
 ```js
 import User from './user.js'; // 동작
@@ -294,7 +294,7 @@ import MyUser from './user.js'; // 동작
 // 어떤 이름이든 에러 없이 동작합니다.
 ```
 
-그런데 이렇게 자유롭게 이름을 짓다 보면 같은 걸 가져오는데도 이름이 다를 수 있기 때문에 혼란의 여지가 생깁니다.
+그런데 이렇게 자유롭게 이름을 짓다 보면 같은 걸 가져오는데도 이름이 달라 혼란의 여지가 생길 수 있습니다.
 
 이런 문제를 예방하고 코드의 일관성을 유지하기 위해 default export 한 것을 가져올 땐 아래와 같이 파일 이름과 동일한 이름을 사용하도록 팀원끼리 내부 규칙을 정할 수 있습니다.
 
@@ -305,13 +305,13 @@ import func from '/path/to/func.js';
 ...
 ```
 
-그런데 위와 같은 규칙을 만들었더라도 누군가는 이를 지키지 않을 수 있기 때문에 어떤 팀은 named export만 사용할 것을 강제하는 경우도 있습니다. 모듈 하나에서 단 하나의 개체만 내보내는 경우에도 `default` 없이 이름을 붙여 내보내면 혼란을 방지할 수 있기 때문이죠.
+그런데 규칙이 있어도 이를 지키지 않는 사람이 있을 수 있기 때문에 어떤 팀은 named export만 사용할 것을 강제하는 경우도 있습니다. 모듈 하나에서 단 하나의 개체만 내보내는 경우에도 `default` 없이 이름을 붙여 내보내면 혼란을 방지할 수 있기 때문이죠.
 
 이런 규칙은 아래에서 배울 모듈 다시 내보내기를 쉽게 해준다는 장점도 있습니다.
 
-## export ... from ...으로 다시 내보내기
+## 모듈 다시 내보내기
 
-`export ... from ...` 문법을 사용하면 가져온 것을 즉시 '다시 내보내기(re-export)' 할 수 있습니다. 이름을 바꿔서 내보낼 수도 있습니다. 예시를 살펴봅시다. 
+`export ... from ...` 문법을 사용하면 가져온 개체를 즉시 '다시 내보내기(re-export)' 할 수 있습니다. 이름을 바꿔서 다시 내보낼 수 있는 것이죠. 예시를 살펴봅시다. 
 
 ```js
 export {sayHi} from './say.js'; // sayHi를 다시 내보내기 함
@@ -319,9 +319,9 @@ export {sayHi} from './say.js'; // sayHi를 다시 내보내기 함
 export {default as User} from './user.js'; // default export를 다시 내보내기 함
 ```
 
-다시 내보내기를 왜 해야 하는지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
+다시 내보내기가 왜 필요한건지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
 
-NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있습니다.
+NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데, 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있다고 합시다.
 
 패키지 구조는 아래와 같습니다.
 ```
@@ -337,15 +337,15 @@ auth/
         ...
 ```
 
-진입점 역할을 하는 '주요 파일'인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.   
+진입점 역할을 하는 '주요 파일'인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.
 
 ```js
 import {login, logout} from 'auth/index.js'
 ```
 
-이때 우리가 만든 패키지를 사용하는 외부 개발자가 패키지 안의 파일들을 뒤져 내부 구조를 건드리게 하면 안 됩니다. 공개할 것만 `auth/index.js`에 넣어 내보내기 하고 나머는 숨기는 게 좋겠죠. 
+이때 우리가 만든 패키지를 사용하는 외부 개발자가 패키지 안의 파일들을 뒤져 내부 구조를 건드리게 하면 안 됩니다. 그러려면 공개할 것만 `auth/index.js`에 넣어 내보내기 하고 나머는 숨기는 게 좋겠죠. 
 
-내보낼 기능을 패키지 전반에 분산하여 구현한 후, `auth/index.js`에서 이 기능들을 가져오고 이를 다시 내보내면 원하는 바를 어느 정도 달성할 수 있습니다.
+이때 내보낼 기능을 패키지 전반에 분산하여 구현한 후, `auth/index.js`에서 이 기능들을 가져오고 이를 다시 내보내면 원하는 바를 어느 정도 달성할 수 있습니다.
 
 ```js
 // 📁 auth/index.js
@@ -354,7 +354,7 @@ import {login, logout} from 'auth/index.js'
 import {login, logout} from './helpers.js';
 export {login, logout};
 
-// User 가져온 후 바로 내보냅니다.
+// User를 가져온 후 바로 내보냅니다.
 import User from './user.js';
 export {User};
 ...
@@ -362,7 +362,7 @@ export {User};
 
 이제 외부 개발자들은 `import {login} from "auth/index.js"`로 우리가 만든 패키지를 이용할 수 있습니다.
 
-`export ... from ...`는 위와 같이 개체를 가지고 온 후 바로 내보낼 때 쓸 수 있는  문법입니다. 아래 예시는 위 예시와 동일하게 동작합니다.
+`export ... from ...`는 위와 같이 개체를 가지고 온 후 바로 내보낼 때 쓸 수 있는 문법입니다. 아래 예시는 위 예시와 동일하게 동작합니다.
 
 ```js
 // 📁 auth/index.js
@@ -376,7 +376,7 @@ export {default as User} from './user.js';
 
 ### default export 다시 내보내기
 
-기본 내보내기는 다시 내보낼 땐 주의할 사항이 있습니다.
+기본 내보내기를 다시 내보낼 때는 주의해야 할 점들이 있습니다.
 
 `user.js` 내의 클래스 `User`를 다시 내보내기 한다고 가정해 봅시다.
 
@@ -387,13 +387,13 @@ export default class User {
 }
 ```
 
-1. `export User from './user.js'`로 다시 내보내기를 시도하면 문법 에러가 발생합니다.
+1. `User`를 `export User from './user.js'`로 다시 내보내기 할 때 문법 에러가 발생합니다. 어디가 잘못된 걸까요?
 
-    default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.    
+    default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.
 
 2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다.
 
-    두 가지를 동시에 다시 내보내고 싶다면 두 구문을 동시에 사용해야 합니다.
+    두 가지를 동시에 다시 내보내고 싶다면 두 문을 동시에 사용해야 합니다.
     ```js
     export * from './user.js'; // named export를 다시 내보내기
     export {default} from './user.js'; // default export를 다시 내보내기
@@ -413,8 +413,8 @@ default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 �
   - `export {x [as y], ...}`.
 - 다시 내보내기:
   - `export {x [as y], ...} from "module"`
-  - `export * from "module"` (doesn't re-export default).
-  - `export {default [as y]} from "module"` (re-export default).
+  - `export * from "module"` (default export는 다시 내보내 지지 않음)
+  - `export {default [as y]} from "module"` (default export를 다시 내보냄)
 
 가져오기 타입 역시 정리해 봅시다.
 
