@@ -1,14 +1,14 @@
-# Character classes
+# 문자 클래스
 
-Consider a practical task -- we have a phone number like `"+7(903)-123-45-67"`, and we need to turn it into pure numbers: `79031234567`.
+실제 업무 상황을 생각해봅시다. `"+7(903)-123-45-67"`같은 전화번호에서 `79035419441`처럼 숫자만 남겨야 합니다.
 
-To do so, we can find and remove anything that's not a number. Character classes can help with that.
+이렇게 하려면 숫자가 아닌 문자를 모두 찾아서 지우면 되겠죠. 여기서 문자 클래스를 사용할 수 있습니다.
 
-A *character class* is a special notation that matches any symbol from a certain set.
+*문자 클래스(character class)* 는 특정 집합에 포함된 모든 기호에 일치하는 특별한 표현입니다.
 
-For the start, let's explore the "digit" class. It's written as `pattern:\d` and corresponds to "any single digit".
+가장 먼저 숫자 클래스부터 알아봅시다. 숫자(digit) 클래스는 `pattern:\d`라고 쓰고 '아무 숫자 하나'에 대응합니다.
 
-For instance, the let's find the first digit in the phone number:
+앞에서 나온 전화번호 예시에서 첫 번째 숫자를 찾아봅시다.
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -18,73 +18,73 @@ let regexp = /\d/;
 alert( str.match(regexp) ); // 7
 ```
 
-Without the flag `pattern:g`, the regular expression only looks for the first match, that is the first digit `pattern:\d`.
+`pattern:g` 플래그가 없으면 정규 표현식은 패턴과 일치하는 첫 문자만 찾습니다. 여기서는 `pattern:\d`에 일치하는 첫 번째 숫자이죠.
 
-Let's add the `pattern:g` flag to find all digits:
+이제 `pattern:g` 플래그를 추가해 모든 숫자를 찾아봅시다.
 
 ```js run
 let str = "+7(903)-123-45-67";
 
 let regexp = /\d/g;
 
-alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
+alert( str.match(regexp) ); // 일치하는 문자의 배열: 7,9,0,3,1,2,3,4,5,6,7
 
-// let's make the digits-only phone number of them:
-alert( str.match(regexp).join('') ); // 79031234567
+// 이 배열로 숫자만 있는 전화번호를 만듭시다.
+alert( str.match(regexp).join('') ); // 79035419441
 ```
 
-That was a character class for digits. There are other character classes as well.
+여기까지 숫자를 찾는 문자 클래스였습니다. 물론 다른 문자 클래스도 있습니다.
 
-Most used are:
+자주 사용하는 문자 클래스에는 다음 클래스가 있습니다.
 
-`pattern:\d` ("d" is from "digit")
-: A digit: a character from `0` to `9`.
+`pattern:\d` ('digit(숫자)'의 'd')
+: 숫자: `0`에서 `9` 사이의 문자
 
-`pattern:\s` ("s" is from "space")
-: A space symbol: includes spaces, tabs `\t`, newlines `\n` and few other rare characters, such as `\v`, `\f` and `\r`.
+`pattern:\s` ('space(공백)'의 's')
+: 스페이스, 탭(`\t`), 줄 바꿈(`\n`)을 비롯하여 아주 드물게 쓰이는 `\v`, `\f`, `\r` 을 포함하는 공백 기호
 
-`pattern:\w` ("w" is from "word")
-: A "wordly" character: either a letter of Latin alphabet or a digit or an underscore `_`. Non-Latin letters (like cyrillic or hindi) do not belong to `pattern:\w`.
+`pattern:\w` ('word(단어)'의 'w')
+: '단어에 들어가는' 문자로 라틴 문자나 숫자, 밑줄 `_`을 포함합니다. 키릴 문자나 힌디 문자같은 비 라틴 문자는 `pattern:\w`에 포함되지 않습니다.
 
-For instance, `pattern:\d\s\w` means a "digit" followed by a "space character" followed by a "wordly character", such as `match:1 a`.
+예를 들어 `pattern:\d\s\w`는 `match:1 a`처럼 '숫자' 뒤에 '공백 문자' 뒤에 '단어에 들어가는 문자'를 의미합니다.
 
-**A regexp may contain both regular symbols and character classes.**
+**정규 표현식에 일반 기호와 문자 클래스를 같이 사용할 수 있습니다.**
 
-For instance, `pattern:CSS\d` matches a string `match:CSS` with a digit after it:
+예시로, `pattern:CSS\d`는 `match:CSS` 뒤에 숫자 하나가 있는 문자열과 일치합니다.
 
 ```js run
 let str = "Is there CSS4?";
-let regexp = /CSS\d/
+let regexp = /CSS\d/;
 
 alert( str.match(regexp) ); // CSS4
 ```
 
-Also we can use many character classes:
+또한 문자 클래스를 여러 개 사용할 수도 있습니다.
 
 ```js run
 alert( "I love HTML5!".match(/\s\w\w\w\w\d/) ); // ' HTML5'
 ```
 
-The match (each regexp character class has the corresponding result character):
+일치 결과(각각의 문자 클래스에 글자 하나씩 일치):
 
 ![](love-html5-classes.svg)
 
-## Inverse classes
+## 반대 클래스
 
-For every character class there exists an "inverse class", denoted with the same letter, but uppercased.
+모든 문자 클래스에는 '반대 클래스'가 있습니다. 같은 글자로 표기하지만 대문자로 사용합니다.
 
-The "inverse" means that it matches all other characters, for instance:
+'반대'란 다음 예시들처럼 해당 문자를 제외한 모든 문자에 일치한다는 뜻입니다.
 
 `pattern:\D`
-: Non-digit: any character except `pattern:\d`, for instance a letter.
+: 숫자가 아닌 문자: `pattern:\d`와 일치하지 않는 일반 글자 등의 모든 문자
 
 `pattern:\S`
-: Non-space: any character except `pattern:\s`, for instance a letter.
+: 공백이 아닌 문자: `pattern:\s`와 일치하지 않는 일반 글자 등의 모든 문자
 
 `pattern:\W`
-: Non-wordly character: anything but `pattern:\w`, e.g a non-latin letter or a space.
+: 단어에 들어가지 않는 문자: `pattern:\w`와 일치하지 않는 비 라틴 문자나 공백 등의 모든 문자
 
-In the beginning of the chapter we saw how to make a number-only phone number from a string like `subject:+7(903)-123-45-67`: find all digits and join them.
+이번 챕터의 첫 부분에서 `subject:+7(903)-123-45-67`같은 문자열에서 숫자를 모두 찾아 합쳐서 숫자만 남은 전화번호를 만드는 방법을 알아봤습니다.
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -92,7 +92,7 @@ let str = "+7(903)-123-45-67";
 alert( str.match(/\d/g).join('') ); // 79031234567
 ```
 
-An alternative, shorter way is to find non-digits `pattern:\D` and remove them from the string:
+더 짧게 할 수 있는 다른 방법은 `pattern:\D`로 숫자가 아닌 문자를 찾아 문자열에서 없애버리는 것입니다.
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -100,104 +100,104 @@ let str = "+7(903)-123-45-67";
 alert( str.replace(/\D/g, "") ); // 79031234567
 ```
 
-## A dot is "any character"
+## 점은 '아무 문자'에나 일치
 
-A dot `pattern:.` is a special character class that matches "any character except a newline".
+점`pattern:.`은 줄 바꿈 문자를 제외한 모든 문자와 일치하는 특별한 문자 클래스입니다.
 
-For instance:
+예시:
 
 ```js run
 alert( "Z".match(/./) ); // Z
 ```
 
-Or in the middle of a regexp:
+정규 표현식 안에서도 사용 가능합니다.
 
 ```js run
 let regexp = /CS.4/;
 
 alert( "CSS4".match(regexp) ); // CSS4
 alert( "CS-4".match(regexp) ); // CS-4
-alert( "CS 4".match(regexp) ); // CS 4 (space is also a character)
+alert( "CS 4".match(regexp) ); // CS 4 (공백도 문자예요.)
 ```
 
-Please note that a dot means "any character", but not the "absense of a character". There must be a character to match it:
+점은 아무 문자에나 일치하지만 '문자의 부재'와 일치하지는 않습니다. 반드시 일치하는 문자가 있어야 합니다.
 
 ```js run
-alert( "CS4".match(/CS.4/) ); // null, no match because there's no character for the dot
+alert( "CS4".match(/CS.4/) ); // null, 점과 일치하는 문자가 없기 때문에 일치 결과가 없습니다.
 ```
 
-### Dot as literally any character with "s" flag
+### 's' 플래그와 점을 사용해 정말로 모든 문자 찾기
 
-By default, a dot doesn't match the newline character `\n`.
+기본적으로는 점은 줄 바꿈 문자 `\n`와는 일치하지 않습니다.
 
-For instance, the regexp `pattern:A.B` matches `match:A`, and then `match:B` with any character between them, except a newline `\n`:
+즉, 정규 표현식 `pattern:A.B`는 `match:A`와 `match:B` 사이에 `\n`을 제외한 어떤 문자든 들어간 문자열과 일치합니다.
 
 ```js run
-alert( "A\nB".match(/A.B/) ); // null (no match)
+alert( "A\nB".match(/A.B/) ); // null (일치하지 않음)
 ```
 
-There are many situations when we'd like a dot to mean literally "any character", newline included.
+실제로는 점이 줄 바꿈 문자를 포함한 정말로 모든 문자와 일치해야 하는 상황이 자주 있습니다.
 
-That's what flag `pattern:s` does. If a regexp has it, then a dot `pattern:.` matches literally any character:
+이럴 때 사용하는 것이 `pattern:s`입니다. 정규 표현식에 `pattern:s`를 사용했을 때 점`pattern:.`은 모든 문자와 일치합니다.
 
 ```js run
-alert( "A\nB".match(/A.B/s) ); // A\nB (match!)
+alert( "A\nB".match(/A.B/s) ); // A\nB (일치!)
 ```
 
-````warn header="Not supported in Firefox, IE, Edge"
-Check <https://caniuse.com/#search=dotall> for the most recent state of support. At the time of writing it doesn't include Firefox, IE, Edge.
+````warn header="Firefox, IE, Edge에서 지원하지 않음"
+<https://caniuse.com/#search=dotall>에서 지원 여부의 최신 상황을 확인해보세요. 이 글을 작성하는 시점에 `pattern:s` 플래그는 Firefox, IE, Edge에서 아직 지원하지 않습니다.
 
-Luckily, there's an alternative, that works everywhere. We can use a regexp like `pattern:[\s\S]` to match "any character".
+다행히도 어느 브라우저에서나 쓸 수 있는 대안이 있습니다. `pattern:[\s\S]`같은 정규 표현식을 사용해 '모든 문자'와 일치시킬 수 있습니다.
 
 ```js run
-alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (match!)
+alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (일치!)
 ```
 
-The pattern `pattern:[\s\S]` literally says: "a space character OR not a space character". In other words, "anything". We could use another pair of complementary classes, such as `pattern:[\d\D]`, that doesn't matter. Or even the `pattern:[^]` -- as it means match any character except nothing.
+`pattern:[\s\S]` 패턴의 문자 그대로의 뜻은 '공백 문자 또는 공백 문자가 아닌 문자'입니다. 결국은 모든 문자라는 뜻이죠. 이런 식으로 반대되는 클래스를 같이 사용하는 다른 패턴, 예를 들면 `pattern:[\d\D]`을 사용할 수도 있습니다. 또는 아무 문자도 없는 경우를 제외하는 `pattern:[^]`을 사용할 수도 있습니다.
 
-Also we can use this trick if we want both kind of "dots" in the same pattern: the actual dot `pattern:.` behaving the regular way ("not including a newline"), and also a way to match "any character" with `pattern:[\s\S]` or alike.
+그리고 이 기술을 이용해 같은 정규 표현식 안에서 점의 두 가지 패턴을 모두 사용할 수 있습니다. 줄 바꿈 문자를 포함하지 않는 원래의 점 `pattern:.`과 모든 문자와 일치하는 `pattern:[\s\S]`같은 패턴을 동시에 사용 가능합니다.
 ````
 
-````warn header="Pay attention to spaces"
-Usually we pay little attention to spaces. For us strings `subject:1-5` and `subject:1 - 5` are nearly identical.
+````warn header="공백을 주의하세요."
+사람은 보통 공백을 크게 의식하지 않습니다. 사람에게는 문자열 `subject:1-5`나 `subject:1 - 5`나 거의 같으니까요.
 
-But if a regexp doesn't take spaces into account, it may fail to work.
+하지만 정규 표현식에서 공백을 염두하지 않으면 원하는 결과를 얻지 못할 수 있습니다.
 
-Let's try to find digits separated by a hyphen:
-
-```js run
-alert( "1 - 5".match(/\d-\d/) ); // null, no match!
-```
-
-Let's fix it adding spaces into the regexp `pattern:\d - \d`:
+하이픈으로 구분된 숫자를 찾아봅시다.
 
 ```js run
-alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, now it works
-// or we can use \s class:
-alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, also works
+alert( "1 - 5".match(/\d-\d/) ); // null, 일치 결과 없음!
 ```
 
-**A space is a character. Equal in importance with any other character.**
+정규 표현식에 공백을 넣어서 `pattern:\d - \d`로 바꿔봅시다. 
 
-We can't add or remove spaces from a regular expression and expect to work the same.
+```js run
+alert( "1 - 5".match(/\d - \d/) ); // 1 - 5, 이제 제대로 되네요.
+// \s 클래스를 사용해도 됩니다.
+alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, 이것도 됩니다.
+```
 
-In other words, in a regular expression all characters matter, spaces too.
+**공백 역시 문자입니다. 다른 문자만큼이나 중요합니다.**
+
+정규 표현식에 공백을 추가하거나 지우면 다르게 작동합니다.
+
+즉, 정규 표현식에서는 모든 문자가 중요합니다. 공백도 마찬가지로요.
 ````
 
-## Summary
+## 요약
 
-There exist following character classes:
+문자 클래스에는 다음 클래스들이 있습니다.
 
-- `pattern:\d` -- digits.
-- `pattern:\D` -- non-digits.
-- `pattern:\s` -- space symbols, tabs, newlines.
-- `pattern:\S` -- all but `pattern:\s`.
-- `pattern:\w` -- Latin letters, digits, underscore `'_'`.
-- `pattern:\W` -- all but `pattern:\w`.
-- `pattern:.` -- any character if with the regexp `'s'` flag, otherwise any except a newline `\n`.
+- `pattern:\d` -- 숫자
+- `pattern:\D` -- 숫자가 아닌 문자
+- `pattern:\s` -- 스페이스, 탭, 줄 바꿈 문자
+- `pattern:\S` -- `pattern:\s`를 제외한 모든 문자
+- `pattern:\w` -- 라틴 문자, 숫자, 밑줄 `'_'`
+- `pattern:\W` -- `pattern:\w`를 제외한 모든 문자
+- `pattern:.` -- 정규 표현식 `'s'` 플래그가 있으면 모든 문자, 없으면 줄 바꿈 `\n`을 제외한 모든 문자
 
-...But that's not all!
+하지만 이게 전부가 아닙니다!
 
-Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if it's a letter) it is it a punctuation sign, etc.
+자바스크립트에서 문자열에 사용하는 유니코드 인코딩은 문자에 여러 프로퍼티를 제공합니다. 어떤 언어에 속하는 글자인지 또는 글자가 아닌 구두점인지 알려주는 프로퍼티처럼요.
 
-We can search by these properties as well. That requires flag `pattern:u`, covered in the next article.
+이런 프로퍼티를 기준으로 문자를 찾을 수도 있습니다. `pattern:u` 플래그를 사용하면 되는데요. 다음 글에서 알아보도록 하죠.
