@@ -18,13 +18,13 @@
 이름은 자바에서 차용해 왔지만, 자바스크립트는 자바와는 독자적인 언어입니다. 꾸준히 발전을 거듭하면서 [ECMAScript](http://en.wikipedia.org/wiki/ECMAScript)라는 고유한 명세를 갖춘 독립적인 언어가 되었죠. 자바스크립트는 자바와 아무런 연관이 없습니다.
 ```
 
-자바스크립트는 브라우저뿐만 아니라 서버에서도 실행할 수 있습니다. 이 외에도 [자바스크립트 엔진(JavaScript engine)](https://en.wikipedia.org/wiki/javascript_engine)이라 불리는 특별한 프로그램이 들어 있는 모든 디바이스에서도 동작합니다.
+자바스크립트는 브라우저뿐만 아니라 서버에서도 실행할 수 있습니다. 이 외에도 [자바스크립트 엔진(JavaScript engine)](https://en.wikipedia.org/wiki/JavaScript_engine)이라 불리는 특별한 프로그램이 들어 있는 모든 디바이스에서도 동작합니다.
 
 브라우저엔 "자바스크립트 가상 머신"이라 불리는 엔진이 내장되어 있습니다.
 
 엔진의 종류는 다양한데, 엔진마다 특유의 코드네임이 있습니다. 아래처럼 말이죠.
 
-- [V8](https://en.wikipedia.org/wiki/V8_(javascript_engine)) -- Chrome과 Opera에서 쓰입니다.
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- Chrome과 Opera에서 쓰입니다.
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
 - IE는 버전에 따라 "Trident"나 "Chakra"라 불리는 엔진을 사용합니다. "ChakraCore"는 Microsoft Edge에 사용되며, "SquirrelFish"는 Safari에 사용됩니다.
 
