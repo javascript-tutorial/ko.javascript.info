@@ -1,6 +1,6 @@
 # 나머지 매개변수와 전개 문법
 
-상당수의 자바스크립트 내장 함수는 인수의 갯수에 제약을 두지 않습니다.
+상당수의 자바스크립트 내장 함수는 인수의 개수에 제약을 두지 않습니다.
 
 예시:
 
@@ -12,7 +12,7 @@
 
 ## 나머지 매개변수 `...`
 
-정의 방법과 상관없이 함수를 호출할 때 넘겨주는 인수의 개수엔 제약이 없습니다.
+함수 정의 방법과 상관없이 함수에 넘겨주는 인수의 개수엔 제약이 없습니다.
 
 아래와 같이 말이죠.
 ```js run
@@ -23,9 +23,9 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
-함수를 정의할 땐 인수를 두 개만 받을 수 있다고 정의했고, 실제 함수를 호출할 땐 이보다 더 많은 인수를 전달하였는데 에러가 발생하지 않습니다. 하지만 반환 값은 당연히 처음 두 개의 인수만을 이용해 계산되죠.
+함수를 정의할 땐 인수를 두 개만 받도록 하고, 실제 함수를 호출할 땐 이보다 더 많은 '여분의' 인수를 전달했지만, 에러가 발생하지 않았습니다. 다만 반환 값은 처음 두 개의 인수만을 사용해 계산됩니다.
 
-마침표 세 개 `...` 뒤에 배열 이름을 적어준 후 함수 선언부의 매개변수 자리에 넣어주면 나머지 매개변수(rest parameter)를 배열에 넣어줄 수 있습니다. 마침표 세 개 `...`가 의미하는 바는 "나머지 매개변수들을 한데 모아 배열에 집어넣어라."라는 의미를 갖습니다.
+이렇게 여분의 매개변수는 그 값들을 담을 배열 이름을 마침표 세 개 `...`뒤에 붙여주면 함수 선언부에 포함시킬 수 있습니다. 이때 마침표 세 개 `...`는 "나머지 매개변수들을 한데 모아 배열에 집어넣어라."는 것을 의미합니다.
 
 아래 예시에선 모든 인수가 배열 `args`에 모입니다.
 
@@ -43,15 +43,15 @@ alert( sumAll(1, 2) ); // 3
 alert( sumAll(1, 2, 3) ); // 6
 ```
 
-앞부분의 매개변수는 변수로, 남아있는 매개변수들은 배열로 모을 수도 있습니다.
+앞부분의 매개변수는 변수로, 그 이외의 매개변수들은 배열로 모을 수도 있습니다.
 
-아래 예시에선 처음 두 인수는 변수에, 나머지 인수는 `titles`이라는 배열에 할당합니다.
+아래 예시에선 처음 두 인수는 변수에, 나머지 인수들은 `titles`이라는 배열에 할당됩니다.
 
 ```js run
 function showName(firstName, lastName, ...titles) {
   alert( firstName + ' ' + lastName ); // Julius Caesar
 
-  // 나머지 인수들은 배열 titles에 할당됩니다.
+  // 나머지 인수들은 배열 titles의 요소가 됩니다.
   // titles = ["Consul", "Imperator"]
   alert( titles[0] ); // Consul
   alert( titles[1] ); // Imperator
@@ -62,7 +62,7 @@ showName("Julius", "Caesar", "Consul", "Imperator");
 ```
 
 ````warn header="나머지 매개변수는 항상 마지막에 있어야 합니다."
-나머지 매개변수는 '남아있는' 인수를 모으는 역할을 하므로 아래 예시에선 에러가 발생합니다.
+나머지 매개변수는 남아있는 인수를 모으는 역할을 하므로 아래 예시에선 에러가 발생합니다.
 
 ```js
 function f(arg1, ...rest, arg2) { // ...rest 후에 arg2가 있으면 안 됩니다.
@@ -85,22 +85,22 @@ function showName() {
   alert( arguments[0] );
   alert( arguments[1] );
 
-  // arguments는 반복 가능한 객체입니다.
-  // for(let arg of arguments) alert(arg);
+  // arguments는 이터러블 객체이기 때문에
+  // for(let arg of arguments) alert(arg); 를 사용해 인수를 나열할 수 있습니다.
 }
 
 // 2, Julius, Caesar가 출력됨
 showName("Julius", "Caesar");
 
 // 1, Ilya, undefined가 출력됨(두 번째 인수는 없음)
-showName("Ilya");
+showName("Bora");
 ```
 
-나머지 매개변수는 비교적 최신의 문법입니다. 과거엔 인수 전체를 얻어낼 수 있는 방법이 `arguments`를 사용하는 것밖에 없었습니다. 물론 지금도 여전히 `arguments`를 사용하는 게 가능합니다. 오래된 코드를 보다 보면 `arguments`를 만날 때가 있습니다.
+나머지 매개변수는 비교적 최신의 문법입니다. 과거엔 함수의 인수 전체를 얻어내는 방법이 `arguments`를 사용하는 것밖에 없었습니다. 물론 지금도 `arguments`를 사용할 수 있습니다. 오래된 코드를 보다 보면 `arguments`를 만나게 되죠.
 
-`arguments`는 유사 배열 객체이면서 이터러블(반복 가능한) 객체입니다. 어쨌든 배열은 아니죠. 따라서 배열 메서드를 사용할 수 없다는 것이 단점입니다. `arguments.map (...)` 같은 유용한 메서드를 사용할 수 없죠.
+`arguments`는 유사 배열 객체이면서 이터러블(반복 가능한) 객체입니다. 어쨌든 배열은 아니죠. 따라서 배열 메서드를 사용할 수 없다는 단점이 있습니다. `arguments.map (...)`을 호출할 수 없죠.
 
-`arguments`는 모든 인수를 담기 때문에 나머지 매개변수처럼 인수의 일부만 사용할 수 없다는 단점도 있습니다.
+여기에 더하여 `arguments`는 인수 전체를 담기 때문에 나머지 매개변수처럼 인수의 일부만 사용할 수 없다는 단점도 있습니다.
 
 따라서 배열 메서드를 사용하고 싶거나 인수 일부만 사용하고자 할 때는 나머지 매개변수를 사용하는 것이 좋습니다.
 
@@ -118,13 +118,13 @@ function f() {
 f(1); // 1
 ```
 
-화살표 함수는 `this`가 없습니다. 여기에 더하여 `arguments` 객체도 없다는 것을 위 예시를 통해 확인해 보았습니다.
+앞서 배운 바와 같이 화살표 함수는 자체 `this`를 가지지 않습니다. 여기에 더하여 `arguments` 객체도 없다는 것을 위 예시를 통해 확인해 보았습니다.
 ````
 
 
 ## spread 문법 [#spread-syntax]
 
-지금까지 매개변수 리스트를 배열로 가져오는 방법에 대해 살펴보았습니다.
+지금까지 매개변수 목록을 배열로 가져오는 방법에 대해 살펴보았습니다.
 
 그런데 개발을 하다 보면 반대되는 기능이 필요할 때가 생깁니다. 배열을 통째로 매개변수에 넘겨주는 것 같이 말이죠.
 
@@ -134,9 +134,9 @@ f(1); // 1
 alert( Math.max(3, 5, 1) ); // 5
 ```
 
-그런데 배열 `[3, 5, 1]`에 `Math.max`를 호출하고 싶은 경우가 생깁니다.
+배열 `[3, 5, 1]`가 있고, 이 배열을 대상으로 `Math.max`를 호출하고 싶다고 가정해봅시다.
 
-아무런 조작 없이 배열을 '있는 그대로' `Math.max`에 넘기면 원하는 대로 동작하지 않습니다. `Math.max`는 배열이 아닌 숫자형 인수를 받기 때문입니다. 
+아무런 조작 없이 배열을 '있는 그대로' `Math.max`에 넘기면 원하는 대로 동작하지 않습니다. `Math.max`는 배열이 아닌 숫자 목록을 인수로 받기 때문입니다. 
 
 ```js run
 let arr = [3, 5, 1];
@@ -146,18 +146,18 @@ alert( Math.max(arr) ); // NaN
 */!*
 ```
 
-`Math.max (arr [0], arr [1], arr [2])` 처럼 숫자를 수동으로 나열하는 방법도 있긴 한데 배열 길이를 알 수 없을 때는 이마저도 불가능합니다. 스크립트가 돌아갈 때 배열 내 요소가 아주 많을 수도, 아예 없을 수도 있기 때문입니다. 수동으로 이걸 다 처리하다 보면 코드가 지저분해질겁니다.
+`Math.max (arr[0], arr[1], arr[2])` 처럼 배열 요소를 수동으로 나열하는 방법도 있긴 한데 배열 길이를 알 수 없을 때는 이마저도 불가능합니다. 스크립트가 돌아갈 때 실제 넘어오는 배열의 길이는 아주 길 수도 있고, 아예 빈 배열일 수도 있기 때문입니다. 수동으로 이걸 다 처리하다 보면 코드가 지저분해지겠죠.
 
-*전개 문법(spread syntax)* 은 이럴 때 사용하기 위해 만들어졌습니다. 전개 문법은 `...`를 사용하기 때문에 나머지 매개변수와 비슷해 보이지만, 나머지 매개변수와 반대의 역할을 합니다.
+*전개 문법(spread syntax)* 은 이럴 때 사용하기 위해 만들어졌습니다. `...`를 사용하기 때문에 나머지 매개변수와 비슷해 보이지만, 전개 문법은 나머지 매개변수와 반대의 역할을 합니다.
 
-함수를 호출할 때 `... arr`를 사용하면, 이터러블 객체 `arr`이 인수 리스트로 '확장'됩니다.
+함수를 호출할 때 `... arr`를 사용하면, 이터러블 객체 `arr`이 인수 목록으로 '확장'됩니다.
 
 `Math.max`를 사용한 예시로 다시 돌아가 봅시다.
 
 ```js run
 let arr = [3, 5, 1];
 
-alert( Math.max(...arr) ); // 5 (전개 문법이 배열을 인수 리스트로 바꿔주었습니다.)
+alert( Math.max(...arr) ); // 5 (전개 문법이 배열을 인수 목록으로 바꿔주었습니다.)
 ```
 
 아래와 같이 이터러블 객체 여러 개를 전달하는 것도 가능합니다.
@@ -179,7 +179,7 @@ let arr2 = [8, 3, -8, 1];
 alert( Math.max(1, ...arr1, 2, ...arr2, 25) ); // 25
 ```
 
-배열을 병합할 때 전개 문법을 활용할 수도 있습니다.
+배열을 합칠 때 전개 문법을 활용할 수도 있습니다.
 
 ```js run
 let arr = [3, 5, 1];
@@ -192,9 +192,9 @@ let merged = [0, ...arr, 2, ...arr2];
 alert(merged); // 0,3,5,1,2,8,9,15 (0, arr, 2, arr2 순서로 합쳐집니다.)
 ```
 
-위 예시에선 배열을 대상으로 전개 문법이 어떻게 동작하는지 보여줬는데, 배열이 아니더라도 이터러블 객체라면 전개 문법을 사용할 수 있습니다.
+앞선 예시들에선 배열을 대상으로 전개 문법이 어떻게 동작하는지 살펴보았습니다. 그런데 배열이 아니더라도 이터러블 객체이면 전개 문법을 사용할 수 있습니다.
 
-아래 예시에선 전개 문법을 사용해 문자열을 문자 배열로 변환 시켜 보았습니다.
+전개 문법을 사용해 문자열을 문자 배열로 변환 시켜 보겠습니다.
 
 ```js run
 let str = "Hello";
@@ -202,9 +202,9 @@ let str = "Hello";
 alert( [...str] ); // H,e,l,l,o
 ```
 
-전개 문법은 내부에서 iterator(반복자)를 사용해 요소를 수집합니다. `for..of`와 같은 방식으로 말이죠.
+전개 문법은 `for..of`와 같은 방식으로 내부에서 iterator(반복자)를 사용해 요소를 수집합니다.
 
-문자열에 `for..of`를 사용하면 문자열을 구성하는 문자를 반환하는 것 같이, `...str`도 `"H","e","l","l","o"`가 되고, 이 문자 리스트는 `[...str]`의 배열 초기자(array initializer)로 전달됩니다.
+문자열에 `for..of`를 사용하면 문자열을 구성하는 문자가 반환됩니다. `...str`도 `"H","e","l","l","o"`가 되는데, 이 문자 목록은 배열 초기자(array initializer) `[...str]`로 전달됩니다.
 
 메서드 `Array.from`은 문자열 같은 이터러블 객체를 배열로 바꿔주기 때문에 `Array.from`을 사용해도 동일한 작업을 할 수 있습니다.
 
@@ -215,14 +215,59 @@ let str = "Hello";
 alert( Array.from(str) ); // H,e,l,l,o
 ```
 
-`[...str]`와 동일한 결과가 출력되네요.
+`[...str]`와 동일한 결과가 출력되는 것을 확인할 수 있습니다.
 
-그런데 `Array.from (obj)`과 `[... obj]`에는 아래와 같은 미묘한 차이가 있습니다.
+그런데 `Array.from(obj)`와 `[...obj]`에는 다음과 같은 미묘한 차이가 있습니다.
 
-- `Array.from` 은 유사 배열 객체와 이터러블 객체 둘 다에 사용할 수 있습니다.
+- `Array.from`은 유사 배열 객체와 이터러블 객체 둘 다에 사용할 수 있습니다.
 - 전개 문법은 이터러블 객체에만 사용할 수 있습니다.
 
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 문법보다 `Array.from`이 보편적으로 사용됩니다.
+
+
+## Get a new copy of an object/array
+
+Remember when we talked about `Object.assign()` [in the past](https://javascript.info/object#cloning-and-merging-object-assign)?
+
+It is possible to do the same thing with the spread operator!
+
+```js run
+let arr = [1, 2, 3];
+let arrCopy = [...arr]; // spread the array into a list of parameters
+                        // then put the result into a new array
+
+// do the arrays have the same contents?
+alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
+
+// are the arrays equal?
+alert(arr === arrCopy); // false (not same reference)
+
+// modifying our initial array does not modify the copy:
+arr.push(4);
+alert(arr); // 1, 2, 3, 4
+alert(arrCopy); // 1, 2, 3
+```
+
+Note that it is possible to do the same thing to make a copy of an object:
+
+```js run
+let obj = { a: 1, b: 2, c: 3 };
+let objCopy = { ...obj }; // spread the object into a list of parameters
+                          // then return the result in a new object
+
+// do the objects have the same contents?
+alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
+
+// are the objects equal?
+alert(obj === objCopy); // false (not same reference)
+
+// modifying our initial object does not modify the copy:
+obj.d = 4;
+alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
+alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
+```
+
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj);` or for an array `let arrCopy = Object.assign([], arr);` so we prefer to use it whenever we can.
 
 
 ## 요약
