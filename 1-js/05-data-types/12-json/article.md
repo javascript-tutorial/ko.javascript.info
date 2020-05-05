@@ -242,7 +242,7 @@ alert( JSON.stringify(meetup, *!*['title', 'participants', 'place', 'name', 'num
 
 `occupiedBy`를 제외한 모든 프로퍼티가 직렬화되었습니다. 그런데 배열이 좀 길다는 느낌이 듭니다.
 
-`replacer` 자리에 배열 `대신` 함수를 전달해 이 문제를 해결해 봅시다(역주: 매개변수 replacer는 '대신하다'라는 뜻을 가진 영단어 replace에서 그 이름이 왔습니다).
+`replacer` 자리에 배열 `대신` 함수를 전달해 이 문제를 해결해 봅시다(매개변수 replacer는 '대신하다'라는 뜻을 가진 영단어 replace에서 그 이름이 왔습니다 - 옮긴이).
 
 `replacer`에 전달되는 함수(`replacer` 함수)는 프로퍼티 `(키, 값)` 쌍 전체를 대상으로 호출되는데, 반드시 기존 프로퍼티 값을 대신하여 사용할 값을 반환해야 합니다. 특정 프로퍼티를 직렬화에서 누락시키려면 반환 값을 `undefined`로 만들면 됩니다.
 
