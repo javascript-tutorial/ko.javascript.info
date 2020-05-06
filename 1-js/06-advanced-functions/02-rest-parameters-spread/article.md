@@ -225,11 +225,11 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 문법보다 `Array.from`이 보편적으로 사용됩니다.
 
 
-## Get a new copy of an object/array
+## Get a new copy of an array/object
 
 Remember when we talked about `Object.assign()` [in the past](https://javascript.info/object#cloning-and-merging-object-assign)?
 
-It is possible to do the same thing with the spread operator!
+It is possible to do the same thing with the spread syntax.
 
 ```js run
 let arr = [1, 2, 3];
