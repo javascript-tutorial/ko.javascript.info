@@ -103,7 +103,7 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
 
     `firstName`, `lastName`, `nickName`이란 변수가 있는데 이 값들은 모두 옵션 값이라고 해봅시다.
 
-    OR `||`을 사용하면 실제 값이 들어있는 변수를 찾고, 그 값을 보여줄 수 있습니다. 변수 모두에 값이 없는 경우엔 `Anonymous`를 보여줍시다. 
+    OR `||`을 사용하면 실제 값이 들어있는 변수를 찾고, 그 값을 보여줄 수 있습니다. 변수 모두에 값이 없는 경우엔 `익명`를 보여줍시다. 
 
     ```js run
     let firstName = "";
@@ -111,11 +111,11 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
     let nickName = "바이올렛";
 
     *!*
-    alert( firstName || lastName || nickName || "Anonymous"); // 바이올렛
+    alert( firstName || lastName || nickName || "익명"); // 바이올렛
     */!*
     ```
 
-    모든 변수가 falsy이면 `"Anonymous"`가 출력되었을 겁니다.
+    모든 변수가 falsy이면 `"익명"`이 출력되었을 겁니다.
     
 2. **단락 평가**
 
