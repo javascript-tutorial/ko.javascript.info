@@ -302,7 +302,7 @@ async function* fetchCommits(repo) {
 
     // (3) 헤더에 담긴 다음 페이지를 나타내는 URL을 추출합니다.
     let nextPage = response.headers.get('Link').match(/<(.*?)>; rel="next"/);
-    nextPage = nextPage && nextPage[1];
+    nextPage = nextPage?.[1];
 
     url = nextPage;
 

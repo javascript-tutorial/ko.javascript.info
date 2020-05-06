@@ -204,7 +204,7 @@ elem.addEventListener("click", e => alert(2));
 
 이벤트가 발생하면 이벤트가 발생한 가장 안쪽 요소가 '타깃 요소(`event.target`)'가 됩니다.
 
-- 이벤트는 document에서 시작해 DOM 트리를 따라 `event.target`까지 내려갑니다. 이벤트는 트리를 따라 내려가면서 `addEventListener(...., true)`로 할당한 핸들러를 동작시킵니다. `addEventListener(...., true)`의 `true`는 `{capture: true}`의 축약형입니다.
+- 이벤트는 document에서 시작해 DOM 트리를 따라 `event.target`까지 내려갑니다. 이벤트는 트리를 따라 내려가면서 `addEventListener(..., true)`로 할당한 핸들러를 동작시킵니다. `addEventListener(..., true)`의 `true`는 `{capture: true}`의 축약형입니다.
 - 이후 타깃 요소에 설정된 핸들러가 호출됩니다.
 - 이후엔 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달되면서 각 요소에 `on<event>`로 할당한 핸들러와 `addEventListener`로 할당한 핸들러를 동작시킵니다. `addEventListener`로 할당한 핸들러 중, 세 번째 인수가 없거나 `false`, `{capture: false}`인 핸들러만 호출됩니다.
 

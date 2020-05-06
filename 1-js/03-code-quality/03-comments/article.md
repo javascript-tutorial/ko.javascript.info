@@ -125,25 +125,25 @@ function addJuice(container) {
 함수 용례와 매개변수 정보를 담고 있는 주석
 :  [JSDoc](http://en.wikipedia.org/wiki/JSDoc)이라는 특별한 문법을 사용하면 함수에 관한 문서를 쉽게 작성할 수 있습니다. 여기엔 함수 용례, 매개변수, 반환 값 정보가 들어갑니다.
 
-    예시:
-    ```js
-    /**
-     * x를 n번 곱한 수를 반환함
-     *
-     * @param {number} x 거듭제곱할 숫자
-     * @param {number} n 곱할 횟수, 반드시 자연수여야 함
-     * @return {number} x의 n 거듭제곱을 반환함
-     */
-    function pow(x, n) {
-      ...
-    }
-    ```
+예시:
+```js
+/**
+ * x를 n번 곱한 수를 반환함
+ *
+ * @param {number} x 거듭제곱할 숫자
+ * @param {number} n 곱할 횟수, 반드시 자연수여야 함
+ * @return {number} x의 n 거듭제곱을 반환함
+ */
+function pow(x, n) {
+  ...
+}
+```
 
-    이렇게 주석을 달면 코드를 읽어보지 않고도 함수의 목적과 사용법을 한눈에 알 수 있습니다.
+이렇게 주석을 달면 코드를 읽어보지 않고도 함수의 목적과 사용법을 한눈에 알 수 있습니다.
 
-    [WebStorm](https://www.jetbrains.com/webstorm/) 등의 다양한 에디터는 이런 주석을 이용해 자동 완성 기능, 자동 에러 검출 기능 등을 제공합니다. 
+[WebStorm](https://www.jetbrains.com/webstorm/) 등의 다양한 에디터는 이런 주석을 이용해 자동 완성 기능, 자동 에러 검출 기능 등을 제공합니다.
 
-    [JSDoc 3](https://github.com/jsdoc3/jsdoc)이나 기타 유사한 툴을 사용하면 주석으로 HTML 문서를 만들 수 있습니다. 자세한 정보는 <http://usejsdoc.org/>에서 확인하시기 바랍니다.
+[JSDoc 3](https://github.com/jsdoc3/jsdoc)이나 기타 유사한 툴을 사용하면 주석으로 HTML 문서를 만들 수 있습니다. 자세한 정보는 <http://usejsdoc.org/>에서 확인하시기 바랍니다.
 
 왜 이런 방법으로 문제를 해결했는지를 설명하는 주석
 : 무엇이 적혀있는지는 중요합니다. 그런데 무슨 일이 일어나고 있는지 파악하려면 무엇이 *적혀있지 않은 지*가 더 중요할 수 있습니다. '왜 이 문제를 이런 방법으로 해결했나?'라는 질문에 코드는 답을 해 줄 수 없기 때문입니다.

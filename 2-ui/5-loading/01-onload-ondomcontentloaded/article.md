@@ -108,13 +108,13 @@ Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded
 
 ## window.onload [#window-onload]
 
-`window` 객체의 `load` 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행됩니다.
+`window` 객체의 `load` 이벤트는 스타일, 이미지 등의 리소스들이 모두 로드되었을 때 실행됩니다. `load` 이벤트는 `onload` 프로퍼티를 통해서도 사용할 수 있습니다.
 
 아래 예시에서 `window.onload`는 이미지가 모두 로드되고 난 후 실행되기 때문에 이미지 사이즈가 제대로 출력되는 것을 확인할 수 있습니다. 
 
 ```html run height=200 refresh
 <script>
-  window.onload = function() {
+  window.onload = function() { // window.addEventListener('load', (event) => {와 동일합니다.
     alert('페이지 전체가 로드되었습니다.');
 
     // 이번엔 이미지가 제대로 불러와 진 후에 얼럿창이 실행됩니다.

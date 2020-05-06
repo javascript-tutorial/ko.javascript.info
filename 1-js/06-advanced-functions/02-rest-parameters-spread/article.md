@@ -272,7 +272,7 @@ This way of copying an object is much shorter than `let objCopy = Object.assign(
 
 ## 요약
 
-`"..."`는 나머지 매개변수나 전개 문법으로 사용됩니다.
+`"..."`은 나머지 매개변수나 전개 문법으로 사용됩니다.
 
 나머지 매개변수와 전개 문법은 아래의 방법으로 구분할 수 있습니다.
 

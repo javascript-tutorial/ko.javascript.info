@@ -162,7 +162,7 @@ document.cookie = "user=John; max-age=3600";
 
 // 만료 기간을 0으로 지정하여 쿠키를 바로 삭제함
 document.cookie = "user=John; max-age=0";
-```  
+```
 
 ## secure
 

@@ -65,7 +65,7 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 
 ## 비하인드 스토리
 
-`[[Prototype]]`을 다룰 수 있는 방법은 다양합니다. 목표는 하나인데 목표를 이루기 위한 수단은 여러 가지인 상황이죠.
+`[[Prototype]]`을 다룰 수 있는 방법은 다양합니다. 목표는 하나인데 목표를 이루기 위한 수단은 여러 가지이네요!
 
 왜 그럴까요?
 
@@ -180,8 +180,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 - [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다(`__proto__` getter와 같습니다).
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- `obj`의 `[[Prototype]]`을 `proto`로 설정합니다(`__proto__` setter와 같습니다).
 
-사용자가 키를 직접 만들 수 있게 허용하면, 내장 `__proto__` getter·setter는 안전하지 않습니다. 
-키가 `"__proto__"`일 때 에러가 발생할 수 있죠. 단순한 에러면 좋겠지만 보통 예측 불가능한 결과가 생깁니다.
+사용자가 키를 직접 만들 수 있게 허용하면, 내장 `__proto__` getter·setter는 안전하지 않습니다. 키가 `"__proto__"`일 때 에러가 발생할 수 있죠. 단순한 에러면 좋겠지만 보통 예측 불가능한 결과가 생깁니다.
 
 이를 방지하려면 `Object.create(null)`을 사용해 `__proto__`가 없는 '아주 단순한 객체'를 만들거나, `맵`을 일관되게 사용하는 것이 좋습니다.
 

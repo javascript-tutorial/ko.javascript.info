@@ -121,6 +121,25 @@ for (let [key, value] of user) {
 }
 ```
 ````
+
+```smart header="Swap variables trick"
+A well-known trick for swapping values of two variables:
+
+```js run
+let guest = "Jane";
+let admin = "Pete";
+
+// Swap values: make guest=Pete, admin=Jane
+[guest, admin] = [admin, guest];
+
+alert(`${guest} ${admin}`); // Pete Jane (successfully swapped!)
+```
+
+Here we create a temporary array of two variables and immediately destructure it in swapped order.
+
+We can swap more than two variables this way.
+```
+
 ### '...'로 나머지 요소 가져오기
 
 배열의 앞쪽에 위치한 요소 몇 개만 필요하고 그 이후 이어지는 나머지 요소들은 한데 모아서 저장해야 할 경우가 있습니다. 이럴 때 점 세 개 `"..."`를 붙인 매개변수 하나를 추가하면 "나머지(rest)" 요소를 가져올 수 있습니다.

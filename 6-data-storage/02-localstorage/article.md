@@ -202,7 +202,7 @@ alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 
 ```js run
 // 문서는 다르지만, 갱신은 같은 스토리지에 반영됩니다.
-window.onstorage = event => {
+window.onstorage = event => { // window.addEventListener('storage', () => {와 같습니다.
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };

@@ -40,7 +40,7 @@ alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30초 전"
 
 alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5분 전"
 
-// 어제의 날짜를 31.12.2016, 20:00 형태로 출력
+// 어제의 날짜를 31.12.2016 20:00 형태로 출력
 alert( formatDate(new Date(new Date - 86400 * 1000)) );
 ```
 

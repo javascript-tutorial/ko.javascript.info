@@ -62,7 +62,7 @@ user.sayHi();
 클래스와 관련된 표기법은 객체 리터럴 표기법과 차이가 있습니다. 클래스에선 메서드 사이에 쉼표를 넣지 않아도 됩니다.
 ```
 
-## 클래스란?
+## 클래스란
 
 이 시점에서 "`클래스`가 정확히 뭔가요?"라는 의문이 생기실 겁니다. 클래스는 자바스크립트에서 새롭게 창안 한 개체(entity)가 아닙니다.
 
@@ -127,7 +127,7 @@ alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 function User(name) {
   this.name = name;
 }
-// 모든 함수의 프로토타입은 constructor 프로퍼티를 기본으로 갖고 있기 때문에
+// 모든 함수의 프로토타입은 'constructor' 프로퍼티를 기본으로 갖고 있기 때문에
 // constructor 프로퍼티를 명시적으로 만들 필요가 없습니다.
 
 // 2. prototype에 메서드를 추가합니다.
@@ -146,7 +146,7 @@ user.sayHi();
 
 1. `class`로 만든 함수엔 특수 내부 프로퍼티인 `[[FunctionKind]]:"classConstructor"`가 이름표처럼 붙습니다. 이것만으로도 두 방법엔 분명한 차이가 있음을 알 수 있습니다. 
 
-    여기에 더하여 클래스 생성자는 일반 함수와 달리 반드시 `new`와 함께 호출해야 합니다.
+    자바스크립트는 다양한 방법을 사용해 함수에 `[[FunctionKind]]:"classConstructor"`가 있는지를 확인합니다. 이런 검증 과정이 있기 때문에 클래스 생성자를 `new`와 함께 호출하지 않으면 에러가 발생합니다.
 
     ```js run
     class User {
@@ -166,6 +166,7 @@ user.sayHi();
 
     alert(User); // class User { ... }
     ```
+    또 다른 차이점들에 대해선 더 살펴볼 예정입니다.
 
 2. 클래스 메서드는 열거할 수 없습니다(non-enumerable).
     클래스의 `"prototype"` 프로퍼티에 추가된 메서드 전체의 `enumerable` 플래그는 `false`입니다.
@@ -175,7 +176,7 @@ user.sayHi();
 3. 클래스는 항상 `엄격 모드`로 실행됩니다(`use strict`).
     클래스 생성자 안 코드 전체엔 자동으로 엄격 모드가 적용됩니다.
 
-이 외에도 `class`를 사용하면 다양한 기능이 따라오는데, 자세한 내용은 곧 다루겠습니다. 
+이 외에도 `class`를 사용하면 다양한 기능이 따라오는데, 자세한 내용은 곧 다루겠습니다.
 
 ## 클래스 표현식
 
@@ -209,7 +210,6 @@ new User().sayHi(); // 제대로 동작합니다(MyClass의 정의를 보여줌)
 alert(MyClass); // Error: MyClass is not defined, MyClass는 클래스 밖에서 사용할 수 없습니다.
 ```
 
-
 아래와 같이 '필요에 따라' 클래스를 동적으로 생성하는 것도 가능합니다.
 
 ```js run
@@ -229,7 +229,7 @@ new User().sayHi(); // Hello
 ```
 
 
-## getter·setter를 비롯한 기타 단축 문법
+## getter·setter
 
 리터럴을 사용해 만든 객체처럼 클래스도 getter나 setter, 계산된 프로퍼티(computed property)를 포함할 수 있습니다.
 
@@ -267,22 +267,11 @@ alert(user.name); // John
 user = new User(""); // 이름이 너무 짧습니다.
 ```
 
-클래스를 선언하면 아래와 같이 `User.prototype`에 getter와 setter가 만들어지므로 get과 set을 사용할 수 있습니다.
+이런 방법으로 클래스를 선언하면 `User.prototype`에 getter와 setter가 만들어지므로 get과 set을 사용할 수 있습니다.
 
-```js
-Object.defineProperties(User.prototype, {
-  name: {
-    get() {
-      return this._name
-    },
-    set(name) {
-      // ...
-    }
-  }
-});
-```
+## 계산된 메서드 이름 [...]
 
-계산된 프로퍼티는 다음과 같이 사용할 수 있습니다.
+대괄호 `[...]`를 이용해 계산된 메서드 이름(computed method name)을 만드는 예시를 살펴봅시다.
 
 ```js run
 class User {
@@ -298,18 +287,24 @@ class User {
 new User().sayHi();
 ```
 
-## 클래스 프로퍼티
+계산된 메서드 이름은 리터럴 객체와 유사한 형태를 띠기 때문에 사용법을 외우기 쉽다는 장점이 있습니다.
+
+## 클래스 필드
 
 ```warn header="구식 브라우저에선 폴리필이 필요할 수 있습니다."
-클래스 레벨 프로퍼티는 근래에 더해진 기능입니다.
+클래스 필드는 근래에 더해진 기능입니다.
 ```
 
-위 예시에선 `User`에 메서드 하나만 있었습니다. 프로퍼티를 추가해 봅시다.
+지금까지 살펴본 예시엔 메서드가 하나만 있었습니다.
 
+'클래스 필드(class field)'라는 문법을 사용하면 어떤 종류의 프로퍼티도 클래스에 추가할 수 있습니다.
+
+`class User`에 `name` 프로퍼티를 추가해봅시다.
+ 
 ```js run
 class User {
 *!*
-  name = "Anonymous";
+  name = "John";
 */!*
 
   sayHi() {
@@ -317,13 +312,114 @@ class User {
   }
 }
 
-new User().sayHi();
-
-alert(User.prototype.sayHi); // sayHi는 User.prototype에 있음
-alert(User.prototype.name); // undefined, name은 User.prototype에 없음
+new User().sayHi(); // Hello, John!
 ```
 
-프로퍼티 `name`은 `User.prototype`에 없습니다. `name`은 생성자를 호출하기 전, `new`에 의해 만들어지고 객체 자체의 프로퍼티가 됩니다.
+So, we just write "<property name> = <value>" in the declaration, and that's it.
+
+The important difference of class fields is that they are set on individual objects, not `User.prototype`:
+
+```js run
+class User {
+*!*
+  name = "John";
+*/!*
+}
+
+let user = new User();
+alert(user.name); // John
+alert(User.prototype.name); // undefined
+```
+
+Technically, they are processed after the constructor has done it's job, and we can use for them complex expressions and function calls:
+
+```js run
+class User {
+*!*
+  name = prompt("Name, please?", "John");
+*/!*
+}
+
+let user = new User();
+alert(user.name); // John
+```
+
+### Making bound methods with class fields
+
+As demonstrated in the chapter <info:bind> functions in JavaScript have a dynamic `this`. It depends on the context of the call.
+
+So if an object method is passed around and called in another context, `this` won't be a reference to its object any more.
+
+For instance, this code will show `undefined`:
+
+```js run
+class Button {
+  constructor(value) {
+    this.value = value;
+  }
+
+  click() {
+    alert(this.value);
+  }
+}
+
+let button = new Button("hello");
+
+*!*
+setTimeout(button.click, 1000); // undefined
+*/!*
+```
+
+The problem is called "losing `this`".
+
+There are two approaches to fixing it, as discussed in the chapter <info:bind>:
+
+1. Pass a wrapper-function, such as `setTimeout(() => button.click(), 1000)`.
+2. Bind the method to object, e.g. in the constructor:
+
+```js run
+class Button {
+  constructor(value) {
+    this.value = value;
+*!*
+    this.click = this.click.bind(this);
+*/!*
+  }
+
+  click() {
+    alert(this.value);
+  }
+}
+
+let button = new Button("hello");
+
+*!*
+setTimeout(button.click, 1000); // hello
+*/!*
+```
+
+Class fields provide a more elegant syntax for the latter solution:
+
+```js run
+class Button {
+  constructor(value) {
+    this.value = value;
+  }
+*!*
+  click = () => {
+    alert(this.value);
+  }
+*/!*
+}
+
+let button = new Button("hello");
+
+setTimeout(button.click, 1000); // hello
+```
+
+The class field `click = () => {...}` creates an independent function on each `Button` object, with `this` bound to the object. Then we can pass `button.click` around anywhere, and it will be called with the right `this`.
+
+That's especially useful in browser environment, when we need to setup a method as an event listener.
 
 ## 요약
 

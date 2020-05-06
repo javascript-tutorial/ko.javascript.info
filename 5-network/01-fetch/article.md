@@ -130,6 +130,7 @@ setTimeout(() => { // 3초 후 이미지를 숨깁니다.
 ```js
 let text = await response.text(); // 응답 본문이 소비됩니다.
 let parsed = await response.json(); // 실패
+```
 ````
 
 ## 응답 헤더

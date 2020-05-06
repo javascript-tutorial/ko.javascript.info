@@ -256,7 +256,6 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
   menu.onclick = function() {
     alert(1);
 
-    // alert(2)
     setTimeout(() => menu.dispatchEvent(new CustomEvent("menu-open", {
       bubbles: true
     })));
@@ -266,7 +265,7 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 
   document.addEventListener('menu-open', () => alert('중첩 이벤트'));
 </script>
-```    
+```
 
 이제 원하는 대로 `dispatchEvent`가 `mouse.onclick`을 포함한 현재 코드 실행이 종료된 이후에 실행됩니다. 이벤트 핸들러들이 완전히 독립적으로 되었네요.
 

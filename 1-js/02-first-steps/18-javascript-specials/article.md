@@ -81,9 +81,10 @@ let x = 5;
 x = "John";
 ```
 
-자바스크립트는 일곱 가지 기본 자료형을 지원합니다.
+자바스크립트는 여덟 가지 기본 자료형을 지원합니다.
 
 - 정수와 부동 소수점을 저장하는 데 쓰이는 `숫자형`
+- 아주 큰 숫자를 저장할 수 있는 `BigIng형`
 - 문자열을 저장하는 데 쓰이는 `문자형`
 - 논리값 `true/false`을 저장하는 데 쓰이는 `불린형`
 - '비어있음', '존재하지 않음'을 나타내는 `null` 값만을 위한 독립 자료형 `null`
@@ -151,6 +152,9 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 논리 연산자
 : AND 연산자 `&&`와 OR 연산자 `||`은 단락 평가를 수행하고, 평가가 멈춘 시점의 값을 반환합니다(꼭 `true`나 `false`일 필요는 없습니다). NOT 연산자 `!`는 피연산자의 자료형을 불린형으로 바꾼 후 그 역을 반환합니다. 
 
+null 병합 연산자
+: null 병합 연산자 `??`는 피연산자 중 실제 값이 정의된 피연산자를 찾는 데 쓰입니다. `a`가 `null`이나 `undefined`가 아니면 `a ?? b`의 평가 결과는 `a`이고, `a`가 `null`이나 `undefined`이면 `a ?? b`의 평가 결과는 `b`가 됩니다.
+
 비교 연산자
 : 동등 연산자 `==`는 형이 다른 값끼리 비교할 때 피연산자의 자료형을 숫자형으로 바꾼 후 비교를 진행합니다. `null`과 `undefined`는 자기끼리 비교할 땐 참을 반환하지만 다른 자료형과 비교할 땐 거짓을 반환합니다.
 
@@ -170,7 +174,7 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 기타 연산자
 : 쉼표 연산자 등의 기타 연산자도 있습니다.
 
-자세한 내용은 <info:operators>, <info:comparison>, <info:logical-operators>에서 살펴보시기 바랍니다.
+자세한 내용은 <info:operators>, <info:comparison>, <info:logical-operators>, <info:nullish-coalescing-operator>에서 살펴보시기 바랍니다.
 
 ## 반복문
 
@@ -212,6 +216,7 @@ let age = prompt('나이를 알려주세요.', 18);
 switch (age) {
   case 18:
     alert("Won't work"); // prompt 함수는 항상 문자열을 반환하므로, 이 case문엔 절대 도달할 수 없습니다.
+    break;
 
   case "18":
     alert("낭랑 18세이시군요!");
