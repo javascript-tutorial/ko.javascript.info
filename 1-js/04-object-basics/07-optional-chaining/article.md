@@ -164,7 +164,7 @@ user?.name = "Violet"; // SyntaxError: Invalid left-hand side in assignment
 옵셔널 체이닝 문법 `?.`은 세 가지 형태로 사용할 수 있습니다.
 
 1. `obj?.prop` -- `obj`가 존재하면 `obj.prop`을 반환하고, 그렇지 않으면 `undefined`를 반환함
-2. `obj?.[prop]` -- `obj`가 존재하면 `obj.[prop]`을 반환하고, 그렇지 않으면 `undefined`를 반환함
+2. `obj?.[prop]` -- `obj`가 존재하면 `obj[prop]`을 반환하고, 그렇지 않으면 `undefined`를 반환함
 3. `obj?.method()` -- `obj`가 존재하면 `obj.method()`를 호출하고, 그렇지 않으면 `undefined`를 반환함
 
 여러 예시를 통해 살펴보았듯이 옵셔널 체이닝 문법은 꽤 직관적이고 사용하기도 쉽습니다. `?.` 왼쪽 평가 대상이 `null/undefined`인지 확인하고 `null/undefined`가 아니라면 평가를 계속 진행하죠.
