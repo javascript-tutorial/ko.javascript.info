@@ -160,7 +160,7 @@ switch (arg) {
     break;
 
   case 3:
-    alert( '이 코드는 절대 실행되지 않습니다!" );
+    alert( '이 코드는 절대 실행되지 않습니다!' );
     break;
   default:
     alert( '알 수 없는 값을 입력하셨습니다.' );
