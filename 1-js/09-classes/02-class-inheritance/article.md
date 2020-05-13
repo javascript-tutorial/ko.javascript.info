@@ -236,7 +236,7 @@ let rabbit = new Rabbit("흰 토끼", 10); // Error: Must call super constructor
 
 물론 이유가 있습니다. 상속 클래스의 생성자가 호출될 때 어떤 일이 일어나는지 알아보며 이유를 찾아봅시다.
 
-자바스크립트는 '상속 클래스의 생성자 함수(derived constructor)'와 그렇지 함수를 구분합니다. 상속 클래스의 생성자 함수엔 특수 내부 프로퍼티인 `[[ConstructorKind]]:"derived"`가 이름표처럼 붙습니다.
+자바스크립트는 '상속 클래스의 생성자 함수(derived constructor)'와 그렇지 않은 함수를 구분합니다. 상속 클래스의 생성자 함수엔 특수 내부 프로퍼티인 `[[ConstructorKind]]:"derived"`가 이름표처럼 붙습니다.
 
 두 생성자 함수의 차이는 `new`와 함께 드러납니다.
 
