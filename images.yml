@@ -1,2 +1,16 @@
-lexical-environment-global-3.svg:
-  execution start: '실행 시작'
+ifelse_task2.svg:
+  "Begin":
+    text: "시작"
+    position: "center"
+  "What's the “official” name of JavaScript?":
+    text: "자바스크립트의 '공식' 이름은 무엇일까요?"
+    position: "center"
+  "Other":
+    text: "기타"
+    position: "center"
+  "Right!":
+    text: "정답입니다!"
+    position: "center"
+  "You don't know? “ECMAScript”!":
+    text: "모르셨나요? 정답은 ECMAScript입니다!"
+    position: "center"
