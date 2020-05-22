@@ -16,7 +16,7 @@
 클래스는 다음과 같은 기본 문법을 사용해 만들 수 있습니다.
 ```js
 class MyClass {
-  // 여러 메서드를 정의할 수 있습니다.
+  // 여러 메서드를 정의할 수 있음
   constructor() { ... }
   method1() { ... }
   method2() { ... }
@@ -25,7 +25,7 @@ class MyClass {
 }
 ```
 
-이렇게 클래스를 만들고, `new MyClass()`를 호출하면 위에서 정의한 메서드가 들어 있는 객체가 생성됩니다.
+이렇게 클래스를 만들고, `new MyClass()`를 호출하면 내부에서 정의한 메서드가 들어 있는 객체가 생성됩니다.
 
 객체의 기본 상태를 설정해주는 생성자 메서드 `constructor()`는 `new`에 의해 자동으로 호출되므로, 특별한 절차 없이 객체를 초기화 할 수 있습니다.
 
@@ -56,7 +56,7 @@ user.sayHi();
 이런 과정을 거친 후에 `user.sayHi()` 같은 객체 메서드를 호출할 수 있습니다.
 
 
-```warn header="클래스 메서드 사이엔 쉼표가 없습니다."
+```warn header="메서드 사이엔 쉼표가 없습니다."
 초보 개발자는 클래스 메서드 사이에 쉼표를 넣는 실수를 저지르곤 합니다. 이렇게 쉼표를 넣으면 문법 에러가 발생합니다.
 
 클래스와 관련된 표기법은 객체 리터럴 표기법과 차이가 있습니다. 클래스에선 메서드 사이에 쉼표를 넣지 않아도 됩니다.
@@ -66,7 +66,7 @@ user.sayHi();
 
 이 시점에서 "`클래스`가 정확히 뭔가요?"라는 의문이 생기실 겁니다. 클래스는 자바스크립트에서 새롭게 창안 한 개체(entity)가 아닙니다.
 
-클래스가 보여주는 다양한 마법의 원리를 하나씩 파헤치면서 클래스가 정확히 무엇인지 알아봅시다. 이 과정을 거치고 나면 자바스크립트의 복잡한 기능을 이해할 수 있게 됩니다.
+클래스가 보여주는 다양한 마법의 원리를 하나씩 파헤치면서 클래스가 정확히 무엇인지 알아봅시다. 이 과정을 거치고 나면 자바스크립트의 복잡한 기능을 이해할 수 있을 겁니다.
 
 자바스크립트에서 클래스는 함수의 한 종류입니다.
 
@@ -116,7 +116,7 @@ alert(User.prototype.sayHi); // alert(this.name);
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
 ```
 
-## 클래스는 단순한 편의 문법이 아닙니다.
+## 클래스는 단순한 편의 문법이 아닙니다
 
 어떤 사람들은 `class`라는 키워드 없이도 클래스 역할을 하는 함수를 선언할 수 있기 때문에 `클래스`는 '편의 문법'에 불과하다고 이야기합니다. 참고로 기능은 동일하나 기존 문법을 쉽게 읽을 수 있게 만든 문법을 편의 문법(syntactic sugar, 문법 설탕)이라고 합니다. 
 
@@ -154,7 +154,7 @@ user.sayHi();
     }
 
     alert(typeof User); // function
-    User(); // Error: Class constructor User cannot be invoked without 'new'
+    User(); // TypeError: Class constructor User cannot be invoked without 'new'
     ```
 
     대부분의 자바스크립트 엔진이 클래스 생성자를 문자열로 표현할 때 'class...'로 시작하는 문자열로 표현한다는 점 역시 다릅니다.
@@ -169,20 +169,20 @@ user.sayHi();
     또 다른 차이점들에 대해선 더 살펴볼 예정입니다.
 
 2. 클래스 메서드는 열거할 수 없습니다(non-enumerable).
-    클래스의 `"prototype"` 프로퍼티에 추가된 메서드 전체의 `enumerable` 플래그는 `false`입니다.
+    클래스의 `prototype` 프로퍼티에 추가된 메서드 전체의 `enumerable` 플래그는 `false`입니다.
 
-    `for..in`으로 객체를 순회할 때, 메서드는 순회 대상에서 제외하고자 하는 경우가 많음므로 이 특징은 도움이 됩니다.
+    `for..in`으로 객체를 순회할 때, 메서드는 순회 대상에서 제외하고자 하는 경우가 많으므로 이 특징은 꽤 유용합니다.
 
 3. 클래스는 항상 `엄격 모드`로 실행됩니다(`use strict`).
     클래스 생성자 안 코드 전체엔 자동으로 엄격 모드가 적용됩니다.
 
-이 외에도 `class`를 사용하면 다양한 기능이 따라오는데, 자세한 내용은 곧 다루겠습니다.
+이 외에도 `class`를 사용하면 다양한 기능이 따라오는데, 자세한 내용은 차차 다루겠습니다.
 
 ## 클래스 표현식
 
-함수처럼 클래스도 다른 표현식 내부에서 정의, 전달, 반환, 할당될 수 있습니다.
+함수처럼 클래스도 다른 표현식 내부에서 정의, 전달, 반환, 할당할 수 있습니다.
 
-클래스 표현식을 만들어보겠습니다.
+먼저 클래스 표현식을 만들어보겠습니다.
 
 ```js
 let User = class {
@@ -207,7 +207,7 @@ let User = class *!*MyClass*/!* {
 
 new User().sayHi(); // 제대로 동작합니다(MyClass의 정의를 보여줌).
 
-alert(MyClass); // Error: MyClass is not defined, MyClass는 클래스 밖에서 사용할 수 없습니다.
+alert(MyClass); // ReferenceError: MyClass is not defined, MyClass는 클래스 밖에서 사용할 수 없습니다.
 ```
 
 아래와 같이 '필요에 따라' 클래스를 동적으로 생성하는 것도 가능합니다.
@@ -229,7 +229,7 @@ new User().sayHi(); // Hello
 ```
 
 
-## getter·setter
+## getter와 setter
 
 리터럴을 사용해 만든 객체처럼 클래스도 getter나 setter, 계산된 프로퍼티(computed property)를 포함할 수 있습니다.
 
@@ -299,7 +299,7 @@ new User().sayHi();
 
 '클래스 필드(class field)'라는 문법을 사용하면 어떤 종류의 프로퍼티도 클래스에 추가할 수 있습니다.
 
-`class User`에 `name` 프로퍼티를 추가해봅시다.
+클래스 `User`에 `name` 프로퍼티를 추가해봅시다.
  
 ```js run
 class User {
@@ -315,9 +315,9 @@ class User {
 new User().sayHi(); // Hello, John!
 ```
 
-So, we just write "<property name> = <value>" in the declaration, and that's it.
+클래스를 정의할 때 '<프로퍼티 이름> = <값>'을 써주면 간단히 클래스 필드를 만들 수 있습니다.
 
-The important difference of class fields is that they are set on individual objects, not `User.prototype`:
+클래스 필드의 중요한 특징 중 하나는 `User.prototype`이 아닌 개별 객체에만 클래스 필드가 설정된다는 점입니다.
 
 ```js run
 class User {
@@ -331,26 +331,26 @@ alert(user.name); // John
 alert(User.prototype.name); // undefined
 ```
 
-Technically, they are processed after the constructor has done it's job, and we can use for them complex expressions and function calls:
+클래스 필드는 생성자가 그 역할을 다 한 이후에 처리됩니다. 따라서 클래스 필드엔 복잡한 표현식이나 함수 호출 결과를 사용할 수 있습니다.
 
 ```js run
 class User {
 *!*
-  name = prompt("Name, please?", "John");
+  name = prompt("이름을 알려주세요.", "보라");
 */!*
 }
 
 let user = new User();
-alert(user.name); // John
+alert(user.name); // 보라
 ```
 
 ### Making bound methods with class fields
 
-As demonstrated in the chapter <info:bind> functions in JavaScript have a dynamic `this`. It depends on the context of the call.
+<info:bind> 챕터에서 살펴본 것처럼 자바스크립트의 함수는 동적인 `this`를 갖습니다.
 
-So if an object method is passed around and called in another context, `this` won't be a reference to its object any more.
+따라서 객체 메서드를 여기저기 전달해 전혀 다른 컨텍스트에서 호출하게 되면 `this`는 원래 객체를 참조하지 않습니다.
 
-For instance, this code will show `undefined`:
+관련 예시를 살펴봅시다. 예시를 실행하면 `undefined`가 출력됩니다.
 
 ```js run
 class Button {
@@ -370,12 +370,12 @@ setTimeout(button.click, 1000); // undefined
 */!*
 ```
 
-The problem is called "losing `this`".
+이렇게 `this`의 컨텍스트를 알 수 없게 되는 문제를 '잃어버린 `this`(losing this)'라고 합니다.
 
-There are two approaches to fixing it, as discussed in the chapter <info:bind>:
+문제를 해결하는 덴 두 개의 방법이 사용되는데  <info:bind>에서 이 방법에 대해 살펴본 바 있습니다.
 
-1. Pass a wrapper-function, such as `setTimeout(() => button.click(), 1000)`.
-2. Bind the method to object, e.g. in the constructor:
+1. `setTimeout(() => button.click(), 1000)` 같이 래퍼 함수를 전달하기
+2. 생성자 안 등에서 메서드를 객체에 바인딩하기
 
 ```js run
 class Button {
@@ -398,7 +398,7 @@ setTimeout(button.click, 1000); // hello
 */!*
 ```
 
-Class fields provide a more elegant syntax for the latter solution:
+그런데 클래스 필드를 사용하면 두 번째 방법을 좀 더 우아한 문법으로 처리할 수 있습니다.
 
 ```js run
 class Button {
@@ -417,9 +417,9 @@ let button = new Button("hello");
 setTimeout(button.click, 1000); // hello
 ```
 
-The class field `click = () => {...}` creates an independent function on each `Button` object, with `this` bound to the object. Then we can pass `button.click` around anywhere, and it will be called with the right `this`.
+클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 어디에 전달되던지 상관없이 `button.click`은 제대로 된 `this`와 함께 호출됩니다.
 
-That's especially useful in browser environment, when we need to setup a method as an event listener.
+클래스 필드의 이런 기능은 브라우저 환경에서 메서드를 이벤트 리스너로 설정해야 할 때 특히 유용합니다.
 
 ## 요약
 
@@ -443,6 +443,6 @@ class MyClass {
 }
 ```
 
-`MyClass`는 `constructor`의 코드를 본문으로 갖는 함수입니다. `MyClass`에서 정의한 일반 메서드나 getter, setter는 `MyClass.prototype`에 쓰여집니다.
+`MyClass`는 `constructor`의 코드를 본문으로 갖는 함수입니다. `MyClass`에서 정의한 일반 메서드나 getter, setter는 `MyClass.prototype`에 쓰입니다.
 
 이어지는 챕터에선 상속을 비롯한 클래스의 다양한 기능에 대해 알아보겠습니다.
