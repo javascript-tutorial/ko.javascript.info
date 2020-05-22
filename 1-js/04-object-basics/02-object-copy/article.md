@@ -206,18 +206,18 @@ let user = {
 
 let clone = Object.assign({}, user);
 
-alert( user.sizes === clone.sizes ); // true, same object
+alert( user.sizes === clone.sizes ); // true, 같은 객체입니다.
 
-// user and clone share sizes
-user.sizes.width++;       // change a property from one place
-alert(clone.sizes.width); // 51, see the result from the other one
+// user와 clone는 sizes를 공유합니다.
+user.sizes.width++;       // 한 객체에서 프로퍼티를 변경합니다.
+alert(clone.sizes.width); // 51, 다른 객체에서 변경 사항을 확인할 수 있습니다.
 ```
 
-이 문제를 해결하려면 `user[key]`의 각 값을 검사하면서 그 값이 객체라면 객체의 구조도 복사해주는 반복문을 사용해야 합니다. 이를 '깊은 복사(deep cloning)'라고 부릅니다.
+이 문제를 해결하려면 `user[key]`의 각 값을 검사하면서, 그 값이 객체인 경우 객체의 구조도 복사해주는 반복문을 사용해야 합니다. 이런 방식을 '깊은 복사(deep cloning)'라고 합니다.
 
-깊은 복사 시 사용되는 표준 알고리즘, [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다.
+깊은 복사 시 사용되는 표준 알고리즘인 [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다.
 
-자바스크립트 라이브러리 [lodash](https://lodash.com)의 메서드, [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)을 사용하면 이 알고리즘을 직접 구현하지 않고도 깊은 복사를 처리할 수 있으므로 참고하시기 바랍니다.
+자바스크립트 라이브러리 [lodash](https://lodash.com)의 메서드인 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)을 사용하면 이 알고리즘을 직접 구현하지 않고도 깊은 복사를 처리할 수 있으므로 참고하시기 바랍니다.
 
 ## 요약
 
@@ -225,4 +225,4 @@ alert(clone.sizes.width); // 51, see the result from the other one
 
 그리고 복사된 참조를 이용한 모든 작업(프로퍼티 추가·삭제 등)은 동일한 객체를 대상으로 이뤄집니다.
 
-객체의 '진짜 복사본'을 만들려면 '얕은 복사(shallow copy)'를 가능하게 해주는 `Object.assign`이나  '깊은 복사(deep cloning)'를 가능하게 해주는 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)를 사용하면 됩니다. 이때 얕은 복사본은 중첩 객체를 처리하지 못한다는 점을 기억해 두시기 바랍니다.
+객체의 '진짜 복사본'을 만들려면 '얕은 복사(shallow copy)'를 가능하게 해주는 `Object.assign`이나  '깊은 복사'를 가능하게 해주는 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)를 사용하면 됩니다. 이때 얕은 복사본은 중첩 객체를 처리하지 못한다는 점을 기억해 두시기 바랍니다.
