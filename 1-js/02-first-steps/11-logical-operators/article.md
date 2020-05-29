@@ -125,16 +125,24 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
 
     단락 평가의 동작 방식은 두 번째 피연산자가 변수 할당과 같은 부수적인 효과(side effect)를 가지는 표현식 일 때 명확히 볼 수 있습니다.
 
+<<<<<<< HEAD
     아래 예시를 실행하면 첫 번째 메시지는 출력되지만, 두 번째 메시지는 출력되지 않습니다.
+=======
+    In the example below, only the second message is printed:
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
     ```js run no-beautify
-    *!*true*/!* || alert("printed");
-    *!*false*/!* || alert("not printed");
+    *!*true*/!* || alert("not printed");
+    *!*false*/!* || alert("printed");
     ```
 
     첫 번째 줄의 `||` 연산자는 `true`를 만나자마자 평가를 멈추기 때문에 `alert`가 실행되지 않습니다.
 
+<<<<<<< HEAD
     단락 평가는 조건이 truthy일 때만 명령어를 실행하고자 할 때 자주 쓰입니다.
+=======
+    Sometimes, people use this feature to execute commands only if the condition on the left part is falsy.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 ## && (AND)
 

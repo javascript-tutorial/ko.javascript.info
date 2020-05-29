@@ -19,7 +19,11 @@
 ...
 ```
 
+<<<<<<< HEAD
 명령어를 그룹화하는 방식인 함수에 대해선 곧 학습하도록 하겠습니다. 함수에 대해 학습하기 전에, `"use strict"`는 스크립트 최상단이 아닌 함수 본문 맨 앞에 올 수도 있다는 점을 알아두시기 바랍니다. 이렇게 하면 오직 해당 함수만 엄격 모드로 실행됩니다. 엄격 모드는 대개 스크립트 전체에 적용하지만 말이죠.
+=======
+Quite soon we're going to learn functions (a way to group commands), so let's note in advance that `"use strict"` can be put at the beginning of a function. Doing that enables strict mode in that function only. But usually people use it for the whole script.
+>>>>>>> cd2c7ce3c8f033e6f7861ed1b126552e41ba3e31
 
 ````warn header="\"use strict\"는 반드시 최상단에 위치시키세요."
 `"use strict"`는 스크립트 최상단에 있어야 한다는 점을 잊지 마세요. 그렇지 않으면 엄격 모드가 활성화되지 않을 수도 있습니다.
