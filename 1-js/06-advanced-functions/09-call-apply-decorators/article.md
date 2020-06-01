@@ -209,7 +209,11 @@ alert( worker.slow(2) ); // 제대로 동작합니다. 다만, 원본 함수가 
 2. `worker.slow(2)`를 실행하면 래퍼는 `2`를 인수로 받고, `this=worker`가 됩니다(점 앞의 객체).
 3. 결과가 캐시되지 않은 상황이라면 `func.call(this, x)`에서 현재 `this` (`=worker`)와 인수(`=2`)를 원본 메서드에 전달합니다.
 
+<<<<<<< HEAD
 ## 'func.apply'로 여러 인수 전달하기
+=======
+## Going multi-argument
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 `cachingDecorator`를 좀 더 다채롭게 해봅시다. 지금 상태론 인수가 하나뿐인 함수에만 `cachingDecorator`를 적용할 수 있습니다.
 
@@ -236,7 +240,11 @@ worker.slow = cachingDecorator(worker.slow);
 
 세 번째 방법만으로 충분하기 때문에 이 방법을 사용해 코드를 수정해 보겠습니다.
 
+<<<<<<< HEAD
 여기에 더하여 `func.call(this, x)`를 `func.call(this, ...arguments)`로 교체해, 래퍼 함수로 감싼 함수가 호출될 때 복수 인수 넘길 수 있도록 하겠습니다.
+=======
+Also we need to pass not just `x`, but all arguments in `func.call`. Let's recall that in a `function()` we can get a pseudo-array of its arguments as `arguments`, so `func.call(this, x)` should be replaced with `func.call(this, ...arguments)`.
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 더 강력해진 `cachingDecorator`를 살펴봅시다.
 
@@ -284,7 +292,13 @@ alert( "다시 호출: " + worker.slow(3, 5) ); // 동일한 결과 출력(캐�
 - `(*)`로 표시한 줄에서 `hash`가 호출되면서 `arguments`를 사용한 단일 키가 만들어집니다. 여기선 간단한 '결합' 함수로 인수 `(3, 5)`를 키 `"3,5"`로 바꿨는데, 좀 더 복잡한 경우라면 또 다른 해싱 함수가 필요할 수 있습니다.
 - `(**)`로 표시한 줄에선 `func.call(this, ...arguments)`를 사용해 컨텍스트(`this`)와 래퍼가 가진 인수 전부(`...arguments`)를 기존 함수에 전달하였습니다.
 
+<<<<<<< HEAD
 그런데 여기서 `func.call(this, ...arguments)` 대신, `func.apply(this, arguments)`를 사용해도 됩니다.
+=======
+## func.apply
+
+Instead of `func.call(this, ...arguments)` we could use `func.apply(this, arguments)`.
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 내장 메서드 [func.apply](mdn:js/Function/apply)의 문법은 다음과 같습니다.
 
@@ -303,14 +317,24 @@ func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배�
 func.apply(context, args);   // call을 사용하는 것은 동일합니다.
 ```
 
+<<<<<<< HEAD
 그런데 약간의 차이가 있긴 합니다.
+=======
+There's only a subtle difference:
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 - 전개 문법 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
 - `apply`는 오직 *유사 배열* 형태의 `args`만 받습니다.
 
+<<<<<<< HEAD
 이 차이만 빼면 두 메서드는 완전히 동일하게 동작합니다. 인수가 이터러블 형태라면 `call`을, 유사 배열 형태라면 `apply`를 사용하면 됩니다.
 
 배열같이 이터러블이면서 유사 배열인 객체엔 둘 다를 사용할 수 있는데, 대부분의 자바스크립트 엔진은 내부에서 `apply`를 최적화 하기 때문에 `apply`를 사용하는 게 좀 더 빠르긴 합니다. 
+=======
+So, where we expect an iterable, `call` works, and where we expect an array-like, `apply` works.
+
+And for objects that are both iterable and array-like, like a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 이렇게 컨텍스트와 함께 인수 전체를 다른 함수에 전달하는 것을 *콜 포워딩(call forwarding)* 이라고 합니다.
 
@@ -344,7 +368,11 @@ function hash(args) {
 }
 ```
 
+<<<<<<< HEAD
 그런데 아쉽게도 이 방법은 동작하지 않습니다. `hash(arguments)`를 호출할 때 인수로 넘겨주는 `arguments`는 진짜 배열이 아니고 이터러블 객체나 유사 배열 객체이기 때문입니다.
+=======
+...Unfortunately, that won't work. Because we are calling `hash(arguments)`, and `arguments` object is both iterable and array-like, but not a real array.
+>>>>>>> 69e44506c3e9dac74c282be37b55ba7ff122ae74
 
 배열이 아닌 것에 `join`을 호출하면 에러가 발생합니다.
 
