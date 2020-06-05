@@ -1,3 +1,3 @@
-# Animation
+# 애니메이션	
 
-CSS and JavaScript animations.
+CSS와 자바스크립트 애니메이션.
