@@ -354,20 +354,43 @@ try {
 
 에러는 어떤 상황에서도 발생할 수 있습니다! 몇십 년간 몇백만 명이 사용한 오픈소스 유틸리티에서도 끔찍한 해킹으로 이어질 수 있는 엄청난 버그가 발견되죠.
 
+<<<<<<< HEAD
 위에선 '불완전한 데이터'를 다루려는 목적으로 `try..catch`를 썼습니다. 그런데 `catch`는 원래 `try` 블록에서 발생한 *모든* 에러를 잡으려는 목적으로 만들어졌습니다. 그런데 위 예시에서 `catch`는 예상치 못한 에러를 잡아내 주긴 했지만, 에러 종류와 관계없이 "JSON Error" 메시지를 보여줍니다. 이렇게 에러 종류와 관계없이 동일한 방식으로 에러를 처리하는 것은 디버깅을 어렵게 만들기 때문에 좋지 않습니다. 
 
 다행히도, `name` 프로퍼티를 사용하면 에러의 종류를 알아낼 수 있습니다.
+=======
+In our case, `try..catch` is placed to catch "incorrect data" errors. But by its nature, `catch` gets *all* errors from `try`. Here it gets an unexpected error, but still shows the same `"JSON Error"` message. That's wrong and also makes the code more difficult to debug.
+
+To avoid such problems, we can employ the "rethrowing" technique. The rule is simple:
+
+**Catch should only process errors that it knows and "rethrow" all others.**
+
+The "rethrowing" technique can be explained in more detail as:
+
+1. Catch gets all errors.
+2. In the `catch(err) {...}` block we analyze the error object `err`.
+2. If we don't know how to handle it, we do `throw err`.
+
+Usually, we can check the error type using the `instanceof` operator:
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 
 ```js run
 try {
   user = { /*...*/ };
-} catch(e) {
+} catch(err) {
 *!*
+<<<<<<< HEAD
   alert(e.name); // 존재하지 않는 변수에 접근하려 했으므로 "ReferenceError"가 발생
+=======
+  if (err instanceof ReferenceError) {
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 */!*
+    alert('ReferenceError'); // "ReferenceError" for accessing an undefined variable
+  }
 }
 ```
 
+<<<<<<< HEAD
 규칙은 간단합니다.
 
 **catch 블록에선 종류를 알 수 있는 에러만 처리하고, 나머지 에러는 모두 '다시 던진다(rethrow)'.**
@@ -377,6 +400,9 @@ try {
 1. `catch`에서 모든 에러를 받습니다.
 2. `catch(err) {...}` 블록에서 에러 객체(`err`)를 분석합니다.
 3. 에러를 어떻게 처리할지 모르는 경우는 `throw err`로 에러를 다시 던집니다.
+=======
+We can also get the error class name from `err.name` property. All native errors have it. Another option is to read `err.constructor.name`.
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 
 에러를 다시 던져서 `catch` 블록에선 `SyntaxError`만 처리되도록 해보겠습니다.
 
@@ -399,7 +425,7 @@ try {
 } catch(e) {
 
 *!*
-  if (e.name == "SyntaxError") {
+  if (e instanceof SyntaxError) {
     alert( "JSON Error: " + e.message );
   } else {
     throw e; // 에러 다시 던지기 (*)
@@ -426,7 +452,7 @@ function readData() {
 */!*
   } catch (e) {
     // ...
-    if (e.name != 'SyntaxError') {
+    if (!(e instanceof SyntaxError)) {
 *!*
       throw e; // 알 수 없는 에러 다시 던지기
 */!*

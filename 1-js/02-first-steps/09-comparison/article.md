@@ -4,10 +4,17 @@
 
 자바스크립트에서 기초 수학 연산은 아래와 같은 문법을 사용해 표현할 수 있습니다.
 
+<<<<<<< HEAD
 - 보다 큼·작음: <code>a &gt; b</code>, <code>a &lt; b</code>.
 - 보다 크거나·작거나 같음: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
 - 같음(동등): `a == b`. 등호 `=`가 두 개 연달아 오는 것에 유의하세요. `a ​​= b`와 같이 등호가 하나일 때는 할당을 의미합니다.
 - 같지 않음(부등): 같지 않음을 나타내는 수학 기호 <code>&ne;</code>는 자바스크립트에선 <code>a != b</code>로 나타냅니다. 할당연산자 `=` 앞에 느낌표 `!`를 붙여서 표시합니다.
+=======
+- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- Equals: `a == b`, please note the double equality sign `=` means the equality test, while a single one `a = b` means an assignment.
+- Not equals. In maths the notation is <code>&ne;</code>, but in JavaScript it's written as <code>a != b</code>.
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 
 ## 불린형 반환
 

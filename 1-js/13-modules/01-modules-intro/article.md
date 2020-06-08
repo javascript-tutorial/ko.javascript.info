@@ -57,7 +57,15 @@ sayHi('John'); // Hello, John!
 
 브라우저가 자동으로 모듈을 가져오고 평가한 다음 이를 실행한 것을 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ## 모듈의 핵심 기능
+=======
+```warn header="Modules work only via HTTP, not in local files"
+If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test them.
+```
+
+## Core module features
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 
 "일반" 스크립트와 모듈의 차이는 무엇일까요?
 

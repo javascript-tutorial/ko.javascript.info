@@ -309,7 +309,11 @@ preflight 요청은 '무대 밖에서' 일어나기 때문에 자바스크립트
 
 ## 자격 증명
 
+<<<<<<< HEAD
 크로스 오리진 요청의 경우 기본적으로 쿠키나 HTTP 인증 같은 자격 증명(credential)이 함께 전송되지 않습니다.
+=======
+A cross-origin request initiated by JavaScript code by default does not bring any credentials (cookies or HTTP authentication).
+>>>>>>> d35baee32dcce127a69325c274799bb81db1afd8
 
 HTTP 요청의 경우 대개 쿠키가 함께 전송되는데, 자바스크립트 메서드를 사용해 만든 크로스 오리진 요청은 예외이죠.
 
