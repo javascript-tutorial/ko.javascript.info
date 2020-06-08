@@ -18,7 +18,7 @@ let obj = {
   },
 
   *!*set propName(value)*/!* {
-    // setter, obj.propNAme = value를 실행할 때 실행되는 코드
+    // setter, obj.propName = value를 실행할 때 실행되는 코드
   }
 };
 ```
