@@ -1,14 +1,13 @@
-Áß¿äµµ: 5
+importance: 5
 
 ---
 
-# ºñÇà±â Æò¸é¿¡ ¾Ö´Ï¸ÞÀÌ¼Ç È¿°úÁÖ±â (CSS)
+# ë¹„í–‰ê¸° í‰ë©´ì— ì• ë‹ˆë©”ì´ì…˜ íš¨ê³¼ ì£¼ê¸° (CSS)
 
-ÀÌÀü ÀÛ¾÷ <info:task/animate-logo-css>ÀÇ ¼Ö·ç¼ÇÀ» ¼öÁ¤ÇÏ¿© ¿ø·¡ Å©±âÀÎ 400x240px (jump out)º¸´Ù ´õ Å©°Ô ¸¸µç ´ÙÀ½, ±× Å©±â·Î µÇµ¹¸°´Ù.
+ì´ì „ ìž‘ì—… <info:task/animate-logo-css>ì˜ ì†”ë£¨ì…˜ì„ ìˆ˜ì •í•˜ì—¬ ì›ëž˜ í¬ê¸°ì¸ 400x240px (jump out)ë³´ë‹¤ ë” í¬ê²Œ ë§Œë“  ë‹¤ìŒ, ê·¸ í¬ê¸°ë¡œ ë˜ëŒë¦°ë‹¤.
 
-´ÙÀ½°ú °°ÀÌ Ç¥½ÃµË´Ï´Ù (ºñÇà±â Å¬¸¯):
+ë‹¤ìŒê³¼ ê°™ì´ í‘œì‹œë©ë‹ˆë‹¤ (ë¹„í–‰ê¸°ë¥¼ í´ë¦­í•´ë³´ì„¸ìš”):
 
 [iframe src="solution" height=350]
 
-ÀÌÀü ÀÛ¾÷ÀÇ ¼Ö·ç¼ÇÀ» ¼Ò½º·Î »ïÀ¸½Ê½Ã¿À.
-
+ì´ì „ ìž‘ì—…ì˜ ì†”ë£¨ì…˜ì„ ì†ŒìŠ¤ë¡œ ì‚¼ìœ¼ì‹­ì‹œì˜¤.
