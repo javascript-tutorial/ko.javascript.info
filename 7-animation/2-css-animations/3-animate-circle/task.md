@@ -2,15 +2,15 @@ importance: 5
 
 ---
 
-# Animated circle
+# 애니메이션 서클
 
-Create a function `showCircle(cx, cy, radius)` that shows an animated growing circle.
+`showCircle(cx, cy, radius)` 움직이는 원을 표시하는 함수를 만듭니다.
 
-- `cx,cy` are window-relative coordinates of the center of the circle,
-- `radius` is the radius of the circle.
+- `cx,cy` 원의 중심의 윈도우 상대 좌표이며,
+- `radius` 원의 반경입니다.
 
-Click the button below to see how it should look like:
+표시 방법을 보려면 아래 버튼를 클릭하십시오.
 
 [iframe src="solution" height=260]
 
-The source document has an example of a circle with right styles, so the task is precisely to do the animation right.
+소스 문서에는 올바른 스타일을 가진 원의 예제가 있으므로, 작업은 정확하게 애니메이션을 올바르게 수정하는 것입니다.
