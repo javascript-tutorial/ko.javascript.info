@@ -1,64 +1,65 @@
 
-# Event loop: microtasks and macrotasks
+# 이벤트 루프와 매크로·마이크로태스크
 
-Browser JavaScript execution flow, as well as in Node.js, is based on an *event loop*.
+브라우저 측 자바스크립트 실행 흐름은 Node.js와 마찬가지로 *이벤트 루프*에 기반합니다.
 
-Understanding how event loop works is important for optimizations, and sometimes for the right architecture.
+따라서 이벤트 루프가 어떻게 동작하는지 잘 이해하고 있어야 최적화나 올바른 아키텍처 설계가 가능해집니다.
 
-In this chapter we first cover theoretical details about how things work, and then see practical applications of that knowledge.
+이번 챕터에선 이벤트 루프가 어떻게 동작하는지에 대한 이론과 함께, 이를 어떻게 실무에 적용할 수 있는지에 대해서 알아보겠습니다.
 
-## Event Loop
+## 이벤트 루프
 
-The concept of *event loop* is very simple. There's an endless loop, when JavaScript engine waits for tasks, executes them and then sleeps waiting for more tasks.
+*이벤트 루프(event loop)* 정의는 아주 간단합니다. 이벤트 루프는 태스크가 들어오길 기다렸다가 태스크가 들어오면 이를 처리하고, 처리할 태스크가 없는 경우엔 잠드는, 끊임없이 돌아가는 자바스크립트 내 루프입니다(task는 '작업'이라고 번역할 수 있는데, 매크로·마이크로태스크 등의 용어와 일치시키기 위해 '태스크'라고 음차 번역하였습니다 - 옮긴이).
 
-The general algorithm of the engine:
+자바스크립트 엔진이 돌아가는 알고리즘을 일반화하면 다음과 같습니다.
 
-1. While there are tasks:
-    - execute them, starting with the oldest task.
-2. Sleep until a task appears, then go to 1.
+1. 처리해야 할 태스크가 있는 경우:
+    - 먼저 들어온 태스크부터 순차적으로 처리함
+2. 처리해야 할 태스크가 없는 경우:
+    - 잠들어 있다가 새로운 태스크가 추가되면 다시 1로 돌아감
 
-That's a formalization for what we see when browsing a page. JavaScript engine does nothing most of the time, only runs if a script/handler/event activates.
+바로 이 알고리즘이 우리가 브라우저를 사용해 인터넷을 서핑할 때 돌아가는 알고리즘입니다. 이렇게 자바스크립트 엔진은 대부분의 시간 동안 아무런 일도 하지 않고 쉬고 있다가 스크립트나 핸들러, 이벤트가 활성화될 때만 돌아갑니다.
 
-Examples of tasks:
+그렇다면 자바스크립트 엔진을 활성화하는 태스크엔 과연 어떤 것들이 있을까요? 대표적인 태스크는 다음과 같습니다.
 
-- When an external script `<script src="...">` loads, the task is to execute it.
-- When a user moves their mouse, the task is to dispatch `mousemove` event and execute handlers.
-- When the time is due for a scheduled `setTimeout`, the task is to run its callback.
-- ...and so on.
+- 외부 스크립트 `<script src="...">`가 로드될 때, 이 스크립트를 실행하는 것
+- 사용자가 마우스를 움직일 때 `mousemove` 이벤트와 이벤트 핸들러를 실행하는 것
+- `setTimeout`에서 설정한 시간이 다 된 경우, 콜백 함수를 실행하는 것
+- 기타 등등
 
-Tasks are set -- the engine handles them -- then waits for more tasks (while sleeping and consuming close to zero CPU).
+태스크는 하나의 집합을 이룹니다. 자바스크립트 엔진은 집합을 이루고 있는 태스크들을 차례대로 처리하고, 새로운 태스크가 추가될 때까지 기다립니다. 태스크를 기다리는 동안엔 CPU 자원 소비는 0에 가까워지고 엔진은 잠들게 됩니다.
 
-It may happen that a task comes while the engine is busy, then it's enqueued.
+새로운 태스크는 엔진이 바쁠 때 추가될 수도 있습니다. 이때 이 태스크는 큐에 추가됩니다.
 
-The tasks form a queue, so-called "macrotask queue" (v8 term):
+이렇게 태스크가 추가되는 큐는 V8 용어로 '매크로태스크 큐(macrotask queue)'라고 부릅니다.
 
 ![](eventLoop.svg)
 
-For instance, while the engine is busy executing a `script`, a user may move their mouse causing `mousemove`, and `setTimeout` may be due and so on, these tasks form a queue, as illustrated on the picture above.
+좀 더 구체적인 사례를 가지고 매크로태스크 큐에 대해 알아봅시다. 엔진이 `script`를 처리하느라 바쁜데 사용자가 마우스를 움직여 `mousemove` 이벤트를 활성화하고, 바로 이어서 `setTimeout`에서 설정한 시간이 지났다고 가정해 봅시다. 이때 세 태스크는 큐에 하나씩 추가되는데, 위 그림에 이런 상황을 묘사해 보았습니다.
 
-Tasks from the queue are processed on "first come – first served" basis. When the engine browser is done with the `script`, it handles `mousemove` event, then `setTimeout` handler, and so on.
+큐에 있는 태스크들은 '들어간 순서대로' 처리됩니다. 엔진은 `script`를 먼저 처리하고 `mousemove` 이벤트와 핸들러, `setTimeout` 핸들러를 순차적으로 처리합니다.
 
-So far, quite simple, right?
+지금까진 어려운 것이 없어 보입니다. 그렇죠?
 
-Two more details:
-1. Rendering never happens while the engine executes a task. Doesn't matter if the task takes a long time. Changes to DOM are painted only after the task is complete.
-2. If a task takes too long, the browser can't do other tasks, process user events, so after a time it raises an alert like "Page Unresponsive" suggesting to kill the task with the whole page. That happens when there are a lot of complex calculations or a programming error leading to infinite loop.
+여기서 잠시 두 가지 세부 사항을 짚고 넘어갑시다.
+1. 엔진이 특정 태스크를 처리하는 동안엔 렌더링이 절대 일어나지 않습니다. 태스크를 처리하는 데 걸리는 시간이 길지 않으면 이는 전혀 문제가 되지 않습니다. 처리가 끝나는 대로 DOM 변경을 화면에 반영하면 되기 때문입니다.
+2. 태스크 처리에 긴 시간이 걸리면, 브라우저는 태스크를 처리하는 동안에 발생한 사용자 이벤트 등의 새로운 태스크들을 처리하지 못합니다. 인터넷 서핑을 하다 보면 '응답 없는 페이지(Page Unresponsive)'라는 얼럿 창을 만나게 되는 경우가 종종 있습니다. 이 얼럿 창은 아주 복잡한 계산이 필요하거나 프로그래밍 에러 때문에 무한 루프에 빠지게 될 때 나타나는데, 브라우저는 얼럿 창을 통해 사용자에게 페이지 전체와 함께 해당 태스크를 취소시킬지 말지를 선택하도록 유도합니다.
 
-That was a theory. Now let's see how we can apply that knowledge.
+자, 이론을 충분히 살펴봤으니 지금부턴 이 지식을 실무에서 어떻게 활용할 수 있을지 알아보도록 합시다.
 
-## Use-case 1: splitting CPU-hungry tasks
+## 유스 케이스 1: CPU 소모가 많은 태스크 쪼개기
 
-Let's say we have a CPU-hungry task.
+CPU 소모가 아주 많은 태스크 하나가 있다고 가정해 봅시다.
 
-For example, syntax-highlighting (used to colorize code examples on this page) is quite CPU-heavy. To highlight the code, it performs the analysis, creates many colored elements, adds them to the document -- for a large amount of text that takes a lot of time.
+형광펜을 칠한 것처럼 페이지 일부를 강조해 주는 것이 바로 이런 태스크에 속합니다. 튜토리얼을 잘 따라오셨다면 예시 곳곳에서 이런 기능이 사용되고 있다는 것을 눈치채셨을 겁니다. 이렇게 코드 일부를 강조하기 위해선 어떤 부분을 강조해야 할지에 대한 사전 분석이 필요합니다. 여기에 더하여 색을 변경한 요소를 새롭게 만들고, 새로 만든 요소들을 문서에 추가해야 하는 일련의 작업이 필요하죠. 강조해야 할 코드 양이 많다면 당연히 아주 긴 시간이 소모될 겁니다.
 
-While the engine is busy with syntax highlighting, it can't do other DOM-related stuff, process user events, etc. It may even cause the browser to "hiccup" or even "hang" for a bit, which is unacceptable.
+코드 강조라는 태스크를 수행하느라 엔진이 바쁠 때엔 사용자 이벤트 처리나 DOM 관련 작업이 완전히 멈추게 됩니다. 그러다 보면 브라우저에 '지연'이 생기거나 심하면 '멈춤' 현상까지 발생하기도 하죠. 절대 있어서는 안 될 일입니다.
 
-We can avoid problems by splitting the big task into pieces. Highlight first 100 lines, then schedule `setTimeout` (with zero-delay) for the next 100 lines, and so on.
+이런 불가피한 상황들은 태스크를 여러 조각으로 쪼개 예방할 수 있습니다. 앞부분 100줄만 먼저 강조하고, 지연시간이 0인 `setTimeout`을 사용해 새롭게 스케줄링을 한 다음, 그 다음 100줄을 강조하는 식으로 코드를 변경하면 되죠.
 
-To demonstrate this approach, for the sake of simplicity, instead of text-highlighting, let's take a function that counts from `1` to `1000000000`.
+실제 코드를 통해 어떻게 하면 태스크를 쪼갤 수 있는지 알아봅시다. 직접 강조기능을 구현하는 대신 `1`부터 `1000000000`까지의 숫자를 세주는 함수를 사용해 간결한 코드로 시연해 보겠습니다.
 
-If you run the code below, the engine will "hang" for some time. For server-side JS that's clearly noticeable, and if you are running it in-browser, then try to click other buttons on the page -- you'll see that no other events get handled until the counting finishes.
+먼저 리팩토링 전의 코드를 살펴봅시다. 아래 예시를 실행하면 엔진이 몇 초간 '멈춥니다'. 서버 사이드 환경에서 예시를 실행하면 멈춤 현상이 눈에 잘 띄는데, 지금은 브라우저상에서 예시를 실행하고 있기 때문에 실행 후 페이지 내에 있는 아무 버튼이나 클릭해 지연이 발생하는 것을 직접 확인해 보도록 합시다(마우스 오른쪽 버튼을 누르면 쉽게 이벤트 지연을 확인할 수 있습니다 - 옮긴이). 숫자 카운팅이 끝나고 얼럿 창이 뜨기 전까진 그 어떤 그 어떤 사용자 이벤트도 처리되지 않는 것을 확인할 수 있습니다.
 
 ```js run
 let i = 0;
@@ -67,20 +68,20 @@ let start = Date.now();
 
 function count() {
 
-  // do a heavy job
+  // CPU 소모가 많은 무거운 작업을 수행
   for (let j = 0; j < 1e9; j++) {
     i++;
   }
 
-  alert("Done in " + (Date.now() - start) + 'ms');
+  alert("처리에 걸린 시간: " + (Date.now() - start) + "ms");
 }
 
 count();
 ```
 
-The browser may even show a "the script takes too long" warning.
+저사양 머신이라면 브라우저에 'the script takes too long'라는 경고가 뜰 수도 있겠네요.
 
-Let's split the job using nested `setTimeout` calls:
+자, 이제 중첩 `setTimeout` 호출을 사용해 태스크를 쪼개서 문제를 해결해 봅시다.
 
 ```js run
 let i = 0;
@@ -89,15 +90,15 @@ let start = Date.now();
 
 function count() {
 
-  // do a piece of the heavy job (*)
+  // 무거운 작업을 쪼갠 후 이를 수행 (*)
   do {
     i++;
   } while (i % 1e6 != 0);
 
   if (i == 1e9) {
-    alert("Done in " + (Date.now() - start) + 'ms');
+    alert("처리에 걸린 시간: " + (Date.now() - start) + "ms");
   } else {
-    setTimeout(count); // schedule the new call (**)
+    setTimeout(count); // 새로운 호출을 스케줄링 (**)
   }
 
 }
@@ -105,21 +106,21 @@ function count() {
 count();
 ```
 
-Now the browser interface is fully functional during the "counting" process.
+이젠 숫자를 세는 도중에도 브라우저가 완전히 제 기능을 다 하는 것을 확인할 수 있습니다.
 
-A single run of `count` does a part of the job `(*)`, and then re-schedules itself `(**)` if needed:
+멈춤 없이 브라우저가 동작할 수 있었던 것은 `(*)`로 표시한 do-while 반복에서 `count` 태스크 일부가 처리되고, 카운팅이 다 끝나지 않았다면 `(**)`로 표시한 줄에서 카운팅 태스크가 다시 스케줄링 되기 때문입니다.
 
-1. First run counts: `i=1...1000000`.
-2. Second run counts: `i=1000001..2000000`.
-3. ...and so on.
+1. 첫 번째 부분 카운팅: `i=1...1000000`
+2. 두 번째 부분 카운팅: `i=1000001..2000000`
+3. 원하는 숫자를 다 셀 때까지 부분 카운팅이 이어짐
 
-Now, if a new side task (e.g. `onclick` event) appears while the engine is busy executing part 1, it gets queued and then executes when part 1 finished, before the next part. Periodic returns to the event loop between `count` executions provide just enough "air" for the JavaScript engine to do something else, to react to other user actions.
+엔진이 첫 번째 부분 카운팅을 진행하느라 바쁜 와중에 `onclick` 이벤트와 같은 새로운 태스크가 생기면 태스크는 큐에 들어갑니다. 이 태스크는 첫 번째 부분 카운팅이 끝나고 난 후, 두 번째 부분 카운팅이 시작되기 전에 실행됩니다. 이렇게 부분 카운팅 실행 중간 중간에 '환기'를 해 줘서 이벤트 루프가 돌아갈 수 있게 해주면, 사용자 이벤트에 반응하면서 무거운 태스크 처리가 가능해집니다.
 
-The notable thing is that both variants -- with and without splitting the job by `setTimeout` -- are comparable in speed. There's not much difference in the overall counting time.
+그런데 `setTimeout`을 사용해 태스크를 쪼갠 예시와 그 전의 예시를 비교하면 크지는 않지만 시간차가 어느 정도 있는 것을 볼 수 있습니다.
 
-To make them closer, let's make an improvement.
+코드를 다듬어 시간차를 줄여보도록 합시다.
 
-We'll move the scheduling to the beginning of the `count()`:
+스케줄링해주는 코드를 함수 `count()` 앞부분으로 옮겨보았습니다.
 
 ```js run
 let i = 0;
@@ -128,9 +129,9 @@ let start = Date.now();
 
 function count() {
 
-  // move the scheduling to the beginning
+  // 스케줄링 코드를 함수 앞부분으로 옮김
   if (i < 1e9 - 1e6) {
-    setTimeout(count); // schedule the new call
+    setTimeout(count); // 새로운 호출을 스케줄링함
   }
 
   do {
@@ -138,7 +139,7 @@ function count() {
   } while (i % 1e6 != 0);
 
   if (i == 1e9) {
-    alert("Done in " + (Date.now() - start) + 'ms');
+    alert("처리에 걸린 시간: " + (Date.now() - start) + "ms");
   }
 
 }
@@ -146,25 +147,25 @@ function count() {
 count();
 ```
 
-Now when we start to `count()` and see that we'll need to `count()` more, we schedule that immediately, before doing the job.
+이렇게 코드를 변경하면 `count()`가 호출되고 아직 원하는 숫자를 다 세지 못한 경우, 부분 카운팅이 시작되기 전에 부분 카운팅 재스케줄링이 이뤄지게 됩니다.
 
-If you run it, it's easy to notice that it takes significantly less time.
+직접 실행해 보면 아시겠지만 원하는 대로 시간이 단축되었네요.
 
-Why?  
+그렇다면 시간은 왜 단축된 것일까요?
 
-That's simple: as you remember, there's the in-browser minimal delay of 4ms for many nested `setTimeout` calls. Even if we set `0`, it's `4ms` (or a bit more). So the earlier we schedule it - the faster it runs.
+이유는 단순합니다. <info:settimeout-setinterval> 챕터에서 배운 바와 같이 중첩 `setTimeout` 호출이 많은 경우엔 브라우저 최소 대기 시간이 4밀리초가 되기 때문입니다. 이런 브라우저 스펙 때문에 코드상으론 대기 시간이 `0`이더라도 실제 대기시간은 `4ms`(혹은 그보다 조금 더 긴 시간)가 되는데, 숫자를 세기 전에 스케줄링하면 숫자를 세면서 대기 시간을 소모할 수 있어 실행이 더 빨라지게 되는 것입니다.
 
-Finally, we've split a CPU-hungry task into parts - now it doesn't block the user interface. And its overall execution time isn't much longer.
+이렇게 CPU를 많이 잡아먹는 태스크를 여러 개로 쪼개면, 전체 실행 시간을 많이 희생하지 않으면서도 사용자와의 상호작용에 막힘이 없어진다는 장점이 있습니다.
 
-## Use case 2: progress indication
+## 유스 케이스 2: 프로그레스 바
 
-Another benefit of splitting heavy tasks for browser scripts is that we can show progress indication.
+태스크를 여러 개로 쪼갤 때의 장점은 진행 상태를 나타내주는 프로그레스 바(progress bar)를 만들 때도 드러납니다.
 
-Usually the browser renders after the currently running code is complete. Doesn't matter if the task takes a long time. Changes to DOM are painted only after the task is finished.
+브라우저는 스크립트 실행 시간이 오래 걸리든 아니든 상관없이 대개 실행 중인 코드의 처리가 끝난 이후에 렌더링 작업을 합니다.
 
-On one hand, that's great, because our function may create many elements, add them one-by-one to the document and change their styles -- the visitor won't see any "intermediate", unfinished state. An important thing, right?
+함수를 사용해 원하는 만큼의 요소를 만들고 이 요소들을 하나하나 문서에 추가한 다음, 각 요소의 스타일을 변경할 수 있다는 점에서 이런 브라우저 동작 방식은 한편으론 아주 유용합니다. 모든 작업이 이뤄지는 동안 사용자는 완성되지 않은 '중간' 상태의 화면을 보지 않아도 되기 때문입니다.
 
-Here's the demo, the changes to `i` won't show up until the function finishes, so we'll see only the last value:
+관련 데모를 살펴봅시다. 함수가 끝날 때까지 사용자는 `i`가 변하는 것을 볼 수 없습니다. 화면에 출력되는 것은 마지막 상태뿐입니다.
 
 
 ```html run
@@ -183,11 +184,11 @@ Here's the demo, the changes to `i` won't show up until the function finishes, s
 </script>
 ```
 
-...But we also may want to show something during the task, e.g. a progress bar.
+그런데 개발을 하다 보면 프로그레스 바 같이 작업 진척 상태를 보여주는 인디케이터(indicator)를 만들어야 하는 경우가 생기곤 합니다.
 
-If we split the heavy task into pieces using `setTimeout`, then changes are painted out in-between them.
+이럴 때 `setTimeout`을 사용해 태스크를 여러 개로 쪼개면, 상태 변화를 서브 태스크 중간마다 보여줄 수 있습니다.
 
-This looks prettier:
+예시를 살펴봅시다.
 
 ```html run
 <div id="progress"></div>
@@ -197,7 +198,7 @@ This looks prettier:
 
   function count() {
 
-    // do a piece of the heavy job (*)
+    // 무거운 작업을 쪼갠 후 이를 수행
     do {
       i++;
       progress.innerHTML = i;
@@ -213,40 +214,40 @@ This looks prettier:
 </script>
 ```
 
-Now the `<div>` shows increasing values of `i`, a kind of a progress bar.
+이제 프로그레스 바처럼 `<div>`에 `i`가 변화는 과정을 출력해 줄 수 있게 되었습니다.
 
 
-## Use case 3: doing something after the event
+## 유스 케이스 3: 이벤트 처리가 끝난 이후에 작업하기
 
-In an event handler we may decide to postpone some actions until the event bubbled up and was handled on all levels. We can do that by wrapping the code in zero delay `setTimeout`.
+이벤트 핸들러를 만들다 보면 이벤트 버블링이 끝나 모든 DOM 트리 레벨에서 이벤트가 핸들링 될 때까지 특정 액션을 연기시켜야 하는 경우가 생기곤 합니다. 이럴 때 연기시킬 액션 관련 코드를 지연 시간이 0인 `setTimeout`으로 감싸면 원하는 동작을 구현할 수 있습니다.
 
-In the chapter <info:dispatch-events> we saw an example: custom event `menu-open` is dispatched in `setTimeout`, so that it happens after the "click" event is fully handled.
+앞서 <info:dispatch-events> 챕터에서 커스텀 이벤트 `menu-open`을 `setTimeout` 안에서 디스패칭하는 예시를 살펴본 바 있습니다. 이렇게 `setTimeout`을 사용하면 'click' 이벤트가 완전히 핸들링 된 다음에 `menu-open` 이벤트를 디스패칭 할 수 있습니다.
 
 ```js
 menu.onclick = function() {
   // ...
 
-  // create a custom event with the clicked menu item data
+  // 클릭한 메뉴 내 항목 정보가 담긴 커스텀 이벤트 생성
   let customEvent = new CustomEvent("menu-open", {
     bubbles: true
   });
 
-  // dispatch the custom event asynchronously
+  // 비동기로 커스텀 이벤트를 디스패칭
   setTimeout(() => menu.dispatchEvent(customEvent));
 };
 ```
 
-## Macrotasks and Microtasks
+## 매크로태스크와 마이크로태스크
 
-Along with *macrotasks*, described in this chapter, there exist *microtasks*, mentioned in the chapter <info:microtask-queue>.
+태스크는 이번 챕터에서 설명한 *매크로태스크(macrotask)* 와 <info:microtask-queue> 챕터에서 다룬 *마이크로태스크(microtask)* 로 나뉩니다.
 
-Microtasks come solely from our code. They are usually created by promises: an execution of `.then/catch/finally` handler becomes a microtask. Microtasks are used "under the cover" of `await` as well, as it's another form of promise handling.
+마이크로태스크는 코드를 사용해서만 만들 수 있는데, 주로 프라미스를 사용해 만듭니다. 프라미스와 함께 쓰이는 `.then/catch/finally` 핸들러가 마이크로태스크가 되죠. 여기에 더하여 마이크로태스크는 프라미스를 핸들링하는 또 다른 형태의 문법인 `await`를 사용해 만들어지기도 합니다.
 
-There's also a special function `queueMicrotask(func)` that queues `func` for execution in the microtask queue.
+이 외에도 표준 API인 `queueMicrotask(func)`를 사용하면 함수 `func`를 마이크로태스크 큐에 넣어 처리할 수 있습니다.
 
-**Immediately after every *macrotask*, the engine executes all tasks from *microtask* queue, prior to running any other macrotasks or rendering or anything else.**
+**자바스크립트 엔진은 *매크로태스크 하나*를 처리하고 난 직후, 다른 매크로태스크나 렌더링 작업을 하기 전에 마이크로태스크 큐에 있는 *마이크로태스크 전부*를 처리합니다.**
 
-For instance, take a look:
+예시를 살펴봅시다.
 
 ```js run
 setTimeout(() => alert("timeout"));
@@ -257,23 +258,23 @@ Promise.resolve()
 alert("code");
 ```
 
-What's going to be the order here?
+얼럿 창엔 아래 순서대로 문자열이 출력됩니다.
 
-1. `code` shows first, because it's a regular synchronous call.
-2. `promise` shows second, because `.then` passes through the microtask queue, and runs after the current code.
-3. `timeout` shows last, because it's a macrotask.
+1. `code` -- 일반적인 동기 호출
+2. `promise` -- `.then`은 마이크로태스크 큐에 들어가 처리되기 때문에, 현재 코드가 실행되고 난 후에 실행됨
+3. `timeout` -- 매크로태스크
 
-The richer event loop picture looks like this (order is from top to bottom, that is: the script first, then microtasks, rendering and so on):
+매크로태스크와 마이크로태스크 처리 로직을 첨가하면 위에서 살펴본 그림을 좀 더 고도화 할 수 있습니다. 그림을 위에서부터 아래로 봅시다. 스크립트(매크로태스크 큐에 가장 먼저 들어온 태스크), 마이크로태스크 여러 개(마이크로태스크 큐에 있는 태스크 전부), 렌더링이 차례대로 실행되는 것을 확인할 수 있습니다.
 
 ![](eventLoop-full.svg)
 
-All microtasks are completed before any other event handling or rendering or any other macrotask takes place.
+이처럼 마이크로태스크는 다른 이벤트 핸들러나 렌더링 작업, 혹은 다른 매크로태스크가 실행되기 전에 처리됩니다.
 
-That's important, as it guarantees that the application environment is basically the same (no mouse coordinate changes, no new network data, etc) between microtasks.
+이런 처리순서가 아주 중요한 이유는 마이크로태스크 간 동일한 애플리케이션 환경 보장 때문입니다. 이렇게 해야만 마우스 좌표 변경이나 통신에 의한 데이터 변경 없이 모든 마이크로태스크를 동일한 환경에서 처리할 수 있습니다.
 
-If we'd like to execute a function asynchronously (after the current code), but before changes are rendered or new events handled, we can schedule it with `queueMicrotask`.
+그런데 개발을 하다 보면 직접 만든 함수를 현재 코드 실행이 끝난 후, 새로운 이벤트 핸들러가 처리되기 전이면서 렌더링이 실행되기 전에 비동기적으로 실행해야 하는 경우가 생기곤 합니다. 이럴 때 `queueMicrotask`를 사용해 커스텀 함수를 스케줄링하면 됩니다.
 
-Here's an example with "counting progress bar", similar to the one shown previously, but `queueMicrotask` is used instead of `setTimeout`. You can see that it renders at the very end. Just like the synchronous code:
+앞서 살펴본 '프로그레스 바' 예시에서 `setTimeout` 대신 `queueMicrotask`를 사용해 함수 `count`를 재스케줄링해 보았습니다. 예시를 실행하면 동기 코드처럼 카운팅이 다 끝났을 때 숫자가 렌더링 되는 것을 확인할 수 있습니다.
 
 ```html run
 <div id="progress"></div>
@@ -283,7 +284,7 @@ Here's an example with "counting progress bar", similar to the one shown previou
 
   function count() {
 
-    // do a piece of the heavy job (*)
+    // 무거운 작업을 쪼갠 후 이를 수행
     do {
       i++;
       progress.innerHTML = i;
@@ -301,32 +302,32 @@ Here's an example with "counting progress bar", similar to the one shown previou
 </script>
 ```
 
-## Summary
+## 요약
 
-The more detailed algorithm of the event loop (though still simplified compare to the [specification](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)):
+이벤트 루프 알고리즘을 요약하면 다음과 같습니다(자세한 사항은 [명세서](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)에서 확인할 수 있습니다).
 
-1. Dequeue and run the oldest task from the *macrotask* queue (e.g. "script").
-2. Execute all *microtasks*:
-    - While the microtask queue is not empty:
-        - Dequeue and run the oldest microtask.
-3. Render changes if any.
-4. If the macrotask queue is empty, wait till a macrotask appears.
-5. Go to step 1.
+1. *매크로태스크* 큐에서 가장 오래된 태스크를 꺼내 실행합니다(예: 스크립트를 실행).
+2. 모든 *마이크로태스크*를 실행합니다.
+    - 이 작업은 마이크로태스크 큐가 빌 때까지 이어지고
+        - 태스크는 오래된 순서대로 처리됩니다.
+3. 렌더링할 것이 있으면 처리합니다.
+4. 매크로태스크 큐가 비어있으면 새로운 매크로태스크가 나타날 때까지 기다립니다.
+5. 1번으로 돌아갑니다.
 
-To schedule a new *macrotask*:
-- Use zero delayed `setTimeout(f)`.
+새로운 *매크로태스크*를 스케줄링하는 방법은 다음과 같습니다.
+- 지연시간이 0인 `setTimeout(f)` 사용하기
 
-That may be used to split a big calculation-heavy task into pieces, for the browser to be able to react on user events and show progress between them.
+이 방법을 사용하면 계산이 복잡한 큰 태스크 하나를 여러 개로 쪼갤 수 있습니다. 태스크를 여러 개로 쪼개면 태스크 중간중간 사용자 이벤트에 반응할 수 있고, 작업 진척 상태를 화면에 표시해줄 수도 있습니다.
 
-Also, used in event handlers to schedule an action after the event is fully handled (bubbling done).
+지연시간이 0인 `setTimeout`은 이벤트가 완전히 처리되고 난 후(버블링이 끝난 후)에 특정 작업을 수행하도록 스케줄링할 때도 사용됩니다.
 
-To schedule a new *microtask*
-- Use `queueMicrotask(f)`.
-- Also promise handlers go through the microtask queue.
+새로운 *마이크로태스크*를 스케줄링하는 방법은 다음과 같습니다.
+- `queueMicrotask(f)` 사용하기
+- 이외에도 프라미스 핸들러는 마이크로태스크 큐에 들어가 처리됩니다.
 
-There's no UI or network event handling between microtasks: they run immediately one after another.
+마이크로태스크 전체가 처리되는 동안에는 UI 변화나 네트워크 이벤트 핸들링이 일어나지 않습니다. 렌더링이나 네트워크 요청 등의 작업들은 마이크로태스크 전부가 처리되고 난 직후 처리됩니다.
 
-So one may want to `queueMicrotask` to execute a function asynchronously, but within the environment state.
+이런 처리 순서 덕분에 `queueMicrotask`를 사용해 함수를 비동기적으로 처리할 때 애플리케이션 상태의 일관성이 보장됩니다.
 
 ```smart header="Web Workers"
 For long heavy calculations that shouldn't block the event loop, we can use [Web Workers](https://html.spec.whatwg.org/multipage/workers.html).
