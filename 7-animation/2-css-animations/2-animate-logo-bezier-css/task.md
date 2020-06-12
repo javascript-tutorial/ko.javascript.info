@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Animate the flying plane (CSS)
+# 비행기 평면에 애니메이션 효과 주기(CSS)
 
-Modify the solution of the previous task <info:task/animate-logo-css> to make the plane grow more than it's original size 400x240px (jump out), and then return to that size.
+이전 작업 <info:task/animate-logo-css>의 솔루션을 수정하여 원래 크기인 400x240px(jump out)보다 더 크게 만든 다음, 그 크기로 되돌립니다.
 
-Here's how it should look (click on the plane):
+다음과 같이 표시됩니다(비행기 클릭).
 
 [iframe src="solution" height=350]
 
-Take the solution of the previous task as the source.
+이전 작업의 해답을 자료로 삼으십시오.
