@@ -1,3 +1,3 @@
-# Web components
+#웹 컴포넌트
 
-Web components is a set of standards to make self-contained components: custom HTML-elements with their own properties and methods, encapsulated DOM and styles.
+웹 컴포넌트라는 자체 특성과 방법, 캡슐화한 DOM 및 스타일을 가진 사용자 정의 HTML 요소를 만드는 표준 집합을 배워봅시다.
