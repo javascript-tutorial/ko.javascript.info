@@ -1,5 +1,5 @@
-An empty string is the only match: it starts and immediately finishes.
+유일하게 일치하는 문자열은 빈 문자열입니다. 시작하자마자 바로 끝나는 문자열이죠.
 
-The task once again demonstrates that anchors are not characters, but tests.
+이번 과제로 다시 한번 앵커는 문자가 아니라 조건을 표현한다는 것을 알 수 있습니다.
 
-The string is empty `""`. The engine first matches the `pattern:^` (input start), yes it's there, and then immediately the end `pattern:$`, it's here too. So there's a match.
+여기 빈 문자열 `""`이 있습니다. 정규식 엔진은 먼저 입력의 시작 `pattern:^`를 확인합니다. 문자열이 시작했네요. 그리고 바로 입력의 끝 `pattern:$`를 확인합니다. 끝도 바로 있네요. 그래서 결과는 일치입니다.
