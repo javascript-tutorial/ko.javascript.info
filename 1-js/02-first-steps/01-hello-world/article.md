@@ -78,7 +78,7 @@
 물론 아래와 같이 URL 전체를 속성으로 사용할 수도 있습니다.
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
 ```
 
 복수의 스크립트를 HTML에 삽입하고 싶다면 스크립트 태그를 여러 개 사용하면 됩니다.
