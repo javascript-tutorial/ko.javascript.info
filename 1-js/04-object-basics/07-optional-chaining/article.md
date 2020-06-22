@@ -124,7 +124,11 @@ user2.admin?.();
 
 user 객체는 반드시 존재하기 때문에 `admin` 프로퍼티엔 `.`만 사용해 접근했습니다.
 
+<<<<<<< HEAD
 그리고 난 후 `?.()`를 사용해 `admin`의 존재 여부를 확인했습니다. `user1`엔 `admin`이 정의되어 있기 때문에 메서드가 제대로 호출되는 반면, `user2`엔 `admin`이 정의되어 있지 않기 때문에 에러 없이 그냥 평가가 멈추는 것을 확인할 수 있습니다.
+=======
+Then `?.()` checks the left part: if the admin function exists, then it runs (for `user1`). Otherwise (for `user2`) the evaluation stops without errors.
+>>>>>>> e4e6a50b5762dd5dc4c0f0c58f870c64be39dcfa
 
 `.`대신 대괄호 `[]`를 사용해 객체 프로퍼티에 접근하는 경우엔 `?.[]`를 사용할 수도 있습니다. 위 예시와 마찬가지로 `?.[]`를 사용하면 프로퍼티 존재 여부가 확실치 않은 경우에도 안전하게 프로퍼티를 읽을 수 있습니다.
 
