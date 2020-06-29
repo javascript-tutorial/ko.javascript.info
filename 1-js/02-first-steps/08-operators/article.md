@@ -428,7 +428,11 @@ counter++;
 - 오른쪽 시프트(RIGHT SHIFT) ( `>>` )
 - 부호 없는 오른쪽 시프트(ZERO-FILL RIGHT SHIFT) ( `>>>` )
 
+<<<<<<< HEAD
 비트 연산자는 저수준(2진 표현)에서 숫자를 다뤄야 할 때 쓰이므로 흔하게 쓰이진 않습니다. 웹 개발 시엔 이런 일이 자주 일어나지 않기 때문에 비트 연산자를 만날 일은 거의 없죠. 그렇긴 해도 암호를 다뤄야 할 땐 비트 연산자가 유용하기 때문에 때가 되면 MDN의 [비트 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 보시는 걸 추천합니다.
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) article on MDN when a need arises.
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 ## 쉼표 연산자
 

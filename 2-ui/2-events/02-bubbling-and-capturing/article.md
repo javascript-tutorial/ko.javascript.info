@@ -180,9 +180,15 @@ elem.addEventListener(..., true)
 
 `<p>`를 클릭하면 다음과 같은 순서로 이벤트가 전달됩니다.
 
+<<<<<<< HEAD
 1. `HTML` -> `BODY` -> `FORM` -> `DIV` (캡처링 단계, 첫 번째 리스너)
 2. `P` (타깃 단계, 캡쳐링과 버블링 둘 다에 리스너를 설정했기 때문에 두 번 호출됩니다.)
 3. `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
+=======
+1. `HTML` -> `BODY` -> `FORM` -> `DIV` (capturing phase, the first listener):
+2. `P` (target phase, triggers two times, as we've set two listeners: capturing and bubbling)
+3. `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+>>>>>>> 340ce4342100f36bb3c4e42dbe9ffa647d8716c8
 
 `event.eventPhase` 프로퍼티를 이용하면 현재 발생 중인 이벤트 흐름의 단계를 알 수 있습니다. 반환되는 정숫값에 따라 이벤트 흐름의 현재 실행 단계를 구분할 수 있죠. 하지만 핸들러를 통해 흐름 단계를 알 수 있기 때문에 이 프로퍼티는 자주 사용되지 않습니다.
 
