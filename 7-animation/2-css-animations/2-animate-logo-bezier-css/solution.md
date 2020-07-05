@@ -1,7 +1,7 @@
-이 애니메이션에 알맞은 베지어 곡선을 선택해야 합니다. 비행기가 'jump out'하려면 어딘가에 `y>1`이 있어야 합니다.
+We need to choose the right Bezier curve for that animation. It should have `y>1` somewhere for the plane to "jump out".
 
-예를들어 `cubic-bezier(0.25, 1.5, 0.75, 1.5)`와 같이 `y>1`로 두 가지 제어점을 모두 취할 수 있습니다.
+For instance, we can take both control points with `y>1`, like: `cubic-bezier(0.25, 1.5, 0.75, 1.5)`.
 
-그래프:
+The graph:
 
 ![](bezier-up.svg)
