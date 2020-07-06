@@ -11,6 +11,7 @@
 - `mousedown`과 `mouseup` -- 요소 위에서 마우스 왼쪽 버튼을 누르고 있을 때, 마우스 버튼을 뗄 때 발생합니다.
 - `mousemove` -- 마우스를 움직일 때 발생합니다.
 
+<<<<<<< HEAD
 **폼 요소 이벤트:**
 - `submit` -- 사용자가 `<form>`을 제출할 때 발생합니다.
 - `focus` --  사용자가 `<input>`과 같은 요소에 포커스 할 때 발생합니다.
@@ -20,6 +21,17 @@
 
 **문서 이벤트:**
 - `DOMContentLoaded` -- HTML이 전부 로드 및 처리되어 DOM 생성이 완료되었을 때 발생합니다.
+=======
+**Keyboard events:**
+- `keydown` and `keyup` -- when a keyboard key is pressed and released.
+
+**Form element events:**
+- `submit` -- when the visitor submits a `<form>`.
+- `focus` --  when the visitor focuses on an element, e.g. on an `<input>`.
+
+**Document events:**
+- `DOMContentLoaded` -- when the HTML is loaded and processed, DOM is fully built.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 **CSS 이벤트:**
 - `transitionend` -- CSS 애니메이션이 종료되었을 때 발생합니다.
@@ -87,9 +99,13 @@ DOM 프로퍼티 `on<event>`을 사용해도 핸들러를 할당할 수 있습�
 
 따라서 DOM 프로퍼티를 사용해 핸들러를 만든 위 예시는 HTML 속성을 사용해 만든 바로 위쪽 예시와 동일하게 작동합니다.
 
+<<<<<<< HEAD
 **핸들러는 언제나 DOM 프로퍼티에 할당됩니다. HTML 속성을 사용해 핸들러를 정의하는 방법은 DOM 프로퍼티를 초기화하는 여러 방법의 하나일 뿐입니다.**
 
 아래 두 예시는 동일하게 작동합니다.
+=======
+These two code pieces work the same:
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 1. HTML만 사용하는 방법
 
@@ -109,7 +125,13 @@ DOM 프로퍼티 `on<event>`을 사용해도 핸들러를 할당할 수 있습�
     </script>
     ```
 
+<<<<<<< HEAD
 **`onclick` 프로퍼티는 단 하나밖에 없기 때문에, 복수의 이벤트 핸들러를 할당할 수 없습니다.**
+=======
+In the first example, the HTML attribute is used to initialize the `button.onclick`, while in the second example -- the script, that's all the difference.
+
+**As there's only one `onclick` property, we can't assign more than one event handler.**
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 아래 예시와 같이 핸들러를 하나 더 추가하면, 기존 핸들러는 덮어씌워 집니다.
 
@@ -124,6 +146,7 @@ DOM 프로퍼티 `on<event>`을 사용해도 핸들러를 할당할 수 있습�
 </script>
 ```
 
+<<<<<<< HEAD
 이미 존재하는 함수를 직접 핸들러에 할당할 수도 있습니다.
 
 ```js
@@ -135,6 +158,9 @@ elem.onclick = sayThanks;
 ```
 
 핸들러를 제거하고 싶다면 `elem.onclick = null` 같이 null을 할당하면 됩니다.
+=======
+To remove a handler -- assign `elem.onclick = null`.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ## this로 요소에 접근하기
 
@@ -150,7 +176,21 @@ elem.onclick = sayThanks;
 
 이벤트를 다룰 때는 아래 주의사항을 항상 염두에 두시기 바랍니다.
 
+<<<<<<< HEAD
 **함수는 `sayThanks`처럼 할당해야 합니다. `sayThanks()`를 할당하면 동작하지 않습니다.**
+=======
+We can set an existing function as a handler:
+
+```js
+function sayThanks() {
+  alert('Thanks!');
+}
+
+elem.onclick = sayThanks;
+```
+
+But be careful: the function should be assigned as `sayThanks`, not `sayThanks()`.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```js
 // 올바른 방법
@@ -160,7 +200,11 @@ button.onclick = sayThanks;
 button.onclick = sayThanks();
 ```
 
+<<<<<<< HEAD
 `sayThanks()` 같이 괄호를 덧붙이는 것은 함수를 호출하겠다는 것을 의미합니다. 위 예시의 마지막 줄처럼 sayThanks()를 프로퍼티에 할당하면 함수 호출의 *결괏(result)값*이 할당되죠. 함수 `sayThanks`가 아무것도 반환하지 않는다면 `onclick` 프로퍼티엔 `undefined`이 할당되므로 이벤트가 원하는 대로 동작하지 않습니다. 
+=======
+If we add parentheses, then `sayThanks()` becomes is a function call. So the last line actually takes the *result* of the function execution, that is `undefined` (as the function returns nothing), and assigns it to `onclick`. That doesn't work.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 그런데, HTML 속성값에는 괄호가 있어야 합니다.
 
@@ -168,22 +212,34 @@ button.onclick = sayThanks();
 <input type="button" id="button" onclick="sayThanks()">
 ```
 
+<<<<<<< HEAD
 브라우저는 속성값을 읽고, 이 값을 *함수 본문*으로 하는 핸들러 함수를 만들기 때문에 이런 차이가 발생합니다. 
+=======
+The difference is easy to explain. When the browser reads the attribute, it creates a handler function with body from the attribute content.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 브라우저는 `onclick` 프로퍼티에 새로운 함수를 할당하죠.
 ```js
 button.onclick = function() {
 *!*
+<<<<<<< HEAD
   sayThanks(); // 속성값
+=======
+  sayThanks(); // <-- the attribute content goes here
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 */!*
 };
 ```
 
+<<<<<<< HEAD
 **문자열이 아닌 함수를 쓰세요.**
 
 `elem.onclick = "alert(1)"`도 잘 작동하긴 합니다. 호환성 유지를 위해 문자열을 프로퍼티에 할당해도 문제가 없게 만들어 놓았기 때문이죠. 하지만 이 방법은 쓰지 않으시길 강력히 권유합니다.
 
 **`setAttribute`로 핸들러를 할당하지 마세요.**
+=======
+**Don't use `setAttribute` for handlers.**
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 아래 코드는 동작하지 않습니다.
 
@@ -201,7 +257,11 @@ document.body.setAttribute('onclick', function() { alert(1) });
 
 HTML 속성과 DOM 프로퍼티를 이용한 이벤트 핸들러 할당 방식엔 근본적인 문제가 있습니다. 하나의 이벤트에 복수의 핸들러를 할당할 수 없다는 문제이죠.
 
+<<<<<<< HEAD
 버튼을 클릭하면 버튼을 강조하면서 메시지를 보여주고 싶다고 해 봅시다.
+=======
+Let's say, one part of our code wants to highlight a button on click, and another one wants to show a message on the same click.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 두 개의 이벤트 핸들러가 필요할 겁니다. 하지만 기존 방법으로는 프로퍼티가 덮어씌워 진다는 문제가 있습니다.
 
@@ -211,7 +271,11 @@ input.onclick = function() { alert(1); }
 input.onclick = function() { alert(2); } // 이전 핸들러를 덮어씀
 ```
 
+<<<<<<< HEAD
 웹 표준에 관여하는 개발자들은 오래전부터 이 문제를 인지하고, `addEventListener` 와 `removeEventListener` 라는 특별한 메서드를 이용해 핸들러를 관리하자는 대안을 제시했습니다. 핸들러를 여러 개 할당할 수 있도록 말이죠.
+=======
+Developers of web standards understood that long ago and suggested an alternative way of managing handlers using special methods `addEventListener` and `removeEventListener`. They are free of such a problem.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 문법은 다음과 같습니다.
 
@@ -226,11 +290,18 @@ element.addEventListener(event, handler, [options]);
 : 핸들러 함수
 
 `options`
+<<<<<<< HEAD
 : 아래 프로퍼티를 갖는 객체
     - `once`: `true`이면 이벤트가 트리거 될 때 리스너가 자동으로 삭제됩니다.
     - `capture`: 어느 단계에서 이벤트를 다뤄야 하는지를 알려주는 프로퍼티로, 관련 내용은 <info:bubbling-and-capturing> 챕터에서 자세히 다룰 예정입니다. 호환성 유지를 위해 `options`를 객체가 아닌 `false/true`로 할당하는 것도 가능한데, 이는 `{capture: false/true}`는 와 동일합니다.
     - `passive`: `true`이면 리스너에서 지정한 함수가 `preventDefault()`를 호출하지 않습니다. <info:default-browser-action> 챕터에서 자세히 다루겠습니다.
 
+=======
+: An additional optional object with properties:
+    - `once`: if `true`, then the listener is automatically removed after it triggers.
+    - `capture`: the phase where to handle the event, to be covered later in the chapter <info:bubbling-and-capturing>. For historical reasons, `options` can also be `false/true`, that's the same as `{capture: false/true}`.
+    - `passive`: if `true`, then the handler will not call `preventDefault()`, we'll explain that later in <info:default-browser-action>.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 핸들러 삭제는 `removeEventListener`로 합니다.
 
@@ -249,7 +320,11 @@ elem.addEventListener( "click" , () => alert('감사합니다!'));
 elem.removeEventListener( "click", () => alert('감사합니다!'));
 ```
 
+<<<<<<< HEAD
 `removeEventListener`를 썼지만, 핸들러는 지워지지 않습니다. `removeEventListener`가 `addEventListener`를 사용해 할당한 함수와 다른 함수를 받고 있기 때문입니다. 함수는 똑같게 생겼지만 그럼에도 불구하고 다른 함수이기 때문에 이런 문제가 발생합니다.
+=======
+The handler won't be removed, because `removeEventListener` gets another function -- with the same code, but that doesn't matter, as it's a different function object.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 위 예시를 제대로 고치면 다음과 같습니다.
 
@@ -290,20 +365,37 @@ input.removeEventListener("click", handler);
 
 지금까지 살펴본 바와 같이 핸들러는 DOM 프로퍼티와 `addEventListener` 를 사용하는 방법 *두 가지*를 사용해 할당할 수 있습니다. 대개는 두 방법 중 하나만을 사용해 할당합니다.
 
+<<<<<<< HEAD
 ````warn header="어떤 이벤트는 `addEventListener`를 써야만 동작합니다."
 DOM 프로퍼티에 할당할 수 없는 이벤트가 몇몇 있습니다. 이런 이벤트는 무조건 `addEventListener`를 써야 합니다.
 
 문서를 읽고 DOM 트리 생성이 완료되었을 때 트리거되는 이벤트인 `DOMContentLoaded`가 대표적인 예입니다.
+=======
+````warn header="For some events, handlers only work with `addEventListener`"
+There exist events that can't be assigned via a DOM-property. Only with `addEventListener`.
+
+For instance, the `DOMContentLoaded` event, that triggers when the document is loaded and DOM is built.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```js
+// will never run
 document.onDOMContentLoaded = function() {
+<<<<<<< HEAD
   alert("DOM이 완성되었습니다."); // 이 얼럿창은 절대 뜨지 않습니다.
+=======
+  alert("DOM built");
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 };
 ```
 
 ```js
+// this way it works
 document.addEventListener("DOMContentLoaded", function() {
+<<<<<<< HEAD
   alert("DOM이 완성되었습니다."); // 이 얼럿창은 제대로 뜹니다.
+=======
+  alert("DOM built");
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 });
 ```
 이처럼 `addEventListener`는 좀 더 범용적입니다. `addEventListener`를 써야만 동작하는 이벤트들은 예외적인 경우라고 생각하시면 될 것 같습니다.
@@ -311,11 +403,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 ## 이벤트 객체
 
+<<<<<<< HEAD
 이벤트를 제대로 다루려면 어떤 일이 일어났는지 상세히 알아야 합니다.  'click' 이벤트가 발생했다면 마우스 포인터가 어디에 있는지, 'keypress' 이벤트가 발생했다면 어떤 키가 눌렸는지 등에 대한 상세한 정보가 필요합니다.
+=======
+To properly handle an event we'd want to know more about what's happened. Not just a "click" or a "keydown", but what were the pointer coordinates? Which key was pressed? And so on.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 이벤트가 발생하면 브라우저는 *이벤트 객체(event object)*라는 것을 만듭니다. 여기에 이벤트에 관한 상세한 정보를 넣은 다음, 핸들러에 인수 형태로 전달합니다.
 
+<<<<<<< HEAD
 아래는 이벤트 객체로부터 마우스 좌표 정보를 얻어내는 예시입니다.
+=======
+Here's an example of getting pointer coordinates from the event object:
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```html run
 <input type="button" value="클릭해 주세요." id="elem">
@@ -338,12 +438,21 @@ document.addEventListener("DOMContentLoaded", function() {
 : 이벤트를 처리하는 요소. 화살표 함수를 사용해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우엔 `this`가 가리키는 값과 같음, 화살표 함수를 사용했거나 함수를 다른 곳에 바인딩한 경우엔 `event.currentTarget`를 사용해 이벤트가 처리되는 요소 정보를 얻을 수 있음
 
 `event.clientX / event.clientY`
+<<<<<<< HEAD
 : 마우스 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표 - 옮긴이)
 
 이 외에도 다양한 프로퍼티가 있습니다. 이벤트 타입에 따라 이벤트 객체에서 제공하는 프로퍼티는 다릅니다. 추후 다양한 종류의 이벤트를 학습하면서 이벤트별 프로퍼티에 대해서도 상세히 알아보겠습니다.
 
 ````smart header="이벤트 객체는 HTML에서도 접근할 수 있습니다."
 HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체를 사용할 수 있습니다.
+=======
+: Window-relative coordinates of the cursor, for pointer events.
+
+There are more properties. Many of them depend on the event type: keyboard events have one set of properties, pointer events - another one, we'll study them later when we come to different events in details.
+
+````smart header="The event object is also available in HTML handlers"
+If we assign a handler in HTML, we can also use the `event` object, like this:
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```html autorun height=60
 <input type="button" onclick="*!*alert(event.type)*/!*" value="이벤트 타입">
@@ -364,15 +473,21 @@ HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체�
 <button id="elem">클릭해 주세요.</button>
 
 <script>
-  elem.addEventListener('click', {
+  let obj = {
     handleEvent(event) {
       alert(event.type + " 이벤트가 " + event.currentTarget + "에서 발생했습니다.");
     }
-  });
+  };
+
+  elem.addEventListener('click', obj);
 </script>
 ```
 
+<<<<<<< HEAD
 보시다시피 `addEventListener`가 인수로 객체 형태의 핸들러를 받으면 이벤트 발생 시 `object.handleEvent(event)`가 호출됩니다.
+=======
+As we can see, when `addEventListener` receives an object as the handler, it calls `obj.handleEvent(event)` in case of an event.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 클래스를 사용할 수도 있습니다.
 

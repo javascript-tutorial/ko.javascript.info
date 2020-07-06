@@ -57,7 +57,10 @@ alert(rabbit.jumps); // true
 `Object.create`를 사용하면 `for..in`을 사용해 프로퍼티를 복사하는 것보다 더 효과적으로 객체를 복제할 수 있습니다.
 
 ```js
+<<<<<<< HEAD
 // obj와 완벽하게 동일한 얕은 사본
+=======
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 ```
 

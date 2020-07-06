@@ -2,11 +2,19 @@
 
 자바스크립트는 본래 웹 브라우저에서 사용하려고 만든 언어입니다. 이후 진화를 거쳐 다양한 사용처와 플랫폼을 지원하는 언어로 변모하였습니다.   
 
+<<<<<<< HEAD
 자바스크립트가 돌아가는 플랫폼은 *호스트(host)* 라고 불립니다. 호스트는 브라우저, 웹서버, 심지어는 커피 머신이 될 수도 있습니다. 각 플랫폼은 해당 플랫폼에 특정되는 기능을 제공하는데, 자바스크립트 명세서에선 이를 *호스트 환경(host environment)* 이라고 부릅니다.
+=======
+A platform may be a browser, or a web-server or another *host*, even a "smart" coffee machine, if it can run JavaScript. Each of them provides platform-specific functionality. The JavaScript specification calls that a *host environment*.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 호스트 환경은 랭귀지 코어(ECMAScript - 옮긴이)에 더하여 플랫폼에 특정되는 객체와 함수를 제공합니다. 웹브라우저는 웹페이지를 제어하기 위한 수단을 제공하고, Node.js는 서버 사이드 기능을 제공해주죠.
 
+<<<<<<< HEAD
 아래 그림은 호스트 환경이 웹 브라우저일 때 사용할 수 있는 기능을 개괄적으로 보여줍니다.
+=======
+Here's a bird's-eye view of what we have when JavaScript runs in a web browser:
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ![](windowObjects.svg)
 
@@ -49,9 +57,13 @@ document.body.style.background = "red";
 setTimeout(() => document.body.style.background = "", 1000);
 ```
 
+<<<<<<< HEAD
 문서 객체 모델은 예시에서 소개한 `document.body.style` 외에도 수많은 기능을 제공합니다. 관련 프로퍼티와 메서드에 대한 정보는 관련 명세서에서 찾을 수 있습니다.
 
 - WHATWG의 **DOM 살아있는 표준(Living Standard)** -- <https://dom.spec.whatwg.org>
+=======
+Here we used `document.body.style`, but there's much, much more. Properties and methods are described in the specification: [DOM Living Standard](https://dom.spec.whatwg.org).
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 
 ```smart header="DOM은 브라우저만을 위한 모델이 아닙니다."
 DOM 명세서엔 문서의 구조와 이를 조작할 수 있는 객체에 대한 설명이 담겨있습니다. 그런데 브라우저가 아닌 곳에서도 DOM을 사용하는 경우가 있습니다. 
@@ -59,10 +71,17 @@ DOM 명세서엔 문서의 구조와 이를 조작할 수 있는 객체에 대�
 HTML 페이지를 다운로드하고 이를 가공해주는 서버 사이드 스크립트에서도 DOM을 사용합니다. 이런 스크립트에선 명세서 일부만을 지원하겠지만요.
 ```
 
+<<<<<<< HEAD
 ```smart header="스타일링을 위한 CSSOM"
 CSS 규칙과 스타일시트(stylesheet)는 HTML과는 다른 구조를 띱니다. 따라서 CSS 규칙과 스타일시트를 객체로 나타내고 이 객체를 어떻게 읽고 쓸 수 있을지에 대한 설명을 담은 별도의 명세서, [CSS 객체 모델(CSS Object Model, CSSOM)](https://www.w3.org/TR/cssom-1/)이 존재합니다.
 
 CSSOM은 문서에 쓰이는 스타일 규칙을 수정할 때 DOM과 함께 쓰입니다. 그런데 CSS 규칙은 대부분 정적이기 때문에 CSSOM을 실무에서 자주 접하지는 않을 겁니다. 자바스크립트를 이용해 CSS 규칙을 추가 혹은 제거해야 하는 경우는 극히 드물긴 하지만, 이때 CSSOM이 사용됩니다.
+=======
+```smart header="CSSOM for styling"
+There's also a separate specification, [CSS Object Model (CSSOM)](https://www.w3.org/TR/cssom-1/) for CSS rules and stylesheets, that explains how they are represented as objects, and how to read and write them.
+
+CSSOM is used together with DOM when we modify style rules for the document. In practice though, CSSOM is rarely required, because we rarely need to modify CSS rules from JavaScript (usually we just add/remove CSS classes, not modify their CSS rules), but that's also possible.
+>>>>>>> 445bda39806050acd96f87166a7c97533a0c67e9
 ```
 
 ## 브라우저 객체 모델(BOM)
