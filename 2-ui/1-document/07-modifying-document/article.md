@@ -274,7 +274,7 @@ after
 <div id="second">Second</div>
 <script>
   // remove 메서드를 호출할 필요가 없습니다.
-  second.after(first); // id가 second인 노드를 가져다 id가 first인 노드 뒤에 삽입
+  second.after(first); // id가 second인 노드를 가져오고, 해당 노드의 뒤에 id가 first인 노드를 삽입
 </script>
 ```
 
