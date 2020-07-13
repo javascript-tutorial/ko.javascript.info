@@ -4,7 +4,11 @@
 
 ## alert
 
+<<<<<<< HEAD
 `alert` 함수는 앞선 예제에서 살펴본 바 있습니다. 이 함수가 실행되면 사용자가 '확인(OK)' 버튼을 누를 때까지 메시지를 보여주는 창이 계속 떠있게 됩니다.
+=======
+This one we've seen already. It shows a message and waits for the user to presses "OK".
+>>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 예시를 살펴봅시다.
 

@@ -181,11 +181,19 @@ alert( counter() ); // 2
 
 우측의 네모 상자들은 코드가 한 줄, 한 줄 실행될 때마다 전역 렉시컬 환경이 어떻게 변화하는지 보여줍니다.
 
+<<<<<<< HEAD
 1. 스크립트가 시작되면 스크립트 내에서 선언한 변수 전체가 렉시컬 환경에 올라갑니다(pre-populated).
     - 이때 변수의 상태는 특수 내부 상태(special internal state)인 'uninitialized'가 됩니다. 자바스크립트 엔진은 'uninitialized' 상태의 변수를 인지하긴 하지만, `let`을 만나기 전까진 이 변수를 참조할 수 없습니다.
 2. `let phrase`가 나타났네요. 아직 값을 할당하기 전이기 때문에 프로퍼티 값은 `undefined`입니다. `phrase`는 이 시점 이후부터 사용할 수 있습니다.
 3. `phrase`에 값이 할당되었습니다.
 4. `phrase`의 값이 변경되었습니다.
+=======
+1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
+    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
+2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
+3. `phrase` is assigned a value.
+4. `phrase` changes the value.
+>>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 아직까진 어려운 게 없어 보이네요. 지금까지 배운 내용을 요약해 봅시다.
 
@@ -286,7 +294,11 @@ let counter = makeCounter();
 
 ![](closure-makecounter-nested-call.svg)
 
+<<<<<<< HEAD
 실행 흐름이 중첩 함수의 본문으로 넘어오면 `count` 변수가 필요한데, 먼저 자체 렉시컬 환경에서 변수를 찾습니다. 익명 중첩 함수엔 지역변수가 없기 때문에 이 렉시컬 환경은 비어있는 상황입니다(`<empty>`). 이제 `counter()`의 렉시컬 환경이 참조하는 외부 렉시컬 환경에서 `count`를 찾아봅시다. `count`를 찾았습니다!
+=======
+Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where it finds and changes it.
+>>>>>>> c3a11c85e54153ebb137b5541b1d1f751c804439
 
 **변숫값 갱신은 변수가 저장된 렉시컬 환경에서 이뤄집니다.**
 
