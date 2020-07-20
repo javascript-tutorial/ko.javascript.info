@@ -220,11 +220,19 @@ storage 이벤트의 또 다른 중요한 특징은 `event.url`이 있어 데이
 
 ## 요약
 
+<<<<<<< HEAD
 웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다. 이때,
 - `키`와 `값`은 반드시 문자열이어야 합니다.
 - 제한 용량은 2MB 이상인데, 브라우저에 따라 다를 수 있습니다.
 - 파기되지 않습니다.
 - 오리진(도메인·포트·프로토콜)에 묶여있습니다.
+=======
+Web storage objects `localStorage` and `sessionStorage` allow to store key/value in the browser.
+- Both `key` and `value` must be strings.
+- The limit is 5mb+, depends on the browser.
+- They do not expire.
+- The data is bound to the origin (domain/port/protocol).
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 | `localStorage` | `sessionStorage` |
 |--------------|--------------|

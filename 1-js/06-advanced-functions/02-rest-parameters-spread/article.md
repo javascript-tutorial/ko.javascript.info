@@ -227,7 +227,7 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 ## Get a new copy of an array/object
 
-Remember when we talked about `Object.assign()` [in the past](https://javascript.info/object#cloning-and-merging-object-assign)?
+Remember when we talked about `Object.assign()` [in the past](info:object-copy#cloning-and-merging-object-assign)?
 
 It is possible to do the same thing with the spread syntax.
 

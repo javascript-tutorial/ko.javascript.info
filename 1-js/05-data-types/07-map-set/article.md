@@ -199,7 +199,11 @@ let prices = Object.fromEntries([
 alert(prices.orange); // 2
 ```
 
+<<<<<<< HEAD
 `Object.fromEntries`를 사용해 `맵`을 객체로 바꿔봅시다.
+=======
+We can use `Object.fromEntries` to get a plain object from `Map`.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 자료가 `맵`에 저장되어있는데, 서드파티 코드에서 자료를 객체형태로 넘겨받길 원할 때 이 방법을 사용할 수 있습니다.
 
@@ -221,7 +225,11 @@ let obj = Object.fromEntries(map.entries()); // 맵을 일반 객체로 변환 (
 alert(obj.orange); // 2
 ```
 
+<<<<<<< HEAD
 `map.entries()`를 호출하면 맵의 `[키, 값]`을 요소로 가지는 배열을 반환합니다. `Object.fromEntries`를 사용하기 위해 딱 맞는 형태이죠.
+=======
+A call to `map.entries()` returns an iterable of key/value pairs, exactly in the right format for `Object.fromEntries`.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 `(*)`로 표시한 줄을 좀 더 짧게 줄이는 것도 가능합니다.
 ```js

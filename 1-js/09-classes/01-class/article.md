@@ -331,7 +331,11 @@ alert(user.name); // John
 alert(User.prototype.name); // undefined
 ```
 
+<<<<<<< HEAD
 클래스 필드는 생성자가 그 역할을 다 한 이후에 처리됩니다. 따라서 클래스 필드엔 복잡한 표현식이나 함수 호출 결과를 사용할 수 있습니다.
+=======
+We can also assign values using more complex expressions and function calls:
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 ```js run
 class User {
@@ -343,6 +347,7 @@ class User {
 let user = new User();
 alert(user.name); // 보라
 ```
+
 
 ### Making bound methods with class fields
 
@@ -374,6 +379,7 @@ setTimeout(button.click, 1000); // undefined
 
 문제를 해결하는 덴 두 개의 방법이 사용되는데  <info:bind>에서 이 방법에 대해 살펴본 바 있습니다.
 
+<<<<<<< HEAD
 1. `setTimeout(() => button.click(), 1000)` 같이 래퍼 함수를 전달하기
 2. 생성자 안 등에서 메서드를 객체에 바인딩하기
 
@@ -399,6 +405,12 @@ setTimeout(button.click, 1000); // hello
 ```
 
 그런데 클래스 필드를 사용하면 두 번째 방법을 좀 더 우아한 문법으로 처리할 수 있습니다.
+=======
+1. Pass a wrapper-function, such as `setTimeout(() => button.click(), 1000)`.
+2. Bind the method to object, e.g. in the constructor.
+
+Class fields provide another, quite elegant syntax:
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 ```js run
 class Button {
@@ -417,9 +429,15 @@ let button = new Button("hello");
 setTimeout(button.click, 1000); // hello
 ```
 
+<<<<<<< HEAD
 클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 어디에 전달되던지 상관없이 `button.click`은 제대로 된 `this`와 함께 호출됩니다.
 
 클래스 필드의 이런 기능은 브라우저 환경에서 메서드를 이벤트 리스너로 설정해야 할 때 특히 유용합니다.
+=======
+The class field `click = () => {...}` is created on a per-object basis, there's a separate function for each `Button` object, with `this` inside it referencing that object. We can pass `button.click` around anywhere, and the value of `this` will always be correct.
+
+That's especially useful in browser environment, for event listeners.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 
 ## 요약
 

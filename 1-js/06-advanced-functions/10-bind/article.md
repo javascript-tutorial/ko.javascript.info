@@ -200,7 +200,11 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(obj)](http://lodash.com/docs#bindAll)이 그 예입니다.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+>>>>>>> ae1171069c2e50b932d030264545e126138d5bdc
 ````
 
 ## 부분 적용
