@@ -662,7 +662,7 @@ In most cases we can do the same without `Reflect`, for instance, reading a prop
 
 ### Proxying a getter
 
-Let's see an example that demonstrates why `Reflect.get` is better. And we'll also see why `get/set` have the fourth argument `receiver`, that we didn't use before.
+Let's see an example that demonstrates why `Reflect.get` is better. And we'll also see why `get/set` have the third argument `receiver`, that we didn't use before.
 
 We have an object `user` with `_name` property and a getter for it.
 
@@ -840,7 +840,7 @@ So there's no such problem when proxying an array.
 
 ### Private fields
 
-The similar thing happens with private class fields.
+A similar thing happens with private class fields.
 
 For example, `getName()` method accesses the private `#name` property and breaks after proxying:
 
@@ -963,7 +963,7 @@ revoke();
 alert(proxy.data); // Error
 ```
 
-A call to `revoke()` removes all internal references to the target object from the proxy, so they are no more connected. The target object can be garbage-collected after that.
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. The target object can be garbage-collected after that.
 
 We can also store `revoke` in a `WeakMap`, to be able to easily find it by a proxy object:
 

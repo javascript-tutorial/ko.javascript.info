@@ -122,7 +122,11 @@ new Promise((resolve, reject) => {
 `.catch`를 활용한 또 다른 사례를 살펴봅시다. `(*)`로 표시한 핸들러에서 에러를 잡는데, 여기서는 에러를 처리하지 못하기 때문에(`URIError` 처리 방법만 알고 있음) 에러를 다시 던집니다. 
 
 ```js run
+<<<<<<< HEAD
 // 실행 순서: catch -> catch -> then
+=======
+// the execution: catch -> catch
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 new Promise((resolve, reject) => {
 
   throw new Error("에러 발생!");

@@ -162,7 +162,11 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 
 ## event.preventDefault()
 
+<<<<<<< HEAD
 브라우저 이벤트 대다수는 '기본 동작'과 함께 실행됩니다. 링크 클릭 시 특정 URL로 이동하기, 전송 버튼 클릭 시 서버에 폼 전송하기 같은 동작은 이런 기본 동작의 대표적인 예입니다.
+=======
+Many browser events have a "default action", such as navigating to a link, starting a selection, and so on.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 우리가 직접 만든 커스텀 이벤트에는 당연히 기본 동작이 없습니다. 하지만 커스텀 이벤트를 만들고 디스패칭 해 주는 코드에 원하는 동작을 넣으면, 커스텀 이벤트에도 기본 동작을 설정해줄 수 있습니다.
 

@@ -164,8 +164,13 @@ sayHi(); // Hello, John!
 
 setTimeout(sayHi, 1000); // Hello, John!
 
+<<<<<<< HEAD
 // 1초 이내에 user 값이 변화해도
 // sayHi는 기존 값을 사용합니다.
+=======
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 user = {
   sayHi() { alert("또 다른 사용자!"); }
 };
@@ -200,7 +205,11 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(obj)](http://lodash.com/docs#bindAll)이 그 예입니다.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll) in lodash.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 ````
 
 ## 부분 적용

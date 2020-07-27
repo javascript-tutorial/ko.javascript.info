@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 조건부 연산자 if와 ?
+=======
+# Conditional branching: if, '?'
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 조건에 따라 다른 행동을 취해야 할 때가 있습니다.
 

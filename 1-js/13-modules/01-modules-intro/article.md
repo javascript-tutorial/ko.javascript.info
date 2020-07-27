@@ -1,13 +1,21 @@
 
 # 모듈 소개
 
+<<<<<<< HEAD
 개발하는 애플리케이션의 크기가 커지면 언젠간 파일을 여러 개로 분리해야 하는 시점이 옵니다. 이때 분리된 파일 각각을 '모듈(module)'이라고 부르는데, 모듈은 대개 클래스 하나 혹은 복수의 함수로 구성된 라이브러리 하나로 구성됩니다.
+=======
+As our application grows bigger, we want to split it into multiple files, so called "modules". A module may contain a class or a library of functions for a specific purpose.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 초기 스크립트는 크기도 작고 기능도 단순했기 때문에 자바스크립트는 긴 세월 동안 모듈 관련 표준 문법 없이 성장할 수 있었습니다. 새로운 문법을 만들 필요가 없었던 것이죠.
 
 그런데 스크립트의 크기가 점차 커지고 기능도 복잡해지자 자바스크립트 커뮤니티는 특별한 라이브러리를 만들어 필요한 모듈을 언제든지 불러올 수 있게 해준다거나 코드를 모듈 단위로 구성해 주는 방법을 만드는 등 다양한 시도를 하게 됩니다. 
 
+<<<<<<< HEAD
 예시:
+=======
+To name some (for historical reasons):
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 - [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) --  가장 오래된 모듈 시스템 중 하나로 [require.js](http://requirejs.org/)라는 라이브러리를 통해 처음 개발되었습니다.
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1) -- Node.js 서버를 위해 만들어진 모듈 시스템입니다.
@@ -15,11 +23,19 @@
 
 이런 모듈 시스템은 오래된 스크립트에서 여전히 발견할 수 있는데, 이제는 역사의 뒤안길로 사라져가고 있습니다.
 
+<<<<<<< HEAD
 모듈 시스템은 2015년에 표준으로 등재되었습니다. 이 이후로 관련 문법은 진화를 거듭해 이제는 대부분의 주요 브라우저와 Node.js가 모듈 시스템을 지원하고 있습니다. 이제 본격적으로 모듈에 대해 알아봅시다.
+=======
+The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js. So we'll study the modern JavaScript modules from now on.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 ## 모듈이란?
 
+<<<<<<< HEAD
 모듈은 단지 파일 하나에 불과합니다. 스크립트 하나가 모듈 하나가 되는 것이죠.
+=======
+A module is just a file. One script is one module. As simple as that.
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 모듈에 특수한 지시자 `export`와 `import`를 적용하면 다른 모듈을 불러와 불러온 모듈에 있는 함수를 호출하는 것과 같은 기능 공유가 가능합니다. 
 
@@ -57,7 +73,15 @@ sayHi('John'); // Hello, John!
 
 브라우저가 자동으로 모듈을 가져오고 평가한 다음 이를 실행한 것을 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ## 모듈의 핵심 기능
+=======
+```warn header="Modules work only via HTTP(s), not in local files"
+If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
+```
+
+## Core module features
+>>>>>>> b0464bb32c8efc2a98952e05f363f61eca1a99a2
 
 "일반" 스크립트와 모듈의 차이는 무엇일까요?
 
