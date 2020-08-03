@@ -13,6 +13,7 @@
 2. `const`
 3. `var`
 
+<<<<<<< HEAD
 `let`과 `const`는 렉시컬 환경 측면에서 정확히 같은 방식으로 동작합니다.
 
 하지만 `var`는 초기 자바스크립트 구현 방식 때문에 `let`과 `const`로 선언한 변수와는 전혀 다른 방식으로 동작합니다. 근래엔 `var`를 쓰지 않아서 이를 만나는 건 흔치 않은 일이지만, `var`는 오래된 스크립트에서 당신을 기다리고 있는 괴물 같은 존재입니다.
@@ -27,13 +28,24 @@ function sayHi() {
 
   alert(phrase); // Hello
 }
+=======
+The `var` declaration is similar to `let`. Most of the time we can replace `let` by `var` or vice-versa and expect things to work:
 
-sayHi();
-
-alert(phrase); // Error, phrase is not defined
+```js run
+var message = "Hi";
+alert(message); // Hi
 ```
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
+But internally `var` is a very different beast, that originates from very old times. It's generally not used in modern scripts, but still lurks in the old ones.
+
+If you don't plan on meeting such scripts you may even skip this chapter or postpone it.
+
+<<<<<<< HEAD
 하지만 `var`와 `let`엔 차이가 있습니다.
+=======
+On the other hand, it's important to understand differences when migrating old scripts from `var` to `let`, to avoid odd errors.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ## 'var'는 블록 스코프가 없습니다.
 
@@ -94,7 +106,31 @@ alert(phrase); // Error: phrase is not defined
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트에선 블록 수준 렉시컬 환경이 만들어 지지 않았기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
 
+<<<<<<< HEAD
 ## 함수 시작과 함께 처리되는 'var'
+=======
+## "var" tolerates redeclarations
+
+If we declare the same variable with `let` twice in the same scope, that's an error:
+
+```js run
+let user;
+let user; // SyntaxError: 'user' has already been declared
+```
+
+With `var`, we can redeclare a variable any number of times. If we use `var` with an already-declared variable, it's just ignored:
+
+```js run
+var user = "Pete";
+
+var user = "John"; // this "var" does nothing (already declared)
+// ...it doesn't trigger an error
+
+alert(user); // John
+```
+
+## "var" variables can be declared below their use
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 `var` 선언은 함수가 시작될 때 처리됩니다. 전역에서 선언한 변수라면 스크립트가 시작될 때 처리되죠.
 

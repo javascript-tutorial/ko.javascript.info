@@ -243,7 +243,11 @@ document.cookie = "user=John; secure";
     
 브라우저를 이용해 자주 하는 작업인 "특정 URL로 이동하기"를 실행하는 경우, `samesite=lax` 옵션이 설정되어 있으면 쿠키가 서버로 전송됩니다. 노트에 저장된 링크를 여는 것도 특정 URL로 이동하는 행위이므로 위 조건들을 충족합니다.
 
+<<<<<<< HEAD
 하지만 외부 사이트에서 AJAX 요청을 보내거나 폼을 전송하는 등의 복잡한 작업을 시도할 때는 쿠키가 전송되지 않습니다.
+=======
+But anything more complicated, like a network request from another site or a form submission loses cookies.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 이런 제약사항이 있어도 괜찮다면, `samesite=lax` 옵션은 사용자 경험을 해치지 않으면서 보안을 강화해주는 방법으로 활용할 수 있을 것입니다.
 

@@ -56,6 +56,7 @@ alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
 alert( str.match(/\p{L}/g) ); // null ('u' 플래그가 없어서 일치 결과 없음)
 ```
 
+<<<<<<< HEAD
 다음은 주요 문자 범주와 각각의 하위 범주 목록입니다.
 
 - 문자(Letter) `L`:
@@ -116,6 +117,68 @@ alert( str.match(/\p{L}/g) ); // null ('u' 플래그가 없어서 일치 결과 
 실제 사례로 16진수를 찾아봅시다. `xFF` 형식으로 쓰고 `F` 자리에는 16진수의 숫자(0..1이나 A..F)가 들어갑니다.
 
 16진수 숫자는 `pattern:\p{Hex_Digit}`로 표기합니다.
+=======
+Here's the main character categories and their subcategories:
+
+- Letter `L`:
+  - lowercase `Ll`
+  - modifier `Lm`,
+  - titlecase `Lt`,
+  - uppercase `Lu`,
+  - other `Lo`.
+- Number `N`:
+  - decimal digit `Nd`,
+  - letter number `Nl`,
+  - other `No`.
+- Punctuation `P`:
+  - connector `Pc`,
+  - dash `Pd`,
+  - initial quote `Pi`,
+  - final quote `Pf`,
+  - open `Ps`,
+  - close `Pe`,
+  - other `Po`.
+- Mark `M` (accents etc):
+  - spacing combining `Mc`,
+  - enclosing `Me`,
+  - non-spacing `Mn`.
+- Symbol `S`:
+  - currency `Sc`,
+  - modifier `Sk`,
+  - math `Sm`,
+  - other `So`.
+- Separator `Z`:
+  - line `Zl`,
+  - paragraph `Zp`,
+  - space `Zs`.
+- Other `C`:
+  - control `Cc`,
+  - format `Cf`,
+  - not assigned `Cn`,
+  - private use `Co`,
+  - surrogate `Cs`.
+
+
+So, e.g. if we need letters in lower case, we can write `pattern:\p{Ll}`, punctuation signs: `pattern:\p{P}` and so on.
+
+There are also other derived categories, like:
+- `Alphabetic` (`Alpha`), includes Letters `L`, plus letter numbers `Nl` (e.g. Ⅻ - a character for the roman number 12), plus some other symbols `Other_Alphabetic` (`OAlpha`).
+- `Hex_Digit` includes hexadecimal digits: `0-9`, `a-f`.
+- ...And so on.
+
+Unicode supports many different properties, their full list would require a lot of space, so here are the references:
+
+- List all properties by a character: <https://unicode.org/cldr/utility/character.jsp>.
+- List all characters by a property: <https://unicode.org/cldr/utility/list-unicodeset.jsp>.
+- Short aliases for properties: <https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt>.
+- A full base of Unicode characters in text format, with all properties, is here: <https://www.unicode.org/Public/UCD/latest/ucd/>.
+
+### Example: hexadecimal numbers
+
+For instance, let's look for hexadecimal numbers, written as `xFF`, where `F` is a hex digit (0..1 or A..F).
+
+A hex digit can be denoted as `pattern:\p{Hex_Digit}`:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ```js run
 let regexp = /x\p{Hex_Digit}\p{Hex_Digit}/u;
@@ -127,7 +190,11 @@ alert("number: xAF".match(regexp)); // xAF
 
 한자를 검색해봅시다.
 
+<<<<<<< HEAD
 `Script`(표기 체계)라는 유니코드 프로퍼티가 있습니다. `Script`는 `Cyrillic`(키릴 문자), `Greek`(그리스 문자), `Arabic`(아라비아 문자), `Han`(한자) 등의 값을 가질 수 있습니다. Script 값의 전체 목록은 [여기서 볼 수 있습니다](https://en.wikipedia.org/wiki/Script_(Unicode)).
+=======
+There's a unicode property `Script` (a writing system), that may have a value: `Cyrillic`, `Greek`, `Arabic`, `Han` (Chinese) and so on, [here's the full list](https://en.wikipedia.org/wiki/Script_(Unicode)).
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 특정 표기 체계의 문자를 찾으려면 `pattern:Script=<value>`를 사용해야 합니다. 키릴 문자는 `\p{sc=Cyrillic}`, 한자는 `pattern:\p{sc=Han}`로 검색하는 식으로 쓸 수 있습니다.
 

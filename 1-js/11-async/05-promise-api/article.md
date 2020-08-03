@@ -179,10 +179,10 @@ Promise.allSettled(urls.map(url => fetch(url)))
 if(!Promise.allSettled) {
   Promise.allSettled = function(promises) {
     return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({
-      state: 'fulfilled',
+      status: 'fulfilled',
       value
     }), reason => ({
-      state: 'rejected',
+      status: 'rejected',
       reason
     }))));
   };
@@ -191,7 +191,11 @@ if(!Promise.allSettled) {
 
 여기서 `promises.map`은 입력값을 받아  `p => Promise.resolve(p)`로 입력값을 프라미스로 변화시킵니다(프라미스가 아닌 값을 받은 경우). 그리고 모든 프라미스에 `.then` 핸들러가 추가됩니다.
 
+<<<<<<< HEAD
 `then` 핸들러는 성공한 프라미스의 결괏값 `value`를 `{state:'fulfilled', value}`로, 실패한 프라미스의 결괏값 `reason`을 `{state:'rejected', reason}`으로 변경합니다. `Promise.allSettled`의 구성과 동일하게 말이죠.
+=======
+That handler turns a successful result `value` into `{status:'fulfilled', value}`, and an error `reason` into `{status:'rejected', reason}`. That's exactly the format of `Promise.allSettled`.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 이렇게 폴리필을 구현하면 프라미스 일부가 거부되더라도 `Promise.allSettled`를 사용해 프라미스 *전체*의 결과를 얻을 수 있습니다.
 
@@ -275,6 +279,7 @@ let promise = new Promise((resolve, reject) => reject(error));
 
 `Promise` 클래스에는 5가지 정적 메서드가 있습니다.
 
+<<<<<<< HEAD
 1. `Promise.all(promises)` -- 모든 프라미스가 이행될 때까지 기다렸다가 그 결괏값을 담은 배열을 반환합니다. 주어진 프라미스 중 하나라도 실패하면 `Promise.all`는 거부되고, 나머지 프라미스의 결과는 무시됩니다.
 2. `Promise.allSettled(promises)` -- 최근에 추가된 메서드로 모든 프라미스가 처리될 때까지 기다렸다가 그 결과(객체)를 담은 배열을 반환합니다. 객체엔 다음과 같은 정보가 담깁니다.
     - `state`: `"fulfilled"` 또는 `"rejected"`
@@ -282,5 +287,14 @@ let promise = new Promise((resolve, reject) => reject(error));
 3. `Promise.race(promises)` -- 가장 먼저 처리된 프라미스의 결과 또는 에러를 담은 프라미스를 반환합니다.
 4. `Promise.resolve(value)` -- 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
 5. `Promise.reject(error)` -- 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
+=======
+1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, it becomes the error of `Promise.all`, and all other results are ignored.
+2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as an array of objects with:
+    - `status`: `"fulfilled"` or `"rejected"`
+    - `value` (if fulfilled) or `reason` (if rejected).
+3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
+4. `Promise.resolve(value)` -- makes a resolved promise with the given value.
+5. `Promise.reject(error)` -- makes a rejected promise with the given error.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 실무에선 다섯 메서드 중 `Promise.all`을 가장 많이 사용합니다.

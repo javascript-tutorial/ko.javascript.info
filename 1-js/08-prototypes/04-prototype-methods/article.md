@@ -7,9 +7,15 @@
 
 대신 아래와 같은 모던한 메서드들을 사용하는 것이 좋죠.
 
+<<<<<<< HEAD
 - [Object.create(proto[, descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`를 참조하는 빈 객체를 만듭니다. 이때 프로퍼티 설명자를 추가로 넘길 수 있습니다.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- `obj`의 `[[Prototype]]`이 `proto`가 되도록 설정합니다.
+=======
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto`.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 앞으론 아래 예시처럼 `__proto__` 대신 이 메서드들을 사용하도록 합시다. 
 
@@ -57,7 +63,10 @@ alert(rabbit.jumps); // true
 `Object.create`를 사용하면 `for..in`을 사용해 프로퍼티를 복사하는 것보다 더 효과적으로 객체를 복제할 수 있습니다.
 
 ```js
+<<<<<<< HEAD
 // obj와 완벽하게 동일한 얕은 사본
+=======
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 ```
 
@@ -176,9 +185,15 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 프로토타입에 직접 접근할 땐 다음과 같은 모던 메서드를 사용할 수 있습니다.
 
+<<<<<<< HEAD
 - [Object.create(proto[, descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`인 객체를 만듭니다. 참조 값은 `null`일 수 있고 프로퍼티 설명자를 넘기는 것도 가능합니다.
 - [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다(`__proto__` getter와 같습니다).
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- `obj`의 `[[Prototype]]`을 `proto`로 설정합니다(`__proto__` setter와 같습니다).
+=======
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 사용자가 키를 직접 만들 수 있게 허용하면, 내장 `__proto__` getter·setter는 안전하지 않습니다. 키가 `"__proto__"`일 때 에러가 발생할 수 있죠. 단순한 에러면 좋겠지만 보통 예측 불가능한 결과가 생깁니다.
 

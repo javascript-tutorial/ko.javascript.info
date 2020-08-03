@@ -50,7 +50,11 @@ alert(Number(bigint) + number); // 3
 ````smart header="단항 덧셈 연산자는 bigint에 사용할 수 없습니다."
 단항 덧셈 연산자 `+value`를 사용하면 `value`를 손쉽게 숫자형으로 바꿀 수 있습니다.
 
+<<<<<<< HEAD
 그런데 bigint는 혼란을 방지하기 위해 단항 덧셈 연산자를 지원하지 않습니다.
+=======
+In order to avoid confusion, it's not supported on bigints:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 ```js run
 let bigint = 1n;
 

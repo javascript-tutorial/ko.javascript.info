@@ -4,7 +4,11 @@
 
 자바스크립트에는 여덟 가지 기본 자료형이 있습니다. 이번 챕터에선 이 자료형 모두를 개괄적으로 다루도록 하겠습니다. 각 자료형에 대한 세부 사항들은 이어지는 챕터에서 다룰 예정입니다.
 
+<<<<<<< HEAD
 자바스크립트의 변수는 자료형에 관계없이 모든 데이터일 수 있습니다. 따라서 변수는 어떤 순간에 문자열일 수 있고 다른 순간엔 숫자가 될 수도 있습니다.
+=======
+We can put any type in a variable. For example, a variable can at one moment be a string and then store a number:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ```js
 // no error
@@ -66,7 +70,11 @@ n = 12.345;
 
 ## BigInt
 
+<<<<<<< HEAD
 내부 표현 방식 때문에 자바스크립트에선 <code>(2<sup>53</sup>-1)</code>(`9007199254740991`) 보다 큰 값 혹은 <code>-(2<sup>53</sup>-1)</code> 보다 작은 정수는 '숫자형'을 사용해 나타낼 수 없습니다.
+=======
+In JavaScript, the "number" type cannot represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(2<sup>53</sup>-1)</code> for negatives. It's a technical limitation caused by their internal representation.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 사실 대부분의 상황에서 이런 제약사항은 문제가 되지 않습니다. 그렇지만 암호 관련 작업같이 아주 큰 숫자가 필요한 상황이거나 아주 높은 정밀도로 작업을 해야 할 때는 이런 큰 숫자가 필요합니다.
 
@@ -81,8 +89,13 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 `BigInt`형 숫자는 자주 쓰이지 않기 때문에 여기서 자세히 다루지 않고 별도의 챕터, <info:bigint>에서 설명드리겠습니다. 아주 큰 숫자를 사용해야하는 경우라면 해당 챕터를 참고해 주시기바랍니다.
 
+<<<<<<< HEAD
 ```smart header="호환성 이슈"
 이 글이 작성된 시점엔 Firefox, Chrome, Edge에서만 `BigInt`를 지원합니다. Safari, IE에선 지원하지 않습니다.
+=======
+```smart header="Compatability issues"
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 ```
 
 ## 문자형
@@ -255,6 +268,7 @@ typeof alert // "function"  (3)
 
 자바스크립트에는 여덟 가지 기본 자료형이 있습니다.
 
+<<<<<<< HEAD
 - `숫자형` -- 정수, 부동 소수점 숫자 등의 숫자를 나타낼 때 사용합니다. 정수의 한계는 ±2<sup>53</sup> 입니다.
 - `bigint` -- 길이 제약 없이 정수를 나타낼 수 있습니다.
 - `문자형` -- 빈 문자열이나 글자들로 이뤄진 문자열을 나타낼 때 사용합니다. 단일 문자를 나타내는 별도의 자료형은 없습니다.
@@ -263,6 +277,16 @@ typeof alert // "function"  (3)
 - `undefined` -- `undefined` 값만을 위한 독립 자료형입니다. `undefined`는 할당되지 않은 값을 나타냅니다. 
 - `객체형` -- 복잡한 데이터 구조를 표현할 때 사용합니다.
 - `심볼형` -- 객체의 고유 식별자를 만들 때 사용합니다.
+=======
+- `number` for numbers of any kind: integer or floating-point, integers are limited by ±2<sup>53</sup>.
+- `bigint` is for integer numbers of arbitrary length.
+- `string` for strings. A string may have zero or more characters, there's no separate single-character type.
+- `boolean` for `true`/`false`.
+- `null` for unknown values -- a standalone type that has a single value `null`.
+- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
+- `object` for more complex data structures.
+- `symbol` for unique identifiers.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 `typeof` 연산자는 피연산자의 자료형을 알려줍니다.
 

@@ -28,7 +28,11 @@
 */!*
 ```
 
+<<<<<<< HEAD
 위 예시에선 HTML을 사용해 메시지 창을 만들었습니다. 이번엔 같은 창을 자바스크립트를 사용해 만들어봅시다. 스타일은 HTML이나 외부 CSS 파일에 저장되어 있다고 가정하겠습니다.
+=======
+That was the HTML example. Now let's create the same `div` with JavaScript (assuming that the styles are in the HTML/CSS already).
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ## 요소 생성하기
 
@@ -48,21 +52,45 @@ DOM 노드를 만들어주는 메서드는 두 가지가 있습니다.
     let textNode = document.createTextNode('안녕하세요');
     ```
 
+<<<<<<< HEAD
 ### 메시지 생성하기
 
 만들고자 하는 메시지 창의 HTML은 `alert` 클래스가 있는 `div`로 구성되어 있습니다.
+=======
+Most of the time we need to create element nodes, such as the `div` for the message.
+
+### Creating the message
+
+Creating the message div takes 3 steps:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ```js
+// 1. Create <div> element
 let div = document.createElement('div');
+
+// 2. Set its class to "alert"
 div.className = "alert";
+<<<<<<< HEAD
 div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하셨습니다.";
 ```
 
 요소가 잘 만들어지긴 했지만, 아직 변수에 불과하기 때문에 페이지엔 나타나지 않습니다. 
+=======
+
+// 3. Fill it with the content
+div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
+```
+
+We've created the element. But as of now it's only in a variable named `div`, not in the page yet. So we can't see it.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ## 삽입 메서드
 
+<<<<<<< HEAD
 `div`가 페이지에 나타나게 하려면 `document` 내 어딘가에 `div`를 삽입해야 합니다. `document.body` 안 같은 곳에 말이죠.
+=======
+To make the `div` show up, we need to insert it somewhere into `document`. For instance, into `<body>` element, referenced by `document.body`.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 요소 삽입 메서드 `append`로 `document.body.append(div)`를 사용하면 가능합니다.  
 
@@ -90,6 +118,7 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 </script>
 ```
 
+<<<<<<< HEAD
 아래 메서드들을 사용해도 원하는 곳에 노드를 삽입할 수 있습니다.
 
 - `node.append(...nodes or strings)` -- 노드나 문자열을 `node` 끝에 삽입합니다.
@@ -99,6 +128,23 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 - `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
 
 위 메서드들을 사용해 리스트에 항목 몇 개를 추가하고, 목록 앞·뒤에 텍스트를 추가해보겠습니다.
+=======
+Here we called `append` on `document.body`, but we can call `append` method on any other element, to put another element into it. For instance, we can append something to `<div>` by calling `div.append(anotherElement)`.
+
+Here are more insertion methods, they specify different places where to insert:
+
+- `node.append(...nodes or strings)` -- append nodes or strings *at the end* of `node`,
+- `node.prepend(...nodes or strings)` -- insert nodes or strings *at the beginning* of `node`,
+- `node.before(...nodes or strings)` –- insert nodes or strings *before* `node`,
+- `node.after(...nodes or strings)` –- insert nodes or strings *after* `node`,
+- `node.replaceWith(...nodes or strings)` –- replaces `node` with the given nodes or strings.
+
+Arguments of these methods are an arbitrary list of DOM nodes to insert, or text strings (that become text nodes automatically).
+
+Let's see them in action.
+
+Here's an example of using these methods to add items to a list and the text before/after it:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ```html autorun
 <ol id="ol">
@@ -121,7 +167,11 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 </script>
 ```
 
+<<<<<<< HEAD
 위 예시에서 사용된 각 메서드들의 역할을 그림으로 표현하면 다음과 같습니다.
+=======
+Here's a visual picture of what the methods do:
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ![](before-prepend-append-after.svg)
 
@@ -139,7 +189,11 @@ before
 after
 ```
 
+<<<<<<< HEAD
 이 메서드들을 사용하면 복수의 노드와 문자열을 한 번에 넣을 수도 있습니다.
+=======
+As said, these methods can insert multiple nodes and text pieces in a single call.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 문자열과 요소를 한 번에 삽입하는 예시를 살펴봅시다.
 
@@ -150,7 +204,11 @@ after
 </script>
 ```
 
+<<<<<<< HEAD
 글자는 *글자 그대로* 삽입된 것을 확인할 수 있습니다.
+=======
+Please note: the text is inserted "as text", not "as HTML", with proper escaping of characters such as `<`, `>`.
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 따라서 최종 HTML은 다음과 같습니다.
 
@@ -166,7 +224,11 @@ after
 
 따라서 이 메서드들은 DOM 노드나 문자열을 삽입할 때만 사용할 수 있습니다.
 
+<<<<<<< HEAD
 그런데 만약 `elem.innerHTML`을 사용한 것처럼 모든 태그가 동작할 수 있게 'HTML 자체'를 삽입하고 싶다면 어떻게 해야 할까요?
+=======
+But what if we'd like to insert an HTML string "as html", with all tags and stuff working, in the same manner as `elem.innerHTML` does it?
+>>>>>>> cdf382de4cf3ed39ca70cb7df60c4c4886f2d22e
 
 ## insertAdjacentHTML/Text/Element
 
