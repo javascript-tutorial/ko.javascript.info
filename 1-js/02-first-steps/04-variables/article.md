@@ -135,6 +135,20 @@ alert(Hello); // Hello world!
 alert(message); // Hello world!
 ```
 
+````warn header="변수 중복 선언 에러"
+변수는 한 번만 선언할 수 있습니다.
+
+동일한 변수를 반복해서 선언하면 에러가 발생합니다.
+
+```js run
+let message = "This";
+
+// 동일한 변수명에 'let' 을 중복 선언하면 에러가 발생합니다.
+let message = "That"; // SyntaxError: 'message'를 이미 선언했습니다.
+```
+따라서 변수를 한 번 선언한 다음 `let`없이 변수를 사용하면 됩니다.
+````
+
 ```smart header="함수형 언어"
 [함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어는 변숫값 변경을 금지합니다. [스칼라(Scala)](http://www.scala-lang.org/)와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다.
 
