@@ -189,7 +189,11 @@ alert( {}.toString.call(user) ); // [object User]
 대부분의 호스트 환경은 자체 객체에 이와 유사한 프로퍼티를 구현해 놓고 있습니다. 브라우저 관련 예시 몇 가지를 살펴봅시다.
 
 ```js run
+<<<<<<< HEAD
 // 특정 호스트 환경의 객체와 클래스에 구현된 toStringTag
+=======
+// toStringTag for the environment-specific object and class:
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 alert( window[Symbol.toStringTag]); // Window
 alert( XMLHttpRequest.prototype[Symbol.toStringTag] ); // XMLHttpRequest
 

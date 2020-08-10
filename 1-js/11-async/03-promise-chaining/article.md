@@ -250,8 +250,13 @@ fetch('/article/promise-chaining/user.json')
     return response.text();
   })
   .then(function(text) {
+<<<<<<< HEAD
     // 원격에서 받아온 파일의 내용
     alert(text); // {"name": "iliakan", isAdmin: true}
+=======
+    // ...and here's the content of the remote file
+    alert(text); // {"name": "iliakan", "isAdmin": true}
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
   });
 ```
 

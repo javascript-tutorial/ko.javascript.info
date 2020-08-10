@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 # 변수의 스코프
 
 자바스크립트는 함수 지향 언어입니다. 이런 특징은 개발자에게 많은 자유도를 줍니다. 함수를 동적으로 생성할 수 있고, 생성한 함수를 다른 함수에 인수로 넘길 수 있으며, 생성된 곳이 아닌 곳에서 함수를 호출할 수도 있기 때문입니다.
@@ -6,6 +7,19 @@
 함수 내부에서 함수 외부에 있는 변수에 접근할 수 있다는 사실은 앞서 학습해서 알고 계실 겁니다.
 
 이젠 좀 더 복잡한 시나리오를 기반으로 지식을 확장해 봅시다.
+=======
+# Variable scope, closure
+
+JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
+
+We already know that a function can access variables outside of it ("outer" variables).
+
+But what happens if outer variables change since a function is created? Will the function get newer values or the old ones?
+
+And if a function is passed along as a parameter and called from another place of code, will it get access to outer variables at the new place?
+
+Let's expand our knowledge to understand these scenarios and more complex ones.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 ```smart header="여기선 `let`, `const`로 선언한 변수만 다룹니다."
 자바스크립트에서는 3개의 키워드를 사용해 변수를 선언할 수 있습니다. 모던한 방식인 `let`, `const`가 있고, 과거의 잔재인 `var`도 있습니다.
@@ -181,11 +195,19 @@ alert( counter() ); // 2
 
 우측의 네모 상자들은 코드가 한 줄, 한 줄 실행될 때마다 전역 렉시컬 환경이 어떻게 변화하는지 보여줍니다.
 
+<<<<<<< HEAD
 1. 스크립트가 시작되면 스크립트 내에서 선언한 변수 전체가 렉시컬 환경에 올라갑니다(pre-populated).
     - 이때 변수의 상태는 특수 내부 상태(special internal state)인 'uninitialized'가 됩니다. 자바스크립트 엔진은 'uninitialized' 상태의 변수를 인지하긴 하지만, `let`을 만나기 전까진 이 변수를 참조할 수 없습니다.
 2. `let phrase`가 나타났네요. 아직 값을 할당하기 전이기 때문에 프로퍼티 값은 `undefined`입니다. `phrase`는 이 시점 이후부터 사용할 수 있습니다.
 3. `phrase`에 값이 할당되었습니다.
 4. `phrase`의 값이 변경되었습니다.
+=======
+1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
+    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
+2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
+3. `phrase` is assigned a value.
+4. `phrase` changes the value.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 아직까진 어려운 게 없어 보이네요. 지금까지 배운 내용을 요약해 봅시다.
 
@@ -286,7 +308,11 @@ let counter = makeCounter();
 
 ![](closure-makecounter-nested-call.svg)
 
+<<<<<<< HEAD
 실행 흐름이 중첩 함수의 본문으로 넘어오면 `count` 변수가 필요한데, 먼저 자체 렉시컬 환경에서 변수를 찾습니다. 익명 중첩 함수엔 지역변수가 없기 때문에 이 렉시컬 환경은 비어있는 상황입니다(`<empty>`). 이제 `counter()`의 렉시컬 환경이 참조하는 외부 렉시컬 환경에서 `count`를 찾아봅시다. `count`를 찾았습니다!
+=======
+Now when the code inside `counter()` looks for `count` variable, it first searches its own Lexical Environment (empty, as there are no local variables there), then the Lexical Environment of the outer `makeCounter()` call, where it finds and changes it.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 **변숫값 갱신은 변수가 저장된 렉시컬 환경에서 이뤄집니다.**
 

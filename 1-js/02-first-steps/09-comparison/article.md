@@ -4,12 +4,23 @@
 
 자바스크립트에서 기초 수학 연산은 아래와 같은 문법을 사용해 표현할 수 있습니다.
 
+<<<<<<< HEAD
 - 보다 큼·작음: <code>a &gt; b</code>, <code>a &lt; b</code>.
 - 보다 크거나·작거나 같음: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
 - 같음(동등): `a == b`. 등호 `=`가 두 개 연달아 오는 것에 유의하세요. `a ​​= b`와 같이 등호가 하나일 때는 할당을 의미합니다.
 - 같지 않음(부등): 같지 않음을 나타내는 수학 기호 <code>&ne;</code>는 자바스크립트에선 <code>a != b</code>로 나타냅니다. 할당연산자 `=` 앞에 느낌표 `!`를 붙여서 표시합니다.
 
 ## 불린형 반환
+=======
+- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- Equals: `a == b`, please note the double equality sign `==` means the equality test, while a single one `a = b` means an assignment.
+- Not equals. In maths the notation is <code>&ne;</code>, but in JavaScript it's written as <code>a != b</code>.
+
+In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities. 
+
+At the end you'll find a good recipe to avoid "javascript quirks"-related issues.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 다른 연산자와 마찬가지로 비교 연산자 역시 값을 반환하는데 합니다. 반환 값은 불린형입니다.
 
@@ -194,6 +205,7 @@ alert( undefined == 0 ); // false (3)
 - `(1)`과`(2)`에선 `undefined`가 `NaN`으로 변환되는데(숫자형으로의 변환), `NaN`이 피연산자인 경우 비교 연산자는 항상 `false`를 반환합니다. 
 - `undefined`는 `null`이나 `undefined`와 같고, 그 이외의 값과는 같지 않기 때문에 `(3)`은 `false`를 반환합니다.
 
+<<<<<<< HEAD
 ### 함정 피하기
 
 위와 같은 에지 케이스를 왜 살펴보았을까요? 이런 예외적인 경우를 꼭 기억해 놓고 있어야만 할까요? 그렇지는 않습니다. 개발을 하다 보면 자연스레 이런 경우를 만나고 점차 익숙해지기 때문에 지금 당장 암기해야 할 필요는 없습니다. 하지만 아래와 같은 방법을 사용해 이런 예외 상황을 미리 예방할 수 있다는 점은 알아두시길 바랍니다.
@@ -201,6 +213,14 @@ alert( undefined == 0 ); // false (3)
 일치 연산자 `===`를 제외한 비교 연산자의 피연산자에 `undefined`나 `null`이 오지 않도록 특별히 주의하시기 바랍니다.
 
 또한, `undefined`나 `null`이 될 가능성이 있는 변수가 `>= > < <=`의 피연산자가 되지 않도록 주의하시기 바랍니다. 명확한 의도를 갖고 있지 않은 이상 말이죠. 만약 변수가 `undefined`나 `null`이 될 가능성이 있다고 판단되면, 이를 따로 처리하는 코드를 추가하시기 바랍니다.
+=======
+### Avoid problems
+
+Why did we go over these examples? Should we remember these peculiarities all the time? Well, not really. Actually, these tricky things will gradually become familiar over time, but there's a solid way to avoid problems with them:
+
+- Treat any comparison with `undefined/null` except the strict equality `===` with exceptional care.
+- Don't use comparisons `>= > < <=` with a variable which may be `null/undefined`, unless you're really sure of what you're doing. If a variable can have these values, check for them separately.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 ## 요약
 

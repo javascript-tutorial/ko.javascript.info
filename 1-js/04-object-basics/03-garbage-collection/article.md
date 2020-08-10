@@ -23,7 +23,11 @@
 
 2. 루트가 참조하는 값이나 체이닝으로 루트에서 참조할 수 있는 값은 도달 가능한 값이 됩니다.
 
+<<<<<<< HEAD
     지역 변수에 객체가 저장되어있다고 가정해 봅시다. 이 객체의 프로퍼티가 또 다른 객체를 참조하고 있다면, 프로퍼티가 참조하는 객체는 도달 가능한 값이 됩니다. 이 객체가 참조하는 다른 모든 것들도 도달 가능하다고 여겨집니다. 자세한 예시는 아래에서 살펴보겠습니다.
+=======
+    For instance, if there's an object in a global variable, and that object has a property referencing another object, that object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 자바스크립트 엔진 내에선 [가비지 컬렉터(garbage collector)](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))가 끊임없이 동작합니다. 가비지 컬렉터는 모든 객체를 모니터링하고, 도달할 수 없는 객체는 삭제합니다.
 

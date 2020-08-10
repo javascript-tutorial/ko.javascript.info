@@ -309,7 +309,11 @@ preflight 요청은 '무대 밖에서' 일어나기 때문에 자바스크립트
 
 ## 자격 증명
 
+<<<<<<< HEAD
 크로스 오리진 요청의 경우 기본적으로 쿠키나 HTTP 인증 같은 자격 증명(credential)이 함께 전송되지 않습니다.
+=======
+A cross-origin request initiated by JavaScript code by default does not bring any credentials (cookies or HTTP authentication).
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 HTTP 요청의 경우 대개 쿠키가 함께 전송되는데, 자바스크립트 메서드를 사용해 만든 크로스 오리진 요청은 예외이죠.
 
@@ -329,7 +333,11 @@ fetch('http://another.com', {
 });
 ```
 
+<<<<<<< HEAD
 이렇게 옵션을 추가하면 `fetch`로 요청을 보낼 때 `another.com`에 대응하는 쿠키가 함께 전송됩니다.
+=======
+Now `fetch` sends cookies originating from `another.com` with request to that site.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 *자격 증명 정보가 담긴* 요청을 서버에서 받아들이기로 동의했다면 서버는 응답에 `Access-Control-Allow-Origin` 헤더와 함께 `Access-Control-Allow-Credentials: true` 헤더를 추가해서 보냅니다.
 

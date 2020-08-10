@@ -40,8 +40,12 @@ alert( user && user.address && user.address.street ); // undefined, 에러가 �
 
 `?.`은 `?.`'앞'의 평가 대상이 `undefined`나 `null`이면 평가를 멈추고 `undefined`를 반환합니다.
 
+<<<<<<< HEAD
 설명이 장황해지지 않도록 지금부턴 평가 대상의 평가 결과가 `null`이나 `undefined`가 아닌 경우엔 값이 '있다', '존재한다'라고 표현하겠습니다.
 
+=======
+**Further in this article, for brevity, we'll be saying that something "exists" if it's not `null` and not `undefined`.**
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 이제 옵셔널 체이닝을 사용해 `user.address.street`에 안전하게 접근해봅시다.
 
@@ -57,14 +61,20 @@ alert( user?.address?.street ); // undefined, 에러가 발생하지 않습니�
 let user = null;
 
 alert( user?.address ); // undefined
-
 alert( user?.address.street ); // undefined
-alert( user?.address.street.anything ); // undefined
 ```
 
+<<<<<<< HEAD
 위 예시를 통해 우리는 `?.`은 문법이 위치해 있는 그 자리에서만 동작하지, 확장되어 동작하지는 않는다는 것을 알 수 있습니다.
 
 `user?.` 평가가 끝나고 `user`에 값이 없다는 것이 판별되면 그 즉시 평가를 멈추기 때문에 마지막 두 줄에서 에러가 발생하지 않았습니다. 평가가 끝나면 나머지 프로퍼티들엔 접근 자체를 하지 않기 때문입니다. 다만 `user`가 존재하는 경우엔 `user.address` 같은 중간 프로퍼티들이 평가대상이 되기 때문에 반드시 값이 있어야 에러가 발생하지 않습니다.
+=======
+Please note: the `?.` syntax makes optional the value before it, but not any further.
+
+In the example above, `user?.` allows only `user` to be `null/undefined`.
+
+On the other hand, if `user` does exist, then it must have `user.address` property, otherwise `user?.address.street` gives an error at the second dot.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 ```warn header="옵셔널 체이닝을 남용하지 마세요."
 `?.`는 존재하지 않아도 괜찮은 대상에만 사용해야 합니다.
@@ -74,14 +84,23 @@ alert( user?.address.street.anything ); // undefined
 실수로 인해 `user`에 값을 할당하지 않았다면 바로 알아낼 수 있도록 해야 합니다. 그렇지 않으면 에러를 조기에 발견하지 못하고 디버깅이 어려워집니다.
 ```
 
+<<<<<<< HEAD
 ````warn header="`?.`앞의 변수는 꼭 선언되어 있어야 합니다."
 변수 `user`가 선언되어있지 않으면 `user?.anything` 평가시 에러가 발생합니다.
+=======
+````warn header="The variable before `?.` must be declared"
+If there's no variable `user` at all, then `user?.anything` triggers an error:
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 ```js run
 // ReferenceError: user is not defined
 user?.address;
 ```
+<<<<<<< HEAD
 옵셔널 체이닝은 다른 언어 메커니즘엔 전혀 영향을 끼치지 않고 오직 `null/undefined` 여부만 검사합니다.
+=======
+There must be `let/const/var user`. The optional chaining works only for declared variables. 
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 ````
 
 ## 단락 평가
@@ -124,7 +143,11 @@ user2.admin?.();
 
 user 객체는 반드시 존재하기 때문에 `admin` 프로퍼티엔 `.`만 사용해 접근했습니다.
 
+<<<<<<< HEAD
 그리고 난 후 `?.()`를 사용해 `admin`의 존재 여부를 확인했습니다. `user1`엔 `admin`이 정의되어 있기 때문에 메서드가 제대로 호출되는 반면, `user2`엔 `admin`이 정의되어 있지 않기 때문에 에러 없이 그냥 평가가 멈추는 것을 확인할 수 있습니다.
+=======
+Then `?.()` checks the left part: if the admin function exists, then it runs (for `user1`). Otherwise (for `user2`) the evaluation stops without errors.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 `.`대신 대괄호 `[]`를 사용해 객체 프로퍼티에 접근하는 경우엔 `?.[]`를 사용할 수도 있습니다. 위 예시와 마찬가지로 `?.[]`를 사용하면 프로퍼티 존재 여부가 확실치 않은 경우에도 안전하게 프로퍼티를 읽을 수 있습니다.
 

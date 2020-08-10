@@ -80,9 +80,14 @@ let user = 'John'
 
 위에서 소개한 방식들에 기술적인 차이가 있지는 않습니다. 개인의 취향과 미적 감각에 따라 원하는 방식으로 코드를 작성하세요.
 
+<<<<<<< HEAD
 
 ````smart header="`let` 대신 `var`"
 만들어진 지 오래된 스크립트에서 `let` 대신 `var`라는 키워드를 발견하는 경우가 있습니다.
+=======
+````smart header="`var` instead of `let`"
+In older scripts, you may also find another keyword: `var` instead of `let`:
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 ```js
 *!*var*/!* message = 'Hello';
@@ -135,8 +140,27 @@ alert(Hello); // Hello world!
 alert(message); // Hello world!
 ```
 
+<<<<<<< HEAD
 ```smart header="함수형 언어"
 [함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어는 변숫값 변경을 금지합니다. [스칼라(Scala)](http://www.scala-lang.org/)와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다.
+=======
+````warn header="Declaring twice triggers an error"
+A variable should be declared only once.
+
+A repeated declaration of the same variable is an error:
+
+```js run
+let message = "This";
+
+// repeated 'let' leads to an error
+let message = "That"; // SyntaxError: 'message' has already been declared
+```
+So, we should declare a variable once and then refer to it without `let`.
+````
+
+```smart header="Functional languages"
+It's interesting to note that there exist [functional](https://en.wikipedia.org/wiki/Functional_programming) programming languages, like [Scala](http://www.scala-lang.org/) or [Erlang](http://www.erlang.org/) that forbid changing variable values.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 
 이들 언어에서는 '상자 속에' 값이 일단 저장되면, 그 값을 영원히 유지합니다. 다른 값을 저장하고 싶다면 새로운 상자를 만들어야(새 변수를 선언해야)만 합니다. 이전 변수를 재사용할 수 없습니다.
 
@@ -190,7 +214,11 @@ let имя = '...';
 let 我 = '...';
 ```
 
+<<<<<<< HEAD
 위 코드에는 기술적인 에러가 없습니다. 변수명도 유효합니다. 하지만 영어를 변수명에 사용하는 것이 국제적인 관습이므로, 변수명은 영어를 사용해서 만들길 권유 드립니다. 다른 나라 사람이 스크립트를 볼 경우 등을 대비해 장기적인 안목을 가지고 코드를 작성합시다.
+=======
+Technically, there is no error here. Such names are allowed, but there is an international convention to use English in variable names. Even if we're writing a small script, it may have a long life ahead. People from other countries may need to read it some time.
+>>>>>>> fbf443e414097e5a3a41dd1273ef9a4a3230e72c
 ````
 
 ````warn header="예약어"
