@@ -15,7 +15,7 @@ At the end you'll find a good recipe to avoid "javascript quirks"-related issues
 
 ## 불린형 반환
 
-다른 연산자와 마찬가지로 비교 연산자 역시 값을 반환하는데 합니다. 반환 값은 불린형입니다.
+다른 연산자와 마찬가지로 비교 연산자 역시 값을 반환합니다. 반환 값은 불린형입니다.
 
 - `true`가 반환되면, '긍정', '참', '사실'을 의미합니다.
 - `false`가 반환되면, '부정', '거짓', '사실이 아님'을 의미합니다.
