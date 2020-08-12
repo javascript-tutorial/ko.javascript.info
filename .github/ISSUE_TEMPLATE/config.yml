@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 카카오 오픈채팅방
+    url: https://open.kakao.com/o/gSBnoLab
+    about: 카카오톡 오픈채팅방은 굵직한 공지사항들을 전달하는 용도로 사용합니다.
+  - name: 📃 번역 모범 사례
+    url: https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%B2%88%EC%97%AD-%EB%AA%A8%EB%B2%94-%EC%82%AC%EB%A1%80
+    about: 번역 모범 사례 Wiki
+  - name: ⚙️ 로컬 서버 세팅하기
+    url: https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0
+    about: 로컬 서버 세팅하기 Wiki
+  - name: 🔧 로컬 서버에서 이미지가 보이지 않을 때 해결 방법
+    url: https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EB%B3%B4%EC%9D%B4%EC%A7%80-%EC%95%8A%EC%9D%84-%EB%95%8C-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95
+    about: 로컬 서버에서 이미지가 보이지 않을 때 해결 방법 Wiki
