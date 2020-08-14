@@ -92,10 +92,10 @@ let user = {
 ```
 이런 쉼표를 'trailing(길게 늘어지는)' 혹은 'hanging(매달리는)' 쉼표라고 부릅니다. 이렇게 끝에 쉼표를 붙이면 모든 프로퍼티가 유사한 형태를 보이기 때문에 프로퍼티를 추가, 삭제, 이동하는 게 쉬워집니다.
 
-````smart header="Object with const can be changed"
-Please note: an object declared as `const` *can* be modified.
+````smart header="상수로 선언된 객체는 수정될 수 있습니다"
+`const` 로 선언된 객체는 수정될 수 *있다는* 점에 유의하시기 바랍니다.
 
-For instance:
+예시:
 
 ```js run
 const user = {
@@ -109,11 +109,11 @@ user.name = "Pete"; // (*)
 alert(user.name); // Pete
 ```
 
-It might seem that the line `(*)` would cause an error, but no. The `const` fixes the value of `user`, but not its contents.
+얼핏 보면 `(*)` 로 표시된 줄에서 오류가 발생할 것 같지만 그렇지 않습니다. `const` 선언은 `user`의 값을 고정할 뿐, 안의 내용까지 고정하지는 않기 때문입니다.
 
-The `const` would give an error only if we try to set `user=...` as a whole.
+`const` 선언은 `user=...` 처럼 객체에 완전히 새로운 값을 대입하려 할 때 오류를 발생시킵니다.
 
-There's another way to make constant object properties, we'll cover it later in the chapter <info:property-descriptors>.
+객체의 프로퍼티를 상수로 만드는 방법은 뒤의 <info:property-descriptors> 챕터에서 다루도록 하겠습니다.
 ````
 
 ## 대괄호 표기법
