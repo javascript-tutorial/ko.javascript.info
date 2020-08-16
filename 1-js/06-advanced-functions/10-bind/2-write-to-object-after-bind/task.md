@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Bound function as a method
+# 메서드로서의 묶인 함수
 
-What will be the output?
+결과는 무엇일까요?
 
 ```js
 function f() {
