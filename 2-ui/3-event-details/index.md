@@ -1,3 +1,3 @@
-# UI Events
+# UI 이벤트
 
-Here we cover most important user interface events and how to work with them.
+사용자 인터페이스(user interface)에 사용되는 중요 이벤트와 이 이벤트들을 어떻게 다뤄야 하는지에 대해 배워봅시다. 
