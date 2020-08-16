@@ -201,7 +201,7 @@ alert( date ); // 70초 후의 날짜가 출력됩니다.
 let date = new Date(2016, 0, 2); // 2016년 1월 2일
 
 date.setDate(1); // 1일로 변경합니다.
-alert( date );
+alert( date ); // 01 Jan 2016
 
 date.setDate(0); // 일의 최솟값은 1이므로 0을 입력하면 전 달의 마지막 날을 설정한 것과 같은 효과를 봅니다.
 alert( date ); // 31 Dec 2015
