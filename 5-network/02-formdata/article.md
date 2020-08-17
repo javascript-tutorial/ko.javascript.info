@@ -10,17 +10,17 @@
 let formData = new FormData([form]);
 ```
 
-If HTML `form` element is provided, it automatically captures its fields.
+HTML `form` 요소가 제공되면, 자동으로 필드를 캡처합니다.
 
-The special thing about `FormData` is that network methods, such as `fetch`, can accept a `FormData` object as a body. It's encoded and sent out with `Content-Type: multipart/form-data`.
+`FormData` 의 특별한 점은, `fetch` 와 같은 네트워크 메서드이고, 대상을 하나의 본문과 같이 `FormData` 객체로 받아들일 수 있다는 점입니다. 이것은 `Content-Type: multipart/form-data` 로 인코딩되어 전송됩니다.
 
-From the server point of view, that looks like a usual form submission.
+서버 관점에서 보면, 그것은 일반적인 폼 전송처럼 보입니다.
 
-## Sending a simple form
+## 간단한 폼 전송
 
-Let's send a simple form first.
+먼저 간단한 폼을 보냅시다.
 
-As you can see, that's almost one-liner:
+보시다시피 거의 한 줄 입니다.
 
 ```html run autorun
 <form id="formElem">
