@@ -1,25 +1,28 @@
-# Window sizes and scrolling
+# 화면의 크기와 스크롤
 
-How do we find the width and height of the browser window? How do we get the full width and height of the document, including the scrolled out part? How do we scroll the page using JavaScript?
+우리는 어떻게 브라우저 화면의 너비와 높이를 찾을 수 있을까요? 우리는 스크롤 된 부분을 포함한 document 객체의 전체 너비와 높이를 어떻게 얻을 수 있을까요? 
+우리는 자바스크립트를 이용하여 어떻게 페이지 스크롤을 할 수 있을까요?
 
-For most such requests, we can use the root document element `document.documentElement`, that corresponds to the `<html>` tag. But there are additional methods and peculiarities important enough to consider.
+이러한 조건의 경우, 우리는 대부분 `<html>` 태그에 해당하는 document 객체 최상단 요소인 `document.documentElement`를 사용할 수 있습니다.
+그러나, 부가적인 방법과 함께 중요하게 고려해야 할 특성도 있습니다.
 
-## Width/height of the window
+## 화면 너비와 높이
 
-To get window width and height we can use `clientWidth/clientHeight` of `document.documentElement`:
+화면의 너비와 높이를 구하기 위해서 우리는 `document.documentElement`의 `clientWidth/clientHeight`를 사용할 수 있습니다.
 
 ![](document-client-width-height.svg)
 
 ```online
-For instance, this button shows the height of your window:
+
+예를 들어, 이 버튼은 당신의 화면 높이를 보여줍니다.
 
 <button onclick="alert(document.documentElement.clientHeight)">alert(document.documentElement.clientHeight)</button>
 ```
 
 ````warn header="Not `window.innerWidth/Height`"
-Browsers also support properties `window.innerWidth/innerHeight`. They look like what we want. So why not to use them instead?
+또한 브라우저들은 `window.innerWidth/innerHeight` 속성을 제공합니다. 그것들은 우리가 원한 것처럼 보여집니다. 그러나 왜 그것들을 대신 사용하지 않을까요?
 
-If there exists a scrollbar, and it occupies some space, `clientWidth/clientHeight` provide the width/height without it (subtract it). In other words, they return width/height of the visible part of the document, available for the content.
+만약, 스크롤 막대가 있고. 그것이 약간의 공간을 차지하는 경우 `clientWidth/clientHeight`는 그 공간이 없는 너비/높이를 제공할 것입니다. (그 공간을 제외합니다.) 
 
 ...And `window.innerWidth/innerHeight` include the scrollbar.
 
