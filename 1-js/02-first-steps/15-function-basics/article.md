@@ -345,7 +345,7 @@ alert( doNothing() === undefined ); // true
 return
  (some + long + expression + or + whatever * f(a) + f(b))
 ```
-자바스크립트는 return문 끝에 세미콜론을 자동으로 넣기 때문에 이렇게 `return`문을 작성하면 안 됩니다. 위와 코드는 아래 코드처럼 동작합니다.
+자바스크립트는 return문 끝에 세미콜론을 자동으로 넣기 때문에 이렇게 `return`문을 작성하면 안 됩니다. 위 코드는 아래 코드처럼 동작합니다.
 
 ```js
 return*!*;*/!*
