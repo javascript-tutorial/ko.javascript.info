@@ -11,7 +11,7 @@ window.open('https://javascript.info/')
 
 팝업은 아주 오래전부터 존재했습니다. 초기의 아이디어는 메인 창을 닫지 않고 다른 내용을 보여주는 것이었습니다. 현재로써는 그렇게 하는 다른 방법들이 있습니다. [fetch](info:fetch)로 동적으로 컨텐츠를 로딩하고 동적으로 생성되는 `<div>`를 통해 보여줄 수 있습니다. 그래서 팝업을 우리가 매일 사용하지는 않습니다.
 
-Also, popups are tricky on mobile devices, that don't show multiple windows simultaneously.
+또한, 여러 개의 창을 동시에 표시하지 않는 모바일 기기에서는 팝업이 까다롭습니다.
 
 Still, there are tasks where popups are still used, e.g. for OAuth authorization (login with Google/Facebook/...), because:
 
