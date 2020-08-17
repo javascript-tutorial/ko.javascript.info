@@ -67,7 +67,11 @@ f();
 
 함수를 호출하고, 함수 본문이 실행되는 도중에 `(*)`로 표시한 줄에서 실행이 잠시 '중단'되었다가 프라미스가 처리되면 실행이 재개됩니다. 이때 프라미스 객체의 `result` 값이 변수 result에 할당됩니다. 따라서 위 예시를 실행하면 1초 뒤에 '완료!'가 출력됩니다.
 
+<<<<<<< HEAD
 `await`('기다리다'라는 뜻을 가진 영단어 - 옮긴이)는 말 그대로 프라미스가 처리될 때까지 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
+=======
+Let's emphasize: `await` literally suspends the function execution until the promise settles, and then resumes it with the promise result. That doesn't cost any CPU resources, because the JavaScript engine can do other jobs in the meantime: execute other scripts, handle events, etc.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 
 `await`는 `promise.then`보다 좀 더 세련되게 프라미스의 `result` 값을 얻을 수 있도록 해주는 문법입니다. `promise.then`보다 가독성 좋고 쓰기도 쉽습니다.
 
@@ -83,7 +87,11 @@ function f() {
 }
 ```
 
+<<<<<<< HEAD
 function 앞에 `async`를 붙이지 않으면 이런 에러가 발생합니다. 앞서 설명해 드린 바와 같이 `await`는 `async function` 안에서만 동작합니다.
+=======
+We may get this error if we forget to put `async` before a function. As said, `await` only works inside an `async` function.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 ````
 
 <info:promise-chaining> 챕터의 `showAvatar()` 예시를 `async/await`를 사용해 다시 작성해봅시다.
@@ -139,11 +147,15 @@ let user = await response.json();
   ...
 })();
 ```
-
-
 ````
+<<<<<<< HEAD
 ````smart header="`await`는 \'thenable\' 객체를 받습니다."
 `promise.then`처럼 `await`에도 thenable 객체(`then` 메서드가 있는 호출 가능한 객체)를 사용할 수 있습니다. thenable 객체는 서드파티 객체가 프라미스가 아니지만 프라미스와 호환 가능한 객체를 제공할 수 있다는 점에서 생긴 기능입니다. 서드파티에서 받은 객체가 `.then`을 지원하면 이 객체를 `await`와 함께 사용할 수 있습니다.
+=======
+
+````smart header="`await` accepts \"thenables\""
+Like `promise.then`, `await` allows us to use thenable objects (those with a callable `then` method). The idea is that a third-party object may not be a promise, but promise-compatible: if it supports `.then`, that's enough to use it with `await`.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 
 `await`는 데모용 클래스 `Thenable`의 인스턴스를 받을 수 있습니다.
 

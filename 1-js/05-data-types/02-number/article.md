@@ -148,8 +148,13 @@ alert( num.toString(2) );   // 11111111
 
 1. 곱하기와 나누기
 
+<<<<<<< HEAD
    소수점 두 번째 자리 숫자까지만 남기고 싶은 경우, 숫자에 `100`을 곱한 후, 원하는 어림수 내장 함수를 호출하고 다시 `100`으로 나누면 됩니다.
    ```js run
+=======
+    For example, to round the number to the 2nd digit after the decimal, we can multiply the number by `100` (or a bigger power of 10), call the rounding function and then divide it back.
+    ```js run
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
     let num = 1.23456;
 
     alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23

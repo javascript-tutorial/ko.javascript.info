@@ -46,9 +46,15 @@
 `"default"`
 : 연산자가 기대하는 자료형이 '확실치 않을 때' hint는 `default`가 됩니다. 아주 드물게 발생합니다.
 
+<<<<<<< HEAD
     이항 덧셈 연산자 `+`는 피연산자의 자료형에 따라 문자열을 합치는 연산을 할 수도 있고 숫자를 더해주는 연산을 할 수도 있습니다. 따라서 `+`의 인수가 객체일는 hint가 `default`가 됩니다.
  
     동등 연산자 `==`를 사용해 객체-문자형, 객체-숫자형, 객체-심볼형끼리 비교할 때도, 객체를 어떤 자료형으로 바꿔야 할지 확신이 안 서므로 hint는 default가 됩니다.
+=======
+    For instance, binary plus `+` can work both with strings (concatenates them) and numbers (adds them), so both strings and numbers would do. So if a binary plus gets an object as an argument, it uses the `"default"` hint to convert it.
+
+    Also, if an object is compared using `==` with a string, number or a symbol, it's also unclear which conversion should be done, so the `"default"` hint is used.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
 
     ```js
     // 이항 덧셈 연산은 hint로 `default`를 사용합니다.

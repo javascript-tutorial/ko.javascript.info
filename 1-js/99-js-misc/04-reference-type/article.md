@@ -105,4 +105,8 @@ hi(); // this가 undefined이기 때문에 에러가 발생합니다.
 
 그런데 `.`이나 대괄호 이외의 연산에선 참조 타입이 그냥 프로퍼티 값으로 변해버립니다. 객체 메서드라면 함숫값으로 변해버리죠.
 
+<<<<<<< HEAD
 이런 내부 동작은 보이지 않는 곳에서 일어납니다. 참조 타입이 어떻게 동작하는지 알아야 해결할 수 있는 문제는 표현식을 이용해 동적으로 객체에서 메서드를 가져올 때와 같이 자주 발생하지 않습니다.
+=======
+The whole mechanics is hidden from our eyes. It only matters in subtle cases, such as when a method is obtained dynamically from the object, using an expression.
+>>>>>>> fe571b36ed9e225f29239e82947005b08d74ac05
