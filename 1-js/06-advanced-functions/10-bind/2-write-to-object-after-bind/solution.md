@@ -1,4 +1,4 @@
-The answer: `null`.
+정답: `null`.
 
 
 ```js run
@@ -13,6 +13,6 @@ let user = {
 user.g();
 ```
 
-The context of a bound function is hard-fixed. There's just no way to further change it.
+묶인 함수의 내용은 고정되어 있습니다. 더 바꿀 방법은 없습니다.
 
-So even while we run `user.g()`, the original function is called with `this=null`.
+따라서 `user.g()`를 실행하는 동안에도 기존 함수는 `this=null`로 호출됩니다.
