@@ -13,30 +13,30 @@ window.open('https://javascript.info/')
 
 또한, 여러 개의 창을 동시에 표시하지 않는 모바일 기기에서는 팝업이 까다롭습니다.
 
-Still, there are tasks where popups are still used, e.g. for OAuth authorization (login with Google/Facebook/...), because:
+여전히 OAuth 인증(Google/Facebook/...에 로그인)과 같은 곳에 팝업은 아직도 사용되고 있습니다. 왜냐하면,
 
-1. A popup is a separate window with its own independent JavaScript environment. So opening a popup with a third-party non-trusted site is safe.
-2. It's very easy to open a popup.
-3. A popup can navigate (change URL) and send messages to the opener window.
+1. 팝업은 독립된 자바스크립트 환경을 가진 별도의 창입니다. 그래서 제 3자의 신뢰할 수 없는 사이트에서 팝업을 여는 것은 안전합니다.
+2. 팝업을 여는 방법이 매우 쉽습니다.
+3. 팝업은 다른 창에도 opener를 사용하여 메세지를 다루고 보낼 수 있습니다.
 
-## Popup blocking
+## 팝업 차단
 
-In the past, evil sites abused popups a lot. A bad page could open tons of popup windows with ads. So now most browsers try to block popups and protect the user.
+과거에는, 악의적인 사이트들이 팝업을 많이 악용했습니다. 나쁜 페이지는 광고가 있는 많은 팝업창들을 열 수 있습니다. 그래서 현재 대부분의 브라우저는 팝업을 차단하고 사용자들을 보호하려 노력합니다.
 
-**Most browsers block popups if they are called outside of user-triggered event handlers like `onclick`.**
+**대부분의 브라우저가 `onclick`과 같이 사용자 트리거 이벤트 핸들러의 외부에서 호출되는 경우 팝업들을 차단합니다.**
 
-For example:
+예시:
 ```js
-// popup blocked
+// 팝업 차단
 window.open('https://javascript.info');
 
-// popup allowed
+// 팝업 허용
 button.onclick = () => {
   window.open('https://javascript.info');
 };
 ```
 
-This way users are somewhat protected from unwanted popups, but the functionality is not disabled totally.
+이렇게 하면 사용자들은 어느정도 원하지 않는 팝업에 보호되지만, 기능이 완전히 비활성화된 것은 아닙니다.
 
 What if the popup opens from `onclick`, but after `setTimeout`? That's a bit tricky.
 
