@@ -1,17 +1,17 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Which handlers run?
+# 어떤 핸들러가 실행될까요?
 
-There's a button in the variable. There are no handlers on it.
+변수에 버튼이 있습니다. 여기에 핸들러는 없습니다.
 
-Which handlers run on click after the following code? Which alerts show up?
+다음 코드 클릭 후 어떤 핸들러가 실행되나요? 어떤 경고가 출력 되나요?
 
 ```js no-beautify
-button.addEventListener("click", () => alert("1"));
+button.addEventListener("클릭해 주세요.", () => alert("1"));
 
-button.removeEventListener("click", () => alert("1"));
+button.removeEventListener("클릭해 주세요.", () => alert("1"));
 
 button.onclick = () => alert(2);
 ```
