@@ -1,16 +1,16 @@
-# CSS-animations
+# CSS 애니메이션
 
-CSS animations allow to do simple animations without JavaScript at all.
+CSS 애니메이션은 자바스크립트 없이도 간단한 애니메이션을 만들 수 있습니다.
 
-JavaScript can be used to control CSS animation and make it even better with a little of code.
+자바스크립트는 CSS 애니메이션을 제어하고 보다 짧은 코드로 훨씬 더 효과적인 애니메이션을 만듭니다.
 
-## CSS transitions [#css-transition]
+## CSS 전환 [#css 전환]
 
-The idea of CSS transitions is simple. We describe a property and how its changes should be animated. When the property changes, the browser paints the animation.
+CSS 전환의 발상은 간단합니다. 어떤 프로퍼티와 그 프로퍼티가 어떻게 활성화되는지 나타냅니다. 그 프로퍼티가 변할 때, 브라우저에 애니메이션이 보이게 됩니다.
 
-That is: all we need is to change the property. And the fluent transition is made by the browser.
+즉, 프로퍼티를 변하게 해야 합니다. 그래야 브라우저를 통해 자연스러운 전환이 됩니다.
 
-For instance, the CSS below animates changes of `background-color` for 3 seconds:
+예를 들어 아래에 있는 CSS는 3초 동안 `background-color` 를 변하게 해줍니다.
 
 ```css
 .animated {
@@ -19,9 +19,9 @@ For instance, the CSS below animates changes of `background-color` for 3 seconds
 }
 ```
 
-Now if an element has `.animated` class, any change of `background-color` is animated during 3 seconds.
+이제 어떤 요소가 `.animated` 클래스를 가지고 있다면,  `background-color` 의 변화는 3초 동안 애니메이션을 통해 나타날 것입니다.
 
-Click the button below to animate the background:
+배경의 변화를 위해 아래의 버튼을 클릭해보세요.
 
 ```html run autorun height=60
 <button id="color">Click me</button>
@@ -40,16 +40,16 @@ Click the button below to animate the background:
 </script>
 ```
 
-There are 4 properties to describe CSS transitions:
+CSS 전환을 나타내는 4가지 프로퍼티 입니다.
 
 - `transition-property`
 - `transition-duration`
 - `transition-timing-function`
 - `transition-delay`
 
-We'll cover them in a moment, for now let's note that the common `transition` property allows to declare them together in the order: `property duration timing-function delay`, and also animate multiple properties at once.
+이 4가지 프로퍼티는 잠시후에 다루도록 하구요, 지금은 흔히 쓰이는 `transition` 프로퍼티가 어떤 순서대로 4가지 프로퍼티를 선언하는지 알아봅시다. `property duration timing-function delay` 의 순서로, 여러개의 프로퍼티를 한번에 사용할 수 있습니다.
 
-For instance, this button animates both `color` and `font-size`:
+예를 들어 아래의 버튼은 `color` 와 `font-size`에 애니메이션 효과가 나타납니다.
 
 ```html run height=80 autorun no-beautify
 <button id="growing">Click me</button>
@@ -70,7 +70,7 @@ growing.onclick = function() {
 </script>
 ```
 
-Now let's cover animation properties one by one.
+이제 애니메이션 프로퍼티에 대해 하나씩 살펴봅시다.
 
 ## transition-property
 
