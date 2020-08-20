@@ -1,16 +1,16 @@
-When the browser reads the `on*` attribute like `onclick`, it creates the handler from its content.
+브라우저는 `onclick` 같은 `on*` 속성을 읽을 때, 해당 내용으로부터 자체 핸들러를 생성합니다.
 
-For `onclick="handler()"` the function will be:
+`onclick="handler()"`의 경우 함수는 다음과 같습니다.
 
 ```js
 function(event) {
-  handler() // the content of onclick
+  handler() // onclick에 해당하는 내용  
 }
 ```
 
-Now we can see that the value returned by `handler()` is not used and does not affect the result.
+`handler()`에 의해 반환된 값은 사용되지 않고 결과에 영향을 미치지 않는다는 것을 볼 수 있습니다.
 
-The fix is simple:
+고치는 법은 간단합니다.
 
 ```html run
 <script>
@@ -23,7 +23,7 @@ The fix is simple:
 <a href="https://w3.org" onclick="*!*return handler()*/!*">w3.org</a>
 ```
 
-Also we can use `event.preventDefault()`, like this:
+다음과 같이 `event.preventDefault()`를 사용할 수도 있습니다.
 
 ```html run
 <script>

@@ -1,1 +1,1 @@
-The solution is to assign the handler to the container and track clicks. If a click is on the `<a>` link, then change `src` of `#largeImg` to the `href` of the thumbnail.
+해결 방법은 컨테이너에 핸들러를 할당해 클릭을 추적하는 것입니다. 클릭이 `<a>` 링크에서 발생했다면, `#largeImg`의 `src`를 썸네일의 `href`로 변경합니다.

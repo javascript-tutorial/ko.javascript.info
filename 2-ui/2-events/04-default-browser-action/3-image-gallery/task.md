@@ -1,13 +1,13 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Image gallery
+# 이미지 갤러리
 
-Create an image gallery where the main image changes by the click on a thumbnail.
+썸네일을 클릭하면 이미지가 바뀌는 이미지 갤러리를 만들어보세요.
 
-Like this:
+예시:
 
 [iframe src="solution" height=600]
 
-P.S. Use event delegation.
+P.S. 이벤트 위임을 사용하세요.
