@@ -16,10 +16,10 @@
 new Blob(blobParts, options);
 ```
 
-- **`blobParts`** 는 `Blob`/`BufferSource`/`String` 으로 이루어진 배열입니다.
+- **`blobParts`** 는 `Blob`/`BufferSource`/`String`으로 이루어진 배열입니다.
 - **`options`** 부가적인 인수(객체):
-  - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다 (예: `image/png`),
-  - **`endings`** -- 현재 사용하고 있는 OS에 알맞는 EOL(end-of-line), 줄바꿈 문자(`\r\n` 또는`\n`)의 변경여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
+  - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다. (예: `image/png`),
+  - **`endings`** -- 현재 사용하고 있는 OS에 알맞은 EOL(end-of-line), 줄 바꿈 문자(`\r\n` 또는`\n`)의 변경 여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안 함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
 
 예를 들어 :
 
@@ -31,7 +31,7 @@ let blob = new Blob(["<html>…</html>"], {type: 'text/html'});
 
 ```js
 // 타입이 지정된 배열(array)과 문자열로 Blob 생성하기
-let hello = new Uint8Array([72, 101, 108, 108, 111]); // 바이너리 형식의 "Hello"입니다(아스키 코드 값)
+let hello = new Uint8Array([72, 101, 108, 108, 111]); // 바이너리 형식의 "Hello"입니다(아스키코드 값)
 
 let blob = new Blob([hello, ' ', 'world'], {type: 'text/plain'});
 ```
@@ -45,12 +45,12 @@ blob.slice([byteStart], [byteEnd], [contentType]);
 
 - **`byteStart`** -- 기본값은 0이며, 시작하는 바이트를 의미합니다.
 - **`byteEnd`** -- 기본값은 파일의 끝이며, 마지막 바이트를 의미합니다.
-- **`contentType`** -- 기본값으로는 소스파일의 타입과 동일하며, 새로 만들어질 Blob의 타입을 의미합니다.
+- **`contentType`** -- 기본값으로는 소스 파일의 타입과 동일하며, 새로 만들어질 Blob의 타입을 의미합니다.
 
 인수는 `array.slice` 메서드와 유사하며, 음수도 인수로 사용할 수 있습니다.
 
 ```smart header="`Blob` 객체는 불변입니다"
-`Blob`의 데이터를 수정할 수 없지만, `Blob`을 필요한 부분을 슬라이스를 하여, 새로운 `Blob` 객체를 따로 만들다거나, 또 다른 `Blob`에 추가할 수 있습니다.
+`Blob`의 데이터를 수정할 수 없지만, `Blob`을 필요한 부분을 슬라이스를 하여, 새로운 `Blob` 객체를 따로 만든다거나, 또 다른 `Blob`에 추가할 수 있습니다.
 
 이런 특징은 자바스크립트의 문자열과 유사합니다 : 문자열의 문자를 수정할 수 없지만, 수정된 문자열을 새로 만들 수 있듯이 말이죠.
 ``` 
@@ -101,15 +101,15 @@ URL.revokeObjectURL(link.href);
 blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 ```
 
-`URL.createObjectURL`를 통해 생성된 URL은 브라우저가 내부적으로 URL -> `Blob` 매핑(mapping)을 거쳐 저장합니다. 그래서 만들어진 URL이 짧음에도 불구하고 `Blob`에 접근이 가능합니다.
+`URL.createObjectURL`을 통해 생성된 URL은 브라우저가 내부적으로 URL -> `Blob` 매핑(mapping)을 거쳐 저장합니다. 그래서 만들어진 URL이 짧음에도 불구하고 `Blob`에 접근이 가능합니다.
 
-생성된 URL(그리고 생성된 링크를 포함해서)은 현재 열린 document에서만 유효합니다. 그리고 일반적으로 URL을 요구하는 `<img>`, `<a>`, 등 다른 태그에서도 `Blob`를 참조하는 것이 가능합니다.
+생성된 URL(그리고 생성된 링크를 포함해서)은 현재 열린 document에서만 유효합니다. 그리고 일반적으로 URL을 요구하는 `<img>`, `<a>`, 등 다른 태그에서도 `Blob`을 참조하는 것이 가능합니다.
 
 하지만 `Blob`에는 장점만 있는 것이 아닙니다. 매핑된 `Blob`은 브라우저가 직접 메모리를 해제할 수 없습니다.
 
-매핑된 메모리는 document를 언로드(unload)될 때 해제됩니다. 하지만, 웹 앱이 지속적으로 유지되는 경우(예 : SPA,singal-page-app) 메모리는 계속 해제되지 않습니다.
+매핑된 메모리는 document를 언로드(unload)될 때 해제됩니다. 하지만, 웹 앱이 지속적해서 유지되는 경우(예 : SPA,singal-page-app) 메모리는 계속 해제되지 않습니다.
 
-**그래서 `Blob`을 통해 URL을 만들면, 사용하지 않아도, 메모리를 계속 점유하고 있을겁니다**
+**그래서 `Blob`을 통해 URL을 만들면, 사용하지 않아도, 메모리를 계속 점유하고 있을 겁니다**
 
 `URL.revokeObjectURL(url)` 메서드는 내부 매핑에서 참조를 제거함으로써 `Blob`이 메모리에서 해제될 수 있도록 합니다.
 
@@ -131,9 +131,9 @@ base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 "읽을 수 �
 <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 ```
 
-브라우저는 이 문자열을 디코딩 하고 난 뒤 다음과 같은 이미지를 보여줄 것입니다 : <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
+브라우저는 이 문자열을 디코딩하고 난 뒤 다음과 같은 이미지를 보여줄 것입니다 : <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 
-`Blob`을 base64로 변환하는 방법으로 내장된 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 포멧으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
+`Blob`을 base64로 변환하는 방법으로 내장된 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 포맷으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
 
 다음은 base-64를 통해 Blob을 다운로드하는 데모입니다 : 
 
@@ -154,10 +154,10 @@ reader.onload = function() {
 };
 ```
 
-`Blob`을 URL로 만드는 두 가지 방법, `URL.createObjectURL(blob)`과 `FileReader.readAsDataURL(blob)`, 모두 사용 가능하지만 `URL.createObjectURL(blob)`이 더 간단하고 빠릅니다.
+`Blob`을 URL로 만드는 두 가지 방법, `URL.createObjectURL(blob)`과 `FileReader.readAsDataURL(blob)`, 모두 사용할 수 있지만 `URL.createObjectURL(blob)`이 더 간단하고 빠릅니다.
 
 ```compare title-plus="URL.createObjectURL(blob)" title-minus="Blob을 data url로 만들기"
-+ 메모리를 관리하기 위해 직접 해제를 해야함.
++ 메모리를 관리하기 위해 직접 해제를 해야 함.
 + Blob에 직접 접근 할 수 있음, 인코딩/디코딩 과정 필요 없음
 - 메모리를 브라우저에서 관리해줄 수 있음.
 - `Blob` 객체의 크기가 매우 큰 경우 인코딩 과정으로 인해 성능과 메모리 측면에서 손해가 발생함.
@@ -165,7 +165,7 @@ reader.onload = function() {
 
 ## 이미지를 Blob으로 바꾸기
 
-`Blob`을 이용해서 이미지의 일부를 저장하거나, 페이지 스크린 샷을 만들수도 있습니다. 그것참 쓸만하겠네요! 하하핫!
+`Blob`을 이용해서 이미지 일부를 저장하거나, 페이지 스크린 샷을 만들 수도 있습니다. 그것참 쓸만하겠네요! 하하핫!
 
 이미지 연산(operations)은 HTML의 `<canvas>` 요소를 통해 완성됩니다:
 
@@ -187,11 +187,11 @@ let context = canvas.getContext('2d');
 
 // 이미지를 복사하세용 (이 메서드는 이미지를 자를 수도 있습니다)
 context.drawImage(img, 0, 0);
-// context.rotate()와 같이 canvas에서 여러가지 작업을 할 수 있습니다. 
+// context.rotate()와 같이 canvas에서 여러 가지 작업을 할 수 있습니다. 
 
 // toBlob은 비동기 연산으로, 실행이 완료되면 콜백(callback)이 호출됩니다.
 canvas.toBlob(function(blob) {
-  // blob 준비완료!, 다운로드 합시다
+  // blob 준비 완료!, 다운로드합시다
   let link = document.createElement('a');
   link.download = 'example.png';
 
@@ -234,7 +234,7 @@ fileReader.onload = function(event) {
 
 `ArrayBuffer`와 `Uint8Array`을 비롯한 `BufferSource` 들이 "바이너리 데이터(binary data)"인 반면, [Blob](https://www.w3.org/TR/FileAPI/#dfn-Blob)은 "타입이 있는 바이너리 데이터"를 의미합니다.
 
-이 특징은 브라우저에서 흔히 있는 업로드/다운로드 연산을 더욱 더 편하게 만들어 줍니다.
+이 특징은 브라우저에서 흔히 있는 업로드/다운로드 연산을 더욱더 편하게 만들어 줍니다.
 
 [XMLHttpRequest](info:xmlhttprequest), [fetch](info:fetch), 등  웹-요청을 수행하는 메서드는 `Blob`과 바이너리 데이터 타입 모두 별도의 라이브러리 없이 사용할 수 있습니다.
 
