@@ -16,10 +16,10 @@
 new Blob(blobParts, options);
 ```
 
-- **`blobParts`** 는 `Blob`/`BufferSource`/`String` 으로 이루어진 배열입니다.
+- **`blobParts`** 는 `Blob`/`BufferSource`/`String`으로 이루어진 배열입니다.
 - **`options`** 부가적인 인수(객체):
-  - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다 (예: `image/png`),
-  - **`endings`** -- 현재 사용하고 있는 OS에 알맞는 EOL(end-of-line), 줄바꿈 문자(`\r\n` 또는`\n`)의 변경여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
+  - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다. (예: `image/png`),
+  - **`endings`** -- 현재 사용하고 있는 OS에 알맞은 EOL(end-of-line), 줄 바꿈 문자(`\r\n` 또는`\n`)의 변경 여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안 함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
 
 예를 들어 :
 
@@ -31,7 +31,7 @@ let blob = new Blob(["<html>…</html>"], {type: 'text/html'});
 
 ```js
 // 타입이 지정된 배열(array)과 문자열로 Blob 생성하기
-let hello = new Uint8Array([72, 101, 108, 108, 111]); // 바이너리 형식의 "Hello"입니다(아스키 코드 값)
+let hello = new Uint8Array([72, 101, 108, 108, 111]); // 바이너리 형식의 "Hello"입니다(아스키코드 값)
 
 let blob = new Blob([hello, ' ', 'world'], {type: 'text/plain'});
 ```
