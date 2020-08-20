@@ -1,1 +1,1 @@
-The solution is to assign the handler to the container and track clicks. If a click is on the `<a>` link, then change `src` of `#largeImg` to the `href` of the thumbnail.
+상위 요소에 핸들러를 할당하면 어떤 이미지를 클릭했는지  추적할 수 있습니다. 사용자가 `<a>` 링크를 클릭한 경우, `#largeImg`의 `src` 값을 섬네일의 `href`로 변경하면 됩니다.
