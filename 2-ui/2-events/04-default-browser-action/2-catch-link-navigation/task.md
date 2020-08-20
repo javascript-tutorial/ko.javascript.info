@@ -2,15 +2,15 @@ importance: 5
 
 ---
 
-# Catch links in the element
+# 요소 안 링크 잡아내기
 
-Make all links inside the element with `id="contents"` ask the user if they really want to leave. And if they don't then don't follow.
+사용자가 `id`가 `contents`인 요소 안에 있는 링크를 클릭했을 때 정말 사이트를 떠나 해당 링크로 갈지를 물어보는 기능을 구현해봅시다. 그리고 사용자가 사이트를 떠나지 않겠다고 하면, 사이트에 남아있어야 합니다.
 
-Like this:
+예시:
 
 [iframe height=100 border=1 src="solution"]
 
-Details:
+주의사항:
 
-- HTML inside the element may be loaded or regenerated dynamically at any time, so we can't find all links and put handlers on them. Use event delegation.
-- The content may have nested tags. Inside links too, like `<a href=".."><i>...</i></a>`.
+- 요소 안 HTML은 언제든지 동적으로 로드되거나 재생성될 수 있습니다. 따라서 모든 링크를 찾아 핸들러를 적용할 수 없습니다. 그러니 이벤트 위임을 사용해 답안을 작성해보세요.
+- `id`가 `contents`인 요소 안에는 중첩 태그가 있을 수 있습니다. 링크 안에도 마찬가지로 `<a href=".."><i>...</i></a>` 이렇게 중첩 태그가 존재할 수 있습니다.
