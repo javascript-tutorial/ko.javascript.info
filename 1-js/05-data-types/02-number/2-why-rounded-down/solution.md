@@ -1,33 +1,33 @@
-Internally the decimal fraction `6.35` is an endless binary. As always in such cases, it is stored with a precision loss.
+10진법으로 나타낸 소수 `6.35`는 내부적으로는 2진법 무한소수입니다. 따라서 이 경우에도 어김없이 정밀도 손실이 발생합니다.
 
-Let's see:
+아래 코드를 살펴봅시다.
 
 ```js run
 alert( 6.35.toFixed(20) ); // 6.34999999999999964473
 ```
 
-The precision loss can cause both increase and decrease of a number. In this particular case the number becomes a tiny bit less, that's why it rounded down.
+정밀도의 손실은 수를 증가시킬 수도, 감소시킬 수도 있습니다. 위의 예시에서는 수가 아주 약간 작아졌습니다. 따라서 반올림하면 버림이 일어납니다.
 
-And what's for `1.35`?
+`1.35`의 경우에는 어떨까요?
 
 ```js run
 alert( 1.35.toFixed(20) ); // 1.35000000000000008882
 ```
 
-Here the precision loss made the number a little bit greater, so it rounded up.
+이번에는 정밀도의 손실로 수가 약간 증가했습니다. 따라서 반올림하면 올림이 일어납니다.
 
-**How can we fix the problem with `6.35` if we want it to be rounded the right way?**
+**`6.35`를 바르게 반올림하려면 어떻게 해야 할까요?**
 
-We should bring it closer to an integer prior to rounding:
+반올림하기 전에 이 수를 정수에 가깝게 만들어야 합니다.
 
 ```js run
 alert( (6.35 * 10).toFixed(20) ); // 63.50000000000000000000
 ```
 
-Note that `63.5` has no precision loss at all. That's because the decimal part `0.5` is actually `1/2`. Fractions divided by powers of `2` are exactly represented in the binary system, now we can round it:
+`63.5` 에서는 정밀도 손상이 전혀 발생하지 않습니다. 소수 부분인 `0.5`가 정확히 `1/2`이기 때문입니다. 2진법 체계에서 `2`의 거듭제곱으로 나눈 값은 정확하게 저장되기 때문에 바르게 반올림할 수 있습니다.
 
 
 ```js run
-alert( Math.round(6.35 * 10) / 10); // 6.35 -> 63.5 -> 64(rounded) -> 6.4
+alert( Math.round(6.35 * 10) / 10); // 6.35 -> 63.5 -> 64(반올림됨) -> 6.4
 ```
 
