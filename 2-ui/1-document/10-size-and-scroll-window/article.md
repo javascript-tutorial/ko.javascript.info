@@ -24,30 +24,31 @@
 
 만약, 스크롤 막대가 있고. 그것이 약간의 공간을 차지하는 경우 `clientWidth/clientHeight`는 그 공간이 없는 너비/높이를 제공할 것입니다. (그 공간을 제외합니다.) 
 
-...And `window.innerWidth/innerHeight` include the scrollbar.
+...그리고 `window.innerWidth/innerHeight`는 스크롤바를 포함하고 있습니다.
 
-If there's a scrollbar, and it occupies some space, then these two lines show different values:
+만약, 하나의 스크롤바가 있고, 스크롤바가 약간의 공간을 차지한다면 이 두개의 선은 다른 값을 나타내게 됩니다.
+
 ```js run
-alert( window.innerWidth ); // full window width
-alert( document.documentElement.clientWidth ); // window width minus the scrollbar
+alert( window.innerWidth ); // 전체 창 너비
+alert( document.documentElement.clientWidth ); // 창 너비에서 스크롤바를 뺀 너비
 ```
 
-In most cases we need the *available* window width: to draw or position something. That is: inside scrollbars if there are any. So we should use `documentElement.clientHeight/Width`.
+대부분의 경우 우리는 무언가를 그리거나 배치하기 위해 *이용가능한* 창 너비 값이 필요합니다. 즉 스크롤바가 있는 경우, 우리는 반드시 `documentElement.clientHeight/Width`를 사용해야만 합니다.
 ````
 
-```warn header="`DOCTYPE` is important"
-Please note: top-level geometry properties may work a little bit differently when there's no `<!DOCTYPE HTML>` in HTML. Odd things are possible.
+```warn header="`DOCTYPE`은 중요합니다."
+참고 : 최상위 지오메트리 속성은 HTML 내부에 `<!DOCTYPE HTML>`이 선언되지 않은 경우 약간 다르게 동작할 수 있습니다. 오류들의 가능성이 있습니다.
 
-In modern HTML we should always write `DOCTYPE`.
+모던 HTML에서는 우리는 항상 `DOCTYPE`을 써야만 합니다.
 ```
 
-## Width/height of the document
+## document 객체의 너비/높이
 
-Theoretically, as the root document element is `document.documentElement`, and it encloses all the content, we could measure document full size as `document.documentElement.scrollWidth/scrollHeight`.
+이론적으로, 최상위 document 요소가 `document.documentElement`이고 그것이 모든 내용을 포괄하므로 우리는 document의 전체 사이즈를 `document.documentElement.scrollWidth/scrollHeight`를 통해 측정할 수 있습니다.
 
-But on that element, for the whole page, these properties do not work as intended. In Chrome/Safari/Opera if there's no scroll, then `documentElement.scrollHeight` may be even less than  `documentElement.clientHeight`! Sounds like a nonsense, weird, right?
+그러나 페이지 전체로 봤을 때 해당 요소는, 이 속성들이 의도대로 작동하지 않을 수 있습니다. Chrome/Safari/Opera에서 스크롤이 없다면, `documentElement.scrollHeight` 요소의 값은 `documentElement.clientHeight` 값보다 작을 수 있습니다! 말도 안되는 소리 같네요. 이상하죠?
 
-To reliably obtain the full document height, we should take the maximum of these properties:
+믿을만한 전체 document의 높이 값을 얻으려면, 우리는 속성들 중에서 최대값을 얻어야 합니다. 
 
 ```js run
 let scrollHeight = Math.max(
@@ -59,22 +60,22 @@ let scrollHeight = Math.max(
 alert('Full document height, with scrolled out part: ' + scrollHeight);
 ```
 
-Why so? Better don't ask. These inconsistencies come from ancient times, not a "smart" logic.
+왜 그럴까요? 묻지 않는 것이 좋습니다. 이런 모순은 "똑똑한" 로직이 아닌 오래전부터 시작되었습니다.
 
-## Get the current scroll [#page-scroll]
+## 현재 스크롤 얻어오기 [#페이지-스크롤]
 
-DOM elements have their current scroll state in `elem.scrollLeft/scrollTop`.
+DOM 요소의 현재 스크롤 상태는 `element.scrollLeft/scrollTop`에 있습니다.
 
 For document scroll `document.documentElement.scrollLeft/Top` works in most browsers, except older WebKit-based ones, like Safari (bug [5991](https://bugs.webkit.org/show_bug.cgi?id=5991)), where we should use `document.body` instead of `document.documentElement`.
 
-Luckily, we don't have to remember these peculiarities at all, because the scroll is available in the special properties `window.pageXOffset/pageYOffset`:
+Luckily, we don't have to remember these peculiarities at all, because the scroll is available in the special properties `window.pageXOffset/pageYOffset`:  
 
 ```js run
 alert('Current scroll from the top: ' + window.pageYOffset);
 alert('Current scroll from the left: ' + window.pageXOffset);
 ```
 
-These properties are read-only.
+이 속성은 읽기 전용입니다.
 
 ## Scrolling: scrollTo, scrollBy, scrollIntoView [#window-scroll]
 
