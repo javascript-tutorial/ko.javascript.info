@@ -149,7 +149,7 @@ The drawback of the method is that the scrollbar disappears. If it occupied some
 
 That looks a bit odd, but can be worked around if we compare `clientWidth` before and after the freeze, and if it increased (the scrollbar disappeared) then add `padding` to `document.body` in place of the scrollbar, to keep the content width the same.
 
-## Summary
+## 요약
 
 Geometry:
 
