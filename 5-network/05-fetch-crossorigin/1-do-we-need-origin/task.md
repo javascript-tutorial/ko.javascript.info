@@ -1,12 +1,12 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Why do we need Origin?
+# 왜 오리진이 필요할까요?
 
-As you probably know, there's HTTP-header `Referer`, that usually contains an url of the page which initiated a network request.
+아시다시피 HTTP 헤더 `Referer`는 주로 네트워크 요청을 처음 시작한 페이지의 url을 담고 있습니다.
 
-For instance, when fetching `http://google.com` from `http://javascript.info/some/url`, the headers look like this:
+예를 들어 `http://javascript.info/some/url`에서 `http://google.com`에 요청을 보낼 때, 헤더의 모습은 다음과 같습니다.
 
 ```
 Accept: */*
@@ -20,9 +20,9 @@ Referer: http://javascript.info/some/url
 */!*
 ```
 
-As you can see, both `Referer` and `Origin` are present.
+보다시피 `Referer` 와 `Origin`이 모두 존재합니다.
 
-The questions:
+질문:
 
-1. Why `Origin` is needed, if `Referer` has even more information?
-2. Is it possible that there's no `Referer` or `Origin`, or is it incorrect?
+1. `Referer`가 더 많은 정보를 갖고 있을 때, `Origin`이 왜 필요할까요?
+2. `Referer` 또는 `Origin`이 존재하지 않는 경우가 가능할까요, 가능하지 않을까요?
