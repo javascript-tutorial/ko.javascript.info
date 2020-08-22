@@ -495,7 +495,7 @@ for (let code in codes) {
 
 이제 원하는 대로 독일 나라 번호가 가장 먼저 출력되는 것을 확인할 수 있습니다.
 
-## Summary
+## 요약
 
 객체는 몇 가지 특수한 기능을 가진 연관 배열(associative array)입니다.
 
