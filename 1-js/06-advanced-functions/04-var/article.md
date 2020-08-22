@@ -13,27 +13,18 @@
 2. `const`
 3. `var`
 
-`let`과 `const`는 렉시컬 환경 측면에서 정확히 같은 방식으로 동작합니다.
-
-하지만 `var`는 초기 자바스크립트 구현 방식 때문에 `let`과 `const`로 선언한 변수와는 전혀 다른 방식으로 동작합니다. 근래엔 `var`를 쓰지 않아서 이를 만나는 건 흔치 않은 일이지만, `var`는 오래된 스크립트에서 당신을 기다리고 있는 괴물 같은 존재입니다.
-
-구식 스크립트를 다룰 계획이 없는 개발자라면 이 챕터를 건너뛰거나 학습을 미루려고 할 겁니다. 하지만 그랬다간 이 괴물에게 물릴 수 있습니다.
-
-처음 `var`를 접했을 때는 `let`과 비슷하게 변수를 선언하는 것처럼 보일 겁니다.
+`var`로 선언한 변수는 `let`으로 선언한 변수와 유사합니다. 대부분의 경우에 `let`을 `var`로, `var`를 `let`으로 바꿔도 큰 문제 없이 동작합니다.
 
 ```js run
-function sayHi() {
-  var phrase = "Hello"; // 'let' 대신 'var'를 사용해 지역 변수를 선언 
-
-  alert(phrase); // Hello
-}
-
-sayHi();
-
-alert(phrase); // Error, phrase is not defined
+var message = "안녕하세요.";
+alert(message); // 안녕하세요.
 ```
 
-하지만 `var`와 `let`엔 차이가 있습니다.
+하지만 `var`는 초기 자바스크립트 구현 방식 때문에 `let`과 `const`로 선언한 변수와는 다른 방식으로 동작합니다. 근래엔 `var`를 쓰지 않아서 이를 만나는 건 흔치 않은 일이지만, `var`는 오래된 스크립트에서 당신을 기다리고 있는 괴물 같은 존재입니다.
+
+구식 스크립트를 다룰 계획이 없는 개발자라면 이 챕터를 건너뛰거나 학습을 미루려고 할 겁니다. 
+
+하지만 그랬다간 이 괴물에게 물릴 수 있습니다. 특히 `var`를 사용하는 오래된 스크립트를 `let`로 바꿀 때 `var`에 대해 제대로 알아두어야 합니다. 그렇지 않으면 예상치 못한 에러를 만날 수 있습니다.
 
 ## 'var'는 블록 스코프가 없습니다.
 
@@ -94,7 +85,27 @@ alert(phrase); // Error: phrase is not defined
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트에선 블록 수준 렉시컬 환경이 만들어 지지 않았기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
 
-## 함수 시작과 함께 처리되는 'var'
+## "var" tolerates redeclarations
+
+If we declare the same variable with `let` twice in the same scope, that's an error:
+
+```js run
+let user;
+let user; // SyntaxError: 'user' has already been declared
+```
+
+With `var`, we can redeclare a variable any number of times. If we use `var` with an already-declared variable, it's just ignored:
+
+```js run
+var user = "Pete";
+
+var user = "John"; // this "var" does nothing (already declared)
+// ...it doesn't trigger an error
+
+alert(user); // John
+```
+
+## 선언하기 전 사용할 수 있는 'var'
 
 `var` 선언은 함수가 시작될 때 처리됩니다. 전역에서 선언한 변수라면 스크립트가 시작될 때 처리되죠.
 

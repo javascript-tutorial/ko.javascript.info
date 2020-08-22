@@ -285,7 +285,7 @@ function pow(x, n) {
 
 유명 스타일 가이드:
 
-- [Google의 자바스크립트 스타일 가이드](https://google.github.io/styleguide/javascriptguide.xml)
+- [Google의 자바스크립트 스타일 가이드](https://google.github.io/styleguide/jsguide.html)
 - [Airbnb의 자바스크립트 스타일 가이드](https://github.com/airbnb/javascript)
 - [Idiomatic.JS](https://github.com/rwaldron/idiomatic.js)
 - [StandardJS](https://standardjs.com/)

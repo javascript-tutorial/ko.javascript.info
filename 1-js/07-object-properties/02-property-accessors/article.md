@@ -1,7 +1,8 @@
 
 # 프로퍼티 getter와 setter
 
-프로퍼티는 두 종류로 나뉩니다.
+객체의 프로퍼티는 두 종류로 나뉩니다.
+There are two kinds of object properties.
 
 첫 번째 종류는 *데이터 프로퍼티(data property)* 입니다. 지금까지 사용한 모든 프로퍼티는 데이터 프로퍼티입니다. 데이터 프로퍼티 조작 방법에 대해선 모두 알고 계실 것이라 생각합니다.
 

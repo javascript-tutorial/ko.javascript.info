@@ -344,6 +344,8 @@ let user = new User();
 alert(user.name); // 보라
 ```
 
+
+
 ### Making bound methods with class fields
 
 <info:bind> 챕터에서 살펴본 것처럼 자바스크립트의 함수는 동적인 `this`를 갖습니다.
@@ -377,18 +379,18 @@ setTimeout(button.click, 1000); // undefined
 1. `setTimeout(() => button.click(), 1000)` 같이 래퍼 함수를 전달하기
 2. 생성자 안 등에서 메서드를 객체에 바인딩하기
 
+Class fields provide another, quite elegant syntax:
+
 ```js run
 class Button {
   constructor(value) {
     this.value = value;
-*!*
-    this.click = this.click.bind(this);
-*/!*
   }
-
-  click() {
+*!*
+  click = () => {
     alert(this.value);
   }
+*/!*
 }
 
 let button = new Button("hello");
@@ -398,7 +400,7 @@ setTimeout(button.click, 1000); // hello
 */!*
 ```
 
-그런데 클래스 필드를 사용하면 두 번째 방법을 좀 더 우아한 문법으로 처리할 수 있습니다.
+Class fields provide a more elegant syntax for the latter solution:
 
 ```js run
 class Button {
@@ -417,7 +419,7 @@ let button = new Button("hello");
 setTimeout(button.click, 1000); // hello
 ```
 
-클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 어디에 전달되던지 상관없이 `button.click`은 제대로 된 `this`와 함께 호출됩니다.
+클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 개발자는 `button.click`을 아무 곳에나 전달할 수 있고, `this`엔 항상 의도한 값이 들어가게 됩니다.
 
 클래스 필드의 이런 기능은 브라우저 환경에서 메서드를 이벤트 리스너로 설정해야 할 때 특히 유용합니다.
 

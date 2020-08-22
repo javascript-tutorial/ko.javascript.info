@@ -221,7 +221,7 @@ let obj = Object.fromEntries(map.entries()); // 맵을 일반 객체로 변환 (
 alert(obj.orange); // 2
 ```
 
-`map.entries()`를 호출하면 맵의 `[키, 값]`을 요소로 가지는 배열을 반환합니다. `Object.fromEntries`를 사용하기 위해 딱 맞는 형태이죠.
+`map.entries()`를 호출하면 맵의 `[키, 값]`을 요소로 가지는 이터러블을 반환합니다. `Object.fromEntries`를 사용하기 위해 딱 맞는 형태이죠.
 
 `(*)`로 표시한 줄을 좀 더 짧게 줄이는 것도 가능합니다.
 ```js

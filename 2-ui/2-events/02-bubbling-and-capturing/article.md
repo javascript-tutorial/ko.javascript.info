@@ -192,6 +192,7 @@ elem.addEventListener(..., true)
 
 ````smart header="같은 요소와 같은 단계에 설정한 리스너는 설정한 순서대로 동작합니다."
 특정 요소에 `addEventListener`를 사용해 한 단계에 이벤트 핸들러를 여러개 설정했다면 이 핸들러들은 설정한 순서대로 동작합니다.
+
 ```js
 elem.addEventListener("click", e => alert(1)); // 첫 번째로 트리거됩니다.
 elem.addEventListener("click", e => alert(2));

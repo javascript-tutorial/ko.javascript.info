@@ -80,7 +80,6 @@ let user = 'John'
 
 위에서 소개한 방식들에 기술적인 차이가 있지는 않습니다. 개인의 취향과 미적 감각에 따라 원하는 방식으로 코드를 작성하세요.
 
-
 ````smart header="`let` 대신 `var`"
 만들어진 지 오래된 스크립트에서 `let` 대신 `var`라는 키워드를 발견하는 경우가 있습니다.
 
@@ -134,6 +133,20 @@ message = Hello;
 alert(Hello); // Hello world!
 alert(message); // Hello world!
 ```
+
+````warn header="Declaring twice triggers an error"
+A variable should be declared only once.
+
+A repeated declaration of the same variable is an error:
+
+```js run
+let message = "This";
+
+// repeated 'let' leads to an error
+let message = "That"; // SyntaxError: 'message' has already been declared
+```
+So, we should declare a variable once and then refer to it without `let`.
+````
 
 ```smart header="함수형 언어"
 [함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어는 변숫값 변경을 금지합니다. [스칼라(Scala)](http://www.scala-lang.org/)와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다.

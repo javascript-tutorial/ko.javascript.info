@@ -211,7 +211,7 @@ element.style.height = `${element.scrollHeight}px`;
 <div onclick="this.scrollTop+=10" style="cursor:pointer;border:1px solid black;width:100px;height:80px;overflow:auto">여기를<br>클릭<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
 ```
 
-이런 특징을 이용하면 `scrollTop`을 `0`이나 `Infinity`로 설정해 스크롤 바를 최상단이나 최하단으로 옮길 수 있습니다.
+이런 특징을 이용하면 `scrollTop`을 `0`이나 `1e9`같이 아주 큰 숫자로 설정해 스크롤 바를 최상단이나 최하단으로 옮길 수 있습니다.
 ````
 
 ## CSS를 사용해 너비와 높이를 얻지 마세요

@@ -251,7 +251,7 @@ fetch('/article/promise-chaining/user.json')
   })
   .then(function(text) {
     // 원격에서 받아온 파일의 내용
-    alert(text); // {"name": "iliakan", isAdmin: true}
+    alert(text); // {"name": "iliakan", "isAdmin": true}
   });
 ```
 

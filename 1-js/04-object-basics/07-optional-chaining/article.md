@@ -40,7 +40,7 @@ alert( user && user.address && user.address.street ); // undefined, 에러가 �
 
 `?.`은 `?.`'앞'의 평가 대상이 `undefined`나 `null`이면 평가를 멈추고 `undefined`를 반환합니다.
 
-설명이 장황해지지 않도록 지금부턴 평가 대상의 평가 결과가 `null`이나 `undefined`가 아닌 경우엔 값이 '있다', '존재한다'라고 표현하겠습니다.
+**설명이 장황해지지 않도록 지금부턴 평가 대상의 평가 결과가 `null`이나 `undefined`가 아닌 경우엔 값이 '있다', '존재한다'라고 표현하겠습니다.**
 
 
 이제 옵셔널 체이닝을 사용해 `user.address.street`에 안전하게 접근해봅시다.
@@ -57,14 +57,14 @@ alert( user?.address?.street ); // undefined, 에러가 발생하지 않습니�
 let user = null;
 
 alert( user?.address ); // undefined
-
 alert( user?.address.street ); // undefined
-alert( user?.address.street.anything ); // undefined
 ```
 
 위 예시를 통해 우리는 `?.`은 문법이 위치해 있는 그 자리에서만 동작하지, 확장되어 동작하지는 않는다는 것을 알 수 있습니다.
 
-`user?.` 평가가 끝나고 `user`에 값이 없다는 것이 판별되면 그 즉시 평가를 멈추기 때문에 마지막 두 줄에서 에러가 발생하지 않았습니다. 평가가 끝나면 나머지 프로퍼티들엔 접근 자체를 하지 않기 때문입니다. 다만 `user`가 존재하는 경우엔 `user.address` 같은 중간 프로퍼티들이 평가대상이 되기 때문에 반드시 값이 있어야 에러가 발생하지 않습니다.
+In the example above, `user?.` allows only `user` to be `null/undefined`.
+
+On the other hand, if `user` does exist, then it must have `user.address` property, otherwise `user?.address.street` gives an error at the second dot.
 
 ```warn header="옵셔널 체이닝을 남용하지 마세요."
 `?.`는 존재하지 않아도 괜찮은 대상에만 사용해야 합니다.
@@ -81,7 +81,7 @@ alert( user?.address.street.anything ); // undefined
 // ReferenceError: user is not defined
 user?.address;
 ```
-옵셔널 체이닝은 다른 언어 메커니즘엔 전혀 영향을 끼치지 않고 오직 `null/undefined` 여부만 검사합니다.
+There must be `let/const/var user`. The optional chaining works only for declared variables.
 ````
 
 ## 단락 평가

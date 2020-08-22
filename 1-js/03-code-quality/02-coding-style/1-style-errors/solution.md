@@ -12,7 +12,7 @@ function pow(x,n)  // <- 인수 사이에 공백이 없음
 
 let x=prompt("x?",''), n=prompt("n?",'') // <-- 에러를 발생시키는 코드는 아니나,
 // 두 줄로 나눠서 작성하는 게 좋고, 연산자 앞/뒤 공백과 문장 끝 ;를 넣어주는 게 좋음
-if (n<0)  // <- (n < 0) 같이 공백을 넣는 게 좋고, 윗줄은 비워놓아야 함(세로 들여쓰기)
+if (n<=0)  // <- (n <= 0) 같이 공백을 넣는 게 좋고, 윗줄은 비워놓아야 함(세로 들여쓰기)
 {   // <- 별도의 줄에 있는 중괄호
   // 아랫줄같이 가로 길이가 길어지면 가독성을 위해 코드를 여러 줄로 쪼개는 게 좋음  
   alert(`Power ${n} is not supported, please enter an integer number greater than zero`);
@@ -39,7 +39,7 @@ function pow(x, n) {
 let x = prompt("x?", "");
 let n = prompt("n?", "");
 
-if (n < 0) {
+if (n <= 0) {
   alert(`Power ${n} is not supported,
     please enter an integer number greater than zero`);
 } else {

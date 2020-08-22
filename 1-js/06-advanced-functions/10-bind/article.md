@@ -200,7 +200,7 @@ for (let key in user) {
 }
 ```
 
-자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(obj)](http://lodash.com/docs#bindAll)이 그 예입니다.
+자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll)이 그 예입니다.
 ````
 
 ## 부분 적용

@@ -48,21 +48,28 @@ DOM 노드를 만들어주는 메서드는 두 가지가 있습니다.
     let textNode = document.createTextNode('안녕하세요');
     ```
 
+개발할 떈 메시지를 넣었던 `div`같이 대부분의 경우 요소 노드를 만들게 됩니다.
+
 ### 메시지 생성하기
 
-만들고자 하는 메시지 창의 HTML은 `alert` 클래스가 있는 `div`로 구성되어 있습니다.
+메시지가 들어갈 `div`는 세 단계로 만들 수 있습니다.
 
 ```js
+// 1. <div> 요소 만들기
 let div = document.createElement('div');
+
+// 2. 만든 요소의 클래스를 'alert'로 설정
 div.className = "alert";
+
+// 3. 내용 채워넣기
 div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하셨습니다.";
 ```
 
-요소가 잘 만들어지긴 했지만, 아직 변수에 불과하기 때문에 페이지엔 나타나지 않습니다. 
+이렇게 세 단계를 거치면 요소가 만들어집니다. 그런데 요소를 만들긴 했지만, 아직 이 요소는 `div`라는 이름을 가진 변수에 불과하기 때문에 페이지엔 나타나지 않습니다.
 
 ## 삽입 메서드
 
-`div`가 페이지에 나타나게 하려면 `document` 내 어딘가에 `div`를 삽입해야 합니다. `document.body` 안 같은 곳에 말이죠.
+`div`가 페이지에 나타나게 하려면 `document` 내 어딘가에 `div`를 삽입해야 합니다. `document.body`로 참조할 수 있는 `<body>`안 같은 곳에 말이죠.
 
 요소 삽입 메서드 `append`로 `document.body.append(div)`를 사용하면 가능합니다.  
 
@@ -90,15 +97,21 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 </script>
 ```
 
-아래 메서드들을 사용해도 원하는 곳에 노드를 삽입할 수 있습니다.
+Here we called `append` on `document.body`, but we can call `append` method on any other element, to put another element into it. For instance, we can append something to `<div>` by calling `div.append(anotherElement)`.
 
-- `node.append(...nodes or strings)` -- 노드나 문자열을 `node` 끝에 삽입합니다.
-- `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` 맨 앞에 삽입합니다.
-- `node.before(...nodes or strings)` –-  노드나 문자열을 `node` 이전에 삽입합니다.
-- `node.after(...nodes or strings)` –- 노드나 문자열을 `node` 다음에 삽입합니다.
+Here are more insertion methods, they specify different places where to insert:
+
+- `node.append(...nodes or strings)` -- 노드나 문자열을 `node` *끝*에 삽입합니다.
+- `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` *맨 앞*에 삽입합니다.
+- `node.before(...nodes or strings)` –-  노드나 문자열을 `node` *이전*에 삽입합니다.
+- `node.after(...nodes or strings)` –- 노드나 문자열을 `node` *다음*에 삽입합니다.
 - `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
 
-위 메서드들을 사용해 리스트에 항목 몇 개를 추가하고, 목록 앞·뒤에 텍스트를 추가해보겠습니다.
+Arguments of these methods are an arbitrary list of DOM nodes to insert, or text strings (that become text nodes automatically).
+
+Let's see them in action.
+
+Here's an example of using these methods to add items to a list and the text before/after it:
 
 ```html autorun
 <ol id="ol">
@@ -150,7 +163,7 @@ after
 </script>
 ```
 
-글자는 *글자 그대로* 삽입된 것을 확인할 수 있습니다.
+Please note: the text is inserted "as text", not "as HTML", with proper escaping of characters such as `<`, `>`.
 
 따라서 최종 HTML은 다음과 같습니다.
 
@@ -166,7 +179,7 @@ after
 
 따라서 이 메서드들은 DOM 노드나 문자열을 삽입할 때만 사용할 수 있습니다.
 
-그런데 만약 `elem.innerHTML`을 사용한 것처럼 모든 태그가 동작할 수 있게 'HTML 자체'를 삽입하고 싶다면 어떻게 해야 할까요?
+그런데 만약 `elem.innerHTML`을 사용한 것처럼 모든 태그가 동작할 수 있게 문자열 형태의 'HTML 자체'를 삽입하고 싶다면 어떻게 해야 할까요?
 
 ## insertAdjacentHTML/Text/Element
 

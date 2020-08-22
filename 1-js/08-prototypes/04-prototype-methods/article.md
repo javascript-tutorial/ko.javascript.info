@@ -7,7 +7,7 @@
 
 대신 아래와 같은 모던한 메서드들을 사용하는 것이 좋죠.
 
-- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`를 참조하는 빈 객체를 만듭니다. 이때 프로퍼티 설명자를 추가로 넘길 수 있습니다.
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`를 참조하는 빈 객체를 만듭니다. 이때 프로퍼티 설명자를 추가로 넘길 수 있습니다.
 - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다.
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- `obj`의 `[[Prototype]]`이 `proto`가 되도록 설정합니다.
 
@@ -57,7 +57,6 @@ alert(rabbit.jumps); // true
 `Object.create`를 사용하면 `for..in`을 사용해 프로퍼티를 복사하는 것보다 더 효과적으로 객체를 복제할 수 있습니다.
 
 ```js
-// obj와 완벽하게 동일한 얕은 사본
 let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 ```
 
@@ -176,7 +175,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 프로토타입에 직접 접근할 땐 다음과 같은 모던 메서드를 사용할 수 있습니다.
 
-- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`인 객체를 만듭니다. 참조 값은 `null`일 수 있고 프로퍼티 설명자를 넘기는 것도 가능합니다.
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`인 객체를 만듭니다. 참조 값은 `null`일 수 있고 프로퍼티 설명자를 넘기는 것도 가능합니다.
 - [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다(`__proto__` getter와 같습니다).
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- `obj`의 `[[Prototype]]`을 `proto`로 설정합니다(`__proto__` setter와 같습니다).
 
