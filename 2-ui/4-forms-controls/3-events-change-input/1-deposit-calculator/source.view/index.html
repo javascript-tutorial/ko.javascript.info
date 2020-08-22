@@ -23,33 +23,33 @@
 
 <body>
 
-  Deposit calculator.
+  예금 이자 계산기
 
   <form name="calculator">
     <table>
       <tr>
-        <td>Initial deposit</td>
+        <td>예치금액</td>
         <td>
           <input name="money" type="number" value="10000" required>
         </td>
       </tr>
       <tr>
-        <td>How many months?</td>
+        <td>예치기간</td>
         <td>
           <select name="months">
-            <option value="3">3 (minimum)</option>
-            <option value="6">6 (half-year)</option>
-            <option value="12" selected>12 (one year)</option>
-            <option value="18">18 (1.5 years)</option>
-            <option value="24">24 (2 years)</option>
-            <option value="30">30 (2.5 years)</option>
-            <option value="36">36 (3 years)</option>
-            <option value="60">60 (5   years)</option>
+            <option value="3">3 (최단 예치기간)</option>
+            <option value="6">6 (반년)</option>
+            <option value="12" selected>12 (1년)</option>
+            <option value="18">18 (1.5년)</option>
+            <option value="24">24 (2년)</option>
+            <option value="30">30 (2.5년)</option>
+            <option value="36">36 (3년)</option>
+            <option value="60">60 (5년)</option>
           </select>
         </td>
       </tr>
       <tr>
-        <td>Interest per year?</td>
+        <td>연이자율</td>
         <td>
           <input name="interest" type="number" value="5" required>
         </td>
@@ -62,8 +62,8 @@
 
   <table id="diagram">
     <tr>
-      <th>Was:</th>
-      <th>Becomes:</th>
+      <th>원금</th>
+      <th>만기지급금액</th>
     </tr>
     <tr>
       <th id="money-before"></th>
