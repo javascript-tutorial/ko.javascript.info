@@ -8,7 +8,7 @@ null 병합 연산자(nullish coalescing operator) `??`를 사용하면 짧은 �
 - `a`가 `null`도 아니고 `undefined`도 아니면 `a`
 - 그 외의 경우는 `b`
 
-null 병합 연산자 `??`없이 `x = a ?? b`와 동일한 동작을 하는 코드를 작성하면 다음과 같습니다.
+null 병합 연산자 `??`를 사용한 `x = a ?? b`와 동일하게 동작하는 코드는 다음과 같습니다.
 
 ```js
 x = (a !== null && a !== undefined) ? a : b;
