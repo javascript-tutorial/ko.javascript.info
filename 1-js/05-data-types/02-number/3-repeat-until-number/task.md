@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Repeat until the input is a number
+# 숫자를 입력할 때까지 반복하기
 
-Create a function `readNumber` which prompts for a number until the visitor enters a valid numeric value.
+사용자가 유효한 숫자형 값을 입력할 때까지 계속 입력받는 함수 `readNumber` 를 만들어보세요.
 
-The resulting value must be returned as a number.
+반환되는 값은 꼭 숫자형 값이어야 합니다.
 
-The visitor can also stop the process by entering an empty line or pressing "CANCEL". In that case, the function should return `null`.
+사용자가 아무 입력도 하지 않거나 '취소'를 누르면 입력받기를 멈추고 `null`을 반환하세요.
 
 [demo]
 
