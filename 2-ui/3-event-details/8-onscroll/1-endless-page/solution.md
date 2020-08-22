@@ -1,63 +1,63 @@
-The core of the solution is a function that adds more dates to the page (or loads more stuff in real-life) while we're at the page end.
+문제 해결의 핵심은 방문자가 문서 끝에 머무르는 동안에 더 많은 날짜들을 페이지에 추가하는 (혹은 실생활 속 물건들을 더 불러오는) 함수입니다.
 
-We can call it immediately and add as a `window.onscroll` handler.
+이 함수를 바로 호출할 수도 있고, `window.onscroll` 핸들러로 추가할 수도 있습니다.
 
-The most important question is: "How do we detect that the page is scrolled to bottom?"
+여기서 가장 중요한 것은 '페이지 끝까지 스크롤 되었을 때 어떻게 알아챌 것인가?'라는 궁금증입니다.
 
-Let's use window-relative coordinates.
+창-상대 좌표를 이용해보죠.
 
-The document is represented (and contained) within `<html>` tag, that is `document.documentElement`.
+문서는 `<html>` 태그, 즉 `document.documentElement` 내에 표시됩니다(그리고 포함됩니다).
 
-We can get window-relative coordinates of the whole document as `document.documentElement.getBoundingClientRect()`, the `bottom` property will be window-relative coordinate of the document bottom.
+창-상대 좌표는 `document.documentElement.getBoundingClientRect()`로 전체 문서에 대해 얻을 수 있으며, `bottom` 프로퍼티는 문서 하단에 대한 창-상대 좌표를 의미하게 됩니다.
 
-For instance, if the height of the whole HTML document is `2000px`, then:
+예를 들어 전체 HTML 문서 높이가 `2000px`이라면,
 
 ```js
-// when we're on the top of the page
-// window-relative top = 0
+// 페이지 상단에 위치할 때
+// 창-상대 좌표 top = 0
 document.documentElement.getBoundingClientRect().top = 0
 
-// window-relative bottom = 2000
-// the document is long, so that is probably far beyond the window bottom
+// 창-상대 좌표 bottom = 2000
+// 문서가 길기 때문에 아마 하단 영역과 거리가 꽤 멀 것입니다.
 document.documentElement.getBoundingClientRect().bottom = 2000
 ```
 
-If we scroll `500px` below, then:
+아래로 `500px`만큼 스크롤 한다면,
 
 ```js
-// document top is above the window 500px
+// 문서 상단이 창 500px 위에 위치합니다.
 document.documentElement.getBoundingClientRect().top = -500
-// document bottom is 500px closer
+// 문서 하단과는 500px만큼 가까워집니다.
 document.documentElement.getBoundingClientRect().bottom = 1500
 ```
 
-When we scroll till the end, assuming that the window height is `600px`:
+창 높이가 `600px`이라고 가정하고 끝까지 스크롤 할 경우:
 
 
 ```js
-// document top is above the window 1400px
+// 문서 상단이 창 1400px 위에 위치합니다.
 document.documentElement.getBoundingClientRect().top = -1400
-// document bottom is below the window 600px
+// 문서 하단이 창 600px 아래에 위치합니다.
 document.documentElement.getBoundingClientRect().bottom = 600
 ```
 
-Please note that the `bottom` can't be `0`, because it never reaches the window top. The lowest limit of the `bottom` coordinate is the window height (we assumed it to be `600`), we can't scroll it any more up.
+문서 `bottom` 영역은 창 상단에 도달할 수 없기에 `0`이 될 수 없음을 주의해야 합니다. `bottom` 좌표 최솟값은 창 높이(600 가정)이며 더 위로 스크롤 할 수 없습니다.
 
-We can obtain the window height as `document.documentElement.clientHeight`.
+창 높이는 `document.documentElement.clientHeight`로 얻을 수 있습니다.
 
-For our task, we need to know when the document bottom is not no more than `100px` away from it (that is: `600-700px`, if the height is `600`).
+과제를 해결하기 위해 문서 하단이 `100px`이하 (높이가 `600`인 경우 `600-700px`) 떨어져 있는지 알아야 합니다.
 
-So here's the function:
+아래 함수를 확인해보세요.
 
 ```js
 function populate() {
   while(true) {
-    // document bottom
+    // 문서 하단
     let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
 
-    // if the user scrolled far enough (<100px to the end)
+    // 유저가 충분히 멀리 스크롤 했을 경우 (끝으로부터 100px 미만)
     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
-      // let's add more data
+      // 데이터를 추가합니다
       document.body.insertAdjacentHTML("beforeend", `<p>Date: ${new Date()}</p>`);
     }
   }
