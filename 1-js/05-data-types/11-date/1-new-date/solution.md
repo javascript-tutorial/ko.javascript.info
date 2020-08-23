@@ -2,7 +2,18 @@
 
 따라서 2월은 숫자 1을 사용해 만듭니다.
 
+Date object can be created in two formats:
+
+1. new Date(year, month, date, hour, minute, second, millisecond)
+
 ```js run
-let d = new Date(2012, 1, 20, 3, 12);
-alert( d );
+let d1 = new Date(2012, 1, 20, 3, 12);
+alert( d1 );
+```
+
+2. new Date(datastring)
+
+```js run
+let d2 = new Date("February 20, 2012 03:12:00");
+alert(d2);
 ```
