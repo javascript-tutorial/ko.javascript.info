@@ -1,9 +1,9 @@
 describe("getUsers", function() {
 
-  it("gets users from GitHub", async function() {
-    let users = await getUsers(['iliakan', 'remy', 'no.such.users']);
-    assert.equal(users[0].login, 'iliakan');
-    assert.equal(users[1].login, 'remy');
+  it('GitHub에서 사용자 정보를 얻어옵니다.', async function() {
+    let users = await getUsers(["C17AN", "Violet-Bora-Lee", "이런사용자는없습니다"]);
+    assert.equal(users[0].login, "C17AN");
+    assert.equal(users[1].login, "Violet-Bora-Lee");
     assert.equal(users[2], null);
   });
 

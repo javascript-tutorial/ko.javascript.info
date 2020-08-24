@@ -1,13 +1,13 @@
-# Fetch users from GitHub
+# fetch를 사용해 Github에서 사용자 정보 가져오기
 
-Create an async function `getUsers(names)`, that gets an array of GitHub logins, fetches the users from GitHub and returns an array of GitHub users.
+GitHub 사용자 이름이 담긴 배열을 인자로 받는 비동기 함수 `getUsers(names)`를 만든 후, GitHub에서 fetch한 사용자 정보들이 담긴 배열을 반환하는 함수를 만들어 보세요.
 
-The GitHub url with user information for the given `USERNAME` is: `https://api.github.com/users/USERNAME`.
+`사용자명`에 해당하는 사용자 정보를 가져오려면 GitHub API `https://api.github.com/users/사용자명`에 요청을 보내면 됩니다.
 
-There's a test example in the sandbox.
+샌드박스에 테스트 코드가 준비되어 있습니다.
 
-Important details:
+아래 조건들을 지켜 과제를 완수해 보세요.
 
-1. There should be one `fetch` request per user.
-2. Requests shouldn't wait for each other. So that the data arrives as soon as possible.
-3. If any request fails, or if there's no such user, the function should return `null` in the resulting array.
+1. 사용자당 `fetch` 요청은 한 번만 수행해야 합니다.
+2. 데이터가 최대한 일찍 도착할 수 있도록 각 요청은 다른 요청의 결과를 기다려서는 안 됩니다.
+3. 요청에 실패하거나 존재하지 않는 사용자에 대한 요청을 보냈다면 `null`을 리턴하고 배열 요소에 담아야 합니다.
