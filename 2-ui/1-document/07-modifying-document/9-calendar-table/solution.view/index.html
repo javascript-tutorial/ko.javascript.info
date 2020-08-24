@@ -29,30 +29,29 @@
   <script>
     function createCalendar(elem, year, month) {
 
-      let mon = month - 1; // months in JS are 0..11, not 1..12
+      let mon = month - 1; // 자바스크립트에선 월을 1월~12월이 아닌 0월~11월로 취급합니다.
       let d = new Date(year, mon);
 
       let table = '<table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>';
 
-      // spaces for the first row
-      // from Monday till the first day of the month
+      // 첫번째 행을 만드는 부분
+      // 월요일부터 월의 첫 번째 날까지는 공백으로 채워야 합니다.
       // * * * 1  2  3  4
       for (let i = 0; i < getDay(d); i++) {
         table += '<td></td>';
       }
 
-      // <td> with actual dates
+      // 실제 날짜가 들어있는 <td>
       while (d.getMonth() == mon) {
         table += '<td>' + d.getDate() + '</td>';
 
-        if (getDay(d) % 7 == 6) { // sunday, last day of week - newline
+        if (getDay(d) % 7 == 6) { // 주의 마지막 요일인 일요일을 만나면 개행합니다.
           table += '</tr><tr>';
         }
 
         d.setDate(d.getDate() + 1);
       }
-
-      // add spaces after last days of month for the last row
+      // 달력의 마지막 행에 빈칸을 추가합니다.
       // 29 30 31 * * * *
       if (getDay(d) != 0) {
         for (let i = getDay(d); i < 7; i++) {
@@ -60,15 +59,15 @@
         }
       }
 
-      // close the table
+      // table 태그를 닫습니다.
       table += '</tr></table>';
 
       elem.innerHTML = table;
     }
 
-    function getDay(date) { // get day number from 0 (monday) to 6 (sunday)
+    function getDay(date) { // 월요일부터 일요일을 0부터 6의 숫자로 얻는 부분
       let day = date.getDay();
-      if (day == 0) day = 7; // make Sunday (0) the last day
+      if (day == 0) day = 7; // 일요일에 해당하는 번호(0)를 7로 고치는 부분
       return day - 1;
     }
 

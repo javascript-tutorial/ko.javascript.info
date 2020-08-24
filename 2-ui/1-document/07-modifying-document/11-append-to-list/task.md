@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Insert the HTML in the list
+# 리스트에 HTML 삽입하기
 
-Write the code to insert `<li>2</li><li>3</li>` between two `<li>` here:
+두 `<li>` 사이에 `<li>2</li><li>3</li>`을 추가하는 코드를 작성해 보세요.
 
 ```html
 <ul id="ul">

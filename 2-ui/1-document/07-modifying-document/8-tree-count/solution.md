@@ -1,1 +1,1 @@
-To append text to each `<li>` we can alter the text node `data`.
+각 `<li>` 에 텍스트를 추가하기 위해 텍스트 노드의 `data` 를 변경할 수 있습니다.
