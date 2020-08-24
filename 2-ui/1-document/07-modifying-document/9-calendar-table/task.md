@@ -2,16 +2,16 @@ importance: 4
 
 ---
 
-# Create a calendar
+# 달력 만들기
 
-Write a function `createCalendar(elem, year, month)`.
+`createCalender(elem, year, month)` 라는 함수를 작성해 보세요.
 
-The call should create a calendar for the given year/month and put it inside `elem`.
+이 함수는 주어진 연도/월의 달력을 생성하고 `elem` 안에 추가해야 합니다.
 
-The calendar should be a table, where a week is `<tr>`, and a day is `<td>`. The table top should be `<th>` with weekday names: the first day should be Monday, and so on till Sunday.
+달력은 각 주를 `<tr>`, 날짜는 `<td>`로 나타내는 표여야 하며 표의 최상단은 월요일로 시작해서 일요일로 끝나는 요일이 적힌 `<th>` 여야 합니다.
 
-For instance, `createCalendar(cal, 2012, 9)` should generate in element `cal` the following calendar:
+예를 들면 `createCalender(cal, 2012, 9)` 는 `cal` 요소 안에 아래 달력을 생성합니다.
 
 [iframe height=210 src="solution"]
 
-P.S. For this task it's enough to generate the calendar, should not yet be clickable.
+참고로 이 과제는 달력을 생성하는 것만으로 충분하며 클릭을 비롯한 동작은 구현하지 않아도 좋습니다.

@@ -1,8 +1,8 @@
-Answer: **1 and 3**.
+정답: **1 과 3**.
 
-Both commands result in adding the `text` "as text" into the `elem`.
+두 명령어는 `text`를 '텍스트로' `elem` 안에 추가합니다.
 
-Here's an example:
+예시:
 
 ```html run height=80
 <div id="elem1"></div>

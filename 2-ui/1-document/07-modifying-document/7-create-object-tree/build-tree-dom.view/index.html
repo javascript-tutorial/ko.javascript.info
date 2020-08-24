@@ -28,8 +28,8 @@
     }
 
     function createTreeDom(obj) {
-      // if there's no children, then the call returns undefined
-      // and the <ul> won't be created
+      // 자식 요소가 없다면 함수는 undefined를 리턴합니다.
+      // 또한 <ul> 역시 생성되지 않을 것입니다.
       if (!Object.keys(obj).length) return;
 
       let ul = document.createElement('ul');
