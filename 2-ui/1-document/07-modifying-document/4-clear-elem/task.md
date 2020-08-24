@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Clear the element
+# 요소 삭제하기
 
-Create a function `clear(elem)` that removes everything from the element.
+요소의 모든 하위 요소들을 삭제하는 `clear(elem)` 이라는 함수를 만들어 보세요.
 
 ```html run height=60
 <ol id="elem">
@@ -13,8 +13,8 @@ Create a function `clear(elem)` that removes everything from the element.
 </ol>
 
 <script>
-  function clear(elem) { /* your code */ }
+  function clear(elem) { /* 여기에 코드를 작성하세요. */ }
 
-  clear(elem); // clears the list
+  clear(elem); // elem 내부 리스트를 삭제합니다.
 </script>
 ```

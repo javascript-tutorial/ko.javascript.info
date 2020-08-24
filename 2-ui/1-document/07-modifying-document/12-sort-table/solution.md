@@ -1,4 +1,4 @@
-The solution is short, yet may look a bit tricky, so here I provide it with extensive comments:
+꼼수처럼 보일지도 모르겠지만 해답은 간단한데요, 상세한 설명은 아래에 있습니다.
 
 ```js
 let sortedRows = Array.from(table.tBodies[0].rows) // 1
@@ -7,12 +7,12 @@ let sortedRows = Array.from(table.tBodies[0].rows) // 1
 table.tBodies[0].append(...sortedRows); // (3)
 ```
 
-The step-by-step algorthm:
+풀이 과정:
 
-1. Get all `<tr>`, from `<tbody>`.
-2. Then sort them comparing by the content of the first `<td>` (the name field).
-3. Now insert nodes in the right order by `.append(...sortedRows)`.
+1. `<tbody>`로부터 모든 `<tr>`을 불러옵니다.
+2. 그 후 name 필드에 해당하는 첫 번째 `<td>`의 내용을 기준으로 정렬합니다.
+3. 이제 `.append(...sortedRows)`를 사용해 정렬된 노드를 삽입합니다.
 
-We don't have to remove row elements, just "re-insert", they leave the old place automatically.
+행에 해당하는 요소들을 지울 필요 없이 '재삽입' 하면 기존 위치를 저절로 벗어나게 됩니다.
 
-P.S. In our case, there's an explicit `<tbody>` in the table, but even if HTML table doesn't have `<tbody>`, the DOM structure always has it.
+예시에서는 `<tbody>` 가 표에 명시적으로 존재하는데요, HTML 표가 명시적으로 `<tbody>`를 갖지 않더라도 DOM 구조상에는 언제나 존재한다는 점을 참고하세요.

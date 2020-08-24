@@ -44,7 +44,7 @@
 
     function clockStart() {
       timerId = setInterval(update, 1000);
-      update(); // <--  start right now, don't wait 1 second till the first setInterval works
+      update(); // <--  첫 번째 setInterval이 실행되기 전까지 기다릴 필요 없이 시작합니다.
     }
 
     function clockStop() {
@@ -54,10 +54,10 @@
     clockStart();
   </script>
 
-  <!-- click on this button calls clockStart() -->
+  <!-- 이 버튼을 클릭하면 clockStart() 함수가 호출됩니다. -->
   <input type="button" onclick="clockStart()" value="Start">
 
-  <!-- click on this button calls clockStop() -->
+  <!-- 이 버튼을 클릭하면 clockStop() 함수가 호출됩니다. -->
   <input type="button" onclick="clockStop()" value="Stop">
 
 </body>

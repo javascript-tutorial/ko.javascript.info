@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Show descendants in a tree
+# 트리의 자손 수 나타내기
 
-There's a tree organized as nested `ul/li`.
+중첩된 `ul·li` 로 이루어진 트리가 있습니다.
 
-Write the code that adds to each `<li>` the number of its descendants. Skip leaves (nodes without children).
+각 `<li>` 가 가진 자손 요소들의 수를 표시하는 코드를 작성해 보세요. (자식이 없는 노드는 생략하세요.)
 
-The result:
+결과는 아래와 같습니다.
 
 [iframe border=1 src="solution"]
