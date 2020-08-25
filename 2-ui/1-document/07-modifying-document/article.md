@@ -97,9 +97,9 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 </script>
 ```
 
-Here we called `append` on `document.body`, but we can call `append` method on any other element, to put another element into it. For instance, we can append something to `<div>` by calling `div.append(anotherElement)`.
+여기서는 `document.body`에서 `append`를 호출했지만 다른 요소에서도 `append` 메서드를 호출해서 또 다른 요소를 넣을 수 있습니다. 예를 들어 `div.append(anotherElement)`를 호출해서 `<div>`에 무언가를 추가할 수 있습니다.
 
-Here are more insertion methods, they specify different places where to insert:
+다음은 각자 다른 위치에 삽입하도록 지정하는 다른 삽입 메서드입니다.
 
 - `node.append(...nodes or strings)` -- 노드나 문자열을 `node` *끝*에 삽입합니다.
 - `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` *맨 앞*에 삽입합니다.
@@ -107,11 +107,11 @@ Here are more insertion methods, they specify different places where to insert:
 - `node.after(...nodes or strings)` –- 노드나 문자열을 `node` *다음*에 삽입합니다.
 - `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
 
-Arguments of these methods are an arbitrary list of DOM nodes to insert, or text strings (that become text nodes automatically).
+삽입 메서드에 들어가는 인수는 추가할 DOM 노드 임의 목록 또는 텍스트 문자열입니다(자동으로 텍스트 노드가 됨).
 
-Let's see them in action.
+이러한 메서드들이 어떻게 동작하는지 살펴보겠습니다.
 
-Here's an example of using these methods to add items to a list and the text before/after it:
+아래는 삽입 메서드를 사용해서 목록에 항목을 추가하고 앞·뒤로 텍스트를 덧붙이는 예제입니다.
 
 ```html autorun
 <ol id="ol">
