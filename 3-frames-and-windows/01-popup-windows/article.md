@@ -1,4 +1,4 @@
-# 팝업창과 윈도우 메소드
+# 팝업창과 윈도우 메서드
 
 팝업창은 사용자에게 추가 정보를 표시하는 가장 오래된 방법 중 하나입니다.
 
@@ -38,25 +38,25 @@ button.onclick = () => {
 
 이렇게 하면 사용자들은 어느정도 원하지 않는 팝업에 보호되지만, 기능이 완전히 비활성화된 것은 아닙니다.
 
-What if the popup opens from `onclick`, but after `setTimeout`? That's a bit tricky.
+`setTimeout`이 지난 뒤, `onclick`으로 팝업을 연다면 어떨까요? 그건 좀 까다롭습니다.
 
-Try this code:
+이 코드를 작성해보세요.
 
 ```js run
-// open after 3 seconds
+// 3초 뒤에 열립니다.
 setTimeout(() => window.open('http://google.com'), 3000);
 ```
 
-The popup opens in Chrome, but gets blocked in Firefox.
+이 팝업은 Chrome에선 열리지만, Firefox에선 차단됩니다.
 
-...If we decrease the delay, the popup works in Firefox too:
+...지연 시간을 줄이면, Firefox에서도 작동합니다.
 
 ```js run
-// open after 1 seconds
+// 1초 뒤에 열립니다.
 setTimeout(() => window.open('http://google.com'), 1000);
 ```
 
-The difference is that Firefox treats a timeout of 2000ms or less are acceptable, but after it -- removes the "trust", assuming that now it's "outside of the user action". So the first one is blocked, and the second one is not.
+차이점은 Firefox가 2000ms 이하의 시간 초과가 허용되지만, 그 이후에는 '신뢰'를 제거한다는 것입니다. 이제는 '사용자 작업 외부'라고 추정합니다. 그래서 첫 번째는 차단되고, 두 번째는 차단되지 않습니다.
 
 ## window.open
 
