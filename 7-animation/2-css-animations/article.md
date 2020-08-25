@@ -1,16 +1,16 @@
 # CSS 애니메이션
 
-CSS 애니메이션은 자바스크립트 없이도 간단한 애니메이션을 만들 수 있습니다.
+CSS 애니메이션을 사용하면 자바스크립트 없이도 간단한 애니메이션을 만들 수 있습니다.
 
 자바스크립트는 CSS 애니메이션을 제어하고 보다 짧은 코드로 훨씬 더 효과적인 애니메이션을 만듭니다.
 
-## CSS 전환 [#css-transition]
+## CSS 트랜지션 [#css-transition]
 
-CSS 전환의 발상은 간단합니다. 어떤 프로퍼티와 그 프로퍼티가 어떻게 활성화되는지 나타냅니다. 그 프로퍼티가 변할 때, 브라우저에 애니메이션이 보이게 됩니다.
+CSS 트랜지션의 원리는 간단합니다. 프로퍼티에 어떻게 애니메이션 시킬지에 대한 값을 입력하면 됩니다. 입력한 프로퍼티가 변할 때, 브라우저에 애니메이션이 보이게 됩니다.
 
 즉, 프로퍼티를 변하게 해야 합니다. 그래야 브라우저를 통해 자연스러운 전환이 됩니다.
 
-예를 들어 아래에 있는 CSS는 3초 동안 `background-color` 를 변하게 해줍니다.
+예를 들어 아래에 있는 CSS는 3초 동안 `background-color`를 변하게 합니다.
 
 ```css
 .animated {
@@ -19,12 +19,12 @@ CSS 전환의 발상은 간단합니다. 어떤 프로퍼티와 그 프로퍼티
 }
 ```
 
-이제 어떤 요소가 `.animated` 클래스를 가지고 있다면,  `background-color` 의 변화는 3초 동안 애니메이션을 통해 나타날 것입니다.
+이제 어떤 요소가 `.animated` 클래스를 가지고 있다면,  `background-color`는 3초 동안 변하게 됩니다.
 
-배경의 변화를 위해 아래의 버튼을 클릭해보세요.
+아래 버튼을 클릭해 배경을 변화시켜보세요.
 
 ```html run autorun height=60
-<button id="color">Click me</button>
+<button id="color">클릭하기</button>
 
 <style>
   #color {
@@ -40,19 +40,19 @@ CSS 전환의 발상은 간단합니다. 어떤 프로퍼티와 그 프로퍼티
 </script>
 ```
 
-CSS 전환을 나타내는 4가지 프로퍼티 입니다.
+CSS 전환과 관련된 프로퍼티 네 가지는 다음과 같습니다.
 
 - `transition-property`
 - `transition-duration`
 - `transition-timing-function`
 - `transition-delay`
 
-이 4가지 프로퍼티는 잠시후에 다루도록 하구요, 지금은 흔히 쓰이는 `transition` 프로퍼티가 어떤 순서대로 4가지 프로퍼티를 선언하는지 알아봅시다. `property duration timing-function delay` 의 순서로, 여러개의 프로퍼티를 한번에 사용할 수 있습니다.
+이 네 가지 프로퍼티는 잠시 후에 다루도록 하고, 지금은 흔히 쓰이는 `transition` 프로퍼티가 어떤 순서대로 네 가지 프로퍼티를 선언하는지 알아봅시다. `property duration timing-function delay`의 순서로 한 번에 선언이 가능합니다.
 
-예를 들어 아래의 버튼은 `color` 와 `font-size`에 애니메이션 효과가 나타납니다.
+예를 들어 아래의 버튼은 `color`와 `font-size`에 애니메이션 효과가 나타납니다.
 
 ```html run height=80 autorun no-beautify
-<button id="growing">Click me</button>
+<button id="growing">클릭하기</button>
 
 <style>
 #growing {
@@ -74,7 +74,7 @@ growing.onclick = function() {
 
 ## 'transition-property' 프로퍼티
 
-`transition-property` 프로퍼티를 통해 애니메이션을 위한 프로퍼티 목록을 작성합니다. 예시: `left`, `margin-left`, `height`, `color`
+`transition-property` 프로퍼티를 통해 `left`, `margin-left`, `height`, `color`와 같은 애니메이션을 위한 프로퍼티 목록을 작성할 수 있습니다.
 
 모든 프로퍼티가 애니메이션 효과를 나타낼 순 없지만, [많은 프로퍼티](http://www.w3.org/TR/css3-transitions/#animatable-properties-)가 가능합니다. 프로퍼티의 값인 `all`은 모든 프로퍼티가 전환될 수 있음을 의미합니다.
 
@@ -84,7 +84,7 @@ growing.onclick = function() {
 
 ## 'transition-delay' 프로퍼티
 
-`transition-delay` 프로퍼티를 통해 애니메이션 *시작 전*의 지연 시간을 설정할 수 있습니다. 예를 들어 `transition-delay: 1s` 이면, 애니메이션은 1초 후에 나타나게 됩니다.
+`transition-delay` 프로퍼티를 통해 애니메이션 *시작 전*의 지연 시간을 설정할 수 있습니다. 예를 들어 `transition-delay: 1s`이면, 애니메이션은 1초 후에 나타나게 됩니다.
 
 음의 값도 가능합니다. 그러면 애니메이션은 중간부터 시작하게 됩니다. 예를 들어 `transition-duration`이 `2s`이고, 지연 시간은 `-1s`일 때, 애니메이션은 1초가 걸리고 딱 중간부터 시작합니다.
 
@@ -108,7 +108,7 @@ growing.onclick = function() {
 stripe.classList.add('animate');
 ```
 
-또한 `transition-delay`에서 음의 값을 사용하여, 특정 숫자에서(예: 현재 2초에 해당하는 숫자) "중간부터" 시작할 수 있다.
+또한 `transition-delay`에서 음의 값을 사용하여, 특정 숫자에서(예: 현재 2초에 해당하는 숫자) '중간부터' 시작할 수 있다.
 
 여기 숫자를 클릭하면 현재 2초에 해당하는 숫자부터 애니메이션이 시작될 것입니다.
 
