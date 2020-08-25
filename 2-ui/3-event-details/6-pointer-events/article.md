@@ -1,30 +1,30 @@
-# Pointer events
+# 포인터 이벤트
 
-Pointer events are a modern way to handle input from a variety of pointing devices, such as a mouse, a pen/stylus, a touchscreen, and so on.
+포인터 이벤트는 마우스, 펜·스타일러스, 터치스크린 등과 같은 다양한 포인팅 장치에서 나오는 입력을 다루기 위한 최신 방법입니다.
 
-## The brief history
+## 역사
 
-Let's make a small overview, so that you understand the general picture and the place of Pointer Events among other event types.
+일반적으로 다른 이벤트 타입 사이에서 포인터 이벤트가 처한 상황을 이해할 수 있도록 간략하게 살펴보겠습니다.
 
-- Long ago, in the past, there were only mouse events.
+- 꽤 오래전 과거에는 마우스 이벤트만 있었습니다.
 
-    Then touch devices appeared. For the old code to work, they also generate mouse events. For instance, tapping generates `mousedown`. But mouse events were not good enough, as touch devices are more powerful in many aspects. For example, it's possible to touch multiple points at once, and mouse events don't have any properties for that.
+    그러다 터치 기기가 등장합니다. 기존 코드가 동작하기 위해서 새로운 기기도 마우스 이벤트를 일으키도록 했습니다. 두드리는 동작(tapping)이 `mousedown`을 생성하는 것처럼 말이죠. 하지만 터치 기기가 여러 측면에서 더 강력한 점이 있기 때문에 마우스 이벤트만으로는 충분하지 않았습니다. 예를 들어 터치 기기는 한 번에 여러 지점을 터치할 수 있지만 마우스 이벤트에는 이런 동작을 위한 프로퍼티가 없습니다.
 
-- So touch events were introduced, such as `touchstart`, `touchend`, `touchmove`, that have touch-specific properties (we don't cover them in detail here, because pointer events are even better).
+- 그래서 터치 관련 프로퍼티를 가지는 `touchstart`, `touchend`, `touchmove`가 도입되었습니다. (포인터 이벤트가 더 낫기 때문에 여기서 자세히 다루지 않습니다)
 
-    Still, it wasn't enough, as there are many other devices, such as pens, that have their own features. Also, writing code that listens for both touch and mouse events was cumbersome. 
+    그런데도 펜과 같이 다른 장치들은 자신만의 특징을 지니고 있기 때문에 터치 이벤트로는 충분하지 않았습니다. 또한 터치 이벤트와 마우스 이벤트에 모두 반응하는 코드를 작성하는 것도 번거로웠습니다.
 
-- To solve these issues, the new standard Pointer Events was introduced. It provides a single set of events for all kinds of pointing devices.
+- 이러한 문제를 해결하기 위해 새로운 표준 포인터 이벤트가 도입되었습니다. 포인터 이벤트는 모든 종류의 포인팅 기기에 대한 단일 이벤트 집합을 제공합니다.
 
-As of now, [Pointer Events Level 2](https://www.w3.org/TR/pointerevents2/) specification is supported in all major browsers, while [Pointer Events Level 3](https://w3c.github.io/pointerevents/) is in the works. Unless you code for Internet Explorer 10, or for Safari 12 or below, there's no point in using mouse or touch events any more -- we can switch to pointer events.
+현재 [포인터 이벤트 레벨2](https://www.w3.org/TR/pointerevents2/) 사양은 모든 주요 브라우저에서 지원되는 반면, [포인터 이벤트 레벨3](https://w3c.github.io/pointerevents/)은 작업이 진행되고 있습니다. Internet Explorer, Safari 12 또는 그 이하 버전에 맞게끔 코딩하지 않는 한 더는 마우스나 터치 이벤트를 사용할 필요가 없습니다. 포인터 이벤트로 전환할 수 있습니다.
 
-That being said, they have some important peculiarities that one should know in order to use them correctly and avoid surprises. We'll make note of them in this article.
+말하자면, 올바르게 사용하고 놀라지 않기 위해 알아야 할 몇 가지 중요한 특성이 있습니다. 이번 글에서 이 특성들을 다루겠습니다.
 
-## Pointer event types
+## 포인터 이벤트 타입
 
-Pointer events are named similarly to mouse events:
+포인터 이벤트는 마우스 이벤트와 유사하게 명명되었습니다.
 
-| Pointer Event | Mouse event |
+| 포인터 이벤트 | 마우스 이벤트 |
 |---------------|-------------|
 | `pointerdown` | `mousedown` |
 | `pointerup` | `mouseup` |
@@ -37,12 +37,12 @@ Pointer events are named similarly to mouse events:
 | `gotpointercapture` | - |
 | `lostpointercapture` | - |
 
-As we can see, for every `mouse<event>`, there's a `pointer<event>` that plays a similar role. Also there are 3 additional pointer events that don't have a corresponding `mouse...` counterpart, we'll explain them soon. 
+표에서 볼 수 있듯이 모든 `mouse<event>`와 유사한 역할을 하는 `pointer<event>`가 있습니다. 또한 연관된 `mouse...`가 없는 포인터 이벤트도 세 개 더 있습니다. 해당 이벤트들은 곧 설명하겠습니다.
 
-```smart header="Replacing `mouse<event>` with `pointer<event>` in our code"
-We can replace `mouse<event>` events with `pointer<event>` in our code and expect things to continue working fine with mouse.
+```smart header="코드에서 `mouse<event>`를 `pointer<event>`로 바꾸기"
+코드에서 `mouse<event>` 이벤트를 `pointer<event>`로 대체할 수 있고 마우스에서 문제가 없을 것으로 예상할 수 있습니다.
 
-The support for touch devices will also "magically" improve, but we'll probably need to add `touch-action: none` in CSS. See the details below in the section about `pointercancel`. 
+터치 기기에 대한 지원도 '마법처럼' 향상되지만, 아마도 CSS에 `touch-action: none`을 추가해야 합니다. `pointercancel`에 대한 자세한 내용은 아래 절에서 확인할 수 있습니다.
 ```
 
 ## Pointer event properties
