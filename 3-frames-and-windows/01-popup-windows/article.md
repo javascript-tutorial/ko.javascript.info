@@ -60,10 +60,10 @@ setTimeout(() => window.open('http://google.com'), 1000);
 
 ## window.open
 
-The syntax to open a popup is: `window.open(url, name, params)`:
+팝업을 여는 구문은 `window.open(url, name, params)` 입니다.
 
 url
-: An URL to load into the new window.
+: 새 창에 띄울 url을 의미합니다.
 
 name
 : A name of the new window. Each window has a `window.name`, and here we can specify which window to use for the popup. If there's already a window with such name -- the given URL opens in it, otherwise a new window is opened.
