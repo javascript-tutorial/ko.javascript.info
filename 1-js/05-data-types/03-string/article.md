@@ -402,7 +402,7 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```js run
     let str = "strin*!*gif*/!*y";
 
-    // 끝에서부터 4번째부터 시작해 끝에서부터 1번째 위치까지
+    // 끝에서 4번째부터 시작해 끝에서 1번째 위치까지
     alert( str.slice(-4, -1) ); // gif
     ```
 
