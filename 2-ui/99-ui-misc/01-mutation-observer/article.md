@@ -1,52 +1,52 @@
 
 # Mutation observer
 
-`MutationObserver` is a built-in object that observes a DOM element and fires a callback in case of changes.
+`MutationObserver`는 DOM 요소를 관찰하고 변화에 따라 콜백을 호출하는 내장객체입니다.
 
-We'll first take a look at the syntax, and then explore a real-world use case, to see where such thing may be useful.
+먼저 문법을 살펴보고 뒤이어 실무의 예제를 살펴보면서 mutationObserver가 얼마나 유용한지 알아보겠습니다.
 
-## Syntax
+## 문법
 
-`MutationObserver` is easy to use.
+`MutationObserver`는 사용하기 쉽습니다.
 
-First, we create an observer with a callback-function:
+먼저 콜백 함수와 함께 옵저버를 생성합니다.
 
 ```js
 let observer = new MutationObserver(callback);
 ```
 
-And then attach it to a DOM node:
+그리고 나서 DOM 노드를 옵저버에 등록합니다.
 
 ```js
 observer.observe(node, config);
 ```
 
-`config` is an object with boolean options "what kind of changes to react on":
-- `childList` -- changes in the direct children of `node`,
-- `subtree` -- in all descendants of `node`,
-- `attributes` -- attributes of `node`,
-- `attributeFilter` -- an array of attribute names, to observe only selected ones.
-- `characterData` -- whether to observe `node.data` (text content),
+`config`는 '어떤 변화의 종류에 반응할지'에 대한 참 거짓 옵션을 가지는 객체입니다.
+- `childList` -- `node`의 바로 아래에 있는 자식 요소의 변화,
+- `subtree` -- `node`의 모든 후손,
+- `attributes` -- `node`의 속성,
+- `attributeFilter` -- 선택한 속성만 관찰하기 위한 속성명의 배열,
+- `characterData` -- `node.data`(텍스트 내용)을 관찰할지에 대한 여부,
 
-Few other options:
-- `attributeOldValue` -- if `true`, pass both the old and the new value of attribute to callback (see below), otherwise only the new one (needs `attributes` option),
-- `characterDataOldValue` -- if `true`, pass both the old and the new value of `node.data` to callback (see below), otherwise only the new one (needs `characterData` option).
+다른 옵션:
+- `attributeOldValue` -- `true`이면 이전 값과 새로운 값의 속성을 콜백 함수로 전달할 수 있습니다. 그렇지 않으면 새 값만 보냅니다(`attributes` 옵션이 필요함).
+- `characterDataOldValue` -- `true`이면 이전 값과 새로운 값의 `node.data`를 콜백 함수로 전달할 수 있습니다. 그렇지 않으면 새 값만 보냅니다(`characterData` 옵션이 필요함).
 
-Then after any changes, the `callback` is executed: changes are passed in the first argument as a list of [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) objects, and the observer itself as the second argument.
+변화가 생기고 나서 해당 `callback`이 실행됩니다. 변화는 첫 번째 인수로 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) 객체의 배열이 들어가며 옵저버 자기자신이 두번째 인수로 들어갑니다.
 
-[MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) objects have properties:
+[MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) 객체는 프로퍼티를 가지고 있습니다.
 
-- `type` -- mutation type, one of
-    - `"attributes"`: attribute modified
-    - `"characterData"`: data modified, used for text nodes,
-    - `"childList"`: child elements added/removed,
-- `target` -- where the change occurred: an element for `"attributes"`, or text node for `"characterData"`, or an element for a `"childList"` mutation,
-- `addedNodes/removedNodes`  -- nodes that were added/removed,
-- `previousSibling/nextSibling` -- the previous and next sibling to added/removed nodes,
-- `attributeName/attributeNamespace` -- the name/namespace (for XML) of the changed attribute,
-- `oldValue` -- the previous value, only for attribute or text changes, if the corresponding option is set `attributeOldValue`/`characterDataOldValue`.
+- `type` -- mutation 타입, 아래의 타입들 중 하나
+    - `"attributes"`: 속성 수정
+    - `"characterData"`: 텍스트 노드에 사용되는 데이터 수정
+    - `"childList"`: 자식 요소의 추가·삭제
+- `target` -- 변화가 발생한 곳: `"attributes"`의 요소, `"characterData"`의 텍스트 노드,  `"childList"` mutation의 요소 중 하나,
+- `addedNodes/removedNodes`  -- 추가·삭제된 노드,
+- `previousSibling/nextSibling` -- 추가·삭제된 노드의 이전 및 다음 형제 노드,
+- `attributeName/attributeNamespace` -- 변경된 속성의 이름·네임스페이스(XML의 경우),
+- `oldValue` -- 해당 옵션이 `attributeOldValue`·`characterDataOldValue`으로 설정된 경우, 속성이나 텍스트 변경에만 따른 이전 값
 
-For example, here's a `<div>` with a `contentEditable` attribute. That attribute allows us to focus on it and edit.
+예를 들어 아래에 `contentEditable`속성을 가진 `<div>`가 있습니다. 해당 속성은 `div`에 포커스가 가고 수정할 수 있게 해줍니다.
 
 ```html run
 <div contentEditable id="elem">Click and <b>edit</b>, please</div>
@@ -56,27 +56,27 @@ let observer = new MutationObserver(mutationRecords => {
   console.log(mutationRecords); // console.log(the changes)
 });
 
-// observe everything except attributes
+// 속성을 제외한 모든 것을 관찰
 observer.observe(elem, {
-  childList: true, // observe direct children
-  subtree: true, // and lower descendants too
-  characterDataOldValue: true // pass old data to callback
+  childList: true, // 바로 아래 자식 요소를 관찰
+  subtree: true, // 하위 후손도 관찰
+  characterDataOldValue: true // 콜백에 이전 데이터를 넘김
 });
 </script>
 ```
 
-If we run this code in the browser, then focus on the given `<div>` and change the text inside `<b>edit</b>`, `console.log` will show one mutation:
+이 코드를 브라우저에서 실행한 다음, 주어진 `<div>`에 포커스를 옮겨 `<b>edit</b>`안의 텍스트를 변경하면 `console.log`는 하나의 mutation을 출력합니다.
 
 ```js
 mutationRecords = [{
   type: "characterData",
   oldValue: "edit",
   target: <text node>,
-  // other properties empty
+  // 다른 프로퍼티는 비어있음
 }];
 ```
 
-If we make more complex editing operations, e.g. remove the `<b>edit</b>`, the mutation event may contain multiple mutation records:
+`<b>edit</b>`를 삭제하는 등 더 복잡한 수정 연산이 있다면 the mutation 이벤트는 다수의 mutation records를 포함할 수 있습니다.
 
 ```js
 mutationRecords = [{
@@ -85,17 +85,17 @@ mutationRecords = [{
   removedNodes: [<b>],
   nextSibling: <text node>,
   previousSibling: <text node>
-  // other properties empty
+  // 다른 프로퍼티는 비어있음
 }, {
   type: "characterData"
   target: <text node>
-  // ...mutation details depend on how the browser handles such removal
-  // it may coalesce two adjacent text nodes "edit " and ", please" into one node
-  // or it may leave them separate text nodes
+  // ...mutation의 세부사항은 브라우저가 이런 삭제사항을 어떻게 처리하는지에 달려있습니다.
+  // 두 개의 인접한 텍스트 노드인 "edit " 과 " please"를 하나의 노드로 통합하거나,
+  // "edit " 과 " please"를 별도의 텍스트 노드로 둘 수도 있습니다.
 }];
 ```
 
-So, `MutationObserver` allows to react on any changes within DOM subtree.
+따라서 `MutationObserver`는 DOM 하위 트리의 변화에 반응할 수 있게 해줍니다.
 
 ## Usage for integration
 
