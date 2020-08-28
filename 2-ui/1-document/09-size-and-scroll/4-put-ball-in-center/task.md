@@ -1,20 +1,20 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Place the ball in the field center
+# 축구공을 필드 중앙에 놓기
 
-Here's how the source document looks:
+Source document는 이렇게 생겼습니다.
 
 [iframe src="source" edit link height=180]
 
-What are coordinates of the field center?
+필드 중앙의 좌표는 무엇일까요?
 
-Calculate them and use to place the ball into the center of the green field:
+좌표를 계산해보고 공을 필드의 중앙으로 옮기는 데 이용해보세요.
 
 [iframe src="solution" height=180]
 
-- The element should be moved by JavaScript, not CSS.
-- The code should work with any ball size (`10`, `20`, `30` pixels) and any field size, not be bound to the given values.
+- 공 요소는 CSS가 아닌 JavaScript를 이용해 움직여야 합니다.
+- 코드는 공 크기(`10`, `20`, `30`픽셀 등)가 얼마나 크든 간에 필드가 얼마나 크든 간에, 주어진 값에 얽매여선 안 됩니다.
 
-P.S. Sure, centering could be done with CSS, but here we want exactly JavaScript. Further we'll meet other topics and more complex situations when JavaScript must be used. Here we do a "warm-up".
+P.S. 물론 CSS를 이용해 공을 중앙에 위치시킬 수 있겠지만, 우리는 여기서 JavaScript만을 확실하게 원하고 있습니다. 더욱이 우리는 JavaScript를 무조건 사용해야 하는 다른 토픽들과 더 복잡한 상황을 마주할 거예요. “준비운동”을 해봅시다.

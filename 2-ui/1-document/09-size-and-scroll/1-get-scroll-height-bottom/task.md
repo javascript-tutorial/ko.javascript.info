@@ -1,11 +1,11 @@
-importance: 5
+중요도: 5
 
 ---
 
-# What's the scroll from the bottom?
+# 바닥으로부터의 스크롤은 무엇일까요?
 
-The `elem.scrollTop` property is the size of the scrolled out part from the top. How to get the size of the bottom scroll (let's call it `scrollBottom`)?
+`elem.scrollTop` 프로퍼티는 스크롤바에 의해 상단으로부터 가려진 부분의 사이즈를 가리킵니다. 어떻게 바닥 스크롤(`scrollBottom`이라고 부릅시다)의 사이즈를 구할 수 있을까요?
 
-Write the code that works for an arbitrary `elem`.
+임의의 `elem`으로 작동하는 코드를 작성해보세요.
 
-P.S. Please check your code: if there's no scroll or the element is fully scrolled down, then it should return `0`.
+P.S. 코드를 확인해보세요. 만약 스크롤이 없거나 요소가 완전히 아래로 스크롤 됐을 때, 무조건 `0`을 반환하도록 하세요.
