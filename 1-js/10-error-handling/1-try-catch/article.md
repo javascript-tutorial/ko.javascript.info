@@ -355,17 +355,17 @@ try {
 
 위에선 '불완전한 데이터'를 다루려는 목적으로 `try..catch`를 썼습니다. 그런데 `catch`는 원래 `try` 블록에서 발생한 *모든* 에러를 잡으려는 목적으로 만들어졌습니다. 그런데 위 예시에서 `catch`는 예상치 못한 에러를 잡아내 주긴 했지만, 에러 종류와 관계없이 `"JSON Error"` 메시지를 보여줍니다. 이렇게 에러 종류와 관계없이 동일한 방식으로 에러를 처리하는 것은 디버깅을 어렵게 만들기 때문에 좋지 않습니다.
 
-To avoid such problems, we can employ the "rethrowing" technique. The rule is simple:
+이런 문제를 피하기 위해, '다시 던지기(rethrowing)" 기술을 사용합니다. 규칙은 간단합니다.
 
-**Catch should only process errors that it knows and "rethrow" all others.**
+**Cathch는 알고 있는 에러만 처리하고 나머지는 다시 던져야 합니다.**
 
-The "rethrowing" technique can be explained in more detail as:
+"다시 던지기(rethrowing)" 기술을 더 자세히 설명하겠습니다.
 
-1. Catch gets all errors.
-2. In the `catch(err) {...}` block we analyze the error object `err`.
-3. If we don't know how to handle it, we do `throw err`.
+1. Catch가 모든 에러를 받습니다.
+2. `catch(err) {...}` 블록 안에서 에러 객체 `err`를 분석합니다.
+3. 에러 처리 방법을 알지 못하면, `throw err`를 합니다.
 
-Usually, we can check the error type using the `instanceof` operator:
+보통 에러 타입을 `instanceof` 명령어로 체크합니다.
 
 ```js run
 try {
@@ -374,12 +374,12 @@ try {
 *!*
   if (err instanceof ReferenceError) {
 */!*
-    alert('ReferenceError'); // "ReferenceError" for accessing an undefined variable
+    alert('ReferenceError'); //  정의되지 않은 변수에 접근하여 "ReferenceError" 발생
   }
 }
 ```
 
-We can also get the error class name from `err.name` property. All native errors have it. Another option is to read `err.constructor.name`.
+`err.name` 프로퍼티로 에러 클래스 이름을 알 수도 있습니다. 기본형 에러는 모두 이 프로퍼티를 가집니다. 또는 `err.constructor.name`를 사용할 수도 있습니다.
 
 에러를 다시 던져서 `catch` 블록에선 `SyntaxError`만 처리되도록 해보겠습니다.
 
