@@ -572,7 +572,7 @@ let tree = {
 };
 
 *!*
-tree.sayHi();  // I'm an animal (?!?)
+tree.sayHi();  // 나는 동물입니다. (?!?)
 */!*
 ```
 
