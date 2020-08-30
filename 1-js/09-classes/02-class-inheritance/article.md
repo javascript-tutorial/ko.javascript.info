@@ -282,21 +282,21 @@ alert(rabbit.earLength); // 10
 
 
 
-### Overriding class fields: a tricky note
+### 클래스 필드 오버라이딩: 까다로운 내용
 
-```warn header="Advanced note"
-This note assumes you have a certain experience with classes, maybe in other programming languages.
+```warn header="사전 공지"
+이 내용은 자바스크립트 이외의 언어에서 클래스를 사용해 본 경험이 있다는 전제하에 진행됩니다.
 
-It provides better insight into the language and also explains the behavior that might be a source of bugs (but not very often).
+여기서 다룰 내용을 잘 습득하면 프로그래밍 언어에 대한 통찰력이 높아지고 드물지만, 버그를 만드는 프로그래밍 습관에 대해 알 수 있습니다.
 
-If you find it difficult to understand, just go on, continue reading, then return to it some time later.
+이해하기 어렵다면 이 부분을 건너뛰었다가 나중에 다시 읽어도 됩니다.
 ```
 
-We can override not only methods, but also class fields.
+오버라이딩은 메서드뿐만 아니라 클래스 필드를 대상으로도 적용할 수 있습니다.
 
-Although, there's a tricky behavior when we access an overridden field in parent constructor, quite different from most other programming languages.
+부모 클래스의 생성자 안에 있는 오바라이딩한 필드에 접근하려고 할 때 자바스크립트는 다른 프로그래밍 언어와는 다르게 조금 까다롭지만 말이죠.
 
-Consider this example:
+예시를 살펴봅시다.
 
 ```js run
 class Animal {
@@ -317,28 +317,28 @@ new Rabbit(); // animal
 */!*
 ```
 
-Here, class `Rabbit` extends `Animal` and overrides `name` field with its own value.
+`Animal`을 상속받는 `Rabbit`에서 `name` 필드를 오버라이딩 했습니다.
 
-There's no own constructor in `Rabbit`, so `Animal` constructor is called.
+`Rabbit`에는 따로 생성자가 정의되어 있지 않기 때문에 `Rabbit`을 사용해 인스턴스를 만들면 `Animal`의 생성자가 호출됩니다.
 
-What's interesting is that in both cases: `new Animal()` and `new Rabbit()`, the `alert` in the line `(*)` shows `animal`.
+흥미로운 점은 `new Animal()`과 `new Rabbit()`을 실행할 때 두 경우 모두 `(*)`로 표시한 줄에 있는 `alert` 함수가 실행되면서 얼럿 창에 `animal`이 출력된다는 점입니다.
 
-**In other words, parent constructor always uses its own field value, not the overridden one.**
+이를 통해 우리는 **'부모 생성자는 자식 클래스에서 오버라이딩한 값이 아닌, 부모 클래스 안의 필드 값을 사용한다'**는 사실을 알 수 있습니다.
 
-What's odd about it?
+상속을 받고 필드 값을 오버라이딩했는데 새로운 값 대신 부모 클래스 안에 있는 기존 필드 값을 사용하다니 이상하지 않나요?
 
-If it's not clear yet, please compare with methods.
+이해를 돕기 위해 이 상황을 메서드와 비교해 생각해봅시다.
 
-Here's the same code, but instead of `this.name` field we call `this.showName()` method:
+아래 예시에선 필드 `this.name` 대신에 메서드 `this.showName()`을 사용했습니다.
 
 ```js run
 class Animal {
-  showName() {  // instead of this.name = 'animal'
+  showName() {  // this.name = 'animal' 대신 메서드 사용
     alert('animal');
   }
 
   constructor() {
-    this.showName(); // instead of alert(this.name);
+    this.showName(); // alert(this.name); 대신 메서드 호출
   }
 }
 
@@ -354,27 +354,27 @@ new Rabbit(); // rabbit
 */!*
 ```
 
-Please note: now the output is different.
+필드를 오버라이딩한 위쪽 예시와 결과가 다르네요.
 
-And that's what we naturally expect. When the parent constructor is called in the derived class, it uses the overridden method.
+위와 같이 자식 클래스에서 부모 생성자를 호출하면 오버라이딩한 메서드가 실행되어야 합니다. 이게 우리가 원하던 결과죠.
 
-...But for class fields it's not so. As said, the parent constructor always uses the parent field.
+그런데 클래스 필드는 자식 클래스에서 필드를 오버라이딩해도 부모 생성자가 오버라이딩한 필드 값을 사용하지 않습니다. 부모 생성자는 항상 부모 클래스에 있는 필드의 값을 사용합니다.
 
-Why is there the difference?
+왜 이런 차이가 있을까요?
 
-Well, the reason is in the field initialization order. The class field is initialized:
-- Before constructor for the base class (that doesn't extend anything),
-- Imediately after `super()` for the derived class.
+이유는 필드 초기화 순서 때문입니다. 클래스 필드는 다음과 같은 규칙에 따라 초기화 순서가 달라집니다.
+- 아무것도 상속받지 않는 베이스 클래스는 생성자 실행 이전에 초기화됨
+- 부모 클래스가 있는 경우엔 `super()` 실행 직후에 초기화됨
 
-In our case, `Rabbit` is the derived class. There's no `constructor()` in it. As said previously, that's the same as if there was an empty constructor with only `super(...args)`.
+위 예시에서 `Rabbit`은 하위 클래스이고 `constructor()`가 정의되어 있지 않습니다. 이런 경우 앞서 설명한 바와 같이 생성자는 비어있는데 그 안에 `super(...args)`만 있다고 보면 됩니다.
 
-So, `new Rabbit()` calls `super()`, thus executing the parent constructor, and (per the rule for derived classes) only after that its class fields are initialized. At the time of the parent constructor execution, there are no `Rabbit` class fields yet, that's why `Animal` fields are used.
+따라서 `new Rabbit()`을 실행하면 `super()`가 호출되고 그 결과 부모 생성자가 실행됩니다. 그런데 이때 하위 클래스 필드 초기화 순서에 따라 하위 클래스 `Rabbit`의 필드는 `super()` 실행 후에 초기화됩니다. 부모 생성자가 실행되는 시점에 `Rabbit`의 필드는 아직 존재하지 않죠. 이런 이유로 필드를 오버라이딩 했을 때 `Animal`에 있는 필드가 사용된 것입니다.
 
-This subtle difference between fields and methods is specific to JavaScript
+이렇게 자바스크립트는 오버라이딩시 필드와 메서드의 동작 방식이 미묘하게 다릅니다.
 
-Luckily, this behavior only reveals itself if an overridden field is used in the parent constructor. Then it may be difficult to understand what's going on, so we're explaining it here.
+다행히도 이런 문제는 오버라이딩한 필드를 부모 생성자에서 사용할 때만 발생합니다. 이런 차이가 왜 발생하는지 모르면 결과를 해석할 수 없는 상황이 발생하기 때문에 별도의 공간을 만들어 필드 오버라이딩시 내부에서 벌어지는 일에 대해 자세히 알아보았습니다.
 
-If it becomes a problem, one can fix it by using methods or getters/setters instead of fields.
+개발하다가 필드 오버라이딩이 문제가 되는 상황이 발생하면 필드 대신 메서드를 사용하거나 getter나 setter를 사용해 해결하면 됩니다.
 
 
 ## super 키워드와 [[HomeObject]]
