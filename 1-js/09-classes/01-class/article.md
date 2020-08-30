@@ -345,8 +345,7 @@ alert(user.name); // 보라
 ```
 
 
-
-### Making bound methods with class fields
+### 클래스 필드로 바인딩 된 메서드 만들기
 
 <info:bind> 챕터에서 살펴본 것처럼 자바스크립트의 함수는 동적인 `this`를 갖습니다.
 
@@ -379,28 +378,7 @@ setTimeout(button.click, 1000); // undefined
 1. `setTimeout(() => button.click(), 1000)` 같이 래퍼 함수를 전달하기
 2. 생성자 안 등에서 메서드를 객체에 바인딩하기
 
-Class fields provide another, quite elegant syntax:
-
-```js run
-class Button {
-  constructor(value) {
-    this.value = value;
-  }
-*!*
-  click = () => {
-    alert(this.value);
-  }
-*/!*
-}
-
-let button = new Button("hello");
-
-*!*
-setTimeout(button.click, 1000); // hello
-*/!*
-```
-
-Class fields provide a more elegant syntax for the latter solution:
+클래스 필드는 또 다른 훌륭한 방법을 제공합니다.
 
 ```js run
 class Button {
