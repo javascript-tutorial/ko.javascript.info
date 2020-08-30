@@ -111,7 +111,7 @@ let rabbit2 = new rabbit.constructor("Black Rabbit");
 
 **자바스크립트는 알맞은 `"constructor"` 값을 보장하지 않습니다.**
 
-함수에 기본으로 `"prototype"` 값이 설정되긴 하지만 그게 전부 입니다. `"constructor"`에 벌어지는 일 모두는 전적으로 개발자에게 달려있습니다.
+함수에 기본으로 `"prototype"` 값이 설정되긴 하지만 그게 전부입니다. `"constructor"`에 벌어지는 모든 일은 전적으로 개발자에게 달려있습니다.
 
 함수의 기본 `"prototype"` 값을 다른 객체로 바꾸면 이 객체엔 `"constructor"`가 없을 겁니다.
 
@@ -160,7 +160,7 @@ Rabbit.prototype = {
 
 몇 가지 사항만 명확하게 이해하고 있으면 지금까지 배운 것들은 복잡하지 않습니다.
 
-- `F.prototype` 프로퍼티는 `[[prototype]]`과는 다릅니다. `F.prototype`은 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
+- `F.prototype` 프로퍼티는 `[[Prototype]]`과는 다릅니다. `F.prototype`은 `new F()`를 호출할 때 만들어지는 새로운 객체의 `[[Prototype]]`을 설정합니다.
 - `F.prototype`의 값은 객체나 null만 가능합니다. 다른 값은 무시됩니다.
 - 지금까지 배운 내용은 생성자 함수에 `"prototype"`를 설정하고, 이 생성자 함수를 `new`를 사용해 호출할 때만 적용됩니다.
 
