@@ -1,4 +1,4 @@
-# Blob
+# 블롭 (Blob, Binary Large OBject)
 
 `ArrayBuffer` 와  뷰(views)는 자바스크립트의 한 부분으로써 ECMA 표준입니다.
 
@@ -8,7 +8,7 @@
 
 ![](blob.svg)
 
-생성자 문법은 다음과 같습니다:
+생성자 문법은 다음과 같습니다.
 
 ```js
 new Blob(blobParts, options);
@@ -19,7 +19,7 @@ new Blob(blobParts, options);
   - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다. (예: `image/png`),
   - **`endings`** -- 현재 사용하고 있는 OS에 알맞은 EOL(end-of-line), 줄 바꿈 문자(`\r\n` 또는`\n`)의 변경 여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안 함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
 
-예를 들어 :
+예시 :
 
 ```js
 // 문자열로부터 Blob 생성하기
@@ -35,7 +35,7 @@ let blob = new Blob([hello, ' ', 'world'], {type: 'text/plain'});
 ```
 
 
-다음과 같이 `Blob` 객체를 슬라이스(slice) 함으로써 일부를 추출할 수 있습니다:
+다음과 같이 `Blob` 객체를 슬라이스(slice) 함으로써 일부를 추출할 수 있습니다.
 
 ```js
 blob.slice([byteStart], [byteEnd], [contentType]);
@@ -48,21 +48,21 @@ blob.slice([byteStart], [byteEnd], [contentType]);
 인수는 `array.slice` 메서드와 유사하며, 음수도 인수로 사용할 수 있습니다.
 
 ```smart header="`Blob` 객체는 불변입니다"
-`Blob`의 데이터를 수정할 수 없지만, `Blob`을 필요한 부분을 슬라이스를 하여, 새로운 `Blob` 객체를 따로 만든다거나, 또 다른 `Blob`에 추가할 수 있습니다.
+`Blob`의 데이터를 수정할 수 없지만, `Blob`을 필요한 부분을 슬라이스를 한 뒤, 새로운 `Blob` 객체를 따로 만든다거나, 또 다른 `Blob`에 추가할 수 있습니다.
 
-이런 특징은 자바스크립트의 문자열과 유사합니다 : 문자열의 문자를 수정할 수 없지만, 수정된 문자열을 새로 만들 수 있듯이 말이죠.
+이런 특징은 자바스크립트의 문자열과 유사합니다. 문자열의 문자를 수정할 수 없지만, 수정된 문자열을 새로 만들 수 있듯이 말이죠.
 ``` 
 
 ## Blob을 URL처럼 사용하기
 
-Blob은 URL과 같이 사용될 수 있어 `<a>`, `<img>`, 등 태그에서 컨텐츠를 보여줄 수 있습니다.
+Blob은 URL과 같이 사용될 수 있어 `<a>`, `<img>`, 등 태그에서 컨텐츠를 볼 수 있습니다.
 
 Blob의 `타입` 속성 덕분에 `Blob` 객체를 다운로드/업로드 할 수 있으며, 네트워크 요청이 있을 때 자연스럽게 `타입`은 `Content-Type`으로 사용됩니다.
 
 간단한 예시를 통해서 알아볼까요? 링크를 클릭해서 `hello world`가 포함된 파일을 동적으로 생성된(dynamically-generated) `Blob`을 다운로드 할 수 있습니다.
 
 ```html run
-<!--다운로드 속성은 브라우저에게 하여금 네비게이팅 대신 다운로드를 강제합니다-->
+<!--다운로드 속성은 브라우저에게 네비게이팅 대신 다운로드를 강제합니다-->
 <a download="hello.txt" href='#' id="link">Download</a>
 
 <script>
@@ -74,7 +74,7 @@ link.href = URL.createObjectURL(blob);
 
 자바스크립트로 동적인 링크를 만들어 `link.click()`을 통해 다운로드를 자동으로 시작하게 하는 클릭 이벤트를 재연할 수 있습니다.
 
-다음은 사용자가, HTML 없이, 동적으로 생성된 `Blob`을 다운로드할 수 있는 위 예시와 비슷한 코드입니다 : 
+HTML 없이 동적으로 생성된 `Blob`을 다운로드할 수 있는 위의 예시와 비슷한 코드입니다.
 
 ```js run
 let link = document.createElement('a');
@@ -117,7 +117,7 @@ blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 
 `URL.createObjectURL`의 대안으로는 `Blob`을 base64 인코딩을 기반한 문자열로 바꾸는 방법이 있습니다.
 
-base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 "읽을 수 있는" 문자열로 된 이진 자료형을 의미합니다. 이 특징을 이용해 "data-urls"를 인코딩을 할 수 있습니다.
+base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 '읽을 수 있는' 문자열로 된 이진 자료형을 의미합니다. 이 특징을 이용해 "data-urls"를 인코딩을 할 수 있습니다.
 
 [data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)은 `데이터:[<mediatype>][;base64],<데이터>` 형식으로 이루어져 있습니다. 이렇게 만들어진 URL은 "일반적인" URL과 같이 어디에서나 사용할 수 있습니다.
 
@@ -127,7 +127,7 @@ base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 "읽을 수 �
 <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 ```
 
-브라우저는 이 문자열을 디코딩하고 난 뒤 다음과 같은 이미지를 보여줄 것입니다 : <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
+브라우저는 이 문자열을 디코딩하고 난 뒤 다음과 같은 이미지를 볼 것입니다 : <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 
 
 `Blob`을 base64로 변환하는 방법으로 내장된 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 포맷으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
@@ -172,17 +172,17 @@ reader.onload = function() {
 다음 예시는 blob을 만들기 전에 단순히 이미지를 복사한 것입니다. blob이 아니어도 canvas에서 이미지를 잘라서 수정할 수도, 변환시킬 수 있습니다.
 
 ```js run
-// 이미지를 불러오세용
+// 이미지 불러오기
 let img = document.querySelector('img');
 
-// 같은 크기의 <canvas>를 만드세용
+// 같은 크기의 <canvas>를 만들기
 let canvas = document.createElement('canvas');
 canvas.width = img.clientWidth;
 canvas.height = img.clientHeight;
 
 let context = canvas.getContext('2d');
 
-// 이미지를 복사하세용 (이 메서드는 이미지를 자를 수도 있습니다)
+// 이미지 복사하기 (이 메서드는 이미지를 자를 수도 있습니다)
 context.drawImage(img, 0, 0);
 // context.rotate()와 같이 canvas에서 여러 가지 작업을 할 수 있습니다. 
 
@@ -229,7 +229,7 @@ fileReader.onload = function(event) {
 
 ## 요약
 
-`ArrayBuffer`와 `Uint8Array`을 비롯한 `BufferSource` 들이 "바이너리 데이터(binary data)"인 반면, [Blob](https://www.w3.org/TR/FileAPI/#dfn-Blob)은 "타입이 있는 바이너리 데이터"를 의미합니다.
+`ArrayBuffer`와 `Uint8Array`을 비롯한 `BufferSource` 는 '바이너리 데이터(binary data)'인 반면, [Blob](https://www.w3.org/TR/FileAPI/#dfn-Blob)은 '타입이 있는 바이너리 데이터'를 의미합니다.
 
 이 특징은 브라우저에서 흔히 있는 업로드/다운로드 연산을 더욱더 편하게 만들어 줍니다.
 
