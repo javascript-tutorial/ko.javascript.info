@@ -4,9 +4,7 @@
 
 브라우저에는 뷰와 더불어 [File API](https://www.w3.org/TR/FileAPI/)에서 설명하고 있는 고차(higher-level) 객체가 존재합니다. 존재하는 여러 고차 객체 중 이 페이지에서는 `Blob`에 대해서 설명할 것입니다.
 
-
-`Blob`은 부가적인 문자형(대부분 MIME 타입)과 `blobParts`을 갖고 있습니다.
-`blobParts`로는 일련의 `Blob` 객체, 문자열, 그리고 `BufferSource`가 있습니다. 
+`Blob`은 부가적인 문자형(대부분 MIME 타입)과 `blobParts`을 갖고 있습니다. `blobParts`로는 일련의 `Blob` 객체, 문자열, 그리고 `BufferSource`가 있습니다. 
 
 ![](blob.svg)
 
@@ -55,13 +53,11 @@ blob.slice([byteStart], [byteEnd], [contentType]);
 이런 특징은 자바스크립트의 문자열과 유사합니다 : 문자열의 문자를 수정할 수 없지만, 수정된 문자열을 새로 만들 수 있듯이 말이죠.
 ``` 
 
-## URL처럼 Blob 사용하기
+## Blob을 URL처럼 사용하기
 
 Blob은 URL과 같이 사용될 수 있어 `<a>`, `<img>`, 등 태그에서 컨텐츠를 보여줄 수 있습니다.
 
 Blob의 `타입` 속성 덕분에 `Blob` 객체를 다운로드/업로드 할 수 있으며, 네트워크 요청이 있을 때 자연스럽게 `타입`은 `Content-Type`으로 사용됩니다.
-
-Let's start with a simple example. By clicking on a link you download a dynamically-generated `Blob` with `hello world` contents as a file:
 
 간단한 예시를 통해서 알아볼까요? 링크를 클릭해서 `hello world`가 포함된 파일을 동적으로 생성된(dynamically-generated) `Blob`을 다운로드 할 수 있습니다.
 
@@ -117,7 +113,7 @@ blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 
 이와 달리, 앞에서 다룬 클릭 가능한 HTML 링크 예시의 경우, `URL.revokeObjectURL(link.href)`를 호출하지 않았습니다. 매핑이 제거됨으로써 `Blob` URL 링크가 무의미해지기 때문입니다. 
 
-## Blob에서 base64로 변환하기
+## Blob을 base64로 변환하기
 
 `URL.createObjectURL`의 대안으로는 `Blob`을 base64 인코딩을 기반한 문자열로 바꾸는 방법이 있습니다.
 
@@ -132,6 +128,7 @@ base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 "읽을 수 �
 ```
 
 브라우저는 이 문자열을 디코딩하고 난 뒤 다음과 같은 이미지를 보여줄 것입니다 : <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
+
 
 `Blob`을 base64로 변환하는 방법으로 내장된 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 포맷으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
 
