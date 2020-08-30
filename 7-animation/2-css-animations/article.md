@@ -127,62 +127,62 @@ stripe.onclick = function() {
 };
 ```
 
-## transition-timing-function
+## 'transition-timing-function' 프로퍼티
 
-Timing function describes how the animation process is distributed along the time. Will it start slowly and then go fast or vise versa.
+함수 Timing에서는 애니메이션 프로세스가 시간에 따라 어떻게 분배되는지를 설정합니다. 애니메이션 프로세스가 천천히 시작하다가 빠르게 진행되거나 반대로 진행될 것입니다.
 
-That's the most complicated property from the first sight. But it becomes very simple if we devote a bit time to it.
+처음 보면 복잡한 프로퍼티로 느껴질 수 있습니다. 하지만 시간을 조금만 투자하면 매우 간단해집니다.
 
-That property accepts two kinds of values: a Bezier curve or steps. Let's start from the curve, as it's used more often.
+이 프로퍼티의 값으로는 베지어 곡선(Bezier curve)과 단계(Steps) 값이 가능합니다. 조금 더 자주 쓰이는 베지어 곡선부터 알아봅시다.
 
-### Bezier curve
+### 베지어 곡선
 
-The timing function can be set as a [Bezier curve](/bezier-curve) with 4 control points that satisfies the conditions:
+함수 Timing에서는 아래의 조건을 만족하는 4개의 제어점을 가진 [베지어 곡선](/bezier-curve)을 설정할 수 있습니다.
 
-1. First control point: `(0,0)`.
-2. Last control point: `(1,1)`.
-3. For intermediate points values of `x` must be in the interval `0..1`, `y` can be anything.
+1. 첫 번째 제어점: `(0,0)`
+2. 마지막 제어점: `(1,1)`
+3. 중간 제어점들의 `x`값은 `0..1`구간이어야 하며, `y`값은 어떤 값이든 가능합니다.
 
-The syntax for a Bezier curve in CSS: `cubic-bezier(x2, y2, x3, y3)`. Here we need to specify only 2nd and 3rd control points, because the 1st one is fixed to `(0,0)` and the 4th one is `(1,1)`.
+CSS의 베지어 곡선 문법은 `cubic-bezier(x2, y2, x3, y3)`입니다. 여기서 첫 번째 제어점은 `(0,0)`으로, 네 번째 제어점은 `(1,1)`로 고정되어 있으므로 두 번째와 세 번째 제어점만 설정하면 됩니다.
 
-The timing function describes how fast the animation process goes in time.
+함수 Timing을 통해 애니메이션 프로세스가 시간 내에 얼마나 빨리 진행되는지 설정할 수 있습니다.
 
-- The `x` axis is the time: `0` -- the starting moment, `1` -- the last moment of `transition-duration`.
-- The `y` axis specifies the completion of the process: `0` -- the starting value of the property, `1` -- the final value.
+- `x`축은 시간을 의미합니다. `0`은 `transition-duration`의 시작하는 시간을, `1`은 끝나는 시간을 나타내죠.
+- `y`축은 프로세스의 완성을 명시합니다. `0`은 프로퍼티의 시작 상태를, `1`은 최종 상태를 나타내죠.
 
-The simplest variant is when the animation goes uniformly, with the same linear speed. That can be specified by the curve `cubic-bezier(0, 0, 1, 1)`.
+가장 간단한 변형은 애니메이션이 같은 선형 속도로 균일하게 진행되는 경우입니다. `cubic-bezier(0, 0, 1, 1)`로 설정할 수 있습니다.
 
-Here's how that curve looks:
+그러면 아래의 곡선과 같은 모양이 나옵니다.
 
 ![](bezier-linear.svg)
 
-...As we can see, it's just a straight line. As the time (`x`) passes, the completion (`y`) of the animation steadily goes from `0` to `1`.
+보시다시피, 그냥 직선입니다. 시간(`x`)이 지나면서, 애니메이션의 완성도(`y`)가 `0`에서 `1`로 꾸준히 올라갑니다.
 
-The train in the example below goes from left to right with the permanent speed (click it):
+아래 기차를 클릭하여, 기차가 일정한 속도로 왼쪽에서 오른쪽으로 이동하는 것을 확인해보세요.
 
 [codetabs src="train-linear"]
 
-The CSS `transition` is based on that curve:
+위에서 본 직선에 기초하여 작성한 CSS `transition` 입니다.
 
 ```css
 .train {
   left: 0;
   transition: left 5s cubic-bezier(0, 0, 1, 1);
-  /* JavaScript sets left to 450px */
+  /* 자바스크립트에서 450px 왼쪽으로 설정됨 */
 }
 ```
 
-...And how can we show a train slowing down?
+그러면 어떻게 기차가 느려지는 것을 볼 수 있을까요?
 
-We can use another Bezier curve: `cubic-bezier(0.0, 0.5, 0.5 ,1.0)`.
+또 다른 베지어 곡선 `cubic-bezier(0.0, 0.5, 0.5 ,1.0)`을 사용하면 됩니다.
 
-The graph:
+곡선 그래프:
 
 ![](train-curve.svg)
 
-As we can see, the process starts fast: the curve soars up high, and then slower and slower.
+그래프에서 볼 수 있듯이 프로세스는 빠르게 시작되었다가, 즉 곡선이 높이 솟았다가 점점 느려집니다.
 
-Here's the timing function in action (click the train):
+기차를 클릭하여 함수 Timing의 움직임을 확인해보세요.
 
 [codetabs src="train"]
 
@@ -191,24 +191,24 @@ CSS:
 .train {
   left: 0;
   transition: left 5s cubic-bezier(0, .5, .5, 1);
-  /* JavaScript sets left to 450px */
+  /* 자바스크립트에서 450px 왼쪽으로 설정됨 */
 }
 ```
 
-There are several built-in curves: `linear`, `ease`, `ease-in`, `ease-out` and `ease-in-out`.
+내장 곡선으로는 `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` 등이 있습니다.
 
-The `linear` is a shorthand for `cubic-bezier(0, 0, 1, 1)` -- a straight line, we saw it already.
+`linear`는 위에서 본 직선인 `cubic-bezier(0, 0, 1, 1)`의 단축 구문입니다.
 
-Other names are shorthands for the following `cubic-bezier`:
+다음은 `cubic-bezier`의 또 다른 단축 구문입니다.
 
 | <code>ease</code><sup>*</sup> | <code>ease-in</code> | <code>ease-out</code> | <code>ease-in-out</code> |
 |-------------------------------|----------------------|-----------------------|--------------------------|
 | <code>(0.25, 0.1, 0.25, 1.0)</code> | <code>(0.42, 0, 1.0, 1.0)</code> | <code>(0, 0, 0.58, 1.0)</code> | <code>(0.42, 0, 0.58, 1.0)</code> |
 | ![ease, figure](ease.svg) | ![ease-in, figure](ease-in.svg) | ![ease-out, figure](ease-out.svg) | ![ease-in-out, figure](ease-in-out.svg) |
 
-`*` -- by default, if there's no timing function, `ease` is used.
+`*`은 기본값으로, 함수 Timing이 없을 때 `ease`가 사용됩니다.
 
-So we could use `ease-out` for our slowing down train:
+기차가 느려지도록 하려면 `ease-out`을 사용할 수 있습니다.
 
 
 ```css
@@ -219,7 +219,7 @@ So we could use `ease-out` for our slowing down train:
 }
 ```
 
-But it looks a bit differently.
+하지만 조금 다르게 보입니다.
 
 **A Bezier curve can make the animation "jump out" of its range.**
 
