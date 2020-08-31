@@ -134,18 +134,18 @@ alert(Hello); // Hello world!
 alert(message); // Hello world!
 ```
 
-````warn header="Declaring twice triggers an error"
-A variable should be declared only once.
+````warn header="변수를 두 번 선언하면 에러가 발생합니다."
+변수는 한 번만 선언해야 합니다.
 
-A repeated declaration of the same variable is an error:
+같은 변수를 여러 번 선언하면 에러가 발생합니다.
 
 ```js run
 let message = "This";
 
-// repeated 'let' leads to an error
+// 'let'을 반복하면 에러가 발생합니다.
 let message = "That"; // SyntaxError: 'message' has already been declared
 ```
-So, we should declare a variable once and then refer to it without `let`.
+따라서 변수는 딱 한 번만 선언하고, 선언한 변수를 참조할 때는 `let` 없이 변수명만 사용해 참조해야 합니다.
 ````
 
 ```smart header="함수형 언어"
