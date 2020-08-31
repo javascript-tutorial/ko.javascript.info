@@ -81,8 +81,13 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 `BigInt`형 숫자는 자주 쓰이지 않기 때문에 여기서 자세히 다루지 않고 별도의 챕터, <info:bigint>에서 설명드리겠습니다. 아주 큰 숫자를 사용해야하는 경우라면 해당 챕터를 참고해 주시기바랍니다.
 
+<<<<<<< HEAD
 ```smart header="호환성 이슈"
 이 글이 작성된 시점엔 Firefox, Chrome, Edge에서만 `BigInt`를 지원합니다. Safari, IE에선 지원하지 않습니다.
+=======
+```smart header="Compatibility issues"
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
+>>>>>>> f830bc5d9454d85829e011d914f215eb5896579a
 ```
 
 ## 문자형
