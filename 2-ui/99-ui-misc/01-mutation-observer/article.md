@@ -89,9 +89,9 @@ mutationRecords = [{
 }, {
   type: "characterData"
   target: <text node>
-  // mutation의 세부사항은 브라우저가 이런 삭제사항을 어떻게 처리하는지에 달려있습니다.
+  // mutation의 세부사항은 브라우저가 `<b>edit</b>`를 삭제하는 등 복잡한 삭제사항을 어떻게 처리하는지에 달려있습니다.
   // 두 개의 인접한 텍스트 노드인 "edit "과 " please"를 하나의 노드로 통합하거나
-  // "edit " 과 " please"를 별도의 텍스트 노드로 둘 수도 있습니다.
+  // "edit "과 " please"를 별도의 텍스트 노드로 둘 수도 있습니다.
 }];
 ```
 
