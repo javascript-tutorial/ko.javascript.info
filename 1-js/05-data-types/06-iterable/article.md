@@ -213,7 +213,7 @@ let arr = Array.from(arrayLike); // (*)
 alert(arr.pop()); // World (메서드가 제대로 동작합니다.)
 ```
 
-`Array.from` at the line `(*)` takes the object, examines it for being an iterable or array-like, then makes a new array and copies all items to it.
+`(*)`로 표시한 줄에 있는 `Array.from`은 객체를 받아 이터러블이나 유사 배열인지 조사합니다. 넘겨 받은 인수가 이터러블이나 유사 배열인 경우, 새로운 배열을 만들고 객체의 모든 요소를 새롭게 만든 배열로 복사합니다.
 
 이터러블을 사용한 예시는 다음과 같습니다.
 
@@ -223,12 +223,12 @@ let arr = Array.from(range);
 alert(arr); // 1,2,3,4,5 (배열-문자열 형 변환이 제대로 동작합니다.)
 ```
 
-The full syntax for `Array.from` also allows us to provide an optional "mapping" function:
+`Array.from`엔 '매핑(mapping)' 함수를 선택적으로 넘겨줄 수 있습니다.
 ```js
 Array.from(obj[, mapFn, thisArg])
 ```
 
-The optional second argument `mapFn` can be a function that will be applied to each element before adding it to the array, and `thisArg` allows us to set `this` for it.
+`mapFn`을 두 번째 인수로 넘겨주면 새로운 배열에 `obj`의 요소를 추가하기 전에 각 요소를 대상으로 `mapFn`을 적용할 수 있습니다. 새로운 배열엔 `mapFn`을 적용하고 반환된 값이 추가됩니다. 세 번째 인수 `thisArg`는 각 요소의 `this`를 지정할 수 있도록 해줍니다.
 
 예시:
 
