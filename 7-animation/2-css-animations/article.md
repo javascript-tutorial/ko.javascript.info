@@ -221,40 +221,40 @@ So we could use `ease-out` for our slowing down train:
 
 But it looks a bit differently.
 
-**A Bezier curve can make the animation "jump out" of its range.**
+**베지어 곡선으로 애니메이션의 범위를 '뛰어 넘게' 할 수 있습니다.**
 
-The control points on the curve can have any `y` coordinates: even negative or huge. Then the Bezier curve would also jump very low or high, making the animation go beyond its normal range.
+베지어 곡선에서 제어점의 `y` 좌표는 음수 또는 큰 값까지 가질 수 있습니다. 그러면 베지어 곡선도 매우 낮거나 높게 형성되어, 애니메이션이 정상 범위를 벗어나게 됩니다.
 
-In the example below the animation code is:
+아래 예시의 애니메이션 코드는 다음과 같습니다.
 ```css
 .train {
   left: 100px;
   transition: left 5s cubic-bezier(.5, -1, .5, 2);
-  /* JavaScript sets left to 400px */
+  /* 자바스크립트에서 400px 왼쪽으로 설정됨 */
 }
 ```
 
-The property `left` should animate from `100px` to `400px`.
+`left` 프로퍼티를 통해 `100px`에서 `400px`로 이동해야 합니다.
 
-But if you click the train, you'll see that:
+하지만 기차를 클릭하면 다음과 같은 것을 알 수 있습니다.
 
-- First, the train goes *back*: `left` becomes less than `100px`.
-- Then it goes forward, a little bit farther than `400px`.
-- And then back again -- to `400px`.
+- 기차는 먼저 `left`로 `100px` 조금 안되게 *뒤로* 이동합니다.
+- 그리고는 `400px`보다 조금 더 앞으로 이동합니다.
+- 그리고 다시 `400px` 위치로 뒤로 이동합니다.
 
 [codetabs src="train-over"]
 
-Why it happens -- pretty obvious if we look at the graph of the given Bezier curve:
+왜 이렇게 이동하는지 아래의 베지어 곡선 그래프를 보면 아주 명확히 알 수 있죠.
 
 ![](bezier-train-over.svg)
 
-We moved the `y` coordinate of the 2nd point below zero, and for the 3rd point we made put it over `1`, so the curve goes out of the "regular" quadrant. The `y` is out of the "standard" range `0..1`.
+두 번째 제어점의 `y` 좌표를 0 아래로 이동시키고 세 번째 제어점은 `1`이 넘게 이동시켜서, 곡선이 '일반' 사분면을 벗어나게 되었습니다. `y` 좌표는 '정상' 범위인 `0..1`을 벗어났죠.
 
-As we know, `y` measures "the completion of the animation process". The value `y = 0` corresponds to the starting property value and `y = 1` -- the ending value. So values `y<0` move the property lower than the starting `left` and `y>1` -- over the final `left`.
+아시다시피, `y` 좌표는 '애니메이션 프로세스의 완성'을 나타냅니다. `y = 0`인 값은 프로퍼티가 시작하는 값을, `y = 1`인 값은 끝나는 값을 의미합니다. 그래서 `y<0` 값은 시작하는 `left`보다 낮은 프로퍼티를 움직이고, `y>1` 값은 끝나는 `left`를 넘는 프로퍼티를 움직입니다.
 
-That's a "soft" variant for sure. If we put `y` values like `-99` and `99` then the train would jump out of the range much more.
+확실히 '부드러운' 변형이죠. `y` 값으로 `-99`나 `99`를 넣으면 기차가 훨씬 더 멀리 뛰어오를 것입니다.
 
-But how to make the Bezier curve for a specific task? There are many tools. For instance, we can do it on the site <http://cubic-bezier.com/>.
+하지만 명확한 애니메이션을 위해서 베지어 곡선을 어떻게 만들어야 할까요? 많은 툴이 있습니다. 예를 들어, <http://cubic-bezier.com/>에서 베지어 곡선을 만들 수 있습니다.
 
 ### Steps
 
