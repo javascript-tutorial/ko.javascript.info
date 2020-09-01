@@ -1,6 +1,6 @@
 # 블롭
 
-`ArrayBuffer` 와  뷰(view)는 자바스크립트의 한 부분으로써 ECMA 표준입니다.
+`ArrayBuffer`와 뷰(view)는 자바스크립트의 한 부분으로써 ECMA 표준입니다.
 
 브라우저에는 뷰와 더불어 [File API](https://www.w3.org/TR/FileAPI/)에서 설명하고 있는 고차(higher-level) 객체가 존재합니다. 존재하는 여러 고차 객체 중 이 페이지에서는 `Blob`에 대해서 설명합니다.
 
@@ -17,7 +17,7 @@ new Blob(blobParts, options);
 - **`blobParts`** 는 `Blob`·`BufferSource`·`String`으로 이루어진 배열입니다.
 - **`options`** 부가적인 인수(객체):
   - **`type`** -- `Blob`의 타입(대부분 MIME 타입)을 의미합니다(예: `image/png`).
-  - **`endings`** -- 현재 사용하고 있는 OS에 알맞은 EOL(end-of-line), 줄 바꿈 문자(`\r\n` 또는`\n`)의 변경 여부를 의미합니다. 기본값으로는 `"transparent"` (아무것도 안 함)이며, `"native"` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
+  - **`endings`** -- 현재 사용하고 있는 OS에 알맞은 EOL(end-of-line), 줄 바꿈 문자(`\r\n` 또는 `\n`)의 변경 여부를 의미합니다. 기본값으로는 `'transparent'`(아무것도 안 함)이며, `'native'` 옵션을 통해 자동으로 바꾸도록 할 수 있습니다.
 
 예시:
 
@@ -29,7 +29,7 @@ let blob = new Blob(["<html>…</html>"], {type: 'text/html'});
 
 ```js
 // 타입이 지정된 배열과 문자열로 Blob 생성하기.
-let hello = new Uint8Array([72, 101, 108, 108, 111]); // ("Hello"의 아스키코드 값입니다. - 옮긴이)
+let hello = new Uint8Array([72, 101, 108, 108, 111]); // ('Hello'의 아스키코드값입니다. - 옮긴이)
 
 let blob = new Blob([hello, ' ', 'world'], {type: 'text/plain'});
 ```
@@ -55,11 +55,11 @@ blob.slice([byteStart], [byteEnd], [contentType]);
 
 ## 블롭을 URL처럼 사용하기
 
-HTML에서 `<a>`, `<img>`, 등 태그에 URL을 통해 컨텐츠를 사용할 수 있듯이, Blob 객체도 사용할 수 있습니다.
+HTML에서 `<a>`, `<img>`, 등 태그에 URL을 통해 콘텐츠를 사용할 수 있듯이, Blob 객체도 사용할 수 있습니다.
 
 Blob의 `type` 프로퍼티 덕분에 `Blob` 객체를 다운로드·업로드 할 수 있으며, 네트워크 요청이 있을 때 자연스럽게 `type`은 `Content-Type`으로 사용됩니다.
 
-예시를 통해서 알아볼까요? 링크를 클릭하면 `hello world`가 들어있는 동적으로 생성된(dynamically-generated) `Blob` 객체를 파일처럼 다운로드 할 수 있습니다.
+예시를 통해서 알아볼까요? 링크를 클릭하면 `hello world`가 들어 있는 동적으로 생성된(dynamically-generated) `Blob` 객체를 파일처럼 다운로드할 수 있습니다.
 
 ```html run
 <!-- 다운로드 속성은 브라우저에게 네비게이팅 대신 다운로드를 강제합니다 -->
@@ -103,23 +103,23 @@ blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 
 하지만 `Blob`에는 장점만 있는 것이 아닙니다. 매핑된 `Blob`은 브라우저가 직접 메모리를 해제할 수 없습니다.
 
-매핑된 메모리는 document를 언로드(unload)될 때 해제됩니다. 하지만 웹 앱이 지속적해서 유지되는 경우, 메모리는 해제되지 않습니다.
+매핑된 Blob 객체 메모리는 document를 언로드(unload)될 때 해제됩니다. 하지만 웹 앱이 계속 유지되는 경우, 메모리는 해제되지 않습니다.
 
-**`Blob`을 통해 URL을 만들면, 사용하지 않아도 메모리를 계속 점유하고 있을 겁니다.**
+**`Blob`을 이용한 URL을 만들면, 더는 사용하지 않음에도 불구하고 Blob 객체는 메모리를 계속 점유하고 있을 겁니다.**
 
-`URL.revokeObjectURL(url)` 메서드는 내부 매핑에서 참조를 제거함으로써 `Blob`이 메모리에서 해제될 수 있도록 합니다.
+`URL.revokeObjectURL(url)` 메서드는 URL에서 `Blob`으로 매핑된 메모리의 참조를 제거함으로써 `Blob`이 메모리에서 해제될 수 있도록 합니다.
 
-위에서 본 실행 가능한 두번째 예시(자바스크립트)에서 `Blob`을 일회성으로 사용하게끔 의도했습니다. 그래서 링크를 클릭한 후(`link.click()`) 즉시 `URL.revokeObjectURL(link.href)`를 호출했습니다.
+위에서 본 실행 가능한 두 번째 예시(자바스크립트)에서 `Blob`을 일회성으로 사용하게끔 의도했습니다. 그래서 링크를 클릭한 후(`link.click()`) 즉시 `URL.revokeObjectURL(link.href)`를 호출했습니다.
 
-이와 달리, 위에서 다룬 실행 가능한 첫번째 예시(HTML)의 경우, `URL.revokeObjectURL(link.href)`를 호출하지 않았습니다. 매핑이 제거됨으로써 `Blob` URL 링크가 무의미해지기 때문입니다.
+이와 달리, 위에서 다룬 실행 가능한 첫 번째 예시(HTML)의 경우, `URL.revokeObjectURL(link.href)`를 호출하지 않았습니다. 호출한다면, 매핑이 제거됨으로써 아직 HTML 상에 존재하는 URL 링크가 작동하지 않기 때문입니다.
 
 ## 블롭을 base64로 변환하기
 
 `URL.createObjectURL`의 대안으로는 `Blob`을 base64 인코딩을 기반한 문자열로 바꾸는 방법이 있습니다.
 
-base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 '읽을 수 있는' 문자열로 된 이진 자료형을 의미합니다. 이 특징을 이용해 "data-urls"를 인코딩을 할 수 있습니다.
+base64 인코딩은 정수 0부터 64 사이의 아스키코드로 이루어져 있으며, 안전하고 '읽을 수 있는' 문자열로 된 이진 자료형을 의미합니다. 이 특징을 이용해 'data-urls'를 인코딩을 할 수 있습니다.
 
-[data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)은 `데이터:[<mediatype>][;base64],<데이터>` 형식으로 이루어져 있습니다. 이렇게 만들어진 URL은 "일반적인" URL과 같이 어디에서나 사용할 수 있습니다.
+[data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)은 `data:[<mediatype>][;base64],<data>` 형식으로 이루어져 있습니다. 이렇게 만들어진 URL은 '일반적인' URL과 같이 어디에서나 사용할 수 있습니다.
 
 예를 들어 웃는 이모티콘을 base64 인코딩된 URL을 나타내면 다음과 같습니다:
 
@@ -130,9 +130,9 @@ base64 인코딩은 아스키 코드(0~64)로 만든 안전하고 '읽을 수 �
 브라우저는 이 문자열을 디코딩하고 난 뒤 다음과 같은 이미지를 볼 것입니다: <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7">
 
 
-`Blob`을 base64로 변환하는 방법으로 내장된 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 포맷으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
+`Blob`을 base64로 변환하는 방법으로 `FileReader` 객체를 이용할 것입니다. `FileReader` 객체는 Blob을 다양한 형식으로 데이터를 읽을 수 있으며, [다음 장에서](info:file)에서 좀 더 깊게 다뤄보겠습니다.
 
-다음은 base-64를 통해 Blob을 다운로드하는 데모입니다:
+다음은 base64를 통해 Blob을 다운로드하는 데모입니다:
 
 ```js run
 let link = document.createElement('a');
@@ -154,9 +154,9 @@ reader.onload = function() {
 `Blob`을 URL로 만드는 두 가지 방법, `URL.createObjectURL(blob)`과 `FileReader.readAsDataURL(blob)`, 모두 사용할 수 있지만 `URL.createObjectURL(blob)`이 더 간단하고 빠릅니다.
 
 ```compare title-plus="URL.createObjectURL(blob)" title-minus="Blob을 데이터 URL로 만들기"
-+ 메모리를 관리하고 싶다면 직접 해제를 해야합니다.
++ 메모리를 관리하고 싶다면 직접 해제를 해야 합니다.
 + 인코딩·디코딩 과정 없이 Blob에 직접 접근 할 수 있습니다.
-- 메모리를 브라우저가 관리 해줍니다.
+- 메모리를 브라우저가 관리해 줍니다.
 - `Blob` 객체의 크기가 매우 큰 경우, 인코딩 과정으로 인해 성능과 메모리 측면에서 손해가 발생할 수 있습니다.
 ```
 
@@ -182,7 +182,7 @@ canvas.height = img.clientHeight;
 
 let context = canvas.getContext('2d');
 
-// 이미지 복사하기 (이 메서드는 이미지를 자를 수도 있습니다.)
+// 이미지 복사하기 (이 메서드를 이용해 이미지를 자를 수도 있습니다.)
 context.drawImage(img, 0, 0);
 // context.rotate()와 같이 canvas에서 여러 가지 작업을 할 수 있습니다.
 
@@ -195,7 +195,7 @@ canvas.toBlob(function(blob) {
   link.href = URL.createObjectURL(blob);
   link.click();
 
-  // Blob 참조를 제거해서 브라우저가 Blob을 메모리에서 해제하도록 합니다.
+  // Blob 참조를 삭제해서 브라우저가 Blob을 메모리에서 해제하도록 합니다.
   URL.revokeObjectURL(link.href);
 }, 'image/png');
 ```
@@ -209,9 +209,9 @@ let blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/png'))
 
 ## 블롭에서 ArrayBuffer로 만들기
 
-`Blob` 생성자는 거의 모든것으로부터 Blob 객체를 생성할 수 있습니다. `BufferSource`를 포함해서 말이죠.
+`Blob` 생성자는 `BufferSource`를 포함한 거의 모든 것으로부터 Blob 객체를 생성할 수 있습니다.
 
-저수준 프로세싱급의 성능이 필요하다면, 저수준에 가까운 `ArrayBuffer`를 `FileReader`를 이용해 이룰수 있습니다.
+저수준 프로세싱급의 성능이 필요하다면, Blob 객체를 `FileReader`를 통해 저수준에 가까운 `ArrayBuffer`로 데이터를 읽은 뒤, 사용할 수 있습니다.
 
 ```js
 // blob으로부터 ArrayBuffer를 만들어줍니다.
@@ -231,11 +231,11 @@ fileReader.onload = function(event) {
 
 `ArrayBuffer`와 `Uint8Array`을 비롯한 `BufferSource`는 '바이너리 데이터'인 반면, [Blob](https://www.w3.org/TR/FileAPI/#dfn-Blob)은 '타입이 있는 바이너리 데이터'를 의미합니다.
 
-이 특징은 브라우저에서 흔히 있는 업로드·다운로드 연산을 더욱 더 편하게 만들어 줍니다.
+이 특징은 브라우저에서 흔히 있는 업로드·다운로드 연산을 더욱더 편하게 만들어 줍니다.
 
-[XMLHttpRequest](info:xmlhttprequest), [fetch](info:fetch), 등 웹 요청을 수행하는 메서드는 `Blob`과 바이너리 데이터 타입 모두 별도의 라이브러리 없이 사용할 수 있습니다.
+[XMLHttpRequest](info:xmlhttprequest), [fetch](info:fetch), 등 네트워크 요청을 수행하는 메서드는 `Blob`과 바이너리 데이터 타입 모두 다룰 수 있습니다.
 
-`Blob`과 저수준의 바이너리 데이터 타입을 양방향으로 변환할 수 있습니다.
+`Blob`과 바이너리 데이터 타입 간에 호환성이 뛰어납니다.
 
 - `new Blob(...)` 생성자를 이용해 타입이 있는 배열을 Blob으로 만들 수 있습니다.
-- `FileReader`를 이용해 `ArrayBuffer`로 만들어 저수준의 바이너리 연산을 진행할 수도 있습니다.
+- `FileReader`를 이용해 `ArrayBuffer`로 읽음으로써 저수준의 바이너리 연산을 진행할 수도 있습니다.
