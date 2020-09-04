@@ -525,17 +525,17 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 ## 요약
 
 - 노드 생성 메서드:
-    - `document.createElement(tag)` -- 태그 이름을 사용해 새로운 요소를 만듦
-    - `document.createTextNode(value)` -- 텍스트 노드를 만듦(잘 쓰이지 않음)
-    - `elem.cloneNode(deep)` -- 요소를 복제함. `deep==true`일 경우, 모든 후손 요소도 복제됨
+    - `document.createElement(tag)` -- 태그 이름을 사용해 새로운 요소를 생성합니다.
+    - `document.createTextNode(value)` -- 텍스트 노드를 생성합니다. 다만 자주 사용되지는 않습니다.
+    - `elem.cloneNode(deep)` -- 요소를 복제합니다. `deep==true`일 경우, 모든 후손 요소도 복제됩니다.
 
 - 노드 삽입, 삭제 메서드:
-    - `node.append(...nodes or strings)` -- `node` 끝에 노드를 삽입
-    - `node.prepend(...nodes or strings)` -- `node` 맨 앞에 노드를 삽입
-    - `node.before(...nodes or strings)` –- `node` 이전에 노드를 삽입
-    - `node.after(...nodes or strings)` –- `node` 다음에 노드를 삽입
-    - `node.replaceWith(...nodes or strings)` –- `node`를 대체
-    - `node.remove()` –- `node`를 제거
+    - `node.append(...nodes or strings)` -- `node` 끝에 노드를 삽입합니다.
+    - `node.prepend(...nodes or strings)` -- `node` 맨 앞에 노드를 삽입합니다.
+    - `node.before(...nodes or strings)` –- `node` 이전에 노드를 삽입합니다.
+    - `node.after(...nodes or strings)` –- `node` 다음에 노드를 삽입합니다.
+    - `node.replaceWith(...nodes or strings)` –- `node`를 교체합니다.
+    - `node.remove()` –- `node`를 제거합니다.
 
     삽입이나 삭제하고자 하는 문자열은 텍스트 '그대로' 넣으시면 됩니다.
 
@@ -547,15 +547,15 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 
     이 메서드들은 전부 `node`를 반환합니다.
 
-- `html`에 HTML을 넣으면 메서드 `elem.insertAdjacentHTML(where, html)`은 아래 `where`의 위치에 따라 HTML을 삽입해줌
-    - `"beforebegin"` -- `elem` 바로 앞에 `html`을 삽입
-    - `"afterbegin"` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입
-    - `"beforeend"` -- `elem`의 마지막 자식 요소 바로 다음에 `html`을 삽입
-    - `"afterend"` -- `elem` 바로 다음에 `html`을 삽입
+- 메서드 `elem.insertAdjacentHTML(where, html)`은 인자로 받은 `where`의 위치에 `html`로 대입받은 HTML을 삽입합니다.
+    - `"beforebegin"` -- `elem` 바로 앞에 `html`을 삽입합니다.
+    - `"afterbegin"` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입합니다.
+    - `"beforeend"` -- `elem`의 마지막 자식 요소 바로 다음에 `html`을 삽입합니다.
+    - `"afterend"` -- `elem` 바로 다음에 `html`을 삽입합니다.
 
-    각각 문자열과 요소를 삽입해주는 유사 메서드 `elem.insertAdjacentText`와 `elem.insertAdjacentElement`도 있는데, 잘 쓰이지는 않음
+    각각 문자열과 요소를 삽입해주는 유사 메서드 `elem.insertAdjacentText`와 `elem.insertAdjacentElement`도 있는데, 자주 사용되지는 않습니다.
 
 - 페이지 로딩이 끝나기 전에 HTML을 삽입해주는 메서드:
     - `document.write(html)`
 
-    문서가 다 불러와진 상태에서 이 메서드를 호출하면 문서 내용이 지워짐. 오래된 스크립트에서 볼 수 있음
+    문서가 로드된 이후 이 메서드를 호출하면 기존의 문서 내용이 지워지는데요, 주로 오래된 스크립트에서 볼 수 있습니다.
