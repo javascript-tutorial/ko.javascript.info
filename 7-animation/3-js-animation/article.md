@@ -1,16 +1,23 @@
-# JavaScript animations
+# JavaScript animations 자바스크립트 애니메이션
 
 JavaScript animations can handle things that CSS can't.
+자바스크립트 애니메이션은 CSS로는 불가능한 몇가지 작업을 할수 있습니다.
 
 For instance, moving along a complex path, with a timing function different from Bezier curves, or an animation on a canvas.
+예를 들어 복잡한 경로를 따라 움직이게 하거나, Bazier 커브와 다른 타이밍 함수의 활용 혹은 캔버스에 애니메이션을 표현하기 등입니다.
 
 ## Using setInterval
 
 An animation can be implemented as a sequence of frames -- usually small changes to HTML/CSS properties.
+에니메이션은 프레임들의 연속으로 구현할수 있습니다. 이는 보통 HTML/CSS 프로퍼티의 작은 변경을 활용합니다.
 
 For instance, changing `style.left` from `0px` to `100px` moves the element. And if we increase it in `setInterval`, changing by `2px` with a tiny delay, like 50 times per second, then it looks smooth. That's the same principle as in the cinema: 24 frames per second is enough to make it look smooth.
 
+예를 들어, `style.left` 를 `0px` 에서 `100px` 로 바꾸면 엘리멘트는 이동합니다. 만약 이 변경을 `setInterval` 에서 아주 약간의 지연을 두고, 가령 1초에 50번 정도 `2px` 씩 더해준다면 엘리먼트는 부드럽게
+이동하는 듯 보일것입니다. 이는 영화상영의 기본 원리와 같습니다. 1초에 24프레임이면 부드럽게 움직이는것처럼 보이기에 충분합니다.
+
 The pseudo-code can look like this:
+수도 코드는 다음과 같습니다.
 
 ```js
 let timer = setInterval(function() {
@@ -20,7 +27,7 @@ let timer = setInterval(function() {
 ```
 
 More complete example of the animation:
-
+애니메이션에 관한 조금 더 복잡한 예제입니다.
 ```js
 let start = Date.now(); // remember start time
 
@@ -46,6 +53,7 @@ function draw(timePassed) {
 ```
 
 Click for the demo:
+데모를 확인하려면 클릭하세요:
 
 [codetabs height=200 src="move"]
 
