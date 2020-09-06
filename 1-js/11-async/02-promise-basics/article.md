@@ -247,7 +247,7 @@ new Promise((resolve, reject) => {
       .then(result => alert(result)); // <-- .then에서 result를 다룰 수 있음
     ```
 
-    프라미스에서 에러가 발생하고 이 에러가 `finally`를 거쳐 `catch`까지 전될되는 것을 확인해봅시다.
+    프라미스에서 에러가 발생하고 이 에러가 `finally`를 거쳐 `catch`까지 전달되는 것을 확인해봅시다.
 
     ```js run
     new Promise((resolve, reject) => {
