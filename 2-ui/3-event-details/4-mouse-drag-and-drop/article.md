@@ -1,54 +1,54 @@
-# Drag'n'Drop with mouse events
+# 드래그&드롭과 마우스 이벤트
 
-Drag'n'Drop is a great interface solution. Taking something and dragging and dropping it is a clear and simple way to do many things, from copying and moving documents (as in file managers) to ordering (dropping items into a cart).
+드래그&드롭은 사용자와 컴퓨터 간 상호작용을 도와주는 훌륭한 방법입니다. 무언가를 끌어다가 놓는 것은 파일 매니저에서 문서를 복사 혹은 이동하는 것부터 장바구니에 물품을 담는 것까지 많은 것을 수행할 수 있는 단순하고, 명백한 방법입니다.
 
-In the modern HTML standard there's a [section about Drag and Drop](https://html.spec.whatwg.org/multipage/interaction.html#dnd) with special events such as `dragstart`, `dragend`, and so on.
+현대 HTML 표준에서는 `dragstart`, `dragend` 등의 특수한 이벤트와 함께 드래그&드롭에 대한 절이 있습니다.
 
-These events allow us to support special kinds of drag'n'drop, such as handling dragging a file from OS file-manager and dropping it into the browser window. Then JavaScript can access the contents of such files.
+이 이벤트들은 OS의 파일 매니저로부터 파일을 끌고 와 브라우저 화면에 놓는 특별한 드래그&드롭을 제공합니다. 그러면 자바스크립트는 이 파일의 내용을 다룰 수 있습니다.
 
-But native Drag Events also have limitations. For instance, we can't prevent dragging from a certain area. Also we can't make the dragging "horizontal" or "vertical" only. And there are many other drag'n'drop tasks that can't be done using them. Also, mobile device support for such events is very weak.
+하지만 기본 드래그 이벤트에는 한계가 있습니다. 예를 들어, 특정 영역에서 끄는 것을 막을 수 없습니다. 수평이나 수직으로만 끄는 것도 만들 수 없습니다. 이외에도 드래그&드롭 기능으로 할 수 없는 작업이 많습니다. 모바일 환경에서의 지원도 많이 약합니다.
 
-So here we'll see how to implement Drag'n'Drop using mouse events.
+여기에서는 마우스 이벤트를 사용하여 드래그&드롭을 구현하는 방법을 알아보겠습니다.
 
-## Drag'n'Drop algorithm
+## 드래그&드롭 알고리즘
 
-The basic Drag'n'Drop algorithm looks like this:
+드래그&드롭의 기본적인 알고리즘은 다음과 같습니다.
 
-1. On `mousedown` - prepare the element for moving, if needed (maybe create a clone of it, add a class to it or whatever).
-2. Then on `mousemove` move it by changing `left/top` with `position:absolute`.
-3. On `mouseup` - perform all actions related to finishing the drag'n'drop.
+1. `mousedown`에서는 필요하다면 움직일 요소를 준비합니다. (복사본을 만들거나, 클래스를 추가하는 등 무엇이든 할 수 있습니다.)
+2. 이후 `mousemove`에서 `position:absolute`의 `left/top`을 변경합니다.
+3. `mouseup`에서는 드래그&드롭의 완료와 관련된 모든 작업을 수행합니다.
 
-These are the basics. Later we'll see how to other features, such as highlighting current underlying elements while we drag over them.
+여기까지가 기본입니다. 이후에는 이동 중인 요소 아래에 있는 다른 요소를 강조하는 기능 같은 것을 알아보겠습니다.
 
-Here's the implementation of dragging a ball:
+공을 끄는 구현 방법은 다음과 같습니다.
 
 ```js
 ball.onmousedown = function(event) { 
-  // (1) prepare to moving: make absolute and on top by z-index
+  // (1) absolute속성과 z-index속성으로 공이 제일 위에서 움직이기 위한 준비를 합니다.
   ball.style.position = 'absolute';
   ball.style.zIndex = 1000;
 
-  // move it out of any current parents directly into body
-  // to make it positioned relative to the body
+  // 현재 부모에서 body로 직업 이동합니다.
+  // body를 기준으로 위치를 지정합니다.
   document.body.append(ball);  
 
-  // centers the ball at (pageX, pageY) coordinates
+  // 공을 pageX, pageY 좌표 중앙에 위치하게 합니다.
   function moveAt(pageX, pageY) {
     ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
     ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
   }
 
-  // move our absolutely positioned ball under the pointer
+  // 포인터 아래로 공을 이동시킵니다.
   moveAt(event.pageX, event.pageY);
 
   function onMouseMove(event) {
     moveAt(event.pageX, event.pageY);
   }
 
-  // (2) move the ball on mousemove
+  // (2) mousemove로 공을 움직입니다.
   document.addEventListener('mousemove', onMouseMove);
 
-  // (3) drop the ball, remove unneeded handlers
+  // (3) 공을 드롭하고, 불필요한 핸들러를 제거합니다.
   ball.onmouseup = function() {
     document.removeEventListener('mousemove', onMouseMove);
     ball.onmouseup = null;
@@ -57,19 +57,19 @@ ball.onmousedown = function(event) {
 };
 ```
 
-If we run the code, we can notice something strange. On the beginning of the drag'n'drop, the ball "forks": we start dragging its "clone".
+코드를 실행시켜보면 무언가 이상한 점이 보일 겁니다. 드래그&드롭을 시작할 때 공이 포크 되고 복사된 공을 끌기 시작합니다.
 
 ```online
-Here's an example in action:
+예시:
 
 [iframe src="ball" height=230]
 
-Try to drag'n'drop with the mouse and you'll see such behavior.
+마우스로 드래그&드롭을 시도하면 이러한 동작을 볼 수 있습니다.
 ```
 
-That's because the browser has its own drag'n'drop support for images and some other elements. It runs automatically and conflicts with ours.
+브라우저 자체적으로 이미지나 요소에 대한 드래그&드롭을 지원하기 때문입니다. 이 브라우저에서 제공하는 기능이 자동 실행되어 작성한 코드와 충돌되기 때문입니다.
 
-To disable it:
+비활성화 방법:
 
 ```js
 ball.ondragstart = function() {
@@ -77,42 +77,42 @@ ball.ondragstart = function() {
 };
 ```
 
-Now everything will be all right.
+이제 잘 될 것입니다.
 
 ```online
-In action:
+예시:
 
 [iframe src="ball2" height=230]
 ```
 
-Another important aspect -- we track `mousemove` on `document`, not on `ball`. From the first sight it may seem that the mouse is always over the ball, and we can put `mousemove` on it.
+다른 중요한 측면은 `ball`이 아닌 `document`에서 `mousemove`를 추적하는 것입니다. 처음 볼 때 마우스가 항상 공 위에 있는 것처럼 보이며, 여기에 `mousemove`를 넣을 수 있습니다.
 
-But as we remember, `mousemove` triggers often, but not for every pixel. So after swift move the pointer can jump from the ball somewhere in the middle of document (or even outside of the window).
+하지만 `mousemove`는 모든 픽셀에 대해 자주 트리거 되지 않습니다. 빠르게 움직이면 포인터가 공에서 document의 중간이나 window의 어딘가로 점프하는 걸 볼 수 있습니다.
 
-So we should listen on `document` to catch it.
+document의 중간이나 window의 어딘가로 점프하는 것을 잡기 위해 document를 다뤄야 합니다.
 
-## Correct positioning
+## 올바른 위치 지정
 
-In the examples above the ball is always moved so, that it's center is under the pointer:
+위 예제 코드에서 공은 항상 포인터 아래로 이동합니다.
 
 ```js
 ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
 ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 ```
 
-Not bad, but there's a side-effect. To initiate the drag'n'drop, we can `mousedown` anywhere on the ball. But if "take" it from its edge, then the ball suddenly "jumps" to become centered under the mouse pointer.
+나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그&드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 만약 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프합니다.
 
-It would be better if we keep the initial shift of the element relative to the pointer.
+포인터를 기준으로 요소의 초기 이동을 유지하는 게 포인터 중앙으로 요소를 이동시키는 것보다 더 좋습니다.
 
-For instance, if we start dragging by the edge of the ball, then the pointer should remain over the edge while dragging.
+예를 들어, 공의 가장자리에서 끌기 시작했다면 공을 끄는 동안 포인터는 공의 가장자리에 있어야 합니다.
 
 ![](ball_shift.svg)
 
-Let's update our algorithm:
+개선된 알고리즘
 
-1. When a visitor presses the button (`mousedown`) - remember the distance from the pointer to the left-upper corner of the ball in variables `shiftX/shiftY`. We'll keep that distance while dragging.
+1. 방문자가 버튼을 눌렀을 때 (`mousedown` 이벤트가 발생했을 때) - `shiftX/shiftY` 변수에 pointer에서 공의 왼쪽 위 코너까지의 거리를 기억합니다. 공을 끄는 동안 이 거리를 유지합니다.
 
-    To get these shifts we can substract the coordinates:
+    이러한 움직임은 포인터의 좌표에서 공의 왼쪽 위 좌표를 빼서 구할 수 있습니다.
 
     ```js
     // onmousedown
@@ -120,16 +120,16 @@ Let's update our algorithm:
     let shiftY = event.clientY - ball.getBoundingClientRect().top;
     ```
 
-2. Then while dragging we position the ball on the same shift relative to the pointer, like this:
+2. 공을 끄는 동안 포인터를 기준으로 같은 위치에 공이 이동됩니다.
 
     ```js
     // onmousemove
-    // ball has position:absoute
+    // 공은 고정된 포지션을 갖습니다.
     ball.style.left = event.pageX - *!*shiftX*/!* + 'px';
     ball.style.top = event.pageY - *!*shiftY*/!* + 'px';
     ```
 
-The final code with better positioning:
+개선된 위치 선정 최종 코드:
 
 ```js
 ball.onmousedown = function(event) {
@@ -145,8 +145,8 @@ ball.onmousedown = function(event) {
 
   moveAt(event.pageX, event.pageY);
 
-  // moves the ball at (pageX, pageY) coordinates
-  // taking initial shifts into account
+  // 공을 (pageX, pageY) 좌표에서 이동합니다.
+  // 초기 이동을 고려합니다.
   function moveAt(pageX, pageY) {
     ball.style.left = pageX - *!*shiftX*/!* + 'px';
     ball.style.top = pageY - *!*shiftY*/!* + 'px';
@@ -156,10 +156,10 @@ ball.onmousedown = function(event) {
     moveAt(event.pageX, event.pageY);
   }
 
-  // move the ball on mousemove
+  // mousemove로 공을 움직입니다.
   document.addEventListener('mousemove', onMouseMove);
 
-  // drop the ball, remove unneeded handlers
+  // 공을 드롭하고, 불필요한 핸들러 제거
   ball.onmouseup = function() {
     document.removeEventListener('mousemove', onMouseMove);
     ball.onmouseup = null;
@@ -173,32 +173,32 @@ ball.ondragstart = function() {
 ```
 
 ```online
-In action (inside `<iframe>`):
+예시 (inside `<iframe>`):
 
 [iframe src="ball3" height=230]
 ```
 
-The difference is especially noticeable if we drag the ball by its right-bottom corner. In the previous example the ball "jumps" under the pointer. Now it fluently follows the pointer from the current position.
+공의 오른쪽 아래 모서리로 드래그하면 눈에 띄게 차이가 보입니다. 이전 예제에서는 공이 포인터 아래로 점프했습니다. 지금은 현재 위치에서 포인터를 부드럽게 따라갑니다.
 
-## Potential drop targets (droppables)
+## 잠재적 드롭 대상(드롭가능)
 
-In previous examples the ball could be dropped just "anywhere" to stay. In real-life we usually take one element and drop it onto another. For instance, a "file" into a "folder" or something else.
+이전 예제에서는 공을 '어디서나 떨어뜨릴 수 있었습니다. 실생활 에서는 보통 한 요소를 다른 요소에 떨어뜨립니다. '파일'을 '폴더'나 다른 곳에 놓는 것처럼요.
 
-Speaking abstract, we take a "draggable" element and drop it onto "droppable" element.
+요약하면, '끌 수 있는' 요소를 '놓을 수 있는' 요소에 둡니다.
 
-We need to know:
-- where the element was dropped at the end of Drag'n'Drop -- to do the corresponding action,
-- and, preferably, know the droppable we're dragging over, to highlight it.
+알아야 할 것:
+- 해당 작업을 수행하기 위해 Drag&Drop 끝에 요소가 떨어질 위치
+- 놓을 수 있는 위치에 끌고 와 올려뒀을 때 떨어뜨릴 수 있는지 알 수 있게 강조 표시
 
-The solution is kind-of interesting and just a little bit tricky, so let's cover it here.
+요소를 놓을 수 있는 곳을 강조하는 방법은 흥미롭지만 약간 까다롭습니다. 여기서 다뤄보도록 하겠습니다.
 
-What may be the first idea? Probably to set `mouseover/mouseup` handlers on potential droppables?
+처음에 생각한 방법은 무엇인가요? 잠재적으로 놓을 수 있는 요소에 `mouseover/mouseup` 핸들러를 설정해야 할까요?
 
-But that doesn't work.
+하지만 동작하지 않습니다.
 
-The problem is that, while we're dragging, the draggable element is always above other elements. And mouse events only happen on the top element, not on those below it.
+끄는 동안 끌 수 있는 요소가 항상 다른 요소 위에 있다는 것이 문제가 됩니다. 마우스 이벤트의 맨 위 요소에서만 이벤트가 발생하며, 그 아래에서는 이벤트가 발생하지 않습니다.
 
-For instance, below are two `<div>` elements, red one on top of the blue one (fully covers). There's no way to catch an event on the blue one, because the red is on top:
+예를 들면, 아래 두 개의 `<div>` 요소가 있으며, 파란색 요소 전체를 덮는 빨간색 요소가 있습니다. 빨간색 요소가 제일 위에 있어서 파란색 요소의 이벤트를 잡을 방법이 없습니다.
 
 ```html run autorun height=60
 <style>
@@ -213,34 +213,34 @@ For instance, below are two `<div>` elements, red one on top of the blue one (fu
 <div style="background:red" onmouseover="alert('over red!')"></div>
 ```
 
-The same with a draggable element. The ball is always on top over other elements, so events happen on it. Whatever handlers we set on lower elements, they won't work.
+끌 수 있는 요소도 위와 같습니다. 공은 항상 다른 요소 위에 있어 이벤트가 발생합니다. 반면에 하위 요소에 설정한 어떠한 핸들러도 동작하지 않습니다.
 
-That's why the initial idea to put handlers on potential droppables doesn't work in practice. They won't run.
+그러므로 잠재적 놓을 수 있는 요소에 핸들러를 넣는 처음 생각한 방법은 실제로 동작하지 않습니다. 실행되지 않을 것입니다.
 
-So, what to do?
+그러면 무엇을 해야 할까요?
 
-There's a method called `document.elementFromPoint(clientX, clientY)`. It returns the most nested element on given window-relative coordinates (or `null` if given coordinates are out of the window).
+`document.elementFromPoint(clientX, clientY)`라는 메서드가 있습니다. 주어진 창 기준 좌표에서 가장 많이 중첩된 요소를 반환합니다. (창밖의 좌표는 null)
 
-We can use it in any of our mouse event handlers to detect the potential droppable under the pointer, like this:
+다음과 같이 마우스 이벤트 핸들러에서 포인터 아래에 놓을 가능성을 감지할 수 있습니다.
 
 ```js
-// in a mouse event handler
-ball.hidden = true; // (*) hide the element that we drag
+// 마우스 이벤트 핸들러에서
+ball.hidden = true; // (*) 드래그하는 요소 숨깁니다.
 
 let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-// elemBelow is the element below the ball, may be droppable
+// elemBelow는 놓을 수 있는 공의 아래 요소입니다.
 
 ball.hidden = false;
 ```
 
-Please note: we need to hide the ball before the call `(*)`. Otherwise we'll usually have a ball on these coordinates, as it's the top element under the pointer: `elemBelow=ball`. So we hide it and immediately show again.
+참고: `(*)`을 호출하기 전에 공을 숨겨야 합니다. 그렇지 않으면 공은 보통 포인터 아래의 맨 위 요소로 `elemBelow=ball`의 좌표를 가집니다. 그래서 공을 숨겼다가 다시 보여줍니다.
 
-We can use that code to check what element we're "flying over" at any time. And handle the drop when it happens.
+이 코드를 사용하면 언제든지 어떤 요소가 날아가는지 확인할 수 있습니다. 드롭이 발생했을 때 처리합니다.
 
-An extended code of `onMouseMove` to find "droppable" elements:
+'놓을 수 있는' 요소를 찾기 위한 `onMouseMove` 확장 코드:
 
 ```js
-// potential droppable that we're flying over right now
+// 즉시 날아가는 잠재적 놓을 수 있는 요소
 let currentDroppable = null;
 
 function onMouseMove(event) {
@@ -250,54 +250,54 @@ function onMouseMove(event) {
   let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
   ball.hidden = false;
 
-  // mousemove events may trigger out of the window (when the ball is dragged off-screen)
-  // if clientX/clientY are out of the window, then elementFromPoint returns null
+  // 마우스 이벤트는 창밖으로 트리거될 수 없습니다.(공을 창밖으로 끌었을 때)
+  // clientX/clientY가 창밖에 있으면, elementFromPoint는 null을 반환합니다.
   if (!elemBelow) return;
 
-  // potential droppables are labeled with the class "droppable" (can be other logic)
+  // 잠재적으로 놓을 수 있는 요소를 'droppable' 클래스로 지정합니다.(다른 로직 가능)
   let droppableBelow = elemBelow.closest('.droppable');
 
   if (currentDroppable != droppableBelow) {
-    // we're flying in or out...
-    // note: both values can be null
-    //   currentDroppable=null if we were not over a droppable before this event (e.g over an empty space)
-    //   droppableBelow=null if we're not over a droppable now, during this event
+    // 들어오거나 날리거나...
+    // 참고: 두 값 모두 null일 수 있습니다.
+    //   currentDroppable=null 이벤트 전에 놓을 수 있는 요소 위에 있지 않다면 (예: 빈 공간)
+    //   droppableBelow=null 이벤트 동안 놓을 수 있는 요소 위에 있지 않다면
 
     if (currentDroppable) {
-      // the logic to process "flying out" of the droppable (remove highlight)
+      // '날아가는 것'을 처리하는 로직 (강조 제거)
       leaveDroppable(currentDroppable);
     }
     currentDroppable = droppableBelow;
     if (currentDroppable) {
-      // the logic to process "flying in" of the droppable
+      // '들어오는 것'을 처리하는 로직
       enterDroppable(currentDroppable);
     }
   }
 }
 ```
 
-In the example below when the ball is dragged over the soccer gate, the gate is highlighted.
+아래 예에서 공을 축구 골대 위로 끌면 골대가 강조 표시됩니다.
 
 [codetabs height=250 src="ball4"]
 
-Now we have the current "drop target", that we're flying over, in the variable `currentDroppable` during the whole process and can use it to highlight or any other stuff.
+이제 전체 프로세스가 진행되는 동안 `currentDroppable`변수에 날아가는 현재 드롭 대상이 있으며, 강조 혹은 다른 항목을 사용할 수 있습니다.
 
 ## Summary
 
-We considered a basic Drag'n'Drop algorithm.
+Drag&Drop 기본 알고리즘을 생각했습니다.
 
-The key components:
+핵심요소:
 
-1. Events flow: `ball.mousedown` -> `document.mousemove` -> `ball.mouseup` (don't forget to cancel native `ondragstart`).
-2. At the drag start -- remember the initial shift of the pointer relative to the element: `shiftX/shiftY` and keep it during the dragging.
-3. Detect droppable elements under the pointer using `document.elementFromPoint`.
+1. 이벤트 흐름: `ball.mousedown` -> `document.mousemove` -> `ball.mouseup` (`ondragstart`를 취소하는 걸 잊지 마세요.).
+2. 드래그 시작 시 요소를 기준으로 포인터의 초기 이동을 기억하고 (`shiftX/shiftY`) 끄는 동안 유지합니다.
+3. `document.elementFromPoint`를 사용해 포인터 아래의 놓을 수 있는 요소를 감지합니다.
 
-We can lay a lot on this foundation.
+이 기반으로 많은 것을 둘 수 있습니다.
 
-- On `mouseup` we can intellectually finalize the drop: change data, move elements around.
-- We can highlight the elements we're flying over.
-- We can limit dragging by a certain area or direction.
-- We can use event delegation for `mousedown/up`. A large-area event handler that checks  `event.target` can manage Drag'n'Drop for hundreds of elements.
-- And so on.
+- `mouseup`에서 데이터를 변경하고, 요소를 이동하는 등 지적으로 드롭을 마칠 수 있습니다.
+- 날아가는 요소를 강조할 수 있습니다.
+- 특정 영역이나 방향으로 끄는 것을 제한할 수 있습니다.
+- `mousedown/up`에 이벤트 위임을 사용할 수 있습니다. `event.target`을 확인하는 넓은 영역의 이벤트 핸들러는 수백 개의 요소에 대한 Drag&Drop을 관리할 수 있습니다.
+- 등등
 
-There are frameworks that build architecture over it: `DragZone`, `Droppable`, `Draggable` and other classes. Most of them do the similar stuff to what's described above, so it should be easy to understand them now. Or roll your own, as you can see that that's easy enough to do, sometimes easier than adapting a third-part solution.
+`DragZone`, `Droppable`, `Draggable` 및 기타 클래스 등 아키텍처를 구축하는 프레임워크가 있습니다. 대부분은 위에서 설명한 것과 유사한 작업을 하므로 이해하기 쉬울 것입니다. 때로는 제3의 솔루션을 적용하는 것보다 쉽게 수행할 수 있습니다.
