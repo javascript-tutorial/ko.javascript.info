@@ -256,19 +256,19 @@ That's a "soft" variant for sure. If we put `y` values like `-99` and `99` then 
 
 But how to make the Bezier curve for a specific task? There are many tools. For instance, we can do it on the site <http://cubic-bezier.com/>.
 
-### Steps
+### 단계(Steps)
 
-Timing function `steps(number of steps[, start/end])` allows to split animation into steps.
+함수 Timing의 값 `steps(number of steps[, start/end])`를 통해 애니메이션을 여러 단계로 나눌 수 있습니다.
 
-Let's see that in an example with digits.
+아래 숫자로 된 예시를 봅시다.
 
-Here's a list of digits, without any animations, just as a source:
+애니메이션이 없는 숫자의 나열이죠.
 
 [codetabs src="step-list"]
 
-We'll make the digits appear in a discrete way by making the part of the list outside of the red "window" invisible and shifting the list to the left with each step.
+빨간 '네모박스'밖에 있는 부분은 눈에 보이지 않게 만들고 단계별로 숫자 목록을 왼쪽으로 이동 시켜 숫자가 하나씩 나타나게 해봅시다.
 
-There will be 9 steps, a step-move for each digit:
+숫자가 하나씩 이동하기에 총 9단계로 나타납니다.
 
 ```css
 #stripe.animate  {
@@ -277,46 +277,46 @@ There will be 9 steps, a step-move for each digit:
 }
 ```
 
-In action:
+동작:
 
 [codetabs src="step"]
 
-The first argument of `steps(9, start)` is the number of steps. The transform will be split into 9 parts (10% each). The time interval is automatically divided into 9 parts as well, so `transition: 9s` gives us 9 seconds for the whole animation – 1 second per digit.
+`steps(9, start)`의 첫 번째 인수는 단계 수입니다. 각 10%씩 9단계로 분할되어 변환됩니다. 시간 간격도 자동으로 9단계로 나뉘어, `transition: 9s`는 전체 애니메이션에 대해 9초(숫자 당 1초)를 줍니다.
 
-The second argument is one of two words: `start` or `end`.
+두 번째 인수는 `start` 또는 `end` 둘 중 하나입니다.
 
-The `start` means that in the beginning of animation we need to do make the first step immediately.
+`start`는 애니메이션이 바로 첫 번째 단계부터 시작함을 의미합니다.
 
-We can observe that during the animation: when we click on the digit it changes to `1` (the first step) immediately, and then changes in the beginning of the next second.
+숫자를 클릭하면 바로 첫 단계인 `1`로 바뀌고, 그다음 초가 되면 다음 단계로 바뀌는 것을 볼 수 있습니다.
 
-The process is progressing like this:
+애니메이션 과정은 아래와 같이 진행됩니다.
 
-- `0s` -- `-10%` (first change in the beginning of the 1st second, immediately)
+- `0s` -- `-10%` (첫 번째 초에 바로 첫 변화 생김)
 - `1s` -- `-20%`
 - ...
 - `8s` -- `-80%`
-- (the last second shows the final value).
+- (마지막 초에 최종값 나타남).
 
-The alternative value `end` would mean that the change should be applied not in the beginning, but at the end of each second.
+`end`는 애니메이션이 바로 시작하지 않고 각 초가 끝날 때 시작함을 의미합니다.
 
-So the process would go like this:
+애니메이션 과정은 다음과 같습니다.
 
 - `0s` -- `0`
-- `1s` -- `-10%` (first change at the end of the 1st second)
+- `1s` -- `-10%` (첫 번째 초가 끝날 때 첫 변화 생김)
 - `2s` -- `-20%`
 - ...
 - `9s` -- `-90%`
 
-Here's `steps(9, end)` in action (note the pause between the first digit change):
+첫 번째 숫자 변화 사이의 일시 중지를 참고하여 `steps(9, end)`의 동작을 봅시다.
 
 [codetabs src="step-end"]
 
-There are also shorthand values:
+단축 구문 값도 있습니다.
 
-- `step-start` -- is the same as `steps(1, start)`. That is, the animation starts immediately and takes 1 step. So it starts and finishes immediately, as if there were no animation.
-- `step-end` -- the same as `steps(1, end)`: make the animation in a single step at the end of `transition-duration`.
+- `step-start`는 `steps(1, start)`와 같습니다. 즉, 애니메이션의 첫 단계가 바로 시작되죠. 그래서 애니메이션이 없었던 것처럼 바로 시작하고 끝납니다.
+- `step-end`는 `steps(1, end)`와 같으며, `transition-duration`의 끝에서 애니메이션의 한 단계가 진행됩니다.
 
-These values are rarely used, because that's not really animation, but rather a single-step change.
+위의 값들은 거의 사용되지 않는데, 실제 애니메이션이 아니라 한 단계마다 변화하기 때문입니다.
 
 ## Event transitionend
 
