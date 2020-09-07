@@ -30,7 +30,7 @@
 
     이름이나 크기 혹은 최종 수정 날짜가 변하면 별도의 `fileId`가 생성됩니다.
 
-2. 서버에 요청을 보내어 바이트가 이미 얼마나 되는지 물어봅니다. 이렇게요.
+2. 서버에 요청을 보내어 얼마만큼의 바이트를 전송했는지 질의합니다. 이렇게요.
     ```js
     let response = await fetch('status', {
       headers: {
@@ -38,7 +38,7 @@
       }
     });
 
-    // The server has that many bytes
+    // 서버가 얼마만큼의 파일 바이트를 가졌는지 확인합니다.
     let startByte = +await response.text();
     ```
 
@@ -50,28 +50,28 @@
     ```js
     xhr.open("POST", "upload", true);
 
-    // File id, so that the server knows which file we upload
+    // 파일 아이디를 통해 우리가 어떤 파일을 업로드 할지 서버는 알게 됩니다.
     xhr.setRequestHeader('X-File-Id', fileId);
 
-    // The byte we're resuming from, so the server knows we're resuming
+    // 우리가 업로드를 재개할 파일의 시작 바이트를 통해 서버는 파일 업로드가 재개될 것을 알게 됩니다.
     xhr.setRequestHeader('X-Start-Byte', startByte);
 
     xhr.upload.onprogress = (e) => {
       console.log(`Uploaded ${startByte + e.loaded} of ${startByte + e.total}`);
     };
 
-    // file can be from input.files[0] or another source
+    // 업로드를 할 파일은 input.files[0]나 또 다른 소스가 될 수 있습니다.
     xhr.send(file.slice(startByte));
     ```
 
-    서버에 파일 아이디인 `X-File-Id`를 보내 업로드를 할 파일을 알고 시작 바이트인 `X-Start-Byte`를 서버에 보내 처음부터 업로드를 하지 않고 재개하게 합니다.
+    서버에 파일 아이디인 `X-File-Id`를 보내 우리가 업로드를 진행할 파일이 어떤 것인지 서버에 알리고 시작 바이트인 `X-Start-Byte`를 서버에 보내 우리가 파일 업로드를 초기화하지 않고 재개할 것을 서버에 알게 합니다.
 
-    서버는 기록을 확인해서 파일에 업로드가 있었는지 그리고 현재 올리는 크기가 정확히 `X-Start-Byte`인지 확인하고 데이터를 확장합니다.
+    서버는 기록을 확인해서 파일에 업로드가 있었는지 그리고 현재 서버에 업로드가 되었던 파일의 크기가 정확히 `X-Start-Byte`인지 확인하고 업로드를 진행할 파일의 데이터를 확장합니다.
 
 
 여기에 시범을 위해 Node.js로 작성된 서버와 클라이언트의 코드가 있습니다.
 
-Node.js는 Nginx의 서버 뒤에서 버퍼 업로드가 완료되었을 때 Node.js로 전달하기 때문에 이 사이트에서만 부분적으로 작동합니다.
+Node.js는 Nginx의 서버 뒤에서 버퍼 업로드가 완료되었을 때 Node.js로 완료된 버퍼 업로드를 전달하기 때문에 이 사이트에서만 부분적으로 작동합니다.
 
 그래도 다운로드를 받아서 로컬에서 전체 시범을 실행해보세요.
 
