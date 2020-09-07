@@ -364,7 +364,7 @@ Why is there the difference?
 
 Well, the reason is in the field initialization order. The class field is initialized:
 - Before constructor for the base class (that doesn't extend anything),
-- Imediately after `super()` for the derived class.
+- Immediately after `super()` for the derived class.
 
 In our case, `Rabbit` is the derived class. There's no `constructor()` in it. As said previously, that's the same as if there was an empty constructor with only `super(...args)`.
 
@@ -545,7 +545,11 @@ longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
 ```js run
 let animal = {
   sayHi() {
+<<<<<<< HEAD
     console.log(`나는 동물입니다.`);
+=======
+    alert(`I'm an animal`);
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
   }
 };
 
@@ -559,7 +563,11 @@ let rabbit = {
 
 let plant = {
   sayHi() {
+<<<<<<< HEAD
     console.log("나는 식물입니다.");
+=======
+    alert("I'm a plant");
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
   }
 };
 

@@ -81,8 +81,13 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 `BigInt`형 숫자는 자주 쓰이지 않기 때문에 여기서 자세히 다루지 않고 별도의 챕터, <info:bigint>에서 설명드리겠습니다. 아주 큰 숫자를 사용해야하는 경우라면 해당 챕터를 참고해 주시기바랍니다.
 
+<<<<<<< HEAD
 ```smart header="호환성 이슈"
 이 글이 작성된 시점엔 Firefox, Chrome, Edge에서만 `BigInt`를 지원합니다. Safari, IE에선 지원하지 않습니다.
+=======
+```smart header="Compatibility issues"
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 ```
 
 ## 문자형
@@ -127,7 +132,11 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (큰따옴표는 �
 ```smart header="*글자형*은 없습니다."
 일부 언어는 글자 하나를 저장할 때 쓰이는 자료형, '글자(character)'형을 따로 지원합니다. C 언어와 Java의 `char`가 대표적인 예입니다.
 
+<<<<<<< HEAD
 자바스크립트는 글자형을 지원하지 않습니다. `문자형`만 있을 뿐입니다. 여기엔 글자가 하나 혹은 여러 개 들어갈 수 있습니다.
+=======
+In JavaScript, there is no such type. There's only one type: `string`. A string may consist of zero characters (be empty), one character or many of them.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 ```
 
 ## 불린형

@@ -193,7 +193,11 @@ alert( fruits );
 
 숫자형 키를 사용함으로써 배열은 객체 기본 기능 이외에도 순서가 있는 컬렉션을 제어하게 해주는 특별한 메서드를 제공합니다. `length`라는 프로퍼티도 제공하죠. 그렇지만 어쨌든 배열의 본질은 객체입니다.
 
+<<<<<<< HEAD
 이렇게 배열은 자바스크립트의 일곱 가지 원시 자료형에 해당하지 않고, 원시 자료형이 아닌 객체형에 속하기 때문에 객체처럼 동작합니다.
+=======
+Remember, there are only eight basic data types in JavaScript (see the [Data types](info:types) chapter for more info). Array is an object and thus behaves like an object.
+>>>>>>> 58f6599df71b8d50417bb0a52b1ebdc995614017
 
 예시를 하나 살펴봅시다. 배열은 객체와 마찬가지로 참조를 통해 복사됩니다.
 
