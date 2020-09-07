@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Second bind
+# 두 번째 바인드(bind)
 
-Can we change `this` by additional binding?
+바인딩(binding)을 한 후 한 번 더 바인딩을 사용해서 `this`를 바꿀 수 있을까요?
 
-What will be the output?
+아래 코드를 실행하면 어떤 결과가 나올까요?
 
 ```js no-beautify
 function f() {
