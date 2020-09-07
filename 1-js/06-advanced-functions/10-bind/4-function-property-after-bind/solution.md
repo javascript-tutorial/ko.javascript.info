@@ -1,4 +1,4 @@
-The answer: `undefined`.
+정답: `undefined`.
 
-The result of `bind` is another object. It does not have the `test` property.
+`bind`를 한 결과인 bound는 또 다른 객체입니다. bound는 `test` 프로퍼티를 갖고 있지 않습니다.
 
