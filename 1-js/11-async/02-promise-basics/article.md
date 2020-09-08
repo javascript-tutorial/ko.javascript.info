@@ -105,7 +105,7 @@ let promise = new Promise(function(resolve, reject) {
 ````
 
 ```smart header="`Error` 객체와 함께 거부하기"
-무언가 잘 못 된 경우, executor는 `reject`를 호출해야만 합니다. 이때 인수는 `resolve`와 마찬가지로 어떤 타입도 가능하지만 `Error` 객체 또는 `Error`를 상속받은 객체를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
+무언가 잘못된 경우, executor는 `reject`를 호출해야 합니다. 이때 인수는 `resolve`와 마찬가지로 어떤 타입도 가능하지만 `Error` 객체 또는 `Error`를 상속받은 객체를 사용할 것을 추천합니다. 이유는 뒤에서 설명하겠습니다.
 ```
 
 ````smart header="`resolve`·`reject` 함수 즉시 호출하기"
