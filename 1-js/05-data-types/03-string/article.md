@@ -450,7 +450,7 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 | 메서드 | 추출할 부분 문자열 | 음수 허용 여부(인수)|
 |--------|-----------|-----------|
 | `slice(start, end)` | `start`부터 `end`까지(`end`는 미포함) | 음수 허용 |
-| `substring(start, end)` | `start`와 `end` *사이* | 음수는 `0`으로 취급함 |
+| `substring(start, end)` | `start`와 `end` 사이 | 음수는 `0`으로 취급함 |
 | `substr(start, length)` | `start`부터 `length`개의 글자 | 음수 허용 |
 
 ```smart header="어떤 메서드를 선택해야 하나요?"
