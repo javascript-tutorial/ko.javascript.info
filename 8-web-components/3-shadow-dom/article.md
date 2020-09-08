@@ -28,7 +28,7 @@ In the example above, we can see a useful attribute `pseudo`. It's non-standard,
 <style>
 /* make the slider track red */
 input::-webkit-slider-runnable-track {
-  background: red;
+  background: red; 
 }
 </style>
 
@@ -36,11 +36,10 @@ input::-webkit-slider-runnable-track {
 ```
 
 Once again, `pseudo` is a non-standard attribute. Chronologically, browsers first started to experiment with internal DOM structures to implement controls, and then, after time, shadow DOM was standardized to allow us, developers, to do the similar thing.
-
-
+<!--다시한번 말하지만 `pseudo`는 비정규적인 속성이다. 브라우저는 컨트롤을 구현하기 위해 먼저 내부 DOM 구조를 실험하기 시작했으며, 시간이 지나더라도 개발자가 비슷한 작업을 수행 할 수 있도록 Shadow DOM이 표준화되었습니다.  -->
 
 Further on, we'll use the modern shadow DOM standard, covered by [DOM spec](https://dom.spec.whatwg.org/#shadow-trees) other related specifications.
-
+더 나아가, DOM 스펙이 다른 관련 스펙에 적용이 되는 최신 Shadow DOM 표준을 사용합니다.
 ## Shadow tree
 
 A DOM element can have two types of DOM subtrees:
