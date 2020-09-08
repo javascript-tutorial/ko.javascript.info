@@ -1,29 +1,29 @@
 # Shadow DOM
 
 Shadow DOM serves for encapsulation. It allows a component to have its very own "shadow" DOM tree, that can't be accidentally accessed from the main document, may have local style rules, and more.
-
+<!--Shadow Dom은 캡슐화에 사용됩니다. 구성요소가 실수로 주요 문서에 엑세스 할 수 없고 로컬 스타일 등을 가질 수 있는 한 컴포넌트 자체의 "shadow" Dom 트리를 가질 수 있습니다.-->
 ## Built-in shadow DOM
 
 Did you ever think how complex browser controls are created and styled?
-
+<!-- 어떻게 복합 브라우저 컨트롤이 만들어지고 꾸며지는지 생각해본 적 있나요? -->
 Such as `<input type="range">`:
-
+<!--예`<input type="range">`:-->
 <p>
 <input type="range">
 </p>
 
 The browser uses DOM/CSS internally to draw them. That DOM structure is normally hidden from us, but we can see it in developer tools. E.g. in Chrome, we need to enable in Dev Tools "Show user agent shadow DOM" option.
-
+<!--브라우저는 DOM/CSS를 내부적으로 사용합니다. DOM구조는 일반적으로 사용자에게 가려져 있지만, 개발자 도구를 사용하여 볼 수 있습니다.예를 들어 Chrome에서는 Dev Tools "Show user agent shadow DOM"옵션을 활성화해야합니다.-->
 Then `<input type="range">` looks like this:
-
+<!--`<input type="range">`는 다음과 같아 보입니다:-->
 ![](shadow-dom-range.png)
 
 What you see under `#shadow-root` is called "shadow DOM".
-
+<!-- `#shadow-root`아래에 보이는 것은 "shadow DOM"이라고 합니다. -->
 We can't get built-in shadow DOM elements by regular JavaScript calls or selectors. These are not regular children, but a powerful encapsulation technique.
-
+<!-- 정규 자바스크립트 호출 또는 선택자로는 내장된 shadow DOM을 호출할 수 없습니다. 정규 자식이 아니지만, 강력한 캡슐화 기술입니다. -->
 In the example above, we can see a useful attribute `pseudo`. It's non-standard, exists for historical reasons. We can use it style subelements with CSS, like this:
-
+<!-- 위의 예시 중, 유용한 속성인 `psedo`를 볼 수 있습니다. 비-표준이지만, 계층적인 이유로 존재하고 있습니다. CSS와 같이 스타일 하위요소들을 다음과 같이 사용할 수 있습니다:  -->
 ```html run autorun
 <style>
 /* make the slider track red */
@@ -36,6 +36,8 @@ input::-webkit-slider-runnable-track {
 ```
 
 Once again, `pseudo` is a non-standard attribute. Chronologically, browsers first started to experiment with internal DOM structures to implement controls, and then, after time, shadow DOM was standardized to allow us, developers, to do the similar thing.
+
+
 
 Further on, we'll use the modern shadow DOM standard, covered by [DOM spec](https://dom.spec.whatwg.org/#shadow-trees) other related specifications.
 
