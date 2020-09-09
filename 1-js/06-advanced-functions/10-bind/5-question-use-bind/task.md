@@ -2,17 +2,17 @@ importance: 5
 
 ---
 
-# Fix a function that loses "this"
+# this 값이 undefined인 함수 고치기
 
-The call to `askPassword()` in the code below should check the password and then call `user.loginOk/loginFail` depending on the answer.
+아래 함수 `askPassword()`는 비밀번호를 먼저 확인하고 그 결과에 따라 `user.loginOk`나 `user.loginFail`을 호출해야 합니다.
 
-But it leads to an error. Why?
+그런데 함수를 호출하면 에러가 발생합니다. 에러는 왜 발생했을까요?
 
-Fix the highlighted line for everything to start working right (other lines are not to be changed).
+에러가 발생하지 않도록 색칠된 줄을 고쳐보세요. 다른 줄은 바꾸지 않아야 합니다.
 
 ```js run
 function askPassword(ok, fail) {
-  let password = prompt("Password?", '');
+  let password = prompt("비밀번호를 입력해주세요.", '');
   if (password == "rockstar") ok();
   else fail();
 }
@@ -21,11 +21,11 @@ let user = {
   name: 'John',
 
   loginOk() {
-    alert(`${this.name} logged in`);
+    alert(`${this.name}님이 로그인하였습니다.`);
   },
 
   loginFail() {
-    alert(`${this.name} failed to log in`);
+    alert(`${this.name}님이 로그인에 실패하였습니다.`);
   },
 
 };
