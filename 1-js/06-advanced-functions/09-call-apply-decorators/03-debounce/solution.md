@@ -9,5 +9,5 @@ function debounce(func, ms) {
 
 ```
 
-A call to `debounce` returns a wrapper. When called, it schedules the original function call after given `ms` and cancels the previous such timeout.
+`debounce`에 대한 호출은 래퍼를 반환합니다. debounce는 호출됐을 때 기존 함수의 호출을 주어진 `ms` 이후에 실행되도록 하고 그 전의 timeout은 취소시킵니다. 
 

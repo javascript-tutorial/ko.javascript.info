@@ -2,19 +2,19 @@ importance: 5
 
 ---
 
-# Debounce decorator
+# 디바운스 데코레이터
 
-The result of `debounce(f, ms)` decorator is a wrapper that suspends calls to `f` until there's `ms` milliseconds of inactivity (no calls, "cooldown period"), then invokes `f` once with the latest arguments.
+데코레이터 `debounce(f, ms)`의 결과는 래퍼입니다. 이 래퍼는 아무 호출이 없는 `ms` 밀리초의 대기 시간이 끝날 때까지 `f`의 호출을 연기합니다. 그리고서 `f`를 가장 최근에 사용된 인수와 함께 한 번 실행합니다.
 
-For instance, we had a function `f` and replaced it with `f = debounce(f, 1000)`.
+예를 들어 함수 `f`를 `f = debounce(f, 1000)`로 바꿨다고 해봅시다.
 
-Then if the wrapped function is called at 0ms, 200ms and 500ms, and then there are no calls, then the actual `f` will be only called once, at 1500ms. That is: after the cooldown period of 1000ms from the last call.
+그런 뒤 래퍼된 함수가 각각 0ms, 200ms, 500ms에서 호출된 후 더 이상의 호출이 없다면 실제 `f`는 1,500ms에서 한 번만 호출됩니다. 즉 마지막 호출로부터 1,000ms의 대기 시간 후에 호출됐다고 할 수 있습니다.
 
 ![](debounce.svg)
 
-...And it will get the arguments of the very last call, other calls are ignored.
+그리고 대기 시간 후에 호출된 f는 가장 마지막 호출에서 가졌던 인수를 가지며 그전에 있던 호출들은 무시됩니다.
 
-Here's the code for it (uses the debounce decorator from the [Lodash library](https://lodash.com/docs/4.17.15#debounce):
+아래에 위 설명을 위한 코드가 있습니다. [Lodash 라이브러리](https://lodash.com/docs/4.17.15#debounce)에 있는 디바운스(debounce) 데코레이터를 사용하였습니다.
 
 ```js
 let f = _.debounce(alert, 1000);
@@ -22,30 +22,30 @@ let f = _.debounce(alert, 1000);
 f("a"); 
 setTimeout( () => f("b"), 200);
 setTimeout( () => f("c"), 500); 
-// debounced function waits 1000ms after the last call and then runs: alert("c")
+// 디바운스된 함수는 마지막 호출 이후 1,000ms를 기다린 뒤에 alert("c")를 실행합니다.
 ```
 
 
-Now a practical example. Let's say, the user types something, and we'd like to send a request to the server when the input is finished.
+이제 연습 예제를 살펴봅시다. 사용자가 뭔가를 입력하고 입력이 완료되면 서버에 요청을 보내고 싶다고 가정해봅시다.
 
-There's no point in sending the request for every character typed. Instead we'd like to wait, and then process the whole result.
+글자가 입력될 때마다 이에 대한 요청을 매번 보내는 건 의미가 없습니다. 그 대신 글자 입력이 끝날 때까지 기다린 뒤 얻은 전체 결과를 처리하는 방식이 선호됩니다.
 
-In a web-browser, we can setup an event handler -- a function that's called on every change of an input field. Normally, an event handler is called very often, for every typed key. But if we `debounce` it by 1000ms, then it will be only called once, after 1000ms after the last input.
+웹 브라우저에서 입력 필드에 변화가 있을 때마다 호출되는 함수인 이벤트 핸들러를 만들 수 있습니다. 이벤트 핸들러는 입력된 키에 반응하므로 보통 매우 빈번히 호출됩니다. 하지만 이벤트 핸들러를 1,000ms로 `디바운스`하면 이 핸들러는 마지막 입력에서 1,000ms이 지난 후에 한 번만 호출됩니다.
 
 ```online
 
-In this live example, the handler puts the result into a box below, try it:
+아래에 바로 해볼 수 있는 예제에서는 함수 handler가 입력 필드의 결과를 아래 있는 박스에 넣어주도록 설계되었습니다. 직접 해보세요.
 
 [iframe border=1 src="debounce" height=200]
 
-See? The second input calls the debounced function, so its content is processed after 1000ms from the last input.
+그렇죠? 두 번째 입력 필드는 디바운스된 함수를 부르고 이 함수의 콘텐츠는 마지막 입력에서 1,000ms가 지난 후에 처리됩니다.
 ```
 
-So, `debounce` is a great way to process a sequence of events: be it a sequence of key presses, mouse movements or something else.
+따라서 `디바운스`는 연속으로 입력되는 키, 마우스 움직임 등 일련의 이벤트를 처리하는데 적합한 방법입니다.
 
 
-It waits the given time after the last call, and then runs its function, that can process the result.
+디바운스는 마지막 호출이 끝나고 주어진 시간 동안 기다린 뒤에 결과를 처리하도록 디바우스된 함수를 실행합니다.
 
-The task is to implement `debounce` decorator.
+이 과제는 `debounce` 데코레이터를 구현해보는 과제입니다.
 
-Hint: that's just a few lines if you think about it :)
+잘 생각해보면 단 몇 줄만으로도 구현이 가능합니다.
