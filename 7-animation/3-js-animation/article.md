@@ -2,34 +2,34 @@
 
 자바스크립트 애니메이션은 CSS로는 할수 없었던 몇가지 일들이 더 가능합니다.
 
-예를 들어 복잡한 경로를 따라 움직이게 하거나, Bazier 커브와 다른 타이밍 함수의 활용 혹은 캔버스에 애니메이션을 표현하기 등입니다.
+예를 들어 복잡한 경로를 따라 움직이게 하거나, Bazier 커브가 아닌 다른 타이밍 함수의 활용 혹은 캔버스에 애니메이션을 표현하기 등입니다.
 
 ## setInterval 사용하기
 
-에니메이션은 프레임들의 연속으로 구현할수 있습니다. 이는 보통 HTML/CSS 프로퍼티의 작은 변경을 활용합니다.
+애니메이션은 프레임들의 연속으로 구현할 수 있습니다. 이는 보통 HTML/CSS 프로퍼티의 작은 변경을 활용합니다.
 
-예를 들어 `style.left` 를 `0px` 에서 `100px` 로 바꾸면 엘리멘트는 이동합니다. 만약 이 변경을 `setInterval` 을 활용하여 아주 약간의 간격을 두고, 가령 1초에 50번 정도 `2px` 씩 더해준다면 엘리먼트는 부드럽게
-이동하는 듯 보일것입니다. 이는 영화상영의 기본 원리와 같습니다. 1초에 24프레임이면 부드럽게 움직이는것처럼 보이기에 충분합니다.
+예를 들어 `style.left`를 `0px`에서 `100px`로 바꾸면 해당 엘리멘트는 이동합니다. 만약 이 변경을 `setInterval` 을 활용하여 아주 약간의 간격을 두고, 가령 1초에 50번 정도 `2px` 씩 더해준다면 엘리먼트는 부드럽게 이동하는 듯 보일 것입니다. 이는 영화상영의 기본 원리와 같습니다. 1초에 24프레임이면 부드럽게 움직이는 것처럼 보이기에 충분합니다.
 
-수도 코드는 대략 다음과 같습니다:
+슈도 코드는 대략 다음과 같습니다:
 
 ```js
 let timer = setInterval(function() {
   if (animation complete) clearInterval(timer);
   else increase style.left by 2px
-}, 20); // 매 20ms 마다 2px 변경, 초당 약 50 프레임
+}, 20); // 매 20ms마다 2px 변경, 초당 약 50프레임
 ```
 
 애니메이션에 관한 조금 더 복잡한 예제입니다:
+
 ```js
-let start = Date.now(); // 시작 시간을 저장합니다.
+let start = Date.now(); // 시작 시각을 저장합니다.
 
 let timer = setInterval(function() {
-  // 시작부터 얼마나 시간이 지났는지를 저장합니다.
+  // 시작부터 얼마만큼 시간이 지났는지를 저장합니다.
   let timePassed = Date.now() - start;
 
   if (timePassed >= 2000) {
-    clearInterval(timer); // 2초가 지난후 애니메이션을 종료합니다.
+    clearInterval(timer); // 2초가 지난 후 애니메이션을 종료합니다.
     return;
   }
 
@@ -38,7 +38,7 @@ let timer = setInterval(function() {
 
 }, 20);
 
-// timePassed 값이 0 에서 2000 까지 변화할때
+// timePassed 값이 0에서 2000까지 변화할 때
 // left 변수의 값은 0px에서 400px이 됩니다.
 function draw(timePassed) {
   train.style.left = timePassed / 5 + 'px';
@@ -51,13 +51,13 @@ function draw(timePassed) {
 
 ## requestAnimationFrame 사용하기
 
-여러개의 애니메이션을 동시에 실행하는 상황을 생각해봅시다.
+여러 개의 애니메이션을 동시에 실행하는 상황을 생각해봅시다.
 
-만약 각각의 애니메이션을 따로 실행한다면 실행되는 모든 애니메이션은 `setInterval(..., 20)` 을 가지게 될것입니다. 그리고 브라우저는 매 `20ms` 보다 훨씬 더 자주 화면을 다시 그리게 될겁니다.
+만약 각각의 애니메이션을 따로 실행한다면 실행되는 모든 애니메이션은 `setInterval(..., 20)` 을 가지게 될 것입니다. 그리고 브라우저는 매 `20ms` 보다 훨씬 더 자주 화면을 다시 그리게 될 것 입니다.
 
-이는 각각의 실행 시작 시간이 다르기에 '매 20ms' 도 모두 다르기 때문입니다. 실행 간격은 정렬되지 않습니다. 따라서 이 경우 `20ms` 안에 몇번의 독립적인 실행이 있게 됩니다.
+이는 각각의 실행 시작 시각이 다르기에 '매 20ms' 도 모두 다르기 때문입니다. 실행 간격은 정렬되지 않습니다. 따라서 이 경우 `20ms` 안에 몇 번의 독립적인 실행이 있게 됩니다.
 
-다시말해, 이렇게 하는것이:
+다시 말해, 이렇게 하는 것이:
 
 ```js
 setInterval(function() {
@@ -67,7 +67,7 @@ setInterval(function() {
 }, 20)
 ```
 
-...이렇게 각각 따로 호출하는것보다 효율적입니다:
+...이렇게 각각 따로 호출하는 것보다 효율적입니다:
 
 ```js
 setInterval(animate1, 20); // 각각 호출되는 애니메이션
@@ -87,20 +87,19 @@ setInterval(animate3, 20);
 let requestId = requestAnimationFrame(callback)
 ```
 
-이 방법은 함수 `callback` 이 브라우저가 원하는 순간에서 가장 가까운 시점에 호출 될수 있도록 스케쥴링합니다.
+이 방법은 함수 `callback` 이 브라우저가 원하는 순간에서 가장 가까운 시점에 호출 될 수 있도록 스케줄링합니다.
 
-`callback` 안에서 수정하는 엘리먼트들은 자동으로 다른 `requestAnimationFrame` callbacks 그리고 CSS 에니메이션들과 함께 그룹화 됩니다. 그리고 여러번이 아닌 단 한번의 형상 재계산 과
-화면 갱신이 수행됩니다.
+`callback` 안에서 수정하는 엘리먼트들은 자동으로 다른 `requestAnimationFrame` callbacks 그리고 CSS 애니메이션들과 함께 그룹화됩니다. 그리고 여러 번이 아닌 단 한번의 형상 재계산과 화면 갱신이 수행됩니다.
 
-리턴되는 `requestId` 값은 호출을 취소하는데 사용될 수 있습니다:
+반환되는 `requestId` 값은 호출을 취소하는데 사용될 수 있습니다:
 ```js
 // 스케쥴링 된 callback 함수의 실행을 취소합니다.
 cancelAnimationFrame(requestId);
 ```
 
-`callback` 함수는 페이지의 로드가 시작된 시점에서부터 지난 시간을 microseconds 로 제공하는 하나의 인수를 받습니다. 이 시간은 [performance.now()](mdn:api/Performance/now) 호출을 통해서도 얻을 수 있습니다.
+`callback` 함수는 페이지의 로드가 시작된 시점에서부터 지난 시간을 microseconds 로 제공하는 하나의 인수를 받습니다. 이 시각은 [performance.now()](mdn:api/Performance/now) 호출을 통해서도 얻을 수 있습니다.
 
-일반적으로 `callback` 함수는 곧 실행됩니다. CPU가 overloaded 되있거나 노트북의 배터리가 거의 방전되거었거나 등 비슷한 다른 이유가 있지 않는 한은 그렇습니다.
+일반적으로 `callback` 함수는 곧 실행됩니다, CPU가 overloaded 돼 있거나 노트북의 배터리가 거의 방전되거나 혹은 다른 비슷한 이유가 있지 않은 한 그렇습니다.
 
 아래 코드는 처음 10번의 `requestAnimationFrame` 실행 간격을 보여줍니다. 보통 10-20ms 정도입니다:
 
