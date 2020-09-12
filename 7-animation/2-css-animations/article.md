@@ -2,15 +2,15 @@
 
 CSS 애니메이션을 사용하면 자바스크립트 없이도 간단한 애니메이션을 만들 수 있습니다.
 
-자바스크립트는 CSS 애니메이션을 제어하고 보다 짧은 코드로 훨씬 더 효과적인 애니메이션을 만듭니다.
+자바스크립트를 사용하면 CSS 애니메이션을 제어할 수 있고 짧은 코드로 훨씬 더 효과적인 애니메이션을 만들 수 있습니다.
 
 ## CSS 트랜지션 [#css-transition]
 
-CSS 트랜지션의 원리는 간단합니다. 프로퍼티에 어떻게 애니메이션 시킬지에 대한 값을 입력하면 됩니다. 입력한 프로퍼티가 변할 때, 브라우저에 애니메이션이 보이게 됩니다.
+CSS 트랜지션의 원리는 간단합니다. 애니메이션 관련 프로퍼티와 값을 정의해 변화 효과(애니메이션 효과)를 정의할 수 있다는 것이 CSS 트랜지션의 핵심입니다. 브라우저는 애니메이션 관련 프로퍼티가 변하면 자동으로 그 효과를 화면에 보여줍니다.
 
-즉, 프로퍼티를 변하게 해야 합니다. 그래야 브라우저를 통해 자연스러운 전환이 됩니다.
+결론은 이렇습니다. 프로퍼티 값을 변경시키면 브라우저가 알아서 자연스럽게 트랜지션(전환) 효과를 주는 것이죠.
 
-예를 들어 아래에 있는 CSS는 3초 동안 `background-color`를 변하게 합니다.
+예시를 살펴봅시다. 아래 CSS를 적용하면 3초 동안 `background-color`가 서서히 변합니다.
 
 ```css
 .animated {
@@ -19,12 +19,12 @@ CSS 트랜지션의 원리는 간단합니다. 프로퍼티에 어떻게 애니�
 }
 ```
 
-이제 어떤 요소가 `.animated` 클래스를 가지고 있다면,  `background-color`는 3초 동안 변하게 됩니다.
+이 CSS를 적용하면 `animated` 클래스 속성이 있는 요소의 `background-color`가 3초 동안 변하는 것이죠.
 
-아래 버튼을 클릭해 배경을 변화시켜보세요.
+실제 사례를 봅시다. 버튼을 클릭하면 버튼 배경 색이 변화합니다.
 
 ```html run autorun height=60
-<button id="color">클릭하기</button>
+<button id="color">클릭</button>
 
 <style>
   #color {
@@ -40,16 +40,16 @@ CSS 트랜지션의 원리는 간단합니다. 프로퍼티에 어떻게 애니�
 </script>
 ```
 
-CSS 프로퍼티와 관련된 프로퍼티 네 가지는 다음과 같습니다.
+CSS 트랜지션에 사용되는 프로퍼티는 네 가지입니다.
 
 - `transition-property`
 - `transition-duration`
 - `transition-timing-function`
 - `transition-delay`
 
-이 네 가지 프로퍼티는 잠시 후에 다루도록 하고, 지금은 흔히 쓰이는 `transition` 프로퍼티가 어떤 순서대로 네 가지 프로퍼티를 선언하는지 알아봅시다. `property duration timing-function delay`의 순서로 한 번에 선언이 가능합니다.
+각 프로퍼티에 대해서는 잠시 후에 다룰 예정입니다. 지금은 `transition`이라는 공통 프로퍼티를 사용해 이 네 프로퍼티를 한 번에 선언할 수 있다는 사실 정도만 알아둡시다. `transition` 프로퍼티에 값을 넣어주면 이 값들은 `property duration timing-function delay` 순으로 위 네 개의 프로퍼티에 대응하게 됩니다.
 
-예를 들어 아래의 버튼은 `color`와 `font-size`에 애니메이션 효과가 나타납니다.
+아래와 같이 `transition` 프로퍼티를 정의하면 `color`와 `font-size`에 애니메이션 효과가 나타납니다.
 
 ```html run height=80 autorun no-beautify
 <button id="growing">클릭하기</button>
@@ -70,29 +70,29 @@ growing.onclick = function() {
 </script>
 ```
 
-이제 애니메이션 프로퍼티에 대해 하나씩 살펴봅시다.
+이제 본격적으로 각 프로퍼티를 살펴봅시다.
 
 ## 'transition-property' 프로퍼티
 
-`transition-property` 프로퍼티를 통해 `left`, `margin-left`, `height`, `color`와 같은 애니메이션을 위한 프로퍼티 목록을 작성할 수 있습니다.
+`transition-property` 프로퍼티엔 `left`, `margin-left`, `height`, `color` 같이 애니메이션 효과를 적용할 프로퍼티 목록을 정의할 수 있습니다.
 
-모든 프로퍼티가 애니메이션 효과를 나타낼 순 없지만, [많은 프로퍼티](http://www.w3.org/TR/css3-transitions/#animatable-properties-)가 가능합니다. 프로퍼티의 값인 `all`은 모든 프로퍼티가 전환될 수 있음을 의미합니다.
+모든 프로퍼티에 애니메이션 효과를 적용할 수 없지만, [상당수의 프로퍼티](http://www.w3.org/TR/css3-transitions/#animatable-properties-)에 애니메이션 효과를 적용할 수 있습니다. 값에 `all`이 있으면 '모든 프로퍼티에 애니메이션 효과를 적용하겠다'라는 것을 의미합니다.
 
 ## 'transition-duration' 프로퍼티
 
-`transition-duration` 프로퍼티를 통해 애니메이션 시간이 얼마나 걸릴지 설정할 수 있습니다. 시간은 [CSS 시간 단위](http://www.w3.org/TR/css3-values/#time)인 초 단위를 나타내는 `s` 또는 밀리초 단위를 나타내는 `ms`를 사용해야 합니다.
+`transition-duration` 프로퍼티엔 애니메이션 효과를 얼마 동안 줄지를 설정합니다. 시간은 [CSS 시간 형식(CSS time format)](http://www.w3.org/TR/css3-values/#time)을 따라야 하는데, 초 단위를 나타내는 `s`나 밀리초 단위를 나타내는 `ms`를 사용하면 됩니다.
 
 ## 'transition-delay' 프로퍼티
 
-`transition-delay` 프로퍼티를 통해 애니메이션 *시작 전*의 지연 시간을 설정할 수 있습니다. 예를 들어 `transition-delay: 1s`이면, 애니메이션은 1초 후에 나타나게 됩니다.
+`transition-delay` 프로퍼티엔 애니메이션 효과가 *시작되기 전*에 얼마만큼의 지연 시간을 줄지 설정합니다. `transition-delay` 값을 `1s`로 설정하면 애니메이션 효과가 1초 후에 나타납니다.
 
-음의 값도 가능합니다. 그러면 애니메이션은 중간부터 시작하게 됩니다. 예를 들어 `transition-duration`이 `2s`이고, 지연 시간은 `-1s`일 때, 애니메이션은 1초가 걸리고 딱 중간부터 시작합니다.
+`transition-delay`엔 음수 값도 넣을 수 있습니다. 값이 음수일 땐 애니메이션 효과가 중간부터 나타납니다. `transition-duration`을 `2s`, 지연 시간을 `-1s`로 설정하면 애니메이션 효과는 1초가 지난 후 1초 동안 지속됩니다.
 
-여기 CSS `translate` 프로퍼티를 사용하여 `0`부터 `9`까지 숫자가 변하는 애니메이션이 있습니다.
+아래 예시에선 CSS `translate` 프로퍼티를 사용해 화면에 숫자 `0`부터 `9`까지 자연스럽게 나타나도록 해보았습니다..
 
 [codetabs src="digits"]
 
-`transform` 프로퍼티는 다음과 같이 작성되었습니다.
+`transform` 프로퍼티 값에 translate(-90%)를 입력하면 왼쪽으로 해당 요소가 이동합니다.
 
 ```css
 #stripe.animate {
@@ -102,25 +102,25 @@ growing.onclick = function() {
 }
 ```
 
-위의 예시에서 자바스크립트는 요소에 `.animate`라는 이름의 클래스를 추가했습니다. 그리고 애니메이션이 나타납니다.
+숫자를 클릭하면 자바스크립트가 동작해 숫자가 들어 있는 요소(stripe)에 `animate` 클래스가 추가되고 애니메이션 효과가 나타납니다.
 
 ```js
 stripe.classList.add('animate');
 ```
 
-또한 `transition-delay`에서 음의 값을 사용하여, 특정 숫자에서(예: 현재 2초에 해당하는 숫자) '중간부터' 시작할 수 있다.
+이번엔 `transition-delay`에 음수를 써서 예시를 약간 변형해봅시다. 현재 시각을 기준으로 '초'를 추출하고, 이 값에 마이너스 기호를 붙여서 `transition-delay` 값으로 지정하면 현재 초를 기준으로 숫자가 나타나고, 애니메이션 효과가 적용되는 것을 확인할 수 있습니다.
 
-여기 숫자를 클릭하면 현재 2초에 해당하는 숫자부터 애니메이션이 시작될 것입니다.
+직접 숫자를 클릭해보세요. 현재 날짜가 2020년 9월 12일 오후 12시 17분 8초라면 숫자 8부터 스르륵 이동합니다.
 
 [codetabs src="digits-negative-delay"]
 
-자바스크립트에서는 위의 내용을 별도의 행으로 실행합니다.
+바로 아래 코드가 이런 효과를 만들어낸 것이죠.
 
 ```js
 stripe.onclick = function() {
   let sec = new Date().getSeconds() % 10;
 *!*
-  // 예를 들어, 여기에서의 -3s는 3초부터 애니메이션을 시작합니다.
+  // sec가 3이라면 transitionDelay 값이 -3s가 되어 3부터 애니메이션 효과가 적용됩니다.
   stripe.style.transitionDelay = '-' + sec + 's';
 */!*
   stripe.classList.add('animate');
