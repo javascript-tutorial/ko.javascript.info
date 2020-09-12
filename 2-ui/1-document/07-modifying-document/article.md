@@ -32,23 +32,23 @@
 
 ## 요소 생성하기
 
-DOM 노드를 만들어주는 메서드는 두 가지가 있습니다.
+DOM 노드를 만들때 사용하는 메서드는 두 가지입니다.
 
 `document.createElement(tag)`
-: 태그 이름을 사용해 새로운 요소를 만듦
+: 태그 이름(`tag`)을 사용해 새로운 요소 노드를 만듦
 
     ```js
     let div = document.createElement('div');
     ```
 
 `document.createTextNode(text)`
-: 주어진 텍스트를 사용해 새로운 *텍스트 노드*를 만듦
+: 주어진 텍스트(`text`)를 사용해 새로운 *텍스트 노드*를 만듦
 
     ```js
-    let textNode = document.createTextNode('안녕하세요');
+    let textNode = document.createTextNode('안녕하세요.');
     ```
 
-개발할 떈 메시지를 넣었던 `div`같이 대부분의 경우 요소 노드를 만들게 됩니다.
+개발을 할 땐 위 예시(메시지가 들어가는 `div`)처럼 주로 요소 노드를 만들게 됩니다.
 
 ### 메시지 생성하기
 
@@ -69,9 +69,9 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 
 ## 삽입 메서드
 
-`div`가 페이지에 나타나게 하려면 `document` 내 어딘가에 `div`를 삽입해야 합니다. `document.body`로 참조할 수 있는 `<body>`안 같은 곳에 말이죠.
+`div`가 페이지에 나타나게 하려면 `document` 내 어딘가에 `div`를 넣어줘야 합니다. `document.body`로 참조할 수 있는 `<body>`안 같은 곳에 말이죠.
 
-요소 삽입 메서드 `append`로 `document.body.append(div)`를 사용하면 가능합니다.  
+요소 삽입 메서드 `append`를 사용한 코드 `document.body.append(div)`를 사용해 직접 새롭게 만든 요소 노드를 페이지에 나타나도록 해봅시다.  
 
 전체 코드는 다음과 같습니다.
 
@@ -97,21 +97,21 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 </script>
 ```
 
-여기서는 `document.body`에서 `append`를 호출했지만 다른 요소에서도 `append` 메서드를 호출해서 또 다른 요소를 넣을 수 있습니다. 예를 들어 `div.append(anotherElement)`를 호출해서 `<div>`에 무언가를 추가할 수 있습니다.
+여기서는 `document.body`에서 `append`를 호출했지만 다른 요소에도 `append` 메서드를 호출해 요소를 넣을 수 있습니다. `div.append(anotherElement)`를 호출해 `<div>`에 무언가를 추가하는 것처럼 말이죠.
 
-다음은 각자 다른 위치에 삽입하도록 지정하는 다른 삽입 메서드입니다.
+자바스크립트에서 지원하는 노드 삽입 메서드는 다음과 같습니다. 적절한 메서드를 선택하면 직접 삽입 위치를 지정할 수 있습니다.
 
-- `node.append(...nodes or strings)` -- 노드나 문자열을 `node` *끝*에 삽입합니다.
-- `node.prepend(...nodes or strings)` -- 노드나 문자열을 `node` *맨 앞*에 삽입합니다.
-- `node.before(...nodes or strings)` –-  노드나 문자열을 `node` *이전*에 삽입합니다.
-- `node.after(...nodes or strings)` –- 노드나 문자열을 `node` *다음*에 삽입합니다.
-- `node.replaceWith(...nodes or strings)` –- `node`를 새로운 노드나 문자열로 대체합니다.
+- `node.append(노드나 문자열)` -- 노드나 문자열을 `node` *끝*에 삽입합니다.
+- `node.prepend(노드나 문자열)` -- 노드나 문자열을 `node` *맨 앞*에 삽입합니다.
+- `node.before(노드나 문자열)` –-  노드나 문자열을 `node` *이전*에 삽입합니다.
+- `node.after(노드나 문자열)` –- 노드나 문자열을 `node` *다음*에 삽입합니다.
+- `node.replaceWith(노드나 문자열)` –- `node`를 새로운 노드나 문자열로 대체합니다.
 
-삽입 메서드에 들어가는 인수는 추가할 DOM 노드 임의 목록 또는 텍스트 문자열입니다(자동으로 텍스트 노드가 됨).
+삽입 메서드엔 임의의 노드 목록이나 문자열을 넘겨줄 수 있습니다. 문자열을 넘겨주면 자동으로 텍스트 노드가 만들어집니다.
 
-이러한 메서드들이 어떻게 동작하는지 살펴보겠습니다.
+예시를 살펴봅시다.
 
-아래는 삽입 메서드를 사용해서 목록에 항목을 추가하고 앞·뒤로 텍스트를 덧붙이는 예제입니다.
+스크립트가 실행되면 0, 1, 2에 더하여 새로운 글자들이 화면에 추가됩니다.
 
 ```html autorun
 <ol id="ol">
@@ -138,7 +138,7 @@ div.innerHTML = "<strong>안녕하세요!</strong> 중요 메시지를 확인하
 
 ![](before-prepend-append-after.svg)
 
-최종 리스트는 다음과 같아질 겁니다.
+최종 결과는 다음과 같아질 겁니다.
 
 ```html
 before
@@ -152,69 +152,69 @@ before
 after
 ```
 
-이 메서드들을 사용하면 복수의 노드와 문자열을 한 번에 넣을 수도 있습니다.
+앞서 언급하긴 했지만, 이 메서드들을 사용하면 '복수'의 노드와 문자열을 한 번에 넣을 수도 있습니다.
 
 문자열과 요소를 한 번에 삽입하는 예시를 살펴봅시다.
 
 ```html run
 <div id="div"></div>
 <script>
-  div.before('<p>Hello</p>', document.createElement('hr'));
+  div.before('<p>안녕하세요</p>', document.createElement('hr'));
 </script>
 ```
 
-Please note: the text is inserted "as text", not "as HTML", with proper escaping of characters such as `<`, `>`.
+삽입 메서드에 문자열을 넘겨 텍스트 노드를 만들 땐 인수로 넘긴 문자열이 'HTML'이 아닌 '문자열' 그 형태로 삽입된다는 점에 주의해야 합니다. `<`나 `>`같은 특수문자는 이스케이프 처리됩니다.
 
 따라서 최종 HTML은 다음과 같습니다.
 
 ```html run
 *!*
-&lt;p&gt;Hello&lt;/p&gt;
+&lt;p&gt;안녕하세요&lt;/p&gt;
 */!*
 <hr>
 <div id="div"></div>
 ```
 
-문자열이 `elem.textContent`를 사용한 것과 같이 안전한 방법으로 삽입되었네요.
+삽입 메서드를 사용하면 문자열은 `elem.textContent`를 사용한 것처럼 안전한 방법으로 삽입되는 것이죠.
 
-따라서 이 메서드들은 DOM 노드나 문자열을 삽입할 때만 사용할 수 있습니다.
+따라서 노드 삽입 메서드는 DOM 노드나 문자열을 삽입할 때만 사용할 수 있습니다.
 
-그런데 만약 `elem.innerHTML`을 사용한 것처럼 모든 태그가 동작할 수 있게 문자열 형태의 'HTML 자체'를 삽입하고 싶다면 어떻게 해야 할까요?
+그런데 만약 `elem.innerHTML`을 사용한 것처럼 태그가 정상적으로 동작할 수 있게 문자열 형태의 'HTML 그 자체'를 삽입하고 싶다면 어떻게 해야 할까요?
 
 ## insertAdjacentHTML/Text/Element
 
 또 다른 다재다능한 메서드 `elem.insertAdjacentHTML(where, html)`를 사용하면 가능합니다.
 
-`elem.insertAdjacentHTML(where, html)`에서 첫 번째 매개변수는 `elem`을 기준으로 하는 상대 위치로, 반드시 다음 값 중 하나여야 합니다.
+`elem.insertAdjacentHTML(where, html)`에서 첫 번째 매개변수는 `elem`을 기준으로 하는 상대 위치로, 다음 값 중 하나여야 합니다.
 
-- `"beforebegin"` -- `elem` 바로 앞에 `html`을 삽입합니다,
-- `"afterbegin"` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입합니다.
-- `"beforeend"` -- `elem`의 마지막 자식 요소 바로 다음에 `html`을 삽입합니다.
-- `"afterend"` -- `elem` 바로 다음에 `html`을 삽입합니다.
+- `'beforebegin'` -- `elem` 바로 앞에 `html`을 삽입합니다.
+- `'afterbegin'` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입합니다.
+- `'beforeend'` -- `elem`의 마지막 자식 요소 바로 다음에 `html`을 삽입합니다.
+- `'afterend'` -- `elem` 바로 다음에 `html`을 삽입합니다.
 
-두 번째 매개변수는 HTML 문자열로, 이 HTML은 "그 자체로" 삽입됩니다.
+두 번째 매개변수는 HTML 문자열로, 이 HTML은 이스케이프 처리되지 않고 '그대로' 삽입됩니다.
 
 예시:
 
 ```html run
 <div id="div"></div>
 <script>
-  div.insertAdjacentHTML('beforebegin', '<p>Hello</p>');
-  div.insertAdjacentHTML('afterend', '<p>Bye</p>');
+  div.insertAdjacentHTML('beforebegin', '<p>안녕하세요.</p>');
+  div.insertAdjacentHTML('afterend', '<p>안녕히 가세요.</p>');
 </script>
 ```
 
 최종 HTML은 다음과 같습니다.
 
 ```html run
-<p>Hello</p>
+<p>안녕하세요.</p>
 <div id="div"></div>
-<p>Bye</p>
+<p>안녕히 가세요.</p>
 ```
 
-임의의 HTML을 페이지에 삽입하려면 이런 방법을 사용하면 됩니다.
+임의의 HTML을 페이지에 삽입할 땐 이 방법을 사용하면 됩니다.
 
-아래는 매개변수에 따라 변하는 삽입 위치를 표현한 그림입니다.
+아래는 매개변수에 따라 삽입 위치가 어떻게 변하는지를 표현한 그림입니다.
 
 ![](insert-adjacent.svg)
 
@@ -222,12 +222,12 @@ Please note: the text is inserted "as text", not "as HTML", with proper escaping
 
 `elem.insertAdjacentHTML(where, html)`은 두 가지 형제 메서드가 있습니다.
 
-- `elem.insertAdjacentText(where, text)` -- `insertAdjacentHTML`과 같은 문법인데, HTML 대신 `text`를 '문자 그대로' 삽입한다는 점이 다릅니다,
+- `elem.insertAdjacentText(where, text)` -- `insertAdjacentHTML`과 문법은 같은데, HTML 대신 `text`를 '문자 그대로' 삽입한다는 점이 다릅니다.
 - `elem.insertAdjacentElement(where, elem)` -- 역시 같은 문법인데, 요소를 삽입한다는 점이 다릅니다.
 
-두 메서드는 메서드 구색을 갖추려는 목적으로 만들어졌습니다. 실무에선 거의 `insertAdjacentHTML`만 사용됩니다. 요소나 문자 노드를 삽입할 땐 `append/prepend/before/after`메서드가 있기 때문입니다. 이 메서드들을 사용하는 게 더 짧고, 노드나 텍스트 조각을 쉽게 삽입할 수 있습니다.
+`insertAdjacentText`과 `insertAdjacentElement`는 메서드 구색을 갖추려는 목적으로 만들어졌습니다. 요소나 문자 노드를 삽입할 땐 `append/prepend/before/after`메서드를 사용하면 되므로 실무에선 대부분 `insertAdjacentHTML`을 사용합니다.  요소 삽입 메서드를 사용하면 코드 길이가 줄어들고, 노드나 텍스트 조각을 쉽게 삽입할 수 있습니다.
 
-새로운 메서드를 사용해 메시지 창 예시를 다른 방법으로 작성하면 다음과 같습니다.
+새롭게 배운 메서드 `insertAdjacentHTML`를 사용해 메시지 창 예시를 다시 작성하면 다음과 같습니다.
 
 ```html run
 <style>
@@ -249,7 +249,7 @@ Please note: the text is inserted "as text", not "as HTML", with proper escaping
 
 ## 노드 삭제하기
 
-노드를 삭제하려면 메서드 `node.remove()`을 사용하면 됩니다.
+`node.remove()` 사용하면 노드를 삭제할 수 있습니다.
 
 일 초 후 메시지가 사라지게 해봅시다.
 
@@ -276,7 +276,7 @@ Please note: the text is inserted "as text", not "as HTML", with proper escaping
 </script>
 ```
 
-요소 노드를 한 곳에서 다른 곳으로 *옮길 때* 기존에 있던 요소 노드를 지울 필요가 없습니다.
+참고로, 요소 노드를 다른 곳으로 *옮길 때* 기존에 있던 노드를 지울 필요가 없습니다.
 
 **모든 노드 삽입 메서드는 자동으로 기존에 있던 노드를 삭제하고 새로운 곳으로 노드를 옮기기 때문입니다.**
 
@@ -293,15 +293,15 @@ Please note: the text is inserted "as text", not "as HTML", with proper escaping
 
 ## cloneNode로 노드 복제하기
 
-위 예시에서 띄운 메시지 창과 유사한 메시지 창을 하나 더 띄우려면 어떻게 해야 할까요?
+위 예시에서 기존 메시지 창과 유사한 메시지 창을 하나 더 띄워달라는 요구사항이 추가되었다고 가정해봅시다.
 
-메시지 창을 만들어주는 함수를 하나 만들 수 있을 겁니다. 그런데 함수를 만드는 것 대신 기존에 만들어 놨던 `div`를 *복제*하고 (필요하다면) 안에 있는 텍스트를 수정하는 방법도 가능합니다.
+'메시지 창을 만들어주는 함수를 하나 만들면 되지 않을까?'라는 생각이 떠오를 겁니다. 그런데 이 방법 말고도 기존에 만들어 놨던 `div`를 *복제*하고 (필요하다면) 안에 있는 텍스트를 수정하는 방법도 가능합니다.
 
-요소가 클 때는 복제를 사용하는 방법이 빠르고 간단할 수 있습니다.
+복제하려는 요소가 클 때는 함수를 만드는 대신 복제를 사용하는 방법이 빠르고 간단할 수 있습니다.
 
-- `elem.cloneNode(true)`을 호출하면 `elem`의 '깊은' 복제본이 만들어집니다. 속성 전부와 후손 요소 전체가 복사됩니다. `elem.cloneNode(false)`을 호출하면 후손 노드 복사 없이 `elem`만 복제됩니다.
+- `elem.cloneNode(true)`을 호출하면 `elem`의 '깊은' 복제본이 만들어집니다. 속성 전부와 자손 요소 전부가 복사됩니다. `elem.cloneNode(false)`을 호출하면 후손 노드 복사 없이 `elem`만 복제됩니다.
 
-이를 이용해 유사한 메시지 창을 하나 더 띄워봅시다.
+`cloneNode`를 이용해 메시지 창을 하나 더 띄워봅시다.
 
 ```html run height="120"
 <style>
@@ -358,7 +358,7 @@ ul.append(getListContent()); // (*)
 </script>
 ```
 
-`(*)`로 표시한 줄에서 `<ul>`에 `DocumentFragment`를 추가해 주었지만, 추가한 fragment는 문서에 '녹아들었기' 때문에 최종 결과물은 아래와 같습니다.
+`(*)`로 표시한 줄에서 `<ul>`에 `DocumentFragment`를 추가했습니다. 추가한 fragment는 문서에 '녹아들었기' 때문에 최종 결과물은 아래와 같아집니다.
 
 ```html
 <ul>
@@ -368,7 +368,7 @@ ul.append(getListContent()); // (*)
 </ul>
 ```
 
-`DocumentFragment`를 직접 사용하는 일은 드뭅니다. 요소가 노드인 배열을 만들어 반환할 수 있으므로, 이렇게 특별한 종류의 노드를 만들 필요가 없기 때문입니다. 위 예시를 `DocumentFragment` 없이 다시 작성해 보겠습니다. 
+`DocumentFragment`를 직접 사용할 일은 흔지 않습니다. 아래 에시처럼 노드가 담긴 배열을 직접 만들어 반환할 수 있기 때문입니다.
 
 ```html run
 <ul id="ul"></ul>
@@ -387,12 +387,12 @@ function getListContent() {
 }
 
 *!*
-ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합이 잘 맞습니다.
+ul.append(...getListContent()); // append 메서드와 ...(전개 문법)은 궁합이 잘 맞습니다.
 */!*
 </script>
 ```
 
-여기서 `DocumentFragment`를 언급한 이유는, [template](info:template-element) 요소같이 `DocumentFragment`를 기반으로 만들어진 개념이 있기 때문입니다. template 요소는 추후 다루도록 하겠습니다.  
+여기서 `DocumentFragment`를 언급한 이유는 [template](info:template-element) 요소같이 `DocumentFragment`를 기반으로하는 문법이 있기 때문입니다. template 요소는 추후 다루도록 하겠습니다.  
 
 ## 구식 삽입·삭제 메서드
 
@@ -400,9 +400,9 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 
 하위 호환성을 유지하기 위해 남아있는 '구식(old school)' DOM 조작 메서드도 있습니다.
 
-아주 오래전에 만들어진 이런 메서드들은 요즘에는 사용할 이유가 없습니다. 앞서 배운 모던한 메서드 `append`, `prepend`, `before`, `after`, `remove`, `replaceWith`를 사용하는 것이 좀 더 유연하기 때문입니다.
+아주 오래전에 만들어진 이 메서드들은 요즘에는 잘 사용하지 않습니다. 앞서 배운 모던한 메서드 `append`, `prepend`, `before`, `after`, `remove`, `replaceWith`를 사용하는 것이 좀 더 유연하기 때문입니다.
 
-그럼에도 불구하고 다음과 같은 구식 메서드를 소개해드리는 이유는 작성된 지 오래된 스크립트에서 이런 메서드들을 발견할 수 있기 때문입니다.
+그럼에도 불구하고 구식 메서드를 소개해드리는 이유는 작성된 지 오래된 스크립트에서 이런 메서드들을 발견할 수 있기 때문입니다.
 
 `parentElem.appendChild(node)`
 : `parentElem`의 마지막 자식으로 `node`를 추가함
@@ -471,7 +471,7 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
     </script>
     ```
 
-소개해드린 구식 메서드들은 모두 삽입되거나 삭제된 노드를 반환합니다. `parentElem.appendChild(node)`는 `node`를 반환하죠. 그런데 반환된 값을 사용할 일이 거의 없기 때문에 메서드를 그냥 실행만 하는 편입니다.
+이 메서드들은 모두 삽입하거나 삭제한 노드를 반환합니다. `parentElem.appendChild(node)`는 `node`를 반환하죠. 그런데 반환된 값을 사용할 일이 거의 없기 때문에 메서드를 그냥 실행만 하는 편입니다.
 
 ## 'document.write'에 대한 첨언
 
@@ -489,13 +489,13 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 <p>끝</p>
 ```
 
-`document.write(html)`를 호출하면 `html`이 페이지 '그 자리에 바로' 추가됩니다. `html` 형식의 문자열은 동적으로 생성될 수 있기 때문에 이 방식은 꽤나 유연합니다. 날개를 단 새처럼 동적인 웹페이지를 만드는데 이 메서드를 사용할 수 있죠.
+`document.write(html)`를 호출하면 `html`이 페이지 '그 자리에 즉시' 추가됩니다. `html` 형식의 문자열을 동적으로 만들어 사용할 수 있기 때문에 `document.write(html)`는 꽤나 유연합니다. 날개를 단 새처럼 동적인 웹페이지를 만드는데 이 메서드를 사용할 수 있죠.
 
-그런데 이 메서드는 DOM도 없고 그 어떤 표준도 존재하지 않았을 때 만들어졌습니다. 아주 오래전에 말이죠. 하지만 아직 다양한 곳에서 쓰이고 있기 때문에 살아남았습니다.
+`document.write`는 DOM도 없고 그 어떤 표준도 존재하지 않았던 과거에 만들어졌습니다. 표준에 정의된 메서드는 아니지만 아직 다양한 곳에서 쓰이고 있어서 살아남은 것이죠.
 
 근래에 작성된 스크립트에선 이 메서드를 찾기 힘듭니다.
 
-왜냐하면 **`document.write` 호출은 페이지를 불러오는 도중에만 작동하기 때문입니다.**
+왜냐하면 **`document.write`는 페이지를 불러오는 도중에만 작동하기 때문입니다.**
 
 페이지가 다 로드되고 나서 `document.write`를 호출하면 기존에 있던 문서 내용이 사라집니다.
 
@@ -512,32 +512,32 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 */!*
 ```
 
-따라서 `document.write`는 지금까지 배운 DOM 메서드와는 달리 '페이지 로드가 다 끝난 후'엔 사용할 수 없습니다.
+이런 이유 때문에 `document.write`는 지금까지 배운 DOM 메서드와는 달리 '페이지 로드가 다 끝난 후'엔 사용할 수 없습니다.
 
-가장 큰 단점입니다.
+아주 큰 단점이죠.
 
-장점도 있습니다. 브라우저가 HTML을 읽는 도중에('파싱') `document.write`가 호출되면 브라우저는 텍스트 형식의 HTML을 마치 원래 페이지에 있었던 것 마냥 써주기 때문입니다.
+장점도 있습니다. 브라우저는 HTML을 '읽는(파싱하는)' 도중에 `document.write(HTML)`를 만나면 텍스트 형식의 HTML을 마치 원래 페이지에 있었던 것 마냥 해석합니다.
 
-중간에 *DOM 조작이 없기 때문에* 속도가 아주 빨라지죠. `document.write`는 DOM 구조가 만들어지는 도중에 페이지에 직접 씁니다.
+중간에 *DOM 조작을 하지 않기 때문에* 속도가 아주 빨라지죠. DOM 구조가 완성되기 전에 페이지에 내용이 삽입되기 때문입니다.
 
-만약 엄청나게 많은 텍스트를 HTML에 동적으로 추가해야 하는데 아직 페이지가 로딩 중이고, 속도가 중요한 상황이라면 `document.write`가 유용할 수 있습니다. 하지만 실제 이런 요구 사항들이 한 번에 충족되어야 하는 상황은 흔치 않습니다. `document.write`가 눈에 띈다면 그건 그냥 오래된 스크립트라서 그런 겁니다.  
+엄청나게 많은 글자를 HTML에 동적으로 추가해야 하는데 아직 페이지를 불러오는 중이고, 속도가 중요한 상황이라면 `document.write`가 유용할 수 있습니다. 하지만 실제 이런 요구 사항들이 한 번에 충족되어야 하는 상황은 흔치 않습니다. `document.write`가 눈에 띈다면 그건 그냥 오래된 스크립트라서 그럴 확률이 높습니다.
 
 ## 요약
 
 - 노드 생성 메서드:
     - `document.createElement(tag)` -- 태그 이름을 사용해 새로운 요소를 만듦
     - `document.createTextNode(value)` -- 텍스트 노드를 만듦(잘 쓰이지 않음)
-    - `elem.cloneNode(deep)` -- 요소를 복제함. `deep==true`일 경우, 모든 후손 요소도 복제됨
+    - `elem.cloneNode(deep)` -- 요소를 복제함. `deep==true`일 경우 모든 자손 요소도 복제됨
 
 - 노드 삽입, 삭제 메서드:
-    - `node.append(...nodes or strings)` -- `node` 끝에 노드를 삽입
-    - `node.prepend(...nodes or strings)` -- `node` 맨 앞에 노드를 삽입
-    - `node.before(...nodes or strings)` –- `node` 이전에 노드를 삽입
-    - `node.after(...nodes or strings)` –- `node` 다음에 노드를 삽입
-    - `node.replaceWith(...nodes or strings)` –- `node`를 대체
+    - `node.append(노드나 문자열)` -- `node` 끝에 노드를 삽입
+    - `node.prepend(노드나 문자열)` -- `node` 맨 앞에 노드를 삽입
+    - `node.before(노드나 문자열)` –- `node` 이전에 노드를 삽입
+    - `node.after(노드나 문자열)` –- `node` 다음에 노드를 삽입
+    - `node.replaceWith(노드나 문자열)` –- `node`를 대체
     - `node.remove()` –- `node`를 제거
 
-    삽입이나 삭제하고자 하는 문자열은 텍스트 '그대로' 넣으시면 됩니다.
+    문자열을 삽입, 삭제할 땐 문자열을 '그대로' 넣으면 됩니다.
 
 - '구식' 메서드:
     - `parent.appendChild(node)`
@@ -547,15 +547,15 @@ ul.append(...getListContent()); // append 메서드와 "..." 연산자는 궁합
 
     이 메서드들은 전부 `node`를 반환합니다.
 
-- `html`에 HTML을 넣으면 메서드 `elem.insertAdjacentHTML(where, html)`은 아래 `where`의 위치에 따라 HTML을 삽입해줌
+- `html`에 HTML을 넣으면 메서드 `elem.insertAdjacentHTML(where, html)`은 `where` 값에 따라 특정 위치에 HTML을 삽입함
     - `"beforebegin"` -- `elem` 바로 앞에 `html`을 삽입
     - `"afterbegin"` -- `elem`의 첫 번째 자식 요소 바로 앞에 `html`을 삽입
     - `"beforeend"` -- `elem`의 마지막 자식 요소 바로 다음에 `html`을 삽입
     - `"afterend"` -- `elem` 바로 다음에 `html`을 삽입
 
-    각각 문자열과 요소를 삽입해주는 유사 메서드 `elem.insertAdjacentText`와 `elem.insertAdjacentElement`도 있는데, 잘 쓰이지는 않음
+    문자열이나 요소 삽입에 쓰이는 유사 메서드 `elem.insertAdjacentText`와 `elem.insertAdjacentElement`도 있는데, 잘 쓰이지는 않음
 
 - 페이지 로딩이 끝나기 전에 HTML을 삽입해주는 메서드:
     - `document.write(html)`
 
-    문서가 다 불러와진 상태에서 이 메서드를 호출하면 문서 내용이 지워짐. 오래된 스크립트에서 볼 수 있음
+    문서 로딩이 끝난 상태에서 이 메서드를 호출하면 문서 내용이 지워짐. 오래된 스크립트에서 볼 수 있음
