@@ -33,6 +33,7 @@ alert('𝒳'.length); // 2
 
 ## 유니코드 프로퍼티 \p{...}
 
+<<<<<<< HEAD
 ```warn header="Firefox와 Edge에서 미지원"
 2018년부터 표준에 포함되었지만 Firefox([버그](https://bugzilla.mozilla.org/show_bug.cgi?id=1361876))와 Edge([버그](https://github.com/Microsoft/ChakraCore/issues/2969))는 유니코드 프로퍼티를 아직 지원하지 않습니다.
 
@@ -40,6 +41,9 @@ alert('𝒳'.length); // 2
 ```
 
 유니코드의 모든 문자는 다양한 프로퍼티를 가집니다. 프로퍼티는 문자가 어떤 '범주'에 속하는지 설명하기도 하고 그 외에도 문자의 여러 가지 정보를 담고 있습니다.
+=======
+Every character in Unicode has a lot of properties. They describe what "category" the character belongs to, contain miscellaneous information about it.
+>>>>>>> ff152b126ec70a9de919bfdc1913215539d37187
 
 예를 들어 문자에 `Letter` 프로퍼티가 있다면 그 문자는 어떠한 언어의 글자라는 뜻입니다. `Number` 프로퍼티가 있다면 아라비아 숫자든 한자 숫자든 숫자라는 뜻이죠.
 

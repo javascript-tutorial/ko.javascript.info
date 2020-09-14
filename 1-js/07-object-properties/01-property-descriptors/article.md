@@ -241,7 +241,7 @@ Object.defineProperty(user, "name", {
 // 아래와 같이 변경하려고 하면 에러가 발생합니다.
 //   user.name = "Pete"
 //   delete user.name
-//   defineProperty(user, "name", { value: "Pete" })
+//   Object.defineProperty(user, "name", { value: "Pete" })
 Object.defineProperty(user, "name", {writable: true}); // Error
 */!*
 ```

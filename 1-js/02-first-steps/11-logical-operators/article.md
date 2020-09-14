@@ -223,8 +223,13 @@ AND 연산자 `&&`의 우선순위는 OR 연산자 `||`보다 높습니다.
 따라서 `a && b || c && d`는 `(a && b) || (c && d)`와 동일하게 동작합니다.
 ````
 
+<<<<<<< HEAD
 ````warn header="`if`를 ||나 &&로 대체하지 마세요."
 어떤 개발자들은 AND 연산자 `&&`를 `if`문을 '짧게' 줄이는 용도로 사용하곤 합니다.
+=======
+````warn header="Don't replace `if` with || or &&"
+Sometimes, people use the AND `&&` operator as a "shorter way to write `if`".
+>>>>>>> ff152b126ec70a9de919bfdc1913215539d37187
 
 예시:
 
