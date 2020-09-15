@@ -1,4 +1,4 @@
-# 자바스크립트 튜토리얼
+# 모던 자바스크립트 튜토리얼
 
 본 저장소에선 <https://javascript.info>의 내용을 영-한 번역합니다.
 
@@ -13,7 +13,7 @@
 ## 참여하기
 자바스크립트 튜토리얼 한국 저장소에 기여하고 싶다면, [CONTRIBUTING.md](https://github.com/javascript-tutorial/ko.javascript.info/blob/master/CONTRIBUTING.md)를 참고해 주세요.
 
-잘못된 번역, 오타 및 기타 개선사항은 [이슈](https://github.com/javascript-tutorial/ko.javascript.info/issues)로 등 부탁드립니다.
+잘못된 번역, 오타 및 기타 개선사항은 [이슈](https://github.com/javascript-tutorial/ko.javascript.info/issues)로 등록 부탁드립니다.
 
 ## 기여자
 튜토리얼 원문에 기여하신 분들은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다. 한국어 번역에 기여해주신 분들은 <https://github.com/javascript-tutorial/ko.javascript.info/graphs/contributors>에서 확인할 수 있습니다.
