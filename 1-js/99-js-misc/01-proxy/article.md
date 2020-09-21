@@ -994,7 +994,7 @@ We use `WeakMap` instead of `Map` here because it won't block garbage collection
 ## References
 
 - Specification: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
-- MDN: [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+- MDN: [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy).
 
 ## Summary
 
@@ -1016,13 +1016,13 @@ We can trap:
 - Reading (`get`), writing (`set`), deleting (`deleteProperty`) a property (even a non-existing one).
 - Calling a function (`apply` trap).
 - The `new` operator (`construct` trap).
-- Many other operations (the full list is at the beginning of the article and in the [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)).
+- Many other operations (the full list is at the beginning of the article and in the [docs](mdn:/JavaScript/Reference/Global_Objects/Proxy)).
 
 That allows us to create "virtual" properties and methods, implement default values, observable objects, function decorators and so much more.
 
 We can also wrap an object multiple times in different proxies, decorating it with various aspects of functionality.
 
-The [Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
+The [Reflect](mdn:/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
 
 Proxies have some limitations:
 
