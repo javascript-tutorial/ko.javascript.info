@@ -81,8 +81,13 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 `BigInt`형 숫자는 자주 쓰이지 않기 때문에 여기서 자세히 다루지 않고 별도의 챕터, <info:bigint>에서 설명드리겠습니다. 아주 큰 숫자를 사용해야하는 경우라면 해당 챕터를 참고해 주시기바랍니다.
 
+<<<<<<< HEAD
 ```smart header="호환성 이슈"
 이 글이 작성된 시점엔 Firefox, Chrome, Edge에서만 `BigInt`를 지원합니다. Safari, IE에선 지원하지 않습니다.
+=======
+```smart header="Compatibility issues"
+Right now `BigInt` is supported in Firefox/Chrome/Edge, but not in Safari/IE.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 ```
 
 ## 문자형
@@ -127,7 +132,11 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (큰따옴표는 �
 ```smart header="*글자형*은 없습니다."
 일부 언어는 글자 하나를 저장할 때 쓰이는 자료형, '글자(character)'형을 따로 지원합니다. C 언어와 Java의 `char`가 대표적인 예입니다.
 
+<<<<<<< HEAD
 자바스크립트는 글자형을 지원하지 않습니다. `문자형`만 있을 뿐입니다. 여기엔 글자가 하나 혹은 여러 개 들어갈 수 있습니다.
+=======
+In JavaScript, there is no such type. There's only one type: `string`. A string may consist of zero characters (be empty), one character or many of them.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 ```
 
 ## 불린형
@@ -255,6 +264,7 @@ typeof alert // "function"  (3)
 
 자바스크립트에는 여덟 가지 기본 자료형이 있습니다.
 
+<<<<<<< HEAD
 - `숫자형` -- 정수, 부동 소수점 숫자 등의 숫자를 나타낼 때 사용합니다. 정수의 한계는 ±2<sup>53</sup> 입니다.
 - `bigint` -- 길이 제약 없이 정수를 나타낼 수 있습니다.
 - `문자형` -- 빈 문자열이나 글자들로 이뤄진 문자열을 나타낼 때 사용합니다. 단일 문자를 나타내는 별도의 자료형은 없습니다.
@@ -263,6 +273,16 @@ typeof alert // "function"  (3)
 - `undefined` -- `undefined` 값만을 위한 독립 자료형입니다. `undefined`는 할당되지 않은 값을 나타냅니다. 
 - `객체형` -- 복잡한 데이터 구조를 표현할 때 사용합니다.
 - `심볼형` -- 객체의 고유 식별자를 만들 때 사용합니다.
+=======
+- `number` for numbers of any kind: integer or floating-point, integers are limited by <code>±(2<sup>53</sup>-1)</code>.
+- `bigint` is for integer numbers of arbitrary length.
+- `string` for strings. A string may have zero or more characters, there's no separate single-character type.
+- `boolean` for `true`/`false`.
+- `null` for unknown values -- a standalone type that has a single value `null`.
+- `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
+- `object` for more complex data structures.
+- `symbol` for unique identifiers.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 `typeof` 연산자는 피연산자의 자료형을 알려줍니다.
 

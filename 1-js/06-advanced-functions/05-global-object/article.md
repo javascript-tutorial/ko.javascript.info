@@ -5,7 +5,11 @@
 
 브라우저 환경에선 전역 객체를 `window`, Node.js 환경에선 `global`라고 부르는데, 각 호스트 환경마다 부르는 이름은 다릅니다. 
 
+<<<<<<< HEAD
 전역 객체의 이름을 `globalThis`로 표준화하자는 내용이 최근에 자바스크립트 명세에 추가되었기 때문에 모든 호스트 환경이 이를 따라야 하죠. Chromium 기반이 아닌 몇몇 브라우저는 아직 `globalThis`를 지원하진 않지만, 이에 대한 폴리필(polyfill)을 쉽게 만들 수 있습니다.
+=======
+Recently, `globalThis` was added to the language, as a standardized name for a global object, that should be supported across all environments. It's supported in all major  browsers.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
 
 본 튜토리얼은 브라우저 환경에서 구동되기 때문에 `window`라는 전역 객체를 사용하도록 하겠습니다. 다른 호스트 환경에서 작업하고 계신다면 `window`대신 `globalThis`를 사용하시면 됩니다.
 
@@ -81,7 +85,14 @@ if (!window.Promise) {
     전역 객체엔 `Array`와 같은 내장 객체, `window.innerHeight`(뷰포트의 높이를 반환함)같은 브라우저 환경 전용 변수 등이 저장되어 있습니다.
 - 전역 객체는 `globalThis`라는 보편적인 이름으로 불립니다.
 
+<<<<<<< HEAD
     하지만 '관습'에 따라 브라우저에서는 `window`, Node.js에서는 `global`이라는 이름으로 불릴 때가 많습니다. `globalThis`는 제안 목록에 추가 된 지 얼마 안 된 기능이기 때문에, 비 크로미움 기반 브라우저에선 지원하지 않습니다(폴리필을 구현하면 사용할 수 있습니다).
 - 프로젝트 전체에서 꼭 필요한 변수만 전역 객체에 저장하도록 하고, 전역 변수는 가능한 한 최소한으로 사용합시다.
 - [모듈](info:modules)을 사용하고 있지 않다면, 브라우저에서 `var`로 선언한 전역 변수는 전역 객체의 프로퍼티가 됩니다.
 - 이해하기 쉽고 요구사항 변경에 쉽게 대응할 수 있는 코드를 구현하려면, `window.x`처럼 전역 객체의 프로퍼티에 직접 접근합시다.
+=======
+    ...But more often is referred by "old-school" environment-specific names, such as `window` (browser) and `global` (Node.js).
+- We should store values in the global object only if they're truly global for our project. And keep their number at minimum.
+- In-browser, unless we're using [modules](info:modules), global functions and variables declared with `var` become a property of the global object.
+- To make our code future-proof and easier to understand, we should access properties of the global object directly, as `window.x`.
+>>>>>>> e074a5f825a3d10b0c1e5e82561162f75516d7e3
