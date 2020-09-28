@@ -61,12 +61,21 @@ if (response.ok) { // HTTP 상태 코드가 200~299일 경우
 
 `response` 에는 프라미스를 기반으로 하는 다양한 메서드가 있습니다. 이 메서드들을 사용하면 다양한 형태의 응답 본문을 처리할 수 있습니다. 
 
+<<<<<<< HEAD
 - **`response.text()`** -- 응답을 읽고 텍스트를 반환합니다,
 - **`response.json()`** -- 응답을 JSON 형태로 파싱합니다,
 - **`response.formData()`** -- 응답을 `FormData` 객체 형태로 반환합니다. `FormData`에 대한 자세한 내용은 [다음 챕터](info:formdata)에서 다루겠습니다.
 - **`response.blob()`** -- 응답을 [Blob](info:blob)(타입이 있는 바이너리 데이터) 형태로 반환합니다.
 - **`response.arrayBuffer()`** -- 응답을 [ArrayBuffer](info:arraybuffer-binary-arrays)(바이너리 데이터를 로우 레벨 형식으로 표현한 것) 형태로 반환합니다.
 - 이 외에도 `response.body`가 있는데, [ReadableStream](https://streams.spec.whatwg.org/#rs-class) 객체인 `response.body`를 사용하면 응답 본문을 청크 단위로 읽을 수 있습니다. 자세한 용례는 곧 살펴보겠습니다.
+=======
+- **`response.text()`** -- read the response and return as text,
+- **`response.json()`** -- parse the response as JSON,
+- **`response.formData()`** -- return the response as `FormData` object (explained in the [next chapter](info:formdata)),
+- **`response.blob()`** -- return the response as [Blob](info:blob) (binary data with type),
+- **`response.arrayBuffer()`** -- return the response as [ArrayBuffer](info:arraybuffer-binary-arrays) (low-level representation of binary data),
+- additionally, `response.body` is a [ReadableStream](https://streams.spec.whatwg.org/#rs-class) object, it allows you to read the body chunk-by-chunk, we'll see an example later.
+>>>>>>> f489145731a45df6e369a3c063e52250f3f0061d
 
 지금까지 배운 내용을 토대로 GitHub에서 마지막 커밋을 JSON 객체 형태로 받아봅시다.
 
