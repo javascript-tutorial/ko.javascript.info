@@ -60,11 +60,11 @@ alert( user?.address ); // undefined
 alert( user?.address.street ); // undefined
 ```
 
-위 예시를 통해 우리는 `?.`은 `?.` '앞' 평가 대상에만 동작되고, 확장은 되지 않는다는 사실을 알 수 있습니다.
+`?.`은 `?.`문법 앞에 위치한 값에만 동작할 뿐, 확장되어 동작하지 않습니다.
 
-In the example above, `user?.` allows only `user` to be `null/undefined`.
+위 예시에서 `user?.`는 `user`가 `null`이나 `undefined`일 때만 의도한대로 동작합니다.
 
-On the other hand, if `user` does exist, then it must have `user.address` property, otherwise `user?.address.street` gives an error at the second dot.
+`user`에 값이 있는 경우엔 `user.address` 프로퍼티가 반드시 있어야 합니다. 그렇지 않으면 `user?.address.street`의 두 번째 마침표에서 에러가 발생합니다.
 
 ```warn header="옵셔널 체이닝을 남용하지 마세요."
 `?.`는 존재하지 않아도 괜찮은 대상에만 사용해야 합니다.
@@ -81,7 +81,7 @@ On the other hand, if `user` does exist, then it must have `user.address` proper
 // ReferenceError: user is not defined
 user?.address;
 ```
-There must be `let/const/var user`. The optional chaining works only for declared variables.
+`user?.anything`이 의도한대로 동작하게 하려면 반드시 `let user`나 `const user`, `var user`를 사용해 `user`가 선언되어 있어야 합니다. 옵셔널 체이닝은 선언된 변수만 평가하기 때문입니다.
 ````
 
 ## 단락 평가
