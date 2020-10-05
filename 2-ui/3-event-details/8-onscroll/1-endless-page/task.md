@@ -1,20 +1,20 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Endless page
+# 끝없는 페이지
 
-Create an endless page. When a visitor scrolls it to the end, it auto-appends current date-time to the text (so that a visitor can scroll more).
+끝없는 페이지를 만들어 봅시다. 방문자가 맨 아래로 스크롤을 내리면, 자동으로 현재의 날짜와 시간 정보가 추가됩니다(방문자가 더 많이 스크롤할 수 있게 됩니다).
 
-Like this:
+이와 같이:
 
 [iframe src="solution" height=200]
 
-Please note two important features of the scroll:
+스크롤의 2가지 중요한 개념이 있음을 기억해봅시다:
 
-1. **The scroll is "elastic".** We can scroll a little beyond the document start or end in some browsers/devices (empty space below is shown, and then the document will automatically "bounces back" to normal).
-2. **The scroll is imprecise.** When we scroll to page end, then we may be in fact like 0-50px away from the real document bottom.
+1. **스크롤은 탄력적입니다.".** 브라우저나 디바이스 상에서 문서의 시작이나 마지막 부분보다 더 스크롤할 수 있습니다. (아래에 공백 공간이 보여지고, 그러고나서 문서는 자동적으로 원래 위치로 "튀어서 되돌아오게(bounce back)" 됩니다.).
+2. **스크롤은 부정확합니다.** 페이지의 마지막부분으로 스크롤할때, 사실 원본 문서의 맨 아래로부터 0-50px 정도 떨어질 수도 있습니다.
 
-So, "scrolling to the end" should mean that the visitor is no more than 100px away from the document end.
+그래서 "아래로 스크롤하는 것"은 방문자가 문서의 아래로부터 100px 이상 떨어져 있지 않음을 의미합니다.
 
-P.S. In real life we may want to show "more messages" or "more goods".
+추가 실생활에서는 더 많은 메시지나 상품을 보여주기를 원할 수 있습니다.
