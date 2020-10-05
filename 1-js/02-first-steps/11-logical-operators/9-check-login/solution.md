@@ -3,20 +3,32 @@
 ```js run demo
 let userName = prompt("사용자 이름을 입력해주세요.", '');
 
-if (userName == 'Admin') {
+if (userName === 'Admin') {
 
   let pass = prompt('비밀번호:', '');
 
+<<<<<<< HEAD
   if (pass == 'TheMaster') {
     alert( '환영합니다!' );
   } else if (pass == '' || pass == null) {
     alert( '취소되었습니다.' );
+=======
+  if (pass === 'TheMaster') {
+    alert( 'Welcome!' );
+  } else if (pass === '' || pass === null) {
+    alert( 'Canceled' );
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
   } else {
     alert( '인증에 실패하였습니다.' );
   }
 
+<<<<<<< HEAD
 } else if (userName == '' || userName == null) {
   alert( '취소되었습니다.' );
+=======
+} else if (userName === '' || userName === null) {
+  alert( 'Canceled' );
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 } else {
   alert( "인증되지 않은 사용자입니다." );
 }

@@ -214,9 +214,16 @@ preflight 요청은 `OPTIONS` 메서드를 사용합니다. 헤더엔 아래 두
 
 non-simple 요청을 받아들이기로 동의한 경우, 서버는 본문이 비어있고 상태 코드가 200인 응답을 다음과 같은 헤더와 함께 브라우저로 보냅니다.
 
+<<<<<<< HEAD
 - `Access-Control-Allow-Methods` -- 허용된 메서드 정보가 담겨있습니다.
 - `Access-Control-Allow-Headers` -- 허용된 헤더 목록이 담겨있습니다.
 - `Access-Control-Max-Age` -- 퍼미션 체크 여부를 몇 초간 캐싱해 놓을지를 명시합니다. 이렇게 퍼미션 정보를 캐싱해 놓으면 브라우저는 일정 기간 동안 preflight 요청을 생략하고 non-simple 요청을 보낼 수 있습니다.
+=======
+- `Access-Control-Allow-Origin` must be either `*` or the requesting origin, such as `https://javascript.info`, to allow it.
+- `Access-Control-Allow-Methods` must have the allowed method.
+- `Access-Control-Allow-Headers` must have a list of allowed headers.
+- Additionally, the header `Access-Control-Max-Age` may specify a number of seconds to cache the permissions. So the browser won't have to send a preflight for subsequent requests that satisfy given permissions.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 ![](xhr-preflight.svg)
 
@@ -258,16 +265,28 @@ Access-Control-Request-Headers: Content-Type,API-Key
 
 ### 단계 2 (preflight 응답)
 
+<<<<<<< HEAD
 서버는 상태 코드 200과 함께 다음과 같은 헤더를 담은 응답을 보냅니다.
+=======
+The server should respond with status 200 and headers:
+- `Access-Control-Allow-Origin: https://javascript.info`
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 - `Access-Control-Allow-Methods: PATCH`
 - `Access-Control-Allow-Headers: Content-Type,API-Key`
 
 이렇게 응답이 와야 브라우저와 서버 간 통신이 가능해집니다. 그렇지 않으면 에러가 발생합니다.
 
+<<<<<<< HEAD
 서버에서 `PATCH` 이외의 메서드와 다양한 헤더를 허용하게 하려면 `Access-Control-Allow-Methods`와 `Access-Control-Allow-Headers`에 다음과 같은 목록을 추가해 놓으면 됩니다.
+=======
+If the server expects other methods and headers in the future, it makes sense to allow them in advance by adding to the list.
+
+For example, this response also allows `PUT`, `DELETE` and additional headers:
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 ```http
 200 OK
+Access-Control-Allow-Origin: https://javascript.info
 Access-Control-Allow-Methods: PUT,PATCH,DELETE
 Access-Control-Allow-Headers: API-Key,Content-Type,If-Modified-Since,Cache-Control
 Access-Control-Max-Age: 86400
@@ -275,7 +294,11 @@ Access-Control-Max-Age: 86400
 
 이렇게 서버에서 응답이 오면 브라우저는 `Access-Control-Allow-Methods`에 `PATCH`가 있는 것을 확인하고, 이어서 `Access-Control-Allow-Headers`에 `Content-Type`과 `API-Key`가 있는 것을 확인합니다. 둘 다 있는 것을 확인했기 때문에 이제 브라우저는 본 요청을 서버에 보냅니다.
 
+<<<<<<< HEAD
 서버에서 위와 같은 응답이 온 경우, 하루 동안은 브라우저가 preflight 요청을 보내지 않습니다. `Access-Control-Max-Age` 헤더에 퍼미션 체크 여부가 86400초(하루)간 캐싱 되기 때문입니다.
+=======
+If there's header `Access-Control-Max-Age` with a number of seconds, then the preflight permissions are cached for the given time. The response above will be cached for 86400 seconds (one day). Within this timeframe, subsequent requests will not cause a preflight. Assuming that they fit the cached allowances, they will be sent directly.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 ### 단계 3 (실제 요청)
 

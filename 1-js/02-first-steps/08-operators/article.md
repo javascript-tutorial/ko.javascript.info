@@ -180,7 +180,11 @@ alert( +apples + +oranges ); // 5
 
 자바스크립트는 다양한 연산자를 제공하는데, 이 모든 연산자엔 우선순위가 매겨져 있습니다. 우선순위 숫자가 클수록 먼저 실행됩니다. 순위가 같으면 왼쪽부터 시작해서 오른쪽으로 연산이 수행됩니다.
 
+<<<<<<< HEAD
 아래는 [우선순위 테이블(precedence table)](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence)의 일부를 발췌한 표입니다. 순서를 기억할 필요는 없지만, 동일한 기호의 단항 연산자는 이항 연산자보다 우선순위가 더 높다는 것에 주목해 주시기 바랍니다.
+=======
+Here's an extract from the [precedence table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 | 순위  | 연산자 이름 | 기호  |
 | --- | ------ | --- |
@@ -428,7 +432,11 @@ counter++;
 - 오른쪽 시프트(RIGHT SHIFT) ( `>>` )
 - 부호 없는 오른쪽 시프트(ZERO-FILL RIGHT SHIFT) ( `>>>` )
 
+<<<<<<< HEAD
 비트 연산자는 저수준(2진 표현)에서 숫자를 다뤄야 할 때 쓰이므로 흔하게 쓰이진 않습니다. 웹 개발 시엔 이런 일이 자주 일어나지 않기 때문에 비트 연산자를 만날 일은 거의 없죠. 그렇긴 해도 암호를 다뤄야 할 땐 비트 연산자가 유용하기 때문에 때가 되면 MDN의 [비트 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 보시는 걸 추천합니다.
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+>>>>>>> 181cc781ab6c55fe8c43887a0c060db7f93fb0ca
 
 ## 쉼표 연산자
 
