@@ -143,8 +143,13 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 할당 연산자
 : `a = b` 형태의 할당 연산자와 `a *= 2` 형태의 복합 할당 연산자가 있습니다.
 
+<<<<<<< HEAD
 비트 연산자
 : 비트 연산자는 인수를 32비트 정수로 변환하여 이진 연산을 수행합니다. 자세한 내용은 [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators)에서 볼 수 있습니다.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Guide/Expressions_and_Operators#Bitwise) when they are needed.
+>>>>>>> 0599d07b3c13ee25f583fc091cead3c17a7e7779
 
 조건부 연산자
 : 조건부 연산자는 자바스크립트 연산자 중 유일하게 매개변수가 3개인 연산자입니다. `cond ? resultA : resultB`와 같은 형태로 사용하고, `cond`가 truthy면 `resultA`를, 아니면 `resultB`를 반환합니다.
