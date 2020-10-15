@@ -60,7 +60,7 @@ socket.onerror = function(error) {
 };
 ```
 
-For demo purposes, there's a small server [server.js](demo/server.js) written in Node.js, for the example above, running. It responds with "Hello from server, John", then waits 5 seconds and closes the connection.
+위 예시는 데모 목적을 위해 만들어놓은 작은 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 이 서버는 'Hello from server, John'이라는 메시지가 담긴 응답을 보내고, 5초 후 커넥션을 종료시킵니다.
 
 So you'll see events `open` -> `message` -> `close`.
 
