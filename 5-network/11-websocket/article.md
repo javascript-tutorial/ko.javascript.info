@@ -42,7 +42,7 @@ socket.onopen = function(e) {
 };
 
 socket.onmessage = function(event) {
-  alert(`[message] Data received from server: ${event.data}`);
+  alert(`[message] 서버로부터 전송받은 데이터: ${event.data}`);
 };
 
 socket.onclose = function(event) {
