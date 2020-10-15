@@ -15,7 +15,7 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 `ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사하다고 보시면 됩니다.
 
 ```smart header="항상 `wss://`를 사용합시다."
-The `wss://` protocol is not only encrypted, but also more reliable.
+`wss://`는 보안 이외에도 신뢰성(reliability) 측면에서 `ws`보다 좀 더 신뢰할만한 프로토콜입니다.
 
 That's because `ws://` data is not encrypted, visible for any intermediary. Old proxy servers do not know about WebSocket, they may see "strange" headers and abort the connection.
 
