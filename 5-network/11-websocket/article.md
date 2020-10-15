@@ -23,7 +23,7 @@ On the other hand, `wss://` is WebSocket over TLS, (same as HTTPS is HTTP over T
 ```
 
 Once the socket is created, we should listen to events on it. There are totally 4 events:
-- **`open`** -- connection established,
+- **`open`** -- 커넥션이 제대로 만들어짐
 - **`message`** -- data received,
 - **`error`** -- websocket error,
 - **`close`** -- connection closed.
