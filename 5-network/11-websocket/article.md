@@ -64,7 +64,7 @@ For demo purposes, there's a small server [server.js](demo/server.js) written in
 
 So you'll see events `open` -> `message` -> `close`.
 
-That's actually it, we can talk WebSocket already. Quite simple, isn't it?
+이제 여러분은 웹소켓 통신이 어떻게 이뤄지는지를 알게 되셨습니다. 생각보다 꽤 간단하죠?
 
 Now let's talk more in-depth.
 
