@@ -36,7 +36,7 @@ Here's an example:
 let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
 
 socket.onopen = function(e) {
-  alert("[open] Connection established");
+  alert("[open] 커넥션이 만들어졌습니다.");
   alert("Sending to server");
   socket.send("My name is John");
 };
