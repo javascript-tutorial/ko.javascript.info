@@ -50,7 +50,7 @@ socket.onclose = function(event) {
     alert(`[close] 커넥션이 정상적으로 종료되었습니다(code=${event.code} reason=${event.reason})`);
   } else {
     // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
-    // event.code is usually 1006 in this case
+    // event.code가 1006이 됩니다.
     alert('[close] 커넥션이 죽었습니다.');
   }
 };
