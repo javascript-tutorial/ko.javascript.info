@@ -51,7 +51,7 @@ socket.onclose = function(event) {
   } else {
     // e.g. server process killed or network down
     // event.code is usually 1006 in this case
-    alert('[close] Connection died');
+    alert('[close] 커넥션이 죽었습니다.');
   }
 };
 
