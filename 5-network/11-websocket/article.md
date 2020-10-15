@@ -9,18 +9,18 @@ WebSocket is especially great for services that require continuous data exchange
 To open a websocket connection, we need to create `new WebSocket` using the special protocol `ws` in the url:
 
 ```js
-let socket = new WebSocket("*!*ws*/!*://javascript.info");
+let socket = new WebSocket('*!*ws*/!*://javascript.info');
 ```
 
 There's also encrypted `wss://` protocol. It's like HTTPS for websockets.
 
-```smart header="Always prefer `wss://`"
-The `wss://` protocol is not only encrypted, but also more reliable.
+```smart header="Always prefer `wss://`" The `wss://` protocol is not only encrypted, but also more reliable.
 
-That's because `ws://` data is not encrypted, visible for any intermediary. Old proxy servers do not know about WebSocket, they may see "strange" headers and abort the connection.
+`ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
 On the other hand, `wss://` is WebSocket over TLS, (same as HTTPS is HTTP over TLS), the transport security layer encrypts the data at sender and decrypts at the receiver. So data packets are passed encrypted through proxies. They can't see what's inside and let them through.
-```
+
+````
 
 Once the socket is created, we should listen to events on it. There are totally 4 events:
 - **`open`** -- connection established,
@@ -46,7 +46,7 @@ socket.onmessage = function(event) {
 };
 
 socket.onclose = function(event) {
-  if (event.wasClean) {  
+  if (event.wasClean) {
     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
   } else {
     // e.g. server process killed or network down
@@ -58,7 +58,7 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   alert(`[error] ${error.message}`);
 };
-```
+````
 
 For demo purposes, there's a small server [server.js](demo/server.js) written in Node.js, for the example above, running. It responds with "Hello from server, John", then waits 5 seconds and closes the connection.
 
@@ -121,11 +121,11 @@ For instance:
 
 - `Sec-WebSocket-Protocol: soap, wamp` means that we'd like to transfer not just any data, but the data in [SOAP](http://en.wikipedia.org/wiki/SOAP) or WAMP ("The WebSocket Application Messaging Protocol") protocols. WebSocket subprotocols are registered in the [IANA catalogue](http://www.iana.org/assignments/websocket/websocket.xml). So, this header describes data formats that we're going to use.
 
-    This optional header is set using the second parameter of `new WebSocket`. That's the array of subprotocols, e.g. if we'd like to use SOAP or WAMP:
+  This optional header is set using the second parameter of `new WebSocket`. That's the array of subprotocols, e.g. if we'd like to use SOAP or WAMP:
 
-    ```js
-    let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
-    ```
+  ```js
+  let socket = new WebSocket('wss://javascript.info/chat', ['soap', 'wamp']);
+  ```
 
 The server should respond with a list of protocols and extensions that it agrees to use.
 
@@ -182,7 +182,7 @@ That's set by `socket.binaryType` property, it's `"blob"` by default, so binary 
 [Blob](info:blob) is a high-level binary object, it directly integrates with `<a>`, `<img>` and other tags, so that's a sane default. But for binary processing, to access individual data bytes, we can change it to `"arraybuffer"`:
 
 ```js
-socket.binaryType = "arraybuffer";
+socket.binaryType = 'arraybuffer';
 socket.onmessage = (event) => {
   // event.data is either a string (if text) or arraybuffer (if binary)
 };
@@ -199,7 +199,7 @@ The `socket.bufferedAmount` property stores how many bytes are buffered at this 
 We can examine it to see whether the socket is actually available for transmission.
 
 ```js
-// every 100ms examine the socket and send more data  
+// every 100ms examine the socket and send more data
 // only if all the existing data was sent out
 setInterval(() => {
   if (socket.bufferedAmount == 0) {
@@ -208,12 +208,12 @@ setInterval(() => {
 }, 100);
 ```
 
-
 ## Connection close
 
 Normally, when a party wants to close the connection (both browser and server have equal rights), they send a "connection close frame" with a numeric code and a textual reason.
 
 The method for that is:
+
 ```js
 socket.close([code], [reason]);
 ```
@@ -225,10 +225,10 @@ Then the other party in `close` event handler gets the code and the reason, e.g.
 
 ```js
 // closing party:
-socket.close(1000, "Work complete");
+socket.close(1000, 'Work complete');
 
 // the other party
-socket.onclose = event => {
+socket.onclose = (event) => {
   // event.code === 1000
   // event.reason === "Work complete"
   // event.wasClean === true (clean close)
@@ -253,13 +253,12 @@ WebSocket codes are somewhat like HTTP codes, but different. In particular, any 
 
 ```js
 // in case connection is broken
-socket.onclose = event => {
+socket.onclose = (event) => {
   // event.code === 1006
   // event.reason === ""
   // event.wasClean === false (no closing frame)
 };
 ```
-
 
 ## Connection state
 
@@ -270,7 +269,6 @@ To get connection state, additionally there's `socket.readyState` property with 
 - **`2`** -- "CLOSING": the connection is closing,
 - **`3`** -- "CLOSED": the connection is closed.
 
-
 ## Chat example
 
 Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
@@ -280,8 +278,8 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 ```html
 <!-- message form -->
 <form name="publish">
-  <input type="text" name="message">
-  <input type="submit" value="Send">
+  <input type="text" name="message" />
+  <input type="submit" value="Send" />
 </form>
 
 <!-- div with messages -->
@@ -289,6 +287,7 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 ```
 
 From JavaScript we want three things:
+
 1. Open the connection.
 2. On form submission -- `socket.send(message)` for the message.
 3. On incoming message -- append it to `div#messages`.
@@ -296,10 +295,10 @@ From JavaScript we want three things:
 Here's the code:
 
 ```js
-let socket = new WebSocket("wss://javascript.info/article/websocket/chat/ws");
+let socket = new WebSocket('wss://javascript.info/article/websocket/chat/ws');
 
 // send message from the form
-document.forms.publish.onsubmit = function() {
+document.forms.publish.onsubmit = function () {
   let outgoingMessage = this.message.value;
 
   socket.send(outgoingMessage);
@@ -307,13 +306,13 @@ document.forms.publish.onsubmit = function() {
 };
 
 // message received - show the message in div#messages
-socket.onmessage = function(event) {
+socket.onmessage = function (event) {
   let message = event.data;
 
   let messageElem = document.createElement('div');
   messageElem.textContent = message;
   document.getElementById('messages').prepend(messageElem);
-}
+};
 ```
 
 Server-side code is a little bit beyond our scope. Here we'll use Node.js, but you don't have to. Other platforms also have their means to work with WebSocket.
@@ -327,7 +326,7 @@ The server-side algorithm will be:
 
 ```js
 const ws = new require('ws');
-const wss = new ws.Server({noServer: true});
+const wss = new ws.Server({ noServer: true });
 
 const clients = new Set();
 
@@ -340,20 +339,19 @@ http.createServer((req, res) => {
 function onSocketConnect(ws) {
   clients.add(ws);
 
-  ws.on('message', function(message) {
+  ws.on('message', function (message) {
     message = message.slice(0, 50); // max message length will be 50
 
-    for(let client of clients) {
+    for (let client of clients) {
       client.send(message);
     }
   });
 
-  ws.on('close', function() {
+  ws.on('close', function () {
     clients.delete(ws);
   });
 }
 ```
-
 
 Here's the working example:
 
@@ -372,10 +370,12 @@ WebSocket is a modern way to have persistent browser-server connections.
 The API is simple.
 
 Methods:
+
 - `socket.send(data)`,
 - `socket.close([code], [reason])`.
 
 Events:
+
 - `open`,
 - `message`,
 - `error`,
