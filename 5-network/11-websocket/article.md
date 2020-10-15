@@ -28,7 +28,7 @@ Once the socket is created, we should listen to events on it. There are totally 
 - **`error`** -- websocket error,
 - **`close`** -- connection closed.
 
-...And if we'd like to send something, then `socket.send(data)` will do that.
+커넥션이 만들어진 상태에서 무언가를 보내고 싶으면 `socket.send(data)`를 사용하면 됩니다.
 
 Here's an example:
 
