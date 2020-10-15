@@ -49,7 +49,7 @@ socket.onclose = function(event) {
   if (event.wasClean) {  
     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
   } else {
-    // e.g. server process killed or network down
+    // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
     // event.code is usually 1006 in this case
     alert('[close] Connection died');
   }
