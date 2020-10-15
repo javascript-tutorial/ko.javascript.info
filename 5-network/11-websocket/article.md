@@ -12,7 +12,7 @@ WebSocket is especially great for services that require continuous data exchange
 let socket = new WebSocket("*!*ws*/!*://javascript.info");
 ```
 
-There's also encrypted `wss://` protocol. It's like HTTPS for websockets.
+`ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사하다고 보시면 됩니다.
 
 ```smart header="항상 `wss://`를 사용합시다."
 The `wss://` protocol is not only encrypted, but also more reliable.
