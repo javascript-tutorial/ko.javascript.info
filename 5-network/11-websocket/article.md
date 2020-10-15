@@ -247,7 +247,7 @@ There are other codes like:
 - `1011` -- unexpected error on server,
 - ...and so on.
 
-The full list can be found in [RFC6455, 짠7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
+The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
 
 WebSocket codes are somewhat like HTTP codes, but different. In particular, any codes less than `1000` are reserved, there'll be an error if we try to set such a code.
 
