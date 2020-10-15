@@ -62,7 +62,7 @@ socket.onerror = function(error) {
 
 For demo purposes, there's a small server [server.js](demo/server.js) written in Node.js, for the example above, running. It responds with "Hello from server, John", then waits 5 seconds and closes the connection.
 
-So you'll see events `open` -> `message` -> `close`.
+서버에 작성한 코드가 동작하면서 `open` -> `message` -> `close` 순의 이벤트를 볼 수 있었던 것이죠.
 
 That's actually it, we can talk WebSocket already. Quite simple, isn't it?
 
