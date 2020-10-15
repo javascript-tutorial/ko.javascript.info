@@ -30,7 +30,7 @@ Once the socket is created, we should listen to events on it. There are totally 
 
 커넥션이 만들어진 상태에서 무언가를 보내고 싶으면 `socket.send(data)`를 사용하면 됩니다.
 
-Here's an example:
+예시를 살펴봅시다.
 
 ```js run
 let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
