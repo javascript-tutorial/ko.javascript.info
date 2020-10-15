@@ -66,7 +66,7 @@ socket.onerror = function(error) {
 
 That's actually it, we can talk WebSocket already. Quite simple, isn't it?
 
-Now let's talk more in-depth.
+그렇긴 하지만 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세하게 알아봅시다.
 
 ## Opening a websocket
 
