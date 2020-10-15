@@ -26,7 +26,7 @@ Once the socket is created, we should listen to events on it. There are totally 
 - **`open`** -- connection established,
 - **`message`** -- data received,
 - **`error`** -- websocket error,
-- **`close`** -- connection closed.
+- **`close`** -- 커넥션 종료
 
 ...And if we'd like to send something, then `socket.send(data)` will do that.
 
