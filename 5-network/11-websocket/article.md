@@ -6,7 +6,7 @@ WebSocket is especially great for services that require continuous data exchange
 
 ## A simple example
 
-To open a websocket connection, we need to create `new WebSocket` using the special protocol `ws` in the url:
+웹소켓 연결을 만들려면 `new WebSocket`을 호출하면 되는데, 이때 `ws`라는 특수 프로토콜을 사용합니다.
 
 ```js
 let socket = new WebSocket("*!*ws*/!*://javascript.info");
