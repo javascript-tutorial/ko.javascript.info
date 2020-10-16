@@ -1,57 +1,57 @@
-# WebSocket
+# 웹소켓
 
 The `WebSocket` protocol, described in the specification [RFC 6455](http://tools.ietf.org/html/rfc6455) provides a way to exchange data between browser and server via a persistent connection. The data can be passed in both directions as "packets", without breaking the connection and additional HTTP-requests.
 
-WebSocket is especially great for services that require continuous data exchange, e.g. online games, real-time trading systems and so on.
+이런 특징 때문에 웹소켓은 온라인 게임이나 주식 트레이딩 시스템같이 데이터 교환이 지속적으로 이뤄져야 하는 서비스에 아주 적합합니다.
 
 ## 간단한 예시
 
-To open a websocket connection, we need to create `new WebSocket` using the special protocol `ws` in the url:
+웹소켓 연결을 만들려면 `new WebSocket`을 호출하면 되는데, 이때 `ws`라는 특수 프로토콜을 사용합니다.
 
 ```js
 let socket = new WebSocket("*!*ws*/!*://javascript.info");
 ```
 
-There's also encrypted `wss://` protocol. It's like HTTPS for websockets.
+`ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사하다고 보시면 됩니다.
 
-```smart header="Always prefer `wss://`"
+```smart header="항상 `wss://`를 사용합시다."
 The `wss://` protocol is not only encrypted, but also more reliable.
 
 That's because `ws://` data is not encrypted, visible for any intermediary. Old proxy servers do not know about WebSocket, they may see "strange" headers and abort the connection.
 
-On the other hand, `wss://` is WebSocket over TLS, (same as HTTPS is HTTP over TLS), the transport security layer encrypts the data at sender and decrypts at the receiver. So data packets are passed encrypted through proxies. They can't see what's inside and let them through.
+반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷은 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
 ```
 
 Once the socket is created, we should listen to events on it. There are totally 4 events:
-- **`open`** -- connection established,
+- **`open`** -- 커넥션이 제대로 만들어짐
 - **`message`** -- data received,
 - **`error`** -- websocket error,
-- **`close`** -- connection closed.
+- **`close`** -- 커넥션 종료
 
-...And if we'd like to send something, then `socket.send(data)` will do that.
+커넥션이 만들어진 상태에서 무언가를 보내고 싶으면 `socket.send(data)`를 사용하면 됩니다.
 
-Here's an example:
+예시를 살펴봅시다.
 
 ```js run
 let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello");
 
 socket.onopen = function(e) {
-  alert("[open] Connection established");
-  alert("Sending to server");
+  alert("[open] 커넥션이 만들어졌습니다.");
+  alert("데이터를 서버에 전송해봅시다.");
   socket.send("My name is John");
 };
 
 socket.onmessage = function(event) {
-  alert(`[message] Data received from server: ${event.data}`);
+  alert(`[message] 서버로부터 전송받은 데이터: ${event.data}`);
 };
 
 socket.onclose = function(event) {
   if (event.wasClean) {  
-    alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    alert(`[close] 커넥션이 정상적으로 종료되었습니다(code=${event.code} reason=${event.reason})`);
   } else {
-    // e.g. server process killed or network down
+    // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
     // event.code is usually 1006 in this case
-    alert('[close] Connection died');
+    alert('[close] 커넥션이 죽었습니다.');
   }
 };
 
@@ -60,15 +60,15 @@ socket.onerror = function(error) {
 };
 ```
 
-For demo purposes, there's a small server [server.js](demo/server.js) written in Node.js, for the example above, running. It responds with "Hello from server, John", then waits 5 seconds and closes the connection.
+위 예시는 데모 목적을 위해 만들어놓은 작은 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 이 서버는 'Hello from server, John'이라는 메시지가 담긴 응답을 보내고, 5초 후 커넥션을 종료시킵니다.
 
-So you'll see events `open` -> `message` -> `close`.
+서버에 작성한 코드가 동작하면서 `open` -> `message` -> `close` 순의 이벤트를 볼 수 있었던 것이죠.
 
 That's actually it, we can talk WebSocket already. Quite simple, isn't it?
 
-Now let's talk more in-depth.
+그렇긴 하지만 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세하게 알아봅시다.
 
-## Opening a websocket
+## 웹소켓 열기
 
 When `new WebSocket(url)` is created, it starts connecting immediately.
 
