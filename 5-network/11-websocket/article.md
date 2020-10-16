@@ -25,7 +25,7 @@ That's because `ws://` data is not encrypted, visible for any intermediary. Old 
 Once the socket is created, we should listen to events on it. There are totally 4 events:
 - **`open`** -- 커넥션이 제대로 만들어짐
 - **`message`** -- data received,
-- **`error`** -- websocket error,
+- **`error`** -- 웹소켓 에러
 - **`close`** -- 커넥션 종료
 
 커넥션이 만들어진 상태에서 무언가를 보내고 싶으면 `socket.send(data)`를 사용하면 됩니다.
