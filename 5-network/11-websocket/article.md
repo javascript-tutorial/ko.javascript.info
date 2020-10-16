@@ -22,7 +22,7 @@ That's because `ws://` data is not encrypted, visible for any intermediary. Old 
 반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷은 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
 ```
 
-Once the socket is created, we should listen to events on it. There are totally 4 events:
+소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
 - **`open`** -- 커넥션이 제대로 만들어짐
 - **`message`** -- data received,
 - **`error`** -- websocket error,
