@@ -68,7 +68,7 @@ That's actually it, we can talk WebSocket already. Quite simple, isn't it?
 
 Now let's talk more in-depth.
 
-## Opening a websocket
+## 웹소켓 열기
 
 When `new WebSocket(url)` is created, it starts connecting immediately.
 
