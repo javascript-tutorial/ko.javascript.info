@@ -37,7 +37,7 @@ let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello")
 
 socket.onopen = function(e) {
   alert("[open] Connection established");
-  alert("Sending to server");
+  alert("데이터를 서버에 전송해봅시다.");
   socket.send("My name is John");
 };
 
