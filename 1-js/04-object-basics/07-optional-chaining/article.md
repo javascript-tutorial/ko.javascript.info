@@ -3,20 +3,36 @@
 
 [recent browser="new"]
 
+<<<<<<< HEAD
 옵셔널 체이닝(optional chaining) `?.`을 사용하면 프로퍼티가 없는 중첩 객체를 에러 없이 안전하게 접근할 수 있습니다.
 
 ## 옵셔널 체이닝이 필요한 이유
+=======
+The optional chaining `?.` is a safe way to access nested object properties, even if an intermediate property doesn't exist.
+
+## The "non-existing property" problem
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 이제 막 자바스크립트를 배우기 시작했다면 옵셔널 체이닝이 등장하게 된 배경 상황을 직접 겪어보지 않았을 겁니다. 몇 가지 사례를 재현하면서 왜 옵셔널 체이닝이 등장했는지 알아봅시다.
 
+<<<<<<< HEAD
 사용자가 여러 명 있는데 그중 몇 명은 주소 정보를 가지고 있지 않다고 가정해봅시다. 이럴 때 `user.address.street`를 사용해 주소 정보에 접근하면 에러가 발생할 수 있습니다.
 
 ```js run
 let user = {}; // 주소 정보가 없는 사용자
+=======
+As an example, consider objects for user data. Most of our users have addresses in `user.address` property, with the street `user.address.street`, but some did not provide them.
+
+In such case, when we attempt to get `user.address.street`, we may get an error:
+
+```js run
+let user = {}; // a user without "address" property
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 alert(user.address.street); // TypeError: Cannot read property 'street' of undefined
 ```
 
+<<<<<<< HEAD
 또 다른 사례는 브라우저에서 동작하는 코드를 개발할 때 발생할 수 있는 문제로, 페이지에 존재하지 않는 요소에 접근해 요소의 정보를 가져오려 할 때 발생합니다.
 
 ```js run
@@ -27,14 +43,63 @@ let html = document.querySelector('.my-element').innerHTML;
 명세서에 `?.`이 추가되기 전엔 이런 문제들을 해결하기 위해 `&&` 연산자를 사용하곤 했습니다.
 
 예시:
+=======
+That's the expected result, JavaScript works like this. As `user.address` is `undefined`, the attempt to get `user.address.street` fails with an error. Although, in many practical cases we'd prefer to get `undefined` instead of an error here (meaning "no street").
+
+...And another example. In the web development, we may need the information about an element on the page. The element is returned by `document.querySelector('.elem')`, and the catch is again - that it sometimes doesn't exist:
+
+```js run
+// the result of the call document.querySelector('.elem') may be an object or null
+let html = document.querySelector('.elem').innerHTML; // error if it's null
+```
+
+Once again, we may want to avoid the error in such case.
+
+How can we do this?
+
+The obvious solution would be to check the value using `if` or the conditional operator `?`, before accessing it, like this:
+
+```js
+let user = {};
+
+alert(user.address ? user.address.street : undefined);
+```
+
+...But that's quite inelegant. As you can see, the `user.address` is duplicated in the code. For more deeply nested properties, that becomes a problem.
+
+E.g. let's try getting `user.address.street.name`.
+
+We need to check both `user.address` and `user.address.street`:
+
+```js
+let user = {}; // user has no address
+
+alert(user.address ? user.address.street ? user.address.street.name : null : null);
+```
+
+That looks awful.
+
+Before the optional chaining `?.` was added to the language, people used the `&&` operator for such cases:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let user = {}; // 주소 정보가 없는 사용자
 
+<<<<<<< HEAD
 alert( user && user.address && user.address.street ); // undefined, 에러가 발생하지 않습니다.
 ```
 
 중첩 객체의 특정 프로퍼티에 접근하기 위해 거쳐야 할 구성요소들을 AND로 연결해 실제 해당 객체나 프로퍼티가 있는지 확인하는 방법을 사용했었죠. 그런데 이렇게 AND를 연결해서 사용하면 코드가 아주 길어진다는 단점이 있습니다.
+=======
+alert( user.address && user.address.street && user.address.street.name ); // undefined (no error)
+```
+
+AND'ing the whole path to the property ensures that all components exist (if not, the evaluation stops), but also isn't ideal.
+
+As you can see, the property names are still duplicated in the code. E.g. in the code above, `user.address` appears three times.
+
+And now, finally, the optional chaining comes to the rescue!
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ## 옵셔널 체이닝의 등장
 
@@ -42,8 +107,12 @@ alert( user && user.address && user.address.street ); // undefined, 에러가 �
 
 **설명이 장황해지지 않도록 지금부턴 평가후 결과가 `null`이나 `undefined`가 아닌 경우엔 값이 '있다', '존재한다'라고 표현하겠습니다.**
 
+<<<<<<< HEAD
 
 옵셔널 체이닝을 사용해 `user.address.street`에 안전하게 접근해봅시다.
+=======
+Here's the safe way to access `user.address.street` using `?.`:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let user = {}; // 주소 정보가 없는 사용자
@@ -51,7 +120,13 @@ let user = {}; // 주소 정보가 없는 사용자
 alert( user?.address?.street ); // undefined, 에러가 발생하지 않습니다.
 ```
 
+<<<<<<< HEAD
 `user?.address`로 주소를 읽으면 아래와 같이 `user` 객체가 존재하지 않더라도 에러가 발생하지 않습니다.
+=======
+The code is short and clean, there's no duplication at all.
+
+Reading the address with `user?.address` works even if `user` object doesn't exist:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let user = null;
@@ -62,16 +137,22 @@ alert( user?.address.street ); // undefined
 
 위 예시를 통해 우리는 `?.`은 `?.` '앞' 평가 대상에만 동작되고, 확장은 되지 않는다는 사실을 알 수 있습니다.
 
-In the example above, `user?.` allows only `user` to be `null/undefined`.
+In the example above, `user?.address.street` allows only `user` to be `null/undefined`.
 
 On the other hand, if `user` does exist, then it must have `user.address` property, otherwise `user?.address.street` gives an error at the second dot.
 
 ```warn header="옵셔널 체이닝을 남용하지 마세요."
 `?.`는 존재하지 않아도 괜찮은 대상에만 사용해야 합니다.
 
+<<<<<<< HEAD
 사용자 주소를 다루는 위 예시에서 논리상 `user`는 반드시 있어야 하는데 `address`는 필수값이 아닙니다. 그러니 `user.address?.street`를 사용하는 것이 바람직합니다.
 
 실수로 인해 `user`에 값을 할당하지 않았다면 바로 알아낼 수 있도록 해야 합니다. 그렇지 않으면 에러를 조기에 발견하지 못하고 디버깅이 어려워집니다.
+=======
+For example, if according to our coding logic `user` object must exist, but `address` is optional, then we should write `user.address?.street`, but not `user?.address?.street`.
+
+So, if `user` happens to be undefined due to a mistake, we'll see a programming error about it and fix it. Otherwise, coding errors can be silenced where not appropriate, and become more difficult to debug.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 ```
 
 ````warn header="`?.`앞의 변수는 꼭 선언되어 있어야 합니다."
@@ -81,25 +162,43 @@ On the other hand, if `user` does exist, then it must have `user.address` proper
 // ReferenceError: user is not defined
 user?.address;
 ```
+<<<<<<< HEAD
 There must be `let/const/var user`. The optional chaining works only for declared variables.
+=======
+The variable must be declared (e.g. `let/const/var user` or as a function parameter). The optional chaining works only for declared variables.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 ````
 
 ## 단락 평가
 
 `?.`는 왼쪽 평가대상에 값이 없으면 즉시 평가를 멈춥니다. 참고로 이런 평가 방법을 단락 평가(short-circuit)라고 부릅니다.
 
+<<<<<<< HEAD
 그렇기 때문에 함수 호출을 비롯한 `?.` 오른쪽에 있는 부가 동작은 `?.`의 평가가 멈췄을 때 더는 일어나지 않습니다.
+=======
+So, if there are any further function calls or side effects, they don't occur.
+
+For instance:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let user = null;
 let x = 0;
 
+<<<<<<< HEAD
 user?.sayHi(x++); // 아무 일도 일어나지 않습니다.
+=======
+user?.sayHi(x++); // no "sayHi", so the execution doesn't reach x++
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 alert(x); // 0, x는 증가하지 않습니다.
 ```
 
+<<<<<<< HEAD
 ## ?.()와 ?.[]
+=======
+## Other variants: ?.(), ?.[]
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 `?.`은 연산자가 아닙니다. `?.`은 함수나 대괄호와 함께 동작하는 특별한 문법 구조체(syntax construct)입니다.
 
@@ -122,9 +221,15 @@ user2.admin?.();
 */!*
 ```
 
+<<<<<<< HEAD
 두 상황 모두에서 user 객체는 존재하기 때문에 `admin` 프로퍼티는 `.`만 사용해 접근했습니다.
 
 그리고 난 후 `?.()`를 사용해 `admin`의 존재 여부를 확인했습니다. `user1`엔 `admin`이 정의되어 있기 때문에 메서드가 제대로 호출되었습니다. 반면 `user2`엔 `admin`이 정의되어 있지 않았음에도 불구하고 메서드를 호출하면 에러 없이 그냥 평가가 멈추는 것을 확인할 수 있습니다.
+=======
+Here, in both lines we first use the dot (`user1.admin`) to get `admin` property, because the user object must exist, so it's safe read from it.
+
+Then `?.()` checks the left part: if the admin function exists, then it runs (that's so for `user1`). Otherwise (for `user2`) the evaluation stops without errors.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 `.`대신 대괄호 `[]`를 사용해 객체 프로퍼티에 접근하는 경우엔 `?.[]`를 사용할 수도 있습니다. 위 예시와 마찬가지로 `?.[]`를 사용하면 프로퍼티 존재 여부가 확실치 않은 경우에도 안전하게 프로퍼티를 읽을 수 있습니다.
 
@@ -149,16 +254,27 @@ alert( user1?.[key]?.something?.not?.existing); // undefined
 delete user?.name; // user가 존재하면 user.name을 삭제합니다.
 ```
 
+<<<<<<< HEAD
 ```warn header="`?.`은 읽기나 삭제하기에는 사용할 수 있지만 쓰기에는 사용할 수 없습니다."
 `?.`은 할당 연산자 왼쪽에서 사용할 수 없습니다.
+=======
+````warn header="We can use `?.` for safe reading and deleting, but not writing"
+The optional chaining `?.` has no use at the left side of an assignment.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
+For example:
 ```js run
+<<<<<<< HEAD
 // user가 존재할 경우 user.name에 값을 쓰려는 의도로 아래와 같이 코드를 작성해 보았습니다.
+=======
+let user = null;
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 user?.name = "Violet"; // SyntaxError: Invalid left-hand side in assignment
 // 에러가 발생하는 이유는 undefined = "Violet"이 되기 때문입니다.
 ```
 
+<<<<<<< HEAD
 ## 요약
 
 옵셔널 체이닝 문법 `?.`은 세 가지 형태로 사용할 수 있습니다.
@@ -166,11 +282,27 @@ user?.name = "Violet"; // SyntaxError: Invalid left-hand side in assignment
 1. `obj?.prop` -- `obj`가 존재하면 `obj.prop`을 반환하고, 그렇지 않으면 `undefined`를 반환함
 2. `obj?.[prop]` -- `obj`가 존재하면 `obj[prop]`을 반환하고, 그렇지 않으면 `undefined`를 반환함
 3. `obj?.method()` -- `obj`가 존재하면 `obj.method()`를 호출하고, 그렇지 않으면 `undefined`를 반환함
+=======
+It's just not that smart.
+````
+
+## Summary
+
+The optional chaining `?.` syntax has three forms:
+
+1. `obj?.prop` -- returns `obj.prop` if `obj` exists, otherwise `undefined`.
+2. `obj?.[prop]` -- returns `obj[prop]` if `obj` exists, otherwise `undefined`.
+3. `obj.method?.()` -- calls `obj.method()` if `obj.method` exists, otherwise returns `undefined`.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 여러 예시를 통해 살펴보았듯이 옵셔널 체이닝 문법은 꽤 직관적이고 사용하기도 쉽습니다. `?.` 왼쪽 평가 대상이 `null`이나 `undefined`인지 확인하고 `null`이나 `undefined`가 아니라면 평가를 계속 진행합니다.
 
 `?.`를 계속 연결해서 체인을 만들면 중첩 프로퍼티들에 안전하게 접근할 수 있습니다.
 
+<<<<<<< HEAD
 `?.`은 `?.`왼쪽 평가대상이 없어도 괜찮은 경우에만 선택적으로 사용해야 합니다.
 
 꼭 있어야 하는 값인데 없는 경우에 `?.`을 사용하면 프로그래밍 에러를 쉽게 찾을 수 없으므로 이런 상황을 만들지 말도록 합시다.
+=======
+Still, we should apply `?.` carefully, only where it's acceptable that the left part doesn't to exist. So that it won't hide programming errors from us, if they occur.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d

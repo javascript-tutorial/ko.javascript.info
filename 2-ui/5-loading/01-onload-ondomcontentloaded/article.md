@@ -2,9 +2,15 @@
 
 HTML 문서의 생명주기엔 다음과 같은 3가지 주요 이벤트가 관여합니다.
 
+<<<<<<< HEAD
 - `DOMContentLoaded` -- 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생합니다. 이미지 파일(`<img>`)이나 스타일시트 등의 기타 자원은 기다리지 않습니다.
 - `load` -- HTML로 DOM 트리를 만드는 게 완성되었을 뿐만 아니라 이미지, 스타일시트 같은 외부 자원도 모두 불러오는 것이 끝났을 때 발생합니다.
 - `beforeunload/unload` -- 사용자가 페이지를 떠날 때 발생합니다.
+=======
+- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may not yet have loaded.  
+- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload/unload` -- the user is leaving the page.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 세 이벤트는 다음과 같은 상황에서 활용할 수 있습니다.
 
@@ -33,8 +39,13 @@ document.addEventListener("DOMContentLoaded", ready);
   function ready() {
     alert('DOM이 준비되었습니다!');
 
+<<<<<<< HEAD
     // 이미지가 로드되지 않은 상태이기 때문에 사이즈는 0x0입니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
+=======
+    // image is not yet loaded (unless it was cached), so the size is 0x0
+    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
   }
 
 *!*
@@ -209,7 +220,11 @@ window.onbeforeunload = function() {
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
+<<<<<<< HEAD
   // 아직 로딩 중이므로 이벤트를 기다립니다.
+=======
+  // still loading, wait for the event
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
   document.addEventListener('DOMContentLoaded', work);
 } else {
   // DOM이 완성되었습니다!

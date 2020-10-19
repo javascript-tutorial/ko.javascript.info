@@ -187,7 +187,6 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 <button onclick="hide()">hide()를 호출해 토끼 숨기기</button>
 
 <script>
-  // hide() will be called automatically in 2 seconds
   function hide() {
     let event = new CustomEvent("hide", {
       cancelable: true // cancelable를 true로 설정하지 않으면 preventDefault가 동작하지 않습니다.
@@ -211,13 +210,21 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 
 ## 이벤트 안 이벤트
 
+<<<<<<< HEAD
 이벤트는 대게 큐에서 처리됩니다. 따라서 브라우저가 `onclick` 이벤트를 처리하고 있는데 마우스를 움직여서 새로운 이벤트를 발생시키면 이 이벤트에 상응하는 `mousemove` 핸들러는 `onclick` 이벤트 처리가 끝난 후에 호출됩니다. 
+=======
+Usually events are processed in a queue. That is: if the browser is processing `onclick` and a new event occurs, e.g. mouse moved, then it's handling is queued up, corresponding `mousemove` handlers will be called after `onclick` processing is finished.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 그런데 이벤트 안 `dispatchEvent` 처럼 이벤트 안에 다른 이벤트가 있는 경우엔 위와 같은 규칙이 적용되지 않습니다. 이벤트 안에 있는 이벤트는 즉시 처리됩니다. 새로운 이벤트 핸들러가 호출되고 난 후에 헌재 이벤트 핸들링이 재개됩니다.
 
 예시를 살펴봅시다. `menu-open` 이벤트는 `onclick` 이벤트가 처리되는 도중에 트리거됩니다.
 
+<<<<<<< HEAD
 `menu-open` 이벤트 처리는 `onclick` 핸들러가 끝날 때까지 기다리지 않고 바로 처리됩니다.
+=======
+It's processed immediately, without waiting for `onclick` handler to end:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 
 ```html run autorun
@@ -243,7 +250,11 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 
 이 예시에서 주목해야 할 것은 중첩 이벤트 `menu-open`이 `document`에 할당된 핸들러에서 처리된다는 점입니다. 중첩 이벤트의 전파와 핸들링이 외부 코드(`onclick`)의 처리가 다시 시작되기 전에 끝났습니다.
 
+<<<<<<< HEAD
 이런 일은 중첩 이벤트가 `dispatchEvent`일 때뿐만 아니라 이벤트 핸들러 안에서 다른 이벤트를 트리거 하는 메서드를 호출할 때 발생합니다. 즉, 이벤트 안 이벤트는 동기적으로 처리되는 것이죠.
+=======
+That's not only about `dispatchEvent`, there are other cases. If an event handler calls methods that trigger other events -- they are processed synchronously too, in a nested fashion.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 그런데 때에 따라 중첩 이벤트가 동기적으로 처리되는걸 원치 않는 경우도 있기 마련입니다. 위 예시에서 `menu-open`이벤트나 다른 이벤트의 처리 여부와 상관없이 `onclick` 이벤트를 먼저 처리하려면 어떻게 해야 할까요?
 
@@ -283,9 +294,15 @@ UI 이벤트별 표준 프로퍼티 목록은 명세서에서 확인할 수 있�
 
 이벤트를 직접 만드는 경우라면 `CustomEvent` 생성자를 써야 합니다. `CustomEvent` 생성자엔 `detail`이라는 추가 프로퍼티를 명시할 수 있는데, 여기에 이벤트 관련 정보를 저장해야 합니다. 이렇게 하면 모든 핸들러에서 `event.detail`을 통해 커스텀 이벤트의 정보를 알 수 있습니다. 
 
+<<<<<<< HEAD
 커스텀 이벤트의 이름을 `click`나 `keydown` 같이 브라우저 내장 이벤트처럼 지을 수 있긴 한데, 이런 경우엔 아주 조심해야 합니다.
 
 되도록이면 내장 이벤트와 같은 이름을 가진 브라우저 이벤트를 만들지 말도록 합시다. 대부분의 경우 설계 관점에서 아주 좋지 않은 영항을 끼치기 때문입니다. 
+=======
+Despite the technical possibility of generating browser events like `click` or `keydown`, we should use them with great care.
+
+We shouldn't generate browser events as it's a hacky way to run handlers. That's bad architecture most of the time.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 그렇지만 이런 경우에는 브라우저 이벤트를 만드는게 불가피 하니, 사용해도 괜찮습니다.
 

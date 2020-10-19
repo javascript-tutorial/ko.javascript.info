@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 참조에 의한 객체 복사
 
 객체와 원시 타입의 근본적인 차이 중 하나는 객체는 '참조에 의해(by reference)' 저장되고 복사된다는 것입니다.
@@ -5,6 +6,17 @@
 원시값(문자열, 숫자, 불린 값)은 '값 그대로' 저장·할당되고 복사되는 반면에 말이죠.
 
 예시:
+=======
+# Object references and copying
+
+One of the fundamental differences of objects versus primitives is that objects are stored and copied "by reference", as opposed to primitive values: strings, numbers, booleans, etc -- that are always copied "as a whole value".
+
+That's easy to understand if we look a bit "under a cover" of what happens when we copy a value.
+
+Let's start with a primitive, such as a string.
+
+Here we put a copy of `message` into `phrase`:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js
 let message = "Hello!";
@@ -15,11 +27,21 @@ let phrase = message;
 
 ![](variable-copy-value.svg)
 
+<<<<<<< HEAD
 그런데 객체의 동작방식은 이와 다릅니다.
 
 **변수엔 객체가 그대로 저장되는 것이 아니라, 객체가 저장되어있는 '메모리 주소'인 객체에 대한 '참조 값'이 저장됩니다.**
 
 그림을 통해 변수 user에 객체를 할당할 때 무슨 일이 일어나는지 알아봅시다.
+=======
+Quite an obvious result, right?
+
+Objects are not like that.
+
+**A variable assigned to an object stores not the object itself, but its "address in memory", in other words "a reference" to it.**
+
+Let's look at an example of such variable:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js
 let user = {
@@ -27,9 +49,21 @@ let user = {
 };
 ```
 
+And here's how it's actually stored in memory:
+
 ![](variable-contains-reference.svg)
 
+<<<<<<< HEAD
 객체는 메모리 내 어딘가에 저장되고, 변수 `user`엔 객체를 '참조'할 수 있는 값이 저장됩니다.
+=======
+The object is stored somewhere in memory (at the right of the picture), while the `user` variable (at the left) has a "reference" to it.
+
+We may think of an object variable, such as `user`, as of a sheet of paper with the address.
+
+When we perform actions with the object, e.g. take a property `user.name`, JavaScript engine looks into that address and performs the operation on the actual object.
+
+Now here's why it's important.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 따라서 **객체가 할당된 변수를 복사할 땐 객체의 참조 값이 복사되고 객체는 복사되지 않습니다.**
 
@@ -45,7 +79,13 @@ let admin = user; // 참조값을 복사함
 
 ![](variable-copy-reference.svg)
 
+<<<<<<< HEAD
 따라서 객체에 접근하거나 객체를 조작할 땐 여러 변수를 사용할 수 있습니다.
+=======
+As you can see, there's still one object, now with two variables that reference it.
+
+We can use any variable to access the object and modify its contents:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let user = { name: 'John' };
@@ -59,6 +99,7 @@ admin.name = 'Pete'; // 'admin' 참조 값에 의해 변경됨
 alert(*!*user.name*/!*); // 'Pete'가 출력됨. 'user' 참조 값을 이용해 변경사항을 확인함
 ```
 
+<<<<<<< HEAD
 객체를 서랍장에 비유하면 변수는 서랍장을 열 수 있는 열쇠라고 할 수 있습니다. 서랍장은 하나, 서랍장을 열 수 있는 열쇠는 두 개인데, 그중 하나(`admin`)를 사용해 서랍장을 열어 정돈한 후, 또 다른 열쇠로 서랍장을 열면 정돈된 내용을 볼 수 있습니다.
 
 ### 참조에 의한 비교
@@ -68,6 +109,16 @@ alert(*!*user.name*/!*); // 'Pete'가 출력됨. 'user' 참조 값을 이용해 
 **비교 시 피연산자인 두 객체가 동일한 객체인 경우에 참을 반환하죠.**
 
 두 변수가 같은 객체를 참조하는 예시를 살펴봅시다. 일치·동등 비교 모두에서 참이 반환됩니다.
+=======
+
+It's just as if we had a cabinet with two keys and used one of them (`admin`) to get into it. Then, if we later use another key (`user`) we can see changes.
+
+## Comparison by reference
+
+Two objects are equal only if they are the same object.
+
+For instance, here `a` and `b` reference the same object, thus they are equal:
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let a = {};
@@ -77,7 +128,11 @@ alert( a == b ); // true, 두 변수는 같은 객체를 참조합니다.
 alert( a === b ); // true
 ```
 
+<<<<<<< HEAD
 다른 예시를 살펴봅시다. 두 객체 모두 비어있다는 점에서 같아 보이지만, 독립된 객체이기 때문에 일치·동등 비교하면 거짓이 반환됩니다.
+=======
+And here two independent objects are not equal, even though they look alike (both are empty):
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ```js run
 let a = {};
@@ -86,7 +141,11 @@ let b = {}; // 독립된 두 객체
 alert( a == b ); // false
 ```
 
+<<<<<<< HEAD
 `obj1 > obj2` 같은 대소 비교나 `obj == 5` 같은 원시값과의 비교에선 객체가 원시형으로 변환됩니다. 객체가 어떻게 원시형으로 변하는지에 대해선 곧 학습할 예정인데, 이러한 비교(객체끼리의 대소 비교나 원시값과 객체를 비교하는 것)가 필요한 경우는 매우 드물긴 합니다. 대개 코딩 실수 때문에 이런 비교가 발생합니다.
+=======
+For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, objects are converted to primitives. We'll study how object conversions work very soon, but to tell the truth, such comparisons are needed very rarely, usually they appear as a result of a programming mistake.
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ## 객체 복사, 병합과 Object.assign
 
@@ -215,9 +274,13 @@ alert(clone.sizes.width); // 51, 다른 객체에서 변경 사항을 확인할 
 
 이 문제를 해결하려면 `user[key]`의 각 값을 검사하면서, 그 값이 객체인 경우 객체의 구조도 복사해주는 반복문을 사용해야 합니다. 이런 방식을 '깊은 복사(deep cloning)'라고 합니다.
 
+<<<<<<< HEAD
 깊은 복사 시 사용되는 표준 알고리즘인 [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다.
 
 자바스크립트 라이브러리 [lodash](https://lodash.com)의 메서드인 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)을 사용하면 이 알고리즘을 직접 구현하지 않고도 깊은 복사를 처리할 수 있으므로 참고하시기 바랍니다.
+=======
+We can use recursion to implement it. Or, not to reinvent the wheel, take an existing implementation, for instance [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) from the JavaScript library [lodash](https://lodash.com).
+>>>>>>> d6e88647b42992f204f57401160ebae92b358c0d
 
 ## 요약
 
