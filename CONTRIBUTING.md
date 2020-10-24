@@ -23,7 +23,7 @@ PR 전 본인의 작업물이 어떻게 사이트에 반영될지 확인하고 �
 
 * 경어체를 사용합니다.
 * PR 전 [맞춤법 검사기](http://speller.cs.pusan.ac.kr/)를 사용해 틀린 부분을 교정합니다. **검사기를 돌리지 않았다고 판단되는 커밋은 PR 받지 않겠습니다.** 리뷰자 역시 맞춤법 검사기를 사용해, 번역자가 맞춤법을 지켜 번역했는지 확인합니다.
-* 줄 바꿈과 단락은 "원문 그대로"를 유지합니다. 영어 원문 수정사항을 병합할 때 중요합니다. **번역 후 줄 수가 원문의 줄 수와 다른 경우는 PR 받지 않겠습니다.**
+* 줄 바꿈과 단락은 '원문 그대로'를 유지합니다. 영어 원문 수정사항을 병합할 때 중요합니다. **번역 후 줄 수가 원문의 줄 수와 다른 경우는 PR 받지 않겠습니다.**
 * 공백(스페이스), 큰따옴표("), 작은따옴표('), 대시(-), 백틱(\`)을 비롯한 모든 특수문자는 수정하시면 안 됩니다. **자연어만 수정(알파벳을 한글로 수정)해주세요!** [로컬 서버 세팅 방법](https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%A1%9C%EC%BB%AC-%EC%84%9C%EB%B2%84-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0)을 참고하셔서 내가 작성한 코드(번역물)가 어떻게 반영될지 확인 후 PR 보내주세요.
 * 소스 코드 내 공백 등은 원문 병합 시 충돌을 예방하기 위해 되도록 수정하지 않습니다. 자연어(주석)만 번역하도록 합니다.
 * [번역 모범 사례](https://github.com/javascript-tutorial/ko.javascript.info/wiki/%EB%B2%88%EC%97%AD-%EB%AA%A8%EB%B2%94-%EC%82%AC%EB%A1%80)와 [KIGO 번역 스타일가이드](https://www.facebook.com/groups/kigostyleguide/permalink/930262127127479/), [자주 하는 실수](https://docs.google.com/spreadsheets/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=579221672)를 읽어보시고 작업에 참여해주세요.
