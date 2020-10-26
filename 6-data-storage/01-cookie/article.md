@@ -66,10 +66,17 @@ alert(document.cookie); // ...; my%20name=John%20Smith
 ```
 
 
+<<<<<<< HEAD
 ```warn header="쿠키의 한계"
 쿠키엔 몇 가지 제약 사항이 있습니다.
 - `encodeURIComponent`로 인코딩한 이후의 `name=value` 쌍은 4KB를 넘을 수 없습니다. 이 용량을 넘는 정보는 쿠키에 저장할 수 없습니다.
 - 도메인 하나당 저장할 수 있는 쿠키의 개수는 20여 개 정도로 한정되어 있습니다. 개수는 브라우저에 따라 조금씩 다릅니다.
+=======
+```warn header="Limitations"
+There are few limitations:
+- The `name=value` pair, after `encodeURIComponent`, should not exceed 4KB. So we can't store anything huge in a cookie.
+- The total number of cookies per domain is limited to around 20+, the exact limit depends on a browser.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 ```
 
 쿠키엔 몇 가지 옵션이 있습니다. 몇몇 옵션은 아주 중요하기 때문에 꼭 지정해 줘야 합니다.
@@ -412,10 +419,17 @@ GDPR은 쿠키에 대해서만 다루진 않고, 전반적인 보안 이슈에 �
 
 ## 요약
 
+<<<<<<< HEAD
 `document.cookie`는 쿠키에 접근할 수 있도록 해줍니다.
 - 쓰기는 해당 쿠키의 값만 갱신합니다.
 - 쿠키 이름과 값은 꼭 인코딩해야 합니다.
 - 쿠키 하나가 차지하는 용량은 최대 4KB까지이고, 사이트 하나당 약 20여 개를 허용합니다(브라우저에 따라 다름).
+=======
+`document.cookie` provides access to cookies
+- write operations modify only cookies mentioned in it.
+- name/value must be encoded.
+- one cookie up to 4KB, 20+ cookies per site (depends on a browser).
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 쿠키 옵션:
 - `path=/`의 기본값은 현재 경로이고, 설정한 경로나 그 하위 경로에서만 쿠키 정보를 볼 수 있습니다.

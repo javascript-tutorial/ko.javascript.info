@@ -33,7 +33,9 @@ alert( obj ); // "[object Object]" ?
 let obj = {};
 
 alert(obj.__proto__ === Object.prototype); // true
-// obj.toString === obj.__proto__.toString == Object.prototype.toString
+
+alert(obj.toString === obj.__proto__.toString); //true
+alert(obj.toString === Object.prototype.toString); //true
 ```
 
 그런데 이때 `Object.prototype` 위의 체인엔 `[[Prototype]]`이 없다는 점을 주의하셔야 합니다.

@@ -362,9 +362,15 @@ new Rabbit(); // rabbit
 
 왜 이런 차이가 있을까요?
 
+<<<<<<< HEAD
 이유는 필드 초기화 순서 때문입니다. 클래스 필드는 다음과 같은 규칙에 따라 초기화 순서가 달라집니다.
 - 아무것도 상속받지 않는 베이스 클래스는 생성자 실행 이전에 초기화됨
 - 부모 클래스가 있는 경우엔 `super()` 실행 직후에 초기화됨
+=======
+Well, the reason is in the field initialization order. The class field is initialized:
+- Before constructor for the base class (that doesn't extend anything),
+- Immediately after `super()` for the derived class.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 위 예시에서 `Rabbit`은 하위 클래스이고 `constructor()`가 정의되어 있지 않습니다. 이런 경우 앞서 설명한 바와 같이 생성자는 비어있는데 그 안에 `super(...args)`만 있다고 보면 됩니다.
 
@@ -545,7 +551,11 @@ longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
 ```js run
 let animal = {
   sayHi() {
+<<<<<<< HEAD
     console.log(`나는 동물입니다.`);
+=======
+    alert(`I'm an animal`);
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
   }
 };
 
@@ -559,7 +569,11 @@ let rabbit = {
 
 let plant = {
   sayHi() {
+<<<<<<< HEAD
     console.log("나는 식물입니다.");
+=======
+    alert("I'm a plant");
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
   }
 };
 

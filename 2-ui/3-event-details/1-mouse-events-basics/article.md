@@ -58,15 +58,27 @@
 
 | 버튼 | `event.button` |
 |--------------|----------------|
+<<<<<<< HEAD
 | 왼쪽(주요 버튼) | 0 |
 | 가운데(보조 버튼) | 1 |
 | 오른쪽 (두 번째 버튼) | 2 |
 | X1(뒤로 가기 버튼) | 3 |
 | X2(앞으로 가기 버튼) | 4 |
+=======
+| Left button (primary) | 0 |
+| Middle button (auxiliary) | 1 |
+| Right button (secondary) | 2 |
+| X1 button (back) | 3 |
+| X2 button (forward) | 4 |
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 상당수의 마우스는 왼쪽, 오른쪽 버튼만 가지고 있기 때문에 이 마우스들이 만들어내는 `event.button` 값은 `0`이나 `2`가 됩니다. 터치를 지원하는 기기들도 사람이 해당 기기를 터치했을 때 유사한 이벤트를 만듭니다.
 
+<<<<<<< HEAD
 참고로 `buttons`라는 프로퍼티도 있는데, 이 프로퍼티는 여러 개의 버튼을 한꺼번에 눌렀을 때 해당 버튼들에 대한 정보를 정수 형태로 저장해 줍니다. 실무에서 `buttons` 프로퍼티를 만날 일은 극히 드물긴 하지만 혹시라도 필요하다면[MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)에서 확인해보시길 바랍니다.
+=======
+Also there's `event.buttons` property that has all currently pressed buttons as an integer, one bit per button. In practice this property is very rarely used, you can find details at [MDN](mdn:/api/MouseEvent/buttons) if you ever need it.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 ```warn header="역사의 뒤안길로 사라진 `event.which`"
 오래된 코드를 보다 보면 `event.which`라는 프로퍼티를 발견할 수 있습니다. `event.which` 프로퍼티는 어떤 버튼을 클릭했는지 알려주는 비표준 프로퍼티로 다음과 같은 값을 가집니다.
@@ -156,7 +168,11 @@ Windows와 Linux는 `key:Alt`, `key:Shift`, `key:Ctrl` 키를 지원합니다. �
 
 글자 위에서 마우스를 더블클릭하면 글자가 선택되는데, 이런 기본 동작이 사용자 경험을 해칠 때가 있습니다.
 
+<<<<<<< HEAD
 `dblclick` 이벤트가 발생하면 얼럿창을 띄우고 싶다고 가정해봅시다. 제대로 코드를 작성했음에도 불구하고 핸들러가 실행되는 동시에 글자가 선택되는 불필요한 부수효과가 발생하였습니다.
+=======
+For instance, double-clicking on the text below selects it in addition to our handler:
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 ```html autorun height=50
 <span ondblclick="alert('dblclick')">이곳을 더블클릭해주세요.</span>

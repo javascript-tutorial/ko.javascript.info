@@ -110,7 +110,11 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 
 위 예시에서 살펴본 바와 같이 문자열 내의 따옴표엔 `\`를 꼭 붙여줘야 합니다. 이렇게 하지 않으면 자바스크립트는 해당 따옴표가 문자열을 닫는 용도로 사용된 것이라 해석하기 때문입니다.
 
+<<<<<<< HEAD
 이스케이프 문자는 문자열을 감쌀 때 사용한 따옴표와 동일한 따옴표에만 붙여주면 됩니다. 문자열 내에서 좀 더 우아하게 따옴표를 사용하려면 아래와 같이 따옴표 대신 백틱으로 문자열을 감싸주면 됩니다.
+=======
+Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 ```js run
 alert( `I'm the Walrus!` ); // I'm the Walrus!
@@ -312,7 +316,11 @@ if (str.indexOf("Widget") != -1) {
 
 #### 비트 NOT 연산자를 사용한 기법
 
+<<<<<<< HEAD
 오래전부터 전해 오는 [비트(bitwise) NOT 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT) `~`를 사용한 기법 하나를 소개해드리겠습니다. 비트 NOT 연산자는 피연산자를 32비트 정수로 바꾼 후(소수부는 모두 버려짐) 모든 비트를 반전합니다. 
+=======
+One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 따라서 `n`이 32비트 정수일 때 `~n`은 `-(n+1)`이 됩니다.
 
@@ -345,7 +353,11 @@ if (~str.indexOf("Widget")) {
 
 `if (~str.indexOf(...))` 패턴의 코드를 만나면 '부분 문자열인지 확인'하는 코드라고 기억해둡시다.
 
+<<<<<<< HEAD
 참고로 `-1` 이외에도 `~` 연산자 적용 시 `0`을 반환하는 숫자는 다양합니다. 아주 큰 숫자에 `~` 연산자를 적용하면 32비트 정수로 바꾸는 과정에서 잘림 현상이 발생하기 때문이죠. 이런 숫자 중 가장 큰 숫자는 `4294967295`입니다(`~4294967295`는 `0`임). 문자열이 아주 길지 않은 경우에만 `~` 연산자가 의도한 대로 작동한다는 점을 알고 계시길 바랍니다.
+=======
+To be precise though, as big numbers are truncated to 32 bits by `~` operator, there exist other numbers that give `0`, the smallest is `~4294967295=0`. That makes such check correct only if a string is not that long.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 모던 자바스크립트에선 `.includes` 메서드(아래에서 배움)를 사용해 부분 문자열 포함 여부를 검사합니다. 이런 기법은 오래된 자바스크립트에서만 볼 수 있습니다.
 

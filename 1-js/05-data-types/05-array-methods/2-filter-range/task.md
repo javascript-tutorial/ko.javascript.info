@@ -4,7 +4,11 @@
 
 # 특정 범위에 속하는 요소 찾기
 
+<<<<<<< HEAD
 배열 `arr`의 요소 중 `a`이상 `b` 이하 범위에 속하는 요소만 골라 새로운 배열에 집어넣고, 해당 요소를 출력해주는 함수 `filterRange(arr, a, b)`를 작성해봅시다.
+=======
+Write a function `filterRange(arr, a, b)` that gets an array `arr`, looks for elements with values higher or equal to `a` and lower or equal to `b` and return a result as an array.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 새로 작성하는 함수는 기존 배열 `arr`을 변경하면 안 되고, 반환되는 함수는 새로운 배열이어야 합니다.
 

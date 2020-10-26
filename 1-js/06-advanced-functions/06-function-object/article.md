@@ -347,7 +347,11 @@ welcome(); // Hello, Guest (중첩 호출이 제대로 동작함)
 
 함수엔 다양한 프로퍼티를 추가할 수 있습니다. 널리 쓰이는 자바스크립트 라이브러리 상당수에서 이런 커스텀 프로퍼티를 잘 활용하고 있습니다.
 
+<<<<<<< HEAD
 이런 라이브러리들은 '주요' 함수 하나를 만들고 여기에 다양한 '헬퍼' 함수를 붙이는 식으로 구성됩니다. [jQuery](https://jquery.com)는 이름이 `$`인 주요 함수로 이루어져 있습니다. [lodash](https://lodash.com)는 주요 함수 `_`에 `_.clone`, `_.keyBy`등의 프로퍼티를 추가하는 식으로 구성되죠. 자세한 정보는 lodash [공식 문서](https://lodash.com/docs)에서 찾아볼 수 있습니다. 이렇게 함수 하나에 다양한 헬퍼 함수를 붙여 라이브러리를 만들면 라이브러리 하나가 전역 변수 하나만 사용하므로 전역 공간을 더럽히지 않는다는 장점이 있습니다. 이름 충돌도 방지할 수 있죠.
+=======
+They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want to learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 
 이렇게 객체로서의 함수 특징을 이용해 커스텀 프로퍼티를 만들면 함수는 자기 자신을 이용해 원하는 일을 수행할 수 있고, 함수 자기 자신에 딸린 프로퍼티의 기능도 사용할 수 있다는 장점이 있습니다.

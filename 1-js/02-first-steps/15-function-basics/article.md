@@ -185,7 +185,11 @@ alert( from ); // Ann
 showMessage("Ann");
 ```
 
+<<<<<<< HEAD
 이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefied`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다. 
+=======
+That's not an error. Such a call would output `"*Ann*: undefined"`. There's no `text`, so it's assumed that `text === undefined`.
+>>>>>>> 2d5be7b7307b0a4a85e872d229e0cebd2d8563b5
 
 매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 '기본값(default value)'을 설정해주면 됩니다. 매개변수 오른쪽에 `=`을 붙이고 `undefined` 대신 설정하고자 하는 기본값을 써주면 되죠.   
 
