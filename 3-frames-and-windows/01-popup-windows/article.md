@@ -1,69 +1,69 @@
-# Popups and window methods
+# 팝업창과 윈도우 메서드
 
-A popup window is one of the oldest methods to show additional document to user.
+팝업창은 사용자에게 추가 정보를 표시하는 가장 오래된 방법 중 하나입니다.
 
-Basically, you just run:
+기본적으로 이렇게 작성하면 됩니다.
 ```js
 window.open('https://javascript.info/')
 ```
 
-...And it will open a new window with given URL. Most modern browsers are configured to open new tabs instead of separate windows.
+그리고 작성한 URL로 새로운 창이 열릴 것입니다. 대부분의 최신 브라우저는 별도의 창 대신 새로운 탭에 열도록 구성되어 있습니다.
 
-Popups exist from really ancient times. The initial idea was to show another content without closing the main window. As of now, there are other ways to do that: we can load content dynamically with [fetch](info:fetch) and show it in a dynamically generated `<div>`. So, popups is not something we use everyday.
+팝업은 아주 오래전부터 존재했습니다. 초기의 아이디어는 메인 창을 닫지 않고 다른 내용을 보여주는 것이었습니다. 현재로서는 그렇게 하는 다른 방법들이 있습니다. [fetch](info:fetch)로 동적으로 콘텐츠를 로딩하고 동적으로 생성되는 `<div>`를 통해 보여줄 수 있습니다. 그래서 팝업을 우리가 매일 사용하지는 않습니다.
 
-Also, popups are tricky on mobile devices, that don't show multiple windows simultaneously.
+또한, 여러 개의 창을 동시에 표시하지 않는 모바일 기기에서는 팝업이 까다롭습니다.
 
-Still, there are tasks where popups are still used, e.g. for OAuth authorization (login with Google/Facebook/...), because:
+여전히 OAuth 인증(Google/Facebook/...에 로그인)과 같은 곳에 팝업은 아직도 사용되고 있습니다. 왜냐하면,
 
-1. A popup is a separate window with its own independent JavaScript environment. So opening a popup with a third-party non-trusted site is safe.
-2. It's very easy to open a popup.
-3. A popup can navigate (change URL) and send messages to the opener window.
+1. 팝업은 독립된 자바스크립트 환경을 가진 별도의 창입니다. 그래서 제 3자의 신뢰할 수 없는 사이트에서 팝업을 여는 것은 안전합니다.
+2. 팝업을 여는 방법이 매우 쉽습니다.
+3. 팝업은 다른 창에도 opener를 사용하여 메세지를 다루고 보낼 수 있습니다.
 
-## Popup blocking
+## 팝업 차단
 
-In the past, evil sites abused popups a lot. A bad page could open tons of popup windows with ads. So now most browsers try to block popups and protect the user.
+과거에는, 악의적인 사이트들이 팝업을 많이 악용했습니다. 나쁜 페이지는 광고가 있는 많은 팝업창들을 열 수 있습니다. 그래서 현재 대부분의 브라우저는 팝업을 차단하고 사용자들을 보호하려 노력합니다.
 
-**Most browsers block popups if they are called outside of user-triggered event handlers like `onclick`.**
+**대부분의 브라우저가 `onclick`과 같이 사용자 트리거 이벤트 핸들러의 외부에서 호출되는 경우 팝업들을 차단합니다.**
 
-For example:
+예시:
 ```js
-// popup blocked
+// 팝업 차단
 window.open('https://javascript.info');
 
-// popup allowed
+// 팝업 허용
 button.onclick = () => {
   window.open('https://javascript.info');
 };
 ```
 
-This way users are somewhat protected from unwanted popups, but the functionality is not disabled totally.
+이렇게 하면 사용자들은 어느정도 원하지 않는 팝업에 보호되지만, 기능이 완전히 비활성화된 것은 아닙니다.
 
-What if the popup opens from `onclick`, but after `setTimeout`? That's a bit tricky.
+`setTimeout`이 지난 뒤, `onclick`으로 팝업을 연다면 어떨까요? 그건 좀 까다롭습니다.
 
-Try this code:
+이 코드를 작성해보세요.
 
 ```js run
-// open after 3 seconds
+// 3초 뒤에 열립니다.
 setTimeout(() => window.open('http://google.com'), 3000);
 ```
 
-The popup opens in Chrome, but gets blocked in Firefox.
+이 팝업은 Chrome에선 열리지만, Firefox에선 차단됩니다.
 
-...If we decrease the delay, the popup works in Firefox too:
+...지연 시간을 줄이면, Firefox에서도 작동합니다.
 
 ```js run
-// open after 1 seconds
+// 1초 뒤에 열립니다.
 setTimeout(() => window.open('http://google.com'), 1000);
 ```
 
-The difference is that Firefox treats a timeout of 2000ms or less are acceptable, but after it -- removes the "trust", assuming that now it's "outside of the user action". So the first one is blocked, and the second one is not.
+차이점은 Firefox가 2000ms 이하의 시간 초과가 허용되지만, 그 이후에는 '신뢰'를 제거한다는 것입니다. 이제는 '사용자 작업 외부'라고 추정합니다. 그래서 첫 번째는 차단되고, 두 번째는 차단되지 않습니다.
 
 ## window.open
 
-The syntax to open a popup is: `window.open(url, name, params)`:
+팝업을 여는 구문은 `window.open(url, name, params)` 입니다.
 
 url
-: An URL to load into the new window.
+: 새 창에 띄울 url을 의미합니다.
 
 name
 : A name of the new window. Each window has a `window.name`, and here we can specify which window to use for the popup. If there's already a window with such name -- the given URL opens in it, otherwise a new window is opened.
