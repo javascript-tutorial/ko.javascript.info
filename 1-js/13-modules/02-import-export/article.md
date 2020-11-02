@@ -321,7 +321,11 @@ export {default as User} from './user.js'; // default export를 다시 내보내
 
 다시 내보내기가 왜 필요한건지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
 
+<<<<<<< HEAD
 NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데, 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있다고 합시다.
+=======
+Imagine, we're writing a "package": a folder with a lot of modules, with some of the functionality exported outside (tools like NPM allow us to publish and distribute such packages, but we don't have to use them), and many modules are just "helpers", for internal use in other package modules.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 패키지 구조는 아래와 같습니다.
 ```
@@ -378,7 +382,11 @@ export {default as User} from './user.js';
 
 기본 내보내기를 다시 내보낼 때는 주의해야 할 점들이 있습니다.
 
+<<<<<<< HEAD
 `user.js` 내의 클래스 `User`를 다시 내보내기 한다고 가정해 봅시다.
+=======
+Let's say we have `user.js` with the `export default class User` and would like to re-export it:
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 ```js
 // 📁 user.js
@@ -387,7 +395,13 @@ export default class User {
 }
 ```
 
+<<<<<<< HEAD
 1. `User`를 `export User from './user.js'`로 다시 내보내기 할 때 문법 에러가 발생합니다. 어디가 잘못된 걸까요?
+=======
+We can come across two problems with it:
+
+1. `export User from './user.js'` won't work. That would lead to a syntax error.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
     default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.
 
@@ -399,7 +413,11 @@ export default class User {
     export {default} from './user.js'; // default export를 다시 내보내기
     ```
 
+<<<<<<< HEAD
 default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 선호하지 않습니다.
+=======
+Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 ## 요약
 

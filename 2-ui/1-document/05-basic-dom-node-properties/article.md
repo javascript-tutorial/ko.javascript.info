@@ -397,15 +397,24 @@ elem.innerHTML = elem.innerHTML + "..."
 <div id="elem2"></div>
 
 <script>
+<<<<<<< HEAD
   let name = prompt("이름을 알려주세요.", "<b>곰돌이 푸!</b>");
+=======
+  let name = prompt("What's your name?", "<b>Winnie-the-Pooh!</b>");
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
   elem1.innerHTML = name;
   elem2.textContent = name;
 </script>
 ```
 
+<<<<<<< HEAD
 1. 첫 번째 `<div>`엔 이름이 'HTML 형태'로 저장됩니다. 입력한 태그는 태그로 해석되어 굵은 글씨가 출력되네요.
 2. 두 번째 `<div>`엔 이름이 '텍스트 형태'로 저장됩니다. 따라서 입력한 값 그대로 `<b>곰돌이 푸!</b>`가 출력되는 것을 확인할 수 있습니다.
+=======
+1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
+2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-Pooh!</b>`.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 사용자의 입력값을 받아 처리해야 하는 경우가 많습니다. 이때 사용자가 입력한 값은 텍스트로 처리되어야 합니다. 예상치 못한 HTML이 사이트에 침투하는 것을 막으려면 `textContent`를 사용합시다. 
 
@@ -413,7 +422,11 @@ elem.innerHTML = elem.innerHTML + "..."
 
 'hidden' 속성과 'hidden' DOM 프로퍼티는 요소를 보여줄지 말지 지정할 때 사용할 수 있습니다.
 
+<<<<<<< HEAD
 `hidden`은 HTML 안에서 쓸 수도 있고 자바스크립트에서도 쓸 수 있습니다.
+=======
+We can use it in HTML or assign it using JavaScript, like this:
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 ```html run height="80"
 <div>아래 두 div를 숨겨봅시다.</div>

@@ -205,7 +205,13 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 </script>
 ```
 
+<<<<<<< HEAD
 대부분의 다른 폼 조작 요소와 달리 `<select>`는 `multiple` 속성이 있는 경우 option을 다중 선택할 수 있습니다. `multiple` 속성을 쓰는 경우는 아주 드물지만, 쓰게 되다면 첫 번째 방법을 사용해 `<option>` 하위 요소에 있는 `selected` 프로퍼티를 추가·제거해야 합니다. 
+=======
+Unlike most other controls, `<select>` allows to select multiple options at once if it has `multiple` attribute. Although such functionality is available, it is rarely used. 
+
+In cases that you have to, then use the first way: add/remove the `selected` property from `<option>` subelements.
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 선택된 여러 개의 option이 담긴 컬렉션은 다음 예시처럼 `select.options`를 사용해 얻을 수 있습니다. 
 

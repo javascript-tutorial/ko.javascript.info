@@ -406,7 +406,11 @@ alert( parseInt('2n9c', 36) ); // 123456
     alert( Math.pow(2, 10) ); // 2의 10제곱 = 1024
     ```
 
+<<<<<<< HEAD
 이 외에도 삼각법을 포함한 다양한 함수와 상수가 `Math`에 있습니다. 자세한 내용은 [MDN 문서](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math)에서 읽어보시기 바랍니다.
+=======
+There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math object](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+>>>>>>> dccca58f268ad6d5a6f2160613a8ea3c5cd53a2d
 
 ## 요약
 
