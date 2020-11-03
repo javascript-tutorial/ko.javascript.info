@@ -35,7 +35,7 @@ ball.style.top = Math.round(field.clientHeight / 2 - ball.offsetHeight / 2) + 'p
 ```
 ````
 
-브라우저가 태그 혹은 CSS로부터 이미지의 너비, 높이를 알지 못할 때, 이미지 로딩이 끝날 때까지 똑같이 `0`으로 추측합니다.
+브라우저가 태그 혹은 CSS로부터 이미지의 너비와 높이를 알지 못할 때, 이미지 로딩이 끝날 때까지 똑같이 이미지의 크기를 `0`으로 취급합니다.
 
 그래서 이미지가 불러와 질 때까지 `ball.offsetWidth`값은 `0`이 될 것입니다. 해당 코드에서는 잘못된 좌표를 불러오게 될 것입니다.
 
@@ -47,7 +47,7 @@ ball.style.top = Math.round(field.clientHeight / 2 - ball.offsetHeight / 2) + 'p
 <img src="ball.png" *!*width="40" height="40"*/!* id="ball">
 ```
 
-…혹은 CSS에서 사이즈를 줘야합니다.
+…혹은 CSS에서 이미지의 사이즈를 줘야합니다.
 
 ```css
 #ball {
