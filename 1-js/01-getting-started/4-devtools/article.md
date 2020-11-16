@@ -8,7 +8,11 @@
 
 대부분의 개발자는 Chrome이나 Firefox를 이용해 개발하는 걸 선호합니다. 두 브라우저에서 제공하는 개발자 도구가 굉장히 훌륭하기 때문이죠. 기타 브라우저들도 개발자 도구를 제공하고 독특한 기능이 있지만, 거의 Chrome이나 Firefox 기능을 '따라가는' 수준입니다. 그래서 개발자들은 Chrome이나 Firefox 중 '선호하는' 브라우저를 하나 택해 개발하다가 사용하고 있는 브라우저에 종속된 문제가 발생하면 다른 브라우저로 전환해 개발을 이어나가곤 합니다.
 
+<<<<<<< HEAD
 개발자 도구에서 지원하는 기능을 잘 활용하면 개발 효율이 상당히 올라갑니다. 이 챕터에선 개발자 도구를 열어 에러를 확인하고, 다양한 명령어를 입력해 보는 방법에 대해 소개하도록 하겠습니다.
+=======
+Developer tools are potent, they have many features. To start, we'll learn how to open them, look at errors, and run JavaScript commands.
+>>>>>>> 99e59ba611ab11319ef9d0d66734b0bea2c3f058
 
 ## Chrome
 
