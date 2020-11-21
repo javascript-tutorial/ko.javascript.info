@@ -1,7 +1,7 @@
 # Shadow DOM
 
 <!-- Shadow DOM serves for encapsulation. It allows a component to have its very own "shadow" DOM tree, that can't be accidentally accessed from the main document, may have local style rules, and more. -->
-Shadow Dom은 캡슐화에 사용됩니다. 구성요소가 실수로 주요 문서에 엑세스 할 수 없으며, 로컬 스타일 등을 가질 수 있는 한 컴포넌트 자체의 "shadow" Dom 트리를 가질 수 있습니다.
+Shadow Dom은 캡슐화에 사용됩니다. 구성요소가 실수로 주요 문서에 엑세스할 수 없으며, 로컬 스타일 등을 가질 수 있는 한 컴포넌트 자체의 "shadow" Dom 트리를 가질 수 있습니다.
 ## 내장된 shadow DOM
 
 <!-- Did you ever think how complex browser controls are created and styled? -->
@@ -13,13 +13,13 @@ Shadow Dom은 캡슐화에 사용됩니다. 구성요소가 실수로 주요 문
 </p>
 
 <!-- The browser uses DOM/CSS internally to draw them. That DOM structure is normally hidden from us, but we can see it in developer tools. E.g. in Chrome, we need to enable in Dev Tools "Show user agent shadow DOM" option. -->
-브라우저는 DOM/CSS를 내부적으로 사용합니다. DOM구조는 일반적으로 사용자에게 가려져 있지만, 개발자 도구를 사용하여 볼 수 있습니다.예를 들어 Chrome에서는 Dev Tools "Show user agent shadow DOM"옵션을 활성화해야합니다.
+브라우저는 DOM/CSS를 내부적으로 사용합니다. DOM 구조는 일반적으로 사용자에게 가려져 있지만, 개발자 도구를 사용하여 볼 수 있습니다. 예를 들어 Chrome에서는 Dev Tools "Show user agent shadow DOM" 옵션을 활성화해야 합니다.
 <!-- Then `<input type="range">` looks like this: -->
 `<input type="range">`는 다음과 같아 보입니다:
 ![](shadow-dom-range.png)
 
 <!-- What you see under `#shadow-root` is called "shadow DOM". -->
-`#shadow-root`아래에 보이는 것은 "shadow DOM"이라고 합니다.
+`#shadow-root` 아래에 보이는 것은 "shadow DOM"이라고 합니다.
 <!-- We can't get built-in shadow DOM elements by regular JavaScript calls or selectors. These are not regular children, but a powerful encapsulation technique. -->
 정규 자바스크립트 호출 또는 선택자로는 내장된 shadow DOM을 호출할 수 없습니다. 정규 자식이 아니지만, 강력한 캡슐화 기술입니다.
 <!-- In the example above, we can see a useful attribute `pseudo`. It's non-standard, exists for historical reasons. We can use it style subelements with CSS, like this: -->
