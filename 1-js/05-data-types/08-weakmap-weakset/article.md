@@ -30,8 +30,14 @@ let array = [ john ];
 john = null; // 참조를 null로 덮어씀
 
 *!*
+<<<<<<< HEAD
 // john을 나타내는 객체는 배열의 요소이기 때문에 가비지 컬렉터의 대상이 되지 않습니다.
 // array[0]을 이용하면 해당 객체를 얻는 것도 가능합니다.
+=======
+// the object previously referenced by john is stored inside the array 
+// therefore it won't be garbage-collected
+// we can get it as array[0]
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 */!*
 alert(JSON.stringify(array[0]));
 ```

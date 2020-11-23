@@ -120,7 +120,11 @@ alert( "CS-4".match(regexp) ); // CS-4
 alert( "CS 4".match(regexp) ); // CS 4 (공백도 문자예요.)
 ```
 
+<<<<<<< HEAD
 점은 아무 문자에나 일치하지만 '문자의 부재'와 일치하지는 않습니다. 반드시 일치하는 문자가 있어야 합니다.
+=======
+Please note that a dot means "any character", but not the "absence of a character". There must be a character to match it:
+>>>>>>> 23da191b58643387783f38e999f5b05be87d3d93
 
 ```js run
 alert( "CS4".match(/CS.4/) ); // null, 점과 일치하는 문자가 없기 때문에 일치 결과가 없습니다.
