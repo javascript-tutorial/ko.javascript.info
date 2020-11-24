@@ -1,16 +1,16 @@
 importance: 5
 
----
+—
 
-# Up/down button
+# 위·아래 버튼
 
-Create a "to the top" button to help with page scrolling.
+페이지 스크롤을 도와주는 '상단으로' 버튼을 생성합니다.
 
-It should work like this:
-- While the page is not scrolled down at least for the window height -- it's invisible.
-- When the page is scrolled down more than the window height -- there appears an "upwards" arrow in the left-top corner. If the page is scrolled back, it disappears.
-- When the arrow is clicked, the page scrolls to the top.
+상단 이동 버튼은 다음과 같이 동작합니다.
+- 페이지가 최소 창 높이만큼 아래로 스크롤 하지 않았을 경우 - 버튼이 노출되지 않습니다.
+- 페이지가 창 높이보다 더 아래로 스크롤 될 경우 - '위쪽' 화살표가 좌측 상단 모서리에 표시됩니다. 페이지가 다시 위로 스크롤 된다면 이 화살표는 사라집니다.
+- 화살표가 클릭 될 경우 페이지는 상단으로 스크롤 됩니다.
 
-Like this (top-left corner, scroll to see):
+아래와 같이 말이죠 (스크롤 해서 좌측 상단 모서리 확인).
 
 [iframe border="1" height="200" link src="solution"]

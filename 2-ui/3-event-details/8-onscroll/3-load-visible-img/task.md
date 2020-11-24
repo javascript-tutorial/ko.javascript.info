@@ -2,29 +2,29 @@ importance: 4
 
 ---
 
-# Load visible images
+# 보이는 이미지 불러오기
 
-Let's say we have a slow-speed client and want to save their mobile traffic.
+저속 클라이언트가 있고 모바일 트래픽을 절약하고자 한다고 가정하도록 하겠습니다.
 
-For that purpose we decide not to show images immediately, but rather replace them with placeholders, like this:
+목표를 달성하기 위해 이미지를 바로 표시하지 않고 아래와 같이 플레이스홀더(placeholders)로 대체하기로 했습니다.
 
 ```html
 <img *!*src="placeholder.svg"*/!* width="128" height="128" *!*data-src="real.jpg"*/!*>
 ```
 
-So, initially all images are `placeholder.svg`. When the page scrolls to the position where the user can see the image -- we change `src` to the one in `data-src`, and so the image loads.
+따라서 처음에는 모든 이미지가 `placeholder.svg`입니다. 사용자가 이미지를 볼 수 있는 위치로 스크롤 할 경우 - `src`를 `data-src` 안에 있는 값으로 변경해서 이미지를 불러옵니다.
 
-Here's an example in `iframe`:
+`iframe` 에 예시가 있습니다.
 
 [iframe src="solution"]
 
-Scroll it to see images load "on-demand".
+예제를 스크롤 해서 필요할 때 바로 (on-demand) 이미지가 로드되는 것을 확인해보세요.
 
-Requirements:
-- When the page loads, those images that are on-screen should load immediately, prior to any scrolling.
-- Some images may be regular, without `data-src`. The code should not touch them.
-- Once an image is loaded, it should not reload any more when scrolled in/out.
+요구사항:
+- 페이지가 로드될 때 화면에 있는 이미지는 스크롤전에 즉시 로드되어야 합니다.
+- 어떤 이미지는 `data-src` 없이 일반적일 수 있습니다. 코드가 해당 이미지를 건드리면 안 됩니다.
+- 이미지가 한 번 로드되면 스크롤에 영향을 받아 다시 로드해서는 안 됩니다.
 
-P.S. If you can, make a more advanced solution that would "preload" images that are one page below/after the current position.
+추신: 가능하다면 현재 위치에서 한 페이지 아래·뒤에 있는 이미지를 '미리 로드'하는 개선된 해결책을 만들어보세요.
 
-P.P.S. Only vertical scroll is to be handled, no horizontal scrolling.
+재추신: 수평 스크롤이 아닌 수직 스크롤만 처리됩니다.
