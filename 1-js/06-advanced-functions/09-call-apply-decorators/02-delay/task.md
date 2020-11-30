@@ -2,25 +2,25 @@ importance: 5
 
 ---
 
-# Delaying decorator
+# 지연시키는 데코레이터
 
-Create a decorator `delay(f, ms)` that delays each call of `f` by `ms` milliseconds.
+`f`의 각 호출을 `ms` 밀리초 지연시키는 데코레이터 `delay(f, ms)`를 구현해보세요.
 
-For instance:
+예시:
 
 ```js
 function f(x) {
   alert(x);
 }
 
-// create wrappers
+// 래퍼를 만드세요.
 let f1000 = delay(f, 1000);
 let f1500 = delay(f, 1500);
 
-f1000("test"); // shows "test" after 1000ms
-f1500("test"); // shows "test" after 1500ms
+f1000("test"); // 'test'를 1,000ms 후에 보여줍니다.
+f1500("test"); // 'test'를 1,500ms 후에 보여줍니다.
 ```
 
-In other words, `delay(f, ms)` returns a "delayed by `ms`" variant of `f`.
+바꿔 말하면 `delay(f, ms)`는 '`ms`만큼 지연된' `f`를 반환한다고 볼 수 있습니다.
 
-In the code above, `f` is a function of a single argument, but your solution should pass all arguments and the context `this`.
+위 코드를 보면 `f`는 하나의 인수를 가진 함수지만 해답에서는 모든 인수와 컨텍스트인 `this`를 넘겨주어야 합니다.
