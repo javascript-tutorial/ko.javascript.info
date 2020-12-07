@@ -26,7 +26,11 @@ When `abort()` is called:
 
 Generally, we have two parties in the process: 
 1. The one that performs an cancelable operation, it sets a listener on `controller.signal`.
+<<<<<<< HEAD
 2. The one one that cancels: it calls `controller.abort()` when needed.
+=======
+2. The one that cancels: it calls `controller.abort()` when needed.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 Here's the full example (without `fetch` yet):
 
@@ -50,7 +54,11 @@ As we can see, `AbortController` is just a means to pass `abort` events when `ab
 
 We could implement same kind of event listening in our code on our own, without `AbortController` object at all.
 
+<<<<<<< HEAD
 But what's valuable is that `fetch` knows how to work with `AbortController` object, it's integrated with it. 
+=======
+But what's valuable is that `fetch` knows how to work with `AbortController` object, it's integrated with it.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 ## Using with fetch
 
@@ -65,7 +73,11 @@ fetch(url, {
 
 The `fetch` method knows how to work with `AbortController`. It will listen to `abort` events on `signal`.
 
+<<<<<<< HEAD
 Now, to to abort, call `controller.abort()`:
+=======
+Now, to abort, call `controller.abort()`:
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 ```js
 controller.abort();

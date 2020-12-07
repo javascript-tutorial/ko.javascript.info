@@ -176,15 +176,14 @@ Promise.allSettled(urls.map(url => fetch(url)))
 브라우저가 `Promise.allSettled`를 지원하지 않는다면 폴리필을 구현하면 됩니다.
 
 ```js
-if(!Promise.allSettled) {
-  Promise.allSettled = function(promises) {
-    return Promise.all(promises.map(p => Promise.resolve(p).then(value => ({
-      status: 'fulfilled',
-      value
-    }), reason => ({
-      status: 'rejected',
-      reason
-    }))));
+if (!Promise.allSettled) {
+  const rejectHandler = reason => ({ status: 'rejected', reason });
+
+  const resolveHandler = value => ({ status: 'fulfilled', value });
+
+  Promise.allSettled = function (promises) {
+    const convertedPromises = promises.map(p => Promise.resolve(p).then(resolveHandler, rejectHandler));
+    return Promise.all(convertedPromises);
   };
 }
 ```
@@ -217,6 +216,43 @@ Promise.race([
 
 첫 번째 프라미스가 가장 빨리 처리상태가 되기 때문에 첫 번째 프라미스의 결과가 result 값이 됩니다. 이렇게 `Promise.race`를 사용하면 '경주(race)의 승자'가 나타난 순간 다른 프라미스의 결과 또는 에러는 무시됩니다.
 
+
+## Promise.any
+
+Similar to `Promise.race`, but waits only for the first fulfilled promise and gets its result. If all of the given promises are rejected, then the returned promise is rejected with [`AggregateError`](mdn:js/AggregateError) - a special error object that stores all promise errors in its `errors` property.
+
+The syntax is:
+
+```js
+let promise = Promise.any(iterable);
+```
+
+For instance, here the result will be `1`:
+
+```js run
+Promise.any([
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
+]).then(alert); // 1
+```
+
+The first promise here was fastest, but it was rejected, so the second promise became the result. After the first fulfilled promise "wins the race", all further results are ignored.
+
+Here's an example when all promises fail:
+
+```js run
+Promise.any([
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ouch!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Error!")), 2000))
+]).catch(error => {
+  console.log(error.constructor.name); // AggregateError
+  console.log(error.errors[0]); // Error: Ouch!
+  console.log(error.errors[1]); // Error: Error
+});
+```
+
+As you can see, error objects for failed promises are available in the `errors` property of the `AggregateError` object.
 
 ## Promise.resolve/reject
 
@@ -275,6 +311,7 @@ let promise = new Promise((resolve, reject) => reject(error));
 
 `Promise` 클래스에는 5가지 정적 메서드가 있습니다.
 
+<<<<<<< HEAD
 1. `Promise.all(promises)` -- 모든 프라미스가 이행될 때까지 기다렸다가 그 결괏값을 담은 배열을 반환합니다. 주어진 프라미스 중 하나라도 실패하면 `Promise.all`는 거부되고, 나머지 프라미스의 결과는 무시됩니다.
 2. `Promise.allSettled(promises)` -- 최근에 추가된 메서드로 모든 프라미스가 처리될 때까지 기다렸다가 그 결과(객체)를 담은 배열을 반환합니다. 객체엔 다음과 같은 정보가 담깁니다.
     - `status`: `"fulfilled"` 또는 `"rejected"`
@@ -282,5 +319,15 @@ let promise = new Promise((resolve, reject) => reject(error));
 3. `Promise.race(promises)` -- 가장 먼저 처리된 프라미스의 결과 또는 에러를 담은 프라미스를 반환합니다.
 4. `Promise.resolve(value)` -- 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
 5. `Promise.reject(error)` -- 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
+=======
+1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, it becomes the error of `Promise.all`, and all other results are ignored.
+2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as an array of objects with:
+    - `status`: `"fulfilled"` or `"rejected"`
+    - `value` (if fulfilled) or `reason` (if rejected).
+3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
+4. `Promise.any(promises)` -- waits for the first promise to fulfill, and its result becomes the outcome. If all of the given promises are rejected, [`AggregateError`](mdn:js/AggregateError) becomes the error of `Promise.any`.
+5. `Promise.resolve(value)` -- makes a resolved promise with the given value.
+6. `Promise.reject(error)` -- makes a rejected promise with the given error.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 실무에선 다섯 메서드 중 `Promise.all`을 가장 많이 사용합니다.

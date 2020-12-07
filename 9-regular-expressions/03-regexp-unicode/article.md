@@ -33,6 +33,7 @@ alert('𝒳'.length); // 2
 
 ## 유니코드 프로퍼티 \p{...}
 
+<<<<<<< HEAD
 ```warn header="Firefox와 Edge에서 미지원"
 2018년부터 표준에 포함되었지만 Firefox([버그](https://bugzilla.mozilla.org/show_bug.cgi?id=1361876))와 Edge([버그](https://github.com/Microsoft/ChakraCore/issues/2969))는 유니코드 프로퍼티를 아직 지원하지 않습니다.
 
@@ -40,6 +41,9 @@ alert('𝒳'.length); // 2
 ```
 
 유니코드의 모든 문자는 다양한 프로퍼티를 가집니다. 프로퍼티는 문자가 어떤 '범주'에 속하는지 설명하기도 하고 그 외에도 문자의 여러 가지 정보를 담고 있습니다.
+=======
+Every character in Unicode has a lot of properties. They describe what "category" the character belongs to, contain miscellaneous information about it.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 예를 들어 문자에 `Letter` 프로퍼티가 있다면 그 문자는 어떠한 언어의 글자라는 뜻입니다. `Number` 프로퍼티가 있다면 아라비아 숫자든 한자 숫자든 숫자라는 뜻이죠.
 
@@ -47,13 +51,21 @@ alert('𝒳'.length); // 2
 
 예시로 `p{Letter}`는 언어의 글자를 표기하는 방법입니다. `p{L}`을 대신 사용할 수도 있습니다. 여기서 `L`은 `Letter`의 약자입니다. 거의 모든 프로퍼티에 이렇게 짧게 쓸 수 있는 약자가 있습니다.
 
+<<<<<<< HEAD
 아래 예시에서는 영문자, 조지아 문자, 한글 3종류의 글자를 검색합니다. 
+=======
+In the example below three kinds of letters will be found: English, Georgian and Korean.
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 
 ```js run
 let str = "A ბ ㄱ";
 
 alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+<<<<<<< HEAD
 alert( str.match(/\p{L}/g) ); // null ('u' 플래그가 없어서 일치 결과 없음)
+=======
+alert( str.match(/\p{L}/g) ); // null (no matches, \p doesn't work without the flag "u")
+>>>>>>> c56e6a57ac3497aab77128c5bfca13513980709b
 ```
 
 다음은 주요 문자 범주와 각각의 하위 범주 목록입니다.
