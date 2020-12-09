@@ -198,6 +198,9 @@ alert(admin.fullName); // John Smith (*)
 
 // setter 함수가 실행됩니다!
 admin.fullName = "Alice Cooper"; // (**)
+
+alert(admin.fullName); // Alice Cooper , state of admin modified
+alert(user.fullName); // John Smith , state of user protected
 ```
 
 `(*)`로 표시한 줄에서 `admin.fullName`은 프로토타입(`user`)에 있는 getter 함수(`get fullName`)를 호출하고, `(**)`로 표시한 줄의 할당 연산은 프로토타입에 있는 setter 함수(`set fullName`)를 호출합니다.

@@ -261,7 +261,7 @@ db.deleteObjectStore('books')
 
 트랜잭션을 시작하려면 다음과 같이 해야 합니다.
 
-```js run
+```js
 db.transaction(store[, type]);
 ```
 
@@ -551,7 +551,7 @@ openRequest.onupgradeneeded = function() {
   // versionchange 트랜잭션에서 인덱스를 생성해야 합니다.
   let books = db.createObjectStore('books', {keyPath: 'id'});
 *!*
-  let index = inventory.createIndex('price_idx', 'price');
+  let index = books.createIndex('price_idx', 'price');
 */!*
 };
 ```
@@ -718,7 +718,7 @@ request.onsuccess = function() {
 그러면 `onsuccess/onerror` 대신 다음과 같이 쓸 수 있습니다.
 
 ```js
-let db = await idb.openDb('store', 1, db => {
+let db = await idb.openDB('store', 1, db => {
   if (db.oldVersion == 0) {
     // 초기화를 수행합니다.
     db.createObjectStore('books', {keyPath: 'id'});
