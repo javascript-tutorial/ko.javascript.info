@@ -2,13 +2,13 @@ importance: 2
 
 ---
 
-# A random number from min to max
+# 최솟값과 최댓값 사이의 난수
 
-The built-in function `Math.random()` creates a random value from `0` to `1` (not including `1`).
+내장 함수 `Math.random()`은 `0`과 `1` 사이의 난수를 반환합니다. 이때 `1`은 포함하지 않습니다.
 
-Write the function `random(min, max)` to generate a random floating-point number from `min` to `max` (not including `max`).
+`min` 과 `max` 사이의 임의의 소수를 반환하는 함수 `random(min, max)`을 작성해보세요. 마찬가지로 `max` 값은 포함하지 않습니다.
 
-Examples of its work:
+이 함수는 다음과 같이 작동합니다.
 
 ```js
 alert( random(1, 5) ); // 1.2345623452
