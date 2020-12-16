@@ -20,7 +20,7 @@ alert(user.address.street); // TypeError: Cannot read property 'street' of undef
 또 다른 사례는 브라우저에서 동작하는 코드를 개발할 때 발생할 수 있는 문제로, 페이지에 존재하지 않는 요소에 접근해 요소의 정보를 가져오려 할 때 발생합니다.
 
 ```js run
-// querySelector(...) 호출 결과가 null인 경우 에러 발
+// querySelector(...) 호출 결과가 null인 경우 에러 발생
 let html = document.querySelector('.my-element').innerHTML;
 ```
 
