@@ -9,7 +9,11 @@
 
 ## 'script' 태그
 
+<<<<<<< HEAD
 `<script>` 태그를 이용하면 자바스크립트 프로그램을 HTML 문서 어느 곳에나 삽입할 수 있습니다.
+=======
+JavaScript programs can be inserted almost anywhere into an HTML document using the `<script>` tag.
+>>>>>>> fc3f811c03ca97ff8304271bb2b918413bed720f
 
 예시:
 
