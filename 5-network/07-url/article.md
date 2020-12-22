@@ -13,7 +13,7 @@
 new URL(url, [base])
 ```
 
-- **`url`** -- 전체 URL, 또는 베이스 URL을 설정할 시 경로만 주어져도 됩니다(아래의 base항목 참조).
+- **`url`** -- 전체 URL, 또는 베이스 URL을 설정할 시 경로만 주어져도 됩니다(아래의 base 항목 참조).
 - **`base`** -- 선택 매개변수, 베이스 URL을 설정할 수 있습니다. 베이스 URL이 주어지고 `url`에 경로만 주어지면 `base`에 대한 상대주소로 만들어집니다.
 
 예시:
@@ -41,7 +41,7 @@ let newUrl = new URL('tester', url);
 alert(newUrl); // https://javascript.info/profile/tester
 ```
 
-`URL` 객체를 통해 url 구성요소에 바로 접근할 수 있기 때문에 url을 파싱하는데에도 편리합니다.
+`URL` 객체를 통해 URL 구성요소에 바로 접근할 수 있어서 URL을 파싱하는데에도 편리합니다.
 
 ```js run
 let url = new URL('https://javascript.info/url');
@@ -80,7 +80,7 @@ new URL('https://google.com/search?query=JavaScript')
 
 하지만 공백이나 라틴 문자가 아닌 문자 등(아래 참조)이 포함되어 있으면 인코딩을 해야합니다.
 
-그래서 [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) 타입의 객체인 url 프로퍼티 `url.searchParams`가 있습니다.
+그래서 [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) 타입의 객체인 프로퍼티 `url.searchParams`가 있습니다.
 
 `url.searchParams`는 쿼리 파라미터를 위한 편리한 메서드를 제공합니다.
 
@@ -131,7 +131,7 @@ url.searchParams.set('key', 'ъ');
 alert(url); //https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82?key=%D1%8A
 ```
 
-위의 예시처럼 url 경로의 `Тест`와 쿼리 파라미터의 `ъ`가 인코딩되었습니다.
+위의 예시처럼 URL 경로의 `Тест`와 쿼리 파라미터의 `ъ`가 인코딩되었습니다.
 
 각각의 키릴 문자는 UTF-8에서 2 바이트로 표현되기 때문에 두개의 `%..`로 인코딩되어 URL이 길어졌습니다.
 
