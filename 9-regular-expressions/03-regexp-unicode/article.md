@@ -4,9 +4,15 @@
 
 65,536자는 모든 글자를 인코딩하기에는 부족한 숫자입니다. 그래서 일부 문자는 4바이트로 인코딩되어있습니다. 예를 들면 `𝒳`(수학에서 사용하는 X)나 `😄`(웃는 표정), 일부 상형 문자 등이 있죠.
 
+<<<<<<< HEAD
 다음은 일부 문자의 유니코드 값입니다.
 
 | 문자  | 유니코드 | 유니코드의 바이트 수  |
+=======
+Here are the Unicode values of some characters:
+
+| Character  | Unicode | Bytes count in Unicode  |
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 |------------|---------|--------|
 | a | `0x0061` |  2 |
 | ≈ | `0x2248` |  2 |
@@ -33,6 +39,7 @@ alert('𝒳'.length); // 2
 
 ## 유니코드 프로퍼티 \p{...}
 
+<<<<<<< HEAD
 ```warn header="Firefox와 Edge에서 미지원"
 2018년부터 표준에 포함되었지만 Firefox([버그](https://bugzilla.mozilla.org/show_bug.cgi?id=1361876))와 Edge([버그](https://github.com/Microsoft/ChakraCore/issues/2969))는 유니코드 프로퍼티를 아직 지원하지 않습니다.
 
@@ -40,20 +47,33 @@ alert('𝒳'.length); // 2
 ```
 
 유니코드의 모든 문자는 다양한 프로퍼티를 가집니다. 프로퍼티는 문자가 어떤 '범주'에 속하는지 설명하기도 하고 그 외에도 문자의 여러 가지 정보를 담고 있습니다.
+=======
+Every character in Unicode has a lot of properties. They describe what "category" the character belongs to, contain miscellaneous information about it.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 예를 들어 문자에 `Letter` 프로퍼티가 있다면 그 문자는 어떠한 언어의 글자라는 뜻입니다. `Number` 프로퍼티가 있다면 아라비아 숫자든 한자 숫자든 숫자라는 뜻이죠.
 
 `pattern:\p{…}`를 사용하면 프로퍼티를 통해 문자를 찾을 수 있습니다. `pattern:\p{…}`를 사용하기 위해서는 정규 표현식에 `pattern:u` 플래그가 반드시 있어야 합니다.
 
+<<<<<<< HEAD
 예시로 `p{Letter}`는 언어의 글자를 표기하는 방법입니다. `p{L}`을 대신 사용할 수도 있습니다. 여기서 `L`은 `Letter`의 약자입니다. 거의 모든 프로퍼티에 이렇게 짧게 쓸 수 있는 약자가 있습니다.
 
 아래 예시에서는 영문자, 조지아 문자, 한글 3종류의 글자를 검색합니다. 
+=======
+For instance, `\p{Letter}` denotes a letter in any language. We can also use `\p{L}`, as `L` is an alias of `Letter`. There are shorter aliases for almost every property.
+
+In the example below three kinds of letters will be found: English, Georgian and Korean.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 ```js run
 let str = "A ბ ㄱ";
 
 alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+<<<<<<< HEAD
 alert( str.match(/\p{L}/g) ); // null ('u' 플래그가 없어서 일치 결과 없음)
+=======
+alert( str.match(/\p{L}/g) ); // null (no matches, \p doesn't work without the flag "u")
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 ```
 
 다음은 주요 문자 범주와 각각의 하위 범주 목록입니다.
@@ -127,7 +147,11 @@ alert("number: xAF".match(regexp)); // xAF
 
 한자를 검색해봅시다.
 
+<<<<<<< HEAD
 `Script`(표기 체계)라는 유니코드 프로퍼티가 있습니다. `Script`는 `Cyrillic`(키릴 문자), `Greek`(그리스 문자), `Arabic`(아라비아 문자), `Han`(한자) 등의 값을 가질 수 있습니다. Script 값의 전체 목록은 [여기서 볼 수 있습니다](https://en.wikipedia.org/wiki/Script_(Unicode)).
+=======
+There's a Unicode property `Script` (a writing system), that may have a value: `Cyrillic`, `Greek`, `Arabic`, `Han` (Chinese) and so on, [here's the full list](https://en.wikipedia.org/wiki/Script_(Unicode)).
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 특정 표기 체계의 문자를 찾으려면 `pattern:Script=<value>`를 사용해야 합니다. 키릴 문자는 `\p{sc=Cyrillic}`, 한자는 `pattern:\p{sc=Han}`로 검색하는 식으로 쓸 수 있습니다.
 
@@ -141,7 +165,11 @@ alert( str.match(regexp) ); // 你,好
 
 ### 예시: 통화
 
+<<<<<<< HEAD
 `$`, `€`, `¥` 등 통화 단위를 나타내는 문자는 유니코드 프로퍼티 `pattern:\p{Currency_Symbol}`를 가지고 있습니다. 짧게는 `pattern:\p{Sc}`로 사용합니다.
+=======
+Characters that denote a currency, such as `$`, `€`, `¥`, have Unicode property  `pattern:\p{Currency_Symbol}`, the short alias: `pattern:\p{Sc}`.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 `pattern:\p{Sc}`를 사용해서 '통화 단위 바로 뒤 숫자' 형태의 가격 표시를 찾아봅시다.
 

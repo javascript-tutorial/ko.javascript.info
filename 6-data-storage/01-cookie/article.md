@@ -6,9 +6,15 @@
 
 쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
+<<<<<<< HEAD
 1. 사용자가 로그인하면 서버는 HTTP 응답 헤더의 `Set-Cookie`에 담긴 "세션 식별자(session identifier)" 정보를 사용해 쿠키를 설정합니다.
 2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고윳값(세션 식별자)을 함께 실어 서버에 요청을 보냅니다.
 3. 서버는 브라우저가 보낸 요청 헤더의 세션 식별자를 읽어 사용자를 식별합니다.
+=======
+1. Upon sign in, the server uses `Set-Cookie` HTTP-header in the response to set a cookie with a unique "session identifier".
+2. Next time when the request is sent to the same domain, the browser sends the cookie over the net using `Cookie` HTTP-header.
+3. So the server knows who made the request.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
@@ -66,10 +72,17 @@ alert(document.cookie); // ...; my%20name=John%20Smith
 ```
 
 
+<<<<<<< HEAD
 ```warn header="쿠키의 한계"
 쿠키엔 몇 가지 제약 사항이 있습니다.
 - `encodeURIComponent`로 인코딩한 이후의 `name=value` 쌍은 4KB를 넘을 수 없습니다. 이 용량을 넘는 정보는 쿠키에 저장할 수 없습니다.
 - 도메인 하나당 저장할 수 있는 쿠키의 개수는 20여 개 정도로 한정되어 있습니다. 개수는 브라우저에 따라 조금씩 다릅니다.
+=======
+```warn header="Limitations"
+There are few limitations:
+- The `name=value` pair, after `encodeURIComponent`, should not exceed 4KB. So we can't store anything huge in a cookie.
+- The total number of cookies per domain is limited to around 20+, the exact limit depends on a browser.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 ```
 
 쿠키엔 몇 가지 옵션이 있습니다. 몇몇 옵션은 아주 중요하기 때문에 꼭 지정해 줘야 합니다.
@@ -96,7 +109,11 @@ URL path(경로)의 접두사로, 이 경로나 이 경로의 하위 경로에 �
 
 쿠키에 접근 가능한 domain(도메인)을 지정합니다. 다만, 몇 가지 제약이 있어서 아무 도메인이나 지정할 수 없습니다. 
 
+<<<<<<< HEAD
 `domain` 옵션에 아무 값도 넣지 않았다면, 쿠키를 설정한 도메인에서만 쿠키에 접근할 수 있습니다. `site.com`에서 설정한 쿠키는 `other.com`에서 얻을 수 없죠.
+=======
+By default, a cookie is accessible only at the domain that set it. So, if the cookie was set by `site.com`, we won't get it at `other.com`.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 이 외에 까다로운 제약사항이 하나 더 있습니다. 서브 도메인(subdomain)인 `forum.site.com`에서도 쿠키 정보를 얻을 수 없다는 점입니다.
 
@@ -404,7 +421,11 @@ EU(유럽연합)에는 사용자 개인 정보 보호를 강제하는 법령인 
 
 2. 모든 사용자를 대상으로 추적 쿠키를 설정하려는 경우
 
+<<<<<<< HEAD
     최초 방문자에게 쿠키설정에 대한 동의를 요구하는 "작은 창"을 보여주고, 사용자가 이에 동의한 경우에만 콘텐츠를 표시하고, 추적 쿠키를 설정합니다. 새로운 방문자는 이런 절차가 번거롭다고 생각할 수 있습니다. 콘텐츠를 가리면서 "무조건 클릭해야 하는 창"을 그 누구도 달가워하지 않죠. 하지만 GDPR을 준수하려면 이 창이 반드시 있어야 합니다.
+=======
+    To do so legally, a website shows a modal "splash screen" for newcomers, and requires them to agree for cookies. Then the website can set them and let people see the content. That can be disturbing for new visitors though. No one likes to see "must-click" modal splash screens instead of the content. But GDPR requires an explicit agreement.
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 
 GDPR은 쿠키에 대해서만 다루진 않고, 전반적인 보안 이슈에 관한 내용을 다룹니다. 자세한 사항은 이 튜토리얼의 범위를 벗어나기 때문에 GDPR에 대한 이야기는 여기서 마치도록 하겠습니다.
@@ -412,10 +433,17 @@ GDPR은 쿠키에 대해서만 다루진 않고, 전반적인 보안 이슈에 �
 
 ## 요약
 
+<<<<<<< HEAD
 `document.cookie`는 쿠키에 접근할 수 있도록 해줍니다.
 - 쓰기는 해당 쿠키의 값만 갱신합니다.
 - 쿠키 이름과 값은 꼭 인코딩해야 합니다.
 - 쿠키 하나가 차지하는 용량은 최대 4KB까지이고, 사이트 하나당 약 20여 개를 허용합니다(브라우저에 따라 다름).
+=======
+`document.cookie` provides access to cookies
+- write operations modify only cookies mentioned in it.
+- name/value must be encoded.
+- one cookie up to 4KB, 20+ cookies per site (depends on a browser).
+>>>>>>> 13da056653754765b50aa5a9f706f84a4a0d6293
 
 쿠키 옵션:
 - `path=/`의 기본값은 현재 경로이고, 설정한 경로나 그 하위 경로에서만 쿠키 정보를 볼 수 있습니다.
