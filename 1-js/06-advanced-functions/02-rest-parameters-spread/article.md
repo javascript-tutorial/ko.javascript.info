@@ -92,7 +92,7 @@ function showName() {
 // 2, Julius, Caesar가 출력됨
 showName("Julius", "Caesar");
 
-// 1, Ilya, undefined가 출력됨(두 번째 인수는 없음)
+// 1, Bora, undefined가 출력됨(두 번째 인수는 없음)
 showName("Bora");
 ```
 
