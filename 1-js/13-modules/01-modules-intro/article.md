@@ -260,7 +260,11 @@ sayHi(); // *!*Pete*/!*님, 안녕하세요!
 
 <script>
 *!*
+<<<<<<< HEAD
   alert(typeof button); // 일반 스크립트는 페이지가 완전히 구성되기 전이라도 바로 실행됩니다.
+=======
+  alert(typeof button); // button is undefined, the script can't see elements below
+>>>>>>> 039716de8a96f49b5fccd7aed5effff2e719dfe5
 */!*
   // 버튼 요소가 페이지에 만들어지기 전에 접근하였기 때문에 undefined가 출력되는 것을 확인할 수 있습니다.
 </script>

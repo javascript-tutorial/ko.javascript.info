@@ -5,7 +5,7 @@
 
 답안은 아래와 같습니다. 
 
-```js run
+```js demo run
 function sum(a) {
 
   let currentSum = a;
