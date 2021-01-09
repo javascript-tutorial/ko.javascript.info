@@ -1,3 +1,3 @@
-# Animation
+# 애니메이션
 
-CSS and JavaScript animations.
+CSS와 자바스크립트를 사용해 애니메이션을 만드는 방법을 학습합니다.
