@@ -85,11 +85,11 @@ ball.ondragstart = function() {
 [iframe src="ball2" height=230]
 ```
 
-다른 중요한점은 `ball`이 아닌 `document`에서 `mousemove`를 추적하는 것입니다. 처음 볼 때 마우스가 항상 공 위에 있으며, 여기에 `mousemove`를 넣을 수 있습니다.
+다른 중요한 점은 `ball`이 아닌 `document`에서 `mousemove`를 추적하는 것입니다. 처음 볼 때 마우스가 항상 공 위에 있으며, 여기에 `mousemove`를 넣을 수 있습니다.
 
-하지만 `mousemove`는 모든 픽셀에 대해 자주 트리거 되지 않습니다. 빠르게 움직이면 포인터가 공에서 document의 중간이나 window의 어딘가로 점프되는 현상을 볼 수 있습니다.
+하지만 `mousemove`는 모든 픽셀에 대해 자주 트리거 되지 않습니다. 빠르게 움직이면 포인터가 공에서 document의 중간이나 윈도우 어딘가로 점프 되는 현상을 볼 수 있습니다.
 
-document의 중간이나 window의 어딘가로 점프되는 현상을 잡기 위해 document를 다뤄야 합니다.
+document의 중간이나 윈도우 어딘가로 점프 되는 현상을 잡기 위해 document를 다뤄야 합니다.
 
 ## 올바른 위치 지정
 
@@ -100,11 +100,11 @@ ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
 ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 ```
 
-나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그 앤 드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프되는 부작용이 발생합니다.
+나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그 앤 드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프 되는 부작용이 발생합니다.
 
 포인터를 기준으로 요소의 초기 이동을 유지하는 방법이 포인터 중앙으로 요소를 이동시키는 방법보다 더 좋습니다.
 
-예를 들어, 공의 가장자리에서 끌기 시작했다면 공을 끄는 동안 포인터는 공의 가장자리에 유지되야 합니다.
+예를 들어, 공의 가장자리에서 끌기 시작했다면 공을 끄는 동안 포인터는 공의 가장자리에 유지돼야 합니다.
 
 ![](ball_shift.svg)
 
@@ -180,7 +180,7 @@ ball.ondragstart = function() {
 
 공의 오른쪽 아래 모서리로 드래그하면 눈에 띄게 차이가 보입니다. 이전 예제에서는 공이 포인터 아래로 점프했습니다. 이제는 현재 위치에서 포인터를 부드럽게 따라갑니다.
 
-## 잠재적 드롭 대상(드롭가능)
+## 잠재적 드롭 대상(드롭 가능)
 
 지금까지 봐왔던 예제에서는 공을 '어디서나' 드롭할 수 있었습니다. '파일'을 '폴더'나 다른 곳에 놓듯 실생활에서는 보통 한 요소를 다른 요소에 드롭합니다.
 
@@ -219,7 +219,7 @@ ball.ondragstart = function() {
 
 그러면 무엇을 해야 할까요?
 
-`document.elementFromPoint(clientX, clientY)`라는 메서드가 있습니다. 주어진 창 기준 좌표에서 가장 많이 중첩된 요소를 반환합니다. (창밖의 좌표는 null)
+`document.elementFromPoint(clientX, clientY)`라는 메서드가 있습니다. 주어진 윈도우 기준 좌표에서 가장 많이 중첩된 요소를 반환합니다. (윈도우 밖의 좌표는 null)
 
 다음과 같이 마우스 이벤트 핸들러에서 포인터 아래에 드롭 가능성을 감지할 수 있습니다.
 
@@ -250,8 +250,8 @@ function onMouseMove(event) {
   let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
   ball.hidden = false;
 
-  // 마우스 이벤트는 window 밖으로 트리거될 수 없습니다.(공을 window 밖으로 끌었을 때)
-  // clientX∙clientY가 창밖에 있으면, elementFromPoint는 null을 반환합니다.
+  // 마우스 이벤트는 윈도우 밖으로 트리거 될 수 없습니다.(공을 윈도우 밖으로 드래그 했을 때)
+  // clientX∙clientY가 윈도우 밖에 있으면, elementFromPoint는 null을 반환합니다.
   if (!elemBelow) return;
 
   // 잠재적으로 드롭 할 수 있는 요소를 'droppable' 클래스로 지정합니다.(다른 로직 가능)
@@ -289,7 +289,7 @@ function onMouseMove(event) {
 핵심요소:
 
 1. 이벤트 흐름: `ball.mousedown` -> `document.mousemove` -> `ball.mouseup`(`ondragstart`를 취소하는 걸 잊지 마세요)
-2. 드래그 시작 시 요소를 기준으로 포인터의 초기 이동을 기억하고 (`shiftX∙shiftY`) 드래그 하는 동안 유지합니다.
+2. 드래그 시작 시 요소를 기준으로 포인터의 초기 이동을 기억하고 (`shiftX∙shiftY`) 드래그하는 동안 유지합니다.
 3. `document.elementFromPoint`를 사용해 포인터 아래의 드롭할 수 있는 요소를 감지합니다.
 
 이 기반으로 많은 것을 둘 수 있습니다.
