@@ -23,7 +23,11 @@ alert("코드 종료"); // 이 얼럿 창이 가장 먼저 나타납니다.
 
 ## 마이크로태스크 큐
 
+<<<<<<< HEAD
 비동기 작업을 처리하려면 적절한 관리가 필요합니다. 이를 위해 ECMA에선 `PromiseJobs`라는 내부 큐(internal queue)를 명시합니다. V8 엔진에선 이를 '마이크로태스크 큐(microtask queue)'라고 부르기 때문에 이 용어가 좀 더 선호됩니다.
+=======
+Asynchronous tasks need proper management. For that, the ECMA standard specifies an internal queue `PromiseJobs`, more often referred to as the "microtask queue" (V8 term).
+>>>>>>> 468e3552884851fcef331fbdfd58096652964b5f
 
 [명세서](https://tc39.github.io/ecma262/#sec-jobs-and-job-queues)의 설명을 살펴봅시다.
 
@@ -103,7 +107,11 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 ## 요약
 
+<<<<<<< HEAD
 모든 프라미스 동작은 '마이크로태스크 큐'(ES8 용어)라 불리는 내부 '프라미스 잡(promise job)' 큐에 들어가서 처리되기 때문에 프라미스 핸들링은 항상 비동기로 처리됩니다.
+=======
+Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (V8 term).
+>>>>>>> 468e3552884851fcef331fbdfd58096652964b5f
 
 따라서 `.then/catch/finally` 핸들러는 항상 현재 코드가 종료되고 난 후에 호출됩니다.
 
