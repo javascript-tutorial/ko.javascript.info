@@ -6,7 +6,7 @@
 
 `dragstart`나 `dragend` 이벤트는 운영체제의 파일 관리 애플리케이션으로부터 파일을 드래그하여 브라우저 화면에 드롭하는 특별한 드래그 앤 드롭 기능을 제공합니다. 그러면 자바스크립트로 파일 관리 애플리케이션에서 드래그하여 가져온 파일의 내용을 다룰 수 있습니다.
 
-하지만 기본 드래그 이벤트에는 한계가 있습니다. 예를 들어, 특정 영역에서 끄는 것을 막을 수 없습니다. 수평이나 수직으로만 끄는 것도 만들 수 없습니다. 이외에도 드래그 앤 드롭 기능으로 할 수 없는 작업이 많습니다. 모바일 환경에서의 지원도 많이 약합니다.
+하지만 기본 드래그 이벤트에는 한계가 있습니다. 예를 들어, 특정 영역에서 드래그하는 것을 막을 수 없습니다. 수평이나 수직으로만 드래그하는 것도 만들 수 없습니다. 이외에도 드래그 앤 드롭 기능으로 할 수 없는 작업이 많습니다. 모바일 환경에서의 지원도 많이 부족합니다.
 
 기본 드래그 이벤트의 한계를 극복하기 위해 이번 챕터에서 마우스 이벤트를 사용하여 드래그 앤 드롭을 구현하는 방법을 알아보겠습니다.
 
@@ -14,21 +14,21 @@
 
 드래그 앤 드롭의 기본 알고리즘은 다음과 같습니다.
 
-1. `mousedown`에서는 움직임이 필요한 요소를 준비합니다. 이때 기존 요소의 복사본을 만들거나, 해당 요소에 클래스를 추가하는 등 원하는 형태로 작업할 수 있습니다. 
+1. `mousedown`에서는 움직임이 필요한 요소를 준비합니다. 이때 기존 요소의 복사본을 만들거나, 해당 요소에 클래스를 추가하는 등 원하는 형태로 작업할 수 있습니다.
 2. 이후 `mousemove`에서 `position:absolute`의 `left∙top`을 변경합니다.
 3. `mouseup`에서는 드래그 앤 드롭 완료와 관련된 모든 작업을 수행합니다.
 
 여기까지가 기본 알고리즘입니다. 이후에는 이동 중인 요소 아래에 있는 다른 요소를 강조하는 기능을 알아보겠습니다.
 
-공을 끄는 구현 방법은 다음과 같습니다.
+공을 드래그하는 구현 방법은 다음과 같습니다.
 
 ```js
 ball.onmousedown = function(event) { 
-  // (1) absolute속성과 zIndex 프로퍼티를 수정해 공이 제일 위에서 움직이기 위한 준비를 합니다.
+  // (1) absolute 속성과 zIndex 프로퍼티를 수정해 공이 제일 위에서 움직이기 위한 준비를 합니다.
   ball.style.position = 'absolute';
   ball.style.zIndex = 1000;
 
-  // 현재 부모에서 body로 직접 이동합니다.
+  // 현재 위치한 부모에서 body로 직접 이동하여
   // body를 기준으로 위치를 지정합니다.
   document.body.append(ball);  
 
@@ -85,11 +85,11 @@ ball.ondragstart = function() {
 [iframe src="ball2" height=230]
 ```
 
-다른 중요한 측면은 `ball`이 아닌 `document`에서 `mousemove`를 추적하는 것입니다. 처음 볼 때 마우스가 항상 공 위에 있으며, 여기에 `mousemove`를 넣을 수 있습니다.
+다른 중요한점은 `ball`이 아닌 `document`에서 `mousemove`를 추적하는 것입니다. 처음 볼 때 마우스가 항상 공 위에 있으며, 여기에 `mousemove`를 넣을 수 있습니다.
 
-하지만 `mousemove`는 모든 픽셀에 대해 자주 트리거 되지 않습니다. 빠르게 움직이면 포인터가 공에서 document의 중간이나 window의 어딘가로 점프하는 걸 볼 수 있습니다.
+하지만 `mousemove`는 모든 픽셀에 대해 자주 트리거 되지 않습니다. 빠르게 움직이면 포인터가 공에서 document의 중간이나 window의 어딘가로 점프되는 현상을 볼 수 있습니다.
 
-document의 중간이나 window의 어딘가로 점프하는 것을 잡기 위해 document를 다뤄야 합니다.
+document의 중간이나 window의 어딘가로 점프되는 현상을 잡기 위해 document를 다뤄야 합니다.
 
 ## 올바른 위치 지정
 
@@ -100,19 +100,19 @@ ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
 ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 ```
 
-나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그 앤 드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프하는 부작용이 발생합니다.
+나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그 앤 드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프되는 부작용이 발생합니다.
 
 포인터를 기준으로 요소의 초기 이동을 유지하는 방법이 포인터 중앙으로 요소를 이동시키는 방법보다 더 좋습니다.
 
-예를 들어, 공의 가장자리에서 끌기 시작했다면 공을 끄는 동안 포인터는 공의 가장자리에 있어야 합니다.
+예를 들어, 공의 가장자리에서 끌기 시작했다면 공을 끄는 동안 포인터는 공의 가장자리에 유지되야 합니다.
 
 ![](ball_shift.svg)
 
 개선된 알고리즘:
 
-1. 방문자가 버튼을 눌렀을 때(`mousedown` 이벤트가 발생했을 때) - `shiftX∙shiftY` 변수에 pointer에서 공의 왼쪽 위 코너까지의 거리를 기억합니다. 공을 끄는 동안 이 거리를 유지합니다.
+1. 방문자가 버튼을 눌렀을 때(`mousedown` 이벤트가 발생했을 때) - `shiftX∙shiftY` 변수에 pointer에서 공의 왼쪽 위 모서리까지의 거리를 기억합니다. 공을 드래그하는 동안 이 거리를 유지합니다.
 
-    거리를 유지하는 움직임은 포인터의 좌표에서 공의 왼쪽 위 좌표를 빼서 구할 수 있습니다.
+   거리를 유지하는 움직임은 포인터의 좌표에서 공의 왼쪽 위 좌표를 빼서 구할 수 있습니다.
 
     ```js
     // onmousedown
@@ -145,8 +145,8 @@ ball.onmousedown = function(event) {
 
   moveAt(event.pageX, event.pageY);
 
-  // 공을 (pageX, pageY) 좌표에서 이동합니다.
-  // 초기 이동을 고려합니다.
+  // 초기 이동을 고려한 좌표 (pageX, pageY)에서
+  // 공을 이동합니다.
   function moveAt(pageX, pageY) {
     ball.style.left = pageX - *!*shiftX*/!* + 'px';
     ball.style.top = pageY - *!*shiftY*/!* + 'px';
@@ -159,7 +159,7 @@ ball.onmousedown = function(event) {
   // mousemove로 공을 움직입니다.
   document.addEventListener('mousemove', onMouseMove);
 
-  // 공을 드롭하고, 불필요한 핸들러 제거
+  // 공을 드롭하고, 불필요한 핸들러를 제거합니다.
   ball.onmouseup = function() {
     document.removeEventListener('mousemove', onMouseMove);
     ball.onmouseup = null;
@@ -182,7 +182,7 @@ ball.ondragstart = function() {
 
 ## 잠재적 드롭 대상(드롭가능)
 
-지금까지 봐왔던 예제에서는 공을 '어디서나' 드롭할 수 있었습니다. '파일'을 '폴더'나 다른 곳에 놓듯 실생활 에서는 보통 한 요소를 다른 요소에 드롭합니다.
+지금까지 봐왔던 예제에서는 공을 '어디서나' 드롭할 수 있었습니다. '파일'을 '폴더'나 다른 곳에 놓듯 실생활에서는 보통 한 요소를 다른 요소에 드롭합니다.
 
 요약하면, '드래그 가능한' 요소를 '드롭 가능한' 요소에 둡니다.
 
@@ -250,7 +250,7 @@ function onMouseMove(event) {
   let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
   ball.hidden = false;
 
-  // 마우스 이벤트는 창밖으로 트리거될 수 없습니다.(공을 창밖으로 끌었을 때)
+  // 마우스 이벤트는 window 밖으로 트리거될 수 없습니다.(공을 window 밖으로 끌었을 때)
   // clientX∙clientY가 창밖에 있으면, elementFromPoint는 null을 반환합니다.
   if (!elemBelow) return;
 
@@ -276,7 +276,7 @@ function onMouseMove(event) {
 }
 ```
 
-아래 예에서 공을 축구 골대 위로 끌면 골대가 강조 표시됩니다.
+아래 예시에서 공을 축구 골대 위로 드래그하면 골대가 강조 표시됩니다.
 
 [codetabs height=250 src="ball4"]
 
@@ -288,7 +288,7 @@ function onMouseMove(event) {
 
 핵심요소:
 
-1. 이벤트 흐름: `ball.mousedown` -> `document.mousemove` -> `ball.mouseup`(`ondragstart`를 취소하는 걸 잊지 마세요.).
+1. 이벤트 흐름: `ball.mousedown` -> `document.mousemove` -> `ball.mouseup`(`ondragstart`를 취소하는 걸 잊지 마세요)
 2. 드래그 시작 시 요소를 기준으로 포인터의 초기 이동을 기억하고 (`shiftX∙shiftY`) 드래그 하는 동안 유지합니다.
 3. `document.elementFromPoint`를 사용해 포인터 아래의 드롭할 수 있는 요소를 감지합니다.
 
