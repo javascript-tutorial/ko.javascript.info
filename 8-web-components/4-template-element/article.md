@@ -38,7 +38,7 @@
 
 ## 템플릿 삽입하기
 
-템플릿 콘텐츠는 `content` 프로퍼티를 통해 특별한 유형의 DOM 노드인 [DocumentFragment](info:modifying-document#document-fragment)로서 사용할 수 있습니다.
+템플릿 요소의 콘텐츠는 `content` 프로퍼티를 통해 특별한 유형의 DOM 노드인 [DocumentFragment](info:modifying-document#document-fragment)로서 사용할 수 있습니다.
 
 템플릿 요소는 한 가지 특별한 특징을 제외하고 다른 DOM 노드처럼 다룰 수 있습니다. 템플릿 요소를 문서 내에 삽입하면 자식이 대신 삽입된다는 특징 말이죠.
 
@@ -112,7 +112,7 @@
 
 - 브라우저는 태그 내부의 HTML 문법을 검사합니다. 스크립트 내에서 템플릿 리터럴을 사용하는 경우와 대조적입니다.
 - 하지만 어떤 최상위 HTML 태그도 사용할 수 있고, `<tr>`의 예시처럼 적절한 래퍼 태그가 없는 경우도 허용됩니다.
-- 템플릿 콘텐츠는 문서에 삽입될 때 스크립트가 실행되고 `<video autoplay>`가 작동하는 등, 상호작용할 수 있게 됩니다.
+- 템플릿 요소의 콘텐츠는 문서에 삽입되어야 스크립트가 실행되고 `<video autoplay>`가 작동하는 등, 상호작용할 수 있게 됩니다.
 
 `<template>` 요소는 반복 매커니즘(iteration mechanisms), 데이터 바인딩(data binding) 또는 변수 대체(variable substitutions) 등의 기능을 가지고 있지 않지만 구현하여 사용할 수 있습니다.
 
