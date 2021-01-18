@@ -76,8 +76,8 @@ rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
 ```js run
 function f(phrase) {
   return class {
-    sayHi() { alert(phrase) }
-  }
+    sayHi() { alert(phrase); }
+  };
 }
 
 *!*
@@ -150,8 +150,13 @@ class Rabbit extends Animal {
 
 let rabbit = new Rabbit("흰 토끼");
 
+<<<<<<< HEAD
 rabbit.run(5); // 흰 토끼가 속도 5로 달립니다.
 rabbit.stop(); // 흰 토끼가 멈췄습니다. 흰 토끼가 숨었습니다!
+=======
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
 ```
 
 `Rabbit`은 이제 실행 중간에 부모 클래스에 정의된 메서드 `super.stop()`을 호출하는 `stop`을 가지게 되었네요.
@@ -300,7 +305,7 @@ alert(rabbit.earLength); // 10
 
 ```js run
 class Animal {
-  name = 'animal'
+  name = 'animal';
 
   constructor() {
     alert(this.name); // (*)
@@ -362,9 +367,15 @@ new Rabbit(); // rabbit
 
 왜 이런 차이가 있을까요?
 
+<<<<<<< HEAD
 이유는 필드 초기화 순서 때문입니다. 클래스 필드는 다음과 같은 규칙에 따라 초기화 순서가 달라집니다.
 - 아무것도 상속받지 않는 베이스 클래스는 생성자 실행 이전에 초기화됨
 - 부모 클래스가 있는 경우엔 `super()` 실행 직후에 초기화됨
+=======
+Well, the reason is in the field initialization order. The class field is initialized:
+- Before constructor for the base class (that doesn't extend anything),
+- Immediately after `super()` for the derived class.
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
 
 위 예시에서 `Rabbit`은 하위 클래스이고 `constructor()`가 정의되어 있지 않습니다. 이런 경우 앞서 설명한 바와 같이 생성자는 비어있는데 그 안에 `super(...args)`만 있다고 보면 됩니다.
 
@@ -545,7 +556,11 @@ longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
 ```js run
 let animal = {
   sayHi() {
+<<<<<<< HEAD
     console.log(`나는 동물입니다.`);
+=======
+    alert(`I'm an animal`);
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
   }
 };
 
@@ -559,7 +574,11 @@ let rabbit = {
 
 let plant = {
   sayHi() {
+<<<<<<< HEAD
     console.log("나는 식물입니다.");
+=======
+    alert("I'm a plant");
+>>>>>>> 3a0b3f4e31d4c4bbe90ed4c9c6e676a888ad8311
   }
 };
 
