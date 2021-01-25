@@ -93,7 +93,11 @@ hi(); // this가 undefined이기 때문에 에러가 발생합니다.
 
 그런데 점 연산 이외의 연산(할당 연산 등)은 참조 타입을 통째로 버리고 `user.hi` 값(함수)만 받아 전달합니다. 이 때문에 점 이외의 연산에선 `this` 정보가 사라집니다.
 
+<<<<<<< HEAD
 `obj.method()` 같이 점을 사용하거나, `obj[method]()` 같이 대괄호를 사용해 함수를 호출했을 때만 `this` 값이 의도한 대로 전달됩니다. 이런 문제는 [func.bind()](/bind#solution-2-bind) 등을 이용하면 해결 할 수 있는데, 이에 대해선 추후에 알아보도록 하겠습니다.
+=======
+So, as the result, the value of `this` is only passed the right way if the function is called directly using a dot `obj.method()` or square brackets `obj['method']()` syntax (they do the same here). There are various ways to solve this problem such as [func.bind()](/bind#solution-2-bind).
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 ## 요약
 

@@ -91,7 +91,11 @@ let user = new function() {
 
 `new.target` 프로퍼티를 사용하면 함수가 `new`와 함께 호출되었는지 아닌지를 알 수 있습니다.
 
+<<<<<<< HEAD
 일반적인 방법으로 함수를 호출했다면 `new.target`은 undefined를 반환합니다. 반면 `new`와 함께 호출한 경우엔 `new.target`은 함수 자체를 반환해줍니다.
+=======
+It is undefined for regular calls and equals the function if called with `new`:
+>>>>>>> 97ef86242f9f236b13152e1baf52a55c4db8728a
 
 ```js run
 function User() {
