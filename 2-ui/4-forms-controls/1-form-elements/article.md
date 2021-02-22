@@ -176,12 +176,19 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 
 `<select>` 요소에는 세 가지 중요 프로퍼티가 있습니다.
 
+<<<<<<< HEAD
 1. `select.options` -- `<option>` 하위 요소를 담고 있는 컬렉션
 2. `select.value` -- 현재 선택된 `<option>` 값
 3. `select.selectedIndex` -- 현재 선택된 `<option>`의 번호(인덱스)
+=======
+1. `select.options` -- the collection of `<option>` subelements,
+2. `select.value` -- the *value* of the currently selected `<option>`,
+3. `select.selectedIndex` -- the *number* of the currently selected `<option>`.
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 이 세 프로퍼티를 응용하면 아래와 같은 세 가지 방법으로 `<select>`의 값을 설정할 수 있습니다.
 
+<<<<<<< HEAD
 1. 조건에 맞는 `<option>` 하위 요소를 찾아 `option.selected`속성을 `true`로 설정합니다.
 2. `select.value`를 원하는 값으로 설정합니다.
 3. `select.selectedIndex`를 원하는 option 번호로 설정합니다.
@@ -189,6 +196,13 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 세 방법 중 첫 번째 방법이 가장 확실하지만 두 번째나 세 번째 방법이 대체로 더 편리합니다.
 
 예시:
+=======
+1. Find the corresponding `<option>` element (e.g. among `select.options`) and set its `option.selected` to `true`.
+2. If we know a new value: set `select.value` to the new value.
+3. If we know the new option number: set `select.selectedIndex` to that number.
+
+Here is an example of all three methods:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```html run
 <select id="select">
@@ -198,16 +212,30 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 </select>
 
 <script>
+<<<<<<< HEAD
   // 세 가지 코드의 실행 결과는 모두 같습니다.
   select.options[2].selected = true;
+=======
+  // all three lines do the same thing
+  select.options[2].selected = true; 
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
   select.selectedIndex = 2;
   select.value = 'banana';
+  // please note: options start from zero, so index 2 means the 3rd option.
 </script>
 ```
 
+<<<<<<< HEAD
 대부분의 다른 폼 조작 요소와 달리 `<select>`는 `multiple` 속성이 있는 경우 option을 다중 선택할 수 있습니다. `multiple` 속성을 쓰는 경우는 아주 드물지만, 쓰게 되다면 첫 번째 방법을 사용해 `<option>` 하위 요소에 있는 `selected` 프로퍼티를 추가·제거해야 합니다. 
 
 선택된 여러 개의 option이 담긴 컬렉션은 다음 예시처럼 `select.options`를 사용해 얻을 수 있습니다. 
+=======
+Unlike most other controls, `<select>` allows to select multiple options at once if it has `multiple` attribute. This attribute is rarely used though.
+
+For multiple selected values, use the first way of setting values: add/remove the `selected` property from `<option>` subelements.
+
+Here's an example of how to get selected values from a multi-select:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```html run
 <select id="select" *!*multiple*/!*>
@@ -230,31 +258,51 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 
 ### Option 생성자
 
+<<<<<<< HEAD
 Option 생성자는 잘 사용되지는 않지만 흥미로운 점이 있습니다.
 
 [명세서](https://html.spec.whatwg.org/multipage/forms.html#the-option-element)를 보면 `<option>` 요소를 생성하는 간단하고 멋진 문법을 찾을 수 있죠.
+=======
+In the [specification](https://html.spec.whatwg.org/multipage/forms.html#the-option-element) there's a nice short syntax to create an `<option>` element:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```js
 option = new Option(text, value, defaultSelected, selected);
 ```
 
+<<<<<<< HEAD
 매개변수:
+=======
+This syntax is optional. We can use `document.createElement('option')` and set attributes manually. Still, it may be shorter, so here are the parameters:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 - `text` -- option 내부의 텍스트
 - `value` -- option의 값
 - `defaultSelected` -- `true`이면 HTML 속성 `selected`가 생성됨
 - `selected` -- `true`이면 해당 option이 선택됨
 
+<<<<<<< HEAD
 `defaultSelected`와 `selected`의 차이가 무엇인지 헷갈릴 수 있습니다. `defaultSelected`는 `option.getAttribute('selected')`를 사용해 얻을 수 있는 HTML 속성을 설정해 줍니다. 반면 `selected` 는 option의 선택 여부를 결정합니다. 그렇기 때문에 당연히 `selected`가 더 중요한 매개변수이죠. Option 생성자를 사용할 때는 대개 두 매개변수 모두를 `true`나 `false`로 설정합니다.
 
 예시:
+=======
+The difference between `defaultSelected` and `selected` is that `defaultSelected` sets the HTML-attribute (that we can get using `option.getAttribute('selected')`, while `selected` sets whether the option is selected or not.
+
+In practice, we usually should set both values to `true` or `false` (or omit, that's the same as `false`).
+
+For instance, here's a new "unselected" option:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```js
 let option = new Option("Text", "value");
 // <option value="value">Text</option> 가 생성됩니다.
 ```
 
+<<<<<<< HEAD
 이번엔 같은 요소를 선택된 상태로 생성합니다.
+=======
+The same option, but selected:
+>>>>>>> 7533c719fbf62ba57188d6d51fe4c038b282bd0c
 
 ```js
 let option = new Option("Text", "value", true, true);
