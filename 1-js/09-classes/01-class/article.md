@@ -331,7 +331,7 @@ alert(user.name); // John
 alert(User.prototype.name); // undefined
 ```
 
-클래스 필드는 생성자가 그 역할을 다 한 이후에 처리됩니다. 따라서 클래스 필드엔 복잡한 표현식이나 함수 호출 결과를 사용할 수 있습니다.
+아울러 클래스 필드엔 복잡한 표현식이나 함수 호출 결과를 사용할 수 있습니다.
 
 ```js run
 class User {
