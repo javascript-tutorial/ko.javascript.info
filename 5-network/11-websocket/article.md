@@ -127,7 +127,7 @@ For instance:
     let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
     ```
 
-The server should respond with a list of protocols and extensions that it agrees to use.
+서버는 자신이 지원하는 익스텐션과 프로토콜을 응답 헤더에 담아 클라이언트에 전달해야 합니다.
 
 For example, the request:
 
