@@ -12,7 +12,7 @@
 let socket = new WebSocket("*!*ws*/!*://javascript.info");
 ```
 
-`ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사하다고 보시면 됩니다.
+`ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사합니다.
 
 ```smart header="항상 `wss://`를 사용합시다."
 `wss://`는 보안 이외에도 신뢰성(reliability) 측면에서 `ws`보다 좀 더 신뢰할만한 프로토콜입니다.
@@ -38,7 +38,7 @@ let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello")
 socket.onopen = function(e) {
   alert("[open] 커넥션이 만들어졌습니다.");
   alert("데이터를 서버에 전송해봅시다.");
-  socket.send("My name is John");
+  socket.send("My name is Bora.");
 };
 
 socket.onmessage = function(event) {
@@ -60,9 +60,9 @@ socket.onerror = function(error) {
 };
 ```
 
-위 예시는 데모 목적을 위해 만들어놓은 작은 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 이 서버는 'Hello from server, John'이라는 메시지가 담긴 응답을 보내고, 5초 후 커넥션을 종료시킵니다.
+위 예시는 데모 목적을 위해 만들어놓은 간이 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 서버는 'Hello from server, Bora'라는 메시지가 담긴 응답을 클라이언트에 보내고, 5초 후 커넥션을 종료시킵니다.
 
-서버에 작성한 코드가 동작하면서 `open` -> `message` -> `close` 순의 이벤트를 볼 수 있었던 것이죠.
+서버 쪽 코드가 동작하면서 `open` -> `message` -> `close` 순의 이벤트를 볼 수 있었던 것이죠.
 
 이제 여러분은 웹소켓 통신이 어떻게 이뤄지는지를 알게 되셨습니다. 생각보다 꽤 간단하죠?
 
@@ -72,7 +72,7 @@ socket.onerror = function(error) {
 
 When `new WebSocket(url)` is created, it starts connecting immediately.
 
-During the connection the browser (using headers) asks the server: "Do you support Websocket?" And if the server replies "yes", then the talk continues in WebSocket protocol, which is not HTTP at all.
+커넥션이 유지되는 동안, 브라우저는 (헤더를 사용해) 서버에 '웹소켓을 지원하나요?'라고 물어봅니다. 이에 서버가 '네'라는 응답을 하면 서버-브라우저간 통신은 HTTP가 아닌 웹소켓 프로토콜을 사용해 진행됩니다.
 
 ![](websocket-handshake.svg)
 
@@ -91,11 +91,14 @@ Sec-WebSocket-Version: 13
 - `Origin` -- the origin of the client page, e.g. `https://javascript.info`. WebSocket objects are cross-origin by nature. There are no special headers or other limitations. Old servers are unable to handle WebSocket anyway, so there are no compabitility issues. But `Origin` header is important, as it allows the server to decide whether or not to talk WebSocket with this website.
 - `Connection: Upgrade` -- signals that the client would like to change the protocol.
 - `Upgrade: websocket` -- the requested protocol is "websocket".
-- `Sec-WebSocket-Key` -- a random browser-generated key for security.
+- `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키를 나타냅니다.
 - `Sec-WebSocket-Version` -- WebSocket protocol version, 13 is the current one.
+- `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
+- `Sec-WebSocket-Key` -- a random browser-generated key for security.
+- `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
 
 ```smart header="WebSocket handshake can't be emulated"
-We can't use `XMLHttpRequest` or `fetch` to make this kind of HTTP-request, because JavaScript is not allowed to set these headers.
+바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
 If the server agrees to switch to WebSocket, it should send code 101 response:
@@ -113,23 +116,23 @@ Afterwards, the data is transfered using WebSocket protocol, we'll see its struc
 
 ### Extensions and subprotocols
 
-There may be additional headers `Sec-WebSocket-Extensions` and `Sec-WebSocket-Protocol` that describe extensions and subprotocols.
+웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송하려 할 때 사용합니다.
 
-For instance:
+각 헤더에 대한 예시를 살펴봅시다.
 
 - `Sec-WebSocket-Extensions: deflate-frame` means that the browser supports data compression. An extension is something related to transferring the data, functionality that extends WebSocket protocol. The header `Sec-WebSocket-Extensions` is sent automatically by the browser, with the list of all extenions it supports.
 
 - `Sec-WebSocket-Protocol: soap, wamp` means that we'd like to transfer not just any data, but the data in [SOAP](http://en.wikipedia.org/wiki/SOAP) or WAMP ("The WebSocket Application Messaging Protocol") protocols. WebSocket subprotocols are registered in the [IANA catalogue](http://www.iana.org/assignments/websocket/websocket.xml). So, this header describes data formats that we're going to use.
 
-    This optional header is set using the second parameter of `new WebSocket`. That's the array of subprotocols, e.g. if we'd like to use SOAP or WAMP:
+    이 헤더들은 두 번째 매개변수에 값을 넣어 `new WebSocket`을 호출하면 설정할 수 있습니다. 서브 프로토콜 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
 
     ```js
     let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
     ```
 
-The server should respond with a list of protocols and extensions that it agrees to use.
+서버는 자신이 지원하는 익스텐션과 프로토콜을 응답 헤더에 담아 클라이언트에 전달해야 합니다.
 
-For example, the request:
+예시를 살펴봅시다. 요청 헤더는 다음과 같습니다.
 
 ```
 GET /chat
@@ -145,7 +148,7 @@ Sec-WebSocket-Protocol: soap, wamp
 */!*
 ```
 
-Response:
+이때 다음과 같은 응답이 왔다고 가정해봅시다.
 
 ```
 101 Switching Protocols
