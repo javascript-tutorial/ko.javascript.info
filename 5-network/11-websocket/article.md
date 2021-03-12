@@ -95,7 +95,7 @@ Sec-WebSocket-Version: 13
 - `Sec-WebSocket-Version` -- WebSocket protocol version, 13 is the current one.
 
 ```smart header="WebSocket handshake can't be emulated"
-We can't use `XMLHttpRequest` or `fetch` to make this kind of HTTP-request, because JavaScript is not allowed to set these headers.
+바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
 If the server agrees to switch to WebSocket, it should send code 101 response:
