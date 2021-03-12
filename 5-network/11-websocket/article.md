@@ -92,7 +92,7 @@ Sec-WebSocket-Version: 13
 - `Connection: Upgrade` -- signals that the client would like to change the protocol.
 - `Upgrade: websocket` -- the requested protocol is "websocket".
 - `Sec-WebSocket-Key` -- a random browser-generated key for security.
-- `Sec-WebSocket-Version` -- WebSocket protocol version, 13 is the current one.
+- `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
 
 ```smart header="WebSocket handshake can't be emulated"
 We can't use `XMLHttpRequest` or `fetch` to make this kind of HTTP-request, because JavaScript is not allowed to set these headers.
