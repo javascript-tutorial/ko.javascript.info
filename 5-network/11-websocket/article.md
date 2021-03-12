@@ -38,7 +38,7 @@ let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello")
 socket.onopen = function(e) {
   alert("[open] 커넥션이 만들어졌습니다.");
   alert("데이터를 서버에 전송해봅시다.");
-  socket.send("My name is John");
+  socket.send("My name is Bora.");
 };
 
 socket.onmessage = function(event) {
@@ -60,7 +60,7 @@ socket.onerror = function(error) {
 };
 ```
 
-위 예시는 데모 목적을 위해 만들어놓은 작은 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 이 서버는 'Hello from server, John'이라는 메시지가 담긴 응답을 보내고, 5초 후 커넥션을 종료시킵니다.
+위 예시는 데모 목적을 위해 만들어놓은 간이 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 서버는 'Hello from server, Bora'라는 메시지가 담긴 응답을 클라이언트에 보내고, 5초 후 커넥션을 종료시킵니다.
 
 서버에 작성한 코드가 동작하면서 `open` -> `message` -> `close` 순의 이벤트를 볼 수 있었던 것이죠.
 
