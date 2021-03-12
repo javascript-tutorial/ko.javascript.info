@@ -115,7 +115,7 @@ Afterwards, the data is transfered using WebSocket protocol, we'll see its struc
 
 웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송하려 할 때 사용합니다.
 
-For instance:
+각 헤더에 대한 예시를 살펴봅시다.
 
 - `Sec-WebSocket-Extensions: deflate-frame` means that the browser supports data compression. An extension is something related to transferring the data, functionality that extends WebSocket protocol. The header `Sec-WebSocket-Extensions` is sent automatically by the browser, with the list of all extenions it supports.
 
