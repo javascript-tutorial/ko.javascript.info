@@ -106,7 +106,7 @@ Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
-/'클라이언트 측에서 보낸 웹 소켓 통신 요청을 최초로 받고 이에 동의하면, 서버는 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. '/
+//클라이언트 측에서 보낸 웹 소켓 통신 요청을 최초로 받고 이에 동의하면, 서버는 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. 
 
 Here `Sec-WebSocket-Accept` is `Sec-WebSocket-Key`, recoded using a special algorithm. The browser uses it to make sure that the response corresponds to the request.
 
