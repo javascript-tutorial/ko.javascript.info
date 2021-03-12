@@ -94,7 +94,7 @@ Sec-WebSocket-Version: 13
 - `Sec-WebSocket-Key` -- a random browser-generated key for security.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
 
-```smart header="WebSocket handshake can't be emulated"
+```smart header="웹소켓 핸드셰이크는 모방이 불가능합니다."
 바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
