@@ -111,7 +111,7 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용하여 데이터가 전송되기 시작합니다. 웹소켓 프로토콜을 사용한 데이터 전송은 조금 후에 자세히 살펴볼 예정입니다.
 
-### Extensions and subprotocols
+### extensions와 subprotocols 헤더
 
 웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송하려 할 때 사용합니다.
 
