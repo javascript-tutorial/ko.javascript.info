@@ -158,7 +158,7 @@ Sec-WebSocket-Protocol: soap
 */!*
 ```
 
-Here the server responds that it supports the extension "deflate-frame", and only SOAP of the requested subprotocols.
+이 경우, 우리는 서버에선 'deflate-frame'이라는 익스텐션과 요청 프로토콜 중 SOAP라는 서브 프로토콜만 지원한다는 사실을 알 수 있습니다.
 
 ## Data transfer
 
