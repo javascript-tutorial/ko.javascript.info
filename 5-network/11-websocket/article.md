@@ -109,7 +109,7 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 Here `Sec-WebSocket-Accept` is `Sec-WebSocket-Key`, recoded using a special algorithm. The browser uses it to make sure that the response corresponds to the request.
 
-Afterwards, the data is transfered using WebSocket protocol, we'll see its structure ("frames") soon. And that's not HTTP at all.
+이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용하여 데이터가 전송되기 시작합니다. 웹소켓 프로토콜을 사용한 데이터 전송은 조금 후에 자세히 살펴볼 예정입니다.
 
 ### Extensions and subprotocols
 
