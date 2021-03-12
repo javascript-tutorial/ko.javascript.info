@@ -76,7 +76,7 @@ During the connection the browser (using headers) asks the server: "Do you suppo
 
 ![](websocket-handshake.svg)
 
-Here's an example of browser headers for request made by `new WebSocket("wss://javascript.info/chat")`.
+이번엔 `new WebSocket("wss://javascript.info/chat")`을 호출해 최초 요청이 전송되었다고 가정하고 이때의 요청 헤더를 살펴봅시다.
 
 ```
 GET /chat
