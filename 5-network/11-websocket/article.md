@@ -113,7 +113,7 @@ Afterwards, the data is transfered using WebSocket protocol, we'll see its struc
 
 ### Extensions and subprotocols
 
-There may be additional headers `Sec-WebSocket-Extensions` and `Sec-WebSocket-Protocol` that describe extensions and subprotocols.
+웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송하려 할 때 사용합니다.
 
 For instance:
 
