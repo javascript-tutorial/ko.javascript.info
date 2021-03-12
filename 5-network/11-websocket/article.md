@@ -107,7 +107,7 @@ Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
 
-Here `Sec-WebSocket-Accept` is `Sec-WebSocket-Key`, recoded using a special algorithm. The browser uses it to make sure that the response corresponds to the request.
+여기서 `Sec-WebSocket-Accept`는 `Sec-WebSocket-Key`와 밀접한 관계를 갖습니다. 브라우저는 특별한 알고리즘을 사용해 만들어지는 `Sec-WebSocket-Accept` 값을 서버로부터 받아, 이 응답이 자신이 보낸 요청에 대응하는 응답인지를 확인합니다.
 
 Afterwards, the data is transfered using WebSocket protocol, we'll see its structure ("frames") soon. And that's not HTTP at all.
 
