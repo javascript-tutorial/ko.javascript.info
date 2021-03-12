@@ -111,7 +111,7 @@ Here `Sec-WebSocket-Accept` is `Sec-WebSocket-Key`, recoded using a special algo
 
 Afterwards, the data is transfered using WebSocket protocol, we'll see its structure ("frames") soon. And that's not HTTP at all.
 
-### Extensions and subprotocols
+### extensions와 subprotocols 헤더
 
 There may be additional headers `Sec-WebSocket-Extensions` and `Sec-WebSocket-Protocol` that describe extensions and subprotocols.
 
