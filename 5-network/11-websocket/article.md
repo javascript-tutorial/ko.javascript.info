@@ -145,7 +145,7 @@ Sec-WebSocket-Protocol: soap, wamp
 */!*
 ```
 
-Response:
+이때 다음과 같은 응답이 왔다고 가정해봅시다.
 
 ```
 101 Switching Protocols
