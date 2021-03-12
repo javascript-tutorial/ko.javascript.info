@@ -70,7 +70,7 @@ socket.onerror = function(error) {
 
 ## 웹소켓 열기
 
-When `new WebSocket(url)` is created, it starts connecting immediately.
+`new WebSocket(url)`을 호출해 소켓을 생성하면 즉시 연결이 시작됩니다.
 
 During the connection the browser (using headers) asks the server: "Do you support Websocket?" And if the server replies "yes", then the talk continues in WebSocket protocol, which is not HTTP at all.
 
