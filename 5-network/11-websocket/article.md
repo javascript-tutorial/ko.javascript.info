@@ -129,7 +129,7 @@ For instance:
 
 The server should respond with a list of protocols and extensions that it agrees to use.
 
-For example, the request:
+예시를 살펴봅시다. 요청 헤더는 다음과 같습니다.
 
 ```
 GET /chat
