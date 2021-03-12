@@ -1,7 +1,7 @@
 
 # 프로퍼티 getter와 setter
 
-프로퍼티는 두 종류로 나뉩니다.
+객체의 프로퍼티는 두 종류로 나뉩니다.
 
 첫 번째 종류는 *데이터 프로퍼티(data property)* 입니다. 지금까지 사용한 모든 프로퍼티는 데이터 프로퍼티입니다. 데이터 프로퍼티 조작 방법에 대해선 모두 알고 계실 것이라 생각합니다.
 
@@ -18,12 +18,12 @@ let obj = {
   },
 
   *!*set propName(value)*/!* {
-    // setter, obj.propNAme = value를 실행할 때 실행되는 코드
+    // setter, obj.propName = value를 실행할 때 실행되는 코드
   }
 };
 ```
 
-getter 메서드는 `obj.propName`을 사용해 프로퍼티를 읽으려고 할 때 실행되고, setter 메서드는 `obj.propNAme = value`으로 프로퍼티에 값을 할당하려 할 때 실행됩니다.
+getter 메서드는 `obj.propName`을 사용해 프로퍼티를 읽으려고 할 때 실행되고, setter 메서드는 `obj.propName = value`으로 프로퍼티에 값을 할당하려 할 때 실행됩니다.
 
 프로퍼티 `name`과 `surname`이 있는 객체 `user`를 만들어봅시다.
 
@@ -95,10 +95,6 @@ alert(user.surname); // Cooper
 ```
 
 이렇게 getter와 setter 메서드를 구현하면 객체엔 `fullName`이라는 '가상'의 프로퍼티가 생깁니다. 가상의 프로퍼티는 읽고 쓸 순 있지만 실제로는 존재하지 않습니다.
-
-```smart header="`delete` 메서드는 없습니다."
-접근자 프로퍼티를 삭제해 주는 메서드는 존재하지 않습니다. 접근자 프로퍼티엔 오직 getter/setter 메서드만 사용할 수 있습니다.
-```
 
 ## 접근자 프로퍼티 설명자
 

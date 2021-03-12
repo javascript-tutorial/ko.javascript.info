@@ -1,3 +1,3 @@
 // ...small js...
 
-alert("Small script loaded");
+alert("사이즈가 작은 스크립트 로딩이 끝났습니다.");

@@ -86,7 +86,7 @@ setTimeout(() => user.sayHi(), 1000);
 // 1초가 지나기 전에 user의 값이 바뀜
 user = { sayHi() { alert("또 다른 사용자!"); } };
 
-// 또 다른 사용자!
+// setTimeout에 또 다른 사용자!
 ```
 
 두 번째 방법을 사용하면 이런 일이 발생하지 않습니다.
@@ -100,7 +100,7 @@ user = { sayHi() { alert("또 다른 사용자!"); } };
 ```js
 // 더 복잡한 문법은 뒤에 나옵니다.
 let boundFunc = func.bind(context);
-````
+```
 
 `func.bind(context)`는 함수처럼 호출 가능한 '특수 객체(exotic object)'를 반환합니다. 이 객체를 호출하면 `this`가 `context`로 고정된 함수 `func`가 반환됩니다.
 
@@ -200,7 +200,7 @@ for (let key in user) {
 }
 ```
 
-자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(obj)](http://lodash.com/docs#bindAll)이 그 예입니다.
+자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll)이 그 예입니다.
 ````
 
 ## 부분 적용
@@ -267,7 +267,7 @@ alert( triple(5) ); // = mul(3, 5) = 15
 
 가독성이 좋은 이름(`double`, `triple`)을 가진 독립 함수를 만들 수 있다는 이점 때문입니다. 게다가 `bind`를 사용해 첫 번째 인수를 고정할 수 있기 때문에 매번 인수를 전달할 필요도 없어지죠.
 
-이 외에도 부분 적용은 매우 포괄적인 함수를 기반으로 덜 포괄적인 변헝 함수를 만들수 있다는 점에서 유용합니다.
+이 외에도 부분 적용은 매우 포괄적인 함수를 기반으로 덜 포괄적인 변형 함수를 만들수 있다는 점에서 유용합니다.
 
 함수 `send(from, to, text)`가 있다고 가정해 봅시다. 객체 `user` 안에서 부분 적용을 활용하면, 전송 주체가 현재 사용자인 함수 `sendTo(to, text)`를 구현할 수 있습니다.
 
@@ -311,7 +311,7 @@ user.sayNow("Hello");
 - `partial`을 호출할 때 받은 인수(`"10:00"`)는 `...argsBound`에 전달됩니다.
 - 래퍼에 전달된 인수(`"Hello"`)는 `...args`가 됩니다.
 
-전개 연산자 덕분에 이 모든 과정이 쉬워졌습니다.
+전개 문법 덕분에 이 모든 과정이 쉬워졌습니다.
 
 lodash 라이브러리의 [_.partial](https://lodash.com/docs#partial)을 사용하면 컨텍스트 없는 부분 적용을 직접 구현하지 않아도 됩니다.
 

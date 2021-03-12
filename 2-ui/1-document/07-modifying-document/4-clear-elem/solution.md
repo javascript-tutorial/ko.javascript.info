@@ -1,5 +1,5 @@
 
-First, let's see how *not* to do it:
+먼저 잘못된 방법부터 살펴보겠습니다.
 
 ```js
 function clear(elem) {
@@ -9,11 +9,11 @@ function clear(elem) {
 }
 ```
 
-That won't work, because the call to `remove()` shifts the collection `elem.childNodes`, so elements start from the index `0` every time. But `i` increases, and some elements will be skipped.
+`remove()`는 `elem.childNodes`을 변화시키기 때문에 반복문을 실행할 때마다 `0` 번째 인덱스부터 시작해야만 합니다. 그러나 `i` 는 계속해서 증가하므로, 결국 일부 원소들을 지나치게 됩니다.
 
-The `for..of` loop also does the same.
+`for..of` 반복문에도 역시 같은 문제가 있습니다.
 
-The right variant could be:
+올바른 방법은 다음과 같습니다.
 
 ```js
 function clear(elem) {
@@ -23,7 +23,7 @@ function clear(elem) {
 }
 ```
 
-And also there's a simpler way to do the same:
+같은 동작을 수행하는 더 쉬운 방법도 있습니다.
 
 ```js
 function clear(elem) {

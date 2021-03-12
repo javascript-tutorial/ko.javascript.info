@@ -1,19 +1,18 @@
-The solution is short, yet may look a bit tricky, so here I provide it with extensive comments:
-
+꼼수처럼 보일지도 모르겠지만 해답은 간단한데요, 상세한 설명은 아래에 있습니다.
 
 ```js
-let sortedRows = Array.from(table.rows)
-  .slice(1)
-  .sort((rowA, rowB) => rowA.cells[0].innerHTML > rowB.cells[0].innerHTML ? 1 : -1);
+let sortedRows = Array.from(table.tBodies[0].rows) // 1
+  .sort((rowA, rowB) => rowA.cells[0].innerHTML.localeCompare(rowB.cells[0].innerHTML));
 
-table.tBodies[0].append(...sortedRows);
+table.tBodies[0].append(...sortedRows); // (3)
 ```
 
-1. Get all `<tr>`, like `table.querySelectorAll('tr')`, then make an array from them, cause we need array methods.
-2. The first TR (`table.rows[0]`) is actually a table header, so we take the rest by `.slice(1)`.
-3. Then sort them comparing by the content of the first `<td>` (the name field).
-4. Now insert nodes in the right order by `.append(...sortedRows)`.
+풀이 과정:
 
-    Tables always have an implicit <tbody> element, so we need to take it and insert into it: a simple `table.append(...)` would fail.
+1. `<tbody>`로부터 모든 `<tr>`을 불러옵니다.
+2. 그 후 name 필드에 해당하는 첫 번째 `<td>`의 내용을 기준으로 정렬합니다.
+3. 이제 `.append(...sortedRows)`를 사용해 정렬된 노드를 삽입합니다.
 
-    Please note: we don't have to remove them, just "re-insert", they leave the old place automatically.
+행에 해당하는 요소들을 지울 필요 없이 '재삽입' 하면 기존 위치를 저절로 벗어나게 됩니다.
+
+예시에서는 `<tbody>` 가 표에 명시적으로 존재하는데요, HTML 표가 명시적으로 `<tbody>`를 갖지 않더라도 DOM 구조상에는 언제나 존재한다는 점을 참고하세요.

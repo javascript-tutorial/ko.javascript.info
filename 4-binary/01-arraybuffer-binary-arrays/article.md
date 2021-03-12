@@ -73,8 +73,11 @@ for(let num of view) {
 
 The common term for all these views (`Uint8Array`, `Uint32Array`, etc) is [TypedArray](https://tc39.github.io/ecma262/#sec-typedarray-objects). They share the same set of methods and properities.
 
-They are much more like regular arrays: have indexes and iterable.
+Please note, there's no constructor called `TypedArray`, it's just a common "umbrella" term to represent one of views over `ArrayBuffer`: `Int8Array`, `Uint8Array` and so on, the full list will soon follow.
 
+When you see something like `new TypedArray`, it means any of `new Int8Array`, `new Uint8Array`, etc.
+
+Typed array behave like regular arrays: have indexes and iterable.
 
 A typed array constructor (be it `Int8Array` or `Float64Array`, doesn't matter) behaves differently depending on argument types.
 
@@ -232,7 +235,7 @@ let dataView = new DataView(buffer);
 // get 8-bit number at offset 0
 alert( dataView.getUint8(0) ); // 255
 
-// now get 16-bit number at offset 0, it consists of 2 bytes, together iterpreted as 65535
+// now get 16-bit number at offset 0, it consists of 2 bytes, together interpreted as 65535
 alert( dataView.getUint16(0) ); // 65535 (biggest 16-bit unsigned int)
 
 // get 32-bit number at offset 0
@@ -241,7 +244,7 @@ alert( dataView.getUint32(0) ); // 4294967295 (biggest 32-bit unsigned int)
 dataView.setUint32(0, 0); // set 4-byte number to zero, thus setting all bytes to 0
 ```
 
-`DataView` is great when we store mixed-format data in the same buffer. E.g we store a sequence of pairs (16-bit integer, 32-bit float). Then `DataView` allows to access them easily.
+`DataView` is great when we store mixed-format data in the same buffer. For example, when we store a sequence of pairs (16-bit integer, 32-bit float), `DataView` allows to access them easily.
 
 ## Summary
 

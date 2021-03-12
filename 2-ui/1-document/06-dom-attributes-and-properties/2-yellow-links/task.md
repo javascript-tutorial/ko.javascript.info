@@ -2,15 +2,15 @@ importance: 3
 
 ---
 
-# Make external links orange
+# 외부 링크를 주황색으로 만들기
 
-Make all external links orange by altering their `style` property.
+`style` 프로퍼티를 변경해 모든 외부 링크를 주황색으로 만들어 보세요.
 
-A link is external if:
-- Its `href` has `://` in it
-- But doesn't start with `http://internal.com`.
+외부 링크가 되기 위한 조건은 아래와 같습니다.
+- `href`에 `://`가 포함되어 있어야 합니다.
+- 하지만 `http://internal.com`으로 시작하지 않아야 합니다.
 
-Example:
+예시:
 
 ```html run
 <a name="list">the list</a>
@@ -30,6 +30,6 @@ Example:
 </script>
 ```
 
-The result should be:
+결과:
 
 [iframe border=1 height=180 src="solution"]

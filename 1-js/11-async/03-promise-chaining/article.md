@@ -184,7 +184,7 @@ loadScript("/article/promise-chaining/one.js").then(script1 => {
 
 이렇게 `.then`을 바로 붙여도 동일한 동작(스크립트 세 개를 순차적으로 불러오는 작업)을 수행합니다. 하지만 코드가 '오른쪽으로' 길어졌네요. 콜백에서 언급한 문제와 동일한 문제가 발생했습니다.  
 
-프라미스를 이제 막 배우기 시작해 체이닝에 대해 잘 모른다면 위와같이 코드를 작성할 수 있습니다. 그러나 대게 체이닝이 선호됩니다.
+프라미스를 이제 막 배우기 시작해 체이닝에 대해 잘 모른다면 위와같이 코드를 작성할 수 있습니다. 그러나 대개 체이닝이 선호됩니다.
 
 중첩 함수에서 외부 스코프에 접근할 수 있기 때문에 `.then`을 바로 쓰는 게 괜찮은 경우도 있습니다. 위 예제에서 가장 깊은 곳에 있는 중첩 콜백은  `script1`, `script2`, `script3` 안에 있는 변수 모두에 접근할 수 있습니다. 이런 예외 상황이 있다는 정도만 알아두도록 합시다. 
 
@@ -251,7 +251,7 @@ fetch('/article/promise-chaining/user.json')
   })
   .then(function(text) {
     // 원격에서 받아온 파일의 내용
-    alert(text); // {"name": "iliakan", isAdmin: true}
+    alert(text); // {"name": "iliakan", "isAdmin": true}
   });
 ```
 
@@ -322,13 +322,9 @@ fetch('/article/promise-chaining/user.json')
   .then(githubUser => alert(`Finished showing ${githubUser.name}`));
 ```
 
-`(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다.
+`(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다. 체인의 다음 `.then`은 이를 기다리죠.
 
-체인의 다음 `.then`은 이를 기다리죠.
-
-비동기 동작은 항상 프라미스를 반환하도록 하는 것이 좋습니다.
-
-지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
+비동기 동작은 항상 프라미스를 반환하도록 하는 것이 좋습니다. 지금은 체인을 확장할 계획이 없더라도 이렇게 구현해 놓으면 나중에 체인 확장이 필요한 경우 손쉽게 체인을 확장할 수 있습니다.
 
 이제 코드를 재사용 가능한 함수 단위로 분리해 마무리하겠습니다.
 

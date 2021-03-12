@@ -1,6 +1,6 @@
-The first solution we could try here is the recursive one.
+가장 먼저 떠오르는 방법은 재귀입니다.
 
-Fibonacci numbers are recursive by definition:
+정의 자체에서 유추할 수 있듯이 피보나치 수열은 재귀를 사용해 구현할 수 있습니다.
 
 ```js run
 function fib(n) {
@@ -9,14 +9,14 @@ function fib(n) {
 
 alert( fib(3) ); // 2
 alert( fib(7) ); // 13
-// fib(77); // will be extremely slow!
+// fib(77); // 연산에 너무 많은 시간이 걸립니다!
 ```
 
-...But for big values of `n` it's very slow. For instance, `fib(77)` may hang up the engine for some time eating all CPU resources.
+그런데 이렇게 재귀를 사용해 구현하면 `n`이 커질 경우 속도가 느려집니다. `fib(77)`을 호출하면 CPU 리소스를 다 잡아먹어서 잠시 엔진이 멈출 수도 있.
 
-That's because the function makes too many subcalls. The same values are re-evaluated again and again.
+연산 속도가 느려지는 이유는 함수 호출 도중에 수많은 서브 호출이 일어나기 때문입니다. 같은 값들이 여러 번 평가되면서 이런 일이 발생하죠.
 
-For instance, let's see a piece of calculations for `fib(5)`:
+`fib(5)`의 계산 과정을 살펴봅시다.
 
 ```js no-beautify
 ...
@@ -25,68 +25,68 @@ fib(4) = fib(3) + fib(2)
 ...
 ```
 
-Here we can see that the value of `fib(3)` is needed for both `fib(5)` and `fib(4)`. So `fib(3)` will be called and evaluated two times completely independently.
+`fib(3)`은 `fib(5)`와 `fib(4)`를 계산할 때 모두 필요합니다. 그렇기 때문에 `fib(3)`은 완전히 다른 두 곳에서 독립적으로 호출되고 평가되죠.
 
-Here's the full recursion tree:
+재귀 트리를 직접 살펴봅시다.
 
 ![fibonacci recursion tree](fibonacci-recursion-tree.svg)
 
-We can clearly notice that `fib(3)` is evaluated two times and `fib(2)` is evaluated three times. The total amount of computations grows much faster than `n`, making it enormous even for `n=77`.
+그림을 보니 `fib(3)`은 두 번 평가된다는 것이 좀 더 명확히 보이네요. `fib(2)`는 세 번이나 평가됩니다. 이렇게 재귀를 사용해 피보나치 수열을 구현하면 `n`이 증가하는 속도보다 전체 연산 횟수가 더 빨리 증가합니다. `77` 자체는 그리 큰 숫자가 아니지만, 피보나치 수열에서 `n=77`일 경우엔 엄청난 수의 연산이 일어나죠.
 
-We can optimize that by remembering already-evaluated values: if a value of say `fib(3)` is calculated once, then we can just reuse it in future computations.
+이런 단점은 이미 평가된 값을 어딘가에 저장해놓는 식으로 최적화 할 수 있습니다. `fib(3)` 계산이 끝나면 이 결과를 어딘가에 저장해 놓았다가 같은 값이 필요할 때 저장된 값을 불러오는 식으로 말이죠.
 
-Another variant would be to give up recursion and use a totally different loop-based algorithm.
+또 다른 최적화 방법은 재귀가 아닌 반복문을 기반으로 하는 알고리즘을 짜는 것입니다.
 
-Instead of going from `n` down to lower values, we can make a loop that starts from `1` and `2`, then gets `fib(3)` as their sum, then `fib(4)` as the sum of two previous values, then `fib(5)` and goes up and up, till it gets to the needed value. On each step we only need to remember two previous values.
+`n`부터 시작해 숫자를 하나씩 줄이며 원하는 값을 구하는 대신 `1`과 `2`로 시작하는 반복문으로 `fib(3)`을 구하고, 이를 기반으로 `fib(4)`를 구하고, 또 이를 기반으로 `fib(5)`를 구하는 식으로 알고리즘을 구현할 수 있습니다. 이렇게 구현하면 이전 두 항의 값만 저장하면 되죠.
 
-Here are the steps of the new algorithm in details.
+반복문을 기반으로 하는 알고리즘을 좀 더 자세히 살펴보겠습니다.
 
-The start:
+시작은 다음과 같습니다.
 
 ```js
-// a = fib(1), b = fib(2), these values are by definition 1
+// a = fib(1), b = fib(2), 처음 두 항은 1이라는 정의에 의해 이렇게 값을 할당하였습니다.
 let a = 1, b = 1;
 
-// get c = fib(3) as their sum
+// c = fib(3), 세 번째 항은 첫 번째 항과 두 번째 항의 합입니다.
 let c = a + b;
 
-/* we now have fib(1), fib(2), fib(3)
+/* fib(1), fib(2), fib(3)을 구했습니다.
 a  b  c
 1, 1, 2
 */
 ```
 
-Now we want to get `fib(4) = fib(2) + fib(3)`.
+이제 `fib(2)`와 `fib(3)`을 더해 `fib(4)`를 구해봅시다.
 
-Let's shift the variables: `a,b` will get `fib(2),fib(3)`, and `c` will get their sum:
+`a`에 기존 `b`를, `b`에 기존 `c`를 할당하고, `c`는 `a`와 `b`의 합이 되도록 합시다.
 
 ```js no-beautify
-a = b; // now a = fib(2)
-b = c; // now b = fib(3)
+a = b; // a = fib(2)
+b = c; // b = fib(3)
 c = a + b; // c = fib(4)
 
-/* now we have the sequence:
+/* 다음과 같은 수열을 얻을 수 있습니다.
    a  b  c
 1, 1, 2, 3
 */
 ```
 
-The next step gives another sequence number:
+같은 과정을 반복해 다음 수를 얻어봅시다.
 
 ```js no-beautify
 a = b; // now a = fib(3)
 b = c; // now b = fib(4)
 c = a + b; // c = fib(5)
 
-/* now the sequence is (one more number):
+/* 다음과 같은 수열을 얻을 수 있습니다.
       a  b  c
 1, 1, 2, 3, 5
 */
 ```
 
-...And so on until we get the needed value. That's much faster than recursion and involves no duplicate computations.
+목표로 하는 값을 얻을 때까지 위와 같은 과정을 반복하면 되겠죠? 이렇게 하면 재귀를 사용하는 방법보다 연산 속도도 빠르고 중복되는 계산도 없다는 장점이 있습니다.
 
-The full code:
+반복문을 사용한 전체 코드는 다음과 같습니다.
 
 ```js run
 function fib(n) {
@@ -105,6 +105,6 @@ alert( fib(7) ); // 13
 alert( fib(77) ); // 5527939700884757
 ```
 
-The loop starts with `i=3`, because the first and the second sequence values are hard-coded into variables `a=1`, `b=1`.
+반복문 내 `i`는 `3`부터 시작합니다. 피보나치 수열의 첫 번째 항과 두 번째 항은 `a=1`, `b=1`로 하드코딩 했기 때문입니다.
 
-The approach is called [dynamic programming bottom-up](https://en.wikipedia.org/wiki/Dynamic_programming).
+이런 접근 방법은 [bottom-up 다이내믹 프로그래밍(dynamic programming, 동적 계획법)](https://en.wikipedia.org/wiki/Dynamic_programming)이라 부릅니다.

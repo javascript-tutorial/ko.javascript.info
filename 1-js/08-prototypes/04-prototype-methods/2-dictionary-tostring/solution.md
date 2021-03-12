@@ -1,13 +1,13 @@
 
-The method can take all enumerable keys using `Object.keys` and output their list.
+이 메서드는 `Object.keys`를 사용하여 열거 가능한 모든 키를 가져와서 목록으로 출력할 수 있습니다.
 
-To make `toString` non-enumerable, let's define it using a property descriptor. The syntax of `Object.create` allows us to provide an object with property descriptors as the second argument.
+`toString`을 열거할 수 없도록 하기 위해 프로퍼티 설명자를 사용하여 `toString`을 정의하겠습니다. `Object.create` 문법을 사용하면 프로퍼티 설명자를 두 번째 인수로 사용하여 객체를 제공할 수 있습니다.
 
 ```js run
 *!*
 let dictionary = Object.create(null, {
-  toString: { // define toString property
-    value() { // the value is a function
+  toString: { // toString 프로퍼티를 정의합니다.
+    value() { // value는 함수입니다.
       return Object.keys(this).join();
     }
   }
@@ -17,15 +17,15 @@ let dictionary = Object.create(null, {
 dictionary.apple = "Apple";
 dictionary.__proto__ = "test";
 
-// apple and __proto__ is in the loop
+// apple과 __proto__는 반복문 안에 있습니다.
 for(let key in dictionary) {
-  alert(key); // "apple", then "__proto__"
+  alert(key); // "apple" 다음 "__proto__"가 있습니다.
 }  
 
-// comma-separated list of properties by toString
+// toString에 의해 쉼표로 구분된 프로퍼티 목록
 alert(dictionary); // "apple,__proto__"
 ```
 
-When we create a property using a descriptor, its flags are `false` by default. So in the code above, `dictionary.toString` is non-enumerable.
+설명자를 사용하여 프로퍼티를 만들면 기본적으로 플래그가 `false`입니다. 따라서 위 코드에서 `dictionary.toString`은 열거할 수 없습니다.
 
-See the the chapter [](info:property-descriptors) for review.
+다음 챕터 [](info:property-descriptors)를 참고하시기 바랍니다.

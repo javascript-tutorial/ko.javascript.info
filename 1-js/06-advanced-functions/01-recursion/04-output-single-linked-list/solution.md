@@ -1,6 +1,6 @@
-# Loop-based solution
+# 반복문을 기반으로 하는 방법
 
-The loop-based variant of the solution:
+반복문을 사용한 답안은 다음과 같습니다.
 
 ```js run
 let list = {
@@ -30,7 +30,7 @@ function printList(list) {
 printList(list);
 ```
 
-Please note that we use a temporary variable `tmp` to walk over the list. Technically, we could use a function parameter `list` instead:
+여기서 주목해야 할 점은 리스트를 임시 변수 `tmp`에 저장하고 사용했다는 것입니다. 아래처럼 매개변수 `list`를 그대로 사용해도 되는데 말이죠.
 
 ```js
 function printList(list) {
@@ -43,15 +43,15 @@ function printList(list) {
 }
 ```
 
-...But that would be unwise. In the future we may need to extend a function, do something else with the list. If we change `list`, then we lose such ability.
+그런데 매개변수 `list`를 바로 사용하는 건 그다지 현명한 선택은 아닙니다. 나중에 함수를 확장할 때 `list`를 가지고 뭔가 해야 하는 경우가 생길 수 있기 때문이죠. 어떤 일 때문인지는 몰라도 `while`문 앞에서 `list`가 변경되면 우리가 짠 코드는 제대로 동작하지 않을 겁니다.
 
-Talking about good variable names, `list` here is the list itself. The first element of it. And it should remain like that. That's clear and reliable.
+좋은 변수명이 무엇인가를 생각해 봤을 때도 리스트를 임시 변수 `tmp`에 저장하는 게 좋습니다. `list`에는 리스트 그 자체가 저장되어있는 게 좋죠.
 
-From the other side, the role of `tmp` is exclusively a list traversal, like `i` in the `for` loop.
+`tmp`는 리스트를 순회하기 위한 용도로 쓰였기 때문에 `tmp`라고 명명하는 게 좋습니다. `for`문의 `i`처럼 말이죠.
 
-# Recursive solution
+# 재귀를 기반으로 하는 방법
 
-The recursive variant of `printList(list)` follows a simple logic: to output a list we should output the current element `list`, then do the same for `list.next`:
+재귀를 사용해 만든 `printList(list)`는 아주 간단한 로직을 기반으로 합니다. "리스트를 출력할 때는 현재 요소 `list`를 출력하고, 같은 방법을 사용해 `list.next`를 출력한다."라는 로직이죠.
 
 ```js run
 let list = {
@@ -70,10 +70,10 @@ let list = {
 
 function printList(list) {
 
-  alert(list.value); // output the current item
+  alert(list.value); // 현재 요소를 출력합니다.
 
   if (list.next) {
-    printList(list.next); // do the same for the rest of the list
+    printList(list.next); // 같은 방법을 사용해 나머지 요소를 출력합니다.
   }
 
 }
@@ -81,8 +81,8 @@ function printList(list) {
 printList(list);
 ```
 
-Now what's better?
+이제 두 방법을 비교해봅시다.
 
-Technically, the loop is more effective. These two variants do the same, but the loop does not spend resources for nested function calls.
+반복문을 사용하면 리소스를 좀 더 효율적으로 사용합니다. 두 방법의 반환 값은 같지만, 반복문을 사용한 방법에선 중첩 함수를 호출하는데 추가적인 리소스를 쓰지 않기 때문입니다. 
 
-From the other side, the recursive variant is shorter and sometimes easier to understand.
+반면 재귀를 사용한 방법은 코드 길이가 짧고 이해하기 쉽다는 장점이 있습니다.

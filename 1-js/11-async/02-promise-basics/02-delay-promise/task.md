@@ -1,14 +1,14 @@
 
-# Delay with a promise
+# 프라미스로 지연 만들기
 
-The built-in function `setTimeout` uses callbacks. Create a promise-based alternative.
+내장 함수 `setTimeout`은 콜백을 사용합니다. 프라미스를 기반으로 하는 동일 기능 함수를 만들어보세요.
 
-The function `delay(ms)` should return a promise. That promise should resolve after `ms` milliseconds, so that we can add `.then` to it, like this:
+함수 `delay(ms)`는 프라미스를 반환해야 합니다. 반환되는 프라미스는 아래와 같이 `.then`을 붙일 수 있도록 `ms` 이후에 이행되어야 합니다.
 
 ```js
 function delay(ms) {
-  // your code
+  // 여기에 코드 작성
 }
 
-delay(3000).then(() => alert('runs after 3 seconds'));
+delay(3000).then(() => alert('3초후 실행'));
 ```

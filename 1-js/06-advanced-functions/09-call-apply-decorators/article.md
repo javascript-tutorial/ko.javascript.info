@@ -209,7 +209,7 @@ alert( worker.slow(2) ); // 제대로 동작합니다. 다만, 원본 함수가 
 2. `worker.slow(2)`를 실행하면 래퍼는 `2`를 인수로 받고, `this=worker`가 됩니다(점 앞의 객체).
 3. 결과가 캐시되지 않은 상황이라면 `func.call(this, x)`에서 현재 `this` (`=worker`)와 인수(`=2`)를 원본 메서드에 전달합니다.
 
-## 'func.apply'로 여러 인수 전달하기
+## 여러 인수 전달하기
 
 `cachingDecorator`를 좀 더 다채롭게 해봅시다. 지금 상태론 인수가 하나뿐인 함수에만 `cachingDecorator`를 적용할 수 있습니다.
 
@@ -284,6 +284,8 @@ alert( "다시 호출: " + worker.slow(3, 5) ); // 동일한 결과 출력(캐�
 - `(*)`로 표시한 줄에서 `hash`가 호출되면서 `arguments`를 사용한 단일 키가 만들어집니다. 여기선 간단한 '결합' 함수로 인수 `(3, 5)`를 키 `"3,5"`로 바꿨는데, 좀 더 복잡한 경우라면 또 다른 해싱 함수가 필요할 수 있습니다.
 - `(**)`로 표시한 줄에선 `func.call(this, ...arguments)`를 사용해 컨텍스트(`this`)와 래퍼가 가진 인수 전부(`...arguments`)를 기존 함수에 전달하였습니다.
 
+## func.apply
+
 그런데 여기서 `func.call(this, ...arguments)` 대신, `func.apply(this, arguments)`를 사용해도 됩니다.
 
 내장 메서드 [func.apply](mdn:js/Function/apply)의 문법은 다음과 같습니다.
@@ -299,18 +301,18 @@ func.apply(context, args)
 따라서 아래 코드 두 줄은 거의 같은 역할을 합니다.
 
 ```js
-func.call(context, ...args); // 전개 연산자를 사용해 인수가 담긴 배열을 전달하는 것과
-func.apply(context, args);   // apply를 사용하는 것은 동일합니다.
+func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과
+func.apply(context, args);   // call을 사용하는 것은 동일합니다.
 ```
 
 그런데 약간의 차이가 있긴 합니다.
 
-- 전개 연산자 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
+- 전개 문법 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
 - `apply`는 오직 *유사 배열* 형태의 `args`만 받습니다.
 
 이 차이만 빼면 두 메서드는 완전히 동일하게 동작합니다. 인수가 이터러블 형태라면 `call`을, 유사 배열 형태라면 `apply`를 사용하면 됩니다.
 
-배열같이 이터러블이면서 유사 배열인 객체엔 둘 다를 사용할 수 있는데, 대부분의 자바스크립트 엔진은 내부에서 `apply`를 최적화 하기 때문에 `apply`를 사용하는 게 좀 더 빠르긴 합니다. 
+배열같이 이터러블이면서 유사 배열인 객체엔 둘 다를 사용할 수 있는데, 대부분의 자바스크립트 엔진은 내부에서 `apply`를 최적화 하기 때문에 `apply`를 사용하는 게 좀 더 빠르긴 합니다.
 
 이렇게 컨텍스트와 함께 인수 전체를 다른 함수에 전달하는 것을 *콜 포워딩(call forwarding)* 이라고 합니다.
 
@@ -370,7 +372,7 @@ function hash() {
 hash(1, 2);
 ```
 
-이런 트릭을 *메서드 빌리기(method borrowing)* 라고 합니다.
+The trick is called *method borrowing*.
 
 일반 배열에서 `join` 메서드를 빌려오고(`[].join`), `[].join.call`를 사용해 `arguments`를 컨텍스트로 고정한 후 `join`메서드를 호출하는 것이죠.
 
@@ -411,7 +413,7 @@ hash(1, 2);
 - [func.call(context, arg1, arg2...)](mdn:js/Function/call) -- 주어진 컨텍스트와 인수를 사용해 `func`를 호출합니다.
 - [func.apply(context, args)](mdn:js/Function/apply) -- `this`에 `context`가 할당되고, 유사 배열 `args`가 인수로 전달되어 `func`이 호출됩니다.
 
-*콜 포워딩*은 대게 `apply`를 사용해 구현합니다.
+*콜 포워딩*은 대개 `apply`를 사용해 구현합니다.
 
 ```js
 let wrapper = function() {

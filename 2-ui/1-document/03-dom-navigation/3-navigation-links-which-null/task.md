@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# The sibling question
+# 형제 노드에 관한 질문
 
-If `elem` -- is an arbitrary DOM element node...
+임의의 DOM 요소 노드 `elem`이 있다고 가정해봅시다.
 
-- Is it true that `elem.lastChild.nextSibling` is always `null`?
-- Is it true that `elem.children[0].previousSibling` is always `null` ?
+- `elem.lastChild.nextSibling`은 항상 `null`일까요?
+- `elem.children[0].previousSibling`은 항상 `null`일까요?

@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Using "this" in object literal
+# 객체 리터럴에서 'this' 사용하기
 
-Here the function `makeUser` returns an object.
+함수 `makeUser`는 객체를 반환합니다.
 
-What is the result of accessing its `ref`? Why?
+이 객체의 `ref`에 접근하면 어떤 결과가 발생하고, 그 이유는 뭘까요?
 
 ```js
 function makeUser() {
@@ -18,6 +18,6 @@ function makeUser() {
 
 let user = makeUser();
 
-alert( user.ref.name ); // What's the result?
+alert( user.ref.name ); // 결과가 어떻게 될까요?
 ```
 

@@ -120,7 +120,7 @@ let user = {
 alert( JSON.stringify(user) ); // {} (빈 객체가 출력됨)
 ```
 
-대게 이 프로퍼티들은 무시 되어도 괜찮습니다. 그런데 이들도 문자열에 포함시켜야 하는 경우가 생기곤 하는데 이에 대해선 아래에서 다루도록 하겠습니다. 
+대개 이 프로퍼티들은 무시 되어도 괜찮습니다. 그런데 이들도 문자열에 포함시켜야 하는 경우가 생기곤 하는데 이에 대해선 아래에서 다루도록 하겠습니다. 
 
 `JSON.stringify`의 장점 중 하나는 중첩 객체도 알아서 문자열로 바꿔준다는 점입니다.
 
@@ -242,7 +242,7 @@ alert( JSON.stringify(meetup, *!*['title', 'participants', 'place', 'name', 'num
 
 `occupiedBy`를 제외한 모든 프로퍼티가 직렬화되었습니다. 그런데 배열이 좀 길다는 느낌이 듭니다.
 
-`replacer` 자리에 배열 `대신` 함수를 전달해 이 문제를 해결해 봅시다(역주: 매개변수 replacer는 '대신하다'라는 뜻을 가진 영단어 replace에서 그 이름이 왔습니다).
+`replacer` 자리에 배열 `대신` 함수를 전달해 이 문제를 해결해 봅시다(매개변수 replacer는 '대신하다'라는 뜻을 가진 영단어 replace에서 그 이름이 왔습니다 - 옮긴이).
 
 `replacer`에 전달되는 함수(`replacer` 함수)는 프로퍼티 `(키, 값)` 쌍 전체를 대상으로 호출되는데, 반드시 기존 프로퍼티 값을 대신하여 사용할 값을 반환해야 합니다. 특정 프로퍼티를 직렬화에서 누락시키려면 반환 값을 `undefined`로 만들면 됩니다.
 
@@ -424,9 +424,9 @@ alert( numbers[1] ); // 1
 `JSON.parse`는 아래와 같이 중첩 객체에도 사용할 수 있습니다.
 
 ```js run
-let user = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
 
-user = JSON.parse(user);
+let user = JSON.parse(userData);
 
 alert( user.friends[1] ); // 1
 ```

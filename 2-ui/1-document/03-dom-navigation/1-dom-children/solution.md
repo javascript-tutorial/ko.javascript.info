@@ -1,27 +1,27 @@
-There are many ways, for instance:
+방법은 다양합니다.
 
 
-The `<div>` DOM node:
+`<div>` DOM 노드:
 
 ```js
 document.body.firstElementChild
-// or
+// 또는
 document.body.children[0]
-// or (the first node is space, so we take 2nd)
+// 또는 (첫 번째 노드는 공백이므로 두 번째 노드를 가져옴)
 document.body.childNodes[1]
 ```
 
-The `<ul>` DOM node:
+`<ul>` DOM 노드:
 
 ```js
 document.body.lastElementChild
-// or
+// 또는
 document.body.children[1]
 ```
 
-The second `<li>` (with Pete):
+두 번째 `<li>` (Pete):
 
 ```js
-// get <ul>, and then get its last element child
+// <ul>을 가져오고, <ul>의 마지막 자식 요소를 가져옴
 document.body.lastElementChild.lastElementChild
 ```

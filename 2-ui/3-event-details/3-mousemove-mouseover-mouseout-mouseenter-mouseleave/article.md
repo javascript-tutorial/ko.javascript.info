@@ -125,7 +125,7 @@ If there are some actions upon leaving the parent element, e.g. an animation run
 
 To avoid it, we can check `relatedTarget` in the handler and, if the mouse is still inside the element, then ignore such event.
 
-Alternatively we can use other events: `mouseenter` и `mouseleave`, that we'll be covering now, as they don't have such problems.
+Alternatively we can use other events: `mouseenter` and `mouseleave`, that we'll be covering now, as they don't have such problems.
 
 ## Events mouseenter and mouseleave
 
@@ -145,7 +145,7 @@ When the pointer leaves an element -- `mouseleave` triggers.
 ```online
 This example is similar to the one above, but now the top element has `mouseenter/mouseleave` instead of `mouseover/mouseout`.
 
-As you can see, the only generated events are the ones related to moving the pointer in and out of the top element. Nothing happens when the pointer goes to the child and back. Transitions between descendants are ignores
+As you can see, the only generated events are the ones related to moving the pointer in and out of the top element. Nothing happens when the pointer goes to the child and back. Transitions between descendants are ignored
 
 [codetabs height=340 src="mouseleave"]
 ```
@@ -195,10 +195,14 @@ Here's an example of code that accounts for all possible situations:
 
 [js src="mouseenter-mouseleave-delegation-2/script.js"]
 
+Once again, the important features are:
+1. It uses event delegation to handle entering/leaving of any `<td>` inside the table. So it relies on `mouseover/out` instead of `mouseenter/leave` that don't bubble and hence allow no delegation.
+2. Extra events, such as moving between descendants of `<td>` are filtered out, so that `onEnter/Leave` runs only if the pointer leaves or enters `<td>` as a whole.
+
 ```online
 Here's the full example with all details:
 
-[codetabs height=380 src="mouseenter-mouseleave-delegation-2"]
+[codetabs height=460 src="mouseenter-mouseleave-delegation-2"]
 
 Try to move the cursor in and out of table cells and inside them. Fast or slow -- doesn't matter. Only `<td>` as a whole is highlighted, unlike the example before.
 ```

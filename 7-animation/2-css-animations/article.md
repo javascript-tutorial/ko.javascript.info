@@ -1,16 +1,16 @@
-# CSS-animations
+# CSS 애니메이션
 
-CSS animations allow to do simple animations without JavaScript at all.
+CSS 애니메이션을 사용하면 자바스크립트 없이도 간단한 애니메이션을 만들 수 있습니다.
 
-JavaScript can be used to control CSS animation and make it even better with a little of code.
+여기에 자바스크립트를 더하면 CSS 애니메이션을 조정할 수 있고, 짧은 코드로도 훨씬 더 효과적인 애니메이션을 만들 수 있습니다.
 
-## CSS transitions [#css-transition]
+## CSS 트랜지션 [#css-transition]
 
-The idea of CSS transitions is simple. We describe a property and how its changes should be animated. When the property changes, the browser paints the animation.
+CSS 트랜지션이 나온 배경은 단순합니다. 애니메이션 관련 프로퍼티를 만들고, 프로퍼티 값을 통해 애니메이션 효과를 정의해보자는 데서 출발했습니다. 프로퍼티가 변하면 브라우저는 자동으로 프로퍼티 값에 해당하는 애니메이션을 화면에 보여주자는 의도이죠.
 
-That is: all we need is to change the property. And the fluent transition is made by the browser.
+따라서 개발자는 값만 변경하면 됩니다. 프로퍼티 값이 변경되면 자연스러운 트랜지션(전환) 효과는 브라우저가 알아서 처리해줍니다.
 
-For instance, the CSS below animates changes of `background-color` for 3 seconds:
+예시를 살펴봅시다. 아래 CSS를 적용하면 3초 동안 `background-color`가 서서히 변합니다.
 
 ```css
 .animated {
@@ -19,12 +19,12 @@ For instance, the CSS below animates changes of `background-color` for 3 seconds
 }
 ```
 
-Now if an element has `.animated` class, any change of `background-color` is animated during 3 seconds.
+이 CSS를 적용하면 `animated` 클래스 속성이 있는 요소의 `background-color`가 3초 동안 변하게 되죠.
 
-Click the button below to animate the background:
+다른 예시를 살펴봅시다. 버튼을 클릭하면 버튼 배경색이 변합니다.
 
 ```html run autorun height=60
-<button id="color">Click me</button>
+<button id="color">클릭</button>
 
 <style>
   #color {
@@ -40,19 +40,19 @@ Click the button below to animate the background:
 </script>
 ```
 
-There are 4 properties to describe CSS transitions:
+CSS 트랜지션에 사용되는 프로퍼티는 네 가지입니다.
 
 - `transition-property`
 - `transition-duration`
 - `transition-timing-function`
 - `transition-delay`
 
-We'll cover them in a moment, for now let's note that the common `transition` property allows to declare them together in the order: `property duration timing-function delay`, and also animate multiple properties at once.
+각 프로퍼티에 대해서는 잠시 후에 다룰 예정입니다. 지금은 `transition`이라는 공통 프로퍼티를 사용해 이 네 프로퍼티를 한 번에 선언할 수 있다는 사실 정도만 알아둡시다. `transition` 프로퍼티에 값을 넣어주면 이 값은 `property`, `duration`, `timing-function`, `delay` 프로퍼티에 각각 할당되고, 애니메이션 효과는 한 번에 적용됩니다.
 
-For instance, this button animates both `color` and `font-size`:
+아래와 같이 `transition` 프로퍼티를 정의하면 `font-size`는 3초 동안, `color`는 2초 동안 변화하는 것을 확인할 수 있습니다.
 
 ```html run height=80 autorun no-beautify
-<button id="growing">Click me</button>
+<button id="growing">클릭</button>
 
 <style>
 #growing {
@@ -70,29 +70,29 @@ growing.onclick = function() {
 </script>
 ```
 
-Now let's cover animation properties one by one.
+이제 본격적으로 각 프로퍼티를 살펴봅시다.
 
 ## transition-property
 
-In `transition-property` we write a list of property to animate, for instance: `left`, `margin-left`, `height`, `color`.
+`transition-property` 프로퍼티엔 `left`, `margin-left`, `height`, `color` 같이 애니메이션 효과를 적용할 프로퍼티 목록을 정의합니다.
 
-Not all properties can be animated, but [many of them](http://www.w3.org/TR/css3-transitions/#animatable-properties-). The value `all` means "animate all properties".
+이때 주의할 점은 모든 프로퍼티에 애니메이션 효과를 적용할 수 없다는 사실입니다. 참고로 [흔히 사용되는 프로퍼티 대다수엔](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties) 애니메이션 효과를 적용할 수 있습니다.
 
 ## transition-duration
 
-In `transition-duration` we can specify how long the animation should take. The time should be in [CSS time format](http://www.w3.org/TR/css3-values/#time): in seconds `s` or milliseconds `ms`.
+`transition-duration` 프로퍼티엔 애니메이션 효과를 얼마 동안 줄지를 설정합니다. 시간은 [CSS 시간 형식(CSS time format)](http://www.w3.org/TR/css3-values/#time)을 따라야 하는데, 초 단위(`s`)나 밀리초 단위(`ms`)를 사용할 수 있습니다.
 
 ## transition-delay
 
-In `transition-delay` we can specify the delay *before* the animation. For instance, if  `transition-delay: 1s`, then animation starts after 1 second after the change.
+`transition-delay` 프로퍼티엔 애니메이션 효과가 *시작되기 전*에 얼마만큼의 지연 시간을 줄지 설정합니다. `transition-delay` 값을 `1s`로 설정하면 애니메이션 효과가 1초 후에 나타납니다.
 
-Negative values are also possible. Then the animation starts from the middle. For instance, if `transition-duration` is `2s`, and the delay is `-1s`, then the animation takes 1 second and starts from the half.
+`transition-delay`엔 음수 값도 넣을 수 있습니다. 값이 음수일 땐 애니메이션 효과가 중간부터 나타납니다. `transition-duration`을 `2s`, 지연 시간을 `-1s`로 설정하면 애니메이션 효과는 1초가 지난 후 1초 동안 지속됩니다.
 
-Here's the animation shifts numbers from `0` to `9` using CSS `translate` property:
+CSS `translate` 프로퍼티와 지금까지 배운 내용을 사용해 `0`부터 `9`까지가 화면에 자연스럽게 나타나도록 해봅시다.
 
 [codetabs src="digits"]
 
-The `transform` property is animated like this:
+참고로 숫자를 왼쪽으로 이동시키기 위해 `transform` 프로퍼티에 translate(-90%)를 넣었습니다.
 
 ```css
 #stripe.animate {
@@ -102,25 +102,25 @@ The `transform` property is animated like this:
 }
 ```
 
-In the example above JavaScript adds the class `.animate` to the element -- and the animation starts:
+숫자를 클릭하면 자바스크립트가 실행되면서 숫자가 들어 있는 요소(stripe)에 `animate` 클래스가 추가되고 애니메이션 효과가 나타납니다.
 
 ```js
 stripe.classList.add('animate');
 ```
 
-We can also start it "from the middle", from the exact number, e.g. corresponding to the current second, using the negative `transition-delay`.
+이번엔 `transition-delay`에 음수를 써서 예시를 약간 변형해봅시다. 현재 시각을 기준으로 '초'를 추출하고, 이 값에 마이너스 기호를 붙여서 `transition-delay` 값으로 지정하면 현재 초를 기준으로 숫자가 나타나고, 애니메이션 효과가 적용되는 것을 확인할 수 있습니다.
 
-Here if you click the digit -- it starts the animation from the current second:
+직접 숫자를 클릭해보세요. 현재 날짜가 2020년 9월 12일 오후 12시 17분 8초라면, 숫자 8부터 스르륵 이동합니다.
 
 [codetabs src="digits-negative-delay"]
 
-JavaScript does it by an extra line:
+사용한 코드는 아래와 같습니다.
 
 ```js
 stripe.onclick = function() {
   let sec = new Date().getSeconds() % 10;
 *!*
-  // for instance, -3s here starts the animation from the 3rd second
+  // sec가 3이라면 transitionDelay 값이 -3s가 되어 3부터 애니메이션 효과가 적용됩니다.
   stripe.style.transitionDelay = '-' + sec + 's';
 */!*
   stripe.classList.add('animate');
@@ -129,60 +129,60 @@ stripe.onclick = function() {
 
 ## transition-timing-function
 
-Timing function describes how the animation process is distributed along the time. Will it start slowly and then go fast or vise versa.
+`transition-timing-function` 프로퍼티를 사용해 timing 함수를 만들면 시간에 따라 애니메이션 효과를 어떻게 분배할지를 설정할 수 있습니다. 애니메이션 효과가 초반엔 천천히 나타나다가 나중엔 빠르게 나타나게 할 수 있고, 물론 이 반대도 가능합니다.
 
-That's the most complicated property from the first sight. But it becomes very simple if we devote a bit time to it.
+처음 이 프로퍼티를 접하면 애니메이션 프로퍼티 중 가장 복잡한 프로퍼티 같다고 느낄 수 있습니다. 그렇지만 시간을 조금 투자해 학습하면 매우 간단한 프로퍼티라는 생각이 들 겁니다.
 
-That property accepts two kinds of values: a Bezier curve or steps. Let's start from the curve, as it's used more often.
+`transition-timing-function` 프로퍼티 값엔 베지어 곡선(bezier curve)이나 단계(step)가 올 수 있습니다. 먼저 사용 빈도가 높은 베지어 곡선부터 알아봅시다.
 
-### Bezier curve
+### 베지어 곡선
 
-The timing function can be set as a [Bezier curve](/bezier-curve) with 4 control points that satisfies the conditions:
+`transition-timing-function`엔 조절점이 4개면서 아래 조건을 만족하는 [베지어 곡선](/bezier-curve)을 지정할 수 있습니다.
 
-1. First control point: `(0,0)`.
-2. Last control point: `(1,1)`.
-3. For intermediate points values of `x` must be in the interval `0..1`, `y` can be anything.
+1. 첫 번째 조절점: `(0,0)`
+2. 마지막 조절점: `(1,1)`
+3. 중간 조절점들: `x`가 `0`과 `1` 사이에 있어야 함. `y`엔 제약이 없음
 
-The syntax for a Bezier curve in CSS: `cubic-bezier(x2, y2, x3, y3)`. Here we need to specify only 2nd and 3rd control points, because the 1st one is fixed to `(0,0)` and the 4th one is `(1,1)`.
+CSS에선 베지어 곡선을 `cubic-bezier(x2, y2, x3, y3)`형태로 정의합니다. 규칙에 따라 첫 번째 조절점은 `(0,0)`, 네 번째 조절점은 `(1,1)`로 고정되므로 두 번째와 세 번째 조절점만 설정하면 됩니다.
 
-The timing function describes how fast the animation process goes in time.
+조절점을 변경해 만든 베지어 곡선을 사용해 정의한 timing 함수는 시간이 지남에 따라 얼마나 빠르게 애니메이션 효과가 나타나게 할지를 보여줍니다.
 
-- The `x` axis is the time: `0` -- the starting moment, `1` -- the last moment of `transition-duration`.
-- The `y` axis specifies the completion of the process: `0` -- the starting value of the property, `1` -- the final value.
+- `x`축은 시간이 됩니다. `0`은 애니메이션 시작하는 시간, `1`은 끝나는 시간을 나타냅니다.
+- `y`축은 프로세스 완성 정도를 나타냅니다. `0`은 프로퍼티 시작 값, `1`은 최종값을 나타냅니다.
 
-The simplest variant is when the animation goes uniformly, with the same linear speed. That can be specified by the curve `cubic-bezier(0, 0, 1, 1)`.
+가장 간단한 timing 함수를 적용하면 애니메이션 효과가 일정한 속도로 나타납니다. `cubic-bezier(0, 0, 1, 1)`를 사용해 기울기가 1인 직선형 함수를 만들어봅시다.
 
-Here's how that curve looks:
+베지어 곡선이 이렇게 그려지겠죠.
 
 ![](bezier-linear.svg)
 
-...As we can see, it's just a straight line. As the time (`x`) passes, the completion (`y`) of the animation steadily goes from `0` to `1`.
+보시다시피 그냥 직선입니다. 시간(`x`)이 지나면서 애니메이션의 완성도(`y`)가 `0`에서 `1`로 꾸준히 올라갑니다.
 
-The train in the example below goes from left to right with the permanent speed (click it):
+이제 아래 기차를 클릭해, 기차가 일정한 속도로 왼쪽에서 오른쪽으로 이동하게 해봅시다.
 
 [codetabs src="train-linear"]
 
-The CSS `transition` is based on that curve:
+실제 사용한 스타일은 다음과 같습니다.
 
 ```css
 .train {
   left: 0;
   transition: left 5s cubic-bezier(0, 0, 1, 1);
-  /* JavaScript sets left to 450px */
+  /* left 속성값(450px)은 자바스크립트에서 설정함 */
 }
 ```
 
-...And how can we show a train slowing down?
+이제 기차가 점점 느리게 이동하도록 만들어봅시다.
 
-We can use another Bezier curve: `cubic-bezier(0.0, 0.5, 0.5 ,1.0)`.
+다른 베지어 곡선 `cubic-bezier(0.0, 0.5, 0.5 ,1.0)`을 사용해서 말이죠.
 
-The graph:
+새로운 베지어 곡선은 다음과 같습니다.
 
 ![](train-curve.svg)
 
-As we can see, the process starts fast: the curve soars up high, and then slower and slower.
+그래프에서 볼 수 있듯이 프로세스는 초반에 빠르게 진행되다가 점점 느려질 겁니다.
 
-Here's the timing function in action (click the train):
+기차를 클릭해 실제 timing 함수가 어떻게 적용되었는지 확인해봅시다.
 
 [codetabs src="train"]
 
@@ -191,24 +191,24 @@ CSS:
 .train {
   left: 0;
   transition: left 5s cubic-bezier(0, .5, .5, 1);
-  /* JavaScript sets left to 450px */
+    /* left 속성값(450px)은 자바스크립트에서 설정함 */
 }
 ```
 
-There are several built-in curves: `linear`, `ease`, `ease-in`, `ease-out` and `ease-in-out`.
+직접 베지어 곡선을 만드는 것 말고, 내장 곡선을 사용할 수도 있습니다. 내장 곡선엔 `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` 등이 있습니다.
 
-The `linear` is a shorthand for `cubic-bezier(0, 0, 1, 1)` -- a straight line, we saw it already.
+`linear`는 위에서 본 직선 형태의 timing 함수를 쓸 때 사용된 `cubic-bezier(0, 0, 1, 1)`와 동일한 효과를 줍니다.
 
-Other names are shorthands for the following `cubic-bezier`:
+각 내장 곡선에 대응하는 베지어 곡선은 다음과 같습니다.
 
 | <code>ease</code><sup>*</sup> | <code>ease-in</code> | <code>ease-out</code> | <code>ease-in-out</code> |
 |-------------------------------|----------------------|-----------------------|--------------------------|
 | <code>(0.25, 0.1, 0.25, 1.0)</code> | <code>(0.42, 0, 1.0, 1.0)</code> | <code>(0, 0, 0.58, 1.0)</code> | <code>(0.42, 0, 0.58, 1.0)</code> |
 | ![ease, figure](ease.svg) | ![ease-in, figure](ease-in.svg) | ![ease-out, figure](ease-out.svg) | ![ease-in-out, figure](ease-in-out.svg) |
 
-`*` -- by default, if there's no timing function, `ease` is used.
+`*`로 표시한 내장 곡선 `ease`는 timing 함수가 없을 때 기본값으로 사용됩니다.
 
-So we could use `ease-out` for our slowing down train:
+이제 `ease-out`을 사용해 기차가 점점 느려지도록 해봅시다.
 
 
 ```css
@@ -219,56 +219,56 @@ So we could use `ease-out` for our slowing down train:
 }
 ```
 
-But it looks a bit differently.
+베지어 곡선 `cubic-bezier(0.0, 0.5, 0.5 ,1.0)`을 사용한 것처럼 기차가 점점 느려지긴 하지만 프로세스 정도가 조금 다른 것을 확인할 수 있습니다.
 
-**A Bezier curve can make the animation "jump out" of its range.**
+한편, **베지어 곡선을 사용하면 애니메이션이 지정한 범위를 '넘어서' 적용되게 할 수 있습니다.**
 
-The control points on the curve can have any `y` coordinates: even negative or huge. Then the Bezier curve would also jump very low or high, making the animation go beyond its normal range.
+베지어 곡선에서 중간 조절점의 `y` 좌표는 제약이 없습니다. 음수 또는 매우 큰 값도 가능하죠. 그런데 조절점의 `y` 좌표가 음수 또는 큰 값일 때 베지어 곡선은 매우 낮거나 높게 그려집니다. 이러면 애니메이션이 정상 범위를 벗어납니다.
 
-In the example below the animation code is:
+아래쪽 기차 예시에 다음과 같은 css를 적용했다고 가정해봅시다.
 ```css
 .train {
   left: 100px;
   transition: left 5s cubic-bezier(.5, -1, .5, 2);
-  /* JavaScript sets left to 400px */
+    /* left 속성값(400px)은 자바스크립트에서 설정함 */
 }
 ```
 
-The property `left` should animate from `100px` to `400px`.
+이 css가 적용되면, `left` 프로퍼티가 `100px`에서 `400px`로 점차 변해야 합니다.
 
-But if you click the train, you'll see that:
+그런데 기차를 클릭하면 기차는 다음과 같이 움직입니다.
 
-- First, the train goes *back*: `left` becomes less than `100px`.
-- Then it goes forward, a little bit farther than `400px`.
-- And then back again -- to `400px`.
+- 먼저 기차가 뒤로 이동합니다. `left` 값은 `100px`보다 조금 안되게 설정됩니다.
+- 그리고 나서 다시 기차는 앞으로 이동합니다. 이때 `left` 값은 `400px`보다 조금 큽니다.
+- 그리고 나서 `left`가 `400px`일 때의 위치로 후진합니다.
 
 [codetabs src="train-over"]
 
-Why it happens -- pretty obvious if we look at the graph of the given Bezier curve:
+왜 이렇게 이동하는지는 아래의 베지어 곡선 그래프를 보면 아주 명확히 알 수 있습니다.
 
 ![](bezier-train-over.svg)
 
-We moved the `y` coordinate of the 2nd point below zero, and for the 3rd point we made put it over `1`, so the curve goes out of the "regular" quadrant. The `y` is out of the "standard" range `0..1`.
+두 번째 조절점의 `y` 좌표가 `0`보다 작아지고, 세 번째 조절점의 좌표가 `1`보다 커지면서 곡선이 '정상' 범위를 벗어난 것을 확인할 수 있습니다. '정상' 범위인 `0..1`을 벗어난 것이죠.
 
-As we know, `y` measures "the completion of the animation process". The value `y = 0` corresponds to the starting property value and `y = 1` -- the ending value. So values `y<0` move the property lower than the starting `left` and `y>1` -- over the final `left`.
+아시다시피, timing 함수의 `y`축은 '애니메이션 프로세스의 완성도'를 나타냅니다. `y`가 `0`일 땐 프로퍼티 시작 값을, `y`가 `1`일 땐 프로세스 종료 값을 의미하죠. 그렇기 때문에 `y`가 `0`보다 작아지면 `left` 프로퍼티가 시작 값인 100px 보다 낮게 설정되고, `y`가 `1`보다 커지면 `left` 프로퍼티가 끝값인 400px보다 커지게 됩니다.
 
-That's a "soft" variant for sure. If we put `y` values like `-99` and `99` then the train would jump out of the range much more.
+이 예시에선 `y` 값이 정상 범위를 크게 벗어나지 않기 때문에 '부드럽게' 변형이 일어납니다. 그런데 `y` 값이 `-99`나 `99`가 되면 기차가 앞·뒤로 아주 크게 움직이겠죠?
 
-But how to make the Bezier curve for a specific task? There are many tools. For instance, we can do it on the site <http://cubic-bezier.com/>.
+이쯤 되면 원하는 애니메이션 효과를 줄 수 있는 베지어 곡선은 어떻게 만들 수 있을지 의문이 들 겁니다. 베지어 곡선을 만들어주는 툴은 다양한데, <http://cubic-bezier.com/>에서도 가능합니다.
 
-### Steps
+### 단계
 
-Timing function `steps(number of steps[, start/end])` allows to split animation into steps.
+timing 함수 `steps(number of steps[, start/end])`를 사용하면 애니메이션을 여러 단계(step)로 나눌 수 있습니다.
 
-Let's see that in an example with digits.
+숫자를 사용해 예시를 만들어봅시다.
 
-Here's a list of digits, without any animations, just as a source:
+지금은 애니메이션을 적용하지 않았습니다.
 
 [codetabs src="step-list"]
 
-We'll make the digits appear in a discrete way by making the part of the list outside of the red "window" invisible and shifting the list to the left with each step.
+이제 애니메이션을 적용해 빨간 '박스' 밖에 있는 숫자들은 숨기고, 단계별로 숫자 목록을 왼쪽으로 이동 시켜, 사용자 눈엔 숫자가 하나씩 증가하는 것처럼 보이게 합시다.
 
-There will be 9 steps, a step-move for each digit:
+9까지 숫자를 증가시켜야 하므로 단계는 총 9개가 됩니다.
 
 ```css
 #stripe.animate  {
@@ -277,58 +277,58 @@ There will be 9 steps, a step-move for each digit:
 }
 ```
 
-In action:
+숫자를 클릭해 원하는 대로 동작하는지 확인해봅시다.
 
 [codetabs src="step"]
 
-The first argument of `steps(9, start)` is the number of steps. The transform will be split into 9 parts (10% each). The time interval is automatically divided into 9 parts as well, so `transition: 9s` gives us 9 seconds for the whole animation – 1 second per digit.
+timing 함수 `steps(9, start)`에서 첫 번째 인수는 단계의 수이므로 전체 프로세스가 9단계로 나눠 적용되 10%씩 진행되는 것을 확인할 수 있습니다. 이때 시간 간격도 자동으로 9단계로 나뉘기 때문에 1초 간격으로 숫자가 증가하게 됩니다.
 
-The second argument is one of two words: `start` or `end`.
+두 번째 인수는 `start`나 `end` 중 하나입니다.
 
-The `start` means that in the beginning of animation we need to do make the first step immediately.
+두 번째 인수가 `start`인 경우엔 애니메이션이 첫 번째 단계부터 바로 시작됩니다.
 
-We can observe that during the animation: when we click on the digit it changes to `1` (the first step) immediately, and then changes in the beginning of the next second.
+숫자를 클릭하면 숫자가 `1`로 바로 바뀌고(첫 번째 단계), 1초 후에 다음 숫자(다음 단계)로 바뀌는 것을 확인할 수 있습니다.
 
-The process is progressing like this:
+초별로 프로세스가 몇 %씩 진행되는지를 정리하면 다음과 같죠.
 
-- `0s` -- `-10%` (first change in the beginning of the 1st second, immediately)
+- `0s` -- `-10%` (애니메이션이 시작하자마자 바로 첫 번째 단계가 수행됨)
 - `1s` -- `-20%`
 - ...
 - `8s` -- `-80%`
-- (the last second shows the final value).
+- (마지막 초에 최종값이 나타남)
 
-The alternative value `end` would mean that the change should be applied not in the beginning, but at the end of each second.
+반면 두 번째 인수가 `end`인 경우엔 애니메이션이 바로 시작하지 않고 각 초가 끝날 때 시작됩니다.
 
-So the process would go like this:
+초별 프로세스 정도는 다음과 같습니다.
 
 - `0s` -- `0`
-- `1s` -- `-10%` (first change at the end of the 1st second)
+- `1s` -- `-10%` (1초가 지난 후에 첫 단계가 수행됨)
 - `2s` -- `-20%`
 - ...
 - `9s` -- `-90%`
 
-Here's `step(9, end)` in action (note the pause between the first digit change):
+두 번째 인수를 변화 시켜(`steps(9, end)`) 실제 어떻게 애니메이션이 변화하는지 확인해봅시다.
 
 [codetabs src="step-end"]
 
-There are also shorthand values:
+참고로 다음과 같은 내장 값을 사용해 timing 함수를 지정할 수도 있습니다.
 
-- `step-start` -- is the same as `steps(1, start)`. That is, the animation starts immediately and takes 1 step. So it starts and finishes immediately, as if there were no animation.
-- `step-end` -- the same as `steps(1, end)`: make the animation in a single step at the end of `transition-duration`.
+- `step-start` -- `steps(1, start)`와 같습니다. 따라서 애니메이션의 첫 단계가 바로 시작되고 첫 번째 단계만 실행됩니다. 마치 애니메이션 효과가 없는 것처럼 보입니다.
+- `step-end` -- `steps(1, end)`와 같습니다. `transition-duration`의 끝에 애니메이션이 한 단계만 진행됩니다.
 
-These values are rarely used, because that's not really animation, but rather a single-step change.
+위 값들을 사용하면 움직이는 효과를 볼 수 없기 때문에 거의 사용되지 않습니다.
 
-## Event transitionend
+## transitionend 이벤트
 
-When the CSS animation finishes the `transitionend` event triggers.
+CSS 애니메이션이 끝나면 `transitionend` 이벤트가 자동으로 트리거됩니다.
 
-It is widely used to do an action after the animation is done. Also we can join animations.
+`transitionend` 이벤트는 애니메이션이 끝났을 때 무언가를 하고 싶은 경우 많이 사용됩니다. 애니메이션 여러 개를 조합할 때도 자주 쓰이죠.
 
-For instance, the ship in the example below starts to swim there and back on click, each time farther and farther to the right:
+예를 들어봅시다. 아래 예시에서 배를 클릭하면 배가 오른쪽, 왼쪽으로 움직이는데 한번 왕복할 때마다 오른쪽으로 더 멀리 이동합니다.
 
 [iframe src="boat" height=300 edit link]
 
-The animation is initiated by the function `go` that re-runs each time when the transition finishes and flips the direction:
+트랜지션이 종료될 때마다 방향을 뒤집는 함수 `go`가 다시 실행되면서 새로운 애니메이션이 시작되는 것이죠.
 
 ```js
 boat.onclick = function() {
@@ -337,11 +337,11 @@ boat.onclick = function() {
 
   function go() {
     if (times % 2) {
-      // swim to the right
+      // 오른쪽으로 가기
       boat.classList.remove('back');
       boat.style.marginLeft = 100 * times + 200 + 'px';
     } else {
-      // swim to the left
+      // 왼쪽으로 가기
       boat.classList.add('back');
       boat.style.marginLeft = 100 * times - 200 + 'px';
     }
@@ -357,40 +357,40 @@ boat.onclick = function() {
 };
 ```
 
-The event object for `transitionend` has few specific properties:
+트렌지션과 관련된 이벤트는 몇 가지 특수 프로퍼티를 지원합니다.
 
 `event.propertyName`
-: The property that has finished animating. Can be good if we animate multiple properties simultaneously.
+: 애니메이션이 완료된 프로퍼티로, 동시에 여러 개의 프로퍼티에 애니메이션 효과를 줄 때 사용할 수 있습니다.
 
 `event.elapsedTime`
-: The time (in seconds) that the animation took, without `transition-delay`.
+: `transition-delay`가 없다는 가정하에 애니메이션 효과에 걸린 시간(초)을 나타냅니다.
 
-## Keyframes
+## keyframes
 
-We can join multiple simple animations together using the `@keyframes` CSS rule.
+CSS 문법인 `@keyframes`을 사용하면 간단한 애니메이션 여러 개를 한꺼번에 실행시킬 수 있습니다.
 
-It specifies the "name" of the animation and rules: what, when and where to animate. Then using the `animation` property we attach the animation to the element and specify additional parameters for it.
+`@keyframes`엔 애니메이션 '이름'과 무엇을, 언제, 어디서 움직일지를 설정할 수 있습니다. `@keyframes`에 적절한 값을 넣은 후엔 `animation` 프로퍼티를 사용해 원하는 요소에 커스텀 애니메이션을 적용할 수 있습니다. 물론 추가 매개변수도 지정할 수 있습니다.
 
-Here's an example with explanations:
+주석에 설명을 달아놓은 예시를 살펴봅시다.
 
 ```html run height=60 autorun="no-epub" no-beautify
 <div class="progress"></div>
 
 <style>
 *!*
-  @keyframes go-left-right {        /* give it a name: "go-left-right" */
-    from { left: 0px; }             /* animate from left: 0px */
-    to { left: calc(100% - 50px); } /* animate to left: 100%-50px */
+  @keyframes go-left-right {        /* 애니메이션 이름 지정: "go-left-right" */
+    from { left: 0px; }             /* left 0px 부터 애니메이션 시작 */
+    to { left: calc(100% - 50px); } /* left 값이 100%-50px 될 때까지 애니메이션 적용 */
   }
 */!*
 
   .progress {
 *!*
     animation: go-left-right 3s infinite alternate;
-    /* apply the animation "go-left-right" to the element
-       duration 3 seconds
-       number of times: infinite
-       alternate direction every time
+    /* 해당 요소에 커스텀 애니메이션 'go-left-right' 적용
+       지속 시간은 3초,
+       반복 횟수는 무한(infinite)
+       방향은 매번 바뀜
     */
 */!*
 
@@ -403,25 +403,25 @@ Here's an example with explanations:
 </style>
 ```
 
-There are many articles about `@keyframes` and a [detailed specification](https://drafts.csswg.org/css-animations/).
+`@keyframes`을 다루는 글이나 [명세서](https://drafts.csswg.org/css-animations/)를 읽으면 더 많은 정보를 찾을 수 있으니 참고해보시기 바랍니다.
 
-Probably you won't need `@keyframes` often, unless everything is in the constant move on your sites.
+참고로 사이트에 있는 특정 요소를 계속 정적인 형태로 움직이지 않는 한은 `@keyframes`를 쓸 일은 많지 않을 겁니다.
 
-## Summary
+## 요약
 
-CSS animations allow to smoothly (or not) animate changes of one or multiple CSS properties.
+CSS 애니메이션을 사용하면 하나 또는 여러 CSS 프로퍼티를 부드럽게(부드럽지 않게도 가능) 변화시킬 수 있습니다.
 
-They are good for most animation tasks. We're also able to use JavaScript for animations, the next chapter is devoted to that.
+CSS 애니메이션은 전환이 필요한 대다수의 경우에 큰 도움을 줍니다. 자바스크립트를 사용해도 전환 효과를 줄 수 있긴 한데 이에 대해선 다음 챕터에서 다룰 예정입니다.
 
-Limitations of CSS animations compared to JavaScript animations:
+참고로 CSS 애니메이션은 자바스크립트 애니메이션과 비교해 다음과 같은 장단점이 있습니다.
 
 ```compare plus="CSS animations" minus="JavaScript animations"
-+ Simple things done simply.
-+ Fast and lightweight for CPU.
-- JavaScript animations are flexible. They can implement any animation logic, like an "explosion" of an element.
-- Not just property changes. We can create new elements in JavaScript for purposes of animation.
++ 간단한 애니메이션을 간단히 수행함
++ 빠르고 CPU를 많이 소모하지 않음
+- 자바스크립트 애니메이션보다 덜 유연함. 요소의 '폭발' 같은 특수한 애니메이션 로직을 구현할 수 없음
+- 자바스크립트를 사용하면 프로퍼티의 변화뿐만 아니라, 애니메이션에 필요한 새로운 요소를 만들 수 있는데, CSS만으로는 불가능함
 ```
 
-The majority of animations can be implemented using CSS as described in this chapter. And  `transitionend` event allows to run JavaScript after the animation, so it integrates fine with the code.
+사실 대부분의 애니메이션은 이번 챕터에 설명한 CSS 프로퍼티를 사용해 구현할 수 있습니다. 여기에 더하여 `transitionend` 이벤트를 사용해 애니메이션이 끝난 후에 실행시킬 자바스크립트 코드를 지정할 수도 있죠.
 
-But in the next chapter we'll do some JavaScript animations to cover more complex cases.
+하지만 좀 더 복잡한 케이스를 다루려면 자바스크립트 애니메이션을 알아야 하므로 다음 챕터에선 이를 다뤄보겠습니다.

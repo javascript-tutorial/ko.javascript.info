@@ -1,11 +1,11 @@
 export function hi() {
-  alert(`Hello`);
+  alert(`안녕하세요.`);
 }
 
 export function bye() {
-  alert(`Bye`);
+  alert(`안녕히 가세요.`);
 }
 
 export default function() {
-  alert("Module loaded (export default)!");
+  alert("export default한 모듈을 불러왔습니다!");
 }

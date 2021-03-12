@@ -1,3 +1,3 @@
-# Regexp ^$
+# 정규식 ^$
 
-Which string matches the pattern `pattern:^$`?
+`pattern:^$`와 일치하는 문자열은 어떤 문자열일까요?

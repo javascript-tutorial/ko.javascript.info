@@ -1,4 +1,4 @@
-The answer: **`BODY`**.
+**`BODY`**가 출력됩니다.
 
 ```html run
 <script>
@@ -10,8 +10,8 @@ The answer: **`BODY`**.
 </script>
 ```
 
-What's going on step by step:
+차근차근 설명해보겠습니다.
 
-1. The content of `<body>` is replaced with the comment. The comment is `<!--BODY-->`, because `body.tagName == "BODY"`. As we remember, `tagName` is always uppercase in HTML.
-2. The comment is now the only child node, so we get it in `body.firstChild`.
-3. The `data` property of the comment is its contents (inside `<!--...-->`): `"BODY"`.
+1. `<body>`의 콘텐츠가 `<!--BODY-->`로 대체됩니다. `body.tagName`은  `"BODY"`이기 때문입니다. `tagName`은 항상 대문자라는 점을 잊지 마세요.
+2. `<body>`의 콘텐츠가  교체되면서 주석이 유일한 자식 노드가 됩니다. 따라서 `body.firstChild`을 사용해 주석을 얻을 수 있게 됩니다.
+3. 주석 노드의 `data` 프로퍼티엔 주석 내용(`<!--...-->` 안쪽의 내용)이 저장됩니다. 따라서 `data` 프로퍼티의 값은 `"BODY"`입니다.

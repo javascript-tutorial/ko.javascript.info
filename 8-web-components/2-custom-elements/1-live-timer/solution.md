@@ -1,4 +1,4 @@
 
-Please note:
-1. We clear `setInterval` timer when the element is removed from the document. That's important, otherwise it continues ticking even if not needed any more. And the browser can't clear the memory from this element and referenced by it.
-2. We can access current date as `elem.date` property. All class methods and properties are naturally element methods and properties.
+두 가지 참고 사항이 있습니다.
+1. 요소가 문서에서 제거되면 `setInterval` 타이머도 지웁니다. 그러지 않으면 더 필요하지 않더라도 계속 tick 하므로 타이머를 지우는 것은 중요합니다. 그리고 `setInterval` 타이머를 지우지 않으면 브라우저는 요소의 메모리와 요소에 의해 참조된 메모리를 지우고 참조할 수 없습니다.
+2. 현재 날짜는 `elem.date` 프로퍼티로 접근할 수 있습니다. 당연히 모든 클래스 메서드와 프로퍼티는 요소 메서드와 프로퍼티입니다.

@@ -140,7 +140,7 @@ let eventMixin = {
    *  사용패턴: menu.off('select', handler)
    */
   off(eventName, handler) {
-    let handlers = this._eventHandlers && this._eventHandlers[eventName];
+    let handlers = this._eventHandlers?.[eventName];
     if (!handlers) return;
     for (let i = 0; i < handlers.length; i++) {
       if (handlers[i] === handler) {
@@ -154,7 +154,7 @@ let eventMixin = {
    *  사용패턴: this.trigger('select', data1, data2);
    */
   trigger(eventName, ...args) {
-    if (!this._eventHandlers || !this._eventHandlers[eventName]) {
+    if (!this._eventHandlers?.[eventName]) {
       return; // no handlers for that event name
     }
 
@@ -205,4 +205,4 @@ menu.choose("123");
 
 이벤트 믹스인 예시에서 본 것처럼, 믹스인은 이벤트 핸들링 등의 행동을 추가하여 클래스를 확장하는 용도로 사용할 수 있습니다.
 
-mixin이 실수로 기존 클래스 메서드를 덮어쓰면 충돌이 발생할 수 있습니다. 따라서 mixin을 만들 땐 충돌이 발생하지 않ㄷ록 메서드 이름을 신중하게 정하셔야 합니다. 
+mixin이 실수로 기존 클래스 메서드를 덮어쓰면 충돌이 발생할 수 있습니다. 따라서 mixin을 만들 땐 충돌이 발생하지 않도록 메서드 이름을 신중하게 정하셔야 합니다. 

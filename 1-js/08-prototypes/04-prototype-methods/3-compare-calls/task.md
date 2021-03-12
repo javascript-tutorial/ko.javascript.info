@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# The difference between calls
+# 호출 간의 차이점
 
-Let's create a new `rabbit` object:
+새로운 `rabbit` 객체를 만들어 봅시다.
 
 ```js
 function Rabbit(name) {
@@ -17,7 +17,7 @@ Rabbit.prototype.sayHi = function() {
 let rabbit = new Rabbit("Rabbit");
 ```
 
-These calls do the same thing or not?
+아래와 같이 메서드를 호출하면 동일하게 동작할지 다르게 동작할지 예상해 보세요.
 
 ```js
 rabbit.sayHi();

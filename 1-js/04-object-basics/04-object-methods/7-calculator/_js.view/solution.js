@@ -8,7 +8,7 @@ let calculator = {
   },
 
   read() {
-    this.a = +prompt('a?', 0);
-    this.b = +prompt('b?', 0);
+    this.a = +prompt('첫 번째 값:', 0);
+    this.b = +prompt('두 번째 값:', 0);
   }
 };

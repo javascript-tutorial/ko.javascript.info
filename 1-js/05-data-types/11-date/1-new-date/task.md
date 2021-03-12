@@ -2,8 +2,8 @@ importance: 5
 
 ---
 
-# Create a date
+# 날짜 생성하기
 
-Create a `Date` object for the date: Feb 20, 2012, 3:12am. The time zone is local.
+2012년 2월 20일, 오전 3시 12분을 나타내는 `Date` 객체를 만들어보세요(시간대는 로컬).
 
-Show it using `alert`.
+그리고 `alert` 함수를 이용해 생성한 객체를 출력하세요.

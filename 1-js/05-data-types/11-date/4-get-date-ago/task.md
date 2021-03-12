@@ -2,20 +2,20 @@ importance: 4
 
 ---
 
-# Which day of month was many days ago?
+# n일 전 '일' 출력하기
 
-Create a function `getDateAgo(date, days)` to return the day of month `days` ago from the `date`.
+`date`를 기준으로 `days`일 전 '일'을 반환하는 함수 `getDateAgo(date, days)`를 만들어보세요, 
 
-For instance, if today is 20th, then `getDateAgo(new Date(), 1)` should be 19th and `getDateAgo(new Date(), 2)` should be 18th.
+오늘이 20일이라면 `getDateAgo(new Date(), 1)`는 19를, `getDateAgo(new Date(), 2)`는 18을 반환해야 합니다.
 
-Should work reliably for `days=365` or more:
+`days`가 `365`일 때도 제대로 동작해야 합니다.
 
 ```js
-let date = new Date(2015, 0, 2);
+let date = new Date(2015, 0, 2); // 2015년 1월 2일
 
-alert( getDateAgo(date, 1) ); // 1, (1 Jan 2015)
-alert( getDateAgo(date, 2) ); // 31, (31 Dec 2014)
-alert( getDateAgo(date, 365) ); // 2, (2 Jan 2014)
+alert( getDateAgo(date, 1) ); // 1, (2015년 1월 1일)
+alert( getDateAgo(date, 2) ); // 31, (2014년 12월 31일)
+alert( getDateAgo(date, 365) ); // 2, (2014년 1월 2일)
 ```
 
-P.S. The function should not modify the given `date`.
+주의: 함수는 `date`를 변경하지 않아야 합니다. 

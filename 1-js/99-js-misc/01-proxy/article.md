@@ -2,7 +2,9 @@
 
 `Proxy`는 특정 객체를 감싸 프로퍼티 읽기, 쓰기와 같은 객체에 가해지는 작업을 중간에서 가로채는 객체로, 가로채진 작업은 `Proxy` 자체에서 처리되기도 하고, 원래 객체가 처리하도록 그대로 전달되기도 합니다.
 
-프락시는 다양한 라이브러리와 몇몇 브라우저 프레임워크에서 사용되고 있습니다. 이번 챕터에선 프락시를 어떻게 실무에 적용할 수 있을지 다양한 예제를 통해 살펴보도록 하겠습니다. 
+프락시는 다양한 라이브러리와 몇몇 브라우저 프레임워크에서 사용되고 있습니다. 이번 챕터에선 프락시를 어떻게 실무에 적용할 수 있을지 다양한 예제를 통해 살펴보겠습니다.
+
+## Proxy
 
 문법:
 
@@ -95,7 +97,7 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 
 - `target` -- 동작을 전달할 객체로 `new Proxy`의 첫 번째 인자입니다.
 - `property` -- 프로퍼티 이름
-- `receiver` -- 타깃 프로퍼티가 getter라면 `receiver`는 getter가 호출될 때 `this` 입니다. 대게는 `proxy` 객체 자신이 `this`가 됩니다. 프락시 객체를 상속받은 객체가 있다면 해당 객체가 `this`가 되기도 하죠. 지금 당장은 이 인수가 필요 없으므로 더 자세한 내용은 나중에 다루도록 하겠습니다.
+- `receiver` -- 타깃 프로퍼티가 getter라면 `receiver`는 getter가 호출될 때 `this` 입니다. 대개는 `proxy` 객체 자신이 `this`가 됩니다. 프락시 객체를 상속받은 객체가 있다면 해당 객체가 `this`가 되기도 하죠. 지금 당장은 이 인수가 필요 없으므로 더 자세한 내용은 나중에 다루도록 하겠습니다.
 
 `get`을 활용해 객체에 기본값을 설정해보겠습니다.
 
@@ -310,7 +312,7 @@ user = new Proxy(user, {
     return {
       enumerable: true,
       configurable: true
-      /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능하죠. */
+      /* 이 외의 플래그도 반환할 수 있습니다. "value:..."도 가능합니다. */
     };
   }
 
@@ -485,7 +487,7 @@ range = new Proxy(range, {
 *!*
   has(target, prop) {
 */!*
-    return prop >= target.start && prop <= target.end
+    return prop >= target.start && prop <= target.end;
   }
 });
 
@@ -507,7 +509,7 @@ alert(50 in range); // false
 - `thisArg` -- `this`의 값
 - `args` -- 인수 목록
 
-<info:call-apply-decorators> 챕터에서 살펴보았던 `delay(f, ms)` 데코레이터(decorator)를 떠올려봅시다.
+<info:call-apply-decorators>에서 살펴보았던 `delay(f, ms)` 데코레이터(decorator)를 떠올려봅시다.
 
 해당 챕터 에선 프락시를 사용하지 않고 데코레이터를 구현하였습니다. `delay(f, ms)`를 호출하면 함수가 반환되는데, 이 함수는 함수 `f`가 `ms`밀리초 후에 호출되도록 해주었죠.  
 
@@ -587,13 +589,13 @@ sayHi("John"); // Hello, John! (3초 후)
 
 좀 더 성능이 좋은 래퍼를 갖게 되었네요.
 
-이 외에도 다양한 트랩이 존재합니다. 트랩 전체 리스트는 상단부 표에 정리되어있으니 확인하시면 됩니다. 지금까지 소개해 드린 예시를 응용하면 충분히 프락시를 활용하실 수 있을 겁니다. 
+이 외에도 다양한 트랩이 존재합니다. 트랩 전체 리스트는 위쪽 표에 정리되어있으니 확인하시면 됩니다. 지금까지 소개해 드린 예시를 응용하면 충분히 프락시를 활용하실 수 있을 겁니다. 
 
 ## Reflect
 
 `Reflect` is a built-in object that simplifies creation of `Proxy`.
 
-It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specifiction only, they can't be called directly.
+It was said previously that internal methods, such as `[[Get]]`, `[[Set]]` and others are specification-only, they can't be called directly.
 
 The `Reflect` object makes that somewhat possible. Its methods are minimal wrappers around the internal methods.
 
@@ -603,7 +605,7 @@ Here are examples of operations and `Reflect` calls that do the same:
 |-----------------|----------------|-------------|
 | `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
 | `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[HasProperty]]` |
+| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
 | `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
 | ... | ... | ... |
 
@@ -619,7 +621,7 @@ alert(user.name); // John
 
 In particular, `Reflect` allows us to call operators (`new`, `delete`...) as functions (`Reflect.construct`, `Reflect.deleteProperty`, ...). That's an interesting capability, but here another thing is important.
 
-**For every internal method, trappable by `Proxy`, there's a corresponding method in `Reflect`, with the same name and arguments as `Proxy` trap.**
+**For every internal method, trappable by `Proxy`, there's a corresponding method in `Reflect`, with the same name and arguments as the `Proxy` trap.**
 
 So we can use `Reflect` to forward an operation to the original object.
 
@@ -660,7 +662,7 @@ In most cases we can do the same without `Reflect`, for instance, reading a prop
 
 ### Proxying a getter
 
-Let's see an example that demonstrates why `Reflect.get` is better. And we'll also see why `get/set` have the fourth argument `receiver`, that we didn't use before.
+Let's see an example that demonstrates why `Reflect.get` is better. And we'll also see why `get/set` have the third argument `receiver`, that we didn't use before.
 
 We have an object `user` with `_name` property and a getter for it.
 
@@ -685,7 +687,7 @@ let userProxy = new Proxy(user, {
 alert(userProxy.name); // Guest
 ```
 
-The `get` trap is 'transparent' here, it returns the original property, and doesn't do anything else. That's enough for our example.
+The `get` trap is "transparent" here, it returns the original property, and doesn't do anything else. That's enough for our example.
 
 Everything seems to be all right. But let's make the example a little bit more complex.
 
@@ -838,7 +840,7 @@ So there's no such problem when proxying an array.
 
 ### Private fields
 
-The similar thing happens with private class fields.
+A similar thing happens with private class fields.
 
 For example, `getName()` method accesses the private `#name` property and breaks after proxying:
 
@@ -961,7 +963,7 @@ revoke();
 alert(proxy.data); // Error
 ```
 
-A call to `revoke()` removes all internal references to the target object from the proxy, so they are no more connected. The target object can be garbage-collected after that.
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. The target object can be garbage-collected after that.
 
 We can also store `revoke` in a `WeakMap`, to be able to easily find it by a proxy object:
 

@@ -2,13 +2,13 @@ importance: 5
 
 ---
 
-# Last day of month?
+# 달의 마지막 일
 
-Write a function `getLastDayOfMonth(year, month)` that returns the last day of month. Sometimes it is 30th, 31st or even 28/29th for Feb.
+특정 달의 마지막 일을 반환하는 함수 `getLastDayOfMonth(year, month)`를 작성해보세요. 반환 값은 30이나 31, 29(2월), 28(2월)이 될 겁니다.
 
-Parameters:
+매개변수:
 
-- `year` -- four-digits year, for instance 2012.
-- `month` -- month, from 0 to 11.
+- `year` -- 숫자 4개로 구성된 연(예: 2012)
+- `month` -- 월(0부터 11)
 
-For instance, `getLastDayOfMonth(2012, 1) = 29` (leap year, Feb).
+윤년인 2012년의 2월은 29가 반환되어야 합니다. `getLastDayOfMonth(2012, 1) = 29`
