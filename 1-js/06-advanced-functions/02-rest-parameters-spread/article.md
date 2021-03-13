@@ -225,50 +225,47 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 문법보다 `Array.from`이 보편적으로 사용됩니다.
 
 
-## Get a new copy of an array/object
+## 배열/객체 복사하기
 
-Remember when we talked about `Object.assign()` [in the past](info:object-copy#cloning-and-merging-object-assign)?
+[지난 챕터](info:object-copy#cloning-and-merging-object-assign)에서 `Object.assign()`을 사용했던 것을 기억하시나요?
 
-It is possible to do the same thing with the spread syntax.
+전개 문법으로도 동일한 작업을 수행할 수 있습니다.
 
 ```js run
 let arr = [1, 2, 3];
-let arrCopy = [...arr]; // spread the array into a list of parameters
-                        // then put the result into a new array
+let arrCopy = [...arr]; // 배열을 매개변수 목록으로 전개 후 새 배열에 넣습니다.
 
-// do the arrays have the same contents?
+// 두 배열이 동일한 내용을 가지고 있을까요?
 alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
 
-// are the arrays equal?
+// 두 배열이 같을까요?
 alert(arr === arrCopy); // false (not same reference)
 
-// modifying our initial array does not modify the copy:
+// 초기 배열을 수정해도 복사본이 수정되지 않습니다.
 arr.push(4);
 alert(arr); // 1, 2, 3, 4
 alert(arrCopy); // 1, 2, 3
 ```
 
-Note that it is possible to do the same thing to make a copy of an object:
+객체의 복사본을 만들 때도 동일하게 사용 가능합니다.
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
-let objCopy = { ...obj }; // spread the object into a list of parameters
-                          // then return the result in a new object
+let objCopy = { ...obj }; // 객체를 매개변수 목록으로 전개 후 새 객체에 넣습니다.
 
-// do the objects have the same contents?
+// 두 객체가 동일한 내용을 가지고 있을까요?
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
 
-// are the objects equal?
+// 두 객체가 같을까요?
 alert(obj === objCopy); // false (not same reference)
 
-// modifying our initial object does not modify the copy:
+// 초기 객체를 수정해도 복사본이 수정되지 않습니다.
 obj.d = 4;
 alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
-This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj);` or for an array `let arrCopy = Object.assign([], arr);` so we prefer to use it whenever we can.
-
+전개 문법은 객체 복사할 때 `let objCopy = Object.assign({}, obj);`을 사용하는 것(배열 복사 시 `let arrCopy = Object.assign([], arr);`)보다 훨씬 짧기 때문에 전개 문법을 사용하는 것이 좋습니다
 
 ## 요약
 
