@@ -2,13 +2,13 @@ importance: 4
 
 ---
 
-# Create keyed object from array
+# 배열에서 키가있는 객체 만들기
 
-Let's say we received an array of users in the form `{id:..., name:..., age... }`.
+다음 형식의 사용자 배열이 있습니다. `{id:..., name:..., age... }`.
 
-Create a function `groupById(arr)` that creates an object from it, with `id` as the key, and array items as values.
+`id`가 키(key), 배열 요소가 값(value)인 객체를 생성하는 `groupById (arr)`함수를 작성해보세요.
 
-For example:
+예시:
 
 ```js
 let users = [
@@ -20,7 +20,7 @@ let users = [
 let usersById = groupById(users);
 
 /*
-// after the call we should have:
+// 함수 호출 후
 
 usersById = {
   john: {id: 'john', name: "John Smith", age: 20},
@@ -30,8 +30,8 @@ usersById = {
 */
 ```
 
-Such function is really handy when working with server data.
+이런 함수는 서버 데이터 작업할때 유용합니다.
 
-In this task we assume that `id` is unique. There may be no two array items with the same `id`.
+이번 과제에서 우리는 `id`가 고유하다는 가정을 합니다. 배열에서 같은 `id`를 갖는 두개의 배열 요소는 존재하지 않습니다.
 
-Please use array `.reduce` method in the solution.
+정답 작성시 `.reduce` 메소드를 이용해보세요.
