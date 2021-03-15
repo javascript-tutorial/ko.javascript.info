@@ -36,11 +36,19 @@ function cachingDecorator(func) {
 
 slow = cachingDecorator(slow);
 
+<<<<<<< HEAD
 alert( slow(1) ); // slow(1)이 저장되었습니다.
 alert( "다시 호출: " + slow(1) ); // 동일한 결과
 
 alert( slow(2) ); // slow(2)가 저장되었습니다.
 alert( "다시 호출: " + slow(2) ); // 윗줄과 동일한 결과
+=======
+alert( slow(1) ); // slow(1) is cached and the result returned
+alert( "Again: " + slow(1) ); // slow(1) result returned from cache
+
+alert( slow(2) ); // slow(2) is cached and the result returned
+alert( "Again: " + slow(2) ); // slow(2) result returned from cache
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 ```
 
 `cachingDecorator`같이 인수로 받은 함수의 행동을 변경시켜주는 함수를 *데코레이터(decorator)* 라고 부릅니다.

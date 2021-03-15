@@ -321,7 +321,11 @@ export {default as User} from './user.js'; // default export를 다시 내보내
 
 다시 내보내기가 왜 필요한건지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
 
+<<<<<<< HEAD
 NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데, 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있다고 합시다.
+=======
+Imagine, we're writing a "package": a folder with a lot of modules, with some of the functionality exported outside (tools like NPM allow us to publish and distribute such packages, but we don't have to use them), and many modules are just "helpers", for internal use in other package modules.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 패키지 구조는 아래와 같습니다.
 ```
@@ -337,13 +341,27 @@ auth/
         ...
 ```
 
+<<<<<<< HEAD
 진입점 역할을 하는 '주요 파일'인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.
+=======
+We'd like to expose the package functionality via a single entry point.
+
+In other words, a person who would like to use our package, should import only from the "main file" `auth/index.js`.
+
+Like this:
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 ```js
 import {login, logout} from 'auth/index.js'
 ```
 
+<<<<<<< HEAD
 이때 우리가 만든 패키지를 사용하는 외부 개발자가 패키지 안의 파일들을 뒤져 내부 구조를 건드리게 하면 안 됩니다. 그러려면 공개할 것만 `auth/index.js`에 넣어 내보내기 하고 나머는 숨기는 게 좋겠죠. 
+=======
+The "main file", `auth/index.js` exports all the functionality that we'd like to provide in our package.
+
+The idea is that outsiders, other programmers who use our package, should not meddle with its internal structure, search for files inside our package folder. We export only what's necessary in `auth/index.js` and keep the rest hidden from prying eyes.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 이때 내보낼 기능을 패키지 전반에 분산하여 구현한 후, `auth/index.js`에서 이 기능들을 가져오고 이를 다시 내보내면 원하는 바를 어느 정도 달성할 수 있습니다.
 
@@ -366,19 +384,36 @@ export {User};
 
 ```js
 // 📁 auth/index.js
+<<<<<<< HEAD
 // login과 logout을 가지고 온 후 바로 내보냅니다.
 export {login, logout} from './helpers.js';
 
 // User 가져온 후 바로 내보냅니다.
+=======
+// re-export login/logout 
+export {login, logout} from './helpers.js';
+
+// re-export the default export as User
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 export {default as User} from './user.js';
 ...
 ```
 
+<<<<<<< HEAD
 ### default export 다시 내보내기
+=======
+The notable difference of `export ... from` compared to `import/export` is that re-exported modules aren't available in the current file. So inside the above example of `auth/index.js` we can't use re-exported `login/logout` functions. 
+
+### Re-exporting the default export
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 기본 내보내기를 다시 내보낼 때는 주의해야 할 점들이 있습니다.
 
+<<<<<<< HEAD
 `user.js` 내의 클래스 `User`를 다시 내보내기 한다고 가정해 봅시다.
+=======
+Let's say we have `user.js` with the `export default class User` and would like to re-export it:
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 ```js
 // 📁 user.js
@@ -387,7 +422,13 @@ export default class User {
 }
 ```
 
+<<<<<<< HEAD
 1. `User`를 `export User from './user.js'`로 다시 내보내기 할 때 문법 에러가 발생합니다. 어디가 잘못된 걸까요?
+=======
+We can come across two problems with it:
+
+1. `export User from './user.js'` won't work. That would lead to a syntax error.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
     default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.
 
@@ -399,7 +440,11 @@ export default class User {
     export {default} from './user.js'; // default export를 다시 내보내기
     ```
 
+<<<<<<< HEAD
 default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 선호하지 않습니다.
+=======
+Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 ## 요약
 
@@ -418,6 +463,7 @@ default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 �
 
 가져오기 타입 역시 정리해 봅시다.
 
+<<<<<<< HEAD
 - named export 가져오기:
   - `import {x [as y], ...} from "mod"`
 - default export 가져오기:
@@ -427,6 +473,17 @@ default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 �
   - `import * as obj from "mod"`
 - 모듈을 가져오긴 하지만(코드는 실행됨), 변수에 할당하지 않기:
   - `import "mod"`
+=======
+- Importing named exports:
+  - `import {x [as y], ...} from "module"`
+- Importing the default export:  
+  - `import x from "module"`
+  - `import {default as x} from "module"`
+- Import all:
+  - `import * as obj from "module"`
+- Import the module (its code runs), but do not assign any of its exports to variables:
+  - `import "module"`
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 `import/export` 문은 스크립트의 맨 위나 맨 아래에 올 수 있는데 이 둘엔 차이가 없습니다.
 

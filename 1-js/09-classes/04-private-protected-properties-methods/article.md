@@ -96,7 +96,13 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) {
+      value = 0;
+    }
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
     this._waterAmount = value;
   }
 
@@ -117,7 +123,11 @@ let coffeeMachine = new CoffeeMachine(100);
 coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
 ```
 
+<<<<<<< HEAD
 이제 물의 양을 0 미만으로 설정하면 실패합니다. 
+=======
+Now the access is under control, so setting the water amount below zero becomes impossible.
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 
 ## 읽기 전용 프로퍼티
 
@@ -159,7 +169,11 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) value = 0;
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
     this._waterAmount = value;
   }
 
@@ -199,19 +213,34 @@ class CoffeeMachine {
 */!*
 
 *!*
+<<<<<<< HEAD
   #checkWater(value) {
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
+=======
+  #fixWaterAmount(value) {
+    if (value < 0) return 0;
+    if (value > this.#waterLimit) return this.#waterLimit;
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
   }
 */!*
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
 
 }
 
 let coffeeMachine = new CoffeeMachine();
 
 *!*
+<<<<<<< HEAD
 // 클래스 외부에서 private에 접근할 수 없음
 coffeeMachine.#checkWater(); // Error
+=======
+// can't access privates from outside of the class
+coffeeMachine.#fixWaterAmount(123); // Error
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
 coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
@@ -232,7 +261,11 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) value = 0;
+>>>>>>> e01998baf8f85d9d6cef9f1add6c81b901f16d69
     this.#waterAmount = value;
   }
 }

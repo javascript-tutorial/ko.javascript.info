@@ -139,6 +139,8 @@ let user = await response.json();
   ...
 })();
 ```
+
+P.S. New feature: starting from V8 engine version 8.9+, top-level await works in [modules](info:modules).
 ````
 
 ````smart header="`await`는 \'thenable\' 객체를 받습니다."
@@ -156,7 +158,7 @@ class Thenable {
     // 1000밀리초 후에 이행됨(result는 this.num*2)
     setTimeout(() => resolve(this.num * 2), 1000); // (*)
   }
-};
+}
 
 async function f() {
   // 1초 후, 변수 result는 2가 됨
