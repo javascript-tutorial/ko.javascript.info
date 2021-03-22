@@ -49,9 +49,15 @@ let user = new User("John");
 user.sayHi();
 ```
 
+<<<<<<< HEAD
 `new User("John")`를 호출하면 다음과 같은 일이 일어납니다.
 1. 새로운 객체가 생성됩니다.
 2. 넘겨받은 인수와 함께 `constructor`가 자동으로 실행됩니다. 이때 인수 `"John"`이 `this.name`에 할당됩니다.
+=======
+When `new User("John")` is called:
+1. A new object is created.
+2. The `constructor` runs with the given argument and assigns it to `this.name`.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 이런 과정을 거친 후에 `user.sayHi()` 같은 객체 메서드를 호출할 수 있습니다.
 
@@ -218,7 +224,7 @@ function makeClass(phrase) {
   return class {
     sayHi() {
       alert(phrase);
-    };
+    }
   };
 }
 

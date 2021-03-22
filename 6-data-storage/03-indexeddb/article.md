@@ -17,6 +17,15 @@ That power is usually excessive for traditional client-server apps. IndexedDB is
 The native interface to IndexedDB, described in the specification <https://www.w3.org/TR/IndexedDB>, is event-based.
 
 We can also use `async/await` with the help of a promise-based wrapper, like <https://github.com/jakearchibald/idb>. That's pretty convenient, but the wrapper is not perfect, it can't replace events for all cases. So we'll start with events, and then, after we gain an understanding of IndexedDb, we'll use the wrapper.
+<<<<<<< HEAD
+=======
+
+```smart header="Where's the data?"
+Technically, the data is usually stored in the visitor's home directory, along with browser settings, extensions, etc.
+
+Different browsers and OS-level users have each their own independant storage.
+```
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ## Open database
 
@@ -34,7 +43,7 @@ let openRequest = indexedDB.open(name, version);
 We can have many databases with different names, but all of them exist within the current origin (domain/protocol/port). Different websites can't access each other's databases.
 
 The call returns `openRequest` object, we should listen to events on it:
-- `success`: database is ready, there's the "database object" in `openRequest.result`, that we should use it for further calls.
+- `success`: database is ready, there's the "database object" in `openRequest.result`, we should use it for further calls.
 - `error`: opening failed.
 - `upgradeneeded`: database is ready, but its version is outdated (see below).
 
@@ -117,7 +126,7 @@ Let's say:
 2. Then we rolled out an update, so our code is newer.
 3. And then the same visitor opens our site in another tab.
 
-So there's a tab with an open connection to DB version `1`, while the second tab one attempts to update it to version `2` in its `upgradeneeded` handler.
+So there's a tab with an open connection to DB version `1`, while the second one attempts to update it to version `2` in its `upgradeneeded` handler.
 
 The problem is that a database is shared between two tabs, as it's the same site, same origin. And it can't be both version `1` and `2`. To perform the update to version `2`, all connections to version 1 must be closed, including the one in the first tab.
 
@@ -125,9 +134,13 @@ In order to organize that, the `versionchange` event triggers on the "outdated" 
 
 If we don't listen for the `versionchange` event and don't close the old connection, then the second, new connection won't be made. The `openRequest` object will emit the `blocked` event instead of `success`. So the second tab won't work.
 
+<<<<<<< HEAD
 Here's the code to correctly handle the parallel upgrade.
 
 It installs an `onversionchange` handler after the database is opened, that closes the old connection:
+=======
+Here's the code to correctly handle the parallel upgrade. It installs the `onversionchange` handler, that triggers if the current database connection becomes outdated (db version is updated elsewhere) and closes the connection.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ```js
 let openRequest = indexedDB.open("store", 2);
@@ -153,19 +166,27 @@ openRequest.onblocked = function() {
   // this event shouldn't trigger if we handle onversionchange correctly
 
   // it means that there's another open connection to same database
-  // and it wasn't closed after db.onversionchange triggered for them
+  // and it wasn't closed after db.onversionchange triggered for it
 };
 */!*
 ```
 
-Here we do two things:
+...In other words, here we do two things:
 
-1. Add `db.onversionchange` listener after a successful opening, to be informed about a parallel update attempt.
-2. Add `openRequest.onblocked` listener to handle the case when an old connection wasn't closed. This doesn't happen if we close it in `db.onversionchange`.
+1. The `db.onversionchange` listener informs us about a parallel update attempt, if the current database version becomes outdated.
+2. The `openRequest.onblocked` listener informs us about the opposite situation: there's a connection to an outdated version elsewhere, and it doesn't close, so the newer connection can't be made.
 
+We can handle things more gracefully in `db.onversionchange`, prompt the visitor to save the data before the connection is closed and so on. 
+
+<<<<<<< HEAD
 There are other variants. For example, we can take the time to close things gracefully in `db.onversionchange`, and prompt the visitor to save the data before the connection is closed. The new updating connection will be blocked immediately after `db.onversionchange` has finished without closing, and we can ask the visitor in the new tab to close other tabs for the update.
 
 These update collisions happen rarely, but we should at least have some handling for them, e.g. `onblocked` handler, so that our script doesn't surprise the user by dying silently.
+=======
+Or, an alternative approach would be to not close the database in `db.onversionchange`, but instead use the `onblocked` handler (in the new tab) to alert the visitor, tell him that the newer version can't be loaded until they close other tabs.
+
+These update collisions happen rarely, but we should at least have some handling for them, at least `onblocked` handler, to prevent our script from dying silently.
+>>>>>>> d4b3c135ccf80914f59677803e64ebc832d165e3
 
 ## Object store
 
@@ -469,24 +490,29 @@ request.onerror = function(event) {
 };
 ```
 
-## Searching by keys
+## Searching
 
 There are two main types of search in an object store:
-1. By a key or a key range. That is: by `book.id` in our "books" storage.
-2. By another object field, e.g. `book.price`.
 
-First let's deal with the keys and key ranges `(1)`.
+1. By a key value or a key range. In our "books" storage that would be a value or range of values of `book.id`.
+2. By another object field, e.g. `book.price`. This required an additional data structure, named "index".
 
-Methods that involve searching support either exact keys or so-called "range queries" -- [IDBKeyRange](https://www.w3.org/TR/IndexedDB/#keyrange) objects that specify a "key range".
+### By key
 
-Ranges are created using following calls:
+First let's deal with the first type of search: by key.
+
+Searching methods support both exact key values and so-called "ranges of values" -- [IDBKeyRange](https://www.w3.org/TR/IndexedDB/#keyrange) objects that specify an acceptable "key range".
+
+`IDBKeyRange` objects are created using following calls:
 
 - `IDBKeyRange.lowerBound(lower, [open])` means: `≥lower` (or `>lower` if `open` is true)
 - `IDBKeyRange.upperBound(upper, [open])` means: `≤upper` (or `<upper` if `open` is true)
 - `IDBKeyRange.bound(lower, upper, [lowerOpen], [upperOpen])` means: between `lower` and `upper`. If the open flags is true, the corresponding key is not included in the range.
 - `IDBKeyRange.only(key)` -- a range that consists of only one `key`, rarely used.
 
-All searching methods accept a `query` argument that can be either an exact key or a key range:
+We'll see practical examples of using them very soon.
+
+To perform the actual search, there are following methods. They accept a `query` argument that can be either an exact key or a key range:
 
 - `store.get(query)` -- search for the first value by a key or a range.
 - `store.getAll([query], [count])` -- search for all values, limit by `count` if given.
@@ -511,18 +537,17 @@ books.getAll(IDBKeyRange.upperBound('html', true))
 // get all books
 books.getAll()
 
-// get all keys: id > 'js'
+// get all keys, where id > 'js'
 books.getAllKeys(IDBKeyRange.lowerBound('js', true))
 ```
 
 ```smart header="Object store is always sorted"
-Object store sorts values by key internally.
+An object store sorts values by key internally.
 
 So requests that return many values always return them in sorted by key order.
 ```
 
-
-## Searching by any field with an index
+### By a field using an index
 
 To search by other object fields, we need to create an additional data structure named "index".
 
@@ -687,7 +712,7 @@ Whether there are more values matching the cursor or not -- `onsuccess` gets cal
 
 In the example above the cursor was made for the object store.
 
-But we also can make a cursor over an index. As we remember, indexes allow to search by an object field. Cursors over indexes to precisely the same as over object stores -- they save memory by returning one value at a time.
+But we also can make a cursor over an index. As we remember, indexes allow to search by an object field. Cursors over indexes do precisely the same as over object stores -- they save memory by returning one value at a time.
 
 For cursors over indexes, `cursor.key` is the index key (e.g. price), and we should use `cursor.primaryKey` property for the object key:
 
@@ -809,7 +834,7 @@ let result = await promise; // if still needed
 
 IndexedDB can be thought of as a "localStorage on steroids". It's a simple key-value database, powerful enough for offline apps, yet simple to use.
 
-The best manual is the specification, [the current one](https://w3c.github.io/IndexedDB) is 2.0, but few methods from [3.0](https://w3c.github.io/IndexedDB/) (it's not much different) are partially supported.
+The best manual is the specification, [the current one](https://www.w3.org/TR/IndexedDB-2/) is 2.0, but few methods from [3.0](https://w3c.github.io/IndexedDB/) (it's not much different) are partially supported.
 
 The basic usage can be described with a few phrases:
 
