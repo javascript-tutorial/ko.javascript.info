@@ -1,9 +1,9 @@
-The answer is: **Pete**.
+정답은 **Pete**입니다.
 
-The `work()` function in the code below gets `name` from the place of its origin through the outer lexical environment reference:
+`work()`함수는 아래 그림과 같이 외부 렉시컬 환경을 참조하여 원래 위치의 `name`을 가져옵니다
 
 ![](lexenv-nested-work.svg)
 
-So, the result is `"Pete"` here.
+그래서 결과는 `"Pete"`입니다.
 
-But if there were no `let name` in `makeWorker()`, then the search would go outside and take the global variable as we can see from the chain above. In that case the result would be `"John"`.
+그러나 `makeWorker()`에서 `let name`이 없으면 위의 그림에서 볼 수 있듯이 외부에서 검색해 전역변수를 가져옵니다. 이 경우 결과는 `"John"`이 됩니다.

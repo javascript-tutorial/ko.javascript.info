@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Which variables are available?
+# 어떤 값이 출력될까요?
 
-The function `makeWorker` below makes another function and returns it. That new function can be called from somewhere else.
+`makeWorker`함수는 생성 된 후 또 다른 함수를 만들고 반환합니다. 새로운 함수는 어디서든 호출될 수 있습니다.
 
-Will it have access to the outer variables from its creation place, or the invocation place, or both?
+생성 위치, 호출 위치 혹은 두 경우 모두에서 외부 변수에서 접근할 수 있을까요?
 
 ```js
 function makeWorker() {
@@ -19,11 +19,11 @@ function makeWorker() {
 
 let name = "John";
 
-// create a function
+// 함수 생성
 let work = makeWorker();
 
-// call it
-work(); // what will it show?
+// 함수 호출
+work(); // 어떤 값이 출력될까요?
 ```
 
-Which value it will show? "Pete" or "John"?
+"Pete"와 "John" 중 어떤 값이 출력될까요?
