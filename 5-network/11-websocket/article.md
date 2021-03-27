@@ -117,7 +117,7 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 각 헤더에 대한 예시를 살펴봅시다.
 
-- `Sec-WebSocket-Extensions: deflate-frame` means that the browser supports data compression. An extension is something related to transferring the data, functionality that extends WebSocket protocol. The header `Sec-WebSocket-Extensions` is sent automatically by the browser, with the list of all extenions it supports.
+- `Sec-WebSocket-Extensions: deflate-frame` -- 이 헤더는 브라우저에서 데이터 압축(deflate)을 지원한다는 것을 의미합니다. `Sec-WebSocket-Extensions`은 브라우저에 의해 자동 생성되는데, 그 값엔 데이터 전송과 관련된 무언가나 웹소켓 프로토콜 기능 확장과 관련된 무언가가 여러 개 나열됩니다.
 
 - `Sec-WebSocket-Protocol: soap, wamp` -- 이렇게 헤더가 설정되면 평범한 데이터가 아닌 [SOAP](http://en.wikipedia.org/wiki/SOAP)나 WAM (The WebSocket Application Messaging Protocol) 프로토콜을 준수하는 데이터를 전송하겠다는 것을 의미합니다. 웹소켓에서 지원하는 서브프로토콜 목록은 [IANA 카탈로그](http://www.iana.org/assignments/websocket/websocket.xml)에서 확인할 수 있습니다. 개발자는 이 헤더를 보고 앞으로 사용하게 될 데이터 포맷을 확인할 수 있습니다.
 
