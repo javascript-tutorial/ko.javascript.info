@@ -1,14 +1,14 @@
 
-Let's examine what's done inside `makeArmy`, and the solution will become obvious.
+답을 명확히 하기 위해, `makeArmy`함수 내부 동작을 확인해보자.
 
-1. It creates an empty array `shooters`:
+1.  `shooters`라는 빈 배열을 생성한다.
 
     ```js
     let shooters = [];
     ```
-2. Fills it in the loop via `shooters.push(function...)`.
+2.  `shooters.push(function...)`를 통해 배열을 채웁니다.
 
-    Every element is a function, so the resulting array looks like this:
+    모든 요소는 함수로 바뀌고, 아래와 같은 배열이 됩니다.
 
     ```js no-beautify
     shooters = [
@@ -25,25 +25,25 @@ Let's examine what's done inside `makeArmy`, and the solution will become obviou
     ];
     ```
 
-3. The array is returned from the function.
+3. 함수는 배열을 반환합니다.
 
-Then, later, the call to `army[5]()` will get the element `army[5]` from the array (it will be a function) and call it.
+이후에 `army[5]()`의 호출은 배열로부터 `army[5]`요소(요소는 함수일 것이다.)를 가져와서 호출하는 것입니다.
 
-Now why all such functions show the same?
+이제 결과가 모두 같은 이유가 무엇일까요?
 
-That's because there's no local variable `i` inside `shooter` functions. When such a function is called, it takes `i` from its outer lexical environment.
+이유는 `shooter`안에 있는 `i`가 지역 변수가 아니기 때문입니다. 각 함수가 호출될 때, 함수는 외부 렉시컬 환경에서 `i`를 가져옵니다.
 
-What will be the value of `i`?
+`i`의 값은 무엇일까요?
 
-If we look at the source:
+소스를 봅시다.
 
 ```js
 function makeArmy() {
   ...
   let i = 0;
   while (i < 10) {
-    let shooter = function() { // shooter function
-      alert( i ); // should show its number
+    let shooter = function() { // shooter 함수
+      alert( i ); // 수를 출력하는 부분
     };
     ...
   }
@@ -51,11 +51,11 @@ function makeArmy() {
 }
 ```
 
-...We can see that it lives in the lexical environment associated with the current `makeArmy()` run. But when `army[5]()` is called, `makeArmy` has already finished its job, and `i` has the last value: `10` (the end of `while`).
+...우리는 `makeArmy()`가 실행되는 시점에 연관된 렉시컬 환경이 존재하는 것을 확인할 수 있습니다. 그러나 `army[5]()`가 호출됐을 때 `makeArmy`는 이미 종료되었고, `i`는 마지막 값인 `10`(`while`이 종료된 시점의 값)을 갖습니다.
 
-As a result, all `shooter` functions get from the outer lexical envrironment the same, last value `i=10`.
+결과적으로, 모든 `shooter`함수는 외부 렉시컬 환경에서 마지막 값인 `i=10`을 가져옵니다.
 
-We can fix it by moving the variable definition into the loop:
+우리는 반복문안에서 변수를 정의하여 이 상황을 해결할 수 있습니다.
 
 ```js run demo
 function makeArmy() {
@@ -65,8 +65,8 @@ function makeArmy() {
 *!*
   for(let i = 0; i < 10; i++) {
 */!*
-    let shooter = function() { // shooter function
-      alert( i ); // should show its number
+    let shooter = function() { // shooter함수
+      alert( i ); // 수를 출력하는 부분
     };
     shooters.push(shooter);
   }
@@ -80,15 +80,15 @@ army[0](); // 0
 army[5](); // 5
 ```
 
-Now it works correctly, because every time the code block in `for (let i=0...) {...}` is executed, a new Lexical Environment is created for it, with the corresponding variable `i`.
+이제 생각한 대로 동작합니다. `for (let i=0...) {...}`의 코드블록이 실행될 때마다, 새로운 렉시컬 환경과 이와 상응하는 `i`가 생성되기 때문입니다. 
 
-So, the value of `i` now lives a little bit closer. Not in `makeArmy()` Lexical Environment, but in the Lexical Environment that corresponds the current loop iteration. That's why now it works.
+`i`의 값은 조금 더 가까이 존재합니다. `makeArmy()`의 렉시컬 환경 안에 존재하는 것이 아닌, 현재 반복문에 해당하는 렉시컬 환경 안에 존재합니다. 그것이 현재 작동하는 이유입니다.
 
 ![](lexenv-makearmy.svg)
 
-Here we rewrote `while` into `for`.
+여기서 우리는 `while`을 `for`로 다시 사용했습니다
 
-Another trick could be possible, let's see it for better understanding of the subject:
+다른 트릭이 가능할 수 있습니다. 주제를 더 잘 이해하기 위해 살펴봅시다.
 
 ```js run
 function makeArmy() {
@@ -99,8 +99,8 @@ function makeArmy() {
 *!*
     let j = i;
 */!*
-    let shooter = function() { // shooter function
-      alert( *!*j*/!* ); // should show its number
+    let shooter = function() { // shooter함수
+      alert( *!*j*/!* ); // 수를 출력하는 부분
     };
     shooters.push(shooter);
     i++;
@@ -115,6 +115,6 @@ army[0](); // 0
 army[5](); // 5
 ```
 
-The `while` loop, just like `for`, makes a new Lexical Environment for each run. So here we make sure that it gets the right value for a `shooter`.
+`for`와 마찬가지로 `while`도 각 실행에 대해 새로운 렉시컬 환경을 생성합니다. 그렇기 때문에 여기서도 우리는 `shooter`가 올바른 값을 가지는 것을 확인할 수 있습니다.
 
-We copy `let j = i`. This makes a loop body local `j` and copies the value of `i` to it. Primitives are copied "by value", so we actually get a complete independent copy of `i`, belonging to the current loop iteration.
+`let j = i`는 루프 본문에서 로컬변수 `j`를 만들고 `i`의 값을 복사합니다. 원시값은 "값으로" 복사되므로, 우리는 실제로 루프 반복에 속하는 완전히 독립된 복사본 `i`를 얻습니다.
