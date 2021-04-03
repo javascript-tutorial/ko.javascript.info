@@ -142,7 +142,7 @@ Windows와 Linux는 `key:Alt`, `key:Shift`, `key:Ctrl` 키를 지원합니다. �
 
 예를 들어봅시다. 사이즈가 500x500인 창에서 마우스 커서를 왼쪽 위 가장자리로 옮기면 페이지를 어디로 스크롤 하든 상관없이 `clientX`, `clientY` 값이 `0`이 됩니다.  
 
-커서를 화면 정 가운데로 옮기면 마찬가지로 스크롤 바 위치에 상관없이 `clientX`, `clientY` 값이 각각 `250`이 되죠. `position:fixed`와 유사하다고 보시면 됩니다.
+커서를 화면 정 가운데로 옮기면 마찬가지로 스크롤바 위치에 상관없이 `clientX`, `clientY` 값이 각각 `250`이 되죠. `position:fixed`와 유사하다고 보시면 됩니다.
 
 ````online
 커서를 input 필드 안으로 옮겨 `clientX`, `clientY` 값이 어떻게 변하는지 살펴봅시다. 참고로 아래 예시는 `iframe`안에서 구현되도록 해놓아서 좌표 정보가 `iframe`을 기준으로 계산됩니다.
