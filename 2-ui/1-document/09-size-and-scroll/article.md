@@ -53,7 +53,7 @@
 
 ## offsetParent와 offsetLeft, offsetTop
 
-잘 쓰이는 프로퍼티는 아니지만 가장 바깥에 있는 기하 프로퍼티이므로 offsetParent와 offsetLeft, offsetTop부터 알아보겠습니다(offset은 요소가 화면에서 차지하는 영역 전체 크기를 나타냅니다 - 옮긴이).
+잘 쓰이는 프로퍼티는 아니지만 가장 바깥에 있는 기하 프로퍼티이므로 offsetParent와 offsetLeft, offsetTop부터 알아보겠습니다(offset은 요소가 화면에서 차지하는 영역 전체 크기를 나타내는데, 요소의 너비와 높이에 패딩, 스크롤바, 테두리를 합친 크기이며 마진은 포함되지 않습니다 - 옮긴이).
 
 `offsetParent` 프로퍼티는 해당 요소를 렌더링할 때, 좌표 계산에 사용되는 가장 가까운 조상 요소(the closest positioned ancestor element)의 참조를 반환합니다.
 
