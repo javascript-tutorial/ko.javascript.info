@@ -57,8 +57,8 @@ sayHi('John'); // Hello, John!
 
 브라우저가 자동으로 모듈을 가져오고 평가한 다음 이를 실행한 것을 확인할 수 있습니다.
 
-```warn header="Modules work only via HTTP(s), not in local files"
-If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
+```warn header="모듈은 로컬 파일에서 동작하지 않고, HTTP 또는 HTTPS 프로토콜을 통해서만 동작합니다."
+로컬에서 `file://` 프로토콜을 통해 웹페이지를 열면 `import·export` 지시자가 동작하지 않습니다. 예제를 실행하려면 로컬 웹 서버인 [static-server](https://www.npmjs.com/package/static-server#getting-started)나, 코드 에디터의 '라이브 서버' 익스텐션(Visual Studio Code 에디터의 경우 [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer))을 사용하세요.
 ```
 
 ## 모듈의 핵심 기능
