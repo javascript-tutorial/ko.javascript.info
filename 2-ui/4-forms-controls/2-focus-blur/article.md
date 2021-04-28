@@ -1,25 +1,25 @@
-# Focusing: focus/blur
+# focus와 blur
 
-An element receives the focus when the user either clicks on it or uses the `key:Tab` key on the keyboard. There's also an `autofocus` HTML attribute that puts the focus onto an element by default when a page loads and other means of getting the focus.
+사용자가 폼 요소를 클릭하거나 `key:Tab` 키를 눌러 요소로 이동하면 해당 요소가 포커스(focus)됩니다. `autofocus`라는 HTML 속성을 사용해도 요소를 포커스 할 수 있는데 이 속성이 있는 요소는 페이지가 로드된 후 자동으로 포커싱 됩니다. 이 외에도 요소를 포커싱(focusing)할 수 있는 방법은 다양합니다.
 
-Focusing on an element generally means: "prepare to accept the data here", so that's the moment when we can run the code to initialize the required functionality.
+요소를 포커싱한다는 것은 일반적으로 '여기에 데이터를 입력할 준비를 하라'는 것을 의미하기 때문에 요소 포커싱이 이뤄지는 순간엔 요구사항을 충족시키는 초기화 코드를 실행할 수 있습니다.
 
-The moment of losing the focus ("blur") can be even more important. That's when a user clicks somewhere else or presses `key:Tab` to go to the next form field, or there are other means as well.
+요소가 포커스를 잃는 순간(blur)은 요소가 포커스를 얻는 순간보다 더 중요할 수 있습니다. 사용자가 다른 곳을 클릭하거나 `key:Tab` 키를 눌러 다음 폼 필드로 이동하면 포커스 상태의 요소가 포커스를 잃게 됩니다. 이 외에도 다양한 방법을 사용해 포커스를 잃게 할 수 있습니다.
 
-Losing the focus generally means: "the data has been entered", so we can run the code to check it or even to save it to the server and so on.
+요소가 포커스를 잃는 것은 대개 '데이터 입력이 완료되었다'는 것을 의미하기 때문에 포커싱이 해제되는 순간엔 데이터를 체크하거나 입력된 데이터를 저장하기 위해 서버에 요청을 보내는 등의 코드를 실행할 수 있습니다.
 
-There are important peculiarities when working with focus events. We'll do the best to cover them further on.
+포커스 이벤트를 다룰 땐 이상해 보이지만 중요한 기능이 있는데, 이번 챕터에선 이에 대해서 자세히 다뤄보도록 하겠습니다.
 
-## Events focus/blur
+## focus, blur 이벤트
 
-The `focus` event is called on focusing, and `blur` -- when the element loses the focus.
+`focus` 이벤트는 요소가 포커스를 받을 때, `blur` 이벤트는 포커스를 잃을 때 발생합니다.
 
-Let's use them for validation of an input field.
+두 이벤트를 입력 필드 값 검증에 사용해 봅시다.
 
-In the example below:
+예시에서 각 핸들러는 다음과 같은 역할을 합니다.
 
-- The `blur` handler checks if the field has an email entered, and if not -- shows an error.
-- The `focus` handler hides the error message (on `blur` it will be checked again):
+- `blur` 핸들러에선 필드에 이메일이 잘 입력되었는지 확인하고 잘 입력되지 않은 경우엔 에러를 보여줍니다.
+- `focus` 핸들러에선 에러 메시지를 숨깁니다(이메일 재확인은 `blur` 핸들러에서 합니다).
 
 ```html run autorun height=60
 <style>
@@ -27,21 +27,21 @@ In the example below:
   #error { color: red }
 </style>
 
-Your email please: <input type="email" id="input">
+이메일: <input type="email" id="input">
 
 <div id="error"></div>
 
 <script>
 *!*input.onblur*/!* = function() {
-  if (!input.value.includes('@')) { // not email
+  if (!input.value.includes('@')) { // @ 유무를 이용해 유효한 이메일 주소가 아닌지 체크
     input.classList.add('invalid');
-    error.innerHTML = 'Please enter a correct email.'
+    error.innerHTML = '올바른 이메일 주소를 입력하세요.'
   }
 };
 
 *!*input.onfocus*/!* = function() {
   if (this.classList.contains('invalid')) {
-    // remove the "error" indication, because the user wants to re-enter something
+    // 사용자가 새로운 값을 입력하려고 하므로 에러 메시지를 지움
     this.classList.remove('invalid');
     error.innerHTML = "";
   }
@@ -49,14 +49,14 @@ Your email please: <input type="email" id="input">
 </script>
 ```
 
-Modern HTML allows us to do many validations using input attributes: `required`, `pattern` and so on. And sometimes they are just what we need. JavaScript can be used when we want more flexibility. Also we could automatically send the changed value to the server if it's correct.
+모던 HTML을 사용하면 `required`, `pattern` 등의 다양한 속성을 사용해 입력값을 검증 할 수 있습니다. HTML 속성만으로도 검증이 가능한거죠. 그럼에도 불구하고 자바스크립트를 사용하는 이유는 자바스크립트가 좀 더 유연하기 때문입니다. 여기에 더하여 자바스크립트를 사용하면 제대로 된 값이 입력되었을 때 자동으로 해당값을 서버에 보낼 수 있기 때문이기도 합니다.
 
 
-## Methods focus/blur
+## focus, blur 메서드
 
-Methods `elem.focus()` and `elem.blur()` set/unset the focus on the element.
+`elem.focus()`와 `elem.blur()` 메서드를 사용하면 요소에 포커스를 줄 수도 있고 제거할 수도 있습니다.
 
-For instance, let's make the visitor unable to leave the input if the value is invalid:
+사이트 방문자가 유효하지 않은 값을 입력하면 사이트를 떠나지 못하도록 하는 예시를 살펴봅시다.
 
 ```html run autorun height=80
 <style>
@@ -65,16 +65,16 @@ For instance, let's make the visitor unable to leave the input if the value is i
   }
 </style>
 
-Your email please: <input type="email" id="input">
-<input type="text" style="width:220px" placeholder="make email invalid and try to focus here">
+이메일: <input type="email" id="input">
+<input type="text" style="width:220px" placeholder="이메일 형식이 아닌 값을 입력하고 여기에 포커스를 주세요.">
 
 <script>
   input.onblur = function() {
-    if (!this.value.includes('@')) { // not email
-      // show the error
+    if (!this.value.includes('@')) { // 이메일이 아님
+      // 에러 출력
       this.classList.add("error");
 *!*
-      // ...and put the focus back
+      // input 필드가 포커스 되도록 함
       input.focus();
 */!*
     } else {
@@ -84,11 +84,11 @@ Your email please: <input type="email" id="input">
 </script>
 ```
 
-It works in all browsers except Firefox ([bug](https://bugzilla.mozilla.org/show_bug.cgi?id=53579)).
+이 예시는 Firefox([bug](https://bugzilla.mozilla.org/show_bug.cgi?id=53579))를 제외한 모든 브라우저에서 정상 동작합니다.
 
-If we enter something into the input and then try to use `key:Tab` or click away from the `<input>`, then `onblur` returns the focus back.
+이메일이 아닌 값을 입력하고 `key:Tab` 키나 다른 곳을 클릭해 `<input>`을 벗어나려 하면 `onblur` 메서드가 동작해 포커스를 다시 입력 필드로 돌려놓습니다.
 
-Please note that we can't "prevent losing focus" by calling `event.preventDefault()` in `onblur`, because `onblur` works *after* the element lost the focus.
+여기서 주의해야 할 점은 `onblur`는 요소가 포커스를 잃고 난 *후*에 발생하기 때문에 `onblur` 안에서 `event.preventDefault()`를 호출해 포커스를 잃게 하는걸 '막을 수 없다'라는 사실입니다. 
 
 ```warn header="JavaScript-initiated focus loss"
 A focus loss can occur for many reasons.
@@ -102,41 +102,41 @@ These features sometimes cause `focus/blur` handlers to misbehave -- to trigger 
 
 The best recipe is to be careful when using these events. If we want to track user-initiated focus-loss, then we should avoid causing it ourselves.
 ```
-## Allow focusing on any element: tabindex
+## tabindex를 사용해서 모든 요소 포커스 하기
 
-By default many elements do not support focusing.
+대다수의 요소는 기본적으로 포커싱을 지원하지 않습니다.
 
-The list varies a bit between browsers, but one thing is always correct: `focus/blur` support is guaranteed for elements that a visitor can interact with: `<button>`, `<input>`, `<select>`, `<a>` and so on.
+포커싱을 지원하지 않는 요소 목록은 브라우저마다 다르긴 하지만 한 가지 확실한 것은 `<button>`, `<input>`, `<select>`, `<a>`와 같이 사용자가 웹 페이지와 상호작용 할 수 있게 도와주는 요소는 `focus`, `blur`를 지원한다는 사실입니다.
 
-On the other hand, elements that exist to format something, such as `<div>`, `<span>`, `<table>` -- are unfocusable by default. The method `elem.focus()` doesn't work on them, and `focus/blur` events are never triggered.
+반면 `<div>`, `<span>`, `<table>`같이 무언가를 표시하는 용도로 사용하는 요소들은 포커싱을 지원하지 않습니다. 따라서 이런 요소엔 `elem.focus()` 메서드가 동작하지 않고 `focus`, `blur`이벤트도 트리거 되지 않습니다.
 
-This can be changed using HTML-attribute `tabindex`.
+그럼에도 불구하고 포커스를 하고 싶다면 `tabindex` HTML 속성을 사용하면 됩니다.
 
-Any element becomes focusable if it has `tabindex`. The value of the attribute is the order number of the element when `key:Tab` (or something like that) is used to switch between them.
+`tabindex` 속성이 있는 요소는 종류와 상관없이 포커스가 가능합니다. 속성값은 숫자인데, 이 숫자는 `key:Tab` 키를 눌러 요소 사이를 이동할 때 순서가 됩니다.
 
-That is: if we have two elements, the first has `tabindex="1"`, and the second has `tabindex="2"`, then pressing `key:Tab` while in the first element -- moves the focus into the second one.
+요소가 두 개 있다고 가정하고 첫 번째 요소의 `tabindex`엔 `1`을, 두 번째 요소의 `tabindex`엔 `2`를 할당하면 첫 번째 요소가 포커싱되어있는 상태에서 `key:Tab`을 눌렀을 때 두 번째 요소로 포커스가 이동합니다.
 
-The switch order is: elements with `tabindex` from `1` and above go first (in the `tabindex` order), and then elements without `tabindex` (e.g. a regular `<input>`).
+포커싱 되는 요소 순서는 다음과 같습니다. `tabindex`가 `1`인 요소부터 시작해 점점 큰 숫자가 매겨진 요소로 이동하고 그다음 `tabindex`가 없는 요소(평범한 `<input>` 요소 등)로 이동합니다.
 
-Elements with matching `tabindex` are switched in the document source order (the default order).
+`tabindex`가 없는 요소들은 문서 내 순서에 따라 포커스가 이동합니다(기본 순서).
 
-There are two special values:
+그런데 `tabindex`를 사용할 땐 주의해야 할 사항이 있습니다.
 
-- `tabindex="0"` puts an element among those without `tabindex`. That is, when we switch elements, elements with `tabindex=0` go after elements with `tabindex ≥ 1`.
+- `tabindex`가 `0`인 요소 -- 이 요소는 `tabindex` 속성이 없는것처럼 동작합니다. 따라서 포커스를 이동시킬 때 `tabindex`가 `0`인 요소는 `tabindex`가 1보다 크거나 같은 요소보다 나중에 포커스를 받습니다.
 
-    Usually it's used to make an element focusable, but keep the default switching order. To make an element a part of the form on par with `<input>`.
+  `tabindex="0"`은 요소를 포커스 가능하게 만들지만 포커스 순서는 기본 순서 그대로 유지하고 싶을 때 사용합니다. 요소의 포커스 우선 순위를 일반 `<input>`과 같아지도록 하죠.
 
-- `tabindex="-1"` allows only programmatic focusing on an element. The `key:Tab` key ignores such elements, but method `elem.focus()` works.
+- `tabindex`가 `-1`인 요소 -- 스크립트로만 포커스 하고 싶은 요소에 사용합니다. `key:Tab`키를 사용하면 이 요소는 무시되지만 `elem.focus()` 메서드를 사용하면 잘 포커싱 됩니다.
 
-For instance, here's a list. Click the first item and press `key:Tab`:
+예시를 살펴봅시다. 첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보세요.
 
 ```html autorun no-beautify
-Click the first item and press Tab. Keep track of the order. Please note that many subsequent Tabs can move the focus out of the iframe in the example.
+첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보면서 포커스 된 요소 순서를 눈여겨보세요. 참고로 탭을 많이 누르면 예시 밖으로 포커스가 이동하니, 주의하세요.
 <ul>
-  <li tabindex="1">One</li>
-  <li tabindex="0">Zero</li>
-  <li tabindex="2">Two</li>
-  <li tabindex="-1">Minus one</li>
+  <li tabindex="1">일</li>
+  <li tabindex="0">영</li>
+  <li tabindex="2">이</li>
+  <li tabindex="-1">음수 일</li>
 </ul>
 
 <style>
@@ -145,63 +145,62 @@ Click the first item and press Tab. Keep track of the order. Please note that ma
 </style>
 ```
 
-The order is like this: `1 - 2 - 0`. Normally, `<li>` does not support focusing, but `tabindex` full enables it, along with events and styling with `:focus`.
+보시다시피 포커스는 `tabindex`가 `1`, `2`, `0`인 요소로 차례로 이동합니다. `<li>`는 기본적으로 포커스 할 수 없는 요소이지만 예시에서 `tabindex`를 사용해서 실제 포커스를 해보았고 포커스 된 요소는 `:focus`를 사용해서 스타일을 바꿔보았습니다.
 
-```smart header="The property `elem.tabIndex` works too"
-We can add `tabindex` from JavaScript by using the `elem.tabIndex` property. That has the same effect.
+```smart header="`elem.tabIndex` 프로퍼티를 사용해도 됩니다."
+자바스크립트를 사용해 `elem.tabIndex` 프로퍼티를 추가해주면 `tabindex` 속성을 사용한 것과 동일한 효과를 볼 수 있습니다.
 ```
 
-## Delegation: focusin/focusout
+## focusin과 focusout을 사용해 이벤트 위임하기
 
-Events `focus` and `blur` do not bubble.
+`focus`와 `blur` 이벤트는 버블링 되지 않습니다.
 
-For instance, we can't put `onfocus` on the `<form>` to highlight it, like this:
+예시를 살펴봅시다. `<form>`에 `onfocus`를 추가해 강조 효과를 주려고 했는데, 의도한 대로 동작하지 않는 것을 확인할 수 있습니다.
 
 ```html autorun height=80
-<!-- on focusing in the form -- add the class -->
+<!-- 폼 안에서 포커스가 된 경우 클래스를 추가함 -->
 <form *!*onfocus="this.className='focused'"*/!*>
-  <input type="text" name="name" value="Name">
-  <input type="text" name="surname" value="Surname">
+  <input type="text" name="surname" value="성">
+  <input type="text" name="name" value="이름">
 </form>
 
 <style> .focused { outline: 1px solid red; } </style>
 ```
 
-The example above doesn't work, because when user focuses on an `<input>`, the `focus` event triggers on that input only. It doesn't bubble up. So `form.onfocus` never triggers.
+의도한 대로 예시가 동작하지 않는 이유는 사용자가 `<input>`을 포커스 해도 `focus` 이벤트는 해당 입력 필드에서만 트리거 되기 때문입니다. `focus` 이벤트는 버블링 되지 않습니다. 따라서 `form.onfocus`는 절대 트리거 되지 않습니다.
 
-There are two solutions.
+이런 기본동작을 피해 이벤트 위임 효과를 주는 방법은 두 가지가 있습니다.
 
-First, there's a funny historical feature: `focus/blur` do not bubble up, but propagate down on the capturing phase.
+첫 번째 방법은 `focus`와 `blur`는 버블링 되지 않지만 캡처링은 된다는 점을 이용하면 됩니다.
 
-This will work:
+아래 예시를 직접 실행해봅시다.
 
 ```html autorun height=80
 <form id="form">
-  <input type="text" name="name" value="Name">
-  <input type="text" name="surname" value="Surname">
+  <input type="text" name="surname" value="성">
+  <input type="text" name="name" value="이름">
 </form>
 
 <style> .focused { outline: 1px solid red; } </style>
 
 <script>
 *!*
-  // put the handler on capturing phase (last argument true)
+  // 캡쳐링 단계에서 핸들러가 트리거되도록 합니다(마지막 인수가 true)
   form.addEventListener("focus", () => form.classList.add('focused'), true);
   form.addEventListener("blur", () => form.classList.remove('focused'), true);
 */!*
 </script>
 ```
 
-Second, there are `focusin` and `focusout` events -- exactly the same as `focus/blur`, but they bubble.
+두 번째 방법은 `focusin`과 `focusout`을 이용하는 것입니다. 두 이벤트는 `focus`, `blur`와 동일하지만 버블링이 된다는 점에서 차이가 있습니다.
 
-Note that they must be assigned using `elem.addEventListener`, not `on<event>`.
+`focusin`과 `focusout`을 사용할 때 주의할 점은 `on<event>` 방식으로 핸들러를 추가하면 안 되고 `elem.addEventListener` 방식으로 핸들러를 추가해야 한다는 점입니다.
 
-So here's another working variant:
-
+예시를 실행해 실제 이벤트가 버블링 되는지 확인해봅시다.
 ```html autorun height=80
 <form id="form">
-  <input type="text" name="name" value="Name">
-  <input type="text" name="surname" value="Surname">
+  <input type="text" name="surname" value="성">
+  <input type="text" name="name" value="이름">
 </form>
 
 <style> .focused { outline: 1px solid red; } </style>
@@ -214,12 +213,12 @@ So here's another working variant:
 </script>
 ```
 
-## Summary
+## 요약
 
-Events `focus` and `blur` trigger on an element focusing/losing focus.
+`focus`와 `blur` 이벤트는 각각 요소가 포커스를 받을 때, 잃을 때 발생합니다.
 
-Their specials are:
-- They do not bubble. Can use capturing state instead or `focusin/focusout`.
-- Most elements do not support focus by default. Use `tabindex` to make anything focusable.
+두 이벤트를 사용할 땐 다음을 유의해야 합니다.
+- `focus`와 `blur` 이벤트는 버블링 되지 않습니다. 캡처링이나 `focusin`, `focusout`을 사용하면 이벤트 위임 효과를 볼 수 있습니다.
+- 대부분의 요소는 기본적으로 포커스를 지원하지 않습니다. 그럼에도 불구하고 포커스 하고 싶은 요소가 있다면 `tabindex`를 사용하면 됩니다.
 
-The current focused element is available as `document.activeElement`.
+현재 포커스된 요소는 `document.activeElement`를 통해 확인할 수 있습니다.
