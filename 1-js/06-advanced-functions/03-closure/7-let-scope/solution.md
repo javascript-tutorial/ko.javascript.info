@@ -25,7 +25,7 @@ func();
 ```js
 function func() {
 *!*
-  // 지역변수 x는 함수 시작될 때 엔진에 알려집니다
+  // 함수가 시작될 때 지역변수 x는 엔진에 알려집니다.
   // 그러나 let을 만나기 전("dead zone")까지 "unitialized"(unusable)됩니다. 
   // 따라서 에러가 발생합니다.
 */!*
