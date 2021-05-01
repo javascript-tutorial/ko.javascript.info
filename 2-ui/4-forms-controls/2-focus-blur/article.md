@@ -131,7 +131,7 @@ The best recipe is to be careful when using these events. If we want to track us
 예시를 살펴봅시다. 첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보세요.
 
 ```html autorun no-beautify
-첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보면서 포커스 된 요소 순서를 눈여겨보세요. 참고로 탭을 많이 누르면 예시 밖으로 포커스가 이동하니, 주의하세요.
+첫 번째 항목을 클릭하고 Tab 키를 눌러보면서 포커스 된 요소 순서를 눈여겨보세요. 참고로 탭을 많이 누르면 예시 밖으로 포커스가 이동하니, 주의하세요.
 <ul>
   <li tabindex="1">일</li>
   <li tabindex="0">영</li>
