@@ -2,7 +2,7 @@
 
 ---
 
-# 클릭 시 숨기기
+# Hide on click
 
 `button` 에 자바스크립트를 추가하여 클릭 시 `<div id="text">`가 사라지도록 합니다.
 
