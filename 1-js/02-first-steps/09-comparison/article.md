@@ -9,9 +9,9 @@
 - 같음(동등): `a == b`. 등호 `=`가 두 개 연달아 오는 것에 유의하세요. `a ​​= b`와 같이 등호가 하나일 때는 할당을 의미합니다.
 - 같지 않음(부등): 같지 않음을 나타내는 수학 기호 <code>&ne;</code>는 자바스크립트에선 <code>a != b</code>로 나타냅니다. 할당연산자 `=` 앞에 느낌표 `!`를 붙여서 표시합니다.
 
-In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities. 
+이번 주제에서는 다양한 유형의 비교연산자와 중요한 특성을 자바스크립트가 어떻게 처리하는지에 대하여 배울 것입니다.
 
-At the end you'll find a good recipe to avoid "javascript quirks"-related issues.
+최종적으로 '자바스크립트 쿼크(quirks)'와 관련된 이슈를 방지 할 수 있는 좋은 방법을 찾을 것입니다.
 
 ## 불린형 반환
 
