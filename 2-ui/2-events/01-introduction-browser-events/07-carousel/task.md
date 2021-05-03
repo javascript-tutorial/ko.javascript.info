@@ -1,13 +1,13 @@
-importance: 4
+중요도: 4
 
 ---
 
-# Carousel
+# 회전목마
 
-Create a "carousel" -- a ribbon of images that can be scrolled by clicking on arrows.
+"회전목마" 만들기 -- 화살표를 클릭하여 스크롤할 수 있는 이미지 묶음.
 
 [iframe height=200 src="solution"]
 
-Later we can add more features to it: infinite scrolling, dynamic loading etc.
+나중에 더 많은 기능을 추가할 수 있습니다: 무한 스크롤링, 동적 적재 등.
 
-P.S. For this task HTML/CSS structure is actually 90% of the solution.
+참고: 이 작업의 경우 HTML/CSS 구조는 실제 솔루션의 90%를 이룹니다.
