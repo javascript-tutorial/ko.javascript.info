@@ -8,4 +8,4 @@
 
 [iframe border=1 height=100 src="solution"]
 
-참고 : 원본 문서의 HTML/CSS를 수정해야 합니다.
+참고: 원본 문서의 HTML/CSS를 수정해야 합니다.
