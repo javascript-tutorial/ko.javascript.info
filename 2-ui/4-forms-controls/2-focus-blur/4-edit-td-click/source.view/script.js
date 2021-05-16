@@ -1,3 +1,3 @@
 let table = document.getElementById('bagua-table');
 
-/* your code */
+/* 여기에 코드를 작성하세요. */

@@ -27,7 +27,7 @@ n = 12.345;
 
 숫자형엔 일반적인 숫자 외에 `Infinity`, `-Infinity`, `NaN`같은 '특수 숫자 값(special numeric value)'이 포함됩니다.
 
-- `Infinity`는 어떤 숫자보다 큰 특수 값, [무한대(∞)](https://en.wikipedia.org/wiki/Infinity)를 나타냅니다.
+- `Infinity`는 어떤 숫자보다 더 큰 특수 값, [무한대(∞)](https://en.wikipedia.org/wiki/Infinity)를 나타냅니다.
 
     어느 숫자든 0으로 나누면 무한대를 얻을 수 있습니다.
 

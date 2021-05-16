@@ -1,1 +1,1 @@
-We'll be using `rows` and `cells` properties to access diagonal table cells.
+`rows`와 `cells` 프로퍼티를 이용해 테이블의 대각선 셀에 접근합니다.

@@ -66,9 +66,9 @@ socket.onerror = function(error) {
 
 이제 여러분은 웹소켓 통신이 어떻게 이뤄지는지를 알게 되셨습니다. 생각보다 꽤 간단하죠?
 
-그렇긴 하지만 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세하게 알아봅시다.
+그렇긴 하지만 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세히 알아봅시다.
 
-## 웹소켓 열기
+## 웹소켓 핸드셰이크
 
 `new WebSocket(url)`을 호출해 소켓을 생성하면 즉시 연결이 시작됩니다.
 
@@ -89,7 +89,7 @@ Sec-WebSocket-Version: 13
 ```
 
 - `Origin` -- 클라이언트 오리진(예시에선 `https://javascript.info`)을 나타냅니다. 서버는 `Origin` 헤더를 보고 어떤 웹사이트와 소켓통신을 할지 결정하기 때문에 Origin 헤더는 웹소켓 통신에 중요한 역할을 합니다. 참고로 웹소켓 객체는 기본적으로 크로스 오리진(cross-origin) 요청을 지원합니다. 웹소켓 통신만을 위한 전용 헤더나 제약도 없습니다. 오래된 서버는 웹소켓 통신을 지원하지 못하기 때문에 웹소켓 통신은 호환성 문제도 없습니다.
-- `Connection: Upgrade` -- signals that the client would like to change the protocol.
+- `Connection: Upgrade` -- 클라이언트  측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
 - `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
 - `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키를 나타냅니다.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
@@ -98,7 +98,7 @@ Sec-WebSocket-Version: 13
 바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
-If the server agrees to switch to WebSocket, it should send code 101 response:
+클라이언트 측에서 보낸 웹소켓 통신 요청을 최초로 받고 이에 동의하면, 서버는 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. 
 
 ```
 101 Switching Protocols
