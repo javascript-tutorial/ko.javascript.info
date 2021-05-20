@@ -8,5 +8,5 @@ importance: 5
 
 ```online
 이렇게요.
-<input type="button" onclick="this.hidden=true" value="Click to hide">
+<input type="button" onclick="this.hidden=true" value="클릭 시 버튼 숨기기">
 ```
