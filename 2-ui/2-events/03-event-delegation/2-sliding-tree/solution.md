@@ -1,4 +1,4 @@
-The solution has two parts.
+해답은 두 부분으로 구성됩니다.
 
-1. Wrap every tree node title into `<span>`. Then we can CSS-style them on `:hover` and handle clicks exactly on text, because `<span>` width is exactly the text width (unlike without it).
-2. Set a handler to the `tree` root node and handle clicks on that `<span>` titles.
+1. 모든 트리 노드 타이틀을 `<span>`으로 묶습니다. 그리고 `:hover`에서 CSS 스타일을 지정하고 텍스트에 대한 클릭을 정확하게 처리합니다. `<span>` 너비는 정확히 텍스트 너비와 일치하기 때문입니다.
+2. 핸들러를 `tree` 루트 노드로 설정하고 해당 `<span>` 타이틀에 대한 클릭을 처리합니다.
