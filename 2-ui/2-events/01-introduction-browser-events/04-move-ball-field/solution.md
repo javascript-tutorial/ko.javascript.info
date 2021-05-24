@@ -16,9 +16,9 @@
 
 #ball {
   position: absolute;
-  left: 0; /* relative to the closest positioned ancestor (field) */
+  left: 0; /* 상대적으로 가장가까운 위치에 있는 조상(필드) */
   top: 0;
-  transition: 1s all; /* CSS animation for left/top makes the ball fly */
+  transition: 1s all; /* CSS 애니메이션으로 왼쪽·위쪽으로 공이 날아가요 */
 }
 ```
 
