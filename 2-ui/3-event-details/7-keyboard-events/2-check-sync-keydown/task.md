@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# 확장 단축기
+# 확장 단축키
 
 함수 `runOnKeys(func, code1, code2, ... code_n)`를 만듭니다. 함수 runOnKeys는 `code1`, `code2`, ..., `code_n`이 있는 키를 동시에 누를 때 `func`를 실행하는 함수입니다.
 
