@@ -4,7 +4,7 @@ importance: 4
 
 # 캐러셀 (Carousel)
 
-캐러셀(화살표를 클릭하여 스크롤할 수 있는 이미지 묶음) 만들기.
+캐러셀(화살표를 클릭하여 스크롤 할 수 있는 이미지 묶음) 만들기.
 
 [iframe height=200 src="solution"]
 
