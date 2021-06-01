@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# 모달 폼
+# 모달 폼 (Modal Form)
 
 메시지 `html`, 입력 필드(input field), 확인(OK) 및 취소(Cancel) 버튼을 갖춘 폼을 나타내는 함수 `showPrompt(html, callback)`을 생성하세요.
 
