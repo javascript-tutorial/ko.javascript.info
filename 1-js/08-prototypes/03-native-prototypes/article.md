@@ -109,7 +109,7 @@ alert(f.__proto__.__proto__ == Object.prototype); // true, 객체에서 상속�
 특수 값인 `null`과 `undefined`는 문자열과 숫자 불린값과는 거리가 있습니다. `null`과 `undefined`에 대응하는 래퍼 객체는 없죠. 따라서 `null`과 `undefined`에선 메서드와 프로퍼티를 이용할 수 없습니다. 프로토타입도 물론 사용할 수 없습니다.
 ```
 
-## 네이티브 프로토타입 변경하기[#native-prototype-change]
+## 네이티브 프로토타입 변경하기 [#native-prototype-change]
 
 네이티브 프로토타입을 수정할 수 있습니다. `String.prototype`에 메서드를 하나 추가하면 모든 문자열에서 해당 메서드를 사용할 수 있죠.
 
