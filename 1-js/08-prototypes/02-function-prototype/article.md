@@ -43,7 +43,7 @@ alert( rabbit.eats ); // true
 ```smart header="`F.prototype`은 `new F`를 호출할 때만 사용됩니다."
 `F.prototype` 프로퍼티는 `new F`가 호출될 때만 사용됩니다. `new F`를 호출해 새롭게 만든 객체의 `[[Prototype]]`을 할당해 주죠.
 
-새로운 객체가 만들어진 후에 `F.prototype` 프로퍼티가 바뀌면(`F.prototype = <another object>`) `new F`로 만들어지는 새로운 객체는 또 다른 객체(<another object>)를 `[[Prototype]]`으로 갖게 됩니다. 다만, 기존에 있던 객체의 `[[Prototype]]`은 그대로 유지됩니다.
+새로운 객체가 만들어진 후에 `F.prototype` 프로퍼티가 바뀌면(`F.prototype = <another object>`) `new F`로 만들어지는 새로운 객체는 또 다른 객체를 `[[Prototype]]`으로 갖게 됩니다. 다만, 기존에 있던 객체의 `[[Prototype]]`은 그대로 유지됩니다.
 ```
 
 ## 함수의 prototype 프로퍼티와 constructor 프로퍼티
