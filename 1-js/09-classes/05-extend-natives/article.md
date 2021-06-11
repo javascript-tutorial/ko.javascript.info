@@ -65,7 +65,7 @@ alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
 보시다시피 이제 `.filter`가 `Array`를 반환합니다. 따라서 더는 확장 기능이 전달되지 않습니다.
 
 ```smart header="다른 컬렉션도 유사하게 동작합니다."
-`Map`, `Set` 같은 컬렉션도 위외 같이 동작합니다. 이 컬렉션들도 `Symbol.species`를 사용합니다.
+`Map`, `Set` 같은 컬렉션도 위와 같이 동작합니다. 이 컬렉션들도 `Symbol.species`를 사용합니다.
 ```
 
 ## 내장 객체와 정적 메서드 상속
