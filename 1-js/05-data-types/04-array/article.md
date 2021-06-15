@@ -193,7 +193,11 @@ alert( fruits );
 
 숫자형 키를 사용함으로써 배열은 객체 기본 기능 이외에도 순서가 있는 컬렉션을 제어하게 해주는 특별한 메서드를 제공합니다. `length`라는 프로퍼티도 제공하죠. 그렇지만 어쨌든 배열의 본질은 객체입니다.
 
+<<<<<<< HEAD
 이렇게 배열은 자바스크립트의 일곱 가지 원시 자료형에 해당하지 않고, 원시 자료형이 아닌 객체형에 속하기 때문에 객체처럼 동작합니다.
+=======
+Remember, there are only eight basic data types in JavaScript (see the [Data types](info:types) chapter for more info). Array is an object and thus behaves like an object.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시를 하나 살펴봅시다. 배열은 객체와 마찬가지로 참조를 통해 복사됩니다.
 
@@ -209,7 +213,11 @@ arr.push("배"); // 참조를 이용해 배열을 수정합니다.
 alert( fruits ); // 바나나,배 - 요소가 두 개가 되었습니다.
 ```
 
+<<<<<<< HEAD
 배열을 배열답게 만들어주는 것은 특수 내부 표현방식입니다. 자바스크립트 엔진은 아래쪽 그림에서처럼 배열의 요소를 인접한 메모리 공간에 차례로 저장해 연산 속도를 높입니다. 이 방법 이외에도 배열 관련 연산을 더 빠르게 해주는 최적화 기법은 다양합니다.
+=======
+...But what makes arrays really special is their internal representation. The engine tries to store its elements in the contiguous memory area, one after another, just as depicted on the illustrations in this chapter, and there are other optimizations as well, to make arrays work really fast.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그런데 개발자가 배열을 '순서가 있는 자료의 컬렉션'처럼 다루지 않고 일반 객체처럼 다루면 이런 기법들이 제대로 동작하지 않습니다.
 
@@ -379,9 +387,13 @@ alert( arr[0] ); // undefined가 출력됩니다. 요소가 하나도 없는 배
 alert( arr.length ); // 길이는 2입니다.
 ```
 
+<<<<<<< HEAD
 위 예시에서 확인해 본 것처럼 `new Array(number)`를 이용해 만든 배열의 요소는 모두 `undefined` 입니다.
 
 이런 뜻밖의 상황을 마주치지 않기 위해 `new Array`의 기능을 잘 알지 않는 한 대부분의 개발자가 대괄호를 써서 배열을 만듭니다.
+=======
+To avoid such surprises, we usually use square brackets, unless we really know what we're doing.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 다차원 배열
 
@@ -429,7 +441,58 @@ alert( "1" + 1 ); // "11"
 alert( "1,2" + 1 ); // "1,21"
 ```
 
+<<<<<<< HEAD
 ## 요약
+=======
+## Don't compare arrays with ==
+
+Arrays in JavaScript, unlike some other programming languages, shouldn't be compared with operator `==`.
+
+This operator has no special treatment for arrays, it works with them as with any objects.
+
+Let's recall the rules:
+
+- Two objects are equal `==` only if they're references to the same object.
+- If one of the arguments of `==` is an object, and the other one is a primitive, then the object gets converted to primitive, as explained in the chapter <info:object-toprimitive>.
+- ...With an exception of `null` and `undefined` that equal `==` each other and nothing else.
+
+The strict comparison `===` is even simpler, as it doesn't convert types. 
+
+So, if we compare arrays with `==`, they are never the same, unless we compare two variables that reference exactly the same array.
+
+For example:
+```js run
+alert( [] == [] ); // false
+alert( [0] == [0] ); // false
+```
+
+These arrays are technically different objects. So they aren't equal. The `==` operator doesn't do item-by-item comparison.
+
+Comparison with primitives may give seemingly strange results as well:
+
+```js run
+alert( 0 == [] ); // true
+
+alert('0' == [] ); // false
+```
+
+Here, in both cases, we compare a primitive with an array object. So the array `[]` gets converted to primitive for the purpose of comparison and becomes an empty string `''`. 
+
+Then the comparison process goes on with the primitives, as described in the chapter <info:type-conversions>:
+
+```js run
+// after [] was converted to ''
+alert( 0 == '' ); // true, as '' becomes converted to number 0
+
+alert('0' == '' ); // false, no type conversion, different strings
+```
+
+So, how to compare arrays?
+
+That's simple: don't use the `==` operator. Instead, compare them item-by-item in a loop or using iteration methods explained in the next chapter.
+
+## Summary
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 배열은 특수한 형태의 객체로, 순서가 있는 자료를 저장하고 관리하는 용도에 최적화된 자료구조입니다.
 
@@ -460,4 +523,12 @@ alert( "1,2" + 1 ); // "1,21"
   - `for (let item of arr)` -- 배열 요소에만 사용되는 모던한 문법입니다.
   - `for (let i in arr)` -- 배열엔 절대 사용하지 마세요.
 
+<<<<<<< HEAD
 <info:array-methods> 챕터에선 배열에 요소를 더하거나 빼기, 원하는 요소를 추출하기, 배열 정렬하기 등과 관련된 다양한 메서드를 학습할 예정입니다.
+=======
+To compare arrays, don't use the `==` operator (as well as `>`, `<` and others), as they have no special treatment for arrays. They handle them as any objects, and it's not what we usually want.
+
+Instead you can use `for..of` loop to compare arrays item-by-item.
+
+We will continue with arrays and study more methods to add, remove, extract elements and sort arrays in the next chapter <info:array-methods>.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

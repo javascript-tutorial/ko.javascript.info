@@ -69,7 +69,11 @@ Date 객체를 활용하면 생성 및 수정 시간을 저장하거나 시간�
     new Date(2011, 0, 1); // hours를 비롯한 인수는 기본값이 0이므로 위와 동일
     ```
 
+<<<<<<< HEAD
     최소 정밀도는 1밀리초(1/1000초)입니다.
+=======
+    The maximal precision is 1 ms (1/1000 sec):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     ```js run
     let date = new Date(2011, 0, 1, 2, 3, 4, 567);
@@ -348,7 +352,11 @@ let time1 = 0;
 let time2 = 0;
 
 *!*
+<<<<<<< HEAD
 // 함수 bench를 각 함수(diffSubtract, diffGetTime)별로 10번씩 돌립니다.
+=======
+// run bench(diffSubtract) and bench(diffGetTime) each 10 times alternating
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 for (let i = 0; i < 10; i++) {
   time1 += bench(diffSubtract);
   time2 += bench(diffGetTime);
@@ -385,10 +393,17 @@ for (let i = 0; i < 10; i++) {
 
 단, 문자열의 형식은 `YYYY-MM-DDTHH:mm:ss.sssZ`처럼 생겨야 합니다.
 
+<<<<<<< HEAD
 - `YYYY-MM-DD` -- 날짜(연-월-일)
 - `"T"` -- 구분 기호로 쓰임
 - `HH:mm:ss.sss` -- 시:분:초.밀리초
 - `'Z'`(옵션) -- `+-hh:mm` 형식의 시간대를 나타냄. `Z` 한 글자인 경우엔 UTC+0을 나타냄
+=======
+- `YYYY-MM-DD` -- is the date: year-month-day.
+- The character `"T"` is used as the delimiter.
+- `HH:mm:ss.sss` -- is the time: hours, minutes, seconds and milliseconds.
+- The optional `'Z'` part denotes the time zone in the format `+-hh:mm`. A single letter `Z` would mean UTC+0.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `YYYY-MM-DD`, `YYYY-MM`, `YYYY`같이 더 짧은 문자열 형식도 가능합니다.
 
@@ -424,10 +439,17 @@ alert(date);
 간혹 밀리초보다 더 정확한 시간 측정이 필요할 때가 있습니다. 자바스크립트는 마이크로초(1/1,000,000초)를 지원하진 않지만 대다수의 호스트 환경은 마이크로초를 지원합니다. 브라우저 환경의 메서드 [performance.now()](mdn:api/Performance/now)는 페이지 로딩에 걸리는 밀리초를 반환해주는데, 반환되는 숫자는 소수점 아래 세 자리까지 지원합니다.
 
 ```js run
+<<<<<<< HEAD
 alert(`페이지 로딩이 ${performance.now()}밀리초 전에 시작되었습니다.`);
 // 얼럿 창에 "페이지 로딩이 34731.26000000001밀리초 전에 시작되었습니다."와 유사한 메시지가 뜰 텐데
 // 여기서 '.26'은 마이크로초(260마이크로초)를 나타냅니다.
 // 소수점 아래 숫자 세 개 이후의 숫자는 정밀도 에러때문에 보이는 숫자이므로 소수점 아래 숫자 세 개만 유효합니다.
+=======
+alert(`Loading started ${performance.now()}ms ago`);
+// Something like: "Loading started 34731.26000000001ms ago"
+// .26 is microseconds (260 microseconds)
+// more than 3 digits after the decimal point are precision errors, only the first 3 are correct
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 Node.js에선 `microtime` 모듈 등을 사용해 마이크로초를 사용할 수 있습니다. 자바스크립트가 구동되는 대다수의 호스트 환경과 기기에서 마이크로초를 지원하고 있는데 `Date` 객체만 마이크로초를 지원하지 않습니다.

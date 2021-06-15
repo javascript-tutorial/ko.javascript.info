@@ -1,10 +1,17 @@
 
 # 맵과 셋
 
+<<<<<<< HEAD
 지금까진 아래와 같은 복잡한 자료구조를 학습해 보았습니다.
 
 - 객체 -- 키가 있는 컬렉션을 저장함
 - 배열 -- 순서가 있는 컬렉션을 저장함
+=======
+Till now, we've learned about the following complex data structures:
+
+- Objects are used for storing keyed collections.
+- Arrays are used for storing ordered collections.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 하지만 현실 세계를 반영하기엔 이 두 자료구조 만으론 부족해서 `맵(Map)`과 `셋(Set)`이 등장하게 되었습니다.
 
@@ -41,8 +48,13 @@ alert( map.size ); // 3
 
 맵은 객체와 달리 키를 문자형으로 변환하지 않습니다. 키엔 자료형 제약이 없습니다.
 
+<<<<<<< HEAD
 ```smart header="`map[key]`는 `Map`을 쓰는 바른 방법이 아닙니다."
 `map[key] = 2`로 값을 설정하는 것 같이 `map[key]`를 사용할 수 있긴 합니다. 하지만 이 방법은 `map`을 일반 객체처럼 취급하게 됩니다. 따라서 여러 제약이 생기게 되죠.
+=======
+```smart header="`map[key]` isn't the right way to use a `Map`"
+Although `map[key]` also works, e.g. we can set `map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (only string/symbol keys and so on).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `map`을 사용할 땐 `map`전용 메서드 `set`, `get` 등을 사용해야만 합니다.
 ```
@@ -63,15 +75,21 @@ visitsCountMap.set(john, 123);
 alert( visitsCountMap.get(john) ); // 123
 ```
 
+<<<<<<< HEAD
 객체를 키로 사용할 수 있다는 점은 `맵`의 가장 중요한 기능 중 하나입니다. `객체`에는 문자열 키를 사용할 수 있습니다. 하지만 객체 키는 사용할 수 없습니다.
+=======
+Using objects as keys is one of the most notable and important `Map` features. The same does not count for `Object`. String as a key in `Object` is fine, but we can't use another `Object` as a key in `Object`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 객체형 키를 `객체`에 써봅시다.
 
 ```js run
 let john = { name: "John" };
+let ben = { name: "Ben" };
 
 let visitsCountObj = {}; // 객체를 하나 만듭니다.
 
+<<<<<<< HEAD
 visitsCountObj[john] = 123; // 객체(john)를 키로 해서 객체에 값(123)을 저장해봅시다.
 
 *!*
@@ -81,6 +99,18 @@ alert( visitsCountObj["[object Object]"] ); // 123
 ```
 
 `visitsCountObj`는 객체이기 때문에 모든 키를 문자형으로 변환시킵니다. 이 과정에서 `john`은 문자형으로 변환되어 `"[object Object]"`가 됩니다.
+=======
+visitsCountObj[ben] = 234; // try to use ben object as the key
+visitsCountObj[john] = 123; // try to use john object as the key, ben object will get replaced
+
+*!*
+// That's what got written!
+alert( visitsCountObj["[object Object]"] ); // 123 
+*/!*
+```
+
+As `visitsCountObj` is an object, it converts all `Object` keys, such as `john` and `ben` above, to same string `"[object Object]"`. Definitely not what we want.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```smart header="`맵`이 키를 비교하는 방식"
 `맵`은 [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero)라 불리는 알고리즘을 사용해 값의 등가 여부를 확인합니다. 이 알고리즘은 일치 연산자 `===`와 거의 유사하지만, `NaN`과 `NaN`을 같다고 취급하는 것에서 일치 연산자와 차이가 있습니다. 따라서 맵에선 `NaN`도 키로 쓸 수 있습니다.
@@ -304,6 +334,7 @@ set.forEach((value, valueAgain, set) => {
 
 주요 메서드와 프로퍼티:
 
+<<<<<<< HEAD
 - `new Map([iterable])` -- 맵을 만듭니다. `[key,value]`쌍이 있는 `iterable`(예: 배열)을 선택적으로 넘길 수 있는데, 이때 넘긴 이터러블 객체는 맵 초기화에 사용됩니다. 
 - `map.set(key, value)` -- 키를 이용해 값을 저장합니다.
 - `map.get(key)` -- 키에 해당하는 값을 반환합니다. `key`가 존재하지 않으면 `undefined`를 반환합니다.
@@ -311,6 +342,15 @@ set.forEach((value, valueAgain, set) => {
 - `map.delete(key)` -- 키에 해당하는 값을 삭제합니다.
 - `map.clear()` -- 맵 안의 모든 요소를 제거합니다.
 - `map.size` -- 요소의 개수를 반환합니다.
+=======
+- `new Map([iterable])` -- creates the map, with optional `iterable` (e.g. array) of `[key,value]` pairs for initialization.
+- `map.set(key, value)` -- stores the value by the key, returns the map itself.
+- `map.get(key)` -- returns the value by the key, `undefined` if `key` doesn't exist in map.
+- `map.has(key)` -- returns `true` if the `key` exists, `false` otherwise.
+- `map.delete(key)` -- removes the value by the key, returns `true` if `key` existed at the moment of the call, otherwise `false`.
+- `map.clear()` -- removes everything from the map.
+- `map.size` -- returns the current element count.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 일반적인 `객체`와의 차이점:
 

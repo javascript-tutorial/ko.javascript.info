@@ -1,6 +1,10 @@
 # focus와 blur
 
+<<<<<<< HEAD
 사용자가 폼 요소를 클릭하거나 `key:Tab` 키를 눌러 요소로 이동하면 해당 요소가 포커스(focus)됩니다. `autofocus`라는 HTML 속성을 사용해도 요소를 포커스 할 수 있는데 이 속성이 있는 요소는 페이지가 로드된 후 자동으로 포커싱 됩니다. 이 외에도 요소를 포커싱(focusing)할 수 있는 방법은 다양합니다.
+=======
+An element receives the focus when the user either clicks on it or uses the `key:Tab` key on the keyboard. There's also an `autofocus` HTML attribute that puts the focus onto an element by default when a page loads and other means of getting the focus.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 요소를 포커싱한다는 것은 일반적으로 '여기에 데이터를 입력할 준비를 하라'는 것을 의미하기 때문에 요소 포커싱이 이뤄지는 순간엔 요구사항을 충족시키는 초기화 코드를 실행할 수 있습니다.
 
@@ -18,8 +22,13 @@
 
 예시에서 각 핸들러는 다음과 같은 역할을 합니다.
 
+<<<<<<< HEAD
 - `blur` 핸들러에선 필드에 이메일이 잘 입력되었는지 확인하고 잘 입력되지 않은 경우엔 에러를 보여줍니다.
 - `focus` 핸들러에선 에러 메시지를 숨깁니다(이메일 재확인은 `blur` 핸들러에서 합니다).
+=======
+- The `blur` handler checks if the field has an email entered, and if not -- shows an error.
+- The `focus` handler hides the error message (on `blur` it will be checked again):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```html run autorun height=60
 <style>
@@ -104,11 +113,19 @@ The best recipe is to be careful when using these events. If we want to track us
 ```
 ## tabindex를 사용해서 모든 요소 포커스 하기
 
+<<<<<<< HEAD
 대다수의 요소는 기본적으로 포커싱을 지원하지 않습니다.
+=======
+By default, many elements do not support focusing.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 포커싱을 지원하지 않는 요소 목록은 브라우저마다 다르긴 하지만 한 가지 확실한 것은 `<button>`, `<input>`, `<select>`, `<a>`와 같이 사용자가 웹 페이지와 상호작용 할 수 있게 도와주는 요소는 `focus`, `blur`를 지원한다는 사실입니다.
 
+<<<<<<< HEAD
 반면 `<div>`, `<span>`, `<table>`같이 무언가를 표시하는 용도로 사용하는 요소들은 포커싱을 지원하지 않습니다. 따라서 이런 요소엔 `elem.focus()` 메서드가 동작하지 않고 `focus`, `blur`이벤트도 트리거 되지 않습니다.
+=======
+On the other hand, elements that exist to format something, such as `<div>`, `<span>`, `<table>` -- are unfocusable by default. The method `elem.focus()` doesn't work on them, and `focus/blur` events are never triggered.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그럼에도 불구하고 포커스를 하고 싶다면 `tabindex` HTML 속성을 사용하면 됩니다.
 
@@ -118,7 +135,11 @@ The best recipe is to be careful when using these events. If we want to track us
 
 포커싱 되는 요소 순서는 다음과 같습니다. `tabindex`가 `1`인 요소부터 시작해 점점 큰 숫자가 매겨진 요소로 이동하고 그다음 `tabindex`가 없는 요소(평범한 `<input>` 요소 등)로 이동합니다.
 
+<<<<<<< HEAD
 `tabindex`가 없는 요소들은 문서 내 순서에 따라 포커스가 이동합니다(기본 순서).
+=======
+Elements without matching `tabindex` are switched in the document source order (the default order).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그런데 `tabindex`를 사용할 땐 주의해야 할 사항이 있습니다.
 
@@ -131,7 +152,11 @@ The best recipe is to be careful when using these events. If we want to track us
 예시를 살펴봅시다. 첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보세요.
 
 ```html autorun no-beautify
+<<<<<<< HEAD
 첫 번째 항목을 클릭하고 Tab 키를 눌러보면서 포커스 된 요소 순서를 눈여겨보세요. 참고로 탭을 많이 누르면 예시 밖으로 포커스가 이동하니, 주의하세요.
+=======
+Click the first item and press Tab. Keep track of the order. Please note that many subsequent Tabs can move the focus out of the iframe in the example.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 <ul>
   <li tabindex="1">일</li>
   <li tabindex="0">영</li>
@@ -215,7 +240,11 @@ The best recipe is to be careful when using these events. If we want to track us
 
 ## 요약
 
+<<<<<<< HEAD
 `focus`와 `blur` 이벤트는 각각 요소가 포커스를 받을 때, 잃을 때 발생합니다.
+=======
+Events `focus` and `blur` trigger on an element focusing/losing focus.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 두 이벤트를 사용할 땐 다음을 유의해야 합니다.
 - `focus`와 `blur` 이벤트는 버블링 되지 않습니다. 캡처링이나 `focusin`, `focusout`을 사용하면 이벤트 위임 효과를 볼 수 있습니다.

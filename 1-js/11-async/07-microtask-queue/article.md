@@ -23,14 +23,22 @@ alert("코드 종료"); // 이 얼럿 창이 가장 먼저 나타납니다.
 
 ## 마이크로태스크 큐
 
+<<<<<<< HEAD
 비동기 작업을 처리하려면 적절한 관리가 필요합니다. 이를 위해 ECMA에선 `PromiseJobs`라는 내부 큐(internal queue)를 명시합니다. V8 엔진에선 이를 '마이크로태스크 큐(microtask queue)'라고 부르기 때문에 이 용어가 좀 더 선호됩니다.
+=======
+Asynchronous tasks need proper management. For that, the ECMA standard specifies an internal queue `PromiseJobs`, more often referred to as the "microtask queue" (V8 term).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 [명세서](https://tc39.github.io/ecma262/#sec-jobs-and-job-queues)의 설명을 살펴봅시다.
 
 - 마이크로태스크 큐는 먼저 들어온 작업을 먼저 실행합니다(FIFO, first-in-first-out).
 - 실행할 것이 아무것도 남아있지 않을 때만 마이크로태스크 큐에 있는 작업이 실행되기 시작합니다.
 
+<<<<<<< HEAD
 요약하자면, 어떤 프라미스가 준비되었을 때 이 프라미스의 `.then/catch/finally` 핸들러가 큐에 들어간다고 생각하시면 됩니다. 이때 핸들러들은 여전히 실행되지 않습니다. 현재 코드에서 자유로운 상태가 되었을 때에서야 자바스크립트 엔진은 큐에서 작업을 꺼내 실행합니다.
+=======
+Or, to put it more simply, when a promise is ready, its `.then/catch/finally` handlers are put into the queue; they are not executed yet. When the JavaScript engine becomes free from the current code, it takes a task from the queue and executes it.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 위 예시에서 '코드 종료'가 먼저 출력되는 이유가 여기에 있습니다.
 
@@ -40,7 +48,11 @@ alert("코드 종료"); // 이 얼럿 창이 가장 먼저 나타납니다.
 
 여러 개의 `.then/catch/finally`를 사용해 만든 체인의 경우, 각 핸들러는 비동기적으로 실행됩니다. 큐에 들어간 핸들러 각각은 현재 코드가 완료되고, 큐에 적체된 이전 핸들러의 실행이 완료되었을 때 실행됩니다.
 
+<<<<<<< HEAD
 **그렇다면 '프라미스 성공!'을 먼저, '코드 종료'를 나중에 출력되게 하려면 어떻게 해야 할까요?** 실행 순서가 중요한 경우엔 이런 요구사항이 충족되도록 코드를 작성해야 합니다.
+=======
+**What if the order matters for us? How can we make `code finished` appear after `promise done`?**
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 방법은 아주 쉽습니다. `.then`을 사용해 큐에 넣으면 됩니다.
 
@@ -103,7 +115,11 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 ## 요약
 
+<<<<<<< HEAD
 모든 프라미스 동작은 '마이크로태스크 큐'(ES8 용어)라 불리는 내부 '프라미스 잡(promise job)' 큐에 들어가서 처리되기 때문에 프라미스 핸들링은 항상 비동기로 처리됩니다.
+=======
+Promise handling is always asynchronous, as all promise actions pass through the internal "promise jobs" queue, also called "microtask queue" (V8 term).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 따라서 `.then/catch/finally` 핸들러는 항상 현재 코드가 종료되고 난 후에 호출됩니다.
 

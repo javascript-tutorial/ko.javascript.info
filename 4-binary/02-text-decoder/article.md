@@ -9,10 +9,17 @@
 let decoder = new TextDecoder([label], [options]);
 ```
 
+<<<<<<< HEAD
 - **`label`** -- 기본적인 인코딩 방식은 `utf-8`이지만 `big5`, `windows-1251` 및 다른 인코딩 방식도 지원됩니다.
 - **`options`** -- 선택 항목입니다.
   - **`fatal`** -- 불린 값. `true`인 경우, 잘못된 글자(디코딩 불가능한 글자)를 대상으로 예외를 던집니다. `false(기본값)`인 경우, 글자를 `\uFFFD`로 대체합니다.
   - **`ignoreBOM`** -- 불린 값이 `true`인 경우 사용되지 않는 바이트 순서 표식(Byte Order Mark, BOM)을 무시합니다.
+=======
+- **`label`** -- the encoding, `utf-8` by default, but `big5`, `windows-1251` and many other are also supported.
+- **`options`** -- optional object:
+  - **`fatal`** -- boolean, if `true` then throw an exception for invalid (non-decodable) characters, otherwise (default) replace them with character `\uFFFD`.
+  - **`ignoreBOM`** -- boolean, if `true` then ignore BOM (an optional byte-order Unicode mark), rarely needed.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그런 다음 생성했던 객체를 디코딩합니다.
 

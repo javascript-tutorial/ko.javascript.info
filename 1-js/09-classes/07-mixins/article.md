@@ -69,7 +69,11 @@ let sayMixin = {
 };
 
 let sayHiMixin = {
+<<<<<<< HEAD
   __proto__: sayMixin, // (Object.create를 사용해 프로토타입을 설정할 수도 있습니다.)
+=======
+  __proto__: sayMixin, // (or we could use Object.setPrototypeOf to set the prototype here)
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
   sayHi() {
     *!*

@@ -3,7 +3,28 @@
 
 `obj1 + obj2` 처럼 객체끼리 더하는 연산을 하거나, `obj1 - obj2` 처럼 객체끼리 빼는 연산을 하면 어떤 일이 일어날까요? `alert(obj)`로 객체를 출력할 때는 무슨 일이 발생할까요?
 
+<<<<<<< HEAD
 이 모든 경우에 자동 형 변환이 일어납니다. 객체는 원시값으로 변환되고, 그 후 의도한 연산이 수행됩니다.
+=======
+JavaScript doesn't exactly allow to customize how operators work on objects. Unlike some other programming languages, such as Ruby or C++, we can't implement a special object method to handle an addition (or other operators).
+
+In case of such operations, objects are auto-converted to primitives, and then the operation is carried out over these primitives and results in a primitive value.
+
+That's an important limitation, as the result of `obj1 + obj2` can't be another object!
+
+E.g. we can't make objects representing vectors or matrices (or archievements or whatever), add them and expect a "summed" object as the result. Such architectural feats are automatically "off the board".
+
+So, because we can't do much here, there's no maths with objects in real projects. When it happens, it's usually because of a coding mistake.
+
+In this chapter we'll cover how an object converts to primitive and how to customize it.
+
+We have two purposes:
+
+1. It will allow us to understand what's going on in case of coding mistakes, when such an operation happened accidentally.
+2. There are exceptions, where such operations are possible and look good. E.g. subtracting or comparing dates (`Date` objects). We'll come across them later.
+
+## Conversion rules
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 <info:type-conversions> 챕터에선 객체의 형 변환은 다루지 않았습니다. 원시형 자료가 어떻게 문자, 숫자, 논리형으로 변환되는지만 알아보았죠. 이젠 메서드와 심볼에 대한 지식을 갖추었으니 본격적으로 이 공백을 메꿔봅시다.
 
@@ -11,11 +32,19 @@
 2. 숫자형으로의 형 변환은 객체끼리 빼는 연산을 할 때나 수학 관련 함수를 적용할 때 일어납니다. 객체 `Date`끼리 차감하면(`date1 - date2`) 두 날짜의 시간 차이가 반환됩니다. `Date`에 대해선 <info:date>에서 다룰 예정입니다.
 3. 문자형으로의 형 변환은 대개 `alert(obj)`같이 객체를 출력하려고 할 때 일어납니다.  
 
+<<<<<<< HEAD
 ## ToPrimitive
 
 특수 객체 메서드를 사용하면 숫자형이나 문자형으로의 형 변환을 원하는 대로 조절할 수 있습니다.
 
 객체 형 변환은 세 종류로 구분되는데, 'hint'라 불리는 값이 구분 기준이 됩니다. 'hint'가 무엇인지는 [명세서](https://tc39.github.io/ecma262/#sec-toprimitive)에 자세히 설명되어 있는데, '목표로 하는 자료형' 정도로 이해하시면 될 것 같습니다. 
+=======
+We can fine-tune string and numeric conversion, using special object methods.
+
+There are three variants of type conversion, that happen in various situations.
+
+They're called "hints", as described in the [specification](https://tc39.github.io/ecma262/#sec-toprimitive):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `"string"`
 : `alert` 함수같이 문자열을 기대하는 연산을 수행할 때는(객체-문자형 변환), hint가 `string`이 됩니다.
@@ -81,12 +110,24 @@ hint는 총 세 가지입니다. 아주 간단하죠.
 첫 번째 메서드부터 살펴봅시다. 자바스크립트엔 `Symbol.toPrimitive`라는 내장 심볼이 존재하는데, 이 심볼은 아래와 같이 목표로 하는 자료형(hint)을 명명하는 데 사용됩니다.
 ```js
 obj[Symbol.toPrimitive] = function(hint) {
+<<<<<<< HEAD
   // 반드시 원시값을 반환해야 합니다.
   // hint는 "string", "number", "default" 중 하나가 될 수 있습니다.
 };
 ```
 
 실제 돌아가는 예시를 살펴보는 게 좋을 것 같네요. `user` 객체에 객체-원시형 변환 메서드 `obj[Symbol.toPrimitive](hint)`를 구현해보겠습니다.
+=======
+  // here goes the code to convert this object to a primitive
+  // it must return a primitive value
+  // hint = one of "string", "number", "default"
+};
+```
+
+If the method `Symbol.toPrimitive` exists, it's used for all hints, and no more methods are needed.
+
+For instance, here `user` object implements it:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let user = {
@@ -110,12 +151,21 @@ alert(user + 500); // hint: default -> 1500
 
 ## toString과 valueOf
 
+<<<<<<< HEAD
 `toString`과 `valueOf`는 심볼이 생기기 이전부터 존재해 왔던 '평범한' 메서드입니다. 이 메서드를 이용하면 '구식'이긴 하지만 형 변환을 직접 구현할 수 있습니다.
 
 객체에 `Symbol.toPrimitive`가 없으면 자바스크립트는 아래 규칙에 따라 `toString`이나 `valueOf`를 호출합니다.
 
 - hint가 'string'인 경우: `toString -> valueOf` 순(`toString`이 있다면 `toString`을 호출, `toString`이 없다면 `valueOf`를 호출함)
 - 그 외: `valueOf -> toString` 순
+=======
+If there's no `Symbol.toPrimitive` then JavaScript tries to find methods `toString` and `valueOf`:
+
+- For the "string" hint: `toString`, and if it doesn't exist, then `valueOf` (so `toString` has the priority for stirng conversions).
+- For other hints: `valueOf`, and if it doesn't exist, then `toString` (so `valueOf` has the priority for maths).
+
+Methods `toString` and `valueOf` come from ancient times. They are not symbols (symbols did not exist that long ago), but rather "regular" string-named methods. They provide an alternative "old-style" way to implement the conversion.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 메서드들은 반드시 원시값을 반환해야합니다. `toString`이나 `valueOf`가 객체를 반환하면 그 결과는 무시됩니다. 마치 메서드가 처음부터 없었던 것처럼 되어버리죠.
 
@@ -135,9 +185,15 @@ alert(user.valueOf() === user); // true
 
 이런 이유 때문에 `alert`에 객체를 넘기면 `[object Object]`가 출력되는 것입니다.   
 
+<<<<<<< HEAD
 여기서 `valueOf`는 튜토리얼의 완성도를 높이고 헷갈리는 것을 줄여주려고 언급했습니다. 앞서 본 바와 같이 `valueOf`는 객체 자신을 반환하기 때문에 그 결과가 무시됩니다. 왜 그런거냐고 이유를 묻지는 말아주세요. 그냥 역사적인 이유때문입니다. 우리는 그냥 이 메서드가 존재하지 않는다고 생각하면 됩니다.
 
 이제 직접 이 메서드들을 사용한 예시를 구현해봅시다.
+=======
+The default `valueOf` is mentioned here only for the sake of completeness, to avoid any confusion. As you can see, it returns the object itself, and so is ignored. Don't ask me why, that's for historical reasons. So we can assume it doesn't exist.
+
+Let's implement these methods to customize the conversion.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 아래 `user`는 `toString`과 `valueOf`를 조합해 만들었는데, `Symbol.toPrimitive`를 사용한 위쪽 예시와 동일하게 동작합니다.
 
@@ -182,7 +238,11 @@ alert(user + 500); // toString -> John500
 
 객체에 `Symbol.toPrimitive`와 `valueOf`가 없으면, `toString`이 모든 형 변환을 처리합니다.
 
+<<<<<<< HEAD
 ## 반환 타입
+=======
+### A conversion can return any primitive type
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 위에서 소개해드린 세 개의 메서드는 'hint'에 명시된 자료형으로의 형 변환을 보장해 주지 않습니다.
 
@@ -251,4 +311,10 @@ alert(obj + 2); // 22("2" + 2), 문자열이 반환되기 때문에 문자열끼
 3. 1과 2에 해당하지 않고, hint가 `"number"`나 `"default"`라면
     - `obj.valueOf()`나 `obj.toString()`을 호출합니다.
 
+<<<<<<< HEAD
 `obj.toString()`만 사용해도 '모든 변환'을 다 다룰 수 있기 때문에, 실무에선 `obj.toString()`만 구현해도 충분한 경우가 많습니다. 반환 값도 '사람이 읽고 이해할 수 있는' 형식이기 때문에 실용성 측면에서 다른 메서드에 뒤처지지 않습니다. `obj.toString()`은 로깅이나 디버깅 목적으로도 자주 사용됩니다.
+=======
+In practice, it's often enough to implement only `obj.toString()` as a "catch-all" method for string conversions that should return a "human-readable" representation of an object, for logging or debugging purposes.  
+
+As for math operations, JavaScript doesn't provide a way to "override" them using methods, so real life projects rarely use them on objects.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

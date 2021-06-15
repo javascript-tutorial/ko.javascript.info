@@ -1,6 +1,10 @@
 # 위크맵과 위크셋
 
+<<<<<<< HEAD
 <info:garbage-collection>에서 배웠듯이 자바스크립트 엔진은 도달 가능한 (그리고 추후 사용될 가능성이 있는) 값을 메모리에 유지합니다.
+=======
+As we know from the chapter <info:garbage-collection>, JavaScript engine keeps a value in memory while it is "reachable" and can potentially be used.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 ```js
@@ -30,8 +34,14 @@ let array = [ john ];
 john = null; // 참조를 null로 덮어씀
 
 *!*
+<<<<<<< HEAD
 // john을 나타내는 객체는 배열의 요소이기 때문에 가비지 컬렉터의 대상이 되지 않습니다.
 // array[0]을 이용하면 해당 객체를 얻는 것도 가능합니다.
+=======
+// the object previously referenced by john is stored inside the array
+// therefore it won't be garbage-collected
+// we can get it as array[0]
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 */!*
 alert(JSON.stringify(array[0]));
 ```
@@ -65,7 +75,11 @@ alert(map.size);
 
 ## 위크맵
 
+<<<<<<< HEAD
 `맵`과 `위크맵`의 첫 번째 차이는 `위크맵`의 키가 반드시 객체여야 한다는 점입니다. 원시값은 위크맵의 키가 될 수 없습니다.
+=======
+The first difference between `Map` and `WeakMap` is that keys must be objects, not primitive values:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let weakMap = new WeakMap();
@@ -106,9 +120,15 @@ john = null; // 참조를 덮어씀
 
 왜 이렇게 적은 메서드만 제공할까요? 원인은 가비지 컬렉션의 동작 방식 때문입니다. 위 예시의 `john`을 나타내는 객체처럼, 객체는 모든 참조를 잃게 되면 자동으로 가비지 컬렉션의 대상이 됩니다. 그런데 가비지 컬렉션의 *동작 시점*은 정확히 알 수 없습니다.
 
+<<<<<<< HEAD
 가비지 컬렉션이 일어나는 시점은 자바스크립트 엔진이 결정합니다. 객체는 모든 참조를 잃었을 때, 그 즉시 메모리에서 삭제될 수도 있고, 다른 삭제 작업이 있을 때까지 대기하다가 함께 삭제될 수도 있습니다. 현재 `위크맵`에 요소가 몇 개 있는지 정확히 파악하는 것 자체가 불가능한 것이죠. 가비지 컬렉터가 한 번에 메모리를 청소할 수도 있고, 부분 부분 메모리를 청소할 수도 있으므로 위크맵의 요소(키/값) 전체를 대상으로 무언가를 하는 메서드는 동작 자체가 불가능합니다.
 
 그럼 위크맵을 어떤 경우에 사용할 수 있을까요?
+=======
+The JavaScript engine decides that. It may choose to perform the memory cleanup immediately or to wait and do the cleaning later when more deletions happen. So, technically, the current element count of a `WeakMap` is not known. The engine may have cleaned it up or not, or did it partially. For that reason, methods that access all keys/values are not supported.
+
+Now, where do we need such a data structure?
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 유스 케이스: 추가 데이터
 
@@ -152,7 +172,11 @@ countUser(john); // John의 방문 횟수를 증가시킵니다.
 john = null;
 ```
 
+<<<<<<< HEAD
 이제 `john`을 나타내는 객체는 가비지 컬렉션의 대상이 되어야 하는데, `visitsCountMap`의 키로 사용되고 있어서 메모리에서 삭제되지 않습니다.
+=======
+Now, `john` object should be garbage collected, but remains in memory, as it's a key in `visitsCountMap`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 특정 사용자를 나타내는 객체가 메모리에서 사라지면 해당 객체에 대한 정보(방문 횟수)도 우리가 손수 지워줘야 하는 상황입니다. 이렇게 하지 않으면 `visitsCountMap`가 차지하는 메모리 공간이 한없이 커질 겁니다. 애플리케이션 구조가 복잡할 땐, 이렇게 쓸모 없는 데이터를 수동으로 비워주는 게 꽤 골치 아픕니다.
 
@@ -169,13 +193,23 @@ function countUser(user) {
 }
 ```
 
+<<<<<<< HEAD
 `위크맵`을 사용해 사용자 방문 횟수를 저장하면 `visitsCountMap`을 수동으로 청소해줄 필요가 없습니다. `john`을 나타내는 객체가 도달 가능하지 않은 상태가 되면 자동으로 메모리에서 삭제되기 때문입니다. `위크맵`의 키(`john`)에 대응하는 값(john의 방문 횟수)도 자동으로 가비지 컬렉션의 대상이 됩니다.
+=======
+Now we don't have to clean `visitsCountMap`. After `john` object becomes unreachable, by all means except as a key of `WeakMap`, it gets removed from memory, along with the information by that key from `WeakMap`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 유스 케이스: 캐싱
 
+<<<<<<< HEAD
 위크맵은 캐싱(caching)이 필요할 때 유용합니다. 캐싱은 시간이 오래 걸리는 작업의 결과를 저장해서 연산 시간과 비용을 절약해주는 기법입니다. 동일한 함수를 여러 번 호출해야 할 때, 최초 호출 시 반환된 값을 어딘가에 저장해 놓았다가 그다음엔 함수를 호출하는 대신 저장된 값을 사용하는 게 캐싱의 실례입니다. 
 
 아래 예시는 함수 연산 결과를 `맵`에 저장하고 있습니다.
+=======
+Another common example is caching. We can store ("cache") results from a function, so that future calls on the same object can reuse it.
+
+To achieve that, we can use `Map` (not optimal scenario):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 // 📁 cache.js
@@ -212,7 +246,11 @@ alert(cache.size); // 1 (엇! 그런데 객체가 여전히 cache에 남아있�
 
 `process(obj)`를 여러 번 호출하면 최초 호출할 때만 연산이 수행되고, 그 이후엔 연산 결과를 `cache`에서 가져옵니다. 그런데 `맵`을 사용하고 있어서 객체가 필요 없어져도 `cache`를 수동으로 청소해 줘야 합니다.
 
+<<<<<<< HEAD
 `맵`을 `위크맵`으로 교체하면 이런 문제를 예방할 수 있습니다. 객체가 메모리에서 삭제되면, 캐시에 저장된 결과(함수 연산 결과) 역시 메모리에서 자동으로 삭제되기 때문입니다.
+=======
+If we replace `Map` with `WeakMap`, then this problem disappears. The cached result will be removed from memory automatically after the object gets garbage collected.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 // 📁 cache.js
@@ -253,7 +291,11 @@ obj = null;
 - 셋 안의 객체는 도달 가능할 때만 메모리에서 유지됩니다.
 - `셋`과 마찬가지로 `위크셋`이 지원하는 메서드는 단출합니다. `add`, `has`, `delete`를 사용할 수 있고, `size`, `keys()`나 반복 작업 관련 메서드는 사용할 수 없습니다.
 
+<<<<<<< HEAD
 '위크'맵과 유사하게 '위크'셋도 부차적인 데이터를 저장할 때 사용할 수 있습니다. 다만, 위크셋엔 위크맵처럼 복잡한 데이터를 저장하지 않습니다. 대신 "예"나 "아니오" 같은 간단한 답변을 얻는 용도로 사용됩니다. 물론 `위크셋`에 저장되는 값들은 객체이겠죠.
+=======
+Being "weak", it also serves as additional storage. But not for arbitrary data, rather for "yes/no" facts. A membership in `WeakSet` may mean something about the object.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시와 함께 위크셋의 용도를 알아봅시다. 아래 코드에선 사용자의 사이트 방문 여부를 추적하는 용도로 `위크셋`을 사용하고 있습니다. 
 
@@ -281,7 +323,11 @@ john = null;
 // visitedSet에서 john을 나타내는 객체가 자동으로 삭제됩니다.
 ```
 
+<<<<<<< HEAD
 `위크맵`과 `위크셋`의 가장 큰 단점은 반복 작업이 불가능하다는 점입니다. 위크맵이나 위크셋에 저장된 자료를 한 번에 얻는 게 불가능하죠. 이런 단점은 불편함을 초래하는 것 같아 보이지만, `위크맵`과 `위크셋`을 이용해 할 수 있는 주요 작업을 방해하진 않습니다. `위크맵`과 `위크셋`은 객체와 함께 '추가' 데이터를 저장하는 용도로 쓸 수 있습니다.
+=======
+The most notable limitation of `WeakMap` and `WeakSet` is the absence of iterations, and the inability to get all current content. That may appear inconvenient, but does not prevent `WeakMap/WeakSet` from doing their main job -- be an "additional" storage of data for objects which are stored/managed at another place.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 
@@ -289,6 +335,14 @@ john = null;
 
 `위크셋`은 `셋`과 유사한 컬렉션입니다. 위크셋엔 객체만 저장할 수 있습니다. 위크셋에 저장된 객체가 도달 불가능한 상태가 되면 해당 객체는 메모리에서 삭제됩니다.
 
+<<<<<<< HEAD
 두 자료구조 모두 구성 요소 전체를 대상으로 하는 메서드를 지원하지 않습니다. 구성 요소 하나를 대상으로 하는 메서드만 지원합니다.
 
 객체엔 '주요' 자료를, `위크맵`과 `위크셋`엔 '부수적인' 자료를 저장하는 형태로 위크맵과 위크셋을 활용할 수 있습니다. 객체가 메모리에서 삭제되면, (그리고 오로지 `위크맵`과 `위크셋`의 키만 해당 객체를 참조하고 있다면) 위크맵이나 위크셋에 저장된 연관 자료들 역시 메모리에서 자동으로 삭제됩니다.
+=======
+Their main advantages are that they have weak reference to objects, so they can easily be removed by garbage collector.
+
+That comes at the cost of not having support for `clear`, `size`, `keys`, `values`...
+
+`WeakMap` and `WeakSet` are used as "secondary" data structures in addition to the "primary" object storage. Once the object is removed from the primary storage, if it is only found as the key of `WeakMap` or in a `WeakSet`, it will be cleaned up automatically.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

@@ -1,10 +1,18 @@
 # 프라미스
 
+<<<<<<< HEAD
 본인을 아주 유명한 가수라고 가정해 봅시다. 그리고 탑 가수인 본인이 밤, 낮으로 다음 싱글 앨범이 언제 나오는지 물어보는 팬들을 상대해야 한다고 해 봅시다. 
+=======
+Imagine that you're a top singer, and fans ask day and night for your upcoming song.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 당신은 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해 부하를 덜 겁니다. 구독 리스트를 하나 만들어 팬들에게 전달해 이메일 주소를 적게 하고, 앨범이 준비되면 리스트에 있는 팬들에게 메일을 보내 앨범 관련 소식을 바로 받아볼 수 있게 하는 식으로 말이죠. 이렇게 하면 녹음 스튜디오에 화재가 발생해서 출시 예정인 앨범이 취소되는 불상사가 발생해도 관련 소식을 팬들에게 전달 할 수 있습니다.
 
+<<<<<<< HEAD
 이제 모두가 행복해졌습니다. 밤낮으로 질문을 하는 팬이 사라졌고, 팬들은 앨범 출시를 놓치지 않을 수 있게 되었으니까요.
+=======
+Everyone is happy: you, because the people don't crowd you anymore, and fans, because they won't miss the song.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 비유는 코드를 작성하면서 자주 만나는 상황을 실제 일어날 법한 일로 바꾼 것입니다. 바로 아래 같은 상황 말이죠.
 
@@ -28,10 +36,17 @@ executor의 인수 `resolve`와 `reject`는 자바스크립트에서 자체 제�
 
 대신 executor에선 결과를 즉시 얻든 늦게 얻든 상관없이 상황에 따라 인수로 넘겨준 콜백 중 하나를 반드시 호출해야 합니다.
 
+<<<<<<< HEAD
 - `resolve(value)` — 일이 성공적으로 끝난 경우 그 결과를 나타내는 `value`와 함께 호출
 - `reject(error)` — 에러 발생 시 에러 객체를 나타내는 `error`와 함께 호출
 
 요약하면 다음과 같습니다. executor는 자동으로 실행되는데 여기서 원하는 일이 처리됩니다. 처리가 끝나면 executor는 처리 성공 여부에 따라 `resolve`나 `reject`를 호출합니다.
+=======
+- `resolve(value)` — if the job is finished successfully, with result `value`.
+- `reject(error)` — if an error has occurred, `error` is the error object.
+
+So to summarize: the executor runs automatically and attempts to perform a job. When it is finished with the attempt, it calls `resolve` if it was successful or `reject` if there was an error.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 한편, `new Promise` 생성자가 반환하는 `promise` 객체는 다음과 같은 내부 프로퍼티를 갖습니다.
 
@@ -227,13 +242,23 @@ new Promise((resolve, reject) => {
   /* 시간이 걸리는 어떤 일을 수행하고, 그 후 resolve, reject를 호출함 */
 })
 *!*
+<<<<<<< HEAD
   // 성공·실패 여부와 상관없이 프라미스가 처리되면 실행됨
   .finally(() => 로딩 인디케이터 중지)
+=======
+  // runs when the promise is settled, doesn't matter successfully or not
+  .finally(() => stop loading indicator)
+  // so the loading indicator is always stopped before we process the result/error
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 */!*
   .then(result => result와 err 보여줌 => error 보여줌)
 ```
 
+<<<<<<< HEAD
 그런데 finally는 `.then(f, f)`과 완전히 같진 않습니다. 차이점은 다음과 같습니다.
+=======
+That said, `finally(f)` isn't exactly an alias of `then(f,f)` though. There are few subtle differences:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 1. `finally` 핸들러엔 인수가 없습니다. `finally`에선 프라미스가 이행되었는지, 거부되었는지 알 수 없습니다. `finally`에선 절차를 마무리하는 '보편적' 동작을 수행하기 때문에 성공·실패 여부를 몰라도 됩니다.
 2. `finally` 핸들러는 자동으로 다음 핸들러에 결과와 에러를 전달합니다.
@@ -257,6 +282,7 @@ new Promise((resolve, reject) => {
       .catch(err => alert(err)); // <-- .catch에서 에러 객체를 다룰 수 있음
     ```  
 
+<<<<<<< HEAD
     `finally`는 프라미스 결과를 처리하기 위해 만들어 진 게 아닙니다. 프라미스 결과는 `finally`를 통과해서 전달되죠. 이런 특징은 아주 유용하게 사용되기도 합니다. 
 
     프라미스 체이닝과 핸들러 간 결과 전달에 대해선 다음 챕터에서 더 이야기 나누도록 하겠습니다.
@@ -265,6 +291,15 @@ new Promise((resolve, reject) => {
 
 ````smart header="처리된 프라미스의 핸들러는 즉각 실행됩니다."
 프라미스가 대기 상태일 때, `.then/catch/finally` 핸들러는 프라미스가 처리되길 기다립니다. 반면, 프라미스가 이미 처리상태라면 핸들러가 즉각 실행됩니다.
+=======
+That's very convenient, because `finally` is not meant to process a promise result. So it passes it through.
+
+We'll talk more about promise chaining and result-passing between handlers in the next chapter.
+
+
+````smart header="We can attach handlers to settled promises"
+If a promise is pending, `.then/catch/finally` handlers wait for it. Otherwise, if a promise has already settled, they just run:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 // 아래 프라미스는 생성과 동시에 이행됩니다.
@@ -273,9 +308,15 @@ let promise = new Promise(resolve => resolve("완료!"));
 promise.then(alert); // 완료! (바로 출력됨)
 ```
 
+<<<<<<< HEAD
 가수와 팬, 구독리스트 시나리오보다 프라미스가 더 복잡하다고 말한 이유가 바로 이런 기능 때문입니다. 가수가 신곡을 발표한 이후에 구독 리스트에 이름을 올리는 팬은 신곡 발표 여부를 알 수 없습니다. 구독 리스트에 이름을 올리는 것이 선행되어야 새로운 소식을 받을 수 있기 때문이죠. 
 
 그런데 프라미스는 핸들러를 언제든 추가할 수 있다는 점에서 구독리스트 시나리오보다 더 유연합니다. 결과가 나와 있는 상태에서도 핸들러를 등록하면 결과를 바로 받을 수 있습니다.
+=======
+Note that this makes promises more powerful than the real life "subscription list" scenario. If the singer has already released their song and then a person signs up on the subscription list, they probably won't receive that song. Subscriptions in real life must be done prior to the event.
+
+Promises are more flexible. We can add handlers any time: if the result is already there, they just execute.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 이제 실제 동작하는 예시를 보며 프라미스로 어떻게 비동기 동작을 처리하는지 살펴봅시다.

@@ -69,10 +69,17 @@ f();
 
 `await`('기다리다'라는 뜻을 가진 영단어 - 옮긴이)는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
 
+<<<<<<< HEAD
 `await`는 `promise.then`보다 좀 더 세련되게 프라미스의 `result` 값을 얻을 수 있도록 해주는 문법입니다. `promise.then`보다 가독성 좋고 쓰기도 쉽습니다.
 
 ````warn header="일반 함수엔 `await`을 사용할 수 없습니다."
 `async` 함수가 아닌데 `await`을 사용하면 문법 에러가 발생합니다.
+=======
+It's just a more elegant syntax of getting the promise result than `promise.then`. And, it's easier to read and write.
+
+````warn header="Can't use `await` in regular functions"
+If we try to use `await` in a non-async function, there would be a syntax error:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function f() {
@@ -83,7 +90,11 @@ function f() {
 }
 ```
 
+<<<<<<< HEAD
 function 앞에 `async`를 붙이지 않으면 이런 에러가 발생할 수 있습니다. 앞서 설명해 드린 바와 같이 `await`는 `async` 함수 안에서만 동작합니다.
+=======
+We may get this error if we forget to put `async` before a function. As stated earlier, `await` only works inside an `async` function.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 <info:promise-chaining> 챕터의 `showAvatar()` 예시를 `async/await`를 사용해 다시 작성해봅시다.
@@ -139,6 +150,8 @@ let user = await response.json();
   ...
 })();
 ```
+
+P.S. New feature: starting from V8 engine version 8.9+, top-level await works in [modules](info:modules).
 ````
 
 ````smart header="`await`는 \'thenable\' 객체를 받습니다."
@@ -156,7 +169,7 @@ class Thenable {
     // 1000밀리초 후에 이행됨(result는 this.num*2)
     setTimeout(() => resolve(this.num * 2), 1000); // (*)
   }
-};
+}
 
 async function f() {
   // 1초 후, 변수 result는 2가 됨
@@ -184,7 +197,7 @@ class Waiter {
 
 new Waiter()
   .wait()
-  .then(alert); // 1
+  .then(alert); // 1 (this is the same as (result => alert(result)))
 ```
 `async` 메서드와 `async` 함수는 프라미스를 반환하고 `await`를 사용할 수 있다는 점에서 동일합니다.
 

@@ -116,7 +116,11 @@ if (
 
     탭 대신 스페이스를 이용했을 때의 장점 중 하나는 들여쓰기 정도를 좀 더 유연하게 변경할 수 있다는 점입니다.
 
+<<<<<<< HEAD
     아래 예시처럼 인수 모두의 위치를 여는 괄호와 맞출 수 있죠.
+=======
+    For instance, we can align the parameters with the opening bracket, like this:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     ```js no-beautify
     show(parameters,
@@ -328,7 +332,7 @@ ESLint를 사용한다고 가정했을 때 아래 절차를 따르면 에디터�
   },
   "rules": {
     "no-console": 0,
-    "indent": ["warning", 2]
+    "indent": 2
   }
 }
 ```

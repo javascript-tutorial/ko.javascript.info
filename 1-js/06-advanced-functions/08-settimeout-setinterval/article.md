@@ -129,7 +129,11 @@ setTimeout(() => { clearInterval(timerId); alert('정지'); }, 5000);
 ```smart header="`alert` 창이 떠 있더라도 타이머는 멈추지 않습니다."
 Chrome과 Firefox를 포함한 대부분의 브라우저는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머를 멈추지 않습니다.
 
+<<<<<<< HEAD
 위 예시를 실행하고 첫 번째 `alert` 창이 떴을 때 몇 초간 기다렸다가 창을 닫으면, 두 번째 `alert` 창이 바로 나타나는 것을 보고 이를 확인할 수 있습니다. 이런 이유로 얼럿 창은 명시한 지연 시간인 2초보다 더 짧은 간격으로 뜨게 됩니다.
+=======
+So if you run the code above and don't dismiss the `alert` window for some time, then the next `alert` will be shown immediately as you do it. The actual interval between alerts will be shorter than 2 seconds.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ## 중첩 setTimeout
@@ -281,16 +285,28 @@ setTimeout(function run() {
 
 이는 오래전부터 있던 제약인데, 구식 스크립트 중 일부는 아직 이 제약에 의존하는 경우가 있어서 명세서를 변경하지 못하고 있는 상황입니다.
 
+<<<<<<< HEAD
 한편, 서버 측엔 이런 제약이 없습니다. Node.js의 [process.nextTick](https://nodejs.org/api/process.html)과 [setImmediate](https://nodejs.org/api/timers.html)를 이용하면 비동기 작업을 지연 없이 실행할 수 있습니다. 위에서 언급된 제약은 브라우저에 한정됩니다.
+=======
+For server-side JavaScript, that limitation does not exist, and there exist other ways to schedule an immediate asynchronous job, like [setImmediate](https://nodejs.org/api/timers.html#timers_setimmediate_callback_args) for Node.js. So this note is browser-specific.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 ## 요약
 
+<<<<<<< HEAD
 - `setInterval(func, delay, ...args)`과 `setTimeout(func, delay, ...args)`은 `delay`밀리초 후에 `func`을 규칙적으로, 또는 한번 실행하도록 해줍니다.
 - `setInterval·setTimeout`을 호출하고 반환받은 값을 `clearInterval·clearTimeout`에 넘겨주면 스케줄링을 취소할 수 있습니다.
 - 중첩 `setTimeout`을 사용하면 `setInterval`을 사용한 것보다 유연하게 코드를 작성할 수 있습니다. 여기에 더하여 *지연 간격* 보장이라는 장점도 있습니다.
 - 대기 시간이 0인 setTimeout(`setTimeout(func, 0)` 혹은 `setTimeout(func)`)을 사용하면 '현재 스크립트의 실행이 완료된 후 가능한 한 빠르게' 원하는 함수를 호출할 수 있습니다.
 - 지연 없이 중첩 `setTimeout`을 5회 이상 호출하거나 지연 없는 `setInterval`에서 호출이 5회 이상 이뤄지면, 4밀리초 이상의 지연 간격이 강제로 더해집니다. 이는 브라우저에만 적용되는 사항이며, 하위 호환성을 위해 유지되고 있습니다.
+=======
+- Methods `setTimeout(func, delay, ...args)` and `setInterval(func, delay, ...args)` allow us to run the `func` once/regularly after `delay` milliseconds.
+- To cancel the execution, we should call `clearTimeout/clearInterval` with the value returned by `setTimeout/setInterval`.
+- Nested `setTimeout` calls are a more flexible alternative to `setInterval`, allowing us to set the time *between* executions more precisely.
+- Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current script is complete".
+- The browser limits the minimal delay for five or more nested calls of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 스케줄링 메서드를 사용할 땐 명시한 지연 간격이 *보장*되지 않을 수도 있다는 점에 유의해야 합니다.
 

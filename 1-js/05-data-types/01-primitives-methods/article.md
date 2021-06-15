@@ -39,8 +39,13 @@ john.sayHi(); // 친구야 반갑다!
 
 자바스크립트 창안자(creator)는 다음과 같은 모순적인 상황을 해결해야만 했었습니다.
 
+<<<<<<< HEAD
 - 문자열이나 숫자와 같은 원시값을 다루어야 하는 작업이 많은데, 메서드를 사용하면 작업을 수월하게 할 수 있을 것 같다는 생각이 듭니다.
 - 그런데 원시값은 가능한 한 빠르고 가벼워야 합니다.
+=======
+- There are many things one would want to do with a primitive like a string or a number. It would be great to access them using methods.
+- Primitives must be as fast and lightweight as possible.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 조금 어색해 보이지만, 자바스크립트 창안자는 아래와 같은 방법을 사용해 해결책을 모색하였습니다.
 

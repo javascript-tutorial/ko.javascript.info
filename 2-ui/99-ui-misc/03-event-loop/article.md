@@ -9,7 +9,11 @@
 
 ## 이벤트 루프
 
+<<<<<<< HEAD
 *이벤트 루프(event loop)* 정의는 아주 간단합니다. 이벤트 루프는 태스크가 들어오길 기다렸다가 태스크가 들어오면 이를 처리하고, 처리할 태스크가 없는 경우엔 잠드는, 끊임없이 돌아가는 자바스크립트 내 루프입니다(task는 '작업'이라고 번역할 수 있는데, 매크로·마이크로태스크 등의 용어와 일치시키기 위해 '태스크'라고 음차 번역하였습니다 - 옮긴이).
+=======
+The *event loop* concept is very simple. There's an endless loop, where the JavaScript engine waits for tasks, executes them and then sleeps, waiting for more tasks.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 자바스크립트 엔진이 돌아가는 알고리즘을 일반화하면 다음과 같습니다.
 
@@ -18,7 +22,11 @@
 2. 처리해야 할 태스크가 없는 경우:
     - 잠들어 있다가 새로운 태스크가 추가되면 다시 1로 돌아감
 
+<<<<<<< HEAD
 바로 이 알고리즘이 우리가 브라우저를 사용해 인터넷을 서핑할 때 돌아가는 알고리즘입니다. 이렇게 자바스크립트 엔진은 대부분의 시간 동안 아무런 일도 하지 않고 쉬고 있다가 스크립트나 핸들러, 이벤트가 활성화될 때만 돌아갑니다.
+=======
+That's a formalization for what we see when browsing a page. The JavaScript engine does nothing most of the time, it only runs if a script/handler/event activates.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그렇다면 자바스크립트 엔진을 활성화하는 태스크엔 과연 어떤 것들이 있을까요? 대표적인 태스크는 다음과 같습니다.
 
@@ -41,11 +49,19 @@
 
 지금까진 어려운 것이 없어 보입니다. 그렇죠?
 
+<<<<<<< HEAD
 여기서 잠시 두 가지 세부 사항을 짚고 넘어갑시다.
 1. 엔진이 특정 태스크를 처리하는 동안엔 렌더링이 절대 일어나지 않습니다. 태스크를 처리하는 데 걸리는 시간이 길지 않으면 이는 전혀 문제가 되지 않습니다. 처리가 끝나는 대로 DOM 변경을 화면에 반영하면 되기 때문입니다.
 2. 태스크 처리에 긴 시간이 걸리면, 브라우저는 태스크를 처리하는 동안에 발생한 사용자 이벤트 등의 새로운 태스크들을 처리하지 못합니다. 인터넷 서핑을 하다 보면 '응답 없는 페이지(Page Unresponsive)'라는 얼럿 창을 만나게 되는 경우가 종종 있습니다. 이 얼럿 창은 아주 복잡한 계산이 필요하거나 프로그래밍 에러 때문에 무한 루프에 빠지게 될 때 나타나는데, 브라우저는 얼럿 창을 통해 사용자에게 페이지 전체와 함께 해당 태스크를 취소시킬지 말지를 선택하도록 유도합니다.
 
 자, 이론을 충분히 살펴봤으니 지금부턴 이 지식을 실무에서 어떻게 활용할 수 있을지 알아보도록 합시다.
+=======
+Two more details:
+1. Rendering never happens while the engine executes a task. It doesn't matter if the task takes a long time. Changes to the DOM are painted only after the task is complete.
+2. If a task takes too long, the browser can't do other tasks, such as processing user events. So after a time, it raises an alert like "Page Unresponsive", suggesting killing the task with the whole page. That happens when there are a lot of complex calculations or a programming error leading to an infinite loop.
+
+That was the theory. Now let's see how we can apply that knowledge.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 유스 케이스 1: CPU 소모가 많은 태스크 쪼개기
 
@@ -161,7 +177,11 @@ count();
 
 태스크를 여러 개로 쪼갤 때의 장점은 진행 상태를 나타내주는 프로그레스 바(progress bar)를 만들 때도 드러납니다.
 
+<<<<<<< HEAD
 브라우저는 스크립트 실행 시간이 오래 걸리든 아니든 상관없이 대개 실행 중인 코드의 처리가 끝난 이후에 렌더링 작업을 합니다.
+=======
+As mentioned earlier, changes to DOM are painted only after the currently running task is completed, irrespective of how long it takes.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 함수를 사용해 원하는 만큼의 요소를 만들고 이 요소들을 하나하나 문서에 추가한 다음, 각 요소의 스타일을 변경할 수 있다는 점에서 이런 브라우저 동작 방식은 한편으론 아주 유용합니다. 모든 작업이 이뤄지는 동안 사용자는 완성되지 않은 '중간' 상태의 화면을 보지 않아도 되기 때문입니다.
 
@@ -239,7 +259,11 @@ menu.onclick = function() {
 
 ## 매크로태스크와 마이크로태스크
 
+<<<<<<< HEAD
 태스크는 이번 챕터에서 설명한 *매크로태스크(macrotask)* 와 <info:microtask-queue> 챕터에서 다룬 *마이크로태스크(microtask)* 로 나뉩니다.
+=======
+Along with *macrotasks*, described in this chapter, there are *microtasks*, mentioned in the chapter <info:microtask-queue>.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 마이크로태스크는 코드를 사용해서만 만들 수 있는데, 주로 프라미스를 사용해 만듭니다. 프라미스와 함께 쓰이는 `.then/catch/finally` 핸들러가 마이크로태스크가 되죠. 여기에 더하여 마이크로태스크는 프라미스를 핸들링하는 또 다른 형태의 문법인 `await`를 사용해 만들어지기도 합니다.
 
@@ -304,7 +328,11 @@ alert("code");
 
 ## 요약
 
+<<<<<<< HEAD
 이벤트 루프 알고리즘을 요약하면 다음과 같습니다(자세한 사항은 [명세서](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)에서 확인할 수 있습니다).
+=======
+A more detailed event loop algorithm (though still simplified compared to the [specification](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 1. *매크로태스크* 큐에서 가장 오래된 태스크를 꺼내 실행합니다(예: 스크립트를 실행).
 2. 모든 *마이크로태스크*를 실행합니다.
@@ -317,7 +345,11 @@ alert("code");
 새로운 *매크로태스크*를 스케줄링하는 방법은 다음과 같습니다.
 - 지연시간이 0인 `setTimeout(f)` 사용하기
 
+<<<<<<< HEAD
 이 방법을 사용하면 계산이 복잡한 큰 태스크 하나를 여러 개로 쪼갤 수 있습니다. 태스크를 여러 개로 쪼개면 태스크 중간중간 사용자 이벤트에 반응할 수 있고, 작업 진척 상태를 화면에 표시해줄 수도 있습니다.
+=======
+That may be used to split a big calculation-heavy task into pieces, for the browser to be able to react to user events and show progress between them.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 지연시간이 0인 `setTimeout`은 이벤트가 완전히 처리되고 난 후(버블링이 끝난 후)에 특정 작업을 수행하도록 스케줄링할 때도 사용됩니다.
 

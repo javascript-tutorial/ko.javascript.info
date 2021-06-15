@@ -6,7 +6,11 @@
 let ourPlanetName = "Earth";
 ```
 
+<<<<<<< HEAD
 `planet`이라는 간단한 이름을 지어줘도 되지만, 이렇게 하면 어떤 행성(planet)을 언급하는 것인지 모호합니다. 변수명이 아주 길어지지 않는 이상, 설명을 좀 더 곁들어주는 것이 좋습니다. 
+=======
+Note, we could use a shorter name `planet`, but it might not be obvious what planet it refers to. It's nice to be more verbose. At least until the variable isNotTooLong.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 현재 방문자를 나타내는 변수 이름 짓기
 

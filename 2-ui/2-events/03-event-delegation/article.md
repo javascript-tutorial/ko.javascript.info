@@ -5,7 +5,11 @@
 
 이벤트 위임은 비슷한 방식으로 여러 요소를 다뤄야 할 때 사용됩니다. 이벤트 위임을 사용하면 요소마다 핸들러를 할당하지 않고, 요소의 공통 조상에 이벤트 핸들러를 단 하나만 할당해도 여러 요소를 한꺼번에 다룰 수 있습니다.
 
+<<<<<<< HEAD
 공통 조상에 할당한 핸들러에서 `event.target`을 이용하면 실제 어디서 이벤트가 발생했는지 알 수 있습니다. 이를 이용해 이벤트를 핸들링합니다.
+=======
+In the handler we get `event.target` to see where the event actually happened and handle it.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예제를 살펴봅시다. 다음은 고대 중국 철학에서 유래한 [팔괘도(Ba-Gua diagram)](http://en.wikipedia.org/wiki/Ba_gua) 입니다.
 

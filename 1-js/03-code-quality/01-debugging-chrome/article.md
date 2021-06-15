@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Chrome으로 디버깅하기
+=======
+# Debugging in the browser
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 좀 더 복잡한 코드를 작성하기 전에, 디버깅이란 것에 대해 이야기해봅시다.
 
@@ -134,8 +138,13 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 
     Step 버튼을 계속 누르면 스크립트 전체를 문 단위로 하나하나 실행할 수 있습니다.
 
+<<<<<<< HEAD
 <span class="devtools" style="background-position:-62px -192px"></span> -- 'Step over': 다음 명령어를 실행하되, *함수 안으로 들어가진 않음* (단축키 `key:F10`)
 : 'Step'과 유사하지만, 다음 문이 함수 호출일 때 'Step'과는 다르게 동작합니다(`alert` 같은 내장함수에는 해당하지 않고, 직접 작성한 함수일 때만 동작이 다릅니다).
+=======
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
+: Similar to the previous "Step" command, but behaves differently if the next statement is a function call. That is: not a built-in, like `alert`, but a function of our own.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     'Step'은 함수 내부로 들어가 함수 본문 첫 번째 줄에서 실행을 멈춥니다. 반면 'Step over'는 보이지 않는 곳에서 중첩 함수를 실행하긴 하지만 함수 내로 진입하지 않습니다.
 

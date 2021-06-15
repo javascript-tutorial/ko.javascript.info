@@ -16,21 +16,42 @@
 let billion = 1000000000;
 ```
 
+<<<<<<< HEAD
 그런데 이렇게 0을 많이 사용해 숫자를 표현하다 보면 잘못 입력하기 쉽기 때문에, 실제로는 이런 방법을 잘 사용하지 않습니다. 0을 많이 입력하는 게 귀찮기도 하지요. 그래서 대개는 10억(`billion`)을 나타낼 땐 `'1bn'`을 사용하고, 73억을 나타낼 땐 `'7.3bn'`을 사용합니다. 큰 숫자를 나타낼 땐 이런 방법이 주로 사용되죠.
 
 자바스크립트에서도 숫자 옆에 `'e'`를 붙이고 0의 개수를 그 옆에 붙여주면 숫자를 줄일 수 있습니다.
+=======
+We also can use underscore `_` as the separator:
+
+```js
+let billion = 1_000_000_000;
+```
+
+Here the underscore `_` plays the role of the "syntactic sugar", it makes the number more readable. The JavaScript engine simply ignores `_` between digits, so it's exactly the same one billion as above.
+
+In real life though, we try to avoid writing long sequences of zeroes. We're too lazy for that. We'll try to write something like `"1bn"` for a billion or `"7.3bn"` for 7 billion 300 million. The same is true for most large numbers.
+
+In JavaScript, we can shorten a number by appending the letter `"e"` to it and specifying the zeroes count:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let billion = 1e9;  // 10억, 1과 9개의 0
 
+<<<<<<< HEAD
 alert( 7.3e9 );  // 73억 (7,300,000,000)
 ```
 
 즉, `'e'`는 e 왼쪽의 수에 e 오른쪽에 있는 수만큼의 10의 거듭제곱을 곱하는 효과가 있습니다.
+=======
+alert( 7.3e9 );  // 7.3 billions (same as 7300000000 or 7_300_000_000)
+```
+
+In other words, `e` multiplies the number by `1` with the given zeroes count.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
-1e3 = 1 * 1000
-1.23e6 = 1.23 * 1000000
+1e3 = 1 * 1000 // e3 means *1000
+1.23e6 = 1.23 * 1000000 // e6 means *1000000
 ```
 
 이제 아주 작은 숫자인 1마이크로초(백만 분의 1초)를 표현해보겠습니다.
@@ -125,7 +146,11 @@ alert( num.toString(2) );   // 11111111
 : 소수점 첫째 자리에서 올림. `3.1`은 `4`, `-1.1`은 `-1`이 됩니다.
 
 `Math.round`
+<<<<<<< HEAD
 : 소수점 첫째 자리에서 반올림. `3.1`은 `3`, `3.6`은 `4`, `-1.1`은 `-1`이 됩니다.
+=======
+: Rounds to the nearest integer: `3.1` becomes `3`, `3.6` becomes `4`, the middle case: `3.5` rounds up to `4` too.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `Math.trunc` (Internet Explorer에서는 지원하지 않음)
 : 소수부를 무시. `3.1`은 `3`이 되고 `-1.1`은 `-1`이 됩니다.
@@ -152,7 +177,7 @@ alert( num.toString(2) );   // 11111111
     ```js run
     let num = 1.23456;
 
-    alert( Math.floor(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
+    alert( Math.round(num * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
     ```
 
 2. 소수점 `n` 번째 수까지의 어림수를 구한 후 이를 문자형으로 반환해주는 메서드인 [toFixed(n)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)를 사용합니다.
@@ -383,7 +408,11 @@ alert( parseInt('2n9c', 36) ); // 123456
 몇 가지 예시를 살펴봅시다.
 
 `Math.random()`
+<<<<<<< HEAD
 : 0과 1 사이의 난수를 반환합니다(1은 제외).
+=======
+: Returns a random number from 0 to 1 (not including 1).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     ```js run
     alert( Math.random() ); // 0.1234567894322
@@ -400,13 +429,21 @@ alert( parseInt('2n9c', 36) ); // 123456
     ```
 
 `Math.pow(n, power)`
+<<<<<<< HEAD
 : `n`을 power번 거듭제곱한 값을 반환합니다.
+=======
+: Returns `n` raised to the given power.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     ```js run
     alert( Math.pow(2, 10) ); // 2의 10제곱 = 1024
     ```
 
+<<<<<<< HEAD
 이 외에도 삼각법을 포함한 다양한 함수와 상수가 `Math`에 있습니다. 자세한 내용은 [MDN 문서](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math)에서 읽어보시기 바랍니다.
+=======
+There are more functions and constants in `Math` object, including trigonometry, which you can find in the [docs for the Math object](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 

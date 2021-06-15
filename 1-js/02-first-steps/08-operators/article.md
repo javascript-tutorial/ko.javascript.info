@@ -56,17 +56,34 @@ alert( 8 % 3 ); // 8을 3으로 나눈 후의 나머지인 2를 출력
 
 ## 거듭제곱 연산자 ** 
 
+<<<<<<< HEAD
 거듭제곱 연산자(exponentiation operator)를 사용한 `a ** b`를 평가하면 `a`를 `b`번 곱한 값이 반환됩니다.
+=======
+The exponentiation operator `a ** b` raises `a` to the power of `b`.
+
+In school maths, we write that as a<sup>b</sup>.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 
 ```js run
+<<<<<<< HEAD
 alert( 2 ** 2 ); // 4  (2 * 2)
 alert( 2 ** 3 ); // 8  (2 * 2 * 2)
 alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2)
 ```
 
 거듭제곱 연산자는 정수가 아닌 숫자에 대해서도 동작합니다. `1/2`을 사용하면 제곱근을 구할 수 있죠.
+=======
+alert( 2 ** 2 ); // 2² = 4
+alert( 2 ** 3 ); // 2³ = 8
+alert( 2 ** 4 ); // 2⁴ = 16
+```
+
+Just like in maths, the exponentiation operator is defined for non-integer numbers as well. 
+
+For example, a square root is an exponentiation by ½:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 alert( 4 ** (1/2) ); // 2 (1/2 거듭제곱은 제곱근)
@@ -104,7 +121,16 @@ alert( 2 + '1' ); // "21"
 alert(2 + 2 + '1' ); // '221'이 아니라 '41'이 출력됩니다.
 ```
 
+<<<<<<< HEAD
 연산은 왼쪽에서 오른쪽으로 순차적으로 진행되기 때문에 이런 결과가 나왔습니다. 두 개의 숫자 뒤에 문자열이 오는 경우, 숫자가 먼저 더해지고, 그 후 더해진 숫자와 문자열과의 병합이 일어납니다.
+=======
+Here, operators work one after another. The first `+` sums two numbers, so it returns `4`, then the next `+` adds the string `1` to it, so it's like `4 + '1' = '41'`.
+
+```js run
+alert('1' + 2 + 2); // "122" and not "14"
+```
+Here, the first operand is a string, the compiler treats the other two operands as strings too. The `2` gets concatenated to `'1'`, so it's like `'1' + 2 = "12"` and `"12" + 2 = "122"`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이처럼 이항 덧셈 연산자 `+`는 문자열 연결과 변환이라는 특별한 기능을 제공합니다. 다른 산술 연산자가 오직 숫자형의 피연산자만 다루고, 피연산자가 숫자형이 아닌 경우에 그 형을 숫자형으로 바꾸는 것과는 대조적입니다.
 
@@ -180,7 +206,11 @@ alert( +apples + +oranges ); // 5
 
 자바스크립트는 다양한 연산자를 제공하는데, 이 모든 연산자엔 우선순위가 매겨져 있습니다. 우선순위 숫자가 클수록 먼저 실행됩니다. 순위가 같으면 왼쪽부터 시작해서 오른쪽으로 연산이 수행됩니다.
 
+<<<<<<< HEAD
 아래는 [우선순위 테이블(precedence table)](https://developer.mozilla.org/en/JavaScript/Reference/operators/operator_precedence)의 일부를 발췌한 표입니다. 순서를 기억할 필요는 없지만, 동일한 기호의 단항 연산자는 이항 연산자보다 우선순위가 더 높다는 것에 주목해 주시기 바랍니다.
+=======
+Here's an extract from the [precedence table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) (you don't need to remember this, but note that unary operators are higher than corresponding binary ones):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 | 순위  | 연산자 이름 | 기호  |
 | --- | ------ | --- |
@@ -214,7 +244,11 @@ alert( x ); // 5
 
 `=`는 연산자이기 때문에 흥미로운 함축성을 내포하고 있습니다.
 
+<<<<<<< HEAD
 자바스크립트에서 대부분의 연산자들은 값을 반환합니다. `+`와 `-`뿐만 아니라 `=` 역시 값을 반환하죠.
+=======
+All operators in JavaScript return a value. That's obvious for `+` and `-`, but also true for `=`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `x = value`을 호출하면 `value`가 `x`에 쓰여지고, 이에 더하여 *`value`가 반환됩니다*.
 
@@ -428,7 +462,11 @@ counter++;
 - 오른쪽 시프트(RIGHT SHIFT) ( `>>` )
 - 부호 없는 오른쪽 시프트(ZERO-FILL RIGHT SHIFT) ( `>>>` )
 
+<<<<<<< HEAD
 비트 연산자는 저수준(2진 표현)에서 숫자를 다뤄야 할 때 쓰이므로 흔하게 쓰이진 않습니다. 웹 개발 시엔 이런 일이 자주 일어나지 않기 때문에 비트 연산자를 만날 일은 거의 없죠. 그렇긴 해도 암호를 다뤄야 할 땐 비트 연산자가 유용하기 때문에 때가 되면 MDN의 [비트 연산자](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators) 문서를 보시는 걸 추천합니다.
+=======
+These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level. We won't need these operators any time soon, as web development has little use of them, but in some special areas, such as cryptography, they are useful. You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Bitwise) chapter on MDN when a need arises.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 쉼표 연산자
 

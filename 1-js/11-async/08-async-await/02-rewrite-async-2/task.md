@@ -1,7 +1,11 @@
 
 # async와 await를 사용해서 '다시 던지기' 예시 재작성하기
 
+<<<<<<< HEAD
 <info:promise-chaining> 챕터에서 다뤘던 '다시 던지기(rethrow)' 관련 예시를 기억하실 겁니다. 이 예시를 `.then/catch` 대신 `async/await`를 사용해 다시 작성해 봅시다.
+=======
+Below you can find the "rethrow" example. Rewrite it using `async/await` instead of `.then/catch`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그리고 `demoGithubUser` 안의 반복(recursion)은 반복문(loop)을 사용해 작성하도록 합시다. `async/await`를 사용하면 쉽게 작성할 수 있습니다.
 
@@ -22,7 +26,7 @@ function loadJson(url) {
       } else {
         throw new HttpError(response);
       }
-    })
+    });
 }
 
 // 유효한 사용자를 찾을 때까지 반복해서 username을 물어봄

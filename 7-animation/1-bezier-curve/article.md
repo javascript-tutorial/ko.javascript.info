@@ -31,7 +31,11 @@
 
     ![](bezier4-e.svg) ![](bezier3-e.svg)
 
+<<<<<<< HEAD
 마지막 특성 덕분에 컴퓨터 그래픽스 분야에서 교차 검사(intersection test) 최적화가 가능합니다. 컨벡스 헐이 교차하지 않는다면 곡선 역시 교차하지 않기 때문입니다. 따라서 컨벡스 헐이 교차하는지 검사하면 아주 빠르게 곡선 역시 '교차하지 않는다'는 결론을 도출해 낼 수 있습니다. 위쪽 그림에서 보는 것과 같이 컨벡스 헐은 삼각형, 사각형 같은 상대적으로 단순한 형태를 띠므로 곡선의 교차 여부보다 컨벡스 헐 교차 여부를 검사하는게 훨씬 쉽습니다.
+=======
+Because of that last property, in computer graphics it's possible to optimize intersection tests. If convex hulls do not intersect, then curves do not either. So checking for the convex hulls intersection first can give a very fast "no intersection" result. Checking the intersection of convex hulls is much easier, because they are rectangles, triangles and so on (see the picture above), much simpler figures than the curve.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 **조절점을 움직이면 베지어 곡선은 직관적으로 봤을 때 아주 당연한 방식으로 다시 그려집니다.**
 

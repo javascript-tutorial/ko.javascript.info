@@ -146,7 +146,11 @@ alert( counter() ); // 2
 
 그런데 `makeCounter`를 살펴보다 보면 "`counter`를 여러 개 만들었을 때, 이 함수들은 서로 독립적일까? 함수와 중첩 함수 내 `count` 변수엔 어떤 값이 할당될까?" 같은 의문이 들기 마련입니다.
 
+<<<<<<< HEAD
 이런 의문을 해결할 수 있게 되면 자바스크립트 숙련도가 크게 올라갑니다. 좀 더 복잡한 시나리오도 다룰 수 있게 되죠. 자, 긴말할 필요 없이 바로 시작해봅시다.
+=======
+Understanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let's go a bit in-depth.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 렉시컬 환경
 
@@ -314,7 +318,11 @@ let counter = makeCounter();
 
 함수 호출이 끝나면 함수에 대응하는 렉시컬 환경이 메모리에서 제거됩니다. 함수와 관련된 변수들은 이때 모두 사라지죠. 함수 호출이 끝나면 관련 변수를 참조할 수 없는 이유가 바로 여기에 있습니다. 자바스크립트에서 모든 객체는 도달 가능한 상태일 때만 메모리에 유지됩니다.
 
+<<<<<<< HEAD
 그런데 호출이 끝난 후에도 여전히 도달 가능한 중첩 함수가 있을 수 있습니다. 이때는 이 중첩함수의 `[[Environment]]` 프로퍼티에 외부 함수 렉시컬 환경에 대한 정보가 저장됩니다. 도달 가능한 상태가 되는 것이죠.
+=======
+However, if there's a nested function that is still reachable after the end of a function, then it has `[[Environment]]` property that references the lexical environment.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 함수 호출은 끝났지만 렉시컬 환경이 메모리에 유지되는 이유는 바로 이 때문입니다.
 
@@ -333,7 +341,11 @@ let g = f(); // g.[[Environment]]에 f() 호출 시 만들어지는
 // 렉시컬 환경 정보가 저장됩니다.
 ```
 
+<<<<<<< HEAD
 그런데 이렇게 중첩함수를 사용할 때는 주의할 점이 있습니다. `f()`를 여러 번 호출하고 그 결과를 어딘가에 저장하는 경우, 호출 시 만들어지는 각 렉시컬 환경 모두가 메모리에 유지된다는 점입니다. 아래 예시를 실행하면 3개의 렉시컬 환경이 만들어지는데, 각 렉시컬 환경은 메모리에서 삭제되지 않습니다.
+=======
+Please note that if `f()` is called many times, and resulting functions are saved, then all corresponding Lexical Environment objects will also be retained in memory. In the code below, all 3 of them:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 function f() {
@@ -371,7 +383,11 @@ g = null; // 도달할 수 없는 상태가 되었으므로 메모리에서 삭�
 
 그러나 실제로는 자바스크립트 엔진이 이를 지속해서 최적화합니다. 자바스크립트 엔진은 변수 사용을 분석하고 외부 변수가 사용되지 않는다고 판단되면 이를 메모리에서 제거합니다.
 
+<<<<<<< HEAD
 **디버깅 시, 최적화 과정에서 제거된 변수를 사용할 수 없다는 점은 V8 엔진(Chrome, Opera에서 쓰임)의 주요 부작용입니다.**
+=======
+**An important side effect in V8 (Chrome, Edge, Opera) is that such variable will become unavailable in debugging.**
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 Chrome 브라우저에서 개발자 도구를 열고 아래의 코드를 실행해봅시다.
 
@@ -413,6 +429,12 @@ let g = f();
 g();
 ```
 
+<<<<<<< HEAD
 이런 V8만의 부작용을 미리 알아 놓는 것이 좋습니다. Chrome이나 Opera에서 디버깅하는 경우라면 언젠간 이 이슈를 만나게 될 테니까요.
 
 이 부작용은 버그라기보다는 V8만의 특별한 기능이라고 생각하시면 될 것 같습니다. 미래에 이 기능은 변경될 수 있습니다. 최적화 과정에서 외부 변수가 어떻게 처리되었는지 확인하고 싶다면 이 페이지로 돌아오셔서 예시를 실행해 보세요.
+=======
+This feature of V8 is good to know. If you are debugging with Chrome/Edge/Opera, sooner or later you will meet it.
+
+That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You can always check for it by running the examples on this page.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

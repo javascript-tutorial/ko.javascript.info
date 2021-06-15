@@ -1,9 +1,17 @@
 이 이상한 동작의 이유는 바로 주어진 HTML이 잘못되었기 때문입니다.
 
+<<<<<<< HEAD
 브라우저는 이를 자동으로 고쳐야 합니다. 그러나 명세에 따르면 `<table>` 안에는 표와 관련된 특정 태그만이 존재할 수 있기 때문에 텍스트가 있어서는 안 됩니다. 따라서 브라우저는 `'aaa'`를 `<table>` *앞에* 추가합니다.
+=======
+The browser has to fix it automatically. But there may be no text inside the `<table>`: according to the spec only table-specific tags are allowed. So the browser shows `"aaa"` *before* the `<table>`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이제 표를 삭제해도 텍스트가 남아있는 이유가 분명해졌습니다.
 
+<<<<<<< HEAD
 이 문제는 브라우저 도구를 사용해 DOM을 탐색해보면 쉽게 답을 찾을 수 있습니다. 브라우저 도구에서는 `<table>` 앞에 `'aaa'` 가 있는 것으로 표시됩니다.
+=======
+The question can be easily answered by exploring the DOM using the browser tools. You'll see `"aaa"` before the `<table>`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 HTML 표준에는 잘못된 HTML을 수정하는 방법이 구체적으로 정해져 있으므로, 이러한 브라우저의 동작은 올바른 동작입니다.

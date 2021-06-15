@@ -4,7 +4,13 @@
 
 콜백보다는 프라미스가 더 편리하기 때문에, 구현을 하다 보면 콜백 기반 함수와 라이브러리를 프라미스를 반환하는 함수로 바꾸는 게 좋은 경우가 종종 생길 겁니다.
 
+<<<<<<< HEAD
 <info:callbacks> 챕터에서 사용했던 `loadScript(src, callback)` 예시를 사용해 프라미스화에 대해 좀 더 자세히 알아봅시다.
+=======
+For better understanding, let's see an example.
+
+For instance, we have `loadScript(src, callback)` from the chapter <info:callbacks>.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function loadScript(src, callback) {
@@ -21,22 +27,34 @@ function loadScript(src, callback) {
 // loadScript('path/script.js', (err, script) => {...})
 ```
 
+<<<<<<< HEAD
 `loadScript(src, callback)`를 이제 프라미스화해봅시다. 새로운 함수 `loadScriptPromise(src)`는 `loadScript`와 동일하게 동작하지만 `callback`을 제외한 `src`만 인수로 받아야 하고, 프라미스를 반환해야 합니다.
+=======
+The function loads a script with the given `src`, and then calls `callback(err)` in case of an error, or `callback(null, script)` in case of successful loading. That's a widespread agreement for using callbacks, we saw it before.
 
+Let's promisify it. 
+
+We'll make a new function `loadScriptPromise(src)`, that does the same (loads the script), but returns a promise instead of using callbacks.
+
+In other words, we pass it only `src` (no `callback`) and get a promise in return, that resolves with `script` when the load is successful, and rejects with the error otherwise.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
+
+Here it is:
 ```js
 let loadScriptPromise = function(src) {
   return new Promise((resolve, reject) => {
     loadScript(src, (err, script) => {
-      if (err) reject(err)
+      if (err) reject(err);
       else resolve(script);
     });
-  })
-}
+  });
+};
 
 // 사용법:
 // loadScriptPromise('path/script.js').then(...)
 ```
 
+<<<<<<< HEAD
 새롭게 구현한 `loadScriptPromise`는 프라미스 기반 코드와 잘 융화됩니다.
 
 예시에서 볼 수 있듯이, `loadScriptPromise`는 기존 함수 `loadScript`에 모든 일을 위임합니다. `loadScript`의 콜백은 스크립트 로딩 상태에 따라 `이행` 혹은 `거부`상태의 프라미스를 반환합니다. 
@@ -50,6 +68,21 @@ function promisify(f) {
   return function (...args) { // 래퍼 함수를 반환함
     return new Promise((resolve, reject) => {
       function callback(err, result) { // f에 사용할 커스텀 콜백
+=======
+As we can see, the new function is a wrapper around the original `loadScript` function. It calls it providing its own callback that translates to promise `resolve/reject`.
+
+Now `loadScriptPromise` fits well in promise-based code. If we like promises more than callbacks (and soon we'll see more reasons for that), then we will use it instead.
+
+In practice we may need to promisify more than one function, so it makes sense to use a helper.
+
+We'll call it `promisify(f)`: it accepts a to-promisify function `f` and returns a wrapper function.
+
+```js
+function promisify(f) {
+  return function (...args) { // return a wrapper-function (*)
+    return new Promise((resolve, reject) => {
+      function callback(err, result) { // our custom callback for f (**)
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
         if (err) {
           reject(err);
         } else {
@@ -62,18 +95,33 @@ function promisify(f) {
       f.call(this, ...args); // 기존 함수를 호출합니다.
     });
   };
-};
+}
 
 // 사용법:
 let loadScriptPromise = promisify(loadScript);
 loadScriptPromise(...).then(...);
 ```
 
+<<<<<<< HEAD
 위 예시는 프라미스화 할 함수가 인수가 두 개(`(err, result)`)인 콜백을 받을 것이라 가정하고 작성되었습니다. 십중팔구 이런 상황일 것이고, 커스텀 콜백은 이 상황에 딱 들어맞습니다. `promisify`가 잘 동작하는 것은 말할 것도 없겠죠.
+=======
+The code may look a bit complex, but it's essentially the same that we wrote above, while promisifying `loadScript` function.
+
+A call to `promisify(f)` returns a wrapper around `f` `(*)`. That wrapper returns a promise and forwards the call to the original `f`, tracking the result in the custom callback `(**)`.
+
+Here, `promisify` assumes that the original function expects a callback with exactly two arguments `(err, result)`. That's what we encounter most often. Then our custom callback is in exactly the right format, and `promisify` works great for such a case.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그런데 함수 `f`가 두 개를 초과하는 인수를 가진 콜백, `callback(err, res1, res2, ...)`을 받는다면 어떤 일이 발생할까요?
 
+<<<<<<< HEAD
 이런 경우를 대비하여 좀 더 진화한 `promisify`를 만들어 봅시다. 새롭게 만든 함수를 `promisify(f, true)`형태로 호출하면, 프라미스 결과는 콜백의 성공 케이스(`results`)를 담은 배열, `[res1, res2, ...]`이 됩니다.
+=======
+We can improve our helper. Let's make a more advanced version of `promisify`.
+
+- When called as `promisify(f)` it should work similar to the version above.
+- When called as `promisify(f, true)`, it should return the promise that resolves with the array of callback results. That's exactly for callbacks with many arguments.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 // 콜백의 성공 결과를 담은 배열을 얻게 해주는 promisify(f, true)
@@ -94,14 +142,20 @@ function promisify(f, manyArgs = false) {
       f.call(this, ...args);
     });
   };
-};
+}
 
 // 사용법:
 f = promisify(f, true);
-f(...).then(arrayOfResults => ..., err => ...)
+f(...).then(arrayOfResults => ..., err => ...);
 ```
 
+<<<<<<< HEAD
 `callback(result)`같이 `err`이 없는 형태나 지금까지 언급하지 않은 형태의 이색적인 콜백도 있을 수 있는데, 이런 경우엔 헬퍼 함수를 사용하지 않고 직접 프라미스화 하면 됩니다.
+=======
+As you can see it's essentially the same as above, but `resolve` is called with only one or all arguments depending on whether `manyArgs` is truthy.
+
+For more exotic callback formats, like those without `err` at all: `callback(result)`, we can promisify such functions manually without using the helper.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 본 챕터에서 설명한 헬퍼 함수보다 더 유용한 형태의 프라미스화를 도와주는 함수를 제공하는 모둘도 많습니다. [es6-promisify](https://github.com/digitaldesignlabs/es6-promisify)가 대표적인 예입니다. Node.js에선 내장 함수 `util.promisify`를 사용해 프라미스화를 할 수 있습니다.
 

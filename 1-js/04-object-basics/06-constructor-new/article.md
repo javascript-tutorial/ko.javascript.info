@@ -64,13 +64,21 @@ let user = {
 
 생성자의 의의는 바로 여기에 있습니다. 재사용할 수 있는 객체 생성 코드를 구현하는 것이죠.
 
+<<<<<<< HEAD
 잠깐! 모든 함수는 생성자 함수가 될 수 있다는 점을 잊지 마시기 바랍니다. `new`를 붙여 실행한다면 어떤 함수라도 위에 언급된 알고리즘이 실행됩니다. 이름 "첫 글자가 대문자"인 함수는 `new`를 붙여 실행해야 한다는 점도 잊지 마세요. 공동의 약속이니까요.
 
 ````smart header="new function() { ... }"
 재사용할 필요가 없는 복잡한 객체를 만들어야 한다고 해봅시다. 많은 양의 코드가 필요할 겁니다. 이럴 땐 아래와 같이 코드를 익명 생성자 함수로 감싸주는 방식을 사용할 수 있습니다.
+=======
+Let's note once again -- technically, any function (except arrow functions, as they don't have `this`) can be used as a constructor. It can be run with `new`, and it will execute the algorithm above. The "capital letter first" is a common agreement, to make it clear that a function is to be run with `new`.
+
+````smart header="new function() { ... }"
+If we have many lines of code all about creation of a single complex object, we can wrap them in an immediately called constructor function, like this:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
-let user = new function() {
+// create a function and immediately call it with new
+let user = new function() { 
   this.name = "John";
   this.isAdmin = false;
 
@@ -80,7 +88,11 @@ let user = new function() {
 };
 ```
 
+<<<<<<< HEAD
 위 생성자 함수는 익명 함수이기 때문에 어디에도 저장되지 않습니다. 처음 만들 때부터 단 한 번만 호출할 목적으로 만들었기 때문에 재사용이 불가능합니다. 이렇게 익명 생성자 함수를 이용하면 재사용은 막으면서 코드를 캡슐화 할 수 있습니다. 
+=======
+This constructor can't be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 ## new.target과 생성자 함수
@@ -91,7 +103,11 @@ let user = new function() {
 
 `new.target` 프로퍼티를 사용하면 함수가 `new`와 함께 호출되었는지 아닌지를 알 수 있습니다.
 
+<<<<<<< HEAD
 일반적인 방법으로 함수를 호출했다면 `new.target`은 undefined를 반환합니다. 반면 `new`와 함께 호출한 경우엔 `new.target`은 함수 자체를 반환해줍니다.
+=======
+It is undefined for regular calls and equals the function if called with `new`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function User() {

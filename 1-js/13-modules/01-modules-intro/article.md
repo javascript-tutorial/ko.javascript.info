@@ -57,8 +57,13 @@ sayHi('John'); // Hello, John!
 
 브라우저가 자동으로 모듈을 가져오고 평가한 다음, 이를 실행한 것을 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ```warn header="모듈은 로컬 파일에서 동작하지 않고, HTTP 또는 HTTPS 프로토콜을 통해서만 동작합니다."
 로컬에서 `file://` 프로토콜을 사용해 웹페이지를 열면 `import`, `export` 지시자가 동작하지 않습니다. 예시를 실행하려면 로컬 웹 서버인 [static-server](https://www.npmjs.com/package/static-server#getting-started)나, 코드 에디터의 '라이브 서버' 익스텐션(Visual Studio Code 에디터의 경우 [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer))을 사용하세요.
+=======
+```warn header="Modules work only via HTTP(s), not locally"
+If you try to open a web-page locally, via `file://` protocol, you'll find that `import/export` directives don't work. Use a local web-server, such as [static-server](https://www.npmjs.com/package/static-server#getting-started) or use the "live server" capability of your editor, such as VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to test modules.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ## 모듈의 핵심 기능
@@ -69,7 +74,11 @@ sayHi('John'); // Hello, John!
 
 ### 엄격 모드로 실행됨
 
+<<<<<<< HEAD
 모듈은 항상 `엄격 모드(use strict)`로 실행됩니다. 선언되지 않은 변수에 값을 할당하는 등의 코드는 에러를 발생시킵니다. 
+=======
+Modules always work in strict mode. E.g. assigning to an undeclared variable will give an error.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```html run
 <script type="module">
@@ -81,6 +90,7 @@ sayHi('John'); // Hello, John!
 
 모듈은 자신만의 스코프가 있습니다. 따라서 모듈 내부에서 정의한 변수나 함수는 다른 스크립트에서 접근할 수 없습니다.
 
+<<<<<<< HEAD
 `user.js`와 `hello.js`를 가져오고 `user.js`에서 선언한 변수 `user`를 `hello.js`에서 사용해봅시다. 에러가 난 것을 확인할 수 있습니다(개발자 도구 확인).
 
 [codetabs src="scopes" height="140" current="index.html"]
@@ -88,12 +98,30 @@ sayHi('John'); // Hello, John!
 외부에 공개하려는 모듈은 `export` 해야 하고, 내보내진 모듈을 가져와 사용하려면 `import` 해줘야 합니다.
 
  전역변수를 대신하여 `hello.js`에 `user.js`를 가져와 필요한 기능을 얻을 수 있습니다.
+=======
+In the example below, two scripts are imported, and `hello.js` tries to use `user` variable declared in `user.js`. It fails, because it's a separate module (you'll see the error in the console):
+
+[codetabs src="scopes" height="140" current="index.html"]
+
+Modules should `export` what they want to be accessible from outside and `import` what they need.
+
+- `user.js` should export the `user` variable.
+- `hello.js` should import it from `user.js` module.
+
+In other words, with modules we use import/export instead of relying on global variables.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 아래와 같이 코드를 수정하면 정상적으로 동작합니다.
 
 [codetabs src="scopes-working" height="140" current="hello.js"]
 
+<<<<<<< HEAD
 브라우저 환경에서도 `<script type="module">`을 사용해 모듈을 만들면 독립적인 스코프가 만들어집니다.
+=======
+In the browser, if we talk about HTML pages, independent top-level scope also exists for each `<script type="module">`.
+
+Here are two scripts on the same page, both `type="module"`. They don't see each other's top-level variables:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```html run
 <script type="module">
@@ -108,13 +136,31 @@ sayHi('John'); // Hello, John!
 </script>
 ```
 
+<<<<<<< HEAD
 참고로 브라우저 환경에서 부득이하게 window 레벨 전역 변수를 만들어야 한다면 `window` 객체에 변수를 명시적으로 할당하고 `window.user`와 같이 접근하는 방식을 취하시면 됩니다. 그런데 이 방법은 정말 필요한 경우에만 사용하길 권유합니다.
+=======
+```smart
+In the browser, we can make a variable window-level global by explicitly assigning it to a `window` property, e.g. `window.user = "John"`. 
+
+Then all scripts will see it, both with `type="module"` and without it. 
+
+That said, making such global variables is frowned upon. Please try to avoid them.
+```
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### 단 한 번만 평가됨
 
+<<<<<<< HEAD
 동일한 모듈이 여러 곳에서 사용되더라도 모듈은 최초 호출 시 단 한 번만 실행됩니다. 실행 후 결과는 이 모듈을 가져가려는 모든 모듈에 내보내 집니다.
 
 이런 작동방식은 중요한 결과를 초래합니다. 예시를 통해 이에 대해 알아봅시다.
+=======
+If the same module is imported into multiple other modules, its code is executed only once, upon the first import. Then its exports are given to all further importers.
+
+The one-time evaluation has important consequences, that we should be aware of. 
+
+Let's see a couple of examples.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 alert 함수가 있는 모듈(`alert.js`)을 여러 모듈에서 가져오기로 해봅시다. 얼럿 창은 단 한 번만 나타납니다.
 
@@ -133,9 +179,17 @@ import `./alert.js`; // 얼럿창에 '모듈이 평가되었습니다!'가 출�
 import `./alert.js`; // 아무 일도 발생하지 않습니다.
 ```
 
+<<<<<<< HEAD
 실무에선 최상위 레벨 모듈을 대개 초기화나 내부에서 쓰이는 데이터 구조를 만들고 이를 내보내 재사용하고 싶을 때 사용합니다.
 
 이제 좀 더 어려운 예시를 살펴보겠습니다.
+=======
+The second import shows nothing, because the module has already been evaluated.
+
+There's a rule: top-level module code should be used for initialization, creation of module-specific internal data structures. If we need to make something callable multiple times - we should export it as a function, like we did with `sayHi` above.
+
+Now, let's consider a deeper example.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 객체를 내보내는 모듈을 만들어봅시다.
 
@@ -160,6 +214,7 @@ import {admin} from './admin.js';
 alert(admin.name); // Pete
 
 *!*
+<<<<<<< HEAD
 // 1.js와 2.js 모두 같은 객체를 가져오므로
 // 1.js에서 객체에 가한 조작을 2.js에서도 확인할 수 있습니다.
 */!*
@@ -170,12 +225,34 @@ alert(admin.name); // Pete
 이런 특징을 이용하면 모듈 *설정(configuration)*을 쉽게 할 수 있습니다. 최초로 실행되는 모듈의 객체 프로퍼티를 원하는 대로 설정하면 다른 모듈에서 이 설정을 그대로 사용할 수 있기 때문이죠.
 
 예시를 통해 이에 대해 자세히 알아봅시다. 아래 `admin.js` 모듈은 어떤 특정한 기능을 제공해주는데, 이 기능을 사용하려면 외부에서 `admin` 객체와 관련된 인증 정보를 받아와야 한다고 가정해봅시다.
+=======
+// Both 1.js and 2.js reference the same admin object
+// Changes made in 1.js are visible in 2.js
+*/!*
+```
+
+As you can see, when `1.js` changes the `name` property in the imported `admin`, then `2.js` can see the new `admin.name`.
+
+That's exactly because the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other modules will see that.
+
+**Such behavior is actually very convenient, because it allows us to *configure* modules.**
+
+In other words, a module can provide a generic functionality that needs a setup. E.g. authentication needs credentials. Then it can export a configuration object expecting the outer code to assign to it.
+
+Here's the classical pattern:
+1. A module exports some means of configuration, e.g. a configuration object.
+2. On the first import we initialize it, write to its properties. The top-level application script may do that.
+3. Further imports use the module.
+
+For instance, the `admin.js` module may provide certain functionality (e.g. authentication), but expect the credentials to come into the `config` object from outside:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 // 📁 admin.js
-export let admin = { };
+export let config = { };
 
 export function sayHi() {
+<<<<<<< HEAD
   alert(`${admin.name}님, 안녕하세요!`);
 }
 ```
@@ -189,25 +266,56 @@ admin.name = "보라";
 ```
 
 또 다른 모듈에서도 `admin.name`에 저장된 정보를 볼 수 있다는 걸 확인해 봅시다.
+=======
+  alert(`Ready to serve, ${config.user}!`);
+}
+```
+
+Here, `admin.js` exports the `config` object (initially empty, but may have default properties too).
+
+Then in `init.js`, the first script of our app, we import `config` from it and set `config.user`:
 
 ```js
-// 📁 other.js
-import {admin, sayHi} from './admin.js';
+// 📁 init.js
+import {config} from './admin.js';
+config.user = "Pete";
+```
 
+...Now the module `admin.js` is configured. 
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
+
+Further importers can call it, and it correctly shows the current user:
+
+<<<<<<< HEAD
 alert(admin.name); // *!*보라*/!*
+=======
+```js
+// 📁 another.js
+import {sayHi} from './admin.js';
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 sayHi(); // *!*보라*/!*님, 안녕하세요!
 ```
+
 
 ### import.meta
 
 `import.meta` 객체는 현재 모듈에 대한 정보를 제공해줍니다.
 
+<<<<<<< HEAD
 호스트 환경에 따라 제공하는 정보의 내용은 다른데, 브라우저 환경에선 스크립트의 URL 정보를 얻을 수 있습니다. HTML 안에 있는 모듈이라면, 현재 실행 중인 웹페이지의 URL 정보를 얻을 수 있습니다.
 
 ```html run height=0
 <script type="module">
   alert(import.meta.url); // script URL (인라인 스크립트가 위치해 있는 html 페이지의 URL)
+=======
+Its content depends on the environment. In the browser, it contains the URL of the script, or a current webpage URL if inside HTML:
+
+```html run height=0
+<script type="module">
+  alert(import.meta.url); // script URL
+  // for an inline script - the URL of the current HTML-page
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 </script>
 ```
 
@@ -260,7 +368,11 @@ sayHi(); // *!*보라*/!*님, 안녕하세요!
 
 <script>
 *!*
+<<<<<<< HEAD
   alert(typeof button); // 일반 스크립트는 페이지가 완전히 구성되기 전이라도 바로 실행됩니다.
+=======
+  alert(typeof button); // button is undefined, the script can't see elements below
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 */!*
   // 버튼 요소가 페이지에 만들어지기 전에 접근하였기 때문에 undefined가 출력되는 것을 확인할 수 있습니다.
 </script>

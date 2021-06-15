@@ -124,7 +124,11 @@ ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 
     ```js
     // onmousemove
+<<<<<<< HEAD
     // 공은 고정된 포지션을 갖습니다.
+=======
+    // ball has position:absolute
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     ball.style.left = event.pageX - *!*shiftX*/!* + 'px';
     ball.style.top = event.pageY - *!*shiftY*/!* + 'px';
     ```
@@ -276,7 +280,11 @@ function onMouseMove(event) {
 }
 ```
 
+<<<<<<< HEAD
 아래 예시에서 공을 축구 골대 위로 드래그하면 골대가 강조 표시됩니다.
+=======
+In the example below when the ball is dragged over the soccer goal, the goal is highlighted.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 [codetabs height=250 src="ball4"]
 
@@ -300,4 +308,8 @@ function onMouseMove(event) {
 - `mousedown/up`에 이벤트 위임을 사용할 수 있습니다. `event.target`을 확인하는 넓은 영역의 이벤트 핸들러는 수백 개의 요소에 대한 드래그 앤 드롭을 관리할 수 있습니다.
 - 등등
 
+<<<<<<< HEAD
 `DragZone`, `Droppable`, `Draggable` 및 기타 클래스 등 아키텍처를 구축하는 프레임워크가 있습니다. 대부분은 앞서 드래그와 드롭에 대한 설명과 유사한 작업을 하므로 이해하기 쉽습니다. 때로는 제3의 솔루션 적용보다 쉽게 수행할 수 있습니다.
+=======
+There are frameworks that build architecture over it: `DragZone`, `Droppable`, `Draggable` and other classes. Most of them do the similar stuff to what's described above, so it should be easy to understand them now. Or roll your own, as you can see that that's easy enough to do, sometimes easier than adapting a third-party solution.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

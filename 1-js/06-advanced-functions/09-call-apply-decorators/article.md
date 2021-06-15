@@ -36,11 +36,19 @@ function cachingDecorator(func) {
 
 slow = cachingDecorator(slow);
 
+<<<<<<< HEAD
 alert( slow(1) ); // slow(1)이 저장되었습니다.
 alert( "다시 호출: " + slow(1) ); // 동일한 결과
 
 alert( slow(2) ); // slow(2)가 저장되었습니다.
 alert( "다시 호출: " + slow(2) ); // 윗줄과 동일한 결과
+=======
+alert( slow(1) ); // slow(1) is cached and the result returned
+alert( "Again: " + slow(1) ); // slow(1) result returned from cache
+
+alert( slow(2) ); // slow(2) is cached and the result returned
+alert( "Again: " + slow(2) ); // slow(2) result returned from cache
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 `cachingDecorator`같이 인수로 받은 함수의 행동을 변경시켜주는 함수를 *데코레이터(decorator)* 라고 부릅니다.
@@ -301,18 +309,32 @@ func.apply(context, args)
 따라서 아래 코드 두 줄은 거의 같은 역할을 합니다.
 
 ```js
+<<<<<<< HEAD
 func.call(context, ...args); // 전개 문법을 사용해 인수가 담긴 배열을 전달하는 것과
 func.apply(context, args);   // call을 사용하는 것은 동일합니다.
 ```
 
 그런데 약간의 차이가 있긴 합니다.
+=======
+func.call(context, ...args);
+func.apply(context, args);
+```
+
+They perform the same call of `func` with given context and arguments.
+
+There's only a subtle difference regarding `args`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 - 전개 문법 `...`은 *이터러블* `args`을 분해 해 `call`에 전달할 수 있도록 해줍니다.
 - `apply`는 오직 *유사 배열* 형태의 `args`만 받습니다.
 
+<<<<<<< HEAD
 이 차이만 빼면 두 메서드는 완전히 동일하게 동작합니다. 인수가 이터러블 형태라면 `call`을, 유사 배열 형태라면 `apply`를 사용하면 됩니다.
 
 배열같이 이터러블이면서 유사 배열인 객체엔 둘 다를 사용할 수 있는데, 대부분의 자바스크립트 엔진은 내부에서 `apply`를 최적화 하기 때문에 `apply`를 사용하는 게 좀 더 빠르긴 합니다.
+=======
+...And for objects that are both iterable and array-like, such as a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이렇게 컨텍스트와 함께 인수 전체를 다른 함수에 전달하는 것을 *콜 포워딩(call forwarding)* 이라고 합니다.
 

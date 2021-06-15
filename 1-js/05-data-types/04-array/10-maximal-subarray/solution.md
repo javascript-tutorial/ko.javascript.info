@@ -57,7 +57,11 @@ alert( getMaxSubSum([1, 2, 3]) ); // 6
 alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
 ```
 
+<<<<<<< HEAD
 이렇게 구현하면 시간 복잡도가 [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation)이 됩니다. 이는 배열의 크기를 2배 늘리면 알고리즘은 4배나 더 오래 걸린다는 의미입니다.
+=======
+The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 크기가 큰 배열(1000, 10000 또는 그 이상의 요소를 가진 배열)에 위와 같은 알고리즘을 적용하면 매우 느릴 수 있습니다.
 

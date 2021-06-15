@@ -225,17 +225,40 @@ Math.PI = 3; // Error
 3. `writable: false`의 값을 `true`로 바꿀 수 없음(`true`를 `false`로 변경하는 것은 가능함).
 4. 접근자 프로퍼티 `get/set`을 변경할 수 없음(새롭게 만드는 것은 가능함).
 
+<<<<<<< HEAD
 이런 특징을 이용하면 아래와 같이 "영원히 변경할 수 없는" 프로퍼티(`user.name`)를 만들 수 있습니다.
+=======
+**The idea of "configurable: false" is to prevent changes of property flags and its deletion, while allowing to change its value.**
+
+Here `user.name` is non-configurable, but we can still change it (as it's writable):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
-let user = { };
+let user = {
+  name: "John"
+};
 
 Object.defineProperty(user, "name", {
-  value: "John",
+  configurable: false
+});
+
+user.name = "Pete"; // works fine
+delete user.name; // Error
+```
+
+And here we make `user.name` a "forever sealed" constant:
+
+```js run
+let user = {
+  name: "John"
+};
+
+Object.defineProperty(user, "name", {
   writable: false,
   configurable: false
 });
 
+<<<<<<< HEAD
 *!*
 // user.name 프로퍼티의 값이나 플래그를 변경할 수 없습니다.
 // 아래와 같이 변경하려고 하면 에러가 발생합니다.
@@ -251,6 +274,15 @@ Object.defineProperty(user, "name", {writable: true}); // Error
 
 `configurable: false`는 플래그 값 변경이나 프로퍼티 삭제를 막기 위해 만들어졌지, 프로퍼티 값 변경을 막기 위해 만들어진 게 아닙니다.
 ```
+=======
+// won't be able to change user.name or its flags
+// all this won't work:
+user.name = "Pete";
+delete user.name;
+Object.defineProperty(user, "name", { value: "Pete" });
+```
+
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## Object.defineProperties
 

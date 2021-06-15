@@ -1,9 +1,14 @@
 # 닌자 코드
 
 
+<<<<<<< HEAD
 ```quote author="공자"
 생각 없이 배우기만 하면 얻는 것이 없고,<br>
 생각만 하고 배우지 않으면 오류나 독단에 빠질 위험이 있다.
+=======
+```quote author="Confucius (Analects)"
+Learning without thought is labor lost; thought without learning is perilous.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 닌자라 불리던 전설 속 개발자들은 유지보수 담당 개발자를 혹독하게 훈련하고자 (아래에서 소개해 드릴) 다양한 편법을 사용하곤 했습니다.
@@ -106,10 +111,15 @@ i = i ? i < 0 ? Math.max(0, len + i) : i : 0;
 
 ## 동의어 사용하기
 
+<<<<<<< HEAD
 ```quote author="공자"
 모든 일 중 가장 어려운 일은<br>
 어두운 방에서 검은 고양이를 찾는 일이다.<br><br>
 특히 그 방에 고양이가 없을 때에.
+=======
+```quote author="Laozi (Tao Te Ching)"
+The Tao that can be told is not the eternal Tao. The name that can be named is not the eternal name.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 *유사한* 뜻을 가진 단어 여러 개를 *같은*걸 명명하는 데 사용해서 당신의 풍부한 어휘력을 은연중에 드러내 봅시다.

@@ -143,8 +143,13 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 할당 연산자
 : `a = b` 형태의 할당 연산자와 `a *= 2` 형태의 복합 할당 연산자가 있습니다.
 
+<<<<<<< HEAD
 비트 연산자
 : 비트 연산자는 인수를 32비트 정수로 변환하여 이진 연산을 수행합니다. 자세한 내용은 [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators)에서 볼 수 있습니다.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](mdn:/JavaScript/Guide/Expressions_and_Operators#Bitwise) when they are needed.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 조건부 연산자
 : 조건부 연산자는 자바스크립트 연산자 중 유일하게 매개변수가 3개인 연산자입니다. `cond ? resultA : resultB`와 같은 형태로 사용하고, `cond`가 truthy면 `resultA`를, 아니면 `resultB`를 반환합니다.
@@ -273,9 +278,15 @@ switch (age) {
     ```
 
 
+<<<<<<< HEAD
 - 함수는 지역 변수를 가질 수 있습니다. 지역 변수는 함수의 본문에 선언된 변수로, 함수 내부에서만 접근할 수 있습니다.
 - 매개변수에 기본값을 설정할 수 있습니다. 문법은 다음과 같습니다. `function sum(a = 1, b = 2) {...}`
 - 함수는 항상 무언가를 반환합니다. `return`문이 없는 경우는 `undefined`를 반환합니다.
+=======
+- Functions may have local variables: those declared inside its body or its parameter list. Such variables are only visible inside the function.
+- Parameters can have default values: `function sum(a = 1, b = 2) {...}`.
+- Functions always return something. If there's no `return` statement, then the result is `undefined`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 자세한 내용은 <info:function-basics>와 <info:arrow-functions-basics>에서 살펴보시기 바랍니다.
 

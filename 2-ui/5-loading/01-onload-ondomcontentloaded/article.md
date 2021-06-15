@@ -2,9 +2,15 @@
 
 HTML 문서의 생명주기엔 다음과 같은 3가지 주요 이벤트가 관여합니다.
 
+<<<<<<< HEAD
 - `DOMContentLoaded` -- 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생합니다. 이미지 파일(`<img>`)이나 스타일시트 등의 기타 자원은 기다리지 않습니다.
 - `load` -- HTML로 DOM 트리를 만드는 게 완성되었을 뿐만 아니라 이미지, 스타일시트 같은 외부 자원도 모두 불러오는 것이 끝났을 때 발생합니다.
 - `beforeunload/unload` -- 사용자가 페이지를 떠날 때 발생합니다.
+=======
+- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may not yet have loaded.  
+- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload/unload` -- the user is leaving the page.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 세 이벤트는 다음과 같은 상황에서 활용할 수 있습니다.
 
@@ -33,8 +39,13 @@ document.addEventListener("DOMContentLoaded", ready);
   function ready() {
     alert('DOM이 준비되었습니다!');
 
+<<<<<<< HEAD
     // 이미지가 로드되지 않은 상태이기 때문에 사이즈는 0x0입니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
+=======
+    // image is not yet loaded (unless it was cached), so the size is 0x0
+    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   }
 
 *!*
@@ -45,7 +56,11 @@ document.addEventListener("DOMContentLoaded", ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
 ```
 
+<<<<<<< HEAD
 위 예시에서 `DOMContentLoaded` 핸들러는 문서가 로드되었을 때 실행됩니다. 따라서 핸들러 아래쪽에 위치한 `<img>`뿐만 아니라 모든 요소에 접근할 수 있습니다.
+=======
+In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그렇지만 이미지가 로드되는 것은 기다리지 않기 때문에 `alert` 창엔 이미지 사이즈가 0이라고 뜹니다. 
 
@@ -145,7 +160,7 @@ let analyticsData = { /* 분석 정보가 담긴 객체 */ };
 
 window.addEventListener("unload", function() {
   navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
-};
+});
 ```
 
 - 요청은 POST 메서드로 전송됩니다.
@@ -209,7 +224,11 @@ window.onbeforeunload = function() {
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
+<<<<<<< HEAD
   // 아직 로딩 중이므로 이벤트를 기다립니다.
+=======
+  // still loading, wait for the event
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   document.addEventListener('DOMContentLoaded', work);
 } else {
   // DOM이 완성되었습니다!

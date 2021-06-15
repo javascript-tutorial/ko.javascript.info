@@ -8,7 +8,11 @@
 
 가장 먼저 숫자 클래스부터 알아봅시다. 숫자(digit) 클래스는 `pattern:\d`라고 쓰고 '아무 숫자 하나'에 대응합니다.
 
+<<<<<<< HEAD
 앞에서 나온 전화번호 예시에서 첫 번째 숫자를 찾아봅시다.
+=======
+For instance, let's find the first digit in the phone number:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -120,7 +124,11 @@ alert( "CS-4".match(regexp) ); // CS-4
 alert( "CS 4".match(regexp) ); // CS 4 (공백도 문자예요.)
 ```
 
+<<<<<<< HEAD
 점은 아무 문자에나 일치하지만 '문자의 부재'와 일치하지는 않습니다. 반드시 일치하는 문자가 있어야 합니다.
+=======
+Please note that a dot means "any character", but not the "absence of a character". There must be a character to match it:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 alert( "CS4".match(/CS.4/) ); // null, 점과 일치하는 문자가 없기 때문에 일치 결과가 없습니다.
@@ -144,10 +152,17 @@ alert( "A\nB".match(/A.B/) ); // null (일치하지 않음)
 alert( "A\nB".match(/A.B/s) ); // A\nB (일치!)
 ```
 
+<<<<<<< HEAD
 ````warn header="Firefox, IE, Edge에서 지원하지 않음"
 <https://caniuse.com/#search=dotall>에서 지원 여부의 최신 상황을 확인해보세요. 이 글을 작성하는 시점에 `pattern:s` 플래그는 Firefox, IE, Edge에서 아직 지원하지 않습니다.
 
 다행히도 어느 브라우저에서나 쓸 수 있는 대안이 있습니다. `pattern:[\s\S]`같은 정규 표현식을 사용해 '모든 문자'와 일치시킬 수 있습니다.
+=======
+````warn header="Not supported in IE"
+The `pattern:s` flag is not supported in IE.
+
+Luckily, there's an alternative, that works everywhere. We can use a regexp like `pattern:[\s\S]` to match "any character" (this pattern will be covered in the article <info:regexp-character-sets-and-ranges>).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 alert( "A\nB".match(/A[\s\S]B/) ); // A\nB (일치!)
@@ -179,7 +194,11 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, 이것도 됩니다.
 
 **공백 역시 문자입니다. 다른 문자만큼이나 중요합니다.**
 
+<<<<<<< HEAD
 정규 표현식에 공백을 추가하거나 지우면 다르게 작동합니다.
+=======
+We can't add or remove spaces from a regular expression and expect it to work the same.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 즉, 정규 표현식에서는 모든 문자가 중요합니다. 공백도 마찬가지로요.
 ````
@@ -198,6 +217,10 @@ alert( "1 - 5".match(/\d\s-\s\d/) ); // 1 - 5, 이것도 됩니다.
 
 하지만 이게 전부가 아닙니다!
 
+<<<<<<< HEAD
 자바스크립트에서 문자열에 사용하는 유니코드 인코딩은 문자에 여러 프로퍼티를 제공합니다. 어떤 언어에 속하는 글자인지 또는 글자가 아닌 구두점인지 알려주는 프로퍼티처럼요.
+=======
+Unicode encoding, used by JavaScript for strings, provides many properties for characters, like: which language the letter belongs to (if it's a letter), is it a punctuation sign, etc.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이런 프로퍼티를 기준으로 문자를 찾을 수도 있습니다. `pattern:u` 플래그를 사용하면 되는데요. 다음 글에서 알아보도록 하죠.

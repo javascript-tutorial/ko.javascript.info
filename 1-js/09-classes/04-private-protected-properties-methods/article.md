@@ -96,7 +96,13 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) {
+      value = 0;
+    }
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     this._waterAmount = value;
   }
 
@@ -117,7 +123,11 @@ let coffeeMachine = new CoffeeMachine(100);
 coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
 ```
 
+<<<<<<< HEAD
 이제 물의 양을 0 미만으로 설정하면 실패합니다. 
+=======
+Now the access is under control, so setting the water amount below zero becomes impossible.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 읽기 전용 프로퍼티
 
@@ -159,7 +169,11 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) value = 0;
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     this._waterAmount = value;
   }
 
@@ -190,7 +204,11 @@ private 프로퍼티와 메서드는 제안(proposal) 목록에 등재된 문법
 
 private 프로퍼티와 메서드는 `#`으로 시작합니다. `#`이 붙으면 클래스 안에서만 접근할 수 있습니다.
 
+<<<<<<< HEAD
 물 용량 한도를 나타내는 private 프로퍼티 `#waterLimit`과 남아있는 물의 양을 확인해주는 private 메서드 `#checkWater`를 구현해봅시다.
+=======
+For instance, here's a private `#waterLimit` property and the water-checking private method `#fixWaterAmount`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 class CoffeeMachine {
@@ -199,19 +217,34 @@ class CoffeeMachine {
 */!*
 
 *!*
+<<<<<<< HEAD
   #checkWater(value) {
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
     if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
+=======
+  #fixWaterAmount(value) {
+    if (value < 0) return 0;
+    if (value > this.#waterLimit) return this.#waterLimit;
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   }
 */!*
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
 
 }
 
 let coffeeMachine = new CoffeeMachine();
 
 *!*
+<<<<<<< HEAD
 // 클래스 외부에서 private에 접근할 수 없음
 coffeeMachine.#checkWater(); // Error
+=======
+// can't access privates from outside of the class
+coffeeMachine.#fixWaterAmount(123); // Error
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
@@ -232,7 +265,11 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
+<<<<<<< HEAD
     if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
+=======
+    if (value < 0) value = 0;
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     this.#waterAmount = value;
   }
 }

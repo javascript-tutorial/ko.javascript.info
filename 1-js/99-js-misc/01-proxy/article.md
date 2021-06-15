@@ -39,7 +39,7 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 
 그림에서 볼 수 있듯이 트랩이 없으면 `proxy`는 `target`을 둘러싸는 투명한 래퍼가 됩니다.
 
-![](proxy.svg)  
+![](proxy.svg)
 
 `Proxy`는 일반 객체와는 다른 행동 양상을 보이는 '특수 객체(exotic object)'입니다. 프로퍼티가 없죠. `handler`가 비어있으면 `Proxy`에 가해지는 작업은 `target`에 곧바로 전달됩니다.
 
@@ -55,6 +55,7 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 
 | 내부 메서드 | 핸들러 메서드 | 작동 시점 |
 |-----------------|----------------|-------------|
+<<<<<<< HEAD
 | `[[Get]]` | `get` | 프로퍼티를 읽을 때 |
 | `[[Set]]` | `set` | 프로퍼티에 쓸 때 |
 | `[[HasProperty]]` | `has` | `in` 연산자가 동작할 때 |
@@ -68,6 +69,21 @@ for(let key in proxy) alert(key); // test, 반복도 잘 동작합니다. -- (3)
 | `[[DefineOwnProperty]]` | `defineProperty` | [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties) |
 | `[[GetOwnProperty]]` | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries` |
 | `[[OwnPropertyKeys]]` | `ownKeys` | [Object.getOwnPropertyNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object/keys/values/entries` |
+=======
+| `[[Get]]` | `get` | reading a property |
+| `[[Set]]` | `set` | writing to a property |
+| `[[HasProperty]]` | `has` | `in` operator |
+| `[[Delete]]` | `deleteProperty` | `delete` operator |
+| `[[Call]]` | `apply` | function call |
+| `[[Construct]]` | `construct` | `new` operator |
+| `[[GetPrototypeOf]]` | `getPrototypeOf` | [Object.getPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) |
+| `[[SetPrototypeOf]]` | `setPrototypeOf` | [Object.setPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) |
+| `[[IsExtensible]]` | `isExtensible` | [Object.isExtensible](mdn:/JavaScript/Reference/Global_Objects/Object/isExtensible) |
+| `[[PreventExtensions]]` | `preventExtensions` | [Object.preventExtensions](mdn:/JavaScript/Reference/Global_Objects/Object/preventExtensions) |
+| `[[DefineOwnProperty]]` | `defineProperty` | [Object.defineProperty](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperties) |
+| `[[GetOwnProperty]]` | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries` |
+| `[[OwnPropertyKeys]]` | `ownKeys` | [Object.getOwnPropertyNames](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object.keys/values/entries` |
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```warn header="규칙"
 내부 메서드나 트랩을 쓸 땐 자바스크립트에서 정한 몇 가지 규칙(invariant)을 반드시 따라야 합니다.
@@ -335,7 +351,11 @@ let user = {
   _password: "비밀"
 };
 
+<<<<<<< HEAD
 alert(user._password); // 비밀  
+=======
+alert(user._password); // secret
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 프락시를 사용해 `_`로 시작하는 프로퍼티에 접근하지 못하도록 막아봅시다.
@@ -375,8 +395,13 @@ user = new Proxy(user, {
     }
   },
 *!*
+<<<<<<< HEAD
   deleteProperty(target, prop) { // 프로퍼티 삭제를 가로챕니다.
 */!*  
+=======
+  deleteProperty(target, prop) { // to intercept property deletion
+*/!*
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     if (prop.startsWith('_')) {
       throw new Error("접근이 제한되어있습니다.");
     } else {
@@ -437,7 +462,11 @@ user = {
 ```
 
 
+<<<<<<< HEAD
 `user.checkPassword()`를 호출하면 점 앞의 객체가 `this`가 되므로 프락시로 감싼 `user`에 접근하게 되는데, `this._password`는 `get` 트랩(프로퍼티를 읽으려고 하면 동작함)을 활성화하므로 에러가 던져집니다.
+=======
+A call to `user.checkPassword()` gets proxied `user` as `this` (the object before dot becomes `this`), so when it tries to access `this._password`, the `get` trap activates (it triggers on any property read) and throws an error.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `(*)`로 표시한 줄에선 객체 메서드의 컨텍스트를 원본 객체인 `target`에 바인딩시켜준 이유가 바로 여기에 있습니다. `checkPassword()`를 호출할 땐 언제든 트랩 없이 `target`이 `this`가 되게 하기 위해서이죠.
 
@@ -963,9 +992,13 @@ revoke();
 alert(proxy.data); // Error
 ```
 
-A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. The target object can be garbage-collected after that.
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. 
 
-We can also store `revoke` in a `WeakMap`, to be able to easily find it by a proxy object:
+Initially, `revoke` is separate from `proxy`, so that we can pass `proxy` around while leaving `revoke` in the current scope.
+
+We can also bind `revoke` method to proxy by setting `proxy.revoke = revoke`.
+
+Another option is to create a `WeakMap` that has `proxy` as the key and the corresponding `revoke` as the value, that allows to easily find `revoke` for a proxy:
 
 ```js run
 *!*
@@ -980,21 +1013,25 @@ let {proxy, revoke} = Proxy.revocable(object, {});
 
 revokes.set(proxy, revoke);
 
-// ..later in our code..
+// ..somewhere else in our code..
 revoke = revokes.get(proxy);
 revoke();
 
 alert(proxy.data); // Error (revoked)
 ```
 
+<<<<<<< HEAD
 The benefit of such an approach is that we don't have to carry `revoke` around. We can get it from the map by `proxy` when needed.
 
 We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes 'unreachable' (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
+=======
+We use `WeakMap` instead of `Map` here because it won't block garbage collection. If a proxy object becomes "unreachable" (e.g. no variable references it any more), `WeakMap` allows it to be wiped from memory together with its `revoke` that we won't need any more.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## References
 
 - Specification: [Proxy](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots).
-- MDN: [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+- MDN: [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy).
 
 ## Summary
 
@@ -1016,13 +1053,13 @@ We can trap:
 - Reading (`get`), writing (`set`), deleting (`deleteProperty`) a property (even a non-existing one).
 - Calling a function (`apply` trap).
 - The `new` operator (`construct` trap).
-- Many other operations (the full list is at the beginning of the article and in the [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)).
+- Many other operations (the full list is at the beginning of the article and in the [docs](mdn:/JavaScript/Reference/Global_Objects/Proxy)).
 
 That allows us to create "virtual" properties and methods, implement default values, observable objects, function decorators and so much more.
 
 We can also wrap an object multiple times in different proxies, decorating it with various aspects of functionality.
 
-The [Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
+The [Reflect](mdn:/JavaScript/Reference/Global_Objects/Reflect) API is designed to complement [Proxy](mdn:/JavaScript/Reference/Global_Objects/Proxy). For any `Proxy` trap, there's a `Reflect` call with same arguments. We should use those to forward calls to target objects.
 
 Proxies have some limitations:
 

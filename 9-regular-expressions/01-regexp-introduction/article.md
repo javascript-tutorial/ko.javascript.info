@@ -29,7 +29,11 @@ regexp = /pattern/gmi; // 플래그 g, m, i가 있음(각 플래그에 대해선
 
 두 문법의 중요한 차이점은 `/.../`를 사용하면 문자열 템플릿 리터럴에서 `${...}`를 사용했던 것처럼 중간에 표현식을 넣을 수 없다는 점입니다. 슬래시를 사용한 방법은 완전히 정적입니다.
 
+<<<<<<< HEAD
 슬래시를 사용한 짧은 문법은 코드를 작성하는 시점에 패턴을 알고 있을 때 사용합니다. 아마 대다수가 이런 경우에 속할 겁니다. 반면 `new RegExp`를 사용한 긴 문법은 '상황에 따라' 동적으로 생성된 문자열을 가지고 정규 표현식을 만들어야 할 때 주로 사용합니다. 관련 예시를 살펴봅시다.
+=======
+Slashes are used when we know the regular expression at the code writing time -- and that's the most common situation. While `new RegExp` is more often used when we need to create a regexp "on the fly" from a dynamically generated string. For instance:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 let tag = prompt("어떤 태그를 찾고 싶나요?", "h2");
@@ -56,7 +60,11 @@ let regexp = new RegExp(`<${tag}>`); // 프롬프트에서 "h2"라고 대답한 
 : `pattern:.`이 개행 문자 `\n`도 포함하도록 'dotall' 모드를 활성화합니다. 자세한 내용은 <info:regexp-character-classes>에서 다룰 예정입니다.
 
 `pattern:u`
+<<<<<<< HEAD
 : 유니코드 전체를 지원합니다. 이 플래그를 사용하면 서로게이트 쌍(surrogate pair)을 올바르게 처리할 수 있습니다. 자세한 내용은 <info:regexp-unicode>에서 다룰 예정입니다.
+=======
+: Enables full Unicode support. The flag enables correct processing of surrogate pairs. More about that in the chapter <info:regexp-unicode>.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `pattern:y`
 : 문자 내 특정 위치에서 검색을 진행하는 'sticky' 모드를 활성화 시킵니다. 자세한 내용은 <info:regexp-sticky>에서 다룰 예정입니다.

@@ -76,11 +76,21 @@
 
 알아두세요! 텍스트뿐만 아니라 모든 것을 복사·붙여넣기 할 수 있습니다. 예를 들어 OS 파일 매니저에서 파일을 복사해 붙여넣을 수 있습니다.
 
+<<<<<<< HEAD
 클립보드에서 읽기·쓰기, 파일 등 다양한 데이터 타입에서 작동하는 메서드 목록 [명세서](https://www.w3.org/TR/clipboard-apis/#dfn-datatransfer)를 확인할 수 있습니다.
 
 다만 클립보드는 '전역' OS 레벨입니다. `onclick` 이벤트 핸들러처럼 대부분의 브라우저는 안전을 위해 특정 사용자 동작의 범위에서만 클립보드의 읽기·쓰기에 대한 접근을 허용합니다. 
 
 또한 Firefox를 제외한 모든 브라우저에서 `dispatchEvent`를 사용하여 '커스텀' 클립보드 이벤트를 생성하는 것을 금지하고 있습니다.
+=======
+That's because `clipboardData` implements `DataTransfer` interface, commonly used for drag'n'drop and copy/pasting. It's bit beyound our scope now, but you can find its methods [in the specification](https://html.spec.whatwg.org/multipage/dnd.html#the-datatransfer-interface).
+
+```warn header="ClipboardAPI: user safety restrictions"
+The clipboard is a "global" OS-level thing. So most browsers allow read/write access to the clipboard only in the scope of certain user actions for the safety, e.g. in `onclick` event handlers.
+
+Also it's forbidden to generate "custom" clipboard events with `dispatchEvent` in all browsers except Firefox.
+```
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 

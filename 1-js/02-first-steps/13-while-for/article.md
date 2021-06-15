@@ -318,7 +318,11 @@ alert('완료!');
 
 사용자가 `Cancel` 버튼을 눌렀을 때 반복문을 중단시킬 방법이 필요합니다.
 
+<<<<<<< HEAD
 `input` 아래에 평범한 `break` 지시자를 사용하면 안쪽에 있는 반복문만 빠져나올 수 있습니다. 이것만으론 충분하지 않습니다(중첩 반복문을 포함한 반복문 두 개 모두를 빠져나와야 하기 때문이죠 - 옮긴이). 이럴 때 레이블을 사용할 수 있습니다.
+=======
+The ordinary `break` after `input` would only break the inner loop. That's not sufficient -- labels, come to the rescue!
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 *레이블(label)* 은 반복문 앞에 콜론과 함께 쓰이는 식별자입니다.
 ```js
@@ -363,12 +367,31 @@ for (let i = 0; i < 3; i++) { ... }
 
 아래 예시처럼 레이블을 사용하는 것은 불가능합니다.
 ```js
+<<<<<<< HEAD
 break label; // 아래 for 문으로 점프할 수 없습니다.
+=======
+break label; // jump to the label below (doesn't work)
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 label: for (...)
 ```
 
+<<<<<<< HEAD
 `break`와 `continue`는 반복문 안에서만 사용할 수 있고, 레이블은 반드시 `break`이나 `continue` 지시자 위에 있어야 합니다.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` used is inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 ## 요약

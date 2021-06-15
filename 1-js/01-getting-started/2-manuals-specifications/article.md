@@ -13,20 +13,32 @@ ECMA-262명세서는 새로운 버전이 매년 나옵니다. 공식 버전이 �
 
 갓 명세서에 등록된 기능이나 '등록되기 바로 직전'에 있는 기능(스테이지(stage)3 상태의 기능), 제안 목록은 <https://github.com/tc39/proposals>에서 확인할 수 있습니다.
 
+<<<<<<< HEAD
 본 튜토리얼의 [두 번째 대 단원](info:browser-environment)에서 브라우저와 관련된 명세서를 다룰 예정이므로, 만약 브라우저에서 돌아가는 기능을 구현하는 개발자라면 해당 내용을 확인해 보시기 바랍니다.
+=======
+Also, if you're developing for the browser, then there are other specifications covered in the [second part](info:browser-environment) of the tutorial.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 매뉴얼
 
+<<<<<<< HEAD
 - Mozilla 재단이 운영하는 **MDN JavaScript Reference**엔 다양한 예제와 정보가 있습니다. 특정 함수나 메서드에 대한 깊이 있는 정보를 얻고 싶다면 이 사이트가 제격입니다.
+=======
+- **MDN (Mozilla) JavaScript Reference** is the main manual with examples and other information. It's great to get in-depth information about individual language functions, methods etc.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     링크는 다음과 같습니다. <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>
 
+<<<<<<< HEAD
     위 사이트에 들어가서 원하는 내용을 직접 검색하는 것도 좋지만, 가끔은 검색 엔진을 이용해 내용을 찾는 게 더 나을 때도 있습니다. Google 검색 엔진에 접속해 'MDN [원하는 용어]'를 입력해 봅시다. `parseInt` 함수에 대한 정보를 얻고 싶다면 <https://google.com/search?q=MDN+parseInt> 같이 검색하는 식으로 말이죠.
 
 
 - Microsoft가 운영하는 **MSDN**도 자바스크립트(해당 사이트에선 JScript라고 불립니다)와 관련된 광범위한 정보를 얻기에 좋은 사이트입니다. Internet Explorer에 관련된 정보를 찾고 싶다면 <http://msdn.microsoft.com/>에 방문해 보는 것을 추천합니다.
 
     위에서 소개한 방법처럼 검색 엔진을 켜서 검색어에 'MSDN'을 붙이면 원하는 정보를 쉽게 찾을 수 있습니다. 'RegExp MSDN', 'RegExp MSDN jscript' 처럼 말이죠.
+=======
+Although, it's often best to use an internet search instead. Just use "MDN [term]" in the query, e.g. <https://google.com/search?q=MDN+parseInt> to search for `parseInt` function.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 호환성 표
 

@@ -4,7 +4,11 @@
 ```warn header="심화 학습"
 이번 절에선 특정 에지 케이스(edge case)를 설명하기 위한 심화 내용을 다룹니다.
 
+<<<<<<< HEAD
 숙련된 상당수의 개발자가 이 절에서 다룰 내용을 모른 채로 일하고 있지만 문제가 없고, 중요한 내용은 아니기 때문에 자바스크립트 내부에서 어떤 일이 일어나는지 알고 싶지 않다면 이번 글은 넘어가거나 미뤄도 괜찮습니다.
+=======
+It's not important. Many experienced developers live fine without knowing it. Read on if you want to know how things work under the hood.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 복잡한 상황에서 메서드를 호출하면 `this` 값을 잃어버리는 경우가 생깁니다.
@@ -93,7 +97,11 @@ hi(); // this가 undefined이기 때문에 에러가 발생합니다.
 
 그런데 점 연산 이외의 연산(할당 연산 등)은 참조 타입을 통째로 버리고 `user.hi` 값(함수)만 받아 전달합니다. 이 때문에 점 이외의 연산에선 `this` 정보가 사라집니다.
 
+<<<<<<< HEAD
 `obj.method()` 같이 점을 사용하거나, `obj[method]()` 같이 대괄호를 사용해 함수를 호출했을 때만 `this` 값이 의도한 대로 전달됩니다. 이런 문제는 [func.bind()](/bind#solution-2-bind) 등을 이용하면 해결 할 수 있는데, 이에 대해선 추후에 알아보도록 하겠습니다.
+=======
+So, as the result, the value of `this` is only passed the right way if the function is called directly using a dot `obj.method()` or square brackets `obj['method']()` syntax (they do the same here). There are various ways to solve this problem such as [func.bind()](/bind#solution-2-bind).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 

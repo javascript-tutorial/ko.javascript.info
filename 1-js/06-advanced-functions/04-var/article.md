@@ -28,7 +28,11 @@ alert(message); // 안녕하세요.
 
 ## 'var'는 블록 스코프가 없습니다.
 
+<<<<<<< HEAD
 `var`로 선언한 변수의 스코프는 함수 스코프이거나 전역 스코프입니다. 블록 기준으로 스코프가 생기지 않기 때문에 블록 밖에서 접근 가능합니다.
+=======
+Variables, declared with `var`, are either function-scoped or global-scoped. They are visible through blocks.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 
@@ -52,7 +56,7 @@ if (true) {
 }
 
 *!*
-alert(test); // Error: test is not defined
+alert(test); // ReferenceError: test is not defined
 */!*
 ```
 
@@ -60,11 +64,17 @@ alert(test); // Error: test is not defined
 
 ```js
 for (var i = 0; i < 10; i++) {
+  var one = 1;
   // ...
 }
 
 *!*
+<<<<<<< HEAD
 alert(i); // 10, 반복문이 종료되었지만 'i'는 전역 변수이므로 여전히 접근 가능합니다.
+=======
+alert(i);   // 10, "i" is visible after loop, it's a global variable
+alert(one); // 1, "one" is visible after loop, it's a global variable
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 */!*
 ```
 
@@ -80,10 +90,17 @@ function sayHi() {
 }
 
 sayHi();
+<<<<<<< HEAD
 alert(phrase); // Error: phrase is not defined
 ```
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트에선 블록 수준 렉시컬 환경이 만들어 지지 않았기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
+=======
+alert(phrase); // ReferenceError: phrase is not defined
+```
+
+As we can see, `var` pierces through `if`, `for` or other code blocks. That's because a long time ago in JavaScript, blocks had no Lexical Environments, and `var` is a remnant of that.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## "var" tolerates redeclarations
 
@@ -203,11 +220,19 @@ sayHi();
 
 이처럼 모든 `var` 선언은 함수 시작 시 처리되기 때문에, `var`로 선언한 변수는 어디서든 참조할 수 있습니다. 하지만 변수에 무언가를 할당하기 전까진 값이 undefined이죠.
 
+<<<<<<< HEAD
 바로 위의 두 예시에서 `alert`를 호출하기 전에 변수 `phrase`는 선언이 끝난 상태이기 때문에 에러 없이 얼럿 창이 뜹니다. 그러나 값이 할당되기 전이기 때문에 얼럿 창엔 `undefined`가 출력되죠.
 
 ### 즉시 실행 함수 표현식
 
 과거엔 `var`만 사용할 수 있었습니다. 그런데 `var`의 스코프는 블록 레벨 수준이 아니죠. 개발자들은 `var`도 블록 레벨 스코프를 가질 수 있게 여러가지 방안을 고려하게 됩니다. 이때 만들어진 것이 '즉시 실행 함수 표현식(immediately-invoked function expressions)'입니다. 즉시 실행 함수 표현식은 `IIFE`라고 부르기도 합니다.
+=======
+In both examples above, `alert` runs without an error, because the variable `phrase` exists. But its value is not yet assigned, so it shows `undefined`.
+
+## IIFE
+
+In the past, as there was only `var`, and it has no block-level visibility, programmers invented a way to emulate it. What they did was called "immediately-invoked function expressions" (abbreviated as IIFE).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 즉시 실행 함수 표현식을 요즘에는 자주 쓰지 않습니다. 하지만 오래된 스크립트에서 만날 수 있기 때문에 즉시 실행 함수 표현식이 무엇인지 알아 둘 필요가 있습니다.
 
@@ -216,13 +241,14 @@ IIFE는 다음과 같이 생겼습니다.
 ```js run
 (function() {
 
-  let message = "Hello";
+  var message = "Hello";
 
   alert(message); // Hello
 
 })();
 ```
 
+<<<<<<< HEAD
 함수 표현식이 만들어지고 바로 호출되면서, 해당 함수가 바로 실행되었습니다. 이 함수는 자신만의 변수를 갖고있네요.
 
 즉시 실행 함수를 만들 땐, 함수 표현식을 괄호로 둘러쌓아 (function {...})와 같은 형태로 만듭니다. 이렇게 괄호로 둘러싸지 않으면 에러가 발생합니다. 자바스크립트는 'function'이라는 키워드를 만나면 함수 선언문이 시작될 것이라 예상합니다. 그런데 함수 선언문으로 함수를 만들 땐 반드시 함수의 이름이 있어야 합니다. 따라서 아래와 예시를 실행하면 에러가 발생합니다.
@@ -230,8 +256,17 @@ IIFE는 다음과 같이 생겼습니다.
 ```js run
 // 함수를 선언과 동시에 실행하려고 함
 function() { // <-- Error: Function statements require a function name
+=======
+Here, a Function Expression is created and immediately called. So the code executes right away and has its own private variables.
 
-  let message = "Hello";
+The Function Expression is wrapped with parenthesis `(function {...})`, because when JavaScript engine encounters `"function"` in the main code, it understands it as the start of a Function Declaration. But a Function Declaration must have a name, so this kind of code will give an error:
+
+```js run
+// Tries to declare and immediately call a function
+function() { // <-- SyntaxError: Function statements require a function name
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
+
+  var message = "Hello";
 
   alert(message); // Hello
 
@@ -277,8 +312,13 @@ function go() {
 
 `var`로 선언한 변수는 `let`이나 `const`로 선언한 변수와 다른 두 가지 주요한 특성을 보입니다.
 
+<<<<<<< HEAD
 1. `var`로 선언한 변수는 블록 스코프가 아닌 함수 수준 스코프를 갖습니다.
 2. `var` 선언은 함수가 시작되는 시점(전역 공간에선 스크립트가 시작되는 시점)에서 처리됩니다.
+=======
+1. `var` variables have no block scope, their visibility is scoped to current function, or global, if declared outside function.
+2. `var` declarations are processed at function start (script start for globals).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 외에도 전역 객체와 관련된 특성 하나가 더 있는데, 이에 대해선 다음 챕터에서 다루도록 하겠습니다.
 

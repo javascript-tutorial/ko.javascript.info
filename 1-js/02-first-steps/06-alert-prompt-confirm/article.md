@@ -30,8 +30,13 @@ result = prompt(title, [default]);
 `default`
 : 입력 필드의 초깃값(선택값)
 
+<<<<<<< HEAD
 ```smart header="인수를 감싸는 대괄호 `[...]`의 의미"
 `default`를 감싸는 대괄호는 이 매개변수가 필수가 아닌 선택값이라는 것을 의미합니다.
+=======
+```smart header="The square brackets in syntax `[...]`"
+The square brackets around `default` in the syntax above denote that the parameter is optional, not required.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 사용자는 프롬프트 대화상자의 입력 필드에 원하는 값을 입력하고 확인을 누를 수 있습니다. 값을 입력하길 원하지 않는 경우는 취소(Cancel) 버튼을 누르거나 `key:Esc`를 눌러 대화상자를 빠져나가면 됩니다.

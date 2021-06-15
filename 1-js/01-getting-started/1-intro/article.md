@@ -1,6 +1,10 @@
 # 자바스크립트란?
 
+<<<<<<< HEAD
 자바스크립트(JavaScript)가 언어로서 지닌 특징에 대해 알아보겠습니다. 이어서 자바스크립트로 무엇을 할 수 있을지, 다른 기술들이 자바스크립트를 어떻게 활용하고 있는지도 이야기해 보겠습니다.
+=======
+Let's see what's so special about JavaScript, what we can achieve with it, and what other technologies play well with it.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 정의
 
@@ -24,9 +28,15 @@
 
 엔진의 종류는 다양한데, 엔진마다 특유의 코드네임이 있습니다. 아래처럼 말이죠.
 
+<<<<<<< HEAD
 - [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- Chrome과 Opera에서 쓰입니다.
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
 - IE는 버전에 따라 'Trident'나 'Chakra'라 불리는 엔진을 사용합니다. 'ChakraCore'는 Microsoft Edge에 사용되며, 'SquirrelFish'는 Safari에 사용됩니다.
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome and Opera.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 위의 코드네임은 개발 관련 글에서 종종 언급되기 때문에 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 해당 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
 
@@ -106,15 +116,30 @@
 
 자바스크립트로 트랜스파일이 가능한 언어 몇 가지를 소개해 드리겠습니다.
 
+<<<<<<< HEAD
 - [CoffeeScript](http://coffeescript.org/)는 자바스크립트를 위한 'syntactic sugar'입니다. 짧은 문법을 도입하여 명료하고 이해하기 쉬운 코드를 작성할 수 있습니다. Ruby 개발자들이 좋아합니다.
 - [TypeScript](http://www.typescriptlang.org/)는 개발을 단순화 하고 복잡한 시스템을 지원하려는 목적으로 '자료형의 명시화(strict data typing)'에 집중해 만든 언어입니다. Microsoft가 개발하였습니다.
 - [Flow](http://flow.org/) 역시 자료형을 강제하는데, TypeScript와는 다른 방식을 사용합니다. Facebook이 개발하였습니다.
 - [Dart](https://www.dartlang.org/)는 모바일 앱과 같이 브라우저가 아닌 환경에서 동작하는 고유의 엔진을 가진 독자적 언어입니다. Google이 개발하였습니다.
+=======
+- [CoffeeScript](http://coffeescript.org/) is a "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
+- [TypeScript](http://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
+- [Flow](http://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
+- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+- [Brython](https://brython.info/) is a Python transpiler to JavaScript that enables the writing of applications in pure Python without JavaScript.
+- [Kotlin](https://kotlinlang.org/docs/reference/js-overview.html) is a modern, concise and safe programming language that can target the browser or Node.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 외에도 자바스크립트로 트랜스파일 할 수 있는 언어는 다양합니다. 개발 언어로 이런 언어 중 하나를 택한다고 하더라도 자신이 무엇을 하고 있는지 이해하려면 결국엔 자바스크립트를 알아야 합니다.
 
 ## 요약
 
+<<<<<<< HEAD
 - 자바스크립트는 브라우저에서만 쓸 목적으로 고안된 언어이지만, 지금은 다양한 환경에서 쓰이고 있습니다.
 - 오늘날 자바스크립트는 브라우저 환경에서 가장 널리 사용되는 언어로 자리매김하였습니다. HTML/CSS와 완전한 통합이 가능합니다.
 - 자바스크립트로 '트랜스파일'할 수 있는 언어는 많습니다. 각 언어마다 고유한 기능을 제공하죠. 자바스크립트에 숙달한 뒤에 이 언어들을 살펴볼 것을 추천드립니다.
+=======
+- JavaScript was initially created as a browser-only language, but it is now used in many other environments as well.
+- Today, JavaScript has a unique position as the most widely-adopted browser language with full integration in HTML/CSS.
+- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

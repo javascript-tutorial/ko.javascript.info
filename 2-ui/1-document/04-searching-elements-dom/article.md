@@ -70,8 +70,13 @@
 같은 `id`를 가진 요소가 여러 개 있으면 `document.getElementById`같이 `id`를 이용해 요소를 검색하는 메서드의 동작이 예측 불가능해집니다. 검색된 여러 요소 중 어떤 요소를 반환할지 판단하지 못해 임의의 요소가 반환되죠. 문서 내 동일 `id`가 없도록 해 이런 일을 방지하도록 합시다.
 ```
 
+<<<<<<< HEAD
 ```warn header="`anyNode.getElementById`가 아닌 `document.getElementById`"
 `getElementById`는 `document` 객체를 대상으로 해당 `id`를 가진 요소 노드를 찾아 줍니다. 문서 노드가 아닌 다른 노드엔 호출할 수 없습니다.
+=======
+```warn header="Only `document.getElementById`, not `anyElem.getElementById`"
+The method `getElementById` can be called only on `document` object. It looks for the given `id` in the whole document.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ## querySelectorAll [#querySelectorAll]
@@ -142,7 +147,11 @@ querySelectorAll에는 `:hover`나 `:active` 같은 CSS 선택자의 가상 클�
 
 부모 요소, 부모 요소의 부모 요소 등 DOM 트리에서 특정 요소의 상위에 있는 요소들은 *조상(ancestor)* 요소라고 합니다.
 
+<<<<<<< HEAD
 메서드 `elem.closest(css)`는 `elem` 자기 자신을 포함하여 CSS 선택자와 일치하는 가장 가까운 조상 요소를 찾을 수 있게 도와줍니다.
+=======
+The method `elem.closest(css)` looks for the nearest ancestor that matches the CSS-selector. The `elem` itself is also included in the search.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 `closest`메서드는 해당 요소부터 시작해 DOM 트리를 한 단계씩 거슬러 올라가면서 원하는 요소를 찾습니다. CSS 선택자와 일치하는 요소를 찾으면, 검색을 중단하고 해당 요소를 반환합니다.
 
@@ -363,7 +372,11 @@ DOM에서 원하는 노드를 검색하게 해주는 주요 메서드 6가지는
 </tbody>
 </table>
 
+<<<<<<< HEAD
 아마 실무에선 `querySelector`나 `querySelectorAll`을 가장 많이 사용하실 겁니다. `getElementBy`로 시작하는 메서드는 대개 오래된 스크립트에서 만날 수 있는데, 일부 이 메서드가 꼭 필요한 상황에서 쓰이는 경우도 있습니다.
+=======
+By far the most used are `querySelector` and `querySelectorAll`, but `getElement(s)By*` can be sporadically helpful or found in the old scripts.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 외에 알아두면 좋을 만한 메서드는 아래와 같습니다.
 

@@ -51,7 +51,11 @@ DOM은 HTML을 아래와 같이 태그 트리 구조로 표현합니다.
 <div class="domtree"></div>
 
 <script>
+<<<<<<< HEAD
 let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"사슴에 관하여"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n  "},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  사슴에 관한 진실."}]}]}
+=======
+let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n"}]},{"name":"#text","nodeType":3,"content":"\n"},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n\n\n"}]}]}
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 drawHtmlTree(node1, 'div.domtree', 690, 320);
 </script>
@@ -142,8 +146,13 @@ let node4 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,
 drawHtmlTree(node4, 'div.domtree', 690, 360);
 </script>
 
+<<<<<<< HEAD
 ````warn header="테이블엔 언제나 `<tbody>`가 있습니다."
 테이블은 조금 흥미롭습니다. DOM 명세서에선 테이블에 반드시 `<tbody>`가 있어야 한다고 못 박아 놓았지만, HTML에선 `<tbody>`를 생략하곤 합니다. 이때, 브라우저는 자동으로 DOM에 `<tbody>`를 만들어줍니다.  
+=======
+````warn header="Tables always have `<tbody>`"
+An interesting "special case" is tables. By DOM specification they must have `<tbody>` tag, but HTML text may omit it. Then the browser creates `<tbody>` in the DOM automatically.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 HTML:
 
@@ -160,7 +169,11 @@ let node5 = {"name":"TABLE","nodeType":1,"children":[{"name":"TBODY","nodeType":
 drawHtmlTree(node5,  'div.domtree', 600, 200);
 </script>
 
+<<<<<<< HEAD
 보이시죠? `<tbody>`가 어디선가 나타났습니다. 테이블을 다룰 땐 위 내용을 상기해 갑자기 나타난 `<tbody>`때문에 놀라지 않도록 합시다.
+=======
+You see? The `<tbody>` appeared out of nowhere. We should keep this in mind while working with tables to avoid surprises.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 ## 기타 노드 타입
@@ -188,7 +201,11 @@ drawHtmlTree(node5,  'div.domtree', 600, 200);
 <div class="domtree"></div>
 
 <script>
+<<<<<<< HEAD
 let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  사슴에 관한 진실.\n    "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"사슴은 똑똑합니다."}]},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"#comment","nodeType":8,"content":"comment"},{"name":"#text","nodeType":3,"content":"\n      "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"그리고 잔꾀를 잘 부리죠!"}]},{"name":"#text","nodeType":3,"content":"\n    "}]},{"name":"#text","nodeType":3,"content":"\n  \n"}]}]};
+=======
+let node6 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n  "},{"name":"OL","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n    "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"An elk is a smart"}]},{"name":"#text","nodeType":3,"content":"\n    "},{"name":"#comment","nodeType":8,"content":"comment"},{"name":"#text","nodeType":3,"content":"\n    "},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"...and cunning animal!"}]},{"name":"#text","nodeType":3,"content":"\n  "}]},{"name":"#text","nodeType":3,"content":"\n\n\n"}]}]};
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 drawHtmlTree(node6, 'div.domtree', 690, 500);
 </script>
@@ -199,7 +216,11 @@ drawHtmlTree(node6, 'div.domtree', 690, 500);
 
 **HTML 안의 모든 것은 (심지어 그것이 주석이더라도) DOM을 구성합니다.**
 
+<<<<<<< HEAD
 HTML 문서 최상단에 위치하는 `<!DOCTYPE...>` 지시자 또한 DOM 노드가 됩니다. 이 노드는 DOM 트리의 `<html>` 바로 위에 위치합니다. 본 튜토리얼에선 이 노드를 다루지 않을 예정이라 다이어그램에도 표시는 하지 않을 것입니다. 하지만 존재하는 노드입니다.
+=======
+Even the `<!DOCTYPE...>` directive at the very beginning of HTML is also a DOM node. It's in the DOM tree right before `<html>`. Few people know about that. We are not going to touch that node, we even don't draw it on diagrams, but it's there.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 문서 전체를 나타내는 `document` 객체 또한 DOM 노드입니다.
 

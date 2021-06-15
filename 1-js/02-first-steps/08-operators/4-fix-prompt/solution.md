@@ -9,7 +9,11 @@ let b = "2"; // prompt("덧셈할 두 번째 숫자를 입력해주세요.", 2);
 alert(a + b); // 12
 ```
 
+<<<<<<< HEAD
 예시가 제대로 동작하게 하려면 덧셈 연산 `+`가 수행되기 전에 문자열을 숫자로 변환해야 합니다. 이때 `Number()`를 사용하거나 변수 앞에 `+`를 붙여줄 수 있습니다.
+=======
+What we should do is to convert strings to numbers before `+`. For example, using `Number()` or prepending them with `+`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 아래 코드에선 `prompt` 함수 바로 앞에서 문자열을 숫자로 변환했습니다.
 

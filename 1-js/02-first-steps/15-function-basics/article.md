@@ -20,11 +20,19 @@ function showMessage() {
 }
 ```
 
+<<<<<<< HEAD
 `function` 키워드, *함수 이름*, 괄호로 둘러싼 매개변수를 차례로 써주면 함수를 선언할 수 있습니다. 위 함수에는 매개변수가 없는데, 만약 매개변수가 여러 개 있다면 각 매개변수를 콤마로 구분해줍니다. 이어서 함수를 구성하는 코드의 모임인 '함수 본문(body)'을 중괄호로 감싸 붙여줍시다.
 
 ```js
 function name(parameters) {
   ...함수 본문...
+=======
+The `function` keyword goes first, then goes the *name of the function*, then a list of *parameters* between the parentheses (comma-separated, empty in the example above, we'll see examples later) and finally the code of the function, also named "the function body", between curly braces.
+
+```js
+function name(parameter1, parameter2, ... parameterN) {
+  ...body...
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 }
 ```
 
@@ -137,25 +145,30 @@ alert( userName ); // 함수는 외부 변수에 접근하지 않습니다. 따�
 
 ## 매개변수
 
+<<<<<<< HEAD
 매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인수(argument)* 라고 불리기도 합니다(매개변수와 인수는 엄밀히 같진 않지만, 튜토리얼 원문을 토대로 번역하였습니다 - 옮긴이).
+=======
+We can pass arbitrary data to functions using parameters.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 아래 예시에서 함수 showMessage는 매개변수 `from` 과 `text`를 가집니다.
 
 ```js run
+<<<<<<< HEAD
 function showMessage(*!*from, text*/!*) { // 인수: from, text
+=======
+function showMessage(*!*from, text*/!*) { // parameters: from, text
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   alert(from + ': ' + text);
 }
 
-*!*
-showMessage('Ann', 'Hello!'); // Ann: Hello! (*)
-showMessage('Ann', "What's up?"); // Ann: What's up? (**)
-*/!*
+*!*showMessage('Ann', 'Hello!');*/!* // Ann: Hello! (*)
+*!*showMessage('Ann', "What's up?");*/!* // Ann: What's up? (**)
 ```
 
 `(*)`, `(**)`로 표시한 줄에서 함수를 호출하면, 함수에 전달된 인자는 지역변수 `from`과 `text`에 복사됩니다. 그 후 함수는 지역변수에 복사된 값을 사용합니다.
 
 예시 하나를 더 살펴봅시다. 전역 변수 `from`이 있고, 이 변수를 함수에 전달하였습니다. 함수가 `from`을 변경하지만, 변경 사항은 외부 변수 `from`에 반영되지 않았습니다. 함수는 언제나 복사된 값을 사용하기 때문입니다.
-
 
 ```js run
 function showMessage(from, text) {
@@ -175,9 +188,27 @@ showMessage(from, "Hello"); // *Ann*: Hello
 alert( from ); // Ann
 ```
 
+<<<<<<< HEAD
 ## 기본값
 
 매개변수에 값을 전달하지 않으면 그 값은 `undefined`가 됩니다.
+=======
+When a value is passed as a function parameter, it's also called an *argument*.
+
+In other words, to put these terms straight:
+
+- A parameter is the variable listed inside the parentheses in the function declaration (it's a declaration time term)
+- An argument is the value that is passed to the function when it is called (it's a call time term).
+
+We declare functions listing their parameters, then call them passing arguments.
+
+In the example above, one might say: "the function `sayMessage` is declared with two parameters, then called with two arguments: `from` and `"Hello"`".
+
+
+## Default values
+
+If a function is called, but an argument is not provided, then the corresponding value becomes `undefined`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시를 통해 이에 대해 알아봅시다. 위에서 정의한 함수 `showMessage(from, text)`는 매개변수가 2개지만, 아래와 같이 인수를 하나만 넣어서 호출할 수 있습니다.
 
@@ -185,9 +216,15 @@ alert( from ); // Ann
 showMessage("Ann");
 ```
 
+<<<<<<< HEAD
 이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefiend`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다. 
 
 매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 '기본값(default value)'을 설정해주면 됩니다. 매개변수 오른쪽에 `=`을 붙이고 `undefined` 대신 설정하고자 하는 기본값을 써주면 되죠.   
+=======
+That's not an error. Such a call would output `"*Ann*: undefined"`. As the value for `text` isn't passed, it becomes `undefined`.
+
+We can specify the so-called "default" (to use if omitted) value for a parameter in the function declaration, using `=`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function showMessage(from, *!*text = "no text given"*/!*) {
@@ -211,20 +248,39 @@ function showMessage(from, text = anotherFunction()) {
 ```smart header="매개변수 기본값 평가 시점"
 자바스크립트에선 함수를 호출할 때마다 매개변수 기본값을 평가합니다. 물론 해당하는 매개변수가 없을 때만 기본값을 평가하죠.
 
+<<<<<<< HEAD
 위 예시에선 매개변수 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
+=======
+In the example above, `anotherFunction()` isn't called at all, if the `text` parameter is provided.
+
+On the other hand, it's independently called every time when `text` is missing.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ### 매개변수 기본값을 설정할 수 있는 또 다른 방법
 
+<<<<<<< HEAD
 가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. 
 
 이런 경우엔 일단 매개변수를 `undefined`와 비교하여 함수 호출 시 매개변수가 생략되었는지를 확인합니다.
+=======
+Sometimes it makes sense to assign default values for parameters not in the function declaration, but at a later stage.
+
+We can check if the parameter is passed during the function execution, by comparing it with `undefined`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function showMessage(text) {
+  // ...
+
 *!*
+<<<<<<< HEAD
   if (text === undefined) {
     text = '빈 문자열';
+=======
+  if (text === undefined) { // if the parameter is missing
+    text = 'empty message';
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   }
 */!*
 
@@ -234,21 +290,37 @@ function showMessage(text) {
 showMessage(); // 빈 문자열
 ```
 
+<<<<<<< HEAD
 이렇게 `if`문을 쓰는 것 대신 논리 연산자 `||`를 사용할 수도 있습니다.
 
 ```js
 // 매개변수가 생략되었거나 빈 문자열("")이 넘어오면 변수에 '빈 문자열'이 할당됩니다.
 function showMessage(text) {
   text = text || '빈 문자열';
+=======
+...Or we could use the `??` operator:
+
+```js
+function showMessage(text) {
+  // if text is undefined or otherwise falsy, set it to 'empty'
+  text = text || 'empty';
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   ...
 }
 ```
 
+<<<<<<< HEAD
 이 외에도 모던 자바스크립트 엔진이 지원하는  [null 병합 연산자(nullish coalescing operator)](info:nullish-coalescing-operator) `??`를 사용하면 `0`처럼 falsy로 평가되는 값들을 일반 값처럼 처리할 수 있어서 좋습니다.
 
 ```js run
 // 매개변수 'count'가 넘어오지 않으면 'unknown'을 출력해주는 함수
+=======
+Modern JavaScript engines support the [nullish coalescing operator](info:nullish-coalescing-operator) `??`, it's better when most falsy values, such as `0`, should be considered "normal":
+
+```js run
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 function showCount(count) {
+  // if count is undefined or null, show "unknown"
   alert(count ?? "unknown");
 }
 
@@ -412,7 +484,11 @@ checkPermission(..) // 승인 여부를 확인하고 true나 false를 반환함
 
 [jQuery](http://jquery.com) 프레임워크에서 쓰이는 함수 `$`와 [Lodash](http://lodash.com/) 라이브러리의 핵심 함수 `_` 말이죠.
 
+<<<<<<< HEAD
 이 함수들은 지금까지 소개한 함수 이름짓기에 관련된 규칙을 지키지 않고 있습니다. 예외에 속하죠. 함수 이름은 간결하고 함수가 어떤 일을 하는지 설명할 수 있게 지어야 합니다.
+=======
+These are exceptions. Generally function names should be concise and descriptive.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ## 함수 == 주석

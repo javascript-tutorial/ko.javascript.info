@@ -35,7 +35,11 @@ alert( str.match(/^\d/g) ); // 1
 이렇게 결과가 다른 것은 캐럿 기호 `pattern:^`가 기본적으로는 텍스트의 시작 위치에만 대응하기 때문입니다. 여러 행 모드를 사용해야 모든 행의 시작 위치와 대응하죠.
 
 ```smart
+<<<<<<< HEAD
 '행 시작'이라는 것은 엄밀히 말해서 '줄 바꿈 직후'를 의미합니다. 여러 행 모드에서 `pattern:^`을 사용한 검사는 줄 바꿈 문자 `\n` 바로 뒤 모든 위치와 일치합니다.
+=======
+"Start of a line" formally means "immediately after a line break": the test  `pattern:^` in multiline mode matches at all positions preceded by a newline character `\n`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 텍스트의 시작 위치를 포함해서요.
 ```

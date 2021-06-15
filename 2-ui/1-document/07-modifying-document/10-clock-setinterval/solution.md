@@ -39,15 +39,23 @@ function update() {
 ```js
 let timerId;
 
-function clockStart() { // run the clock
-  timerId = setInterval(update, 1000);
+function clockStart() { // run the clock  
+  if (!timerId) { // only set a new interval if the clock is not running
+    timerId = setInterval(update, 1000);
+  }
   update(); // (*)
 }
 
 function clockStop() {
   clearInterval(timerId);
-  timerId = null;
+  timerId = null; // (**)
 }
 ```
 
+<<<<<<< HEAD
 `update()`는 `clockStart()` 에서뿐만 아니라 `(*)`로 표시한 줄에서도 호출됩니다. 양쪽 모두에서 `update()`를 호출하지 않으면 `setInterval`이 실행되기 전까지 사용자는 아무런 내용이 없는 시계를 봐야 하기 때문입니다.
+=======
+Please note that the call to `update()` is not only scheduled in `clockStart()`, but immediately run in the line `(*)`. Otherwise the visitor would have to wait till the first execution of `setInterval`. And the clock would be empty till then.
+
+Also it is important to set a new interval in `clockStart()` only when the clock is not running. Otherways clicking the start button several times would set multiple concurrent intervals. Even worse - we would only keep the `timerID` of the last interval, losing references to all others. Then we wouldn't be able to stop the clock ever again! Note that we need to clear the `timerID` when the clock is stopped in the line `(**)`, so that it can be started again by running `clockStart()`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

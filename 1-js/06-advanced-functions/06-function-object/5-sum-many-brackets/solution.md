@@ -5,7 +5,7 @@
 
 답안은 아래와 같습니다. 
 
-```js run
+```js demo run
 function sum(a) {
 
   let currentSum = a;
@@ -52,4 +52,8 @@ function f(b) {
 }
 ```
 
+<<<<<<< HEAD
 이렇게 자기 자신을 호출하지 않고 반환만 하면 다음 호출에서 함수 `f`를 사용할 수 있고, 자기 자신을 또다시 반환해 원하는 만큼 이 과정을 반복할 수 있습니다. `toString` 은 `currentSum` 을 반환해주므로 반환된 함수(객체)를 숫자 혹은 문자열로도 사용할 수 있죠. `Symbol.toPrimitive`나 `valueOf`를 사용해 객체를 숫자나 문자열로 변환할 수도 있습니다.
+=======
+This `f` will be used in the next call, again return itself, as many times as needed. Then, when used as a number or a string -- the `toString` returns the `currentSum`. We could also use `Symbol.toPrimitive` or `valueOf` here for the conversion.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

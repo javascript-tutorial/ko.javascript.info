@@ -2,19 +2,38 @@
 
 `객체`와 `배열`은 자바스크립트에서 가장 많이 쓰이는 자료 구조입니다.
 
+<<<<<<< HEAD
 키를 가진 데이터 여러 개를 하나의 엔티티에 저장할 땐 객체를, 컬렉션에 데이터를 순서대로 저장할 땐 배열을 사용하죠.
 
 개발을 하다 보면 함수에 객체나 배열을 전달해야 하는 경우가 생기곤 합니다. 가끔은 객체나 배열에 저장된 데이터 전체가 아닌 일부만 필요한 경우가 생기기도 하죠.
 
 이럴 때 객체나 배열을 변수로 '분해'할 수 있게 해주는 특별한 문법인 *구조 분해 할당(destructuring assignment)* 을 사용할 수 있습니다. 이 외에도 함수의 매개변수가 많거나 매개변수 기본값이 필요한 경우 등에서 구조 분해(destructuring)는 그 진가를 발휘합니다.
+=======
+- Objects allow us to create a single entity that stores data items by key. 
+- Arrays allow us to gather data items into an ordered list.
+
+Although, when we pass those to a function, it may need not an object/array as a whole. It may need individual pieces.
+
+*Destructuring assignment* is a special syntax that allows us to "unpack" arrays or objects into a bunch of variables, as sometimes that's more convenient. 
+
+Destructuring also works great with complex functions that have a lot of parameters, default values, and so on. Soon we'll see that.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 배열 분해하기
 
+<<<<<<< HEAD
 배열이 어떻게 변수로 분해되는지 예제를 통해 살펴봅시다.
 
 ```js
 // 이름과 성을 요소로 가진 배열
 let arr = ["Bora", "Lee"]
+=======
+Here's an example of how an array is destructured into variables:
+
+```js
+// we have an array with the name and surname
+let arr = ["John", "Smith"]
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 *!*
 // 구조 분해 할당을 이용해
@@ -23,20 +42,38 @@ let arr = ["Bora", "Lee"]
 let [firstName, surname] = arr;
 */!*
 
+<<<<<<< HEAD
 alert(firstName); // Bora
 alert(surname);  // Lee
+=======
+alert(firstName); // John
+alert(surname);  // Smith
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 이제 인덱스를 이용해 배열에 접근하지 않고도 변수로 이름과 성을 사용할 수 있게 되었습니다.
 
 아래 예시처럼 `split` 같은 반환 값이 배열인 메서드를 함께 활용해도 좋습니다.
 
+<<<<<<< HEAD
 ```js
 let [firstName, surname] = "Bora Lee".split(' ');
 ```
 
 ````smart header="'분해(destructuring)'는 '파괴(destructive)'를 의미하지 않습니다."
 구조 분해 할당이란 명칭은 어떤 것을 복사한 이후에 변수로 '분해(destructurize)'해준다는 의미 때문에 붙여졌습니다. 이 과정에서 분해 대상은 수정 또는 파괴되지 않습니다.
+=======
+```js run
+let [firstName, surname] = "John Smith".split(' ');
+alert(firstName); // John
+alert(surname);  // Smith
+```
+
+As you can see, the syntax is simple. There are several peculiar details though. Let's see more examples, to better understand it.
+
+````smart header="\"Destructuring\" does not mean \"destructive\"."
+It's called "destructuring assignment," because it "destructurizes" by copying items into variables. But the array itself is not modified.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 배열의 요소를 직접 변수에 할당하는 것보다 코드 양이 줄어든다는 점만 다릅니다.
 ```js
@@ -69,27 +106,44 @@ alert( title ); // Consul
 let [a, b, c] = "abc"; // ["a", "b", "c"]
 let [one, two, three] = new Set([1, 2, 3]);
 ```
-
+That works, because internally a destructuring assignment works by iterating over the right value. It's kind of syntax sugar for calling `for..of` over the value to the right of `=` and assigning the values.
 ````
 
 
+<<<<<<< HEAD
 ````smart header="할당 연산자 좌측엔 뭐든지 올 수 있습니다."
 
 할당 연산자 좌측엔 '할당할 수 있는(assignables)' 것이라면 어떤 것이든 올 수 있습니다.
+=======
+````smart header="Assign to anything at the left-side"
+We can use any "assignables" at the left side.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 아래와 같이 객체 프로퍼티도 가능합니다.
 ```js run
 let user = {};
+<<<<<<< HEAD
 [user.name, user.surname] = "Bora Lee".split(' ');
 
 alert(user.name); // Bora
+=======
+[user.name, user.surname] = "John Smith".split(' ');
+
+alert(user.name); // John
+alert(user.surname); // Smith
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 ````
 
+<<<<<<< HEAD
 ````smart header=".entries()로 반복하기"
 
 [Object.entries(obj)](mdn:js/Object/entries)는 이전 챕터에서 학습한 바 있습니다.
+=======
+````smart header="Looping with .entries()"
+In the previous chapter we saw the [Object.entries(obj)](mdn:js/Object/entries) method.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 메서드와 구조 분해를 조합하면 객체의 키와 값을 순회해 변수로 분해 할당할 수 있습니다.
 
@@ -107,7 +161,11 @@ for (let [key, value] of Object.entries(user)) {
 }
 ```
 
+<<<<<<< HEAD
 맵에도 물론 이 메서드를 활용할 수 있습니다.
+=======
+The similar code for a `Map` is simpler, as it's iterable:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let user = new Map();
@@ -115,6 +173,7 @@ user.set("name", "John");
 user.set("age", "30");
 
 *!*
+// Map iterates as [key, value] pairs, very convenient for destructuring
 for (let [key, value] of user) {
 */!*
   alert(`${key}:${value}`); // name:John, then age:30
@@ -122,47 +181,95 @@ for (let [key, value] of user) {
 ```
 ````
 
+<<<<<<< HEAD
 ```smart header="변수 교환 트릭"
 두 변수에 저장된 값을 교환할 때 구조 분해 할당을 사용할 수 있습니다.
+=======
+````smart header="Swap variables trick"
+There's a well-known trick for swapping values of two variables using a destructuring assignment:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let guest = "Jane";
 let admin = "Pete";
 
+<<<<<<< HEAD
 // 변수 guest엔 Pete, 변수 admin엔 Jane이 저장되도록 값을 교환함
+=======
+// Let's swap the values: make guest=Pete, admin=Jane
+*!*
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 [guest, admin] = [admin, guest];
+*/!*
 
 alert(`${guest} ${admin}`); // Pete Jane(값 교환이 성공적으로 이뤄졌습니다!)
 ```
 
 예시에선 임시 배열을 만들어 두 변수를 담고, 요소 순서를 교체해 배열을 분해하는 방식을 사용했습니다.
 
+<<<<<<< HEAD
 이 방식을 사용하면 두 개뿐만 아니라 그 이상의 변수에 담긴 값도 교환할 수 있습니다.
 
+=======
+We can swap more than two variables this way.
+````
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### '...'로 나머지 요소 가져오기
 
+<<<<<<< HEAD
 배열 앞쪽에 위치한 값 몇 개만 필요하고 그 이후 이어지는 나머지 값들은 한데 모아서 저장하고 싶을 때가 있습니다. 이럴 때는 점 세 개 `...`를 붙인 매개변수 하나를 추가하면 '나머지(rest)' 요소를 가져올 수 있습니다.
+=======
+Usually, if the array is longer than the list at the left, the "extra" items are omitted.
+
+For example, here only two items are taken, and the rest is just ignored:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
+
+```js run
+let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+alert(name1); // Julius
+alert(name2); // Caesar
+// Further items aren't assigned anywhere
+```
+
+If we'd like also to gather all that follows -- we can add one more parameter that gets "the rest" using three dots `"..."`:
 
 ```js run
 let [name1, name2, *!*...rest*/!*] = ["Julius", "Caesar", *!*"Consul", "of the Roman Republic"*/!*];
 
-alert(name1); // Julius
-alert(name2); // Caesar
-
 *!*
+<<<<<<< HEAD
 // `rest`는 배열입니다.
+=======
+// rest is array of items, starting from the 3rd one
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 alert(rest[0]); // Consul
 alert(rest[1]); // of the Roman Republic
 alert(rest.length); // 2
 */!*
 ```
 
+<<<<<<< HEAD
 `rest`는 나머지 배열 요소들이 저장된 새로운 배열이 됩니다. `rest` 대신에 다른 이름을 사용해도 되는데, 변수 앞의 점 세 개(`...`)와 변수가 가장 마지막에 위치해야 한다는 점은 지켜주시기 바랍니다.
+=======
+The value of `rest` is the array of the remaining array elements. 
+
+We can use any other variable name in place of `rest`, just make sure it has three dots before it and goes last in the destructuring assignment.
+
+```js run
+let [name1, name2, *!*...titles*/!*] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+// now titles = ["Consul", "of the Roman Republic"]
+```
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### 기본값
 
+<<<<<<< HEAD
 할당하고자 하는 변수의 개수가 분해하고자 하는 배열의 길이보다 크더라도 에러가 발생하지 않습니다. 할당할 값이 없으면 undefined로 취급되기 때문입니다.
+=======
+If the array is shorter than the list of variables at the left, there'll be no errors. Absent values are considered undefined:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 *!*
@@ -187,7 +294,11 @@ alert(surname); // Anonymous (기본값)
 
 복잡한 표현식이나 함수 호출도 기본값이 될 수 있습니다. 이렇게 기본식으로 표현식이나 함수를 설정하면 할당할 값이 없을 때 표현식이 평가되거나 함수가 호출됩니다.
 
+<<<<<<< HEAD
 기본값으로 두 개의 `prompt` 함수를 할당한 예시를 살펴봅시다. 값이 제공되지 않았을 때만 함수가 호출되므로, `prompt`는 한 번만 호출됩니다.
+=======
+For instance, here we use the `prompt` function for two defaults:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 // name의 prompt만 실행됨
@@ -197,7 +308,7 @@ alert(surname); // 김 (배열에서 받아온 값)
 alert(name);    // prompt에서 받아온 값
 ```
 
-
+Please note: the `prompt` will run only for the missing value (`surname`).
 
 ## 객체 분해하기
 
@@ -209,7 +320,11 @@ alert(name);    // prompt에서 받아온 값
 let {var1, var2} = {var1:…, var2:…}
 ```
 
+<<<<<<< HEAD
 할당 연산자 우측엔 분해하고자 하는 객체를, 좌측엔 상응하는 객체 프로퍼티의 '패턴'을 넣습니다. 분해하려는 객체 프로퍼티의 키 목록을 패턴으로 사용하는 예시를 살펴봅시다.
+=======
+We should have an existing object at the right side, that we want to split into variables. The left side contains an object-like "pattern" for corresponding properties. In the simplest case, that's a list of variable names in `{...}`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 
@@ -229,7 +344,13 @@ alert(width);  // 100
 alert(height); // 200
 ```
 
+<<<<<<< HEAD
 프로퍼티 `options.title`과 `options.width`, `options.height`에 저장된 값이 상응하는 변수에 할당된 것을 확인할 수 있습니다. 참고로 순서는 중요하지 않습니다. 아래와 같이 작성해도 위 예시와 동일하게 동작합니다. 
+=======
+Properties `options.title`, `options.width` and `options.height` are assigned to the corresponding variables. 
+
+The order does not matter. This works too:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 // let {...} 안의 순서가 바뀌어도 동일하게 동작함
@@ -238,7 +359,11 @@ let {height, width, title} = { title: "Menu", height: 200, width: 100 }
 
 할당 연산자 좌측엔 좀 더 복잡한 패턴이 올 수도 있습니다. 분해하려는 객체의 프로퍼티와 변수의 연결을 원하는 대로 조정할 수도 있습니다.
 
+<<<<<<< HEAD
 객체 프로퍼티를 프로퍼티 키와 다른 이름을 가진 변수에 저장해봅시다. `options.width`를 `w`라는 변수에 저장하는 식으로 말이죠. 좌측 패턴에 콜론(:)을 사용하면 원하는 목표를 달성할 수 있습니다.
+=======
+If we want to assign a property to a variable with another name, for instance, make `options.width` go into the variable named `w`, then we can set the variable name using a colon:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let options = {

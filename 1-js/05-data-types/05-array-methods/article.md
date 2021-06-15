@@ -36,15 +36,23 @@ alert( arr.length ); // 3
 
 이런 기대를 충족하려면 특별한 메서드를 사용해야 합니다.
 
+<<<<<<< HEAD
 [arr.splice(start)](mdn:js/Array/splice)는 만능 스위스 맥가이버 칼 같은 메서드입니다. 요소를 자유자재로 다룰 수 있게 해주죠. 이 메서드를 사용하면 요소 추가, 삭제, 교체가 모두 가능합니다.
+=======
+The [arr.splice](mdn:js/Array/splice) method is a swiss army knife for arrays. It can do everything: insert, remove and replace elements.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 문법은 다음과 같습니다.
 
 ```js
-arr.splice(index[, deleteCount, elem1, ..., elemN])
+arr.splice(start[, deleteCount, elem1, ..., elemN])
 ```
 
+<<<<<<< HEAD
 첫 번째 매개변수는 조작을 가할 첫 번째 요소를 가리키는 `인덱스(index)`입니다. 두 번째 매개변수는 `deleteCount`로, 제거하고자 하는 요소의 개수를 나타냅니다. `elem1, ..., elemN`은 배열에 추가할 요소를 나타냅니다.
+=======
+It modifies `arr` starting from the index `start`: removes `deleteCount` elements and then inserts `elem1, ..., elemN` at their place. Returns the array of removed elements.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 splice 메서드를 사용해 작성된 예시 몇 가지를 보여드리겠습니다.
 
@@ -420,7 +428,11 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 여기서 잠시 멈춰 위 예시에서 어떤 일이 일어났는지 생각해 봅시다. 사실 `arr`엔 숫자, 문자열, 객체 등이 들어갈 수 있습니다. 알 수 없는 *무언가*로 구성된 집합이 되는 거죠. 이제 이 비 동질적인 집합을 정렬해야 한다고 가정해봅시다. 무언가를 정렬하려면 기준이 필요하겠죠? 이때 *정렬 기준을 정의해주는 함수(ordering function, 정렬 함수)* 가 필요합니다. `sort`에 정렬 함수를 인수로 넘겨주지 않으면 이 메서드는 사전편집 순으로 요소를 정렬합니다. 
 
+<<<<<<< HEAD
 `arr.sort(fn)`는 포괄적인 정렬 알고리즘을 이용해 구현되어있습니다. 대개 최적화된 [퀵 소트(quicksort)](https://en.wikipedia.org/wiki/Quicksort)를 사용하는데, `arr.sort(fn)`는 주어진 함수를 사용해 정렬 기준을 만들고 이 기준에 따라 요소들을 재배열하므로 개발자는 내부 정렬 동작 원리를 알 필요가 없습니다. 우리가 해야 할 일은 정렬 함수 `fn`을 만들고 이를 인수로 넘겨주는 것뿐입니다.
+=======
+The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 정렬 과정에서 어떤 요소끼리 비교가 일어났는지 확인하고 싶다면 아래 코드를 활용하시면 됩니다.
 
@@ -700,12 +712,17 @@ alert(soldiers[1].age); // 23
 
 `thisArgs`에 `army`를 지정하지 않고 단순히 `users.filter(army.canJoin)`를 사용했다면 `army.canJoin`은 단독 함수처럼 취급되고, 함수 본문 내 `this`는 `undefined`가 되어 에러가 발생했을 겁니다.   
 
+<<<<<<< HEAD
 `users.filter(user => army.canJoin(user))`를 사용하면 `users.filter(army.canJoin, army)`를 대체할 수 있긴 한데 `thisArg`를 사용하는 방식이 좀 더 이해하기 쉬우므로 더 자주 사용됩니다.
+=======
+A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(user => army.canJoin(user))`, that does the same. The latter is used more often, as it's a bit easier to understand for most people.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 
 지금까지 살펴본 배열 메서드를 요약해보도록 합시다.
 
+<<<<<<< HEAD
 - 요소를 더하거나 지우기
   - `push(...items)` -- 맨 끝에 요소 추가하기
   - `pop()` -- 맨 끝 요소 추출하기
@@ -714,6 +731,16 @@ alert(soldiers[1].age); // 23
   - `splice(pos, deleteCount, ...items)` -- `pos`부터 `deleteCount`개의 요소를 지우고, `items` 추가하기
   - `slice(start, end)` -- `start`부터 `end` 바로 앞까지의 요소를 복사해 새로운 배열을 만듦
   - `concat(...items)` -- 배열의 모든 요소를 복사하고 `items`를 추가해 새로운 배열을 만든 후 이를 반환함. `items`가 배열이면 이 배열의 인수를 기존 배열에 더해줌
+=======
+- To add/remove elements:
+  - `push(...items)` -- adds items to the end,
+  - `pop()` -- extracts an item from the end,
+  - `shift()` -- extracts an item from the beginning,
+  - `unshift(...items)` -- adds items to the beginning.
+  - `splice(pos, deleteCount, ...items)` -- at index `pos` deletes `deleteCount` elements and inserts `items`.
+  - `slice(start, end)` -- creates a new array, copies elements from index `start` till `end` (not inclusive) into it.
+  - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 - 원하는 요소 찾기
   - `indexOf/lastIndexOf(item, pos)` -- `pos`부터 원하는 `item`을 찾음. 찾게 되면 해당 요소의 인덱스를, 아니면 `-1`을 반환함
@@ -724,12 +751,21 @@ alert(soldiers[1].age); // 23
 - 배열 전체 순회하기
   - `forEach(func)` -- 모든 요소에 `func`을 호출함. 결과는 반환되지 않음
 
+<<<<<<< HEAD
 - 배열 변형하기
   - `map(func)` -- 모든 요소에 `func`을 호출하고, 반환된 결과를 가지고 새로운 배열을 만듦
   - `sort(func)` -- 배열을 정렬하고 정렬된 배열을 반환함
   - `reverse()` -- 배열을 뒤집어 반환함
   - `split/join` -- 문자열을 배열로, 배열을 문자열로 변환함
   - `reduce(func, initial)` -- 요소를 차례로 돌면서 `func`을 호출함. 반환값은 다음 함수 호출에 전달함. 최종적으로 하나의 값이 도출됨 
+=======
+- To transform the array:
+  - `map(func)` -- creates a new array from results of calling `func` for every element.
+  - `sort(func)` -- sorts the array in-place, then returns it.
+  - `reverse()` -- reverses the array in-place, then returns it.
+  - `split/join` -- convert a string to array and back.
+  - `reduce/reduceRight(func, initial)` -- calculate a single value over the array by calling `func` for each element and passing an intermediate result between the calls.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 - 기타
   - `Array.isArray(arr)` -- `arr`이 배열인지 여부를 판단함
@@ -738,15 +774,40 @@ alert(soldiers[1].age); // 23
 
 지금까지 배운 메서드만으로 배열과 관련된 작업 99%를 해결할 수 있습니다. 이 외의 배열 메서드도 있긴 한데 잠시 언급하고 넘어가겠습니다.
 
+<<<<<<< HEAD
 - [arr.some(fn)](mdn:js/Array/some)과 [arr.every(fn)](mdn:js/Array/every)는 배열을 확인합니다.
+=======
+- [arr.some(fn)](mdn:js/Array/some)/[arr.every(fn)](mdn:js/Array/every) check the array.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
   두 메서드는 `map`과 유사하게 모든 요소를 대상으로 함수를 호출합니다. `some`은 함수의 반환 값을 `true`로 만드는 요소가 하나라도 있는지 여부를 확인하고 `every`는 모든 요소가 함수의 반환 값을 `true`로 만드는지 여부를 확인합니다. 두 메서드 모두 조건을 충족하면 `true`를, 그렇지 않으면 `false`를 반환합니다.
 
+<<<<<<< HEAD
 - [arr.fill(value, start, end)](mdn:js/Array/fill)은 `start`부터 `end`까지 `value`를 채워 넣습니다.
+=======
+  These methods behave sort of like `||` and `&&` operators: if `fn` returns a truthy value, `arr.some()` immediately returns `true` and stops iterating over the rest of items; if `fn` returns a falsy value, `arr.every()` immediately returns `false` and stops iterating over the rest of items as well.
+
+  We can use `every` to compare arrays:
+  ```js run
+  function arraysEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+  }
+
+  alert( arraysEqual([1, 2], [1, 2])); // true
+  ```
+
+- [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 - [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin)은 `start`부터 `end`까지 요소를 복사하고, 복사한 요소를 `target`에 붙여넣습니다. 기존 요소가 있다면 덮어씁니다.
 
+<<<<<<< HEAD
 배열에 관한 모든 메서드는 [manual](mdn:js/Array)에서 찾아볼 수 있습니다.
+=======
+- [arr.flat(depth)](mdn:js/Array/flat)/[arr.flatMap(fn)](mdn:js/Array/flatMap) create a new flat array from a multidimensional array.
+
+For the full list, see the [manual](mdn:js/Array).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 배워야 할 메서드 종류가 너무 많아서 이걸 다 외워야 하나라는 생각이 들 수 있는데, 생각보다 쉬우니 너무 걱정하지 않으셨으면 좋겠습니다.
 

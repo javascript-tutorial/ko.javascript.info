@@ -104,9 +104,15 @@ JSON은 데이터 교환을 목적으로 만들어진 언어에 종속되지 않
 
 `JSON.stringify` 호출 시 무시되는 프로퍼티는 아래와 같습니다.
 
+<<<<<<< HEAD
 - 함수 프로퍼티 (메서드)
 - 심볼형 프로퍼티 (키가 심볼인 프로퍼티)
 - 값이 `undefined`인 프로퍼티
+=======
+- Function properties (methods).
+- Symbolic keys and values.
+- Properties that store `undefined`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 let user = {
@@ -276,6 +282,7 @@ name:         John
 name:         Alice
 place:        [object Object]
 number:       23
+occupiedBy: [object Object]
 */
 ```
 
@@ -327,7 +334,13 @@ alert(JSON.stringify(user, null, 2));
 */
 ```
 
+<<<<<<< HEAD
 이처럼 매개변수 `space`는 로깅이나 가독성을 높이는 목적으로 사용됩니다.
+=======
+The third argument can also be a string. In this case, the string is used for indentation instead of a number of spaces.
+
+The `space` parameter is used solely for logging and nice-output purposes.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 커스텀 "toJSON"
 

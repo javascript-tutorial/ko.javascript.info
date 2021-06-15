@@ -49,9 +49,15 @@ let user = new User("John");
 user.sayHi();
 ```
 
+<<<<<<< HEAD
 `new User("John")`를 호출하면 다음과 같은 일이 일어납니다.
 1. 새로운 객체가 생성됩니다.
 2. 넘겨받은 인수와 함께 `constructor`가 자동으로 실행됩니다. 이때 인수 `"John"`이 `this.name`에 할당됩니다.
+=======
+When `new User("John")` is called:
+1. A new object is created.
+2. The `constructor` runs with the given argument and assigns it to `this.name`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이런 과정을 거친 후에 `user.sayHi()` 같은 객체 메서드를 호출할 수 있습니다.
 
@@ -109,8 +115,13 @@ alert(typeof User); // function
 // 정확히는 생성자 메서드와 동일합니다.
 alert(User === User.prototype.constructor); // true
 
+<<<<<<< HEAD
 // 클래스 내부에서 정의한 메서드는 User.prototype에 저장됩니다.
 alert(User.prototype.sayHi); // alert(this.name);
+=======
+// The methods are in User.prototype, e.g:
+alert(User.prototype.sayHi); // the code of the sayHi method
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 // 현재 프로토타입에는 메서드가 두 개입니다.
 alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
@@ -144,7 +155,11 @@ user.sayHi();
 
 그런데 두 방법에는 중요한 차이가 몇 가지 있습니다.
 
+<<<<<<< HEAD
 1. `class`로 만든 함수엔 특수 내부 프로퍼티인 `[[FunctionKind]]:"classConstructor"`가 이름표처럼 붙습니다. 이것만으로도 두 방법엔 분명한 차이가 있음을 알 수 있습니다. 
+=======
+1. First, a function created by `class` is labelled by a special internal property `[[IsClassConstructor]]: true`. So it's not entirely the same as creating it manually.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     자바스크립트는 다양한 방법을 사용해 함수에 `[[FunctionKind]]:"classConstructor"`가 있는지를 확인합니다. 이런 검증 과정이 있기 때문에 클래스 생성자를 `new`와 함께 호출하지 않으면 에러가 발생합니다.
 
@@ -218,7 +233,7 @@ function makeClass(phrase) {
   return class {
     sayHi() {
       alert(phrase);
-    };
+    }
   };
 }
 

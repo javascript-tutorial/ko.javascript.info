@@ -14,16 +14,27 @@
 
     예시:
 
+<<<<<<< HEAD
     - 현재 함수의 지역 변수와 매개변수
     - 중첩 함수의 체인에 있는 함수에서 사용되는 변수와 매개변수
     - 전역 변수
     - 기타 등등
+=======
+    - The currently executing function, its local variables and parameters.
+    - Other functions on the current chain of nested calls, their local variables and parameters.
+    - Global variables.
+    - (there are some other, internal ones as well)
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     이런 값은 *루트(root)* 라고 부릅니다.
 
 2. 루트가 참조하는 값이나 체이닝으로 루트에서 참조할 수 있는 값은 도달 가능한 값이 됩니다.
 
+<<<<<<< HEAD
     전역 변수에 객체가 저장되어있다고 가정해 봅시다. 이 객체의 프로퍼티가 또 다른 객체를 참조하고 있다면, 프로퍼티가 참조하는 객체는 도달 가능한 값이 됩니다. 이 객체가 참조하는 다른 모든 것들도 도달 가능하다고 여겨집니다. 자세한 예시는 아래에서 살펴보겠습니다.
+=======
+    For instance, if there's an object in a global variable, and that object has a property referencing another object, *that* object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 자바스크립트 엔진 내에선 [가비지 컬렉터(garbage collector)](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))가 끊임없이 동작합니다. 가비지 컬렉터는 모든 객체를 모니터링하고, 도달할 수 없는 객체는 삭제합니다.
 

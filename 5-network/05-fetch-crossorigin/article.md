@@ -28,7 +28,11 @@ CORS는 악의를 가진 해커로부터 인터넷을 보호하기 위해 만들
 
 **과거 수 년 동안, 한 사이트의 스크립트에서 다른 사이트에 있는 콘텐츠에 접근할 수 없다는 제약이 있었습니다.**
 
+<<<<<<< HEAD
 이런 간단하지만 강력한 규칙은 인터넷 보안을 위한 근간이었습니다. 보안 규칙 덕분에 해커가 만든 웹 사이트 `hacker.com`에서 `gmail.com`에 있는 메일 박스에 접근할 수 없던 것이죠. 사람들은 이런 제약 덕분에 안전하게 인터넷을 사용할 수 있었습니다.
+=======
+That simple, yet powerful rule was a foundation of the internet security. E.g. an evil script from website `hacker.com` could not access the user's mailbox at website `gmail.com`. People felt safe.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 그런데 이 당시의 자바스크립트는 네트워크 요청을 보낼 수 있을 만한 메서드를 지원하지 않았습니다. 자바스크립트는 웹 페이지를 꾸미기 위한 토이 랭귀지 수준이었죠.
 
@@ -97,10 +101,15 @@ CORS는 악의를 가진 해커로부터 인터넷을 보호하기 위해 만들
 
 처음 네트워크 요청 메서드가 등장했을 때엔 크로스 오리진 요청이 불가능했습니다. 하지만 긴 논의 끝에 크로스 오리진 요청을 허용하기로 결정합니다. 대신 크로스 오리진 요청은 서버에서 명시적으로 크로스 오리진 요청을 '허가' 했다는 것을 알려주는 특별한 헤더를 전송받았을 때만 가능하도록 제약을 걸게 됩니다.
 
+<<<<<<< HEAD
 ## 안전한 요청
+=======
+## Safe requests
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 크로스 오리진 요청은 크게 두 가지 종류로 구분됩니다.
 
+<<<<<<< HEAD
 1. 안전한 요청(safe request)
 2. 그 외의 요청(안전한 요청이 아닌 요청)
 
@@ -120,20 +129,55 @@ CORS는 악의를 가진 해커로부터 인터넷을 보호하기 위해 만들
 안전한 요청과 그렇지 않은 요청의 근본적인 차이는 **특별한 방법을 사용하지 않고도 `<form>`이나 `<script>`를 사용해 요청을 만들 수 있다는 점**에 있습니다.
 
 아주 오래된 웹 서버라도 안전한 요청은 당연히 처리할 수 있어야 하는 것이죠.
+=======
+1. Safe requests.
+2. All the others.
+
+Safe Requests are simpler to make, so let's start with them.
+
+A request is safe if it satisfies two conditions:
+
+1. [Safe method](https://fetch.spec.whatwg.org/#cors-safelisted-method): GET, POST or HEAD
+2. [Safe headers](https://fetch.spec.whatwg.org/#cors-safelisted-request-header) -- the only allowed custom headers are:
+    - `Accept`,
+    - `Accept-Language`,
+    - `Content-Language`,
+    - `Content-Type` with the value `application/x-www-form-urlencoded`, `multipart/form-data` or `text/plain`.
+
+Any other request is considered "unsafe". For instance, a request with `PUT` method or with an `API-Key` HTTP-header does not fit the limitations.
+
+**The essential difference is that a safe request can be made with a `<form>` or a `<script>`, without any special methods.**
+
+So, even a very old server should be ready to accept a safe request.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 표준이 아닌 헤더가 들어있거나 안전하지 않은 메서드(`DELETE` 등)를 사용한 요청은 안전한 요청이 될 수 없습니다. 아주 오래전에는 자바스크립트를 사용해 이런 요청을 보내는 것이 불가능 했습니다. 따라서 연식이 오래된 서버는 이런 요청을 받으면 '웹 페이지는 이런 요청을 보낼 수 없었기 때문에' 뭔가 특별한 곳에서 요청이 왔을거라 해석했었습니다.
 
+<<<<<<< HEAD
 그런데 시간이 지나고 개발자가 자바스크립트를 사용해 안전하지 않은 요청을 보낼 수 있게되자, 브라우저는 안전하지 않은 요청을 서버에 전송하기 전에 'preflight' 요청을 먼저 전송해 '서버가 크로스 오리진 요청을 받을 준비가 되어있는지를 확인'합니다.
 
 이때 서버에서 크로스 오리진 요청은 허용하지 않는다는 정보를 담은 헤더를 브라우저에 응답하면 안전하지 않은 요청은 서버로 전송되지 않습니다. 
+=======
+When we try to make a unsafe request, the browser sends a special "preflight" request that asks the server -- does it agree to accept such cross-origin requests, or not?
+
+And, unless the server explicitly confirms that with headers, an unsafe request is not sent.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이제 개괄적인 설명이 끝났으니 CORS에 대해 좀 더 자세히 알아봅시다.
 
+<<<<<<< HEAD
 ## CORS와 안전한 요청
 
 크로스 오리진 요청을 보낼 경우 브라우저는 항상 `Origin`이라는 헤더를 요청에 추가합니다.
 
 `https://javascript.info/page`에서 `https://anywhere.com/request`에 요청을 보낸다고 가정해 봅시다. 헤더는 다음과 같은 형태가 됩니다.
+=======
+## CORS for safe requests
+
+If a request is cross-origin, the browser always adds the `Origin` header to it.
+
+For instance, if we request `https://anywhere.com/request` from `https://javascript.info/page`, the headers will look like:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```http
 GET /request
@@ -144,9 +188,15 @@ Origin: https://javascript.info
 ...
 ```
 
+<<<<<<< HEAD
 보시다시피 `Origin` 헤더엔 요청이 이뤄지는 페이지 경로(/page)가 아닌 오리진(도메인·프로토콜·포트) 정보가 담기게 됩니다.
 
 서버는 요청 헤더에 있는 `Origin`를 검사하고, 요청을 받아들이기로 동의한 상태라면 특별한 헤더 `Access-Control-Allow-Origin`를 응답에 추가합니다. 이 헤더엔 허가된 오리진(위 예시에선 `https://javascript.info`)에 대한 정보나 `*`이 명시됩니다. 이때 응답 헤더 `Access-Control-Allow-Origin`에 오리진 정보나 `*`이 들어있으면 응답은 성공하고 그렇지 않으면 응답이 실패하게 됩니다.
+=======
+As you can see, the `Origin` header contains exactly the origin (domain/protocol/port), without a path.
+
+The server can inspect the `Origin` and, if it agrees to accept such a request, add a special header `Access-Control-Allow-Origin` to the response. That header should contain the allowed origin (in our case `https://javascript.info`), or a star `*`. Then the response is successful, otherwise it's an error.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이 과정에서 브라우저는 중재인의 역할을 합니다.
 1. 브라우저는 크로스 오리진 요청 시 `Origin`에 값이 제대로 설정, 전송되었는지 확인합니다.
@@ -165,7 +215,11 @@ Access-Control-Allow-Origin: https://javascript.info
 
 ## 응답 헤더
 
+<<<<<<< HEAD
 크로스 오리진 요청이 이뤄진 경우, 자바스크립트는 기본적으로 '안전한' 응답 헤더로 분류되는 헤더에만 접속할 수 있습니다. '안전한' 응답 헤더는 다음과 같습니다.
+=======
+For cross-origin request, by default JavaScript may only access so-called "safe" response headers:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 - `Cache-Control`
 - `Content-Language`
@@ -182,7 +236,11 @@ Access-Control-Allow-Origin: https://javascript.info
 `Content-Length`는 응답 본문 크기 정보를 담고 있는 헤더입니다. 무언가를 다운로드하는데, 다운로드가 몇 퍼센트나 진행되었는지 확인하려면 이 헤더에 접근할 수 있어야 합니다. 그런데 이 헤더에 접근하려면 특별한 권한이 필요합니다. 자세한 내용은 아래에서 다루겠습니다.
 ```
 
+<<<<<<< HEAD
 자바스크립트를 사용해 안전하지 않은 응답 헤더에 접근하려면 서버에서 `Access-Control-Expose-Headers`라는 헤더를 보내줘야만 합니다. `Access-Control-Expose-Headers`엔 자바스크립트 접근을 허용하는 안전하지 않은 헤더 목록이 담겨있습니다. 각 헤더는 콤마로 구분됩니다.
+=======
+To grant JavaScript access to any other response header, the server must send the `Access-Control-Expose-Headers` header. It contains a comma-separated list of unsafe header names that should be made accessible.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 
@@ -197,23 +255,39 @@ Access-Control-Expose-Headers: Content-Length,API-Key
 */!*
 ```
 
+<<<<<<< HEAD
 이렇게 `Access-Control-Expose-Headers` 헤더가 응답 헤더에 있어야만 자바스크립트로 응답 헤더의 `Content-Length`와 `API-Key`를 읽을 수 있습니다.
 
 ## 안전하지 않은 요청
+=======
+With such an `Access-Control-Expose-Headers` header, the script is allowed to read the `Content-Length` and `API-Key` headers of the response.
+
+## "Unsafe" requests
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 요즘엔 요청에 `GET`, `POST` 뿐만 아니라 `PATCH`, `DELETE` 등 어떤 메서드도 사용할 수 있습니다.
 
 그런데 과거엔 웹페이지에서 `GET`, `POST` 이외의 HTTP 메서드를 사용해 요청을 보낼 수 있을거란 상상조차 할 수 없었습니다. 아직까지도 이런 메서드를 다룰 수 없는 웹서버도 꽤 있죠. 이런 서버들은 `GET`, `POST` 이외의 메서드를 사용한 요청이 오면 '이건 브라우저가 보낸 요청이 아니야'라고 판단하고 접근 권한을 확인합니다.
 
+<<<<<<< HEAD
 이런 혼란스러운 상황을 피하고자 브라우저는 '안전하지 않은' 요청이 이뤄지는 경우, 서버에 바로 요청을 보내지 않고 'preflight' 요청이라는 사전 요청을 서버에 보내 권한이 있는지를 확인합니다.
 
 preflight 요청은 `OPTIONS` 메서드를 사용하고 두 헤더가 함께 들어가며, 본문은 비어있습니다.
 
 - `Access-Control-Request-Method` 헤더 -- 안전하지 않은 요청에서 사용하는 메서드 정보가 담겨있습니다.
 - `Access-Control-Request-Headers` 헤더 -- 안전하지 않은 요청에서 사용하는 헤더 목록이 담겨있습니다. 각 헤더는 쉼표로 구분됩니다.
+=======
+So, to avoid misunderstandings, any "unsafe" request -- that couldn't be done in the old times, the browser does not make such requests right away. First, it sends a preliminary, so-called "preflight" request, to ask for permission.
+
+A preflight request uses the method `OPTIONS`, no body and two headers:
+
+- `Access-Control-Request-Method` header has the method of the unsafe request.
+- `Access-Control-Request-Headers` header provides a comma-separated list of its unsafe HTTP-headers.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 안전하지 않은 요청을 허용하기로 협의하였다면 서버는 본문이 비어있고 상태 코드가 200인 응답을 다음과 같은 헤더와 함께 브라우저로 보냅니다.
 
+<<<<<<< HEAD
 - `Access-Control-Allow-Origin` -- `*`이나 요청을 보낸 오리진 이어야 합니다(예: https://javascript.info)
 - `Access-Control-Allow-Methods` -- 허용된 메서드 정보가 담겨있습니다.
 - `Access-Control-Allow-Headers` -- 허용된 헤더 목록이 담겨있습니다.
@@ -222,6 +296,16 @@ preflight 요청은 `OPTIONS` 메서드를 사용하고 두 헤더가 함께 들
 ![](xhr-preflight.svg)
 
 필요한 개념은 충분히 다뤘으니 이제 실제 안전하지 않은 크로스 오리진 요청이 어떻게 이뤄지는지 예시를 통해 살펴봅시다. 예시에선 `PATCH` 메서드를 사용해 요청을 보내겠습니다. 참고로 `PATCH` 메서드는 데이터를 갱신할 때 자주 쓰입니다.
+=======
+- `Access-Control-Allow-Origin` must be either `*` or the requesting origin, such as `https://javascript.info`, to allow it.
+- `Access-Control-Allow-Methods` must have the allowed method.
+- `Access-Control-Allow-Headers` must have a list of allowed headers.
+- Additionally, the header `Access-Control-Max-Age` may specify a number of seconds to cache the permissions. So the browser won't have to send a preflight for subsequent requests that satisfy given permissions.
+
+![](xhr-preflight.svg)
+
+Let's see how it works step-by-step on the example of a cross-origin `PATCH` request (this method is often used to update data):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js
 let response = await fetch('https://site.com/service.json', {
@@ -233,14 +317,25 @@ let response = await fetch('https://site.com/service.json', {
 });
 ```
 
+<<<<<<< HEAD
 참고로 위 요청이 안전하지 않은 요청으로 분류되는 데는 세 가지 이유가 있습니다.
 - `PATCH` 메서드를 사용하고 있습니다.
 - `Content-Type`이 `application/x-www-form-urlencoded`나 `multipart/form-data`, `text/plain`가 아닙니다.
 - 비표준 헤더 `API-Key`를 사용합니다.
+=======
+There are three reasons why the request is unsafe (one is enough):
+- Method `PATCH`
+- `Content-Type` is not one of: `application/x-www-form-urlencoded`, `multipart/form-data`, `text/plain`.
+- "Unsafe" `API-Key` header.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### 1단계(preflight 요청)
 
+<<<<<<< HEAD
 본 요청을 보내기 전에 브라우저는 자체적으로 다음과 같은 preflight 요청을 보냅니다.
+=======
+Prior to sending such a request, the browser, on its own, sends a preflight request that looks like this:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```http
 OPTIONS /service.json
@@ -250,24 +345,44 @@ Access-Control-Request-Method: PATCH
 Access-Control-Request-Headers: Content-Type,API-Key
 ```
 
+<<<<<<< HEAD
 - 메서드 -- `OPTIONS`
 - 경로 -- 본 요청과 동일한 경로(`/service.json`)
 - 크로스 오리진 특수 헤더:
     - `Origin` -- 본 요청의 오리진
     - `Access-Control-Request-Method` -- 본 요청에서 사용하는 메서드
     - `Access-Control-Request-Headers` -- 본 요청에서 사용하는 안전하지 않은 헤더 목록(콤마로 구분)
+=======
+- Method: `OPTIONS`.
+- The path -- exactly the same as the main request: `/service.json`.
+- Cross-origin special headers:
+    - `Origin` -- the source origin.
+    - `Access-Control-Request-Method` -- requested method.
+    - `Access-Control-Request-Headers` -- a comma-separated list of "unsafe" headers.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### 2단계(preflight 응답)
 
+<<<<<<< HEAD
 서버는 상태 코드 200과 함께 다음과 같은 헤더를 담은 응답을 보냅니다.
+=======
+The server should respond with status 200 and the headers:
+- `Access-Control-Allow-Origin: https://javascript.info`
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 - `Access-Control-Allow-Methods: PATCH`
 - `Access-Control-Allow-Headers: Content-Type,API-Key`
 
 이렇게 응답이 와야 비로소 본 요청을 보낼 수 있습니다. 그렇지 않으면 에러가 발생합니다.
 
+<<<<<<< HEAD
 미래에 `PATCH` 이외의 메서드와 다양한 헤더를 허용할 수 있도록 세팅하려면 `Access-Control-Allow-Methods`와 `Access-Control-Allow-Headers`에 원하는 메서드와 헤더를 추가해 놓으면 됩니다.
 
 아래와 같이 말이죠.
+=======
+If the server expects other methods and headers in the future, it makes sense to allow them in advance by adding them to the list.
+
+For example, this response also allows `PUT`, `DELETE` and additional headers:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```http
 200 OK
@@ -279,13 +394,23 @@ Access-Control-Max-Age: 86400
 
 이렇게 서버에서 preflight 응답이 오면 브라우저는 `Access-Control-Allow-Methods`에 `PATCH`가 있는 것을 확인하고, 이어서 `Access-Control-Allow-Headers`에 `Content-Type`과 `API-Key`가 있는 것을 확인합니다. 둘 다 있는 것을 확인했기 때문에 이제 브라우저는 본 요청을 서버에 보냅니다.
 
+<<<<<<< HEAD
 참고로 `Access-Control-Max-Age` 헤더가 응답으로 오면 preflight 허용 여부가 헤더와 함께 캐싱되기 때문에 브라우저는 헤더 값에 명시한 초동안 preflight 요청을 보내지 않습니다. 따라서 위 예시처럼 응답이 온 경우엔 하루동안 preflight 요청을 전송하지 않고 바로 본 요청이 전송됩니다.
+=======
+If there's the header `Access-Control-Max-Age` with a number of seconds, then the preflight permissions are cached for the given time. The response above will be cached for 86400 seconds (one day). Within this timeframe, subsequent requests will not cause a preflight. Assuming that they fit the cached allowances, they will be sent directly.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ### 3단계(실제 요청)
 
+<<<<<<< HEAD
 preflight 요청이 성공적으로 이뤄진 후에야 브라우저는 본 요청을 보냅니다. 지금부터의 프로세스는 안전한 요청이 이뤄질때의 절차와 동일합니다.
 
 본 요청은 크로스 오리진 요청이기 때문에 `Origin` 헤더가 붙습니다.
+=======
+When the preflight is successful, the browser now makes the main request. The process here is the same as for safe requests.
+
+The main request has the `Origin` header (because it's cross-origin):
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```http
 PATCH /service.json
@@ -315,7 +440,11 @@ preflight 요청은 '무대 밖에서' 일어나기 때문에 자바스크립트
 
 자바스크립트로 크로스 오리진 요청을 보내는 경우, 기본적으로 쿠키나 HTTP 인증 같은 자격 증명(credential)이 함께 전송되지 않습니다.
 
+<<<<<<< HEAD
 HTTP 요청의 경우 대개 쿠키가 함께 전송되는데, 자바스크립트를 사용해 만든 크로스 오리진 요청은 예외이죠.
+=======
+That's uncommon for HTTP-requests. Usually, a request to `http://site.com` is accompanied by all cookies from that domain. Cross-origin requests made by JavaScript methods on the other hand are an exception.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 따라서 `fetch('http://another.com')`를 사용해 요청을 보내도 `another.com` 관련 쿠키가 함께 전송되지 않습니다.
 
@@ -349,16 +478,25 @@ Access-Control-Allow-Credentials: true
 
 ## 요약
 
+<<<<<<< HEAD
 브라우저 관점에선 크로스 오리진 요청은 안전한(safe) 크로스 오리진 요청과 그렇지 않은 크로스 오리진 요청 두 분류로 나뉩니다.
 
 안전한 요청은 다음 조건을 모두 충족하는 요청입니다.
 - 메서드: GET이나 POST 혹은 HEAD
 - 헤더:
+=======
+From the browser point of view, there are two kinds of cross-origin requests: "safe" and all the others.
+
+"Safe" requests must satisfy the following conditions:
+- Method: GET, POST or HEAD.
+- Headers -- we can set only:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     - `Accept`
     - `Accept-Language`
     - `Content-Language`
     - 값이 `application/x-www-form-urlencoded`나 `multipart/form-data`, `text/plain`인 `Content-Type`
 
+<<<<<<< HEAD
 안전한 요청은 아주 오래전 부터 `<form>`이나 `<script>`태그를 사용해도 가능했던 요청인 반면 안전하지 않은 요청은 브라우저에선 보낼 수 없었던 요청이라는 점이 두 요청의 근본적인 차이입니다.
 
 실무 관점에서 두 요청의 차이는 안전한 요청은 `Origin` 헤더와 함께 바로 요청이 전송되는 반면 안전하지 않은 요청은 브라우저에서 본 요청이 이뤄지기 전에 preflight 요청이라 불리는 사전 요청을 보내 퍼미션 여부를 물어본다는 점입니다.
@@ -371,9 +509,24 @@ Access-Control-Allow-Credentials: true
 - ← 자격 증명이 있는 요청의 경우 서버는 아래와 같은 응답을 보냅니다.
     - `Origin` 값과 동일한 `Access-Control-Allow-Origin`
     - 값이 `true`인 `Access-Control-Allow-Credentials`
+=======
+The essential difference is that safe requests were doable since ancient times using `<form>` or `<script>` tags, while unsafe were impossible for browsers for a long time.
+
+So, the practical difference is that safe requests are sent right away, with the `Origin` header, while for the other ones the browser makes a preliminary "preflight" request, asking for permission.
+
+**For safe requests:**
+
+- → The browser sends the `Origin` header with the origin.
+- ← For requests without credentials (not sent by default), the server should set:
+    - `Access-Control-Allow-Origin` to `*` or same value as `Origin`
+- ← For requests with credentials, the server should set:
+    - `Access-Control-Allow-Origin` to same value as `Origin`
+    - `Access-Control-Allow-Credentials` to `true`
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 자바스크립트를 사용해 `Cache-Control`이나  `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, `Pragma`를 제외한 응답 헤더에 접근하려면 응답 헤더의 `Access-Control-Expose-Headers`에 접근을 허용하는 헤더가 명시돼 있어야 합니다. 
 
+<<<<<<< HEAD
 **안전하지 않은 요청**의 절차는 다음과 같습니다. 사전 요청인 'preflight' 요청이 본 요청 전에 전송됩니다.
 
 - → 브라우저는 동일한 URL에 `OPTIONS` 메서드를 사용한 preflight 요청을 보내게 되는데, 이때 헤더엔 다음과 같은 정보가 들어갑니다.
@@ -384,3 +537,15 @@ Access-Control-Allow-Credentials: true
     - `Access-Control-Allow-Headers` -- 허용되는 헤더 목록이 담김
     - `Access-Control-Max-Age` -- 몇 초간 preflight 요청 없이 크로스 오리진 요청을 바로 보낼지에 대한 정보가 담김
 - 이후엔 본 요청이 전송되고, 절차는 '안전한' 요청과 동일합니다.
+=======
+**For unsafe requests, a preliminary "preflight" request is issued before the requested one:**
+
+- → The browser sends an `OPTIONS` request to the same URL, with the headers:
+    - `Access-Control-Request-Method` has requested method.
+    - `Access-Control-Request-Headers` lists unsafe requested headers.
+- ← The server should respond with status 200 and the headers:
+    - `Access-Control-Allow-Methods` with a list of allowed methods,
+    - `Access-Control-Allow-Headers` with a list of allowed headers,
+    - `Access-Control-Max-Age` with a number of seconds to cache the permissions.
+- Then the actual request is sent, and the previous "safe" scheme is applied.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c

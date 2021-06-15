@@ -127,17 +127,22 @@ for(let key of keys) {
 숫자나 객체 등 다른 자료형을 사용하게 되면 문자열로 자동 변환됩니다.
 
 ```js run
-sessionStorage.user = {name: "John"};
-alert(sessionStorage.user); // [object Object]
+localStorage.user = {name: "John"};
+alert(localStorage.user); // [object Object]
 ```
 
 `JSON`을 사용하면 객체를 쓸 수 있긴 합니다.
 
 ```js run
-sessionStorage.user = JSON.stringify({name: "John"});
+localStorage.user = JSON.stringify({name: "John"});
 
+<<<<<<< HEAD
 // 잠시 후 
 let user = JSON.parse( sessionStorage.user );
+=======
+// sometime later
+let user = JSON.parse( localStorage.user );
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 alert( user.name ); // John
 ```
 
@@ -201,8 +206,13 @@ alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 두 창에서 모두 `storage` 이벤트를 수신하고 있기 때문에 한 창에서 아래 예시를 실행해 데이터를 갱신하면 다른 창에 해당 사항이 반영되는 것을 확인할 수 있습니다.
 
 ```js run
+<<<<<<< HEAD
 // 문서는 다르지만, 갱신은 같은 스토리지에 반영됩니다.
 window.onstorage = event => { // window.addEventListener('storage', () => {와 같습니다.
+=======
+// triggers on updates made to the same storage from other documents
+window.onstorage = event => { // same as window.addEventListener('storage', event => {
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };
@@ -216,7 +226,11 @@ storage 이벤트의 또 다른 중요한 특징은 `event.url`이 있어 데이
 
 **이런 특징을 이용하면 오리진이 같은 창끼리 메시지를 교환하게 할 수 있습니다.**
 
+<<<<<<< HEAD
 모던 브라우저는 오리진이 같은 창끼리 통신할 수 있도록 해주는 [브로드캐스트 채널 API(broadcast channel API)](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)를 지원합니다. 그런데 이 API는 기능은 풍부하지만, 아직 많은 곳에서 지원하지 않는다는 단점이 있습니다. 단점을 극복하게 해주는 `localStorage` 기반한 폴리필들이 있는데, 이런 라이브러리들은 브라우저와 관계없이 어디서든 창 간 메시지를 교환할 수 있게 해준다는 장점이 있습니다.
+=======
+Modern browsers also support [Broadcast channel API](mdn:/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 요약
 

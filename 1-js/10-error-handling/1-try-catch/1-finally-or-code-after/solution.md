@@ -1,8 +1,14 @@
 차이점은 함수 내부의 코드를 보면 분명해집니다.
 
+<<<<<<< HEAD
 `try..catch`에 '빠져나오게 하는' 코드가 있다면 함수의 행동이 달라집니다.
 
 아래 예시와 같이 `try..catch` 내부에 `return`이 있을 때가 대표적인 예입니다. `finally` 절은 `return`문을 통해 `try..catch`를 빠져나가는 경우를 포함하여 `try..catch`가 종료되는 *모든* 상황에서 실행됩니다. `try..catch`가 종료되었지만, 함수 호출 코드가 제어권을 갖기 직전에 실행되죠.
+=======
+The behavior is different if there's a "jump out" of `try...catch`.
+
+For instance, when there's a `return` inside `try...catch`. The `finally` clause works in case of *any* exit from `try...catch`, even via the `return` statement: right after `try...catch` is done, but before the calling code gets the control.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function f() {
@@ -11,7 +17,7 @@ function f() {
 *!*
     return "결과";
 */!*
-  } catch (e) {
+  } catch (err) {
     /// ...
   } finally {
     alert('초기화!');
@@ -26,13 +32,19 @@ f(); // cleanup!
 ```js run
 function f() {
   try {
+<<<<<<< HEAD
     alert('시작');
     throw new Error("에러 발생!");
   } catch (e) {
+=======
+    alert('start');
+    throw new Error("an error");
+  } catch (err) {
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
     // ...
     if("에러를 핸들링 할 수 없다면") {
 *!*
-      throw e;
+      throw err;
 */!*
     }
 

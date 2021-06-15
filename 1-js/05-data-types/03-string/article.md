@@ -50,7 +50,11 @@ let guestList = "손님: // Error: Invalid or unexpected token
 
 작은따옴표나 큰따옴표로 문자열을 표현하는 방식은 자바스크립트가 만들어졌을 때부터 있었습니다. 이때는 문자열을 여러 줄에 걸쳐 작성할 생각조차 못 했던 시기였죠. 백틱은 그 이후에 등장한 문법이기 때문에 따옴표보다 다양한 기능을 제공합니다.
 
+<<<<<<< HEAD
 백틱은 '템플릿 함수(template function)'에서도 사용됩니다. <code>func&#96;string&#96;</code> 같이 첫 번째 백틱 바로 앞에 함수 이름(`func`)을 써주면, 이 함수는 백틱 안의 문자열 조각이나 표현식 평가 결과를 인수로 받아 자동으로 호출됩니다. 이런 기능을 '태그드 템플릿(tagged template)'이라 부르는데, 태그드 템플릿을 사용하면 사용자 지정 템플릿에 맞는 문자열을 쉽게 만들 수 있습니다. 태그드 템플릿과 템플릿 함수에 대한 자세한 내용은 MDN [문서](mdn:/JavaScript/Reference/Template_literals#Tagged_templates)에서 확인해보세요. 참고로 이 기능은 자주 사용되진 않습니다.
+=======
+Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This is called "tagged templates". This feature makes it easier to implement custom templating, but is rarely used in practice. You can read more about it in the [manual](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ## 특수 기호
 
@@ -80,6 +84,7 @@ alert(str1 == str2); // true
 
 | 특수 문자 | 설명 |
 |-----------|-------------|
+<<<<<<< HEAD
 |`\n`|줄 바꿈|
 |`\r`|캐리지 리턴(carriage return). Windows에선 캐리지 리턴과 줄 바꿈 특수 문자를 조합(`\r\n`)해 줄을 바꿉니다. 캐리지 리턴을 단독으론 사용하는 경우는 없습니다. |
 |`\'`, `\"`|따옴표|
@@ -96,6 +101,24 @@ alert(str1 == str2); // true
 alert( "\u00A9" ); // ©
 alert( "\u{20331}" ); // 佫, 중국어(긴 유니코드)
 alert( "\u{1F60D}" ); // 😍, 웃는 얼굴 기호(긴 유니코드)
+=======
+|`\n`|New line|
+|`\r`|Carriage return: not used alone. Windows text files use a combination of two characters `\r\n` to represent a line break. |
+|`\'`, `\"`|Quotes|
+|`\\`|Backslash|
+|`\t`|Tab|
+|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- kept for compatibility, not used nowadays. |
+|`\xXX`|Unicode character with the given hexadecimal Unicode `XX`, e.g. `'\x7A'` is the same as `'z'`.|
+|`\uXXXX`|A Unicode symbol with the hex code `XXXX` in UTF-16 encoding, for instance `\u00A9` -- is a Unicode for the copyright symbol `©`. It must be exactly 4 hex digits. |
+|`\u{X…XXXXXX}` (1 to 6 hex characters)|A Unicode symbol with the given UTF-32 encoding. Some rare characters are encoded with two Unicode symbols, taking 4 bytes. This way we can insert long codes. |
+
+Examples with Unicode:
+
+```js run
+alert( "\u00A9" ); // ©
+alert( "\u{20331}" ); // 佫, a rare Chinese hieroglyph (long Unicode)
+alert( "\u{1F60D}" ); // 😍, a smiling face symbol (another long Unicode)
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ```
 
 모든 특수 문자는 '이스케이프 문자(escape character)'라고도 불리는 역슬래시 (backslash character) `\`로 시작합니다.
@@ -110,7 +133,11 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 
 위 예시에서 살펴본 바와 같이 문자열 내의 따옴표엔 `\`를 꼭 붙여줘야 합니다. 이렇게 하지 않으면 자바스크립트는 해당 따옴표가 문자열을 닫는 용도로 사용된 것이라 해석하기 때문입니다.
 
+<<<<<<< HEAD
 이스케이프 문자는 문자열을 감쌀 때 사용한 따옴표와 동일한 따옴표에만 붙여주면 됩니다. 문자열 내에서 좀 더 우아하게 따옴표를 사용하려면 아래와 같이 따옴표 대신 백틱으로 문자열을 감싸주면 됩니다.
+=======
+Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 alert( `I'm the Walrus!` ); // I'm the Walrus!
@@ -239,7 +266,11 @@ alert( str.indexOf('widget') ); // -1, indexOf는 대·소문자를 따지므로
 alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Widget에서 id)
 ```
 
+<<<<<<< HEAD
 `str.indexOf(substr, pos)`의 두 번째 매개변수 `pos`는 선택적으로 사용할 수 있는데, 이를 명시하면 검색이 해당 위치부터 시작됩니다.
+=======
+The optional second parameter allows us to start searching from a given position.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 부분 문자열 `"id"`는 위치 `1`에서 처음 등장하는데, 두 번째 인수에 `2`를 넘겨 `"id"`가 두 번째로 등장하는 위치가 어디인지 알아봅시다.
 
@@ -312,7 +343,11 @@ if (str.indexOf("Widget") != -1) {
 
 #### 비트 NOT 연산자를 사용한 기법
 
+<<<<<<< HEAD
 오래전부터 전해 오는 [비트(bitwise) NOT 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT) `~`를 사용한 기법 하나를 소개해드리겠습니다. 비트 NOT 연산자는 피연산자를 32비트 정수로 바꾼 후(소수부는 모두 버려짐) 모든 비트를 반전합니다. 
+=======
+One of the old tricks used here is the [bitwise NOT](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT) `~` operator. It converts the number to a 32-bit integer (removes the decimal part if exists) and then reverses all bits in its binary representation.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 따라서 `n`이 32비트 정수일 때 `~n`은 `-(n+1)`이 됩니다.
 
@@ -345,7 +380,11 @@ if (~str.indexOf("Widget")) {
 
 `if (~str.indexOf(...))` 패턴의 코드를 만나면 '부분 문자열인지 확인'하는 코드라고 기억해둡시다.
 
+<<<<<<< HEAD
 참고로 `-1` 이외에도 `~` 연산자 적용 시 `0`을 반환하는 숫자는 다양합니다. 아주 큰 숫자에 `~` 연산자를 적용하면 32비트 정수로 바꾸는 과정에서 잘림 현상이 발생하기 때문이죠. 이런 숫자 중 가장 큰 숫자는 `4294967295`입니다(`~4294967295`는 `0`임). 문자열이 아주 길지 않은 경우에만 `~` 연산자가 의도한 대로 작동한다는 점을 알고 계시길 바랍니다.
+=======
+To be precise though, as big numbers are truncated to 32 bits by `~` operator, there exist other numbers that give `0`, the smallest is `~4294967295=0`. That makes such check correct only if a string is not that long.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 모던 자바스크립트에선 `.includes` 메서드(아래에서 배움)를 사용해 부분 문자열 포함 여부를 검사합니다. 이런 기법은 오래된 자바스크립트에서만 볼 수 있습니다.
 
@@ -499,7 +538,11 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     alert( String.fromCodePoint(90) ); // Z
     ```
 
+<<<<<<< HEAD
     `\u` 뒤에 특정 글자에 대응하는 16진수 코드를 붙이는 방식으로도 원하는 글자를 만들 수 있습니다.
+=======
+    We can also add Unicode characters by their codes using `\u` followed by the hex code:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
     ```js run
     // 90을 16진수로 변환하면 5a입니다.
@@ -525,10 +568,17 @@ alert( str );
 
 글자는 글자에 대응하는 숫자 형식의 코드를 기준으로 비교됩니다. 코드가 크면 대응하는 글자 역시 크다고 취급되죠. 따라서 `a`(코드:97)는 `Z`(코드:90) 보다 크다는 결론이 도출됩니다.
 
+<<<<<<< HEAD
 - 알파벳 소문자의 코드는 대문자의 코드보다 크므로 소문자는 대문자 뒤에 옵니다.
 - `Ö` 같은 글자는 일반 알파벳과 멀리 떨어져 있습니다. `Ö`의 코드는 알파벳 소문자의 코드보다 훨씬 큽니다.
 
 ### 문자열 제대로 비교하기
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+
+### Correct comparisons [#correct-comparisons]
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 언어마다 문자 체계가 다르기 때문에 문자열을 '제대로' 비교하는 알고리즘을 만드는 건 생각보다 간단하지 않습니다.
 
@@ -608,7 +658,11 @@ alert( '𝒳'.charCodeAt(1).toString(16) ); // dcb3, 0xdc00과 0xdfff 사이의 
 
 `a`를 베이스 글자로, `àáâäãåā`를 만드는 것 같이 말이죠. 이런 '합성' 글자 대부분은 UTF-16 테이블에서 독자적인 코드를 갖습니다. 그런데 모든 합성 글자에 코드가 부여되지는 않습니다. 조합 가능한 글자의 수가 너무 많기 때문입니다.
 
+<<<<<<< HEAD
 임의의 조합을 지원하기 위해 UTF-16에선 몇 개의 유니코드 문자를 남겨두었습니다. 베이스 글자 뒤에 하나 혹은 여러 개의 유니코드 문자를 붙여 베이스 글자를 꾸밀 수 있도록 말이죠.
+=======
+To support arbitrary compositions, UTF-16 allows us to use several Unicode characters: the base character followed by one or many "mark" characters that "decorate" it.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이를 이용하면 베이스 글자 `S` 뒤에 '윗 점'을 나타내는 유니코드 문자(`\u0307`)를 붙여 Ṡ를 만들 수 있습니다.
 
@@ -626,7 +680,11 @@ Ṡ에 '아래 점'을 나타내는 유니코드 문자(`\u0323`)를 추가해�
 alert( 'S\u0307\u0323' ); // Ṩ
 ```
 
+<<<<<<< HEAD
 이런 방식은 엄청난 유연성을 제공하는데, 단점도 있습니다. 눈으로 봤을 때는 같은 글자인데 유니코드 조합이 다른 경우가 생깁니다. 
+=======
+This provides great flexibility, but also an interesting problem: two characters may visually look the same, but be represented with different Unicode compositions.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 예시:
 
@@ -639,7 +697,11 @@ alert( `s1: ${s1}, s2: ${s2}` );
 alert( s1 == s2 ); // 눈으로 보기엔 같은 글자이지만 동등 비교 시 false가 반환됩니다.
 ```
 
+<<<<<<< HEAD
 이런 문제를 해결하려면 '유니코드 정규화(unicode normalization)'라 불리는 알고리즘을 사용해 각 문자열을 동일한 형태로 '정규화'해야 합니다.
+=======
+To solve this, there exists a "Unicode normalization" algorithm that brings each string to the single "normal" form.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 유니코드 정규화 알고리즘은 [str.normalize()](mdn:js/String/normalize)에 구현되어 있습니다.
 
@@ -661,6 +723,7 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 
 ## 요약
 
+<<<<<<< HEAD
 - 자바스크립트엔 세 종류의 따옴표가 있는데, 이 중 하나인 백틱은 문자열을 여러 줄에 걸쳐 쓸 수 있게 해주고 문자열 중간에 `${…}`을 사용해 표현식도 넣을 수 있다는 점이 특징입니다.
 - 자바스크립트에선 UTF-16을 사용해 문자열을 인코딩합니다.
 - `\n` 같은 특수 문자를 사용할 수 있습니다. `\u...`를 사용하면 해당 문자의 유니코드를 사용해 글자를 만들 수 있습니다.
@@ -669,6 +732,16 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - 소문자로 바꾸려면 `toLowerCase`, 대문자로 바꾸려면 `toUpperCase`를 사용하세요.
 - `indexOf`를 사용하면 부분 문자열의 위치를 얻을 수 있습니다. 부분 문자열 여부만 알고 싶다면 `includes/startsWith/endsWith`를 사용하면 됩니다.
 - 특정 언어에 적합한 비교 기준 사용해 문자열을 비교하려면 `localeCompare`를 사용하세요. 이 메서드를 사용하지 않으면 글자 코드를 기준으로 문자열이 비교됩니다.
+=======
+- There are 3 types of quotes. Backticks allow a string to span multiple lines and embed expressions `${…}`.
+- Strings in JavaScript are encoded using UTF-16.
+- We can use special characters like `\n` and insert letters by their Unicode using `\u...`.
+- To get a character, use: `[]`.
+- To get a substring, use: `slice` or `substring`.
+- To lowercase/uppercase a string, use: `toLowerCase/toUpperCase`.
+- To look for a substring, use: `indexOf`, or `includes/startsWith/endsWith` for simple checks.
+- To compare strings according to the language, use: `localeCompare`, otherwise they are compared by character codes.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이외에도 문자열에 쓸 수 있는 유용한 메서드 몇 가지가 있습니다.
 

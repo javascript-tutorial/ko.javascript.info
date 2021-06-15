@@ -155,7 +155,7 @@ function curried(...args) {
   if (args.length >= func.length) { // (1)
     return func.apply(this, args);
   } else {
-    return function pass(...args2) { // (2)
+    return function(...args2) { // (2)
       return curried.apply(this, args.concat(args2));
     }
   }
@@ -164,6 +164,7 @@ function curried(...args) {
 
 위의 예시를 실행시키면, 두 개의 `if` 분기점이 있습니다.
 
+<<<<<<< HEAD
 (1)에 해당하는 경우(함수가 호출되었을때): `args` 를 카운트한 갯수가 전달된 원래 함수 func (`func.length`)와 같거나 길다면, 그대로 `func` 호출에 전달함.
 (2)에 해당하는 경우(partial이 적용될때): 아직 `func`이 호출되지 않습니다. `pass`라는 래퍼가 대신 반환되고, `pass` 래퍼함수가 `curried`를 이전함수와 새로운 인수와 함께 다시 적용합니다. 그 다음 새로운 `curried` 호출에, 다시 새로운 partial (만약에 인수가 충분하지 않으면)을 반환하거나 최종적으로 `func` 결과를 반환합니다.
 
@@ -176,6 +177,12 @@ function curried(...args) {
 3. `pass` 래퍼가 다시 `(3)`과 함께 호출됩니다. 다음 호출인 `pass(3)`가 이전의 인수들인 (`1`, `2`)를 가져오고 `3`을 추가하고 `curried(1, 2, 3)` 호출을 합니다 -- 여기에 `3`인수는 마지막으로, 원래의 함수에 전달됩니다.
 
 아직 확실하게 이해되지 않았다면, 호출 순서를 마음속이나 종이에 그려보세요.
+=======
+1. If passed `args` count is the same or more than the original function has in its definition (`func.length`) , then just pass the call to it using `func.apply`. 
+2. Otherwise, get a partial: we don't call `func` just yet. Instead, another wrapper is returned, that will re-apply `curried` providing previous arguments together with the new ones. 
+
+Then, if we call it, again, we'll get either a new partial (if not enough arguments) or, finally, the result.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```smart header="오직 고정된 길이의 함수들만 사용 가능합니다"
 커링은 해당 함수가 고정된 개수의 인수를 가지도록 요구합니다.

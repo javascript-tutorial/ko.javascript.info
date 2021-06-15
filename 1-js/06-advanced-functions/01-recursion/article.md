@@ -132,7 +132,11 @@ function pow(x, n) {
   </li>
 </ul>
 
+<<<<<<< HEAD
 위 그림은 함수 실행이 시작되는 순간을 나타낸 것입니다. 지금 상태론 조건 `n == 1`을 만족하지 못하므로 실행 흐름은 `if`의 두 번째 분기로 넘어갑니다.
+=======
+That's when the function starts to execute. The condition `n == 1` is falsy, so the flow continues into the second branch of `if`:
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 ```js run
 function pow(x, n) {
@@ -188,7 +192,11 @@ alert( pow(2, 3) );
 이전 컨텍스트에 변수 정보, 코드가 일시 중단된 줄에 대한 정보가 저장되어있기 때문에 서브 호출이 끝났을 때 이전 컨텍스트가 문제없이 다시 시작됩니다.
 
 ```smart
+<<<<<<< HEAD
 예시엔 한 줄에 서브 호출 하나만 있기 때문에, 그림에서 '줄'이라는 단어를 사용했습니다. 하지만 한 줄에는 `pow(…) + pow(…) + somethingElse(…)` 같이 복수의 서브 호출이 있을 수 있습니다.
+=======
+Here in the picture we use the word "line", as in our example there's only one subcall in line, but generally a single line of code may contain multiple subcalls, like `pow(…) + pow(…) + somethingElse(…)`.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 따라서 좀 더 정확히는 실행이 '서브 호출 바로 직후'에 시작된다고 이야기 할 수 있습니다.
 ```

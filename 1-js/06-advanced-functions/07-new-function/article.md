@@ -92,7 +92,11 @@ getFunc()(); // getFunc의 렉시컬 환경에 있는 값 *!*"test"*/!*가 출�
 
 그런데 스크립트가 프로덕션 서버에 반영되기 전, *압축기(minifier)* 에 의해 압축될 때 문제가 발생합니다. 압축기는 스크립트에서 주석이나 여분의 공백 등을 없애 코드 크기를 줄여주는 특수한 프로그램인데 압축기가 지역 변수 이름을 짧게 바꾸면서 문제가 발생하죠.
 
+<<<<<<< HEAD
 구체적으로 어떤 부분이 문제가 되는지 예시를 통해 알아봅시다. 함수 내부에 `let userName`라는 변수가 있으면 이 지역변수는 압축기에 의해 `let a` 등(짧은 이름)으로 대체되는데, 이때 `userName` 모두가 `a`로 교체됩니다. `userName`은 지역변수이고, 함수 외부에선 함수 내부에 있는 변수에 접근할 수 없기 때문에 이렇게 해도 전혀 문제가 없죠. 압축기는 단순히 변수를 찾아서 바꾸지 않고 코드 구조를 분석해 기존에 작성한 코드의 기능을 망가뜨리지 않으면서 영리하게 제 역할을 수행합니다.
+=======
+For instance, if a function has `let userName`, minifier replaces it with `let a` (or another letter if this one is occupied), and does it everywhere. That's usually a safe thing to do, because the variable is local, nothing outside the function can access it. And inside the function, minifier replaces every mention of it. Minifiers are smart, they analyze the code structure, so they don't break anything. They're not just a dumb find-and-replace.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 이런 동작 방식 때문에 `new Function` 문법으로 만든 함수 내부에서 외부 변수에 접근하려고 하면 `userName`은 이미 이름이 변경되었기 때문에 찾을 수 없게 됩니다.
 

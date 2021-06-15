@@ -46,7 +46,11 @@ alert(3 +
 + 2);
 ```
 
+<<<<<<< HEAD
 세미콜론 자동 삽입이 일어나지 않았기 때문에 `6`이 출력됩니다. 어떤 줄이 `"+"` 로 끝나면, 그 줄은 '불완전한 표현식'이므로 세미콜론이 필요하지 않다는 걸 직감하실 겁니다. 위 코드도 이런 의도로 동작합니다.
+=======
+The code outputs `6` because JavaScript does not insert semicolons here. It is intuitively obvious that if the line ends with a plus `"+"`, then it is an "incomplete expression", so a semicolon there would be incorrect. And in this case, that works as intended.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 
 **반면, 세미콜론이 정말로 필요하지만 자바스크립트가 이를 추정하지 '못하는' 상황도 존재합니다.**
 
@@ -56,19 +60,31 @@ alert(3 +
 자바스크립트가 세미콜론을 자동으로 삽입해주지 못하는 구체적인 상황은 다음과 같습니다.
 
 ```js run
-[1, 2].forEach(alert)
+alert("Hello");
+
+[1, 2].forEach(alert);
 ```
 
+<<<<<<< HEAD
 지금은 대괄호 `[]`와 `forEach`는 아직 배우지 않았으므로, 깊이 생각하지 말고 코드를 살펴봅시다. 이들에 대해선 추후에 학습할 예정입니다. 코드를 실행하면 결과가  `1`과 `2`가 출력된다는 사실만 기억하세요.
 
 이제 위에서 작성한 코드 앞쪽에 *세미콜론을 붙이지 않은 채* `alert`를 추가해 봅시다.
 
 ```js run no-beautify
 alert("에러가 발생합니다.")
+=======
+No need to think about the meaning of the brackets `[]` and `forEach` yet. We'll study them later. For now, just remember the result of running the code: it shows `Hello`, then `1`, then `2`.
 
-[1, 2].forEach(alert)
+Now let's remove the semicolon after the `alert`:
+
+```js run no-beautify
+alert("Hello")
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
+
+[1, 2].forEach(alert);
 ```
 
+<<<<<<< HEAD
 예제를 실행해 보면 새롭게 추가한 `alert`만 제대로 출력되고 에러가 발생하는 걸 확인할 수 있습니다.
 
 `alert` 끝에 세미콜론을 추가해 다시 실행하면 코드는 잘 작동합니다.
@@ -90,6 +106,23 @@ alert("에러가 발생합니다.")[1, 2].forEach(alert)
 ```
 
 하지만 원래 이 코드는 단일 문이 아닌 두 개의 서로 다른 문이었습니다. 문이 잘못 합쳐지면서 에러가 발생한 것이죠. 이 예제 외에도 이런 상황이 발생할 여지는 언제나 있습니다.
+=======
+The difference compared to the code above is only one character: the semicolon at the end of the first line is gone.
+
+If we run this code, only the first `Hello` shows (and there's an error, you may need to open the console to see it). There are no numbers any more.
+
+That's because JavaScript does not assume a semicolon before square brackets `[...]`. So, the code in the last example is treated as a single statement.
+
+Here's how the engine sees it:
+
+```js run no-beautify
+alert("Hello")[1, 2].forEach(alert);
+```
+
+Looks weird, right? Such merging in this case is just wrong. We need to put a semicolon after `alert` for the code to work correctly.
+
+This can happen in other situations also.
+>>>>>>> fb4fc33a2234445808100ddc9f5e4dcec8b3d24c
 ````
 
 줄 바꿈으로 문을 나눴더라도, 문 사이엔 세미콜론을 넣는 것이 좋습니다. 자바스크립트 커뮤니티에서도 이를 규칙으로 정해 권장하고 있습니다. 다시 한번 정리하도록 하겠습니다. 세미콜론은 *생략할 수 있습니다.* 하지만 세미콜론을 사용하는 것이 더 안전하므로 이를 기억하고 따르도록 합시다. 입문자라면 이를 더 잘 지키도록 합시다.
