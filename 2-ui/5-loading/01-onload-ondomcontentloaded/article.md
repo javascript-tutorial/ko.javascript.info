@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", ready);
 
 ### DOMContentLoaded와 scripts
 
-브라우저는 HTML 문서를 처리하는 도중에 `<script>` 태그를 만나면, DOM 트리 구성을 멈추고 `<script>`를 실행합니다. 스크립트실행이 끝난 후에야 나머지 HTML 문서를 처리하죠. `<script>`에 있는 스크립트가 DOM 조작 관련 로직을 담고 있을 수 있기 때문에 이런 방지책이 만들어 졌습니다. 따라서 `DOMContentLoaded` 이벤트 역시 `<script>` 안에있는 스크립트가 처리고 난 후에 발생합니다.
+브라우저는 HTML 문서를 처리하는 도중에 `<script>` 태그를 만나면, DOM 트리 구성을 멈추고 `<script>`를 실행합니다. 스크립트실행이 끝난 후에야 나머지 HTML 문서를 처리하죠. `<script>`에 있는 스크립트가 DOM 조작 관련 로직을 담고 있을 수 있기 때문에 이런 방지책이 만들어 졌습니다. 따라서 `DOMContentLoaded` 이벤트 역시 `<script>` 안에 있는 스크립트가 처리되고 난 후에 발생합니다.
 
 예시를 통해 이를 살펴봅시다.
 
