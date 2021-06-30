@@ -122,8 +122,8 @@ function User(name) {
   this.name = name;
 }
 
-let john = User("보라"); // 'new User'를 쓴 것처럼 바꿔줍니다.
-alert(john.name); // 보라
+let bora = User("보라"); // 'new User'를 쓴 것처럼 바꿔줍니다.
+alert(bora.name); // 보라
 ```
 
 라이브러리를 분석하다 보면 위와 같은 방식이 쓰인 걸 발견할 때가 있을 겁니다. 이런 방식을 사용하면 `new`를 붙여 함수를 호출하든 아니든 코드가 동일하게 동작하기 때문에, 좀 더 유연하게 코드를 작성할 수 있습니다.
@@ -201,7 +201,7 @@ function User(name) {
 *!*
 let bora = new User("이보라");
 
-john.sayHi(); // 내 이름은 이보라입니다.
+bora.sayHi(); // 내 이름은 이보라입니다.
 */!*
 
 /*
