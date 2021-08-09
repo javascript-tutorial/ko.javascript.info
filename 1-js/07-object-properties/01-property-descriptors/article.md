@@ -192,7 +192,11 @@ alert(Object.keys(user)); // name
 
 구성 가능하지 않음을 나타내는 플래그(non-configurable flag)인 `configurable:false`는 몇몇 내장 객체나 프로퍼티에 기본으로 설정되어있습니다.
 
+<<<<<<< HEAD
 어떤 프로퍼티의 `configurable` 플래그가 `false`로 설정되어 있다면 해당 프로퍼티는 객체에서 지울 수 없습니다.
+=======
+A non-configurable property can't be deleted, its attributes can't be modified.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 
 내장 객체 `Math`의 `PI` 프로퍼티가 대표적인 예입니다. 이 프로퍼티는 쓰기와 열거, 구성이 불가능합니다.
 
@@ -212,11 +216,12 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 개발자가 코드를 사용해 `Math.PI` 값을 변경하거나 덮어쓰는 것도 불가능합니다.
 
 ```js run
-Math.PI = 3; // Error
+Math.PI = 3; // Error, because it has writable: false
 
 // 수정도 불가능하지만 지우는 것 역시 불가능합니다.
 ```
 
+<<<<<<< HEAD
 `configurable` 플래그를 `false`로 설정하면 돌이킬 방법이 없습니다. `defineProperty`를 써도 값을 `true`로 되돌릴 수 없죠.
 
 `configurable:false`가 만들어내는 구체적인 제약사항은 아래와 같습니다.
@@ -226,16 +231,49 @@ Math.PI = 3; // Error
 4. 접근자 프로퍼티 `get/set`을 변경할 수 없음(새롭게 만드는 것은 가능함).
 
 이런 특징을 이용하면 아래와 같이 "영원히 변경할 수 없는" 프로퍼티(`user.name`)를 만들 수 있습니다.
+=======
+We also can't change `Math.PI` to be `writable` again:
 
 ```js run
-let user = { };
+// Error, because of configurable: false
+Object.defineProperty(Math, "PI", { writable: true });
+```
+
+There's absolutely nothing we can do with `Math.PI`.
+
+Making a property non-configurable is a one-way road. We cannot change it back with `defineProperty`.
+
+**Please note: `configurable: false` prevents changes of property flags and its deletion, while allowing to change its value.**
+
+Here `user.name` is non-configurable, but we can still change it (as it's writable):
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
+
+```js run
+let user = {
+  name: "John"
+};
 
 Object.defineProperty(user, "name", {
-  value: "John",
+  configurable: false
+});
+
+user.name = "Pete"; // works fine
+delete user.name; // Error
+```
+
+And here we make `user.name` a "forever sealed" constant, just like the built-in `Math.PI`:
+
+```js run
+let user = {
+  name: "John"
+};
+
+Object.defineProperty(user, "name", {
   writable: false,
   configurable: false
 });
 
+<<<<<<< HEAD
 *!*
 // user.name 프로퍼티의 값이나 플래그를 변경할 수 없습니다.
 // 아래와 같이 변경하려고 하면 에러가 발생합니다.
@@ -250,6 +288,19 @@ Object.defineProperty(user, "name", {writable: true}); // Error
 `configurable` 플래그가 `false`이더라도 `writable` 플래그가 `true`이면 프로퍼티 값을 변경할 수 있습니다.
 
 `configurable: false`는 플래그 값 변경이나 프로퍼티 삭제를 막기 위해 만들어졌지, 프로퍼티 값 변경을 막기 위해 만들어진 게 아닙니다.
+=======
+// won't be able to change user.name or its flags
+// all this won't work:
+user.name = "Pete";
+delete user.name;
+Object.defineProperty(user, "name", { value: "Pete" });
+```
+
+```smart header="The only attribute change possible: writable true -> false"
+There's a minor exception about changing flags.
+
+We can change `writable: true` to `false` for a non-configurable property, thus preventing its value modification (to add another layer of protection). Not the other way around though.
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
 ```
 
 ## Object.defineProperties

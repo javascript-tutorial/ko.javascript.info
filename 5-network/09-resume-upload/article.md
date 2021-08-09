@@ -24,7 +24,7 @@
 
 1. 첫째, 업로드를 할 파일에 고윳값을 구분할 파일 아이디를 생성하세요.
     ```js
-    let fileId = file.name + '-' + file.size + '-' + +file.lastModifiedDate;
+    let fileId = file.name + '-' + file.size + '-' + file.lastModified;
     ```
     파일 아이디는 파일 업로드를 재개할 때 서버에 어떤 파일을 재개할지 말해주는 데 필요합니다.
 

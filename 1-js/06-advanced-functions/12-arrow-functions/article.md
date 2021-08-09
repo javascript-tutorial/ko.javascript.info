@@ -51,8 +51,13 @@ let group = {
   showList() {
 *!*
     this.students.forEach(function(student) {
+<<<<<<< HEAD
       // TypeError: Cannot read property 'title' of undefined
       alert(this.title + ': ' + student)
+=======
+      // Error: Cannot read property 'title' of undefined
+      alert(this.title + ': ' + student);
+>>>>>>> bc08fd1b32285304b14afea12a9deaa10d13452b
     });
 */!*
   }
@@ -87,7 +92,7 @@ group.showList();
 ```js run
 function defer(f, ms) {
   return function() {
-    setTimeout(() => f.apply(this, arguments), ms)
+    setTimeout(() => f.apply(this, arguments), ms);
   };
 }
 
