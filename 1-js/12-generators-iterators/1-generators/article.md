@@ -448,7 +448,33 @@ try {
 
 이렇게 제너레이터 바깥에서 에러를 잡지 못하면 에러는 제너레이터 호출 코드 바깥으로 떨어져 나갑니다. 여기서도 에러를 잡지 못하면 스크립트가 죽겠죠.
 
+<<<<<<< HEAD
 ## 요약
+=======
+## generator.return
+
+`generator.return(value)` finishes the generator execution and return the given `value`.
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const g = gen();
+
+g.next();        // { value: 1, done: false }
+g.return('foo'); // { value: "foo", done: true }
+g.next();        // { value: undefined, done: true }
+```
+
+If we again use `generator.return()` in a completed generator, it will return that value again ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
+
+Often we don't use it, as most of time we want to get all returning values, but it can be useful when we want to stop generator in a specific condition.
+
+## Summary
+>>>>>>> 4d01fc20d4d82358e61518a31efe80dec9bb2602
 
 - 제너레이터는 제너레이터 함수 `function* f(…) {…}`을 사용해 만듭니다.
 - `yield` 연산자는 제너레이터 안에 있어야 합니다.
