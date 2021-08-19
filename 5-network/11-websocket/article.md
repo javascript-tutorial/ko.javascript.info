@@ -167,7 +167,7 @@ Sec-WebSocket-Protocol: soap
 - 텍스트 프레임(text frame) -- 텍스트 데이터가 담긴 프레임
 - 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
 - "ping/pong frames" are used to check the connection, sent from the server, the browser responds to these automatically.
-- there's also "connection close frame" and a few other service frames.
+이 외에도 '커넥션 종료 프레임(connection close frame)' 등 다양한 프레임이 있음
 
 브라우저 환경에서 개발자는 텍스트나 이진 프레임만 다루게 됩니다.
 
