@@ -160,31 +160,31 @@ Sec-WebSocket-Protocol: soap
 
 이 경우, 우리는 서버에선 'deflate-frame'이라는 익스텐션과 요청 프로토콜 중 SOAP라는 서브 프로토콜만 지원한다는 사실을 알 수 있습니다.
 
-## Data transfer
+## 데이터 전송
 
-WebSocket communication consists of "frames" -- data fragments, that can be sent from either side, and can be of several kinds:
+웹소켓 통신은 '프레임(frame)'이라 불리는 데이터 조각을 사용해 이뤄집니다. 프레임은 서버와 클라이언트 양측 모두에서 보낼 수 있는데 프레임 내 담긴 데이터 종류에 따라 다음과 같이 분류할 수 있습니다.
 
-- "text frames" -- contain text data that parties send to each other.
-- "binary data frames" -- contain binary data that parties send to each other.
-- "ping/pong frames" are used to check the connection, sent from the server, the browser responds to these automatically.
-- there's also "connection close frame" and a few other service frames.
+- 텍스트 프레임(text frame) -- 텍스트 데이터가 담긴 프레임
+- 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
+- 핑 또는 퐁 프레임(ping/pong frame) -- 커넥션이 유지되고 있는지 확인할 때 사용하는 프레임으로 서버나 브라우저에서 자동 생성해서 보내는 프레임
+- 이 외에도 '커넥션 종료 프레임(connection close frame) 등 다양한 프레임이 있음
 
-In the browser, we directly work only with text or binary frames.
+브라우저 환경에서 개발자는 텍스트나 이진 프레임만 다루게 됩니다.
 
-**WebSocket `.send()` method can send either text or binary data.**
+이유는 **WebSocket `.send()` 메서드는 텍스트나 바이너리 데이터만 보낼 수 있기 때문입니다.**
 
-A call `socket.send(body)` allows `body` in string or a binary format, including `Blob`, `ArrayBuffer`, etc. No settings required: just send it out in any format.
+`socket.send(body)`를 호출할 때, `body`엔 문자열이나 `Blob`, `ArrayBuffer`등의 이진 데이터만 들어갈 수 있습니다. 데이터 종류에 따라 특별히 무언가 세팅을 해줘야 할 필요는 없고, 텍스트나 바이너리 타입의 데이터를 넣어주면 알아서 데이터가 전송됩니다.
 
-**When we receive the data, text always comes as string. And for binary data, we can choose between `Blob` and `ArrayBuffer` formats.**
+한편, **데이터를 받을 때, 텍스트 데이터는 항상 문자열 형태로 옵니다. 이진 데이터를 받을 때엔 `Blob`이나 `ArrayBuffer` 포맷 둘 중 하나를 고를 수 있습니다.**
 
-That's set by `socket.binaryType` property, it's `"blob"` by default, so binary data comes as `Blob` objects.
+`socket.binaryType` 프로퍼티를 사용하면 `Blob`이나 `ArrayBuffer` 포맷 둘 중 하나를 고를 수 있는데, 프로퍼티 기본값은 `"blob"`이라서 이진 데이터는 기본적으로 `Blob` 객체 형태로 전송받게 됩니다.
 
-[Blob](info:blob) is a high-level binary object, it directly integrates with `<a>`, `<img>` and other tags, so that's a sane default. But for binary processing, to access individual data bytes, we can change it to `"arraybuffer"`:
+[Blob](info:blob)은 고차원(high-level)의 이진 객체인데, `<a>`나 `<img>` 등의 태그와 바로 통합할 수 있어서 기본값으로 아주 적절합니다. 하지만 이진 데이터를 처리하는 과정에 개별 데이터 바이트에 접근해야 하는 경우엔 프로퍼티 값을 `"arraybuffer"`로 바꿀 수도 있습니다.
 
 ```js
 socket.binaryType = "arraybuffer";
 socket.onmessage = (event) => {
-  // event.data is either a string (if text) or arraybuffer (if binary)
+  // event.data는 (텍스트인 경우) 문자열이거나 (이진 데이터인 경우) arraybuffer 입니다.
 };
 ```
 
