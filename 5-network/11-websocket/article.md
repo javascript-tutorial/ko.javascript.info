@@ -4,9 +4,9 @@
 
 이런 특징 때문에 웹소켓은 온라인 게임이나 주식 트레이딩 시스템같이 데이터 교환이 지속적으로 이뤄져야 하는 서비스에 아주 적합합니다.
 
-## A simple example
+## 간단한 예시
 
-웹소켓 연결을 만들려면 `new WebSocket`을 호출하면 되는데, 이때 `ws`라는 특수 프로토콜을 사용합니다.
+웹소켓 커넥션을 만들려면 `new WebSocket`을 호출하면 되는데, 이때 `ws`라는 특수 프로토콜을 사용합니다.
 
 ```js
 let socket = new WebSocket("*!*ws*/!*://javascript.info");
@@ -19,14 +19,14 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 
 `ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
-반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷은 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
+반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
 ```
 
 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
-- **`open`** -- 커넥션이 제대로 만들어짐
-- **`message`** -- data received,
-- **`error`** -- 웹소켓 에러
-- **`close`** -- 커넥션 종료
+- **`open`** -- 커넥션이 제대로 만들어졌을 때 발생함
+- **`message`** -- 데이터를 수신하였을 때 발생함
+- **`error`** -- 에러가 생겼을 때 발생함
+- **`close`** -- 커넥션이 종료되었을 때 발생함
 
 커넥션이 만들어진 상태에서 무언가를 보내고 싶으면 `socket.send(data)`를 사용하면 됩니다.
 
@@ -38,7 +38,7 @@ let socket = new WebSocket("wss://javascript.info/article/websocket/demo/hello")
 socket.onopen = function(e) {
   alert("[open] 커넥션이 만들어졌습니다.");
   alert("데이터를 서버에 전송해봅시다.");
-  socket.send("My name is Bora.");
+  socket.send("My name is Bora");
 };
 
 socket.onmessage = function(event) {
@@ -66,7 +66,7 @@ socket.onerror = function(error) {
 
 이제 여러분은 웹소켓 통신이 어떻게 이뤄지는지를 알게 되셨습니다. 생각보다 꽤 간단하죠?
 
-그렇긴 하지만 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세히 알아봅시다.
+지금부턴 실무 수준에서 웹소켓을 활용할 수 있도록 웹소켓에 대해 좀 더 자세히 알아봅시다.
 
 ## 웹소켓 핸드셰이크
 
@@ -76,7 +76,7 @@ socket.onerror = function(error) {
 
 ![](websocket-handshake.svg)
 
-이번엔 `new WebSocket("wss://javascript.info/chat")`을 호출해 최초 요청이 전송되었다고 가정하고 이때의 요청 헤더를 살펴봅시다.
+이번엔 `new WebSocket("wss://javascript.info/chat")`을 호출해 최초 요청을 전송했다고 가정하고, 이때의 요청 헤더를 살펴봅시다.
 
 ```
 GET /chat
@@ -98,7 +98,7 @@ Sec-WebSocket-Version: 13
 바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
-클라이언트 측에서 보낸 웹소켓 통신 요청을 최초로 받고 이에 동의하면, 서버는 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. 
+서버는 클라이언트 측에서 보낸 웹소켓 통신 요청을 최초로 받고 이에 동의하면, 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. 
 
 ```
 101 Switching Protocols
@@ -107,27 +107,27 @@ Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
 
-여기서 `Sec-WebSocket-Accept`는 `Sec-WebSocket-Key`와 밀접한 관계를 갖습니다. 브라우저는 특별한 알고리즘을 사용해 만들어지는 `Sec-WebSocket-Accept` 값을 서버로부터 받아, 이 응답이 자신이 보낸 요청에 대응하는 응답인지를 확인합니다.
+여기서 `Sec-WebSocket-Accept`는 `Sec-WebSocket-Key`와 밀접한 관계가 있습니다. 브라우저는 특별한 알고리즘을 사용해 서버에서 생성한 `Sec-WebSocket-Accept` 값을 받아, 이 응답이 자신이 보낸 요청에 대응하는 응답인지를 확인합니다.
 
-이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용하여 데이터가 전송되기 시작합니다. 웹소켓 프로토콜을 사용한 데이터 전송은 조금 후에 자세히 살펴볼 예정입니다.
+이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용해 데이터가 전송되기 시작합니다. 전홍이 시작된 후에 어떤일이 일어나는지는 조금 후에 자세히 살펴보겠습니다.
 
-### extensions와 subprotocols 헤더
+### Extensions와 Subprotocols 헤더
 
-웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송하려 할 때 사용합니다.
+웹소켓 통신은 `Sec-WebSocket-Extensions`와 `Sec-WebSocket-Protocol` 헤더를 지원합니다. 두 헤더는 각각 웹소켓 프로토콜 기능을 확장(extension)할 때와 서브 프로토콜(subprotocal)을 사용해 데이터를 전송할 때 사용합니다.
 
 각 헤더에 대한 예시를 살펴봅시다.
 
 - `Sec-WebSocket-Extensions: deflate-frame` -- 이 헤더는 브라우저에서 데이터 압축(deflate)을 지원한다는 것을 의미합니다. `Sec-WebSocket-Extensions`은 브라우저에 의해 자동 생성되는데, 그 값엔 데이터 전송과 관련된 무언가나 웹소켓 프로토콜 기능 확장과 관련된 무언가가 여러 개 나열됩니다.
 
-- `Sec-WebSocket-Protocol: soap, wamp` -- 이렇게 헤더가 설정되면 평범한 데이터가 아닌 [SOAP](http://en.wikipedia.org/wiki/SOAP)나 WAM (The WebSocket Application Messaging Protocol) 프로토콜을 준수하는 데이터를 전송하겠다는 것을 의미합니다. 웹소켓에서 지원하는 서브프로토콜 목록은 [IANA 카탈로그](http://www.iana.org/assignments/websocket/websocket.xml)에서 확인할 수 있습니다. 개발자는 이 헤더를 보고 앞으로 사용하게 될 데이터 포맷을 확인할 수 있습니다.
+- `Sec-WebSocket-Protocol: soap, wamp` -- 이렇게 헤더가 설정되면 평범한 데이터가 아닌 [SOAP](http://en.wikipedia.org/wiki/SOAP)나 WAMP(The WebSocket Application Messaging Protocol) 프로토콜을 준수하는 데이터를 전송하겠다는 것을 의미합니다. 웹소켓에서 지원하는 서브프로토콜 목록은 [IANA 카탈로그](http://www.iana.org/assignments/websocket/websocket.xml)에서 확인할 수 있습니다. 개발자는 이 헤더를 보고 앞으로 사용하게 될 데이터 포맷을 확인할 수 있습니다.
 
-    이 헤더들은 두 번째 매개변수에 값을 넣어 `new WebSocket`을 호출하면 설정할 수 있습니다. 서브 프로토콜 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
+    두 헤더는 `new WebSocket`의 두 번째 매개변수에 값을 넣어서 설정할 수 있습니다. 서브 프로토콜로 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
 
     ```js
     let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
     ```
 
-서버는 자신이 지원하는 익스텐션과 프로토콜을 응답 헤더에 담아 클라이언트에 전달해야 합니다.
+이때 서버는 지원 가능한 익스텐션과 프로토콜을 응답 헤더에 담아 클라이언트에 전달해야 합니다.
 
 예시를 살펴봅시다. 요청 헤더는 다음과 같습니다.
 
@@ -145,7 +145,7 @@ Sec-WebSocket-Protocol: soap, wamp
 */!*
 ```
 
-이때 다음과 같은 응답이 왔다고 가정해봅시다.
+이때 서버가 다음과 같은 응답을 했다고 해봅시다.
 
 ```
 101 Switching Protocols
