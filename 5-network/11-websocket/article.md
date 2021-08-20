@@ -162,7 +162,7 @@ Sec-WebSocket-Protocol: soap
 
 ## 데이터 전송
 
-WebSocket communication consists of "frames" -- data fragments, that can be sent from either side, and can be of several kinds:
+웹소켓 통신은 '프레임(frame)'이라 불리는 데이터 조각을 사용해 이뤄집니다. 프레임은 서버와 클라이언트 양측 모두에서 보낼 수 있는데 프레임 내 담긴 데이터 종류에 따라 다음과 같이 분류할 수 있습니다.
 
 - 텍스트 프레임(text frame) -- 텍스트 데이터가 담긴 프레임
 - 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
