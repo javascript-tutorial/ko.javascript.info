@@ -165,7 +165,7 @@ Sec-WebSocket-Protocol: soap
 WebSocket communication consists of "frames" -- data fragments, that can be sent from either side, and can be of several kinds:
 
 - "text frames" -- contain text data that parties send to each other.
-- "binary data frames" -- contain binary data that parties send to each other.
+- 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
 - "ping/pong frames" are used to check the connection, sent from the server, the browser responds to these automatically.
 - there's also "connection close frame" and a few other service frames.
 
