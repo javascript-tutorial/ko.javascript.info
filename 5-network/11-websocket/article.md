@@ -177,7 +177,7 @@ A call `socket.send(body)` allows `body` in string or a binary format, including
 
 **When we receive the data, text always comes as string. And for binary data, we can choose between `Blob` and `ArrayBuffer` formats.**
 
-That's set by `socket.binaryType` property, it's `"blob"` by default, so binary data comes as `Blob` objects.
+`socket.binaryType` 프로퍼티를 사용하면 `Blob`이나 `ArrayBuffer` 포맷 둘 중 하나를 고를 수 있는데, 프로퍼티 기본값은 `"blob"`이라서 이진 데이터는 기본적으로 `Blob` 객체 형태로 전송받게 됩니다.
 
 [Blob](info:blob) is a high-level binary object, it directly integrates with `<a>`, `<img>` and other tags, so that's a sane default. But for binary processing, to access individual data bytes, we can change it to `"arraybuffer"`:
 
