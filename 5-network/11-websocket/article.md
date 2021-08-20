@@ -164,12 +164,12 @@ Sec-WebSocket-Protocol: soap
 
 WebSocket communication consists of "frames" -- data fragments, that can be sent from either side, and can be of several kinds:
 
-텍스트 프레임(text frame)은 당사자가 서로에게 보내는 텍스트 데이터를 포함합니다.
-- "binary data frames" -- contain binary data that parties send to each other.
+- 텍스트 프레임(text frame) -- 텍스트 데이터가 담긴 프레임
+- 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
 - "ping/pong frames" are used to check the connection, sent from the server, the browser responds to these automatically.
 - there's also "connection close frame" and a few other service frames.
 
-In the browser, we directly work only with text or binary frames.
+브라우저 환경에서 개발자는 텍스트나 이진 프레임만 다루게 됩니다.
 
 **WebSocket `.send()` method can send either text or binary data.**
 
