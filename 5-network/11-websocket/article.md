@@ -169,7 +169,7 @@ WebSocket communication consists of "frames" -- data fragments, that can be sent
 - "ping/pong frames" are used to check the connection, sent from the server, the browser responds to these automatically.
 - there's also "connection close frame" and a few other service frames.
 
-In the browser, we directly work only with text or binary frames.
+브라우저 환경에서 개발자는 텍스트나 이진 프레임만 다루게 됩니다.
 
 **WebSocket `.send()` method can send either text or binary data.**
 
