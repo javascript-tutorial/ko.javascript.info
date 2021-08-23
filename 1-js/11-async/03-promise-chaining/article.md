@@ -266,7 +266,11 @@ fetch('/article/promise-chaining/user.json')
 
 불러온 사용자 정보를 가지고 무언가를 더 해보겠습니다.
 
+<<<<<<< HEAD
 GitHub에 요청을 보내 사용자 프로필을 불러오고 아바타를 출력해 보는 것같이 말이죠.
+=======
+For instance, we can make one more request to GitHub, load the user profile and show the avatar:
+>>>>>>> 4d01fc20d4d82358e61518a31efe80dec9bb2602
 
 ```js run
 // user.json에 요청을 보냅니다.
@@ -333,8 +337,7 @@ function loadJson(url) {
 }
 
 function loadGithubUser(name) {
-  return fetch(`https://api.github.com/users/${name}`)
-    .then(response => response.json());
+  return loadJson(`https://api.github.com/users/${name}`);
 }
 
 function showAvatar(githubUser) {
