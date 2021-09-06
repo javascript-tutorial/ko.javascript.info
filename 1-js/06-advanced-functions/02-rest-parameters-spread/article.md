@@ -225,49 +225,49 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 문법보다 `Array.from`이 보편적으로 사용됩니다.
 
 
-## 배열 / 객체의 사본 만들기
+## Get a new copy of an array/object
 
-객체를 복사하기 위해 `Object.assign()`을 [공부했던 것](info:object-copy#cloning-and-merging-object-assign)을 기억하시나요?
+Remember when we talked about `Object.assign()` [in the past](info:object-copy#cloning-and-merging-object-assign)?
 
-전개 연산자를 사용해서 동일한 작업을 할 수 있습니다.
+It is possible to do the same thing with the spread syntax.
 
 ```js run
 let arr = [1, 2, 3];
-let arrCopy = [...arr]; // 기존 배열을 매개변수로 전달하여                      
-                        // 그 결과를 새 배열에 넣습니다.
+let arrCopy = [...arr]; // spread the array into a list of parameters
+                        // then put the result into a new array
 
-// 두 배열의 내용이 동일합니까?
+// do the arrays have the same contents?
 alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
 
-// 두 배열이 동일합니까?
-alert(arr === arrCopy); // false (참조가 다름)
+// are the arrays equal?
+alert(arr === arrCopy); // false (not same reference)
 
-// 원본 배열을 수정해도 사본 배열은 변하지 않습니다. 
+// modifying our initial array does not modify the copy:
 arr.push(4);
 alert(arr); // 1, 2, 3, 4
 alert(arrCopy); // 1, 2, 3
 ```
 
-객체의 사본을 만드는 것도 동일합니다.
+Note that it is possible to do the same thing to make a copy of an object:
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
-let objCopy = { ...obj }; // 기존 객체를 매개변수로 전달하여                         
-                          // 그 결과를 새 객체에 넣습니다.
+let objCopy = { ...obj }; // spread the object into a list of parameters
+                          // then return the result in a new object
 
-// 두 객체의 내용이 동일합니까?
+// do the objects have the same contents?
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
 
-// 두 객체가 동일합니까?
-alert(obj === objCopy); // false (참조가 다름)
+// are the objects equal?
+alert(obj === objCopy); // false (not same reference)
 
-// 원본 객체를 수정해도 사본 객체는 변하지 않습니다.
+// modifying our initial object does not modify the copy:
 obj.d = 4;
 alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
-객체에 `let objCopy = Object.assign({}, obj);`를, 배열에 `let arrCopy = Object.assign([], arr)`을 사용하는 것보다 이 방법으로 복사하는 것이 코드가 짧기에 가능한 한 이 방법을 사용하는 것이 좋습니다.
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj);` or for an array `let arrCopy = Object.assign([], arr);` so we prefer to use it whenever we can.
 
 
 ## 요약
