@@ -1,11 +1,11 @@
-We need to "map" all values from the interval 0..1 into values from `min` to `max`.
+먼저 0..1 구간의 모든 값을 `min`과 `max`의 사이가 될 수 있도록 매핑해야 합니다. 
 
-That can be done in two stages:
+두 단계로 수행할 수 있습니다.
 
-1. If we multiply a random number from 0..1 by `max-min`, then the interval of possible values increases `0..1` to `0..max-min`.
-2. Now if we add `min`, the possible interval becomes from `min` to `max`.
+1. 0..1 사이의 무작위 숫자를 `max-min`으로 곱한다면, 가능한 값의 구간은 `0..1`에서 `0..max-min`이 됩니다.
+2. 이제 `min`을 더해주면, 가능한 구간은 `min` 이상 `max` 미만이 됩니다.
 
-The function:
+답안:
 
 ```js run
 function random(min, max) {
