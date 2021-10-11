@@ -125,7 +125,11 @@ alert( Article.publisher ); // Ilya Kantor
 Article.publisher = "Ilya Kantor";
 ```
 
+<<<<<<< HEAD
 ## 정적 프로퍼티와 메서드 상속
+=======
+## Inheritance of static properties and methods [#statics-and-inheritance]
+>>>>>>> 193319c963b9ba86ac7d9590f7261a36ecdcc4d2
 
 정적 프로퍼티와 메서드는 상속됩니다.
 

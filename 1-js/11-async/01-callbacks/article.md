@@ -28,7 +28,11 @@ function loadScript(src) {
 }
 ```
 
+<<<<<<< HEAD
 함수 `loadScript(src)`는 `<script src="…">`를 동적으로 만들고 이를 문서에 추가합니다. 브라우저는 자동으로 태그에 있는 스크립트를 불러오고, 로딩이 완료되면 스크립트를 실행합니다.
+=======
+It inserts into the document a new, dynamically created, tag `<script src="…">` with the given `src`. The browser automatically starts loading it and executes when complete.
+>>>>>>> 193319c963b9ba86ac7d9590f7261a36ecdcc4d2
 
 `loadScript(src)` 사용법은 다음과 같습니다.
 
@@ -146,7 +150,7 @@ loadScript('/my/script.js', function(script) {
     });
 */!*
 
-  })
+  });
 
 });
 ```
@@ -223,7 +227,7 @@ loadScript('1.js', function(error, script) {
         });
 
       }
-    })
+    });
   }
 });
 ```
@@ -256,7 +260,7 @@ loadScript('1.js', function(error, script) {
           }
         });
       }
-    })
+    });
   }
 });
 -->
@@ -296,7 +300,7 @@ function step3(error, script) {
   } else {
     // 모든 스크립트가 로딩되면 다른 동작을 수행합니다. (*)
   }
-};
+}
 ```
 
 어떤가요? 새롭게 작성한 코드는 각 동작을 분리해 최상위 레벨의 함수로 만들었기 때문에 깊은 중첩이 없습니다. 그리고 콜백 기반 스타일 코드와 동일하게 동작하죠.
