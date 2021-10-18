@@ -106,10 +106,17 @@ for (let i = 0; i < 3; i++) { // 0, 1, 2가 출력됩니다.
 
 | 구성 요소  |          |                                                                            |
 |-------|----------|----------------------------------------------------------------------------|
+<<<<<<< HEAD
 | begin | `i = 0`    | 반복문에 진입할 때 단 한 번 실행됩니다.                                      |
 | condition | `i < 3`| 반복마다 해당 조건이 확인됩니다. false이면 반복문을 멈춥니다.              |
 | body | `alert(i)`| condition이 truthy일 동안 계속해서 실행됩니다.                         |
 | step| `i++`      | 각 반복의 body가 실행된 이후에 실행됩니다. |
+=======
+| begin | `let i = 0`    | Executes once upon entering the loop.                                      |
+| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
+| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
+>>>>>>> eda333d423db8ade41f75d2e2d30ea06c7d997ef
 
 일반적인 반복문 알고리즘은 다음과 같습니다.
 
@@ -318,7 +325,11 @@ alert('완료!');
 
 사용자가 `Cancel` 버튼을 눌렀을 때 반복문을 중단시킬 방법이 필요합니다.
 
+<<<<<<< HEAD
 `input` 아래에 평범한 `break` 지시자를 사용하면 안쪽에 있는 반복문만 빠져나올 수 있습니다. 이것만으론 충분하지 않습니다(중첩 반복문을 포함한 반복문 두 개 모두를 빠져나와야 하기 때문이죠 - 옮긴이). 이럴 때 레이블을 사용할 수 있습니다.
+=======
+The ordinary `break` after `input` would only break the inner loop. That's not sufficient -- labels, come to the rescue!
+>>>>>>> eda333d423db8ade41f75d2e2d30ea06c7d997ef
 
 *레이블(label)* 은 반복문 앞에 콜론과 함께 쓰이는 식별자입니다.
 ```js
@@ -363,12 +374,31 @@ for (let i = 0; i < 3; i++) { ... }
 
 아래 예시처럼 레이블을 사용하는 것은 불가능합니다.
 ```js
+<<<<<<< HEAD
 break label; // 아래 for 문으로 점프할 수 없습니다.
+=======
+break label; // jump to the label below (doesn't work)
+>>>>>>> eda333d423db8ade41f75d2e2d30ea06c7d997ef
 
 label: for (...)
 ```
 
+<<<<<<< HEAD
 `break`와 `continue`는 반복문 안에서만 사용할 수 있고, 레이블은 반드시 `break`이나 `continue` 지시자 위에 있어야 합니다.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` is used inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> eda333d423db8ade41f75d2e2d30ea06c7d997ef
 ````
 
 ## 요약

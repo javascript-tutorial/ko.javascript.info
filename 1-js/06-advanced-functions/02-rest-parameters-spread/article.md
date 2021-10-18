@@ -225,7 +225,7 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 문법보다 `Array.from`이 보편적으로 사용됩니다.
 
 
-## Get a new copy of an array/object
+## Copy an array/object
 
 Remember when we talked about `Object.assign()` [in the past](info:object-copy#cloning-and-merging-object-assign)?
 
@@ -233,8 +233,11 @@ It is possible to do the same thing with the spread syntax.
 
 ```js run
 let arr = [1, 2, 3];
+
+*!*
 let arrCopy = [...arr]; // spread the array into a list of parameters
                         // then put the result into a new array
+*/!*
 
 // do the arrays have the same contents?
 alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
@@ -252,8 +255,11 @@ Note that it is possible to do the same thing to make a copy of an object:
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
+
+*!*
 let objCopy = { ...obj }; // spread the object into a list of parameters
                           // then return the result in a new object
+*/!*
 
 // do the objects have the same contents?
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
@@ -267,7 +273,7 @@ alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
-This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj);` or for an array `let arrCopy = Object.assign([], arr);` so we prefer to use it whenever we can.
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj)` or for an array `let arrCopy = Object.assign([], arr)` so we prefer to use it whenever we can.
 
 
 ## 요약
