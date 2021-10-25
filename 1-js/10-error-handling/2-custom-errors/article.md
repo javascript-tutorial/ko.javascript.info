@@ -21,9 +21,15 @@ let json = `{ "name": "John", "age": 30 }`;
 
 따라서 `readUser(json)`은 JSON 형식의 데이터를 읽을 수 있을 뿐만 아니라, 데이터를 '검증'할 수 있어야 합니다. 필수 프로퍼티가 없거나, 위 형식에 맞지 않으면 에러를 발생시킬 수 있어야 하죠. 그런데 이때 발생하는 에러는 `SyntaxError`가 아닙니다. JSON 형식은 맞지만, 자체 기준에 맞지 않기 때문에 발생한 에러이므로 전혀 다른 종류의 에러이죠. 지금부턴 이 에러를 `ValidationError`라고 부르겠습니다. 자 이제 `ValidationError`를 위한 클래스를 만들어봅시다.
 
+<<<<<<< HEAD
 `ValidationError` 클래스엔 문제가 되는 필드 정보가 저장되어야 합니다. 내장 클래스 `Error`를 상속받아 `ValidationError` 클래스를 만들어봅시다.
 
 그 전에 먼저 잠시 슈도 코드로 `Error` 클래스가 어떻게 생겼는지 살펴보겠습니다.
+=======
+Our `ValidationError` class should inherit from the `Error` class.
+
+The `Error` class is built-in, but here's its approximate code so we can understand what we're extending:
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ```js
 // 자바스크립트 자체 내장 에러 클래스 Error의 '슈도 코드'
@@ -117,15 +123,23 @@ try {
 // (err instanceof SyntaxError) 대신 사용 가능
 } else if (err.name == "SyntaxError") { // (*)
 // ...
-```  
+```
 
 그런데 에러 유형 확인은 `err.name`보다는 `instanceof`를 사용하는 게 훨씬 좋습니다. 나중에 `ValidationError`를 확장하여 `PropertyRequiredError` 같은 새로운 확장 에러를 만들게 될 텐데, `instanceof`는 새로운 상속 클래스에서도 동작하기 때문입니다. 
 
+<<<<<<< HEAD
 `catch`에 알려지지 않은 에러가 있을 때 이 에러는 재 던지기 된다는 점(`(**)`) 또한 주목해서 봐주시기 바랍니다. `catch` 블록에선 유효성 검사와 문법 오류만 처리하고, 다른 종류의 에러는 밖으로 던져야 합니다.
+=======
+Also it's important that if `catch` meets an unknown error, then it rethrows it in the line `(**)`. The `catch` block only knows how to handle validation and syntax errors, other kinds (caused by a typo in the code or other unknown reasons) should fall through.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ## 더 깊게 상속하기
 
+<<<<<<< HEAD
 앞서 만든 `ValidationError` 클래스는 너무 포괄적이어서 뭔가 잘못될 확률이 있습니다. 꼭 필요한 프로퍼티가 누락되거나 `age`에 문자열 값이 들어가는 것처럼 형식이 잘못된 경우를 처리할 수 없죠. 필수 프로퍼티가 없는 경우에 대응할 수 있도록 좀 더 구체적인 클래스 `PropertyRequiredError`를 만들어 봅시다. `PropertyRequiredError`엔 누락된 프로퍼티에 대한 추가 정보가 담겨야 합니다.
+=======
+The `ValidationError` class is very generic. Many things may go wrong. The property may be absent or it may be in a wrong format (like a string value for `age` instead of a number). Let's make a more concrete class `PropertyRequiredError`, exactly for absent properties. It will carry additional information about the property that's missing.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ```js run
 class ValidationError extends Error {

@@ -58,22 +58,36 @@
 
 `cut`, `copy`, `paste` 이벤트는 각각 값을 잘라내기·복사하기·붙여넣기 할 때 발생합니다.
 
+<<<<<<< HEAD
 세 이벤트는 [ClipboardEvent](https://www.w3.org/TR/clipboard-apis/#clipboard-event-interfaces) 클래스의 하위 클래스이며 복사하거나 붙여넣기 한 데이터에 접근할 수 있도록 해줍니다.
+=======
+They belong to [ClipboardEvent](https://www.w3.org/TR/clipboard-apis/#clipboard-event-interfaces) class and provide access to the data that is cut/copied/pasted.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 `input` 이벤트와는 달리 세 이벤트는 `event.preventDefault()`를 사용해 기본 동작을 막을 수 있습니다. 이렇게 하면 아무것도 복사·붙여넣기 할 수 없습니다.
 
+<<<<<<< HEAD
 예를 들어 아래 코드는 잘라내기·복사하기·붙여넣기 동작을 시도하면 모든 동작들이 중단되고 얼럿창을 통해 중단된 이벤트 이름을 보여줍니다.
+=======
+For instance, the code below prevents all `cut/copy/paste` events and shows the text we're trying to cut/copy/paste:
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ```html autorun height=40 run
 <input type="text" id="input">
 <script>
-  input.oncut = input.oncopy = input.onpaste = function(event) {
-    alert(event.type + ' - ' + event.clipboardData.getData('text/plain'));
-    return false;
+  input.onpaste = function(event) {
+    alert("paste: " + event.clipboardData.getData('text/plain'));
+    event.preventDefault();
+  };
+
+  input.oncut = input.oncopy = function(event) {
+    alert(event.type + '-' + document.getSelection());
+    event.preventDefault();
   };
 </script>
 ```
 
+<<<<<<< HEAD
 알아두세요! 텍스트뿐만 아니라 모든 것을 복사·붙여넣기 할 수 있습니다. 예를 들어 OS 파일 매니저에서 파일을 복사해 붙여넣을 수 있습니다.
 
 클립보드에서 읽기·쓰기, 파일 등 다양한 데이터 타입에서 작동하는 메서드 목록 [명세서](https://www.w3.org/TR/clipboard-apis/#dfn-datatransfer)를 확인할 수 있습니다.
@@ -81,6 +95,31 @@
 다만 클립보드는 '전역' OS 레벨입니다. `onclick` 이벤트 핸들러처럼 대부분의 브라우저는 안전을 위해 특정 사용자 동작의 범위에서만 클립보드의 읽기·쓰기에 대한 접근을 허용합니다. 
 
 또한 Firefox를 제외한 모든 브라우저에서 `dispatchEvent`를 사용하여 '커스텀' 클립보드 이벤트를 생성하는 것을 금지하고 있습니다.
+=======
+Please note: inside `cut` and `copy` event handlers a call to  `event.clipboardData.getData(...)` returns an empty string. That's because technically the data isn't in the clipboard yet. If we use `event.preventDefault()` it won't be copied at all.
+
+So the example above uses `document.getSelection()` to get the selected text. You can find more details about document selection in the article <info:selection-range>.
+
+It's possible to copy/paste not just text, but everything. For instance, we can copy a file in the OS file manager, and paste it.
+
+That's because `clipboardData` implements `DataTransfer` interface, commonly used for drag'n'drop and copy/pasting. It's bit beyond our scope now, but you can find its methods in the [DataTransfer specification](https://html.spec.whatwg.org/multipage/dnd.html#the-datatransfer-interface).
+
+Also, there's an additional asynchronous API of accessing the clipboard: `navigator.clipboard`. More about it in the specification [Clipboard API and events](https://www.w3.org/TR/clipboard-apis/), [not supported by Firefox](https://caniuse.com/async-clipboard).
+
+### Safety restrictions
+
+The clipboard is a "global" OS-level thing. A user may switch between various applications, copy/paste different things, and a browser page shouldn't see all that.
+
+So most browsers allow seamless read/write access to the clipboard only in the scope of certain user actions, such as copying/pasting etc.
+
+It's forbidden to generate "custom" clipboard events with `dispatchEvent` in all browsers except Firefox. And even if we manage to dispatch such event, the specification clearly states that such "syntetic" events must not provide access to the clipboard.
+
+Even if someone decides to save `event.clipboardData` in an event handler, and then access it later -- it won't work.
+
+To reiterate, [event.clipboardData](https://www.w3.org/TR/clipboard-apis/#clipboardevent-clipboarddata) works solely in the context of user-initiated event handlers.
+
+On the other hand, [navigator.clipboard](https://www.w3.org/TR/clipboard-apis/#h-navigator-clipboard) is the more recent API, meant for use in any context. It asks for user permission, if needed. Not supported in Firefox.
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ## 요약
 
@@ -88,6 +127,12 @@
 
 | 이벤트 | 설명 | 특이사항 |
 |---------|----------|-------------|
+<<<<<<< HEAD
 | `change` | 값이 변경될 때 이벤트 발생 | 텍스트 입력의 경우 포커스를 잃을 때 실행 |
 | `input` | 텍스트가 입력될 때마다 이벤트 발생 | `change`와 달리 즉시 실행 |
 | `cut`, `copy`, `paste` | 잘라내기·복사하기·붙여넣기 할 때 이벤트 발생 | 브라우저 기본 동작을 막아 이벤트 실행을 막을 수 있음. `event.clipboardData` 프로퍼티를 사용하면 클립보드에 저장된 데이터를 읽고 쓸 수 있음 |
+=======
+| `change`| A value was changed. | For text inputs triggers on focus loss. |
+| `input` | For text inputs on every change. | Triggers immediately unlike `change`. |
+| `cut/copy/paste` | Cut/copy/paste actions. | The action can be prevented. The `event.clipboardData` property gives access to the clipboard. All browsers except Firefox also support `navigator.clipboard`. |
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c

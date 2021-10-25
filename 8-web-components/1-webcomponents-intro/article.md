@@ -26,9 +26,15 @@
 
 그리고 우주정거장은 인간이 우주에서 날고, 살아있을 수 있게 해줍니다.
 
+<<<<<<< HEAD
 어떻게 이렇게 복잡한 장치가 만들어졌을까요?
 
 개발을 안정적이고 확장 가능한 수준으로 만들기 위해 또는 그에 가깝게 만들기 위해 어떤 원칙을 빌려올 수 있을까요?
+=======
+How are such complex devices created?
+
+Which principles could we borrow to make our development same-level reliable and scalable? Or, at least, close to it?
+>>>>>>> 3699f73b4ccb2a57ac5ef990d2687bf31ccf564c
 
 ## 컴포넌트 아키텍처
 
