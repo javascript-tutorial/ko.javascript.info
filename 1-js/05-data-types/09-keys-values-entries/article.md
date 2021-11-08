@@ -76,9 +76,15 @@ for (let value of Object.values(user)) {
 
 하지만 `Object.entries`와 `Object.fromEntries`를 순차적으로 적용하면 객체에도 배열 전용 메서드 사용할 수 있습니다. 적용 방법은 다음과 같습니다.
 
+<<<<<<< HEAD
 1. `Object.entries(obj)`를 사용해 객체의 키-값 쌍이 요소인 배열을 얻습니다.
 2. 1.에서 만든 배열에 `map` 등의 배열 전용 메서드를 적용합니다.
 3. 2.에서 반환된 배열에 `Object.fromEntries(array)`를 적용해 배열을 다시 객체로 되돌립니다.
+=======
+1. Use `Object.entries(obj)` to get an array of key/value pairs from `obj`.
+2. Use array methods on that array, e.g. `map`, to transform these key/value pairs.
+3. Use `Object.fromEntries(array)` on the resulting array to turn it back into an object.
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 이 방법을 사용해 가격 정보가 저장된 객체 prices의 프로퍼티 값을 두 배로 늘려보도록 합시다. 
 
@@ -91,12 +97,22 @@ let prices = {
 
 *!*
 let doublePrices = Object.fromEntries(
+<<<<<<< HEAD
   // 객체를 배열로 변환해서 배열 전용 메서드인 map을 적용하고 fromEntries를 사용해 배열을 다시 객체로 되돌립니다.
   Object.entries(prices).map(([key, value]) => [key, value * 2])
+=======
+  // convert prices to array, map each key/value pair into another pair
+  // and then fromEntries gives back the object
+  Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 );
 */!*
 
 alert(doublePrices.meat); // 8
-```   
+```
 
+<<<<<<< HEAD
 지금 당장은 어렵게 느껴지겠지만 한두 번 위 방법을 적용해 보면 객체에 배열 전용 메서드를 적용하는게 쉬워질 겁니다.
+=======
+It may look difficult at first sight, but becomes easy to understand after you use it once or twice. We can make powerful chains of transforms this way.
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6

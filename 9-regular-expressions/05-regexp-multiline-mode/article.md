@@ -16,7 +16,7 @@ let str = `1st place: Winnie
 3rd place: Eeyore`;
 
 *!*
-alert( str.match(/^\d/gm) ); // 1, 2, 3
+console.log( str.match(/^\d/gm) ); // 1, 2, 3
 */!*
 ```
 
@@ -28,14 +28,18 @@ let str = `1st place: Winnie
 3rd place: Eeyore`;
 
 *!*
-alert( str.match(/^\d/g) ); // 1
+console.log( str.match(/^\d/g) ); // 1
 */!*
 ```
 
 이렇게 결과가 다른 것은 캐럿 기호 `pattern:^`가 기본적으로는 텍스트의 시작 위치에만 대응하기 때문입니다. 여러 행 모드를 사용해야 모든 행의 시작 위치와 대응하죠.
 
 ```smart
+<<<<<<< HEAD
 '행 시작'이라는 것은 엄밀히 말해서 '줄 바꿈 직후'를 의미합니다. 여러 행 모드에서 `pattern:^`을 사용한 검사는 줄 바꿈 문자 `\n` 바로 뒤 모든 위치와 일치합니다.
+=======
+"Start of a line" formally means "immediately after a line break": the test  `pattern:^` in multiline mode matches at all positions preceded by a newline character `\n`.
+>>>>>>> 4541b7af7584014a676da731f6e8774da5e059f6
 
 텍스트의 시작 위치를 포함해서요.
 ```
@@ -51,7 +55,7 @@ let str = `Winnie: 1
 Piglet: 2
 Eeyore: 3`;
 
-alert( str.match(/\d$/gm) ); // 1,2,3
+console.log( str.match(/\d$/gm) ); // 1,2,3
 ```
 
 `m` 플래그가 없으면 달러 기호 `pattern:$`는 전체 텍스트의 끝에만 일치하므로 가장 뒤에 있는 마지막 숫자만 찾게 됩니다.
@@ -75,7 +79,7 @@ let str = `Winnie: 1
 Piglet: 2
 Eeyore: 3`;
 
-alert( str.match(/\d\n/gm) ); // 1\n,2\n
+console.log( str.match(/\d\n/g) ); // 1\n,2\n
 ```
 
 일치하는 결과가 3개가 아니라 2개인 것을 확인할 수 있습니다.
