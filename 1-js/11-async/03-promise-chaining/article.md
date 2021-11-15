@@ -34,17 +34,29 @@ new Promise(function(resolve, reject) {
 
 프라미스 체이닝은 `result`가 `.then` 핸들러의 체인(사슬)을 통해 전달된다는 점에서 착안한 아이디어입니다.
 
+<<<<<<< HEAD
 위 예시는 아래와 같은 순서로 실행됩니다.
 1. 1초 후 최초 프라미스가 이행됩니다. -- `(*)`
 2. 이후 첫번째 `.then` 핸들러가 호출됩니다. --`(**)`
 3. 2에서 반환한 값은 다음 `.then` 핸들러에 전달됩니다. -- `(***)`
 4. 이런 과정이 계속 이어집니다.
+=======
+Here the flow is:
+1. The initial promise resolves in 1 second `(*)`,
+2. Then the `.then` handler is called `(**)`, which in turn creates a new promise (resolved with `2` value).
+3. The next `then` `(***)` gets the result of the previous one, processes it (doubles) and passes it to the next handler.
+4. ...and so on.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 `result`가 핸들러 체인을 따라 전달되므로, `alert` 창엔 `1`, `2`, `4`가 순서대로 출력됩니다.
 
 ![](promise-then-chain.svg)
 
+<<<<<<< HEAD
 프라미스 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 반환된 프라미스엔 당연히 `.then`을 호출할 수 있습니다.
+=======
+The whole thing works, because every call to a `.then` returns a new promise, so that we can call the next `.then` on it.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 한편 핸들러가 값을 반환할 때엔 이 값이 프라미스의 `result`가 됩니다. 따라서 다음 `.then`은 이 값을 이용해 호출됩니다.
 
@@ -266,7 +278,11 @@ fetch('/article/promise-chaining/user.json')
 
 불러온 사용자 정보를 가지고 무언가를 더 해보겠습니다.
 
+<<<<<<< HEAD
 GitHub에 요청을 보내 사용자 프로필을 불러오고 아바타를 출력해 보는 것같이 말이죠.
+=======
+For instance, we can make one more request to GitHub, load the user profile and show the avatar:
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 ```js run
 // user.json에 요청을 보냅니다.
@@ -333,8 +349,7 @@ function loadJson(url) {
 }
 
 function loadGithubUser(name) {
-  return fetch(`https://api.github.com/users/${name}`)
-    .then(response => response.json());
+  return loadJson(`https://api.github.com/users/${name}`);
 }
 
 function showAvatar(githubUser) {

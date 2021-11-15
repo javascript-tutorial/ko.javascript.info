@@ -14,8 +14,15 @@ importance: 5
 
 공식은 아래와 같습니다.
 ```js
+<<<<<<< HEAD
 // initial: 계산 전의 잔고
 // interest: 이자율. 0.05는 연 5%의 이자율을 의미합니다.
 // years: 예금 유치 기간으로, 연 단위
 let result = Math.round(initial * (1 + interest * years));
+=======
+// initial: the initial money sum
+// interest: e.g. 0.05 means 5% per year
+// years: how many years to wait
+let result = Math.round(initial * (1 + interest) ** years);
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 ```
