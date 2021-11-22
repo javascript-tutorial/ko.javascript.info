@@ -2,17 +2,28 @@
 
 이진 데이터가 문자열이라면 어떨지 생각해봅시다. 예를 들어 텍스트 데이터가 있는 파일을 받았다고 가정하겠습니다.
 
+<<<<<<< HEAD
 내장 객체, [TextDecoder](https://encoding.spec.whatwg.org/#interface-textdecoder)는 주어진 버퍼와 인코딩으로 값을 실제 자바스크립트 문자열로 읽을 수 있게 해줍니다.
+=======
+The built-in [TextDecoder](https://encoding.spec.whatwg.org/#interface-textdecoder) object allows one to read the value into an actual JavaScript string, given the buffer and the encoding.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 첫 번째로 객체를 생성합니다.
 ```js
 let decoder = new TextDecoder([label], [options]);
 ```
 
+<<<<<<< HEAD
 - **`label`** -- 기본적인 인코딩 방식은 `utf-8`이지만 `big5`, `windows-1251` 및 다른 인코딩 방식도 지원됩니다.
 - **`options`** -- 선택 항목입니다.
   - **`fatal`** -- 불린 값. `true`인 경우, 잘못된 글자(디코딩 불가능한 글자)를 대상으로 예외를 던집니다. `false(기본값)`인 경우, 글자를 `\uFFFD`로 대체합니다.
   - **`ignoreBOM`** -- 불린 값이 `true`인 경우 사용되지 않는 바이트 순서 표식(Byte Order Mark, BOM)을 무시합니다.
+=======
+- **`label`** -- the encoding, `utf-8` by default, but `big5`, `windows-1251` and many other are also supported.
+- **`options`** -- optional object:
+  - **`fatal`** -- boolean, if `true` then throw an exception for invalid (non-decodable) characters, otherwise (default) replace them with character `\uFFFD`.
+  - **`ignoreBOM`** -- boolean, if `true` then ignore BOM (an optional byte-order Unicode mark), rarely needed.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 그런 다음 생성했던 객체를 디코딩합니다.
 
