@@ -5,7 +5,7 @@
 
 정규 표현식에서 특별한 의미를 가지는 다른 특수 문자도 있습니다. 이는 보다 강력한 검색에 사용됩니다. 다음은 전체 리스트 입니다 : `pattern:[ \ ^ $ . | ? * + ( )`.
 
-Don't try to remember the list -- soon we'll deal with each of them separately and you'll know them by heart automatically.
+곧 리스트를 각각 다룰 것이고 자동적으로 알게 될 것이기 때문에 기억하려고 하지 않아도 됩니다.
 
 ## Escaping
 
