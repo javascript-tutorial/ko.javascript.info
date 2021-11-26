@@ -1,9 +1,9 @@
 
 # Escaping, special characters
 
-As we've seen, a backslash `pattern:\` is used to denote character classes, e.g. `pattern:\d`. So it's a special character in regexps (just like in regular strings).
+본 바와 같이, 백슬래쉬 `pattern:\`는 글자 클래스를 나타내는데 사용됩니다, 예 : `pattern:\d`.그래서 이는 정규 표현식의 특수문자 입니다. (일반 문자열도 해당).
 
-There are other special characters as well, that have special meaning in a regexp. They are used to do more powerful searches. Here's a full list of them: `pattern:[ \ ^ $ . | ? * + ( )`.
+정규 표현식에서 특별한 의미를 가지는 다른 특수 문자도 있습니다. 이는 보다 강력한 검색에 사용됩니다. 다음은 전체 리스트 입니다 : `pattern:[ \ ^ $ . | ? * + ( )`.
 
 Don't try to remember the list -- soon we'll deal with each of them separately and you'll know them by heart automatically.
 
