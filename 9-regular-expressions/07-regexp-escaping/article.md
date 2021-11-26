@@ -7,11 +7,11 @@
 
 곧 리스트를 각각 다룰 것이고 자동적으로 알게 될 것이기 때문에 기억하려고 하지 않아도 됩니다.
 
-## Escaping
+## 이스케이프
 
-Let's say we want to find literally a dot. Not "any character", but just a dot.
+문자 그대로 '.'을 찾는다고 해봅시다. 모든 글자가 아니라 진짜 '.'을 찾습니다.
 
-To use a special character as a regular one, prepend it with a backslash: `pattern:\.`.
+특수 문자를 일반 문자로 사용하려면, 백슬래쉬 앞에 '.'을 붙입니다 : `pattern:\.`.
 
 That's also called "escaping a character".
 
