@@ -1,7 +1,7 @@
 
 # 이스케이프, 특수 문자
 
-본 바와 같이, 백슬래쉬 `pattern:\`는 글자 클래스를 나타내는데 사용됩니다, 예 : `pattern:\d`. 따라서 이는 정규 표현식의 특수문자 입니다. (일반 문자열도 해당).
+본 바와 같이 백슬래쉬 `pattern:\`는 문자 클래스(`pattern:\d`)를 나타내는데 사용됩니다. 따라서 이는 정규 표현식의 특수문자 입니다. (일반 문자열도 해당).
 
 정규 표현식에서 특별한 의미를 가지는 다른 특수 문자도 있습니다. 이는 보다 강력한 검색에 사용됩니다. 다음은 전체 리스트`pattern:[ \ ^ $ . | ? * + ( )` 입니다. 
 
@@ -9,16 +9,16 @@
 
 ## 이스케이프
 
-문자 그대로 '.'을 찾는다고 해봅시다. 모든 글자가 아니라 진짜 '.'을 찾습니다.
+문자 그대로 '.'을 찾는다고 해봅시다. 모든 글자가 아니라 진짜 점을 찾습니다.
 
-특수 문자를 일반 문자로 사용하려면, '.' 앞에 백슬래쉬를`pattern:\.` 붙입니다 : `pattern:\.`.
+특수 문자를 일반 문자로 사용하려면, 점 앞에 백슬래쉬`pattern:\.`를 붙입니다.
 
-That's also called "escaping a character".
+"탈출문자"이라고도 합니다.
 
-For example:
+예시:
 ```js run
-alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (match!)
-alert( "Chapter 511".match(/\d\.\d/) ); // null (looking for a real dot \.)
+alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (일치 항목!)
+alert( "Chapter 511".match(/\d\.\d/) ); // null (진짜 점\.를 찾고 있습니다)
 ```
 
 Parentheses are also special characters, so if we want them, we should use `pattern:\(`. The example below looks for a string `"g()"`:
