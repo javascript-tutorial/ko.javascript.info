@@ -77,7 +77,7 @@ alert("\d\.\d"); // d.d
 - `\u1234` -- 해당 코드를 의미하는 유니코드 문자,
 - ...`pattern:\d` 와 `\z`같이 특별한 의미를 갖지 않으면 백슬래시는 제거 됩니다.
 
-그래서 `new RegExp`는 백슬래시가 없는 문자열을 받습니다. 따로 찾을 필요가 없습니다!
+그래서 `new RegExp`는 백슬래시가 없는 문자열을 받습니다. 따로 검색 할 필요가 없습니다!
 
 문자열 따옴표가 `\\`을 `\`으로 바꾸기 때문에 해결하기 이 문제를 위해서는 백슬래시를 두배로 사용해야 합니다.
 
@@ -92,8 +92,8 @@ let regexp = new RegExp(regStr);
 alert( "Chapter 5.1".match(regexp) ); // 5.1
 ```
 
-## Summary
+## 요약
 
-- To search for special characters `pattern:[ \ ^ $ . | ? * + ( )` literally, we need to prepend them with a backslash `\` ("escape them").
+- 특수 문자`pattern:[ \ ^ $ . | ? * + ( )`를 문자 그대로 검색하려면 백슬래시`\` ("escape them")를 앞에 붙여야 합니다.
 - We also need to escape `/` if we're inside `pattern:/.../` (but not inside `new RegExp`).
-- When passing a string `new RegExp`, we need to double backslashes `\\`, cause string quotes consume one of them.
+- 문자열`new RegExp`를 전달할 때 문자열 따옴표가 백슬래시 중 한 개를 사용하기 때문에 두배의 백슬래시`\\`가 필요합니다.
