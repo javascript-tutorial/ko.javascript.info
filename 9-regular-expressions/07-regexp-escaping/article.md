@@ -1,9 +1,9 @@
 
 # 이스케이프, 특수 문자
 
-본 바와 같이 백슬래시 `pattern:\`는 문자 클래스(예:`pattern:\d`)를 나타내는데 사용됩니다. 따라서 이는 정규 표현식의 특수문자 입니다. (일반 문자열도 해당).
+본 바와 같이 백슬래시 `pattern:\`는 문자 클래스(예:`pattern:\d`)를 나타내는데 사용됩니다. 따라서 이는 정규식의 특수문자 입니다. (일반 문자열도 해당).
 
-정규 표현식에서 특별한 의미를 가지는 다른 특수 문자도 있습니다. 이는 보다 강력한 검색에 사용됩니다. 다음은 전체 리스트`pattern:[ \ ^ $ . | ? * + ( )` 입니다. 
+정규식에서 특별한 의미를 가지는 다른 특수 문자도 있습니다. 이는 보다 강력한 검색에 사용됩니다. 다음은 전체 리스트`pattern:[ \ ^ $ . | ? * + ( )` 입니다. 
 
 곧 리스트를 각각 다룰 것이고 자동적으로 알게 될 것이기 때문에 기억하려고 하지 않아도 됩니다.
 
@@ -13,7 +13,7 @@
 
 특수 문자를 일반 문자로 사용하려면, 점 앞에 백슬래시`pattern:\.`를 붙입니다.
 
-"탈출문자"라고도 합니다.
+"문자 이스케이프"라고도 합니다.
 
 예시:
 ```js run
@@ -27,7 +27,7 @@ alert( "Chapter 511".match(/\d\.\d/) ); // null (진짜 점\.를 찾고 있습�
 alert( "function g()".match(/g\(\)/) ); // "g()"
 ```
 
-백슬래시 `\`를 찾고 있다면 일반 문자열과 정규 표현식에서 모두 특수 문자이기 때문에 두 번 작성해야 합니다.
+백슬래시 `\`를 찾고 있다면 일반 문자열과 정규식에서 모두 특수 문자이기 때문에 두 번 작성해야 합니다.
 
 ```js run
 alert( "1\\2".match(/\\/) ); // '\'
@@ -35,25 +35,25 @@ alert( "1\\2".match(/\\/) ); // '\'
 
 ## 슬래시
 
-ㅅ`'/'` is not a special character, but in JavaScript it is used to open and close the regexp: `pattern:/...pattern.../`, so we should escape it too.
+슬래시`'/'`기호는 특수 문자가 아니지만 자바스크립트에서는 정규표현식: `pattern:/...pattern.../`을 열고 닫는데 사용하기 때문에 이 문자도 이스케이프 해야 합니다.
 
-Here's what a search for a slash `'/'` looks like:
+슬래시`'/'`를 찾는 방법은 다음과 같습니다.
 
 ```js run
 alert( "/".match(/\//) ); // '/'
 ```
 
-On the other hand, if we're not using `pattern:/.../`, but create a regexp using `new RegExp`, then we don't need to escape it:
+다른 방법으로 `pattern:/.../`을 사용하지 않고 `new RegExp`로 새로운 정규식을 만들 때 이스케이프 시킬 필요가 없습니다.
 
 ```js run
 alert( "/".match(new RegExp("/")) ); // finds /
 ```
 
-## new RegExp
+## 새로운 정규식
 
-If we are creating a regular expression with `new RegExp`, then we don't have to escape `/`, but need to do some other escaping.
+`new RegExp`으로 새로운 정규 표현식을 만드는 경우 `/`를 이스케이프 할 필요가 없지만 다른 이스케이프 처리를 해야 합니다.
 
-For instance, consider this:
+위 내용을 고려하여 예를 들어봅시다.
 
 ```js run
 let regexp = new RegExp("\d\.\d");
@@ -61,23 +61,23 @@ let regexp = new RegExp("\d\.\d");
 alert( "Chapter 5.1".match(regexp) ); // null
 ```
 
-The similar search in one of previous examples worked with `pattern:/\d\.\d/`, but `new RegExp("\d\.\d")` doesn't work, why?
+이전의 유사한 예제`pattern:/\d\.\d/`는 잘 작동했지만 `new RegExp("\d\.\d")`는 작동하지 않는데 왜 그럴까요?
 
-The reason is that backslashes are "consumed" by a string. As we may recall, regular strings have their own special characters, such as `\n`, and a backslash is used for escaping.
+백슬래시는 문자열에 의해 "소비"되기 때문입니다. 기억하듯이 일반 문자열에는 `\n`과 같은 각자의 특수 문자가 있으며 백슬래시는 이스케이프에 사용됩니다.
 
-Here's how "\d\.\d" is preceived:
+"\d\.\d"의 예를 보겠습니다.
 
 ```js run
 alert("\d\.\d"); // d.d
 ```
 
-String quotes "consume" backslashes and interpret them on their own, for instance:
+예시된 다음 문자열은 백슬래시를 "소비"하고 해석하는데 살펴 봅시다.
 
-- `\n` -- becomes a newline character,
-- `\u1234` -- becomes the Unicode character with such code,
-- ...And when there's no special meaning: like `pattern:\d` or `\z`, then the backslash is simply removed.
+- `\n` -- 줄 바꿈 문자,
+- `\u1234` -- 해당 코드를 의미하는 유니코드 문자,
+- ...`pattern:\d` 와 `\z`같이 특별한 의미를 갖지 않으면 백슬래시는 제거 됩니다.
 
-So `new RegExp` gets a string without backslashes. That's why the search doesn't work!
+그래서 `new RegExp`은 백슬래시가 없는 문자열을 받습니다. That's why the search doesn't work!
 
 To fix it, we need to double backslashes, because string quotes turn `\\` into `\`:
 
