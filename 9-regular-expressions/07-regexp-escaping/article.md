@@ -96,4 +96,4 @@ alert( "Chapter 5.1".match(regexp) ); // 5.1
 
 - 특수 문자`pattern:[ \ ^ $ . | ? * + ( )`를 문자 그대로 검색하려면 백슬래시`\` ("escape them")를 앞에 붙여야 합니다.
 - We also need to escape `/` if we're inside `pattern:/.../` (but not inside `new RegExp`).
-- 문자열`new RegExp`를 전달할 때 문자열 따옴표가 백슬래시 중 한 개를 사용하기 때문에 두배의 백슬래시`\\`가 필요합니다.
+- 문자열`new RegExp`을 전달할 때 문자열 따옴표가 백슬래시 중 한 개를 사용하기 때문에 두배의 백슬래시`\\`가 필요합니다.
