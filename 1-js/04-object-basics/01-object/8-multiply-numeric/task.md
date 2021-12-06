@@ -2,9 +2,15 @@ importance: 3
 
 ---
 
+<<<<<<< HEAD
 # 프로퍼티 값 두 배로 부풀리기
 
 객체 `obj`의 프로퍼티 값이 숫자인 경우 그 값을 `두 배` 해주는 함수 `multiplyNumeric(obj)`을 만들어보세요.
+=======
+# Multiply numeric property values by 2
+
+Create a function `multiplyNumeric(obj)` that multiplies all numeric property values of `obj` by `2`.
+>>>>>>> a82915575863d33db6b892087975f84dea6cb425
 
 예시:
 
