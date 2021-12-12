@@ -1,169 +1,169 @@
-# Sets and ranges [...]
+# 세트와 범위 [...]
 
-Several characters or character classes inside square brackets `[…]` mean to "search for any character among given".
+대괄호 `[…]` 안의 여러 문자나 문자 클래스는 "주어진 문자 중 아무 문자나 검색"을 의미합니다.
 
-## Sets
+## 세트
 
-For instance, `pattern:[eao]` means any of the 3 characters: `'a'`, `'e'`, or `'o'`.
+예를 들어, `pattern:[eao]`는 `'a'`, `'e'` 또는 `'o'` 3가지 문자 중 하나를 의미합니다.
 
-That's called a *set*. Sets can be used in a regexp along with regular characters:
+이것을 *세트*라고 합니다. 세트는 일반 문자와 함께 정규식에 사용할 수 있습니다.
 
 ```js run
-// find [t or m], and then "op"
+// [t 또는 m], 그리고 "op"를 찾습니다.
 alert( "Mop top".match(/[tm]op/gi) ); // "Mop", "top"
 ```
 
-Please note that although there are multiple characters in the set, they correspond to exactly one character in the match.
+세트에는 여러 문자가 있지만, 매치 항목에서 정확히 하나의 문자에 해당한다는 점을 유의해야 합니다.
 
-So the example below gives no matches:
+따라서 아래 예시는 어떤 것과도 일치하지 않습니다.
 
 ```js run
-// find "V", then [o or i], then "la"
-alert( "Voila".match(/V[oi]la/) ); // null, no matches
+// "V", [o 또는 i], 그리고 "la"를 찾습니다.
+alert( "Voila".match(/V[oi]la/) ); // null, 일치하지 않습니다.
 ```
 
-The pattern searches for:
+해당 패턴은 다음 항목을 검색합니다.
 
 - `pattern:V`,
-- then *one* of the letters `pattern:[oi]`,
-- then `pattern:la`.
+- 그런 다음 문자 `pattern:[oi]` 중 *하나*,
+- 그리고 `pattern:la`.
 
-So there would be a match for `match:Vola` or `match:Vila`.
+따라서 `match:Vola` 또는 `match:Vila`와 일치할 것입니다.
 
-## Ranges
+## 범위
 
-Square brackets may also contain *character ranges*.
+대괄호에는 *문자 범위*가 포함될 수도 있습니다.
 
-For instance, `pattern:[a-z]` is a character in range from `a` to `z`, and `pattern:[0-5]` is a digit from `0` to `5`.
+예를 들어, `pattern:[a-z]`는 `a`부터 `z`까지의 문자이고, `pattern:[0-5]`는 `0`부터 `5`까지의 숫자입니다.
 
-In the example below we're searching for `"x"` followed by two digits or letters from `A` to `F`:
+아래 예시에서는 `"x"` 다음에 `A`부터 `F` 까지의 두 자리 숫자 또는 문자를 검색합니다.
 
 ```js run
 alert( "Exception 0xAF".match(/x[0-9A-F][0-9A-F]/g) ); // xAF
 ```
 
-Here `pattern:[0-9A-F]` has two ranges: it searches for a character that is either a digit from `0` to `9` or a letter from `A` to `F`.
+여기 `pattern:[0-9A-F]`에는 두 가지 범위가 있습니다. `0`부터 `9`까지의 숫자나 `A`부터 `F`까지의 문자에 포함되는 문자 하나를 검색합니다.
 
-If we'd like to look for lowercase letters as well, we can add the range `a-f`: `pattern:[0-9A-Fa-f]`. Or add the flag `pattern:i`.
+소문자도 찾고 싶다면 `a-f`: `pattern:[0-9A-Fa-f]` 범위를 추가할 수 있습니다. 또는 플래그 `pattern:i`를 사용할 수 있습니다.
 
-We can also use character classes inside `[…]`.
+또한 `[…]` 내에서 문자 클래스를 사용할 수도 있습니다.
 
-For instance, if we'd like to look for a wordly character `pattern:\w` or a hyphen `pattern:-`, then the set is `pattern:[\w-]`.
+예를 들어, 단어로 된 문자 `pattern:\w` 또는 하이픈 `pattern:-`을 찾고자 한다면 세트는 `pattern:[\w-]`입니다.
 
-Combining multiple classes is also possible, e.g. `pattern:[\s\d]` means "a space character or a digit".
+여러 클래스를 결합하는 것도 가능합니다. `pattern:[\s\d]`는 "공백 문자 또는 숫자"를 의미합니다.
 
-```smart header="Character classes are shorthands for certain character sets"
-For instance:
+```smart header="문자 클래스는 특정 문자 집합의 약어입니다."
+예시:
 
-- **\d** -- is the same as `pattern:[0-9]`,
-- **\w** -- is the same as `pattern:[a-zA-Z0-9_]`,
-- **\s** -- is the same as `pattern:[\t\n\v\f\r ]`, plus few other rare unicode space characters.
+- **\d** -- `pattern:[0-9]`와 같습니다,
+- **\w** -- `pattern:[a-zA-Z0-9_]`와 같습니다,
+- **\s** -- `pattern:[\t\n\v\f\r ]`와 같으며, 다른 희귀한 유니코드 공백 문자가 거의 없습니다.
 ```
 
-### Example: multi-language \w
+### 예시: 다국어 \w
 
-As the character class `pattern:\w` is a shorthand for `pattern:[a-zA-Z0-9_]`, it can't find Chinese hieroglyphs, Cyrillic letters, etc.
+문자 클래스 `pattern:\w`는 `pattern:[a-zA-Z0-9_]`의 약어이므로 중국어 상형 문자, 키릴 문자 등을 찾을 수 없습니다.
 
-We can write a more universal pattern, that looks for wordly characters in any language. That's easy with unicode properties: `pattern:[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]`.
+우리는 어떤 언어에서든, 단어로 된 문자를 찾기 위해 더욱 보편적인 패턴을 작성할 수 있습니다. 이는 유니코드 속성을 사용하면 쉽습니다. `pattern:[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]`
 
-Let's decipher it. Similar to `pattern:\w`, we're making a set of our own that includes characters with following unicode properties:
+해독해 봅시다. `pattern:\w`와 유사하게, 다음과 같은 유니코드 속성을 가진 문자를 포함하는 고유한 세트를 만들고 있습니다.
 
-- `Alphabetic` (`Alpha`) - for letters,
-- `Mark` (`M`) - for accents,
-- `Decimal_Number` (`Nd`) - for digits,
-- `Connector_Punctuation` (`Pc`) - for the underscore `'_'` and similar characters,
-- `Join_Control` (`Join_C`) - two special codes `200c` and `200d`, used in ligatures, e.g. in Arabic.
+- `Alphabetic` (`Alpha`) - 문자,
+- `Mark` (`M`) - 악센트,
+- `Decimal_Number` (`Nd`) - 숫자,
+- `Connector_Punctuation` (`Pc`) - 밑줄 `'_'` 및 유사한 문자,
+- `Join_Control` (`Join_C`) - 예를 들어, 아랍어와 같은 기호에서 사용되는 두 특수 코드 `200c` 및 `200d`.
 
-An example of use:
+사용 예:
 
 ```js run
 let regexp = /[\p{Alpha}\p{M}\p{Nd}\p{Pc}\p{Join_C}]/gu;
 
 let str = `Hi 你好 12`;
 
-// finds all letters and digits:
+// 모든 문자와 숫자를 찾습니다.
 alert( str.match(regexp) ); // H,i,你,好,1,2
 ```
 
-Of course, we can edit this pattern: add unicode properties or remove them. Unicode properties are covered in more details in the article <info:regexp-unicode>.
+물론 이 패턴은 유니코드 속성을 추가하거나 제거하여 편집할 수 있습니다. 유니코드 속성은 <info:regexp-unicode> 문서에 자세히 설명되어 있습니다.
 
-```warn header="Unicode properties aren't supported in Edge and Firefox"
-Unicode properties `pattern:p{…}` are not yet implemented in Edge and Firefox. If we really need them, we can use library [XRegExp](http://xregexp.com/).
+```warn header="Edge와 Firefox에서는 유니코드 속성이 지원되지 않습니다."
+유니코드 속성 `pattern:p{…}`는 아직 Edge와 Firefox에 구현되지 않았습니다. 정말 필요하다면, [XRegExp](http://xregexp.com/) 라이브러리를 사용할 수 있습니다.
 
-Or just use ranges of characters in a language that interests us, e.g.  `pattern:[а-я]` for Cyrillic letters.
+혹은 관심 있는 언어의 문자 범위를 사용하세요. 키릴 문자의 경우 `pattern:[а-я]`.
 ```
 
-## Excluding ranges
+## 범위를 제외
 
-Besides normal ranges, there are "excluding" ranges that look like `pattern:[^…]`.
+일반적인 범위 외에도, `pattern:[^…]`처럼 보이는 "제외" 범위가 있습니다.
 
-They are denoted by a caret character `^` at the start and match any character *except the given ones*.
+시작 부분에 캐럿 문자 `^`로 표시되며 *주어진 문자를 제외한* 모든 문자와 일치합니다.
 
-For instance:
+예시:
 
-- `pattern:[^aeyo]` -- any character except  `'a'`, `'e'`, `'y'` or `'o'`.
-- `pattern:[^0-9]` -- any character except a digit, the same as `pattern:\D`.
-- `pattern:[^\s]` -- any non-space character, same as `\S`.
+- `pattern:[^aeyo]` -- `'a'`, `'e'`, `'y'` 또는 `'o'`를 제외한 모든 문자.
+- `pattern:[^0-9]` -- 숫자를 제외한 모든 문자, `pattern:\D`와 동일.
+- `pattern:[^\s]` -- 공백이 아닌 모든 문자, `\S`와 동일.
 
-The example below looks for any characters except letters, digits and spaces:
+아래 예시는 문자, 숫자, 공백을 제외한 모든 문자를 찾습니다.
 
 ```js run
-alert( "alice15@gmail.com".match(/[^\d\sA-Z]/gi) ); // @ and .
+alert( "alice15@gmail.com".match(/[^\d\sA-Z]/gi) ); // @ 그리고 .
 ```
 
-## Escaping in […]
+## […]에서 이스케이프
 
-Usually when we want to find exactly a special character, we need to escape it like `pattern:\.`. And if we need a backslash, then we use `pattern:\\`, and so on.
+일반적으로 특수 문자를 정확히  찾으려면 `pattern:\.`과 같이 이스케이프해야 합니다. 그리고 역슬래시가 필요한 경우 `pattern:\\` 등을 사용합니다.
 
-In square brackets we can use the vast majority of special characters without escaping:
+대괄호 안에는 대부분의 특수 문자를 이스케이프하지 않고 사용할 수 있습니다.
 
-- Symbols `pattern:. + ( )` never need escaping.
-- A hyphen `pattern:-` is not escaped in the beginning or the end (where it does not define a range).
-- A caret `pattern:^` is only escaped in the beginning (where it means exclusion).
-- The closing square bracket `pattern:]` is always escaped (if we need to look for that symbol).
+- 기호 `pattern:. + ( )`는 이스케이프가 필요하지 않습니다.
+- 하이픈 `pattern:-`은 시작이나 끝에서 이스케이프되지 않습니다(범위를 정의하지 않는 경우).
+- 캐럿 `pattern:^`은 시작 부분에서만 이스케이프됩니다(제외를 의미).
+- 닫는 대괄호 `pattern:]`는 항상 이스케이프됩니다(해당 기호를 찾아야 하는 경우).
 
-In other words, all special characters are allowed without escaping, except when they mean something for square brackets.
+즉, 대괄호를 의미하는 경우를 제외하고 모든 특수 문자는 이스케이프 없이 허용됩니다.
 
-A dot `.` inside square brackets means just a dot. The pattern `pattern:[.,]` would look for one of characters: either a dot or a comma.
+대괄호 안에 점 `.`은 단순히 점을 의미합니다. 패턴 `pattern:[.,]`은 점이나 쉼표 문자 중 하나를 찾습니다.
 
-In the example below the regexp `pattern:[-().^+]` looks for one of the characters `-().^+`:
+아래 예에서 정규식 `pattern:[-().^+]`은 `-().^+` 문자 중 하나를 찾습니다.
 
 ```js run
-// No need to escape
+// 이스케이프가 필요하지 않습니다.
 let regexp = /[-().^+]/g;
 
-alert( "1 + 2 - 3".match(regexp) ); // Matches +, -
+alert( "1 + 2 - 3".match(regexp) ); // +, -와 일치합니다.
 ```
 
-...But if you decide to escape them "just in case", then there would be no harm:
+그러나 "만약을 대비하여" 이스케이프하기로 결정했어도 아무런 문제가 없을 것입니다.
 
 ```js run
-// Escaped everything
+// 모든 것을 이스케이프
 let regexp = /[\-\(\)\.\^\+]/g;
 
-alert( "1 + 2 - 3".match(regexp) ); // also works: +, -
+alert( "1 + 2 - 3".match(regexp) ); // +, -로 작동합니다.
 ```
 
-## Ranges and flag "u"
+## 범위와 플래그 "u"
 
-If there are surrogate pairs in the set, flag `pattern:u` is required for them to work correctly.
+세트에 서로게이트 쌍이 있는 경우, 올바르게 작동하려면 플래그 `pattern:u`가 필요합니다.
 
-For instance, let's look for `pattern:[𝒳𝒴]` in the string `subject:𝒳`:
+예를 들어, `subject:𝒳` 문자열에서 `pattern:[𝒳𝒴]`를 찾아보겠습니다.
 
 ```js run
-alert( '𝒳'.match(/[𝒳𝒴]/) ); // shows a strange character, like [?]
-// (the search was performed incorrectly, half-character returned)
+alert( '𝒳'.match(/[𝒳𝒴]/) ); // [?]와 같은 이상한 문자를 보여줍니다.
+// (검색이 잘못 수행되어 반 문자 반환)
 ```
 
-The result is incorrect, because by default regular expressions "don't know" about surrogate pairs.
+기본적으로 서로게이트 쌍에 대해 "모르는" 정규 표현식이 있기 때문에 결과가 올바르지 않습니다.
 
-The regular expression engine thinks that `[𝒳𝒴]` -- are not two, but four characters:
-1. left half of `𝒳` `(1)`,
-2. right half of `𝒳` `(2)`,
-3. left half of `𝒴` `(3)`,
-4. right half of `𝒴` `(4)`.
+정규 표현식 엔진은 `[𝒳𝒴]`가 두 글자가 아니라, 네 글자라고 생각합니다.
+1. `𝒳`의 왼쪽 절반 `(1)`,
+2. `𝒳`의 오른쪽 절반 `(2)`,
+3. `𝒴`의 왼쪽 절반 `(3)`,
+4. `𝒴`의 오른쪽 절반 `(4)`.
 
-We can see their codes like this:
+다음과 같은 코드를 볼 수 있습니다.
 
 ```js run
 for(let i=0; i<'𝒳𝒴'.length; i++) {
@@ -171,27 +171,27 @@ for(let i=0; i<'𝒳𝒴'.length; i++) {
 };
 ```
 
-So, the example above finds and shows the left half of `𝒳`.
+따라서, 위의 예는 `𝒳`의 왼쪽 절반을 찾아서 보여줍니다.
 
-If we add flag `pattern:u`, then the behavior will be correct:
+플래그 `pattern:u`를 추가한다면 올바르게 동작할 것입니다.
 
 ```js run
 alert( '𝒳'.match(/[𝒳𝒴]/u) ); // 𝒳
 ```
 
-The similar situation occurs when looking for a range, such as `[𝒳-𝒴]`.
+`[𝒳-𝒴]`와 같이 범위를 찾을 때도 비슷한 상황이 발생합니다.
 
-If we forget to add flag `pattern:u`, there will be an error:
+플래그 `pattern:u`를 추가하는 것을 잊었다면, 에러가 발생할 것입니다.
 
 ```js run
 '𝒳'.match(/[𝒳-𝒴]/); // Error: Invalid regular expression
 ```
 
-The reason is that without flag `pattern:u` surrogate pairs are perceived as two characters, so `[𝒳-𝒴]` is interpreted as `[<55349><56499>-<55349><56500>]` (every surrogate pair is replaced with its codes). Now it's easy to see that the range `56499-55349` is invalid: its starting code `56499` is greater than the end `55349`. That's the formal reason for the error.
+그 이유는, 플래그 `pattern:u`가 없는 서로게이트 쌍은 두 문자로 인식되기 때문에 `[𝒳-𝒴]`가 `[<55349><56499>-<55349><56500>]`로 해석됩니다(모든 서로게이트 쌍은 해당 코드로 대체). 이제 `56499-55349` 범위가 유효하지 않음을 쉽게 알 수 있습니다. 시작 코드 `56499`는 끝 코드 `55349`보다 큽니다. 이것이 에러의 공식적인 이유입니다.
 
-With the flag `pattern:u` the pattern works correctly:
+플래그 `pattern:u`를 사용하면 패턴이 올바르게 작동합니다.
 
 ```js run
-// look for characters from 𝒳 to 𝒵
+// 𝒳부터 𝒵까지의 문자를 찾습니다.
 alert( '𝒴'.match(/[𝒳-𝒵]/u) ); // 𝒴
 ```
