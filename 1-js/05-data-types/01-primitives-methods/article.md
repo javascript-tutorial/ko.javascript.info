@@ -39,8 +39,13 @@ john.sayHi(); // 친구야 반갑다!
 
 자바스크립트 창안자(creator)는 다음과 같은 모순적인 상황을 해결해야만 했었습니다.
 
+<<<<<<< HEAD
 - 문자열이나 숫자와 같은 원시값을 다루어야 하는 작업이 많은데, 메서드를 사용하면 작업을 수월하게 할 수 있을 것 같다는 생각이 듭니다.
 - 그런데 원시값은 가능한 한 빠르고 가벼워야 합니다.
+=======
+- There are many things one would want to do with a primitive like a string or a number. It would be great to access them using methods.
+- Primitives must be as fast and lightweight as possible.
+>>>>>>> c5358c59494b53efb832c81a5338e0a23b22c269
 
 조금 어색해 보이지만, 자바스크립트 창안자는 아래와 같은 방법을 사용해 해결책을 모색하였습니다.
 
@@ -48,7 +53,11 @@ john.sayHi(); // 친구야 반갑다!
 2. 문자열, 숫자, 불린, 심볼의 메서드와 프로퍼티에 접근할 수 있도록 언어 차원에서 허용합니다.
 3. 이를 가능하게 하기 위해, 원시값이 메서드나 프로퍼티에 접근하려 하면 추가 기능을 제공해주는 특수한 객체, "원시 래퍼 객체(object wrapper)"를 만들어 줍니다. 이 객체는 곧 삭제됩니다.
 
+<<<<<<< HEAD
 "래퍼 객체"는 원시 타입에 따라 종류가 다양합니다. 각 래퍼 객체는 원시 자료형의 이름을 그대로 차용해, `String`,`Number`,`Boolean`, `Symbol`라고 부릅니다. 래퍼 객체 마다 제공하는 메서드 역시 다릅니다.
+=======
+The "object wrappers" are different for each primitive type and are called: `String`, `Number`, `Boolean`, `Symbol` and `BigInt`. Thus, they provide different sets of methods.
+>>>>>>> c5358c59494b53efb832c81a5338e0a23b22c269
 
 인수로 받은 문자열의 모든 글자를 대문자로 바꿔주는 메서드 [str.toUpperCase()](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase)를 예로 들어보겠습니다.
 

@@ -9,7 +9,11 @@
 
 ## 'script' 태그
 
+<<<<<<< HEAD
 `<script>` 태그를 이용하면 자바스크립트 프로그램을 HTML 문서 대부분의 위치에 삽입할 수 있습니다.
+=======
+JavaScript programs can be inserted almost anywhere into an HTML document using the `<script>` tag.
+>>>>>>> c5358c59494b53efb832c81a5338e0a23b22c269
 
 예시:
 
@@ -73,7 +77,11 @@
 <script src="/path/to/script.js"></script>
 ```
 
+<<<<<<< HEAD
 여기서 `/path/to/script.js`는 사이트의 루트에서부터 파일이 위치한 절대 경로를 나타냅니다. 현재 페이지에서의 상대 경로를 사용하는 것도 가능합니다. 같은 폴더 내에 있는 파일인 `"script.js"`를 `src="script.js"`로 참조하는 것처럼 말이죠.
+=======
+Here, `/path/to/script.js` is an absolute path to the script from the site root. One can also provide a relative path from the current page. For instance, `src="script.js"`, just like `src="./script.js"`, would mean a file `"script.js"` in the current folder.
+>>>>>>> c5358c59494b53efb832c81a5338e0a23b22c269
 
 물론 아래와 같이 URL 전체를 속성으로 사용할 수도 있습니다.
 
