@@ -89,13 +89,13 @@ alert(typeof User); // function
 1. `User`라는 이름을 가진 함수를 만듭니다. 함수 본문은 생성자 메서드 `constructor`에서 가져옵니다. 생성자 메서드가 없으면 본문이 비워진 채로 함수가 만들어집니다.
 2. `sayHi`같은 클래스 내에서 정의한 메서드를 `User.prototype`에 저장합니다.
 
-`new User`를 호출해 객체를 만들고, 객체의 메서드를 호출하면 <info:function-prototype>에서 설명한 것처럼 메서드를 프로토타입에서 가져옵니다. 이 과정이 있기 때문에 객체에서 클래스 메서드에 접근할 수 있습니다.
+`new User`를 호출해 객체를 만들고, 객체의 메서드를 호출하면 <info:function-prototype>에서 설명한 것처럼 메서드를 prototype 프로퍼티를 통해 가져옵니다. 이 과정이 있기 때문에 객체에서 클래스 메서드에 접근할 수 있습니다.
 
 `class User` 선언 결과를 그림으로 나타내면 아래와 같습니다.
 
 ![](class-user.svg)
 
-지금까지 했던 설명을 코드로 표현하면 다음과 같습니다. 
+지금까지 했던 설명을 코드로 표현해 봅시다. 
 
 ```js run
 class User {
@@ -144,20 +144,20 @@ user.sayHi();
 
 그런데 두 방법에는 중요한 차이가 몇 가지 있습니다.
 
-1. `class`로 만든 함수엔 특수 내부 프로퍼티인 `[[FunctionKind]]:"classConstructor"`가 이름표처럼 붙습니다. 이것만으로도 두 방법엔 분명한 차이가 있음을 알 수 있습니다. 
+1. `class`로 만든 함수엔 특수 내부 프로퍼티인 `[[IsClassConstructor]]: true`가 이름표처럼 붙습니다. 이것만으로도 두 방법엔 분명한 차이가 있음을 알 수 있습니다.
 
-    자바스크립트는 다양한 방법을 사용해 함수에 `[[FunctionKind]]:"classConstructor"`가 있는지를 확인합니다. 이런 검증 과정이 있기 때문에 클래스 생성자를 `new`와 함께 호출하지 않으면 에러가 발생합니다.
+    자바스크립트는 다양한 경우에 `[[IsClassConstructor]]: true`를 활용합니다. 클래스 생성자를 `new`와 함께 호출하지 않으면 에러가 발생하는데 이 때 `[[IsClassConstructor]]: true`가 사용됩니다.
 
     ```js run
     class User {
       constructor() {}
     }
 
-    alert(typeof User); // function
+    alert(typeof User); // User의 타입은 함수이긴 하지만 그냥 호출할 수 없습니다.
     User(); // TypeError: Class constructor User cannot be invoked without 'new'
     ```
 
-    대부분의 자바스크립트 엔진이 클래스 생성자를 문자열로 표현할 때 'class...'로 시작하는 문자열로 표현한다는 점 역시 다릅니다.
+    클래스 생성자를 문자열로 형변환하면 'class...'로 시작하는 문자열이 되는데 이때도 `[[IsClassConstructor]]: true`가 사용됩니다.
 
     ```js run
     class User {
@@ -166,10 +166,10 @@ user.sayHi();
 
     alert(User); // class User { ... }
     ```
-    또 다른 차이점들에 대해선 더 살펴볼 예정입니다.
+    또 다른 차이점들에 대해선 곧 더 살펴보겠습니다.
 
-2. 클래스 메서드는 열거할 수 없습니다(non-enumerable).
-    클래스의 `prototype` 프로퍼티에 추가된 메서드 전체의 `enumerable` 플래그는 `false`입니다.
+2. 클래스에 정의된 메서드는 열거할 수 없습니다(non-enumerable).
+    클래스의 `prototype` 프로퍼티에 추가된 메서드의 `enumerable` 플래그는 `false`입니다.
 
     `for..in`으로 객체를 순회할 때, 메서드는 순회 대상에서 제외하고자 하는 경우가 많으므로 이 특징은 꽤 유용합니다.
 
@@ -187,7 +187,7 @@ user.sayHi();
 ```js
 let User = class {
   sayHi() {
-    alert("Hello");
+    alert("안녕하세요.");
   }
 };
 ```
@@ -205,7 +205,7 @@ let User = class *!*MyClass*/!* {
   }
 };
 
-new User().sayHi(); // 제대로 동작합니다(MyClass의 정의를 보여줌).
+new User().sayHi(); // 원하는대로 MyClass의 정의를 보여줍니다.
 
 alert(MyClass); // ReferenceError: MyClass is not defined, MyClass는 클래스 밖에서 사용할 수 없습니다.
 ```
@@ -223,15 +223,15 @@ function makeClass(phrase) {
 }
 
 // 새로운 클래스를 만듦
-let User = makeClass("Hello");
+let User = makeClass("안녕하세요.");
 
-new User().sayHi(); // Hello
+new User().sayHi(); // 안녕하세요.
 ```
 
 
 ## getter와 setter
 
-리터럴을 사용해 만든 객체처럼 클래스도 getter나 setter, 계산된 프로퍼티(computed property)를 포함할 수 있습니다.
+리터럴을 사용해 만든 객체처럼 클래스도 getter나 setter, 계산된 프로퍼티(computed property)를 지원합니다.
 
 `get`과`set`을 이용해 `user.name`을 조작할 수 있게 해봅시다.
 
@@ -261,13 +261,13 @@ class User {
 
 }
 
-let user = new User("John");
-alert(user.name); // John
+let user = new User("보라");
+alert(user.name); // 보라
 
 user = new User(""); // 이름이 너무 짧습니다.
 ```
 
-이런 방법으로 클래스를 선언하면 `User.prototype`에 getter와 setter가 만들어지므로 get과 set을 사용할 수 있습니다.
+참고로 getter와 setter는 `User.prototype`에 정의됩니다.
 
 ## 계산된 메서드 이름 [...]
 
@@ -292,7 +292,7 @@ new User().sayHi();
 ## 클래스 필드
 
 ```warn header="구식 브라우저에선 폴리필이 필요할 수 있습니다."
-클래스 필드는 근래에 더해진 기능입니다.
+클래스 필드는 최근에 더해진 기능입니다.
 ```
 
 지금까지 살펴본 예시엔 메서드가 하나만 있었습니다.
@@ -304,15 +304,15 @@ new User().sayHi();
 ```js run
 class User {
 *!*
-  name = "John";
+  name = "보라";
 */!*
 
   sayHi() {
-    alert(`Hello, ${this.name}!`);
+    alert(`${this.name}님 안녕하세요!`);
   }
 }
 
-new User().sayHi(); // Hello, John!
+new User().sayHi(); // 보라님 안녕하세요!
 ```
 
 클래스를 정의할 때 '<프로퍼티 이름> = <값>'을 써주면 간단히 클래스 필드를 만들 수 있습니다.
@@ -322,12 +322,12 @@ new User().sayHi(); // Hello, John!
 ```js run
 class User {
 *!*
-  name = "John";
+  name = "보라";
 */!*
 }
 
 let user = new User();
-alert(user.name); // John
+alert(user.name); // 보라
 alert(User.prototype.name); // undefined
 ```
 
@@ -347,9 +347,9 @@ alert(user.name); // 보라
 
 ### 클래스 필드로 바인딩 된 메서드 만들기
 
-<info:bind> 챕터에서 살펴본 것처럼 자바스크립트의 함수는 동적인 `this`를 갖습니다.
+<info:bind> 챕터에서 살펴본 것처럼 자바스크립트에서 `this`는 동적으로 결정됩니다.
 
-따라서 객체 메서드를 여기저기 전달해 전혀 다른 컨텍스트에서 호출하게 되면 `this`는 원래 객체를 참조하지 않습니다.
+따라서 객체 메서드를 여기저기 전달해 전혀 다른 컨텍스트에서 호출하게 되면 `this`는 메서드가 정의된 객체를 참조하지 않습니다.
 
 관련 예시를 살펴봅시다. 예시를 실행하면 `undefined`가 출력됩니다.
 
@@ -364,7 +364,7 @@ class Button {
   }
 }
 
-let button = new Button("hello");
+let button = new Button("안녕하세요.");
 
 *!*
 setTimeout(button.click, 1000); // undefined
@@ -373,12 +373,12 @@ setTimeout(button.click, 1000); // undefined
 
 이렇게 `this`의 컨텍스트를 알 수 없게 되는 문제를 '잃어버린 `this`(losing this)'라고 합니다.
 
-문제를 해결하기 위해 두 개의 방법을 사용할 수 있는데 <info:bind>에서 이 방법에 대해 살펴본 바 있습니다.
+문제는 두 방법을 사용해 해결할 수 있는데 <info:bind>에서 이 방법에 대해 알아본 바 있습니다.
 
 1. `setTimeout(() => button.click(), 1000)` 같이 래퍼 함수를 전달하기
 2. 생성자 안 등에서 메서드를 객체에 바인딩하기
 
-클래스 필드는 또 다른 훌륭한 방법을 제공합니다.
+이 두 방법 말고 클래스 필드를 사용해도 우아하게 문제를 해결할 수 있습니다.
 
 ```js run
 class Button {
@@ -392,18 +392,18 @@ class Button {
 */!*
 }
 
-let button = new Button("hello");
+let button = new Button("안녕하세요.");
 
-setTimeout(button.click, 1000); // hello
+setTimeout(button.click, 1000); // 안녕하세요.
 ```
 
-클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들고 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 개발자는 `button.click`을 아무 곳에나 전달할 수 있고, `this`엔 항상 의도한 값이 들어가게 됩니다.
+클래스 필드 `click = () => {...}`는 각 `Button` 객체마다 독립적인 함수를 만들어주고 이 함수의 `this`를 해당 객체에 바인딩시켜줍니다. 따라서 개발자는 `button.click`을 아무 곳에나 전달할 수 있고, `this`엔 항상 의도한 값이 들어가게 됩니다.
 
 클래스 필드의 이런 기능은 브라우저 환경에서 메서드를 이벤트 리스너로 설정해야 할 때 특히 유용합니다.
 
 ## 요약
 
-아래와 같은 기본문법을 사용해 클래스를 만들 수 있습니다.
+아래와 같은 기본 문법을 사용해 클래스를 만들 수 있습니다.
 
 ```js
 class MyClass {
