@@ -27,5 +27,5 @@ let pockets = {
 };
 ```
 
-1. `__proto__`를 사용해서, 프로퍼티 조회가 `pockets` -> `bed` -> `table` -> `head`의 경로를 따르도록 프로토타입을 할당하세요. 예를 들면, `pockets.pen`은 `3`이어야만 합니다.(`table`에서 발견할 수 있습니다.) 그리고 `bed.glasses`는 `1`이어야만 합니다.(`head`에서 발견할 수 있습니다.)
+1. `__proto__`를 사용해서, 프로퍼티 조회가 `pockets` -> `bed` -> `table` -> `head`의 경로를 따르도록 하세요. `pockets.pen`은 `table`에 있는 `3`, `bed.glasses`는 `head`에 있는 `1`이 되어야 합니다.
 2. `pockets.glasses`로 `glasses`를 얻는 것이 빠를까요? 아니면 `head.glasses`로 얻는 것이 빠를까요? 필요하다면 벤치마크를 사용해 성능을 측정해 보세요.
