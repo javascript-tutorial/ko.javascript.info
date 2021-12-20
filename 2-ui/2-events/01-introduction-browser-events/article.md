@@ -160,7 +160,11 @@ button.onclick = sayThanks;
 button.onclick = sayThanks();
 ```
 
+<<<<<<< HEAD
 `sayThanks()` 같이 괄호를 덧붙이는 것은 함수를 호출하겠다는 것을 의미합니다. 위 예시의 마지막 줄처럼 sayThanks()를 프로퍼티에 할당하면 함수 호출의 *결괏(result)값*이 할당되죠. 함수 `sayThanks`가 아무것도 반환하지 않는다면 `onclick` 프로퍼티엔 `undefined`이 할당되므로 이벤트가 원하는 대로 동작하지 않습니다.
+=======
+If we add parentheses, then `sayThanks()` becomes a function call. So the last line actually takes the *result* of the function execution, that is `undefined` (as the function returns nothing), and assigns it to `onclick`. That doesn't work.
+>>>>>>> 8d04d0d2db97276dbb2b451c30a7bd3e05d65831
 
 그런데, HTML 속성값에는 괄호가 있어야 합니다.
 
