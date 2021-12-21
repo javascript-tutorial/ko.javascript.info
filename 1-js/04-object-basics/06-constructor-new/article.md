@@ -201,7 +201,7 @@ function User(name) {
 *!*
 let bora = new User("이보라");
 
-bora.sayHi(); // 내 이름은 이보라입니다.
+bora.sayHi(); // 제 이름은 이보라입니다.
 */!*
 
 /*
