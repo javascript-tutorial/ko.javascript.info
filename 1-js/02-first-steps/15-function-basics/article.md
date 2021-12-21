@@ -244,7 +244,7 @@ function showMessage(text) {
 }
 ```
 
-이 외에도 모던 자바스크립트 엔진이 지원하는  [null 병합 연산자(nullish coalescing operator)](info:nullish-coalescing-operator) `??`를 사용하면 `0`처럼 falsy로 평가되는 값들을 일반 값처럼 처리할 수 있어서 좋습니다.
+이 외에도 모던 자바스크립트 엔진이 지원하는  [nullish 병합 연산자(nullish coalescing operator)](info:nullish-coalescing-operator) `??`를 사용하면 `0`처럼 falsy로 평가되는 값들을 일반 값처럼 처리할 수 있어서 좋습니다.
 
 ```js run
 // 매개변수 'count'가 넘어오지 않으면 'unknown'을 출력해주는 함수
