@@ -28,12 +28,14 @@ ladder.up();
 ladder.up();
 ladder.down();
 ladder.showStep(); // 1
+ladder.down();
+ladder.showStep(); // 0
 ```
 
 `up`, `down`, `showStep`을 수정해 아래처럼 메서드 호출 체이닝이 가능하도록 해봅시다.
 
 ```js
-ladder.up().up().down().showStep(); // 1
+ladder.up().up().down().showStep().down().showStep(); // shows 1 then 0
 ```
 
 참고로 이런 방식은 자바스크립트 라이브러리에서 널리 사용됩니다.
