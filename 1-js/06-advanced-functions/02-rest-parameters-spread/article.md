@@ -53,8 +53,8 @@ function showName(firstName, lastName, ...titles) {
 
   // 나머지 인수들은 배열 titles의 요소가 됩니다.
   // titles = ["Software Engineer", "Researcher"]
-  alert( titles[0] ); // Bora
-  alert( titles[1] ); // Lee
+  alert( titles[0] ); // Software Engineer
+  alert( titles[1] ); // Researcher
   alert( titles.length ); // 2
 }
 
