@@ -17,7 +17,7 @@
 
 아래 예시에선 `window` 객체를 전역 객체로 사용하고 있습니다.
 
-```js run
+```js run global
 function sayHi() {
   alert("안녕하세요.");
 }

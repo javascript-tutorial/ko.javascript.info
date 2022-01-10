@@ -4,7 +4,11 @@ importance: 2
 
 # 함수 두 개로 동일한 객체 만들기
 
+<<<<<<< HEAD
 `new A()==new B()`가 성립 가능한 함수 `A`와 `B`를 만드는 게 가능할까요?
+=======
+Is it possible to create functions `A` and `B` so that `new A() == new B()`?
+>>>>>>> 246c600f11b4e6c52b4ae14f83e65319671f998f
 
 ```js no-beautify
 function A() { ... }

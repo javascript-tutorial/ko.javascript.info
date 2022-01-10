@@ -24,7 +24,11 @@ let message;
 let message;
 
 *!*
+<<<<<<< HEAD
 message = 'Hello'; // 문자열을 저장합니다.
+=======
+message = 'Hello'; // store the string 'Hello' in the variable named message
+>>>>>>> 246c600f11b4e6c52b4ae14f83e65319671f998f
 */!*
 ```
 
