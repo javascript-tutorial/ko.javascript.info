@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Create a tree from the object
+# 객체로부터 트리(tree) 생성하기
 
-Write a function `createTree` that creates a nested `ul/li` list from the nested object.
+중첩된 객체의 데이터로 `ul·li` 리스트를 생성하는 `createTree` 함수를 만들어 보세요.
 
-For instance:
+예시:
 
 ```js
 let data = {
@@ -28,24 +28,24 @@ let data = {
 };
 ```
 
-The syntax:
+코드 형식:
 
 ```js
 let container = document.getElementById('container');
 *!*
-createTree(container, data); // creates the tree in the container
+createTree(container, data); // container 요소 내에 트리를 생성합니다.
 */!*
 ```
 
-The result (tree) should look like this:
+결과물이 될 트리는 이런 모습이어야 합니다.
 
 [iframe border=1 src="build-tree-dom"]
 
-Choose one of two ways of solving this task:
+두 방법 중 원하는 방법으로 과제를 해결해 보세요.
 
-1. Create the HTML for the tree and then assign to `container.innerHTML`.
-2. Create tree nodes and append with DOM methods.
+1. 전체 트리를 생성한 후 `container.innerHTML` 로 컨테이너에 추가합니다.
+2. 노드를 각각 생성한 후 DOM 메서드를 사용해 컨테이너에 추가합니다.
 
-Would be great if you could do both.
+두 방법을 모두 사용해보면 더 좋습니다.
 
-P.S. The tree should not have "extra" elements like empty `<ul></ul>` for the leaves.
+내용이 없는 `<ul></ul>`처럼 '불필요한' 요소가 트리에 존재해서는 안된다는 점을 참고하세요.

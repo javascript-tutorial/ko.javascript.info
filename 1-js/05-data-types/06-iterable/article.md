@@ -213,7 +213,7 @@ let arr = Array.from(arrayLike); // (*)
 alert(arr.pop()); // World (메서드가 제대로 동작합니다.)
 ```
 
-`Array.from` at the line `(*)` takes the object, examines it for being an iterable or array-like, then makes a new array and copies all items to it.
+`(*)`로 표시한 줄에 있는 `Array.from`은 객체를 받아 이터러블이나 유사 배열인지 조사합니다. 넘겨 받은 인수가 이터러블이나 유사 배열인 경우, 새로운 배열을 만들고 객체의 모든 요소를 새롭게 만든 배열로 복사합니다.
 
 이터러블을 사용한 예시는 다음과 같습니다.
 
@@ -223,12 +223,12 @@ let arr = Array.from(range);
 alert(arr); // 1,2,3,4,5 (배열-문자열 형 변환이 제대로 동작합니다.)
 ```
 
-The full syntax for `Array.from` also allows us to provide an optional "mapping" function:
+`Array.from`엔 '매핑(mapping)' 함수를 선택적으로 넘겨줄 수 있습니다.
 ```js
 Array.from(obj[, mapFn, thisArg])
 ```
 
-The optional second argument `mapFn` can be a function that will be applied to each element before adding it to the array, and `thisArg` allows us to set `this` for it.
+`mapFn`을 두 번째 인수로 넘겨주면 새로운 배열에 `obj`의 요소를 추가하기 전에 각 요소를 대상으로 `mapFn`을 적용할 수 있습니다. 새로운 배열엔 `mapFn`을 적용하고 반환된 값이 추가됩니다. 세 번째 인수 `thisArg`는 각 요소의 `this`를 지정할 수 있도록 해줍니다.
 
 예시:
 
@@ -293,7 +293,7 @@ alert( str.slice(1, 3) ); // 쓰레깃값 출력 (영역이 다른 특수 값)
 
 - 이터러블엔 메서드 `Symbol.iterator`가 반드시 구현되어 있어야 합니다.
     - `obj[Symbol.iterator]`의 결과는 *이터레이터*라고 부릅니다. 이터레이터는 이어지는 반복 과정을 처리합니다.
-    - 이터레이터엔 객체 `{done: Boolean, value: any}`을 반환하는 메서드 `next()`가 반드시 구현되어 있어야 합니다. 여기서 `done:true`은 반복이 끝났음을 의미하고 그렇지 않은 경우엔 `value`가 다음 값이 됩니니다.
+    - 이터레이터엔 객체 `{done: Boolean, value: any}`을 반환하는 메서드 `next()`가 반드시 구현되어 있어야 합니다. 여기서 `done:true`은 반복이 끝났음을 의미하고 그렇지 않은 경우엔 `value`가 다음 값이 됩니다.
 - 메서드 `Symbol.iterator`는 `for..of`에 의해 자동으로 호출되는데, 개발자가 명시적으로 호출하는 것도 가능합니다.
 - 문자열이나 배열 같은 내장 이터러블에도 `Symbol.iterator`가 구현되어 있습니다.
 - 문자열 이터레이터는 서로게이트 쌍을 지원합니다.

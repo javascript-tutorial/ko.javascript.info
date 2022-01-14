@@ -2,7 +2,6 @@
 # 프로퍼티 getter와 setter
 
 객체의 프로퍼티는 두 종류로 나뉩니다.
-There are two kinds of object properties.
 
 첫 번째 종류는 *데이터 프로퍼티(data property)* 입니다. 지금까지 사용한 모든 프로퍼티는 데이터 프로퍼티입니다. 데이터 프로퍼티 조작 방법에 대해선 모두 알고 계실 것이라 생각합니다.
 
@@ -24,7 +23,7 @@ let obj = {
 };
 ```
 
-getter 메서드는 `obj.propName`을 사용해 프로퍼티를 읽으려고 할 때 실행되고, setter 메서드는 `obj.propNAme = value`으로 프로퍼티에 값을 할당하려 할 때 실행됩니다.
+getter 메서드는 `obj.propName`을 사용해 프로퍼티를 읽으려고 할 때 실행되고, setter 메서드는 `obj.propName = value`으로 프로퍼티에 값을 할당하려 할 때 실행됩니다.
 
 프로퍼티 `name`과 `surname`이 있는 객체 `user`를 만들어봅시다.
 

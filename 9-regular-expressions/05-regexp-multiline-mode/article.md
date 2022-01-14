@@ -1,14 +1,14 @@
-# Multiline mode of anchors ^ $, flag "m"
+# 앵커 ^와 $의 여러 행 모드, 'm' 플래그
 
-The multiline mode is enabled by the flag `pattern:m`.
+`pattern:m` 플래그를 사용하면 여러 행 모드(multiline mode)를 활성화할 수 있습니다.
 
-It only affects the behavior of `pattern:^` and `pattern:$`.
+여러 행 모드는 `pattern:^`와 `pattern:$`의 작동 방식에만 영향을 줍니다.
 
-In the multiline mode they match not only at the beginning and the end of the string, but also at start/end of line.
+여러 행 모드에서는 두 앵커가 전체 문자열의 처음과 끝뿐 아니라 각 행의 시작과 끝에도 대응합니다.
 
-## Searching at line start ^
+## ^로 행 시작 검색하기
 
-In the example below the text has multiple lines. The pattern `pattern:/^\d/gm` takes a digit from the beginning of each line:
+아래 예시에 여러 행으로 된 텍스트가 있습니다. `pattern:\d/gm` 패턴으로 각 행이 시작하는 위치에 있는 숫자를 찾을 수 있습니다.
 
 ```js run
 let str = `1st place: Winnie
@@ -20,7 +20,7 @@ alert( str.match(/^\d/gm) ); // 1, 2, 3
 */!*
 ```
 
-Without the flag `pattern:m` only the first digit is matched:
+`pattern:m` 플래그 없이 검색하면 맨 앞 숫자만 검색되죠.
 
 ```js run
 let str = `1st place: Winnie
@@ -32,19 +32,19 @@ alert( str.match(/^\d/g) ); // 1
 */!*
 ```
 
-That's because by default a caret `pattern:^` only matches at the beginning of the text, and in the multiline mode -- at the start of any line.
+이렇게 결과가 다른 것은 캐럿 기호 `pattern:^`가 기본적으로는 텍스트의 시작 위치에만 대응하기 때문입니다. 여러 행 모드를 사용해야 모든 행의 시작 위치와 대응하죠.
 
 ```smart
-"Start of a line" formally means "immediately after a line break": the test  `pattern:^` in multiline mode matches at all positions preceeded by a newline character `\n`.
+'행 시작'이라는 것은 엄밀히 말해서 '줄 바꿈 직후'를 의미합니다. 여러 행 모드에서 `pattern:^`을 사용한 검사는 줄 바꿈 문자 `\n` 바로 뒤 모든 위치와 일치합니다.
 
-And at the text start.
+텍스트의 시작 위치를 포함해서요.
 ```
 
-## Searching at line end $
+## $로 행 끝 검색하기
 
-The dollar sign `pattern:$` behaves similarly.
+달러 기호 `pattern:$`는 캐럿 기호와 비슷하게 동작합니다.
 
-The regular expression `pattern:\d$` finds the last digit in every line
+정규 표현식 `pattern:\d$`를 사용하면 행 끝에 있는 숫자를 전부 찾을 수 있습니다.
 
 ```js run
 let str = `Winnie: 1
@@ -54,21 +54,21 @@ Eeyore: 3`;
 alert( str.match(/\d$/gm) ); // 1,2,3
 ```
 
-Without the flag `pattern:m`, the dollar `pattern:$` would only match the end of the whole text, so only the very last digit would be found.
+`m` 플래그가 없으면 달러 기호 `pattern:$`는 전체 텍스트의 끝에만 일치하므로 가장 뒤에 있는 마지막 숫자만 찾게 됩니다.
 
 ```smart
-"End of a line" formally means "immediately before a line break": the test  `pattern:$` in multiline mode matches at all positions succeeded by a newline character `\n`.
+'행 끝'이라는 것은 엄밀히 말해서 '줄 바꿈 직전'을 의미합니다. 여러 행 모드에서 `pattern:$`을 사용한 검사는 줄 바꿈 문자 `\n` 바로 앞의 모든 위치와 일치합니다.
 
-And at the text end.
+텍스트의 끝 위치를 포함해서요.
 ```
 
-## Searching for \n instead of ^ $
+## ^ $ 대신 \n 검색하기
 
-To find a newline, we can use not only anchors `pattern:^` and `pattern:$`, but also the newline character `\n`.
+줄 바꿈을 찾을 때는 앵커 `pattern:^` `pattern:$`뿐 아니라 줄 바꿈 문자 `\n`을 사용할 수도 있습니다.
 
-What's the difference? Let's see an example.
+두 방법은 어떤 게 다를까요? 예시를 보죠.
 
-Here we search for `pattern:\d\n` instead of `pattern:\d$`:
+이번에는 `pattern:\d$` 대신 `pattern:\d\n`을 사용해 검색해봅시다.
 
 ```js run
 let str = `Winnie: 1
@@ -78,10 +78,10 @@ Eeyore: 3`;
 alert( str.match(/\d\n/gm) ); // 1\n,2\n
 ```
 
-As we can see, there are 2 matches instead of 3.
+일치하는 결과가 3개가 아니라 2개인 것을 확인할 수 있습니다.
 
-That's because there's no newline after `subject:3` (there's text end though, so it matches `pattern:$`).
+`subject:3` 다음에 줄 바꿈이 없기 때문이죠. 텍스트의 끝이기 때문에 `pattern:$`에는 일치하지만요.
 
-Another difference: now every match includes a newline character `match:\n`. Unlike the anchors `pattern:^` `pattern:$`, that only test the condition (start/end of a line), `\n` is a character, so it becomes a part of the result.
+차이점이 하나 더 있습니다. 일치 결과에 줄 바꿈 문자 `match:\n`이 포함되어있습니다. 앵커 `pattern:^` `pattern:$`는 행의 시작·끝이라는 조건만 검사하지만 `\n`은 문자이기 때문에 결과에 포함됩니다.
 
-So, a `\n` in the pattern is used when we need newline characters in the result, while anchors are used to find something at the beginning/end of a line.
+따라서 결과에 줄 바꿈 문자가 필요하다면 정규식 패턴에 `\n`을 사용합니다. 줄 바꿈 문자 없이 행의 시작·끝에 있는 문자만 찾고 싶을 때는 앵커를 사용합니다.

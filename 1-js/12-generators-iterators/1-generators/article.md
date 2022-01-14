@@ -154,7 +154,7 @@ let sequence = [0, ...generateSequence()];
 alert(sequence); // 0, 1, 2, 3
 ```
 
-위 예시에서 `...generateSequence()`는 반복 가능한 제너레이터 객체를 배열 요소로 바꿔줍니다. 전개 문법에 대한 자세한 설명은 [](info:rest-parameters-spread-operator#spread-operator)에서 볼 수 있습니다.
+위 예시에서 `...generateSequence()`는 반복 가능한 제너레이터 객체를 배열 요소로 바꿔줍니다. (전개 문법에 대한 자세한 설명은 [](info:rest-parameters-spread#spread-syntax)에서 볼 수 있습니다.)
 
 ## 이터러블 대신 제너레이터 사용하기
 

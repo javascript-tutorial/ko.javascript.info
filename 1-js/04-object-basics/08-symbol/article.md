@@ -139,7 +139,7 @@ let user = {
 ```
 `"id: 123"`이라고 하면, 심볼 `id`가 아니라 문자열 "id"가 키가 됩니다. 
 
-### 심볼은 for..in 에서 배제됩니다.
+### 심볼은 for..in 에서 배제됩니다
 
 키가 심볼인 프로퍼티는 `for..in` 반복문에서 배제됩니다.
 
@@ -186,7 +186,7 @@ alert( clone[id] ); // 123
 
 레지스트리 안에 있는 심볼을 읽거나, 새로운 심볼을 생성하려면 `Symbol.for(key)`를 사용하면 됩니다.
 
-이 메서드를 호출하면 이름이 `key`인 심볼이 반환합니다. 조건에 맞는 심볼이 레지스트리 안에 없으면 새로운 심볼 `Symbol(key)`을 만들고 레지스트리 안에 저장합니다.
+이 메서드를 호출하면 이름이 `key`인 심볼을 반환합니다. 조건에 맞는 심볼이 레지스트리 안에 없으면 새로운 심볼 `Symbol(key)`을 만들고 레지스트리 안에 저장합니다.
 
 예시:
 
@@ -227,7 +227,7 @@ alert( Symbol.keyFor(sym2) ); // id
 
 `Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져서 해당 심볼의 이름을 얻어냅니다. 검색 범위가 전역 심볼 레지스트리이기 때문에 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 전역 심볼이 아닌 인자가 넘어오면 `Symbol.keyFor`는 `undefined`를 반환합니다.
 
-전역 심볼이 아닌 심볼을 포함한 심볼 모두에는 `description` 프로퍼티가 있습니다. 일반 심볼에서 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
+전역 심볼이 아닌 모든 심볼은 `description` 프로퍼티가 있습니다. 일반 심볼에서 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
 
 예시:
 
@@ -263,7 +263,7 @@ alert( localSymbol.description ); // name
 
 `Symbol()`을 호출하면 심볼을 만들 수 있습니다. 설명(이름)은 선택적으로 추가할 수 있습니다.
 
-심볼은 이름이 같더라도 값이 항상 다릅니다. 이름이 같을 때 값도 같길 원한다면 전역 레지스트리를 사용해야 합니다. `Symbol.for(key)`는 `key`라는 이름을 가진 전역 심볼을 반환합니다.`key`라는 이름을 가진 전역 심볼이 없으면 새로운 전역 심볼을 만들어줍니다. `key`가 같다면 `Symbol.for`는 어디서 호출하든 상관없이 항상 같은 심볼을 반환해 줍니다.
+심볼은 이름이 같더라도 값이 항상 다릅니다. 이름이 같을 때 값도 같길 원한다면 전역 레지스트리를 사용해야 합니다. `Symbol.for(key)`는 `key`라는 이름을 가진 전역 심볼을 반환합니다. `key`라는 이름을 가진 전역 심볼이 없으면 새로운 전역 심볼을 만들어줍니다. `key`가 같다면 `Symbol.for`는 어디서 호출하든 상관없이 항상 같은 심볼을 반환해 줍니다.
 
 심볼의 주요 유스 케이스는 다음과 같습니다.
 
@@ -274,4 +274,4 @@ alert( localSymbol.description ); // name
 
 2. 자바스크립트 내부에서 사용되는 시스템 심볼은 `Symbol.*`로 접근할 수 있습니다. 시스템 심볼을 이용하면 내장 메서드 등의 기본 동작을 입맛대로 변경할 수 있습니다. [iterable 객체](info:iterable)에선 `Symbol.iterator`를, [객체를 원시형으로 변환하기](info:object-toprimitive)에선 `Symbol.toPrimitive`이 어떻게 사용되는지 알아보겠습니다.
 
-사실, 심볼을 완전히 숨길 방법은 없습니다. 내장 메서드 [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols)를 사용하면 모든 심볼을 볼 수 있고, 메서드 [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys)는 심볼형 키를 포함한 객체의 *모든* 키를 반환해줍니다. 그런데 대부분의 라이브러리, 내장 함수 등은 이런 메서드를 사용하지 않습니다.
+사실 심볼을 완전히 숨길 방법은 없습니다. 내장 메서드 [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols)를 사용하면 모든 심볼을 볼 수 있고, 메서드 [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys)는 심볼형 키를 포함한 객체의 *모든* 키를 반환해줍니다. 그런데 대부분의 라이브러리, 내장 함수 등은 이런 메서드를 사용하지 않습니다.

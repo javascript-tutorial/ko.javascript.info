@@ -1,9 +1,9 @@
-We'll create the table as a string: `"<table>...</table>"`, and then assign it to  `innerHTML`.
+여기서는 표를 `"<table>...</table>"` 처럼 문자열의 형태로 생성한 후 `innerHTML` 을 사용해 문서에 삽입하는 방식을 소개하겠습니다.
 
-The algorithm:
+방법:
 
-1. Create the table header with `<th>` and weekday names.
-2. Create the date object `d = new Date(year, month-1)`. That's the first day of `month` (taking into account that months in JavaScript start from `0`, not `1`).
-3. First few cells till the first day of the month `d.getDay()` may be empty. Let's fill them in with `<td></td>`.
-4. Increase the day in `d`: `d.setDate(d.getDate()+1)`. If `d.getMonth()` is not yet the next month, then add the new cell `<td>` to the calendar. If that's a Sunday, then add a newline <code>"&lt;/tr&gt;&lt;tr&gt;"</code>.
-5. If the month has finished, but the table row is not yet full, add empty `<td>` into it, to make it square.
+1. 먼저 `<th>`를 사용해 표의 헤더(header)를 만든 후 요일을 적어줍니다.
+2. `d = new Date(year, month-1)` 형식으로 날짜 객체를 생성합니다. 이러면 `month` 로 대입한 월의 첫 번째 날을 구할 수 있습니다. (자바스크립트에서는 월을 0부터 시작한다는 점에 유의하세요.)
+3. 첫번째 열부터 `d.getDay()` 로 구한 각 달의 첫번째 날까지의 빈칸은 `<td></td>` 로 채워주세요.
+4. `d.setDate(d.getDate()+1)`을 사용해 `d`객체의 날짜를 증가시키세요. `d.getMonth()` 로 구한 달이 다음 달로 변하기 전까지 `<td>`를 사용해 새로운 칸을 추가하면 됩니다. 만약 새로운 칸이 일요일이라면 <code>"&lt;/tr&gt;&lt;tr&gt;"</code> 를 사용해 다음 주로 넘어가세요.
+5. 달력이 완성되었지만 마지막 행에 빈 공간이 남아있다면 빈 `<td>` 를 사용해 달력을 사각형으로 만들 수 있습니다.

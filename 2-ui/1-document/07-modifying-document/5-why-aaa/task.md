@@ -2,13 +2,13 @@ importance: 1
 
 ---
 
-# Why does "aaa" remain?
+# 왜 'aaa' 가 남아 있을까요
 
-In the example below, the call `table.remove()` removes the table from the document.
+아래 예시에서는 `table.remove()` 가 호출되었으니 문서에서 표를 삭제해야만 합니다.
 
-But if you run it, you can see that the text `"aaa"` is still visible.
+그러나 이 코드를 실행해보면, 텍스트 `'aaa'` 가 여전히 나타나는 것을 확인할 수 있습니다.
 
-Why does that happen?
+왜 이런 일이 일어나는 걸까요?
 
 ```html height=100 run
 <table id="table">
@@ -19,9 +19,9 @@ Why does that happen?
 </table>
 
 <script>
-  alert(table); // the table, as it should be
+  alert(table); // table 은 삭제할 표의 id 입니다.
 
   table.remove();
-  // why there's still aaa in the document?
+  // 왜 문서 안에 aaa가 남아 있을까요?
 </script>
 ```

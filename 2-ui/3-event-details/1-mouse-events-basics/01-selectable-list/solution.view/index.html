@@ -16,15 +16,15 @@
 
 <body>
 
-  Click on a list item to select it.
+  선택하고자 하는 요소를 클릭하세요.
   <br>
 
   <ul id="ul">
-    <li>Christopher Robin</li>
-    <li>Winnie-the-Pooh</li>
-    <li>Tigger</li>
-    <li>Kanga</li>
-    <li>Rabbit. Just rabbit.</li>
+    <li>React</li>
+    <li>Angular</li>
+    <li>Vue</li>
+    <li>Svelte</li>
+    <li>Blazor</li>
   </ul>
 
   <script>
@@ -39,7 +39,7 @@
 
     }
 
-    // prevent unneeded selection of list elements on clicks
+    // 요소를 클릭할 때 불필요하게 선택되지 않도록 방지
     ul.onmousedown = function() {
       return false;
     };

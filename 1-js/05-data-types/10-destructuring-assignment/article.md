@@ -173,7 +173,7 @@ alert(firstName); // undefined
 alert(surname); // undefined
 ```
 
-`=`을 이용하면 할당할 값이 없을 때 기본으로 할당해 줄값인 '기본값(default value)'을 설정할 수 있습니다.
+`=`을 이용하면 할당할 값이 없을 때 기본으로 할당해 줄 값인 '기본값(default value)'을 설정할 수 있습니다.
 
 ```js run
 *!*
@@ -190,7 +190,7 @@ alert(surname); // Anonymous (기본값)
 기본값으로 두 개의 `prompt` 함수를 할당한 예시를 살펴봅시다. 값이 제공되지 않았을 때만 함수가 호출되므로, `prompt`는 한 번만 호출됩니다.
 
 ```js run
-// surname의 prompt만 실행됨
+// name의 prompt만 실행됨
 let [surname = prompt('성을 입력하세요.'), name = prompt('이름을 입력하세요.')] = ["김"];
 
 alert(surname); // 김 (배열에서 받아온 값)

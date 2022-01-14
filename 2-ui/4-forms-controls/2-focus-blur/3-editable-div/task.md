@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Editable div
+# 수정 가능한 div
 
-Create a `<div>` that turns into `<textarea>` when clicked.
+클릭하면 `<textarea>`로 변하는 `<div>`를 만들어보세요.
 
-The textarea allows to edit the HTML in the `<div>`.
+textarea에선 `<div>` 안에있는 HTML을 수정할 수 있어야 합니다.
 
-When the user presses `key:Enter` or it loses focus, the `<textarea>` turns back into `<div>`, and its content becomes HTML in `<div>`.
+사용자가 `key:Enter`를 누르거나 textarea 요소가 포커스를 잃으면 `<textarea>`는 다시 `<div>`로 변해야 하고 textarea에 입력했던 콘텐츠는 `<div>`안 HTML이 되어야 합니다.
 
 [demo src="solution"]

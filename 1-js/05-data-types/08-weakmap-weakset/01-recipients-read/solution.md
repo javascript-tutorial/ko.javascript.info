@@ -22,7 +22,7 @@ readMessages.add(messages[0]);
 alert("message 0은 읽음 상태인가요?: " + readMessages.has(messages[0])); // true
 
 messages.shift();
-// 이제 readMessagesreadMessages에는 요소가 하나만 남게 되었습니다(실제 메모리에서 사라지는 건 나중이 되겠지만 말이죠).
+// 이제 readMessages에는 요소가 하나만 남게 되었습니다(실제 메모리에서 사라지는 건 나중이 되겠지만 말이죠).
 ```
 
 `위크셋`을 사용하면 메시지를 저장하고 위크셋 내에 메시지가 있는지 여부를 쉽게 확인할 수 있습니다. 

@@ -1,5 +1,5 @@
-That's a great use of the event delegation pattern.
+이 문제는 이벤트 위임 패턴을 잘 활용할 수 있는 문제입니다.
 
-In real life instead of asking we can send a "logging" request to the server that saves the information about where the visitor left. Or we can load the content and show it right in the page (if allowable).
+사용자에게 현재 페이지를 떠날 것인지 물어보는 대신, 방문자가 떠난 위치를 저장하는 서버에 'logging' 요청을 보낼 수 있습니다. 가능하다면 내용을 불러와서 현재 페이지에 바로 보이게 하는 방법을 사용할 수도 있습니다.
 
-All we need is to catch the `contents.onclick` and use `confirm` to ask the user. A good idea would be to use `link.getAttribute('href')` instead of `link.href` for the URL. See the solution for details.
+그러니까 `contents.onclick`를 잡아낸 다음, 사용자에게 물어보기 위해 `confirm`을 사용하기만 하면 됩니다. URL에 `link.href` 대신 `link.getAttribute('href')`를 사용하는 것이 더 좋은 방법입니다. 자세한 사항은 샌드박스의 해답에서 확인해보세요.

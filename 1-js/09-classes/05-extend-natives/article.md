@@ -65,7 +65,7 @@ alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
 보시다시피 이제 `.filter`가 `Array`를 반환합니다. 따라서 더는 확장 기능이 전달되지 않습니다.
 
 ```smart header="다른 컬렉션도 유사하게 동작합니다."
-`Map`, `Set` 같은 컬렉션도 위외 같이 동작합니다. 이 컬렉션들도 `Symbol.species`를 사용합니다.
+`Map`, `Set` 같은 컬렉션도 위와 같이 동작합니다. 이 컬렉션들도 `Symbol.species`를 사용합니다.
 ```
 
 ## 내장 객체와 정적 메서드 상속
@@ -78,7 +78,7 @@ alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
 
 그런데 내장 클래스는 다릅니다. 내장클래스는 정적 메서드를 상속받지 못합니다.
 
-예를 들어봅시다. `Array`와 `Date`는 모두 `Object`를 상속받기 때문에 두 클래스의 인스턴스에선 `Object.prototype`에 구현된 메서드를 사용할 수 있습니다. 그런데 `Array.[[Prototype]]`은 `Object`를 참조하지 않고, `Date.[[Prototype]]`은 `Object`를 참조하지 않기 때문에 `Array.keys()`나 `Date.keys()`같은 정적 메서드를 인스턴스에서 사용할 수 없습니다.
+예를 들어봅시다. `Array`와 `Date`는 모두 `Object`를 상속받기 때문에 두 클래스의 인스턴스에선 `Object.prototype`에 구현된 메서드를 사용할 수 있습니다. 그런데 `Array.[[Prototype]]`와 `Date.[[Prototype]]`은 `Object`를 참조하지 않기 때문에 `Array.keys()`나 `Date.keys()`같은 정적 메서드를 인스턴스에서 사용할 수 없습니다.
 
 아래는 `Date`와 `Object`의 관계를 나타낸 그림입니다.
 
