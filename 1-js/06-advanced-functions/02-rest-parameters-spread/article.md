@@ -225,7 +225,11 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 스프레드 문법보다 `Array.from`이 보편적으로 사용됩니다.
 
 
+<<<<<<< HEAD
 ## 배열과 객체의 복사본 만들기
+=======
+## Copy an array/object
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 `Object.assign()` [참조에 의한 객체 복사](info:object-copy#cloning-and-merging-object-assign) 챕터에서 `Object.assign()`을 사용해 객체를 복사한 예시를 떠올려봅시다.
 
@@ -233,8 +237,16 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 ```js run
 let arr = [1, 2, 3];
+<<<<<<< HEAD
 let arrCopy = [...arr]; // 배열을 펼쳐서 각 요소를 분리후, 매개변수 목록으로 만든 다음에
                         // 매개변수 목록을 새로운 배열에 할당함
+=======
+
+*!*
+let arrCopy = [...arr]; // spread the array into a list of parameters
+                        // then put the result into a new array
+*/!*
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 // 배열 복사본의 요소가 기존 배열 요소와 진짜 같을까요?
 alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
@@ -252,8 +264,16 @@ alert(arrCopy); // 1, 2, 3
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
+<<<<<<< HEAD
 let objCopy = { ...obj }; // 객체를 펼쳐서 각 요소를 분리후, 매개변수 목록으로 만든 다음에
                           // 매개변수 목록을 새로운 객체에 할당함
+=======
+
+*!*
+let objCopy = { ...obj }; // spread the object into a list of parameters
+                          // then return the result in a new object
+*/!*
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 // 객체 복사본의 프로퍼티들이 기존 객체의 프로퍼티들과 진짜 같을까요?
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
@@ -267,7 +287,11 @@ alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
+<<<<<<< HEAD
 이렇게 스프레드 문법을 사용하면 `let objCopy = Object.assign({}, obj);`, `let arrCopy = Object.assign([], arr);`보다 더 짧은 코드로 배열이나 객체를 복사할 수 있어서 사람들은 이 방법을 선호하는 편입니다.
+=======
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj)` or for an array `let arrCopy = Object.assign([], arr)` so we prefer to use it whenever we can.
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 
 ## 요약

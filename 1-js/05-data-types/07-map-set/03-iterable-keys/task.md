@@ -4,7 +4,11 @@ importance: 5
 
 # 반복 가능한 객체의 키
 
+<<<<<<< HEAD
 `map.keys()`를 사용해 배열을 반환받고, 이 배열을 변수에 저장해 `.push`와 같은 배열 메서드를 적용하고 싶다고 해봅시다.
+=======
+We'd like to get an array of `map.keys()` in a variable and then apply array-specific methods to it, e.g. `.push`.
+>>>>>>> a6fdfda09570a8ce47bb0b83cd7a32a33869cfad
 
 작동하지 않네요.
 
