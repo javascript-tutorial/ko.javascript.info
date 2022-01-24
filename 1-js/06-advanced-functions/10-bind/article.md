@@ -185,8 +185,13 @@ let user = {
 
 let say = user.say.bind(user);
 
+<<<<<<< HEAD
 say("Hello"); // Hello, John (인수 "Hello"가 say로 전달되었습니다.)
 say("Bye"); // Bye, John ("Bye"가 say로 전달되었습니다.)
+=======
+say("Hello"); // Hello, John! ("Hello" argument is passed to say)
+say("Bye"); // Bye, John! ("Bye" is passed to say)
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 ```
 
 ````smart header="`bindAll`로 메서드 전체 바인딩하기"
@@ -245,7 +250,11 @@ alert( double(5) ); // = mul(2, 5) = 10
 
 이런 방식을 [부분 적용(partial application)](https://en.wikipedia.org/wiki/Partial_application)이라고 부릅니다. 부분 적용을 사용하면 기존 함수의 매개변수를 고정하여 새로운 함수를 만들 수 있습니다.
 
+<<<<<<< HEAD
 위 예시에선 `this`를 사용하지 않았다는 점에 주목하시기 바랍니다. `bind`엔 컨텍스트를 항상 넘겨줘야 하므로 `null`을 사용했습니다.
+=======
+Please note that we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 부분 적용을 사용해 3을 곱해주는 함수 `triple`을 만들어보겠습니다.
 

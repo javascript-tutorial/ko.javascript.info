@@ -116,7 +116,11 @@ if (
 
     탭 대신 스페이스를 이용했을 때의 장점 중 하나는 들여쓰기 정도를 좀 더 유연하게 변경할 수 있다는 점입니다.
 
+<<<<<<< HEAD
     아래 예시처럼 인수 모두의 위치를 여는 괄호와 맞출 수 있죠.
+=======
+    For instance, we can align the parameters with the opening bracket, like this:
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
     ```js no-beautify
     show(parameters,
@@ -301,11 +305,19 @@ Linter라는 도구를 사용하면 내가 작성한 코드가 스타일 가이�
 
 유명 linter:
 
+<<<<<<< HEAD
 - [JSLint](http://www.jslint.com/) -- 역사가 오래된 linter
 - [JSHint](http://www.jshint.com/) -- JSLint보다 세팅이 좀 더 유연한 linter
 - [ESLint](http://eslint.org/) -- 가장 최근에 나온 linter
 
 위 linter 모두 훌륭한 기능을 제공합니다. 글쓴이는 [ESLint](http://eslint.org/)를 사용하고 있습니다.
+=======
+- [JSLint](https://www.jslint.com/) -- one of the first linters.
+- [JSHint](https://jshint.com/) -- more settings than JSLint.
+- [ESLint](https://eslint.org/) -- probably the newest one.
+
+All of them can do the job. The author uses [ESLint](https://eslint.org/).
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 대부분의 linter는 플러그인 형태로 유명 에디터와 통합해 사용할 수 있습니다. 원하는 스타일을 설정하는 것 역시 가능합니다.
 
@@ -328,14 +340,18 @@ ESLint를 사용한다고 가정했을 때 아래 절차를 따르면 에디터�
   },
   "rules": {
     "no-console": 0,
-    "indent": ["warning", 2]
+    "indent": 2
   }
 }
 ```
 
 위 예시에서 지시자 `"extends"`는 "eslint:recommended"를 기반으로 이를 확장해 스타일 가이드를 설정하겠다는 걸 의미합니다. 이렇게 세팅한 이후에 자신만의 스타일을 설정하면 됩니다.
 
+<<<<<<< HEAD
 스타일 규칙을 모아놓은 세트를 웹에서 다운로드해 이를 기반으로 스타일 가이드를 설정하는 것도 가능합니다. 설치 방법에 대한 자세한 내용은 <http://eslint.org/docs/user-guide/getting-started>에서 확인해 보시기 바랍니다.
+=======
+It is also possible to download style rule sets from the web and extend them instead. See <https://eslint.org/docs/user-guide/getting-started> for more details about installation.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 몇몇 IDE에서는 자체 lint 도구가 있어 편리하긴 하지만 ESLint처럼 쉽게 설정을 변경하는 게 불가능하다는 단점이 있습니다.
 

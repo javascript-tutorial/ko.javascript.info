@@ -33,7 +33,11 @@ printReverseList(list);
 
 # 반복문을 기반으로 하는 방법
 
+<<<<<<< HEAD
 리스트를 원래 순서대로 출력하는 방법보다 역시 까다롭습니다.
+=======
+The loop variant is also a little bit more complicated than the direct output.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 `list`의 마지막 값을 바로 구할 수 있는 방법이 없기 때문입니다. 마지막 값을 시작으로 '역행'할 수 없는 상황이죠.
 

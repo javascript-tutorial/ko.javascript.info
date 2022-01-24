@@ -1,14 +1,26 @@
+<<<<<<< HEAD
 # 'try..catch'와 에러 핸들링
+=======
+# Error handling, "try...catch"
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 아무리 프로그래밍에 능한 사람이더라도 에러가 있는 스크립트를 작성할 수 있습니다. 원인은 아마도 실수, 예상치 못한 사용자 입력, 잘못된 서버 응답 등의 수천만 가지 이유 때문일 겁니다.
 
 에러가 발생하면 스크립트는 '죽고'(즉시 중단되고), 콘솔에 에러가 출력됩니다.
 
+<<<<<<< HEAD
 그러나 `try..catch` 문법을 사용하면 스크립트가 죽는 걸 방지하고, 에러를 '잡아서(catch)' 더 합당한 무언가를 할 수 있게 됩니다.
 
 ## 'try..catch' 문법
 
 'try..catch' 문법은 'try'와 'catch'라는 두 개의 주요 블록으로 구성됩니다.
+=======
+But there's a syntax construct `try...catch` that allows us to "catch" errors so the script can, instead of dying, do something more reasonable.
+
+## The "try...catch" syntax
+
+The `try...catch` construct has two main blocks: `try`, and then `catch`:
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ```js
 try {
@@ -24,6 +36,7 @@ try {
 
 try..catch 동작 알고리즘은 다음과 같습니다.
 
+<<<<<<< HEAD
 1. 먼저, `try {...}` 안의 코드가 실행됩니다.
 2. 에러가 없다면, `try` 안의 마지막 줄까지 실행되고, `catch` 블록은 건너뜁니다.
 3. 에러가 있다면, `try` 안 코드의 실행이 중단되고, `catch(err)` 블록으로 제어 흐름이 넘어갑니다. 변수 `err`(아무 이름이나 사용 가능)는 무슨 일이 일어났는지에 대한 설명이 담긴 에러 객체를 포함합니다.
@@ -31,6 +44,15 @@ try..catch 동작 알고리즘은 다음과 같습니다.
 ![](try-catch-flow.svg)
 
 이렇게 `try {…}` 블록 안에서 에러가 발생해도 `catch`에서 에러를 처리하기 때문에 스크립트는 죽지 않습니다.
+=======
+1. First, the code in `try {...}` is executed.
+2. If there were no errors, then `catch (err)` is ignored: the execution reaches the end of `try` and goes on, skipping `catch`.
+3. If an error occurs, then the `try` execution is stopped, and control flows to the beginning of `catch (err)`. The `err` variable (we can use any name for it) will contain an error object with details about what happened.
+
+![](try-catch-flow.svg)
+
+So, an error inside the `try {...}` block does not kill the script -- we have a chance to handle it in `catch`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 예시를 살펴봅시다.
 
@@ -45,7 +67,7 @@ try..catch 동작 알고리즘은 다음과 같습니다.
 
       alert('try 블록 끝');   // *!*(2) <--*/!*
 
-    } catch(err) {
+    } catch (err) {
 
       alert('에러가 없으므로, catch는 무시됩니다.'); // (3)
 
@@ -64,7 +86,7 @@ try..catch 동작 알고리즘은 다음과 같습니다.
 
       alert('try 블록 끝(절대 도달하지 않음)');  // (2)
 
-    } catch(err) {
+    } catch (err) {
 
       alert(`에러가 발생했습니다!`); // *!*(3) <--*/!*
 
@@ -72,33 +94,53 @@ try..catch 동작 알고리즘은 다음과 같습니다.
     ```
 
 
+<<<<<<< HEAD
 ````warn header="`try..catch`는 오직 런타임 에러에만 동작합니다."
 `try..catch`는 실행 가능한(runnable) 코드에만 동작합니다. 실행 가능한 코드는 유효한 자바스크립트 코드를 의미합니다.
+=======
+````warn header="`try...catch` only works for runtime errors"
+For `try...catch` to work, the code must be runnable. In other words, it should be valid JavaScript.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 중괄호 짝이 안 맞는 것처럼 코드가 문법적으로 잘못된 경우엔 `try..catch`가 동작하지 않습니다.
 
 ```js run
 try {
   {{{{{{{{{{{{
+<<<<<<< HEAD
 } catch(e) {
   alert("유효하지 않은 코드이기 때문에, 자바스크립트 엔진은 이 코드를 이해할 수 없습니다.");
+=======
+} catch (err) {
+  alert("The engine can't understand this code, it's invalid");
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 }
 ```
 
 자바스크립트 엔진은 코드를 읽고 난 후 코드를 실행합니다. 코드를 읽는 중에 발생하는 에러는 'parse-time 에러'라고 부르는데, 엔진은 이 코드를 이해할 수 없기 때문에 parse-time 에러는 코드 안에서 복구가 불가능합니다.
 
+<<<<<<< HEAD
 `try..catch`는 유효한 코드에서 발생하는 에러만 처리할 수 있습니다. 이런 에러를 '런타임 에러(runtime error)' 혹은 '예외(exception)'라고 부릅니다.
 ````
 
 
 ````warn header="`try..catch`는 동기적으로 동작합니다."
 setTimeout처럼 '스케줄 된(scheduled)' 코드에서 발생한 예외는 `try..catch`에서 잡아낼 수 없습니다.
+=======
+So, `try...catch` can only handle errors that occur in valid code. Such errors are called "runtime errors" or, sometimes, "exceptions".
+````
+
+
+````warn header="`try...catch` works synchronously"
+If an exception happens in "scheduled" code, like in `setTimeout`, then `try...catch` won't catch it:
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ```js run
 try {
   setTimeout(function() {
     noSuchVariable; // 스크립트는 여기서 죽습니다.
   }, 1000);
+<<<<<<< HEAD
 } catch (e) {
   alert( "작동 멈춤" );
 }
@@ -111,6 +153,20 @@ try {
 setTimeout(function() {
   try {    
     noSuchVariable; // 이제 try..catch에서 에러를 핸들링 할 수 있습니다!
+=======
+} catch (err) {
+  alert( "won't work" );
+}
+```
+
+That's because the function itself is executed later, when the engine has already left the `try...catch` construct.
+
+To catch an exception inside a scheduled function, `try...catch` must be inside that function:
+```js run
+setTimeout(function() {
+  try {    
+    noSuchVariable; // try...catch handles the error!
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
   } catch {
     alert( "에러를 잡았습니다!" );
   }
@@ -125,7 +181,11 @@ setTimeout(function() {
 ```js
 try {
   // ...
+<<<<<<< HEAD
 } catch(err) { // <-- '에러 객체', err 대신 다른 이름으로도 쓸 수 있음
+=======
+} catch (err) { // <-- the "error object", could use another word instead of err
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
   // ...
 }
 ```
@@ -150,7 +210,7 @@ try {
 *!*
   lalala; // 에러, 변수가 정의되지 않음!
 */!*
-} catch(err) {
+} catch (err) {
   alert(err.name); // ReferenceError
   alert(err.message); // lalala is not defined
   alert(err.stack); // ReferenceError: lalala is not defined at ... (호출 스택)
@@ -175,9 +235,15 @@ try {
 }
 ```
 
+<<<<<<< HEAD
 ## 'try..catch' 사용하기
 
 `try..catch`가 실무에서 어떻게 사용되는지 알아봅시다.
+=======
+## Using "try...catch"
+
+Let's explore a real-life use case of `try...catch`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 앞서 JSON으로 인코딩된 값을 읽을 수 있도록 해주는 [JSON.parse(str)](mdn:js/JSON/parse) 메서드에 대해 배운 바 있습니다.
 
@@ -205,7 +271,11 @@ JSON에 관한 자세한 정보는 <info:json> 챕터에서 읽어보시기 바�
 
 서버에서 전달받은 데이터가 잘못되어 스크립트가 죽는 경우, 사용자는 개발자 콘솔을 열지 않는 이상 절대 원인을 알 수 없습니다. 그런데 사람들은 메시지 등을 통해 에러의 원인을 알지 못한 채 무언가가 '그냥 죽는 것'을 정말 싫어합니다.
 
+<<<<<<< HEAD
 `try..catch`를 사용해 이를 처리해 봅시다.
+=======
+Let's use `try...catch` to handle the error:
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ```js run
 let json = "{ bad json }";
@@ -217,12 +287,19 @@ try {
 */!*
   alert( user.name ); // 이 코드는 동작하지 않습니다.
 
-} catch (e) {
+} catch (err) {
 *!*
+<<<<<<< HEAD
   // 에러가 발생하면 제어 흐름이 catch 문으로 넘어옵니다.
   alert( "데이터에 에러가 있어 재요청을 시도합니다." );
   alert( e.name );
   alert( e.message );
+=======
+  // ...the execution jumps here
+  alert( "Our apologies, the data has errors, we'll try to request it one more time." );
+  alert( err.name );
+  alert( err.message );
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 */!*
 }
 ```
@@ -245,8 +322,13 @@ try {
   alert( user.name ); // 이름이 없습니다!
 */!*
 
+<<<<<<< HEAD
 } catch (e) {
   alert( "실행되지 않습니다." );
+=======
+} catch (err) {
+  alert( "doesn't execute" );
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 }
 ```
 
@@ -293,12 +375,17 @@ alert(error.message); // 이상한 일이 발생했습니다. o_O
 
 ```js run
 try {
+<<<<<<< HEAD
   JSON.parse("{ 잘못된 형식의 json o_O }");
 } catch(e) {
+=======
+  JSON.parse("{ bad json o_O }");
+} catch (err) {
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 *!*
-  alert(e.name); // SyntaxError
+  alert(err.name); // SyntaxError
 */!*
-  alert(e.message); // Unexpected token b in JSON at position 2
+  alert(err.message); // Unexpected token b in JSON at position 2
 }
 ```
 
@@ -323,8 +410,13 @@ try {
 
   alert( user.name );
 
+<<<<<<< HEAD
 } catch(e) {
   alert( "JSON Error: " + e.message ); // JSON Error: 불완전한 데이터: 이름 없음
+=======
+} catch (err) {
+  alert( "JSON Error: " + err.message ); // JSON Error: Incomplete data: no name
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 }
 ```
 
@@ -334,7 +426,11 @@ try {
 
 ## 에러 다시 던지기
 
+<<<<<<< HEAD
 위 예시에선 불완전한 데이터를 `try..catch`로 처리하였습니다. 그런데 *또 다른 예기치 않은 에러*가 `try {...}` 블록 안에서 발생 할 수도 있습니다. 정의되지 않은 변수 사용 등의 프로그래밍 에러가 발생할 가능성은 항상 있습니다.
+=======
+In the example above we use `try...catch` to handle incorrect data. But is it possible that *another unexpected error* occurs within the `try {...}` block? Like a programming error (variable is not defined) or something else, not just this "incorrect data" thing.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 예시:
 
@@ -345,7 +441,7 @@ try {
   user = JSON.parse(json); // <-- user 앞에 let을 붙이는 걸 잊었네요.
 
   // ...
-} catch(err) {
+} catch (err) {
   alert("JSON Error: " + err); // JSON Error: ReferenceError: user is not defined
   // (실제론 JSON Error가 아닙니다.)
 }
@@ -353,7 +449,11 @@ try {
 
 에러는 어떤 상황에서도 발생할 수 있습니다! 몇십 년간 몇백만 명이 사용한 오픈소스 유틸리티에서도 끔찍한 해킹으로 이어질 수 있는 엄청난 버그가 발견되죠.
 
+<<<<<<< HEAD
 위에선 '불완전한 데이터'를 다루려는 목적으로 `try..catch`를 썼습니다. 그런데 `catch`는 원래 `try` 블록에서 발생한 *모든* 에러를 잡으려는 목적으로 만들어졌습니다. 그런데 위 예시에서 `catch`는 예상치 못한 에러를 잡아내 주긴 했지만, 에러 종류와 관계없이 `"JSON Error"` 메시지를 보여줍니다. 이렇게 에러 종류와 관계없이 동일한 방식으로 에러를 처리하는 것은 디버깅을 어렵게 만들기 때문에 좋지 않습니다.
+=======
+In our case, `try...catch` is placed to catch "incorrect data" errors. But by its nature, `catch` gets *all* errors from `try`. Here it gets an unexpected error, but still shows the same `"JSON Error"` message. That's wrong and also makes the code more difficult to debug.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 이런 문제를 피하고자 '다시 던지기(rethrowing)' 기술을 사용합니다. 규칙은 간단합니다.
 
@@ -361,16 +461,22 @@ try {
 
 '다시 던지기' 기술을 더 자세히 설명하겠습니다.
 
+<<<<<<< HEAD
 1. catch가 모든 에러를 받습니다.
 2. `catch(err) {...}` 블록 안에서 에러 객체 `err`를 분석합니다.
 3. 에러 처리 방법을 알지 못하면 `throw err`를 합니다.
+=======
+1. Catch gets all errors.
+2. In the `catch (err) {...}` block we analyze the error object `err`.
+3. If we don't know how to handle it, we do `throw err`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 보통 에러 타입을 `instanceof` 명령어로 체크합니다.
 
 ```js run
 try {
   user = { /*...*/ };
-} catch(err) {
+} catch (err) {
 *!*
   if (err instanceof ReferenceError) {
 */!*
@@ -399,24 +505,36 @@ try {
 
   alert( user.name );
 
-} catch(e) {
+} catch (err) {
 
 *!*
-  if (e instanceof SyntaxError) {
-    alert( "JSON Error: " + e.message );
+  if (err instanceof SyntaxError) {
+    alert( "JSON Error: " + err.message );
   } else {
+<<<<<<< HEAD
     throw e; // 에러 다시 던지기 (*)
+=======
+    throw err; // rethrow (*)
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
   }
 */!*
 
 }
 ```
 
+<<<<<<< HEAD
 `catch` 블록 안의 `(*)`로 표시한 줄에서 다시 던져진(rethrow) 에러는 `try..catch` '밖으로 던져집니다'. 이때 바깥에 `try..catch`가 있다면 여기서 에러를 잡습니다. 아니라면 스크립트는 죽을 겁니다.
+=======
+The error throwing on line `(*)` from inside `catch` block "falls out" of `try...catch` and can be either caught by an outer `try...catch` construct (if it exists), or it kills the script.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 이렇게 하면 `catch` 블록에선 어떻게 다룰지 알고 있는 에러만 처리하고, 알 수 없는 에러는 '건너뛸 수' 있습니다.
 
+<<<<<<< HEAD
 이제 `try..catch`를 하나 더 만들어, 다시 던져진 예상치 못한 에러를 처리해 보겠습니다.
+=======
+The example below demonstrates how such errors can be caught by one more level of `try...catch`:
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ```js run
 function readData() {
@@ -427,11 +545,15 @@ function readData() {
 *!*
     blabla(); // 에러!
 */!*
-  } catch (e) {
+  } catch (err) {
     // ...
-    if (!(e instanceof SyntaxError)) {
+    if (!(err instanceof SyntaxError)) {
 *!*
+<<<<<<< HEAD
       throw e; // 알 수 없는 에러 다시 던지기
+=======
+      throw err; // rethrow (don't know how to deal with it)
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 */!*
     }
   }
@@ -439,20 +561,32 @@ function readData() {
 
 try {
   readData();
-} catch (e) {
+} catch (err) {
 *!*
+<<<<<<< HEAD
   alert( "External catch got: " + e ); // 에러를 잡음
+=======
+  alert( "External catch got: " + err ); // caught it!
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 */!*
 }
 ```
 
+<<<<<<< HEAD
 `readData`는 `SyntaxError`만 처리할 수 있지만, 함수 바깥의 `try..catch`에서는 예상치 못한 에러도 처리할 수 있게 되었습니다.
+=======
+Here `readData` only knows how to handle `SyntaxError`, while the outer `try...catch` knows how to handle everything.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
-## try..catch..finally
+## try...catch...finally
 
 잠깐! 에러 핸들링은 여기서 끝이 아닙니다.
 
+<<<<<<< HEAD
 `try..catch`는 `finally`라는 코드 절을 하나 더 가질 수 있습니다.
+=======
+The `try...catch` construct may have one more code clause: `finally`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 `finally`안의 코드는 다음과 같은 상황에서 실행됩니다.
 
@@ -463,9 +597,15 @@ try {
 
 ```js
 *!*try*/!* {
+<<<<<<< HEAD
    ... 코드를 실행 ...
 } *!*catch*/!*(e) {
    ... 에러 핸들링 ...
+=======
+   ... try to execute the code ...
+} *!*catch*/!* (err) {
+   ... handle errors ...
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 } *!*finally*/!* {
    ... 항상 실행 ...
 }
@@ -475,9 +615,15 @@ try {
 
 ```js run
 try {
+<<<<<<< HEAD
   alert( 'try 블록 시작' );
   if (confirm('에러를 만드시겠습니까?')) 이상한_코드();
 } catch (e) {
+=======
+  alert( 'try' );
+  if (confirm('Make an error?')) BAD_CODE();
+} catch (err) {
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
   alert( 'catch' );
 } finally {
   alert( 'finally' );
@@ -513,7 +659,7 @@ let start = Date.now();
 
 try {
   result = fib(num);
-} catch (e) {
+} catch (err) {
   result = 0;
 *!*
 } finally {
@@ -531,14 +677,24 @@ alert( `연산 시간: ${diff}ms` );
 함수는 `return` 이나 `throw`를 만나면 종료되는데, 이렇게 `finally` 절을 사용하면 두 경우 모두를 처리할 수 있습니다.
 
 
+<<<<<<< HEAD
 ```smart header="`try..catch..finally` 안의 변수는 지역 변수입니다."
 위 예시에서 변수 `diff`와 `result`는 `try..catch` *전* 에 선언되었다는 점에 주의해 주세요.
+=======
+```smart header="Variables are local inside `try...catch...finally`"
+Please note that `result` and `diff` variables in the code above are declared *before* `try...catch`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 `try` 블록 안에서 선언한 변수는 블록 안에서만 유효한 지역 변수가 됩니다.
 ```
 
+<<<<<<< HEAD
 ````smart header="`finally` 와 `return`"
 `finally` 절은 `try..catch` 절을 빠져나가는 *어떤* 경우에도 실행됩니다. `return`을 사용해 명시적으로 빠져나가려는 경우도 마찬가지입니다.
+=======
+````smart header="`finally` and `return`"
+The `finally` clause works for *any* exit from `try...catch`. That includes an explicit `return`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 아래 예시의 `try` 블록 안엔 `return`이 있습니다. 이 경우엔 값이 바깥 코드로 반환되기 전에 `finally`가 실행됩니다.
 
@@ -550,7 +706,7 @@ function func() {
     return 1;
 */!*
 
-  } catch (e) {
+  } catch (err) {
     /* ... */
   } finally {
 *!*
@@ -563,9 +719,13 @@ alert( func() ); // finally 안의 alert가 실행되고 난 후, 실행됨
 ```
 ````
 
-````smart header="`try..finally`"
+````smart header="`try...finally`"
 
+<<<<<<< HEAD
 `catch` 절이 없는 `try..finally` 구문도 상황에 따라 유용하게 쓸 수 있습니다. `try..finally` 안에선 에러를 처리하고 싶지 않지만, 시작한 프로세스가 마무리되었는지 확실히 하고 싶은 경우에 사용합니다.
+=======
+The `try...finally` construct, without `catch` clause, is also useful. We apply it when we don't want to handle errors here (let them fall through), but want to be sure that processes that we started are finalized.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 ```js
 function func() {
@@ -586,7 +746,11 @@ function func() {
 이 절은 코어 자바스크립트가 아닙니다.
 ```
 
+<<<<<<< HEAD
 `try..catch` 바깥에서 치명적인 에러가 발생해 스크립트가 죽었다고 상상해봅시다.
+=======
+Let's imagine we've got a fatal error outside of `try...catch`, and the script died. Like a programming error or some other terrible thing.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 대처 방법은 무엇이 있을까요? 어딘가에 에러 내역을 기록해 놓거나 사용자에게 에러가 발생했음을 알려주는 행위를 할 수 있을 겁니다.
 
@@ -643,22 +807,37 @@ window.onerror = function(message, url, line, col, error) {
 
 ## 요약
 
+<<<<<<< HEAD
 `try..catch`를 이용하면 런타임 에러를 처리할 수 있습니다. `try`에선 코드를 실행하고, 에러가 발생하면 `catch`에서 잡아냅니다.
+=======
+The `try...catch` construct allows to handle runtime errors. It literally allows to "try" running the code and "catch" errors that may occur in it.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 문법은 다음과 같습니다.
 
 ```js
 try {
+<<<<<<< HEAD
   // 이곳의 코드를 실행
 } catch(err) {
   // 에러가 발생하면, 여기부터 실행됨
   // err는 에러 객체
+=======
+  // run this code
+} catch (err) {
+  // if an error happened, then jump here
+  // err is the error object
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 } finally {
   // 에러 발생 여부와 상관없이 try/catch 이후에 실행됨
 }
 ```
 
+<<<<<<< HEAD
 `try..catch`, `try..catch..finally`이외에도 `try..finally`를 사용할 수 있습니다.
+=======
+There may be no `catch` section or no `finally`, so shorter constructs `try...catch` and `try...finally` are also valid.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 에러 객체엔 다음과 같은 프로퍼티가 있습니다.
 
@@ -666,10 +845,18 @@ try {
 - `name` -- 에러 이름을 담은 문자열 (에러 생성자 이름)
 - `stack` -- 표준이 아니지만 대부분의 호스트 환경이 지원하는 프로퍼티로 에러가 발생한 순간의 스택을 나타냄
 
+<<<<<<< HEAD
 에러 객체가 필요 없으면 `catch(err) {` 대신 `catch {`를 쓸 수 있습니다.
+=======
+If an error object is not needed, we can omit it by using `catch {` instead of `catch (err) {`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
 
 `throw` 연산자를 사용하면 에러를 직접 만들 수 있습니다. 이론상으론, `throw` 인수에 모든 것을 넘길 수 있지만, 대개 내장 `Error` 클래스를 상속받은 에러 객체를 인수에 넘깁니다. 에러 상속에 대해선 다음 챕터에서 다룰 예정입니다.
 
 *다시 던지기*는 에러 처리 시 사용되는 중요한 패턴입니다. `catch` 블록에선 대개 예상하였거나 어떻게 다룰지 알고 있는 에러를 다루고, 예상치 못한 에러는 다시 던지기 합니다.
 
+<<<<<<< HEAD
 `try..catch`가 없어도 대부분의 호스트 환경이 '전역' 에러 핸들러를 지원하기 때문에 '떨어져 나온' 에러를 잡을 수 있습니다.  `window.onerror`는 브라우저 환경의 전역 에러 핸들러입니다.
+=======
+Even if we don't have `try...catch`, most environments allow us to setup a "global" error handler to catch errors that "fall out". In-browser, that's `window.onerror`.
+>>>>>>> bae0ef44d0208506f6e9b7f3421ee640ab41af2b
