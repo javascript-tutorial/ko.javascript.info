@@ -2,7 +2,11 @@
 
 *반복 가능한(iterable, 이터러블)* 객체는 배열을 일반화한 객체입니다. 이터러블 이라는 개념을 사용하면 어떤 객체에든 `for..of` 반복문을 적용할 수 있습니다.
 
+<<<<<<< HEAD
 배열은 대표적인 이터러블입니다. 배열 외에도 다수의 내장 객체가 반복 가능합니다. 문자열 역시 이터러블의 예입니다.
+=======
+*Iterable* objects are a generalization of arrays. That's a concept that allows us to make any object useable in a `for..of` loop.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 배열이 아닌 객체가 있는데, 이 객체가 어떤 것들의 컬렉션(목록, 집합 등)을 나타내고 있는 경우, `for..of` 문법을 적용할 수만 있다면 컬렉션을 순회하는데 유용할 겁니다. 이게 가능하도록 해봅시다.
 
@@ -25,12 +29,21 @@ let range = {
 // for(let num of range) ... num=1,2,3,4,5
 ```
 
+<<<<<<< HEAD
 `range`를 이터러블로 만들려면(`for..of`가 동작하도록 하려면) 객체에 `Symbol.iterator`(특수 내장 심볼)라는 메서드를 추가해 아래와 같은 일이 벌어지도록 해야 합니다.
 
 1. `for..of`가 시작되자마자 `for..of`는 `Symbol.iterator`를 호출합니다(`Symbol.iterator`가 없으면 에러가 발생합니다). `Symbol.iterator`는 반드시 *이터레이터(iterator, 메서드 `next`가 있는 객체)* 를 반환해야 합니다.
 2. 이후 `for..of`는 *반환된 객체(이터레이터)만*을 대상으로 동작합니다.
 3. `for..of`에 다음 값이 필요하면, `for..of`는 이터레이터의 `next()`메서드를 호출합니다.
 4. `next()`의 반환 값은 `{done: Boolean, value: any}`와 같은 형태이어야 합니다. `done=true`는 반복이 종료되었음을 의미합니다. `done=false`일땐 `value`에 다음 값이 저장됩니다.
+=======
+To make the `range` object iterable (and thus let `for..of` work) we need to add a method to the object named `Symbol.iterator` (a special built-in symbol just for that).
+
+1. When `for..of` starts, it calls that method once (or errors if not found). The method must return an *iterator* -- an object with the method `next`.
+2. Onward, `for..of` works *only with that returned object*.
+3. When `for..of` wants the next value, it calls `next()` on that object.
+4. The result of `next()` must have the form `{done: Boolean, value: any}`, where `done=true` means that the loop is finished, otherwise `value` is the next value.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 `range`를 반복 가능한 객체로 만들어주는 코드는 다음과 같습니다.
 
@@ -43,11 +56,16 @@ let range = {
 // 1. for..of 최초 호출 시, Symbol.iterator가 호출됩니다.
 range[Symbol.iterator] = function() {
 
+<<<<<<< HEAD
   // Symbol.iterator는 이터레이터 객체를 반환합니다.
   // 2. 이후 for..of는 반환된 이터레이터 객체만을 대상으로 동작하는데, 이때 다음 값도 정해집니다.
+=======
+  // ...it returns the iterator object:
+  // 2. Onward, for..of works only with the iterator object below, asking it for next values
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
   return {
     current: this.from,
-    last: this.to,      
+    last: this.to,
 
     // 3. for..of 반복문에 의해 반복마다 next()가 호출됩니다.
     next() {
@@ -139,7 +157,11 @@ for (let char of str) {
 
 ## 이터레이터를 명시적으로 호출하기
 
+<<<<<<< HEAD
 이터레이터를 어떻게 명시적으로 사용할 수 있는지 살펴보면서 좀 더 깊게 이해해봅시다.
+=======
+For deeper understanding, let's see how to use an iterator explicitly.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 `for..of`를 사용했을 때와 동일한 방법으로 문자열을 순회할 건데, 이번엔 직접 호출을 통해서 순회해보겠습니다. 다음 코드는 문자열 이터레이터를 만들고, 여기서 값을 '수동으로' 가져옵니다.
 
@@ -164,12 +186,20 @@ while (true) {
 
 ## 이터러블과 유사 배열 [#array-like]
 
+<<<<<<< HEAD
 비슷해 보이지만 아주 다른 용어 두 가지가 있습니다. 헷갈리지 않으려면 두 용어를 잘 이해하고 있어야 합니다. 
+=======
+Two official terms look similar, but are very different. Please make sure you understand them well to avoid the confusion.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 - *이터러블(iterable)* 은 위에서 설명한 바와 같이 메서드 `Symbol.iterator`가 구현된 객체입니다.
 - *유사 배열(array-like)* 은 인덱스와 `length` 프로퍼티가 있어서 배열처럼 보이는 객체입니다.
 
+<<<<<<< HEAD
 브라우저나 등의 호스트 환경에서 자바스크립트를 사용해 문제를 해결할 때 이터러블 객체나 유사 배열 객체 혹은 둘 다인 객체를 만날 수 있습니다. 
+=======
+When we use JavaScript for practical tasks in a browser or any other environment, we may meet objects that are iterables or array-likes, or both.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 이터러블 객체(`for..of` 를 사용할 수 있음)이면서 유사배열 객체(숫자 인덱스와 `length` 프로퍼티가 있음)인 문자열이 대표적인 예입니다.
 
@@ -269,7 +299,11 @@ for (let char of str) {
 alert(chars);
 ```
 
+<<<<<<< HEAD
 어쨌든 `Array.from`을 사용한 예시가 더 짧습니다.
+=======
+...But it is shorter.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 `Array.from`을 사용하면 서로게이트 쌍을 처리할 수 있는 `slice`를 직접 구현할 수도 있습니다.
 
@@ -291,16 +325,29 @@ alert( str.slice(1, 3) ); // 쓰레깃값 출력 (영역이 다른 특수 값)
 
 `for..of`을 사용할 수 있는 객체를 *이터러블*이라고 부릅니다.
 
+<<<<<<< HEAD
 - 이터러블엔 메서드 `Symbol.iterator`가 반드시 구현되어 있어야 합니다.
     - `obj[Symbol.iterator]`의 결과는 *이터레이터*라고 부릅니다. 이터레이터는 이어지는 반복 과정을 처리합니다.
     - 이터레이터엔 객체 `{done: Boolean, value: any}`을 반환하는 메서드 `next()`가 반드시 구현되어 있어야 합니다. 여기서 `done:true`은 반복이 끝났음을 의미하고 그렇지 않은 경우엔 `value`가 다음 값이 됩니다.
 - 메서드 `Symbol.iterator`는 `for..of`에 의해 자동으로 호출되는데, 개발자가 명시적으로 호출하는 것도 가능합니다.
 - 문자열이나 배열 같은 내장 이터러블에도 `Symbol.iterator`가 구현되어 있습니다.
 - 문자열 이터레이터는 서로게이트 쌍을 지원합니다.
+=======
+- Technically, iterables must implement the method named `Symbol.iterator`.
+    - The result of `obj[Symbol.iterator]()` is called an *iterator*. It handles further iteration process.
+    - An iterator must have the method named `next()` that returns an object `{done: Boolean, value: any}`, here `done:true` denotes the end of the iteration process, otherwise the `value` is the next value.
+- The `Symbol.iterator` method is called automatically by `for..of`, but we also can do it directly.
+- Built-in iterables like strings or arrays, also implement `Symbol.iterator`.
+- String iterator knows about surrogate pairs.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
 
 
 인덱스와 `length` 프로퍼티가 있는 객체는 *유사 배열*이라 불립니다. 유사 배열 객체엔 다양한 프로퍼티와 메서드가 있을 수 있는데 배열 내장 메서드는 없습니다.
 
 명세서를 보면 대부분의 메서드는 '진짜' 배열이 아닌 이터러블이나 유사 배열을 대상으로 동작한다고 쓰여 있는걸 볼 수 있습니다. 이 방법이 더 추상적이기 때문입니다.
 
+<<<<<<< HEAD
 `Array.from(obj[, mapFn, thisArg])`을 사용하면 이터러블이나 유사 배열인 `obj`를 진짜 `Array`로 만들 수 있습니다. 이렇게 하면 `obj`에도 배열 메서드를 사용할 수 있죠. 선택 인수 `mapFn`와 `thisArg`는 각 요소에 함수를 적용할 수 있게 해줍니다.
+=======
+`Array.from(obj[, mapFn, thisArg])` makes a real `Array` from an iterable or array-like `obj`, and we can then use array methods on it. The optional arguments `mapFn` and `thisArg` allow us to apply a function to each item.
+>>>>>>> 0f748275e20a81700c8514f22a7cc80c4422d09c
