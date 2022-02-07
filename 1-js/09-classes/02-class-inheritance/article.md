@@ -55,7 +55,11 @@ rabbit.run(5); // 흰 토끼 은/는 속도 5로 달립니다.
 rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
 ```
 
+<<<<<<< HEAD
 클래스 `Rabbit`을 사용해 만든 객체는 `rabbit.hide()` 같은 `Rabbit`에 정의된 메서드에도 접근할 수 있고, `rabbit.run()` 같은 `Animal`에 정의된 메서드에도 접근할 수 있습니다.
+=======
+Object of `Rabbit` class have access both to `Rabbit` methods, such as `rabbit.hide()`, and also to `Animal` methods, such as `rabbit.run()`.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 키워드 `extends`는 프로토타입을 기반으로 동작합니다. `extends`는 `Rabbit.prototype.[[Prototype]]`을 `Animal.prototype`으로 설정합니다. 그렇기 때문에 `Rabbit.prototype`에서 메서드를 찾지 못하면 `Animal.prototype`에서 메서드를 가져옵니다.
 
@@ -76,8 +80,8 @@ rabbit.hide(); // 흰 토끼 이/가 숨었습니다!
 ```js run
 function f(phrase) {
   return class {
-    sayHi() { alert(phrase) }
-  }
+    sayHi() { alert(phrase); }
+  };
 }
 
 *!*
@@ -150,8 +154,13 @@ class Rabbit extends Animal {
 
 let rabbit = new Rabbit("흰 토끼");
 
+<<<<<<< HEAD
 rabbit.run(5); // 흰 토끼가 속도 5로 달립니다.
 rabbit.stop(); // 흰 토끼가 멈췄습니다. 흰 토끼가 숨었습니다!
+=======
+rabbit.run(5); // White Rabbit runs with speed 5.
+rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 ```
 
 `Rabbit`은 이제 실행 중간에 부모 클래스에 정의된 메서드 `super.stop()`을 호출하는 `stop`을 가지게 되었네요.
@@ -300,7 +309,7 @@ alert(rabbit.earLength); // 10
 
 ```js run
 class Animal {
-  name = 'animal'
+  name = 'animal';
 
   constructor() {
     alert(this.name); // (*)
@@ -317,13 +326,21 @@ new Rabbit(); // animal
 */!*
 ```
 
+<<<<<<< HEAD
 `Animal`을 상속받는 `Rabbit`에서 `name` 필드를 오버라이딩 했습니다.
+=======
+Here, class `Rabbit` extends `Animal` and overrides the `name` field with its own value.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 `Rabbit`에는 따로 생성자가 정의되어 있지 않기 때문에 `Rabbit`을 사용해 인스턴스를 만들면 `Animal`의 생성자가 호출됩니다.
 
 흥미로운 점은 `new Animal()`과 `new Rabbit()`을 실행할 때 두 경우 모두 `(*)`로 표시한 줄에 있는 `alert` 함수가 실행되면서 얼럿 창에 `animal`이 출력된다는 점입니다.
 
+<<<<<<< HEAD
 이를 통해 우리는 **'부모 생성자는 자식 클래스에서 오버라이딩한 값이 아닌, 부모 클래스 안의 필드 값을 사용한다'** 는 사실을 알 수 있습니다.
+=======
+**In other words, the parent constructor always uses its own field value, not the overridden one.**
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 상속을 받고 필드 값을 오버라이딩했는데 새로운 값 대신 부모 클래스 안에 있는 기존 필드 값을 사용하다니 이상하지 않나요?
 
@@ -360,11 +377,19 @@ new Rabbit(); // rabbit
 
 그런데 클래스 필드는 자식 클래스에서 필드를 오버라이딩해도 부모 생성자가 오버라이딩한 필드 값을 사용하지 않습니다. 부모 생성자는 항상 부모 클래스에 있는 필드의 값을 사용합니다.
 
+<<<<<<< HEAD
 왜 이런 차이가 있을까요?
 
 이유는 필드 초기화 순서 때문입니다. 클래스 필드는 다음과 같은 규칙에 따라 초기화 순서가 달라집니다.
 - 아무것도 상속받지 않는 베이스 클래스는 생성자 실행 이전에 초기화됨
 - 부모 클래스가 있는 경우엔 `super()` 실행 직후에 초기화됨
+=======
+Why is there a difference?
+
+Well, the reason is the field initialization order. The class field is initialized:
+- Before constructor for the base class (that doesn't extend anything),
+- Immediately after `super()` for the derived class.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 위 예시에서 `Rabbit`은 하위 클래스이고 `constructor()`가 정의되어 있지 않습니다. 이런 경우 앞서 설명한 바와 같이 생성자는 비어있는데 그 안에 `super(...args)`만 있다고 보면 됩니다.
 
@@ -545,7 +570,11 @@ longEar.eat();  // 귀가 긴 토끼 이/가 먹이를 먹습니다.
 ```js run
 let animal = {
   sayHi() {
+<<<<<<< HEAD
     console.log(`나는 동물입니다.`);
+=======
+    alert(`I'm an animal`);
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
   }
 };
 
@@ -559,7 +588,11 @@ let rabbit = {
 
 let plant = {
   sayHi() {
+<<<<<<< HEAD
     console.log("나는 식물입니다.");
+=======
+    alert("I'm a plant");
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
   }
 };
 

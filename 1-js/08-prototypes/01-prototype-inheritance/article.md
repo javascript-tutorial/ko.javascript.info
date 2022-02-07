@@ -12,7 +12,11 @@
 
 ![prototype](object-prototype-empty.svg)
 
+<<<<<<< HEAD
 프로토타입의 동작 방식은 '신비스러운'면이 있습니다. `object`에서 프로퍼티를 읽으려고 하는데 해당 프로퍼티가 없으면 자바스크립트는 자동으로 프로토타입에서 프로퍼티를 찾기 때문이죠. 프로그래밍에선 이런 동작 방식을 '프로토타입 상속'이라 부릅니다. 언어 차원에서 지원하는 편리한 기능이나 개발 테크닉 중 프로토타입 상속에 기반해 만들어진 것들이 많습니다.
+=======
+When we read a property from `object`, and it's missing, JavaScript automatically takes it from the prototype. In programming, this is called "prototypal inheritance". And soon we'll study many examples of such inheritance, as well as cooler language features built upon it.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 `[[Prototype]]` 프로퍼티는 내부 프로퍼티이면서 숨김 프로퍼티이지만 다양한 방법을 사용해 개발자가 값을 설정할 수 있습니다.
 
@@ -27,10 +31,11 @@ let rabbit = {
 };
 
 *!*
-rabbit.__proto__ = animal;
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal
 */!*
 ```
 
+<<<<<<< HEAD
 ```smart header="`__proto__`는 `[[Prototype]]`용 getter·setter입니다."
 `__proto__`는 `[[Prototype]]`과 *다릅니다*. `__proto__`는 `[[Prototype]]`의 getter(획득자)이자 setter(설정자) 입니다.
 
@@ -41,6 +46,9 @@ rabbit.__proto__ = animal;
 ```
 
 객체 `rabbit`에서 프로퍼티를 얻고싶은데 해당 프로퍼티가 없다면, 자바스크립트는 자동으로 `animal`이라는 객체에서 프로퍼티를 얻습니다.
+=======
+Now if we read a property from `rabbit`, and it's missing, JavaScript will automatically take it from `animal`.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 예시:
 
@@ -63,7 +71,11 @@ alert( rabbit.eats ); // true (**)
 alert( rabbit.jumps ); // true
 ```
 
+<<<<<<< HEAD
 `(*)`로 표시한 줄에선 `animal`이 `rabbit`의 프로토타입이 되도록 설정하였습니다.
+=======
+Here the line `(*)` sets `animal` to be the prototype of `rabbit`.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 `(**)`로 표시한 줄에서 `alert` 함수가 `rabbit.eats` 프로퍼티를 읽으려 했는데, `rabbit`엔 `eats`라는 프로퍼티가 없습니다. 이때 자바스크립트는 `[[Prototype]]`이 참조하고 있는 객체인 `animal`에서 `eats`를 얻어냅니다. 다음 그림을 밑에서부터 위로 살펴보세요.
 
@@ -131,14 +143,37 @@ alert(longEar.jumps); // true (rabbit에서 상속받음)
 
 ![](proto-animal-rabbit-chain.svg)
 
+<<<<<<< HEAD
 프로토타입 체이닝엔 두 가지 제약사항이 있습니다.
+=======
+Now if we read something from `longEar`, and it's missing, JavaScript will look for it in `rabbit`, and then in `animal`.
+
+There are only two limitations:
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 1. 순환 참조(circular reference)는 허용되지 않습니다. `__proto__`를 이용해 닫힌 형태로 다른 객체를 참조하면 에러가 발생합니다.
 2. `__proto__`의 값은 객체나 `null`만 가능합니다. 다른 자료형은 무시됩니다.
 
 여기에 더하여 객체엔 오직 하나의 `[[Prototype]]`만 있을 수 있다는 당연한 제약도 있습니다. 객체는 두 개의 객체를 상속받지 못합니다.
 
+<<<<<<< HEAD
 ## 프로토타입은 읽기 전용이다
+=======
+
+```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
+It's a common mistake of novice developers not to know the difference between these two.
+
+Please note that `__proto__` is *not the same* as the internal `[[Prototype]]` property. It's a getter/setter for `[[Prototype]]`. Later we'll see situations where it matters, for now let's just keep it in mind, as we build our understanding of JavaScript language.
+
+The `__proto__` property is a bit outdated. It exists for historical reasons, modern JavaScript suggests that we should use `Object.getPrototypeOf/Object.setPrototypeOf` functions instead that get/set the prototype. We'll also cover these functions later.
+
+By the specification, `__proto__` must only be supported by browsers. In fact though, all environments including server-side support `__proto__`, so we're quite safe using it.
+
+As the `__proto__` notation is a bit more intuitively obvious, we use it in the examples.
+```
+
+## Writing doesn't use prototype
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 프로토타입은 프로퍼티를 읽을 때만 사용합니다.
 
@@ -199,8 +234,13 @@ alert(admin.fullName); // John Smith (*)
 // setter 함수가 실행됩니다!
 admin.fullName = "Alice Cooper"; // (**)
 
+<<<<<<< HEAD
 alert(admin.fullName); // Alice Cooper, setter에 의해 추가된 admin의 프로퍼티(name, surname)에서 값을 가져옴
 alert(user.fullName); // John Smith, 본래 user에 있었던 프로퍼티 값
+=======
+alert(admin.fullName); // Alice Cooper, state of admin modified
+alert(user.fullName); // John Smith, state of user protected
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 ```
 
 프로토타입 `user`엔 getter 함수 `get fullName`이 있기 때문에 `(*)`로 표시한 줄에선 `get fullName`이 호출되었습니다. 마찬가지로 프로토타입에 이미 setter 함수(`set fullName`)가 정의되어 있기 때문에 `(**)`로 표시한 줄의 할당 연산이 실행되면 객체 `user`에 프로퍼티가 추가되는게 아니라 프로토타입에 있는 setter 함수가 호출됩니다.
@@ -282,7 +322,11 @@ for(let prop in rabbit) alert(prop); // jumps, eats
 */!*
 ```
 
+<<<<<<< HEAD
 [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty)를 이용하면 상속 프로퍼티를 순회 대상에서 제외할 수 있습니다. 이 내장 메서드는 `key`에 대응하는 프로퍼티가 상속 프로퍼티가 아니고 `obj`에 직접 구현되어있는 프로퍼티일 때만 `true`를 반환합니다.
+=======
+If that's not what we want, and we'd like to exclude inherited properties, there's a built-in method [obj.hasOwnProperty(key)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty): it returns `true` if `obj` has its own (not inherited) property named `key`.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 `obj.hasOwnProperty(key)`를 응용하면 아래 예시에서처럼 상속 프로퍼티를 걸러낼 수 있고, 상속 프로퍼티만을 대상으로 무언가를 할 수도 있습니다.
 

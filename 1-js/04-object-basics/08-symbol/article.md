@@ -109,7 +109,7 @@ user[id] = "제3 스크립트 id 값";
 
 만약 심볼 대신 문자열 `"id"`를 사용해 식별자를 만들었다면 충돌이 발생할 *가능성이* 있습니다.
 
-```js run
+```js
 let user = { name: "John" };
 
 // 문자열 "id"를 사용해 식별자를 만들었습니다.
@@ -161,7 +161,11 @@ for (let key in user) alert(key); // name과 age만 출력되고, 심볼은 출�
 alert( "직접 접근한 값: " + user[id] );
 ```
 
+<<<<<<< HEAD
 `Object.keys(user)`에서도 키가 심볼인 프로퍼티는 배제됩니다. '심볼형 프로퍼티 숨기기(hiding symbolic property)'라 불리는 이런 원칙 덕분에 외부 스크립트나 라이브러리는 심볼형 키를 가진 프로퍼티에 접근하지 못합니다.
+=======
+[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 그런데 [Object.assign](mdn:js/Object/assign)은 키가 심볼인 프로퍼티를 배제하지 않고 객체 내 모든 프로퍼티를 복사합니다.
 

@@ -47,7 +47,11 @@ switch (a) {
     break;
 */!*
   case 5:
+<<<<<<< HEAD
     alert( '비교하려는 값보다 큽니다.' );
+=======
+    alert( 'Too big' );
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
     break;
   default:
     alert( "어떤 값인지 파악이 되지 않습니다." );

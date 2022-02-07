@@ -17,7 +17,11 @@
 - 첫 번째 방법은 `event` 객체를 사용하는 것입니다. 이때 `event` 객체에 구현된 `event.preventDefault()` 메서드를 사용합니다.
 - 핸들러가 `addEventListener`가 아닌 `on<event>`를 사용해 할당되었다면 `false`를 반환하게 해 기본 동작을 막을 수도 있습니다.
 
+<<<<<<< HEAD
 아래 HTML에선 링크를 클릭해도 해당 URL로 이동하지 않습니다.
+=======
+In this HTML, a click on a link doesn't lead to navigation; the browser doesn't do anything:
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 ```html autorun height=60 no-beautify
 <a href="/" onclick="return false">이곳</a>
@@ -96,7 +100,11 @@ menu.onclick = function(event) {
 
 `addEventListener`의 `passive: true` 옵션은 브라우저에게 `preventDefault()`를 호출하지 않겠다고 알리는 역할을 합니다.
 
+<<<<<<< HEAD
 이 옵션은 왜 필요한 걸까요?
+=======
+Why might that be needed?
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 모바일 기기에는 사용자가 스크린에 손가락을 대고 움직일 때 발생하는 `touchmove`와 같은 이벤트가 있습니다. 이런 이벤트는 기본적으로 스크롤링(scrolling)을 발생시킵니다. 그런데 핸들러의 `preventDefault()`를 사용하면 스크롤링을 막을 수 있습니다.  
 

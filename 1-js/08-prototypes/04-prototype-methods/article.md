@@ -175,9 +175,15 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 프로토타입에 직접 접근할 땐 다음과 같은 모던한 메서드를 사용할 수 있습니다.
 
+<<<<<<< HEAD
 - [Object.create(proto, [descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`인 객체를 만듭니다. 참조 값은 `null`일 수 있고 프로퍼티 설명자를 넘기는 것도 가능합니다.
 - [Object.getPrototypeOf(obj)](mdn:js/Object.getPrototypeOf) -- `obj`의 `[[Prototype]]`을 반환합니다(`__proto__` getter와 같습니다).
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object.setPrototypeOf) -- `obj`의 `[[Prototype]]`을 `proto`로 설정합니다(`__proto__` setter와 같습니다).
+=======
+- [Object.create(proto, [descriptors])](mdn:js/Object/create) -- creates an empty object with a given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 사용자가 키를 직접 만들 수 있게 허용하면, 내장 `__proto__`의 getter, setter 때문에 의도하지 않은 결과가 나올 수 있습니다. 키가 `"__proto__"`일 때 에러가 발생할 수 있죠. 단순한 에러면 좋겠지만 보통 예측 불가능한 결과가 생깁니다.
 

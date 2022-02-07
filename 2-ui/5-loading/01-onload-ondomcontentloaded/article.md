@@ -2,9 +2,15 @@
 
 HTML 문서의 생명주기엔 다음과 같은 3가지 주요 이벤트가 관여합니다.
 
+<<<<<<< HEAD
 - `DOMContentLoaded` -- 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생합니다. 이미지 파일(`<img>`)이나 스타일시트 등의 기타 자원은 기다리지 않습니다.
 - `load` -- HTML로 DOM 트리를 만드는 게 완성되었을 뿐만 아니라 이미지, 스타일시트 같은 외부 자원도 모두 불러오는 것이 끝났을 때 발생합니다.
 - `beforeunload/unload` -- 사용자가 페이지를 떠날 때 발생합니다.
+=======
+- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may not yet have loaded.
+- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
+- `beforeunload/unload` -- the user is leaving the page.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 세 이벤트는 다음과 같은 상황에서 활용할 수 있습니다.
 
@@ -33,8 +39,13 @@ document.addEventListener("DOMContentLoaded", ready);
   function ready() {
     alert('DOM이 준비되었습니다!');
 
+<<<<<<< HEAD
     // 이미지가 로드되지 않은 상태이기 때문에 사이즈는 0x0입니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
+=======
+    // image is not yet loaded (unless it was cached), so the size is 0x0
+    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
   }
 
 *!*
@@ -45,7 +56,11 @@ document.addEventListener("DOMContentLoaded", ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
 ```
 
+<<<<<<< HEAD
 위 예시에서 `DOMContentLoaded` 핸들러는 문서가 로드되었을 때 실행됩니다. 따라서 핸들러 아래쪽에 위치한 `<img>`뿐만 아니라 모든 요소에 접근할 수 있습니다.
+=======
+In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
 그렇지만 이미지가 로드되는 것은 기다리지 않기 때문에 `alert` 창엔 이미지 사이즈가 0이라고 뜹니다. 
 
@@ -114,8 +129,13 @@ Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded
 
 ```html run height=200 refresh
 <script>
+<<<<<<< HEAD
   window.onload = function() { // window.addEventListener('load', (event) => {와 동일합니다.
     alert('페이지 전체가 로드되었습니다.');
+=======
+  window.onload = function() { // can also use window.addEventListener('load', (event) => {
+    alert('Page loaded');
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
 
     // 이번엔 이미지가 제대로 불러와 진 후에 얼럿창이 실행됩니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
@@ -145,7 +165,7 @@ let analyticsData = { /* 분석 정보가 담긴 객체 */ };
 
 window.addEventListener("unload", function() {
   navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
-};
+});
 ```
 
 - 요청은 POST 메서드로 전송됩니다.
@@ -185,6 +205,26 @@ window.onbeforeunload = function() {
 
 이렇게 문자열을 반환하도록 해도 얼럿창에 문자열이 보이지 않게 된 이유는 몇몇 사이트 관리자들이 오해가 생길 법하거나 성가신 메시지를 띄우면서 `beforeunload`를 남용했기 때문입니다. 오래된 브라우저에서 위 예시를 실행하고 새로 고침을 누르면 "저장되지 않은..." 메시지가 뜨긴 합니다. 하지만 모던 브라우저에선 `beforeunload` 이벤트를 취소할 때 보이는 메시지를 커스터마이징 할 수 없습니다.
 
+````warn header="The `event.preventDefault()` doesn't work from a `beforeunload` handler"
+That may sound weird, but most browsers ignore `event.preventDefault()`.
+
+Which means, following code may not work:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // doesn't work, so this event handler doesn't do anything
+	event.preventDefault();
+});
+```
+
+Instead, in such handlers one should set `event.returnValue` to a string to get the result similar to the code above:
+```js run
+window.addEventListener("beforeunload", (event) => {
+  // works, same as returning from window.onbeforeunload
+	event.returnValue = "There are unsaved changes. Leave now?";
+});
+```
+````
+
 ## readyState
 
 문서가 완전히 로드된 후에 `DOMContentLoaded` 핸들러를 설정하면 어떤 일이 발생할까요?
@@ -209,7 +249,11 @@ window.onbeforeunload = function() {
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
+<<<<<<< HEAD
   // 아직 로딩 중이므로 이벤트를 기다립니다.
+=======
+  // still loading, wait for the event
+>>>>>>> 71da17e5960f1c76aad0d04d21f10bc65318d3f6
   document.addEventListener('DOMContentLoaded', work);
 } else {
   // DOM이 완성되었습니다!
