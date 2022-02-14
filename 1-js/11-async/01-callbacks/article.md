@@ -28,7 +28,11 @@ function loadScript(src) {
 }
 ```
 
+<<<<<<< HEAD
 함수 `loadScript(src)`는 `<script src="…">`를 동적으로 만들고 이를 문서에 추가합니다. 브라우저는 자동으로 태그에 있는 스크립트를 불러오고, 로딩이 완료되면 스크립트를 실행합니다.
+=======
+It inserts into the document a new, dynamically created, tag `<script src="…">` with the given `src`. The browser automatically starts loading it and executes when complete.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 `loadScript(src)` 사용법은 다음과 같습니다.
 
@@ -146,7 +150,7 @@ loadScript('/my/script.js', function(script) {
     });
 */!*
 
-  })
+  });
 
 });
 ```
@@ -196,9 +200,15 @@ loadScript('/my/script.js', function(error, script) {
 
 ## 멸망의 피라미드
 
+<<<<<<< HEAD
 콜백 기반 비동기 처리는 언뜻 봤을 때 꽤 쓸만해 보이고, 실제로도 그렇습니다. 한 개 혹은 두 개의 중첩 호출이 있는 경우는 보기에도 나쁘지 않습니다. 
 
 하지만 꼬리에 꼬리를 무는 비동기 동작이 많아지면 아래와 같은 코드 작성이 불가피해집니다.
+=======
+At first glance, it looks like a viable approach to asynchronous coding. And indeed it is. For one or maybe two nested calls it looks fine.
+
+But for multiple asynchronous actions that follow one after another, we'll have code like this:
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 ```js
 loadScript('1.js', function(error, script) {
@@ -223,15 +233,22 @@ loadScript('1.js', function(error, script) {
         });
 
       }
-    })
+    });
   }
 });
 ```
 
+<<<<<<< HEAD
 위 코드는 다음과 같이 동작합니다.
 1. `1.js`를 로드합니다. 그 후 에러가 없으면,
 2. `2.js`를 로드합니다. 그 후 에러가 없으면,
 3. `3.js`를 로드합니다. 그 후 에러가 없으면 `(*)`로 표시한 줄에서 또 다른 작업을 수행합니다.
+=======
+In the code above:
+1. We load `1.js`, then if there's no error...
+2. We load `2.js`, then if there's no error...
+3. We load `3.js`, then if there's no error -- do something else `(*)`.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 호출이 계속 중첩되면서 코드가 깊어지고 있네요. 본문 중간중간 `...`로 표시한 곳에 반복문과 조건문이 있는 코드가 들어가면 관리는 특히나 더 힘들어질 겁니다.
 
@@ -256,7 +273,7 @@ loadScript('1.js', function(error, script) {
           }
         });
       }
-    })
+    });
   }
 });
 -->
@@ -296,10 +313,14 @@ function step3(error, script) {
   } else {
     // 모든 스크립트가 로딩되면 다른 동작을 수행합니다. (*)
   }
-};
+}
 ```
 
+<<<<<<< HEAD
 어떤가요? 새롭게 작성한 코드는 각 동작을 분리해 최상위 레벨의 함수로 만들었기 때문에 깊은 중첩이 없습니다. 그리고 콜백 기반 스타일 코드와 동일하게 동작하죠.
+=======
+See? It does the same thing, and there's no deep nesting now because we made every action a separate top-level function.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 그런데 이렇게 작성하면 동작상의 문제는 없지만, 코드가 찢어진 종잇조각 같아 보인다는 문제가 생깁니다. 읽는 것도 어려워지죠. 눈을 이리저리 움직이며 코드를 읽어야 합니다. 코드에 익숙지 않아 눈을 어디로 옮겨야 할지 모르면 더욱더 불편할 것입니다.
 
@@ -307,4 +328,8 @@ function step3(error, script) {
 
 지금쯤이면 더 나은 무언가가 필요하다는 생각이 강하게 들 겁니다.
 
+<<<<<<< HEAD
 운 좋게도, 멸망의 피라미드를 피할 방법이 몇 가지 있습니다. 가장 좋은 방법 중 하나는 다음 챕터에서 설명할 '프라미스(promise)'를 사용하는 것입니다.
+=======
+Luckily, there are other ways to avoid such pyramids. One of the best ways is to use "promises", described in the next chapter.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834

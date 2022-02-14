@@ -12,7 +12,13 @@ function sayHi() {
 
 함수 선언 방식 외에 *함수 표현식(Function Expression)* 을 사용해서 함수를 만들 수 있습니다.
 
+<<<<<<< HEAD
 함수 표현식으로 함수를 생성해보겠습니다.
+=======
+It allows us to create a new function in the middle of any expression.
+
+For example:
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 ```js
 let sayHi = function() {
@@ -20,9 +26,25 @@ let sayHi = function() {
 };
 ```
 
+<<<<<<< HEAD
 함수를 생성하고 변수에 값을 할당하는 것처럼 함수가 변수에 할당되었습니다. 함수가 어떤 방식으로 만들어졌는지에 관계없이 함수는 값이고, 따라서 변수에 할당할 수 있습니다. 위 예시에선 함수가 변수 `sayHi`에 저장된 값이 되었습니다.
 
 위 예시를 간단한 말로 풀면 다음과 같습니다: "함수를 만들고 그 함수를 변수 `sayHi`에 할당하기"
+=======
+Here we can see a variable `sayHi` getting a value, the new function, created as `function() { alert("Hello"); }`.
+
+As the function creation happens in the context of the assignment expression (to the right side of `=`), this is a *Function Expression*.
+
+Please note, there's no name after the `function` keyword. Omitting a name is allowed for Function Expressions.
+
+Here we immediately assign it to the variable, so the meaning of these code samples is the same: "create a function and put it into the variable `sayHi`".
+
+In more advanced situations, that we'll come across later, a function may be created and immediately called or scheduled for a later execution, not stored anywhere, thus remaining anonymous.
+
+## Function is a value
+
+Let's reiterate: no matter how the function is created, a function is a value. Both examples above store a function in the `sayHi` variable.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 함수는 값이기 때문에 `alert`를 이용하여 함수 코드를 출력할 수도 있습니다.
 
@@ -63,10 +85,14 @@ sayHi(); // Hello    //     본래 함수도 정상적으로 실행됩니다.
 2. `(2)` 에선  `sayHi`를 새로운 변수 `func`에 복사합니다. 이때 `sayHi` 다음에 괄호가 없다는 점에 유의하시기 바랍니다. 괄호가 있었다면 `func = sayHi()` 가 되어  `sayHi` *함수* 그 자체가 아니라, *함수 호출 결과(함수의 반환 값)* 가 `func`에 저장되었을 겁니다. 
 3. 이젠 `sayHi()` 와 `func()`로 함수를 호출할 수 있게 되었습니다.
 
+<<<<<<< HEAD
 함수 `sayHi`는 아래와 같이 함수 표현식을 사용해 정의할 수 있습니다.
+=======
+We could also have used a Function Expression to declare `sayHi`, in the first line:
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 ```js
-let sayHi = function() {
+let sayHi = function() { // (1) create
   alert( "Hello" );
 };
 
@@ -90,9 +116,15 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
+<<<<<<< HEAD
 이유는 간단합니다.
 - `if { ... }`, `for {  }`, `function f { }` 같이 중괄호로 만든 코드 블록 끝엔 `;`이 없어도 됩니다.
 - 함수 표현식은 `let sayHi = ...;`과 같은 구문 안에서 값의 역할을 합니다. 코드 블록이 아니고 값처럼 취급되어 변수에 할당되죠. 모든 구문의 끝엔 세미 콜론 `;`을 붙이는 게 좋습니다. 함수 표현식에 쓰인 세미 콜론은 함수 표현식 때문에 붙여진 게 아니라, 구문의 끝이기 때문에 붙여졌습니다. 
+=======
+The answer is simple: a Function Expression is created here as `function(…) {…}` inside the assignment statement: `let sayHi = …;`. The semicolon `;` is recommended at the end of the statement, it's not a part of the function syntax.
+
+The semicolon would be there for a simpler assignment, such as `let sayHi = 5;`, and it's also there for a function assignment.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ````
 
 ## 콜백 함수

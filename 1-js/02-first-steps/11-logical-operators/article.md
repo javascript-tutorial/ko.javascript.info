@@ -1,6 +1,10 @@
 # 논리 연산자
 
+<<<<<<< HEAD
 자바스크립트엔 세 종류의 논리 연산자 `||`(OR), `&&`(AND), `!`(NOT)이 있습니다.
+=======
+There are four logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT), `??` (Nullish Coalescing). Here we cover the first three, the `??` operator is in the next article.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 연산자에 '논리'라는 수식어가 붙긴 하지만 논리 연산자는 피연산자로 불린형뿐만 아니라 모든 타입의 값을 받을 수 있습니다. 연산 결과 역시 모든 타입이 될 수 있습니다.
 
@@ -64,7 +68,11 @@ if (hour < 10 || hour > 18 || isWeekend) {
 }
 ```
 
+<<<<<<< HEAD
 ## 첫 번째 truthy를 찾는 OR 연산자 '||'
+=======
+## OR "||" finds the first truthy value [#or-finds-the-first-truthy-value]
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 지금까진 피연산자가 불린형인 경우만을 다뤘습니다. 전통적인 방식이죠. 이제 자바스크립트에서만 제공하는 논리연산자 OR의 '추가'기능에 대해 알아보겠습니다.
 
@@ -84,7 +92,11 @@ result = value1 || value2 || value3;
 
 여기서 핵심은 반환 값이 형 변환을 하지 않은 원래 값이라는 것입니다.
 
+<<<<<<< HEAD
 정리해 보자면 이렇습니다. OR `"||"` 연산자를 여러 개 체이닝(chaining) 하면 첫 번째 truthy를 반환합니다. 피연산자에 truthy가 하나도 없다면 마지막 피연산자를 반환합니다.
+=======
+In other words, a chain of OR `||` returns the first truthy value or the last one if no truthy value is found.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 예시:
 
@@ -101,9 +113,15 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
 
 1. **변수 또는 표현식으로 구성된 목록에서 첫 번째 truthy 얻기**
 
+<<<<<<< HEAD
     `firstName`, `lastName`, `nickName`이란 변수가 있는데 이 값들은 모두 옵션 값이라고 해봅시다.
 
     OR `||`을 사용하면 실제 값이 들어있는 변수를 찾고, 그 값을 보여줄 수 있습니다. 변수 모두에 값이 없는 경우엔 `익명`를 보여줍시다.
+=======
+    For instance, we have `firstName`, `lastName` and `nickName` variables, all optional (i.e. can be undefined or have falsy values).
+
+    Let's use OR `||` to choose the one that has the data and show it (or `"Anonymous"` if nothing set):
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
     ```js run
     let firstName = "";
@@ -115,7 +133,11 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
     */!*
     ```
 
+<<<<<<< HEAD
     모든 변수가 falsy이면 `"익명"`이 출력되었을 겁니다.
+=======
+    If all variables were falsy, `"Anonymous"` would show up.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 2. **단락 평가**
 
@@ -123,7 +145,11 @@ alert( undefined || null || 0 ); // 0 (모두 falsy이므로, 마지막 값을 �
 
     위에서 설명해 드린 바와 같이 OR`||`은 왼쪽부터 시작해서 오른쪽으로 평가를 진행하는데, truthy를 만나면 나머지 값들은 건드리지 않은 채 평가를 멈춥니다. 이런 프로세스를 '단락 평가'라고 합니다.
 
+<<<<<<< HEAD
     단락 평가의 동작 방식은 두 번째 피연산자가 변수 할당과 같은 부수적인 효과(side effect)를 가지는 표현식 일 때 명확히 볼 수 있습니다.
+=======
+    The importance of this feature becomes obvious if an operand isn't just a value, but an expression with a side effect, such as a variable assignment or a function call.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
     아래 예시를 실행하면 두 번째 메시지만 출력됩니다.
 
@@ -223,8 +249,13 @@ AND 연산자 `&&`의 우선순위는 OR 연산자 `||`보다 높습니다.
 따라서 `a && b || c && d`는 `(a && b) || (c && d)`와 동일하게 동작합니다.
 ````
 
+<<<<<<< HEAD
 ````warn header="`if`를 ||나 &&로 대체하지 마세요."
 어떤 개발자들은 AND 연산자 `&&`를 `if`문을 '짧게' 줄이는 용도로 사용하곤 합니다.
+=======
+````warn header="Don't replace `if` with `||` or `&&`"
+Sometimes, people use the AND `&&` operator as a "shorter way to write `if`".
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 예시:
 
@@ -244,7 +275,11 @@ let x = 1;
 if (x > 0) alert( '0보다 큽니다!' );
 ```
 
+<<<<<<< HEAD
  `&&`를 사용한 코드가 더 짧긴 하지만 `if`문을 사용한 예시가 코드에서 무엇을 구현하고자 하는지 더 명백히 드러내고, 가독성도 좋습니다. 그러니 if 조건문이 필요하면 `if`를 사용하고 AND 연산자는 연산자 목적에 맞게 사용합시다.
+=======
+Although, the variant with `&&` appears shorter, `if` is more obvious and tends to be a little bit more readable. So we recommend using every construct for its purpose: use `if` if we want `if` and use `&&` if we want AND.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 ````
 
 

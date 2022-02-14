@@ -68,7 +68,11 @@ if (cond) {
 
 ## 'else'절
 
+<<<<<<< HEAD
 `if`문엔 `else` 절을 붙일 수 있습니다. `else` 뒤에 이어지는 코드 블록은 조건이 거짓일 때 실행됩니다.
+=======
+The `if` statement may contain an optional "else" block. It executes when the condition is falsy.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 예시:
 ```js run

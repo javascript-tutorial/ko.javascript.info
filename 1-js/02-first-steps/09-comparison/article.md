@@ -4,6 +4,7 @@
 
 자바스크립트에서 기본 수학 연산은 아래와 같은 문법을 사용해 표현할 수 있습니다.
 
+<<<<<<< HEAD
 - 보다 큼·작음: <code>a &gt; b</code>, <code>a &lt; b</code>
 - 보다 크거나·작거나 같음: <code>a &gt;= b</code>, <code>a &lt;= b</code>
 - 같음(동등): `a == b`. 등호 `=`가 두 개 연달아 오는 것에 유의하세요. `a ​​= b`와 같이 등호가 하나일 때는 할당을 의미합니다.
@@ -12,6 +13,16 @@
 이번 글에선 비교 시 일어나는 기이한 현상을 포함하여 다양한 자료형을 대상으로 자바스크립트가 어떻게 비교를 하는지에 대해 다룰 예정입니다. 
 
 글 말미에는 자바스크립트에서만 일어나는 '기이한' 현상을 어떻게 예방할 수 있는지에 대해서 언급해두었습니다.
+=======
+- Greater/less than: <code>a &gt; b</code>, <code>a &lt; b</code>.
+- Greater/less than or equals: <code>a &gt;= b</code>, <code>a &lt;= b</code>.
+- Equals: `a == b`, please note the double equality sign `==` means the equality test, while a single one `a = b` means an assignment.
+- Not equals: In maths the notation is <code>&ne;</code>, but in JavaScript it's written as <code>a != b</code>.
+
+In this article we'll learn more about different types of comparisons, how JavaScript makes them, including important peculiarities.
+
+At the end you'll find a good recipe to avoid "JavaScript quirks"-related issues.
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 ## 불린형 반환
 
@@ -57,7 +68,13 @@ alert( 'Bee' > 'Be' ); // true
 4. 글자 간 비교가 끝날 때까지 이 과정을 반복합니다.
 5. 비교가 종료되었고 문자열의 길이도 같다면 두 문자열은 동일하다고 결론 냅니다. 비교가 종료되었지만 두 문자열의 길이가 다르면 길이가 긴 문자열이 더 크다고 결론 냅니다.
 
+<<<<<<< HEAD
 예시의 `'Z' > 'A'`는 위 알고리즘의 첫 번째 단계에서 비교 결과가 도출됩니다. 반면, 문자열 `'Glow'`와 `'Glee'`는 복수의 문자로 이루어진 문자열이기 때문에, 아래와 같은 순서로 문자열 비교가 이뤄집니다.
+=======
+In the first example above, the comparison `'Z' > 'A'` gets to a result at the first step.
+
+The second comparison `'Glow'` and `'Glee'` needs more steps as strings are compared character-by-character:
+>>>>>>> 29216730a877be28d0a75a459676db6e7f5c4834
 
 1. `G`는 `G`와 같습니다.
 2. `l`은 `l`과 같습니다.
