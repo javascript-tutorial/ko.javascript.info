@@ -168,7 +168,7 @@ formData.append("image", imageBlob, "image.png");
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) ê°ì²´ëŠ” `fetch` ë“±ì˜ ë„¤íŠ¸ì›Œí¬ ë©”ì„œë“œë¥¼ í†µí•´ HTML í¼ì„ ë³´ë‚´ëŠ”ë° ì‚¬ìš©ë©ë‹ˆë‹¤.
 
-We can either create `new FormData(form)` from an HTML form, or create a object without a form at all, and then append fields with methods:
+`FormData` °´Ã¼´Â HTML Æû(`form`)À» Á÷Á¢ ³Ñ°Ü `new FormData(form)`À¸·Î ¸¸µé ¼öµµ ÀÖ°í, HTML Æû ¾øÀÌ ´ÙÀ½°ú °°Àº ¸Ş¼­µå·Î ÇÊµå¸¦ Ãß°¡ÇØ ¸¸µé ¼öµµ ÀÖ½À´Ï´Ù.
 
 - `formData.append(name, value)`
 - `formData.append(name, blob, fileName)`
