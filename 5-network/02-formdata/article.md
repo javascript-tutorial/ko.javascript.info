@@ -1,7 +1,7 @@
 
 # FormData
 
-This chapter is about sending HTML forms: with or without files, with additional fields and so on.
+이번 챕터에선 파일 여부나 추가 필드 여부 등과 상관없이 통용되는 HTML 폼(form) 전송 방법에 대해 알아보겠습니다.
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects can help with that. As you might have guessed, it's the object to represent HTML form data.
 
