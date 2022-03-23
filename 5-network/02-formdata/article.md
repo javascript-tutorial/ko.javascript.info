@@ -49,7 +49,7 @@ As you can see, that's almost one-liner:
 
 In this example, the server code is not presented, as it's beyound our scope. The server accepts the POST request and replies "User saved".
 
-## FormData Methods
+## FormData 메서드
 
 We can modify fields in `FormData` with methods:
 
