@@ -151,6 +151,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
     }
     // test1
     // test2
+    // test3
 
   </script>
 </body>
