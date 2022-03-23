@@ -116,7 +116,7 @@ Here's an example with such form:
 
 In practice though, it's often convenient to send an image not separately, but as a part of the form, with additional fields, such as "name" and other metadata.
 
-Also, servers are usually more suited to accept multipart-encoded forms, rather than raw binary data.
+서버 입장에서도 원시 바이너리 데이터를 받는 것보다 multipart-encoded 폼을 받는게 좀 더 적합하죠.
 
 This example submits an image from `<canvas>`, along with some other fields, as a form, using `FormData`:
 
