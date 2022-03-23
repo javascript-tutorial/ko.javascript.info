@@ -154,7 +154,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
 </body>
 ```
 
-Please note how the image `Blob` is added:
+예시에서 이미지 `Blob`을 추가한 코드를 다시 봅시다.
 
 ```js
 formData.append("image", imageBlob, "image.png");
