@@ -79,7 +79,7 @@ for(let [name, value] of formData) {
 }
 ```
 
-## Sending a form with a file
+## 파일이 있는 폼 전송하기
 
 The form is always sent as `Content-Type: multipart/form-data`, this encoding allows to send files. So, `<input type="file">` fields are sent also, similar to a usual form submission.
 
