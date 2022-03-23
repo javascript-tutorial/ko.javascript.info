@@ -164,7 +164,7 @@ That's same as if there were `<input type="file" name="image">` in the form, and
 
 The server reads form data and the file, as if it were a regular form submission.
 
-## Summary
+## 요약
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects are used to capture HTML form and submit it using `fetch` or another network method.
 
