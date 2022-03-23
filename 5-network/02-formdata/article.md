@@ -150,6 +150,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
       alert(result.message);
     }
     // test1
+    // test2
 
   </script>
 </body>
