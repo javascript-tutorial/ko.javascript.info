@@ -138,7 +138,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
 
 *!*
       let formData = new FormData();
-      formData.append("firstName", "John");
+      formData.append("firstName", "Bora");
       formData.append("image", imageBlob, "image.png");
 */!*    
 
