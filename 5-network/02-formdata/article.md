@@ -18,7 +18,7 @@ From the server point of view, that looks like a usual form submission.
 
 ## 간단한 폼 전송하기
 
-Let's send a simple form first.
+아주 간단한 폼을 전송한다고 가정해봅시다.
 
 보시다시피 아주 짧은 코드로도 전송 처리가 가능합니다.
 
