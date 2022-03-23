@@ -118,7 +118,7 @@ In practice though, it's often convenient to send an image not separately, but a
 
 Also, servers are usually more suited to accept multipart-encoded forms, rather than raw binary data.
 
-This example submits an image from `<canvas>`, along with some other fields, as a form, using `FormData`:
+아래는 `<canvas>`를 사용해 만든 이미지를 `FormData`를 사용해 폼 형태로 다른 추가 필드와 함께 전송하는 예시입니다.
 
 ```html run autorun height="90"
 <body style="margin:0">
