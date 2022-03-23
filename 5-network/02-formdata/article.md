@@ -61,7 +61,7 @@ From the server point of view, that looks like a usual form submission.
 
 A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
 
-`append` 메서드 이외에 필드 추가 시 사용할 수 있는 메서드로 `set`도 있습니다. `set`이 `append` 메서드와 다른 점은 `set`은 `name`과 동일한 이름을 가진 필드를 모두 제거하고 새로운 필드 하나를 추가한다는 데 있습니다. 따라서 `set` 메서드를 쓰면 `name`을 가진 필드가 단 한 개만 있게끔 보장할 수 있습니다. 이 외에 다른 기능은 `append` 메서드와 동일합니다.
+There's also method `set`, with the same syntax as `append`. The difference is that `.set` removes all fields with the given `name`, and then appends a new field. So it makes sure there's only one field with such `name`, the rest is just like `append`:
 
 - `formData.set(name, value)`,
 - `formData.set(name, blob, fileName)`.
