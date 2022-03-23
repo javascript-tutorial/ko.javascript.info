@@ -149,6 +149,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
       let result = await response.json();
       alert(result.message);
     }
+    // test1
 
   </script>
 </body>
