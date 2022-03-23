@@ -56,7 +56,7 @@ We can modify fields in `FormData` with methods:
 - `formData.append(name, value)` - add a form field with the given `name` and `value`,
 - `formData.append(name, blob, fileName)` - add a field as if it were `<input type="file">`, the third argument `fileName` sets file name (not form field name), as it were a name of the file in user's filesystem,
 - `formData.delete(name)` - remove the field with the given `name`,
-- `formData.get(name)` - get the value of the field with the given `name`,
+- `formData.get(name)` - `name`에 해당하는 필드의 값을 가져옴
 - `formData.has(name)` - if there exists a field with the given `name`, returns `true`, otherwise `false`
 
 A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
