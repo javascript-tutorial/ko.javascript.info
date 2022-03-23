@@ -5,7 +5,7 @@
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects can help with that. As you might have guessed, it's the object to represent HTML form data.
 
-�����ڴ� ������ �����ϴ�.
+The constructor is:
 ```js
 let formData = new FormData([form]);
 ```
@@ -25,7 +25,7 @@ From the server point of view, that looks like a usual form submission.
 ```html run autorun
 <form id="formElem">
   <input type="text" name="name" value="John">
-  <input type="text" name="surname" value="Smith">
+  <input type="text" name="surname" value="Lee">
   <input type="submit">
 </form>
 
@@ -54,26 +54,32 @@ From the server point of view, that looks like a usual form submission.
 `FormData`에 속하는 필드는 아래와 같은 메서드로 수정할 수 있습니다.
 
 - `formData.append(name, value)` - add a form field with the given `name` and `value`,
-- `formData.append(name, blob, fileName)` - add a field as if it were `<input type="file">`, the third argument `fileName` sets file name (not form field name), as it were a name of the file in user's filesystem,
+- `formData.append(name, blob, fileName)` - `<input type="file">`형태의 필드를 추가. 세 번째 인수 `fileName`은 (필드 이름이 아니고) 사용자가 해당 이름을 가진 파일을 폼에 추가한 것처럼 설정해줌
 - `formData.delete(name)` - remove the field with the given `name`,
 - `formData.get(name)` - `name`에 해당하는 필드의 값을 가져옴
 - `formData.has(name)` - if there exists a field with the given `name`, returns `true`, otherwise `false`
 
 A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
 
+
 `append` �޼��� �̿ܿ� �ʵ� �߰� �� ����� �� �ִ� �޼���� `set`�� �ֽ��ϴ�. `set`�� `append` �޼���� �ٸ� ���� `set`�� `name`�� ������ �̸��� ���� �ʵ带 ��� �����ϰ� ���ο� �ʵ� �ϳ��� �߰��Ѵٴ� �� �ֽ��ϴ�. ���� `set` �޼��带 ���� `name`�� ���� �ʵ尡 �� �� ���� �ְԲ� ������ �� �ֽ��ϴ�. �� �ܿ� �ٸ� ����� `append` �޼���� �����մϴ�.
+There's also method `set`, with the same syntax as `append`. The difference is that `.set` removes all fields with the given `name`, and then appends a new field. So it makes sure there's only one field with such `name`, the rest is just like `append`:
+
 
 - `formData.set(name, value)`,
 - `formData.set(name, blob, fileName)`.
 
+
 ������ �� ������ �ʵ忡 �ݺ� �۾��� �Ҷ� `for..of` ������ ����� �� �ֽ��ϴ�.
+Also we can iterate over formData fields using `for..of` loop:
+
 
 ```js run
 let formData = new FormData();
 formData.append('key1', 'value1');
 formData.append('key2', 'value2');
 
-// List key/value pairs
+// key/value 쌍이 담긴 리스트
 for(let [name, value] of formData) {
   alert(`${name} = ${value}`); // key1=value1, then key2=value2
 }
@@ -110,7 +116,7 @@ The form is always sent as `Content-Type: multipart/form-data`, this encoding al
 </script>
 ```
 
-## Sending a form with Blob data
+## Blob 데이터가 있는 폼 전송하기
 
 <info:fetch> 챕터에서 살펴본 바와 같이 이미지 같은 동적으로 생성된 바이너리 파일은 `Blob` 객체를 사용해 쉽게 전송할 수 있습니다. 이때 `Blob` 객체는 `fetch` 메서드의 `body` 매개변수에 바로 넘겨줄 수 있죠.
 
@@ -162,7 +168,11 @@ formData.append("image", imageBlob, "image.png");
 
 이 코드는 폼에 `<input type="file" name="image">` 태그가 있고, 사용자 기기의 파일 시스템에서 파일명이 `"image.png"`(3번째 인수 참고)인 `imageBlob` 데이터(2번째 인수 참고)를 추가한 것과 동일한 효과를 줍니다.
 
+
 ��û�� ���� ������ �Ϲ� ���� �����ϰ� �� �����Ϳ� ������ �а� ó���մϴ�.
+
+The server reads form data and the file, as if it were a regular form submission.
+
 
 ## Summary
 
@@ -178,12 +188,11 @@ We can either create `new FormData(form)` from an HTML form, or create a object 
 메서드를 사용할 때 주의할 점 2가지가 있습니다.
 
 1. The `set` method removes fields with the same name, `append` doesn't. That's the only difference between them.
-2. To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for `<input type="file">`.
-
+2. 파일을 보낼 땐 세 번째 인수가 필요한데 이 인수는 사용자 파일 시스템에서 지정한 파일명과 동일하게 지정됩니다.
 Other methods are:
 
 - `formData.delete(name)`
 - `formData.get(name)`
 - `formData.has(name)`
 
-That's it!
+다룰 내용은 여기까지입니다!
