@@ -16,7 +16,7 @@ The special thing about `FormData` is that network methods, such as `fetch`, can
 
 From the server point of view, that looks like a usual form submission.
 
-## Sending a simple form
+## 간단한 폼 전송하기
 
 Let's send a simple form first.
 
