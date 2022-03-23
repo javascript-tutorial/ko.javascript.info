@@ -168,7 +168,7 @@ The server reads form data and the file, as if it were a regular form submission
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects are used to capture HTML form and submit it using `fetch` or another network method.
 
-`FormData` °´Ã¼´Â HTML Æû(`form`)À» Á÷Á¢ ³Ñ°Ü `new FormData(form)`À¸·Î ¸¸µé ¼öµµ ÀÖ°í, HTML Æû ¾øÀÌ ´ÙÀ½°ú °°Àº ¸Ş¼­µå·Î ÇÊµå¸¦ Ãß°¡ÇØ ¸¸µé ¼öµµ ÀÖ½À´Ï´Ù.
+`FormData` ê°ì²´ëŠ” HTML í¼(`form`)ì„ ì§ì ‘ ë„˜ê²¨ `new FormData(form)`ìœ¼ë¡œ ë§Œë“¤ ìˆ˜ë„ ìˆê³ , HTML í¼ ì—†ì´ ë‹¤ìŒê³¼ ê°™ì€ ë©”ì„œë“œë¡œ í•„ë“œë¥¼ ì¶”ê°€í•´ ë§Œë“¤ ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.
 
 - `formData.append(name, value)`
 - `formData.append(name, blob, fileName)`
