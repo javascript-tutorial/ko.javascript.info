@@ -3,7 +3,7 @@
 
 This chapter is about sending HTML forms: with or without files, with additional fields and so on.
 
-[FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects can help with that. As you might have guessed, it's the object to represent HTML form data.
+[FormData](https://xhr.spec.whatwg.org/#interface-formdata)는 폼을 쉽게 보내도록 도와주는 객체입니다. 이름을 보고 유추하셨듯이 'FormData'객체는 HTML 폼 데이터를 나타냅니다.
 
 The constructor is:
 ```js
