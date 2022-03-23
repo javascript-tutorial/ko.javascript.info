@@ -51,7 +51,7 @@ In this example, the server code is not presented, as it's beyound our scope. Th
 
 ## FormData 메서드
 
-We can modify fields in `FormData` with methods:
+`FormData`에 속하는 필드는 아래와 같은 메서드로 수정할 수 있습니다.
 
 - `formData.append(name, value)` - add a form field with the given `name` and `value`,
 - `formData.append(name, blob, fileName)` - add a field as if it were `<input type="file">`, the third argument `fileName` sets file name (not form field name), as it were a name of the file in user's filesystem,
