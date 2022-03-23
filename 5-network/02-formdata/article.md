@@ -175,7 +175,7 @@ We can either create `new FormData(form)` from an HTML form, or create a object 
 - `formData.set(name, value)`
 - `formData.set(name, blob, fileName)`
 
-Let's note two peculiarities here:
+메서드를 사용할 때 주의할 점 2가지가 있습니다.
 
 1. The `set` method removes fields with the same name, `append` doesn't. That's the only difference between them.
 2. To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for `<input type="file">`.
