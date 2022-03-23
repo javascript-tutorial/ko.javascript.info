@@ -110,7 +110,7 @@ The form is always sent as `Content-Type: multipart/form-data`, this encoding al
 </script>
 ```
 
-## Sending a form with Blob data
+## Blob 데이터가 있는 폼 전송하기
 
 <info:fetch> 챕터에서 살펴본 바와 같이 이미지 같은 동적으로 생성된 바이너리 파일은 `Blob` 객체를 사용해 쉽게 전송할 수 있습니다. 이때 `Blob` 객체는 `fetch` 메서드의 `body` 매개변수에 바로 넘겨줄 수 있죠.
 
