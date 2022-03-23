@@ -1,7 +1,7 @@
 
 # FormData
 
-This chapter is about sending HTML forms: with or without files, with additional fields and so on.
+이번 챕터에선 파일 여부나 추가 필드 여부 등과 상관없이 통용되는 HTML 폼(form) 전송 방법에 대해 알아보겠습니다.
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects can help with that. As you might have guessed, it's the object to represent HTML form data.
 
@@ -61,12 +61,18 @@ From the server point of view, that looks like a usual form submission.
 
 A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
 
+
+`append` �޼��� �̿ܿ� �ʵ� �߰� �� ����� �� �ִ� �޼���� `set`�� �ֽ��ϴ�. `set`�� `append` �޼���� �ٸ� ���� `set`�� `name`�� ������ �̸��� ���� �ʵ带 ��� �����ϰ� ���ο� �ʵ� �ϳ��� �߰��Ѵٴ� �� �ֽ��ϴ�. ���� `set` �޼��带 ���� `name`�� ���� �ʵ尡 �� �� ���� �ְԲ� ������ �� �ֽ��ϴ�. �� �ܿ� �ٸ� ����� `append` �޼���� �����մϴ�.
 There's also method `set`, with the same syntax as `append`. The difference is that `.set` removes all fields with the given `name`, and then appends a new field. So it makes sure there's only one field with such `name`, the rest is just like `append`:
+
 
 - `formData.set(name, value)`,
 - `formData.set(name, blob, fileName)`.
 
+
+������ �� ������ �ʵ忡 �ݺ� �۾��� �Ҷ� `for..of` ������ ����� �� �ֽ��ϴ�.
 Also we can iterate over formData fields using `for..of` loop:
+
 
 ```js run
 let formData = new FormData();
@@ -162,7 +168,11 @@ formData.append("image", imageBlob, "image.png");
 
 이 코드는 폼에 `<input type="file" name="image">` 태그가 있고, 사용자 기기의 파일 시스템에서 파일명이 `"image.png"`(3번째 인수 참고)인 `imageBlob` 데이터(2번째 인수 참고)를 추가한 것과 동일한 효과를 줍니다.
 
+
+��û�� ���� ������ �Ϲ� ���� �����ϰ� �� �����Ϳ� ������ �а� ó���մϴ�.
+
 The server reads form data and the file, as if it were a regular form submission.
+
 
 ## Summary
 
