@@ -87,7 +87,7 @@ Here's an example with such form:
 
 ```html run autorun
 <form id="formElem">
-  <input type="text" name="firstName" value="John">
+  <input type="문자" name="이름" value="존">
   Picture: <input type="file" name="picture" accept="image/*">
   <input type="submit">
 </form>
