@@ -83,7 +83,7 @@ for(let [name, value] of formData) {
 
 The form is always sent as `Content-Type: multipart/form-data`, this encoding allows to send files. So, `<input type="file">` fields are sent also, similar to a usual form submission.
 
-Here's an example with such form:
+파일이 있는 폼 예시를 살펴봅시다.
 
 ```html run autorun
 <form id="formElem">
