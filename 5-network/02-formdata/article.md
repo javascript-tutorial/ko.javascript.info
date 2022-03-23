@@ -110,7 +110,7 @@ Here's an example with such form:
 </script>
 ```
 
-## Sending a form with Blob data
+## Blob 데이터가 있는 폼 전송하기
 
 As we've seen in the chapter <info:fetch>, it's easy to send dynamically generated binary data e.g. an image, as `Blob`. We can supply it directly as `fetch` parameter `body`.
 
