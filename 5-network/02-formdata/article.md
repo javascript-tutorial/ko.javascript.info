@@ -20,7 +20,7 @@ From the server point of view, that looks like a usual form submission.
 
 Let's send a simple form first.
 
-As you can see, that's almost one-liner:
+보시다시피 아주 짧은 코드로도 전송 처리가 가능합니다.
 
 ```html run autorun
 <form id="formElem">
