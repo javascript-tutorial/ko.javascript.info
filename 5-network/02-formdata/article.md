@@ -14,7 +14,7 @@ If HTML `form` element is provided, it automatically captures its fields.
 
 The special thing about `FormData` is that network methods, such as `fetch`, can accept a `FormData` object as a body. It's encoded and sent out with `Content-Type: multipart/form-data`.
 
-From the server point of view, that looks like a usual form submission.
+서버 관점에서, 일반적인 양식 제출처럼 보인다.
 
 ## Sending a simple form
 
