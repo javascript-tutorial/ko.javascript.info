@@ -178,8 +178,7 @@ We can either create `new FormData(form)` from an HTML form, or create a object 
 메서드를 사용할 때 주의할 점 2가지가 있습니다.
 
 1. The `set` method removes fields with the same name, `append` doesn't. That's the only difference between them.
-2. To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for `<input type="file">`.
-
+2. 파일을 보낼 땐 세 번째 인수가 필요한데 이 인수는 사용자 파일 시스템에서 지정한 파일명과 동일하게 지정됩니다.
 Other methods are:
 
 - `formData.delete(name)`
