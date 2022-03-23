@@ -25,7 +25,7 @@ As you can see, that's almost one-liner:
 ```html run autorun
 <form id="formElem">
   <input type="text" name="name" value="John">
-  <input type="text" name="surname" value="Smith">
+  <input type="text" name="surname" value="Lee">
   <input type="submit">
 </form>
 
