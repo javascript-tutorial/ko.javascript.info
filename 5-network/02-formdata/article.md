@@ -112,7 +112,7 @@ Here's an example with such form:
 
 ## Sending a form with Blob data
 
-As we've seen in the chapter <info:fetch>, it's easy to send dynamically generated binary data e.g. an image, as `Blob`. We can supply it directly as `fetch` parameter `body`.
+<info:fetch> 챕터에서 살펴본 바와 같이 이미지 같은 동적으로 생성된 바이너리 파일은 `Blob` 객체를 사용해 쉽게 전송할 수 있습니다. 이때 `Blob` 객체는 `fetch` 메서드의 `body` 매개변수에 바로 넘겨줄 수 있죠.
 
 In practice though, it's often convenient to send an image not separately, but as a part of the form, with additional fields, such as "name" and other metadata.
 
