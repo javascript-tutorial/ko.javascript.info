@@ -61,7 +61,7 @@ We can modify fields in `FormData` with methods:
 
 A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
 
-`append` ¸Þ¼­µå ÀÌ¿Ü¿¡ ÇÊµå Ãß°¡ ½Ã »ç¿ëÇÒ ¼ö ÀÖ´Â ¸Þ¼­µå·Î `set`µµ ÀÖ½À´Ï´Ù. `set`ÀÌ `append` ¸Þ¼­µå¿Í ´Ù¸¥ Á¡Àº `set`Àº `name`°ú µ¿ÀÏÇÑ ÀÌ¸§À» °¡Áø ÇÊµå¸¦ ¸ðµÎ Á¦°ÅÇÏ°í »õ·Î¿î ÇÊµå ÇÏ³ª¸¦ Ãß°¡ÇÑ´Ù´Â µ¥ ÀÖ½À´Ï´Ù. µû¶ó¼­ `set` ¸Þ¼­µå¸¦ ¾²¸é `name`À» °¡Áø ÇÊµå°¡ ´Ü ÇÑ °³¸¸ ÀÖ°Ô²û º¸ÀåÇÒ ¼ö ÀÖ½À´Ï´Ù. ÀÌ ¿Ü¿¡ ´Ù¸¥ ±â´ÉÀº `append` ¸Þ¼­µå¿Í µ¿ÀÏÇÕ´Ï´Ù.
+`append` ë©”ì„œë“œ ì´ì™¸ì— í•„ë“œ ì¶”ê°€ ì‹œ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ë©”ì„œë“œë¡œ `set`ë„ ìžˆìŠµë‹ˆë‹¤. `set`ì´ `append` ë©”ì„œë“œì™€ ë‹¤ë¥¸ ì ì€ `set`ì€ `name`ê³¼ ë™ì¼í•œ ì´ë¦„ì„ ê°€ì§„ í•„ë“œë¥¼ ëª¨ë‘ ì œê±°í•˜ê³  ìƒˆë¡œìš´ í•„ë“œ í•˜ë‚˜ë¥¼ ì¶”ê°€í•œë‹¤ëŠ” ë° ìžˆìŠµë‹ˆë‹¤. ë”°ë¼ì„œ `set` ë©”ì„œë“œë¥¼ ì“°ë©´ `name`ì„ ê°€ì§„ í•„ë“œê°€ ë‹¨ í•œ ê°œë§Œ ìžˆê²Œë” ë³´ìž¥í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì´ ì™¸ì— ë‹¤ë¥¸ ê¸°ëŠ¥ì€ `append` ë©”ì„œë“œì™€ ë™ì¼í•©ë‹ˆë‹¤.
 
 - `formData.set(name, value)`,
 - `formData.set(name, blob, fileName)`.
