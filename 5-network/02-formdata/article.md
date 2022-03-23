@@ -114,7 +114,7 @@ Here's an example with such form:
 
 As we've seen in the chapter <info:fetch>, it's easy to send dynamically generated binary data e.g. an image, as `Blob`. We can supply it directly as `fetch` parameter `body`.
 
-In practice though, it's often convenient to send an image not separately, but as a part of the form, with additional fields, such as "name" and other metadata.
+그런데 실제 코딩을 하다 보면 이미지를 별도로 넘겨주는 것보다 폼에 필드를 추가하고 여기에 이미지 '이름' 등의 메타데이터를 같이 실어 넘겨주는 게 좀 더 편리합니다.
 
 Also, servers are usually more suited to accept multipart-encoded forms, rather than raw binary data.
 
