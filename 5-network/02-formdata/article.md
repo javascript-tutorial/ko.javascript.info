@@ -66,7 +66,7 @@ There's also method `set`, with the same syntax as `append`. The difference is t
 - `formData.set(name, value)`,
 - `formData.set(name, blob, fileName)`.
 
-참고로 폼 데이터 필드에 반복 작업을 할땐 `for..of` 루프를 사용할 수 있습니다.
+Also we can iterate over formData fields using `for..of` loop:
 
 ```js run
 let formData = new FormData();
