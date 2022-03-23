@@ -47,7 +47,7 @@ From the server point of view, that looks like a usual form submission.
 </script>
 ```
 
-In this example, the server code is not presented, as it's beyound our scope. The server accepts the POST request and replies "User saved".
+요청을 받아 처리하는 서버 측 코드는 튜토리얼 범위를 넘어서서 추가하진 않았는데, 서버는 POST 요청을 받아 '저장 성공'이라는 응답을 보내준다고 정도만 알고 계시면 됩니다.
 
 ## FormData 메서드
 
