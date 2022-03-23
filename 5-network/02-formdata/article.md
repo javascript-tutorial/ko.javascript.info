@@ -1,4 +1,4 @@
-
+﻿
 # FormData
 
 This chapter is about sending HTML forms: with or without files, with additional fields and so on.
@@ -53,7 +53,7 @@ In this example, the server code is not presented, as it's beyound our scope. Th
 
 We can modify fields in `FormData` with methods:
 
-- `formData.append(name, value)` - add a form field with the given `name` and `value`,
+- `formData.append(name, value)` - `name`과 `value`를 가진 폼 필드를 추가
 - `formData.append(name, blob, fileName)` - add a field as if it were `<input type="file">`, the third argument `fileName` sets file name (not form field name), as it were a name of the file in user's filesystem,
 - `formData.delete(name)` - remove the field with the given `name`,
 - `formData.get(name)` - get the value of the field with the given `name`,
