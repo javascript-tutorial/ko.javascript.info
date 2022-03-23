@@ -124,7 +124,7 @@ This example submits an image from `<canvas>`, along with some other fields, as 
 <body style="margin:0">
   <canvas id="canvasElem" width="100" height="80" style="border:1px solid"></canvas>
 
-  <input type="button" value="Submit" onclick="submit()">
+  <input type="button" value="이미지 전송" onclick="submit()">
 
   <script>
     canvasElem.onmousemove = function(e) {
