@@ -166,7 +166,7 @@ formData.append("image", imageBlob, "image.png");
 
 ## Summary
 
-[FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects are used to capture HTML form and submit it using `fetch` or another network method.
+[FormData](https://xhr.spec.whatwg.org/#interface-formdata) 객체는 `fetch` 등의 네트워크 메서드를 통해 HTML 폼을 보내는데 사용됩니다.
 
 We can either create `new FormData(form)` from an HTML form, or create a object without a form at all, and then append fields with methods:
 
