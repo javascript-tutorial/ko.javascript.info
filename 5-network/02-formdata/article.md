@@ -164,7 +164,7 @@ formData.append("image", imageBlob, "image.png");
 
 ¿äÃ»À» ¹ŞÀº ¼­¹ö´Â ÀÏ¹İ Æû°ú µ¿ÀÏÇÏ°Ô Æû µ¥ÀÌÅÍ¿Í ÆÄÀÏÀ» ÀĞ°í Ã³¸®ÇÕ´Ï´Ù.
 
-## Summary
+## ìš”ì•½
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) ê°ì²´ëŠ” `fetch` ë“±ì˜ ë„¤íŠ¸ì›Œí¬ ë©”ì„œë“œë¥¼ í†µí•´ HTML í¼ì„ ë³´ë‚´ëŠ”ë° ì‚¬ìš©ë©ë‹ˆë‹¤.
 
