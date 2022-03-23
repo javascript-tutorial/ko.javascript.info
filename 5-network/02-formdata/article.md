@@ -1,4 +1,4 @@
-
+ï»¿
 # FormData
 
 This chapter is about sending HTML forms: with or without files, with additional fields and so on.
@@ -79,7 +79,7 @@ for(let [name, value] of formData) {
 }
 ```
 
-## ÆÄÀÏÀÌ ÀÖ´Â Æû Àü¼ÛÇÏ±â
+## íŒŒì¼ì´ ìˆëŠ” í¼ ì „ì†¡í•˜ê¸°
 
 The form is always sent as `Content-Type: multipart/form-data`, this encoding allows to send files. So, `<input type="file">` fields are sent also, similar to a usual form submission.
 
