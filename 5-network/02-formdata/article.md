@@ -54,7 +54,7 @@ From the server point of view, that looks like a usual form submission.
 `FormData`에 속하는 필드는 아래와 같은 메서드로 수정할 수 있습니다.
 
 - `formData.append(name, value)` - add a form field with the given `name` and `value`,
-- `formData.append(name, blob, fileName)` - add a field as if it were `<input type="file">`, the third argument `fileName` sets file name (not form field name), as it were a name of the file in user's filesystem,
+- `formData.append(name, blob, fileName)` - `<input type="file">`형태의 필드를 추가. 세 번째 인수 `fileName`은 (필드 이름이 아니고) 사용자가 해당 이름을 가진 파일을 폼에 추가한 것처럼 설정해줌
 - `formData.delete(name)` - remove the field with the given `name`,
 - `formData.get(name)` - `name`에 해당하는 필드의 값을 가져옴
 - `formData.has(name)` - if there exists a field with the given `name`, returns `true`, otherwise `false`
