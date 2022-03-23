@@ -168,7 +168,7 @@ The server reads form data and the file, as if it were a regular form submission
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) 객체는 `fetch` 등의 네트워크 메서드를 통해 HTML 폼을 보내는데 사용됩니다.
 
-We can either create `new FormData(form)` from an HTML form, or create a object without a form at all, and then append fields with methods:
+`FormData` 객체는 HTML 폼(`form`)을 직접 넘겨 `new FormData(form)`으로 만들 수도 있고, HTML 폼 없이 다음과 같은 메서드로 필드를 추가해 만들 수도 있습니다.
 
 - `formData.append(name, value)`
 - `formData.append(name, blob, fileName)`
