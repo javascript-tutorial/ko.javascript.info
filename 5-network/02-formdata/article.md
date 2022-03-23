@@ -186,4 +186,4 @@ Other methods are:
 - `formData.get(name)`
 - `formData.has(name)`
 
-That's it!
+다룰 내용은 여기까지입니다!
