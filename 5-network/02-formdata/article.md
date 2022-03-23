@@ -180,7 +180,7 @@ Let's note two peculiarities here:
 1. The `set` method removes fields with the same name, `append` doesn't. That's the only difference between them.
 2. To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for `<input type="file">`.
 
-Other methods are:
+이외에도 다음과 같은 메서드가 있습니다
 
 - `formData.delete(name)`
 - `formData.get(name)`
