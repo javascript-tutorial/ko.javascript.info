@@ -18,7 +18,7 @@ From the server point of view, that looks like a usual form submission.
 
 ## Sending a simple form
 
-Let's send a simple form first.
+아주 간단한 폼을 전송한다고 가정해봅시다.
 
 As you can see, that's almost one-liner:
 
