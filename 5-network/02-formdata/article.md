@@ -59,7 +59,7 @@ We can modify fields in `FormData` with methods:
 - `formData.get(name)` - get the value of the field with the given `name`,
 - `formData.has(name)` - if there exists a field with the given `name`, returns `true`, otherwise `false`
 
-A form is technically allowed to have many fields with the same `name`, so multiple calls to `append` add more same-named fields.
+폼은 이름(`name`)이 같은 필드 여러 개를 허용하기 때문에 `append` 메서드를 여러 번 호출해 이름이 같은 필드를 계속 추가해도 문제가 없습니다
 
 There's also method `set`, with the same syntax as `append`. The difference is that `.set` removes all fields with the given `name`, and then appends a new field. So it makes sure there's only one field with such `name`, the rest is just like `append`:
 
@@ -186,4 +186,4 @@ Other methods are:
 - `formData.get(name)`
 - `formData.has(name)`
 
-다룰 내용은 여기까지입니다!
+That's it!
