@@ -25,7 +25,7 @@ From the server point of view, that looks like a usual form submission.
 ```html run autorun
 <form id="formElem">
   <input type="text" name="name" value="John">
-  <input type="text" name="surname" value="Smith">
+  <input type="text" name="surname" value="Lee">
   <input type="submit">
 </form>
 
@@ -73,7 +73,7 @@ let formData = new FormData();
 formData.append('key1', 'value1');
 formData.append('key2', 'value2');
 
-// List key/value pairs
+// key/value 쌍이 담긴 리스트
 for(let [name, value] of formData) {
   alert(`${name} = ${value}`); // key1=value1, then key2=value2
 }
@@ -110,7 +110,7 @@ The form is always sent as `Content-Type: multipart/form-data`, this encoding al
 </script>
 ```
 
-## Sending a form with Blob data
+## Blob 데이터가 있는 폼 전송하기
 
 <info:fetch> 챕터에서 살펴본 바와 같이 이미지 같은 동적으로 생성된 바이너리 파일은 `Blob` 객체를 사용해 쉽게 전송할 수 있습니다. 이때 `Blob` 객체는 `fetch` 메서드의 `body` 매개변수에 바로 넘겨줄 수 있죠.
 
@@ -168,7 +168,7 @@ The server reads form data and the file, as if it were a regular form submission
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) 객체는 `fetch` 등의 네트워크 메서드를 통해 HTML 폼을 보내는데 사용됩니다.
 
-We can either create `new FormData(form)` from an HTML form, or create a object without a form at all, and then append fields with methods:
+`FormData` ��ü�� HTML ��(`form`)�� ���� �Ѱ� `new FormData(form)`���� ���� ���� �ְ�, HTML �� ���� ������ ���� �޼���� �ʵ带 �߰��� ���� ���� �ֽ��ϴ�.
 
 - `formData.append(name, value)`
 - `formData.append(name, blob, fileName)`
@@ -185,4 +185,4 @@ Other methods are:
 - `formData.get(name)`
 - `formData.has(name)`
 
-That's it!
+다룰 내용은 여기까지입니다!
