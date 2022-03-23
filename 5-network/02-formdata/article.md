@@ -162,7 +162,7 @@ formData.append("image", imageBlob, "image.png");
 
 ì´ ì½”ë“œëŠ” í¼ì— `<input type="file" name="image">` íƒœê·¸ê°€ ìˆê³ , ì‚¬ìš©ì ê¸°ê¸°ì˜ íŒŒì¼ ì‹œìŠ¤í…œì—ì„œ íŒŒì¼ëª…ì´ `"image.png"`(3ë²ˆì§¸ ì¸ìˆ˜ ì°¸ê³ )ì¸ `imageBlob` ë°ì´í„°(2ë²ˆì§¸ ì¸ìˆ˜ ì°¸ê³ )ë¥¼ ì¶”ê°€í•œ ê²ƒê³¼ ë™ì¼í•œ íš¨ê³¼ë¥¼ ì¤ë‹ˆë‹¤.
 
-The server reads form data and the file, as if it were a regular form submission.
+¿äÃ»À» ¹ŞÀº ¼­¹ö´Â ÀÏ¹İ Æû°ú µ¿ÀÏÇÏ°Ô Æû µ¥ÀÌÅÍ¿Í ÆÄÀÏÀ» ÀĞ°í Ã³¸®ÇÕ´Ï´Ù.
 
 ## Summary
 
