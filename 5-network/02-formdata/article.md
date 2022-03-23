@@ -162,7 +162,8 @@ formData.append("image", imageBlob, "image.png");
 
 That's same as if there were `<input type="file" name="image">` in the form, and the visitor submitted a file named `"image.png"` (3rd argument) with the data `imageBlob` (2nd argument) from their filesystem.
 
-The server reads form data and the file, as if it were a regular form submission.
+요청을 받은 서버는 일반 폼과 동일하게 폼 데이터와 파일을 읽고 처리합니다.
+
 
 ## Summary
 
