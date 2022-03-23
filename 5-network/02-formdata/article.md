@@ -5,7 +5,7 @@ This chapter is about sending HTML forms: with or without files, with additional
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) objects can help with that. As you might have guessed, it's the object to represent HTML form data.
 
-생성자는 다음과 같습니다.
+The constructor is:
 ```js
 let formData = new FormData([form]);
 ```
