@@ -75,7 +75,7 @@ formData.append('key2', 'value2');
 
 // key/value 쌍이 담긴 리스트
 for(let [name, value] of formData) {
-  alert(`${name} = ${value}`); // key1=value1, then key2=value2
+  alert(`${name} = ${value}`); // key1 = value1, then key2 = value2
 }
 ```
 
