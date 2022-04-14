@@ -225,6 +225,37 @@ On the other hand, it's independently called every time when `text` is missing.
 
 ```
 
+````smart header="Default parameters in old JavaScript code"
+Several years ago, JavaScript didn't support the syntax for default parameters.
+
+So people used some other ways to specify default values, that you meet in old scripts.
+
+For example, an explicit check for `undefined`:
+
+```js
+function showMessage(from, text) {
+*!*
+  if (text === undefined) {
+    text = 'no text given';
+  }
+*/!*
+
+  alert( from + ": " + text );
+}
+```
+
+...Or using the `||` operator:
+
+```js
+function showMessage(from, text) {
+  // If the value of text is falsy, assign the default value
+  text = text || 'no text given';
+  ...
+}
+```
+````
+
+
 ### 매개변수 기본값을 설정할 수 있는 또 다른 방법
 
 가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. [영문 변경] Sometimes it makes sense to assign default values for parameters not in the function declaration, but at a later stage.
