@@ -1,6 +1,6 @@
 # async와 await
 
-`async`와 `await`라는 특별한 문법을 사용하면 프라미스를 좀 더 편하게 사용할 수 있습니다. `async/await`는 놀라울 정도로 이해하기 쉽고, 사용법도 어렵지 않습니다.
+`async`와 `await`라는 특별한 문법을 사용하면 프라미스를 좀 더 편하게 사용할 수 있습니다. `async`, `await`는 놀라울 정도로 이해하기 쉽고 사용법도 어렵지 않습니다.
 
 ## async 함수
 
@@ -45,7 +45,7 @@ f().then(alert); // 1
 let value = await promise;
 ```
 
-자바스크립트는 `await` 키워드를 만나면 프라미스가 처리(settled)될 때까지 기다립니다. 결과는 그 이후 반환됩니다.
+자바스크립트는 `await` 키워드를 만나면 프라미스가 처리될 때까지 기다립니다(await는 '기다리다'라는 뜻을 가진 영단어입니다 - 옮긴이). 결과는 그 이후 반환됩니다.
 
 1초 후 이행되는 프라미스를 예시로 사용하여 `await`가 어떻게 동작하는지 살펴봅시다.
 ```js run
@@ -67,7 +67,7 @@ f();
 
 함수를 호출하고, 함수 본문이 실행되는 도중에 `(*)`로 표시한 줄에서 실행이 잠시 '중단'되었다가 프라미스가 처리되면 실행이 재개됩니다. 이때 프라미스 객체의 `result` 값이 변수 result에 할당됩니다. 따라서 위 예시를 실행하면 1초 뒤에 '완료!'가 출력됩니다.
 
-`await`('기다리다'라는 뜻을 가진 영단어 - 옮긴이)는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
+`await`는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
 
 `await`는 `promise.then`보다 좀 더 세련되게 프라미스의 `result` 값을 얻을 수 있도록 해주는 문법입니다. `promise.then`보다 가독성 좋고 쓰기도 쉽습니다.
 
@@ -238,7 +238,7 @@ f();
 async function f() {
 
   try {
-    let response = await fetch('http://유효하지-않은-url');
+    let response = await fetch('http://유효하지-않은-주소');
     let user = await response.json();
   } catch(err) {
     // fetch와 response.json에서 발행한 에러 모두를 여기서 잡습니다.
@@ -253,7 +253,7 @@ f();
 
 ```js run
 async function f() {
-  let response = await fetch('http://유효하지-않은-url');
+  let response = await fetch('http://유효하지-않은-주소');
 }
 
 // f()는 거부 상태의 프라미스가 됩니다.
@@ -262,7 +262,7 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 */!*
 ```
 
-`.catch`를 추가하는 걸 잊으면, 처리되지 않은 프라미스 에러가 발생합니다(콘솔에서 직접 확인해 봅시다). 이런 에러는 <info:promise-error-handling> 챕터에서 설명한 전역 이벤트 핸들러 `unhandledrejection`을 사용해 잡을 수 있습니다.
+`.catch`를 추가하는 걸 잊으면 처리되지 않은 프라미스 에러가 발생합니다(콘솔에서 직접 확인해 봅시다). 이런 에러는 <info:promise-error-handling> 챕터에서 설명한 전역 이벤트 핸들러 `unhandledrejection`을 사용해 잡을 수 있습니다.
 
 
 ```smart header="`async/await`와 `promise.then/catch`"
@@ -271,7 +271,7 @@ f().catch(alert); // TypeError: failed to fetch // (*)
 그런데 문법 제약 때문에 `async`함수 바깥의 최상위 레벨 코드에선 `await`를 사용할 수 없습니다. 그렇기 때문에 관행처럼 `.then/catch`를 추가해 최종 결과나 처리되지 못한 에러를 다룹니다. 위 예시의 `(*)`로 표시한 줄처럼 말이죠.
 ```
 
-````smart header="`async/await` works well with `Promise.all`"
+````smart header="`async/await`는 `Promise.all`과도 함께 쓸 수 있습니다."
 여러 개의 프라미스가 모두 처리되길 기다려야 하는 상황이라면 이 프라미스들을 `Promise.all`로 감싸고 여기에 `await`를 붙여 사용할 수 있습니다.
 
 ```js
