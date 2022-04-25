@@ -334,7 +334,7 @@ For long heavy calculations that shouldn't block the event loop, we can use [Web
 
 That's a way to run code in another, parallel thread.
 
-Web Workers can exchange messages with the main process, but they have their own variables, and their own event loop.
+메인 스레드와 메시지를 교환할 수 있긴 하지만 웹 워커엔 메인 스레드와 연관 없는 고유한 변수들과 자체 이벤트 루프가 있습니다.
 
 Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
 ```
