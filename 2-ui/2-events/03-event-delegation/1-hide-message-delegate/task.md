@@ -6,7 +6,7 @@ importance: 5
 
 There's a list of messages with removal buttons `[x]`. Make the buttons work.
 
-Like this:
+예시:
 
 [iframe src="solution" height=420]
 
