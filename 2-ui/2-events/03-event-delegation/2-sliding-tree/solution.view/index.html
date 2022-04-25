@@ -54,15 +54,14 @@
   </ul>
 
   <script>
-    // move all text into <span>
-    // they occupy exactly the place necessary for the text,
+    // 텍스트 전부를 <span>이 감싸도록 합니다.
     for (let li of tree.querySelectorAll('li')) {
       let span = document.createElement('span');
       li.prepend(span);
-      span.append(span.nextSibling); // move the text node into span
+      span.append(span.nextSibling); // 텍스트 노드를 span 안으로 옮깁니다.
     }
 
-    // catch clicks on whole tree
+    // 트리 전체의 클릭 이벤트를 감지하는 리스너를 만듭니다.
     tree.onclick = function(event) {
 
       if (event.target.tagName != 'SPAN') {
@@ -70,7 +69,7 @@
       }
 
       let childrenContainer = event.target.parentNode.querySelector('ul');
-      if (!childrenContainer) return; // no children
+      if (!childrenContainer) return; // 자손 노드가 없는 경우
 
       childrenContainer.hidden = !childrenContainer.hidden;
     }
