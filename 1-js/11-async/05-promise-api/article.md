@@ -39,7 +39,7 @@ URL이 담긴 배열을 `fetch`를 써서 처리하는 예시를 살펴봅시다
 ```js run
 let urls = [
   'https://api.github.com/users/iliakan',
-  'https://api.github.com/users/remy',
+  'https://api.github.com/users/Violet-Bora-Lee',
   'https://api.github.com/users/jeresig'
 ];
 
@@ -53,10 +53,10 @@ Promise.all(requests)
   ));
 ```
 
-GitHub 유저네임이 담긴 배열을 사용해 사용자 정보를 가져오는 예시를 살펴봅시다(id를 기준으로 장바구니 목록을 불러올 때도 같은 로직을 사용할 수 있습니다).
+GitHub 유저네임이 담긴 배열을 사용해 사용자 정보를 가져오는 예시를 살펴봅시다(실무에서 id를 기준으로 장바구니 목록을 불러올 때도 같은 로직을 사용할 수 있습니다).
 
 ```js run
-let names = ['iliakan', 'remy', 'jeresig'];
+let names = ['iliakan', 'Violet-Bora-Lee', 'jeresig'];
 
 let requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
 
@@ -92,15 +92,15 @@ Promise.all([
 2초 후 두 번째 프라미스가 거부되면서 `Promise.all` 전체가 거부되고, `.catch`가 실행됩니다. 거부 에러는 `Promise.all` 전체의 결과가 됩니다.
 
 ```warn header="에러가 발생하면 다른 프라미스는 무시됩니다."
-프라미스가 하나라도 거부되면 `Promise.all`은 즉시 거부되고 배열에 저장된 다른 프라미스의 결과는 완전히 잊힙니다. 이행된 프라미스의 결과도 무시되죠.
+프라미스가 하나라도 거부되면 `Promise.all`은 즉시 거부되고 배열에 저장된 다른 프라미스의 결과는 완전히 무시됩니다. 이행된 프라미스의 결과도 무시되죠.
 
 `fetch`를 사용해 호출 여러 개를 만들면, 그중 하나가 실패하더라도 호출은 계속 일어납니다. 그렇더라도 `Promise.all`은 다른 호출을 더는 신경 쓰지 않습니다. 프라미스가 처리되긴 하겠지만 그 결과는 무시됩니다.
 
-프라미스에는 '취소'라는 개념이 없어서 `Promise.all`도 프라미스를 취소하지 않습니다. [또 다른 챕터](info:fetch-abort)에서 배울 `AbortController`를 사용하면 프라미스 취소가 가능하긴 하지만, 프라미스 API는 아닙니다.
+프라미스에는 '취소'라는 개념이 없어서 `Promise.all`도 프라미스를 취소하지 않습니다. [또 다른 챕터](info:fetch-abort)에서 배울 `AbortController`를 사용하면 프라미스 취소가 가능하긴 하지만, `AbortController`는 프라미스 API는 아닙니다.
 ```
 
 ````smart header="`이터러블 객체`가 아닌 '일반' 값도 `Promise.all(iterable)`에 넘길 수 있습니다."
-`Promise.all(...)`은 대개 프라미스가 요소인 이러터블 객체(대부분 배열)를 받습니다. 그런데 프라미스가 아닌 객체가 배열을 구성하면, 요소가 '그대로' 결과 배열로 전달됩니다.
+`Promise.all(...)`은 대개 프라미스가 요소인 이러터블 객체(대부분 배열)를 받습니다. 그런데 요소가 프라미스가 아닌 객체일 경우엔 요소 '그대로' 결과 배열에 전달됩니다.
 
 아래 예시의 결과는 `[1, 2, 3]`입니다.
 
@@ -114,7 +114,7 @@ Promise.all([
 ]).then(alert); // 1, 2, 3
 ```
 
-이미 결과를 알고 있는 값은 `Promise.all`로 그냥 전달하면 됩니다.
+이미 결과를 알고 있는 값은 이 특징을 이용해 `Promise.all`에 그냥 전달하면 되죠.
 ````
 
 ## Promise.allSettled
@@ -136,14 +136,14 @@ Promise.all([
 - 응답이 성공할 경우 -- `{status:"fulfilled", value:result}`
 - 에러가 발생한 경우 -- `{status:"rejected", reason:error}`
 
-`fetch`를 사용해 여러 사람의 정보를 가져오고 있다고 해봅시다. 여러 요청 중 하나가 실패해도 다른 요청 결과는 여전히 있어야 합니다.
+`fetch`를 사용해 여러 사람의 정보를 가져오고 있다고 해봅시다. 여러 요청 중 하나가 실패해도 다른 요청 결과는 여전히 필요합니다.
 
 이럴 때 `Promise.allSettled`를 사용할 수 있습니다.
 
 ```js run
 let urls = [
   'https://api.github.com/users/iliakan',
-  'https://api.github.com/users/remy',
+  'https://api.github.com/users/Violet-Bora-Lee',
   'https://no-such-url'
 ];
 
@@ -218,7 +218,7 @@ Promise.race([
 첫 번째 프라미스가 가장 빨리 처리상태가 되기 때문에 첫 번째 프라미스의 결과가 result 값이 됩니다. 이렇게 `Promise.race`를 사용하면 '경주(race)의 승자'가 나타난 순간 다른 프라미스의 결과 또는 에러는 무시됩니다.
 
 
-## Promise.resolve/reject
+## Promise.resolve와 Promise.reject
 
 프라미스 메서드 `Promise.resolve`와 `Promise.reject`는 `async/await` 문법([뒤에서](info:async-await) 다룸)이 생긴 후로 쓸모없어졌기 때문에 근래에는 거의 사용하지 않습니다.
 
