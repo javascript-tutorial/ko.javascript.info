@@ -332,7 +332,7 @@ alert("code");
 ```smart header="웹 워커"
 For long heavy calculations that shouldn't block the event loop, we can use [Web Workers](https://html.spec.whatwg.org/multipage/workers.html).
 
-That's a way to run code in another, parallel thread.
+웹 워커를 사용하면 별도의 백그라운드 스레드에서 코드를 병렬적으로 실행할 수 있습니다.
 
 Web Workers can exchange messages with the main process, but they have their own variables, and their own event loop.
 
