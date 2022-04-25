@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# Hide messages with delegation
+# 이벤트 위임을 사용해서 메시지 숨기기
 
 There's a list of messages with removal buttons `[x]`. Make the buttons work.
 
