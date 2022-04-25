@@ -330,7 +330,7 @@ alert("code");
 이런 처리 순서 덕분에 `queueMicrotask`를 사용해 함수를 비동기적으로 처리할 때 애플리케이션 상태의 일관성이 보장됩니다.
 
 ```smart header="웹 워커"
-For long heavy calculations that shouldn't block the event loop, we can use [Web Workers](https://html.spec.whatwg.org/multipage/workers.html).
+이벤트 루프를 막을 우려가 있는 무거운 연산은 [웹 워커(Web Worker)](https://html.spec.whatwg.org/multipage/workers.html)를 사용해 처리할 수 있습니다.
 
 That's a way to run code in another, parallel thread.
 
