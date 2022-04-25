@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# Hide messages with delegation
+# 이벤트 위임을 사용해서 메시지 숨기기
 
 다음과 같은 메시지 목록이 있고 각 메시지엔 삭제 버튼(`[x]`)이 있습니다.
 
