@@ -72,7 +72,7 @@ executor 주위의 '암시적 `try..catch`'는 스스로 에러를 잡고, 에�
 
 ```js run
 new Promise((resolve, reject) => {
-  resolve("ok");
+  resolve("OK");
 }).then((result) => {
 *!*
   throw new Error("에러 발생!"); // 프라미스가 거부됨
@@ -84,7 +84,7 @@ new Promise((resolve, reject) => {
 
 ```js run
 new Promise((resolve, reject) => {
-  resolve("ok");
+  resolve("OK");
 }).then((result) => {
 *!*
   blabla(); // 존재하지 않는 함수
@@ -157,7 +157,7 @@ new Promise((resolve, reject) => {
 
 ```js untrusted run refresh
 new Promise(function() {
-  noSuchFunction(); // 에러 (존재하지 않는 함수)
+  noSuchFunction(); // 존재하지 않는 함수를 호출하기 때문에 에러가 발생함
 })
   .then(() => {
     // 성공상태의 프라미스를 처리하는 핸들러. 한 개 혹은 여러 개가 있을 수 있음
@@ -172,12 +172,12 @@ new Promise(function() {
 
 자바스크립트 엔진은 프라미스 거부를 추적하다가 위와 같은 상황이 발생하면 전역 에러를 생성합니다. 콘솔창을 열고 위 예시를 실행하면 전역 에러를 확인할 수 있습니다.
 
-브라우저 환경에선 이런 에러를 `unhandledrejection` 이벤트로 잡을 수 있습니다.
+브라우저 환경에선 이런 에러를 `unhandledrejection` 이벤트로 처리할 수 있습니다.
 
 ```js run
 *!*
 window.addEventListener('unhandledrejection', function(event) {
-  // 이벤트엔 두 개의 특별 프로퍼티가 있습니다.
+  // unhandledrejection 이벤트엔 두 개의 특수 프로퍼티가 있습니다.
   alert(event.promise); // [object Promise] - 에러를 생성하는 프라미스
   alert(event.reason); // Error: 에러 발생! - 처리하지 못한 에러 객체
 });
@@ -185,7 +185,7 @@ window.addEventListener('unhandledrejection', function(event) {
 
 new Promise(function() {
   throw new Error("에러 발생!");
-}); // 에러 처리 핸들러, catch가 없음
+}); // 에러를 처리할 수 있는 .catch 핸들러가 없음
 ```
 
 `unhandledrejection` 이벤트는 [HTML 명세서](https://html.spec.whatwg.org/multipage/webappapis.html#unhandled-promise-rejections)에 정의된 표준 이벤트입니다.
