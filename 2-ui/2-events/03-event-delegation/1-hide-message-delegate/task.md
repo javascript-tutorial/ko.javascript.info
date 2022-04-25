@@ -4,7 +4,7 @@ importance: 5
 
 # Hide messages with delegation
 
-There's a list of messages with removal buttons `[x]`. Make the buttons work.
+다음과 같은 메시지 목록이 있고 각 메시지엔 삭제 버튼(`[x]`)이 있습니다.
 
 Like this:
 
