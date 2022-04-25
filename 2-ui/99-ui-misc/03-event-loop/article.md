@@ -334,7 +334,7 @@ For long heavy calculations that shouldn't block the event loop, we can use [Web
 
 웹 워커를 사용하면 별도의 백그라운드 스레드에서 코드를 병렬적으로 실행할 수 있습니다.
 
-Web Workers can exchange messages with the main process, but they have their own variables, and their own event loop.
+메인 스레드와 메시지를 교환할 수 있긴 하지만 웹 워커엔 메인 스레드와 연관 없는 고유한 변수들과 자체 이벤트 루프가 있습니다.
 
 웹 워커는 DOM에 접근할 수 없기 때문에 여러 CPU 코어를 동시에 사용해야 하는 연산에 주로 사용합니다.
 ```
