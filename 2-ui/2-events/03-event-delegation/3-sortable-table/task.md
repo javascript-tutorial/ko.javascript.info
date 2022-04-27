@@ -2,11 +2,11 @@ importance: 4
 
 ---
 
-# Sortable table
+# 표 정렬하기
 
-Make the table sortable: clicks on `<th>` elements should sort it by corresponding column.
+표를 정렬할 수 있게 해주세요. `<th>` 요소를 클릭하면 해당 열을 기준으로 정렬됩니다.
 
-Each `<th>` has the type in the attribute, like this:
+각 `<th>`에는 다음과 같은 속성 유형이 있습니다.
 
 ```html
 <table id="grid">
@@ -32,12 +32,12 @@ Each `<th>` has the type in the attribute, like this:
 </table>
 ```
 
-In the example above the first column has numbers, and the second one -- strings. The sorting function should handle sort according to the type.
+위의 예시에서 첫 번째 열에는 숫자가 있고 두 번째 열에는 문자열이 있습니다. 정렬하는 함수는 자료형에 따라 처리해야 합니다.
 
-Only `"string"` and `"number"` types should be supported.
+`"string"` 과 `"number"` 자료형만 지원해야 합니다.
 
-The working example:
+작동 예:
 
 [iframe border=1 src="solution" height=190]
 
-P.S. The table can be big, with any number of rows and columns.
+참고: 표는 여러 행과 열을 사용하여 커져도 됩니다.
