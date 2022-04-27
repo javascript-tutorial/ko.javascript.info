@@ -10,4 +10,4 @@ Like this:
 
 [iframe src="solution" height=420]
 
-P.S. Should be only one event listener on the container, use event delegation.
+이벤트 위임을 사용해서 단 하나의 이벤트 리스너만으로도 삭제 버튼이 동작하도록 구현해보세요.
