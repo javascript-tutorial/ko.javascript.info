@@ -6,11 +6,11 @@
   <style>
     body {
       height: 2000px;
-      /* make body scrollable, the tooltip should work after the scroll */
+      /* body 높이를 일부러 키워서 스크롤이 나타나도록 하였습니다. 스크롤 위치에 상관없이 요구사항대로 툴팁이 나타나야 합니다.*/
     }
 
     .tooltip {
-      /* some styles for the tooltip, you can use your own instead */
+      /* 툴팁을 꾸며주기 위한 CSS입니다. 다른 스타일을 원하면 수정해도 괜찮습니다. */
       position: fixed;
       padding: 10px 20px;
       border: 1px solid #b3c9ce;
@@ -26,17 +26,17 @@
 
 <body>
 
-  <p>LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa</p>
-  <p>LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa</p>
+  <p>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</p>
+  <p>무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</p>
 
-  <button data-tooltip="the tooltip is longer than the element">Short button</button>
-  <button data-tooltip="HTML<br>tooltip">One more button</button>
+  <button data-tooltip="버튼 요소 길이보다 툴팁 길이가 훨씬 기네요.">짧은 버튼</button>
+  <button data-tooltip="두 줄짜리<br>툴팁">...또 다른 버튼...</button>
 
-  <p>Scroll the page to make buttons appear on the top, check if the tooltips show up correctly.</p>
+  <p>버튼이 화면 맨 위쪽에 위치하도록 스크롤을 움직여보고, 그 상태에서 툴팁이 제대로 버튼 아래에 나타나는지 확인해보세요.</p>
 
 
   <script>
-    // ...your code...
+    // ...여기에 코드를 작성하세요...
   </script>
 
 </body>
