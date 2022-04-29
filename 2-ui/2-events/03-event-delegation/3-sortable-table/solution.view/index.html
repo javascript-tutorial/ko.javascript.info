@@ -19,7 +19,6 @@
       }
     </style>
   </head>
-
   <body>
     <table id="grid">
       <thead>
@@ -51,7 +50,6 @@
         </tr>
       </tbody>
     </table>
-
     <script>
       grid.onclick = function (e) {
         if (e.target.tagName != "TH") return;
@@ -63,12 +61,10 @@
         //   1 for the second column, etc
         sortGrid(th.cellIndex, th.dataset.type);
       };
-
       function sortGrid(colNum, type) {
         let tbody = grid.querySelector("tbody");
 
         let rowsArray = Array.from(tbody.rows);
-
         // compare(a, b) compares two rows, need for sorting
         let compare;
 
@@ -88,10 +84,8 @@
             };
             break;
         }
-
         // sort
         rowsArray.sort(compare);
-
         tbody.append(...rowsArray);
       }
     </script>
