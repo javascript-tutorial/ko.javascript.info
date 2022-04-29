@@ -40,4 +40,4 @@ The working example:
 
 [iframe border=1 src="solution" height=190]
 
-P.S. The table can be big, with any number of rows and columns.
+P.S. 표 크기는 예시보다 훨씬 클 수 있습니다. 열이나 행이 더 추가될 수 있다는 가정하에 답을 작성해보세요.
