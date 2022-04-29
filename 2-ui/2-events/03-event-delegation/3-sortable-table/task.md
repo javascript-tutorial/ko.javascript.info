@@ -12,16 +12,16 @@ Each `<th>` has the type in the attribute, like this:
 <table id="grid">
   <thead>
     <tr>
-*!*
+      *!*
       <th data-type="number">Age</th>
       <th data-type="string">Name</th>
-*/!*
+      */!*
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>5</td>
-      <td>John</td>
+      <td>일리야</td>
     </tr>
     <tr>
       <td>10</td>
