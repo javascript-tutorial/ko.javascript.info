@@ -2,7 +2,7 @@ importance: 4
 
 ---
 
-# Sortable table
+# 정렬 기능을 제공하는 표
 
 Make the table sortable: clicks on `<th>` elements should sort it by corresponding column.
 
