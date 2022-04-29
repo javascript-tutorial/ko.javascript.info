@@ -11,4 +11,4 @@ Create a tree that shows/hides node children on click:
 Requirements:
 
 - Only one event handler (use delegation)
-- A click outside the node title (on an empty space) should not do anything.
+- 노드(텍스트) 바깥(빈 곳)을 클릭하면 아무 일도 일어나지 않아야 합니다.
