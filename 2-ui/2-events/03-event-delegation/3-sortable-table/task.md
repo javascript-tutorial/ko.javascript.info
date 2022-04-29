@@ -12,10 +12,10 @@ Each `<th>` has the type in the attribute, like this:
 <table id="grid">
   <thead>
     <tr>
-*!*
+      *!*
       <th data-type="number">Age</th>
       <th data-type="string">Name</th>
-*/!*
+      */!*
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,7 @@ In the example above the first column has numbers, and the second one -- strings
 
 Only `"string"` and `"number"` types should be supported.
 
-The working example:
+제대로 해답을 작성했다면 다음 예시처럼 동작해야 합니다.
 
 [iframe border=1 src="solution" height=190]
 
