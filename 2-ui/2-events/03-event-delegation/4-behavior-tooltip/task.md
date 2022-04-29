@@ -9,8 +9,11 @@ Create JS-code for the tooltip behavior.
 When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
 
 An example of annotated HTML:
+
 ```html
-<button data-tooltip="the tooltip is longer than the element">Short button</button>
+<button data-tooltip="the tooltip is longer than the element">
+  Short button
+</button>
 <button data-tooltip="HTML<br>tooltip">One more button</button>
 ```
 
@@ -28,6 +31,7 @@ Details:
 - The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
 
 You'll need two events here:
+
 - `mouseover` triggers when a pointer comes over an element.
 - `mouseout` triggers when a pointer leaves an element.
 
@@ -35,4 +39,4 @@ Please use event delegation: set up two handlers on `document` to track all "ove
 
 After the behavior is implemented, even people unfamiliar with JavaScript can add annotated elements.
 
-P.S. Only one tooltip may show up at a time.
+P.S. 한 번에 한 개의 툴팁 만 보여줄 수 있습니다.
