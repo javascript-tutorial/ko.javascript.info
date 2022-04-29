@@ -33,6 +33,6 @@ You'll need two events here:
 
 Please use event delegation: set up two handlers on `document` to track all "overs" and "outs" from elements with `data-tooltip` and manage tooltips from there.
 
-After the behavior is implemented, even people unfamiliar with JavaScript can add annotated elements.
+이렇게 툴팁 기능을 구현해 놓으면 자바스크립트에 익숙하지 않은 사람도 원하는 요소에 쉽게 툴팁을 보여줄 수 있을 겁니다.
 
 P.S. Only one tooltip may show up at a time.
