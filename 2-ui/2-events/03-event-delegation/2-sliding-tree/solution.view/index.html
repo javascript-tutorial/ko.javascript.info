@@ -61,8 +61,7 @@
       li.prepend(span);
       span.append(span.nextSibling); // move the text node into span
     }
-
-    // catch clicks on whole tree
+    // 트리 전체의 클릭 이벤트를 감지하는 리스너를 만듭니다.
     tree.onclick = function(event) {
 
       if (event.target.tagName != 'SPAN') {
