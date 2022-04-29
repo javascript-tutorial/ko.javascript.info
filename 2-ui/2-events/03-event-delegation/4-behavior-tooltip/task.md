@@ -18,7 +18,7 @@ Should work like this:
 
 [iframe src="solution" height=200 border=1]
 
-In this task we assume that all elements with `data-tooltip` have only text inside. No nested tags (yet).
+`data-tooltip`이 있는 요소엔 텍스트만 있다고 가정하겠습니다. 요소 안에 다른 태그가 있는 경우는 생각하지 않기로 합시다.
 
 Details:
 
