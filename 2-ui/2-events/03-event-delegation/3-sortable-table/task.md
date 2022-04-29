@@ -4,7 +4,7 @@ importance: 4
 
 # Sortable table
 
-Make the table sortable: clicks on `<th>` elements should sort it by corresponding column.
+열 제목을 나타내는 요소인 `<th>`를 클릭하면 열 전체가 정렬되는 표를 만들어보세요.
 
 Each `<th>` has the type in the attribute, like this:
 
