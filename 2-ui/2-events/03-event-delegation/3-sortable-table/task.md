@@ -36,7 +36,7 @@ In the example above the first column has numbers, and the second one -- strings
 
 이 문제에선 `'숫자'`와 `'문자열'` 타입만 다룬다고 가정하겠습니다.
 
-The working example:
+제대로 해답을 작성했다면 다음 예시처럼 동작해야 합니다.
 
 [iframe border=1 src="solution" height=190]
 
