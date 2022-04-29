@@ -4,7 +4,7 @@ importance: 5
 
 # Tooltip behavior
 
-Create JS-code for the tooltip behavior.
+툴팁(tooltip)을 보여주는 JS 코드를 작성해봅시다.
 
 When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
 
