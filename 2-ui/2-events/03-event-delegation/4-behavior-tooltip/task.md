@@ -23,7 +23,7 @@ In this task we assume that all elements with `data-tooltip` have only text insi
 Details:
 
 - 툴팁과 요소의 간격은 `5px`입니다.
-- The tooltip should be centered relative to the element, if possible.
+- 가능하면 툴팁은 요소를 기준으로 중앙에 있도록 합시다.
 - The tooltip should not cross window edges. Normally it should be above the element, but if the element is at the page top and there's no space for the tooltip, then below it.
 - 툴팁안에 띄울 콘텐츠는 `data-tooltip` 속성에서 가져옵니다. 속성값은 HTML일 수 있습니다.
 
