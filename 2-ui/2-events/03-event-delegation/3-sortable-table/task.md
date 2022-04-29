@@ -34,7 +34,7 @@ Each `<th>` has the type in the attribute, like this:
 
 In the example above the first column has numbers, and the second one -- strings. The sorting function should handle sort according to the type.
 
-Only `"string"` and `"number"` types should be supported.
+이 문제에선 `'숫자'`와 `'문자열'` 타입만 다룬다고 가정하겠습니다.
 
 The working example:
 
