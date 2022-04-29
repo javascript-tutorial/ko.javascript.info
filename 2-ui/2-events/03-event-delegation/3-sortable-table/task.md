@@ -13,7 +13,7 @@ Each `<th>` has the type in the attribute, like this:
   <thead>
     <tr>
 *!*
-      <th data-type="number">Age</th>
+      <th data-type="number">나이</th>
       <th data-type="string">이름</th>
 */!*
     </tr>
