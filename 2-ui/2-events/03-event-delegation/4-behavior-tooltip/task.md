@@ -22,7 +22,7 @@ In this task we assume that all elements with `data-tooltip` have only text insi
 
 Details:
 
-- The distance between the element and the tooltip should be `5px`.
+- 툴팁과 요소의 간격은 `5px`입니다.
 - The tooltip should be centered relative to the element, if possible.
 - The tooltip should not cross window edges. Normally it should be above the element, but if the element is at the page top and there's no space for the tooltip, then below it.
 - The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
