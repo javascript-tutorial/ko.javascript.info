@@ -24,7 +24,7 @@ Details:
 
 - The distance between the element and the tooltip should be `5px`.
 - The tooltip should be centered relative to the element, if possible.
-- The tooltip should not cross window edges. Normally it should be above the element, but if the element is at the page top and there's no space for the tooltip, then below it.
+- 툴팁은 창 크기보다 커질 수 없습니다. 일반적인 경우라면 툴팁은 요소 위에 있을 텐데, 요소가 창 맨 위에 있어서 툴팁을 보여줄 공간이 없다면 툴팁은 요소 아래에 나타납니다.
 - The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
 
 You'll need two events here:
