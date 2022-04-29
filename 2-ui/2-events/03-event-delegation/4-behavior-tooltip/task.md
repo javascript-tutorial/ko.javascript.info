@@ -29,7 +29,7 @@ Details:
 
 You'll need two events here:
 - `mouseover` -- 요소 안으로 포인터가 이동할 때 발생하는 이벤트
-- `mouseout` triggers when a pointer leaves an element.
+- `mouseout`-- 요소 밖으로 포인터가 이동할 때 발생하는 이벤트
 
 Please use event delegation: set up two handlers on `document` to track all "overs" and "outs" from elements with `data-tooltip` and manage tooltips from there.
 
