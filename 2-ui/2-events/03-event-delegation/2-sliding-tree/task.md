@@ -4,7 +4,7 @@ importance: 5
 
 # Tree menu
 
-Create a tree that shows/hides node children on click:
+노드를 클릭하면 자손 노드가 보이거나 숨겨지는 트리 메뉴를 구현해보세요.
 
 [iframe border=1 src="solution"]
 
