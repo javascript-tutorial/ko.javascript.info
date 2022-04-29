@@ -31,7 +31,7 @@ You'll need two events here:
 - `mouseover` -- 요소 안으로 포인터가 이동할 때 발생하는 이벤트
 - `mouseout` triggers when a pointer leaves an element.
 
-Please use event delegation: set up two handlers on `document` to track all "overs" and "outs" from elements with `data-tooltip` and manage tooltips from there.
+이벤트 위임을 사용해서 두 개의 핸들러만으로 원하는 기능을 구현하세요. `document`에 핸들러를 추가해 `data-tooltip` 속성이 있는 요소 안이나 밖으로 마우스 포인터가 이동하는 경우를 모두 감지하고 두 핸들러를 통해 툴팁을 보여주거나 감추시면 됩니다. 
 
 After the behavior is implemented, even people unfamiliar with JavaScript can add annotated elements.
 
