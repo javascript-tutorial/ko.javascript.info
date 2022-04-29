@@ -28,7 +28,7 @@ Details:
 - The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
 
 You'll need two events here:
-- `mouseover` triggers when a pointer comes over an element.
+- `mouseover` -- 요소 안으로 포인터가 이동할 때 발생하는 이벤트
 - `mouseout` triggers when a pointer leaves an element.
 
 Please use event delegation: set up two handlers on `document` to track all "overs" and "outs" from elements with `data-tooltip` and manage tooltips from there.
