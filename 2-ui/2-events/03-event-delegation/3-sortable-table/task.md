@@ -14,7 +14,7 @@ Each `<th>` has the type in the attribute, like this:
     <tr>
 *!*
       <th data-type="number">Age</th>
-      <th data-type="string">Name</th>
+      <th data-type="string">이름</th>
 */!*
     </tr>
   </thead>
