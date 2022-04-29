@@ -9,7 +9,6 @@ Create JS-code for the tooltip behavior.
 When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
 
 An example of annotated HTML:
-
 ```html
 <button data-tooltip="the tooltip is longer than the element">Short button</button>
 <button data-tooltip="HTML<br>tooltip">One more button</button>
@@ -29,7 +28,6 @@ Details:
 - The tooltip content is given in the `data-tooltip` attribute. It can be arbitrary HTML.
 
 You'll need two events here:
-
 - `mouseover` triggers when a pointer comes over an element.
 - `mouseout` triggers when a pointer leaves an element.
 
