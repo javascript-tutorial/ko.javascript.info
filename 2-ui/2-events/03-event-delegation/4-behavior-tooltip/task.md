@@ -10,7 +10,7 @@ When a mouse comes over an element with `data-tooltip`, the tooltip should appea
 
 An example of annotated HTML:
 ```html
-<button data-tooltip="the tooltip is longer than the element">Short button</button>
+<button data-tooltip="버튼 요소 길이보다 툴팁 길이가 훨씬 기네요.">Short button</button>
 <button data-tooltip="HTML<br>tooltip">One more button</button>
 ```
 
