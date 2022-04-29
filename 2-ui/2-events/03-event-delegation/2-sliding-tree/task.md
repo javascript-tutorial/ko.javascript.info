@@ -8,7 +8,7 @@ importance: 5
 
 [iframe border=1 src="solution"]
 
-Requirements:
+구체적인 요구사항은 다음과 같습니다.
 
 - 단 하나의 이벤트 핸들러(이벤트 위임 사용하기)
 - A click outside the node title (on an empty space) should not do anything.
