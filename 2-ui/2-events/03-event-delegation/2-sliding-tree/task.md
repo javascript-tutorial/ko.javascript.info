@@ -2,7 +2,7 @@ importance: 5
 
 ---
 
-# Tree menu
+# 트리 메뉴 구현하기
 
 Create a tree that shows/hides node children on click:
 
