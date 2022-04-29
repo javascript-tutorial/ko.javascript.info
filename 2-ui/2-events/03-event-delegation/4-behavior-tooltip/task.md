@@ -11,7 +11,7 @@ When a mouse comes over an element with `data-tooltip`, the tooltip should appea
 An example of annotated HTML:
 ```html
 <button data-tooltip="the tooltip is longer than the element">Short button</button>
-<button data-tooltip="HTML<br>tooltip">One more button</button>
+<button data-tooltip="두 줄짜리<br>툴팁">...또 다른 버튼...</button>
 ```
 
 Should work like this:
