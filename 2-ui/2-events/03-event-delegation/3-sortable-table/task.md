@@ -6,7 +6,7 @@ importance: 4
 
 열 제목을 나타내는 요소인 `<th>`를 클릭하면 열 전체가 정렬되는 표를 만들어보세요.
 
-Each `<th>` has the type in the attribute, like this:
+모든 `<th>` 속성엔 다음과 같이 데이터의 타입이 정의되어 있습니다.
 
 ```html
 <table id="grid">
