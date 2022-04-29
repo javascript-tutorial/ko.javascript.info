@@ -32,7 +32,7 @@ Each `<th>` has the type in the attribute, like this:
 </table>
 ```
 
-In the example above the first column has numbers, and the second one -- strings. The sorting function should handle sort according to the type.
+위 예시에선 첫 번째 열엔 숫자가, 두 번째 열엔 문자열이 들어갑니다. 구현할 정렬 함수는 데이터 타입에 맞게 정렬을 해줘야 합니다.
 
 Only `"string"` and `"number"` types should be supported.
 
