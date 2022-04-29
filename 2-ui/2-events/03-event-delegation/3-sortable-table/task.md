@@ -6,7 +6,7 @@ importance: 4
 
 Make the table sortable: clicks on `<th>` elements should sort it by corresponding column.
 
-Each `<th>` has the type in the attribute, like this:
+모든 `<th>` 속성엔 다음과 같이 데이터의 타입이 정의되어 있습니다.
 
 ```html
 <table id="grid">
