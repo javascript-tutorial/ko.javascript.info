@@ -25,7 +25,7 @@ Each `<th>` has the type in the attribute, like this:
     </tr>
     <tr>
       <td>10</td>
-      <td>Ann</td>
+      <td>보라</td>
     </tr>
     ...
   </tbody>
