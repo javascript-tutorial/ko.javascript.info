@@ -6,7 +6,7 @@ importance: 5
 
 Create JS-code for the tooltip behavior.
 
-When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
+`data-tooltip` 속성이 있는 요소에 마우스를 가져다 대면 툴팁이 보여야 하고, 마우스 커서가 요소에서 떠나면 툴팁이 사라져야 합니다.
 
 An example of annotated HTML:
 ```html
