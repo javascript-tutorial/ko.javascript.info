@@ -59,7 +59,7 @@
     for (let li of tree.querySelectorAll('li')) {
       let span = document.createElement('span');
       li.prepend(span);
-      span.append(span.nextSibling); // move the text node into span
+      span.append(span.nextSibling); // 텍스트 노드를 span 안으로 옮깁니다.
     }
 
     // catch clicks on whole tree
