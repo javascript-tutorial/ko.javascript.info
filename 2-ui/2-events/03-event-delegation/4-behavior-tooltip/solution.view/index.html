@@ -6,7 +6,7 @@
   <style>
     body {
       height: 2000px;
-      /* make body scrollable, the tooltip should work after the scroll */
+      /* body 높이를 일부러 키워서 스크롤이 나타나도록 하였습니다. 스크롤 위치에 상관없이 요구사항대로 툴팁이 나타나야 합니다.*/
     }
 
     .tooltip {
@@ -25,13 +25,13 @@
 
 <body>
 
-  <p>LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa</p>
-  <p>LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa LaLaLa</p>
+  <p>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세</p>
+  <p>무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</p>
 
-  <button data-tooltip="the tooltip is longer than the element">Short button</button>
-  <button data-tooltip="HTML<br>tooltip">One more button</button>
+  <button data-tooltip="버튼 요소 길이보다 툴팁 길이가 훨씬 기네요.">짧은 버튼</button>
+  <button data-tooltip="두 줄짜리<br>툴팁">...또 다른 버튼...</button>
 
-  <p>Scroll the page to make buttons appear on the top, check if the tooltips show up correctly.</p>
+  <p>버튼이 화면 맨 위쪽에 위치하도록 스크롤을 움직여보고, 그 상태에서 툴팁이 제대로 버튼 아래에 나타나는지 확인해보세요.</p>
 
 
   <script>
@@ -40,25 +40,25 @@
     document.onmouseover = function(event) {
       let target = event.target;
 
-      // if we have tooltip HTML...
+      // data-tooltip 속성이 있는 요소
       let tooltipHtml = target.dataset.tooltip;
       if (!tooltipHtml) return;
 
-      // ...create the tooltip element
+      // 툴팁 요소를 만듭니다.
 
       tooltipElem = document.createElement('div');
       tooltipElem.className = 'tooltip';
       tooltipElem.innerHTML = tooltipHtml;
       document.body.append(tooltipElem);
 
-      // position it above the annotated element (top-center)
+      // 툴팁 요소를 data-tooltip 속성이 있는 요소 위, 가운데에 위치시킵니다.
       let coords = target.getBoundingClientRect();
 
       let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
-      if (left < 0) left = 0; // don't cross the left window edge
+      if (left < 0) left = 0; // 툴팁이 창 왼쪽 가장자리를 넘지 않도록 합니다.
 
       let top = coords.top - tooltipElem.offsetHeight - 5;
-      if (top < 0) { // if crossing the top window edge, show below instead
+      if (top < 0) { // 툴팁이 창 위로 넘치면 요소 아래에 보여줍니다.
         top = coords.top + target.offsetHeight + 5;
       }
 
