@@ -127,17 +127,17 @@ for(let key of keys) {
 숫자나 객체 등 다른 자료형을 사용하게 되면 문자열로 자동 변환됩니다.
 
 ```js run
-sessionStorage.user = {name: "John"};
-alert(sessionStorage.user); // [object Object]
+localStorage.user = {name: "John"};
+alert(localStorage.user); // [object Object]
 ```
 
 `JSON`을 사용하면 객체를 쓸 수 있긴 합니다.
 
 ```js run
-sessionStorage.user = JSON.stringify({name: "John"});
+localStorage.user = JSON.stringify({name: "John"});
 
 // 잠시 후 
-let user = JSON.parse( sessionStorage.user );
+let user = JSON.parse( localStorage.user );
 alert( user.name ); // John
 ```
 
