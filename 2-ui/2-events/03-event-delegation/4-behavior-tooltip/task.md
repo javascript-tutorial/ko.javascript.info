@@ -8,7 +8,7 @@ Create JS-code for the tooltip behavior.
 
 When a mouse comes over an element with `data-tooltip`, the tooltip should appear over it, and when it's gone then hide.
 
-An example of annotated HTML:
+`data-tooltip` 속성은 다음 HTML처럼 추가할 수 있습니다.
 ```html
 <button data-tooltip="the tooltip is longer than the element">Short button</button>
 <button data-tooltip="HTML<br>tooltip">One more button</button>
