@@ -8,7 +8,7 @@ importance: 5
 
 `data-tooltip` 속성이 있는 요소에 마우스를 가져다 대면 툴팁이 보여야 하고, 마우스 커서가 요소에서 떠나면 툴팁이 사라져야 합니다.
 
-An example of annotated HTML:
+`data-tooltip` 속성은 다음 HTML처럼 추가할 수 있습니다.
 ```html
 <button data-tooltip="the tooltip is longer than the element">Short button</button>
 <button data-tooltip="두 줄짜리<br>툴팁">...또 다른 버튼...</button>
