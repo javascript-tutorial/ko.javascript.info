@@ -25,30 +25,30 @@
   <table id="grid">
     <thead>
       <tr>
-        <th data-type="number">Age</th>
-        <th data-type="string">Name</th>
+        <th data-type="number">나이</th>
+        <th data-type="string">이름</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>5</td>
-        <td>John</td>
+        <td>일리야</td>
       </tr>
       <tr>
         <td>2</td>
-        <td>Pete</td>
+        <td>보라</td>
       </tr>
       <tr>
         <td>12</td>
-        <td>Ann</td>
+        <td>호진</td>
       </tr>
       <tr>
         <td>9</td>
-        <td>Eugene</td>
+        <td>지민</td>
       </tr>
       <tr>
         <td>1</td>
-        <td>Ilya</td>
+        <td>재인</td>
       </tr>
     </tbody>
   </table>
@@ -59,10 +59,10 @@
       if (e.target.tagName != 'TH') return;
 
       let th = e.target;
-      // if TH, then sort
-      // cellIndex is the number of th:
-      //   0 for the first column
-      //   1 for the second column, etc
+      // 클릭한 요소가 TH라면 정렬을 진행합니다.
+      // cellIndex는 몇 번째 열인지를 나타내는 인덱스 값입니다.
+      //   첫 번째 열이라면 0,
+      //   두 번째 열이라면 1이 됩니다.
       sortGrid(th.cellIndex, th.dataset.type);
     };
 
@@ -71,7 +71,7 @@
 
       let rowsArray = Array.from(tbody.rows);
 
-      // compare(a, b) compares two rows, need for sorting
+      // 변수 compare에 할당할 함수 compare(a, b)는 두 행을 비교하고 필요에 따라 정렬을 진행합니다.
       let compare;
 
       switch (type) {
@@ -87,7 +87,7 @@
           break;
       }
 
-      // sort
+      // 해당 열을 정렬합니다.
       rowsArray.sort(compare);
 
       tbody.append(...rowsArray);
