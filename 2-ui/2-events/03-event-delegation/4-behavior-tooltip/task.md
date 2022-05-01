@@ -35,4 +35,4 @@ You'll need two events here:
 
 After the behavior is implemented, even people unfamiliar with JavaScript can add annotated elements.
 
-P.S. Only one tooltip may show up at a time.
+P.S. 한 번에 한 개의 툴팁 만 보여줄 수 있습니다.
