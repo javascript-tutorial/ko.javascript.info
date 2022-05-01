@@ -25,7 +25,7 @@
   <table id="grid">
     <thead>
       <tr>
-        <th data-type="number">Age</th>
+        <th data-type="number">나이</th>
         <th data-type="string">이름</th>
       </tr>
     </thead>
@@ -40,15 +40,15 @@
       </tr>
       <tr>
         <td>12</td>
-        <td>한솔</td>
+        <td>호진</td>
       </tr>
       <tr>
         <td>9</td>
-        <td>Eugene</td>
+        <td>지민</td>
       </tr>
       <tr>
         <td>1</td>
-        <td>Ilya</td>
+        <td>재인</td>
       </tr>
     </tbody>
   </table>
@@ -59,9 +59,9 @@
       if (e.target.tagName != 'TH') return;
 
       let th = e.target;
-      // if TH, then sort
+      // 클릭한 요소가 TH라면 정렬을 진행합니다.
       // cellIndex는 몇 번째 열인지를 나타내는 인덱스 값입니다.
-      //   0 for the first column
+      //   첫 번째 열이라면 0,
       //   두 번째 열이라면 1이 됩니다.
       sortGrid(th.cellIndex, th.dataset.type);
     };
@@ -87,7 +87,7 @@
           break;
       }
 
-      // sort
+      // 해당 열을 정렬합니다.
       rowsArray.sort(compare);
 
       tbody.append(...rowsArray);
