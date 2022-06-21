@@ -19,7 +19,7 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 
 `ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
-반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
+반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다.
 ```
 
 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
@@ -221,7 +221,7 @@ socket.close([code], [reason]);
 - `code` is a special WebSocket closing code (optional)
 - `reason` is a string that describes the reason of closing (optional)
 
-Then the other party in `close` event handler gets the code and the reason, e.g.:
+Then the other party in the `close` event handler gets the code and the reason, e.g.:
 
 ```js
 // closing party:
@@ -249,7 +249,7 @@ There are other codes like:
 
 The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
 
-WebSocket codes are somewhat like HTTP codes, but different. In particular, any codes less than `1000` are reserved, there'll be an error if we try to set such a code.
+WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
 
 ```js
 // in case connection is broken
@@ -321,8 +321,8 @@ Server-side code is a little bit beyond our scope. Here we'll use Node.js, but y
 The server-side algorithm will be:
 
 1. Create `clients = new Set()` -- a set of sockets.
-2. For each accepted websocket, add it to the set `clients.add(socket)` and setup `message` event listener to get its messages.
-3. When a message received: iterate over clients and send it to everyone.
+2. For each accepted websocket, add it to the set `clients.add(socket)` and set `message` event listener to get its messages.
+3. When a message is received: iterate over clients and send it to everyone.
 4. When a connection is closed: `clients.delete(socket)`.
 
 ```js
@@ -359,7 +359,7 @@ Here's the working example:
 
 [iframe src="chat" height="100" zip]
 
-You can also download it (upper-right button in the iframe) and run locally. Just don't forget to install [Node.js](https://nodejs.org/en/) and `npm install ws` before running.
+You can also download it (upper-right button in the iframe) and run it locally. Just don't forget to install [Node.js](https://nodejs.org/en/) and `npm install ws` before running.
 
 ## Summary
 
@@ -383,6 +383,6 @@ Events:
 
 WebSocket by itself does not include reconnection, authentication and many other high-level mechanisms. So there are client/server libraries for that, and it's also possible to implement these capabilities manually.
 
-Sometimes, to integrate WebSocket into existing project, people run WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use `wss://ws.site.com`, a subdomain that leads to WebSocket server, while `https://site.com` goes to the main HTTP-server.
+Sometimes, to integrate WebSocket into existing projects, people run a WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use `wss://ws.site.com`, a subdomain that leads to the WebSocket server, while `https://site.com` goes to the main HTTP-server.
 
 Surely, other ways of integration are also possible.
