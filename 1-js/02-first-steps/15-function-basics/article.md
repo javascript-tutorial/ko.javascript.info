@@ -24,7 +24,7 @@ function showMessage() {
 
 ```js
 function name(parameter1, parameter2, ... parameterN) {
-  ...함수 본문...
+  ...함수 본문... [영문 번경]// body
 }
 ```
 
