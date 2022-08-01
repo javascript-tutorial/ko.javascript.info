@@ -2,10 +2,10 @@ importance: 4
 
 ---
 
-# Colored clock with setInterval
+# setInterval을 사용한 알록달록한 시계
 
-Create a colored clock like here:
+아래처럼 알록달록한 시계를 만들어 보세요.
 
 [iframe src="solution" height=60]
 
-Use HTML/CSS for the styling, JavaScript only updates time in elements.
+자바스크립트는 요소 내부 시간을 업데이트할 때만 사용됩니다. 스타일을 꾸미려면 HTML·CSS를 사용하세요.

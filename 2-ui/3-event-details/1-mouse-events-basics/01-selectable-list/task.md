@@ -2,17 +2,17 @@ importance: 5
 
 ---
 
-# Selectable list
+# 선택 가능한 리스트
 
-Create a list where elements are selectable, like in file-managers.
+파일 관리 프로그램처럼 요소를 선택할 수 있게 해주는 리스트를 만들어봅시다. 요구사항은 다음과 같습니다.
 
-- A click on a list element selects only that element (adds the class `.selected`), deselects all others.
-- If a click is made with `key:Ctrl` (`key:Cmd` for Mac), then the selection is toggled on the element, but other elements are not modified.
+- 요소를 클릭하면 해당 요소가 선택(`.selected` 클래스 추가)되고, 나머지 요소들은 선택 해제됩니다.
+- `key:Ctrl`키(Mac에서 `key:Cmd`키)를 누른 상태에서 요소를 클릭하면 해당 요소는 원래처럼 선택, 선택 해제되지만 다른 요소들의 상태는 변하지 않습니다(중복 요소 선택 기능).
 
-The demo:
+데모:
 
 [iframe border="1" src="solution" height=180]
 
-P.S. For this task we can assume that list items are text-only. No nested tags.
+참고 1: 항목들이 모두 텍스트이며 중첩 태그가 없다고 가정합니다.
 
-P.P.S. Prevent the native browser selection of the text on clicks.
+참고 2: 텍스트를 클릭할 때 발생하는 브라우저 이벤트를 막습니다.

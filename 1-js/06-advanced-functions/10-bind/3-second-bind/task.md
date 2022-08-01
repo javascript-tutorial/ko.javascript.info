@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Second bind
+# bind 두 번 적용하기
 
-Can we change `this` by additional binding?
+함수에 bind를 적용하고, 이어서 한 번 더 bind를 적용하면 `this`를 바꿀 수 있을까요?
 
-What will be the output?
+아래 코드를 실행하면 어떤 결과가 나올까요?
 
 ```js no-beautify
 function f() {

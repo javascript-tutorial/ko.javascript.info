@@ -1,3 +1,3 @@
-# Forms, controls
+# 폼과 폼 조작
 
-Special properties and events for forms `<form>` and controls: `<input>`, `<select>` and other.
+`<form>`의 전용 프로퍼티와 이벤트, 폼 조작에 사용되는 `<input>`, `<select>` 등에 대해 알아봅시다.

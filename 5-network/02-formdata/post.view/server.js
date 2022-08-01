@@ -9,7 +9,7 @@ let router = new Router();
 
 router.post('/user', async (ctx) => {
   ctx.body = {
-    message: "User saved"
+    message: "사용자 저장을 성공하였습니다."
   };
 });
 
@@ -34,7 +34,7 @@ router.post('/image-form', async (ctx) => {
   });
 
   ctx.body = {
-    message: `Image saved, firstName: ${fields.firstName}, Image size:${files[0].length}, fileName: ${files[0].filename}`
+    message: `이미지 저장에 성공하였습니다. 이름: ${fields.firstName}, 이미지 크기: ${files[0].length}, 파일명: ${files[0].filename}`
   };
 });
 
@@ -61,7 +61,7 @@ router.post('/user-avatar', async (ctx) => {
   });
 
   ctx.body = {
-    message: `User with picture, firstName: ${fields.firstName}, picture size:${files[0].length}`
+    message: `사용자 이미지 전송이 성공하였습니다. 이름: ${fields.firstName}, 이미지 크기: ${files[0].length}`
   };
 });
 

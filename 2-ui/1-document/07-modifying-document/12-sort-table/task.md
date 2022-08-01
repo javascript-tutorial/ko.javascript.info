@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Sort the table
+# 표 정렬하기
 
-There's a table:
+주어진 표가 하나 있습니다.
 
 ```html run
 <table>
@@ -30,6 +30,6 @@ There's a table:
 </table>
 ```
 
-There may be more rows in it.
+표에는 이보다 더 많은 행들이 있을 수 있습니다.
 
-Write the code to sort it by the `"name"` column.
+`'name'` 열을 기준으로 표를 정렬하는 코드를 작성해 보세요.

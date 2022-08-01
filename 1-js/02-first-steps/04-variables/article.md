@@ -134,18 +134,18 @@ alert(Hello); // Hello world!
 alert(message); // Hello world!
 ```
 
-````warn header="Declaring twice triggers an error"
-A variable should be declared only once.
+````warn header="변수를 두 번 선언하면 에러가 발생합니다."
+변수는 한 번만 선언해야 합니다.
 
-A repeated declaration of the same variable is an error:
+같은 변수를 여러 번 선언하면 에러가 발생합니다.
 
 ```js run
 let message = "This";
 
-// repeated 'let' leads to an error
+// 'let'을 반복하면 에러가 발생합니다.
 let message = "That"; // SyntaxError: 'message' has already been declared
 ```
-So, we should declare a variable once and then refer to it without `let`.
+따라서 변수는 딱 한 번만 선언하고, 선언한 변수를 참조할 때는 `let` 없이 변수명만 사용해 참조해야 합니다.
 ````
 
 ```smart header="함수형 언어"
@@ -170,7 +170,7 @@ let userName;
 let test123;
 ```
 
-여러 단어를 조합하여 변수명을 만들 땐 [카멜 표기법(camelCase)](https://en.wikipedia.org/wiki/CamelCase)가 흔히 사용됩니다. 카멜 표기법은 단어를 차례대로 나열하면서 첫 단어를 제외한 각 단어의 첫 글자를 대문자로 작성합니다. `myVeryLongName`같이 말이죠.
+여러 단어를 조합하여 변수명을 만들 땐 [카멜 표기법(camelCase)](https://en.wikipedia.org/wiki/CamelCase)이 흔히 사용됩니다. 카멜 표기법은 단어를 차례대로 나열하면서 첫 단어를 제외한 각 단어의 첫 글자를 대문자로 작성합니다. `myVeryLongName`같이 말이죠.
 
 달러 기호 `'$'` 와 밑줄 `'_'` 를 변수명에 사용할 수 있다는 점이 조금 특이하네요. 이 특수 기호는 일반 글자처럼 특별한 의미를 지니진 않습니다.
 

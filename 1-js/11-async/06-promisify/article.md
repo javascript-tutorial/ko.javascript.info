@@ -2,7 +2,7 @@
 
 콜백을 받는 함수를 프라미스를 반환하는 함수로 바꾸는 것을 '프라미스화(promisification)'라고 합니다.
 
-콜백보다는 프라미스가 더 편리하기 때문에, 구현을 하다 보면 콜백 기반 함수와 라이브러리를 프라미스를 반환하는 함수로 바꾸는 게 좋은 경우가 종종 생길 겁니다.
+기능을 구현 하다 보면 콜백보다는 프라미스가 더 편리하기 때문에 콜백 기반 함수와 라이브러리를 프라미스를 반환하는 함수로 바꾸는 게 좋은 경우가 종종 생길 겁니다.
 
 <info:callbacks> 챕터에서 사용했던 `loadScript(src, callback)` 예시를 사용해 프라미스화에 대해 좀 더 자세히 알아봅시다.
 
@@ -17,7 +17,7 @@ function loadScript(src, callback) {
   document.head.append(script);
 }
 
-// usage:
+// 사용법:
 // loadScript('path/script.js', (err, script) => {...})
 ```
 
@@ -73,7 +73,7 @@ loadScriptPromise(...).then(...);
 
 그런데 함수 `f`가 두 개를 초과하는 인수를 가진 콜백, `callback(err, res1, res2, ...)`을 받는다면 어떤 일이 발생할까요?
 
-이런 경우를 대비하여 좀 더 진화한 `promisify`를 만들어 봅시다. 새롭게 만든 함수를 `promisify(f, true)`형태로 호출하면, 프라미스 결과는 콜백의 성공 케이스(`results`)를 담은 배열, `[res1, res2, ...]`이 됩니다.
+이런 경우를 대비하여 좀 더 진화한 헬퍼 함수, `promisify`를 만들어 봅시다. 새롭게 만든 함수를 `promisify(f, true)`형태로 호출하면, 프라미스 결과는 콜백의 성공 케이스(`results`)를 담은 배열, `[res1, res2, ...]`이 됩니다.
 
 ```js
 // 콜백의 성공 결과를 담은 배열을 얻게 해주는 promisify(f, true)
@@ -103,7 +103,7 @@ f(...).then(arrayOfResults => ..., err => ...)
 
 `callback(result)`같이 `err`이 없는 형태나 지금까지 언급하지 않은 형태의 이색적인 콜백도 있을 수 있는데, 이런 경우엔 헬퍼 함수를 사용하지 않고 직접 프라미스화 하면 됩니다.
 
-본 챕터에서 설명한 헬퍼 함수보다 더 유용한 형태의 프라미스화를 도와주는 함수를 제공하는 모둘도 많습니다. [es6-promisify](https://github.com/digitaldesignlabs/es6-promisify)가 대표적인 예입니다. Node.js에선 내장 함수 `util.promisify`를 사용해 프라미스화를 할 수 있습니다.
+본 챕터에서 설명한 헬퍼 함수보다 더 유용한 형태의 프라미스화를 도와주는 함수를 제공하는 모듈도 많습니다. [es6-promisify](https://github.com/digitaldesignlabs/es6-promisify)가 대표적인 예입니다. Node.js에선 내장 함수 `util.promisify`를 사용해 프라미스화를 할 수 있습니다.
 
 ```smart
 프라미스화는 곧 배우게 될 `async/await`와 함께 사용하면 더 좋습니다. 다만, 콜백을 완전히 대체하지는 못한다는 사실을 기억해 두시기 바랍니다.

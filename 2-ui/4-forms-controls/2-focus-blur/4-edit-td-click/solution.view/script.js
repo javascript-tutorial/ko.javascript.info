@@ -4,7 +4,7 @@ let editingTd;
 
 table.onclick = function(event) {
 
-  // 3 possible targets
+  // 총 3개의 타겟(셀, 완료, 취소)
   let target = event.target.closest('.edit-cancel,.edit-ok,td');
 
   if (!table.contains(target)) return;
@@ -14,7 +14,7 @@ table.onclick = function(event) {
   } else if (target.className == 'edit-ok') {
     finishTdEdit(editingTd.elem, true);
   } else if (target.nodeName == 'TD') {
-    if (editingTd) return; // already editing
+    if (editingTd) return; // 셀을 수정 중인 경우
 
     makeTdEditable(target);
   }
@@ -27,7 +27,7 @@ function makeTdEditable(td) {
     data: td.innerHTML
   };
 
-  td.classList.add('edit-td'); // td is in edit state, CSS also styles the area inside
+  td.classList.add('edit-td'); // 수정 중인 td의 스타일을 변경
 
   let textArea = document.createElement('textarea');
   textArea.style.width = td.clientWidth + 'px';
@@ -40,7 +40,7 @@ function makeTdEditable(td) {
   textArea.focus();
 
   td.insertAdjacentHTML("beforeEnd",
-    '<div class="edit-controls"><button class="edit-ok">OK</button><button class="edit-cancel">CANCEL</button></div>'
+    '<div class="edit-controls"><button class="edit-ok">완료</button><button class="edit-cancel">취소</button></div>'
   );
 }
 
