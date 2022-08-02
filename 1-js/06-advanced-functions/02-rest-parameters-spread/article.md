@@ -75,7 +75,7 @@ function f(arg1, ...rest, arg2) { // ...rest 후에 arg2가 있으면 안 됩니
 
 ## arguments 객체
 
-유사 배열 객체(array-like object)인 `arguemnts`를 사용하면 인덱스를 사용해 인수에 접근할 수 있습니다.
+유사 배열 객체(array-like object)인 `arguments`를 사용하면 인덱스를 사용해 인수에 접근할 수 있습니다.
 
 예시:
 
@@ -227,7 +227,7 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 ## 배열과 객체의 복사본 만들기
 
-`Object.assign()` [참조에 의한 객체 복사](info:object-copy#cloning-and-merging-object-assign) 챕터에서 `Object.assign()`을 사용해 객체를 복사한 예시를 떠올려봅시다.
+[참조에 의한 객체 복사](info:object-copy#cloning-and-merging-object-assign) 챕터에서 `Object.assign()`을 사용해 객체를 복사한 예시를 떠올려봅시다.
 
 `Object.assign()` 말고도 스프레드 문법을 사용하면 배열과 객체를 복사할 수 있습니다.
 
