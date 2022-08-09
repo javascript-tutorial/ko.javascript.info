@@ -85,22 +85,22 @@ alert(phrase); // Error: phrase is not defined
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트에선 블록 수준 렉시컬 환경이 만들어 지지 않았기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
 
-## "var" tolerates redeclarations
+## "var"는 변수의 중복 선언을 허용합니다
 
-If we declare the same variable with `let` twice in the same scope, that's an error:
+한 스코프에서 같은 변수를 `let`으로 두 번 선언하면 에러가 발생합니다.
 
 ```js run
 let user;
 let user; // SyntaxError: 'user' has already been declared
 ```
 
-With `var`, we can redeclare a variable any number of times. If we use `var` with an already-declared variable, it's just ignored:
+`var`로 같은 변수를 여러 번 중복으로 선언할 수 있습니다. 하지만 이미 선언된 변수에 `var`를 사용하면 두 번째 선언문은 무시됩니다.
 
 ```js run
 var user = "Pete";
 
-var user = "John"; // this "var" does nothing (already declared)
-// ...it doesn't trigger an error
+var user = "John"; // 이 "var"는 아무것도 하지 않습니다 (이미 선언됨).
+// ...에러 또한 발생하지 않습니다. 
 
 alert(user); // John
 ```
