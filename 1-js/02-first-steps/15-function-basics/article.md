@@ -207,6 +207,12 @@ showMessage("Ann"); // Ann: no text given
 
 이젠 `text`가 값을 전달받지 못해도 `undefined`대신 기본값 `"no text given"`이 할당됩니다.
 
+The default value also jumps in if the parameter exists, but strictly equals `undefined`, like this:
+
+```js
+showMessage("Ann", undefined); // Ann: no text given
+```
+
 위 예시에선 문자열 `"no text given"`을 기본값으로 설정했습니다. 하지만 아래와 같이 복잡한 표현식도 기본값으로 설정할 수도 있습니다.
 
 ```js run
