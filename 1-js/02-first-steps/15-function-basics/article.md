@@ -265,7 +265,8 @@ function showMessage(from, text) {
 
 ### 매개변수 기본값을 설정할 수 있는 또 다른 방법
 
-가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. [영문 변경] Sometimes it makes sense to assign default values for parameters not in the function declaration, but at a later stage.
+<<<<<<< HEAD
+가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. [영문 변경] Sometimes it makes sense to assign default values for parameters at a later stage after the function declaration.
 
 이런 경우엔 일단 매개변수를 `undefined`와 비교하여 함수 호출 시 매개변수가 생략되었는지를 확인합니다. [영문 변경사항:] We can check if the parameter is passed during the function execution, by comparing it with `undefined`:
 
