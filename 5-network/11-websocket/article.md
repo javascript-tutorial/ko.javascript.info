@@ -91,7 +91,7 @@ Sec-WebSocket-Version: 13
 - `Origin` -- 클라이언트 오리진(예시에선 `https://javascript.info`)을 나타냅니다. 서버는 `Origin` 헤더를 보고 어떤 웹사이트와 소켓통신을 할지 결정하기 때문에 Origin 헤더는 웹소켓 통신에 중요한 역할을 합니다. 참고로 웹소켓 객체는 기본적으로 크로스 오리진(cross-origin) 요청을 지원합니다. 웹소켓 통신만을 위한 전용 헤더나 제약도 없습니다. 오래된 서버는 웹소켓 통신을 지원하지 못하기 때문에 웹소켓 통신은 호환성 문제도 없습니다.
 - `Connection: Upgrade` -- 클라이언트  측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
 - `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
-- `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키를 나타냅니다.
+- `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키로, 서버가 웹소켓 프로토콜을 지원하는지를 확인하는데 사용됩니다. It's random to prevent proxies from caching any following communication.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
 
 ```smart header="웹소켓 핸드셰이크는 모방이 불가능합니다."
@@ -107,7 +107,7 @@ Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
 
-여기서 `Sec-WebSocket-Accept`는 `Sec-WebSocket-Key`와 밀접한 관계가 있습니다. 브라우저는 특별한 알고리즘을 사용해 서버에서 생성한 `Sec-WebSocket-Accept` 값을 받아, 이 응답이 자신이 보낸 요청에 대응하는 응답인지를 확인합니다.
+여기서 `Sec-WebSocket-Accept`값은 특별한 알고리즘을 사용해 만든 `Sec-WebSocket-Key` 입니다. 이 값을 보고 브라우저는 서버가 진짜 웹소켓 프로토콜을 지원하는지 확인합니다.
 
 이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용해 데이터가 전송되기 시작합니다. 전홍이 시작된 후에 어떤일이 일어나는지는 조금 후에 자세히 살펴보겠습니다.
 
