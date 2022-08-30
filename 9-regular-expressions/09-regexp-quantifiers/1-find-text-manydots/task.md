@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-#  How to find an ellipsis "..." ?
+#  생략 부호를 어떻게 찾아야 할까요 "..." ?
 
-Create a regexp to find ellipsis: 3 (or more?) dots in a row.
+연속된 점이 3개 또는 그 이상인 생략 부호를 찾기 위해 정규표현식을 만들어보세요.
 
-Check it:
+코드를 참고해 보세요.
 
 ```js
 let regexp = /your regexp/g;
