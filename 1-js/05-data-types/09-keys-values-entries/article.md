@@ -74,7 +74,7 @@ for (let value of Object.values(user)) {
 
 객체엔 `map`, `filter` 같은 배열 전용 메서드를 사용할 수 없습니다.
 
-하지만 `Object.entries`와 `Object.fromEntries`를 순차적으로 적용하면 객체에도 배열 전용 메서드 사용할 수 있습니다. 적용 방법은 다음과 같습니다.
+하지만 `Object.entries`와 `Object.fromEntries`를 순차적으로 적용하면 객체에도 배열 전용 메서드를 사용할 수 있습니다. 적용 방법은 다음과 같습니다.
 
 1. `Object.entries(obj)`를 사용해 객체의 키-값 쌍이 요소인 배열을 얻습니다.
 2. 1.에서 만든 배열에 `map` 등의 배열 전용 메서드를 적용합니다.
