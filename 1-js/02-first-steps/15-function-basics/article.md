@@ -24,7 +24,7 @@ function showMessage() {
 
 ```js
 function name(parameter1, parameter2, ... parameterN) {
-  ...함수 본문... [영문 번경]// body
+  // 함수 본문
 }
 ```
 
@@ -137,12 +137,12 @@ alert( userName ); // 함수는 외부 변수에 접근하지 않습니다. 따�
 
 ## 매개변수
 
-매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인수(argument)* 라고 불리기도 합니다(매개변수와 인수는 엄밀히 같진 않지만, 튜토리얼 원문을 토대로 번역하였습니다 - 옮긴이). // [영어 원문 변경] We can pass arbitrary data to functions using parameters.
+매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인자(parameter)* 라고 불리기도 합니다.
 
 아래 예시에서 함수 showMessage는 매개변수 `from` 과 `text`를 가집니다.
 
 ```js run
-function showMessage(*!*from, text*/!*) { // 인수: from, text [영어 원문 변경: parameters: from, text]
+function showMessage(*!*from, text*/!*) { // 인자: from, text
   alert(from + ': ' + text);
 }
 
@@ -172,20 +172,20 @@ showMessage(from, "Hello"); // *Ann*: Hello
 alert( from ); // Ann
 ```
 
-When a value is passed as a function parameter, it's also called an *argument*.
+함수의 매개변수에 전달된 값을 *인수(argument)*라고 부르기도 합니다. 
 
-In other words, to put these terms straight:
+더 정확한 이해를 돕기 위해 용어를 다시 한번 정리해볼까요?  
 
-- A parameter is the variable listed inside the parentheses in the function declaration (it's a declaration time term).
-- An argument is the value that is passed to the function when it is called (it's a call time term).
+- 매개변수는 함수 선언 방식 괄호 사이에 있는 변수입니다(선언 시 쓰이는 용어).
+- 인수는 함수를 호출할 때 매개변수에 전달되는 값입니다(호출 시 쓰이는 용어).
 
-We declare functions listing their parameters, then call them passing arguments.
+즉, 함수 선언 시 매개변수를 나열하게 되고, 함수를 호출할 땐 인수를 전달해 호출합니다.
 
-In the example above, one might say: "the function `showMessage` is declared with two parameters, then called with two arguments: `from` and `"Hello"`".
+위 예에서 함수 `showMessage`는 `from`과 `text`라는 두 매개변수를 사용해 선언되었고, 그 후 호출 시엔 `from`, `Hello`라는 두 인수를 사용해 호출되었습니다.
 
 ## 기본값
 
-매개변수에 값을 전달하지 않으면 그 값은 `undefined`가 됩니다. [영어 원문 변경사항] If a function is called, but an argument is not provided, then the corresponding value becomes `undefined`.
+함수 호출 시 매개변수에 인수를 전달하지 않으면 그 값은 `undefined`가 됩니다.
 
 예시를 통해 이에 대해 알아봅시다. 위에서 정의한 함수 `showMessage(from, text)`는 매개변수가 2개지만, 아래와 같이 인수를 하나만 넣어서 호출할 수 있습니다.
 
@@ -193,9 +193,9 @@ In the example above, one might say: "the function `showMessage` is declared wit
 showMessage("Ann");
 ```
 
-이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefiend`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다.
+이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefined`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다.
 
-매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 '기본값(default value)'을 설정해주면 됩니다. 매개변수 오른쪽에 `=`을 붙이고 `undefined` 대신 설정하고자 하는 기본값을 써주면 되죠. [영문 변경] We can specify the so-called "default" (to use if omitted) value for a parameter in the function declaration, using `=`:
+매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 함수를 선언할 때 `=`를 사용해 '기본값(default value)'을 설정해주면 됩니다. 
 
 ```js run
 function showMessage(from, *!*text = "no text given"*/!*) {
@@ -205,10 +205,11 @@ function showMessage(from, *!*text = "no text given"*/!*) {
 showMessage("Ann"); // Ann: no text given
 ```
 
-이젠 `text`가 값을 전달받지 못해도 `undefined`대신 기본값 `"no text given"`이 할당됩니다.
+이젠 `text`가 값을 전달받지 못해도 `undefined` 대신 기본값 `"no text given"`이 할당됩니다.
 
-The default value also jumps in if the parameter exists, but strictly equals `undefined`, like this:
+매개변수에 값을 전달해도 그 값이 `undefined`와 엄격히 일치한다면 기본값이 할당됩니다.
 
+예시: 
 ```js
 showMessage("Ann", undefined); // Ann: no text given
 ```
@@ -225,19 +226,20 @@ function showMessage(from, text = anotherFunction()) {
 ```smart header="매개변수 기본값 평가 시점"
 자바스크립트에선 함수를 호출할 때마다 매개변수 기본값을 평가합니다. 물론 해당하는 매개변수가 없을 때만 기본값을 평가하죠.
 
-위 예시에선 매개변수 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다. [영문 변경사항:] In the example above, `anotherFunction()` isn't called at all, if the `text` parameter is provided.
+위 예시에선 매개변수 `text`에 값이 전달되는 경우 `anotherFunction()`은 호출되지 않습니다.
 
-On the other hand, it's independently called every time when `text` is missing.
+반면 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
 
 ```
 
-````smart header="Default parameters in old JavaScript code"
-Several years ago, JavaScript didn't support the syntax for default parameters. So people used other ways to specify them.
+````smart header="구식 자바스크립트에서 매개변수 기본값 설정하는 방법"
+몇 년 전만 해도 자바스크립트엔 매개변수 기본값 관련 구문이 없었습니다. 그래서 매개변수 기본값을 설정하려면 다른 방법을 사용해야만 했죠.
 
-Nowadays, we can come across them in old scripts.
+요즘에도 오래된 스크립트를 보다 보면 매개변수 기본값 설정 관련 코드를 접할 수 있습니다.
 
-For example, an explicit check for `undefined`:
+구식 코드에서는 매개변수 기본값 설정을 위해 먼저 매개변수 값이 `undefined`인지 명시적으로 확인하고, 일치하는 경우엔 기본값을 설정합니다.
 
+예시: 
 ```js
 function showMessage(from, text) {
 *!*
@@ -250,12 +252,12 @@ function showMessage(from, text) {
 }
 ```
 
-...Or using the `||` operator:
+이 방법 말고도 논리 연산자 `||`를 사용해 매개변수 기본값을 설정하는 방법도 있습니다.
 
 ```js
 function showMessage(from, text) {
-  // If the value of text is falsy, assign the default value
-  // this assumes that text == "" is the same as no text at all
+  // text의 값이 falsy면 기본값이 할당됨
+  // 이 방식은 text == ""일 경우, text에 값이 전달되지 않은것과 같다고 간주합니다.. 
   text = text || 'no text given';
   ...
 }
@@ -265,18 +267,17 @@ function showMessage(from, text) {
 
 ### 매개변수 기본값을 설정할 수 있는 또 다른 방법
 
-<<<<<<< HEAD
-가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. [영문 변경] Sometimes it makes sense to assign default values for parameters at a later stage after the function declaration.
+가끔은 함수를 선언할 때가 아닌 함수 선언 후에 매개변수 기본값을 설정하는 것이 적절한 경우도 있습니다.
 
-이런 경우엔 일단 매개변수를 `undefined`와 비교하여 함수 호출 시 매개변수가 생략되었는지를 확인합니다. [영문 변경사항:] We can check if the parameter is passed during the function execution, by comparing it with `undefined`:
+이런 경우엔 함수를 호출할 때 매개변수를 `undefined`와 비교하여 매개변수가 전달되었는지를 확인합니다.
 
 ```js run
 function showMessage(text) {
   // ...
 
 *!*
-  if (text === undefined) { // [영문 변경] if the parameter is missing
-    text = '빈 문자열'; 
+  if (text === undefined) { // 매개변수가 생략되었다면 
+    text = '빈 문자열';
   }
 */!*
 
@@ -289,7 +290,7 @@ showMessage(); // 빈 문자열
 이렇게 `if`문을 쓰는 것 대신 논리 연산자 `||`를 사용할 수도 있습니다.
 
 ```js
-// 매개변수가 생략되었거나 빈 문자열("")이 넘어오면 변수에 '빈 문자열'이 할당됩니다. 
+// 매개변수가 생략되었거나 빈 문자열("")이 넘어오면 변수에 '빈 문자열'이 할당됩니다.
 function showMessage(text) {
   text = text || '빈 문자열';
   ...
@@ -299,7 +300,7 @@ function showMessage(text) {
 이 외에도 모던 자바스크립트 엔진이 지원하는  [nullish 병합 연산자(nullish coalescing operator)](info:nullish-coalescing-operator) `??`를 사용하면 `0`처럼 falsy로 평가되는 값들을 일반 값처럼 처리할 수 있어서 좋습니다.
 
 ```js run
-// 매개변수 'count'가 넘어오지 않으면 'unknown'을 출력해주는 함수 [영문 변경] // if count is undefined or null, show "unknown"
+// 매개변수 'count'가 `undefined` 또는 `null`이면 'unknown'을 출력해주는 함수
 function showCount(count) {
   alert(count ?? "unknown");
 }
