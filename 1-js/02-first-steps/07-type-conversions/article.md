@@ -81,7 +81,7 @@ alert( Number(true) );        // 1
 alert( Number(false) );       // 0
 ```
 
- `null`과 `undefined`은 숫자형으로 변환 시 결과가 다르다는 점에 유의하시기 바랍니다. `null`은 `0`이 되고 `undefined`는 `NaN`이 됩니다.
+ `null`과 `undefined`는 숫자형으로 변환 시 결과가 다르다는 점에 유의하시기 바랍니다. `null`은 `0`이 되고 `undefined`는 `NaN`이 됩니다.
 
 대부분의 수학 연산은 형 변환을 수반합니다. 자세한 내용은 다음 챕터에서 살펴보겠습니다.
 
