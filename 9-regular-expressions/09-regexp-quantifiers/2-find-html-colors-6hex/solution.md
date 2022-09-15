@@ -11,21 +11,21 @@ let regexp = /#[a-f0-9]{6}/gi;
 
 let str = "color:#121212; background-color:#AA00ef bad-colors:f#fddee #fd2";
 
-alert(str.match(regexp)); // #121212,#AA00ef
+alert( str.match(regexp) );  // #121212,#AA00ef
 ```
 
 문제는 더 긴 시퀀스에서 색상을 찾는 것입니다.
 
 ```js run
-alert("#12345678".match(/#[a-f0-9]{6}/gi)); // #123456
+alert( "#12345678".match( /#[a-f0-9]{6}/gi ) ) // #123456
 ```
 
 이를 해결하기 위해 정규표현식 끝부분에 `pattern:\b`를 추가할 수 있습니다.
 
 ```js run
 // color
-alert("#123456".match(/#[a-f0-9]{6}\b/gi)); // #123456
+alert( "#123456".match( /#[a-f0-9]{6}\b/gi ) ); // #123456
 
 // not a color
-alert("#12345678".match(/#[a-f0-9]{6}\b/gi)); // null
+alert( "#12345678".match( /#[a-f0-9]{6}\b/gi ) ); // null
 ```

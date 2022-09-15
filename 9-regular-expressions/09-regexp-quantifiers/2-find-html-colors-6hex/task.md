@@ -5,12 +5,11 @@
 예시:
 
 ```js
-let regexp = /...your regexp.../;
+let regexp = /...your regexp.../
 
-let str =
-  "color:#121212; background-color:#AA00ef bad-colors:f#fddee #fd2 #12345678";
+let str ="color:#121212; background-color:#AA00ef bad-colors:f#fddee #fd2 #12345678";
 
-alert(str.match(regexp)); // #121212,#AA00ef
+alert( str.match(regexp) )  // #121212,#AA00ef
 ```
 
 P.S. 이 과제에서 `#123` 또는 `rgb(1,2,3)`등의 다른 색상 형식은 필요하지 않습니다.
