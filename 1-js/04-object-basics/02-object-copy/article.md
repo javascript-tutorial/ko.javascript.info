@@ -15,7 +15,7 @@ let phrase = message;
 
 ![](variable-copy-value.svg)
 
-그런데 객체의 동작방식은 이와 다릅니다.
+그런데 객체의 동작 방식은 이와 다릅니다.
 
 **변수엔 객체가 그대로 저장되는 것이 아니라, 객체가 저장되어있는 '메모리 주소'인 객체에 대한 '참조 값'이 저장됩니다.**
 
@@ -123,7 +123,7 @@ alert( user.name ); // 기존 객체에는 여전히 John이 있습니다.
 
 [Object.assign](mdn:js/Object/assign)를 사용하는 방법도 있습니다.
 
-문법과 동작방식은 다음과 같습니다.
+문법과 동작 방식은 다음과 같습니다.
 
 ```js
 Object.assign(dest, [src1, src2, src3...])
