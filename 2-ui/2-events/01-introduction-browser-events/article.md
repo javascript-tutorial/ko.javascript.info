@@ -107,11 +107,11 @@ DOM 프로퍼티 `on<event>`을 사용해도 핸들러를 할당할 수 있습�
     </script>
     ```
 
-In the first example, the HTML attribute is used to initialize the `button.onclick`, while in the second example -- the script, that's all the difference.
+두 예시의 유일한 차이점은 바로 첫 번째 예시에서는 HTML 속성을 사용해 button.onclick을 초기화하고 두 번째 예시에서는 스크립트를 사용한다는 것입니다.
 
 **`onclick` 프로퍼티는 단 하나밖에 없기 때문에, 복수의 이벤트 핸들러를 할당할 수 없습니다.**
 
-아래 예시와 같이 핸들러를 하나 더 추가하면, 기존 핸들러는 덮어씌워 집니다.
+아래 예시와 같이 핸들러를 하나 더 추가하면, 기존 핸들러는 덮어씌워집니다.
 
 ```html run height=50 autorun
 <input type="button" id="elem" onclick="alert('이전')" value="클릭해 주세요.">
