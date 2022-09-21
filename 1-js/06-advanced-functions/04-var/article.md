@@ -1,5 +1,5 @@
 
-# 오래된 'var'
+# 오래된 var
 
 ```smart header="오래된 스크립트를 읽는 데 도움을 주는 글입니다."
 이번 주제에선 작성된 지 오래된 스크립트를 읽는 데 도움을 줄 만한 내용을 다룹니다. 
@@ -26,7 +26,7 @@ alert(message); // 안녕하세요.
 
 하지만 그랬다간 이 괴물에게 물릴 수 있습니다. 특히 `var`를 사용하는 오래된 스크립트를 `let`로 바꿀 때 `var`에 대해 제대로 알아두어야 합니다. 그렇지 않으면 예상치 못한 에러를 만날 수 있습니다.
 
-## 'var'는 블록 스코프가 없습니다.
+## var는 블록 스코프가 없습니다.
 
 `var`로 선언한 변수의 스코프는 함수 스코프이거나 전역 스코프입니다. 블록 기준으로 스코프가 생기지 않기 때문에 블록 밖에서 접근 가능합니다.
 
@@ -85,27 +85,27 @@ alert(phrase); // Error: phrase is not defined
 
 위에서 살펴본 바와 같이, `var`는 `if`, `for` 등의 코드 블록을 관통합니다. 아주 오래전의 자바스크립트에선 블록 수준 렉시컬 환경이 만들어 지지 않았기 때문입니다. `var`는 구식 자바스크립트의 잔재이죠.
 
-## "var" tolerates redeclarations
+## var는 변수의 중복 선언을 허용합니다
 
-If we declare the same variable with `let` twice in the same scope, that's an error:
+한 스코프에서 같은 변수를 `let`으로 두 번 선언하면 에러가 발생합니다.
 
 ```js run
 let user;
 let user; // SyntaxError: 'user' has already been declared
 ```
 
-With `var`, we can redeclare a variable any number of times. If we use `var` with an already-declared variable, it's just ignored:
+`var`로 같은 변수를 여러 번 중복으로 선언할 수 있습니다. 하지만 이미 선언된 변수에 `var`를 사용하면 두 번째 선언문은 무시됩니다.
 
 ```js run
 var user = "Pete";
 
-var user = "John"; // this "var" does nothing (already declared)
-// ...it doesn't trigger an error
+var user = "John"; // 이 "var"는 아무것도 하지 않습니다(이전에 이미 선언됨).
+// ...에러 또한 발생하지 않습니다. 
 
 alert(user); // John
 ```
 
-## 선언하기 전 사용할 수 있는 'var'
+## 선언하기 전 사용할 수 있는 var
 
 `var` 선언은 함수가 시작될 때 처리됩니다. 전역에서 선언한 변수라면 스크립트가 시작될 때 처리되죠.
 

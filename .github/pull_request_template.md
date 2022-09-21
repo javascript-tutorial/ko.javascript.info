@@ -1,3 +1,9 @@
+# 요약
+<!--해당 PR에 대한 설명 혹은 이미지, 링크 등을 넣어주세요. -->
+
+# 연관 이슈
+<!--연관 이슈가 생성되었다면, 링크를 넣어주세요. -->
+
 # Pull Request 체크리스트
 ## TODO
 - [ ] [번역 규칙을 확인하셨나요?](https://github.com/javascript-tutorial/ko.javascript.info#%EB%B2%88%EC%97%AD-%EA%B7%9C%EC%B9%99)

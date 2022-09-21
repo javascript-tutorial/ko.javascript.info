@@ -254,7 +254,7 @@ document.getElementsByTagName('input')[0].value = 5;
   // name 속성을 이용해 검색
   let form = document.getElementsByName('my-form')[0];
 
-  // fomr 내에서 클래스 이름을 이용해 검색
+  // form 내에서 클래스 이름을 이용해 검색
   let articles = form.getElementsByClassName('article');
   alert(articles.length); // 2. 클래스 속성값이 'article'인 요소는 2개입니다.
 </script>

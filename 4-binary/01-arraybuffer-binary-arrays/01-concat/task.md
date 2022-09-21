@@ -1,4 +1,4 @@
 
-# Concatenate typed arrays
+# 타입이 지정된 배열 연결하기
 
-Given an array of `Uint8Array`, write a function `concat(arrays)` that returns a concatenation of them into a single array.
+주어진 `Uint8Array`의 배열을 하나의 배열로 연결하여 반환하는 함수 `concat(arrays)`를 작성하십시오.
