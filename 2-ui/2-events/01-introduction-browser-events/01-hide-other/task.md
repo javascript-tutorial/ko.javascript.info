@@ -1,11 +1,11 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Hide on click
+# 클릭하여 숨기기
 
-Add JavaScript to the `button` to make `<div id="text">` disappear when we click it.
+`button`에 자바스크립트를 추가해 클릭할 때 `<div id="text">`가 사라지게 합니다.
 
-The demo:
+데모:
 
 [iframe border=1 src="solution" height=80]

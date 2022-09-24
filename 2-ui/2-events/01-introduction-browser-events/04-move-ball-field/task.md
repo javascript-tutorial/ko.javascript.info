@@ -1,21 +1,21 @@
-importance: 5
+중요도: 5
 
 ---
 
-# Move the ball across the field
+# 공을 운동장 건너편으로 옮겨 보세요.
 
-Move the ball across the field to a click. Like this:
+클릭하여 공을 운동장 건너편으로 옮겨 보세요. 아래와 같이 말이죠:
 
 [iframe src="solution" height="260" link]
 
-Requirements:
+요구사항:
 
-- The ball center should come exactly under the pointer on click (if possible without crossing the field edge).
-- CSS-animation is welcome.
-- The ball must not cross field boundaries.
-- When the page is scrolled, nothing should break.
+- 클릭 시 공의 중심은 마우스 포인터 바로 아래에 위치해야 합니다(가능한 필드 가장자리를 넘지 않고).
+- CSS-애니메이션을 사용해도 괜찮습니다.
+- 공은 절대로 필드 가장자리를 넘으면 안됩니다.
+- 페이지를 스크롤 할 때, 어떤것도 깨지지 않아야 합니다.
 
 Notes:
 
-- The code should also work with different ball and field sizes, not be bound to any fixed values.
-- Use properties `event.clientX/event.clientY` for click coordinates.
+- 코드는 다른 공과 필드 크기에서도 동작해야 하며, 고정된 값에 영향을 받지 않습니다.
+- 클릭 좌표에는 `event.clientX/event.clientY`을 사용하세요.
