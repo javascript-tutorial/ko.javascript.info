@@ -2,20 +2,20 @@ importance: 5
 
 ---
 
-# Move the ball across the field
+# 필드를 가로질러 공 이동하기
 
-Move the ball across the field to a click. Like this:
+클릭 시 필드를 가로질러 공을 이동합니다. 이렇게요.
 
 [iframe src="solution" height="260" link]
 
-Requirements:
+요구 사항:
 
-- The ball center should come exactly under the pointer on click (if possible without crossing the field edge).
-- CSS-animation is welcome.
-- The ball must not cross field boundaries.
-- When the page is scrolled, nothing should break.
+- 공의 중심은 클릭 시 정확히 포인터 아래에 와야 합니다(가능하면 필드 가장자리를 가로 지르지 않도록 함).
+- CSS 애니메이션은 환영입니다.
+- 공은 필드의 경계를 넘어서는 안됩니다.
+- 페이지를 스크롤 할 때 깨짐이 없도록 합니다.
 
-Notes:
+주의:
 
-- The code should also work with different ball and field sizes, not be bound to any fixed values.
-- Use properties `event.clientX/event.clientY` for click coordinates.
+- 코드는 고정 값에 구속되지 않고, 다른 공 및 필드 크기에서도 작동해야 합니다.
+- 클릭 좌표에 `event.clientX/event.clientY`속성을 사용합니다.

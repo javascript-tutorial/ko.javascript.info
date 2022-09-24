@@ -2,10 +2,10 @@ importance: 5
 
 ---
 
-# Create a sliding menu
+# 슬라이딩 메뉴 만들기
 
-Create a menu that opens/collapses on click:
+클릭 시 메뉴가 열리거나·접히도록 만들어보세요.
 
 [iframe border=1 height=100 src="solution"]
 
-P.S. HTML/CSS of the source document is to be modified.
+참고: 원본 문서의 HTML·CSS를 수정해야 합니다. 

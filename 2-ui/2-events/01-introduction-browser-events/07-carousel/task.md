@@ -2,12 +2,12 @@ importance: 4
 
 ---
 
-# Carousel
+# 캐러셀 (Carousel)
 
-Create a "carousel" -- a ribbon of images that can be scrolled by clicking on arrows.
+캐러셀(화살표를 클릭하여 스크롤 할 수 있는 이미지 묶음) 만들기.
 
 [iframe height=200 src="solution"]
 
-Later we can add more features to it: infinite scrolling, dynamic loading etc.
+나중에 무한 스크롤링, 동적 적재 등 더 많은 기능을 추가할 수 있습니다. 
 
-P.S. For this task HTML/CSS structure is actually 90% of the solution.
+참고: HTML·CSS 구조는 해답의 90%를 결정합니다.

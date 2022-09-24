@@ -1,17 +1,17 @@
-The images ribbon can be represented as `ul/li` list of images `<img>`.
+이미지 묶음은 이미지 `<img>` 목록 `ul/li`로 표시할 수 있습니다.
 
-Normally, such a ribbon is wide, but we put a fixed-size `<div>` around to "cut" it, so that only a part of the ribbon is visible:
+흔히 이러한 이미지 목록은 넓지만 고정 크기인 `<div>`로 자르기 하여 목록의 일부만 표시되도록 합니다.
 
 ![](carousel1.svg)
 
-To make the list show horizontally we need to apply correct CSS properties for `<li>`, like `display: inline-block`.
+목록을 가로로 표시하려면 `display: inline-block`와 같이 `<li>`에 올바른 CSS 속성을 적용해야 합니다.
 
-For `<img>` we should also adjust `display`, because by default it's `inline`. There's extra space reserved under `inline` elements for "letter tails", so we can use `display:block` to remove it.
+`<img>`의 경우 기본적으로 `inline`이기 때문에 `display`도 조정해야 합니다. 'letter tails'를 위해 `inline` 요소 아래에 추가 공간이 잡혀있으므로 `display:block`을 사용하여 제거할 수 있습니다.
 
-To do the scrolling, we can shift `<ul>`. There are many ways to do it, for instance by changing `margin-left` or (better performance) use `transform: translateX()`:
+스크롤 하려면 `<ul>`을 이동하면 됩니다. 예를 들어 `margin-left`를 변경하거나 혹은 (더 나은 구현 가능) `transform: translateX()`를 사용하는 등 여러 가지 방법이 있습니다.
 
 ![](carousel2.svg)
 
-The outer `<div>` has a fixed width, so "extra" images are cut.
+바깥쪽 `<div>`는 너비가 고정되어 있으므로 추가 이미지가 잘립니다.
 
-The whole carousel is a self-contained "graphical component" on the page, so we'd better wrap it into a single `<div class="carousel">` and style things inside it.
+전체 캐러셀은 페이지에서 자체적으로 포함된 그래픽 구성 요소이므로 단일 `<div class="carousel">`로 감싸고 그 안에 있는 것들을 스타일링하는 것이 좋습니다.

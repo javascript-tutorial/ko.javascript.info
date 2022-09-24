@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Which handlers run?
+# 어떤 핸들러가 실행될지 알아보기
 
-There's a button in the variable. There are no handlers on it.
+변수에 버튼이 들어있습니다. 아직 핸들러는 없습니다.
 
-Which handlers run on click after the following code? Which alerts show up?
+아래 코드에 따라 클릭 시 어떤 핸들러가 실행될까요? 어떤 얼럿 창이 표시될까요?
 
 ```js no-beautify
 button.addEventListener("click", () => alert("1"));

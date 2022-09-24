@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Add a closing button
+# 닫기 버튼 추가하기
 
-There's a list of messages.
+메시지 목록이 있습니다.
 
-Use JavaScript to add a closing button to the right-upper corner of each message.
+자바스크립트를 사용하여 각 메시지의 우측 상단 모서리에 닫기 버튼을 추가합니다.
 
-The result should look like this:
+결과는 다음과 같습니다.
 
 [iframe src="solution" height=450]

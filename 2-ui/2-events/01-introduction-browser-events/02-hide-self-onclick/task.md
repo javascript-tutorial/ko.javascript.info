@@ -2,11 +2,11 @@ importance: 5
 
 ---
 
-# Hide self
+# 클릭 시 버튼 숨기기
 
-Create a button that hides itself on click.
+클릭 시 숨겨지는 버튼을 만들어 보세요.
 
 ```online
-Like this:
-<input type="button" onclick="this.hidden=true" value="Click to hide">
+이렇게요. 
+<input type="button" onclick="this.hidden=true" value="클릭 시 버튼 숨기기">
 ```
