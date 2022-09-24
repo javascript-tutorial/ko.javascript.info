@@ -1,53 +1,53 @@
-The ball has `position:absolute`. It means that its `left/top` coordinates are measured from the nearest positioned element, that is `#field` (because it has `position:relative`).
+공은 `position:absolute`를 가지고 있습니다. 이는 `left/top` 좌표가 가장 가까운 위치 요소로부터 측정된다는 의미이며, 그것을 `#field`라고 부릅니다. (왜냐하면 필드는 `position:relative` 속성을 가지고 있으니까요.)
 
-The coordinates start from the inner left-upper corner of the field:
+좌표는 필드의 좌측 상단 코너의 내부로부터 시작합니다.
 
 ![](field.svg)
 
-The inner field width/height is `clientWidth/clientHeight`. So the field center has coordinates `(clientWidth/2, clientHeight/2)`.
+내부 필드의 너비, 높이는 `clientWidth/clientHeight`입니다. 그래서 필드의 중앙은 `(clientWidth/2, clientHeight/2)`)의 좌표를 가집니다.
 
-...But if we set `ball.style.left/top` to such values, then not the ball as a whole, but the left-upper edge of the ball would be in the center:
+…그러나 우리가 `ball.style.left/top`을 중앙 좌표와 같은 값으로 설정한다면 공의 전체가 아닌 공의 좌측 상단 꼭짓점이 중앙에 오게 될 것입니다.
 
 ```js
 ball.style.left = Math.round(field.clientWidth / 2) + 'px';
 ball.style.top = Math.round(field.clientHeight / 2) + 'px';
 ```
 
-Here's how it looks:
+한 번 어떻게 보이는지 살펴봅시다.
 
 [iframe height=180 src="ball-half"]
 
-To align the ball center with the center of the field, we should move the ball to the half of its width to the left and to the half of its height to the top:
+공의 중앙을 필드의 중앙에 정렬하기 위해서는, 우리는 공을 공의 너비의 절반만큼 왼쪽으로, 높이의 절반만큼 위쪽으로 움직여야 합니다.
 
 ```js
 ball.style.left = Math.round(field.clientWidth / 2 - ball.offsetWidth / 2) + 'px';
 ball.style.top = Math.round(field.clientHeight / 2 - ball.offsetHeight / 2) + 'px';
 ```
 
-Now the ball is finally centered.
+이제 공이 중앙에 위치하게 됐습니다.
 
-````warn header="Attention: the pitfall!"
+````warn header="주의점: 함정이 있습니다!"
 
-The code won't work reliably while `<img>` has no width/height:
+코드는 `<img>`가 너비와 높이를 가지고 있지 않을 때 제대로 작동하지 않습니다.
 
 ```html
 <img src="ball.png" id="ball">
 ```
 ````
 
-When the browser does not know the width/height of an image (from tag attributes or CSS), then it assumes them to equal `0` until the image finishes loading.
+브라우저가 태그 혹은 CSS로부터 이미지의 너비와 높이를 알지 못할 때, 이미지 로딩이 끝날 때까지 똑같이 이미지의 크기를 `0`으로 취급합니다.
 
-So the value of `ball.offsetWidth` will be `0` until the image loads. That leads to wrong coordinates in the code above.
+그래서 이미지가 불러와 질 때까지 `ball.offsetWidth`값은 `0`이 될 것입니다. 해당 코드에서는 잘못된 좌표를 불러오게 될 것입니다.
 
-After the first load, the browser usually caches the image, and on reloads it will have the size immediately. But on the first load the value of `ball.offsetWidth` is `0`.
+첫 번째 불러오기 이후, 브라우저는 보통 이미지를 캐시에 저장할 것이고 즉시 사이즈를 갖게 됩니다. 그러나 `ball.offsetWidth`의 값은 처음으로 불러와 진 `0`이 되겠죠.
 
-We should fix that by adding `width/height` to `<img>`:
+`<img>`에 `너비, 높이`를 추가함으로써 고쳐야 합니다.
 
 ```html
 <img src="ball.png" *!*width="40" height="40"*/!* id="ball">
 ```
 
-...Or provide the size in CSS:
+…혹은 CSS에서 이미지의 사이즈를 줘야합니다.
 
 ```css
 #ball {

@@ -2,10 +2,10 @@ importance: 3
 
 ---
 
-# What is the scrollbar width?
+# 스크롤바의 너비
 
-Write the code that returns the width of a standard scrollbar.
+표준 스크롤바의 너비를 반환하는 코드를 작성해보세요.
 
-For Windows it usually varies between `12px` and `20px`. If the browser doesn't reserve any space for it (the scrollbar is half-translucent over the text, also happens), then it may be `0px`.
+Windows에서 보통 스크롤바의 너비는 `12px`과 `20px` 사이입니다. 브라우저가 스크롤바 전용 공간을 따로 남겨두지 않았다면(이때 스크롤바는 글자 뒤에 반투명하게 보일 수 있음), 스크롤바의 너비는 `0px`이 됩니다.
 
-P.S. The code should work for any HTML document, do not depend on its content.
+P.S. 코드는 어떤 HTML 문서에서든 작동해야 하며, 콘텐츠에 의존해선 안 됩니다.
