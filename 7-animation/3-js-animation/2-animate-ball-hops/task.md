@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Animate the ball bouncing to the right
+# 공을 오른쪽으로 튀어 오르게하는 애니메이션 효과 주기
 
-Make the ball bounce to the right. Like this:
+다음과 같이 공이 오른쪽으로 튀어 오르게 해봅시다.
 
 [iframe height=250 src="solution"]
 
-Write the animation code. The distance to the left is `100px`.
+애니메이션 코드를 작성해보세요. 왼쪽으로부터 거리는 `100px`입니다.
 
-Take the solution of the previous task <info:task/animate-ball> as the source.
+이전 과제 <info:task/animate-ball>의 해답을 참고해보세요.
