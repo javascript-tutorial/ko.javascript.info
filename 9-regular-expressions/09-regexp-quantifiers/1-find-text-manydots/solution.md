@@ -1,9 +1,9 @@
 
-Solution:
+정답:
 
 ```js run
 let regexp = /\.{3,}/g;
 alert( "Hello!... How goes?.....".match(regexp) ); // ..., .....
 ```
 
-Please note that the dot is a special character, so we have to escape it and insert as `\.`.
+점은 특수문자이므로 `\.`을 삽입해 이스케이프 해야 합니다.
