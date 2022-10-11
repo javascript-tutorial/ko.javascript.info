@@ -2,10 +2,10 @@ importance: 5
 
 ---
 
-# Hide on click
+# 버튼 클릭 시 특정 요소 숨기기
 
-Add JavaScript to the `button` to make `<div id="text">` disappear when we click it.
+`button`을 클릭하면 `<div id="text">`가 사라지도록 `button`에 자바스크립트를 추가해봅시다. 
 
-The demo:
+데모:
 
 [iframe border=1 src="solution" height=80]
