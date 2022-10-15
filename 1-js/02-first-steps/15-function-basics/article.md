@@ -23,8 +23,8 @@ function showMessage() {
 `function` 키워드, *함수 이름*, 괄호로 둘러싼 매개변수를 차례로 써주면 함수를 선언할 수 있습니다. 위 함수에는 매개변수가 없는데, 만약 매개변수가 여러 개 있다면 각 매개변수를 콤마로 구분해 줍니다. 이어서 함수를 구성하는 코드의 모임인 '함수 본문(body)'을 중괄호로 감싸 붙여줍시다.
 
 ```js
-function name(parameters) {
-  ...함수 본문...
+function name(parameter1, parameter2, ... parameterN) {
+  // 함수 본문
 }
 ```
 
@@ -137,25 +137,22 @@ alert( userName ); // 함수는 외부 변수에 접근하지 않습니다. 따�
 
 ## 매개변수
 
-매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인수(argument)* 라고 불리기도 합니다(매개변수와 인수는 엄밀히 같진 않지만, 튜토리얼 원문을 토대로 번역하였습니다 - 옮긴이).
+매개변수(parameter)를 이용하면 임의의 데이터를 함수 안에 전달할 수 있습니다. 매개변수는 *인자(parameter)* 라고 불리기도 합니다.
 
 아래 예시에서 함수 showMessage는 매개변수 `from` 과 `text`를 가집니다.
 
 ```js run
-function showMessage(*!*from, text*/!*) { // 인수: from, text
+function showMessage(*!*from, text*/!*) { // 인자: from, text
   alert(from + ': ' + text);
 }
 
-*!*
-showMessage('Ann', 'Hello!'); // Ann: Hello! (*)
-showMessage('Ann', "What's up?"); // Ann: What's up? (**)
-*/!*
+*!*showMessage('Ann', 'Hello!');*/!* // Ann: Hello! (*)
+*!*showMessage('Ann', "What's up?");*/!* // Ann: What's up? (**)
 ```
 
 `(*)`, `(**)`로 표시한 줄에서 함수를 호출하면, 함수에 전달된 인자는 지역변수 `from`과 `text`에 복사됩니다. 그 후 함수는 지역변수에 복사된 값을 사용합니다.
 
 예시 하나를 더 살펴봅시다. 전역 변수 `from`이 있고, 이 변수를 함수에 전달하였습니다. 함수가 `from`을 변경하지만, 변경 사항은 외부 변수 `from`에 반영되지 않았습니다. 함수는 언제나 복사된 값을 사용하기 때문입니다.
-
 
 ```js run
 function showMessage(from, text) {
@@ -175,9 +172,20 @@ showMessage(from, "Hello"); // *Ann*: Hello
 alert( from ); // Ann
 ```
 
+함수의 매개변수에 전달된 값을 *인수(argument)*라고 부르기도 합니다. 
+
+더 정확한 이해를 돕기 위해 용어를 다시 한번 정리해볼까요?  
+
+- 매개변수는 함수 선언 방식 괄호 사이에 있는 변수입니다(선언 시 쓰이는 용어).
+- 인수는 함수를 호출할 때 매개변수에 전달되는 값입니다(호출 시 쓰이는 용어).
+
+즉, 함수 선언 시 매개변수를 나열하게 되고, 함수를 호출할 땐 인수를 전달해 호출합니다.
+
+위 예에서 함수 `showMessage`는 `from`과 `text`라는 두 매개변수를 사용해 선언되었고, 그 후 호출 시엔 `from`, `Hello`라는 두 인수를 사용해 호출되었습니다.
+
 ## 기본값
 
-매개변수에 값을 전달하지 않으면 그 값은 `undefined`가 됩니다.
+함수 호출 시 매개변수에 인수를 전달하지 않으면 그 값은 `undefined`가 됩니다.
 
 예시를 통해 이에 대해 알아봅시다. 위에서 정의한 함수 `showMessage(from, text)`는 매개변수가 2개지만, 아래와 같이 인수를 하나만 넣어서 호출할 수 있습니다.
 
@@ -185,9 +193,9 @@ alert( from ); // Ann
 showMessage("Ann");
 ```
 
-이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefiend`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다. 
+이렇게 코드를 작성해도 에러가 발생하지 않습니다. 두 번째 매개변수에 값을 전달하지 않았기 때문에 `text`엔 `undefined`가 할당될 뿐입니다. 따라서 에러 없이 `"Ann: undefined"`가 출력됩니다.
 
-매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 '기본값(default value)'을 설정해주면 됩니다. 매개변수 오른쪽에 `=`을 붙이고 `undefined` 대신 설정하고자 하는 기본값을 써주면 되죠.   
+매개변수에 값을 전달하지 않아도 그 값이 `undefined`가 되지 않게 하려면 함수를 선언할 때 `=`를 사용해 '기본값(default value)'을 설정해주면 됩니다. 
 
 ```js run
 function showMessage(from, *!*text = "no text given"*/!*) {
@@ -197,7 +205,14 @@ function showMessage(from, *!*text = "no text given"*/!*) {
 showMessage("Ann"); // Ann: no text given
 ```
 
-이젠 `text`가 값을 전달받지 못해도 `undefined`대신 기본값 `"no text given"`이 할당됩니다.
+이젠 `text`가 값을 전달받지 못해도 `undefined` 대신 기본값 `"no text given"`이 할당됩니다.
+
+매개변수에 값을 전달해도 그 값이 `undefined`와 엄격히 일치한다면 기본값이 할당됩니다.
+
+예시: 
+```js
+showMessage("Ann", undefined); // Ann: no text given
+```
 
 위 예시에선 문자열 `"no text given"`을 기본값으로 설정했습니다. 하지만 아래와 같이 복잡한 표현식도 기본값으로 설정할 수도 있습니다.
 
@@ -211,19 +226,57 @@ function showMessage(from, text = anotherFunction()) {
 ```smart header="매개변수 기본값 평가 시점"
 자바스크립트에선 함수를 호출할 때마다 매개변수 기본값을 평가합니다. 물론 해당하는 매개변수가 없을 때만 기본값을 평가하죠.
 
-위 예시에선 매개변수 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
+위 예시에선 매개변수 `text`에 값이 전달되는 경우 `anotherFunction()`은 호출되지 않습니다.
+
+반면 `text`에 값이 없는 경우 `showMessage()`를 호출할 때마다 `anotherFunction()`이 호출됩니다.
+
 ```
+
+````smart header="구식 자바스크립트에서 매개변수 기본값 설정하는 방법"
+몇 년 전만 해도 자바스크립트엔 매개변수 기본값 관련 구문이 없었습니다. 그래서 매개변수 기본값을 설정하려면 다른 방법을 사용해야만 했죠.
+
+요즘에도 오래된 스크립트를 보다 보면 매개변수 기본값 설정 관련 코드를 접할 수 있습니다.
+
+구식 코드에서는 매개변수 기본값 설정을 위해 먼저 매개변수 값이 `undefined`인지 명시적으로 확인하고, 일치하는 경우엔 기본값을 설정합니다.
+
+예시: 
+```js
+function showMessage(from, text) {
+*!*
+  if (text === undefined) {
+    text = 'no text given';
+  }
+*/!*
+
+  alert( from + ": " + text );
+}
+```
+
+이 방법 말고도 논리 연산자 `||`를 사용해 매개변수 기본값을 설정하는 방법도 있습니다.
+
+```js
+function showMessage(from, text) {
+  // text의 값이 falsy면 기본값이 할당됨
+  // 이 방식은 text == ""일 경우, text에 값이 전달되지 않은것과 같다고 간주합니다.. 
+  text = text || 'no text given';
+  ...
+}
+```
+````
+
 
 ### 매개변수 기본값을 설정할 수 있는 또 다른 방법
 
-가끔은 함수 선언부에서 매개변수 기본값을 설정하는 것 대신 함수가 실행되는 도중에 기본값을 설정하는 게 논리에 맞는 경우가 생기기도 합니다. 
+가끔은 함수를 선언할 때가 아닌 함수 선언 후에 매개변수 기본값을 설정하는 것이 적절한 경우도 있습니다.
 
-이런 경우엔 일단 매개변수를 `undefined`와 비교하여 함수 호출 시 매개변수가 생략되었는지를 확인합니다.
+이런 경우엔 함수를 호출할 때 매개변수를 `undefined`와 비교하여 매개변수가 전달되었는지를 확인합니다.
 
 ```js run
 function showMessage(text) {
+  // ...
+
 *!*
-  if (text === undefined) {
+  if (text === undefined) { // 매개변수가 생략되었다면 
     text = '빈 문자열';
   }
 */!*
@@ -247,7 +300,7 @@ function showMessage(text) {
 이 외에도 모던 자바스크립트 엔진이 지원하는  [nullish 병합 연산자(nullish coalescing operator)](info:nullish-coalescing-operator) `??`를 사용하면 `0`처럼 falsy로 평가되는 값들을 일반 값처럼 처리할 수 있어서 좋습니다.
 
 ```js run
-// 매개변수 'count'가 넘어오지 않으면 'unknown'을 출력해주는 함수
+// 매개변수 'count'가 `undefined` 또는 `null`이면 'unknown'을 출력해주는 함수
 function showCount(count) {
   alert(count ?? "unknown");
 }
@@ -404,7 +457,7 @@ checkPermission(..) // 승인 여부를 확인하고 true나 false를 반환함
 - `createForm` 함수는 form을 만들고 이를 반환하는 동작만 해야 합니다. form을 문서에 추가하는 동작이 해당 함수에 들어가 있으면 좋지 않습니다.
 - `checkPermission` 함수는 승인 여부를 확인하고 그 결과를 반환하는 동작만 해야 합니다. 승인 여부를 보여주는 메시지를 띄우는 동작이 들어가 있으면 좋지 않습니다.
 
-위 예시들은 접두어의 의미가 합의되었다고 가정하고 만들었습니다. 본인이나 본인이 속한 팀에서 접두어의 의미를 재합의하여 함수를 만들 수도 있긴 하지만, 아마도 위 예시에서 사용한 접두어 의미와 크게 차이가 나진 않을 겁니다. 어찌 되었든 접두어를 사용하여 함수 이름을 지을 땐, 해당 접두어에 어떤 의미가 있는지 잘 이해하고 있어야 합니다. 해당 접두어가 붙은 함수가 어떤 동작을 하는지, 어떤 동작은 하지 못하는지 알고 있어야 하죠. 접두어를 붙여 만든 모두 함수는 팀에서 만든 규칙을 반드시 따라야 합니다. 팀원들은 이 규칙을 충분히 이해하고 있어야 하며, 팀원들 사이에 이 규칙이 잘 공유되어야 합니다.
+위 예시들은 접두어의 의미가 합의되었다고 가정하고 만들었습니다. 본인이나 본인이 속한 팀에서 접두어의 의미를 재합의하여 함수를 만들 수도 있긴 하지만, 아마도 위 예시에서 사용한 접두어 의미와 크게 차이가 나진 않을 겁니다. 어찌 되었든 접두어를 사용하여 함수 이름을 지을 땐, 해당 접두어에 어떤 의미가 있는지 잘 이해하고 있어야 합니다. 해당 접두어가 붙은 함수가 어떤 동작을 하는지, 어떤 동작은 하지 못하는지 알고 있어야 하죠. 접두어를 붙여 만든 모든 함수는 팀에서 만든 규칙을 반드시 따라야 합니다. 팀원들은 이 규칙을 충분히 이해하고 있어야 하며, 팀원들 사이에 이 규칙이 잘 공유되어야 합니다.
 ```
 
 ```smart header="아주 짧은 이름"
