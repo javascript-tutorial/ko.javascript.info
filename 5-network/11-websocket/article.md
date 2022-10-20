@@ -188,19 +188,19 @@ socket.onmessage = (event) => {
 };
 ```
 
-## Rate limiting
+## 전송 제한
 
-Imagine, our app is generating a lot of data to send. But the user has a slow network connection, maybe on a mobile internet, outside of a city.
+데이터 전송량이 상당한 앱을 개발하고 있다고 가정해봅시다. 그런데 우리 앱의 사용자는 모바일이나 시골같이 네트워크 속도가 느린 곳에서 앱을 사용하고 있다고 해보죠.
 
-We can call `socket.send(data)` again and again. But the data will be buffered (stored) in memory and sent out only as fast as network speed allows.
+앱 쪽에서 `socket.send(data)`를 계속해서 호출할 순 있습니다. 하지만 이렇게 하면 데이터가 메모리에 쌓일 테고(버퍼) 네트워크 속도가 데이터를 송신하기에 충분할 때만 송신될 겁니다.
 
-The `socket.bufferedAmount` property stores how many bytes remain buffered at this moment, waiting to be sent over the network.
+`socket.bufferedAmount` 프로퍼티는 송신 대기 중인 현재 시점에서 얼마나 많은 바이트가 메모리에 쌓여있는지 정보를 담고 있습니다.
 
-We can examine it to see whether the socket is actually available for transmission.
+따라서 `socket.bufferedAmount` 프로퍼티 값을 확인하면 소켓을 전송에 사용할 수 있는지 아닌지를 판단할 수 있습니다.
 
 ```js
-// every 100ms examine the socket and send more data  
-// only if all the existing data was sent out
+// 100ms마다 소켓을 확인해 쌓여있는 바이트가 없는 경우에만
+// 데이터를 추가 전송합니다.  
 setInterval(() => {
   if (socket.bufferedAmount == 0) {
     socket.send(moreData());
@@ -209,50 +209,50 @@ setInterval(() => {
 ```
 
 
-## Connection close
+## 커넥션 닫기
 
-Normally, when a party wants to close the connection (both browser and server have equal rights), they send a "connection close frame" with a numeric code and a textual reason.
+연결 주체(브라우저나 서버) 중 한쪽에서 커넷션 닫기(close)를 원하는 경우엔 보통 숫자로 된 코드와 문자로 된 사유가 담긴 '커넥션 종료 프레임'을 전송하게 됩니다.
 
-The method for that is:
+메서드는 다음과 같습니다.
 ```js
 socket.close([code], [reason]);
 ```
 
-- `code` is a special WebSocket closing code (optional)
-- `reason` is a string that describes the reason of closing (optional)
+- `code` -- 커넥션을 닫을 때 사용하는 특수 코드(옵션)
+- `reason` -- 커넥션 닫기 사유를 설명하는 문자열(옵션)
 
-Then the other party in the `close` event handler gets the code and the reason, e.g.:
+그럼 다른 한쪽에 구현된 `close` 이벤트 핸들러에선 다음과 같이 코드와 사유를 확인할 수 있습니다. 
 
 ```js
-// closing party:
+// 닫기를 요청한 주체:
 socket.close(1000, "Work complete");
 
-// the other party
+// 다른 주체:
 socket.onclose = event => {
   // event.code === 1000
-  // event.reason === "Work complete"
+  // event.reason === "작업 완료"
   // event.wasClean === true (clean close)
 };
 ```
 
-Most common code values:
+가장 많이 사용하는 코드는 다음과 같습니다.
 
-- `1000` -- the default, normal closure (used if no `code` supplied),
-- `1006` -- no way to set such code manually, indicates that the connection was lost (no close frame).
+- `1000` -- 기본값으로 정상 종료를 의미함(`code`값이 주어지지 않을 때 기본 세팅됨)
+- `1006` -- `1000` 같은 코드를 수동으로 설정할 수 없을 때 사용하고, 커넥션이 유실(no close frame)되었음을 의미함
 
-There are other codes like:
+이외의 코드는 다음과 같습니다.
 
-- `1001` -- the party is going away, e.g. server is shutting down, or a browser leaves the page,
-- `1009` -- the message is too big to process,
-- `1011` -- unexpected error on server,
-- ...and so on.
+- `1001` -- 연결 주체 중 한쪽이 떠남(예: 서버 셧다운, 부라우저에서 페이지 종료)
+- `1009` -- 메시지가 너무 커서 처리하지 못함
+- `1011` -- 서버 측에서 비정상적인 에러 발생
+- ...기타 등등...
 
-The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
+코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
 
-WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
+웹소켓 코드는 언뜻 보기엔 HTTP 코드 같아 보이지만 실제론 다릅니다. 특히 `1000`보다 작은 값은 예약 값이여서 작은 숫자를 설정하려 하면 에러가 발생합니다. 
 
 ```js
-// in case connection is broken
+// 사례: 커넥현 유실
 socket.onclose = event => {
   // event.code === 1006
   // event.reason === ""
@@ -261,44 +261,44 @@ socket.onclose = event => {
 ```
 
 
-## Connection state
+## 커넥션 상태
 
-To get connection state, additionally there's `socket.readyState` property with values:
+커넥션 상태를 알고 싶다면 `socket.readyState` 프로퍼티의 값을 확인하면 됩니다.
 
-- **`0`** -- "CONNECTING": the connection has not yet been established,
-- **`1`** -- "OPEN": communicating,
-- **`2`** -- "CLOSING": the connection is closing,
-- **`3`** -- "CLOSED": the connection is closed.
+- **`0`** -- "CONNECTING": 연결 중
+- **`1`** -- "OPEN": 연결이 성립되고 통신 중
+- **`2`** -- "CLOSING": 커넥션 종료 중
+- **`3`** -- "CLOSED": 커넥션이 종료됨
 
 
-## Chat example
+## 채팅 앱 만들기
 
-Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
+브라우저의 웹소켓 API와 Node.js에서 제공하는 웹소켓 모듈을 사용해 채팅앱을 만들어봅시다. 여기선 클라이언트(브라우저) 측에 집중해서 앱을 만들건데 서버측도 아주 간단하니 참고해주세요.
 
-HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
+HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지를 보여줄 `<div>`가 필요합니다.
 
 ```html
-<!-- message form -->
+<!-- 메시지 폼 -->
 <form name="publish">
   <input type="text" name="message">
-  <input type="submit" value="Send">
+  <input type="submit" value="전송">
 </form>
 
-<!-- div with messages -->
+<!-- 수신받을 메시지가 노출될 div -->
 <div id="messages"></div>
 ```
 
-From JavaScript we want three things:
-1. Open the connection.
-2. On form submission -- `socket.send(message)` for the message.
-3. On incoming message -- append it to `div#messages`.
+자바스크립트론 다음 세 가지 기능을 구현해야 합니다.
+1. 커넥션 생성
+2. form 제출 -- `socket.send(message)`를 사용해 message 전송
+3. 메시지 수신 처리 -- 수신한 메시지는 `div#messages`에 추가
 
-Here's the code:
+코드는 다음과 같습니다.
 
 ```js
 let socket = new WebSocket("wss://javascript.info/article/websocket/chat/ws");
 
-// send message from the form
+// 폼에 있는 메시지를 전송합니다.
 document.forms.publish.onsubmit = function() {
   let outgoingMessage = this.message.value;
 
@@ -306,7 +306,7 @@ document.forms.publish.onsubmit = function() {
   return false;
 };
 
-// message received - show the message in div#messages
+// 메시지를 수신하고, 수신한 메시지를 div#messages에 보여줍니다.
 socket.onmessage = function(event) {
   let message = event.data;
 
