@@ -190,7 +190,7 @@ socket.onmessage = (event) => {
 
 ## Rate limiting
 
-Imagine, our app is generating a lot of data to send. But the user has a slow network connection, maybe on a mobile internet, outside of a city.
+데이터 전송량이 상당한 앱을 개발하고 있다고 가정해봅시다. 그런데 우리 앱의 사용자는 모바일이나 시골같이 네트워크 속도가 느린 곳에서 앱을 사용하고 있다고 해보죠.
 
 We can call `socket.send(data)` again and again. But the data will be buffered (stored) in memory and sent out only as fast as network speed allows.
 
