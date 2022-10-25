@@ -230,7 +230,7 @@ socket.close(1000, "Work complete");
 // the other party
 socket.onclose = event => {
   // event.code === 1000
-  // event.reason === "Work complete"
+// event.reason === "작업 완료"
   // event.wasClean === true (clean close)
 };
 ```
