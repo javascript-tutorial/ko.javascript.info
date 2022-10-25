@@ -271,7 +271,7 @@ To get connection state, additionally there's `socket.readyState` property with 
 - **`3`** -- "CLOSED": the connection is closed.
 
 
-## Chat example
+## 채팅 앱 만들기
 
 Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
 
