@@ -247,7 +247,7 @@ There are other codes like:
 - `1011` -- unexpected error on server,
 - ...and so on.
 
-The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
+코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
 
 웹소켓 코드는 언뜻 보기엔 HTTP 코드 같아 보이지만 실제론 다릅니다. 특히 `1000`보다 작은 값은 예약 값이여서 작은 숫자를 설정하려 하면 에러가 발생합니다.
 
