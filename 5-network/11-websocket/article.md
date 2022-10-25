@@ -291,7 +291,7 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 자바스크립트론 다음 세 가지 기능을 구현해야 합니다.
 1. Open the connection.
 2. On form submission -- `socket.send(message)` for the message.
-3. On incoming message -- append it to `div#messages`.
+3. 메시지 수신 처리 -- 수신한 메시지는 `div#messages`에 추가
 
 Here's the code:
 
