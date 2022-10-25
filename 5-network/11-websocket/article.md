@@ -242,7 +242,7 @@ socket.onclose = event => {
 
 There are other codes like:
 
-- `1001` -- the party is going away, e.g. server is shutting down, or a browser leaves the page,
+- `1001` -- 연결 주체 중 한쪽이 떠남(예: 서버 셧다운, 부라우저에서 페이지 종료)
 - `1009` -- the message is too big to process,
 - `1011` -- unexpected error on server,
 - ...and so on.
