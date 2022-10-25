@@ -275,7 +275,7 @@ To get connection state, additionally there's `socket.readyState` property with 
 
 Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
 
-HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
+HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지를 보여줄 `<div>`가 필요합니다.
 
 ```html
 <!-- message form -->
