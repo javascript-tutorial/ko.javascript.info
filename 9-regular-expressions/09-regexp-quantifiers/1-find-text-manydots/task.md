@@ -1,14 +1,14 @@
-importance: 5
+중요도: 5
 
 ---
 
-#  How to find an ellipsis "..." ?
+#  생략 부호 '...' 찾기
 
-Create a regexp to find ellipsis: 3 (or more?) dots in a row.
+생략 부호를 찾기 위한 정규 표현식을 작성하세요. 생략 부호는 한 행에 3개 이상의 점(dot)으로 구성되어 있습니다.
 
-Check it:
+직접 확인해 봅시다.
 
 ```js
-let regexp = /your regexp/g;
-alert( "Hello!... How goes?.....".match(regexp) ); // ..., .....
+let regexp = /정규 표현식을 작성할 곳/g;
+alert( "안녕!... 어떻게 지내?.....".match(regexp) ); // ..., .....
 ```

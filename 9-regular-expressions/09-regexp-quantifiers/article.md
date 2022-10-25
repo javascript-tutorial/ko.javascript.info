@@ -1,46 +1,46 @@
-# Quantifiers +, *, ? and {n}
+# 수량자 +, *, ?, {n}
 
-Let's say we have a string like `+7(903)-123-45-67` and want to find all numbers in it. But unlike before, we are interested not in single digits, but full numbers: `7, 903, 123, 45, 67`.
+문자열 `+7(903)-123-45-67`에서 모든 숫자를 찾고 싶다고 가정해봅시다. 전처럼 한 자리짜리 숫자를 찾던 것과는 달리, `7, 903, 123, 45, 67`처럼 수 전부를 가져오려 합니다.
 
-A number is a sequence of 1 or more digits `pattern:\d`. To mark how many we need, we can append a *quantifier*.
+찾으려는 수는 `pattern:\d`가 한 개 이상 나열된(즉, 한 자릿수 이상인) 형태입니다. 표현식의 일치 횟수 지정을 위해 *수량자*를 사용할 수 있습니다.
 
-## Quantity {n}
+## 수량 {n}
 
-The simplest quantifier is a number in curly braces: `pattern:{n}`.
+`pattern:{n}`은 숫자를 중괄호로 감싼 매우 간결한 형태의 수량자입니다.
 
-A quantifier is appended to a character (or a character class, or a `[...]` set etc) and specifies how many we need.
+문자(또는 문자 클래스나 `[...]` 문자 집합 등) 뒤에 덧붙여 몇 개를 찾고 싶은지를 표현합니다.
 
-It has a few advanced forms, let's see examples:
+이 수량자는 몇 가지 고급 사용 형식을 지원합니다. 예시를 살펴봅시다.
 
-The exact count: `pattern:{5}`
-: `pattern:\d{5}` denotes exactly 5 digits, the same as `pattern:\d\d\d\d\d`.
+정확한 수 일치: `pattern:{5}`
+: `pattern:\d{5}`는 정확히 다섯 자리의 수를 나타내며, `pattern:\d\d\d\d\d`와 같은 의미를 가집니다.
 
-    The example below looks for a 5-digit number:
+    다음은 다섯 자리 숫자를 찾는 예시입니다.
+    
+    ```js run
+    alert( "저는 12345살입니다.".match(/\d{5}/) ); //  "12345"
+    ```
+    
+    다섯 자리보다 자릿수가 더 큰 수를 찾는 것을 방지하기 위해 다음과 같이 `\b`를 덧붙일 수 있습니다. `pattern:\b\d{5}\b`
+
+주어진 범위 내의 수만큼 일치: `pattern:{3,5}`, 3~5회 일치
+: 3~5자리의 수를 찾기 위해, `pattern:\d{3,5}`와 같이 중괄호로 범위를 지정해줄 수 있습니다.
 
     ```js run
-    alert( "I'm 12345 years old".match(/\d{5}/) ); //  "12345"
+    alert( "저는 12살이 아니고 1234살입니다.".match(/\d{3,5}/) ); // "1234"
     ```
-
-    We can add `\b` to exclude longer numbers: `pattern:\b\d{5}\b`.
-
-The range: `pattern:{3,5}`, match 3-5 times
-: To find numbers from 3 to 5 digits we can put the limits into curly braces: `pattern:\d{3,5}`
-
+    
+    범위 지정 시 최댓값을 생략하는 것도 가능합니다.
+    
+    표현식 `pattern:\d{3,}`는 `3`자릿수 이상의 수를 찾습니다.
+    
     ```js run
-    alert( "I'm not 12, but 1234 years old".match(/\d{3,5}/) ); // "1234"
+    alert( "저는 12살이 아니고 345678살입니다.".match(/\d{3,}/) ); // "345678"
     ```
 
-    We can omit the upper limit.
+이제 다시 `+7(903)-123-45-67` 문제로 돌아가 봅시다.
 
-    Then a regexp `pattern:\d{3,}` looks for sequences of digits of length `3` or more:
-
-    ```js run
-    alert( "I'm not 12, but 345678 years old".match(/\d{3,}/) ); // "345678"
-    ```
-
-Let's return to the string `+7(903)-123-45-67`.
-
-A number is a sequence of one or more digits in a row. So the regexp is `pattern:\d{1,}`:
+하나의 행 안에 한 자릿수 이상의 수들로 구성되어 있습니다. 즉, 이에 대한 정규 표현식은 `pattern:\d{1,}`입니다.
 
 ```js run
 let str = "+7(903)-123-45-67";
@@ -50,15 +50,15 @@ let numbers = str.match(/\d{1,}/g);
 alert(numbers); // 7,903,123,45,67
 ```
 
-## Shorthands
+## 축약 형태의 수량자
 
-There are shorthands for most used quantifiers:
+즐겨 사용되는 수량자들의 축약 형태들입니다.
 
 `pattern:+`
-: Means "one or more", the same as `pattern:{1,}`.
+: '1회 이상' 일치를 의미하며, `pattern:{1,}`와 같습니다.
 
-    For instance, `pattern:\d+` looks for numbers:
-
+    예를 들어, `pattern:\d+`는 한 자릿수 이상의 수를 찾습니다.
+    
     ```js run
     let str = "+7(903)-123-45-67";
 
@@ -66,77 +66,77 @@ There are shorthands for most used quantifiers:
     ```
 
 `pattern:?`
-: Means "zero or one", the same as `pattern:{0,1}`. In other words, it makes the symbol optional.
+: '0회 또는 1회' 일치를 의미하며, `pattern:{0,1}`와 같습니다. 즉, 일치하는 것을 선택 사항으로 설정합니다.
 
-    For instance, the pattern `pattern:ou?r` looks for `match:o` followed by zero or one `match:u`, and then `match:r`.
-
-    So, `pattern:colou?r` finds both `match:color` and `match:colour`:
-
+    예를 들어, 표현식 `pattern:ou?r`는 `match:o`와, 그에 인접한 `match:u`는 한 번 나오거나 존재하지 않으며, 다음으로 `match:r`이 나오는 문자열을 찾습니다.
+    
+    따라서, `pattern:colou?r`는 `match:color`와 `match:colour` 둘 모두를 찾습니다.
+    
     ```js run
-    let str = "Should I write color or colour?";
-
+    let str = "color와 colour 중에 어떤 것으로 써야 합니까?";
+    
     alert( str.match(/colou?r/g) ); // color, colour
     ```
 
 `pattern:*`
-: Means "zero or more", the same as `pattern:{0,}`. That is, the character may repeat any times or be absent.
+: '0회 이상' 일치를 의미하며, `pattern:{0,}`와 같습니다. 즉, 몇 회든 일치할 수도 있고 또는 아예 일치하지 않을 수도 있습니다.
 
-    For example, `pattern:\d0*` looks for a digit followed by any number of zeroes (may be many or none):
-
+    예를 들어, `pattern:\d0*`는 숫자 하나와, 그 다음으로 0이 여러 개 나오거나 아예 나오지 않는 형태를 찾습니다(0은 많을 수도 있고 아예 없을 수도 있습니다).
+    
     ```js run
     alert( "100 10 1".match(/\d0*/g) ); // 100, 10, 1
     ```
-
-    Compare it with `pattern:+` (one or more):
-
+    
+    수량자 `pattern:+`(1회 이상)와 비교해봅시다.
+    
     ```js run
     alert( "100 10 1".match(/\d0+/g) ); // 100, 10
-    // 1 not matched, as 0+ requires at least one zero
+    // 1은 결과에 나오지 않습니다. 0+으로 인해 0이 적어도 한 개는 있어야 하기 때문입니다.
     ```
 
-## More examples
+## 추가 예시
 
-Quantifiers are used very often. They serve as the main "building block" of complex regular expressions, so let's see more examples.
+수량자는 자주 사용됩니다. 수량자는 복잡한 정규 표현식을 구성하는 주요 ‘기본 요소’입니다. 예시를 더 살펴봅시다.
 
-**Regexp for decimal fractions (a number with a floating point): `pattern:\d+\.\d+`**
+**부동 소수점이 있는 십진수에 대한 정규 표현식: `pattern:\d+\.\d+`**
 
-In action:
+예시:
 ```js run
 alert( "0 1 12.345 7890".match(/\d+\.\d+/g) ); // 12.345
 ```
 
-**Regexp for an "opening HTML-tag without attributes", such as `<span>` or `<p>`.**
+**'속성(attribute)이 없는 HTML 시작 태그'에 대한 정규 표현식(`<span>` 또는 `<p>`처럼 생긴 태그)**
 
-1. The simplest one: `pattern:/<[a-z]+>/i`
+1. 가장 간단한 형태: `pattern:/<[a-z]+>/i`
+   
+   ```js run
+   alert( "<body> ... </body>".match(/<[a-z]+>/gi) ); // <body>
+   ```
+   
+   위의 정규 표현식은 문자 `pattern:'<'`와 그에 인접한 한 개 이상의 영문자와 `pattern:'>'`를 찾습니다.
 
-    ```js run
-    alert( "<body> ... </body>".match(/<[a-z]+>/gi) ); // <body>
-    ```
+2. 개선된 형태: `pattern:/<[a-z][a-z0-9]*>/i`
+   
+   표준에 따르면 HTML 태그에는 첫 글자를 제외한 모든 곳에 숫자가 포함될 수 있습니다. `<h1>`과 같은 형태가 그렇습니다.
+   
+   ```js run
+   alert( "<h1>안녕!</h1>".match(/<[a-z][a-z0-9]*>/gi) ); // <h1>
+   ```
 
-    The regexp looks for character `pattern:'<'` followed by one or more Latin letters, and then  `pattern:'>'`.
+**'속성이 없는 HTML 시작 태그 또는 종료 태그'에 대한 정규 표현식: `pattern:/<\/?[a-z][a-z0-9]*>/i`**
 
-2. Improved: `pattern:/<[a-z][a-z0-9]*>/i`
-
-    According to the standard, HTML tag name may have a digit at any position except the first one, like `<h1>`.
-
-    ```js run
-    alert( "<h1>Hi!</h1>".match(/<[a-z][a-z0-9]*>/gi) ); // <h1>
-    ```
-
-**Regexp "opening or closing HTML-tag without attributes": `pattern:/<\/?[a-z][a-z0-9]*>/i`**
-
-We added an optional slash `pattern:/?` near the beginning of the pattern. Had to escape it with a backslash, otherwise JavaScript would think it is the pattern end.
+표현식의 앞 부분에 `pattern:/?` 슬래시(빗금)를 선택 사항으로 지정하였습니다. 자바스크립트가 슬래시를 정규 표현식의 끝을 나타내는 기호로 받아들이지 않도록 슬래시 앞에 역슬래시를 추가하여 이스케이프 처리하였습니다.
 
 ```js run
-alert( "<h1>Hi!</h1>".match(/<\/?[a-z][a-z0-9]*>/gi) ); // <h1>, </h1>
+alert( "<h1>안녕!</h1>".match(/<\/?[a-z][a-z0-9]*>/gi) ); // <h1>, </h1>
 ```
 
-```smart header="To make a regexp more precise, we often need make it more complex"
-We can see one common rule in these examples: the more precise is the regular expression -- the longer and more complex it is.
+```smart header="정규 표현식을 보다 정밀하게 만들기 위해서는, 가급적 더 복잡하게 만들어야 합니다"
+지금까지의 예시들을 통해 한 가지 공통된 법칙을 볼 수 있습니다. ‘정규 표현식이 정밀하면 할수록, 그 정규 표현식은 더 길고, 더 복잡하다’는 것입니다.
 
-For instance, for HTML tags we could use a simpler regexp: `pattern:<\w+>`. But as HTML has stricter restrictions for a tag name, `pattern:<[a-z][a-z0-9]*>` is more reliable.
+예를 들어 HTML 태그의 경우, `pattern:<\w+>`처럼 간단한 표현식을 사용할 수도 있습니다.  하지만 HTML의 태그 이름에 관한 엄격한 규칙을 감안하면 `pattern:<[a-z][a-z0-9]*>`이 더 안전합니다.
 
-Can we use `pattern:<\w+>` or we need `pattern:<[a-z][a-z0-9]*>`?
+`pattern:<\w+>`을 써도 괜찮은 걸까요? 아니면 `pattern:<[a-z][a-z0-9]*>`을 써야 하는 걸까요?
 
-In real life both variants are acceptable. Depends on how tolerant we can be to "extra" matches and whether it's difficult or not to remove them from the result by other means.
+실제 사용할 때에 있어서는 둘 다 적합합니다. 원하는 일치 항목 외에 “부수적인” 일치 항목들을 얼마나 허용할 건지, 다른 방식으로 해당 항목들을 제거하는 데 어려움이 따르는지 여부에 따라 결정하면 됩니다.
 ```
