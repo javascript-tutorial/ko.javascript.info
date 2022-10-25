@@ -288,7 +288,7 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 <div id="messages"></div>
 ```
 
-From JavaScript we want three things:
+자바스크립트론 다음 세 가지 기능을 구현해야 합니다.
 1. Open the connection.
 2. On form submission -- `socket.send(message)` for the message.
 3. On incoming message -- append it to `div#messages`.
