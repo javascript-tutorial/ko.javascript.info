@@ -252,7 +252,7 @@ The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc
 WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
 
 ```js
-// in case connection is broken
+// 사례: 커넥현 유실
 socket.onclose = event => {
   // event.code === 1006
   // event.reason === ""
