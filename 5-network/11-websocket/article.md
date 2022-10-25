@@ -235,7 +235,7 @@ socket.onclose = event => {
 };
 ```
 
-Most common code values:
+가장 많이 사용하는 코드는 다음과 같습니다.
 
 - `1000` -- the default, normal closure (used if no `code` supplied),
 - `1006` -- no way to set such code manually, indicates that the connection was lost (no close frame).
