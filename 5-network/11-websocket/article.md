@@ -306,7 +306,7 @@ document.forms.publish.onsubmit = function () {
   return false;
 };
 
-// message received - show the message in div#messages
+// 메시지를 수신하고, 수신한 메시지를 div#messages에 보여줍니다.
 socket.onmessage = function (event) {
   let message = event.data;
 
