@@ -278,7 +278,7 @@ Let's review a chat example using browser WebSocket API and Node.js WebSocket mo
 HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지를 보여줄 `<div>`가 필요합니다.
 
 ```html
-<!-- message form -->
+<!-- 메세지 폼 -->
 <form name="publish">
   <input type="text" name="message">
   <input type="submit" value="Send">
