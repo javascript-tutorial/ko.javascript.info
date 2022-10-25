@@ -261,7 +261,7 @@ socket.onclose = event => {
 ```
 
 
-## Connection state
+## 커넥션 상태
 
 To get connection state, additionally there's `socket.readyState` property with values:
 
