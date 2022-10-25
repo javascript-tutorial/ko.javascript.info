@@ -278,7 +278,7 @@ Let's review a chat example using browser WebSocket API and Node.js WebSocket mo
 HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 
 ```html
-<!-- message form -->
+<!-- 메세지 폼 -->
 <form name="publish">
   <input type="text" name="message">
   <input type="submit" value="Send">
