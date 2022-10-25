@@ -14,13 +14,13 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 
 `ws`말고 `wss://`라는 프로토콜도 있는데, 두 프로토콜의 관계는 HTTP와 HTTPS의 관계와 유사합니다.
 
-```smart header="항상 `wss://`를 사용합시다."
-`wss://`는 보안 이외에도 신뢰성(reliability) 측면에서 `ws`보다 좀 더 신뢰할만한 프로토콜입니다.
+```smart header="항상 `wss://`를 사용합시다." `wss://`는 보안 이외에도 신뢰성(reliability) 측면에서 `ws`보다 좀 더 신뢰할만한 프로토콜입니다.
 
 `ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
 반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다.
-```
+
+````
 
 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
 - **`open`** -- 커넥션이 제대로 만들어졌을 때 발생함
@@ -46,7 +46,7 @@ socket.onmessage = function(event) {
 };
 
 socket.onclose = function(event) {
-  if (event.wasClean) {  
+  if (event.wasClean) {
     alert(`[close] 커넥션이 정상적으로 종료되었습니다(code=${event.code} reason=${event.reason})`);
   } else {
     // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
@@ -58,7 +58,7 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   alert(`[error]`);
 };
-```
+````
 
 위 예시는 데모 목적을 위해 만들어놓은 간이 Node.js 서버([server.js](demo/server.js))에서 돌아갑니다. 서버는 'Hello from server, Bora'라는 메시지가 담긴 응답을 클라이언트에 보내고, 5초 후 커넥션을 종료시킵니다.
 
@@ -89,7 +89,7 @@ Sec-WebSocket-Version: 13
 ```
 
 - `Origin` -- 클라이언트 오리진(예시에선 `https://javascript.info`)을 나타냅니다. 서버는 `Origin` 헤더를 보고 어떤 웹사이트와 소켓통신을 할지 결정하기 때문에 Origin 헤더는 웹소켓 통신에 중요한 역할을 합니다. 참고로 웹소켓 객체는 기본적으로 크로스 오리진(cross-origin) 요청을 지원합니다. 웹소켓 통신만을 위한 전용 헤더나 제약도 없습니다. 오래된 서버는 웹소켓 통신을 지원하지 못하기 때문에 웹소켓 통신은 호환성 문제도 없습니다.
-- `Connection: Upgrade` -- 클라이언트  측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
+- `Connection: Upgrade` -- 클라이언트 측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
 - `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
 - `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키로, 서버가 웹소켓 프로토콜을 지원하는지를 확인하는데 사용됩니다. It's random to prevent proxies from caching any following communication.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
@@ -98,7 +98,7 @@ Sec-WebSocket-Version: 13
 바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
 ```
 
-서버는 클라이언트 측에서 보낸 웹소켓 통신 요청을 최초로 받고 이에 동의하면, 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다. 
+서버는 클라이언트 측에서 보낸 웹소켓 통신 요청을 최초로 받고 이에 동의하면, 상태 코드 101이 담긴 응답을 클라이언트에 전송합니다.
 
 ```
 101 Switching Protocols
@@ -121,11 +121,11 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 - `Sec-WebSocket-Protocol: soap, wamp` -- 이렇게 헤더가 설정되면 평범한 데이터가 아닌 [SOAP](http://en.wikipedia.org/wiki/SOAP)나 WAMP(The WebSocket Application Messaging Protocol) 프로토콜을 준수하는 데이터를 전송하겠다는 것을 의미합니다. 웹소켓에서 지원하는 서브프로토콜 목록은 [IANA 카탈로그](http://www.iana.org/assignments/websocket/websocket.xml)에서 확인할 수 있습니다. 개발자는 이 헤더를 보고 앞으로 사용하게 될 데이터 포맷을 확인할 수 있습니다.
 
-    두 헤더는 `new WebSocket`의 두 번째 매개변수에 값을 넣어서 설정할 수 있습니다. 서브 프로토콜로 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
+  두 헤더는 `new WebSocket`의 두 번째 매개변수에 값을 넣어서 설정할 수 있습니다. 서브 프로토콜로 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
 
-    ```js
-    let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
-    ```
+  ```js
+  let socket = new WebSocket("wss://javascript.info/chat", ["soap", "wamp"]);
+  ```
 
 이때 서버는 지원 가능한 익스텐션과 프로토콜을 응답 헤더에 담아 클라이언트에 전달해야 합니다.
 
@@ -199,7 +199,7 @@ The `socket.bufferedAmount` property stores how many bytes remain buffered at th
 We can examine it to see whether the socket is actually available for transmission.
 
 ```js
-// 100ms마다 소켓을 확인해 쌓여있는 바이트가 없는 경우에만  
+// 100ms마다 소켓을 확인해 쌓여있는 바이트가 없는 경우에만
 // only if all the existing data was sent out
 setInterval(() => {
   if (socket.bufferedAmount == 0) {
@@ -208,12 +208,12 @@ setInterval(() => {
 }, 100);
 ```
 
-
 ## Connection close
 
 Normally, when a party wants to close the connection (both browser and server have equal rights), they send a "connection close frame" with a numeric code and a textual reason.
 
 The method for that is:
+
 ```js
 socket.close([code], [reason]);
 ```
@@ -228,7 +228,7 @@ Then the other party in the `close` event handler gets the code and the reason, 
 socket.close(1000, "Work complete");
 
 // the other party
-socket.onclose = event => {
+socket.onclose = (event) => {
   // event.code === 1000
   // event.reason === "Work complete"
   // event.wasClean === true (clean close)
@@ -247,19 +247,18 @@ There are other codes like:
 - `1011` -- unexpected error on server,
 - ...and so on.
 
-The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
+코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
 
 WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
 
 ```js
 // in case connection is broken
-socket.onclose = event => {
+socket.onclose = (event) => {
   // event.code === 1006
   // event.reason === ""
   // event.wasClean === false (no closing frame)
 };
 ```
-
 
 ## Connection state
 
@@ -270,7 +269,6 @@ To get connection state, additionally there's `socket.readyState` property with 
 - **`2`** -- "CLOSING": the connection is closing,
 - **`3`** -- "CLOSED": the connection is closed.
 
-
 ## Chat example
 
 Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
@@ -280,8 +278,8 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 ```html
 <!-- message form -->
 <form name="publish">
-  <input type="text" name="message">
-  <input type="submit" value="Send">
+  <input type="text" name="message" />
+  <input type="submit" value="Send" />
 </form>
 
 <!-- div with messages -->
@@ -289,6 +287,7 @@ HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
 ```
 
 From JavaScript we want three things:
+
 1. Open the connection.
 2. On form submission -- `socket.send(message)` for the message.
 3. On incoming message -- append it to `div#messages`.
@@ -299,7 +298,7 @@ Here's the code:
 let socket = new WebSocket("wss://javascript.info/article/websocket/chat/ws");
 
 // send message from the form
-document.forms.publish.onsubmit = function() {
+document.forms.publish.onsubmit = function () {
   let outgoingMessage = this.message.value;
 
   socket.send(outgoingMessage);
@@ -307,13 +306,13 @@ document.forms.publish.onsubmit = function() {
 };
 
 // message received - show the message in div#messages
-socket.onmessage = function(event) {
+socket.onmessage = function (event) {
   let message = event.data;
 
-  let messageElem = document.createElement('div');
+  let messageElem = document.createElement("div");
   messageElem.textContent = message;
-  document.getElementById('messages').prepend(messageElem);
-}
+  document.getElementById("messages").prepend(messageElem);
+};
 ```
 
 Server-side code is a little bit beyond our scope. Here we'll use Node.js, but you don't have to. Other platforms also have their means to work with WebSocket.
@@ -326,8 +325,8 @@ The server-side algorithm will be:
 4. When a connection is closed: `clients.delete(socket)`.
 
 ```js
-const ws = new require('ws');
-const wss = new ws.Server({noServer: true});
+const ws = new require("ws");
+const wss = new ws.Server({ noServer: true });
 
 const clients = new Set();
 
@@ -340,20 +339,19 @@ http.createServer((req, res) => {
 function onSocketConnect(ws) {
   clients.add(ws);
 
-  ws.on('message', function(message) {
+  ws.on("message", function (message) {
     message = message.slice(0, 50); // max message length will be 50
 
-    for(let client of clients) {
+    for (let client of clients) {
       client.send(message);
     }
   });
 
-  ws.on('close', function() {
+  ws.on("close", function () {
     clients.delete(ws);
   });
 }
 ```
-
 
 Here's the working example:
 
@@ -372,10 +370,12 @@ WebSocket is a modern way to have persistent browser-server connections.
 The API is simple.
 
 Methods:
+
 - `socket.send(data)`,
 - `socket.close([code], [reason])`.
 
 Events:
+
 - `open`,
 - `message`,
 - `error`,
