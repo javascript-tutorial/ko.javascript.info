@@ -266,7 +266,7 @@ socket.onclose = event => {
 To get connection state, additionally there's `socket.readyState` property with values:
 
 - **`0`** -- "CONNECTING": the connection has not yet been established,
-- **`1`** -- "OPEN": communicating,
+- **`1`** -- "OPEN": 연결이 성립되고 통신 중
 - **`2`** -- "CLOSING": the connection is closing,
 - **`3`** -- "CLOSED": the connection is closed.
 
