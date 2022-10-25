@@ -249,7 +249,7 @@ There are other codes like:
 
 The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
 
-WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
+웹소켓 코드는 언뜻 보기엔 HTTP 코드 같아 보이지만 실제론 다릅니다. 특히 `1000`보다 작은 값은 예약 값이여서 작은 숫자를 설정하려 하면 에러가 발생합니다.
 
 ```js
 // in case connection is broken
