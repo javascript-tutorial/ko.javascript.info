@@ -240,7 +240,7 @@ socket.onclose = event => {
 - `1000` -- the default, normal closure (used if no `code` supplied),
 - `1006` -- `1000` 같은 코드를 수동으로 설정할 수 없을 때 사용하고, 커넥션이 유실(no close frame)되었음을 의미함
 
-There are other codes like:
+이외의 코드는 다음과 같습니다.
 
 - `1001` -- 연결 주체 중 한쪽이 떠남(예: 서버 셧다운, 부라우저에서 페이지 종료)
 - `1009` -- the message is too big to process,
