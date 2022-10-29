@@ -244,7 +244,7 @@ There are other codes like:
 
 - `1001` -- 연결 주체 중 한쪽이 떠남(예: 서버 셧다운, 부라우저에서 페이지 종료)
 - `1009` -- the message is too big to process,
-- `1011` -- unexpected error on server,
+- `1011` -- 서버 측에서 비정상적인 에러 발생
 - ...and so on.
 
 코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
