@@ -273,7 +273,7 @@ To get connection state, additionally there's `socket.readyState` property with 
 
 ## 채팅 앱 만들기
 
-Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
+브라우저의 웹소켓 API와 Node.js에서 제공하는 웹소켓 모듈을 사용해 채팅앱을 만들어봅시다. 여기선 클라이언트(브라우저) 측에 집중해서 앱을 만들건데 서버측도 아주 간단하니 참고해주세요.
 
 HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지를 보여줄 `<div>`가 필요합니다.
 
