@@ -284,7 +284,7 @@ HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지�
   <input type="submit" value="Send">
 </form>
 
-<!-- div with messages -->
+<!-- 수신받을 메시지가 노출될 div -->
 <div id="messages"></div>
 ```
 
