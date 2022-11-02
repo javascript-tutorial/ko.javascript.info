@@ -290,7 +290,7 @@ HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지�
 
 자바스크립트론 다음 세 가지 기능을 구현해야 합니다.
 1. Open the connection.
-2. On form submission -- `socket.send(message)` for the message.
+2. form 제출 -- `socket.send(message)`를 사용해 message 전송
 3. 메시지 수신 처리 -- 수신한 메시지는 `div#messages`에 추가
 
 Here's the code:
