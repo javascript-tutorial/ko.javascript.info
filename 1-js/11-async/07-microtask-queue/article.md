@@ -12,7 +12,7 @@ let promise = Promise.resolve();
 
 promise.then(() => alert("프라미스 성공!"));
 
-alert("코드 종료"); // 이 얼럿 창이 가장 먼저 나타납니다.
+alert("코드 종료"); // 얼럿 창이 가장 먼저 뜹니다.
 ```
 
 예시를 실행하면 '코드 종료'가 먼저, '프라미스 성공!'이 나중에 출력되는 것을 볼 수 있습니다.
@@ -109,4 +109,4 @@ window.addEventListener('unhandledrejection', event => alert(event.reason));
 
 어떤 코드 조각을 `.then/catch/finally`가 호출된 이후에 실행하고 싶다면 `.then`을 체인에 추가하고 이 안에 코드 조각을 넣으면 됩니다.
 
-브라우저와 Node.js를 포함한 대부분의 자바스크립트 엔진에선, 마이크로태스크가 '이벤트 루프(event loop)'와 '매크로태스크(macrotask)'와 깊은 연관 관계를 맺습니다. 이 둘은 프라미스와는 직접적인 연관성이 없기 때문에, <info:event-loop>에서 따로 다루도록 하겠습니다.
+브라우저와 Node.js를 포함한 대부분의 자바스크립트 엔진에선 마이크로태스크가 '이벤트 루프(event loop)'와 '매크로태스크(macrotask)'와 깊은 연관 관계를 맺습니다. 이 둘은 프라미스와는 직접적인 연관성이 없기 때문에, <info:event-loop>에서 따로 다루도록 하겠습니다.

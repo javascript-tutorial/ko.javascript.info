@@ -1,5 +1,5 @@
 
-# 이벤트 루프와 매크로·마이크로태스크
+# 이벤트 루프와 매크로태스크, 마이크로태스크
 
 브라우저 측 자바스크립트 실행 흐름은 Node.js와 마찬가지로 *이벤트 루프*에 기반합니다.
 
@@ -330,11 +330,11 @@ alert("code");
 이런 처리 순서 덕분에 `queueMicrotask`를 사용해 함수를 비동기적으로 처리할 때 애플리케이션 상태의 일관성이 보장됩니다.
 
 ```smart header="웹 워커"
-For long heavy calculations that shouldn't block the event loop, we can use [Web Workers](https://html.spec.whatwg.org/multipage/workers.html).
+이벤트 루프를 막을 우려가 있는 무거운 연산은 [웹 워커(Web Worker)](https://html.spec.whatwg.org/multipage/workers.html)를 사용해 처리할 수 있습니다.
 
-That's a way to run code in another, parallel thread.
+웹 워커를 사용하면 별도의 백그라운드 스레드에서 코드를 병렬적으로 실행할 수 있습니다.
 
-Web Workers can exchange messages with the main process, but they have their own variables, and their own event loop.
+메인 스레드와 메시지를 교환할 수 있긴 하지만 웹 워커엔 메인 스레드와 연관 없는 고유한 변수들과 자체 이벤트 루프가 있습니다.
 
-Web Workers do not have access to DOM, so they are useful, mainly, for calculations, to use multiple CPU cores simultaneously.
+웹 워커는 DOM에 접근할 수 없기 때문에 여러 CPU 코어를 동시에 사용해야 하는 연산에 주로 사용합니다.
 ```

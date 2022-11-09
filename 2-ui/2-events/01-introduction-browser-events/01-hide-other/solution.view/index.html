@@ -7,13 +7,13 @@
 
 <body>
 
-  <input type="button" id="hider" value="Click to hide the text" />
+  <input type="button" id="hider" value="Text를 숨기려면 클릭하세요." />
 
   <div id="text">Text</div>
 
   <script>
-    // Here it doesn't matter how we hide the text,
-    // could also use style.display:
+    // 텍스트를 숨기는 방법은 다양한데, 그 방법은 중요하지 않습니다.
+    // style.display를 사용해도 됩니다. 
     document.getElementById('hider').onclick = function() {
       document.getElementById('text').hidden = true;
     }

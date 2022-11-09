@@ -2,13 +2,14 @@ importance: 5
 
 ---
 
-# Tree menu
+# 트리 메뉴 구현하기
 
-Create a tree that shows/hides node children on click:
+노드를 클릭하면 자손 노드가 보이거나 숨겨지는 트리 메뉴를 구현해보세요.
 
 [iframe border=1 src="solution"]
 
-Requirements:
+구체적인 요구사항은 다음과 같습니다.
 
-- Only one event handler (use delegation)
-- A click outside the node title (on an empty space) should not do anything.
+- 단 하나의 이벤트 핸들러(이벤트 위임 사용하기)
+
+- 노드(텍스트) 바깥(빈 곳)을 클릭하면 아무 일도 일어나지 않아야 합니다.

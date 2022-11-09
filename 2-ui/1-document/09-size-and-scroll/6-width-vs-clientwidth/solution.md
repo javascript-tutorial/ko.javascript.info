@@ -1,6 +1,6 @@
-Differences:
+둘의 차이점은 다음과 같습니다. 
 
-1. `clientWidth` is numeric, while `getComputedStyle(elem).width` returns a string with `px` at the end.
-2. `getComputedStyle` may return non-numeric width like `"auto"` for an inline element.
-3. `clientWidth` is the inner content area of the element plus paddings, while CSS width (with standard `box-sizing`) is the inner content area *without paddings*.
-4. If there's a scrollbar and the browser reserves the space for it, some browser substract that space from CSS width (cause it's not available for content any more), and some do not. The `clientWidth` property is always the same: scrollbar size is substracted if reserved.
+1. `clientWidth`는 숫자형을 반환하는 반면, `getComputedStyle(elem).width`는 끝에 `px`가 붙은 문자열을 반환합니다. 
+2. `getComputedStyle`은 인라인 요소의 너비를 구할 때 `"auto"`와 같은 숫자가 아닌 값을 반환할 수도 있습니다.
+3. `clientWidth`는 콘텐츠와 패딩을 포함한 영역의 너비를 가르키지만, (표준 `box-sizing`과 연관된) CSS `width`는 *패딩을 제외한* 콘텐츠 영역의 너비를 가리킵니다.
+4. 페이지에 스크롤바가 있고 브라우저가 스크롤바 영역을 따로 처리하는 경우에, 어떤 브라우저는 CSS width를 계산할 때 스크롤바 너비를 제외하는 반면(스크롤바 영역은 콘텐츠를 담을 수 없기 때문) 어떤 브라우저는 스크롤바 영역을 포함합니다. `clientWidth` 프로퍼티는 브라우저 종류에 상관 없이 항상 동일하게 스크롤바 영역이 있는 경우엔 스크롤바 너비를 제외합니다.

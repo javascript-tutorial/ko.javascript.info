@@ -2,12 +2,12 @@ importance: 5
 
 ---
 
-# Hide messages with delegation
+# 이벤트 위임을 사용해서 메시지 숨기기
 
-There's a list of messages with removal buttons `[x]`. Make the buttons work.
+다음과 같은 메시지 목록이 있고 각 메시지엔 삭제 버튼(`[x]`)이 있습니다.
 
-Like this:
+예시:
 
 [iframe src="solution" height=420]
 
-P.S. Should be only one event listener on the container, use event delegation.
+P.S. 이벤트 위임을 사용해서 단 하나의 이벤트 리스너만으로도 삭제 버튼이 동작하도록 구현해보세요.

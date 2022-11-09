@@ -249,7 +249,7 @@ fetch('/article/promise-chaining/user.json')
   })
   .then(function(text) {
     // 원격에서 받아온 파일의 내용
-    alert(text); // {"name": "iliakan", "isAdmin": true}
+    alert(text); // {"name": "Violet-Bora-Lee", "isAdmin": true}
   });
 ```
 
@@ -261,7 +261,7 @@ fetch('/article/promise-chaining/user.json')
 // 위 코드와 동일한 기능을 하지만, response.json()은 원격 서버에서 불러온 내용을 JSON으로 변경해줍니다.
 fetch('/article/promise-chaining/user.json')
   .then(response => response.json())
-  .then(user => alert(user.name)); // iliakan, got user name
+  .then(user => alert(user.name)); // Violet-Bora-Lee, 이름만 성공적으로 가져옴
 ```
 
 불러온 사용자 정보를 가지고 무언가를 더 해보겠습니다.
@@ -317,7 +317,7 @@ fetch('/article/promise-chaining/user.json')
     }, 3000);
   }))
   // 3초 후 동작함
-  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+  .then(githubUser => alert(`${githubUser.name}의 이미지를 성공적으로 출력하였습니다.`));
 ```
 
 `(*)`로 표시한 곳의 `.then` 핸들러는 이제 `setTimeout`안의 `resolve(githubUser)`를 호출했을 때(`(**)`) 만 처리상태가 되는 `new Promise`를 반환합니다. 체인의 다음 `.then`은 이를 기다립니다.
