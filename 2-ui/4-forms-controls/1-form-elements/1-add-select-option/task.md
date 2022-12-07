@@ -19,4 +19,4 @@ importance: 5
 2. `<option value="classic">Classic</option>`라는 옵션을 추가하세요.
 3. 추가한 옵션을 선택하세요.
 
-Note, if you've done everything right, your alert should show `blues`.
+모든 항목을 올바르게 수행했다면 얼럿창에 `blues`가 출력됩니다.

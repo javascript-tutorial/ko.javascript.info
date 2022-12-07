@@ -1,6 +1,6 @@
 # 웹소켓
 
-[RFC 6455](http://tools.ietf.org/html/rfc6455) 명세서에 정의된 프로토콜인 `웹소켓(WebSocket)`을 사용하면 서버와 브라우저 간 연결을 유지한 상태로 데이터를 교환할 수 있습니다. 이때 데이터는 '패킷(packet)' 형태로 전달되며, 전송은 커넥션 중단과 추가 HTTP 요청 없이 양방향으로 이뤄집니다.
+[RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455) 명세서에 정의된 프로토콜인 `웹소켓(WebSocket)`을 사용하면 서버와 브라우저 간 연결을 유지한 상태로 데이터를 교환할 수 있습니다. 이때 데이터는 '패킷(packet)' 형태로 전달되며, 전송은 커넥션 중단과 추가 HTTP 요청 없이 양방향으로 이뤄집니다.
 
 이런 특징 때문에 웹소켓은 온라인 게임이나 주식 트레이딩 시스템같이 데이터 교환이 지속적으로 이뤄져야 하는 서비스에 아주 적합합니다.
 
@@ -19,7 +19,7 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 
 `ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
-반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다. 
+반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다.
 ```
 
 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
@@ -56,7 +56,7 @@ socket.onclose = function(event) {
 };
 
 socket.onerror = function(error) {
-  alert(`[error] ${error.message}`);
+  alert(`[error]`);
 };
 ```
 
@@ -91,7 +91,7 @@ Sec-WebSocket-Version: 13
 - `Origin` -- 클라이언트 오리진(예시에선 `https://javascript.info`)을 나타냅니다. 서버는 `Origin` 헤더를 보고 어떤 웹사이트와 소켓통신을 할지 결정하기 때문에 Origin 헤더는 웹소켓 통신에 중요한 역할을 합니다. 참고로 웹소켓 객체는 기본적으로 크로스 오리진(cross-origin) 요청을 지원합니다. 웹소켓 통신만을 위한 전용 헤더나 제약도 없습니다. 오래된 서버는 웹소켓 통신을 지원하지 못하기 때문에 웹소켓 통신은 호환성 문제도 없습니다.
 - `Connection: Upgrade` -- 클라이언트  측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
 - `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
-- `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키를 나타냅니다.
+- `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키로, 서버가 웹소켓 프로토콜을 지원하는지를 확인하는데 사용됩니다. It's random to prevent proxies from caching any following communication.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
 
 ```smart header="웹소켓 핸드셰이크는 모방이 불가능합니다."
@@ -107,9 +107,9 @@ Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
 
-여기서 `Sec-WebSocket-Accept`는 `Sec-WebSocket-Key`와 밀접한 관계가 있습니다. 브라우저는 특별한 알고리즘을 사용해 서버에서 생성한 `Sec-WebSocket-Accept` 값을 받아, 이 응답이 자신이 보낸 요청에 대응하는 응답인지를 확인합니다.
+여기서 `Sec-WebSocket-Accept`값은 특별한 알고리즘을 사용해 만든 `Sec-WebSocket-Key` 입니다. 이 값을 보고 브라우저는 서버가 진짜 웹소켓 프로토콜을 지원하는지 확인합니다.
 
-이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용해 데이터가 전송되기 시작합니다. 전홍이 시작된 후에 어떤일이 일어나는지는 조금 후에 자세히 살펴보겠습니다.
+이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용해 데이터가 전송되기 시작합니다. 전송이 시작된 후에 어떤일이 일어나는지는 조금 후에 자세히 살펴보겠습니다.
 
 ### Extensions와 Subprotocols 헤더
 
@@ -162,14 +162,14 @@ Sec-WebSocket-Protocol: soap
 
 ## 데이터 전송
 
-웹소켓 통신은 '프레임(frame)'이라 불리는 데이터 조각을 사용해 이뤄집니다. 프레임은 서버와 클라이언트 양측 모두에서 보낼 수 있는데 프레임 내 담긴 데이터 종류에 따라 다음과 같이 분류할 수 있습니다.
+웹소켓 통신은 '프레임(frame)'이라 불리는 데이터 조각을 사용해 이뤄집니다. 프레임은 서버와 클라이언트 양측 모두에서 보낼 수 있는데, 프레임 내 담긴 데이터 종류에 따라 다음과 같이 분류할 수 있습니다.
 
 - 텍스트 프레임(text frame) -- 텍스트 데이터가 담긴 프레임
 - 이진 데이터 프레임(binary data frame) -- 이진 데이터가 담긴 프레임
 - 핑 또는 퐁 프레임(ping/pong frame) -- 커넥션이 유지되고 있는지 확인할 때 사용하는 프레임으로 서버나 브라우저에서 자동 생성해서 보내는 프레임
 - 이 외에도 '커넥션 종료 프레임(connection close frame) 등 다양한 프레임이 있음
 
-브라우저 환경에서 개발자는 텍스트나 이진 프레임만 다루게 됩니다.
+브라우저 환경에서 개발자는 텍스트나 이진 데이터 프레임만 다루게 됩니다.
 
 이유는 **WebSocket `.send()` 메서드는 텍스트나 바이너리 데이터만 보낼 수 있기 때문입니다.**
 
@@ -190,16 +190,16 @@ socket.onmessage = (event) => {
 
 ## Rate limiting
 
-Imagine, our app is generating a lot of data to send. But the user has a slow network connection, maybe on a mobile internet, outside of a city.
+데이터 전송량이 상당한 앱을 개발하고 있다고 가정해봅시다. 그런데 우리 앱의 사용자는 모바일이나 시골같이 네트워크 속도가 느린 곳에서 앱을 사용하고 있다고 해보죠.
 
 We can call `socket.send(data)` again and again. But the data will be buffered (stored) in memory and sent out only as fast as network speed allows.
 
-The `socket.bufferedAmount` property stores how many bytes are buffered at this moment, waiting to be sent over the network.
+The `socket.bufferedAmount` property stores how many bytes remain buffered at this moment, waiting to be sent over the network.
 
 We can examine it to see whether the socket is actually available for transmission.
 
 ```js
-// every 100ms examine the socket and send more data  
+// 100ms마다 소켓을 확인해 쌓여있는 바이트가 없는 경우에만  
 // only if all the existing data was sent out
 setInterval(() => {
   if (socket.bufferedAmount == 0) {
@@ -221,7 +221,7 @@ socket.close([code], [reason]);
 - `code` is a special WebSocket closing code (optional)
 - `reason` is a string that describes the reason of closing (optional)
 
-Then the other party in `close` event handler gets the code and the reason, e.g.:
+Then the other party in the `close` event handler gets the code and the reason, e.g.:
 
 ```js
 // closing party:
@@ -230,29 +230,29 @@ socket.close(1000, "Work complete");
 // the other party
 socket.onclose = event => {
   // event.code === 1000
-  // event.reason === "Work complete"
+// event.reason === "작업 완료"
   // event.wasClean === true (clean close)
 };
 ```
 
-Most common code values:
+가장 많이 사용하는 코드는 다음과 같습니다.
 
-- `1000` -- the default, normal closure (used if no `code` supplied),
-- `1006` -- no way to such code manually, indicates that the connection was lost (no close frame).
+- `1000` -- 기본값으로 정상 종료를 의미함(`code`값이 주어지지 않을 때 기본 세팅됨)
+- `1006` -- `1000` 같은 코드를 수동으로 설정할 수 없을 때 사용하고, 커넥션이 유실(no close frame)되었음을 의미함
 
-There are other codes like:
+이외의 코드는 다음과 같습니다.
 
-- `1001` -- the party is going away, e.g. server is shutting down, or a browser leaves the page,
-- `1009` -- the message is too big to process,
-- `1011` -- unexpected error on server,
+- `1001` -- 연결 주체 중 한쪽이 떠남(예: 서버 셧다운, 부라우저에서 페이지 종료)
+- `1009` -- 메시지가 너무 커서 처리하지 못함
+- `1011` -- 서버 측에서 비정상적인 에러 발생
 - ...and so on.
 
-The full list can be found in [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1).
+코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
 
-WebSocket codes are somewhat like HTTP codes, but different. In particular, any codes less than `1000` are reserved, there'll be an error if we try to set such a code.
+웹소켓 코드는 언뜻 보기엔 HTTP 코드 같아 보이지만 실제론 다릅니다. 특히 `1000`보다 작은 값은 예약 값이여서 작은 숫자를 설정하려 하면 에러가 발생합니다.
 
 ```js
-// in case connection is broken
+// 사례: 커넥현 유실
 socket.onclose = event => {
   // event.code === 1006
   // event.reason === ""
@@ -266,32 +266,32 @@ socket.onclose = event => {
 To get connection state, additionally there's `socket.readyState` property with values:
 
 - **`0`** -- "CONNECTING": the connection has not yet been established,
-- **`1`** -- "OPEN": communicating,
-- **`2`** -- "CLOSING": the connection is closing,
-- **`3`** -- "CLOSED": the connection is closed.
+- **`1`** -- "OPEN": 연결이 성립되고 통신 중
+- **`2`** -- "CLOSING": 커넥션 종료 중
+- **`3`** -- "CLOSED": 커넥션이 종료됨
 
 
-## Chat example
+## 채팅 앱 만들기
 
-Let's review a chat example using browser WebSocket API and Node.js WebSocket module <https://github.com/websockets/ws>. We'll pay the main attention to the client side, but the server is also simple.
+브라우저의 웹소켓 API와 Node.js에서 제공하는 웹소켓 모듈을 사용해 채팅앱을 만들어봅시다. 여기선 클라이언트(브라우저) 측에 집중해서 앱을 만들건데 서버측도 아주 간단하니 참고해주세요.
 
-HTML: we need a `<form>` to send messages and a `<div>` for incoming messages:
+HTML에선 메시지를 보낼 때 사용할 `<form>`과 수신받을 메시지를 보여줄 `<div>`가 필요합니다.
 
 ```html
-<!-- message form -->
+<!-- 메세지 폼 -->
 <form name="publish">
   <input type="text" name="message">
   <input type="submit" value="Send">
 </form>
 
-<!-- div with messages -->
+<!-- 수신받을 메시지가 노출될 div -->
 <div id="messages"></div>
 ```
 
-From JavaScript we want three things:
+자바스크립트론 다음 세 가지 기능을 구현해야 합니다.
 1. Open the connection.
-2. On form submission -- `socket.send(message)` for the message.
-3. On incoming message -- append it to `div#messages`.
+2. form 제출 -- `socket.send(message)`를 사용해 message 전송
+3. 메시지 수신 처리 -- 수신한 메시지는 `div#messages`에 추가
 
 Here's the code:
 
@@ -321,8 +321,8 @@ Server-side code is a little bit beyond our scope. Here we'll use Node.js, but y
 The server-side algorithm will be:
 
 1. Create `clients = new Set()` -- a set of sockets.
-2. For each accepted websocket, add it to the set `clients.add(socket)` and setup `message` event listener to get its messages.
-3. When a message received: iterate over clients and send it to everyone.
+2. For each accepted websocket, add it to the set `clients.add(socket)` and set `message` event listener to get its messages.
+3. When a message is received: iterate over clients and send it to everyone.
 4. When a connection is closed: `clients.delete(socket)`.
 
 ```js
@@ -359,7 +359,7 @@ Here's the working example:
 
 [iframe src="chat" height="100" zip]
 
-You can also download it (upper-right button in the iframe) and run locally. Just don't forget to install [Node.js](https://nodejs.org/en/) and `npm install ws` before running.
+You can also download it (upper-right button in the iframe) and run it locally. Just don't forget to install [Node.js](https://nodejs.org/en/) and `npm install ws` before running.
 
 ## Summary
 
@@ -383,6 +383,6 @@ Events:
 
 WebSocket by itself does not include reconnection, authentication and many other high-level mechanisms. So there are client/server libraries for that, and it's also possible to implement these capabilities manually.
 
-Sometimes, to integrate WebSocket into existing project, people run WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use `wss://ws.site.com`, a subdomain that leads to WebSocket server, while `https://site.com` goes to the main HTTP-server.
+Sometimes, to integrate WebSocket into existing projects, people run a WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use `wss://ws.site.com`, a subdomain that leads to the WebSocket server, while `https://site.com` goes to the main HTTP-server.
 
 Surely, other ways of integration are also possible.
