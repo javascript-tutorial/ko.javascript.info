@@ -65,7 +65,7 @@ async function subscribe() {
 subscribe();
 ```
 
-As you can see, `subscribe` function makes a fetch, then waits for the response, handles it and calls itself again.
+롱 폴링을 구현한 함수 `subscribe`는 보시다시피 fetch를 사용해 요청을 보내고 응답이 올 때까지 기다린다음 응답을 처리하고 스스로 다시 요청을 보냅니다.
 
 ```warn header="Server should be ok with many pending connections"
 The server architecture must be able to work with many pending connections.
