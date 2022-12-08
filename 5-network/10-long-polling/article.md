@@ -20,7 +20,7 @@ So, if we're talking about a very small service, the approach may be viable, but
 
 롱 폴링(long polling)은 일반 폴링보단 더 나은 방식입니다.
 
-It's also very easy to implement, and delivers messages without delays.
+롱 폴링은 폴링과 마찬가지로 구현이 쉬운데, 지연 없이 메시지를 전달한다는 차이가 있습니다.
 
 The flow:
 
