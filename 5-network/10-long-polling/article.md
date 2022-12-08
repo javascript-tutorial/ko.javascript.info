@@ -1,4 +1,4 @@
-# Long polling
+# 롱 폴링
 
 폴링(long polling)을 사용하면 웹소켓이나 server-sent event 같은 특정한 프로토콜을 사용하지 않아도 아주 간단히 서버와 지속적인 커넥션을 유지할 수 있습니다.
 
