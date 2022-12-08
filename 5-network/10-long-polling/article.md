@@ -35,7 +35,7 @@ The situation when the browser sent a request and has a pending connection with 
 
 If the connection is lost, because of, say, a network error, the browser immediately sends a new request.
 
-A sketch of client-side `subscribe` function that makes long requests:
+다음과 같은 클라이언트 측 구독(`subscribe`) 함수는 롱 요청을 가능하게 해줍니다.
 
 ```js
 async function subscribe() {
