@@ -14,7 +14,7 @@ That works, but there are downsides:
 1. Messages are passed with a delay up to 10 seconds (between requests).
 2. Even if there are no messages, the server is bombed with requests every 10 seconds, even if the user switched somewhere else or is asleep. That's quite a load to handle, speaking performance-wise.
 
-So, if we're talking about a very small service, the approach may be viable, but generally, it needs an improvement.
+서비스 규모가 작은 경우 폴링은 꽤 괜찮은 방식입니다. 하지만 일반적인 경우엔 개선이 필요합니다.
 
 ## Long polling
 
