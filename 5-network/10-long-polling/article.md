@@ -6,7 +6,7 @@ Being very easy to implement, it's also good enough in a lot of cases.
 
 ## Regular Polling
 
-The simplest way to get new information from the server is periodic polling. That is, regular requests to the server: "Hello, I'm here, do you have any information for me?". For example, once every 10 seconds.
+폴링(regular polling)을 사용하면 서버에서 새로운 정보를 아주 간단히 받을 수 있습니다. 10초에 한 번씩 서버에 "안녕하세요. 저 클라이언트인데 새로운 정보 줄거 있나요?" 라고 요청을 보내는 식으로 말이죠.
 
 In response, the server first takes a notice to itself that the client is online, and second - sends a packet of messages it got till that moment.
 
