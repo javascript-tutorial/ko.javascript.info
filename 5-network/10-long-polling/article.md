@@ -18,7 +18,7 @@ So, if we're talking about a very small service, the approach may be viable, but
 
 ## Long polling
 
-So-called "long polling" is a much better way to poll the server.
+롱 폴링(long polling)은 일반 폴링보단 더 나은 방식입니다.
 
 It's also very easy to implement, and delivers messages without delays.
 
