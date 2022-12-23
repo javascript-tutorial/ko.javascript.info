@@ -1,6 +1,6 @@
 
-The result is: `match:123 4`.
+정답: `match:123 4`
 
-First the lazy `pattern:\d+?` tries to take as little digits as it can, but it has to reach the space, so it takes  `match:123`.
+첫 번째 `pattern:\d+?` 는 가능한 적은 숫자를 가지려고 하지만 공백에 닿게 되어 `match:123`을 가집니다.
 
-Then the second `\d+?` takes only one digit, because that's enough.
+두 번째 `\d+?`는 조건을 만족했기 때문에 한 개의 숫자만 가지게 됩니다.
