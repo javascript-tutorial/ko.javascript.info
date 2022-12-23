@@ -2,29 +2,19 @@
 
 # 크로스 윈도우 통신
 
-<!-- The "Same Origin" (same site) policy limits access of windows and frames to each other. -->
-
 "동일 출처"(같은 사이트) 정책은 윈도우와 프레임의 접근을 서로 제한합니다.
-
-<!-- The idea is that if a user has two pages open: one from `john-smith.com`, and another one is `gmail.com`, then they wouldn't want a script from `john-smith.com` to read our mail from `gmail.com`. So, the purpose of the "Same Origin" policy is to protect users from information theft. -->
 
 아이디어는 사용자가 `john-smith.com`과 `gmail.com` 두 사이트를 열어 놓은 경우, `gmail.com`로 부터 메일을 읽기 위해 `john-smith.com`에서 스크립트를 원하지 않는다는 것입니다. 따라서 "Same Origin" 정책의 목적은 정보 도용으로 부터 사용자를 보호하는 것입니다.
 
 ## 동일 출처 [#same-origin]
 
-<!-- Two URLs are said to have the "same origin" if they have the same protocol, domain and port. -->
-
 두 개의 URL이 동일한 프로토콜과 도메인 그리고 포트를 가진 경우, "Same Origin"을 갖는다고 말합니다.
-
-<!-- These URLs all share the same origin: -->
 
 다음 URL은 모두 동일 출처를 공유합니다.
 
 - `http://site.com`
 - `http://site.com/`
 - `http://site.com/my/page.html`
-
-<!-- These ones do not: -->
 
 다음 URL은 동일 출처를 공유하지 않습니다.
 
@@ -33,39 +23,21 @@
 - <code><b>https://</b>site.com</code> (another protocol: `https`)
 - <code>http://site.com:<b>8080</b></code> (another port: `8080`)
 
-<!-- The "Same Origin" policy states that: -->
-
 "동일 출처" 정책은 다음과 같이 명시합니다.
-
-<!-- - if we have a reference to another window, e.g. a popup created by `window.open` or a window inside `<iframe>`, and that window comes from the same origin, then we have full access to that window.
-- otherwise, if it comes from another origin, then we can't access the content of that window: variables, document, anything. The only exception is `location`: we can change it (thus redirecting the user). But we cannot _read_ location (so we can't see where the user is now, no information leak). -->
 
 - 예를 들어 `window.open`로 생성한 팝업이나 `<iframe>`안에 윈도우 또는 동일 출처에서의 윈도우처럼 다른 위도우에 대한 참조를 가지고 있는 경우, 해당 윈도우에 대한 전체 엑세스 권한을 가집니다.
 - 윈도우가 다른 출처에서 온 경우 변수, 문서등 윈도우의 내용에 엑세스할 수 없습니다. 유일한 예외는 location입니다 : 우리는 그걸 바꿀 수 있다(그걸 바꾸면 유저가 재 연결된다.) 하지만 우리는 location을 읽을 수는 없다.(따라서 우리는 유저가 어디있는지 볼 수는 없습니다. 정보의 유출은 없습니다.)
 
-<!-- ### In action: iframe -->
-
 ### 실행 : iframe
-
-<!-- An `<iframe>` tag hosts a separate embedded window, with its own separate `document` and `window` objects. -->
 
 `<iframe>` 태그는 별도의 `document`와 `window` 객체를 가진 구분된 임베디드 윈도우를 호스트합니다.
 
-<!-- We can access them using properties: -->
-
 프로퍼티를 사용하여 윈도우에 접근할 수 있습니다.
-
-<!-- - `iframe.contentWindow` to get the window inside the `<iframe>`.
-- `iframe.contentDocument` to get the document inside the `<iframe>`, shorthand for `iframe.contentWindow.document`. -->
 
 - `<iframe>`내부의 윈도우를 가져오기 위한 `iframe.contentWindow`
 - `<iframe>`내부의 문서를 가져오기 위한 `iframe.contentDocument`, `iframe.contentWindow.document`의 축약형입니다.
 
-<!-- When we access something inside the embedded window, the browser checks if the iframe has the same origin. If that's not so then the access is denied (writing to `location` is an exception, it's still permitted). -->
-
 임베디드 윈도우 내부의 무언가에 접근할 때, 브라우저는 iframe이 동일 출처를 가지고 있는지 아닌지 확인합니다. iframe이 동일 출처를 갖고 있지 않는 경우 접근이 거부됩니다.(`location`에 쓰기는 예외이며 접근이 혀용됩니다.)
-
-<!-- For instance, let's try reading and writing to `<iframe>` from another origin: -->
 
 예로, 다른 출처에 대한 `<iframe>`에 읽기와 쓰기를 시도해봅시다.
 
@@ -74,27 +46,27 @@
 
 <script>
     iframe.onload = function() {
-      // we can get the reference to the inner window
+      // 내부 윈도우에 대한 참조를 가질 수 있습니다.
   *!*
       let iframeWindow = iframe.contentWindow; // OK
   */!*
       try {
-        // ...but not to the document inside it
+        // ... 하지만 문서 내부에 대한 것은 아닙니다.
   *!*
         let doc = iframe.contentDocument; // ERROR
   */!*
       } catch(e) {
-        alert(e); // Security Error (another origin)
+        alert(e); // 보안 오류 (다른 출처)
       }
 
-      // also we can't READ the URL of the page in iframe
+      // 또한 iframe 내부 페이지의 URL을 읽을 수 없습니다.
       try {
-        // Can't read URL from the Location object
+        // Location 객체로 부터 URL을 읽을 수 없습니다.
   *!*
-        let href = iframe.contentWindow.location.href; // ERROR
+        let href = iframe.contentWindow.location.href; // 오류
   */!*
       } catch(e) {
-        alert(e); // Security Error
+        alert(e); // 보안 오류
       }
 
       // ...we can WRITE into location (and thus load something else into the iframe)!
@@ -107,27 +79,20 @@
 </script>
 ```
 
-<!-- The code above shows errors for any operations except: -->
-
 위의 코드는 다음 작업을 제외한 모든 작업에 대한 오류를 보여줍니다.
-
-<!-- - Getting the reference to the inner window `iframe.contentWindow` - that's allowed.
-- Writing to `location`. -->
 
 - 내부 윈도우 `iframe.contentWindow`로 참조를 가져오는 것은 허용됩니다.
 - `location`에 쓰기
 
-<!-- Contrary to that, if the `<iframe>` has the same origin, we can do anything with it: -->
-
 이와 반대로 `<iframe>`이 같은 출처를 가진다면 무엇이든 할 있습니다.
 
 ```html run
-<!-- iframe from the same site -->
+<!-- 동일 출처의 iframe -->
 <iframe src="/" id="iframe"></iframe>
 
 <script>
   iframe.onload = function () {
-    // just do anything
+    // 다음과 같이 실행할 수 있다.
     iframe.contentDocument.body.prepend("Hello, world!");
   };
 </script>
@@ -135,25 +100,17 @@
 
 ```
 smart header="`iframe.onload`vs`iframe.contentWindow.onload`"
-The `iframe.onload`event (on the`<iframe>`tag) is essentially the same as`iframe.contentWindow.onload` (on the embedded window object). It triggers when the embedded window fully loads with all resources.
-
-...But we can't access `iframe.contentWindow.onload` for an iframe from another origin, so using `iframe.onload`.
-
 ```
 
-<!-- ## Windows on subdomains: document.domain -->
+`<iframe>`태그에 있는 `iframe.onload` event는 임베디드된 윈도우 객체에 있는 `iframe.contentWindow.onload`과 본질적으로 같습니다. 그것은 window가 모든 자료들을 로드했을 때 시작합니다.
+
+... 하지만 다른 출처의 iframe에 대해 `iframe.contentWindow.onload`에 접근할 수 없습니다. 그래서 `iframe.contentWindow`를 사용합니다.
 
 ## 하위 도메인의 윈도우들 : document.domain
 
-<!-- By definition, two URLs with different domains have different origins. -->
-
 정의에 따라, 다른 도메인을 가진 두 URL은 다른 출처를 가집니다.
 
-<!-- But if windows share the same second-level domain, for instance `john.site.com`, `peter.site.com` and `site.com` (so that their common second-level domain is `site.com`), we can make the browser ignore that difference, so that they can be treated as coming from the "same origin" for the purposes of cross-window communication. -->
-
 예를 들어 `john.site.com`, `peter,site,com`에서 `site.com`를 공통 2차 도메인을 공유하는 것 같이 도메인들이 서로 같은 2차 도메인을 공유하는 경우, 크로스 윈도우 통신의 목적을 위해 "동일 출처"에서 온 것처럼 다뤄지도록 브라우저가 그 차이를 무시하도록 만들 수 있습니다.
-
-<!-- To make it work, each such window should run the code: -->
 
 동작되도록 만들기 위해, 각 윈도우에서 다음 코드를 실행해야 합니다.
 
@@ -161,17 +118,18 @@ The `iframe.onload`event (on the`<iframe>`tag) is essentially the same as`iframe
 document.domain = "site.com";
 ```
 
-That's all. Now they can interact without limitations. Again, that's only possible for pages with the same second-level domain.
+이것이 전부입니다. 이제 그들은 제한없이 상호교환 할 수 있습니다. 다시 말해,
+동일한 두 번째 수준 도메인이 있는 페이지에서만 가능합니다.
 
 ## Iframe: wrong document pitfall
 
-When an iframe comes from the same origin, and we may access its `document`, there's a pitfall. It's not related to cross-origin things, but important to know.
+iframe이 동일한 출처에서 제공되고 `document`에 액세스할 수 있는 경우 함정이 있습니다. 교차 출처와 관련이 없지만 아는 것이 중요합니다.
 
-Upon its creation an iframe immediately has a document. But that document is different from the one that loads into it!
+iframe이 생성되면 즉시 문서가 생성됩니다. 하지만 그 문서는 로드되는 문서와 다릅니다!
 
-So if we do something with the document immediately, that will probably be lost.
+따라서 우리가 이 문서로 즉시 사용할 경우, 우리는 아마 실패할 것입니다.
 
-Here, look:
+다음을 봐보세요 :
 
 ```html run
 <iframe src="/" id="iframe"></iframe>
@@ -181,20 +139,20 @@ Here, look:
     iframe.onload = function() {
       let newDoc = iframe.contentDocument;
   *!*
-      // the loaded document is not the same as initial!
-      alert(oldDoc == newDoc); // false
+      // load된 문서가 초기와 같지 않습니다!
+      alert(oldDoc == newDoc); // 거짓
   */!*
     };
 </script>
 ```
 
-We shouldn't work with the document of a not-yet-loaded iframe, because that's the _wrong document_. If we set any event handlers on it, they will be ignored.
+아직 로드되지 않은 iframe의 문서로 작업하면 안 됩니다. 왜냐하면 그것은 *잘못된 문서*이기 때문입니다. 이벤트 핸들러를 설정하면 무시됩니다.
 
-How to detect the moment when the document is there?
+어떻게 문서가 잘못된 곳에 있을 때를 탐지할 수 있을까요?
 
-The right document is definitely at place when `iframe.onload` triggers. But it only triggers when the whole iframe with all resources is loaded.
+올바른 문서는 `iframe.onload`가 트리거될 때 위치합니다. 그러나 모든 리소스가 있는 전체 iframe이 로드될 때만 트리거됩니다.
 
-We can try to catch the moment earlier using checks in `setInterval`:
+`setInterval`에서 확인을 하여 그 순간을 더 일찍 알아차릴 수 있습니다.
 
 ```html run
 <iframe src="/" id="iframe"></iframe>
@@ -202,26 +160,26 @@ We can try to catch the moment earlier using checks in `setInterval`:
 <script>
   let oldDoc = iframe.contentDocument;
 
-  // every 100 ms check if the document is the new one
+  // 100ms마다 document가 새로운 것인지 확인합니다
   let timer = setInterval(() => {
     let newDoc = iframe.contentDocument;
     if (newDoc == oldDoc) return;
 
     alert("New document is here!");
 
-    clearInterval(timer); // cancel setInterval, don't need it any more
+    clearInterval(timer); // 더 이상 필요하지 않기때문에 setInterval을 제거합니다.
   }, 100);
 </script>
 ```
 
 ## Collection: window.frames
 
-An alternative way to get a window object for `<iframe>` -- is to get it from the named collection `window.frames`:
+`<iframe>`의 윈도우 객체를 얻는 다른 방법은 `window.frames`컬랙션으로부터 얻는 것입니다.
 
-- By number: `window.frames[0]` -- the window object for the first frame in the document.
-- By name: `window.frames.iframeName` -- the window object for the frame with `name="iframeName"`.
+- 숫자로 : `window.frames[0]` -- document안에 있는 첫 번째 frame의 window 객체
+- 이름으로 : `window.frames.iframeName` -- `name="iframeName"`을 가진 frame의 window 객체
 
-For instance:
+예를 들어:
 
 ```html run
 <iframe src="/" style="height:80px" name="win" id="iframe"></iframe>
@@ -232,21 +190,21 @@ For instance:
 </script>
 ```
 
-An iframe may have other iframes inside. The corresponding `window` objects form a hierarchy.
+iframe은 내부의 다른 iframe들을 가질 수도 있습니다. 해당 `window`객체들은 계층 구조를 형성합니다.
 
-Navigation links are:
+네비게이션 링크는 다음과 같습니다:
 
-- `window.frames` -- the collection of "children" windows (for nested frames).
-- `window.parent` -- the reference to the "parent" (outer) window.
-- `window.top` -- the reference to the topmost parent window.
+- `window.frames` -- "자식" window들의 모음
+- `window.parent` -- "부모" window의 참조
+- `window.top` -- 가장 위에 있는 부모 window의 참조
 
-For instance:
+예를 들어:
 
 ```js run
-window.frames[0].parent === window; // true
+window.frames[0].parent === window; // 참
 ```
 
-We can use the `top` property to check if the current document is open inside a frame or not:
+프레임 내부에 현재 document가 열려있는 지 아닌지 확인하기 위해 `top`속성을 사용할 수 있습니다.
 
 ```js run
 if (window == top) {
@@ -257,68 +215,66 @@ if (window == top) {
 }
 ```
 
-## The "sandbox" iframe attribute
+## "sandbox"iframe 속성
 
-The `sandbox` attribute allows for the exclusion of certain actions inside an `<iframe>` in order to prevent it executing untrusted code. It "sandboxes" the iframe by treating it as coming from another origin and/or applying other limitations.
+`sandbox` 속성은 신뢰할 수 없는 코드 실행을 방지하기 위해 `<iframe>` 내부의 특정 작업을 제외할 수 있습니다. iframe을 다른 출처에서 온 것으로 취급하거나 다른 제한을 적용하여 iframe을 "샌드박스"합니다.
 
-There's a "default set" of restrictions applied for `<iframe sandbox src="...">`. But it can be relaxed if we provide a space-separated list of restrictions that should not be applied as a value of the attribute, like this: `<iframe sandbox="allow-forms allow-popups">`.
+`<iframe sandbox src="...">`에 적용되는 제한의 "기본 세트"가 있습니다. 그러나 `<iframe sandbox="allow-forms allow-popups">`와 같이 속성 값으로 적용되지 않아야 하는 제한 목록을 공백으로 구분하여 제공하면 완화될 수 있습니다.
 
-In other words, an empty `"sandbox"` attribute puts the strictest limitations possible, but we can put a space-delimited list of those that we want to lift.
+즉, 빈 `"sandbox"` 속성은 가능한 가장 엄격한 제한을 두지만 제거하려는 항목의 공백으로 구분된 목록을 넣을 수 있습니다.
 
-Here's a list of limitations:
+다음은 제한 사항 목록입니다.
 
 `allow-same-origin`
-: By default `"sandbox"` forces the "different origin" policy for the iframe. In other words, it makes the browser to treat the `iframe` as coming from another origin, even if its `src` points to the same site. With all implied restrictions for scripts. This option removes that feature.
+: 기본적으로 `"sandbox"`는 iframe에 대해 "다른 원본" 정책을 적용합니다. 즉, `src`가 동일한 사이트를 가리키더라도 브라우저가 `iframe`을 다른 출처에서 온 것으로 취급하도록 합니다. 스크립트에 대한 모든 묵시적 제한이 있습니다. 이 옵션은 해당 기능을 제거합니다.
 
 `allow-top-navigation`
-: Allows the `iframe` to change `parent.location`.
+: `iframe`이 `parent.location`으로 바꾸도록 허용합니다.
 
 `allow-forms`
-: Allows to submit forms from `iframe`.
+: `iframe`에서 양식을 제출할 수 있습니다.
 
 `allow-scripts`
-: Allows to run scripts from the `iframe`.
+: `iframe`에서 스크립트를 실행할 수 있습니다.
 
 `allow-popups`
-: Allows to `window.open` popups from the `iframe`
+: `iframe`에서 `window.open` 팝업을 허용합니다.
 
-See [the manual](mdn:/HTML/Element/iframe) for more.
+아래 예는 기본 제한 세트가 있는 샌드박스 iframe을 보여줍니다: `<iframe sandbox src="...">`. JavaScript와 양식이 있습니다.
 
-The example below demonstrates a sandboxed iframe with the default set of restrictions: `<iframe sandbox src="...">`. It has some JavaScript and a form.
+아무것도 작동하지 않습니다. 따라서 기본 세트는 정말 가혹합니다.
 
-Please note that nothing works. So the default set is really harsh:
-
+```
 [codetabs src="sandbox" height=140]
-
-```smart
-The purpose of the `"sandbox"` attribute is only to *add more* restrictions. It cannot remove them. In particular, it can't relax same-origin restrictions if the iframe comes from another origin.
 ```
 
-## Cross-window messaging
+`"sandbox"` 속성의 목적은 더 많은 제한을 추가하는 것뿐입니다. 제거할 수 없습니다. 특히 iframe이 다른 출처에서 온 경우 동일 출처 제한을 완화할 수 없습니다.
 
-The `postMessage` interface allows windows to talk to each other no matter which origin they are from.
+## Cross-window 메시지
 
-So, it's a way around the "Same Origin" policy. It allows a window from `john-smith.com` to talk to `gmail.com` and exchange information, but only if they both agree and call corresponding JavaScript functions. That makes it safe for users.
+`postMessage` 인터페이스를 사용하면 윈도우가 어디에서 왔는지에 관계없이 서로 대화할 수 있습니다.
 
-The interface has two parts.
+따라서 "Same Origin" 정책을 우회하는 방법입니다. 이는 `john-smith.com`의 창이 `gmail.com`과 대화하고 정보를 교환할 수 있도록 허용하지만 둘 다 동의하고 해당 JavaScript 함수를 호출하는 경우에만 가능합니다. 그것은 사용자에게 안전합니다.
 
-### postMessage
+인터페이스에는 두 부분이 있습니다.
 
-The window that wants to send a message calls [postMessage](mdn:api/Window.postMessage) method of the receiving window. In other words, if we want to send the message to `win`, we should call `win.postMessage(data, targetOrigin)`.
+### post 메시지
 
-Arguments:
+메시지를 보내고자 하는 윈도우는 수신 윈도우의 [postMessage](mdn:api/Window.postMessage) 메소드를 호출합니다. 즉, `win`에게 메시지를 보내려면 `win.postMessage(data, targetOrigin)`을 호출해야 합니다.
+
+인수:
 
 `data`
-: The data to send. Can be any object, the data is cloned using the "structured cloning algorithm". IE supports only strings, so we should `JSON.stringify` complex objects to support that browser.
+: 보낼 데이터. 모든 개체가 될 수 있으며 데이터는 "구조적 복제 알고리즘"을 사용하여 복제됩니다. IE는 문자열만 지원하므로 해당 브라우저를 지원하려면 복잡한 개체를 `JSON.stringify`해야 합니다.
 
 `targetOrigin`
-: Specifies the origin for the target window, so that only a window from the given origin will get the message.
+: 대상 창의 출처를 지정하여 지정된 출처의 창만 메시지를 받도록 합니다.
 
-The `targetOrigin` is a safety measure. Remember, if the target window comes from another origin, we can't read it's `location` in the sender window. So we can't be sure which site is open in the intended window right now: the user could navigate away, and the sender window has no idea about it.
+`targetOrigin`은 안전 조치입니다. 대상 창이 다른 출처에서 온 경우 발신자 창에서 '위치'를 읽을 수 없습니다. 따라서 우리는 현재 어떤 사이트가 의도한 창에 열려 있는지 확신할 수 없습니다. 사용자는 다른 곳으로 이동할 수 있고 발신자 창은 그것에 대해 전혀 모릅니다.
 
-Specifying `targetOrigin` ensures that the window only receives the data if it's still at the right site. Important when the data is sensitive.
+`targetOrigin`을 지정하면 윈도우가 여전히 올바른 사이트에 있는 경우에만 데이터를 수신합니다. 데이터가 민감한 경우 중요합니다.
 
-For instance, here `win` will only receive the message if it has a document from the origin `http://example.com`:
+예를 들어 여기서 `win`은 원본 `http://example.com`의 문서가 있는 경우에만 메시지를 수신합니다.
 
 ```html no-beautify
 <iframe src="http://example.com" name="example">
@@ -330,7 +286,7 @@ For instance, here `win` will only receive the message if it has a document from
 >
 ```
 
-If we don't want that check, we can set `targetOrigin` to `*`.
+검사를 원하지 않으면 `targetOrigin`을 `*`로 설정할 수 있습니다.
 
 ```html no-beautify
 <iframe src="http://example.com" name="example">
@@ -346,75 +302,75 @@ If we don't want that check, we can set `targetOrigin` to `*`.
 
 ### onmessage
 
-To receive a message, the target window should have a handler on the `message` event. It triggers when `postMessage` is called (and `targetOrigin` check is successful).
+메시지를 받으려면 대상 창에 `message` 이벤트에 대한 핸들러가 있어야 합니다. `postMessage`가 호출되고 `targetOrigin` 검사가 성공하면 트리거됩니다.
 
-The event object has special properties:
+이벤트 개체에는 다음과 같은 특수 속성이 있습니다.
 
 `data`
-: The data from `postMessage`.
+: `postMessage`의 데이터입니다.
 
 `origin`
-: The origin of the sender, for instance `http://javascript.info`.
+: 발신자의 출처(예: `http://javascript.info`).
 
 `source`
-: The reference to the sender window. We can immediately `source.postMessage(...)` back if we want.
+: 발신자 창에 대한 참조입니다. 원한다면 즉시 `source.postMessage(...)`로 되돌릴 수 있습니다.
 
-To assign that handler, we should use `addEventListener`, a short syntax `window.onmessage` does not work.
+해당 처리기를 할당하려면 `addEventListener`를 사용해야 합니다. 짧은 구문인 `window.onmessage`는 작동하지 않습니다.
 
-Here's an example:
+예를 들면 다음과 같습니다.
 
 ```js
 window.addEventListener("message", function (event) {
   if (event.origin != "http://javascript.info") {
-    // something from an unknown domain, let's ignore it
+    // 알 수 없는 도메인의 것들은 무시합니다.
     return;
   }
 
   alert("received: " + event.data);
 
-  // can message back using event.source.postMessage(...)
+  // event.source.postMessage(...)를 사용하여 다시 메시지를 보낼 수 있습니다.
 });
 ```
 
-The full example:
+전체 예:
 
 [codetabs src="postmessage" height=120]
 
-## Summary
+## 요약
 
-To call methods and access the content of another window, we should first have a reference to it.
+메서드를 호출하고 다른 창의 콘텐츠에 액세스하려면 먼저 해당 창에 대한 참조가 있어야 합니다.
 
-For popups we have these references:
+팝업의 경우 다음 참조가 있습니다.
 
-- From the opener window: `window.open` -- opens a new window and returns a reference to it,
-- From the popup: `window.opener` -- is a reference to the opener window from a popup.
+- 오프너 창에서: `window.open` -- 새 창을 열고 이에 대한 참조를 반환합니다.
+- 팝업에서: `window.opener` -- 팝업에서 오프너 창에 대한 참조입니다.
 
-For iframes, we can access parent/children windows using:
+iframe의 경우 다음을 사용하여 부모/자식 창에 액세스할 수 있습니다.
 
-- `window.frames` -- a collection of nested window objects,
-- `window.parent`, `window.top` are the references to parent and top windows,
-- `iframe.contentWindow` is the window inside an `<iframe>` tag.
+- `window.frames` -- 중첩된 창 개체의 컬렉션,
+- `window.parent`, `window.top`은 상위 및 상위 창에 대한 참조입니다.
+- `iframe.contentWindow`는 `<iframe>` 태그 안에 있는 창입니다.
 
-If windows share the same origin (host, port, protocol), then windows can do whatever they want with each other.
+윈도우가 동일한 출처(호스트, 포트, 프로토콜)를 공유하는 경우 윈도우는 서로 원하는 모든 작업을 수행할 수 있습니다.
 
-Otherwise, only possible actions are:
+그렇지 않으면 가능한 동작은 다음과 같습니다.
 
-- Change the `location` of another window (write-only access).
-- Post a message to it.
+- 다른 창의 `위치`를 변경합니다(쓰기 전용 액세스).
+- 그것에 메시지를 게시하십시오.
 
-Exceptions are:
+예외는 다음과 같습니다:
 
-- Windows that share the same second-level domain: `a.site.com` and `b.site.com`. Then setting `document.domain='site.com'` in both of them puts them into the "same origin" state.
-- If an iframe has a `sandbox` attribute, it is forcefully put into the "different origin" state, unless the `allow-same-origin` is specified in the attribute value. That can be used to run untrusted code in iframes from the same site.
+- 동일한 두 번째 수준 도메인인 `a.site.com` 및 `b.site.com`을 공유하는 Windows. 그런 다음 둘 다 `document.domain='site.com'`을 설정하면 "동일한 출처" 상태가 됩니다.
+- iframe에 `sandbox` 속성이 있는 경우 속성 값에 `allow-same-origin`이 지정되지 않는 한 "다른 출처" 상태로 강제 전환됩니다. 동일한 사이트의 iframe에서 신뢰할 수 없는 코드를 실행하는 데 사용할 수 있습니다.
 
-The `postMessage` interface allows two windows with any origins to talk:
+`postMessage` 인터페이스를 사용하면 모든 출처를 가진 두 개의 창이 대화할 수 있습니다.
 
-1. The sender calls `targetWin.postMessage(data, targetOrigin)`.
-2. If `targetOrigin` is not `'*'`, then the browser checks if window `targetWin` has the origin `targetOrigin`.
-3. If it is so, then `targetWin` triggers the `message` event with special properties:
+1. 발신자는 `targetWin.postMessage(data, targetOrigin)`을 호출합니다.
+2. `targetOrigin`이 `'*'`이 아니면 브라우저는 `targetWin` 창에 `targetOrigin`이 있는지 확인합니다.
+3. 그렇다면 `targetWin`은 특수 속성을 사용하여 `message` 이벤트를 트리거합니다.
 
-   - `origin` -- the origin of the sender window (like `http://my.site.com`)
-   - `source` -- the reference to the sender window.
-   - `data` -- the data, any object in everywhere except IE that supports only strings.
+   - `origin` -- 발신자 창의 출처(예: `http://my.site.com`)
+   - `source` -- 보낸 사람 창에 대한 참조입니다.
+   - `data` -- 문자열만 지원하는 IE를 제외한 모든 개체, 데이터.
 
-   We should use `addEventListener` to set the handler for this event inside the target window.
+   대상 창 내에서 이 이벤트에 대한 핸들러를 설정하려면 `addEventListener`를 사용해야 합니다.
