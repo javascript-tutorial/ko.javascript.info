@@ -1,12 +1,12 @@
-# Long polling
+# 롱 폴링
 
-Long polling is the simplest way of having persistent connection with server, that doesn't use any specific protocol like WebSocket or Server Side Events.
+폴링(long polling)을 사용하면 웹소켓이나 server-sent event 같은 특정한 프로토콜을 사용하지 않아도 아주 간단히 서버와 지속적인 커넥션을 유지할 수 있습니다.
 
-Being very easy to implement, it's also good enough in a lot of cases.
+폴링은 구현이 매우 쉽고 다양한 경우에 사용할 수 있습니다.
 
 ## Regular Polling
 
-The simplest way to get new information from the server is periodic polling. That is, regular requests to the server: "Hello, I'm here, do you have any information for me?". For example, once every 10 seconds.
+폴링(regular polling)을 사용하면 서버에서 새로운 정보를 아주 간단히 받을 수 있습니다. 10초에 한 번씩 서버에 "안녕하세요. 저 클라이언트인데 새로운 정보 줄거 있나요?" 라고 요청을 보내는 식으로 말이죠.
 
 In response, the server first takes a notice to itself that the client is online, and second - sends a packet of messages it got till that moment.
 
@@ -14,13 +14,13 @@ That works, but there are downsides:
 1. Messages are passed with a delay up to 10 seconds (between requests).
 2. Even if there are no messages, the server is bombed with requests every 10 seconds, even if the user switched somewhere else or is asleep. That's quite a load to handle, speaking performance-wise.
 
-So, if we're talking about a very small service, the approach may be viable, but generally, it needs an improvement.
+서비스 규모가 작은 경우 폴링은 꽤 괜찮은 방식입니다. 하지만 일반적인 경우엔 개선이 필요합니다.
 
 ## Long polling
 
-So-called "long polling" is a much better way to poll the server.
+롱 폴링(long polling)은 일반 폴링보단 더 나은 방식입니다.
 
-It's also very easy to implement, and delivers messages without delays.
+롱 폴링은 폴링과 마찬가지로 구현이 쉬운데, 지연 없이 메시지를 전달한다는 차이가 있습니다.
 
 The flow:
 
@@ -35,7 +35,7 @@ The situation when the browser sent a request and has a pending connection with 
 
 If the connection is lost, because of, say, a network error, the browser immediately sends a new request.
 
-A sketch of client-side `subscribe` function that makes long requests:
+다음과 같은 클라이언트 측 구독(`subscribe`) 함수는 롱 요청을 가능하게 해줍니다.
 
 ```js
 async function subscribe() {
@@ -65,12 +65,12 @@ async function subscribe() {
 subscribe();
 ```
 
-As you can see, `subscribe` function makes a fetch, then waits for the response, handles it and calls itself again.
+롱 폴링을 구현한 함수 `subscribe`는 보시다시피 fetch를 사용해 요청을 보내고 응답이 올 때까지 기다린다음 응답을 처리하고 스스로 다시 요청을 보냅니다.
 
 ```warn header="Server should be ok with many pending connections"
 The server architecture must be able to work with many pending connections.
 
-Certain server architectures run one process per connection; resulting in there being as many processes as there are connections, while each process consumes quite a bit of memory. So, too many connections will just consume it all.
+Certain server architectures run one process per connection, resulting in there being as many processes as there are connections, while each process consumes quite a bit of memory. So, too many connections will just consume it all.
 
 That's often the case for backends written in languages like PHP and Ruby.
 
