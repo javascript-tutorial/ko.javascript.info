@@ -355,7 +355,7 @@ elem.innerHTML = elem.innerHTML + "..."
 
 ```html
 <!-- if isAdmin -->
-  <div>관라자로 로그인하였습니다!</div>
+  <div>관리자로 로그인하였습니다!</div>
 <!-- /if -->
 ```
 
