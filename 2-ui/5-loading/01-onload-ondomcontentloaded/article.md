@@ -137,7 +137,7 @@ Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded
 
 메서드 `navigator.sendBeacon(url, data)`은 바로 이런 용도를 위해 만들어졌습니다. 메서드에 대한 자세한 설명은 <https://w3c.github.io/beacon/>에서 찾아볼 수 있습니다.
 
-`sendBeacon`는 데이터를 백그라운드에서 전송합니다. 다른 페이지로 전환시 분석 정보는 제대로 서버에 전송되지만, 딜레이가 없는 것은 바로 이 때문입니다.  
+`sendBeacon`는 데이터를 백그라운드에서 전송합니다. 다른 페이지로 전환 시 분석 정보는 제대로 서버에 전송되지만, 딜레이가 없는 것은 바로 이 때문입니다.  
 
 `sendBeacon`은 다음과 같이 사용할 수 있습니다.
 ```js
