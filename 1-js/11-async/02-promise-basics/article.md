@@ -60,7 +60,7 @@ let promise = new Promise(function(resolve, reject) {
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로 개발자가 따로 만들 필요가 없습니다. 다만, `resolve`나 `reject` 중 하나는 반드시 호출해야 합니다.
 
-    executor '처리'가 시작 된 지 1초 후, `resolve("done")`이 호출되고 결과가 만들어집니다. 이때 `promise` 객체의 상태는 다음과 같이 변합니다.
+    executor '처리'가 시작 된 지 1초 후, `resolve("완료")`이 호출되고 결과가 만들어집니다. 이때 `promise` 객체의 상태는 다음과 같이 변합니다.
 
     ![](promise-resolve-1.svg)
 
