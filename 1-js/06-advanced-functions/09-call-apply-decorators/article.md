@@ -324,7 +324,7 @@ let wrapper = function() {
 };
 ```
 
-이런 식으로 외부에서 `wrapper`를 호출하면, 기존 함수인 `func`를 호출하는 것과 명확하게 구분할 수 있습니다.
+이런 식으로 외부에서 `wrapper`를 호출하면, 기존 함수인 `func`를 호출하는 것과 명확하게 구분할 수 없습니다.
 
 ## 메서드 빌리기 [#method-borrowing]
 
