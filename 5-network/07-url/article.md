@@ -1,7 +1,7 @@
 
 # URL 객체
 
-내장된 [URL](https://url.spec.whatwg.org/#api) 클래스는 URL을 생성하고 파싱하기 위한 편리한 인터페이스를 제공합니다.
+내장된 [URL](https://url.spec.whatwg.org/#api) 클래스는 URL을 생성하고 구문 분석하기 위한 편리한 인터페이스를 제공합니다.
 
 네트워크 함수 중에서도 반드시 URL 객체가 필요한 것은 없으며, 문자열로도 충분히 사용할 수 있습니다. 그러므로 기술적으로 URL을 사용할 필요는 없습니다. 하지만 때로는 URL이 정말로 유용할 수 있습니다.
 
@@ -14,7 +14,7 @@ new URL(url, [base])
 ```
 
 - **`url`** -- 전체 URL 또는 경로 (base가 설정되어 있다면, 아래 참고),
-- **`base`** -- 생략 가능한 base URL이 설정되어 있고, URL 인자가 경로라면, URL은 'base'를 기준으로 상대적인 URL로 생성됩니다.
+- **`base`** -- 생략할 수 있는 base URL이 설정되어 있고, URL 인자가 경로라면, URL은 'base'를 기준으로 상대적인 URL로 생성됩니다.
 
 예를 들어:
 
@@ -22,7 +22,7 @@ new URL(url, [base])
 let url = new URL('https://javascript.info/profile/admin');
 ```
 
-다음 두 URL은 동일합니다:
+다음 두 URL은 같습니다:
 
 ```js run
 let url1 = new URL('https://javascript.info/profile/admin');
@@ -42,7 +42,7 @@ let newUrl = new URL('tester', url);
 alert(newUrl); // https://javascript.info/profile/tester
 ```
 
-URL 객체를 사용하면 즉시 해당 구성 요소에 접근할 수 있으므로 URL을 파싱하는 좋은 방법입니다. 예를 들면 다음과 같습니다:
+URL 객체를 사용하면 즉시 해당 구성 요소에 접근할 수 있으므로 URL을 구문 분석하는 좋은 방법입니다. 예를 들면 다음과 같습니다:
 
 ```js run
 let url = new URL('https://javascript.info/url');
@@ -56,30 +56,30 @@ URL 구성 요소에 대한 설명은 다음과 같습니다:
 
 ![](url-object.svg)
 
-- `href`는 전체 URL을 나타내며, `url.toString()`과 동일한 결과를 반환합니다.
+- `href`는 전체 URL을 나타내며, `url.toString()`과 같은 결과를 반환합니다.
 - `protocol`은 콜론 문자 `:`로 끝납니다.
-- `search` - 물음표 `?`로 시작하는 형태인 매개변수 문자열입니다.
+- `search` - 물음표 `?`로 시작하는 형태인 파라미터 문자열입니다.
 - `hash`는 해시 문자 `#`로 시작하는 형태입니다.
 - HTTP 인증이 존재하는 경우 `user` 및 `password` 속성도 존재할 수 있습니다. 예를 들어 `http://login:password@site.com`와 같이 표현됩니다. (이는 위에서 언급한 부분은 아니지만, 드물게 사용되는 방식입니다.)
 
 
 ```smart header="우리는 네트워크 (및 대부분의 다른) 함수에 문자열 대신 `URL` 객체를 전달할 수 있습니다."
-URL 문자열이 예상되는 거의 모든 곳에서 URL 객체를 사용할 수 있습니다. 예를 들어, `fetch`나 `XMLHttpRequest`와 같은 메소드에서 URL 문자열 대신 `URL` 객체를 사용할 수 있습니다.
+URL 문자열이 예상되는 거의 모든 곳에서 URL 객체를 사용할 수 있습니다. 예를 들어, `fetch`나 `XMLHttpRequest`와 같은 함수에서 URL 문자열 대신 `URL` 객체를 사용할 수 있습니다.
 
-일반적으로, `URL` 객체는 대부분의 메소드에서 문자열 대신 전달할 수 있습니다. 대부분의 메소드는 문자열 변환을 수행하며, 이는 `URL` 객체를 전체 URL을 포함한 문자열로 변환합니다.
+일반적으로, `URL` 객체는 대부분의 함수에서 문자열 대신 전달할 수 있습니다. 대부분의 함수는 문자열 변환을 수행하며, 이는 `URL` 객체를 전체 URL을 포함한 문자열로 변환합니다.
 ```
 
-## 검색 매개변수 "?..."
+## 검색 파라미터 "?..."
 
-주어진 검색 매개변수로 `https://google.com/search?query=JavaScript`와 같은 URL을 만들고 싶다고 가정해 보겠습니다.
+주어진 검색 파라미터로 `https://google.com/search?query=JavaScript`와 같은 URL을 만들고 싶다고 가정해 보겠습니다.
 
-URL 문자열에서 검색 매개변수를 제공할 수 있습니다:
+URL 문자열에서 검색 파라미터를 제공할 수 있습니다:
 
 ```js
 new URL('https://google.com/search?query=JavaScript')
 ```
 
-...하지만 매개변수에 공백, 비-라틴 문자 등이 포함되어 있는 경우에는 인코딩해야 합니다. (이는 아래에서 더 자세히 설명하겠습니다.)
+...하지만 파라미터에 공백, 비-라틴 문자 등이 포함되어 있는 경우에는 인코딩해야 합니다. (이는 아래에서 더 자세히 설명하겠습니다.)
 
 따라서 해당 기능을 위해 `url.searchParams`라는 [URLSearchParams](https://url.spec.whatwg.org/#urlsearchparams) 타입의 객체가 제공됩니다. 
 
@@ -88,13 +88,13 @@ new URL('https://google.com/search?query=JavaScript')
 - **`append(name, value)`** -- `name`을 기준으로 파라미터 추가,
 - **`delete(name)`** -- `name`을 기준으로 파라미터 삭제,
 - **`get(name)`** -- `name`을 기준으로 파라미터 가져오기,
-- **`getAll(name)`** -- 동일한 `name`을 가진 모든 매개변수를 가져오기 (예를 들어, `?user=John&user=Pete`와 같은 경우 가능),
-- **`has(name)`** -- `name`을 기준으로 매개변수의 존재 여부를 확인,
-- **`set(name, value)`** -- 매개변수를 설정/대체,
-- **`sort()`** -- 매개변수를 `name` 기준으로 정렬(드문 작업),
+- **`getAll(name)`** -- 동일한 `name`을 가진 모든 파라미터를 가져오기 (예를 들어, `?user=John&user=Pete`와 같은 경우 가능),
+- **`has(name)`** -- `name`을 기준으로 파라미터의 존재 여부를 확인,
+- **`set(name, value)`** -- 파라미터를 설정/대체,
+- **`sort()`** -- 파라미터를 `name` 기준으로 정렬(드문 작업),
 - ...`Map`과 유사하게 반복 가능(iterable)합니다.
 
-공백과 구두점을 포함하는 매개변수 예시입니다:
+공백과 구두점을 포함하는 파라미 예시입니다:
 
 ```js run
 let url = new URL('https://google.com/search');
