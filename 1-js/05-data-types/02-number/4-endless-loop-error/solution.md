@@ -1,6 +1,6 @@
-That's because `i` would never equal `10`.
+주어진 반복문이 끝나지 않는 이유는 `i` 가 절대 `10`과 같아질 수 없기 때문입니다.
 
-Run it to see the *real* values of `i`:
+아래 코드를 실행하여 `i` 의 *실제* 값을 확인해봅시다.
 
 ```js run
 let i = 0;
@@ -10,8 +10,8 @@ while (i < 11) {
 }
 ```
 
-None of them is exactly `10`.
+어떤 값도 `10`과 정확히 일치하진 않습니다.
 
-Such things happen because of the precision losses when adding fractions like `0.2`.
+그 이유는 `0.2`와 같은 소수를 더할 때 정밀도 손실이 발생하기 때문입니다.
 
-Conclusion: evade equality checks when working with decimal fractions.
+이 예제를 통해 소수를 다룰 때는 동등연산자 또는 부등연산자의 사용을 피해야 한다는 교훈을 얻을 수 있습니다.
