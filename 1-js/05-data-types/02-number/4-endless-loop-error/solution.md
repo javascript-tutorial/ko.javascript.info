@@ -1,4 +1,4 @@
-That's because `i` would never equal `10`.
+`i`는 절대 `10`이 될 수 없어서 무한 루프가 발생합니다.
 
 Run it to see the *real* values of `i`:
 
