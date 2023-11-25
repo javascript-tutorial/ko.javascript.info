@@ -10,7 +10,7 @@ while (i < 11) {
 }
 ```
 
-None of them is exactly `10`.
+어떤 경우에도 `i`는 `10`이 될 수 없습니다.
 
 Such things happen because of the precision losses when adding fractions like `0.2`.
 
