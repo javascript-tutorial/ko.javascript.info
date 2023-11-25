@@ -12,6 +12,6 @@ while (i < 11) {
 
 어떤 경우에도 `i`는 `10`이 될 수 없습니다.
 
-Such things happen because of the precision losses when adding fractions like `0.2`.
+이런 일이 발생하는 이유는 `0.2`와 같은 분수를 더할 때 정밀도 손실이 발생하기 때문입니다.
 
 Conclusion: evade equality checks when working with decimal fractions.
