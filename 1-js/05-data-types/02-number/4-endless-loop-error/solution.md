@@ -1,6 +1,6 @@
 `i`는 절대 `10`이 될 수 없어서 무한 루프가 발생합니다.
 
-Run it to see the *real* values of `i`:
+코드를 실행해 실제 `i` 값을 확인해 봅시다.
 
 ```js run
 let i = 0;
