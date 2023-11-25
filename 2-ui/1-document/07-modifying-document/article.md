@@ -387,7 +387,7 @@ function getListContent() {
 }
 
 *!*
-ul.append(...getListContent()); // append 메서드와 ...(전개 문법)은 궁합이 잘 맞습니다.
+ul.append(...getListContent()); // append 메서드와 ...(전개 구문)은 궁합이 잘 맞습니다.
 */!*
 </script>
 ```
