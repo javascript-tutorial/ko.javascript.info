@@ -14,4 +14,4 @@ while (i < 11) {
 
 이런 일이 발생하는 이유는 `0.2`와 같은 분수를 더할 때 정밀도 손실이 발생하기 때문입니다.
 
-Conclusion: evade equality checks when working with decimal fractions.
+그러므로 소수나 분수를 대상으로 작업 할 땐 등호 비교를 피하세요.
