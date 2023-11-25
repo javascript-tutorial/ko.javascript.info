@@ -311,7 +311,7 @@ user.sayNow("Hello");
 - `partial`을 호출할 때 받은 인수(`"10:00"`)는 `...argsBound`에 전달됩니다.
 - 래퍼에 전달된 인수(`"Hello"`)는 `...args`가 됩니다.
 
-전개 문법 덕분에 이 모든 과정이 쉬워졌습니다.
+전개 구문 덕분에 이 모든 과정이 쉬워졌습니다.
 
 lodash 라이브러리의 [_.partial](https://lodash.com/docs#partial)을 사용하면 컨텍스트 없는 부분 적용을 직접 구현하지 않아도 됩니다.
 

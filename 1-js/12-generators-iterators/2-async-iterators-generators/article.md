@@ -121,15 +121,15 @@ let range = {
 | 반복 작업을 위해 사용하는 반복문                          | `for..of`         | `for await..of` |
 
 
-````warn header="전개 문법 `...`은 비동기적으로 동작하지 않습니다."
+````warn header="전개 구문 `...`은 비동기적으로 동작하지 않습니다."
 일반적인 동기 이터레이터가 필요한 기능은 비동기 이터레이터와 함께 사용할 수 없습니다.
 
-전개 문법은 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
+전개 구문은 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
 ```js
 alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```
 
-전개 문법은 `await`가 없는 `for..of`와 마찬가지로, `Symbol.asyncIterator`가 아닌 `Symbol.iterator`를 찾기 때문에 에러가 발생하는 것은 당연합니다.
+전개 구문은 `await`가 없는 `for..of`와 마찬가지로, `Symbol.asyncIterator`가 아닌 `Symbol.iterator`를 찾기 때문에 에러가 발생하는 것은 당연합니다.
 ````
 
 ## async 제너레이터
