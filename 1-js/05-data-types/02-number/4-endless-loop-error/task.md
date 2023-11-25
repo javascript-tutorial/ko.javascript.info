@@ -2,7 +2,7 @@ importance: 4
 
 ---
 
-# An occasional infinite loop
+# 무한 루프
 
 This loop is infinite. It never ends. Why?
 
