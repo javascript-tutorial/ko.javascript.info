@@ -2,9 +2,9 @@ importance: 4
 
 ---
 
-# An occasional infinite loop
+# 무한 루프
 
-This loop is infinite. It never ends. Why?
+아래 반복문은 무한대로 작동합니다. 왜 그럴까요?
 
 ```js
 let i = 0;

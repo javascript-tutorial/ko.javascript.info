@@ -1,6 +1,6 @@
-That's because `i` would never equal `10`.
+`i`는 절대 `10`이 될 수 없어서 무한 루프가 발생합니다.
 
-Run it to see the *real* values of `i`:
+코드를 실행해 실제 `i` 값을 확인해 봅시다.
 
 ```js run
 let i = 0;
@@ -10,8 +10,8 @@ while (i < 11) {
 }
 ```
 
-None of them is exactly `10`.
+어떤 경우에도 `i`는 `10`이 될 수 없습니다.
 
-Such things happen because of the precision losses when adding fractions like `0.2`.
+이런 일이 발생하는 이유는 `0.2`와 같은 분수를 더할 때 정밀도 손실이 발생하기 때문입니다.
 
-Conclusion: evade equality checks when working with decimal fractions.
+그러므로 소수나 분수를 대상으로 작업 할 땐 등호 비교를 피하세요.
