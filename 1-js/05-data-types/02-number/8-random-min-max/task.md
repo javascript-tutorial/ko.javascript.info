@@ -11,7 +11,7 @@ Write the function `random(min, max)` to generate a random floating-point number
 Examples of its work:
 
 ```js
-alert(random(1, 5)); // 1.2345623452
-alert(random(1, 5)); // 3.7894332423
-alert(random(1, 5)); // 4.3435234525
+alert( random(1, 5) ); // 1.2345623452
+alert( random(1, 5) ); // 3.7894332423
+alert( random(1, 5) ); // 4.3435234525
 ```
