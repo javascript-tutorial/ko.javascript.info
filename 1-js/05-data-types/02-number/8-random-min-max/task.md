@@ -8,7 +8,7 @@ The built-in function `Math.random()` creates a random value from `0` to `1` (no
 
 Write the function `random(min, max)` to generate a random floating-point number from `min` to `max` (not including `max`).
 
-Examples of its work:
+예시를 살펴봅시다.
 
 ```js
 alert( random(1, 5) ); // 1.2345623452
