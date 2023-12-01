@@ -4,7 +4,7 @@ importance: 2
 
 # min과 max 사이에 있는 임의의 숫자 생성하기
 
-The built-in function `Math.random()` creates a random value from `0` to `1` (not including `1`).
+내장 함수 `Math.random()`은 `0`부터 `1`까지의(`1`은 포함되지 않음) 랜덤한 값을 생성합니다.
 
 `random(min, max)`함수를 작성하여 `min`부터 `max`까지 임의의 부동 소수점 숫자를 생성합니다(`max`는 포함되지 않음).
 
