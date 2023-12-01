@@ -1,4 +1,4 @@
-We need to "map" all values from the interval 0..1 into values from `min` to `max`.
+우리는 0부터 1까지의 모든 값을 `최소값`부터 `최대값`까지의 "매핑"해야합니다.
 
 That can be done in two stages:
 
