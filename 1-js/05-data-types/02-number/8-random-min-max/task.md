@@ -6,7 +6,7 @@ importance: 2
 
 The built-in function `Math.random()` creates a random value from `0` to `1` (not including `1`).
 
-Write the function `random(min, max)` to generate a random floating-point number from `min` to `max` (not including `max`).
+`random(min, max)`함수를 작성하여 `min`부터 `max`까지 임의의 부동 소수점 숫자를 생성합니다(`max`는 포함되지 않음).
 
 예시를 살펴봅시다.
 
