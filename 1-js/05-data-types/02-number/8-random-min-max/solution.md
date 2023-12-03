@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 우리는 0부터 1까지의 모든 값을 `min`부터 `max`까지의 범위로 '매핑' 해야합니다.
-=======
-우리는 0부터 1까지의 모든 값을 `최소값`부터 `최대값`까지의 "매핑"해야합니다.
->>>>>>> 3c18ad2f00579538cb2f5cd25ac499785469103e
 
 That can be done in two stages:
 
@@ -16,8 +12,7 @@ function random(min, max) {
   return min + Math.random() * (max - min);
 }
 
-alert( random(1, 5) ); 
-alert( random(1, 5) ); 
-alert( random(1, 5) ); 
+alert(random(1, 5));
+alert(random(1, 5));
+alert(random(1, 5));
 ```
-
