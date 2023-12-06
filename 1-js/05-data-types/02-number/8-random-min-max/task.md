@@ -2,7 +2,7 @@ importance: 2
 
 ---
 
-# A random number from min to max
+# min과 max 사이에 있는 임의의 숫자 생성하기
 
 The built-in function `Math.random()` creates a random value from `0` to `1` (not including `1`).
 
