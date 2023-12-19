@@ -1,6 +1,6 @@
 
-We should use two handlers: `document.onkeydown` and `document.onkeyup`.
+우리는 `document.onkeydown` 과 `document.onkeyup`의 두 가지 핸들러를 사용해야 합니다.
 
-Let's create a set `pressed = new Set()` to keep currently pressed keys.
+현재 누른 키를 유지할 수 있도록 `pressed = new Set()` 세트를 만듭니다.
 
-The first handler adds to it, while the second one removes from it. Every time on `keydown` we check if we have enough keys pressed, and run the function if it is so.
+첫 번째 핸들러가 추가되고 두 번째 핸들러는 제거됩니다. `keydown`을 할 때마다 충분한 키를 눌렀는지 확인하고, 그 경우에 함수를 실행합니다.
