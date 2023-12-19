@@ -1,6 +1,6 @@
-# A match for /d+? d+?/
+# /d+? d+?/와 일치하는 것은 무엇일까요?
 
-What's the match here?
+여기서 어떤 것들이 일치할까요?
 
 ```js
 "123 456".match(/\d+? \d+?/g); // ?
