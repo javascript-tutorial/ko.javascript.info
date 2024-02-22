@@ -85,7 +85,7 @@ function highlight(td) {
 
 따라서 `table.onclick` 핸들러에서 `event.target`을 이용해 클릭 이벤트가 `<td>`안쪽에서 일어났는지 아닌지를 알아내야 합니다.
 
-이런 단점을 고려하여 개선된 코드는 아래와 같습니다.
+개선된 코드는 아래와 같습니다.
 
 ```js
 table.onclick = function(event) {
