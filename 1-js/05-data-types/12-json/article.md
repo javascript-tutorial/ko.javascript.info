@@ -178,7 +178,7 @@ JSON.stringify(meetup); // Error: Converting circular structure to JSON
 `JSON.stringify`의 전체 문법은 아래와 같습니다.
 
 ```js
-let json = JSON.stringify(value[, replacer, space])
+let json = JSON.stringify(value, [replacer, space])
 ```
 
 value
