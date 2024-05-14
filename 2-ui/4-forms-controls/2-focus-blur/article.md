@@ -90,17 +90,17 @@
 
 여기서 주의해야 할 점은 `onblur`는 요소가 포커스를 잃고 난 *후*에 발생하기 때문에 `onblur` 안에서 `event.preventDefault()`를 호출해 포커스를 잃게 하는걸 '막을 수 없다'라는 사실입니다. 
 
-```warn header="JavaScript-initiated focus loss"
-A focus loss can occur for many reasons.
+```warn header="자바스크립트로 인한 포커스 해제"
+포커스 해제가 일어나는 이유는 다양합니다. 
 
-One of them is when the visitor clicks somewhere else. But also JavaScript itself may cause it, for instance:
+그중 하나는 사용자가 다른 곳을 클릭했을 때입니다. 하지만 자바스크립트 자체가 포커스 해제를 일으킬 수도 있습니다. 몇 가지 예시를 들어보겠습니다. 
 
-- An `alert` moves focus to itself, so it causes the focus loss at the element (`blur` event), and when the `alert` is dismissed, the focus comes back (`focus` event).
-- If an element is removed from DOM, then it also causes the focus loss. If it is reinserted later, then the focus doesn't return.
+- `alert`는 포커스를 자신에게 이동시키기 때문에 요소가 포커스를 잃게 되고(`blur` 이벤트), `alert` 창이 취소되었을 때 포커스를 다시 기존 요소로 돌려놓습니다(`focus` 이벤트).
+- 해당 요소가 DOM에서 삭제되었을 때도 포커스 해제가 일어납니다. 나중에 요소를 DOM에 다시 삽입해도 포커스는 돌아오지 않습니다.
 
-These features sometimes cause `focus/blur` handlers to misbehave -- to trigger when they are not needed.
+이러한 특징으로 인해 가끔 `focus`와 `blur` 핸들러가 필요 없을 때 트리거 할 수 있습니다.
 
-The best recipe is to be careful when using these events. If we want to track user-initiated focus-loss, then we should avoid causing it ourselves.
+최선의 방안은 이런 이벤트를 사용할 때 주의하는 것입니다. 사용자의 포커스 해제를 추적하고 싶다면 웹 페이지 자체가 포커스 해제를 일으키지 않아야 합니다.
 ```
 ## tabindex를 사용해서 모든 요소 포커스 하기
 
