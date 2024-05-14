@@ -1,13 +1,14 @@
 
-# Template element
+# 템플릿 요소
 
-A built-in `<template>` element serves as a storage for HTML markup templates. The browser ignores it contents, only checks for syntax validity, but we can access and use it in JavaScript, to create other elements.
+내장 요소인  `<template>` 은 HTML 마크업 템플릿의 저장소 역할을 합니다. 브라우저는 템플릿 요소(template element)의 콘텐츠를 무시하고 문법의 유효성만을 검사하지만, 자바스크립트에서 템플릿 요소에 접근하여 다른 요소를 생성하기 위해 사용할 수 있습니다.
 
-In theory, we could create any invisible element somewhere in HTML for HTML markup storage purposes. What's special about `<template>`?
+이론적으로 어떤 보이지 않는 요소든 HTML 내부에 생성하여 HTML 마크업을 저장해 둘 수 있습니다. 그러면 `<template>`은 무엇이 특별한 걸까요?
 
-First, its content can be any valid HTML, even if it normally requires a proper enclosing tag.
+우선, 템플릿 요소의 콘텐츠로는 유효한 HTML이라면 무엇이든 들어갈 수 있습니다. 일반적으로는 특정 태그가 감싸고 있어야 하더라도 말이죠.
 
-For example, we can put there a table row `<tr>`:
+예를 들어 템플릿 요소 안에는 테이블 행 태그인  `<tr>`을 넣을 수 있습니다.
+
 ```html
 <template>
   <tr>
@@ -16,9 +17,9 @@ For example, we can put there a table row `<tr>`:
 </template>
 ```
 
-Usually, if we try to put `<tr>` inside, say, a `<div>`, the browser detects the invalid DOM structure and "fixes" it, adds `<table>` around. That's not what we want. On the other hand, `<template>` keeps exactly what we place there.
+보통  `<div>` 안에 `<tr>`를 삽입하려고 하면, 브라우저는 유효하지 않은 DOM 구조를 탐지하고 이를 감싸는 `<table>`을 추가하여 '고쳐'줍니다. 의도한 바와 달라지게 되죠. 반면 `<template>`은 내부에 작성한 내용을 그대로 유지해줍니다.
 
-We can put styles and scripts into `<template>` as well:
+스타일과 스크립트 또한 `<template>` 안에 들어갈 수 있습니다.
 
 ```html
 <template>
@@ -31,17 +32,17 @@ We can put styles and scripts into `<template>` as well:
 </template>
 ```
 
-The browser considers `<template>` content "out of the document": styles are not applied, scripts are not executed, `<video autoplay>` is not run, etc.
+브라우저는 `<template>` 콘텐츠를 '문서에 포함되지 않는 것'으로 인식합니다. 스타일을 적용하지 않고, 스크립트를 실행하지 않으며  `<video autoplay>`도 작동시키지 않죠.
 
-The content becomes live (styles apply, scripts run etc) when we insert it into the document.
+템플릿 요소의 콘텐츠는 문서 내부로 삽입될 때 스타일이 적용되고 스크립트가 실행되는 등 살아있게 됩니다.
 
-## Inserting template
+## 템플릿 삽입하기
 
-The template content is available in its `content` property as a [DocumentFragment](info:modifying-document#document-fragment) -- a special type of DOM node.
+템플릿 요소의 콘텐츠는 `content` 프로퍼티를 통해 특별한 유형의 DOM 노드인 [DocumentFragment](info:modifying-document#document-fragment)로서 사용할 수 있습니다.
 
-We can treat it as any other DOM node, except one special property: when we insert it somewhere, its children are inserted instead.
+템플릿 요소는 한 가지 특별한 특징을 제외하고 다른 DOM 노드처럼 다룰 수 있습니다. 템플릿 요소를 문서 내에 삽입하면 자식이 대신 삽입된다는 특징 말이죠.
 
-For example:
+예시:
 
 ```html run
 <template id="tmpl">
@@ -55,16 +56,16 @@ For example:
   let elem = document.createElement('div');
 
 *!*
-  // Clone the template content to reuse it multiple times
+  // 여러 번 재사용할 수 있도록 템플릿 콘텐츠를 복제합니다.
   elem.append(tmpl.content.cloneNode(true));
 */!*
 
   document.body.append(elem);
-  // Now the script from <template> runs
+  // 이제 <template>의 스크립트가 실행됩니다.
 </script>
 ```
 
-Let's rewrite a Shadow DOM example from the previous chapter using `<template>`:
+이전 챕터의 Shadow DOM 예시를 `<template>`을 이용하여 다시 작성해봅시다.
 
 ```html run untrusted autorun="no-epub" height=60
 <template id="tmpl">
@@ -87,9 +88,9 @@ Let's rewrite a Shadow DOM example from the previous chapter using `<template>`:
 </script>
 ```
 
-In the line `(*)` when we clone and insert `tmpl.content`, as its `DocumentFragment`, its children (`<style>`, `<p>`) are inserted instead.
+`(*)` 로 표시한 줄에서 `tmpl.content`를 `DocumentFragment` 로서 복제하고 삽입하면, 자식인 `<style>`, `<p>`가 대신 삽입됩니다.
 
-They form the shadow DOM:
+삽입된 템플릿 요소의 자식은 shadow DOM을 구성합니다.
 
 ```html
 <div id="elem">
@@ -99,18 +100,19 @@ They form the shadow DOM:
 </div>
 ```
 
-## Summary
+## 요약
 
-To summarize:
+템플릿 요소에 대한 내용을 요약하자면 다음과 같습니다.
 
-- `<template>` content can be any syntactically correct HTML.
-- `<template>` content is considered "out of the document", so it doesn't affect anything.
-- We can access `template.content` from JavaScript, clone it to reuse in a new component.
+- `<template>` 콘텐츠는 문법적으로 유효한 어떤 HTML도 될 수 있습니다.
+- `<template>` 콘텐츠는 '문서에 포함되지 않는 것'으로 인식되므로, 문서에 어떠한 영향도 끼치지 않습니다.
+- 자바스크립트에서 `template.content`에 접근하여, 콘텐츠를 복제하고 새로운 요소에 재사용할 수 있습니다.
 
-The `<template>` tag is quite unique, because:
+ `<template>` 태그가 특별한 이유는 다음과 같습니다.
 
-- The browser checks HTML syntax inside it (as opposed to using a template string inside a script).
-- ...But still allows use of any top-level HTML tags, even those that don't make sense without proper wrappers (e.g. `<tr>`).
-- The content becomes interactive: scripts run, `<video autoplay>` plays etc, when inserted into the document.
+- 브라우저는 태그 내부의 HTML 문법을 검사합니다. 스크립트 내에서 템플릿 리터럴을 사용하는 경우와 대조적입니다.
+- 하지만 어떤 최상위 HTML 태그도 사용할 수 있고, `<tr>`의 예시처럼 적절한 래퍼 태그가 없는 경우도 허용됩니다.
+- 템플릿 요소의 콘텐츠는 문서에 삽입되어야 스크립트가 실행되고 `<video autoplay>`가 작동하는 등, 상호작용할 수 있게 됩니다.
 
-The `<template>` element does not feature any iteration mechanisms, data binding or variable substitutions, but we can implement those on top of it.
+`<template>` 요소는 반복 매커니즘(iteration mechanisms), 데이터 바인딩(data binding) 또는 변수 대체(variable substitutions) 등의 기능을 가지고 있지 않지만 구현하여 사용할 수 있습니다.
+
