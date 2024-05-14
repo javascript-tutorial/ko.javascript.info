@@ -1,12 +1,12 @@
-In the task <info:task/animate-ball> we had only one property to animate. Now we need one more: `elem.style.left`.
+<info:task/animate-ball> 과제에서는 애니메이션 효과를 주는 프로퍼티가 오직 한개 존재했습니다. 이제 `elem.style.left`라는 하나의 프로퍼티가 더 필요합니다.
 
-The horizontal coordinate changes by another law: it does not "bounce", but gradually increases shifting the ball to the right.
+튀어 오르지 않지만 공이 서서히 오른쪽으로 이동하는 또 다른 규칙에 의해 수평좌표가 바뀝니다.
 
-We can write one more `animate` for it.
+오른쪽으로 움직이는 것을 위한 `animate`를 하나 더 사용할 수 있습니다.
 
-As the time function we could use `linear`, but something like `makeEaseOut(quad)` looks much better.
+time function으로 `linear`을 사용할 수 있지만 `makeEaseOut(quad)`같은 것을 사용하는게 더 좋을 것 같습니다.
 
-The code:
+코드는 다음과 같습니다.
 
 ```js
 let height = field.clientHeight - ball.clientHeight;
