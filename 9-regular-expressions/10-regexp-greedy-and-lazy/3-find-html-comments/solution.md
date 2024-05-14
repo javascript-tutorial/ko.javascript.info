@@ -1,8 +1,8 @@
-We need to find the beginning of the comment `match:<!--`, then everything till the end of `match:-->`.
+주석의 시작 `match:<!--`부터, `match:-->`로 끝나는 모든 것을 찾아야 합니다.
 
-An acceptable variant is `pattern:<!--.*?-->` -- the lazy quantifier makes the dot stop right before `match:-->`. We also need to add flag `pattern:s` for the dot to include newlines.
+게으른 수량자(가능한 한 적게 찾는 - 옮긴이)는 점이 `match:-->`직전에 멈추게 하므로 허용할 수 있는 변형은 `pattern:<!--.*?-->`입니다. 또한, 점이 줄 바꿈을 포함할 수 있도록 `pattern:s`플래그를 추가합니다.
 
-Otherwise multiline comments won't be found:
+그렇지 않으면, 여러 줄로 구성된 주석들을 찾을 수 없습니다.
 
 ```js run
 let regexp = /<!--.*?-->/gs;
