@@ -1,6 +1,6 @@
-The result is: **error**.
+결과는 에러입니다.
 
-Try running it:
+실행해 보세요:
 
 ```js run
 let x = 1;
@@ -15,20 +15,20 @@ function func() {
 func();
 ```
 
-In this example we can observe the peculiar difference between a "non-existing" and "uninitialized" variable.
+이 예제에서는 "존재하지 않는" 변수와 "초기화되지 않은" 변수의 특이한 차이를 관찰할 수 있습니다.
 
-As you may have read in the article [](info:closure), a variable starts in the "uninitialized" state from the moment when the execution enters a code block (or a function). And it stays uninitalized until the corresponding `let` statement.
+[](info:closure)에서 읽은 것처럼 실행이 코드 블록(또는 함수)에 들어가는 순간부터 변수는 "초기화되지 않은' 상태에서 시작합니다. 그리고 해당 `let` 문이 실행될 때까지 초기화되지 않은 상태로 남아 있습니다.
 
-In other words, a variable technically exists, but can't be used before `let`.
+즉, 기술적으로 변수는 존재하지만 `let` 전에 사용할 수 없습니다.
 
-The code above demonstrates it.
+위의 코드는 이를 잘 보여줍니다.
 
 ```js
 function func() {
 *!*
-  // the local variable x is known to the engine from the beginning of the function,
-  // but "unitialized" (unusable) until let ("dead zone")
-  // hence the error
+  // 로컬 변수 x는 함수가 시작될 때부터 엔진이 알고 있지만
+  // let 문이 실행될 때까지 "초기화되지 않은" 상태입니다 ("dead zone").
+  // 따라서 에러가 발생합니다.
 */!*
 
   console.log(x); // ReferenceError: Cannot access 'x' before initialization
@@ -37,4 +37,4 @@ function func() {
 }
 ```
 
-This zone of temporary unusability of a variable (from the beginning of the code block till `let`) is sometimes called the "dead zone".
+이 변수의 일시적 사용 불가능 구역 (코드 블록의 시작부터 `let`이 나올 때까지) "dead zone"이라 불리곤 합니다.
