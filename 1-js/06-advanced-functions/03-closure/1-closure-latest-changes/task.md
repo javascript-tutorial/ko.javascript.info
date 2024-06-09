@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Does a function pickup latest changes?
+# 함수가 최신 변경사항을 반영할까요??
 
-The function sayHi uses an external variable name. When the function runs, which value is it going to use?
+함수 sayHi는 외부 변수 name을 사용합니다. 함수가 실행될 때 어떤 값을 사용할까요?
 
 ```js
 let name = "John";
@@ -15,9 +15,9 @@ function sayHi() {
 
 name = "Pete";
 
-sayHi(); // what will it show: "John" or "Pete"?
+sayHi(); // 뭐가 나올까요?: "John" 아니면 "Pete"?
 ```
 
-Such situations are common both in browser and server-side development. A function may be scheduled to execute later than it is created, for instance after a user action or a network request.
+이런 상황은 브라우저와 서버 개발 모두에서 흔하게 발생합니다. 함수는 사용자 작업이나 네트워크 요청 이후 등 생성된 것보다 나중에 실행되도록 예약될 수 있습니다.
 
-So, the question is: does it pick up the latest changes?
+그래서, 이 함수가 최신 변경사항을 반영할까요?

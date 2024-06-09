@@ -2,9 +2,9 @@ importance: 4
 
 ---
 
-# Is variable visible?
+# 변수가 보일까요?
 
-What will be the result of this code?
+다음 코드의 결과는 무엇일까요?
 
 ```js
 let x = 1;
@@ -18,4 +18,4 @@ function func() {
 func();
 ```
 
-P.S. There's a pitfall in this task. The solution is not obvious.
+P.S. 이 문제에는 함정이 있습니다. 해결 방법이 명확하지 않습니다.
