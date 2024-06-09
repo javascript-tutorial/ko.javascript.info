@@ -1,5 +1,5 @@
-The answer is: **Pete**.
+정답은 **Pete**입니다.
 
-A function gets outer variables as they are now, it uses the most recent values.
+함수는 외부 변수의 지금 값 즉, 가장 최근의 값을 사용합니다.
 
-Old variable values are not saved anywhere. When a function wants a variable, it takes the current value from its own Lexical Environment or the outer one.
+이전 변수의 값은 어디에도 저장되지 않습니다. 함수가 변수를 찾을 때는 해당 함수의 렉시컬 환경 또는 외부 렉시컬 환경에서 현재 값을 가져옵니다.
