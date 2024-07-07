@@ -3,9 +3,8 @@
 본 저장소에선 <https://javascript.info>의 내용을 영-한 번역하여 한국어가 모국어인 개발자가 양질의 웹 개발 학습자료를 접할 수 있도록 하는데 목표를 두고 있습니다. 자세한 소개는 [링크](https://medium.com/@violetboralee/%EB%AA%A8%EB%8D%98-javascript-%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-4338630fef35)를 참고해주세요.
 
 ### 의사소통
-- [카카오톡 오픈채팅방](https://open.kakao.com/o/gSBnoLab)
-- [![Gitter](https://badges.gitter.im/javascript-tutorial/ko.javascript.info.svg)](https://gitter.im/javascript-tutorial/ko.javascript.info?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-- **양방향 소통**은 Gitter를 사용합니다. 카카오톡 오픈채팅방은 주요 공지사항을 **일방향**으로 전달하는 용도로 사용합니다. 
+- [모던웹개발연구소 디스코드](https://discord.gg/ZJ6gDAS4tk)의 '모던JAVASCRIPT튜토리얼' 카테고리 내 채널로 오시면 다양한 채널이 개설되어 있습니다. `학습-qna`, `메인테이너-qna` 채널 등 목적에 맞는 채널에 오셔서 소통해 주세요.
+
 
 ### 진행 상황
 번역이 진행되고 있는 언어 목록과 언어별 번역률은 <https://javascript.info/translate>에서 확인할 수 있습니다.
