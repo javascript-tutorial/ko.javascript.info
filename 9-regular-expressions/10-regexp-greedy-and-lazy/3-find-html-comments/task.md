@@ -1,6 +1,6 @@
-# Find HTML comments
+# HTML 주석들을 찾아보세요.
 
-Find all HTML comments in the text:
+문자열에서 모든 HTML 주석들을 찾아보세요.
 
 ```js
 let regexp = /your regexp/g;
