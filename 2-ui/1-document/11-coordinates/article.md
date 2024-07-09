@@ -135,7 +135,7 @@ alert(elem.tagName);
 
 ```js
 let elem = document.elementFromPoint(x, y);
-// 요소가 창 밖으로 나가면 lem = null
+// 요소가 창 밖으로 나가면 elem = null
 *!*
 elem.style.background = ''; // 에러!
 */!*
@@ -199,7 +199,7 @@ setTimeout(() => message.remove(), 5000);
 
 CSS와 비교하자면 창 기준 좌표는 `position:fixed`에 해당하고 문서 기준 좌표는 맨 위 기준 `position:absolute`와 비슷합니다.
 
-문서 내 특정 좌표에 무언가를 위치시키고 싶을 땐 `position:absolute`와 `top, `left`를 사용하면 스크롤 이동에 상관없이 해당 요소를 한 좌표에 머물게 할 수 있습니다. 그러려면 우선 정확한 좌표가 필요합니다.
+문서 내 특정 좌표에 무언가를 위치시키고 싶을 땐 `position:absolute`와 `top/left`를 사용하면 스크롤 이동에 상관없이 해당 요소를 한 좌표에 머물게 할 수 있습니다. 그러려면 우선 정확한 좌표가 필요합니다.
 
 그런데 요소의 문서 기준 좌표를 제공하는 표준 메서드가 아직 없습니다. 하지만 아주 쉽게 코드를 작성할 수 있습니다.
 
