@@ -2,19 +2,19 @@ importance: 5
 
 ---
 
-# Drag superheroes around the field
+# 필드 주위로 슈퍼 히어로 드래그하기
 
-This task can help you to check understanding of several aspects of Drag'n'Drop and DOM.
+이 작업을 통해 드래그 앤 드롭 및 DOM의 여러 측면에 대한 이해도를 확인할 수 있습니다.
 
-Make all elements with class `draggable` -- draggable. Like a ball in the chapter.
+`draggable`클래스의 모든 요소를 드래그할 수 있게 만들어주세요. 이번 장에서 배운 공처럼요.
 
-Requirements:
+요구 사항:
 
-- Use event delegation to track drag start: a single event handler on `document` for `mousedown`.
-- If elements are dragged to top/bottom window edges -- the page scrolls up/down to allow further dragging.
-- There is no horizontal scroll (this makes the task a bit simpler, adding it is easy).
-- Draggable elements or their parts should never leave the window, even after swift mouse moves.
+- 이벤트 위임을 사용하여 드래그 시작을 추적합니다. `mousedown`는 `document`의 단일 이벤트 핸들러입니다.
+- 요소를 위·아래쪽 창 가장자리로 드래그하면 페이지가 위·아래로 스크롤 되어 추가로 드래그할 수 있습니다.
+- 수평 방향 스크롤은 없습니다(이렇게 하면 작업이 간단해져 쉽게 추가할 수 있음).
+- 드래그할 수 있는 요소 또는 그 부분은 마우스를 빠르게 움직인 후에도 창을 벗어나지 않아야 합니다.
 
-The demo is too big to fit it here, so here's the link.
+데모 용량이 큰 관계로 링크로 참조합니다.
 
 [demo src="solution"]
