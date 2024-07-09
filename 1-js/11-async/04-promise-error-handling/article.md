@@ -13,7 +13,7 @@ fetch('https://no-such-server.blabla') // 거부
   .catch(err => alert(err)) // TypeError: failed to fetch (출력되는 내용은 다를 수 있음)
 ```
 
-예시에서 보듯 `.catch`는 첫번째 핸들러일 필요가 없고 하나 혹은 여러 개의 `.then` 뒤에 올 수 있습니다.
+예시에서 보듯 `.catch`는 첫 번째 핸들러일 필요가 없고 하나 혹은 여러 개의 `.then` 뒤에 올 수 있습니다.
 
 이번엔 사이트에는 아무런 문제가 없지만 응답으로 받은 JSON의 형식이 잘못된 경우를 살펴봅시다. 가장 쉬운 에러 처리 방법은 체인 끝에 `.catch`를 붙이는 것입니다.
 
