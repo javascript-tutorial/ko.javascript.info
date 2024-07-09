@@ -1,33 +1,33 @@
 
-# Escaping, special characters
+# 이스케이핑(Escaping), 특수 문자들
 
-As we've seen, a backslash `pattern:\` is used to denote character classes, e.g. `pattern:\d`. So it's a special character in regexps (just like in regular strings).
+우리가 보았듯이, 역슬래시 `\` 는 문자 클래스들을 표시하기 위해 사용됩니다, 예시. `\d`. 따라서 이것은 정규식에서 특수 문자입니다 (정규 문자열에서와 같이)
 
-There are other special characters as well, that have special meaning in a regexp. They are used to do more powerful searches. Here's a full list of them: `pattern:[ \ ^ $ . | ? * + ( )`.
+정규식에서 특수한 의미를 갖는 다른 특수 문자들도 있습니다. 이 특수 문자들은 강력한 검색을 합니다. 특수 문자들의 총목록: `[ \ ^ $ . | ? * + ( )`.
 
-Don't try to remember the list -- soon we'll deal with each of them separately and you'll know them by heart automatically.
+이 목록을 모두 암기하려 하지 마세요. -- 우리는 이것들을 하나씩 다룰 것이기 때문에 자연스럽게 습득할 수 있을 것 입니다. 
 
-## Escaping
+## 이스케이핑(Escaping)
 
-Let's say we want to find literally a dot. Not "any character", but just a dot.
+우리가 문자 그대로 .(dot)을 찾고 싶다고 가정합시다. "아무 문자"가 아니라, 오직 .(dot)을 찾고 싶다고 가정합시다.
 
-To use a special character as a regular one, prepend it with a backslash: `pattern:\.`.
+특수 문자를 정규 문자로 사용하기 위해, 앞에 역스래시를 붙이세요: `\.`.
 
-That's also called "escaping a character".
+이것은 "문자를 이스케이핑(Escaping)하는 것"이라고도 부릅니다.
 
-For example:
+예를 들어:
 ```js run
 alert( "Chapter 5.1".match(/\d\.\d/) ); // 5.1 (match!)
 alert( "Chapter 511".match(/\d\.\d/) ); // null (looking for a real dot \.)
 ```
 
-Parentheses are also special characters, so if we want them, we should use `pattern:\(`. The example below looks for a string `"g()"`:
+괄호 역시 특수 문자이다. 따라서 우리가 괄호를 사용하려면 우리는 `\(`을 사용해야 한다. 아래 예제는 문자열`"g()"`:을 찾는다
 
 ```js run
 alert( "function g()".match(/g\(\)/) ); // "g()"
 ```
 
-If we're looking for a backslash `\`, it's a special character in both regular strings and regexps, so we should double it.
+만약 우리가 역슬래시 `\`를 찾고 있다면, 이것은 정규 문자열과 정규식에서 모두 특수 문자이기 때문에 우리는 역슬래시를 두 번 써야 합니다. 
 
 ```js run
 alert( "1\\2".match(/\\/) ); // '\'
