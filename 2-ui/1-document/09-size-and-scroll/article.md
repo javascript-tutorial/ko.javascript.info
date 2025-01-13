@@ -17,8 +17,8 @@
     width: 300px;
     height: 200px;
     border: 25px solid #E8C48F;
-    padding: 20px;              
-    overflow: auto;             
+    padding: 20px;
+    overflow: auto;
   }
 </style>
 ```
@@ -106,7 +106,11 @@ CSS `position` 프로퍼티가 설정되어있는 조상 요소가 없는 경우
 
 따라서 요소(혹은 이 요소의 조상 요소 중 어떤 것이든)의 CSS `display` 프로퍼티가 `none`이거나 문서 내에 해당 요소가 없으면 모든 기하 프로퍼티 값이 0이 됩니다(`offsetParent` 프로퍼티의 값은 `null`).
 
+<<<<<<< HEAD
 요소를 만들긴 했지만 아직 문서에 삽입하기 전이라던가, 새롭게 만든 요소의 `display` 프로퍼티가 `none`이면 기하 프로퍼티 값은 0, `offsetParent` 프로퍼티의 값은 `null`이 되는 것이죠.
+=======
+For example, `offsetParent` is `null`, and `offsetWidth`, `offsetHeight` are `0` when we created an element, but haven't inserted it into the document yet, or it (or its ancestor) has `display:none`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 이런 특징을 이용하면 요소의 숨김 상태 여부를 아래 같은 방법으로 확인할 수 있습니다.
 
@@ -116,7 +120,11 @@ function isHidden(elem) {
 }
 ```
 
+<<<<<<< HEAD
 참고로 `isHidden`은 요소가 화면에 있긴 하지만 사이즈가 0일 때(비어있는 `<div>` 등)도 `true`를 반환하기 때문에 주의해서 사용해야 합니다.
+=======
+Please note that such `isHidden` returns `true` for elements that are on-screen, but have zero sizes.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ````
 
 ## clientTop과 clientLeft

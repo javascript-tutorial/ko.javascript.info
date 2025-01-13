@@ -47,7 +47,11 @@ HTML에 `form` 요소가 있는 경우, 위와 같은 코드를 작성하면 해
 </script>
 ```
 
+<<<<<<< HEAD
 요청을 받아 처리하는 서버 측 코드는 튜토리얼 범위를 넘어서서 추가하진 않았는데, 서버는 POST 요청을 받아 '저장 성공'이라는 응답을 보내준다고 정도만 알고 계시면 됩니다.
+=======
+In this example, the server code is not presented, as it's beyond our scope. The server accepts the POST request and replies "User saved".
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## FormData 메서드
 
@@ -168,7 +172,11 @@ formData.append("image", imageBlob, "image.png");
 
 [FormData](https://xhr.spec.whatwg.org/#interface-formdata) 객체는 `fetch` 등의 네트워크 메서드를 통해 HTML 폼을 보내는데 사용됩니다.
 
+<<<<<<< HEAD
 `FormData` 객체는 HTML 폼(`form`)을 직접 넘겨 `new FormData(form)`으로 만들 수도 있고, HTML 폼 없이 다음과 같은 메서드로 필드를 추가해 만들 수도 있습니다.
+=======
+We can either create `new FormData(form)` from an HTML form, or create an object without a form at all, and then append fields with methods:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 - `formData.append(name, value)`
 - `formData.append(name, blob, fileName)`

@@ -27,7 +27,11 @@ alert(user); // {name: "John", age: 30}
 
 ## JSON.stringify
 
+<<<<<<< HEAD
 [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)은 값이나 객체를 나타내주는 범용 포맷으로, [RFC 4627](http://tools.ietf.org/html/rfc4627) 표준에 정의되어 있습니다. JSON은 본래 자바스크립트에서 사용할 목적으로 만들어진 포맷입니다. 그런데 라이브러리를 사용하면 자바스크립트가 아닌 언어에서도 JSON을 충분히 다룰 수 있어서, JSON을 데이터 교환 목적으로 사용하는 경우가 많습니다. 특히 클라이언트 측 언어가 자바스크립트일 때 말이죠. 서버 측 언어는 무엇이든 상관없습니다. 
+=======
+The [JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](https://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well.  So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 자바스크립트가 제공하는 JSON 관련 메서드는 아래와 같습니다.
 
@@ -41,7 +45,7 @@ let student = {
   age: 30,
   isAdmin: false,
   courses: ['html', 'css', 'js'],
-  wife: null
+  spouse: null
 };
 
 *!*
@@ -58,7 +62,7 @@ alert(json);
   "age": 30,
   "isAdmin": false,
   "courses": ["html", "css", "js"],
-  "wife": null
+  "spouse": null
 }
 */
 */!*
@@ -104,9 +108,15 @@ JSON은 데이터 교환을 목적으로 만들어진 언어에 종속되지 않
 
 `JSON.stringify` 호출 시 무시되는 프로퍼티는 아래와 같습니다.
 
+<<<<<<< HEAD
 - 함수 프로퍼티 (메서드)
 - 심볼형 프로퍼티 (키가 심볼인 프로퍼티)
 - 값이 `undefined`인 프로퍼티
+=======
+- Function properties (methods).
+- Symbolic keys and values.
+- Properties that store `undefined`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js run
 let user = {
@@ -276,6 +286,7 @@ name:         John
 name:         Alice
 place:        [object Object]
 number:       23
+occupiedBy: [object Object]
 */
 ```
 
@@ -327,7 +338,13 @@ alert(JSON.stringify(user, null, 2));
 */
 ```
 
+<<<<<<< HEAD
 이처럼 매개변수 `space`는 로깅이나 가독성을 높이는 목적으로 사용됩니다.
+=======
+The third argument can also be a string. In this case, the string is used for indentation instead of a number of spaces.
+
+The `space` parameter is used solely for logging and nice-output purposes.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## 커스텀 "toJSON"
 
@@ -401,7 +418,7 @@ alert( JSON.stringify(meetup) );
 
 문법:
 ```js
-let value = JSON.parse(str, [reviver]);
+let value = JSON.parse(str[, reviver]);
 ```
 
 str
@@ -447,7 +464,11 @@ let json = `{
 
 JSON은 주석을 지원하지 않는다는 점도 기억해 놓으시기 바랍니다. 주석을 추가하면 유효하지 않은 형식이 됩니다.
 
+<<<<<<< HEAD
 키를 큰따옴표로 감싸지 않아도 되고 주석도 지원해주는 [JSON5](http://json5.org/)라는 포맷도 있는데, 이 포맷은 자바스크립트 명세서에서 정의하지 않은 독자적인 라이브러리입니다.
+=======
+There's another format named [JSON5](https://json5.org/), which allows unquoted keys, comments etc. But this is a standalone library, not in the specification of the language.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 JSON 포맷이 까다로운 규칙을 가지게 된 이유는 개발자의 귀차니즘 때문이 아니고, 쉽고 빠르며 신뢰할 수 있을 만한 파싱 알고리즘을 구현하기 위해서입니다.
 

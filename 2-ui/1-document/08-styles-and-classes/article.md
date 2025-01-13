@@ -128,8 +128,21 @@ setTimeout(() => document.body.style.display = "", 1000); // 1초 후 다시 원
 
 이렇게 `style.display`에 빈 문자열을 할당하면 브라우저는 마치 처음부터 `style.display` 프로퍼티가 없었던 것처럼 CSS 클래스와 브라우저 내장 스타일을 페이지에 적용합니다.
 
+<<<<<<< HEAD
 ````smart header="`style.cssText`로 완전히 다시 쓰기"
 개별 스타일 프로퍼티를 적용할 때는 보통 `style.*`를 사용합니다. 그런데 `div.style` 은 객체이고 읽기 전용이기 때문에 `div.style="color: red; width: 100px"`같은 방식으론 전체 스타일을 설정할 수 없습니다.  
+=======
+Also there is a special method for that, `elem.style.removeProperty('style property')`. So, We can remove a property like this:
+
+```js run
+document.body.style.background = 'red'; //set background to red
+
+setTimeout(() => document.body.style.removeProperty('background'), 1000); // remove background after 1 second
+```
+
+````smart header="Full rewrite with `style.cssText`"
+Normally, we use `style.*` to assign individual style properties. We can't set the full style like `div.style="color: red; width: 100px"`, because `div.style` is an object, and it's read-only.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 문자열을 사용해 전체 스타일을 설정하려면 프로퍼티 `style.cssText`를 사용해야 합니다.
 
@@ -260,6 +273,7 @@ pseudo
 ````warn header="`getComputedStyle`엔 프로퍼티 전체 이름이 필요합니다."
 `getComputedStyle`을 사용할 때는 `paddingLeft`, `marginTop`, `borderTopWidth`같이 프로퍼티 이름 전체를 정확히 알고 있어야 합니다. 그렇지 않으면 원하는 값을 얻을 수 없는 경우가 생깁니다.
 
+<<<<<<< HEAD
 `paddingLeft`나 `paddingTop`엔 값이 지정되어있는데 `getComputedStyle(elem).padding`을 사용해 값을 얻으려 하는 경우를 생각해 봅시다. 어떤 값을 얻을 수 있을까요? 아무것도 얻지 못할까요 아니면 값이 설정되어 있는 `paddingLeft`나 `paddingTop`에서 값을 가져올까요? 이런 상황에 적용할만한 표준은 아직 제정되어있지 않습니다.
 
 따라서 브라우저마다 동작 방식이 다릅니다. Chrome 같은 몇몇 브라우저는 아래 예시와 같이 `10px`을 출력해주는데 Firefox에서 빈 문자열이 출력됩니다. 
@@ -275,6 +289,9 @@ pseudo
   alert(style.margin); // Firefox에선 빈 문자열이 출력됩니다.
 </script>
 ```
+=======
+For instance, if there are properties `paddingLeft/paddingTop`, then what should we get for `getComputedStyle(elem).padding`? Nothing, or maybe a "generated" value from known paddings? There's no standard rule here.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ````
 
 ```smart header="`:visited` 링크 관련 스타일은 숨겨져 있습니다."
