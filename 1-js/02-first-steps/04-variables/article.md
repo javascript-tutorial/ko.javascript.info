@@ -24,7 +24,11 @@ let message;
 let message;
 
 *!*
+<<<<<<< HEAD
 message = 'Hello'; // 문자열을 저장합니다.
+=======
+message = 'Hello'; // store the string 'Hello' in the variable named message
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 */!*
 ```
 
@@ -63,7 +67,12 @@ let age = 25;
 let message = 'Hello';
 ```
 
+<<<<<<< HEAD
 어떤 사람들은 이런 방식으로도 변수를 정의합니다.
+=======
+Some people also define multiple variables in this multiline style:
+
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ```js no-beautify
 let user = 'John',
   age = 25,
@@ -87,22 +96,37 @@ let user = 'John'
 *!*var*/!* message = 'Hello';
 ```
 
+<<<<<<< HEAD
 `var`는 `let`과 *거의* 동일하게 동작합니다. `var`도 `let`처럼 변수를 선언하는 데 쓰이죠. 다만 `var`는 '오래된' 방식입니다.
 
 `let`과 `var`의 미묘한 차이점에 대해선 추후 <info:var> 에서 자세히 다루도록 하겠습니다. 지금 시점에선 이 차이점이 중요하지 않기 때문에 넘어가도록 합시다.
+=======
+The `var` keyword is *almost* the same as `let`. It also declares a variable but in a slightly different, "old-school" way.
+
+There are subtle differences between `let` and `var`, but they do not matter to us yet. We'll cover them in detail in the chapter <info:var>.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ````
 
 ## 현실 속의 비유
 
 '상자' 안에 데이터를 저장하는데, 이 상자에는 특별한 이름표가 붙어 있다고 상상해 봅시다. 이렇게 하면 '변수'를 좀 더 쉽게 이해할 수 있습니다.
 
+<<<<<<< HEAD
 예를 들어, 변수 `message`는 `message`라는 이름표가 붙어있는 상자에 `"Hello!"`라는 값을 저장한 것이라고 생각할 수 있습니다.
+=======
+For instance, the variable `message` can be imagined as a box labelled `"message"` with the value `"Hello!"` in it:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ![](variable.svg)
 
 상자 속엔 어떤 값이든지 넣을 수 있습니다.
 
+<<<<<<< HEAD
 원하는 만큼 값을 변경할 수도 있습니다.
+=======
+We can also change it as many times as we want:
+
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ```js run
 let message;
 
@@ -148,12 +172,21 @@ let message = "That"; // SyntaxError: 'message' has already been declared
 따라서 변수는 딱 한 번만 선언하고, 선언한 변수를 참조할 때는 `let` 없이 변수명만 사용해 참조해야 합니다.
 ````
 
+<<<<<<< HEAD
 ```smart header="함수형 언어"
 [함수형(functional)](https://en.wikipedia.org/wiki/Functional_programming) 프로그래밍 언어는 변숫값 변경을 금지합니다. [스칼라(Scala)](http://www.scala-lang.org/)와 [얼랭(Erlang)](http://www.erlang.org/)은 대표적인 함수형 언어입니다.
+=======
+```smart header="Functional languages"
+It's interesting to note that there exist so-called [pure functional](https://en.wikipedia.org/wiki/Purely_functional_programming) programming languages, such as [Haskell](https://en.wikipedia.org/wiki/Haskell), that forbid changing variable values.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 이들 언어에서는 '상자 속에' 값이 일단 저장되면, 그 값을 영원히 유지합니다. 다른 값을 저장하고 싶다면 새로운 상자를 만들어야(새 변수를 선언해야)만 합니다. 이전 변수를 재사용할 수 없습니다.
 
+<<<<<<< HEAD
 처음 봤을 땐 좀 이상해 보일 수 있지만, 함수형 언어는 중대한 개발에 상당히 적합한 언어입니다. 이런 제약이 장점으로 작용하는 병렬 계산(parallel computation)과 같은 영역도 있죠. 당장은 사용할 계획이 없더라도 이런 언어를 공부하는 것은 시야를 넓히는 데 도움이 되므로, 학습을 권유 드립니다.
+=======
+Though it may seem a little odd at first sight, these languages are quite capable of serious development. More than that, there are areas like parallel computations where this limitation confers certain benefits.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ```
 
 ## 변수 명명 규칙
@@ -191,19 +224,32 @@ let 1a; // 변수명은 숫자로 시작해선 안 됩니다.
 let my-name; // 하이픈 '-'은 변수명에 올 수 없습니다.
 ```
 
+<<<<<<< HEAD
 ```smart header="대·소문자 구별"
 `apple`와 `AppLE`은 서로 다른 변수입니다.
 ```
 
 ````smart header="비 라틴계 언어도 변수명에 사용할 수 있지만 권장하진 않습니다."
 키릴 문자, 심지어 상형문자도 변수명에 사용할 수 있습니다. 모든 언어를 변수명에 사용할 수 있죠.
+=======
+```smart header="Case matters"
+Variables named `apple` and `APPLE` are two different variables.
+```
+
+````smart header="Non-Latin letters are allowed, but not recommended"
+It is possible to use any language, including Cyrillic letters, Chinese logograms and so on, like this:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js
 let имя = '...';
 let 我 = '...';
 ```
 
+<<<<<<< HEAD
 위 코드에는 기술적인 에러가 없습니다. 변수명도 유효합니다. 하지만 영어를 변수명에 사용하는 것이 국제적인 관습이므로, 변수명은 영어를 사용해서 만들길 권유 드립니다. 다른 나라 사람이 스크립트를 볼 경우 등을 대비해 장기적인 안목을 가지고 코드를 작성합시다.
+=======
+Technically, there is no error here. Such names are allowed, but there is an international convention to use English in variable names. Even if we're writing a small script, it may have a long life ahead. People from other countries may need to read it sometime.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ````
 
 ````warn header="예약어"
@@ -258,12 +304,20 @@ const myBirthday = '18.04.1982';
 myBirthday = '01.01.2001'; // error, can't reassign the constant!
 ```
 
+<<<<<<< HEAD
 변숫값이 절대 변경되지 않을 것이라 확신하면, 값이 변경되는 것을 방지하면서 다른 개발자들에게 이 변수는 상수라는 것을 알리기 위해 `const`를 사용해 변수를 선언하도록 합시다.
 
+=======
+When a programmer is sure that a variable will never change, they can declare it with `const` to guarantee and communicate that fact to everyone.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ### 대문자 상수
 
+<<<<<<< HEAD
 기억하기 힘든 값을 변수에 할당해 별칭으로 사용하는 것은 널리 사용되는 관습입니다.
+=======
+There is a widespread practice to use constants as aliases for difficult-to-remember values that are known before execution.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 이런 상수는 대문자와 밑줄로 구성된 이름으로 명명합니다.
 
@@ -288,16 +342,29 @@ alert(color); // #FF7F00
 
 그렇다면 언제 일반적인 방식으로 상수를 명명하고, 언제 대문자를 사용해서 명명해야 하는 걸까요? 명확히 짚고 넘어갑시다.
 
+<<<<<<< HEAD
 '상수'는 변수의 값이 절대 변하지 않음을 의미합니다. 그중에는 (빨간색을 나타내는 16진수 값처럼) 코드가 실행되기 전에 이미 그 값을 알고 있는 상수도 있고, 런타임 과정에서 *계산되지만* 최초 할당 이후 값이 변하지 않는 상수도 있습니다.
 
 예시:
+=======
+Being a "constant" just means that a variable's value never changes. But some constants are known before execution (like a hexadecimal value for red) and some constants are *calculated* in run-time, during the execution, but do not change after their initial assignment.
+
+For instance:
+
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 ```js
 const pageLoadTime = /* 웹페이지를 로드하는데 걸린 시간 */;
 ```
 
+<<<<<<< HEAD
 `pageLoadTime`의 값은 페이지가 로드되기 전에는 정해지지 않기 때문에 일반적인 방식으로 변수명을 지었습니다. 하지만 이 값은 최초 할당 이후에 변경되지 않으므로 여전히 상수입니다.
 
 정리하자면, 대문자 상수는 '하드 코딩한' 값의 별칭을 만들 때 사용하면 됩니다.
+=======
+The value of `pageLoadTime` is not known before the page load, so it's named normally. But it's still a constant because it doesn't change after the assignment.
+
+In other words, capital-named constants are only used as aliases for "hard-coded" values.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## 바람직한 변수명
 
@@ -305,18 +372,31 @@ const pageLoadTime = /* 웹페이지를 로드하는데 걸린 시간 */;
 
 변수명은 간결하고, 명확해야 합니다. 변수가 담고있는 것이 무엇인지 잘 설명할 수 있어야 하죠.
 
+<<<<<<< HEAD
 변수의 이름을 짓는 것은 프로그래밍에서 가장 중요하고 복잡한 기술 중 하나입니다. 변수명만 슬쩍 봐도 초보자가 코드를 작성했는지, 노련한 개발자가 작성했는지 알 수 있습니다.
 
 실제 프로젝트에선 맨 처음부터 완전히 독립적인 코드를 작성하기보다 기존 코드의 틀을 변경하고 확장하는데 대부분의 시간을 보냅니다. 작성했던 코드를 얼마 후에 다시 봤을 때, 정보에 알맞은 이름이 적혀있으면 정보를 더 쉽게 찾을 수 있습니다. 다시 말해, 변수가 올바른 이름을 가졌을 때 말이죠.
+=======
+Variable naming is one of the most important and complex skills in programming. A glance at variable names can reveal which code was written by a beginner versus an experienced developer.
+
+In a real project, most of the time is spent modifying and extending an existing code base rather than writing something completely separate from scratch. When we return to some code after doing something else for a while, it's much easier to find information that is well-labelled. Or, in other words, when the variables have good names.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 그러므로 변수를 선언하기 전에 내가 지은 변수의 이름이 괜찮은지 숙고해 주시기 바랍니다.
 
 아래는 변수 명명 시 참고하기 좋은 규칙입니다.
 
+<<<<<<< HEAD
 - `userName` 이나 `shoppingCart`처럼 사람이 읽을 수 있는 이름을 사용하세요.
 - 무엇을 하고 있는지 명확히 알고 있지 않을 경우 외에는 줄임말이나 `a`, `b`, `c`와 같은 짧은 이름은 피하세요.
 - 최대한 서술적이고 간결하게 명명해 주세요. `data`와 `value`는 나쁜 이름의 예시입니다. 이런 이름은 아무것도 설명해주지 않습니다. 코드 문맥상 변수가 가리키는 데이터나 값이 아주 명확할 때에만 이런 이름을 사용합시다.
 - 자신만의 규칙이나 소속된 팀의 규칙을 따르세요. 만약 사이트 방문객을 'user'라고 부르기로 했다면, 이와 관련된 변수를 `currentVisitor`나 `newManInTown`이 아닌 `currentUser`나 `newUser`라는 이름으로 지어야 합니다.
+=======
+- Use human-readable names like `userName` or `shoppingCart`.
+- Stay away from abbreviations or short names like `a`, `b`, and `c`, unless you know what you're doing.
+- Make names maximally descriptive and concise. Examples of bad names are `data` and `value`. Such names say nothing. It's only okay to use them if the context of the code makes it exceptionally obvious which data or value the variable is referencing.
+- Agree on terms within your team and in your mind. If a site visitor is called a "user" then we should name related variables `currentUser` or `newUser` instead of `currentVisitor` or `newManInTown`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 간단해 보이나요? 그렇게 보이긴 합니다. 그러나 실전에서 서술적이고 간결한 변수명을 짓는 것은 간단하지 않습니다. 그럼, 화이팅!
 

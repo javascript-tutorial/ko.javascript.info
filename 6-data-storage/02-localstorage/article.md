@@ -6,11 +6,19 @@
 
 그런데 "쿠키를 사용하면 브라우저에 데이터를 저장할 수 있는데, 왜 또 다른 객체를 사용해 데이터를 저장하는 걸까요?"라는 의문이 들 수 있습니다. 쿠키 이외에도 다른 방식을 사용하는 이유는 다음과 같습니다.
 
+<<<<<<< HEAD
 - 쿠키와 다르게 웹 스토리지 객체는 네트워크 요청 시 서버로 전송되지 않습니다. 이런 특징 때문에 쿠키보다 더 많은 자료를 보관할 수 있습니다. 대부분의 브라우저가 최소 2MB 혹은 그 이상의 웹 스토리지 객체를 저장할 수 있도록 해줍니다. 또한 개발자는 브라우저 내 웹 스토리지 구성 방식을 설정할 수 있습니다.
 - 쿠키와 또 다른 점은 서버가 HTTP 헤더를 통해 스토리지 객체를 조작할 수 없다는 것입니다. 웹 스토리지 객체 조작은 모두 자바스크립트 내에서 수행됩니다.
 - 웹 스토리지 객체는 도메인·프로토콜·포트로 정의되는 오리진(origin)에 묶여있습니다. 따라서 프로토콜과 서브 도메인이 다르면 데이터에 접근할 수 없습니다.
 
 두 스토리지 객체는 동일한 메서드와 프로퍼티를 제공합니다.
+=======
+- Unlike cookies, web storage objects are not sent to server with each request. Because of that, we can store much more. Most modern browsers allow at least 5 megabytes of data (or more) and have settings to configure that.
+- Also unlike cookies, the server can't manipulate storage objects via HTTP headers. Everything's done in JavaScript.
+- The storage is bound to the origin (domain/protocol/port triplet). That is, different protocols or subdomains infer different storage objects, they can't access data from each other.
+
+Both storage objects provide the same methods and properties:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 - `setItem(key, value)` -- 키-값 쌍을 보관합니다.
 - `getItem(key)` -- 키에 해당하는 값을 받아옵니다.
@@ -63,7 +71,12 @@ delete localStorage.test;
 
 하위 호환성 때문에 아직 이런 방법이 지원되기는 하지만, 다음과 같은 이유로 추천하지 않습니다.
 
+<<<<<<< HEAD
 1. 사용자는 `length`나 `toString`, `localStorage`의 내장 메서드를 키로 설정할 수 있습니다. 이렇게 되면 `getItem`, `setItem`은 정상적으로 작동해도, 일반 객체처럼 다룰 때 에러가 발생할 수 있습니다.
+=======
+1. If the key is user-generated, it can be anything, like `length` or `toString`, or another built-in method of `localStorage`. In that case `getItem/setItem` work fine, while object-like access fails:
+
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
     ```js run
     let key = 'length';
     localStorage[key] = 5; // TypeError: Cannot assign to read only property 'length'...
@@ -119,12 +132,20 @@ for(let key of keys) {
 
 `Object.keys`는 해당 객체에서 정의한 키만 반환하고 프로토타입에서 상속받은 키는 무시하기 때문입니다. 
 
+<<<<<<< HEAD
 
 ## 문자열만 사용
+=======
+## Strings only
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 `localStorage`의 키와 값은 반드시 문자열이어야 합니다.
 
+<<<<<<< HEAD
 숫자나 객체 등 다른 자료형을 사용하게 되면 문자열로 자동 변환됩니다.
+=======
+If they were any other type, like a number, or an object, they would get converted to a string automatically:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js run
 localStorage.user = {name: "John"};
@@ -136,7 +157,11 @@ alert(localStorage.user); // [object Object]
 ```js run
 localStorage.user = JSON.stringify({name: "John"});
 
+<<<<<<< HEAD
 // 잠시 후 
+=======
+// sometime later
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 let user = JSON.parse( localStorage.user );
 alert( user.name ); // John
 ```
@@ -147,7 +172,6 @@ alert( user.name ); // John
 // 보기 좋도록 JSON.stringify에 서식 옵션을 추가했습니다.
 alert( JSON.stringify(localStorage, null, 2) );
 ```
-
 
 ## sessionStorage
 
@@ -180,7 +204,11 @@ alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 
 ## storage 이벤트
 
+<<<<<<< HEAD
 `localStorage`나 `sessionStorage`의 데이터가 갱신될 때, [storage](https://www.w3.org/TR/webstorage/#the-storage-event) 이벤트가 실행됩니다. storage 이벤트는 다음과 같은 프로퍼티를 지원합니다.
+=======
+When the data gets updated in `localStorage` or `sessionStorage`, [storage](https://html.spec.whatwg.org/multipage/webstorage.html#the-storageevent-interface) event triggers, with properties:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 - `key` -- 변경된 데이터의 키(`.clear()`를 호출했다면 `null`)
 - `oldValue` -- 이전 값(키가 새롭게 추가되었다면 `null`)
@@ -201,8 +229,13 @@ alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 두 창에서 모두 `storage` 이벤트를 수신하고 있기 때문에 한 창에서 아래 예시를 실행해 데이터를 갱신하면 다른 창에 해당 사항이 반영되는 것을 확인할 수 있습니다.
 
 ```js run
+<<<<<<< HEAD
 // 문서는 다르지만, 갱신은 같은 스토리지에 반영됩니다.
 window.onstorage = event => { // window.addEventListener('storage', () => {와 같습니다.
+=======
+// triggers on updates made to the same storage from other documents
+window.onstorage = event => { // can also use window.addEventListener('storage', event => {
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };
@@ -216,15 +249,28 @@ storage 이벤트의 또 다른 중요한 특징은 `event.url`이 있어 데이
 
 **이런 특징을 이용하면 오리진이 같은 창끼리 메시지를 교환하게 할 수 있습니다.**
 
+<<<<<<< HEAD
 모던 브라우저는 오리진이 같은 창끼리 통신할 수 있도록 해주는 [브로드캐스트 채널 API(broadcast channel API)](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)를 지원합니다. 그런데 이 API는 기능은 풍부하지만, 아직 많은 곳에서 지원하지 않는다는 단점이 있습니다. 단점을 극복하게 해주는 `localStorage` 기반한 폴리필들이 있는데, 이런 라이브러리들은 브라우저와 관계없이 어디서든 창 간 메시지를 교환할 수 있게 해준다는 장점이 있습니다.
+=======
+Modern browsers also support [Broadcast channel API](mdn:/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ## 요약
 
+<<<<<<< HEAD
 웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다. 이때,
 - `키`와 `값`은 반드시 문자열이어야 합니다.
 - 제한 용량은 5MB 이상인데, 브라우저에 따라 다를 수 있습니다.
 - 파기되지 않습니다.
 - 오리진(도메인·포트·프로토콜)에 묶여있습니다.
+=======
+Web storage objects `localStorage` and `sessionStorage` allow to store key/value pairs in the browser.
+
+- Both `key` and `value` must be strings.
+- The limit is 5mb+, depends on the browser.
+- They do not expire.
+- The data is bound to the origin (domain/port/protocol).
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 | `localStorage` | `sessionStorage` |
 |--------------|--------------|

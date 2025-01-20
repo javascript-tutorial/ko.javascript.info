@@ -21,14 +21,22 @@ alert( rabbit.hasOwnProperty('name') ); // true
 
 그런데 이게 끝이 아닙니다.
 
+<<<<<<< HEAD
 위와 같이 수정 해도, 여전히 `"class Rabbit extends Object"`와 `class Rabbit`는 다른점이 있습니다.
+=======
+Even after the fix, there's still an important difference between `"class Rabbit extends Object"` and `class Rabbit`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 아시다시피 'extends' 문법은 두 개의 프로토타입을 설정합니다.
 
 1. 생성자 함수의 `"prototype"` 사이(일반 메서드용)
 2. 생성자 함수 자체 사이(정적 메서드용)
 
+<<<<<<< HEAD
 예시의 `class Rabbit extends Object`는 다음과 같은 관계를 만들죠.
+=======
+In the case of `class Rabbit extends Object` it means:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js run
 class Rabbit extends Object {}
@@ -37,7 +45,11 @@ alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true
 alert( Rabbit.__proto__ === Object ); // (2) true
 ```
 
+<<<<<<< HEAD
 따라서 `Rabbit`은 아래와 같이 `Rabbit`을 통해 `Object`의 정적 메서드에 접근할 수 있습니다.
+=======
+So `Rabbit` now provides access to the static methods of `Object` via `Rabbit`, like this:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js run
 class Rabbit extends Object {}
@@ -67,7 +79,11 @@ alert ( Rabbit.getOwnPropertyNames({a: 1, b: 2})); // Error
 
 이런 이유 때문에 `Rabbit`에서 `Object`의 정적 메서드를 사용할 수 없습니다.
 
+<<<<<<< HEAD
 한편, `Function.prototype`은 `call`, `bind` 등의 '일반' 함수 메서드를 가집니다. 내장 객체, `Object`의 생성자는 `Object.__proto__ === Function.prototype` 관계를 갖기 때문에 `Function.prototype`에 정의된 일반 함수 메서드는 두 경우 모두에 사용할 수 있습니다.  
+=======
+By the way, `Function.prototype` also has "generic" function methods, like `call`, `bind` etc. They are ultimately available in both cases, because for the built-in `Object` constructor, `Object.__proto__ === Function.prototype`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 이해를 돕기 위한 그림:
 

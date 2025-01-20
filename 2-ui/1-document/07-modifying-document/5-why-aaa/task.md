@@ -22,6 +22,10 @@ importance: 1
   alert(table); // table 은 삭제할 표의 id 입니다.
 
   table.remove();
+<<<<<<< HEAD
   // 왜 문서 안에 aaa가 남아 있을까요?
+=======
+  // why there's still "aaa" in the document?
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 </script>
 ```

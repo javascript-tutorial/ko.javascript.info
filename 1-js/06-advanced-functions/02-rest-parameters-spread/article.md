@@ -23,7 +23,11 @@ function sum(a, b) {
 alert( sum(1, 2, 3, 4, 5) );
 ```
 
+<<<<<<< HEAD
 함수를 정의할 땐 인수를 두 개만 받도록 하고, 실제 함수를 호출할 땐 이보다 더 많은 '여분의' 인수를 전달했지만, 에러가 발생하지 않았습니다. 다만 반환 값은 처음 두 개의 인수만을 사용해 계산됩니다.
+=======
+There will be no error because of "excessive" arguments. But of course in the result only the first two will be counted, so the result in the code above is `3`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 이렇게 여분의 매개변수는 그 값들을 담을 배열 이름을 마침표 세 개 `...`뒤에 붙여주면 함수 선언부에 포함시킬 수 있습니다. 이때 마침표 세 개 `...`는 "남아있는 매개변수들을 한데 모아 배열에 집어넣어라."는 것을 의미합니다.
 
@@ -225,7 +229,11 @@ alert( Array.from(str) ); // H,e,l,l,o
 이런 이유때문에 무언가를 배열로 바꿀 때는 전개 구문보다 `Array.from`이 보편적으로 사용됩니다.
 
 
+<<<<<<< HEAD
 ## 배열과 객체의 복사본 만들기
+=======
+## Copy an array/object
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 [참조에 의한 객체 복사](info:object-copy#cloning-and-merging-object-assign) 챕터에서 `Object.assign()`을 사용해 객체를 복사한 예시를 떠올려봅시다.
 
@@ -233,8 +241,16 @@ alert( Array.from(str) ); // H,e,l,l,o
 
 ```js run
 let arr = [1, 2, 3];
+<<<<<<< HEAD
 let arrCopy = [...arr]; // 배열을 펼쳐서 각 요소를 분리후, 매개변수 목록으로 만든 다음에
                         // 매개변수 목록을 새로운 배열에 할당함
+=======
+
+*!*
+let arrCopy = [...arr]; // spread the array into a list of parameters
+                        // then put the result into a new array
+*/!*
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 // 배열 복사본의 요소가 기존 배열 요소와 진짜 같을까요?
 alert(JSON.stringify(arr) === JSON.stringify(arrCopy)); // true
@@ -252,8 +268,16 @@ alert(arrCopy); // 1, 2, 3
 
 ```js run
 let obj = { a: 1, b: 2, c: 3 };
+<<<<<<< HEAD
 let objCopy = { ...obj }; // 객체를 펼쳐서 각 요소를 분리후, 매개변수 목록으로 만든 다음에
                           // 매개변수 목록을 새로운 객체에 할당함
+=======
+
+*!*
+let objCopy = { ...obj }; // spread the object into a list of parameters
+                          // then return the result in a new object
+*/!*
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 // 객체 복사본의 프로퍼티들이 기존 객체의 프로퍼티들과 진짜 같을까요?
 alert(JSON.stringify(obj) === JSON.stringify(objCopy)); // true
@@ -267,7 +291,11 @@ alert(JSON.stringify(obj)); // {"a":1,"b":2,"c":3,"d":4}
 alert(JSON.stringify(objCopy)); // {"a":1,"b":2,"c":3}
 ```
 
+<<<<<<< HEAD
 이렇게 전개 구문을 사용하면 `let objCopy = Object.assign({}, obj);`, `let arrCopy = Object.assign([], arr);`보다 더 짧은 코드로 배열이나 객체를 복사할 수 있어서 사람들은 이 방법을 선호합니다.
+=======
+This way of copying an object is much shorter than `let objCopy = Object.assign({}, obj)` or for an array `let arrCopy = Object.assign([], arr)` so we prefer to use it whenever we can.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 
 ## 요약

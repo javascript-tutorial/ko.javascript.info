@@ -120,27 +120,46 @@
 
 이벤트엔 버블링 이외에도 '캡처링(capturing)' 이라는 흐름이 존재합니다. 실제 코드에서 자주 쓰이진 않지만, 종종 유용한 경우가 있으므로 알아봅시다.
 
+<<<<<<< HEAD
 표준 [DOM 이벤트](http://www.w3.org/TR/DOM-Level-3-Events/)에서 정의한 이벤트 흐름엔 3가지 단계가 있습니다.
+=======
+The standard [DOM Events](https://www.w3.org/TR/DOM-Level-3-Events/) describes 3 phases of event propagation:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 1. 캡처링 단계 -- 이벤트가 하위 요소로 전파되는 단계
 2. 타깃 단계 -- 이벤트가 실제 타깃 요소에 전달되는 단계
 3. 버블링 단계 -- 이벤트가 상위 요소로 전파되는 단계
 
+<<<<<<< HEAD
 테이블 안의 `<td>`를 클릭하면 어떻게 이벤트가 흐르는지 아래 그림을 보고 이해해 봅시다.
+=======
+Here's the picture, taken from the specification, of the capturing `(1)`, target `(2)` and bubbling `(3)` phases for a click event on a `<td>` inside a table:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ![](eventflow.svg)
 
 `<td>`를 클릭하면 이벤트가 최상위 조상에서 시작해 아래로 전파되고(캡처링 단계), 이벤트가 타깃 요소에 도착해 실행된 후(타깃 단계), 다시 위로 전파됩니다(버블링 단계). 이런 과정을 통해 요소에 할당된 이벤트 핸들러가 호출됩니다.
 
+<<<<<<< HEAD
 **캡처링 단계를 이용해야 하는 경우는 흔치 않기 때문에, 이전까진 주로 버블링만 설명했습니다. 캡처링에 관한 코드를 발견하는 일은 거의 없을 겁니다.**
 
 `on<event>` 프로퍼티나 HTML 속성, `addEventListener(event, handler)`를 이용해 할당된 핸들러는 캡처링에 대해 전혀 알 수 없습니다. 이 핸들러들은 두 번째 혹은 세 번째 단계의 이벤트 흐름(타깃 단계와 버블링 단계)에서만 동작합니다.
+=======
+Until now, we only talked about bubbling, because the capturing phase is rarely used.
+
+In fact, the capturing phase was invisible for us, because handlers added using `on<event>`-property or using HTML attributes or using two-argument `addEventListener(event, handler)` don't know anything about capturing, they only run on the 2nd and 3rd phases.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 캡처링 단계에서 이벤트를 잡아내려면 `addEventListener`의 `capture` 옵션을 `true`로 설정해야 합니다.
 
 ```js
 elem.addEventListener(..., {capture: true})
+<<<<<<< HEAD
 // 아니면, 아래 같이 {capture: true} 대신, true를 써줘도 됩니다.
+=======
+
+// or, just "true" is an alias to {capture: true}
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 elem.addEventListener(..., true)
 ```
 
@@ -180,9 +199,16 @@ elem.addEventListener(..., true)
 
 `<p>`를 클릭하면 다음과 같은 순서로 이벤트가 전달됩니다.
 
+<<<<<<< HEAD
 1. `HTML` -> `BODY` -> `FORM` -> `DIV` (캡처링 단계, 첫 번째 리스너)
 2. `P` (타깃 단계, 캡쳐링과 버블링 둘 다에 리스너를 설정했기 때문에 두 번 호출됩니다.)
 3. `DIV` -> `FORM` -> `BODY` -> `HTML` (버블링 단계, 두 번째 리스너)
+=======
+1. `HTML` -> `BODY` -> `FORM` -> `DIV -> P` (capturing phase, the first listener):
+2. `P` -> `DIV` -> `FORM` -> `BODY` -> `HTML` (bubbling phase, the second listener).
+
+Please note, the `P` shows up twice, because we've set two listeners: capturing and bubbling. The target triggers at the end of the first and at the beginning of the second phase.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 `event.eventPhase` 프로퍼티를 이용하면 현재 발생 중인 이벤트 흐름의 단계를 알 수 있습니다. 반환되는 정숫값에 따라 이벤트 흐름의 현재 실행 단계를 구분할 수 있죠. 하지만 핸들러를 통해 흐름 단계를 알 수 있기 때문에 이 프로퍼티는 자주 사용되지 않습니다.
 
@@ -190,8 +216,13 @@ elem.addEventListener(..., true)
 `addEventListener(..., true)`로 핸들러를 할당해 줬다면, 핸들러를 지울 때, `removeEventListener(..., true)`를 사용해 지워야 합니다. 같은 단계에 있어야 핸들러가 지워집니다.
 ```
 
+<<<<<<< HEAD
 ````smart header="같은 요소와 같은 단계에 설정한 리스너는 설정한 순서대로 동작합니다."
 특정 요소에 `addEventListener`를 사용해 한 단계에 이벤트 핸들러를 여러개 설정했다면 이 핸들러들은 설정한 순서대로 동작합니다.
+=======
+````smart header="Listeners on the same element and same phase run in their set order"
+If we have multiple event handlers on the same phase, assigned to the same element with `addEventListener`, they run in the same order as they are created:
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 ```js
 elem.addEventListener("click", e => alert(1)); // 첫 번째로 트리거됩니다.
@@ -199,14 +230,26 @@ elem.addEventListener("click", e => alert(2));
 ```
 ````
 
+```smart header="The `event.stopPropagation()` during the capturing also prevents the bubbling"
+The `event.stopPropagation()` method and its sibling `event.stopImmediatePropagation()` can also be called on the capturing phase. Then not only the futher capturing is stopped, but the bubbling as well.
+
+In other words, normally the event goes first down ("capturing") and then up ("bubbling"). But if `event.stopPropagation()` is called during the capturing phase, then the event travel stops, no bubbling will occur.
+```
+
 
 ## 요약
 
 이벤트가 발생하면 이벤트가 발생한 가장 안쪽 요소가 '타깃 요소(`event.target`)'가 됩니다.
 
+<<<<<<< HEAD
 - 이벤트는 document에서 시작해 DOM 트리를 따라 `event.target`까지 내려갑니다. 이벤트는 트리를 따라 내려가면서 `addEventListener(..., true)`로 할당한 핸들러를 동작시킵니다. `addEventListener(..., true)`의 `true`는 `{capture: true}`의 축약형입니다.
 - 이후 타깃 요소에 설정된 핸들러가 호출됩니다.
 - 이후엔 이벤트가 `event.target`부터 시작해서 다시 최상위 노드까지 전달되면서 각 요소에 `on<event>`로 할당한 핸들러와 `addEventListener`로 할당한 핸들러를 동작시킵니다. `addEventListener`로 할당한 핸들러 중, 세 번째 인수가 없거나 `false`, `{capture: false}`인 핸들러만 호출됩니다.
+=======
+- Then the event moves down from the document root to `event.target`, calling handlers assigned with `addEventListener(..., true)` on the way (`true` is a shorthand for `{capture: true}`).
+- Then handlers are called on the target element itself.
+- Then the event bubbles up from `event.target` to the root, calling handlers assigned using `on<event>`, HTML attributes and `addEventListener` without the 3rd argument or with the 3rd argument `false/{capture:false}`.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 각 핸들러는 아래와 같은 `event` 객체의 프로퍼티에 접근할 수 있습니다.
 
@@ -216,10 +259,18 @@ elem.addEventListener("click", e => alert(2));
 
 핸들러에서 `event.stopPropagation()`을 사용해 이벤트 버블링을 멈출 수 있습니다. 다만, 이 방법은 추천하지 않습니다. 지금은 상위 요소에서 이벤트가 어떻게 쓰일지 확실치 않더라도, 추후에 버블링이 필요한 경우가 생기기 때문입니다. 
 
+<<<<<<< HEAD
 캡처링 단계는 거의 쓰이지 않고, 주로 버블링 단계의 이벤트만 다뤄집니다. 이렇게 된 데는 논리적 배경이 있습니다. 
+=======
+The capturing phase is used very rarely, usually we handle events on bubbling. And there's a logical explanation for that.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 현실에서 사고가 발생하면 지역 경찰이 먼저 사고를 조사합니다. 그 지역에 대해 가장 잘 아는 기관은 지역 경찰이기 때문입니다. 추가 조사가 필요하다면 그 이후에 상위 기관이 사건을 넘겨받습니다.
 
+<<<<<<< HEAD
 이벤트 핸들러도 이와 같은 논리로 만들어졌습니다. 특정 요소에 할당된 핸들러는 그 요소에 대한 자세한 사항과 무슨 일을 해야 할지 가장 잘 알고 있습니다. `<td>`에 할당된 핸들러는 `<td>`에 대한 모든 것을 알고 있기 때문에 `<td>`를 다루는데 가장 적합합니다. 따라서 `<td>`를 다룰 기회를 이 요소에 할당된 핸들러에게 가장 먼저 주는 것입니다.
+=======
+The same for event handlers. The code that set the handler on a particular element knows maximum details about the element and what it does. A handler on a particular `<td>` may be suited for that exactly `<td>`, it knows everything about it, so it should get the chance first. Then its immediate parent also knows about the context, but a little bit less, and so on till the very top element that handles general concepts and runs the last one.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
 
 버블링과 캡처링은 '이벤트 위임(event delegation)'의 토대가 됩니다. 이벤트 위임은 강력한 이벤트 핸들링 패턴입니다. 다음 챕터에서 이를 다루도록 하겠습니다.

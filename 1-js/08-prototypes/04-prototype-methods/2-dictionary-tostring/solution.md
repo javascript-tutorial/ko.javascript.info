@@ -28,4 +28,8 @@ alert(dictionary); // "apple,__proto__"
 
 설명자를 사용하여 프로퍼티를 만들면 기본적으로 플래그가 `false`입니다. 따라서 위 코드에서 `dictionary.toString`은 열거할 수 없습니다.
 
+<<<<<<< HEAD
 다음 챕터 [](info:property-descriptors)를 참고하시기 바랍니다.
+=======
+See the chapter [](info:property-descriptors) for review.
+>>>>>>> 34a80e70f8cce5794be259d25f815d7a7db7cbe3
