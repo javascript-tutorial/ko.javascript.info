@@ -37,4 +37,8 @@ alert( sumTo(100) );
 
 반복을 사용하는 방법은 두 번째로 빠릅니다. 재귀를 사용하는 방법과 반복문을 사용하는 방법 모두 같은 수의 숫자를 더하는 것에서 같지만, 재귀를 사용하는 방법은 중첩 호출과 실행 스택 관리가 추가로 필요하기 때문에 더 많은 자원을 소비합니다. 따라서 속도가 더 느리죠.
 
+<<<<<<< HEAD
 더 생각해보기 2: 몇몇 자바스크립트 엔진은 'tail call' 최적화를 지원합니다. 위 함수 `sumTo`처럼 함수가 가장 마지막으로 수행하는 연산이 재귀 호출이라면 외부 함수는 실행을 다시 시작할 필요가 없기 때문에 엔진은 실행 컨텍스트를 기억할 필요가 없어집니다. 메모리 부담이 사라지는 거죠. 그렇기 때문에 `sumTo(100000)`같은 계산이 가능한 것입니다. 그런데 자바스크립트 엔진이 tail call 최적화를 지원하지 않는다면(대부분의 엔진이 이를 지원하지 않습니다) 엔진에 설정된 스택 사이즈 제한을 넘었기 때문에 최대 스택 사이즈 초과 에러가 발생합니다.  
+=======
+P.P.S. Some engines support the "tail call" optimization: if a recursive call is the very last one in the function, with no other calculations performed, then the outer function will not need to resume the execution, so the engine doesn't need to remember its execution context. That removes the burden on memory. But if the JavaScript engine does not support tail call optimization (most of them don't), there will be an error: maximum stack size exceeded, because there's usually a limitation on the total stack size.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a

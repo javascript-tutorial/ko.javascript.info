@@ -6,7 +6,24 @@
 
 *반복문(loop)* 을 사용하면 동일한 코드를 여러 번 반복할 수 있습니다.
 
+<<<<<<< HEAD
 ## 'while' 반복문
+=======
+```smart header="The for..of and for..in loops"
+A small announcement for advanced readers.
+
+This article covers only basic loops: `while`, `do..while` and `for(..;..;..)`.
+
+If you came to this article searching for other types of loops, here are the pointers:
+
+- See [for..in](info:object#forin) to loop over object properties.
+- See [for..of](info:array#loops) and [iterables](info:iterable) for looping over arrays and iterable objects.
+
+Otherwise, please read on.
+```
+
+## The "while" loop
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 `while` 반복문의 문법은 다음과 같습니다.
 
@@ -106,10 +123,17 @@ for (let i = 0; i < 3; i++) { // 0, 1, 2가 출력됩니다.
 
 | 구성 요소  |          |                                                                            |
 |-------|----------|----------------------------------------------------------------------------|
+<<<<<<< HEAD
 | begin | `i = 0`    | 반복문에 진입할 때 단 한 번 실행됩니다.                                      |
 | condition | `i < 3`| 반복마다 해당 조건이 확인됩니다. false이면 반복문을 멈춥니다.              |
 | body | `alert(i)`| condition이 truthy일 동안 계속해서 실행됩니다.                         |
 | step| `i++`      | 각 반복의 body가 실행된 이후에 실행됩니다. |
+=======
+| begin | `let i = 0`    | Executes once upon entering the loop.                                      |
+| condition | `i < 3`| Checked before every loop iteration. If false, the loop stops.              |
+| body | `alert(i)`| Runs again and again while the condition is truthy.                         |
+| step| `i++`      | Executes after the body on each iteration. |
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 일반적인 반복문 알고리즘은 다음과 같습니다.
 
@@ -162,11 +186,14 @@ for (i = 0; i < 3; i++) { // 기존에 정의된 변수 사용
 
 alert(i); // 3, 반복문 밖에서 선언한 변수이므로 사용할 수 있음
 ```
-
 ````
 
+<<<<<<< HEAD
 
 ### 구성 요소 생략하기
+=======
+### Skipping parts
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 `for`문의 구성 요소를 생략하는 것도 가능합니다.
 
@@ -268,7 +295,11 @@ for (let i = 0; i < 10; i++) {
 
 기술적인 관점에서 봤을 때, 이 예시는 위쪽에 있는 예시와 동일합니다. `continue`를 사용하는 대신 코드를 `if` 블록으로 감싼 점만 다릅니다.
 
+<<<<<<< HEAD
 그런데 이렇게 코드를 작성하면 부작용으로 중첩 레벨(중괄호 안의 `alert` 호출)이 하나 더 늘어납니다. `if` 안의 코드가 길어진다면 전체 가독성이 떨어질 수 있습니다.
+=======
+But as a side effect, this created one more level of nesting (the `alert` call inside the curly braces). If the code inside of `if` is longer than a few lines, that may decrease the overall readability.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ````
 
 ````warn header="'?' 오른쪽엔 `break`나 `continue`가 올 수 없습니다."
@@ -285,7 +316,6 @@ if (i > 5) {
 ```
 
 물음표를 사용해서 위 조건문을 아래와 같이 바꾸려는 시도를 할 수 있을겁니다.
-
 
 ```js no-beautify
 (i > 5) ? alert(i) : *!*continue*/!*; // 여기에 continue를 사용하면 안 됩니다.
@@ -318,9 +348,16 @@ alert('완료!');
 
 사용자가 `Cancel` 버튼을 눌렀을 때 반복문을 중단시킬 방법이 필요합니다.
 
+<<<<<<< HEAD
 `input` 아래에 평범한 `break` 지시자를 사용하면 안쪽에 있는 반복문만 빠져나올 수 있습니다. 이것만으론 충분하지 않습니다(중첩 반복문을 포함한 반복문 두 개 모두를 빠져나와야 하기 때문이죠 - 옮긴이). 이럴 때 레이블을 사용할 수 있습니다.
 
 *레이블(label)* 은 반복문 앞에 콜론과 함께 쓰이는 식별자입니다.
+=======
+The ordinary `break` after `input` would only break the inner loop. That's not sufficient -- labels, come to the rescue!
+
+A *label* is an identifier with a colon before a loop:
+
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ```js
 labelName: for (...) {
   ...
@@ -342,7 +379,12 @@ labelName: for (...) {
     // 입력받은 값을 가지고 무언가를 함
   }
 }
+<<<<<<< HEAD
 alert('완료!');
+=======
+
+alert('Done!');
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ```
 
 위 예시에서 `break outer`는 `outer`라는 레이블이 붙은 반복문을 찾고, 해당 반복문을 빠져나오게 해줍니다.
@@ -361,14 +403,37 @@ for (let i = 0; i < 3; i++) { ... }
 ````warn header="레이블은 마음대로 '점프'할 수 있게 해주지 않습니다."
 레이블을 사용한다고 해서 원하는 곳으로 마음대로 점프할 수 있는 것은 아닙니다.
 
+<<<<<<< HEAD
 아래 예시처럼 레이블을 사용하는 것은 불가능합니다.
 ```js
 break label; // 아래 for 문으로 점프할 수 없습니다.
+=======
+For example, it is impossible to do this:
+
+```js
+break label; // jump to the label below (doesn't work)
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 label: for (...)
 ```
 
+<<<<<<< HEAD
 `break`와 `continue`는 반복문 안에서만 사용할 수 있고, 레이블은 반드시 `break`이나 `continue` 지시자 위에 있어야 합니다.
+=======
+A `break` directive must be inside a code block. Technically, any labelled code block will do, e.g.:
+
+```js
+label: {
+  // ...
+  break label; // works
+  // ...
+}
+```
+
+...Although, 99.9% of the time `break` is used inside loops, as we've seen in the examples above.
+
+A `continue` is only possible from inside a loop.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ````
 
 ## 요약

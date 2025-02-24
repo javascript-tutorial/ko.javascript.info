@@ -25,7 +25,11 @@ alert( usersMapped[0].id ); // 1
 alert( usersMapped[0].fullName ); // John Smith
 ```
 
+<<<<<<< HEAD
 화살표 함수 우측에 괄호를 썼다는 점에 주목해주시기 바랍니다.
+=======
+Please note that in the arrow functions we need to use additional brackets. 
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 아래와 같이 괄호 없이 코드를 작성할 수 없습니다.
 ```js

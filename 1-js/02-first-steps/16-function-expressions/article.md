@@ -12,7 +12,13 @@ function sayHi() {
 
 함수 선언 방식 외에 *함수 표현식(Function Expression)* 을 사용해서 함수를 만들 수 있습니다.
 
+<<<<<<< HEAD
 함수 표현식으로 함수를 생성해보겠습니다.
+=======
+It allows us to create a new function in the middle of any expression.
+
+For example:
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 ```js
 let sayHi = function() {
@@ -20,9 +26,25 @@ let sayHi = function() {
 };
 ```
 
+<<<<<<< HEAD
 함수를 생성하고 변수에 값을 할당하는 것처럼 함수가 변수에 할당되었습니다. 함수가 어떤 방식으로 만들어졌는지에 관계없이 함수는 값이고, 따라서 변수에 할당할 수 있습니다. 위 예시에선 함수가 변수 `sayHi`에 저장된 값이 되었습니다.
 
 위 예시를 간단한 말로 풀면 다음과 같습니다: "함수를 만들고 그 함수를 변수 `sayHi`에 할당하기"
+=======
+Here we can see a variable `sayHi` getting a value, the new function, created as `function() { alert("Hello"); }`.
+
+As the function creation happens in the context of the assignment expression (to the right side of `=`), this is a *Function Expression*.
+
+Please note, there's no name after the `function` keyword. Omitting a name is allowed for Function Expressions.
+
+Here we immediately assign it to the variable, so the meaning of these code samples is the same: "create a function and put it into the variable `sayHi`".
+
+In more advanced situations, that we'll come across later, a function may be created and immediately called or scheduled for a later execution, not stored anywhere, thus remaining anonymous.
+
+## Function is a value
+
+Let's reiterate: no matter how the function is created, a function is a value. Both examples above store a function in the `sayHi` variable.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 함수는 값이기 때문에 `alert`를 이용하여 함수 코드를 출력할 수도 있습니다.
 
@@ -63,22 +85,31 @@ sayHi(); // Hello    //     본래 함수도 정상적으로 실행됩니다.
 2. `(2)` 에선  `sayHi`를 새로운 변수 `func`에 복사합니다. 이때 `sayHi` 다음에 괄호가 없다는 점에 유의하시기 바랍니다. 괄호가 있었다면 `func = sayHi()` 가 되어  `sayHi` *함수* 그 자체가 아니라, *함수 호출 결과(함수의 반환 값)* 가 `func`에 저장되었을 겁니다. 
 3. 이젠 `sayHi()` 와 `func()`로 함수를 호출할 수 있게 되었습니다.
 
+<<<<<<< HEAD
 함수 `sayHi`는 아래와 같이 함수 표현식을 사용해 정의할 수 있습니다.
+=======
+We could also have used a Function Expression to declare `sayHi`, in the first line:
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 ```js
-let sayHi = function() {
+let sayHi = function() { // (1) create
   alert( "Hello" );
 };
 
-let func = sayHi;
+let func = sayHi;  //(2)
 // ...
 ```
 
 동작 결과는 동일합니다.
 
 
+<<<<<<< HEAD
 ````smart header="끝에 세미 콜론은 왜 있나요?"
 함수 표현식의 끝에 왜 세미 콜론 `;`이 붙는지 의문이 들 수 있습니다. 함수 선언문에는 세미 콜론이 없는데 말이죠.
+=======
+````smart header="Why is there a semicolon at the end?"
+You might wonder, why do Function Expressions have a semicolon `;` at the end, but Function Declarations do not:
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 ```js
 function sayHi() {
@@ -90,9 +121,15 @@ let sayHi = function() {
 }*!*;*/!*
 ```
 
+<<<<<<< HEAD
 이유는 간단합니다.
 - `if { ... }`, `for {  }`, `function f { }` 같이 중괄호로 만든 코드 블록 끝엔 `;`이 없어도 됩니다.
 - 함수 표현식은 `let sayHi = ...;`과 같은 구문 안에서 값의 역할을 합니다. 코드 블록이 아니고 값처럼 취급되어 변수에 할당되죠. 모든 구문의 끝엔 세미 콜론 `;`을 붙이는 게 좋습니다. 함수 표현식에 쓰인 세미 콜론은 함수 표현식 때문에 붙여진 게 아니라, 구문의 끝이기 때문에 붙여졌습니다. 
+=======
+The answer is simple: a Function Expression is created here as `function(…) {…}` inside the assignment statement: `let sayHi = …;`. The semicolon `;` is recommended at the end of the statement, it's not a part of the function syntax.
+
+The semicolon would be there for a simpler assignment, such as `let sayHi = 5;`, and it's also there for a function assignment.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ````
 
 ## 콜백 함수
@@ -132,13 +169,21 @@ function showCancel() {
 ask("동의하십니까?", showOk, showCancel);
 ```
 
+<<<<<<< HEAD
 이렇게 함수를 작성하는 방법은 실무에서 아주 유용하게 쓰입니다. 면대면으로 질문하는 것보다 위처럼 컨펌창을 띄워 질문을 던지고 답변을 받으면 간단하게 설문조사를 진행할 수 있습니다. 실제 상용 서비스에선 컨펌 창을 좀 더 멋지게 꾸미는 등의 작업이 동반되긴 하지만, 일단 여기선 그게 중요한 포인트는 아닙니다.
+=======
+In practice, such functions are quite useful. The major difference between a real-life `ask` and the example above is that real-life functions use more complex ways to interact with the user than a simple `confirm`. In the browser, such functions usually draw a nice-looking question window. But that's another story.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 **함수 `ask`의 인수, `showOk`와 `showCancel`은 *콜백 함수* 또는 *콜백*이라고 불립니다.**
 
 함수를 함수의 인수로 전달하고, 필요하다면 인수로 전달한 그 함수를 "나중에 호출(called back)"하는 것이 콜백 함수의 개념입니다. 위 예시에선 사용자가 "yes"라고 대답한 경우 `showOk`가 콜백이 되고, "no"라고 대답한 경우 `showCancel`가 콜백이 됩니다.
 
+<<<<<<< HEAD
 아래와 같이 함수 표현식을 사용하면 코드 길이가 짧아집니다.
+=======
+We can use Function Expressions to write an equivalent, shorter function:
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 ```js run no-beautify
 function ask(question, yes, no) {
@@ -174,7 +219,11 @@ ask(
 
 첫 번째는 문법입니다. 코드를 통해 어떤 차이가 있는지 살펴봅시다.
 
+<<<<<<< HEAD
 - *함수 선언문:* 함수는 주요 코드 흐름 중간에 독자적인 구문 형태로 존재합니다.
+=======
+- *Function Declaration:* a function, declared as a separate statement, in the main code flow:
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
     ```js
     // 함수 선언문
@@ -182,8 +231,13 @@ ask(
       return a + b;
     }
     ```
+<<<<<<< HEAD
 - *함수 표현식:* 함수는 표현식이나 구문 구성(syntax construct) 내부에 생성됩니다. 아래 예시에선 함수가 할당 연산자 `=`를 이용해 만든 "할당 표현식" 우측에 생성되었습니다.
     
+=======
+- *Function Expression:* a function, created inside an expression or inside another syntax construct. Here, the function is created on the right side of the "assignment expression" `=`:
+
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
     ```js
     // 함수 표현식
     let sum = function(a, b) {
@@ -279,9 +333,15 @@ if (age < 18) {
   welcome();               // \   (실행)
 */!*
                            //  |
+<<<<<<< HEAD
   function welcome() {     //  |  
     alert("안녕!");        //  |  함수 선언문은 함수가 선언된 블록 내
   }                        //  |  어디에서든 유효합니다
+=======
+  function welcome() {     //  |
+    alert("Hello!");       //  |  Function Declaration is available
+  }                        //  |  everywhere in the block where it's declared
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
                            //  |
 *!*
   welcome();               // /   (실행)
@@ -289,8 +349,13 @@ if (age < 18) {
 
 } else {
 
+<<<<<<< HEAD
   function welcome() {    
     alert("안녕하세요!");
+=======
+  function welcome() {
+    alert("Greetings!");
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
   }
 }
 
@@ -347,8 +412,13 @@ welcome(); // 제대로 동작합니다.
 ```
 
 
+<<<<<<< HEAD
 ```smart header="함수 선언문과 함수 표현식 중 무엇을 선택해야 하나요?"
 제 경험에 따르면 함수 선언문을 이용해 함수를 선언하는 걸 먼저 고려하는 게 좋습니다. 함수 선언문으로 함수를 정의하면, 함수가 선언되기 전에 호출할 수 있어서 코드 구성을 좀 더 자유롭게 할 수 있습니다.
+=======
+```smart header="When to choose Function Declaration versus Function Expression?"
+As a rule of thumb, when we need to declare a function, the first thing to consider is Function Declaration syntax. It gives more freedom in how to organize our code, because we can call such functions before they are declared.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 함수 선언문을 사용하면 가독성도 좋아집니다. 코드에서 `let f = function(…) {…}`보다 `function f(…) {…}` 을 찾는 게 더 쉽죠. 함수 선언 방식이 더 "눈길을 사로잡습니다".
 

@@ -32,11 +32,19 @@ user.sayHi = function() {
 user.sayHi(); // 안녕하세요!
 ```
 
+<<<<<<< HEAD
 함수 표현식으로 함수를 만들고, 객체 프로퍼티 `user.sayHi`에 함수를 할당해 주었습니다. 
 
 이제 객체에 할당된 함수를 호출하면 user가 인사를 해줍니다.
 
 이렇게 객체 프로퍼티에 할당된 함수를 *메서드(method)* 라고 부릅니다. 
+=======
+Here we've just used a Function Expression to create a function and assign it to the property `user.sayHi` of the object.
+
+Then we can call it as `user.sayHi()`. The user can now speak!
+
+A function that is a property of an object is called its *method*.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 위 예시에선 `user`에 할당된 `sayHi`가 메서드이죠.
 
@@ -50,8 +58,13 @@ let user = {
 *!*
 // 함수 선언
 function sayHi() {
+<<<<<<< HEAD
   alert("안녕하세요!");
 };
+=======
+  alert("Hello!");
+}
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 // 선언된 함수를 메서드로 등록
 user.sayHi = sayHi;
@@ -81,7 +94,11 @@ user = {
 // 단축 구문을 사용하니 더 깔끔해 보이네요.
 user = {
 *!*
+<<<<<<< HEAD
   sayHi() { // "sayHi: function()"과 동일합니다.
+=======
+  sayHi() { // same as "sayHi: function(){...}"
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 */!*
     alert("Hello");
   }
@@ -90,7 +107,11 @@ user = {
 
 위처럼 `function`을 생략해도 메서드를 정의할 수 있습니다.
 
+<<<<<<< HEAD
 일반적인 방법과 단축 구문을 사용한 방법이 완전히 동일하진 않습니다. 객체 상속과 관련된 미묘한 차이가 존재하는데 지금으로선 이 차이가 중요하지 않기 때문에 넘어가도록 하겠습니다. 
+=======
+To tell the truth, the notations are not fully identical. There are subtle differences related to object inheritance (to be covered later), but for now they do not matter. In almost all cases, the shorter syntax is preferred.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 ## 메서드와 this
 
@@ -160,14 +181,24 @@ let user = {
 let admin = user;
 user = null; // user를 null로 덮어씁니다.
 
+<<<<<<< HEAD
 admin.sayHi(); // sayHi()가 엉뚱한 객체를 참고하면서 에러가 발생했습니다.
+=======
+*!*
+admin.sayHi(); // TypeError: Cannot read property 'name' of null
+*/!*
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 ```
 
 `alert` 함수가 `user.name` 대신 `this.name`을 인수로 받았다면 에러가 발생하지 않았을 겁니다.
 
 ## 자유로운 this
 
+<<<<<<< HEAD
 자바스크립트의 `this`는 다른 프로그래밍 언어의 `this`와 동작 방식이 다릅니다. 자바스크립트에선 모든 함수에 `this`를 사용할 수 있습니다.
+=======
+In JavaScript, keyword `this` behaves unlike most other programming languages. It can be used in any function, even if it's not a method of an object.
+>>>>>>> 1dce5b72b16288dad31b7b3febed4f38b7a5cd8a
 
 아래와 같이 코드를 작성해도 문법 에러가 발생하지 않습니다.
 
