@@ -132,7 +132,11 @@ function pow(x, n) {
   </li>
 </ul>
 
+<<<<<<< HEAD
 위 그림은 함수 실행이 시작되는 순간을 나타낸 것입니다. 지금 상태론 조건 `n == 1`을 만족하지 못하므로 실행 흐름은 `if`의 두 번째 분기로 넘어갑니다.
+=======
+That's when the function starts to execute. The condition `n == 1` is falsy, so the flow continues into the second branch of `if`:
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 ```js run
 function pow(x, n) {
@@ -188,7 +192,11 @@ alert( pow(2, 3) );
 이전 컨텍스트에 변수 정보, 코드가 일시 중단된 줄에 대한 정보가 저장되어있기 때문에 서브 호출이 끝났을 때 이전 컨텍스트가 문제없이 다시 시작됩니다.
 
 ```smart
+<<<<<<< HEAD
 예시엔 한 줄에 서브 호출 하나만 있기 때문에, 그림에서 '줄'이라는 단어를 사용했습니다. 하지만 한 줄에는 `pow(…) + pow(…) + somethingElse(…)` 같이 복수의 서브 호출이 있을 수 있습니다.
+=======
+Here in the picture we use the word "line", as in our example there's only one subcall in line, but generally a single line of code may contain multiple subcalls, like `pow(…) + pow(…) + somethingElse(…)`.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 따라서 좀 더 정확히는 실행이 '서브 호출 바로 직후'에 시작된다고 이야기 할 수 있습니다.
 ```
@@ -285,7 +293,11 @@ function pow(x, n) {
 
 **재귀를 이용해 작성한 코드는 반복문을 사용한 코드로 다시 작성할 수 있습니다. 반복문을 사용하면 대개 함수 호출의 비용(메모리 사용)이 절약됩니다.**
 
+<<<<<<< HEAD
 하지만 코드를 다시 작성해도 큰 개선이 없는 경우가 있습니다. 조건에 따라 함수가 다른 재귀 서브 호출을 하고 그 결과를 합칠 때가 그렇습니다. 분기문이 복잡하게 얽혀있을 때도 메모리가 크게 절약되지 않습니다. 이런 경우엔 최적화가 필요하지 않을 수 있고 최적화에 드는 노력이 무용지물일 수 있습니다.
+=======
+...But sometimes the rewrite is non-trivial, especially when a function uses different recursive subcalls depending on conditions and merges their results or when the branching is more intricate. And the optimization may be unneeded and totally not worth the efforts.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 재귀를 사용하면 코드가 짧아지고 코드 이해도가 높아지며 유지보수에도 이점이 있습니다. 모든 곳에서 메모리 최적화를 신경 써서 코드를 작성해야 하는 것은 아닙니다. 우리가 필요한 것은 좋은 코드입니다. 이런 이유 때문에 재귀를 사용합니다.
 
@@ -535,7 +547,11 @@ list.next = list.next.next;
     list = {value, next -> list}
     ```
 
+<<<<<<< HEAD
     HTML 문서의 HTML 요소 트리나 위에서 다룬 부서를 나타내는 트리 역시 재귀적인 자료 구조로 만들었습니다. 이렇게 재귀적인 자료 구조를 사용하면 가지가 여러 개인데 각 가지가 여러 가지로 뻗쳐 나가는 형태로 자료 구조를 만들 수 있습니다.
+=======
+    Trees like HTML elements tree or the department tree from this chapter are also naturally recursive: they have branches and every branch can have other branches.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
     예시에서 구현한 `sumSalary`같은 재귀 함수를 사용하면 각 분기(가지)를 순회할 수 있습니다.
 

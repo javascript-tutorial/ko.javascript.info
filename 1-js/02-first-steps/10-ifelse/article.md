@@ -68,7 +68,11 @@ if (cond) {
 
 ## 'else'절
 
+<<<<<<< HEAD
 `if`문엔 `else` 절을 붙일 수 있습니다. `else` 뒤에 이어지는 코드 블록은 조건이 거짓일 때 실행됩니다.
+=======
+The `if` statement may contain an optional `else` block. It executes when the condition is falsy.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 예시:
 ```js run
@@ -180,10 +184,17 @@ alert( message );
 
 물음표 연산자를 이런 방식으로 쓰는 걸 처음 본 분이라면 이 코드가 어떻게 동작하는지 파악하기 힘들 수 있습니다. 그러나 주의를 집중하고 보면, 단순히 여러 조건을 나열한 코드임에 불과하다는 것을 알 수 있습니다.
 
+<<<<<<< HEAD
 1. 첫 번째 물음표에선 조건문 `age < 3`을 검사합니다.
 2. 그 결과가 참이면 `'아기야 안녕?'`를 반환합니다. 그렇지 않다면 첫 번째 콜론 `":"`에 이어지는 조건문 `age < 18`을 검사합니다.
 3. 그 결과가 참이면 `'안녕!'`를 반환합니다. 그렇지 않다면 다음 콜론 `":"`에 이어지는 조건문 `age < 100`을 검사합니다.
 4. 그 결과가 참이면 `'환영합니다!'`를 반환합니다. 그렇지 않다면 마지막 콜론 `":"` 이후의 표현식인 `'나이가 아주 많으시거나, 나이가 아닌 값을 입력 하셨군요!'`를 반환합니다.
+=======
+1. The first question mark checks whether `age < 3`.
+2. If true -- it returns `'Hi, baby!'`. Otherwise, it continues to the expression after the colon ":", checking `age < 18`.
+3. If that's true -- it returns `'Hello!'`. Otherwise, it continues to the expression after the next colon ":", checking `age < 100`.
+4. If that's true -- it returns `'Greetings!'`. Otherwise, it continues to the expression after the last colon ":", returning `'What an unusual age!'`.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 `if..else`를 사용하면 위 예시를 아래와 같이 변형할 수 있습니다.
 

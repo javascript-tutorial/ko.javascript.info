@@ -47,7 +47,11 @@ switch (a) {
     break;
 */!*
   case 5:
+<<<<<<< HEAD
     alert( '비교하려는 값보다 큽니다.' );
+=======
+    alert( 'Too big' );
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
     break;
   default:
     alert( "어떤 값인지 파악이 되지 않습니다." );
@@ -139,7 +143,11 @@ switch (a) {
 
 `case 3`과 `case 5`는 동일한 메시지를 보여줍니다.
 
+<<<<<<< HEAD
 `switch/case`문에서 `break`문이 없는 경우엔 조건에 상관없이 다음 `case`문이 실행되는 부작용이 발생합니다. 위 예시에서 `case 3`이 참인 경우엔 `(*)`로 표시한 줄 아래의 코드가 실행되는데, 그 아래 줄엔 `case 5`가 있고 `break`문도 없기 때문에 12번째 줄의 `break`문을 만날 때까지 코드는 계속 실행됩니다.
+=======
+The ability to "group" cases is a side effect of how `switch/case` works without `break`. Here the execution of `case 3` starts from the line `(*)` and goes through `case 5`, because there's no `break`.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 ## 자료형의 중요성
 

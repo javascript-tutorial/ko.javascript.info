@@ -1,12 +1,20 @@
 # 롱 폴링
 
+<<<<<<< HEAD
 폴링(long polling)을 사용하면 웹소켓이나 server-sent event 같은 특정한 프로토콜을 사용하지 않아도 아주 간단히 서버와 지속적인 커넥션을 유지할 수 있습니다.
+=======
+Long polling is the simplest way of having persistent connection with server, that doesn't use any specific protocol like WebSocket or Server Sent Events.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 폴링은 구현이 매우 쉽고 다양한 경우에 사용할 수 있습니다.
 
 ## Regular Polling
 
+<<<<<<< HEAD
 폴링(regular polling)을 사용하면 서버에서 새로운 정보를 아주 간단히 받을 수 있습니다. 10초에 한 번씩 서버에 "안녕하세요. 저 클라이언트인데 새로운 정보 줄거 있나요?" 라고 요청을 보내는 식으로 말이죠.
+=======
+The simplest way to get new information from the server is periodic polling. That is, regular requests to the server: "Hello, I'm here, do you have any information for me?". For example, once every 10 seconds.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 In response, the server first takes a notice to itself that the client is online, and second - sends a packet of messages it got till that moment.
 
@@ -29,7 +37,7 @@ The flow:
 3. When a message appears - the server responds to the request with it.
 4. The browser makes a new request immediately.
 
-The situation when the browser sent a request and has a pending connection with the server, is standard for this method. Only when a message is delivered, the connection is reestablished.
+This situation, where the browser has sent a request and keeps a pending connection with the server, is standard for this method. Only when a message is delivered, the connection is closed and reestablished.
 
 ![](long-polling.svg)
 

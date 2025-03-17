@@ -5,15 +5,19 @@
 바로 화살표 함수(arrow function)를 사용하는 것입니다. 화살표 함수라는 이름은 문법의 생김새를 차용해 지어졌습니다.
 
 ```js
-let func = (arg1, arg2, ...argN) => expression
+let func = (arg1, arg2, ..., argN) => expression;
 ```
 
+<<<<<<< HEAD
 이렇게 코드를 작성하면 인자 `arg1..argN`를 받는 함수 `func`이 만들어집니다. 함수 `func`는 화살표(`=>`) 우측의 `표현식(expression)`을 평가하고, 평가 결과를 반환합니다.
+=======
+This creates a function `func` that accepts arguments `arg1..argN`, then evaluates the `expression` on the right side with their use and returns its result.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 아래 함수의 축약 버전이라고 할 수 있죠.
 
 ```js
-let func = function(arg1, arg2, ...argN) {
+let func = function(arg1, arg2, ..., argN) {
   return expression;
 };
 ```
@@ -33,7 +37,11 @@ let sum = function(a, b) {
 alert( sum(1, 2) ); // 3
 ```
 
+<<<<<<< HEAD
 보시는 바와 같이 `(a, b) => a + b`는 인수 `a`와 `b`를 받는 함수입니다. `(a, b) => a + b`는 실행되는 순간 표현식 `a + b`를 평가하고 그 결과를 반환합니다.
+=======
+As you can see, `(a, b) => a + b` means a function that accepts two arguments named `a` and `b`. Upon the execution, it evaluates the expression `a + b` and returns the result.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 - 인수가 하나밖에 없다면 인수를 감싸는 괄호를 생략할 수 있습니다. 괄호를 생략하면 코드 길이를 더 줄일 수 있습니다.
 
@@ -48,7 +56,11 @@ alert( sum(1, 2) ); // 3
     alert( double(3) ); // 6
     ```
 
+<<<<<<< HEAD
 - 인수가 하나도 없을 땐 괄호를 비워놓으면 됩니다. 다만, 이 때 괄호는 생략할 수 없습니다.
+=======
+- If there are no arguments, parentheses are empty, but they must be present:
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
     ```js run
     let sayHi = () => alert("안녕하세요!");
@@ -64,8 +76,13 @@ alert( sum(1, 2) ); // 3
 let age = prompt("나이를 알려주세요.", 18);
 
 let welcome = (age < 18) ?
+<<<<<<< HEAD
   () => alert('안녕') :
   () => alert("안녕하세요!");
+=======
+  () => alert('Hello!') :
+  () => alert("Greetings!");
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 welcome();
 ```
@@ -76,9 +93,15 @@ welcome();
 
 ## 본문이 여러 줄인 화살표 함수
 
+<<<<<<< HEAD
 위에서 소개해 드린 화살표 함수들은 `=>` 왼쪽에 있는 인수를 이용해 `=>` 오른쪽에 있는 표현식을 평가하는 함수들이었습니다.
 
 그런데 평가해야 할 표현식이나 구문이 여러 개인 함수가 있을 수도 있습니다. 이 경우 역시 화살표 함수 문법을 사용해 함수를 만들 수 있습니다. 다만, 이때는 중괄호 안에 평가해야 할 코드를 넣어주어야 합니다. 그리고 `return` 지시자를 사용해 명시적으로 결괏값을 반환해 주어야 합니다.
+=======
+The arrow functions that we've seen so far were very simple. They took arguments from the left of `=>`, evaluated and returned the right-side expression with them.
+
+Sometimes we need a more complex function, with multiple expressions and statements. In that case, we can enclose them in curly braces. The major difference is that curly braces require a `return` within them to return a value (just like a regular function does).
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 아래와 같이 말이죠.
 
@@ -86,7 +109,11 @@ welcome();
 let sum = (a, b) => {  // 중괄호는 본문 여러 줄로 구성되어 있음을 알려줍니다.
   let result = a + b;
 *!*
+<<<<<<< HEAD
   return result; // 중괄호를 사용했다면, return 지시자로 결괏값을 반환해주어야 합니다.
+=======
+  return result; // if we use curly braces, then we need an explicit "return"
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 */!*
 };
 
@@ -105,7 +132,14 @@ alert( sum(1, 2) ); // 3
 
 ## 요약
 
+<<<<<<< HEAD
 화살표 함수는 본문이 한 줄인 함수를 작성할 때 유용합니다. 본문이 한 줄이 아니라면 다른 방법으로 화살표 함수를 작성해야 합니다. 
 
 1. 중괄호 없이 작성: `(...args) => expression` -- 화살표 오른쪽에 표현식을 둡니다. 함수는 이 표현식을 평가하고, 평가 결과를 반환합니다.
 2. 중괄호와 함께 작성: `(...args) => { body }` -- 본문이 여러 줄로 구성되었다면 중괄호를 사용해야 합니다. 다만, 이 경우는 반드시 `return` 지시자를 사용해 반환 값을 명기해 주어야 합니다.
+=======
+Arrow functions are handy for simple actions, especially for one-liners. They come in two flavors:
+
+1. Without curly braces: `(...args) => expression` -- the right side is an expression: the function evaluates it and returns the result. Parentheses can be omitted, if there's only a single argument, e.g. `n => n*2`.
+2. With curly braces: `(...args) => { body }` -- brackets allow us to write multiple statements inside the function, but we need an explicit `return` to return something.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6

@@ -14,16 +14,27 @@
 
     예시:
 
+<<<<<<< HEAD
     - 현재 함수의 지역 변수와 매개변수
     - 중첩 함수의 체인에 있는 함수에서 사용되는 변수와 매개변수
     - 전역 변수
     - 기타 등등
+=======
+    - The currently executing function, its local variables and parameters.
+    - Other functions on the current chain of nested calls, their local variables and parameters.
+    - Global variables.
+    - (there are some other, internal ones as well)
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
     이런 값은 *루트(root)* 라고 부릅니다.
 
 2. 루트가 참조하는 값이나 체이닝으로 루트에서 참조할 수 있는 값은 도달 가능한 값이 됩니다.
 
+<<<<<<< HEAD
     전역 변수에 객체가 저장되어있다고 가정해 봅시다. 이 객체의 프로퍼티가 또 다른 객체를 참조하고 있다면, 프로퍼티가 참조하는 객체는 도달 가능한 값이 됩니다. 이 객체가 참조하는 다른 모든 것들도 도달 가능하다고 여겨집니다. 자세한 예시는 아래에서 살펴보겠습니다.
+=======
+    For instance, if there's an object in a global variable, and that object has a property referencing another object, *that* object is considered reachable. And those that it references are also reachable. Detailed examples to follow.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 자바스크립트 엔진 내에선 [가비지 컬렉터(garbage collector)](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science))가 끊임없이 동작합니다. 가비지 컬렉터는 모든 객체를 모니터링하고, 도달할 수 없는 객체는 삭제합니다.
 
@@ -74,7 +85,11 @@ let admin = user;
 user = null;
 ```
 
+<<<<<<< HEAD
 전역 변수 `admin`을 통하면 여전히 객체 John에 접근할 수 있기 때문에 John은 메모리에서 삭제되지 않습니다. 이 상태에서 `admin`을 다른 값(null 등)으로 덮어쓰면 John은 메모리에서 삭제될 수 있습니다.
+=======
+...Then the object is still reachable via `admin` global variable, so it must stay in memory. If we overwrite `admin` too, then it can be removed.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 ## 연결된 객체
 
@@ -169,11 +184,19 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 
 ![](garbage-collection-2.svg)
 
+<<<<<<< HEAD
 이후 루트가 참조하고 있는 것들을 mark 합니다.
 
 ![](garbage-collection-3.svg)
 
 도달 가능한 모든 객체를 방문할 때까지, mark 한 객체가 참조하는 객체를 계속해서 mark 합니다.
+=======
+Then we follow their references and mark referenced objects:
+
+![](garbage-collection-3.svg)
+
+...And continue to follow further references, while possible:
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 ![](garbage-collection-4.svg)
 
@@ -183,13 +206,23 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 
 루트에서 페인트를 들이붓는다고 상상하면 이 과정을 이해하기 쉽습니다. 루트를 시작으로 참조를 따라가면서 도달가능한 객체 모두에 페인트가 칠해진다고 생각하면 됩니다. 이때 페인트가 묻지 않은 객체는 메모리에서 삭제됩니다.  
 
+<<<<<<< HEAD
 지금까지 가비지 컬렉션이 어떻게 동작하는지에 대한 개념을 알아보았습니다. 자바스크립트 엔진은 실행에 영향을 미치지 않으면서 가비지 컬렉션을 더 빠르게 하는 다양한 최적화 기법을 적용합니다.  
+=======
+That's the concept of how garbage collection works. JavaScript engines apply many optimizations to make it run faster and not introduce any delays into the code execution.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 최적화 기법:
 
+<<<<<<< HEAD
 - **generational collection(세대별 수집)** -- 객체를 '새로운 객체'와 '오래된 객체'로 나눕니다. 객체 상당수는 생성 이후 제 역할을 빠르게 수행해 금방 쓸모가 없어지는데, 이런 객체를 '새로운 객체'로 구분합니다. 가비지 컬렉터는 이런 객체를 공격적으로 메모리에서 제거합니다. 일정 시간 이상 동안 살아남은 객체는 '오래된 객체'로 분류하고, 가비지 컬렉터가 덜 감시합니다.
 - **incremental collection(점진적 수집)** -- 방문해야 할 객체가 많다면 모든 객체를 한 번에 방문하고 mark 하는데 상당한 시간이 소모됩니다. 가비지 컬렉션에 많은 리소스가 사용되어 실행 속도도 눈에 띄게 느려지겠죠. 자바스크립트 엔진은 이런 현상을 개선하기 위해 가비지 컬렉션을 여러 부분으로 분리한 다음, 각 부분을 별도로 수행합니다. 작업을 분리하고, 변경 사항을 추적하는 데 추가 작업이 필요하긴 하지만, 긴 지연을 짧은 지연 여러 개로 분산시킬 수 있다는 장점이 있습니다.
 - **idle-time collection(유휴 시간 수집)** -- 가비지 컬렉터는 실행에 주는 영향을 최소화하기 위해 CPU가 유휴 상태일 때에만 가비지 컬렉션을 실행합니다.
+=======
+- **Generational collection** -- objects are split into two sets: "new ones" and "old ones". In typical code, many objects have a short life span: they appear, do their job and die fast, so it makes sense to track new objects and clear the memory from them if that's the case. Those that survive for long enough, become "old" and are examined less often.
+- **Incremental collection** -- if there are many objects, and we try to walk and mark the whole object set at once, it may take some time and introduce visible delays in the execution. So the engine splits the whole set of existing objects into multiple parts. And then clear these parts one after another. There are many small garbage collections instead of a total one. That requires some extra bookkeeping between them to track changes, but we get many tiny delays instead of a big one.
+- **Idle-time collection** -- the garbage collector tries to run only while the CPU is idle, to reduce the possible effect on the execution.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 이 외에도 다양한 최적화 기법과 가비지 컬렉션 알고리즘이 있습니다. 다양한 기법과 알고리즘을 소개해 드리고 싶지만, 엔진마다 세부 사항이나 기법이 다르기 때문에 여기서 멈추도록 하겠습니다. 엔진이 발전하면 기법도 달라지기 때문에 학습해야 할 이유가 진짜 없다면 '심화' 학습은 그리 가치 있지 않다고 생각합니다. 순수한 호기심 때문이라면 물론 괜찮습니다. 이런 분들을 위해 아래에 링크를 몇 개를 소개해놓았습니다.
 
@@ -197,16 +230,30 @@ John과 Ann은 여전히 서로를 참조하고 있고, 두 객체 모두 외부
 
 지금까지 알아본 내용을 요약해 봅시다.
 
+<<<<<<< HEAD
 - 가비지 컬렉션은 엔진이 자동으로 수행하므로 개발자는 이를 억지로 실행하거나 막을 수 없습니다.
 - 객체는 도달 가능한 상태일 때 메모리에 남습니다.
 - 참조된다고 해서 도달 가능한 것은 아닙니다. 서로 연결된 객체들도 도달 불가능할 수 있습니다.
+=======
+- Garbage collection is performed automatically. We cannot force or prevent it.
+- Objects are retained in memory while they are reachable.
+- Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole, as we've seen in the example above.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 모던 자바스크립트 엔진은 좀 더 발전된 가비지 컬렉션 알고리즘을 사용합니다.
 
 어떤 알고리즘을 사용하는지 궁금하다면 'The Garbage Collection Handbook: The Art of Automatic Memory Management'(저자 - R. Jones et al)를 참고하시기 바랍니다.
 
+<<<<<<< HEAD
 저수준(low-level) 프로그래밍에 익숙하다면, [A tour of V8: Garbage Collection](http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection)을 읽어보세요. V8 가비지 컬렉터에 대한 자세한 내용을 확인해 볼 수 있습니다.
 
 [V8 공식 블로그](https://v8.dev/)에도 메모리 관리 방법 변화에 대한 내용이 올라옵니다. 가비지 컬렉션을 심도 있게 학습하려면 V8 내부구조를 공부하거나 V8 엔지니어로 일했던 [Vyacheslav Egorov](http://mrale.ph)의 블로그를 읽는 것도 좋습니다. 여러 엔진 중 'V8' 엔진을 언급하는 이유는 인터넷에서 관련 글을 쉽게 찾을 수 있기 때문입니다. V8과 타 엔진들은 동작 방법이 비슷한데, 가비지 컬렉션 동작 방식에는 많은 차이가 있습니다.
 
 저수준 최적화가 필요한 상황이라면, 엔진에 대한 조예가 깊어야 합니다. 먼저 자바스크립트에 익숙해진 후에 엔진에 대해 학습하는 것을 추천해 드립니다.
+=======
+If you are familiar with low-level programming, more detailed information about V8's garbage collector is in the article [A tour of V8: Garbage Collection](https://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection).
+
+The [V8 blog](https://v8.dev/) also publishes articles about changes in memory management from time to time. Naturally, to learn more about garbage collection, you'd better prepare by learning about V8 internals in general and read the blog of [Vyacheslav Egorov](https://mrale.ph) who worked as one of the V8 engineers. I'm saying: "V8", because it is best covered by articles on the internet. For other engines, many approaches are similar, but garbage collection differs in many aspects.
+
+In-depth knowledge of engines is good when you need low-level optimizations. It would be wise to plan that as the next step after you're familiar with the language.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6

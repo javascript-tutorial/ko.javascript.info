@@ -57,9 +57,15 @@ alert( getMaxSubSum([1, 2, 3]) ); // 6
 alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
 ```
 
+<<<<<<< HEAD
 이렇게 구현하면 시간 복잡도가 [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation)이 됩니다. 이는 배열의 크기를 2배 늘리면 알고리즘은 4배나 더 오래 걸린다는 의미입니다.
 
 크기가 큰 배열(1000, 10000 또는 그 이상의 요소를 가진 배열)에 위와 같은 알고리즘을 적용하면 매우 느릴 수 있습니다.
+=======
+The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
+
+For big arrays (1000, 10000 or more items) such algorithms can lead to serious sluggishness.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
 
 # 빠른 해답
 
@@ -91,4 +97,8 @@ alert( getMaxSubSum([-1, -2, -3]) ); // 0
 
 이 알고리즘은 정확히 한번 배열을 순회하므로 시간 복잡도는 O(n)입니다.
 
+<<<<<<< HEAD
 알고리즘에 대한 상세한 정보는 [최대합 부분 배열 문제](http://en.wikipedia.org/wiki/Maximum_subarray_problem)에서 찾을 수 있습니다. 동작원리에 대해 확실히 이해가 되지 않았다면 위 예제의 알고리즘이 어떻게 동작하는지 찬찬히 살펴보세요. 글을 읽는 것보다 코드를 살펴보는게 훨씬 도움이 될 겁니다.
+=======
+You can find more detailed information about the algorithm here: [Maximum subarray problem](http://en.wikipedia.org/wiki/Maximum_subarray_problem). If it's still not obvious why that works, then please trace the algorithm on the examples above, see how it works, that's better than any words.
+>>>>>>> 3d7abb9cc8fa553963025547717f06f126c449b6
