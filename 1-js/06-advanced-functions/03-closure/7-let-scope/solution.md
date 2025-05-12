@@ -26,9 +26,15 @@ func();
 ```js
 function func() {
 *!*
+<<<<<<< HEAD
   // 엔진은 함수가 시작될 때 로컬 변수 x의 존재를 알고 있지만
   // let 문이 실행될 때까지 x는 '초기화되지 않은' 상태(dead zone)이기 때문에
   // 에러가 발생합니다.
+=======
+  // the local variable x is known to the engine from the beginning of the function,
+  // but "uninitialized" (unusable) until let ("dead zone")
+  // hence the error
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 */!*
 
   console.log(x); // ReferenceError: Cannot access 'x' before initialization
