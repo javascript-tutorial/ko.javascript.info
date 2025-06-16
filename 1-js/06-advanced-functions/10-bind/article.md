@@ -123,7 +123,11 @@ funcUser(); // John
 */!*
 ```
 
+<<<<<<< HEAD
 여기서 `func.bind(user)`는 `func`의 `this`를 `user`로 '바인딩한 변형'이라고 생각하시면 됩니다.
+=======
+Here `func.bind(user)` is a "bound variant" of `func`, with fixed `this=user`.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 인수는 원본 함수 `func`에 '그대로' 전달됩니다.
 
@@ -185,8 +189,13 @@ let user = {
 
 let say = user.say.bind(user);
 
+<<<<<<< HEAD
 say("Hello"); // Hello, John (인수 "Hello"가 say로 전달되었습니다.)
 say("Bye"); // Bye, John ("Bye"가 say로 전달되었습니다.)
+=======
+say("Hello"); // Hello, John! ("Hello" argument is passed to say)
+say("Bye"); // Bye, John! ("Bye" is passed to say)
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 ```
 
 ````smart header="`bindAll`로 메서드 전체 바인딩하기"
@@ -200,7 +209,11 @@ for (let key in user) {
 }
 ```
 
+<<<<<<< HEAD
 자바스크립트 라이브러리를 사용해도 대규모 바인딩을 할 수 있습니다. lodash 라이브러리의 [_.bindAll(object, methodNames)](http://lodash.com/docs#bindAll)이 그 예입니다.
+=======
+JavaScript libraries also provide functions for convenient mass binding , e.g. [_.bindAll(object, methodNames)](https://lodash.com/docs#bindAll) in lodash.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 ````
 
 ## 부분 적용
@@ -245,7 +258,11 @@ alert( double(5) ); // = mul(2, 5) = 10
 
 이런 방식을 [부분 적용(partial application)](https://en.wikipedia.org/wiki/Partial_application)이라고 부릅니다. 부분 적용을 사용하면 기존 함수의 매개변수를 고정하여 새로운 함수를 만들 수 있습니다.
 
+<<<<<<< HEAD
 위 예시에선 `this`를 사용하지 않았다는 점에 주목하시기 바랍니다. `bind`엔 컨텍스트를 항상 넘겨줘야 하므로 `null`을 사용했습니다.
+=======
+Please note that we actually don't use `this` here. But `bind` requires it, so we must put in something like `null`.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 부분 적용을 사용해 3을 곱해주는 함수 `triple`을 만들어보겠습니다.
 
