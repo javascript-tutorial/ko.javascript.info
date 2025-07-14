@@ -27,7 +27,11 @@ let promise = fetch(url, [options])
 - **`url`** -- 접근하고자 하는 URL
 - **`options`** -- 선택 매개변수, method나 header 등을 지정할 수 있음
 
+<<<<<<< HEAD
 `options`에 아무것도 넘기지 않으면 요청은 `GET` 메서드로 진행되어 `url`로부터 콘텐츠가 다운로드 됩니다.
+=======
+Without `options`, this is a simple GET request, downloading the contents of the `url`.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 `fetch()`를 호출하면 브라우저는 네트워크 요청을 보내고 프라미스가 반환됩니다. 반환되는 프라미스는 `fetch()`를 호출하는 코드에서 사용됩니다.
 
@@ -61,12 +65,21 @@ if (response.ok) { // HTTP 상태 코드가 200~299일 경우
 
 `response` 에는 프라미스를 기반으로 하는 다양한 메서드가 있습니다. 이 메서드들을 사용하면 다양한 형태의 응답 본문을 처리할 수 있습니다. 
 
+<<<<<<< HEAD
 - **`response.text()`** -- 응답을 읽고 텍스트를 반환합니다,
 - **`response.json()`** -- 응답을 JSON 형태로 파싱합니다,
 - **`response.formData()`** -- 응답을 `FormData` 객체 형태로 반환합니다. `FormData`에 대한 자세한 내용은 [다음 챕터](info:formdata)에서 다루겠습니다.
 - **`response.blob()`** -- 응답을 [Blob](info:blob)(타입이 있는 바이너리 데이터) 형태로 반환합니다.
 - **`response.arrayBuffer()`** -- 응답을 [ArrayBuffer](info:arraybuffer-binary-arrays)(바이너리 데이터를 로우 레벨 형식으로 표현한 것) 형태로 반환합니다.
 - 이 외에도 `response.body`가 있는데, [ReadableStream](https://streams.spec.whatwg.org/#rs-class) 객체인 `response.body`를 사용하면 응답 본문을 청크 단위로 읽을 수 있습니다. 자세한 용례는 곧 살펴보겠습니다.
+=======
+- **`response.text()`** -- read the response and return as text,
+- **`response.json()`** -- parse the response as JSON,
+- **`response.formData()`** -- return the response as `FormData` object (explained in the [next chapter](info:formdata)),
+- **`response.blob()`** -- return the response as [Blob](info:blob) (binary data with type),
+- **`response.arrayBuffer()`** -- return the response as [ArrayBuffer](info:arraybuffer-binary-arrays) (low-level representation of binary data),
+- additionally, `response.body` is a [ReadableStream](https://streams.spec.whatwg.org/#rs-class) object, it allows you to read the body chunk-by-chunk, we'll see an example later.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 지금까지 배운 내용을 토대로 GitHub에서 마지막 커밋을 JSON 객체 형태로 받아봅시다.
 
@@ -192,12 +205,21 @@ let response = fetch(protectedUrl, {
 
 `GET` 이외의 요청을 보내려면 추가 옵션을 사용해야 합니다.
 
+<<<<<<< HEAD
 - **`method`** -- HTTP 메서드(예: `POST`)
 - **`body`** -- 요청 본문으로 다음 항목 중 하나이어야 합니다.
   - 문자열(예: JSON 문자열)
   - `FormData`객체 -- `form/multipart` 형태로 데이터를 전송하기 위해 쓰입니다.
   - `Blob`나 `BufferSource` -- 바이너리 데이터 전송을 위해 쓰입니다.
   - [URLSearchParams](info:url) -- 데이터를 `x-www-form-urlencoded` 형태로 보내기 위해 쓰이는데, 요즘엔 잘 사용하지 않습니다.
+=======
+- **`method`** -- HTTP-method, e.g. `POST`,
+- **`body`** -- the request body, one of:
+  - a string (e.g. JSON-encoded),
+  - `FormData` object, to submit the data as `multipart/form-data`,
+  - `Blob`/`BufferSource` to send binary data,
+  - [URLSearchParams](info:url), to submit the data in `x-www-form-urlencoded` encoding, rarely used.
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 대부분은 JSON을 요청 본문에 실어 보내게 됩니다.
 
@@ -296,6 +318,7 @@ fetch(url, options)
   .then(result => /* 결과 처리 */)
 ```
 
+<<<<<<< HEAD
 응답 객체의 프로퍼티는 다음과 같습니다.
 - `response.status` -- 응답의 HTTP 코드
 - `response.ok` -- 응답 상태가 200과 299 사이에 있는 경우 `true`
@@ -307,6 +330,19 @@ fetch(url, options)
 - **`response.formData()`** -- 응답을 `FormData` 객체 형태로 반환(form/multipart 인코딩에 대한 내용은 다음 챕터에서 다룸)
 - **`response.blob()`** -- 응답을 [Blob](info:blob)(타입이 있는 바이너리 데이터) 형태로 반환
 - **`response.arrayBuffer()`** --  응답을 [ArrayBuffer](info:arraybuffer-binary-arrays)(바이너리 데이터를 로우 레벨로 표현한 것) 형태로 반환
+=======
+Response properties:
+- `response.status` -- HTTP code of the response,
+- `response.ok` -- `true` if the status is 200-299.
+- `response.headers` -- Map-like object with HTTP headers.
+
+Methods to get response body:
+- **`response.text()`** -- return the response as text,
+- **`response.json()`** -- parse the response as JSON object,
+- **`response.formData()`** -- return the response as `FormData` object (`multipart/form-data` encoding, see the next chapter),
+- **`response.blob()`** -- return the response as [Blob](info:blob) (binary data with type),
+- **`response.arrayBuffer()`** -- return the response as [ArrayBuffer](info:arraybuffer-binary-arrays) (low-level binary data),
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 지금까지 배운 `fetch` 옵션은 다음과 같습니다.
 - `method` -- HTTP 메서드
