@@ -1,9 +1,15 @@
 
 # 정적 메서드와 정적 프로퍼티
 
+<<<<<<< HEAD
 `"prototype"`이 아닌 클래스 함수 자체에 메서드를 설정할 수도 있습니다. 이런 메서드를 *정적(static)* 메서드라고 부릅니다.
 
 정적 메서드는 아래와 같이 클래스 안에서 `static` 키워드를 붙여 만들 수 있습니다.
+=======
+We can also assign a method to the class as a whole. Such methods are called *static*.
+
+In a class declaration, they are prepended by `static` keyword, like this:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 ```js run
 class User {
@@ -31,9 +37,17 @@ User.staticMethod(); // true
 
 `User.staticMethod()`가 호출될 때 `this`의 값은 클래스 생성자인 `User` 자체가 됩니다(점 앞 객체).
 
+<<<<<<< HEAD
 정적 메서드는 어떤 특정한 객체가 아닌 클래스에 속한 함수를 구현하고자 할 때 주로 사용됩니다.
 
 객체 `Article`이 여러 개 있고 이들을 비교해줄 함수가 필요하다고 가정해 봅시다. 가장 먼저 아래와 같이 `Article.compare`를 추가하는 방법이 떠오를 겁니다.
+=======
+Usually, static methods are used to implement functions that belong to the class as a whole, but not to any particular object of it.
+
+For instance, we have `Article` objects and need a function to compare them.
+
+A natural solution would be to add `Article.compare` static method:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 ```js run
 class Article {
@@ -63,9 +77,17 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
+<<<<<<< HEAD
 여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, 글 전체를 '위에서' 바라보며 비교를 수행합니다. `Article.compare`이 글 하나의 메서드가 아닌 클래스의 메서드여야 하는 이유가 여기에 있습니다.
 
 이번에 살펴볼 예시는 '팩토리' 메서드를 구현한 코드입니다. 다양한 방법을 사용해 조건에 맞는 article 인스턴스를 만들어야 한다고 가정해 봅시다.
+=======
+Here `Article.compare` method stands "above" articles, as a means to compare them. It's not a method of an article, but rather of the whole class.
+
+Another example would be a so-called "factory" method.
+
+Let's say, we need multiple ways to create an article:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 1. 매개변수(`title`, `date` 등)를 이용해 관련 정보가 담긴 article 생성
 2. 오늘 날짜를 기반으로 비어있는 article 생성
@@ -73,7 +95,11 @@ alert( articles[0].title ); // CSS
 
 첫 번째 방법은 생성자를 사용해 구현할 수 있습니다. 두 번째 방법은 클래스에 정적 메서드를 만들어 구현할 수 있습니다.
 
+<<<<<<< HEAD
 아래 `Article.createTodays()`같이 말이죠.
+=======
+Such as `Article.createTodays()` here:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 ```js run
 class Article {
@@ -100,12 +126,32 @@ alert( article.title ); // Today's digest
 정적 메서드는 아래 예시와 같이 항목 검색, 저장, 삭제 등을 수행해주는 데이터베이스 관련 클래스에도 사용됩니다.
 
 ```js
+<<<<<<< HEAD
 // Article은 article을 관리해주는 특별 클래스라고 가정합시다.
 // article 삭제에 쓰이는 정적 메서드
 Article.remove({id: 12345});
 ```
 
 ## 정적 프로퍼티
+=======
+// assuming Article is a special class for managing articles
+// static method to remove the article by id:
+Article.remove({id: 12345});
+```
+
+````warn header="Static methods aren't available for individual objects"
+Static methods are callable on classes, not on individual objects.
+
+E.g. such code won't work:
+
+```js
+// ...
+article.createTodays(); /// Error: article.createTodays is not a function
+```
+````
+
+## Static properties
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 [recent browser=Chrome]
 
@@ -125,7 +171,11 @@ alert( Article.publisher ); // Ilya Kantor
 Article.publisher = "Ilya Kantor";
 ```
 
+<<<<<<< HEAD
 ## 정적 프로퍼티와 메서드 상속
+=======
+## Inheritance of static properties and methods [#statics-and-inheritance]
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 정적 프로퍼티와 메서드는 상속됩니다.
 
