@@ -4,6 +4,8 @@
 
 Here's an example with numbers as date components:
 
+Here's an example with numbers as date components:
+
 ```js run
 //new Date(year, month, date, hour, minute, second, millisecond)
 let d1 = new Date(2012, 1, 20, 3, 12);
@@ -13,6 +15,10 @@ We could also create a date from a string, like this:
 
 ```js run
 //new Date(datastring)
+<<<<<<< HEAD
 let d2 = new Date("February 20, 2012 03:12:00");
+=======
+let d2 = new Date("2012-02-20T03:12");
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 alert( d2 );
 ```

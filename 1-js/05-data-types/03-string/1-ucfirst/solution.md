@@ -8,12 +8,16 @@ let newStr = str[0].toUpperCase() + str.slice(1);
 
 그런데 이렇게 코드를 작성하면 `str`이 비어있는 문자열인 경우 `str[0]`이 `undefined`가 되는 문제가 발생합니다. `undefined`는 `toUpperCase()`메서드를 지원하지 않으므로 에러가 발생하죠.
 
+<<<<<<< HEAD
 두 가지 방법을 사용해 이런 예외사항을 처리 할 수 있습니다.
 
 1. `str.charAt(0)`은 `str`이 비어있는 문자열이더라도 항상 문자열을 반환하므로, 이 메서드를 사용합니다.
 2. 빈 문자열인지를 확인하는 코드를 작성합니다.
 
 두 번째 방법을 사용하여 작성한 답안은 아래와 같습니다.
+=======
+The easiest way out is to add a test for an empty string, like this:
+>>>>>>> 540d753e90789205fc6e75c502f68382c87dea9b
 
 ```js run demo
 function ucFirst(str) {
@@ -24,4 +28,3 @@ function ucFirst(str) {
 
 alert( ucFirst("john") ); // John
 ```
-
