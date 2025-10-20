@@ -2,7 +2,11 @@
 
 `prototype` 프로퍼티는 자바스크립트 내부에서도 광범위하게 사용됩니다. 모든 내장 생성자 함수에서 `prototype` 프로퍼티를 사용합니다.
 
+<<<<<<< HEAD
 이번 챕터에선 내장 객체의 프로토타입에 대해 자세히 살펴본 후, 어떻게 내장 객체의 프로토타입 프로퍼티를 응용할 수 있는지 알아보겠습니다.
+=======
+First we'll look at the details, and then how to use it for adding new capabilities to built-in objects.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ## Object.prototype
 
