@@ -44,7 +44,11 @@ let user = {     // 객체
 
 ![user object](object-user.svg)
 
+<<<<<<< HEAD
 서랍장에 파일을 추가하고 뺄 수 있듯이 개발자는 프로퍼티를 추가, 삭제할 수 있습니다.
+=======
+We can add, remove and read files from it at any time.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 점 표기법(dot notation)을 이용하면 프로퍼티 값을 읽는 것도 가능합니다.
 
@@ -62,7 +66,11 @@ user.isAdmin = true;
 
 ![user object 2](object-user-isadmin.svg)
 
+<<<<<<< HEAD
 `delete` 연산자를 사용하면 프로퍼티를 삭제할 수 있습니다.
+=======
+To remove a property, we can use the `delete` operator:
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ```js
 delete user.age;
@@ -92,6 +100,7 @@ let user = {
 ```
 이런 쉼표를 'trailing(길게 늘어지는)' 혹은 'hanging(매달리는)' 쉼표라고 부릅니다. 이렇게 끝에 쉼표를 붙이면 모든 프로퍼티가 유사한 형태를 보이기 때문에 프로퍼티를 추가, 삭제, 이동하는 게 쉬워집니다.
 
+<<<<<<< HEAD
 ````smart header="상수 객체는 수정될 수 있습니다."
 주의하세요. `const`로 선언된 객체는 수정될 수 있습니다.
 
@@ -117,6 +126,9 @@ alert(user.name); // Pete
 ````
 
 ## 대괄호 표기법
+=======
+## Square brackets
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 여러 단어를 조합해 프로퍼티 키를 만든 경우엔, 점 표기법을 사용해 프로퍼티 값을 읽을 수 없습니다.
 
@@ -225,13 +237,21 @@ let bag = {
 };
 ```
 
+<<<<<<< HEAD
 대괄호 표기법은 프로퍼티 이름과 값의 제약을 없애주기 때문에 점 표기법보다 훨씬 강력합니다. 그런데 작성하기 번거롭다는 단점이 있습니다.
+=======
+Square brackets are much more powerful than dot notation. They allow any property names and variables. But they are also more cumbersome to write.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 이런 이유로 프로퍼티 이름이 확정된 상황이고, 단순한 이름이라면 처음엔 점 표기법을 사용하다가 뭔가 복잡한 상황이 발생했을 때 대괄호 표기법으로 바꾸는 경우가 많습니다.
 
 ## 단축 프로퍼티
 
+<<<<<<< HEAD
 실무에선 프로퍼티 값을 기존 변수에서 받아와 사용하는 경우가 종종 있습니다.
+=======
+In real code, we often use existing variables as values for property names.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 예시:
 
@@ -276,7 +296,11 @@ let user = {
 
 ## 프로퍼티 이름의 제약사항
 
+<<<<<<< HEAD
 아시다시피 변수 이름(키)엔 'for', 'let', 'return' 같은 예약어를 사용하면 안됩니다.
+=======
+As we already know, a variable cannot have a name equal to one of the language-reserved words like "for", "let", "return" etc.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 그런데 객체 프로퍼티엔 이런 제약이 없습니다.
 
@@ -349,7 +373,11 @@ alert( "blabla" in user ); // user.blabla는 존재하지 않기 때문에 false
 
 `in` 왼쪽엔 반드시 *프로퍼티 이름*이 와야 합니다. 프로퍼티 이름은 보통 따옴표로 감싼 문자열입니다.
 
+<<<<<<< HEAD
 따옴표를 생략하면 아래 예시와 같이 엉뚱한 변수가 조사 대상이 됩니다. 
+=======
+If we omit quotes, that means a variable should contain the actual name to be tested. For instance:
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ```js run
 let user = { age: 30 };
@@ -379,7 +407,11 @@ alert( "test" in obj ); // `in`을 사용하면 프로퍼티 유무를 제대로
 `undefined`는 변수는 정의되어 있으나 값이 할당되지 않은 경우에 쓰기 때문에 프로퍼티 값이 `undefined`인 경우는 흔치 않습니다. 값을 '알 수 없거나(unknown)' 값이 '비어 있다는(empty)' 것을 나타낼 때는 주로 `null`을 사용합니다. 위 예시에서 `in` 연산자는 자리에 어울리지 않는 초대손님처럼 보이네요.
 
 
+<<<<<<< HEAD
 ## 'for..in' 반복문
+=======
+## The "for..in" loop [#forin]
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 `for..in` 반복문을 사용하면 객체의 모든 키를 순회할 수 있습니다. `for..in`은 앞서 학습했던 `for(;;)` 반복문과는 완전히 다릅니다.
 
@@ -436,7 +468,11 @@ for (let code in codes) {
 */!*
 ```
 
+<<<<<<< HEAD
 현재 개발 중인 애플리케이션의 주 사용자가 독일인이라고 가정해 봅시다. 나라 번호를 선택하는 화면에서 `49`가 맨 앞에 오도록 하는 게 좋을 겁니다.
+=======
+The object may be used to suggest a list of options to the user. If we're making a site mainly for a German audience then we probably want `49` to be the first.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 그런데 코드를 실행해 보면 예상과는 전혀 다른 결과가 출력됩니다.
 
@@ -448,6 +484,7 @@ for (let code in codes) {
 ````smart header="정수 프로퍼티? 그게 뭔가요?"
 '정수 프로퍼티'라는 용어는 변형 없이 정수에서 왔다 갔다 할 수 있는 문자열을 의미합니다.
 
+<<<<<<< HEAD
 문자열 "49"는 정수로 변환하거나 변환한 정수를 다시 문자열로 바꿔도 변형이 없기 때문에 정수 프로퍼티입니다. 하지만 '+49'와 '1.2'는 정수 프로퍼티가 아닙니다.
 
 ```js run
@@ -455,6 +492,16 @@ for (let code in codes) {
 alert( String(Math.trunc(Number("49"))) ); // '49'가 출력됩니다. 기존에 입력한 값과 같으므로 정수 프로퍼티입니다.
 alert( String(Math.trunc(Number("+49"))) ); // '49'가 출력됩니다. 기존에 입력한 값(+49)과 다르므로 정수 프로퍼티가 아닙니다.
 alert( String(Math.trunc(Number("1.2"))) ); // '1'이 출력됩니다. 기존에 입력한 값(1.2)과 다르므로 정수 프로퍼티가 아닙니다.
+=======
+So, `"49"` is an integer property name, because when it's transformed to an integer number and back, it's still the same. But `"+49"` and `"1.2"` are not:
+
+```js run
+// Number(...) explicitly converts to a number
+// Math.trunc is a built-in function that removes the decimal part
+alert( String(Math.trunc(Number("49"))) ); // "49", same, integer property
+alert( String(Math.trunc(Number("+49"))) ); // "49", not same "+49" ⇒ not integer property
+alert( String(Math.trunc(Number("1.2"))) ); // "1", not same "1.2" ⇒ not integer property
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 ```
 ````
 
@@ -503,9 +550,15 @@ for (let code in codes) {
 - 프로퍼티 키는 문자열이나 심볼이어야 합니다. 보통은 문자열입니다.
 - 값은 어떤 자료형도 가능합니다.
 
+<<<<<<< HEAD
 아래와 같은 방법을 사용하면 프로퍼티에 접근할 수 있습니다.
 - 점 표기법: `obj.property`
 - 대괄호 표기법 `obj["property"]`. 대괄호 표기법을 사용하면 `obj[varWithKey]`같이 변수에서 키를 가져올 수 있습니다.
+=======
+To access a property, we can use:
+- The dot notation: `obj.property`.
+- Square brackets notation `obj["property"]`. Square brackets allow taking the key from a variable, like `obj[varWithKey]`.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 객체엔 다음과 같은 추가 연산자를 사용할 수 있습니다.
 - 프로퍼티를 삭제하고 싶을 때: `delete obj.prop`

@@ -34,17 +34,29 @@ new Promise(function(resolve, reject) {
 
 프라미스 체이닝은 `result`가 `.then` 핸들러의 체인(사슬)을 통해 전달된다는 점에서 착안한 아이디어입니다.
 
+<<<<<<< HEAD
 위 예시는 아래와 같은 순서로 실행됩니다.
 1. 1초 후 최초 프라미스가 이행됩니다. -- `(*)`
 2. 이후 첫번째 `.then` 핸들러가 호출됩니다. --`(**)`
 3. 2에서 반환한 값은 다음 `.then` 핸들러에 전달됩니다. -- `(***)`
 4. 이런 과정이 계속 이어집니다.
+=======
+Here the flow is:
+1. The initial promise resolves in 1 second `(*)`,
+2. Then the `.then` handler is called `(**)`, which in turn creates a new promise (resolved with `2` value).
+3. The next `then` `(***)` gets the result of the previous one, processes it (doubles) and passes it to the next handler.
+4. ...and so on.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 `result`가 핸들러 체인을 따라 전달되므로, `alert` 창엔 `1`, `2`, `4`가 순서대로 출력됩니다.
 
 ![](promise-then-chain.svg)
 
+<<<<<<< HEAD
 프라미스 체이닝이 가능한 이유는 `promise.then`을 호출하면 프라미스가 반환되기 때문입니다. 반환된 프라미스엔 당연히 `.then`을 호출할 수 있습니다.
+=======
+The whole thing works, because every call to a `.then` returns a new promise, so that we can call the next `.then` on it.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 한편 핸들러가 값을 반환할 때엔 이 값이 프라미스의 `result`가 됩니다. 따라서 다음 `.then`은 이 값을 이용해 호출됩니다.
 
@@ -72,7 +84,11 @@ promise.then(function(result) {
 });
 ```
 
+<<<<<<< HEAD
 예시의 프라미스는 하나인데 여기에 등록된 핸들러는 여러 개 입니다. 이 핸들러들은 `result`를 순차적으로 전달하지 않고 독립적으로 처리합니다.
+=======
+What we did here is just adding several handlers to one promise. They don't pass the result to each other; instead they process it independently.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 그림으로 표현하면 다음과 같습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
@@ -120,8 +136,12 @@ new Promise(function(resolve, reject) {
 });
 ```
 
+<<<<<<< HEAD
 예시에서 첫 번째 `.then`은 `1`을 출력하고 `new Promise(…)`를 반환(`(*)`)합니다.   
 1초 후 이 프라미스가 이행되고 그 결과(`resolve`의 인수인 `result * 2`)는 두 번째 `.then`으로 전달됩니다. 두 번째 핸들러(`(**)`)는 `2`를 출력하고 동일한 과정이 반복됩니다.
+=======
+Here the first `.then` shows `1` and returns `new Promise(…)` in the line `(*)`. After one second it resolves, and the result (the argument of `resolve`, here it's `result * 2`) is passed on to the handler of the second `.then`. That handler is in the line `(**)`, it shows `2` and does the same thing.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 따라서 얼럿 창엔 이전 예시와 동일하게 1, 2, 4가 차례대로 출력됩니다. 다만 얼럿 창 사이에 1초의 딜레이가 생깁니다.
 
@@ -225,7 +245,11 @@ new Promise(resolve => resolve(1))
 
 ## fetch와 체이닝 함께 응용하기
 
+<<<<<<< HEAD
 프론트 단에선, 네트워크 요청 시 프라미스를 자주 사용합니다. 이에 관련된 예시를 살펴봅시다. 
+=======
+In frontend programming, promises are often used for network requests. So let's see an extended example of that.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 예시에선 메서드 [fetch](info:fetch)를 사용해 원격 서버에서 사용자 정보를 가져오겠습니다. `fetch`엔 다양한 선택 매개변수가 있는데 자세한 내용은  [별도의 챕터](info:fetch)에서 다루기로 하고, 여기선 기본 문법만 사용해 보겠습니다.
 
@@ -266,7 +290,11 @@ fetch('/article/promise-chaining/user.json')
 
 불러온 사용자 정보를 가지고 무언가를 더 해보겠습니다.
 
+<<<<<<< HEAD
 GitHub에 요청을 보내 사용자 프로필을 불러오고 아바타를 출력해 보는 것같이 말이죠.
+=======
+For instance, we can make one more request to GitHub, load the user profile and show the avatar:
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ```js run
 // user.json에 요청을 보냅니다.
@@ -333,8 +361,7 @@ function loadJson(url) {
 }
 
 function loadGithubUser(name) {
-  return fetch(`https://api.github.com/users/${name}`)
-    .then(response => response.json());
+  return loadJson(`https://api.github.com/users/${name}`);
 }
 
 function showAvatar(githubUser) {

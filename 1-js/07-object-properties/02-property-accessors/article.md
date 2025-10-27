@@ -5,7 +5,11 @@
 
 첫 번째 종류는 *데이터 프로퍼티(data property)* 입니다. 지금까지 사용한 모든 프로퍼티는 데이터 프로퍼티입니다. 데이터 프로퍼티 조작 방법에 대해선 모두 알고 계실 것이라 생각합니다.
 
+<<<<<<< HEAD
 두 번째는 *접근자 프로퍼티(accessor property)* 라 불리는 새로운 종류의 프로퍼티입니다. 접근자 프로퍼티의 본질은 함수인데, 이 함수는 값을 획득(get)하고 설정(set)하는 역할을 담당합니다. 그런데 외부 코드에서는 함수가 아닌 일반적인 프로퍼티처럼 보입니다.
+=======
+The second type of property is something new. It's an *accessor property*. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ## getter와 setter
 

@@ -2,7 +2,11 @@
 
 테스트 자동화는 앞으로 풀어야 할 과제에서뿐만 아니라 현업에서도 광범위하게 쓰입니다. 
 
+<<<<<<< HEAD
 ## 테스트는 왜 해야 하는가?
+=======
+## Why do we need tests?
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 함수를 하나 만들고 있다고 해 봅시다. 대부분 매개변수-결과 관계를 중심으로 어떻게 코드를 작성할지 구상하실 겁니다.
 
@@ -51,7 +55,11 @@ describe("pow", function() {
 스펙은 세 가지 주요 구성 요소로 이루어집니다.
 
 `describe("title", function() { ... })`
+<<<<<<< HEAD
 : 구현하고자 하는 기능에 대한 설명이 들어갑니다. 우리 예시에선 함수 `pow`가 어떤 동작을 하는지에 대한 설명이 들어갈 겁니다. `it` 블록을 한데 모아주는 역할도 합니다.
+=======
+: What functionality we're describing? In our case we're describing the function `pow`. Used to group "workers" -- the `it` blocks.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 `it("유스 케이스 설명", function() { ... })`
 : `it`의 첫 번째 인수엔 특정 유스 케이스에 대한 설명이 들어갑니다. 이 설명은 *누구나 읽을 수 있고 이해할 수 있는 자연어*로 적어줍니다. 두 번째 인수엔 유스 케이스 테스트 함수가 들어갑니다.
@@ -67,6 +75,7 @@ describe("pow", function() {
 
 실제 개발에 착수하면 아래와 같은 순서로 개발이 진행됩니다.
 
+<<<<<<< HEAD
 1. 명세서 초안을 작성합니다. 초안엔 기본적인 테스트도 들어갑니다.
 2. 명세서 초안을 보고 코드를 작성합니다.
 3. 코드가 작동하는지 확인하기 위해 [Mocha](http://mochajs.org/)라 불리는 테스트 프레임워크를 사용해 명세서를 실행합니다.(Mocha에 대해선 아래에서 다룰 예정입니다.) 이때, 코드가 잘못 작성되었다면 에러가 출력됩니다. 개발자는 테스트를 모두 통과해 에러가 더는 출력되지 않을 때까지 코드를 수정합니다.
@@ -74,20 +83,39 @@ describe("pow", function() {
 5. 명세서에 지금까진 고려하지 않았던 유스케이스 몇 가지를 추가합니다. 테스트가 실패하기 시작할 겁니다.
 6. 세 번째 단계로 돌아가 테스트를 모두 통과할 때까지 코드를 수정합니다.
 7. 기능이 완성될 때까지 3~6단계를 반복합니다.
+=======
+1. An initial spec is written, with tests for the most basic functionality.
+2. An initial implementation is created.
+3. To check whether it works, we run the testing framework [Mocha](https://mochajs.org/) (more details soon) that runs the spec. While the functionality is not complete, errors are displayed. We make corrections until everything works.
+4. Now we have a working initial implementation with tests.
+5. We add more use cases to the spec, probably not yet supported by the implementations. Tests start to fail.
+6. Go to 3, update the implementation till tests give no errors.
+7. Repeat steps 3-6 till the functionality is ready.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 위와 같은 방법은 *반복적인(iterative)* 성격을 지닙니다. 명세서를 작성하고 실행한 후 테스트를 모두 통과할 때까지 코드를 작성하고, 또 다른 테스트를 추가해 앞의 과정을 반복하니까요. 이렇게 하다 보면 종래에는 완전히 동작하는 코드와 테스트 둘 다를 확보하게 됩니다.
 
 이제 실제 사례에 위 개발 프로세스를 적용해 보겠습니다.
 
+<<<<<<< HEAD
 함수 `pow`의 스펙 초안은 이미 위에서 작성했으므로, 첫 번째 단계는 이미 끝난 상황입니다. 코드를 본격적으로 작성하기 전에 잠시 자바스크립트 라이브러리 몇 가지를 사용해 테스트를 실행해 보겠습니다. 지금 상태에선 테스트 모두가 실패할 텐데 그런데도 실행해 보는 이유는 테스트가 실제로 돌아가는지 확인하기 위해서입니다.
+=======
+The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let's use a few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 ## 스펙 실행하기
 
 본 튜토리얼에선 총 3개의 라이브러리를 사용해 테스트를 진행해보겠습니다. 각 라이브러리에 대한 설명은 아래와 같습니다.
 
+<<<<<<< HEAD
 - [Mocha](http://mochajs.org/) -- 핵심 테스트 프레임워크로, `describe`, `it`과 같은 테스팅 함수와 테스트 실행 관련 주요 함수를 제공합니다.
 - [Chai](http://chaijs.com) -- 다양한 assertion을 제공해 주는 라이브러리입니다. 우리 예시에선 `assert.equal` 정도만 사용해 볼 예정입니다.
 - [Sinon](http://sinonjs.org/) -- 함수의 정보를 캐내는 데 사용되는 라이브러리로, 내장 함수 등을 모방합니다. 본 챕터에선 사용하지 않고, 다른 챕터에서 실제로 사용해 볼 예정입니다.
+=======
+- [Mocha](https://mochajs.org/) -- the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
+- [Chai](https://www.chaijs.com/) -- the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
+- [Sinon](https://sinonjs.org/) -- a library to spy over functions, emulate built-in functions and more, we'll need it much later.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 세 라이브러리 모두, 브라우저나 서버 사이드 환경을 가리지 않고 사용 가능합니다. 여기선 브라우저 환경을 가정하고 사용해 보겠습니다.
 
@@ -338,6 +366,7 @@ describe("pow", function() {
 ```smart header="다양한 assertion"
 위에서 사용한 `assert.isNaN`은 `NaN`인지 아닌지를 확인해줍니다.
 
+<<<<<<< HEAD
 [Chai](http://chaijs.com)는 이 외에도 다양한 assertion을 지원합니다.
 
 - `assert.equal(value1, value2)` -- `value1`과 `value2`의 동등성을 확인합니다(`value1 == value2`).
@@ -346,6 +375,16 @@ describe("pow", function() {
 - `assert.isTrue(value)` -- `value`가 `true`인지 확인합니다(`value === true`).
 - `assert.isFalse(value)` -- `value`가 `false`인지 확인합니다(`value === false`).
 - 이 외의 다양한 assertion은 [docs](http://chaijs.com/api/assert/)에서 확인할 수 있습니다.
+=======
+There are other assertions in [Chai](https://www.chaijs.com/) as well, for instance:
+
+- `assert.equal(value1, value2)` -- checks the equality  `value1 == value2`.
+- `assert.strictEqual(value1, value2)` -- checks the strict equality `value1 === value2`.
+- `assert.notEqual`, `assert.notStrictEqual` -- inverse checks to the ones above.
+- `assert.isTrue(value)` -- checks that `value === true`
+- `assert.isFalse(value)` -- checks that `value === false`
+- ...the full list is in the [docs](https://www.chaijs.com/api/assert/)
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 ```
 
 새롭게 추가한 테스트를 통과할 수 있도록 `pow`에 코드를 몇 줄 추가해보겠습니다.
