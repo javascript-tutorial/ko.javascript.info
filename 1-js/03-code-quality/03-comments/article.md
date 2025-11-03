@@ -143,7 +143,11 @@ function pow(x, n) {
 
 [WebStorm](https://www.jetbrains.com/webstorm/) 등의 다양한 에디터는 이런 주석을 이용해 자동 완성 기능, 자동 에러 검출 기능 등을 제공합니다.
 
+<<<<<<< HEAD
 [JSDoc 3](https://github.com/jsdoc3/jsdoc)이나 기타 유사한 툴을 사용하면 주석으로 HTML 문서를 만들 수 있습니다. 자세한 정보는 <http://usejsdoc.org/>에서 확인하시기 바랍니다.
+=======
+Also, there are tools like [JSDoc 3](https://github.com/jsdoc/jsdoc) that can generate HTML-documentation from the comments. You can read more information about JSDoc at <https://jsdoc.app>.
+>>>>>>> 51bc6d3cdc16b6eb79cb88820a58c4f037f3bf19
 
 왜 이런 방법으로 문제를 해결했는지를 설명하는 주석
 : 무엇이 적혀있는지는 중요합니다. 그런데 무슨 일이 일어나고 있는지 파악하려면 무엇이 *적혀있지 않은 지*가 더 중요할 수 있습니다. '왜 이 문제를 이런 방법으로 해결했나?'라는 질문에 코드는 답을 해 줄 수 없기 때문입니다.
