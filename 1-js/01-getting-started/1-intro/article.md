@@ -1,6 +1,10 @@
 # 자바스크립트란?
 
+<<<<<<< HEAD
 자바스크립트(JavaScript)가 언어로서 지닌 특징에 대해 알아보겠습니다. 이어서 자바스크립트로 무엇을 할 수 있을지, 다른 기술들이 자바스크립트를 어떻게 활용하고 있는지도 이야기해 보겠습니다.
+=======
+Let's see what's so special about JavaScript, what we can achieve with it, and what other technologies play well with it.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ## 정의
 
@@ -24,26 +28,44 @@
 
 엔진의 종류는 다양한데, 엔진마다 특유의 코드네임이 있습니다. 아래처럼 말이죠.
 
+<<<<<<< HEAD
 - [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- Chrome과 Opera에서 쓰입니다.
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
 - IE는 버전에 따라 'Trident'나 'Chakra'라 불리는 엔진을 사용합니다. 'ChakraCore'는 Microsoft Edge에 사용되며, 'SquirrelFish'는 Safari에 사용됩니다.
 
 위의 코드네임은 개발 관련 글에서 종종 언급되기 때문에 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 해당 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
+=======
+- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- in Chrome, Opera and Edge.
+- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- in Firefox.
+- ...There are other codenames like "Chakra" for IE, "JavaScriptCore", "Nitro" and "SquirrelFish" for Safari, etc.
+
+The terms above are good to remember because they are used in developer articles on the internet. We'll use them too. For instance, if "a feature X is supported by V8", then it probably works in Chrome, Opera and Edge.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ```smart header="엔진은 어떻게 동작하나요?"
 
 엔진이 어떻게 동작하는지 이해하려면 상당한 시간을 쏟아부어야 합니다. 하지만 기본 원리는 다음과 같이 간단합니다.
 
+<<<<<<< HEAD
 1. 엔진(브라우저라면 내장 엔진)이 스크립트를 읽습니다(파싱).
 2. 읽어 들인 스크립트를 기계어로 전환합니다(컴파일).
 3. 기계어로 전환된 코드가 실행됩니다. 기계어로 전환되었기 때문에 실행 속도가 빠릅니다.
+=======
+1. The engine (embedded if it's a browser) reads ("parses") the script.
+2. Then it converts ("compiles") the script to machine code.
+3. And then the machine code runs, pretty fast.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 엔진은 프로세스 각 단계마다 최적화를 진행합니다. 심지어 컴파일이 끝나고 실행 중인 코드를 감시하면서, 이 코드로 흘러가는 데이터를 분석하고, 분석 결과를 토대로 기계어로 전환된 코드를 다시 최적화하기도 합니다. 이런 과정을 거치면 스크립트 실행 속도는 더욱 더 빨라집니다.
 ```
 
 ## 브라우저에서 할 수 있는 일
 
+<<<<<<< HEAD
 모던 자바스크립트는 '안전한' 프로그래밍 언어입니다. 메모리나 CPU 같은 저수준 영역의 조작을 허용하지 않습니다. 애초에 이러한 접근이 필요치 않은 브라우저를 대상으로 만든 언어이기 때문이죠.
+=======
+Modern JavaScript is a "safe" programming language. It does not provide low-level access to memory or the CPU, because it was initially created for browsers which do not require it.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 자바스크립트의 능력은 실행 환경에 상당한 영향을 받습니다. [Node.js](https://wikipedia.org/wiki/Node.js) 환경에선 임의의 파일을 읽거나 쓰고, 네트워크 요청을 수행하는 함수를 지원합니다.
 
@@ -59,7 +81,11 @@
 
 ## 브라우저에서 할 수 없는 일
 
+<<<<<<< HEAD
 브라우저는 보안을 위해 자바스크립트의 기능에 제약을 걸어놓았습니다. 이런 제약은 악성 웹페이지가 개인 정보에 접근하거나 사용자의 데이터를 손상하는 것을 막기 위해 만들어졌습니다.
+=======
+JavaScript's abilities in the browser are limited to protect the user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 몇 가지 제약사항을 소개해 드리겠습니다.
 
@@ -67,6 +93,7 @@
 
     모던 브라우저를 사용하면 파일을 다룰 순 있습니다. 하지만 접근은 제한되어 있습니다. 사용자가 브라우저 창에 파일을 '끌어다 두거나' `<input>` 태그를 통해 파일을 선택할 때와 같이 특정 상황에서만 파일 접근을 허용합니다.
 
+<<<<<<< HEAD
     카메라나 마이크 같은 디바이스와 상호 작용하려면 사용자의 명시적인 허가가 있어야 합니다. 자바스크립트가 활성화된 페이지라도 사용자 몰래 웹 카메라를 작동 시켜 수집한 정보를 [국가안보국(NSA)](https://en.wikipedia.org/wiki/National_Security_Agency)과 같은 곳에 몰래 전송할 수 없습니다.
 - 브라우저 내 탭과 창은 대개 서로의 정보를 알 수 없습니다. 그런데 자바스크립트를 사용해 한 창에서 다른 창을 열 때는 예외가 적용됩니다. 하지만 이 경우에도 도메인이나 프로토콜, 포트가 다르다면 페이지에 접근할 수 없습니다.
 
@@ -78,21 +105,44 @@
 ![](limitations.svg)
 
 브라우저 환경 밖, 예를 들어 서버라면 이러한 제약은 존재하지 않을 것입니다. 다만, 모던 브라우저에선 추가 권한 허가를 요청하는 플러그인이나 익스텐션 설치가 허용됩니다.
+=======
+    There are ways to interact with the camera/microphone and other devices, but they require a user's explicit permission. So a JavaScript-enabled page may not sneakily enable a web-camera, observe the surroundings and send the information to the [NSA](https://en.wikipedia.org/wiki/National_Security_Agency).
+- Different tabs/windows generally do not know about each other. Sometimes they do, for example when one window uses JavaScript to open the other one. But even in this case, JavaScript from one page may not access the other page if they come from different sites (from a different domain, protocol or port).
+
+    This is called the "Same Origin Policy". To work around that, *both pages* must agree for data exchange and must contain special JavaScript code that handles it. We'll cover that in the tutorial.
+
+    This limitation is, again, for the user's safety. A page from `http://anysite.com` which a user has opened must not be able to access another browser tab with the URL `http://gmail.com`, for example, and steal information from there.
+- JavaScript can easily communicate over the net to the server where the current page came from. But its ability to receive data from other sites/domains is crippled. Though possible, it requires explicit agreement (expressed in HTTP headers) from the remote side. Once again, that's a safety limitation.
+
+![](limitations.svg)
+
+Such limitations do not exist if JavaScript is used outside of the browser, for example on a server. Modern browsers also allow plugins/extensions which may ask for extended permissions.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ## 자바스크립트만의 강점
 
 자바스크립트엔 다양한 장점이 있지만 여기선 *세 가지*만 언급해 보도록 하겠습니다.
 
 ```compare
+<<<<<<< HEAD
 + HTML/CSS와 완전히 통합할 수 있음
 + 간단한 일은 간단하게 처리할 수 있게 해줌
 + 모든 주요 브라우저에서 지원하고, 기본 언어로 사용됨
+=======
++ Full integration with HTML/CSS.
++ Simple things are done simply.
++ Supported by all major browsers and enabled by default.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 ```
 이 세 가지 모두를 지원하는 브라우저 연관 기술은 자바스크립트뿐입니다.
 
 이런 특징 때문에 자바스크립트는 브라우저 인터페이스를 만들 때 가장 널리 사용되고 있습니다.
 
+<<<<<<< HEAD
 이 외에도 자바스크립트를 이용해 서버나 모바일 앱 등을 만드는 것도 가능합니다.
+=======
+That said, JavaScript can be used to create servers, mobile applications, etc.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ## 자바스크립트 '너머의' 언어들
 
@@ -100,21 +150,42 @@
 
 프로젝트마다 요구사항이 천차만별이기 때문에 이는 당연한 현상입니다.
 
+<<<<<<< HEAD
 이로 인해 근래엔 브라우저에서 실행 되기 전에 자바스크립트로 *트랜스파일(transpile, 변환)* 할 수 있는 새로운 언어들이 많이 등장했습니다.
+=======
+So, recently a plethora of new languages appeared, which are *transpiled* (converted) to JavaScript before they run in the browser.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 최신 툴을 사용하면 트랜스파일을 빠르고 명확하게 수행할 수 있습니다. 최신도구는 자바스크립트 이외의 언어로 작성한 코드를 '보이지 않는 곳에서' 자바스크립트로 자동 변환해줍니다.
 
 자바스크립트로 트랜스파일이 가능한 언어 몇 가지를 소개해 드리겠습니다.
 
+<<<<<<< HEAD
 - [CoffeeScript](http://coffeescript.org/)는 자바스크립트를 위한 'syntactic sugar'입니다. 짧은 문법을 도입하여 명료하고 이해하기 쉬운 코드를 작성할 수 있습니다. Ruby 개발자들이 좋아합니다.
 - [TypeScript](http://www.typescriptlang.org/)는 개발을 단순화 하고 복잡한 시스템을 지원하려는 목적으로 '자료형의 명시화(strict data typing)'에 집중해 만든 언어입니다. Microsoft가 개발하였습니다.
 - [Flow](http://flow.org/) 역시 자료형을 강제하는데, TypeScript와는 다른 방식을 사용합니다. Facebook이 개발하였습니다.
 - [Dart](https://www.dartlang.org/)는 모바일 앱과 같이 브라우저가 아닌 환경에서 동작하는 고유의 엔진을 가진 독자적 언어입니다. Google이 개발하였습니다.
 
 이 외에도 자바스크립트로 트랜스파일 할 수 있는 언어는 다양합니다. 개발 언어로 이런 언어 중 하나를 택한다고 하더라도 자신이 무엇을 하고 있는지 이해하려면 결국엔 자바스크립트를 알아야 합니다.
+=======
+- [CoffeeScript](https://coffeescript.org/) is "syntactic sugar" for JavaScript. It introduces shorter syntax, allowing us to write clearer and more precise code. Usually, Ruby devs like it.
+- [TypeScript](https://www.typescriptlang.org/) is concentrated on adding "strict data typing" to simplify the development and support of complex systems. It is developed by Microsoft.
+- [Flow](https://flow.org/) also adds data typing, but in a different way. Developed by Facebook.
+- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps), but also can be transpiled to JavaScript. Developed by Google.
+- [Brython](https://brython.info/) is a Python transpiler to JavaScript that enables the writing of applications in pure Python without JavaScript.
+- [Kotlin](https://kotlinlang.org/docs/reference/js-overview.html) is a modern, concise and safe programming language that can target the browser or Node.
+
+There are more. Of course, even if we use one of these transpiled languages, we should also know JavaScript to really understand what we're doing.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ## 요약
 
+<<<<<<< HEAD
 - 자바스크립트는 브라우저에서만 쓸 목적으로 고안된 언어이지만, 지금은 다양한 환경에서 쓰이고 있습니다.
 - 오늘날 자바스크립트는 브라우저 환경에서 가장 널리 사용되는 언어로 자리매김하였습니다. HTML/CSS와 완전한 통합이 가능합니다.
 - 자바스크립트로 '트랜스파일'할 수 있는 언어는 많습니다. 각 언어마다 고유한 기능을 제공하죠. 자바스크립트에 숙달한 뒤에 이 언어들을 살펴볼 것을 추천드립니다.
+=======
+- JavaScript was initially created as a browser-only language, but it is now used in many other environments as well.
+- Today, JavaScript has a unique position as the most widely-adopted browser language, fully integrated with HTML/CSS.
+- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
