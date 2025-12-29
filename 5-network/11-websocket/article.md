@@ -1,6 +1,10 @@
 # 웹소켓
 
+<<<<<<< HEAD
 [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455) 명세서에 정의된 프로토콜인 `웹소켓(WebSocket)`을 사용하면 서버와 브라우저 간 연결을 유지한 상태로 데이터를 교환할 수 있습니다. 이때 데이터는 '패킷(packet)' 형태로 전달되며, 전송은 커넥션 중단과 추가 HTTP 요청 없이 양방향으로 이뤄집니다.
+=======
+The `WebSocket` protocol, described in the specification [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455), provides a way to exchange data between browser and server via a persistent connection. The data can be passed in both directions as "packets", without breaking the connection and the need of additional HTTP-requests.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 이런 특징 때문에 웹소켓은 온라인 게임이나 주식 트레이딩 시스템같이 데이터 교환이 지속적으로 이뤄져야 하는 서비스에 아주 적합합니다.
 
@@ -19,7 +23,11 @@ let socket = new WebSocket("*!*ws*/!*://javascript.info");
 
 `ws://`를 사용해 데이터를 전송하면 데이터가 암호화되어있지 않은 채로 전송되기 때문에 데이터가 그대로 노출됩니다. 그런데 아주 오래된 프락시 서버는 웹소켓이 무엇인지 몰라서 '이상한' 헤더가 붙은 요청이 들어왔다고 판단하고 연결을 끊어버립니다.
 
+<<<<<<< HEAD
 반면 `wss://`는 TSL(전송 계층 보안(Transport Layer Security))이라는 보안 계층을 통과해 전달되므로 송신자 측에서 데이터가 암호화되고, 복호화는 수신자 측에서 이뤄지게 됩니다. 따라서 데이터가 담긴 패킷이 암호화된 상태로 프락시 서버를 통과하므로 프락시 서버는 패킷 내부를 볼 수 없게 됩니다.
+=======
+On the other hand, `wss://` is WebSocket over TLS, (same as HTTPS is HTTP over TLS), the transport security layer encrypts the data at the sender and decrypts it at the receiver. So data packets are passed encrypted through proxies. They can't see what's inside and let them through.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 ```
 
 소켓이 정상적으로 만들어지면 아래 네 개의 이벤트를 사용할 수 있게 됩니다.
@@ -72,11 +80,19 @@ socket.onerror = function(error) {
 
 `new WebSocket(url)`을 호출해 소켓을 생성하면 즉시 연결이 시작됩니다.
 
+<<<<<<< HEAD
 커넥션이 유지되는 동안, 브라우저는 (헤더를 사용해) 서버에 '웹소켓을 지원하나요?'라고 물어봅니다. 이에 서버가 '네'라는 응답을 하면 서버-브라우저간 통신은 HTTP가 아닌 웹소켓 프로토콜을 사용해 진행됩니다.
 
 ![](websocket-handshake.svg)
 
 이번엔 `new WebSocket("wss://javascript.info/chat")`을 호출해 최초 요청을 전송했다고 가정하고, 이때의 요청 헤더를 살펴봅시다.
+=======
+During the connection, the browser (using headers) asks the server: "Do you support Websocket?" And if the server replies "yes", then the talk continues in WebSocket protocol, which is not HTTP at all.
+
+![](websocket-handshake.svg)
+
+Here's an example of browser headers for a request made by `new WebSocket("wss://javascript.info/chat")`.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ```
 GET /chat
@@ -88,11 +104,19 @@ Sec-WebSocket-Key: Iv8io/9s+lYFgZWcXczP8Q==
 Sec-WebSocket-Version: 13
 ```
 
+<<<<<<< HEAD
 - `Origin` -- 클라이언트 오리진(예시에선 `https://javascript.info`)을 나타냅니다. 서버는 `Origin` 헤더를 보고 어떤 웹사이트와 소켓통신을 할지 결정하기 때문에 Origin 헤더는 웹소켓 통신에 중요한 역할을 합니다. 참고로 웹소켓 객체는 기본적으로 크로스 오리진(cross-origin) 요청을 지원합니다. 웹소켓 통신만을 위한 전용 헤더나 제약도 없습니다. 오래된 서버는 웹소켓 통신을 지원하지 못하기 때문에 웹소켓 통신은 호환성 문제도 없습니다.
 - `Connection: Upgrade` -- 클라이언트  측에서 프로토콜을 바꾸고 싶다는 신호를 보냈다는 것을 나타냅니다.
 - `Upgrade: websocket` -- 클라이언트측에서 요청한 프로토콜은 'websocket'이라는걸 의미합니다.
 - `Sec-WebSocket-Key` -- 보안을 위해 브라우저에서 생성한 키로, 서버가 웹소켓 프로토콜을 지원하는지를 확인하는데 사용됩니다. It's random to prevent proxies from caching any following communication.
 - `Sec-WebSocket-Version` -- 웹소켓 프로토콜 버전이 명시됩니다. 예시에서 버전은 13입니다.
+=======
+- `Origin` -- the origin of the client page, e.g. `https://javascript.info`. WebSocket objects are cross-origin by nature. There are no special headers or other limitations. Old servers are unable to handle WebSocket anyway, so there are no compatibility issues. But the `Origin` header is important, as it allows the server to decide whether or not to talk WebSocket with this website.
+- `Connection: Upgrade` -- signals that the client would like to change the protocol.
+- `Upgrade: websocket` -- the requested protocol is "websocket".
+- `Sec-WebSocket-Key` -- a random browser-generated key, used to ensure that the server supports WebSocket protocol. It's random to prevent proxies from caching any following communication.
+- `Sec-WebSocket-Version` -- WebSocket protocol version, 13 is the current one.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ```smart header="웹소켓 핸드셰이크는 모방이 불가능합니다."
 바닐라 자바스크립트로 헤더를 설정하는 건 기본적으로 막혀있기 때문에 `XMLHttpRequest`나 `fetch`로 위 예시와 유사한 헤더를 가진 HTTP 요청을 만들 수 없습니다.
@@ -107,9 +131,15 @@ Connection: Upgrade
 Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 ```
 
+<<<<<<< HEAD
 여기서 `Sec-WebSocket-Accept`값은 특별한 알고리즘을 사용해 만든 `Sec-WebSocket-Key` 입니다. 이 값을 보고 브라우저는 서버가 진짜 웹소켓 프로토콜을 지원하는지 확인합니다.
 
 이렇게 핸드셰이크가 끝나면 HTTP 프로토콜이 아닌 웹소켓 프로토콜을 사용해 데이터가 전송되기 시작합니다. 전송이 시작된 후에 어떤일이 일어나는지는 조금 후에 자세히 살펴보겠습니다.
+=======
+Here `Sec-WebSocket-Accept` is `Sec-WebSocket-Key`, recoded using a special algorithm. Upon seeing it, the browser understands that the server really does support the WebSocket protocol.
+
+Afterwards, the data is transferred using the WebSocket protocol, we'll see its structure ("frames") soon. And that's not HTTP at all.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ### Extensions와 Subprotocols 헤더
 
@@ -117,9 +147,15 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 각 헤더에 대한 예시를 살펴봅시다.
 
+<<<<<<< HEAD
 - `Sec-WebSocket-Extensions: deflate-frame` -- 이 헤더는 브라우저에서 데이터 압축(deflate)을 지원한다는 것을 의미합니다. `Sec-WebSocket-Extensions`은 브라우저에 의해 자동 생성되는데, 그 값엔 데이터 전송과 관련된 무언가나 웹소켓 프로토콜 기능 확장과 관련된 무언가가 나열됩니다.
 
 - `Sec-WebSocket-Protocol: soap, wamp` -- 이렇게 헤더가 설정되면 평범한 데이터가 아닌 [SOAP](http://en.wikipedia.org/wiki/SOAP)나 WAMP(The WebSocket Application Messaging Protocol) 프로토콜을 준수하는 데이터를 전송하겠다는 것을 의미합니다. 웹소켓에서 지원하는 서브 프로토콜 목록은 [IANA 카탈로그](http://www.iana.org/assignments/websocket/websocket.xml)에서 확인할 수 있습니다. 개발자는 이 헤더를 보고 앞으로 사용하게 될 데이터 포맷을 확인할 수 있습니다.
+=======
+- `Sec-WebSocket-Extensions: deflate-frame` means that the browser supports data compression. An extension is something related to transferring the data, functionality that extends the WebSocket protocol. The header `Sec-WebSocket-Extensions` is sent automatically by the browser, with the list of all extensions it supports.
+
+- `Sec-WebSocket-Protocol: soap, wamp` means that we'd like to transfer not just any data, but the data in [SOAP](https://en.wikipedia.org/wiki/SOAP) or WAMP ("The WebSocket Application Messaging Protocol") protocols. WebSocket subprotocols are registered in the [IANA catalogue](https://www.iana.org/assignments/websocket/websocket.xml). So, this header describes the data formats that we're going to use.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
     두 헤더는 `new WebSocket`의 두 번째 매개변수에 값을 넣어서 설정할 수 있습니다. 서브 프로토콜로 SOAP나 WAMP를 사용하고 싶다고 가정해 봅시다. 두 번째 매개변수에 다음과 같이 배열을 넣으면 됩니다.
 
@@ -173,7 +209,11 @@ Sec-WebSocket-Protocol: soap
 
 이유는 **WebSocket `.send()` 메서드는 텍스트나 이진 데이터만 보낼 수 있기 때문입니다.**
 
+<<<<<<< HEAD
 `socket.send(body)`를 호출할 때, `body`엔 문자열이나 `Blob`, `ArrayBuffer`등의 이진 데이터만 들어갈 수 있습니다. 데이터 종류에 따라 특별히 무언가 세팅을 해줘야 할 필요는 없고, 텍스트나 바이너리 타입의 데이터를 넣어주면 알아서 데이터가 전송됩니다.
+=======
+A call `socket.send(body)` allows `body` in string or a binary format, including `Blob`, `ArrayBuffer`, etc. No settings are required: just send it out in any format.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 한편, **데이터를 받을 때 텍스트 데이터는 항상 문자열 형태로 옵니다. 이진 데이터를 받을 때엔 `Blob`이나 `ArrayBuffer` 포맷 둘 중 하나를 고를 수 있습니다.**
 
@@ -194,7 +234,11 @@ socket.onmessage = (event) => {
 
 앱 쪽에서 `socket.send(data)`를 계속해서 호출할 순 있습니다. 하지만 이렇게 하면 데이터가 메모리에 쌓일 테고(버퍼) 네트워크 속도가 데이터를 송신하기에 충분할 때만 송신될 겁니다.
 
+<<<<<<< HEAD
 `socket.bufferedAmount` 프로퍼티는 송신 대기 중인 현재 시점에서 얼마나 많은 바이트가 메모리에 쌓여있는지 정보를 담고 있습니다.
+=======
+The `socket.bufferedAmount` property stores how many bytes remain buffered at this moment, waiting to be sent over the network.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 따라서 `socket.bufferedAmount` 프로퍼티 값을 확인하면 소켓을 전송에 사용할 수 있는지 아닌지를 판단할 수 있습니다.
 
@@ -221,7 +265,11 @@ socket.close([code], [reason]);
 - `code` -- 커넥션을 닫을 때 사용하는 특수 코드(옵션)
 - `reason` -- 커넥션 닫기 사유를 설명하는 문자열(옵션)
 
+<<<<<<< HEAD
 그럼 다른 한쪽에 구현된 `close` 이벤트 핸들러에선 다음과 같이 코드와 사유를 확인할 수 있습니다. 
+=======
+Then the other party in the `close` event handler gets the code and the reason, e.g.:
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ```js
 // 닫기를 요청한 주체:
@@ -236,8 +284,13 @@ socket.onclose = event => {
 
 가장 많이 사용하는 코드는 다음과 같습니다.
 
+<<<<<<< HEAD
 - `1000` -- 기본값으로 정상 종료를 의미함(`code`값이 주어지지 않을 때 기본 세팅됨)
 - `1006` -- `1000` 같은 코드를 수동으로 설정할 수 없을 때 사용하고, 커넥션이 유실(no close frame)되었음을 의미함
+=======
+- `1000` -- the default, normal closure (used if no `code` supplied),
+- `1006` -- no way to set such code manually, indicates that the connection was lost (no close frame).
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 이외의 코드는 다음과 같습니다.
 
@@ -248,7 +301,11 @@ socket.onclose = event => {
 
 코드 전체 목록은 [RFC6455, §7.4.1](https://tools.ietf.org/html/rfc6455#section-7.4.1)에서 확인할 수 있습니다.
 
+<<<<<<< HEAD
 웹소켓 코드는 언뜻 보기엔 HTTP 코드 같아 보이지만 실제론 다릅니다. 특히 `1000`보다 작은 값은 예약 값이여서 작은 숫자를 설정하려 하면 에러가 발생합니다. 
+=======
+WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than `1000` are reserved, there'll be an error if we try to set such a code.
+>>>>>>> d78b01e9833009fab534462e05c03cffc51bf0e3
 
 ```js
 // 사례: 커넥현 유실
