@@ -16,7 +16,7 @@ alert( /^Mary/.test(str1) ); // true
 위와 유사하게 `pattern:snow$`를 사용해서 문자열이 `snow`로 끝나는지 검사할 수 있습니다.
 
 ```js run
-let str1 = "it's fleece was white as snow";
+let str1 = "its fleece was white as snow";
 alert( /snow$/.test(str1) ); // true
 ```
 

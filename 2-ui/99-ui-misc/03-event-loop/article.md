@@ -9,7 +9,11 @@
 
 ## 이벤트 루프
 
+<<<<<<< HEAD
 *이벤트 루프(event loop)* 정의는 아주 간단합니다. 이벤트 루프는 태스크가 들어오길 기다렸다가 태스크가 들어오면 이를 처리하고, 처리할 태스크가 없는 경우엔 잠드는, 끊임없이 돌아가는 자바스크립트 내 루프입니다(task는 '작업'이라고 번역할 수 있는데, 매크로·마이크로태스크 등의 용어와 일치시키기 위해 '태스크'라고 음차 번역하였습니다 - 옮긴이).
+=======
+The *event loop* concept is very simple. There's an endless loop, where the JavaScript engine waits for tasks, executes them and then sleeps, waiting for more tasks.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 자바스크립트 엔진이 돌아가는 알고리즘을 일반화하면 다음과 같습니다.
 
@@ -18,7 +22,11 @@
 2. 처리해야 할 태스크가 없는 경우:
     - 잠들어 있다가 새로운 태스크가 추가되면 다시 1로 돌아감
 
+<<<<<<< HEAD
 바로 이 알고리즘이 우리가 브라우저를 사용해 인터넷을 서핑할 때 돌아가는 알고리즘입니다. 이렇게 자바스크립트 엔진은 대부분의 시간 동안 아무런 일도 하지 않고 쉬고 있다가 스크립트나 핸들러, 이벤트가 활성화될 때만 돌아갑니다.
+=======
+That's a formalization of what we see when browsing a page. The JavaScript engine does nothing most of the time, it only runs if a script/handler/event activates.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 그렇다면 자바스크립트 엔진을 활성화하는 태스크엔 과연 어떤 것들이 있을까요? 대표적인 태스크는 다음과 같습니다.
 
@@ -31,6 +39,7 @@
 
 새로운 태스크는 엔진이 바쁠 때 추가될 수도 있습니다. 이때 이 태스크는 큐에 추가됩니다.
 
+<<<<<<< HEAD
 이렇게 태스크가 추가되는 큐는 V8 용어로 '매크로태스크 큐(macrotask queue)'라고 부릅니다.
 
 ![](eventLoop.svg)
@@ -38,14 +47,31 @@
 좀 더 구체적인 사례를 가지고 매크로태스크 큐에 대해 알아봅시다. 엔진이 `script`를 처리하느라 바쁜데 사용자가 마우스를 움직여 `mousemove` 이벤트를 활성화하고, 바로 이어서 `setTimeout`에서 설정한 시간이 지났다고 가정해 봅시다. 이때 세 태스크는 큐에 하나씩 추가되는데, 위 그림에 이런 상황을 묘사해 보았습니다.
 
 큐에 있는 태스크들은 '들어간 순서대로' 처리됩니다. 엔진은 `script`를 먼저 처리하고 `mousemove` 이벤트와 핸들러, `setTimeout` 핸들러를 순차적으로 처리합니다.
+=======
+The tasks form a queue, the so-called "macrotask queue" ([v8](https://v8.dev/) term):
+
+![](eventLoop.svg)
+
+For instance, while the engine is busy executing a `script`, a user may move their mouse causing `mousemove`, and `setTimeout` may be due and so on, these tasks form a queue, as illustrated in the picture above.
+
+Tasks from the queue are processed on a "first come – first served" basis. When the engine browser is done with the `script`, it handles `mousemove` event, then `setTimeout` handler, and so on.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 지금까진 어려운 것이 없어 보입니다. 그렇죠?
 
+<<<<<<< HEAD
 여기서 잠시 두 가지 세부 사항을 짚고 넘어갑시다.
 1. 엔진이 특정 태스크를 처리하는 동안엔 렌더링이 절대 일어나지 않습니다. 태스크를 처리하는 데 걸리는 시간이 길지 않으면 이는 전혀 문제가 되지 않습니다. 처리가 끝나는 대로 DOM 변경을 화면에 반영하면 되기 때문입니다.
 2. 태스크 처리에 긴 시간이 걸리면, 브라우저는 태스크를 처리하는 동안에 발생한 사용자 이벤트 등의 새로운 태스크들을 처리하지 못합니다. 인터넷 서핑을 하다 보면 '응답 없는 페이지(Page Unresponsive)'라는 얼럿 창을 만나게 되는 경우가 종종 있습니다. 이 얼럿 창은 아주 복잡한 계산이 필요하거나 프로그래밍 에러 때문에 무한 루프에 빠지게 될 때 나타나는데, 브라우저는 얼럿 창을 통해 사용자에게 페이지 전체와 함께 해당 태스크를 취소시킬지 말지를 선택하도록 유도합니다.
 
 자, 이론을 충분히 살펴봤으니 지금부턴 이 지식을 실무에서 어떻게 활용할 수 있을지 알아보도록 합시다.
+=======
+Two more details:
+1. Rendering never happens while the engine executes a task. It doesn't matter if the task takes a long time. Changes to the DOM are painted only after the task is complete.
+2. If a task takes too long, the browser can't do other tasks, such as processing user events. So after some time, it raises an alert like "Page Unresponsive", suggesting killing the task with the whole page. That happens when there are a lot of complex calculations or a programming error leading to an infinite loop.
+
+That was the theory. Now let's see how we can apply that knowledge.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 ## 유스 케이스 1: CPU 소모가 많은 태스크 쪼개기
 
@@ -55,7 +81,11 @@ CPU 소모가 아주 많은 태스크 하나가 있다고 가정해 봅시다.
 
 코드 강조라는 태스크를 수행하느라 엔진이 바쁠 때엔 사용자 이벤트 처리나 DOM 관련 작업이 완전히 멈추게 됩니다. 그러다 보면 브라우저에 '지연'이 생기거나 심하면 '멈춤' 현상까지 발생하기도 하죠. 절대 있어서는 안 될 일입니다.
 
+<<<<<<< HEAD
 이런 불가피한 상황들은 태스크를 여러 조각으로 쪼개 예방할 수 있습니다. 앞부분 100줄만 먼저 강조하고, 지연시간이 0인 `setTimeout`을 사용해 새롭게 스케줄링을 한 다음, 그 다음 100줄을 강조하는 식으로 코드를 변경하면 되죠.
+=======
+We can avoid problems by splitting the big task into pieces. Highlight the first 100 lines, then schedule `setTimeout` (with zero-delay) for the next 100 lines, and so on.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 실제 코드를 통해 어떻게 하면 태스크를 쪼갤 수 있는지 알아봅시다. 직접 강조기능을 구현하는 대신 `1`부터 `1000000000`까지의 숫자를 세주는 함수를 사용해 간결한 코드로 시연해 보겠습니다.
 
@@ -161,7 +191,11 @@ count();
 
 태스크를 여러 개로 쪼갤 때의 장점은 진행 상태를 나타내주는 프로그레스 바(progress bar)를 만들 때도 드러납니다.
 
+<<<<<<< HEAD
 아시다시피 브라우저는 시간이 오래 걸리든 아니든 상관없이 현재 작업 중인 태스크가 끝나야 DOM 변경분을 화면에 렌더링해줍니다.
+=======
+As mentioned earlier, changes to DOM are painted only after the currently running task is completed, irrespective of how long it takes.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 이런 브라우저 동작 방식은 완성되지 않은 '중간' 상태의 화면이 사용자에게 노출되는 걸 막아주기 때문에 유리합니다. 요소를 여러 개 만들고 이 요소들을 하나씩 화면에 추가한 다음 원하는 요소의 스타일을 변경시키는 일련의 과정이 담긴 함수가 있는데, 이 함수를 실행하는 동안에 변경사항 모두가 사용자에게 노출된다면 사용자는 혼란을 느꼈을 겁니다.
 
@@ -239,7 +273,11 @@ menu.onclick = function() {
 
 ## 매크로태스크와 마이크로태스크
 
+<<<<<<< HEAD
 태스크는 이번 챕터에서 설명한 *매크로태스크(macrotask)* 와 <info:microtask-queue> 챕터에서 다룬 *마이크로태스크(microtask)* 로 나뉩니다.
+=======
+Along with *macrotasks*, described in this chapter, there are *microtasks*, mentioned in the chapter <info:microtask-queue>.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 마이크로태스크는 코드를 사용해서만 만들 수 있는데, 주로 프라미스를 사용해 만듭니다. 프라미스와 함께 쓰이는 `.then/catch/finally` 핸들러가 마이크로태스크가 되죠. 여기에 더하여 마이크로태스크는 프라미스를 핸들링하는 또 다른 문법인 `await`를 사용해 만들기도 합니다.
 
@@ -304,7 +342,11 @@ alert("code");
 
 ## 요약
 
+<<<<<<< HEAD
 이벤트 루프 알고리즘을 요약하면 다음과 같습니다(자세한 사항은 [명세서](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)에서 확인할 수 있습니다).
+=======
+A more detailed event loop algorithm (though still simplified compared to the [specification](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)):
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 1. *매크로태스크* 큐에서 가장 오래된 태스크를 꺼내 실행합니다(예: 스크립트를 실행).
 2. 모든 *마이크로태스크*를 실행합니다.
@@ -317,7 +359,11 @@ alert("code");
 새로운 *매크로태스크*를 스케줄링하는 방법은 다음과 같습니다.
 - 지연시간이 0인 `setTimeout(f)` 사용하기
 
+<<<<<<< HEAD
 이 방법을 사용하면 계산이 복잡한 큰 태스크 하나를 여러 개로 쪼갤 수 있습니다. 태스크를 여러 개로 쪼개면 태스크 중간중간 사용자 이벤트에 반응할 수 있고, 작업 진척 상태를 화면에 표시해줄 수도 있습니다.
+=======
+That may be used to split a big calculation-heavy task into pieces, for the browser to be able to react to user events and show progress between them.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 지연시간이 0인 `setTimeout`은 이벤트가 완전히 처리되고 난 후(버블링이 끝난 후)에 특정 작업을 수행하도록 스케줄링할 때도 사용됩니다.
 
