@@ -69,7 +69,11 @@ let sayMixin = {
 };
 
 let sayHiMixin = {
+<<<<<<< HEAD
   __proto__: sayMixin, // (Object.create를 사용해 프로토타입을 설정할 수도 있습니다.)
+=======
+  __proto__: sayMixin, // (or we could use Object.setPrototypeOf to set the prototype here)
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
   sayHi() {
     *!*
@@ -103,7 +107,11 @@ new User("Dude").sayHi(); // Hello Dude!
 
 이는 `sayHi`와 `sayBye`가 생성된 곳이 `sayHiMixin`이기 때문입니다. 따라서 메서드를 복사했더라도, 이 메서드들의 내부 프로퍼티인 `[[HomeObject]]`는 위 그림처럼 `sayHiMixin`을 참조합니다.
 
+<<<<<<< HEAD
 메서드의 `super`가 `[[HomeObject]].[[Prototype]]`내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색합니다. 
+=======
+As `super` looks for parent methods in `[[HomeObject]].[[Prototype]]`, that means it searches `sayHiMixin.[[Prototype]]`.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 ## 이벤트 믹스인
 
