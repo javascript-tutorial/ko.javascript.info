@@ -372,7 +372,7 @@ function hash() {
 hash(1, 2);
 ```
 
-The trick is called *method borrowing*.
+위와 같은 트릭을 *메서드 빌리기(method borrowing)*라고 부릅니다.
 
 일반 배열에서 `join` 메서드를 빌려오고(`[].join`), `[].join.call`를 사용해 `arguments`를 컨텍스트로 고정한 후 `join`메서드를 호출하는 것이죠.
 
