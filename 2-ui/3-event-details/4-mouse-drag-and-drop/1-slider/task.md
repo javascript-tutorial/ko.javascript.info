@@ -2,15 +2,15 @@ importance: 5
 
 ---
 
-# Slider
+# 슬라이더
 
-Create a slider:
+슬라이더 만들기.
 
 [iframe src="solution" height=60 border=1]
 
-Drag the blue thumb with the mouse and move it.
+마우스로 파란 막대를 드래그하여 이동합니다.
 
-Important details:
+주요 세부사항:
 
-- When the mouse button is pressed, during the dragging the mouse may go over or below the slider. The slider will still work (convenient for the user).
-- If the mouse moves very fast to the left or to the right, the thumb should stop exactly at the edge.
+- 마우스 버튼을 누르면 드래그하는 동안 마우스가 슬라이더 상·하로 이동할 수 있습니다.
+- 마우스를 좌·우로 빠르게 움직이면 막대는 가장자리에서 정확히 멈춰야 합니다.
