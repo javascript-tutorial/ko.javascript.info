@@ -1,63 +1,63 @@
-# JavaScript animations
+# 자바스크립트 애니메이션
 
-JavaScript animations can handle things that CSS can't.
+자바스크립트 애니메이션은 CSS로는 할수 없었던 몇가지 일들이 더 가능합니다.
 
-For instance, moving along a complex path, with a timing function different from Bezier curves, or an animation on a canvas.
+예를 들어 복잡한 경로를 따라 움직이게 하거나, Bazier 커브가 아닌 다른 타이밍 함수의 활용 혹은 캔버스에 애니메이션을 표현하기 등입니다.
 
-## Using setInterval
+## setInterval 사용하기
 
-An animation can be implemented as a sequence of frames -- usually small changes to HTML/CSS properties.
+애니메이션은 프레임들의 연속으로 구현할 수 있습니다. 이는 보통 HTML/CSS 프로퍼티의 작은 변경을 활용합니다.
 
-For instance, changing `style.left` from `0px` to `100px` moves the element. And if we increase it in `setInterval`, changing by `2px` with a tiny delay, like 50 times per second, then it looks smooth. That's the same principle as in the cinema: 24 frames per second is enough to make it look smooth.
+예를 들어 `style.left`를 `0px`에서 `100px`로 바꾸면 해당 엘리멘트는 이동합니다. 만약 이 변경을 `setInterval` 을 활용하여 아주 약간의 간격을 두고, 가령 1초에 50번 정도 `2px` 씩 더해준다면 엘리먼트는 부드럽게 이동하는 듯 보일 것입니다. 이는 영화상영의 기본 원리와 같습니다. 1초에 24프레임이면 부드럽게 움직이는 것처럼 보이기에 충분합니다.
 
-The pseudo-code can look like this:
+슈도 코드는 대략 다음과 같습니다:
 
 ```js
 let timer = setInterval(function() {
   if (animation complete) clearInterval(timer);
   else increase style.left by 2px
-}, 20); // change by 2px every 20ms, about 50 frames per second
+}, 20); // 매 20ms마다 2px 변경, 초당 약 50프레임
 ```
 
-More complete example of the animation:
+애니메이션에 관한 조금 더 복잡한 예제입니다:
 
 ```js
-let start = Date.now(); // remember start time
+let start = Date.now(); // 시작 시각을 저장합니다.
 
 let timer = setInterval(function() {
-  // how much time passed from the start?
+  // 시작부터 얼마만큼 시간이 지났는지를 저장합니다.
   let timePassed = Date.now() - start;
 
   if (timePassed >= 2000) {
-    clearInterval(timer); // finish the animation after 2 seconds
+    clearInterval(timer); // 2초가 지난 후 애니메이션을 종료합니다.
     return;
   }
 
-  // draw the animation at the moment timePassed
+  // timePassed 순간의 애니메이션을 그립니다.
   draw(timePassed);
 
 }, 20);
 
-// as timePassed goes from 0 to 2000
-// left gets values from 0px to 400px
+// timePassed 값이 0에서 2000까지 변화할 때
+// left 변수의 값은 0px에서 400px이 됩니다.
 function draw(timePassed) {
   train.style.left = timePassed / 5 + 'px';
 }
 ```
 
-Click for the demo:
+데모를 확인하려면 클릭하세요:
 
 [codetabs height=200 src="move"]
 
-## Using requestAnimationFrame
+## requestAnimationFrame 사용하기
 
-Let's imagine we have several animations running simultaneously.
+여러 개의 애니메이션을 동시에 실행하는 상황을 생각해봅시다.
 
-If we run them separately, then even though each one has `setInterval(..., 20)`, then the browser would have to repaint much more often than every `20ms`.
+만약 각각의 애니메이션을 따로 실행한다면 실행되는 모든 애니메이션은 `setInterval(..., 20)` 을 가지게 될 것입니다. 그리고 브라우저는 매 `20ms` 보다 훨씬 더 자주 화면을 다시 그리게 될 것 입니다.
 
-That's because they have different starting time, so "every 20ms" differs between different animations. The intervals are not aligned. So we'll have several independent runs within `20ms`.
+이는 각각의 실행 시작 시각이 다르기에 '매 20ms' 도 모두 다르기 때문입니다. 실행 간격은 정렬되지 않습니다. 따라서 이 경우 `20ms` 안에 몇 번의 독립적인 실행이 있게 됩니다.
 
-In other words, this:
+다시 말해, 이렇게 하는 것이:
 
 ```js
 setInterval(function() {
@@ -67,40 +67,41 @@ setInterval(function() {
 }, 20)
 ```
 
-...Is lighter than three independent calls:
+...이렇게 각각 따로 호출하는 것보다 효율적입니다:
 
 ```js
-setInterval(animate1, 20); // independent animations
-setInterval(animate2, 20); // in different places of the script
+setInterval(animate1, 20); // 각각 호출되는 애니메이션
+setInterval(animate2, 20); // 스크립의 다양한 곳에서
 setInterval(animate3, 20);
 ```
 
-These several independent redraws should be grouped together, to make the redraw easier for the browser and hence load less CPU load and look smoother.
+이렇게 각각 화면을 새로 그리는 작업은 브라우저의 화면 갱신 작업을 효율적으로 하기 위해 그리고 CPU 의 효율적인 사용과 보다 부드러운 움직임을 위해 모아서 한번에 처리되야 합니다.
 
-There's one more thing to keep in mind. Sometimes when CPU is overloaded, or there are other reasons to redraw less often (like when the browser tab is hidden), so we really shouldn't run it every `20ms`.
+한가지 더 기억해 두어야 할 것이 있습니다. CPU가 overloaded 상태이거나 혹은 그 외에 어떤 이유든 화면 갱신 작업이 더 적게 일어나야 할때가 있습니다(예를 들면 브라우저 탭이 숨겨져 있는 경우), 그러므로 정말로 매 '20ms'마다 애니메이션을 실행하지 않는편이 좋습니다.
 
-But how do we know about that in JavaScript? There's a specification [Animation timing](http://www.w3.org/TR/animation-timing/) that provides the function `requestAnimationFrame`. It addresses all these issues and even more.
+그렇다면 Javascript 에서 이러한 상황을 어떻게 알수 있을까요? 이를 위해 `requestAnimationFrame` 함수를 제공하는 [Animation timing](http://www.w3.org/TR/animation-timing/) 사양이 있습니다. 
+이를 활용하면 위의 모든 issues 들을 포함하여 많은것을 해결할 수 있습니다. 
 
-The syntax:
+문법:
 ```js
 let requestId = requestAnimationFrame(callback)
 ```
 
-That schedules the `callback` function to run in the closest time when the browser wants to do animation.
+이 방법은 함수 `callback` 이 브라우저가 원하는 순간에서 가장 가까운 시점에 호출 될 수 있도록 스케줄링합니다.
 
-If we do changes in elements in `callback` then they will be grouped together with other `requestAnimationFrame` callbacks and with CSS animations. So there will be one geometry recalculation and repaint instead of many.
+`callback` 안에서 수정하는 엘리먼트들은 자동으로 다른 `requestAnimationFrame` callbacks 그리고 CSS 애니메이션들과 함께 그룹화됩니다. 그리고 여러 번이 아닌 단 한번의 형상 재계산과 화면 갱신이 수행됩니다.
 
-The returned value `requestId` can be used to cancel the call:
+반환되는 `requestId` 값은 호출을 취소하는데 사용될 수 있습니다:
 ```js
-// cancel the scheduled execution of callback
+// 스케쥴링 된 callback 함수의 실행을 취소합니다.
 cancelAnimationFrame(requestId);
 ```
 
-The `callback` gets one argument -- the time passed from the beginning of the page load in microseconds. This time can also be obtained by calling [performance.now()](mdn:api/Performance/now).
+`callback` 함수는 페이지의 로드가 시작된 시점에서부터 지난 시간을 microseconds 로 제공하는 하나의 인수를 받습니다. 이 시각은 [performance.now()](mdn:api/Performance/now) 호출을 통해서도 얻을 수 있습니다.
 
-Usually `callback` runs very soon, unless the CPU is overloaded or the laptop battery is almost discharged, or there's another reason.
+일반적으로 `callback` 함수는 곧 실행됩니다, CPU가 overloaded 돼 있거나 노트북의 배터리가 거의 방전되거나 혹은 다른 비슷한 이유가 있지 않은 한 그렇습니다.
 
-The code below shows the time between first 10 runs for `requestAnimationFrame`. Usually it's 10-20ms:
+아래 코드는 처음 10번의 `requestAnimationFrame` 실행 간격을 보여줍니다. 보통 10-20ms 정도입니다:
 
 ```html run height=40 refresh
 <script>
