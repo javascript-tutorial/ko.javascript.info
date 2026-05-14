@@ -2,22 +2,22 @@ importance: 4
 
 ---
 
-# Load images with a callback
+# 콜백으로 이미지 로드하기
 
-Normally, images are loaded when they are created. So when we add `<img>` to the page, the user does not see the picture immediately. The browser needs to load it first.
+일반적으로 이미지는 생성될 때 로드됩니다. 그래서 페이지에 `<img>`를 추가하면 사용자는 사진을 바로 볼 수 없습니다. 브라우저에서 먼저 로드해야 합니다.
 
-To show an image immediately, we can create it "in advance", like this:
+이미지를 바로 표시하기 위해서 다음과 같이 미리 생성할 수 있습니다.
 
 ```js
 let img = document.createElement('img');
 img.src = 'my.jpg';
 ```
 
-The browser starts loading the image and remembers it in the cache. Later, when the same image appears in the document (no matter how), it shows up immediately.
+브라우저는 이미지 로드를 시작하고 캐시에 저장합니다. 나중에 문서에 동일한 이미지가 나타나면 바로 표시됩니다(어떻게든요).
 
-**Create a function `preloadImages(sources, callback)` that loads all images from the array `sources` and, when ready, runs `callback`.**
+**배열의 모든 이미지를 `sources`에서 로드하고 준비가 되면 `callbak`을 실행하는 함수 `preloadImages(sources, callback)`를 만듭니다.**
 
-For instance, this will show an `alert` after the images are loaded:
+예를 들어 이미지가 로드된 후 `alert`창이 표시됩니다.
 
 ```js
 function loaded() {
@@ -27,10 +27,10 @@ function loaded() {
 preloadImages(["1.jpg", "2.jpg", "3.jpg"], loaded);
 ```
 
-In case of an error, the function should still assume the picture "loaded".
+오류가 발생하더라도 함수는 이미지를 '로드 됨'으로 간주해야 합니다.
 
-In other words, the `callback` is executed when all images are either loaded or errored out.
+즉, `callback`은 모든 이미지가 로드되거나 오류가 발생할 때 실행됩니다.
 
-The function is useful, for instance, when we plan to show a gallery with many scrollable images, and want to be sure that all images are loaded.
+콜백은 예를 들어 스크롤 가능한 이미지가 많은 갤러리를 표시하고 모든 이미지가 로드되었는지 확인하려는 경우에 유용합니다.
 
-In the source document you can find links to test images, and also the code to check whether they are loaded or not. It should output `300`.
+원본 문서에서 테스트 이미지에 대한 링크와 이미지가 로드되었는지를 확인하는 코드를 찾을 수 있습니다. `300`을 출력해야 합니다.
