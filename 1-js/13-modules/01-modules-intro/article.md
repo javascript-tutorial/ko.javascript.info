@@ -95,6 +95,8 @@ sayHi('John'); // Hello, John!
 
 브라우저 환경에서도 `<script type="module">`을 사용해 모듈을 만들면 독립적인 스코프가 만들어집니다.
 
+아래 두 스크립트는 같은 페이지에 있으며 둘 다 `type="module"`입니다. 하지만 서로의 최상위 변수에는 접근할 수 없습니다.
+
 ```html run
 <script type="module">
   // user는 해당 모듈 안에서만 접근 가능합니다.
