@@ -47,6 +47,6 @@ Windows 사용자라면 'Visual Studio'라는 IDE를 들어보셨을 겁니다. 
 
 저자의 개인적인 의견은 다음과 같습니다.
 
-* 프론트엔드 개발을 주로 한다면 [Visual Studio Code](https://code.visualstudio.com/)를 사용하는 편이 좋습니다.
-* 반대로 다른 언어·플랫폼 개발이 주가 되고 프론트엔드는 일부만 다룬다면 Xcode(Mac), Microsoft Visual Studio(Windows), 또는 JetBrains 계열 IDE(WebStorm, PHPStorm, RubyMine 등)를 고려해볼 수 있습니다. 사용하는 언어에 따라 적절한 제품을 선택하면 됩니다.
+- 프론트엔드 개발을 주로 한다면 [Visual Studio Code](https://code.visualstudio.com/)를 사용하는 편이 좋습니다.
+- 반대로 다른 언어·플랫폼 개발이 주가 되고 프론트엔드는 일부만 다룬다면 Xcode(Mac), Microsoft Visual Studio(Windows), 또는 JetBrains 계열 IDE(WebStorm, PHPStorm, RubyMine 등)를 고려해볼 수 있습니다. 사용하는 언어에 따라 적절한 제품을 선택하면 됩니다.
 
