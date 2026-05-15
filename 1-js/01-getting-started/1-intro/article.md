@@ -26,7 +26,7 @@
 
 - [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) -- Chrome과 Opera에서 쓰입니다.
 - [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) -- Firefox에서 쓰입니다.
-- IE는 버전에 따라 'Trident'나 'Chakra'라 불리는 엔진을 사용합니다. Safari에서는 'JavaScriptCore', 'Nitro', 'SquirrelFish' 같은 코드네임이 사용됩니다.
+- IE의 "Chakra", Safari의 "JavaScriptCore", "Nitro", "SquirrelFish" 같은 다른 코드네임들도 있습니다.
 
 위의 코드네임은 개발 관련 글에서 종종 언급되기 때문에 기억해 두는 것이 좋습니다. 본 튜토리얼에서도 해당 코드네임을 사용할 예정입니다. "X라는 기능은 V8에서만 지원합니다."라는 식으로 말이죠. 이런 문장을 만나면 Chrome과 Opera에서만 이 기능을 지원한다고 이해하시면 됩니다.
 
