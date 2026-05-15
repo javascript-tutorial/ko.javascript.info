@@ -110,6 +110,9 @@
 - [TypeScript](http://www.typescriptlang.org/)는 개발을 단순화 하고 복잡한 시스템을 지원하려는 목적으로 '자료형의 명시화(strict data typing)'에 집중해 만든 언어입니다. Microsoft가 개발하였습니다.
 - [Flow](http://flow.org/) 역시 자료형을 강제하는데, TypeScript와는 다른 방식을 사용합니다. Facebook이 개발하였습니다.
 - [Dart](https://www.dartlang.org/)는 모바일 앱과 같이 브라우저가 아닌 환경에서 동작하는 고유의 엔진을 가진 독자적 언어입니다. Google이 개발하였습니다.
+- [Brython](https://brython.info/)은 자바스크립트 없이 순수 Python만으로 애플리케이션을 작성할 수 있게 해주는 Python → JavaScript 트랜스파일러입니다.
+- [Kotlin](https://kotlinlang.org/docs/reference/js-overview.html)은 브라우저와 Node를 대상으로 사용할 수 있는 현대적이고 간결하며 안전한 프로그래밍 언어입니다.
+
 
 이 외에도 자바스크립트로 트랜스파일 할 수 있는 언어는 다양합니다. 개발 언어로 이런 언어 중 하나를 택한다고 하더라도 자신이 무엇을 하고 있는지 이해하려면 결국엔 자바스크립트를 알아야 합니다.
 
