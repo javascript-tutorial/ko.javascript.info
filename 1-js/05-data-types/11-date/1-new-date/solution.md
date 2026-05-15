@@ -2,7 +2,7 @@
 
 따라서 2월은 숫자 1을 사용해 만듭니다.
 
-숫자를 날짜의 컴포넌트로 사용하는 예제는 다음과 같습니다.
+숫자로 날짜를 생성하는 예제는 다음과 같습니다.
 
 ```js run
 //new Date(year, month, date, hour, minute, second, millisecond)
