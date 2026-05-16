@@ -77,13 +77,13 @@ if (!Math.trunc) { // 함수가 없는 경우
 
 자바스크립트 엔진이 아직 잘 지원하지 않는 기능이라도, 모던 기능, 심지어 "최첨단(bleeding-edge)" 기능까지 적극적으로 공부해 보시길 권합니다.
 
-단, 모던 문법이나 연산자를 쓸 땐 트랜스파일러를, 빠지기 쉬운 함수를 채울 땐 폴리필을 꼭 함께 사용하세요. 이 둘이 갖춰져야 코드가 제대로 동작합니다.
+단, 모던 문법이나 연산자를 쓸 땐 트랜스파일러를, 일부 엔진에 없을 수 있는 함수를 추가할 땐 폴리필을 꼭 함께 사용하세요. 이 둘이 갖춰져야 코드가 제대로 동작합니다.
 
 자바스크립트가 좀 익숙해진 뒤엔 [웹팩(webpack)](https://webpack.js.org/) 기반에 [babel-loader](https://github.com/babel/babel-loader) 플러그인을 얹어 빌드 시스템을 꾸려볼 수도 있죠.
 
 각 기능의 지원 현황을 확인할 땐 아래 자료가 유용합니다.
-- <https://compat-table.github.io/compat-table/es6/> -- 순수 자바스크립트 기능
-- <https://caniuse.com/> -- 브라우저 관련 기능
+- <https://compat-table.github.io/compat-table/es6/> - 순수 자바스크립트 기능
+- <https://caniuse.com/> - 브라우저 관련 기능
 
 참고로 Google Chrome은 보통 최신 언어 기능을 가장 빨리 지원합니다. 튜토리얼 데모가 잘 안 돌아간다면 Chrome으로 한 번 시도해 보세요. 대부분의 데모는 모던 브라우저 어디서나 잘 작동합니다.
 
