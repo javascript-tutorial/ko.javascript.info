@@ -40,7 +40,7 @@ let user = {};
 alert(user.address ? user.address.street : undefined);
 ```
 
-에러 없이 잘 동작하네요. 하지만 코드가 꽤 볼품없습니다. 보시다시피 "user.address"가 코드에 두 번이나 등장합니다.
+에러 없이 잘 동작하네요. 하지만 코드가 꽤 볼품없습니다. 보시다시피 `"user.address"`가 코드에 두 번이나 등장합니다.
 
 `document.querySelector`를 사용한 예시는 다음과 같은 모습일 것입니다.
 
