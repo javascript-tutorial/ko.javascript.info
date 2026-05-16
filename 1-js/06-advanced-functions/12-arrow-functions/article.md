@@ -51,13 +51,8 @@ let group = {
   showList() {
 *!*
     this.students.forEach(function(student) {
-<<<<<<< HEAD
-      // TypeError: Cannot read property 'title' of undefined
-      alert(this.title + ': ' + student)
-=======
       // Error: Cannot read property 'title' of undefined
-      alert(this.title + ': ' + student);
->>>>>>> upstream/master
+      alert(this.title + ': ' + student)
     });
 */!*
   }
@@ -72,14 +67,15 @@ group.showList();
 
 ```warn header="화살표 함수는 `new`와 함께 실행할 수 없습니다."
 `this`가 없기 때문에 화살표 함수는 생성자 함수로 사용할 수 없다는 제약이 있습니다. 화살표 함수는 `new`와 함께 호출할 수 없습니다.
-```
+
+````
 
 ```smart header="화살표 함수 vs. bind"
 화살표 함수와 일반 함수를 `.bind(this)`를 사용해서 호출하는 것 사이에는 미묘한 차이가 있습니다.
 
 - `.bind(this)`는 함수의 '한정된 버전(bound version)'을 만듭니다.
 - 화살표 함수는 어떤 것도 바인딩시키지 않습니다. 화살표 함수엔 단지 `this`가 없을 뿐입니다. 화살표 함수에서 `this`를 사용하면 일반 변수 서칭과 마찬가지로 `this`의 값을 외부 렉시컬 환경에서 찾습니다.
-```
+````
 
 ## 화살표 함수엔 'arguments'가 없습니다
 
@@ -91,13 +87,13 @@ group.showList();
 
 ```js run
 function defer(f, ms) {
-  return function() {
+  return function () {
     setTimeout(() => f.apply(this, arguments), ms);
   };
 }
 
 function sayHi(who) {
-  alert('안녕, ' + who);
+  alert("안녕, " + who);
 }
 
 let sayHiDeferred = defer(sayHi, 2000);
@@ -108,9 +104,9 @@ sayHiDeferred("철수"); // 2초 후 "안녕, 철수"가 출력됩니다.
 
 ```js
 function defer(f, ms) {
-  return function(...args) {
+  return function (...args) {
     let ctx = this;
-    setTimeout(function() {
+    setTimeout(function () {
       return f.apply(ctx, args);
     }, ms);
   };
