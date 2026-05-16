@@ -90,19 +90,19 @@
 
 여기서 주의해야 할 점은 `onblur`는 요소가 포커스를 잃고 난 *후*에 발생하기 때문에 `onblur` 안에서 `event.preventDefault()`를 호출해 포커스를 잃게 하는걸 '막을 수 없다'라는 사실입니다. 
 
-In practice though, one should think well, before implementing something like this, because we generally *should show errors* to the user, but *should not prevent their progress* in filling our form. They may want to fill other fields first.
+하지만 실제로 이런 기능을 구현하기 전엔 신중하게 생각해야 합니다. 일반적으로 사용자에게 *에러를 표시하는 것*은 필요하지만, 폼 작성을 *방해해서는 안 되기* 때문입니다. 사용자가 다른 항목을 먼저 작성하고 싶을 수도 있습니다.
 
-```warn header="JavaScript-initiated focus loss"
-A focus loss can occur for many reasons.
+```warn header="자바스크립트에 의해 포커스를 잃는 경우"
+포커스를 잃는 데에는 여러 가지 이유가 있습니다.
 
-One of them is when the visitor clicks somewhere else. But also JavaScript itself may cause it, for instance:
+그중 하나는 방문자가 다른 곳을 클릭했을 때입니다. 하지만 자바스크립트 자체도 원인이 될 수 있습니다. 예를 들면 다음과 같습니다.
 
-- An `alert` moves focus to itself, so it causes the focus loss at the element (`blur` event), and when the `alert` is dismissed, the focus comes back (`focus` event).
-- If an element is removed from DOM, then it also causes the focus loss. If it is reinserted later, then the focus doesn't return.
+- `alert`는 포커스를 자기 자신으로 이동시키므로 기존 요소가 포커스를 잃게 만듭니다(`blur` 이벤트). 그리고 `alert`가 닫히면 포커스가 다시 돌아옵니다(`focus` 이벤트).
+- 요소가 DOM에서 제거되는 경우에도 포커스를 잃게 됩니다. 나중에 요소가 다시 삽입되더라도 포커스는 돌아오지 않습니다.
 
-These features sometimes cause `focus/blur` handlers to misbehave -- to trigger when they are not needed.
+이러한 특징 때문에 때때로 `focus/blur` 핸들러가 필요하지 않을 때에도 작동하는 경우가 있습니다.
 
-The best recipe is to be careful when using these events. If we want to track user-initiated focus-loss, then we should avoid causing it ourselves.
+따라서 이런 이벤트를 사용할 때는 주의해야 합니다. 사용자 동작으로 포커스를 잃는 상황을 추적하려면 자바스크립트로 요소가 포커스를 잃게 만드는 일을 피해야 합니다.
 ```
 ## tabindex를 사용해서 모든 요소 포커스 하기
 
