@@ -43,10 +43,11 @@ alert(generator); // [object Generator]
 `next()`는 제너레이터의 주요 메서드입니다. `next()`를 호출하면 가장 가까운 `yield <value>`문을 만날 때까지 실행이 지속됩니다(`value`를 생략할 수도 있는데, 이 경우엔 `undefined`가 됩니다). 이후, `yield <value>`문을 만나면 실행이 멈추고 산출하고자 하는 값인 `value`가 바깥 코드에 반환됩니다(yield는 '생산하다, 산출하다'라는 뜻을 가짐 - 옮긴이).
 
 `next()`는 항상 아래 두 프로퍼티를 가진 객체를 반환합니다.
+
 - `value`: 산출 값
 - `done`: 함수 코드 실행이 끝났으면 `true`, 아니라면 `false`
 
-제너레이터를 만들고 첫 번째 산출 값을 받는 예시를 살펴봅시다. 
+제너레이터를 만들고 첫 번째 산출 값을 받는 예시를 살펴봅시다.
 
 ```js run
 function* generateSequence() {
@@ -88,15 +89,16 @@ alert(JSON.stringify(three)); // {value: 3, *!*done: true*/!*}
 
 ![](generateSequence-4.svg)
 
-이제 제너레이터가 종료되었습니다. 마지막 결과인 `value:3`과 `done:true`를 통해 이를 확인할 수 있습니다. 
+이제 제너레이터가 종료되었습니다. 마지막 결과인 `value:3`과 `done:true`를 통해 이를 확인할 수 있습니다.
 
 제너레이터가 종료되었기 때문에 지금 상태에선 `generator.next()`를 호출해도 아무 소용이 없습니다. `generator.next()`를 여러번 호출해도 객체 `{done: true}`가 반환될 뿐입니다.
 
 ```smart header="`function* f(…)`가 맞나요 아니면 `function *f(…)`가 맞나요?"
 둘 다 맞습니다.
 
-그런데 `*`는 제너레이터 `함수`를 나타내므로 대개는 첫 번째 문법이 선호됩니다. `*`는 종류를 나타내는 것이지 이름을 나타내는 것이 아니기 때문입니다. 그러므로 `*`는 `function`에 붙이도록 합시다.  
-```
+그런데 `*`는 제너레이터 `함수`를 나타내므로 대개는 첫 번째 문법이 선호됩니다. `*`는 종류를 나타내는 것이지 이름을 나타내는 것이 아니기 때문입니다. 그러므로 `*`는 `function`에 붙이도록 합시다.
+
+````
 
 ## 제너레이터와 이터러블
 
@@ -116,13 +118,13 @@ let generator = generateSequence();
 for(let value of generator) {
   alert(value); // 1, 2가 출력됨
 }
-```
+````
 
 `.next().value`을 호출하는 것 보다 나아 보이네요.
 
 그런데 주의할 점이 있습니다. 위 예시를 실행하면 `1`과 `2`만 출력되고 `3`은 출력되지 않습니다.
 
-이유는 `for..of` 이터레이션이 `done: true`일 때 마지막 `value`를 무시하기 때문입니다. 그러므로 `for..of`를 사용했을 때 모든 값이 출력되길 원한다면 `yield`로 값을 반환해야 합니다. 
+이유는 `for..of` 이터레이션이 `done: true`일 때 마지막 `value`를 무시하기 때문입니다. 그러므로 `for..of`를 사용했을 때 모든 값이 출력되길 원한다면 `yield`로 값을 반환해야 합니다.
 
 ```js run
 function* generateSequence() {
@@ -183,9 +185,9 @@ let range = {
         } else {
           return { done: true };
         }
-      }
+      },
     };
-  }
+  },
 };
 
 // 객체 range를 대상으로 하는 이터레이션은 range.from과 range.to 사이의 숫자를 출력합니다.
@@ -201,17 +203,19 @@ let range = {
   from: 1,
   to: 5,
 
-  *[Symbol.iterator]() { // [Symbol.iterator]: function*()를 짧게 줄임
-    for(let value = this.from; value <= this.to; value++) {
+  *[Symbol.iterator]() {
+    // [Symbol.iterator]: function*()를 짧게 줄임
+    for (let value = this.from; value <= this.to; value++) {
       yield value;
     }
-  }
+  },
 };
 
-alert( [...range] ); // 1, 2, 3, 4, 5
+alert([...range]); // 1, 2, 3, 4, 5
 ```
 
 `range[Symbol.iterator]()`는 제너레이터를 반환하고, 제너레이터 메서드는 `for..of`가 동작하는데 필요한 사항(아래 설명)을 충족시키므로 예시가 잘 동작합니다.
+
 - `.next()` 메서드가 있음
 - 반환 값의 형태는 `{value: ..., done: true/false}`이어야 함
 
@@ -238,11 +242,12 @@ function* generateSequence(start, end) {
 ```
 
 그리고 이 함수를 기반으로 좀 더 복잡한 값을 연속해서 생성하는 함수를 만들어봅시다. 값 생성 규칙은 다음과 같습니다.
+
 - 처음엔 숫자 `0`부터 `9`까지를 생성합니다(문자 코드 48부터 57까지),
 - 이어서 알파벳 대문자 `A`부터 `Z`까지를 생성합니다(문자 코드 65부터 90까지).
 - 이어서 알파벳 소문자 `a`부터 `z`까지를 생성합니다(문자 코드 97부터 122까지).
 
-이런 규칙을 충족하는 연속 값은 비밀번호를 만들 때 응용할 수 있습니다(물론 특수 문자도 추가 할 수 있습니다). 
+이런 규칙을 충족하는 연속 값은 비밀번호를 만들 때 응용할 수 있습니다(물론 특수 문자도 추가 할 수 있습니다).
 
 일반 함수로는 여러 개의 함수를 만들고 그 호출 결과를 어딘가에 저장한 후 다시 그 결과들을 조합해야 원하는 기능을 구현할 수 있습니다.
 
@@ -279,7 +284,7 @@ for(let code of generatePasswordCodes()) {
 alert(str); // 0..9A..Za..z
 ```
 
-`yield*` 지시자는 실행을 다른 제너레이터에 *위임합니다(delegate)*. 여기서 '위임'은 `yield* gen`이 제너레이터 `gen`을 대상으로 반복을 수행하고, 산출 값들을 바깥으로 전달한다는 것을 의미합니다. 마치 외부 제너레이터에 의해 값이 산출된 것처럼 말이죠.
+`yield*` 지시자는 실행을 다른 제너레이터에 _위임합니다(delegate)_. 여기서 '위임'은 `yield* gen`이 제너레이터 `gen`을 대상으로 반복을 수행하고, 산출 값들을 바깥으로 전달한다는 것을 의미합니다. 마치 외부 제너레이터에 의해 값이 산출된 것처럼 말이죠.
 
 중첩 제너레이터(`generateSequence`)의 코드를 직접 써줘도 결과는 같습니다.
 
@@ -316,7 +321,7 @@ alert(str); // 0..9A..Za..z
 
 ## 'yield'를 사용해 제너레이터 안·밖으로 정보 교환하기
 
-지금까지 배운 제너레이터는 값을 생성해주는 특수 문법을 가진 이터러블 객체와 유사했습니다. 그런데 사실 제너레이터는 더 강력하고 유연한 기능을 제공합니다. 
+지금까지 배운 제너레이터는 값을 생성해주는 특수 문법을 가진 이터러블 객체와 유사했습니다. 그런데 사실 제너레이터는 더 강력하고 유연한 기능을 제공합니다.
 
 `yield`가 양방향 길과 같은 역할을 하기 때문입니다. `yield`는 결과를 바깥으로 전달할 뿐만 아니라 값을 제너레이터 안으로 전달하기까지 합니다.
 
@@ -344,10 +349,10 @@ generator.next(4); // --> 결과를 제너레이터 안으로 전달합니다.
 ![](genYield2.svg)
 
 1. `generator.next()`를 처음 호출할 땐 항상 인수가 없어야 합니다. 인수가 넘어오더라도 무시되어야 하죠. `generator.next()`를 호출하면 실행이 시작되고 첫 번째 `yield "2+2=?"`의 결과가 반환됩니다. 이 시점에는 제너레이터가 `(*)`로 표시한 줄에서 실행을 잠시 멈춥니다.
-2. 그 후, 위 그림에서 보듯이 `yield`의 결과가 제너레이터를 호출하는 외부 코드에 있는 변수, `question`에 할당됩니다. 
+2. 그 후, 위 그림에서 보듯이 `yield`의 결과가 제너레이터를 호출하는 외부 코드에 있는 변수, `question`에 할당됩니다.
 3. 마지막 줄, `generator.next(4)`에서 제너레이터가 다시 시작되고 `4`는 `result`에 할당됩니다(`let result = 4`).
 
-외부 코드에선 `next(4)`를 즉시 호출하지 않고 있다는 점에 주목해 주시기 바랍니다. 제너레이터가 기다려주기 때문에 호출을 나중에 해도 문제가 되지 않습니다.  
+외부 코드에선 `next(4)`를 즉시 호출하지 않고 있다는 점에 주목해 주시기 바랍니다. 제너레이터가 기다려주기 때문에 호출을 나중에 해도 문제가 되지 않습니다.
 
 예시:
 
@@ -366,18 +371,18 @@ function* gen() {
 
   alert(ask1); // 4
 
-  let ask2 = yield "3 * 3 = ?"
+  let ask2 = yield "3 * 3 = ?";
 
   alert(ask2); // 9
 }
 
 let generator = gen();
 
-alert( generator.next().value ); // "2 + 2 = ?"
+alert(generator.next().value); // "2 + 2 = ?"
 
-alert( generator.next(4).value ); // "3 * 3 = ?"
+alert(generator.next(4).value); // "3 * 3 = ?"
 
-alert( generator.next(9).done ); // true
+alert(generator.next(9).done); // true
 ```
 
 실행 흐름을 나타낸 그림은 다음과 같습니다.
@@ -396,7 +401,7 @@ alert( generator.next(9).done ); // true
 
 여러 가지 예시를 통해 살펴보았듯이 외부 코드는 `yield`의 결과가 될 값을 제너레이터 안에 전달하기도 합니다.
 
-그런데 외부 코드가 에러를 만들거나 던질 수도 있습니다. 에러는 결과의 한 종류이기 때문에 이는 자연스러운 현상입니다. 
+그런데 외부 코드가 에러를 만들거나 던질 수도 있습니다. 에러는 결과의 한 종류이기 때문에 이는 자연스러운 현상입니다.
 
 에러를 `yield` 안으로 전달하려면 `generator.throw(err)`를 호출해야 합니다. `generator.throw(err)`를 호출하게 되면 `err`는 `yield`가 있는 줄로 던져집니다.
 
@@ -448,12 +453,9 @@ try {
 
 이렇게 제너레이터 바깥에서 에러를 잡지 못하면 에러는 제너레이터 호출 코드 바깥으로 떨어져 나갑니다. 여기서도 에러를 잡지 못하면 스크립트가 죽겠죠.
 
-<<<<<<< HEAD
-## 요약
-=======
 ## generator.return
 
-`generator.return(value)` finishes the generator execution and return the given `value`.
+`generator.return(value)`는 제너레이터 실행을 종료시키고 주어진 `value`를 반환합니다.
 
 ```js
 function* gen() {
@@ -464,17 +466,16 @@ function* gen() {
 
 const g = gen();
 
-g.next();        // { value: 1, done: false }
-g.return('foo'); // { value: "foo", done: true }
-g.next();        // { value: undefined, done: true }
+g.next(); // { value: 1, done: false }
+g.return("foo"); // { value: "foo", done: true }
+g.next(); // { value: undefined, done: true }
 ```
 
-If we again use `generator.return()` in a completed generator, it will return that value again ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
+이미 종료된 제너레이터에서 `generator.return()`을 다시 호출해도 인수로 전달한 값을 그대로 반환합니다([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
 
-Often we don't use it, as most of time we want to get all returning values, but it can be useful when we want to stop generator in a specific condition.
+대부분의 경우 모든 반환 값을 필요하기 때문에 이 메서드를 잘 사용하지는 않지만, 특정 상황에서 제너레이터를 중지하고 싶을 때 유용할 수 있습니다.
 
-## Summary
->>>>>>> upstream/master
+## 요약
 
 - 제너레이터는 제너레이터 함수 `function* f(…) {…}`을 사용해 만듭니다.
 - `yield` 연산자는 제너레이터 안에 있어야 합니다.
