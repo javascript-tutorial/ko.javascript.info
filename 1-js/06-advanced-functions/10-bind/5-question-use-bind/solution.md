@@ -1,9 +1,4 @@
-
-<<<<<<< HEAD
-에러는 `ask`가 함수 `loginOk`, `loginFail`을 객체 없이 가지고 오기 때문에 발생합니다.
-=======
-The error occurs because `askPassword` gets functions `loginOk/loginFail` without the object.
->>>>>>> upstream/master
+에러는 `askPassword`가 함수 `loginOk`, `loginFail`을 객체 없이 가지고 오기 때문에 발생합니다.
 
 ask는 `loginOk`, `loginFail`을 호출할 때 `this=undefined`라고 자연스레 가정합니다.
 
@@ -37,9 +32,13 @@ askPassword(user.loginOk.bind(user), user.loginFail.bind(user));
 이제 잘 동작합니다.
 
 이 외에도 다른 답이 있는데, 아래에서 확인 가능합니다.
+
 ```js
 //...
-askPassword(() => user.loginOk(), () => user.loginFail());
+askPassword(
+  () => user.loginOk(),
+  () => user.loginFail(),
+);
 ```
 
 이렇게 화살표 함수를 사용하는 방법 또한 대개 잘 동작하며 가독성도 좋습니다.
