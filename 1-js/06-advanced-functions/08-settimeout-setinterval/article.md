@@ -64,7 +64,7 @@ setTimeout("alert('안녕하세요.')", 1000);
 그런데 이렇게 문자열을 사용하는 방법은 추천하지 않습니다. 되도록 다음 예시와 같이 익명 화살표 함수를 사용하세요.
 
 ```js run no-beautify
-setTimeout(() => alert("안녕하세요."), 1000);
+setTimeout(() => alert('안녕하세요.'), 1000);
 ```
 
 ````smart header="함수를 실행하지 말고 넘기세요."
@@ -120,21 +120,17 @@ let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
 
 ```js run
 // 2초 간격으로 메시지를 보여줌
-let timerId = setInterval(() => alert("째깍"), 2000);
+let timerId = setInterval(() => alert('째깍'), 2000);
 
 // 5초 후에 정지
-setTimeout(() => {
-  clearInterval(timerId);
-  alert("정지");
-}, 5000);
+setTimeout(() => { clearInterval(timerId); alert('정지'); }, 5000);
 ```
 
-```smart header="`alert`창이 떠 있더라도 타이머는 멈추지 않습니다."
-Chrome과 Firefox를 포함한 대부분의 브라우저는`alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머를 멈추지 않습니다.
+```smart header="`alert` 창이 떠 있더라도 타이머는 멈추지 않습니다."
+Chrome과 Firefox를 포함한 대부분의 브라우저는 `alert/confirm/prompt` 창이 떠 있는 동안에도 내부 타이머를 멈추지 않습니다.
 
 위 예시를 실행하고 첫 번째 `alert` 창이 떴을 때 몇 초간 기다렸다가 창을 닫으면, 두 번째 `alert` 창이 바로 나타나는 것을 보고 이를 확인할 수 있습니다. 이런 이유로 얼럿 창은 명시한 지연 시간인 2초보다 더 짧은 간격으로 뜨게 됩니다.
-
-````
+```
 
 ## 중첩 setTimeout
 
@@ -153,7 +149,7 @@ let timerId = setTimeout(function tick() {
   timerId = setTimeout(tick, 2000); // (*)
 */!*
 }, 2000);
-````
+```
 
 다섯 번째 줄의 `setTimeout`은 `(*)`로 표시한 줄의 실행이 종료되면 다음 호출을 스케줄링합니다.
 
@@ -162,7 +158,6 @@ let timerId = setTimeout(function tick() {
 5초 간격으로 서버에 요청을 보내 데이터를 얻는다고 가정해 봅시다. 서버가 과부하 상태라면 요청 간격을 10초, 20초, 40초 등으로 증가시켜주는 게 좋을 겁니다.
 
 아래는 이를 구현한 의사 코드입니다.
-
 ```js
 let delay = 5000;
 
@@ -179,6 +174,7 @@ let timerId = setTimeout(function request() {
 }, delay);
 ```
 
+
 CPU 소모가 많은 작업을 주기적으로 실행하는 경우에도 `setTimeout`을 재귀 실행하는 방법이 유용합니다. 작업에 걸리는 시간에 따라 다음 작업을 유동적으로 계획할 수 있기 때문입니다.
 
 **중첩 `setTimeout`을 이용하는 방법은 지연 간격을 보장하지만 `setInterval`은 이를 보장하지 않습니다.**
@@ -187,7 +183,7 @@ CPU 소모가 많은 작업을 주기적으로 실행하는 경우에도 `setTim
 
 ```js
 let i = 1;
-setInterval(function () {
+setInterval(function() {
   func(i++);
 }, 100);
 ```
@@ -214,7 +210,7 @@ setTimeout(function run() {
 
 그렇다면 `func`을 실행하는 데 걸리는 시간이 명시한 지연 간격보다 길 때 어떤 일이 발생할까요?
 
-이런 경우는 엔진이 `func`의 실행이 종료될 때까지 기다려줍니다. `func`의 실행이 종료되면 엔진은 스케줄러를 확인하고, 지연 시간이 지났으면 다음 호출을 _바로_ 시작합니다.
+이런 경우는 엔진이 `func`의 실행이 종료될 때까지 기다려줍니다. `func`의 실행이 종료되면 엔진은 스케줄러를 확인하고, 지연 시간이 지났으면 다음 호출을 *바로* 시작합니다.
 
 따라서 함수 호출에 걸리는 시간이 매번 `delay` 밀리초보다 길면, 모든 함수가 쉼 없이 계속 연속 호출됩니다.
 
@@ -260,7 +256,7 @@ alert("Hello");
 대기 시간이 0인 setTimeout을 활용한 브라우저 환경에서의 유스 케이스는 <info:event-loop>에서 자세히 다루도록 하겠습니다.
 
 ````smart header="실제로 지연시간이 0인 경우는 없습니다(브라우저 환경)."
-브라우저는 [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers)에서 정한 중첩 타이머 실행 간격 관련 제약을 준수합니다. 해당 표준엔 "다섯 번째 중첩 타이머 이후엔 대기 시간을 최소 4밀리초 이상으로 강제해야 한다."라는 제약이 명시되어 있습니다.
+브라우저는 [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers)에서 정한 중첩 타이머 실행 간격 관련 제약을 준수합니다. 해당 표준엔 "다섯 번째 중첩 타이머 이후엔 대기 시간을 최소 4밀리초 이상으로 강제해야 한다."라는 제약을 명시합니다. 
 
 예시를 보며 이 제약 사항을 이해해봅시다. 예시 내 `setTimeout`은 지연 없이 함수 run을 다시 호출할 수 있게 스케줄링 되어 있습니다. 배열 `times`에는 실제 지연 간격에 대한 정보가 기록되도록 해놓았는데, 배열 times에 어떤 값이 저장되는지 알아봅시다.
 

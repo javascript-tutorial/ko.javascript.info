@@ -1,14 +1,15 @@
+
 # 프로퍼티 플래그와 설명자
 
 아시다시피 객체엔 프로퍼티가 저장됩니다.
 
-지금까진 프로퍼티를 단순히 '키-값' 쌍의 관점에서만 다뤘습니다. 그런데 사실 프로퍼티는 우리가 생각했던 것보다 더 유연하고 강력한 자료구조입니다.
+지금까진 프로퍼티를 단순히 '키-값' 쌍의 관점에서만 다뤘습니다. 그런데 사실 프로퍼티는 우리가 생각했던 것보다 더 유연하고 강력한 자료구조입니다. 
 
 이 챕터에선 객체 프로퍼티 추가 구성 옵션 몇 가지를 다루고, 이어지는 챕터에선 이 옵션들을 이용해 손쉽게 getter나 setter 함수를 만드는 법을 알아보겠습니다.
 
 ## 프로퍼티 플래그
 
-객체 프로퍼티는 **`값(value)`** 과 함께 플래그(flag)라 불리는 특별한 속성 세 가지를 갖습니다.
+객체 프로퍼티는 **`값(value)`** 과 함께 플래그(flag)라 불리는 특별한 속성 세 가지를 갖습니다. 
 
 - **`writable`** -- `true`이면 값을 수정할 수 있습니다. 그렇지 않다면 읽기만 가능합니다.
 - **`enumerable`** -- `true`이면 반복문을 사용해 나열할 수 있습니다. 그렇지 않다면 반복문을 사용해 나열할 수 없습니다.
@@ -21,7 +22,6 @@
 [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor) 메서드를 사용하면 특정 프로퍼티에 대한 정보를 *모두* 얻을 수 있습니다.
 
 문법:
-
 ```js
 let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 ```
@@ -38,12 +38,12 @@ let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 
 ```js run
 let user = {
-  name: "John",
+  name: "John"
 };
 
-let descriptor = Object.getOwnPropertyDescriptor(user, "name");
+let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
 
-alert(JSON.stringify(descriptor, null, 2));
+alert( JSON.stringify(descriptor, null, 2 ) );
 /* property descriptor:
 {
   "value": "John",
@@ -59,7 +59,7 @@ alert(JSON.stringify(descriptor, null, 2));
 문법:
 
 ```js
-Object.defineProperty(obj, propertyName, descriptor);
+Object.defineProperty(obj, propertyName, descriptor)
 ```
 
 `obj`, `propertyName`
@@ -68,7 +68,7 @@ Object.defineProperty(obj, propertyName, descriptor);
 `descriptor`
 : 적용하고자 하는 프로퍼티 설명자
 
-`defineProperty`메서드는 객체에 해당 프로퍼티가 있으면 플래그를 원하는 대로 변경해줍니다. 프로퍼티가 없으면 인수로 넘겨받은 정보를 이용해 새로운 프로퍼티를 만듭니다. 이때 플래그 정보가 없으면 플래그 값은 자동으로 `false`가 됩니다.
+`defineProperty`메서드는 객체에 해당 프로퍼티가 있으면 플래그를 원하는 대로 변경해줍니다. 프로퍼티가 없으면 인수로 넘겨받은 정보를 이용해 새로운 프로퍼티를 만듭니다. 이때 플래그 정보가 없으면 플래그 값은 자동으로 `false`가 됩니다. 
 
 아래 예시를 보면 프로퍼티 `name`이 새로 만들어지고, 모든 플래그 값이 `false`가 된 것을 확인할 수 있습니다.
 
@@ -153,7 +153,7 @@ let user = {
   name: "John",
   toString() {
     return this.name;
-  },
+  }
 };
 
 //커스텀 toString은 for...in을 사용해 열거할 수 있습니다.
@@ -197,9 +197,9 @@ alert(Object.keys(user)); // name
 내장 객체 `Math`의 `PI` 프로퍼티가 대표적인 예입니다. 이 프로퍼티는 쓰기와 열거, 구성이 불가능합니다.
 
 ```js run
-let descriptor = Object.getOwnPropertyDescriptor(Math, "PI");
+let descriptor = Object.getOwnPropertyDescriptor(Math, 'PI');
 
-alert(JSON.stringify(descriptor, null, 2));
+alert( JSON.stringify(descriptor, null, 2 ) );
 /*
 {
   "value": 3.141592653589793,
@@ -209,7 +209,6 @@ alert(JSON.stringify(descriptor, null, 2));
 }
 */
 ```
-
 개발자가 코드를 사용해 `Math.PI` 값을 변경하거나 덮어쓰는 것도 불가능합니다.
 
 ```js run
@@ -235,11 +234,11 @@ Object.defineProperty(Math, "PI", { writable: true });
 
 ```js run
 let user = {
-  name: "John",
+  name: "John"
 };
 
 Object.defineProperty(user, "name", {
-  configurable: false,
+  configurable: false
 });
 
 user.name = "Pete"; // 정상 작동
@@ -250,12 +249,12 @@ delete user.name; // Error
 
 ```js run
 let user = {
-  name: "John",
+  name: "John"
 };
 
 Object.defineProperty(user, "name", {
   writable: false,
-  configurable: false,
+  configurable: false
 });
 
 // user.name과 플래그를 변경할 수 없습니다.
@@ -269,7 +268,6 @@ Object.defineProperty(user, "name", { value: "Pete" });
 플래그 변경에는 한 가지 예외가 있습니다.
 
 구성 가능하지 않은 프로퍼티라도 `writable: true`를 `false`로 변경할 수 있습니다. 이렇게 하면 값 변경을 막을 수 있습니다. 반대로 false를 true로 변경하는 것은 불가능합니다.
-
 ```
 
 ## Object.defineProperties
@@ -281,7 +279,7 @@ Object.defineProperty(user, "name", { value: "Pete" });
 ```js
 Object.defineProperties(obj, {
   prop1: descriptor1,
-  prop2: descriptor2,
+  prop2: descriptor2
   // ...
 });
 ```
@@ -312,13 +310,13 @@ let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
 
 ```js
 for (let key in user) {
-  clone[key] = user[key];
+  clone[key] = user[key]
 }
 ```
 
-그런데 이 방법은 플래그를 복사하지 않습니다. 플래그 정보도 복사하려면 `Object.defineProperties`를 사용하기 바랍니다.
+그런데 이 방법은 플래그는 복사하지 않습니다. 플래그 정보도 복사하려면 `Object.defineProperties`를 사용하시기 바랍니다.  
 
-또 다른 점은 `for..in`은 심볼형 프로퍼티와 열거가 불가능한 프로퍼티를 무시합니다. 하지만 `Object.getOwnPropertyDescriptors`는 심볼형 프로퍼티와 열거가 불가능한 프로퍼티를 포함한 프로퍼티 설명자 *전체*를 반환합니다.
+또 다른 점은 `for..in`은 심볼형 프로퍼티와 열거가 불가능한 프로퍼티를 무시합니다. 하지만 `Object.getOwnPropertyDescriptors`는 심볼형 프로퍼티와 열거가 불가능한 프로퍼티를 포함한 프로퍼티 설명자 *전체*를 반환합니다. 
 
 ## 객체 수정을 막아주는 다양한 메서드
 
