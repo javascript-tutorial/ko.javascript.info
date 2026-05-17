@@ -20,12 +20,18 @@ DOM 노드는 종류에 따라 대응하는 내장 클래스가 다릅니다.
 
 - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 루트에 있는 '추상(abstract)' 클래스로, 이 클래스에 대응하는 객체는 실제로 만들어지지 않습니다. EventTarget가 모든 DOM 노드의 베이스에 있기때문에 DOM 노드에서 '이벤트'를 사용할 수 있습니다. 자세한 내용은 곧 다룰 예정입니다.
 - [Node](http://dom.spec.whatwg.org/#interface-node) -- 역시 '추상' 클래스로, DOM 노드의 베이스 역할을 합니다. getter 역할을 하는 `parentNode`, `nextSibling`, `childNodes` 등의 주요 트리 탐색 기능을 제공합니다. `Node` 클래스의 객체는 절대 생성되지 않습니다. 하지만 이 클래스를 상속받는 클래스는 여럿 있습니다. 텍스트 노드를 위한 `Text` 클래스와 요소 노드를 위한 `Element` 클래스, 주석 노드를 위한 `Comment`클래스는 `Node`클래스를 상속받습니다.
+- [Document](https://dom.spec.whatwg.org/#interface-document) -- 역사적인 이유로 `HTMLDocument`에 상속되는 경우가 많지만(최신 명세서는 이를 요구하지 않습니다), 문서 전체를 나타냅니다. `document` 전역 객체가 이 클래스에 속하며, DOM의 진입점 역할을 합니다.
+- [CharacterData](https://dom.spec.whatwg.org/#interface-characterdata) -- '추상' 클래스로, 아래 클래스들이 이를 상속받습니다.
+    - [Text](https://dom.spec.whatwg.org/#interface-text) -- 요소 내부의 텍스트에 대응하는 클래스입니다. 예를 들어 `<p>Hello</p>` 내 `Hello`가 이에 해당합니다.
+    - [Comment](https://dom.spec.whatwg.org/#interface-comment) -- 주석에 대응하는 클래스입니다. 화면에 표시되지 않지만, 각 주석은 DOM의 구성원이 됩니다.
 - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소를 위한 베이스 클래스입니다. `nextElementSibling`, `children` 이나 `getElementsByTagName`, `querySelector` 같이 요소 전용 탐색을 도와주는 프로퍼티나 메서드가 이를 기반으로 합니다. 브라우저는 HTML뿐만 아니라 XML, SVG도 지원하는데 `Element` 클래스는 이와 관련된 `SVGElement`, `XMLElement`, `HTMLElement` 클래스의 베이스 역할을 합니다.
 - [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) -- HTML 요소 노드의 베이스 역할을 하는 클래스입니다. 아래 나열한 클래스들은 실제 HTML 요소에 대응하고 `HTMLElement`를 상속받습니다.
     - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- `<input>` 요소에 대응하는 클래스
     - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- `<body>` 요소에 대응하는 클래스
     - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- `<a>` 요소에 대응하는 클래스
-    - 이외에도 다른 클래스가 많은데, 각 태그에 해당하는 클래스는 고유한 프로퍼티와 메서드를 지원합니다.
+    - 이외에도 다양한 클래스가 있습니다.
+
+이외에도 다른 클래스가 많은데, 각 태그에 해당하는 클래스는 고유한 프로퍼티와 메서드를 지원합니다. 반면 `<span>`, `<section>`, `<article>` 같은 일부 요소는 고유한 프로퍼티나 메서드를 갖지 않으므로, `HTMLElement` 클래스의 인스턴스입니다.
 
 이렇게 특정 노드에서 사용할 수 있는 프로퍼티와 메서드는 상속을 기반으로 결정됩니다.
 
