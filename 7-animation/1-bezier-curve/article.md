@@ -4,17 +4,13 @@
 
 곡선 자체는 매우 단순하기 때문에 한 번 공을 들여 공부해 두면 벡터 그래픽스나 고급 애니메이션을 다룰 때 도움이 됩니다.
 
-<<<<<<< HEAD
-## 조절점
-=======
-```smart header="Some theory, please"
-This article provides a theoretical, but very needed insight into what Bezier curves are, while [the next one](info:css-animations#bezier-curve) shows how we can use them for CSS animations.
+```smart header="잠시 이론을 다룹니다"
+이 글은 이론 중심이지만 베지어 곡선이 무엇인지에 대한 꼭 필요한 통찰을 다룹니다. CSS 애니메이션에 베지어 곡선을 어떻게 활용할 수 있는지는 [다음 글](info:css-animations#bezier-curve)에서 살펴봅니다.
 
-Please take your time to read and understand the concept, it'll serve you well.
+시간을 들여 이 글을 천천히 읽고 개념을 이해해 두면 두고두고 도움이 될 것입니다.
 ```
 
-## Control points
->>>>>>> upstream/master
+## 조절점
 
 [베지어 곡선](https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%A7%80%EC%97%90_%EA%B3%A1%EC%84%A0)은 조절점(control point)을 사용해 정의합니다.
 
@@ -41,11 +37,7 @@ Please take your time to read and understand the concept, it'll serve you well.
 
     ![](bezier4-e.svg) ![](bezier3-e.svg)
 
-<<<<<<< HEAD
-마지막 특성 덕분에 컴퓨터 그래픽스 분야에서 교차 검사(intersection test) 최적화가 가능합니다. 컨벡스 헐이 교차하지 않는다면 곡선 역시 교차하지 않기 때문입니다. 따라서 컨벡스 헐이 교차하는지 검사하면 아주 빠르게 곡선 역시 '교차하지 않는다'는 결론을 도출해 낼 수 있습니다. 위쪽 그림에서 보는 것과 같이 컨벡스 헐은 삼각형, 사각형 같은 상대적으로 단순한 형태를 띠므로 곡선의 교차 여부보다 컨벡스 헐 교차 여부를 검사하는 게 훨씬 쉽습니다.
-=======
 Because of that last property, in computer graphics it's possible to optimize intersection tests. If convex hulls do not intersect, then curves do not either. So checking for the convex hulls intersection first can give a very fast "no intersection" result. Checking the intersection of convex hulls is much easier, because they are rectangles, triangles and so on (see the picture above), much simpler figures than the curve.
->>>>>>> upstream/master
 
 **조절점을 움직이면 베지어 곡선은 직관적으로 봤을 때 아주 당연한 방식으로 다시 그려집니다.**
 
