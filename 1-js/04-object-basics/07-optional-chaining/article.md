@@ -127,6 +127,8 @@ alert( user?.address.street ); // undefined
 
 `user`가 `null`이나 `undefined`가 아니고 실제 값이 존재하는 경우엔 반드시 `user.address` 프로퍼티는 있어야 합니다. 그렇지 않으면 `user?.address.street`의 두 번째 점 연산자에서 에러가 발생합니다.
 
+예를 들어, `user?.address.street.name`에서 `?.`은 `user`가 `null`이나 `undefined`가 되는 것을 안전하게 허용하지만(이 경우 `undefined`를 반환합니다), 이는 오직 `user`에만 적용됩니다. 그 이후에 이어지는 프로퍼티들은 일반적인 방식으로 접근됩니다. 만약 뒤이어 오는 프로퍼티들 중 일부도 선택적인(optional) 값으로 다루고 싶다면, `.`을 `?.`로 더 교체해야 합니다.
+
 ```warn header="옵셔널 체이닝을 남용하지 마세요."
 `?.`는 존재하지 않아도 괜찮은 대상에만 사용해야 합니다.
 
