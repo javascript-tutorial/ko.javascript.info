@@ -114,10 +114,10 @@ alert(document.cookie); // 찾을 수 없음
 // 서브 도메인 *.site.com 어디서든 쿠키에 접근할 수 있게 합니다.
 document.cookie = "user=John; *!*domain=site.com*/!*"
 
-// 나중에
+// 이렇게 설정하면
 
-// forum.site.com에서
-alert(document.cookie); // user=John 쿠키가 있습니다.
+// forum.site.com와 같은 서브도메인에서도 쿠키 정보를 얻을 수 있습니다.
+alert(document.cookie); // user=John 쿠키를 확인할 수 있습니다.
 ```
 
 ```warn header="레거시 문법"
@@ -191,7 +191,7 @@ document.cookie = "user=John; secure";
 
 ## samesite
 
-또 다른 보안 속성인 `samesite` 옵션은 크로스 사이트 요청 위조(XSRF) 공격을 막기 위해 만들어진 옵션입니다.
+또 다른 보안 속성인 `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막기 위해 만들어진 옵션입니다.
 
 아래 XSRF 공격 시나리오를 통해 이 속성의 동작 방식과 언제 이 속성을 유용하게 사용할 수 있는지 알아보도록 합시다.
 
@@ -256,7 +256,7 @@ document.cookie = "user=John; secure";
 
 전반적으로 `samesite`는 좋은 옵션입니다.
 
-한 가지 단점이 있습니다:
+그러나 한 가지 단점이 있습니다.
 
 - 오래된 브라우저(2017년 이전 버전)에선 `samesite` 옵션을 지원하지 않습니다.
 
