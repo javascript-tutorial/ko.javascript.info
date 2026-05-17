@@ -193,13 +193,12 @@ IndexedDB는 [표준 직렬화 알고리즘](https://www.w3.org/TR/html53/infras
 
 ![](indexeddb-structure.svg)
 
-
 곧 알게 되겠지만 `localStorage`와 비슷하게 값을 저장소에 추가할 때 키를 제공할 수 있습니다. 그러나 객체를 저장할 때 IndexedDB는 객체 프로퍼티를 키로 설정할 수 있게 해주므로 훨씬 편리합니다. 또는 키를 자동으로 생성할 수도 있습니다.
 
 그러나 첫 번째로 객체 저장소를 생성해야 합니다.
 
-
 객체 저장소를 생성하는 구문입니다.
+
 ```js
 db.createObjectStore(name[, keyOptions]);
 ```
@@ -214,6 +213,7 @@ db.createObjectStore(name[, keyOptions]);
 `keyOptions`를 제공하지 않으면 나중에 객체를 저장할 때 명시적으로 키를 제공해야 합니다.
 
 예를 들어 이 객체 저장소는 `id` 속성을 키로 사용합니다.
+
 ```js
 db.createObjectStore('books', {keyPath: 'id'});
 ```
@@ -223,6 +223,7 @@ db.createObjectStore('books', {keyPath: 'id'});
 이는 기술적인 제한입니다. 핸들러 외부에서 데이터를 추가/삭제/갱신할 수 있지만, 객체 저장소를 생성/삭제/변경할 수 있는 시점은 버전 업데이트 중뿐입니다.
 
 데이터베이스 버전 업그레이드를 수행하기 위해 다음 두 가지 처리 방법이 있습니다.
+
 1. 버전별로 1에서 2로, 2에서 3으로, 3에서 4로 업그레이드 기능을 구현할 수 있습니다. 그런 다음 `upgradeneeded`에서 버전을 비교하고, 예를 들어 기존 버전이 2이고 현재 버전이 4라면 모든 중간 버전 업그레이드를 단계적으로 실행할 수 있습니다.
 2. 또는 `db.objectStoreNames`로 기존 객체 저장소 목록을 얻어 데이터베이스를 살펴볼 수 있습니다. 이 객체는 존재 여부를 확인할 수 있는 `contains(name)` 메서드를 제공하는 [DOMStringList](https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#domstringlist)입니다. 존재 여부에 따라 업데이트할 수 있습니다.
 
@@ -242,7 +243,6 @@ openRequest.onupgradeneeded = function() {
 };
 ```
 
-
 객체 저장소를 지우려면 다음과 같이 해야 합니다.
 
 ```js
@@ -256,6 +256,7 @@ db.deleteObjectStore('books')
 트랜잭션은 그룹 연산으로, 모두 성공하거나 모두 실패해야 합니다.
 
 예를 들어 사람이 무언가를 살 때 다음이 요구됩니다.
+
 1. 계좌에서 돈을 뺍니다.
 2. 인벤토리에 아이템을 추가합니다.
 
@@ -478,6 +479,7 @@ request.onerror = function(event) {
 ## 검색하기
 
 객체 저장소에는 다음과 같은 두 가지 유형의 검색이 있습니다.
+
 1. 키 값 또는 키 범위로 검색합니다. "books" 저장소에서는 `book.id`의 값 또는 값 범위로 검색하는 것입니다.
 2. `book.price` 같은 다른 객체 필드로 검색합니다. 이 경우 "인덱스"라는 추가 데이터 구조가 필요합니다.
 
@@ -613,6 +615,7 @@ let request = priceIndex.getAll(IDBKeyRange.upperBound(5));
 - **`delete(query)`** -- query에 일치하는 값을 삭제합니다.
 
 예시입니다.
+
 ```js
 // id='js'인 book을 삭제합니다.
 books.delete('js');
@@ -631,6 +634,7 @@ request.onsuccess = function() {
 ```
 
 모든 것을 지우려면 다음과 같이 해야 합니다.
+
 ```js
 books.clear(); // 저장소를 지웁니다.
 ```
@@ -650,6 +654,7 @@ books.clear(); // 저장소를 지웁니다.
 객체 저장소는 내부적으로 키에 따라 정렬되므로, 커서는 기본적으로 오름차순인 키 순서로 저장소를 순회합니다.
 
 구문입니다.
+
 ```js
 // getAll과 유사하지만 커서가 있는 경우입니다.
 let request = store.openCursor(query, [direction]);
@@ -769,9 +774,7 @@ window.addEventListener('unhandledrejection', event => {
 
 ### "비활성 트랜잭션" 함정
 
-
 이미 알고 있는 바와 같이, 브라우저가 현재 코드와 마이크로태스크 처리를 끝내는 즉시 트랜잭션은 자동 커밋됩니다. 그래서 트랜잭션 중간에 `fetch`와 같은 *매크로태스크*를 넣으면 트랜잭션은 그 작업이 끝날 때까지 기다리지 않습니다. 그냥 자동 커밋될 뿐이죠. 따라서 다음 요청은 실패합니다.
-
 
 프라미스 래퍼와 `async/await`도 상황은 마찬가지입니다.
 
@@ -791,6 +794,7 @@ await inventory.add({ id: 'js', price: 10, created: new Date() }); // Error
 `fetch` `(*)` 이후 다음 `inventory.add`는 트랜잭션이 이미 커밋되고 종료되었기 때문에 "비활성 트랜잭션" 에러로 실패합니다.
 
 해결 방법은 네이티브 IndexedDB로 작업할 때와 같습니다. 새로운 트랜잭션을 만들거나 작업을 나누면 됩니다.
+
 1. 데이터를 준비하고 필요한 모든 것을 먼저 가져옵니다.
 2. 그런 다음 데이터베이스에 저장합니다.
 
