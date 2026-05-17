@@ -64,6 +64,7 @@ delete localStorage.test;
 하위 호환성 때문에 아직 이런 방법이 지원되기는 하지만, 다음과 같은 이유로 추천하지 않습니다.
 
 1. 사용자는 `length`나 `toString`, `localStorage`의 내장 메서드를 키로 설정할 수 있습니다. 이렇게 되면 `getItem`, `setItem`은 정상적으로 작동해도, 일반 객체처럼 다룰 때 에러가 발생할 수 있습니다.
+
     ```js run
     let key = 'length';
     localStorage[key] = 5; // TypeError: Cannot assign to read only property 'length'...
@@ -218,7 +219,8 @@ localStorage.setItem('now', Date.now());
 
 ## 요약
 
-웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다. 이때,
+웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다.
+
 - `키`와 `값`은 반드시 문자열이어야 합니다.
 - 제한 용량은 5MB 이상인데, 브라우저에 따라 다를 수 있습니다.
 - 데이터는 만료되지 않습니다.
