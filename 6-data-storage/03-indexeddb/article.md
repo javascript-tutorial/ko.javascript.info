@@ -7,16 +7,16 @@ libs:
 
 IndexedDB는 `localStorage`보다 훨씬 강력한 브라우저 내장 데이터베이스입니다.
 
-- 여러 타입의 키(key)를 사용해 거의 모든 종류의 값을 저장할 수 있습니다.
-- 신뢰성을 위한 트랜잭션(transaction)을 지원합니다.
-- 키 범위 질의와 인덱스(index)를 지원합니다.
+- 여러 타입의 키를 사용해 거의 모든 종류의 값을 저장할 수 있습니다.
+- 신뢰성을 위한 트랜잭션을 지원합니다.
+- 키 범위 질의와 인덱스를 지원합니다.
 - `localStorage`보다 훨씬 많은 양의 데이터를 저장할 수 있습니다.
 
-이런 강력함은 일반적인 클라이언트-서버 앱에는 대개 과합니다. IndexedDB는 서비스 워커(Service Worker)와 기타 기술을 함께 사용하는 오프라인 앱을 위해 만들어졌습니다.
+이런 강력함은 일반적인 클라이언트-서버 앱에는 대개 과합니다. IndexedDB는 서비스 워커와 기타 기술을 함께 사용하는 오프라인 앱을 위해 만들어졌습니다.
 
 설명서 <https://www.w3.org/TR/IndexedDB>에 기술된 IndexedDB에 대한 기본 인터페이스는 이벤트 기반입니다.
 
-<https://github.com/jakearchibald/idb>와 같은 프라미스 기반 래퍼(promise-based wrapper)의 도움을 받아 `async/await`도 사용할 수 있습니다. 꽤 편리하긴 하지만 래퍼가 완벽하지는 않아 모든 경우에 대한 이벤트를 대체할 수는 없습니다. 먼저 이벤트부터 시작하고, IndexedDB에 대한 이해를 얻은 후 래퍼를 사용할 것입니다.
+<https://github.com/jakearchibald/idb>와 같은 프라미스 기반 래퍼의 도움을 받아 `async/await`도 사용할 수 있습니다. 꽤 편리하긴 하지만 래퍼가 완벽하지는 않아 모든 경우에 대한 이벤트를 대체할 수는 없습니다. 먼저 이벤트부터 시작하고, IndexedDB에 대한 이해를 얻은 후 래퍼를 사용할 것입니다.
 
 ```smart header="데이터는 어디에 저장될까요?"
 기술적으로 데이터는 대개 브라우저 설정, 확장 프로그램 등과 함께 방문자의 홈 디렉터리에 저장됩니다.
@@ -26,7 +26,7 @@ IndexedDB는 `localStorage`보다 훨씬 강력한 브라우저 내장 데이터
 
 ## 데이터베이스 열기
 
-IndexedDB로 작업을 시작하려면 먼저 데이터베이스를 `open`(연결)해야 합니다.
+IndexedDB로 작업을 시작하려면 먼저 데이터베이스를 열어야 합니다.
 
 구문:
 
@@ -35,22 +35,22 @@ let openRequest = indexedDB.open(name, version);
 ```
 
 - `name` -- 데이터베이스 이름인 문자열입니다.
-- `version` -- 양수 버전, 기본값 `1`(아래에서 설명함).
+- `version` -- 양수 버전입니다. 기본값은 `1`이며 아래에서 설명합니다.
 
-서로 다른 이름을 가진 데이터베이스를 여러 개 만들 수 있지만, 이 데이터베이스들은 모두 현재 오리진(domain/protocol/port) 안에 존재합니다. 서로 다른 웹사이트는 서로의 데이터베이스에 접근할 수 없습니다.
+서로 다른 이름을 가진 데이터베이스를 여러 개 만들 수 있지만, 이 데이터베이스들은 모두 현재 도메인·프로토콜·포트로 정의되는 오리진 안에 존재합니다. 서로 다른 웹사이트는 서로의 데이터베이스에 접근할 수 없습니다.
 
 호출은 `openRequest` 객체를 반환하므로 이 객체의 이벤트를 감시해야 합니다.
 - `success`: 데이터베이스가 준비되면 `openRequest.result`에 "데이터베이스 객체"가 들어 있습니다. 이후 호출에는 이 데이터베이스 객체를 사용해야 합니다.
 - `error`: 열기 실패입니다.
-- `upgradeneeded`: 데이터베이스가 준비되었지만, 데이터베이스 버전이 오래되었습니다(아래 참조).
+- `upgradeneeded`: 데이터베이스가 준비되었지만, 데이터베이스 버전이 오래되었습니다. 아래에서 설명합니다.
 
-**IndexedDB에는 서버 측 데이터베이스에는 없는 "스키마 버전 관리(schema versioning)" 메커니즘이 내장되어 있습니다.**
+**IndexedDB에는 서버 측 데이터베이스에는 없는 "스키마 버전 관리" 메커니즘이 내장되어 있습니다.**
 
 서버 측 데이터베이스와 달리 IndexedDB는 클라이언트 쪽에 있고 데이터는 브라우저에 저장되므로 개발자가 데이터베이스에 "언제든지" 접근할 수 없습니다. 그래서 새 버전의 앱을 배포한 후 사용자가 웹페이지를 방문하면 데이터베이스를 업데이트해야 할 수도 있습니다.
 
 로컬 데이터베이스 버전이 `open`에 명시된 것보다 작을 경우, 특별한 이벤트 `upgradeneeded`가 발생하며 필요에 따라 버전을 비교하고 데이터 구조를 업그레이드할 수 있습니다.
 
-데이터베이스가 아직 존재하지 않을 때도(기술적으로 버전 `0`) `upgradeneeded` 이벤트가 발생하여 초기화를 수행할 수 있습니다.
+데이터베이스가 아직 존재하지 않을 때도, 즉 기술적으로 버전 `0`인 경우에도 `upgradeneeded` 이벤트가 발생하여 초기화를 수행할 수 있습니다.
 
 우리 앱의 첫 번째 버전을 배포했다고 합시다.
 
@@ -82,7 +82,7 @@ openRequest.onsuccess = function() {
 let openRequest = indexedDB.open("store", *!*2*/!*);
 
 openRequest.onupgradeneeded = function(event) {
-  // 기존 데이터베이스 버전이 2보다 작습니다(또는 존재하지 않음).
+  // 기존 데이터베이스 버전이 2보다 작거나 존재하지 않습니다.
   let db = openRequest.result;
   switch(event.oldVersion) { // 기존 db 버전
     case 0:
@@ -107,9 +107,9 @@ let deleteRequest = indexedDB.deleteDatabase(name)
 ```
 
 ```warn header="이전 open 호출 버전으로 데이터베이스를 열 수 없습니다"
-현재 사용자 데이터베이스의 버전이 `open` 호출에 지정한 버전보다 높다면(예: 기존 DB 버전이 `3`인데 `open(...2)`를 시도한다면), 이는 에러이며 `openRequest.onerror`가 발생합니다.
+현재 사용자 데이터베이스의 버전이 `open` 호출에 지정한 버전보다 높다면, 예를 들어 기존 DB 버전이 `3`인데 `open(...2)`를 시도한다면 이는 에러이며 `openRequest.onerror`가 발생합니다.
 
-드문 일이지만 방문자가 프록시(proxy) 캐시 등에서 오래된 자바스크립트 코드를 로드하면 이런 일이 발생할 수 있습니다. 코드는 오래되었지만 방문자의 데이터베이스는 새로운 상태인 것이죠.
+드문 일이지만 방문자가 프록시 캐시 등에서 오래된 자바스크립트 코드를 로드하면 이런 일이 발생할 수 있습니다. 코드는 오래되었지만 방문자의 데이터베이스는 새로운 상태인 것이죠.
 
 이런 에러를 막으려면 `db.version`을 확인하여 페이지를 다시 로드하라고 안내해야 합니다. 오래된 코드가 로드되지 않도록 올바른 HTTP 캐싱 헤더를 사용합시다.
 ```
@@ -127,11 +127,11 @@ DB 버전 `1`에 대한 열린 연결을 가진 탭이 있고, 두 번째 탭은
 
 문제는 데이터베이스가 동일한 사이트, 동일한 오리진에 속하므로 두 탭에서 공유된다는 점입니다. 하나의 데이터베이스가 버전 `1`이면서 동시에 버전 `2`일 수는 없습니다. 버전 `2`로 업데이트하려면 첫 번째 탭에 있는 연결을 포함하여 버전 `1`에 대한 모든 연결을 닫아야 합니다.
 
-이를 처리하기 위해 "오래된" 데이터베이스 객체에서 `versionchange` 이벤트가 발생합니다. 이 이벤트를 감시하고 이전 데이터베이스 연결을 닫아야 합니다(그리고 방문자에게 페이지를 다시 로드하여 업데이트된 코드를 불러오라고 안내할 수도 있습니다).
+이를 처리하기 위해 "오래된" 데이터베이스 객체에서 `versionchange` 이벤트가 발생합니다. 이 이벤트를 감시하고 이전 데이터베이스 연결을 닫아야 합니다. 방문자에게 페이지를 다시 로드하여 업데이트된 코드를 불러오라고 안내할 수도 있습니다.
 
 `versionchange` 이벤트를 감시하지 않고 기존 연결도 닫지 않으면 두 번째 연결은 만들어지지 않습니다. `openRequest` 객체는 `success` 대신 `blocked` 이벤트를 내보냅니다. 따라서 두 번째 탭은 동작하지 않습니다.
 
-여기에 병렬 업그레이드를 올바르게 처리하기 위한 코드가 있습니다. 현재 데이터베이스 연결이 오래된 상태가 되었을 때(다른 곳에서 DB 버전이 업데이트되었을 때) 실행되는 `onversionchange` 핸들러를 설치하고, 이 핸들러에서 연결을 닫습니다.
+여기에 병렬 업그레이드를 올바르게 처리하기 위한 코드가 있습니다. 현재 데이터베이스 연결이 오래된 상태가 되었을 때, 즉 다른 곳에서 DB 버전이 업데이트되었을 때 실행되는 `onversionchange` 핸들러를 설치하고, 이 핸들러에서 연결을 닫습니다.
 
 ```js
 let openRequest = indexedDB.open("store", 2);
@@ -206,7 +206,7 @@ db.createObjectStore(name[, keyOptions]);
 
 이 연산은 동기식이기 때문에 `await`가 필요하지 않다는 점에 유의합니다.
 
-- `name`은 저장소 이름입니다(예: book을 위한 저장소라면 `"books"`).
+- `name`은 저장소 이름입니다. 예를 들어 book을 위한 저장소라면 `"books"`입니다.
 - `keyOptions`는 다음 두 가지 속성 중 하나를 가진 선택적 객체입니다.
   - `keyPath` -- IndexedDB가 키로 사용할 객체 프로퍼티의 경로입니다. 예를 들어 `id`를 사용할 수 있습니다.
   - `autoIncrement` -- `true`라면 새로 저장된 객체의 키는 계속 증가하는 숫자로 자동 생성됩니다.
@@ -223,7 +223,7 @@ db.createObjectStore('books', {keyPath: 'id'});
 이는 기술적인 제한입니다. 핸들러 외부에서 데이터를 추가/삭제/갱신할 수 있지만, 객체 저장소를 생성/삭제/변경할 수 있는 시점은 버전 업데이트 중뿐입니다.
 
 데이터베이스 버전 업그레이드를 수행하기 위해 다음 두 가지 처리 방법이 있습니다.
-1. 버전별로 1에서 2로, 2에서 3으로, 3에서 4로 업그레이드 기능을 구현할 수 있습니다. 그런 다음 `upgradeneeded`에서 버전을 비교하고(예: 기존 버전 2, 현재 버전 4) 모든 중간 버전(2에서 3으로, 3에서 4로)에 대한 업그레이드를 단계적으로 실행할 수 있습니다.
+1. 버전별로 1에서 2로, 2에서 3으로, 3에서 4로 업그레이드 기능을 구현할 수 있습니다. 그런 다음 `upgradeneeded`에서 버전을 비교하고, 예를 들어 기존 버전이 2이고 현재 버전이 4라면 모든 중간 버전 업그레이드를 단계적으로 실행할 수 있습니다.
 2. 또는 `db.objectStoreNames`로 기존 객체 저장소 목록을 얻어 데이터베이스를 살펴볼 수 있습니다. 이 객체는 존재 여부를 확인할 수 있는 `contains(name)` 메서드를 제공하는 [DOMStringList](https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#domstringlist)입니다. 존재 여부에 따라 업데이트할 수 있습니다.
 
 작은 데이터베이스의 경우 두 번째 변형이 더 단순할 수 있습니다.
@@ -257,9 +257,9 @@ db.deleteObjectStore('books')
 
 예를 들어 사람이 무언가를 살 때 다음이 요구됩니다.
 1. 계좌에서 돈을 뺍니다.
-2. 인벤토리(inventory)에 아이템을 추가합니다.
+2. 인벤토리에 아이템을 추가합니다.
 
-첫 번째 단계를 완수하고 나서 불이 꺼지는 것과 같이 뭔가 잘못돼서 두 번째 단계에 실패하면 꽤 안 좋을 것입니다. 둘 다 성공하거나(구매 완료입니다, 좋아요!) 또는 둘 다 실패(최소한 돈을 보관한 사람이 재시도할 수 있도록)해야 합니다.
+첫 번째 단계를 완수하고 나서 불이 꺼지는 것과 같이 뭔가 잘못돼서 두 번째 단계에 실패하면 꽤 안 좋을 것입니다. 둘 다 성공해 구매가 완료되거나, 최소한 돈을 보관한 사람이 재시도할 수 있도록 둘 다 실패해야 합니다.
 
 트랜잭션은 다음을 보장할 수 있습니다.
 
@@ -281,7 +281,7 @@ db.transaction(store[, type]);
 ```smart header="다양한 타입의 트랜잭션이 존재하는 이유는 무엇일까요?"
 성능은 트랜잭션이 `readonly`와 `readwrite`로 분류되어야 하는 이유입니다.
 
-많은 `readonly` 트랜잭션은 같은 저장소에 동시에 접근할 수 있지만, `readwrite` 트랜잭션은 그렇지 못합니다. `readwrite` 트랜잭션은 저장소를 쓰기(writing)로 "잠급니다". 다음 트랜잭션은 동일한 저장소에 접근하기 전에 이전 트랜잭션이 끝날 때까지 기다려야 합니다.
+많은 `readonly` 트랜잭션은 같은 저장소에 동시에 접근할 수 있지만, `readwrite` 트랜잭션은 그렇지 못합니다. `readwrite` 트랜잭션은 저장소를 쓰기 작업을 위해 "잠급니다". 다음 트랜잭션은 동일한 저장소에 접근하기 전에 이전 트랜잭션이 끝날 때까지 기다려야 합니다.
 ```
 
 트랜잭션이 생성된 후에는 다음과 같은 아이템을 저장소에 추가할 수 있습니다.
@@ -331,7 +331,7 @@ request.onerror = function() {
 데이터베이스를 여는 것과 마찬가지로 `books.add(book)` 요청을 보낸 다음 `success/error` 이벤트를 기다릴 수 있습니다.
 
 - `add`에 대한 `request.result`는 새로운 객체의 키입니다.
-- `request.error`에 에러가 있습니다(있다면).
+- 에러가 있다면 `request.error`에 담깁니다.
 
 ## 트랜잭션의 자동 커밋
 
@@ -347,7 +347,7 @@ request.onerror = function() {
 
 따라서 위의 예에서 트랜잭션을 완료하기 위해 특별한 호출이 필요하지 않습니다.
 
-트랜잭션 자동 커밋 원칙에는 중요한 부작용(side effect)이 있습니다. 트랜잭션 중간에 `fetch`, `setTimeout` 같은 비동기 연산은 삽입할 수 없습니다. IndexedDB는 이런 연산이 끝날 때까지 트랜잭션을 유지하지 않습니다.
+트랜잭션 자동 커밋 원칙에는 중요한 부작용이 있습니다. 트랜잭션 중간에 `fetch`, `setTimeout` 같은 비동기 연산은 삽입할 수 없습니다. IndexedDB는 이런 연산이 끝날 때까지 트랜잭션을 유지하지 않습니다.
 
 아래 코드 `(*)`줄에서 `request2`가 실패하면 트랜잭션이 이미 커밋되었기 때문에 해당 코드에서 어떠한 요청도 할 수 없습니다.
 
@@ -366,11 +366,11 @@ request1.onsuccess = function() {
 };
 ```
 
-`fetch`는 비동기 연산인 매크로태스크(macrotask)이기 때문입니다. 트랜잭션은 브라우저가 매크로태스크를 시작하기 전에 닫힙니다.
+`fetch`는 비동기 연산인 매크로태스크이기 때문입니다. 트랜잭션은 브라우저가 매크로태스크를 시작하기 전에 닫힙니다.
 
 IndexedDB 명세 작성자는 대부분 성능상의 이유로 트랜잭션이 짧게 유지되어야 한다고 봅니다.
 
-특히 `readwrite` 트랜잭션은 쓰기(writing)를 위해 저장소를 "잠급니다". 따라서 애플리케이션의 한 부분이 `books` 객체 저장소에 대해 `readwrite` 트랜잭션을 시작했다면, 같은 작업을 하려는 다른 부분은 첫 번째 트랜잭션이 끝날 때까지 기다려야 합니다. 트랜잭션이 오래 걸리면 예상치 못한 지연이 생길 수 있습니다.
+특히 `readwrite` 트랜잭션은 쓰기 작업을 위해 저장소를 "잠급니다". 따라서 애플리케이션의 한 부분이 `books` 객체 저장소에 대해 `readwrite` 트랜잭션을 시작했다면, 같은 작업을 하려는 다른 부분은 첫 번째 트랜잭션이 끝날 때까지 기다려야 합니다. 트랜잭션이 오래 걸리면 예상치 못한 지연이 생길 수 있습니다.
 
 그래서 무엇을 해야 할까요?
 
@@ -392,7 +392,7 @@ transaction.oncomplete = function() {
 };
 ```
 
-오직 `complete`만 트랜잭션 전체가 저장되었음을 보장합니다. 개별 요청은 성공할 수 있지만, 최종 쓰기(write) 연산이 실패할 수 있습니다(예: I/O 에러 등).
+오직 `complete`만 트랜잭션 전체가 저장되었음을 보장합니다. 개별 요청은 성공할 수 있지만, 최종 쓰기 연산이 실패할 수 있습니다. 예를 들어 I/O 에러가 발생할 수 있습니다.
 
 트랜잭션을 수동적으로 중단하려면 다음을 호출해 봅시다.
 
@@ -407,11 +407,11 @@ transaction.abort();
 
 쓰기 요청은 실패할 수 있습니다.
 
-에러는 우리 코드뿐만 아니라 트랜잭션 자체와 관련이 없는 이유로도 발생할 수 있습니다. 예를 들어 저장소 쿼터(quota)가 초과될 수 있습니다. 따라서 이런 경우를 처리할 준비가 되어 있어야 합니다.
+에러는 우리 코드뿐만 아니라 트랜잭션 자체와 관련이 없는 이유로도 발생할 수 있습니다. 예를 들어 저장소 쿼터가 초과될 수 있습니다. 따라서 이런 경우를 처리할 준비가 되어 있어야 합니다.
 
 **실패한 요청은 트랜잭션을 자동으로 중단하여 모든 변경사항을 취소합니다.**
 
-때에 따라서는 기존 변경사항을 취소하지 않고 실패(예: 다른 요청 시도)를 처리한 뒤 트랜잭션을 계속하고 싶을 수 있습니다. 가능합니다. `request.onerror` 핸들러는 `event.preventDefault()`를 호출하여 트랜잭션 중단을 방지할 수 있습니다.
+때에 따라서는 기존 변경사항을 취소하지 않고 실패를 처리한 뒤, 예를 들어 다른 요청을 시도한 다음 트랜잭션을 계속하고 싶을 수 있습니다. 가능합니다. `request.onerror` 핸들러는 `event.preventDefault()`를 호출하여 트랜잭션 중단을 방지할 수 있습니다.
 
 아래 예시에서는 새로운 book이 기존과 같은 키(`id`)로 추가됩니다. `store.add` 함수는 이럴 때 `"ConstraintError"`를 발생시키죠. 트랜잭션을 취소하지 않고 처리합니다.
 
@@ -441,13 +441,13 @@ transaction.onabort = function() {
 
 ### 이벤트 위임
 
-모든 요청에 대해 `onerror/onsuccess`를 설정해야 할까요? 매번 그럴 필요는 없습니다. 대신 이벤트 위임(event delegation)을 사용할 수 있습니다.
+모든 요청에 대해 `onerror/onsuccess`를 설정해야 할까요? 매번 그럴 필요는 없습니다. 대신 이벤트 위임을 사용할 수 있습니다.
 
-**IndexedDB 이벤트는 버블링(bubbling)됩니다. `request` -> `transaction` -> `database`.**
+**IndexedDB 이벤트는 버블링됩니다. `request` -> `transaction` -> `database`.**
 
-모든 이벤트는 캡처링(capturing)과 버블링(bubbling)을 가진 DOM 이벤트이지만, 흔히 버블링 단계만 사용됩니다.
+모든 이벤트는 캡처링과 버블링을 가진 DOM 이벤트이지만, 흔히 버블링 단계만 사용됩니다.
 
-따라서 보고(reporting)나 다른 목적을 위해 `db.onerror` 핸들러를 사용하여 모든 에러를 잡아낼 수 있습니다.
+따라서 보고나 다른 목적을 위해 `db.onerror` 핸들러를 사용하여 모든 에러를 잡아낼 수 있습니다.
 
 ```js
 db.onerror = function(event) {
@@ -479,7 +479,7 @@ request.onerror = function(event) {
 
 객체 저장소에는 다음과 같은 두 가지 유형의 검색이 있습니다.
 1. 키 값 또는 키 범위로 검색합니다. "books" 저장소에서는 `book.id`의 값 또는 값 범위로 검색하는 것입니다.
-2. `book.price` 같은 다른 객체 필드로 검색합니다. 이 경우 "인덱스(index)"라는 추가 데이터 구조가 필요합니다.
+2. `book.price` 같은 다른 객체 필드로 검색합니다. 이 경우 "인덱스"라는 추가 데이터 구조가 필요합니다.
 
 ### 키로 검색하기
 
@@ -489,8 +489,8 @@ request.onerror = function(event) {
 
 `IDBKeyRange` 객체는 다음 호출로 생성합니다.
 
-- `IDBKeyRange.lowerBound(lower, [open])` 의미: `≥lower` (또는 `open`이 true이면 `>lower`)
-- `IDBKeyRange.upperBound(upper, [open])` 의미: `≤upper` (또는 `open`이 true이면 `<upper` )
+- `IDBKeyRange.lowerBound(lower, [open])` 의미: `≥lower`. 또는 `open`이 true이면 `>lower`
+- `IDBKeyRange.upperBound(upper, [open])` 의미: `≤upper`. 또는 `open`이 true이면 `<upper`
 - `IDBKeyRange.bound(lower, upper, [lowerOpen], [upperOpen])` 의미: `lower`와 `upper` 사이. open 플래그가 true일 경우 해당 키는 범위에 포함되지 않습니다.
 - `IDBKeyRange.only(key)` -- 거의 사용되지 않는 하나의 `key`로만 구성된 범위입니다.
 
@@ -500,9 +500,9 @@ request.onerror = function(event) {
 
 - `store.get(query)` -- 키 또는 범위로 첫 번째 값을 검색합니다.
 - `store.getAll([query], [count])` -- 모든 값을 검색합니다. `count`가 주어지면 그 개수까지만 가져옵니다.
-- `store.getKey(query)` -- `query`를 만족시키는 첫 번째 키를 검색합니다(일반적으로 범위).
-- `store.getAllKeys([query], [count])` -- `query`를 만족시키는 모든 키를 검색합니다. `count`가 주어지면 그 개수까지만 가져옵니다(일반적으로 범위).
-- `store.count([query])` -- `query`를 충족시키는 키의 총 개수를 가져옵니다(일반적으로 범위).
+- `store.getKey(query)` -- `query`를 만족시키는 첫 번째 키를 검색합니다. 일반적으로 범위를 사용합니다.
+- `store.getAllKeys([query], [count])` -- `query`를 만족시키는 모든 키를 검색합니다. `count`가 주어지면 그 개수까지만 가져옵니다. 일반적으로 범위를 사용합니다.
+- `store.count([query])` -- `query`를 충족시키는 키의 총 개수를 가져옵니다. 일반적으로 범위를 사용합니다.
 
 예를 들어 저장소에 많은 books가 있습니다. `id` 필드가 키이기 때문에 이 모든 메서드는 `id`로 검색할 수 있다는 점을 기억합시다.
 
@@ -533,9 +533,9 @@ books.getAllKeys(IDBKeyRange.lowerBound('js', true))
 
 ### 인덱스로 필드 검색하기
 
-다른 객체 필드(field)로 검색하려면 "인덱스(index)"라는 이름의 추가적인 데이터 구조를 생성해야 합니다.
+다른 객체 필드로 검색하려면 "인덱스"라는 이름의 추가적인 데이터 구조를 생성해야 합니다.
 
-인덱스(index)는 지정된 객체 필드를 추적하는 저장소의 부가 구조입니다. 이 필드의 각 값에 대해 해당 값을 가진 객체의 키 목록을 저장합니다. 아래에 좀 더 자세한 그림이 있습니다.
+인덱스는 지정된 객체 필드를 추적하는 저장소의 부가 구조입니다. 이 필드의 각 값에 대해 해당 값을 가진 객체의 키 목록을 저장합니다. 아래에 좀 더 자세한 그림이 있습니다.
 
 구문입니다.
 
@@ -544,7 +544,7 @@ objectStore.createIndex(name, keyPath, [options]);
 ```
 
 - **`name`** -- 인덱스 이름입니다.
-- **`keyPath`** -- 인덱스가 추적해야 하는 객체 필드의 경로입니다(이 필드를 기준으로 검색합니다).
+- **`keyPath`** -- 인덱스가 추적해야 하는 객체 필드의 경로입니다. 이 필드를 기준으로 검색합니다.
 - **`options`** -- 아래 특징을 가진 선택적 객체입니다.
   - **`unique`** -- true일 경우 `keyPath`에 지정된 값을 가진 객체가 저장소에 하나만 있을 수 있습니다. 중복 값을 추가하려고 하면 인덱스가 에러를 발생시켜 이를 막습니다.
   - **`multiEntry`** -- `keyPath`의 값이 배열인 경우에만 사용됩니다. 이 경우 기본적으로 인덱스는 전체 배열을 키로 처리하죠. 그러나 `multiEntry`가 true이면 인덱스는 해당 배열의 각 값에 대한 저장소 객체 목록을 보관합니다. 따라서 배열 원소는 인덱스 키가 됩니다.
@@ -567,13 +567,13 @@ openRequest.onupgradeneeded = function() {
 
 - 인덱스는 `price` 필드를 추적합니다.
 - `price`는 유일하지 않고 같은 `price`를 가진 book이 여러 개 있을 수 있기 때문에 `unique` 옵션을 설정하지 않습니다.
-- `price`는 배열이 아니기 때문에 `multiEntry` 플래그(flag)는 적용할 수 없습니다.
+- `price`는 배열이 아니기 때문에 `multiEntry` 플래그는 적용할 수 없습니다.
 
 `inventory`에 book 네 개가 있다고 상상해 봅시다. 다음 그림은 `index`가 정확히 무엇인지 보여줍니다.
 
 ![](indexeddb-index.svg)
 
-앞서 말했듯이, 인덱스는 `price`(두 번째 인수)의 각 값에 대해 그 `price`를 가진 객체의 키 목록을 유지합니다.
+앞서 말했듯이, 인덱스는 두 번째 인수인 `price`의 각 값에 대해 그 `price`를 가진 객체의 키 목록을 유지합니다.
 
 인덱스는 자동으로 최신 상태를 유지하므로 따로 신경 쓰지 않아도 됩니다.
 
@@ -608,7 +608,7 @@ let request = priceIndex.getAll(IDBKeyRange.upperBound(5));
 
 ## 저장소로부터 삭제하기
 
-`delete` 메서드는 쿼리(query)에 의해 삭제되는 값을 검색하며 호출 형식은 `getAll`과 유사합니다.
+`delete` 메서드는 쿼리에 의해 삭제되는 값을 검색하며 호출 형식은 `getAll`과 유사합니다.
 
 - **`delete(query)`** -- query에 일치하는 값을 삭제합니다.
 
@@ -639,27 +639,27 @@ books.clear(); // 저장소를 지웁니다.
 
 `getAll/getAllKeys`와 같은 메서드는 키/값의 배열을 반환합니다.
 
-그러나 객체 저장소가 사용 가능한 메모리보다 더 클 수 있습니다. 그러면 `getAll`은 모든 레코드(record)를 배열로 가져오는 데 실패하게 되죠.
+그러나 객체 저장소가 사용 가능한 메모리보다 더 클 수 있습니다. 그러면 `getAll`은 모든 레코드를 배열로 가져오는 데 실패하게 되죠.
 
 무엇을 해야 할까요?
 
-커서(cursor)는 이런 상황을 처리하는 방법을 제공합니다.
+커서는 이런 상황을 처리하는 방법을 제공합니다.
 
-**커서(cursor)는 주어진 쿼리에 맞춰 객체 저장소를 순회하며 키/값을 한 번에 하나씩 반환해 메모리를 절약하는 특수 객체입니다.**
+**커서는 주어진 쿼리에 맞춰 객체 저장소를 순회하며 키/값을 한 번에 하나씩 반환해 메모리를 절약하는 특수 객체입니다.**
 
-객체 저장소는 내부적으로 키에 따라 정렬되므로, 커서는 키 순서(기본적으로 오름차순)로 저장소를 순회합니다.
+객체 저장소는 내부적으로 키에 따라 정렬되므로, 커서는 기본적으로 오름차순인 키 순서로 저장소를 순회합니다.
 
 구문입니다.
 ```js
 // getAll과 유사하지만 커서가 있는 경우입니다.
 let request = store.openCursor(query, [direction]);
 
-// 값이 아닌 키를 얻으려면(getAllKeys와 같은) store.openKeyCursor를 사용합니다.
+// getAllKeys처럼 값이 아닌 키를 얻으려면 store.openKeyCursor를 사용합니다.
 ```
 
 - **`query`**는 `getAll`과 같은 키 또는 키 범위입니다.
 - **`direction`**은 어떤 순서를 사용할지 지정하는 선택적 인수입니다.
-  - `"next"` -- 기본값입니다. 커서는 가장 낮은 키를 가진 레코드(record)부터 올라갑니다.
+  - `"next"` -- 기본값입니다. 커서는 가장 낮은 키를 가진 레코드부터 올라갑니다.
   - `"prev"` -- 역순입니다. 가장 큰 키를 가진 레코드부터 내려갑니다.
   - `"nextunique"`, `"prevunique"` -- 위와 같지만, 동일한 키를 가진 레코드는 건너뜁니다. 예를 들어 `price=5`인 book이 여러 개 있어도 첫 번째 것만 반환됩니다. 인덱스에 대한 커서에서만 사용할 수 있습니다.
 
@@ -677,7 +677,7 @@ let request = books.openCursor();
 request.onsuccess = function() {
   let cursor = request.result;
   if (cursor) {
-    let key = cursor.key; // book 키 (id 필드)
+    let key = cursor.key; // id 필드인 book 키
     let value = cursor.value; // book 객체
     console.log(key, value);
     cursor.continue();
@@ -687,7 +687,7 @@ request.onsuccess = function() {
 };
 ```
 
-주된 커서(cursor) 메서드는 다음과 같습니다.
+주된 커서 메서드는 다음과 같습니다.
 
 - `advance(count)` -- 값을 건너뛰며 커서를 `count`번 앞으로 이동시킵니다.
 - `continue([key])` -- 일치하는 범위 내에서 커서를 다음 값으로 이동시킵니다. `key`가 주어지면 해당 키 바로 다음 값으로 이동합니다.
@@ -698,7 +698,7 @@ request.onsuccess = function() {
 
 그러나 인덱스에 대한 커서를 만들 수도 있습니다. 앞서 봤듯이, 인덱스를 사용하면 객체 필드로 검색할 수 있습니다. 인덱스에 대한 커서는 객체 저장소에 대한 커서와 같은 역할을 합니다. 한 번에 하나의 값을 반환해 메모리를 절약하죠.
 
-인덱스에 대한 커서의 경우 `cursor.key`는 인덱스 키(예: price)이며, 객체 키로는 `cursor.primaryKey` 프로퍼티를 사용해야 합니다.
+인덱스에 대한 커서의 경우 `cursor.key`는 `price` 같은 인덱스 키이며, 객체 키로는 `cursor.primaryKey` 프로퍼티를 사용해야 합니다.
 
 ```js
 let request = priceIdx.openCursor(IDBKeyRange.upperBound(5));
@@ -707,9 +707,9 @@ let request = priceIdx.openCursor(IDBKeyRange.upperBound(5));
 request.onsuccess = function() {
   let cursor = request.result;
   if (cursor) {
-    let primaryKey = cursor.primaryKey; // 다음 객체 저장소 키 (id 필드)
-    let value = cursor.value; // 다음 객체 저장소 객체 (book 객체)
-    let key = cursor.key; // 다음 인덱스 키 (price)
+    let primaryKey = cursor.primaryKey; // id 필드인 다음 객체 저장소 키
+    let value = cursor.value; // 다음 객체 저장소 객체인 book 객체
+    let key = cursor.key; // 다음 인덱스 키인 price
     console.log(key, value);
     cursor.continue();
   } else {
@@ -720,9 +720,9 @@ request.onsuccess = function() {
 
 ## 프라미스 래퍼
 
-모든 요청에 `onsuccess/onerror`를 추가하는 것은 상당히 번거로운 일입니다. 때로는 전체 트랜잭션에 핸들러를 설치하는 등 이벤트 위임(delegation)을 이용해 작업을 더 쉽게 만들 수 있지만, `async/await`이 훨씬 편리합니다.
+모든 요청에 `onsuccess/onerror`를 추가하는 것은 상당히 번거로운 일입니다. 때로는 전체 트랜잭션에 핸들러를 설치하는 등 이벤트 위임을 이용해 작업을 더 쉽게 만들 수 있지만, `async/await`이 훨씬 편리합니다.
 
-이 장의 남은 부분에서는 얇은 프라미스 래퍼(promise wrapper) <https://github.com/jakearchibald/idb>를 사용해 봅시다. 이 래퍼는 [promisified](info:promisify) IndexedDB 메서드를 가진 전역 `idb` 객체를 생성합니다.
+이 장의 남은 부분에서는 얇은 프라미스 래퍼 <https://github.com/jakearchibald/idb>를 사용해 봅시다. 이 래퍼는 [프라미스화된](info:promisify) IndexedDB 메서드를 가진 전역 `idb` 객체를 생성합니다.
 
 그러면 `onsuccess/onerror` 대신 다음과 같이 쓸 수 있습니다.
 
@@ -770,10 +770,10 @@ window.addEventListener('unhandledrejection', event => {
 ### "비활성 트랜잭션" 함정
 
 
-이미 알고 있는 바와 같이, 브라우저가 현재 코드와 마이크로태스크(microtasks) 처리를 끝내는 즉시 트랜잭션은 자동 커밋됩니다. 그래서 트랜잭션 중간에 `fetch`와 같은 *매크로태스크(macrotask)*를 넣으면 트랜잭션은 그 작업이 끝날 때까지 기다리지 않습니다. 그냥 자동 커밋될 뿐이죠. 따라서 다음 요청은 실패합니다.
+이미 알고 있는 바와 같이, 브라우저가 현재 코드와 마이크로태스크 처리를 끝내는 즉시 트랜잭션은 자동 커밋됩니다. 그래서 트랜잭션 중간에 `fetch`와 같은 *매크로태스크*를 넣으면 트랜잭션은 그 작업이 끝날 때까지 기다리지 않습니다. 그냥 자동 커밋될 뿐이죠. 따라서 다음 요청은 실패합니다.
 
 
-프라미스 래퍼(promise wrapper)와 `async/await`도 상황은 마찬가지입니다.
+프라미스 래퍼와 `async/await`도 상황은 마찬가지입니다.
 
 다음은 트랜잭션 중간에서 `fetch`를 사용하는 예시입니다.
 
@@ -796,14 +796,14 @@ await inventory.add({ id: 'js', price: 10, created: new Date() }); // Error
 
 ### 네이티브 객체 얻기
 
-내부적으로 래퍼(wrapper)는 네이티브 IndexedDB 요청을 수행하고 여기에 `onerror/onsuccess`를 추가한 뒤, 결과에 따라 거부되거나 이행되는 프라미스(promise)를 반환합니다.
+내부적으로 래퍼는 네이티브 IndexedDB 요청을 수행하고 여기에 `onerror/onsuccess`를 추가한 뒤, 결과에 따라 거부되거나 이행되는 프라미스를 반환합니다.
 
 대부분의 경우 잘 동작합니다. 예시는 라이브러리 페이지 <https://github.com/jakearchibald/idb>에서 볼 수 있습니다.
 
-드물지만, 원래의 `request` 객체가 필요할 때 프라미스(promise)의 `promise.request` 속성으로 접근할 수 있습니다.
+드물지만, 원래의 `request` 객체가 필요할 때 프라미스의 `promise.request` 속성으로 접근할 수 있습니다.
 
 ```js
-let promise = books.add(book); // 프라미스를 얻습니다(결과를 기다리지 마세요).
+let promise = books.add(book); // 프라미스를 얻고 결과를 기다리지 않습니다.
 
 let request = promise.request; // 네이티브 request 객체입니다.
 let transaction = request.transaction; // 네이티브 transaction 객체입니다.
@@ -817,19 +817,19 @@ let result = await promise; // 여전히 필요하다면
 
 IndexedDB는 "강력해진 localStorage"라고 생각할 수 있습니다. 단순한 키-값 데이터베이스로, 오프라인 앱에 적합하면서도 사용이 간편합니다.
 
-가장 좋은 매뉴얼은 명세입니다. [현재 명세](https://www.w3.org/TR/IndexedDB-2/)는 2.0이지만 [3.0](https://w3c.github.io/IndexedDB/)의 일부 메서드(method)도 부분적으로 지원됩니다. 3.0도 크게 다르지는 않습니다.
+가장 좋은 매뉴얼은 명세입니다. [현재 명세](https://www.w3.org/TR/IndexedDB-2/)는 2.0이지만 [3.0](https://w3c.github.io/IndexedDB/)의 일부 메서드도 부분적으로 지원됩니다. 3.0도 크게 다르지는 않습니다.
 
 기본적인 사용법은 다음과 같이 몇 가지 단계로 설명할 수 있습니다.
 
-1. [idb](https://github.com/jakearchibald/idb)와 같은 프라미스 래퍼(promise wrapper)를 얻습니다.
+1. [idb](https://github.com/jakearchibald/idb)와 같은 프라미스 래퍼를 얻습니다.
 2. 데이터베이스 열기: `idb.openDb(name, version, onupgradeneeded)`
     - `onupgradeneeded` 핸들러에 객체 저장소 및 인덱스를 생성하거나 필요한 경우 버전 업데이트를 수행합니다.
 3. 요청하려면 다음과 같이 합니다.
-    - 트랜잭션 `db.transaction('books')`를 생성합니다(필요하다면 `readwrite`).
+    - 트랜잭션 `db.transaction('books')`를 생성합니다. 필요하다면 `readwrite`로 생성합니다.
     - 저장소 객체 `transaction.objectStore('books')`를 얻습니다.
 4. 그런 다음, 키로 검색하려면 객체 저장소의 메서드를 직접 호출합니다.
     - 객체 필드로 검색하려면 인덱스를 생성합니다.
-5. 데이터가 메모리에 맞지 않으면 커서(cursor)를 사용합니다.
+5. 데이터가 메모리에 맞지 않으면 커서를 사용합니다.
 
 여기에 작은 데모 앱이 있습니다.
 
