@@ -63,7 +63,7 @@ articles.sort(Article.compare);
 alert( articles[0].title ); // CSS
 ```
 
-여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, article 하나에 속한 메서드가 아니라 클래스 전체에 속한 메서드입니다.
+여기서 `Article.compare`는 article(글)을 비교해주는 수단으로, 글 전체를 '위에서' 바라보며 비교를 수행합니다. `Article.compare`가 글 하나의 메서드가 아닌 클래스의 메서드여야 하는 이유가 여기에 있습니다.
 
 이번에 살펴볼 예시는 소위 '팩토리(factory)' 메서드를 구현한 코드입니다.
 
