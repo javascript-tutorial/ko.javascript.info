@@ -9,7 +9,9 @@
 
 이제 막 자바스크립트를 배우기 시작했다면 옵셔널 체이닝이 등장하게 된 배경 상황을 직접 겪어보지 않았을 겁니다. 몇 가지 사례를 재현하면서 왜 옵셔널 체이닝이 등장했는지 알아봅시다.
 
-사용자가 여러 명 있는데 그중 몇 명은 주소 정보를 가지고 있지 않다고 가정해봅시다. 이럴 때 `user.address.street`를 사용해 주소 정보에 접근하면 에러가 발생할 수 있습니다.
+사용자가 여러 명 있는데 그중 몇 명은 주소 정보를 가지고 있지 않다고 가정해봅시다.
+
+이럴 때 `user.address.street`를 사용해 주소 정보에 접근하면 에러가 발생할 수 있습니다.
 
 ```js run
 let user = {}; // 주소 정보가 없는 사용자
@@ -198,15 +200,15 @@ let user1 = {
   firstName: "Violet"
 };
 
-let user2 = null; // user2는 권한이 없는 사용자라고 가정해봅시다.
-
-let key = "firstName";
+let user2 = null;
 
 alert( user1?.[key] ); // Violet
 alert( user2?.[key] ); // undefined
 ```
 
 `?.`은 `delete`와 조합해 사용할 수도 있습니다.
+
+예시:
 
 ```js run
 delete user?.name; // user가 존재하면 user.name을 삭제합니다.
@@ -217,6 +219,7 @@ delete user?.name; // user가 존재하면 user.name을 삭제합니다.
 
 예시:
 ```js run
+let user = null;
 // user가 존재할 경우 user.name에 값을 쓰려는 의도로 아래와 같이 코드를 작성해 보았습니다.
 
 user?.name = "Violet"; // SyntaxError: Invalid left-hand side in assignment
