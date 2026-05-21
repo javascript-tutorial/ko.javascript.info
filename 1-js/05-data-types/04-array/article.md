@@ -92,38 +92,38 @@ let fruits = [
 trailing(길게 늘어지는) 쉼표를 사용하면 모든 줄의 생김새가 유사해지기 때문에 요소를 넣거나 빼기가 쉬워집니다.
 ````
 
-## Get last elements with "at"
+## "at"으로 마지막 요소 가져오기
 
 [recent browser="new"]
 
-Let's say we want the last element of the array.
+배열의 마지막 요소를 가져오고 싶다고 가정해 봅시다.
 
-Some programming languages allow the use of negative indexes for the same purpose, like `fruits[-1]`.
+일부 프로그래밍 언어에서는 `fruits[-1]`처럼 음수 인덱스를 사용해 마지막 요소에 접근할 수 있습니다.
 
-However, in JavaScript it won't work. The result will be `undefined`, because the index in square brackets is treated literally.
+하지만 자바스크립트에서는 `fruits[-1]`처럼 음수 인덱스를 사용해도 원하는 결과를 얻을 수 없습니다. 대괄호 안의 인덱스를 문자 그대로 해석하기 때문에 결과는 `undefined`가 됩니다.
 
-We can explicitly calculate the last element index and then access it: `fruits[fruits.length - 1]`.
-
-```js run
-let fruits = ["Apple", "Orange", "Plum"];
-
-alert( fruits[fruits.length-1] ); // Plum
-```
-
-A bit cumbersome, isn't it? We need to write the variable name twice.
-
-Luckily, there's a shorter syntax: `fruits.at(-1)`:
+따라서 `fruits[fruits.length-1]`처럼 마지막 요소의 인덱스를 직접 계산해서 접근해야 합니다.
 
 ```js run
-let fruits = ["Apple", "Orange", "Plum"];
+let fruits = ["사과", "오렌지", "자두"];
 
-// same as fruits[fruits.length-1]
-alert( fruits.at(-1) ); // Plum
+alert( fruits[fruits.length-1] ); // 자두
 ```
 
-In other words, `arr.at(i)`:
-- is exactly the same as `arr[i]`, if `i >= 0`.
-- for negative values of `i`, it steps back from the end of the array.
+조금 번거롭지 않은가요? 변수 이름을 두 번이나 작성해야 합니다.
+
+다행히 더 짧은 문법인 `fruits.at(-1)`이 있습니다.
+
+```js run
+let fruits = ["사과", "오렌지", "자두"];
+
+// fruits[fruits.length-1]와 동일
+alert( fruits.at(-1) ); // 자두
+```
+
+즉, `arr.at(i)`는 다음과 같이 동작합니다. In other words, `arr.at(i)`:
+- `i>=0`이면 `arr[i]`와 완전히 동일하게 동작합니다.
+- `i`가 음수이면 배열 끝에서부터 거슬러 올라가며 요소를 찾습니다.
 
 ## pop·push와 shift·unshift
 
@@ -170,7 +170,7 @@ In other words, `arr.at(i)`:
     alert( fruits ); // 사과,오렌지
     ```
 
-    Both `fruits.pop()` and `fruits.at(-1)` return the last element of the array, but `fruits.pop()` also modifies the array by removing it.
+    `fruits.pop()`과 `fruits.at(-1)`은 모두 배열의 마지막 요소를 반환합니다. 하지만 `fruits.pop()`은 마지막 요소를 반환하는 동시에 배열에서 제거하기 때문에 배열 자체도 변경한다는 차이가 있습니다.
 
 `push`
 : 배열 끝에 요소를 추가합니다.
@@ -468,9 +468,10 @@ alert( "1,2" + 1 ); // "1,21"
 `==`는 배열을 특별하게 취급하지 않습니다. 배열도 일반 객체처럼 처리됩니다.
 
 규칙을 다시 떠올려 봅시다.
+
 - 두 객체는 동일한 객체를 참조할 때만 `==` 비교 결과가 `true`입니다.
 - `==`의 피연산자 중 하나가 객체이고 다른 하나가 원시값이면, <info:object-toprimitive> 챕터에서 설명한 것처럼 객체가 원시값으로 변환됩니다.
-- 단, `null`과 `undefined`는 예외입니다. 서로에 대해서만 `==` 비교 시 `true`를 반환하고 그 외의 값과 비교했을 때는 `false`를 반환합니다.
+- 단, `null`과 `undefined`는 예외입니다. 서로에 대해서만 `==` 비교 시 `true`를 반환하고 그 외의 값과 비교할 때는 `false`를 반환합니다.
 
 엄격한 비교 연산자 `===`는 더 단순합니다. 타입 변환을 수행하지 않기 때문입니다.
 
