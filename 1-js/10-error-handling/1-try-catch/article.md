@@ -99,7 +99,7 @@ try {
   setTimeout(function() {
     noSuchVariable; // 스크립트는 여기서 죽습니다.
   }, 1000);
-} catch (e) {
+} catch (err) {
   alert( "작동 멈춤" );
 }
 ```
@@ -245,7 +245,7 @@ try {
   alert( user.name ); // 이름이 없습니다!
 */!*
 
-} catch (e) {
+} catch (err) {
   alert( "실행되지 않습니다." );
 }
 ```
@@ -294,7 +294,7 @@ alert(error.message); // 이상한 일이 발생했습니다. o_O
 ```js run
 try {
   JSON.parse("{ 잘못된 형식의 json o_O }");
-} catch(e) {
+} catch(err) {
 *!*
   alert(err.name); // SyntaxError
 */!*
@@ -323,8 +323,8 @@ try {
 
   alert( user.name );
 
-} catch(e) {
-  alert( "JSON Error: " + e.message ); // JSON Error: 불완전한 데이터: 이름 없음
+} catch(err) {
+  alert( "JSON Error: " + err.message ); // JSON Error: 불완전한 데이터: 이름 없음
 }
 ```
 
@@ -464,7 +464,7 @@ try {
 ```js
 *!*try*/!* {
    ... 코드를 실행 ...
-} *!*catch*/!*(e) {
+} *!*catch*/!*(err) {
    ... 에러 핸들링 ...
 } *!*finally*/!* {
    ... 항상 실행 ...
@@ -477,7 +477,7 @@ try {
 try {
   alert( 'try 블록 시작' );
   if (confirm('에러를 만드시겠습니까?')) 이상한_코드();
-} catch (e) {
+} catch (err) {
   alert( 'catch' );
 } finally {
   alert( 'finally' );
