@@ -24,8 +24,8 @@ usersMapped = [
 alert( usersMapped[0].id ); // 1
 alert( usersMapped[0].fullName ); // John Smith
 ```
-화살표 함수에서는 객체 리터럴을 괄호로 한 번 더 감싸야 한다는 점에 유의해 주세요.
 
+화살표 함수에서는 객체 리터럴을 괄호로 한 번 더 감싸야 한다는 점에 유의해 주세요.
 
 아래와 같이 괄호 없이 코드를 작성할 수 없습니다.
 ```js
