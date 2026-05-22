@@ -5,11 +5,11 @@
 
 옵셔널 체이닝(optional chaining) `?.`을 사용하면 프로퍼티가 없는 중첩 객체를 에러 없이 안전하게 접근할 수 있습니다.
 
-## 옵셔널 체이닝이 필요한 이유
+## '존재하지 않는 프로퍼티' 문제
 
 이제 막 자바스크립트를 배우기 시작했다면 옵셔널 체이닝이 등장하게 된 배경 상황을 직접 겪어보지 않았을 겁니다. 몇 가지 사례를 재현하면서 왜 옵셔널 체이닝이 등장했는지 알아봅시다.
 
-사용자가 여러 명 있는데 그중 몇 명은 주소 정보를 가지고 있지 않다고 가정해봅시다.
+예를 들어, 사용자 정보를 담고 있는 `user` 객체들이 있다고 가정해 봅시다.
 
 이럴 때 `user.address.street`를 사용해 주소 정보에 접근하면 에러가 발생할 수 있습니다.
 
@@ -36,7 +36,7 @@ let html = document.querySelector('.my-element').innerHTML;
 
 가장 직관적인 해결책은 프로퍼티에 접근하기 전에 `if`문이나 조건부 연산자 `?`를 사용해 값을 확인하는 것입니다. 다음과 같이 말이죠.
 
-```
+```js run
 let user = {};
 
 alert(user.address ? user.address.street : undefined);
@@ -46,7 +46,7 @@ alert(user.address ? user.address.street : undefined);
 
 `document.querySelector`를 사용한 예시는 다음과 같은 모습일 것입니다.
 
-```
+```js run
 let html = document.querySelector('.elem') ? document.querySelector('.elem').innerHTML : null;
 ```
 
@@ -66,7 +66,6 @@ alert(user.address ? user.address.street ? user.address.street.name : null : nul
 
 명세서에 `?.`이 추가되기 전엔 이런 문제들을 해결하기 위해 `&&` 연산자를 사용하곤 했습니다.
 
-예시 :
 ```js run
 let user = {}; // 주소 정보가 없는 사용자
 
@@ -238,6 +237,4 @@ user?.name = "Violet"; // SyntaxError: Invalid left-hand side in assignment
 
 `?.`를 계속 연결해서 체인을 만들면 중첩 프로퍼티들에 안전하게 접근할 수 있습니다.
 
-`?.`은 `?.`왼쪽 평가대상이 없어도 괜찮은 경우에만 선택적으로 사용해야 합니다.
-
-꼭 있어야 하는 값인데 없는 경우에 `?.`을 사용하면 프로그래밍 에러를 쉽게 찾을 수 없으므로 이런 상황을 만들지 말도록 합시다.
+`?.`은 `?.`왼쪽 평가대상이 없어도 괜찮은 경우에만 선택적으로 사용해야 합니다.꼭 있어야 하는 값인데 없는 경우에 `?.`을 사용하면 프로그래밍 에러를 쉽게 찾을 수 없으므로 이런 상황을 만들지 말도록 합시다.
