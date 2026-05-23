@@ -13,7 +13,7 @@
 ```js
 let range = {
   from: 1,
-  to: 5,
+  to: 5
 };
 ```
 
@@ -142,12 +142,12 @@ let range = {
 전개 구문은 일반 이터레이터가 필요로 하므로 아래와 같은 코드는 동작하지 않습니다.
 
 ```js
-alert([...range]); // Symbol.iterator가 없기 때문에 에러 발생
+alert( [...range] ); // Symbol.iterator가 없기 때문에 에러 발생
 ```
 
 전개 구문은 `await`가 없는 `for..of`와 마찬가지로, `Symbol.asyncIterator`가 아닌 `Symbol.iterator`를 찾기 때문에 에러가 발생하는 것은 당연합니다.
 
-`````
+````
 
 ## 제너레이터 복습
 
@@ -194,13 +194,13 @@ let range = {
   to: 5,
 
   *[Symbol.iterator]() { // [Symbol.iterator]: function*()를 짧게 줄임
-    for (let value = this.from; value <= this.to; value++) {
+    for(let value = this.from; value <= this.to; value++) {
       yield value;
     }
-  },
+  }
 };
 
-for (let value of range) {
+for(let value of range) {
   alert(value); // 1, 2, 3, 4, 5
 }
 ```
@@ -260,7 +260,7 @@ result = await generator.next(); // result = {value: ..., done: true/false}
 ```
 
 이것이 async 제너레이터가 `for await...of`와 함께 동작하는 이유입니다.
-`````
+````
 
 ### async 이터러블 range
 
@@ -340,19 +340,18 @@ async function* fetchCommits(repo) {
   while (url) {
     const response = await fetch(url, {
       // (1)
-      headers: { "User-Agent": "Our script" }, // GitHub는 모든 요청에 user-agent 헤더를 강제 합니다.
+      headers: { 'User-Agent': 'Our script' }, // GitHub는 모든 요청에 user-agent 헤더를 강제 합니다.
     });
 
     const body = await response.json(); // (2) 응답은 JSON 형태로 옵니다(커밋이 담긴 배열).
 
     // (3) 헤더에 담긴 다음 페이지를 나타내는 URL을 추출합니다.
-    let nextPage = response.headers.get("Link").match(/<(.*?)>; rel="next"/);
+    let nextPage = response.headers.get('Link').match(/<(.*?)>; rel="next"/);
     nextPage = nextPage?.[1];
 
     url = nextPage;
 
-    for (let commit of body) {
-      // (4) 페이지가 끝날 때까지 커밋을 하나씩 반환(yield)합니다.
+    for (let commit of body) { // (4) 페이지가 끝날 때까지 커밋을 하나씩 반환(yield)합니다.
       yield commit;
     }
   }
@@ -375,7 +374,7 @@ async function* fetchCommits(repo) {
   let count = 0;
 
   for await (const commit of fetchCommits(
-    "javascript-tutorial/en.javascript.info",
+    'javascript-tutorial/en.javascript.info',
   )) {
     console.log(commit.author.login);
 
@@ -401,17 +400,17 @@ async function* fetchCommits(repo) {
 
 일반 이터레이터와 async 이터레이터의 문법 차이는 다음과 같습니다.
 
-|                            | iterable                      | async iterable                                   |
-| -------------------------- | ----------------------------- | ------------------------------------------------ |
-| iterator를 반환하는 메서드 | `Symbol.iterator`             | `Symbol.asyncIterator`                           |
-| `next()`가 반환하는 값     | `{value:…, done: true/false}` | `{value:…, done: true/false}`를 감싸는 `Promise` |
+|       | iterable | async iterable |
+|-------|-----------|-----------------|
+| iterator를 반환하는 메서드 | `Symbol.iterator` | `Symbol.asyncIterator` |
+| `next()`가 반환하는 값 | `{value:…, done: true/false}`         | `{value:…, done: true/false}`를 감싸는 `Promise` |
 
 일반 제너레이터와 async 제너레이터의 문법 차이는 다음과 같습니다.
 
-|                        | generators                    | async generator                                  |
-| ---------------------- | ----------------------------- | ------------------------------------------------ |
-| 선언                   | `function*`                   | `async function*`                                |
-| `next()`가 반환하는 값 | `{value:…, done: true/false}` | `{value:…, done: true/false}`를 감싸는 `Promise` |
+|       | generators | async generator |
+|-------|-----------|-----------------|
+| 선언 | `function*` | `async function*` |
+| `next()`가 반환하는 값          | `{value:…, done: true/false}`         | `{value:…, done: true/false}`를 감싸는 `Promise`  |
 
 웹 개발을 하다 보면 띄엄띄엄 들어오는 데이터 스트림을 다뤄야 하는 경우가 자주 생깁니다. 용량이 큰 파일을 다운로드하거나 업로드 할 때와 같이 말이죠.
 
