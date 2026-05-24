@@ -245,7 +245,7 @@ function* generateSequence(start, end) {
 - 이어서 알파벳 대문자 `A`부터 `Z`까지를 생성합니다(문자 코드 65부터 90까지).
 - 이어서 알파벳 소문자 `a`부터 `z`까지를 생성합니다(문자 코드 97부터 122까지).
 
-이런 규칙을 충족하는 연속 값은 비밀번호를 만들 때 응용할 수 있습니다(물론 특수 문자도 추가 할 수 있습니다).
+이런 규칙을 충족하는 연속 값은 비밀번호를 만들 때 응용할 수 있습니다(물론 특수 문자도 추가할 수 있습니다).
 
 일반 함수로는 여러 개의 함수를 만들고 그 호출 결과를 어딘가에 저장한 후 다시 그 결과들을 조합해야 원하는 기능을 구현할 수 있습니다.
 
@@ -469,9 +469,9 @@ g.return('foo'); // { value: "foo", done: true }
 g.next();        // { value: undefined, done: true }
 ```
 
-이미 종료된 제너레이터에서 `generator.return()`을 다시 호출해도 인수로 전달한 값을 그대로 반환합니다([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
+이미 종료된 제너레이터에서 `generator.return()`을 다시 호출해도 인수로 전달한 값을 그대로 반환합니다([MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).
 
-대부분의 경우 모든 반환 값을 필요하기 때문에 이 메서드를 잘 사용하지는 않지만, 특정 상황에서 제너레이터를 중지하고 싶을 때 유용할 수 있습니다.
+대부분의 경우 모든 반환 값이 필요하기 때문에 이 메서드를 잘 사용하지는 않지만, 특정 상황에서 제너레이터를 중지하고 싶을 때 유용할 수 있습니다.
 
 ## 요약
 
