@@ -46,7 +46,6 @@ new Promise(function(resolve, reject) {
 
 프라미스 체이닝이 가능한 이유는 `.then`을 호출할 때마다 새로운 프라미스가 반환되기 때문입니다. 반환된 프라미스엔 당연히 `.then`을 호출할 수 있습니다.
 
-
 한편 핸들러가 값을 반환할 때엔 이 값이 프라미스의 `result`가 됩니다. 따라서 다음 `.then`은 이 값을 이용해 호출됩니다.
 
 **초보자는 프라미스 하나에 `.then`을 여러 개 추가한 후, 이를 체이닝이라고 착각하는 경우가 있습니다. 하지만 이는 체이닝이 아닙니다.**
@@ -73,7 +72,7 @@ promise.then(function(result) {
 });
 ```
 
-예시의 프라미스는 하나인데 여기에 등록된 핸들러는 여러 개입니다. 이 핸들러들은 `result`를 순차적으로 전달하지 않고 독립적으로 처리합니다.
+예시의 프라미스는 하나인데 여기에 등록된 핸들러는 여러 개입니다. 이 핸들러들은 결과를 순차적으로 전달하지 않고 독립적으로 처리합니다.
 
 그림으로 표현하면 다음과 같습니다. 프라미스 체이닝을 묘사한 위 그림과 비교해 보세요.
 
@@ -355,7 +354,7 @@ function showAvatar(githubUser) {
 loadJson('/article/promise-chaining/user.json')
   .then(user => loadGithubUser(user.name))
   .then(showAvatar)
-  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+  .then(githubUser => alert(`${githubUser.name}의 이미지를 성공적으로 출력하였습니다.`));
   // ...
 ```
 
