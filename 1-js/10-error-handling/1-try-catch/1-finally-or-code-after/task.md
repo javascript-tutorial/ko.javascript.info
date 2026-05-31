@@ -6,7 +6,6 @@ importance: 5
 
 두 코드 조각을 비교해보세요.
 
-<<<<<<< HEAD
 1. 첫 번째 코드 조각은 `try..catch` 이후에 코드를 실행하기 위해 `finally`를 사용하였습니다.
 
     ```js
@@ -14,22 +13,12 @@ importance: 5
       작업
     } catch (e) {
       에러 핸들링
-=======
-1. The first one uses `finally` to execute the code after `try...catch`:
-
-    ```js
-    try {
-      work work
-    } catch (err) {
-      handle errors
->>>>>>> upstream/master
     } finally {
     *!*
       작업 내역 삭제
     */!*
     }
     ```
-<<<<<<< HEAD
 2. 두 번째 코드 조각에선 `try..catch` 바로 아래에 작업 내역을 삭제하는 코드를 놓았습니다.
 
     ```js
@@ -37,15 +26,6 @@ importance: 5
       작업
     } catch (e) {
       에러 핸들링
-=======
-2. The second fragment puts the cleaning right after `try...catch`:
-
-    ```js
-    try {
-      work work
-    } catch (err) {
-      handle errors
->>>>>>> upstream/master
     }
 
     *!*
