@@ -17,7 +17,7 @@ function accept(req, res) {
       chunks.push(data);
       length += data.length;
 
-      // More than 10mb, kill the connection!
+      // 10mb를 넘으면 연결을 종료합니다!
       if (length > 1e8) {
         req.connection.destroy();
       }
@@ -28,16 +28,16 @@ function accept(req, res) {
 
       if (req.url == '/user') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'User saved' }));
+        res.end(JSON.stringify({ message: '사용자 정보 저장 성공' }));
       } else if (req.url == '/image') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: "Image saved", imageSize: length }));
+        res.end(JSON.stringify({ message: "이미지 저장 성공", imageSize: length }));
       } else if (req.url == '/upload') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: "Upload complete", size: length }));
+        res.end(JSON.stringify({ message: "업로드 완료", size: length }));
       } else {
         res.writeHead(404);
-        res.end("Not found");
+        res.end("찾을 수 없음");
       }
     });
 
