@@ -1,145 +1,89 @@
 
-<<<<<<< HEAD
-# 폴리필
+# 폴리필과 트랜스파일러
 
-자바스크립트는 끊임없이 진화하는 언어입니다. 새로운 제안(proposal)이 정기적으로 등록, 분석되고, 가치가 있다고 판단되는 제안은 <https://tc39.github.io/ecma262/>에 추가됩니다. 그리고 궁극적으로 [명세서(specification)](http://www.ecma-international.org/publications/standards/Ecma-262.htm)에 등록됩니다.
-=======
-# Polyfills and transpilers
-
-The JavaScript language steadily evolves. New proposals to the language appear regularly, they are analyzed and, if considered worthy, are appended to the list at <https://tc39.github.io/ecma262/> and then progress to the [specification](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/).
->>>>>>> upstream/master
+자바스크립트는 끊임없이 진화하는 언어입니다. 새로운 제안(proposal)이 정기적으로 등록, 분석되고, 가치가 있다고 판단되는 제안은 <https://tc39.github.io/ecma262/>에 추가됩니다. 그리고 궁극적으로 [명세서(specification)](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)에 등록됩니다.
 
 자바스크립트 엔진을 만드는 각 조직은 나름대로 우선순위를 매겨 명세서 내 어떤 기능을 먼저 구현할지 결정합니다. 명세서에 등록된 기능보다 초안(draft)에 있는 제안을 먼저 구현하기로 결정하는 경우도 있습니다. 구현 난도가 높아서 이런 결정을 내리는 경우도 있지만, 구미를 당기지 않아 이런 결정을 내리기도 합니다.
 
-<<<<<<< HEAD
 엔진이 표준 전체를 지원하지 않고 일부만 지원하는 건 흔한 일이죠.
 
-엔진별로 어떤 기능을 지원하고 있는지는 <https://kangax.github.io/compat-table/es6/>에서 확인할 수 있습니다. 표가 상당히 큰데, 각 기능에 대해선 차근차근 배울 예정이니 너무 겁먹지 않으셔도 됩니다.
+엔진별로 어떤 기능을 지원하고 있는지는 <https://compat-table.github.io/compat-table/es6/>에서 확인할 수 있습니다. 표가 상당히 큰데, 각 기능에 대해선 차근차근 배울 예정이니 너무 겁먹지 않으셔도 됩니다.
 
-## 바벨
+개발자라면 누구나 최신 기능을 쓰고 싶기 마련입니다. 멋진 기능은 많을수록 좋으니까요!
 
-명세서에 등록된 지 얼마 안 된 기능을 사용해 코드를 작성하다 보면 특정 엔진에서 우리가 작성한 코드를 지원하지 않는다는 걸 알게 되는 경우가 있습니다. 명세서 내 모든 기능을 모든 엔진이 구현하고 있지 않기 때문이죠.
+그런데 최신 기능을 알아듣지 못하는 구식 엔진에서도 모던 코드가 잘 동작하게 하려면 어떻게 해야 할까요?
 
-이럴 때 바벨을 사용할 수 있습니다.
+이때 두 가지 도구를 활용할 수 있습니다.
 
-[바벨(Babel)](https://babeljs.io)은 [트랜스파일러(transpiler)](https://en.wikipedia.org/wiki/Source-to-source_compiler)로, 모던 자바스크립트 코드를 구 표준을 준수하는 코드로 바꿔줍니다.
+1. 트랜스파일러(Transpiler)
+2. 폴리필(Polyfill)
 
-바벨의 주요 역할은 다음과 같습니다.
+이번 챕터에선 두 도구가 어떻게 동작하는지, 웹 개발에서 어떤 역할을 하는지 큰 그림을 잡아보겠습니다.
 
-1. 트랜스파일러 -- 바벨은 코드를 재작성해주는 트랜스파일러 프로그램입니다. 바벨은 개발자의 컴퓨터에서 돌아가는데, 이를 실행하면 기존 코드가 구 표준을 준수하는 코드로 변경됩니다. 변경된 코드는 웹사이트 형태로 사용자에게 전달됩니다. [웹팩(webpack)](http://webpack.github.io/)과 같은 모던 프로젝트 빌드 시스템은 코드가 수정될 때마다 자동으로 트랜스파일러를 동작시켜줍니다. 이런 과정이 없으면 개발이 끝난 코드를 한데 통합하는 데 어려움이 있을 수 있습니다.
+## 트랜스파일러
 
-2. 폴리필
+[트랜스파일러(transpiler)](https://en.wikipedia.org/wiki/Source-to-source_compiler)는 소스 코드를 다른 소스 코드로 바꿔 주는 프로그램입니다. 모던 코드를 분석("읽고 해석")한 다음 옛 문법으로 다시 작성해 주죠. 변환된 코드는 구식 엔진에서도 잘 동작합니다.
 
-    명세서엔 새로운 문법이나 기존에 없던 내장 함수에 대한 정의가 추가되곤 합니다. 
-    새로운 문법을 사용해 코드를 작성하면 트랜스파일러는 이를 구 표준을 준수하는 코드로 변경해줍니다. 반면, 새롭게 표준에 추가된 함수는 명세서 내 정의를 읽고 이에 맞게 직접 함수를 구현해야 사용할 수 있습니다. 자바스크립트는 매우 동적인 언어라서 원하기만 하면 어떤 함수라도 스크립트에 추가할 수 있습니다. 물론 기존 함수를 수정하는 것도 가능합니다. 개발자는 스크립트에 새로운 함수를 추가하거나 수정해서 스크립트가 최신 표준을 준수할 수 있게 작업할 수 있습니다.
+예를 들어 2020년 이전 자바스크립트엔 "nullish 병합 연산자(nullish coalescing operator)" `??`가 없었습니다. 그래서 사용자가 구식 브라우저를 쓰고 있다면 `height = height ?? 100` 같은 코드를 처리하지 못할 수 있죠.
 
-    이렇게 변경된 표준을 준수할 수 있게 기존 함수의 동작 방식을 수정하거나, 새롭게 구현한 함수의 스크립트를 "폴리필(polyfill)"이라 부릅니다. 폴리필(poly`fill`)은 말 그대로 구현이 누락된 새로운 기능을 메꿔주는(`fill in`) 역할을 합니다.
-
-    주목할 만한 폴리필 두 가지는 아래와 같습니다.
-    - [core js](https://github.com/zloirock/core-js) -- 다양한 폴리필을 제공합니다. 특정 기능의 폴리필만 사용하는 것도 가능합니다.
-    - [polyfill.io](http://polyfill.io) -- 기능이나 사용자의 브라우저에 따라 폴리필 스크립트를 제공해주는 서비스입니다.
-
-모던 자바스크립트를 이용해 스크립트를 작성하려면 트랜스파일러와 폴리필은 필수입니다.
-
-## 튜토리얼에서 예시 실행하기
-
-
-````online
-튜토리얼 내 예시 대부분은 아래와 같이 클릭 한 번으로 바로 실행할 수 있습니다.
-
-```js run
-alert('우측 상단 모서리에 있는 "재생" 버튼을 눌러 스크립트를 실행해 보세요.');
-```
-
-모던 자바스크립트를 사용해 작성한 예시는 해당 기능을 지원하는 브라우저에서만 작동합니다.
-````
-
-```offline
-오프라인에서 PDF 포맷으로 튜토리얼을 읽고 계신다면 예시를 실행할 수 없습니다. EPUB에선 일부 예시가 실행 가능합니다.
-```
-
-Google Chrome은 모든 브라우저 중 대개 가장 먼저 최신 기능을 지원합니다. 트랜스파일러 없이 최신 기능을 사용할 수 있기 때문에 Chrome은 데모용으로 사용하기 좋습니다. 그런데 다른 브라우저들도 많이 뒤처지는 편은 아니니 안심하고 사용하셔도 될 것 같습니다.
-=======
-So it's quite common for an engine to implement only part of the standard.
-
-A good page to see the current state of support for language features is <https://compat-table.github.io/compat-table/es6/> (it's big, we have a lot to study yet).
-
-As programmers, we'd like to use most recent features. The more good stuff - the better!
-
-On the other hand, how to make our modern code work on older engines that don't understand recent features yet?
-
-There are two tools for that:
-
-1. Transpilers.
-2. Polyfills.
-
-Here, in this chapter, our purpose is to get the gist of how they work, and their place in web development.
-
-## Transpilers
-
-A [transpiler](https://en.wikipedia.org/wiki/Source-to-source_compiler) is a special piece of software that translates source code to another source code. It can parse ("read and understand") modern code and rewrite it using older syntax constructs, so that it'll also work in outdated engines.
-
-E.g. JavaScript before year 2020 didn't have the "nullish coalescing operator" `??`. So, if a visitor uses an outdated browser, it may fail to understand the code like `height = height ?? 100`.
-
-A transpiler would analyze our code and rewrite `height ?? 100` into `(height !== undefined && height !== null) ? height : 100`.
+트랜스파일러는 코드를 분석해 `height ?? 100`을 `(height !== undefined && height !== null) ? height : 100`으로 변환해 줍니다.
 
 ```js
-// before running the transpiler
+// 트랜스파일러 실행 전
 height = height ?? 100;
 
-// after running the transpiler
+// 트랜스파일러 실행 후
 height = (height !== undefined && height !== null) ? height : 100;
 ```
 
-Now the rewritten code is suitable for older JavaScript engines.
+이제 변환된 코드는 구버전 자바스크립트 엔진에서도 잘 돌아갑니다.
 
-Usually, a developer runs the transpiler on their own computer, and then deploys the transpiled code to the server.
+보통은 개발자가 자기 컴퓨터에서 트랜스파일러를 돌린 다음, 변환된 코드를 서버에 배포하는 식으로 사용합니다.
 
-Speaking of names, [Babel](https://babeljs.io) is one of the most prominent transpilers out there.
+잘 알려진 트랜스파일러로는 [바벨(Babel)](https://babeljs.io)이 있습니다.
 
-Modern project build systems, such as [webpack](https://webpack.js.org/), provide a means to run a transpiler automatically on every code change, so it's very easy to integrate into the development process.
+[웹팩(webpack)](https://webpack.js.org/) 같은 모던 빌드 시스템은 코드가 바뀔 때마다 트랜스파일러를 자동으로 돌려 주기 때문에, 개발 과정에 자연스럽게 녹여 쓸 수 있습니다.
 
-## Polyfills
+## 폴리필
 
-New language features may include not only syntax constructs and operators, but also built-in functions.
+새로 추가되는 언어 기능엔 문법이나 연산자뿐 아니라 내장 함수도 포함됩니다.
 
-For example, `Math.trunc(n)` is a function that "cuts off" the decimal part of a number, e.g `Math.trunc(1.23)` returns `1`.
+예를 들어 `Math.trunc(n)`은 숫자의 소수점 이하를 "잘라내는" 함수입니다. `Math.trunc(1.23)`을 호출하면 `1`이 반환되죠.
 
-In some (very outdated) JavaScript engines, there's no `Math.trunc`, so such code will fail.
+그런데 (아주 오래된) 일부 자바스크립트 엔진엔 `Math.trunc`가 없어서 위 코드를 그대로 쓰면 에러가 납니다.
 
-As we're talking about new functions, not syntax changes, there's no need to transpile anything here. We just need to declare the missing function.
+이건 문법이 바뀐 게 아니라 함수가 추가된 경우라서 트랜스파일을 거칠 필요가 없습니다. 빠져 있는 함수를 직접 선언해 주기만 하면 되죠.
 
-A script that updates/adds new functions is called "polyfill". It "fills in" the gap and adds missing implementations.
+이렇게 함수를 새로 추가하거나 갱신해 주는 스크립트를 "폴리필(polyfill)"이라고 부릅니다. 빠진 자리를 "메워 주는(`fill in`)" 셈이죠.
 
-For this particular case, the polyfill for `Math.trunc` is a script that implements it, like this:
+`Math.trunc`를 위한 폴리필은 아래처럼 함수를 직접 구현해 주는 스크립트입니다.
 
 ```js
-if (!Math.trunc) { // if no such function
-  // implement it
+if (!Math.trunc) { // 함수가 없는 경우
+  // 직접 구현
   Math.trunc = function(number) {
-    // Math.ceil and Math.floor exist even in ancient JavaScript engines
-    // they are covered later in the tutorial
+    // Math.ceil과 Math.floor는 옛 자바스크립트 엔진에도 있습니다.
+    // 둘에 대해선 튜토리얼 뒷부분에서 다룰 예정입니다.
     return number < 0 ? Math.ceil(number) : Math.floor(number);
   };
 }
 ```
 
-JavaScript is a highly dynamic language. Scripts may add/modify any function, even built-in ones.
+자바스크립트는 동적인 언어입니다. 스크립트로 어떤 함수든 추가하거나 수정할 수 있고, 심지어 내장 함수도 예외가 아니죠.
 
-One interesting polyfill library is [core-js](https://github.com/zloirock/core-js), which supports a wide range of features and allows you to include only the ones you need.
+눈여겨볼 만한 폴리필 라이브러리로 [core-js](https://github.com/zloirock/core-js)가 있는데요, 다양한 기능을 폭넓게 지원하면서도 필요한 기능만 골라 쓸 수 있습니다.
 
-## Summary
+## 요약
 
-In this chapter we'd like to motivate you to study modern and even "bleeding-edge" language features, even if they aren't yet well-supported by JavaScript engines.
+자바스크립트 엔진이 아직 잘 지원하지 않는 기능이라도, 모던 기능, 심지어 "최첨단(bleeding-edge)" 기능까지 적극적으로 공부해 보시길 권합니다.
 
-Just don't forget to use a transpiler (if using modern syntax or operators) and polyfills (to add functions that may be missing). They'll ensure that the code works.
+단, 모던 문법이나 연산자를 쓸 땐 트랜스파일러를, 일부 엔진에 없을 수 있는 함수를 추가할 땐 폴리필을 꼭 함께 사용하세요. 이 둘이 갖춰져야 코드가 제대로 동작합니다.
 
-For example, later when you're familiar with JavaScript, you can setup a code build system based on [webpack](https://webpack.js.org/) with the [babel-loader](https://github.com/babel/babel-loader) plugin.
+자바스크립트가 좀 익숙해진 뒤엔 [웹팩(webpack)](https://webpack.js.org/) 기반에 [babel-loader](https://github.com/babel/babel-loader) 플러그인을 얹어 빌드 시스템을 꾸려볼 수도 있죠.
 
-Good resources that show the current state of support for various features:
-- <https://compat-table.github.io/compat-table/es6/> - for pure JavaScript.
-- <https://caniuse.com/> - for browser-related functions.
+각 기능의 지원 현황을 확인할 땐 아래 자료가 유용합니다.
+- <https://compat-table.github.io/compat-table/es6/> - 순수 자바스크립트 기능
+- <https://caniuse.com/> - 브라우저 관련 기능
 
-P.S. Google Chrome is usually the most up-to-date with language features, try it if a tutorial demo fails. Most tutorial demos work with any modern browser though.
+참고로 Google Chrome은 보통 최신 언어 기능을 가장 빨리 지원합니다. 튜토리얼 데모가 잘 안 돌아간다면 Chrome으로 한 번 시도해 보세요. 대부분의 데모는 모던 브라우저 어디서나 잘 작동합니다.
 
->>>>>>> upstream/master
