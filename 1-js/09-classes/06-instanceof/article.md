@@ -2,7 +2,11 @@
 
 `instanceof` 연산자를 사용하면 객체가 특정 클래스에 속하는지 아닌지를 확인할 수 있습니다. `instanceof`는 상속 관계도 확인해줍니다.
 
+<<<<<<< HEAD
 확인 기능은 다양한 곳에서 쓰이는데, 이번 챕터에선 `instanceof`를 사용해 인수의 타입에 따라 이를 다르게 처리하는 *다형적인(polymorphic)* 함수를 만드는데 사용해보겠습니다.
+=======
+Such a check may be necessary in many cases. For example, it can be used for building a *polymorphic* function, the one that treats arguments differently depending on their type.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 ## instanceof 연산자 [#ref-instanceof]
 
@@ -55,8 +59,13 @@ alert( arr instanceof Object ); // true
     예시:
 
     ```js run
+<<<<<<< HEAD
     // canEat 프로퍼티가 있으면 animal이라고 판단할 수 있도록
     // instanceOf의 로직을 직접 설정합니다.
+=======
+    // set up instanceof check that assumes that
+    // anything with canEat property is an animal
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
     class Animal {
       static [Symbol.hasInstance](obj) {
         if (obj.canEat) return true;
@@ -68,7 +77,11 @@ alert( arr instanceof Object ); // true
     alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
     ```
 
+<<<<<<< HEAD
 2. 그런데, 대부분의 클래스엔 `Symbol.hasInstance`가 구현되어있지 않습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 상의 프로토타입 중 하나와 일치하는지 확인합니다.
+=======
+2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceof Class` checks whether `Class.prototype` is equal to one of the prototypes in the `obj` prototype chain.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
     비교는 차례 차례 진행됩니다.
     ```js
@@ -93,7 +106,7 @@ alert( arr instanceof Object ); // true
     alert(rabbit instanceof Animal); // true
     */!*
 
-    // rabbit.__proto__ === Rabbit.prototype
+    // rabbit.__proto__ === Animal.prototype (no match)
     *!*
     // rabbit.__proto__.__proto__ === Animal.prototype (일치!)
     */!*
