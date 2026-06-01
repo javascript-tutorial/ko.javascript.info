@@ -1,52 +1,52 @@
 
-The root of the problem is that `Promise.all` immediately rejects when one of its promises rejects, but it do nothing to cancel the other promises.
+문제의 원인은 `Promise.all`이 프라미스 중 하나라도 거부되면 즉시 거부되지만, 나머지 프라미스를 취소하지는 않는다는 데 있습니다.
 
-In our case, the second query fails, so `Promise.all` rejects, and the `try...catch` block catches this error.Meanwhile, other promises are *not affected* - they independently continue their execution. In our case, the third query throws an error of its own after a bit of time. And that error is never caught, we can see it in the console.
+위 예시에서는 두 번째 쿼리가 실패하므로 `Promise.all`이 거부되고, `try...catch` 블록이 이 에러를 잡습니다. 한편, 다른 프라미스는 *영향을 받지 않고 독립적으로 실행을 계속합니다*. 예시에서는 잠시 후 세 번째 쿼리가 자체적으로 에러를 던집니다. 이 에러는 어디에서도 잡히지 않으므로 콘솔에서 확인할 수 있습니다.
 
-The problem is especially dangerous in server-side environments, such as Node.js, when an uncaught error may cause the process to crash.
+이 문제는 Node.js 같은 서버 측 환경에서 특히 위험합니다. 잡히지 않은 에러로 인해 프로세스가 중단될 수 있기 때문입니다.
 
-How to fix it?
+어떻게 고칠 수 있을까요?
 
-An ideal solution would be to cancel all unfinished queries when one of them fails. This way we avoid any potential errors.
+가장 이상적인 해결책은 쿼리 중 하나가 실패했을 때 아직 끝나지 않은 쿼리를 모두 취소하는 것입니다. 이렇게 하면 잠재적인 에러를 피할 수 있습니다.
 
-However, the bad news is that service calls (such as `database.query`) are often implemented by a 3rd-party library which doesn't support cancellation. Then there's no way to cancel a call.
+하지만 안타깝게도 `database.query` 같은 서비스 호출은 취소 기능을 지원하지 않는 서드파티 라이브러리로 구현된 경우가 많습니다. 이런 경우 호출을 취소할 방법이 없습니다.
 
-As an alternative, we can write our own wrapper function around `Promise.all` which adds a custom `then/catch` handler to each promise to track them: results are gathered and, if an error occurs, all subsequent promises are ignored.
+대안으로 `Promise.all`을 감싸는 래퍼 함수를 직접 작성할 수 있습니다. 이 함수는 각 프라미스에 커스텀 `then/catch` 핸들러를 붙여 상태를 추적합니다. 결과를 모으다가 에러가 발생하면 그 이후 프라미스는 모두 무시합니다.
 
 ```js
 function customPromiseAll(promises) {
   return new Promise((resolve, reject) => {
     const results = [];
     let resultsCount = 0;
-    let hasError = false; // we'll set it to true upon first error
+    let hasError = false; // 첫 번째 에러가 발생하면 true로 바꿉니다.
 
     promises.forEach((promise, index) => {
       promise
         .then(result => {
-          if (hasError) return; // ignore the promise if already errored
+          if (hasError) return; // 이미 에러가 발생했다면 이 프라미스를 무시합니다.
           results[index] = result;
           resultsCount++;
           if (resultsCount === promises.length) {
-            resolve(results); // when all results are ready - successs
+            resolve(results); // 모든 결과가 준비되면 성공입니다.
           }
         })
         .catch(error => {
-          if (hasError) return; // ignore the promise if already errored
-          hasError = true; // wops, error!
-          reject(error); // fail with rejection
+          if (hasError) return; // 이미 에러가 발생했다면 이 프라미스를 무시합니다.
+          hasError = true; // 에러가 발생했습니다.
+          reject(error); // 거부 상태로 실패 처리합니다.
         });
     });
   });
 }
 ```
 
-This approach has an issue of its own - it's often undesirable to `disconnect()` when queries are still in the process.
+이 방식에도 문제가 있습니다. 쿼리가 아직 처리 중일 때 `disconnect()`를 호출하는 것은 대개 바람직하지 않습니다.
 
-It may be important that all queries complete, especially if some of them make important updates.
+특히 일부 쿼리가 중요한 업데이트를 처리한다면 모든 쿼리가 끝까지 완료되어야 할 수 있습니다.
 
-So we should wait until all promises are settled before going further with the execution and eventually disconnecting.
+따라서 실행을 계속 진행하고 마지막에 연결을 끊기 전에 모든 프라미스가 처리될 때까지 기다려야 합니다.
 
-Here's another implementation. It behaves similar to `Promise.all` - also resolves with the first error, but waits until all promises are settled.
+다른 구현을 살펴봅시다. 이 구현은 `Promise.all`과 비슷하게 동작합니다. 첫 번째 에러와 함께 거부되지만, 모든 프라미스가 처리될 때까지 기다립니다.
 
 ```js
 function customPromiseAllWait(promises) {
@@ -80,16 +80,16 @@ function customPromiseAllWait(promises) {
 }
 ```
 
-Now `await customPromiseAllWait(...)` will stall the execution until all queries are processed.
+이제 `await customPromiseAllWait(...)`는 모든 쿼리가 처리될 때까지 실행을 멈춥니다.
 
-This is a more reliable approach, as it guarantees a predictable execution flow.
+실행 흐름을 예측할 수 있게 보장하므로 더 안정적인 방식입니다.
 
-Lastly, if we'd like to process all errors, we can use either use `Promise.allSettled` or write a wrapper around it to gathers all errors in a single [AggregateError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError) object and rejects with it.
+마지막으로 모든 에러를 처리하고 싶다면 `Promise.allSettled`를 사용하거나, 모든 에러를 하나의 [AggregateError](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/AggregateError) 객체에 모아 그 객체로 거부하는 래퍼를 작성할 수 있습니다.
 
 ```js
-// wait for all promises to settle
-// return results if no errors
-// throw AggregateError with all errors if any
+// 모든 프라미스가 처리될 때까지 기다립니다.
+// 에러가 없으면 결과를 반환합니다.
+// 에러가 하나라도 있으면 모든 에러가 담긴 AggregateError를 던집니다.
 function allOrAggregateError(promises) {
   return Promise.allSettled(promises).then(results => {
     const errors = [];
