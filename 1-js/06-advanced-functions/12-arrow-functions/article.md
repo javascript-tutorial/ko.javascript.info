@@ -51,13 +51,8 @@ let group = {
   showList() {
 *!*
     this.students.forEach(function(student) {
-<<<<<<< HEAD
-      // TypeError: Cannot read property 'title' of undefined
-      alert(this.title + ': ' + student)
-=======
       // Error: Cannot read property 'title' of undefined
       alert(this.title + ': ' + student);
->>>>>>> upstream/master
     });
 */!*
   }
