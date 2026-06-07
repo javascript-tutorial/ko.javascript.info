@@ -5,11 +5,7 @@
 
 그런데 객체형은 원시형과 달리 다양한 데이터를 담을 수 있습니다. 키로 구분된 데이터 집합이나 복잡한 개체(entity)를 저장할 수 있죠. 객체는 자바스크립트 거의 모든 면에 녹아있는 개념이므로 자바스크립트를 잘 다루려면 객체를 잘 이해하고 있어야 합니다.
 
-<<<<<<< HEAD
 객체는 중괄호 `{…}`를 이용해 만들 수 있습니다. 중괄호 안에는 '키(key): 값(value)' 쌍으로 구성된 *프로퍼티(property)* 를 여러 개 넣을 수 있는데, `키`엔 문자형, `값`엔 모든 자료형이 허용됩니다. 프로퍼티 키는 '프로퍼티 이름' 이라고도 부릅니다.
-=======
-An object can be created with curly braces `{…}` with an optional list of *properties*. A property is a "key: value" pair, where `key` is a string (also called a "property name"), and `value` can be anything.
->>>>>>> upstream/master
 
 서랍장을 상상하면 객체를 이해하기 쉽습니다. 서랍장 안 파일은 프로퍼티, 파일 각각에 붙어있는 이름표는 객체의 키라고 생각하시면 됩니다. 복잡한 서랍장 안에서 이름표를 보고 원하는 파일을 쉽게 찾을 수 있듯이, 객체에선 키를 이용해 프로퍼티를 쉽게 찾을 수 있습니다. 추가나 삭제도 마찬가지입니다.
 
@@ -24,11 +20,7 @@ let user = {};  // '객체 리터럴' 문법
 
 ![](object-user-empty.svg)
 
-<<<<<<< HEAD
 중괄호 `{...}`를 이용해 객체를 선언하는 것을 *객체 리터럴(object literal)* 이라고 부릅니다. 객체를 선언할 땐 주로 이 방법을 사용합니다.
-=======
-Usually, the curly braces `{...}` are used. That declaration is called an *object literal*.
->>>>>>> upstream/master
 
 ## 리터럴과 프로퍼티
 
@@ -52,11 +44,7 @@ let user = {     // 객체
 
 ![user object](object-user.svg)
 
-<<<<<<< HEAD
-서랍장에 파일을 추가하고 뺄 수 있듯이 개발자는 프로퍼티를 추가, 삭제할 수 있습니다.
-=======
-We can add, remove and read files from it at any time.
->>>>>>> upstream/master
+서랍장에 파일을 추가하고, 꺼내 읽고, 뺄 수 있듯이 개발자는 프로퍼티를 추가, 조회, 삭제할 수 있습니다.
 
 점 표기법(dot notation)을 이용하면 프로퍼티 값을 읽는 것도 가능합니다.
 
@@ -74,11 +62,7 @@ user.isAdmin = true;
 
 ![user object 2](object-user-isadmin.svg)
 
-<<<<<<< HEAD
 `delete` 연산자를 사용하면 프로퍼티를 삭제할 수 있습니다.
-=======
-To remove a property, we can use the `delete` operator:
->>>>>>> upstream/master
 
 ```js
 delete user.age;
@@ -108,35 +92,8 @@ let user = {
 ```
 이런 쉼표를 'trailing(길게 늘어지는)' 혹은 'hanging(매달리는)' 쉼표라고 부릅니다. 이렇게 끝에 쉼표를 붙이면 모든 프로퍼티가 유사한 형태를 보이기 때문에 프로퍼티를 추가, 삭제, 이동하는 게 쉬워집니다.
 
-<<<<<<< HEAD
-````smart header="상수 객체는 수정될 수 있습니다."
-주의하세요. `const`로 선언된 객체는 수정될 수 있습니다.
-
-예시:
-
-```js run
-const user = {
-  name: "John"
-};
-
-*!*
-user.name = "Pete"; // (*)
-*/!*
-
-alert(user.name); // Pete
-```
-
-`(*)`로 표시한 줄에서 오류를 일으키는 것처럼 보일 수 있지만 그렇지 않습니다. `const`는 `user`의 값을 고정하지만, 그 내용은 고정하지 않습니다.
-
-`const`는 `user=...`를 전체적으로 설정하려고 할 때만 오류가 발생합니다.
-
-상수 객체 프로퍼티를 만드는 또 다른 방법이 있습니다. 이후에 <info:property-descriptors> 챕터에서 다루겠습니다.
-````
 
 ## 대괄호 표기법
-=======
-## Square brackets
->>>>>>> upstream/master
 
 여러 단어를 조합해 프로퍼티 키를 만든 경우엔, 점 표기법을 사용해 프로퍼티 값을 읽을 수 없습니다.
 
@@ -245,21 +202,13 @@ let bag = {
 };
 ```
 
-<<<<<<< HEAD
 대괄호 표기법은 프로퍼티 이름과 값의 제약을 없애주기 때문에 점 표기법보다 훨씬 강력합니다. 그런데 작성하기 번거롭다는 단점이 있습니다.
-=======
-Square brackets are much more powerful than dot notation. They allow any property names and variables. But they are also more cumbersome to write.
->>>>>>> upstream/master
 
 이런 이유로 프로퍼티 이름이 확정된 상황이고, 단순한 이름이라면 처음엔 점 표기법을 사용하다가 뭔가 복잡한 상황이 발생했을 때 대괄호 표기법으로 바꾸는 경우가 많습니다.
 
 ## 단축 프로퍼티
 
-<<<<<<< HEAD
 실무에선 프로퍼티 값을 기존 변수에서 받아와 사용하는 경우가 종종 있습니다.
-=======
-In real code, we often use existing variables as values for property names.
->>>>>>> upstream/master
 
 예시:
 
@@ -304,11 +253,7 @@ let user = {
 
 ## 프로퍼티 이름의 제약사항
 
-<<<<<<< HEAD
-아시다시피 변수 이름(키)엔 'for', 'let', 'return' 같은 예약어를 사용하면 안됩니다.
-=======
-As we already know, a variable cannot have a name equal to one of the language-reserved words like "for", "let", "return" etc.
->>>>>>> upstream/master
+아시다시피 변수 이름엔 'for', 'let', 'return' 같은 예약어를 사용하면 안됩니다.
 
 그런데 객체 프로퍼티엔 이런 제약이 없습니다.
 
@@ -381,11 +326,7 @@ alert( "blabla" in user ); // user.blabla는 존재하지 않기 때문에 false
 
 `in` 왼쪽엔 반드시 *프로퍼티 이름*이 와야 합니다. 프로퍼티 이름은 보통 따옴표로 감싼 문자열입니다.
 
-<<<<<<< HEAD
 따옴표를 생략하면 아래 예시와 같이 엉뚱한 변수가 조사 대상이 됩니다. 
-=======
-If we omit quotes, that means a variable should contain the actual name to be tested. For instance:
->>>>>>> upstream/master
 
 ```js run
 let user = { age: 30 };
@@ -415,11 +356,7 @@ alert( "test" in obj ); // `in`을 사용하면 프로퍼티 유무를 제대로
 `undefined`는 변수는 정의되어 있으나 값이 할당되지 않은 경우에 쓰기 때문에 프로퍼티 값이 `undefined`인 경우는 흔치 않습니다. 값을 '알 수 없거나(unknown)' 값이 '비어 있다는(empty)' 것을 나타낼 때는 주로 `null`을 사용합니다. 위 예시에서 `in` 연산자는 자리에 어울리지 않는 초대손님처럼 보이네요.
 
 
-<<<<<<< HEAD
-## 'for..in' 반복문
-=======
-## The "for..in" loop [#forin]
->>>>>>> upstream/master
+## 'for..in' 반복문 [#forin]
 
 `for..in` 반복문을 사용하면 객체의 모든 키를 순회할 수 있습니다. `for..in`은 앞서 학습했던 `for(;;)` 반복문과는 완전히 다릅니다.
 
@@ -476,11 +413,7 @@ for (let code in codes) {
 */!*
 ```
 
-<<<<<<< HEAD
 현재 개발 중인 애플리케이션의 주 사용자가 독일인이라고 가정해 봅시다. 나라 번호를 선택하는 화면에서 `49`가 맨 앞에 오도록 하는 게 좋을 겁니다.
-=======
-The object may be used to suggest a list of options to the user. If we're making a site mainly for a German audience then we probably want `49` to be the first.
->>>>>>> upstream/master
 
 그런데 코드를 실행해 보면 예상과는 전혀 다른 결과가 출력됩니다.
 
@@ -492,24 +425,14 @@ The object may be used to suggest a list of options to the user. If we're making
 ````smart header="정수 프로퍼티? 그게 뭔가요?"
 '정수 프로퍼티'라는 용어는 변형 없이 정수에서 왔다 갔다 할 수 있는 문자열을 의미합니다.
 
-<<<<<<< HEAD
 문자열 "49"는 정수로 변환하거나 변환한 정수를 다시 문자열로 바꿔도 변형이 없기 때문에 정수 프로퍼티입니다. 하지만 '+49'와 '1.2'는 정수 프로퍼티가 아닙니다.
 
 ```js run
+// Number(...)는 명시적으로 값을 숫자형으로 변환합니다.
 // 함수 Math.trunc는 소수점 아래를 버리고 숫자의 정수부만 반환합니다.
 alert( String(Math.trunc(Number("49"))) ); // '49'가 출력됩니다. 기존에 입력한 값과 같으므로 정수 프로퍼티입니다.
 alert( String(Math.trunc(Number("+49"))) ); // '49'가 출력됩니다. 기존에 입력한 값(+49)과 다르므로 정수 프로퍼티가 아닙니다.
 alert( String(Math.trunc(Number("1.2"))) ); // '1'이 출력됩니다. 기존에 입력한 값(1.2)과 다르므로 정수 프로퍼티가 아닙니다.
-=======
-So, `"49"` is an integer property name, because when it's transformed to an integer number and back, it's still the same. But `"+49"` and `"1.2"` are not:
-
-```js run
-// Number(...) explicitly converts to a number
-// Math.trunc is a built-in function that removes the decimal part
-alert( String(Math.trunc(Number("49"))) ); // "49", same, integer property
-alert( String(Math.trunc(Number("+49"))) ); // "49", not same "+49" ⇒ not integer property
-alert( String(Math.trunc(Number("1.2"))) ); // "1", not same "1.2" ⇒ not integer property
->>>>>>> upstream/master
 ```
 ````
 
@@ -558,15 +481,9 @@ for (let code in codes) {
 - 프로퍼티 키는 문자열이나 심볼이어야 합니다. 보통은 문자열입니다.
 - 값은 어떤 자료형도 가능합니다.
 
-<<<<<<< HEAD
 아래와 같은 방법을 사용하면 프로퍼티에 접근할 수 있습니다.
 - 점 표기법: `obj.property`
 - 대괄호 표기법 `obj["property"]`. 대괄호 표기법을 사용하면 `obj[varWithKey]`같이 변수에서 키를 가져올 수 있습니다.
-=======
-To access a property, we can use:
-- The dot notation: `obj.property`.
-- Square brackets notation `obj["property"]`. Square brackets allow taking the key from a variable, like `obj[varWithKey]`.
->>>>>>> upstream/master
 
 객체엔 다음과 같은 추가 연산자를 사용할 수 있습니다.
 - 프로퍼티를 삭제하고 싶을 때: `delete obj.prop`
