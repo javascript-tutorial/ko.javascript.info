@@ -159,7 +159,7 @@ Function `animate` accepts 3 parameters that essentially describes the animation
     }
     ```
 
-    It's graph:
+    Its graph:
     ![](linear.svg)
 
     That's just like `transition-timing-function: linear`. There are more interesting variants shown below.
@@ -283,7 +283,7 @@ The `bounce` function does the same, but in the reverse order: "bouncing" starts
 
 ```js
 function bounce(timeFraction) {
-  for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+  for (let a = 0, b = 1; 1; a += b, b /= 2) {
     if (timeFraction >= (7 - 4 * a) / 11) {
       return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
     }
