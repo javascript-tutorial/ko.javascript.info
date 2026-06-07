@@ -1,10 +1,6 @@
 # focus와 blur
 
-<<<<<<< HEAD
 사용자가 폼 요소를 클릭하거나 `key:Tab` 키를 눌러 요소로 이동하면 해당 요소가 포커스(focus)됩니다. `autofocus`라는 HTML 속성을 사용해도 요소를 포커스 할 수 있는데 이 속성이 있는 요소는 페이지가 로드된 후 자동으로 포커싱 됩니다. 이 외에도 요소를 포커싱(focusing)할 수 있는 방법은 다양합니다.
-=======
-An element receives the focus when the user either clicks on it or uses the `key:Tab` key on the keyboard. There's also an `autofocus` HTML attribute that puts the focus onto an element by default when a page loads and other means of getting the focus.
->>>>>>> upstream/master
 
 요소를 포커싱한다는 것은 일반적으로 '여기에 데이터를 입력할 준비를 하라'는 것을 의미하기 때문에 요소 포커싱이 이뤄지는 순간엔 요구사항을 충족시키는 초기화 코드를 실행할 수 있습니다.
 
@@ -22,13 +18,8 @@ An element receives the focus when the user either clicks on it or uses the `key
 
 예시에서 각 핸들러는 다음과 같은 역할을 합니다.
 
-<<<<<<< HEAD
 - `blur` 핸들러에선 필드에 이메일이 잘 입력되었는지 확인하고 잘 입력되지 않은 경우엔 에러를 보여줍니다.
 - `focus` 핸들러에선 에러 메시지를 숨깁니다(이메일 재확인은 `blur` 핸들러에서 합니다).
-=======
-- The `blur` handler checks if the field has an email entered, and if not -- shows an error.
-- The `focus` handler hides the error message (on `blur` it will be checked again):
->>>>>>> upstream/master
 
 ```html run autorun height=60
 <style>
@@ -99,35 +90,27 @@ An element receives the focus when the user either clicks on it or uses the `key
 
 여기서 주의해야 할 점은 `onblur`는 요소가 포커스를 잃고 난 *후*에 발생하기 때문에 `onblur` 안에서 `event.preventDefault()`를 호출해 포커스를 잃게 하는걸 '막을 수 없다'라는 사실입니다. 
 
-In practice though, one should think well, before implementing something like this, because we generally *should show errors* to the user, but *should not prevent their progress* in filling our form. They may want to fill other fields first.
+하지만 실제로 이런 기능을 구현하기 전엔 신중하게 생각해야 합니다. 일반적으로 사용자에게 *에러를 표시하는 것*은 필요하지만, 폼 작성을 *방해해서는 안 되기* 때문입니다. 사용자가 다른 항목을 먼저 작성하고 싶을 수도 있습니다.
 
-```warn header="JavaScript-initiated focus loss"
-A focus loss can occur for many reasons.
+```warn header="자바스크립트에 의해 포커스를 잃는 경우"
+포커스를 잃는 데에는 여러 가지 이유가 있습니다.
 
-One of them is when the visitor clicks somewhere else. But also JavaScript itself may cause it, for instance:
+그중 하나는 방문자가 다른 곳을 클릭했을 때입니다. 하지만 자바스크립트 자체도 원인이 될 수 있습니다. 예를 들면 다음과 같습니다.
 
-- An `alert` moves focus to itself, so it causes the focus loss at the element (`blur` event), and when the `alert` is dismissed, the focus comes back (`focus` event).
-- If an element is removed from DOM, then it also causes the focus loss. If it is reinserted later, then the focus doesn't return.
+- `alert`는 포커스를 자기 자신으로 이동시키므로 기존 요소가 포커스를 잃게 만듭니다(`blur` 이벤트). 그리고 `alert`가 닫히면 포커스가 다시 돌아옵니다(`focus` 이벤트).
+- 요소가 DOM에서 제거되는 경우에도 포커스를 잃게 됩니다. 나중에 요소가 다시 삽입되더라도 포커스는 돌아오지 않습니다.
 
-These features sometimes cause `focus/blur` handlers to misbehave -- to trigger when they are not needed.
+이러한 특징 때문에 때때로 `focus/blur` 핸들러가 필요하지 않을 때에도 작동하는 경우가 있습니다.
 
-The best recipe is to be careful when using these events. If we want to track user-initiated focus-loss, then we should avoid causing it ourselves.
+따라서 이런 이벤트를 사용할 때는 주의해야 합니다. 사용자 동작으로 포커스를 잃는 상황을 추적하려면 자바스크립트로 요소가 포커스를 잃게 만드는 일을 피해야 합니다.
 ```
 ## tabindex를 사용해서 모든 요소 포커스 하기
 
-<<<<<<< HEAD
 대다수의 요소는 기본적으로 포커싱을 지원하지 않습니다.
-=======
-By default, many elements do not support focusing.
->>>>>>> upstream/master
 
 포커싱을 지원하지 않는 요소 목록은 브라우저마다 다르긴 하지만 한 가지 확실한 것은 `<button>`, `<input>`, `<select>`, `<a>`와 같이 사용자가 웹 페이지와 상호작용 할 수 있게 도와주는 요소는 `focus`, `blur`를 지원한다는 사실입니다.
 
-<<<<<<< HEAD
 반면 `<div>`, `<span>`, `<table>`같이 무언가를 표시하는 용도로 사용하는 요소들은 포커싱을 지원하지 않습니다. 따라서 이런 요소엔 `elem.focus()` 메서드가 동작하지 않고 `focus`, `blur`이벤트도 트리거 되지 않습니다.
-=======
-On the other hand, elements that exist to format something, such as `<div>`, `<span>`, `<table>` -- are unfocusable by default. The method `elem.focus()` doesn't work on them, and `focus/blur` events are never triggered.
->>>>>>> upstream/master
 
 그럼에도 불구하고 포커스를 하고 싶다면 `tabindex` HTML 속성을 사용하면 됩니다.
 
@@ -137,11 +120,7 @@ On the other hand, elements that exist to format something, such as `<div>`, `<s
 
 포커싱 되는 요소 순서는 다음과 같습니다. `tabindex`가 `1`인 요소부터 시작해 점점 큰 숫자가 매겨진 요소로 이동하고 그다음 `tabindex`가 없는 요소(평범한 `<input>` 요소 등)로 이동합니다.
 
-<<<<<<< HEAD
 `tabindex`가 없는 요소들은 문서 내 순서에 따라 포커스가 이동합니다(기본 순서).
-=======
-Elements without matching `tabindex` are switched in the document source order (the default order).
->>>>>>> upstream/master
 
 그런데 `tabindex`를 사용할 땐 주의해야 할 사항이 있습니다.
 
@@ -154,11 +133,7 @@ Elements without matching `tabindex` are switched in the document source order (
 예시를 살펴봅시다. 첫 번째 항목을 클릭하고 `key:Tab` 키를 눌러보세요.
 
 ```html autorun no-beautify
-<<<<<<< HEAD
 첫 번째 항목을 클릭하고 Tab 키를 눌러보면서 포커스 된 요소 순서를 눈여겨보세요. 참고로 탭을 많이 누르면 예시 밖으로 포커스가 이동하니, 주의하세요.
-=======
-Click the first item and press Tab. Keep track of the order. Please note that many subsequent Tabs can move the focus out of the iframe in the example.
->>>>>>> upstream/master
 <ul>
   <li tabindex="1">일</li>
   <li tabindex="0">영</li>
@@ -242,11 +217,7 @@ Click the first item and press Tab. Keep track of the order. Please note that ma
 
 ## 요약
 
-<<<<<<< HEAD
-`focus`와 `blur` 이벤트는 각각 요소가 포커스를 받을 때, 잃을 때 발생합니다.
-=======
-Events `focus` and `blur` trigger on an element focusing/losing focus.
->>>>>>> upstream/master
+`focus`와 `blur` 이벤트는 각각 요소가 포커스를 받을 때와 잃을 때 발생합니다.
 
 두 이벤트를 사용할 땐 다음을 유의해야 합니다.
 - `focus`와 `blur` 이벤트는 버블링 되지 않습니다. 캡처링이나 `focusin`, `focusout`을 사용하면 이벤트 위임 효과를 볼 수 있습니다.
