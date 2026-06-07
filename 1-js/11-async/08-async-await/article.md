@@ -69,17 +69,10 @@ f();
 
 `await`는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만듭니다. 프라미스가 처리되면 그 결과와 함께 실행이 재개되죠. 프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에, CPU 리소스가 낭비되지 않습니다.
 
-<<<<<<< HEAD
 `await`는 `promise.then`보다 좀 더 세련되게 프라미스의 `result` 값을 얻을 수 있도록 해주는 문법입니다. `promise.then`보다 가독성 좋고 쓰기도 쉽습니다.
 
-````warn header="일반 함수엔 `await`을 사용할 수 없습니다."
+````warn header="일반 함수에는 `await`을 사용할 수 없습니다."
 `async` 함수가 아닌데 `await`을 사용하면 문법 에러가 발생합니다.
-=======
-It's just a more elegant syntax of getting the promise result than `promise.then`. And, it's easier to read and write.
-
-````warn header="Can't use `await` in regular functions"
-If we try to use `await` in a non-async function, there would be a syntax error:
->>>>>>> upstream/master
 
 ```js run
 function f() {
@@ -90,11 +83,7 @@ function f() {
 }
 ```
 
-<<<<<<< HEAD
 function 앞에 `async`를 붙이지 않으면 이런 에러가 발생할 수 있습니다. 앞서 설명해 드린 바와 같이 `await`는 `async` 함수 안에서만 동작합니다.
-=======
-We may get this error if we forget to put `async` before a function. As stated earlier, `await` only works inside an `async` function.
->>>>>>> upstream/master
 ````
 
 <info:promise-chaining> 챕터의 `showAvatar()` 예시를 `async/await`를 사용해 다시 작성해봅시다.
@@ -132,34 +121,22 @@ showAvatar();
 
 코드가 깔끔해지고 읽기도 쉬워졌습니다. 프라미스를 사용한 것보다 훨씬 낫네요.
 
-<<<<<<< HEAD
-````smart header="`await`는 최상위 레벨 코드에서 작동하지 않습니다."
-`await`을 이제 막 사용하기 시작한 분들은 최상위 레벨 코드(top-level code)에 `await`을 사용할 수 없다는 사실을 잊곤 합니다. 아래와 같은 코드는 동작하지 않습니다.
+````smart header="최신 브라우저에서는 모듈 안에서 최상위 레벨 `await`를 사용할 수 있습니다."
+최신 브라우저에서는 모듈 안이라면 최상위 레벨의 `await`가 문제없이 작동합니다. 모듈은 <info:modules-intro> 글에서 다룰 예정입니다.
 
-```js run
-// 최상위 레벨 코드에선 문법 에러가 발생함
-=======
-````smart header="Modern browsers allow top-level `await` in modules"
-In modern browsers, `await` on top level works just fine, when we're inside a module. We'll cover modules in article <info:modules-intro>.
-
-For instance:
+예를 들면 다음과 같습니다.
 
 ```js run module
-// we assume this code runs at top level, inside a module
->>>>>>> upstream/master
+// 이 코드는 모듈 안의 최상위 레벨에서 실행된다고 가정합니다
 let response = await fetch('/article/promise-chaining/user.json');
 let user = await response.json();
 
 console.log(user);
 ```
 
-<<<<<<< HEAD
-하지만 익명 async 함수로 코드를 감싸면 최상위 레벨 코드에도 `await`를 사용할 수 있습니다.
-=======
-If we're not using modules, or [older browsers](https://caniuse.com/mdn-javascript_operators_await_top_level) must be supported, there's a universal recipe: wrapping into an anonymous async function.
+모듈을 사용하지 않거나 [오래된 브라우저](https://caniuse.com/mdn-javascript_operators_await_top_level)를 지원해야 한다면, 익명 async 함수로 감싸는 범용적인 방법을 사용할 수 있습니다.
 
-Like this:
->>>>>>> upstream/master
+다음과 같이 말이죠.
 
 ```js
 (async () => {
@@ -325,13 +302,8 @@ function 앞에 `async` 키워드를 추가하면 두 가지 효과가 있습니
 
 프라미스 앞에 `await` 키워드를 붙이면 자바스크립트는 프라미스가 처리될 때까지 대기합니다. 처리가 완료되면 조건에 따라 아래와 같은 동작이 이어집니다.
 
-<<<<<<< HEAD
 1. 에러 발생 --  예외가 생성됨(에러가 발생한 장소에서 `throw error`를 호출한 것과 동일함)
 2. 에러 미발생 -- 프라미스 객체의 result 값을 반환
-=======
-1. If it's an error, an exception is generated — same as if `throw error` were called at that very place.
-2. Otherwise, it returns the result.
->>>>>>> upstream/master
 
 `async/await`를 함께 사용하면 읽고, 쓰기 쉬운 비동기 코드를 작성할 수 있습니다.
 
