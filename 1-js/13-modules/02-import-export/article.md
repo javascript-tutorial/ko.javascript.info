@@ -93,7 +93,6 @@ say.sayBye('John');
 
 이렇게 하는 데는 몇 가지 이유가 있습니다.
 
-<<<<<<< HEAD
 1. [웹팩(webpack)](http://webpack.github.io)과 같은 모던 빌드 툴은 로딩 속도를 높이기 위해 모듈들을 한데 모으는 번들링과 최적화를 수행합니다. 이 과정에서 사용하지 않는 리소스가 삭제되기도 합니다. 
 
     아래와 같이 프로젝트에 서드파티 라이브러리인 `say.js`를 도입하였다 가정합시다. 이 라이브러리엔 수 많은 함수가 있습니다.
@@ -113,16 +112,6 @@ say.sayBye('John');
 
 2. 어떤 걸 가지고 올지 명시하면 이름을 간결하게 써줄 수 있습니다. `say.sayHi()`보다 `sayHi()`가 더 간결하네요.
 3. 어디서 어떤 게 쓰이는지 명확하기 때문에 코드 구조를 파악하기가 쉬워 리팩토링이나 유지보수에 도움이 됩니다.
-=======
-1. Explicitly listing what to import gives shorter names: `sayHi()` instead of `say.sayHi()`.
-2. Explicit list of imports gives better overview of the code structure: what is used and where. It makes code support and refactoring easier.
-
-```smart header="Don't be afraid to import too much"
-Modern build tools, such as [webpack](https://webpack.js.org/) and others, bundle modules together and optimize them to speedup loading. They also remove unused imports.
-
-For instance, if you `import * as library` from a huge code library, and then use only few methods, then unused ones [will not be included](https://github.com/webpack/webpack/tree/main/examples/harmony-unused#examplejs) into the optimized bundle.
-```
->>>>>>> upstream/master
 
 ## import 'as'
 
@@ -332,11 +321,7 @@ export {default as User} from './user.js'; // default export를 다시 내보내
 
 다시 내보내기가 왜 필요한건지 의문이 드실 겁니다. 유스 케이스를 통해 다시 내보내기가 실무에서 언제 사용되는지 알아봅시다.
 
-<<<<<<< HEAD
 NPM을 통해 외부에 공개할 '패키지(package)'를 만들고 있다고 가정합시다. 이 패키지는 수많은 모듈로 구성되어있는데, 몇몇 모듈은 외부에 공개할 기능을, 몇몇 모듈은 이러한 모듈을 도와주는 '헬퍼' 역할을 담당하고 있다고 합시다.
-=======
-Imagine, we're writing a "package": a folder with a lot of modules, with some of the functionality exported outside (tools like NPM allow us to publish and distribute such packages, but we don't have to use them), and many modules are just "helpers", for internal use in other package modules.
->>>>>>> upstream/master
 
 패키지 구조는 아래와 같습니다.
 ```
@@ -352,27 +337,13 @@ auth/
         ...
 ```
 
-<<<<<<< HEAD
 진입점 역할을 하는 '주요 파일'인 `auth/index.js`을 통해 기능을 외부에 노출시키면 이 패키지를 사용하는 개발자들은 아래와 같은 코드로 해당 기능을 사용할 겁니다.
-=======
-We'd like to expose the package functionality via a single entry point.
-
-In other words, a person who would like to use our package, should import only from the "main file" `auth/index.js`.
-
-Like this:
->>>>>>> upstream/master
 
 ```js
 import {login, logout} from 'auth/index.js'
 ```
 
-<<<<<<< HEAD
 이때 우리가 만든 패키지를 사용하는 외부 개발자가 패키지 안의 파일들을 뒤져 내부 구조를 건드리게 하면 안 됩니다. 그러려면 공개할 것만 `auth/index.js`에 넣어 내보내기 하고 나머지는 숨기는 게 좋겠죠. 
-=======
-The "main file", `auth/index.js` exports all the functionality that we'd like to provide in our package.
-
-The idea is that outsiders, other programmers who use our package, should not meddle with its internal structure, search for files inside our package folder. We export only what's necessary in `auth/index.js` and keep the rest hidden from prying eyes.
->>>>>>> upstream/master
 
 이때 내보낼 기능을 패키지 전반에 분산하여 구현한 후, `auth/index.js`에서 이 기능들을 가져오고 이를 다시 내보내면 원하는 바를 어느 정도 달성할 수 있습니다.
 
@@ -395,36 +366,19 @@ export {User};
 
 ```js
 // 📁 auth/index.js
-<<<<<<< HEAD
 // login과 logout을 가지고 온 후 바로 내보냅니다.
 export {login, logout} from './helpers.js';
 
 // User 가져온 후 바로 내보냅니다.
-=======
-// re-export login/logout
-export {login, logout} from './helpers.js';
-
-// re-export the default export as User
->>>>>>> upstream/master
 export {default as User} from './user.js';
 ...
 ```
 
-<<<<<<< HEAD
 ### default export 다시 내보내기
-=======
-The notable difference of `export ... from` compared to `import/export` is that re-exported modules aren't available in the current file. So inside the above example of `auth/index.js` we can't use re-exported `login/logout` functions.
-
-### Re-exporting the default export
->>>>>>> upstream/master
 
 기본 내보내기를 다시 내보낼 때는 주의해야 할 점들이 있습니다.
 
-<<<<<<< HEAD
 `user.js` 내의 클래스 `User`를 다시 내보내기 한다고 가정해 봅시다.
-=======
-Let's say we have `user.js` with the `export default class User` and would like to re-export it:
->>>>>>> upstream/master
 
 ```js
 // 📁 user.js
@@ -433,35 +387,19 @@ export default class User {
 }
 ```
 
-<<<<<<< HEAD
 1. `User`를 `export User from './user.js'`로 다시 내보내기 할 때 문법 에러가 발생합니다. 어디가 잘못된 걸까요?
 
     default export를 다시 내보내려면 위 예시처럼 `export {default as User}`를 사용해야 합니다.
-=======
-We can come across two problems with it:
-
-1. `export User from './user.js'` won't work. That would lead to a syntax error.
-
-    To re-export the default export, we have to write `export {default as User}`, as in the example above.
->>>>>>> upstream/master
 
 2. `export * from './user.js'`를 사용해 모든 걸 한 번에 다시 내보내면 default export는 무시되고, named export만 다시 내보내집니다.
 
-<<<<<<< HEAD
     두 가지를 동시에 다시 내보내고 싶다면 두 문을 동시에 사용해야 합니다.
-=======
-    If we'd like to re-export both named and default exports, then two statements are needed:
->>>>>>> upstream/master
     ```js
     export * from './user.js'; // named export를 다시 내보내기
     export {default} from './user.js'; // default export를 다시 내보내기
     ```
 
-<<<<<<< HEAD
 default export를 다시 내보낼 땐 이런 특이한 상황도 인지하고 있다가 처리해줘야 하므로 몇몇 개발자들은 default export를 다시 내보내는것을 선호하지 않습니다.
-=======
-Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
->>>>>>> upstream/master
 
 ## 요약
 
@@ -480,7 +418,6 @@ Such oddities of re-exporting a default export are one of the reasons why some d
 
 가져오기 타입 역시 정리해 봅시다.
 
-<<<<<<< HEAD
 - named export 가져오기:
   - `import {x [as y], ...} from "mod"`
 - default export 가져오기:
@@ -490,17 +427,6 @@ Such oddities of re-exporting a default export are one of the reasons why some d
   - `import * as obj from "mod"`
 - 모듈을 가져오긴 하지만(코드는 실행됨), 변수에 할당하지 않기:
   - `import "mod"`
-=======
-- Importing named exports:
-  - `import {x [as y], ...} from "module"`
-- Importing the default export:
-  - `import x from "module"`
-  - `import {default as x} from "module"`
-- Import all:
-  - `import * as obj from "module"`
-- Import the module (its code runs), but do not assign any of its exports to variables:
-  - `import "module"`
->>>>>>> upstream/master
 
 `import/export` 문은 스크립트의 맨 위나 맨 아래에 올 수 있는데 이 둘엔 차이가 없습니다.
 

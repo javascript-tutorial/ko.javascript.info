@@ -12,13 +12,8 @@ IDE를 이용하면 수많은 파일로 구성된 프로젝트를 불러오고, 
 
 아직 어떤 IDE를 사용할지 결정하지 못했다면, 아래 두 옵션을 고려해 보시길 바랍니다.
 
-<<<<<<< HEAD
 - [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료)
 - [WebStorm](http://www.jetbrains.com/webstorm/) (크로스 플랫폼, 유료)
-=======
-- [Visual Studio Code](https://code.visualstudio.com/) (cross-platform, free).
-- [WebStorm](https://www.jetbrains.com/webstorm/) (cross-platform, paid).
->>>>>>> upstream/master
 
 Windows 사용자라면 'Visual Studio'라는 IDE를 들어보셨을 겁니다. Visual Studio는 'Visual Studio Code'와는 다릅니다. 'Visual Studio'는 .NET 플랫폼 개발에 쓰이는 유료 에디터로, Windows에서만 사용할 수 있습니다. 자바스크립트도 지원합니다. Visual Studio의 무료 버전인 [Visual Studio Community](https://www.visualstudio.com/vs/community/)도 있으니 참고하시기 바랍니다.
 
@@ -34,21 +29,11 @@ Windows 사용자라면 'Visual Studio'라는 IDE를 들어보셨을 겁니다. 
 
 경량 에디터는 다양한 플러그인을 지원합니다. 디렉터리 레벨 문법 분석기나 자동완성기능 등을 플러그인을 설치해 사용할 수 있습니다. 플러그인을 사용하면 경량 에디터에서도 IDE 못지않게 다양한 기능을 사용할 수 있죠. 요즘엔 경량 에디터와 IDE 사이의 엄격한 구분이 사라져가는 추세입니다.
 
-<<<<<<< HEAD
 추천하는 에디터는 다음과 같습니다.
 
-- [Atom](https://atom.io/) (크로스 플랫폼, 무료)
-- [Visual Studio Code](https://code.visualstudio.com/) (크로스 플랫폼, 무료)
 - [Sublime Text](http://www.sublimetext.com) (크로스 플랫폼, 셰어웨어)
 - [Notepad++](https://notepad-plus-plus.org/) (Windows, 무료)
 - [Vim](http://www.vim.org/)이나 [Emacs](https://www.gnu.org/software/emacs/)도 에디터로 사용법만 잘 숙지하면 충분히 에디터 역할을 잘합니다.
-=======
-There are many options, for instance:
-
-- [Sublime Text](https://www.sublimetext.com/) (cross-platform, shareware).
-- [Notepad++](https://notepad-plus-plus.org/) (Windows, free).
-- [Vim](https://www.vim.org/) and [Emacs](https://www.gnu.org/software/emacs/) are also cool if you know how to use them.
->>>>>>> upstream/master
 
 ## 논쟁하지 맙시다
 
@@ -56,13 +41,10 @@ There are many options, for instance:
 
 이 외에도 제가 모르는 훌륭한 에디터가 있을 수 있으니 여러분이 가장 좋아하는 것 하나를 택하시면 됩니다.
 
-<<<<<<< HEAD
 여타 툴과 마찬가지로 에디터를 선택하는 것은 프로젝트의 종류, 개발 습관, 개인 성향에 따라 다르므로 이에 관한 논쟁은 지양하도록 합시다.
-=======
-The choice of an editor, like any other tool, is individual and depends on your projects, habits, and personal preferences.
 
-The author's personal opinion:
+저자의 개인적인 의견은 다음과 같습니다.
 
-- I'd use [Visual Studio Code](https://code.visualstudio.com/) if I develop mostly frontend.
-- Otherwise, if it's mostly another language/platform and partially frontend, then consider other editors, such as XCode (Mac), Visual Studio (Windows) or Jetbrains family (Webstorm, PHPStorm, RubyMine etc, depending on the language).
->>>>>>> upstream/master
+- 프론트엔드 개발을 주로 한다면 [Visual Studio Code](https://code.visualstudio.com/)를 사용하는 편이 좋습니다.
+- 반대로 다른 언어·플랫폼 개발이 주가 되고 프론트엔드는 일부만 다룬다면 Xcode(Mac), Microsoft Visual Studio(Windows), 또는 JetBrains 계열 IDE(WebStorm, PHPStorm, RubyMine 등)를 고려해볼 수 있습니다. 사용하는 언어에 따라 적절한 제품을 선택하면 됩니다.
+
