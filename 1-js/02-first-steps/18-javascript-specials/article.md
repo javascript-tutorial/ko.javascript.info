@@ -55,7 +55,11 @@ for(;;) {
 
 `'use strict'`는 스크립트 최상단이나 함수 본문 최상단에 있어야 합니다.
 
+<<<<<<< HEAD
 `'use strict'`가 없어도 코드는 정상적으로 동작합니다. 다만, 모던한 방식이 아닌 옛날 방식으로 동작하죠. '하위 호환성'을 지키면서 말이죠. 될 수 있으면 모던한 방식을 사용하는 걸 추천해 드립니다.
+=======
+Without `"use strict"`, everything still works, but some features behave in the old-fashioned, "compatible" way. We'd generally prefer the modern behavior.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 참고로, 추후에 배우게 될 클래스와 같은 몇몇 모던 기능은 엄격 모드를 자동으로 활성화합니다.
 
@@ -103,6 +107,7 @@ typeof function(){} == "function" // 함수는 특별하게 취급됩니다.
 
 호스트 환경이 브라우저인 경우, 다음과 같은 UI 함수를 이용해 사용자와 상호작용할 수 있습니다. 
 
+<<<<<<< HEAD
 [`prompt(question, [default])`](mdn:api/Window/prompt)
 : 프롬프트 창에 매개변수로 받은 `question`을 넣어 사용자에게 보여줍니다. '확인' 버튼을 눌렀을 땐 사용자가 입력한 값을 반환해주고, '취소' 버튼을 눌렀을 땐 `null`을 반환합니다.  
 
@@ -111,6 +116,16 @@ typeof function(){} == "function" // 함수는 특별하게 취급됩니다.
 
 [`alert(message)`](mdn:api/Window/alert)
 : `message`가 담긴 얼럿 창을 보여줍니다.
+=======
+[`prompt(question, [default])`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)
+: Ask a `question`, and return either what the visitor entered or `null` if they clicked "cancel".
+
+[`confirm(question)`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm)
+: Ask a `question` and suggest to choose between Ok and Cancel. The choice is returned as `true/false`.
+
+[`alert(message)`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert)
+: Output a `message`.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 세 함수는 모두 *모달* 창을 띄워주는데, 모달 창이 닫히기 전까지 코드 실행이 중지됩니다. 사용자는 모달 창 외에 페이지에 있는 그 무엇과도 상호작용할 수 없습니다. 
 
@@ -143,8 +158,13 @@ alert( "차 주문 여부: " + isTeaWanted ); // true
 할당 연산자
 : `a = b` 형태의 할당 연산자와 `a *= 2` 형태의 복합 할당 연산자가 있습니다.
 
+<<<<<<< HEAD
 비트 연산자
 : 비트 연산자는 인수를 32비트 정수로 변환하여 이진 연산을 수행합니다. 자세한 내용은 [docs](mdn:/JavaScript/Reference/Operators/Bitwise_Operators)에서 볼 수 있습니다.
+=======
+Bitwise
+: Bitwise operators work with 32-bit integers at the lowest, bit-level: see the [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) when they are needed.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 조건부 연산자
 : 조건부 연산자는 자바스크립트 연산자 중 유일하게 매개변수가 3개인 연산자입니다. `cond ? resultA : resultB`와 같은 형태로 사용하고, `cond`가 truthy면 `resultA`를, 아니면 `resultB`를 반환합니다.
@@ -256,7 +276,11 @@ switch (age) {
 3. 화살표 함수:
 
     ```js
+<<<<<<< HEAD
     // 화살표(=>) 우측엔 표현식이 있음
+=======
+    // expression on the right side
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
     let sum = (a, b) => a + b;
 
     // 중괄호{ ... }를 사용하면 본문에 여러 줄의 코드를 작성할 수 있음. return문이 꼭 있어야 함.
@@ -273,9 +297,15 @@ switch (age) {
     ```
 
 
+<<<<<<< HEAD
 - 함수는 지역 변수를 가질 수 있습니다. 지역 변수는 함수의 본문에 선언된 변수로, 함수 내부에서만 접근할 수 있습니다.
 - 매개변수에 기본값을 설정할 수 있습니다. 문법은 다음과 같습니다. `function sum(a = 1, b = 2) {...}`
 - 함수는 항상 무언가를 반환합니다. `return`문이 없는 경우는 `undefined`를 반환합니다.
+=======
+- Functions may have local variables: those declared inside its body or its parameter list. Such variables are only visible inside the function.
+- Parameters can have default values: `function sum(a = 1, b = 2) {...}`.
+- Functions always return something. If there's no `return` statement, then the result is `undefined`.
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 자세한 내용은 <info:function-basics>와 <info:arrow-functions-basics>에서 살펴보시기 바랍니다.
 
