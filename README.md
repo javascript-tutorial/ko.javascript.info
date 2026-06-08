@@ -34,6 +34,7 @@
 * 원문에는 없으나 독자의 이해를 돕기 위해 번역자가 추가하는 내용은 문장 중간이나 끝에 `(.....부가설명..... - 옮긴이)` 형태로 부가설명을 추가하도록 합니다.
 * '적∙의를 보이는 것∙들'에 대한 내용은 될 수 있으면 사용하지 않습니다.([링크](https://m.blog.naver.com/ojhnews/220840570533))
 
+<<<<<<< HEAD
 잘못된 번역, 오타 및 기타 개선사항은 [이슈](https://github.com/javascript-tutorial/ko.javascript.info/issues)로 등록 부탁드립니다.
 
 ## 기여자
@@ -43,3 +44,30 @@
 by the Modern JavaScript Tutorial Project Owner, Ilya Kantor(@iliakan)
 
 모던 JavaScript 튜토리얼 한국어 프로젝트 오너, 이보라(@Violet-Bora-Lee)
+=======
+Something's wrong? A topic is missing? Explain it to people, add it as PR 👏
+
+**You can edit the text in any editor.** The tutorial uses an enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+
+The list of contributors is available at <https://javascript.info/about#contributors>.
+
+## Structure
+
+Every chapter, article, or task has its folder.
+
+The folder is named like `N-url`, where `N` is a number for the sorting purposes and `URL` is the URL part with the title of the material.
+
+The type of the material is defined by the file inside the folder:
+
+  - `index.md` stands for a chapter
+  - `article.md` stands for an article
+  - `task.md` stands for a task (solution must be provided in `solution.md` file as well)
+
+Each of these files starts from the `# Main header`.
+
+It's very easy to add something new.
+
+---  
+♥  
+Ilya Kantor @iliakan
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
