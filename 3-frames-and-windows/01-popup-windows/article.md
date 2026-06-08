@@ -219,11 +219,7 @@ There's also `window.onscroll` event.
 
 Theoretically, there are `window.focus()` and `window.blur()` methods to focus/unfocus on a window. And there are also `focus/blur` events that allow to catch the moment when the visitor focuses on a window and switches elsewhere.
 
-<<<<<<< HEAD
-Although, in practice they are severely limited, because in the past evil pages abused them. 
-=======
 Although, in practice they are severely limited, because in the past evil pages abused them.
->>>>>>> upstream/master
 
 For instance, look at this code:
 
