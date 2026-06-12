@@ -5,7 +5,7 @@
 </head>
 <body>
 
-  <button onclick="loadPhones()">Load phones.json!</button>
+  <button onclick="loadPhones()">phones.json 불러오기!</button>
 
   <script>
     function loadPhones() {
@@ -15,10 +15,10 @@
       xhr.send();
 
       if (xhr.status != 200) {
-        // handle error
-        alert('Error ' + xhr.status + ': ' + xhr.statusText);
+        // 에러 처리
+        alert('에러 ' + xhr.status + ': ' + xhr.statusText);
       } else {
-        // show result
+        // 결과 표시
         alert(xhr.responseText);
       }
     }
