@@ -1,10 +1,6 @@
 # 프라미스 API
 
-<<<<<<< HEAD
-`Promise` 클래스에는 5가지 정적 메서드가 있습니다. 이번 챕터에선 다섯 메서드의 유스 케이스에 대해서 빠르게 알아보겠습니다.
-=======
-There are 6 static methods in the `Promise` class. We'll quickly cover their use cases here.
->>>>>>> upstream/master
+`Promise` 클래스에는 6가지 정적 메서드가 있습니다. 이번 챕터에선 여섯 메서드의 유스 케이스에 대해서 빠르게 알아보겠습니다.
 
 ## Promise.all
 
@@ -20,15 +16,9 @@ There are 6 static methods in the `Promise` class. We'll quickly cover their use
 let promise = Promise.all(iterable);
 ```
 
-<<<<<<< HEAD
-`Promise.all`은 요소 전체가 프라미스인 배열(엄밀히 따지면 이터러블 객체이지만, 대개는 배열임)을 받고 새로운 프라미스를 반환합니다.
+`Promise.all`은 이터러블(보통은 프라미스 배열)을 받고 새로운 프라미스를 반환합니다. 
 
-배열 안 프라미스가 모두 처리되면 새로운 프라미스가 이행되는데, 배열 안 프라미스의 결괏값을 담은 배열이 새로운 프라미스의 `result`가 됩니다.
-=======
-`Promise.all` takes an iterable (usually, an array of promises) and returns a new promise.
-
-The new promise resolves when all listed promises are resolved, and the array of their results becomes its result.
->>>>>>> upstream/master
+배열 안 프라미스가 모두 성공적으로 처리되면 새로운 프라미스가 이행되는데, 배열 안 프라미스의 결괏값을 담은 배열이 새로운 프라미스의 결과가 됩니다.
 
 아래 `Promise.all`은 3초 후에 처리되고, 반환되는 프라미스의 `result`는 배열 `[1, 2, 3]`이 됩니다.
 
@@ -224,51 +214,47 @@ Promise.race([
 ]).then(alert); // 1
 ```
 
-첫 번째 프라미스가 가장 빨리 처리상태가 되기 때문에 첫 번째 프라미스의 결과가 result 값이 됩니다. 이렇게 `Promise.race`를 사용하면 '경주(race)의 승자'가 나타난 순간 다른 프라미스의 결과 또는 에러는 무시됩니다.
+첫 번째 프라미스가 가장 빨리 처리상태가 되기 때문에 첫 번째 프라미스의 결과가 `Promise.race` 전체의 결과가 됩니다. 이렇게 `Promise.race`를 사용하면 '경주(race)의 승자'가 나타난 순간 다른 프라미스의 결과 또는 에러는 무시됩니다.
 
 
-<<<<<<< HEAD
-## Promise.resolve와 Promise.reject
-=======
 ## Promise.any
 
-Similar to `Promise.race`, but waits only for the first fulfilled promise and gets its result. If all of the given promises are rejected, then the returned promise is rejected with [`AggregateError`](mdn:js/AggregateError) - a special error object that stores all promise errors in its `errors` property.
+`Promise.race`와 비슷하지만, 가장 먼저 이행된 프라미스의 결과만 기다린다는 점이 다릅니다. 전달받은 프라미스가 모두 거부되면 반환된 프라미스는 [`AggregateError`](mdn:js/AggregateError)와 함께 거부됩니다. `AggregateError`는 모든 프라미스 에러를 `errors` 프로퍼티에 저장하는 특별한 에러 객체입니다.
 
-The syntax is:
+문법은 다음과 같습니다.
 
 ```js
 let promise = Promise.any(iterable);
 ```
 
-For instance, here the result will be `1`:
+아래 예시의 결과는 `1`입니다.
 
 ```js run
 Promise.any([
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("이런!")), 1000)),
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 2000)),
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
 ]).then(alert); // 1
 ```
 
-The first promise here was fastest, but it was rejected, so the second promise became the result. After the first fulfilled promise "wins the race", all further results are ignored.
+첫 번째 프라미스가 가장 빨리 처리되었지만 거부되었기 때문에 두 번째 프라미스가 결과가 됩니다. 가장 먼저 이행된 프라미스가 '경주에서 승리'하면 이후 결과는 모두 무시됩니다.
 
-Here's an example when all promises fail:
+모든 프라미스가 실패하는 예시는 다음과 같습니다.
 
 ```js run
 Promise.any([
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ouch!")), 1000)),
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Error!")), 2000))
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("아야!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("에러!")), 2000))
 ]).catch(error => {
   console.log(error.constructor.name); // AggregateError
-  console.log(error.errors[0]); // Error: Ouch!
-  console.log(error.errors[1]); // Error: Error!
+  console.log(error.errors[0]); // Error: 아야!
+  console.log(error.errors[1]); // Error: 에러!
 });
 ```
 
-As you can see, error objects for failed promises are available in the `errors` property of the `AggregateError` object.
+위 예시에서 볼 수 있듯 실패한 프라미스의 에러 객체는 `AggregateError` 객체의 `errors` 프로퍼티에서 확인할 수 있습니다.
 
 ## Promise.resolve/reject
->>>>>>> upstream/master
 
 프라미스 메서드 `Promise.resolve`와 `Promise.reject`는 `async/await` 문법([뒤에서](info:async-await) 다룸)이 생긴 후로 쓸모없어졌기 때문에 근래에는 거의 사용하지 않습니다.
 
@@ -323,29 +309,15 @@ let promise = new Promise((resolve, reject) => reject(error));
 
 ## 요약
 
-<<<<<<< HEAD
-`Promise` 클래스에는 5가지 정적 메서드가 있습니다.
+`Promise` 클래스에는 6가지 정적 메서드가 있습니다.
 
 1. `Promise.all(promises)` -- 모든 프라미스가 이행될 때까지 기다렸다가 그 결괏값을 담은 배열을 반환합니다. 주어진 프라미스 중 하나라도 실패하면 `Promise.all`는 거부되고, 나머지 프라미스의 결과는 무시됩니다.
 2. `Promise.allSettled(promises)` -- 최근에 추가된 메서드로 모든 프라미스가 처리될 때까지 기다렸다가 그 결과(객체)를 담은 배열을 반환합니다. 객체엔 다음과 같은 정보가 담깁니다.
     - `status`: `"fulfilled"` 또는 `"rejected"`
     - `value`(프라미스가 성공한 경우) 또는 `reason`(프라미스가 실패한 경우)
 3. `Promise.race(promises)` -- 가장 먼저 처리된 프라미스의 결과 또는 에러를 담은 프라미스를 반환합니다.
-4. `Promise.resolve(value)` -- 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
-5. `Promise.reject(error)` -- 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
+4. `Promise.any(promises)` -- 최근에 추가된 메서드로 가장 먼저 이행되는 프라미스를 기다렸다가 그 결괏값을 반환합니다. 주어진 프라미스가 모두 거부되면 [`AggregateError`](mdn:js/AggregateError)가 `Promise.any`의 에러가 됩니다.
+5. `Promise.resolve(value)` -- 주어진 값을 사용해 이행 상태의 프라미스를 만듭니다.
+6. `Promise.reject(error)` -- 주어진 에러를 사용해 거부 상태의 프라미스를 만듭니다.
 
-실무에선 다섯 메서드 중 `Promise.all`을 가장 많이 사용합니다.
-=======
-There are 6 static methods of `Promise` class:
-
-1. `Promise.all(promises)` -- waits for all promises to resolve and returns an array of their results. If any of the given promises rejects, it becomes the error of `Promise.all`, and all other results are ignored.
-2. `Promise.allSettled(promises)` (recently added method) -- waits for all promises to settle and returns their results as an array of objects with:
-    - `status`: `"fulfilled"` or `"rejected"`
-    - `value` (if fulfilled) or `reason` (if rejected).
-3. `Promise.race(promises)` -- waits for the first promise to settle, and its result/error becomes the outcome.
-4. `Promise.any(promises)` (recently added method) -- waits for the first promise to fulfill, and its result becomes the outcome. If all of the given promises are rejected, [`AggregateError`](mdn:js/AggregateError) becomes the error of `Promise.any`.
-5. `Promise.resolve(value)` -- makes a resolved promise with the given value.
-6. `Promise.reject(error)` -- makes a rejected promise with the given error.
-
-Of all these, `Promise.all` is probably the most common in practice.
->>>>>>> upstream/master
+실무에선 이 중 `Promise.all`을 가장 많이 사용합니다.
