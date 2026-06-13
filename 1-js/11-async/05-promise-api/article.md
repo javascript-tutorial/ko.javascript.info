@@ -17,6 +17,7 @@ let promise = Promise.all(iterable);
 ```
 
 `Promise.all`은 이터러블(보통은 프라미스 배열)을 받고 새로운 프라미스를 반환합니다. 
+
 배열 안 프라미스가 모두 성공적으로 처리되면 새로운 프라미스가 이행되는데, 배열 안 프라미스의 결괏값을 담은 배열이 새로운 프라미스의 결과가 됩니다.
 
 아래 `Promise.all`은 3초 후에 처리되고, 반환되는 프라미스의 `result`는 배열 `[1, 2, 3]`이 됩니다.
@@ -230,7 +231,7 @@ let promise = Promise.any(iterable);
 
 ```js run
 Promise.any([
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Whoops!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("이런!")), 1000)),
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 2000)),
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
 ]).then(alert); // 1
@@ -242,12 +243,12 @@ Promise.any([
 
 ```js run
 Promise.any([
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ouch!")), 1000)),
-  new Promise((resolve, reject) => setTimeout(() => reject(new Error("Error!")), 2000))
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("아야!")), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(new Error("에러!")), 2000))
 ]).catch(error => {
   console.log(error.constructor.name); // AggregateError
-  console.log(error.errors[0]); // Error: Ouch!
-  console.log(error.errors[1]); // Error: Error!
+  console.log(error.errors[0]); // Error: 아야!
+  console.log(error.errors[1]); // Error: 에러!
 });
 ```
 
