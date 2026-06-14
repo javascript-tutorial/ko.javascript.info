@@ -1,11 +1,7 @@
 
 # 매뉴얼과 명세서
 
-<<<<<<< HEAD
 본 *튜토리얼*은 자바스크립트를 기본부터 차근차근 배울 수 있도록 만들어졌습니다. 그런데 어느 정도 자바스크립트가 익숙해지면 튜토리얼 이외의 자료가 필요한 시점이 옵니다.
-=======
-This book is a *tutorial*. It aims to help you gradually learn the language. But once you're familiar with the basics, you'll need other resources.
->>>>>>> upstream/master
 
 ## 명세서
 
@@ -13,23 +9,14 @@ This book is a *tutorial*. It aims to help you gradually learn the language. But
 
 ECMA-262 명세서의 고유한 형식 때문에 명세서를 처음 접하는 사람은 그 내용을 이해하기가 쉽지 않습니다. 자바스크립트에 관한 정보를 얻을 수 있는 가장 신뢰할 만한 자료이긴 하지만 일상적인 참고 자료로는 적합하지 않죠.
 
-<<<<<<< HEAD
 ECMA-262명세서는 새로운 버전이 매년 나옵니다. 공식 버전이 나오기 이전의 최신 초안은  <https://tc39.es/ecma262/>에서 확인할 수 있습니다.
-=======
-A new specification version is released every year. Between these releases, the latest specification draft is at <https://tc39.es/ecma262/>.
->>>>>>> upstream/master
 
 갓 명세서에 등록된 기능이나 '등록되기 바로 직전'에 있는 기능(스테이지(stage)3 상태의 기능), 제안 목록은 <https://github.com/tc39/proposals>에서 확인할 수 있습니다.
 
-<<<<<<< HEAD
 본 튜토리얼의 [두 번째 대 단원](info:browser-environment)에서 브라우저와 관련된 명세서를 다룰 예정이므로, 만약 브라우저에서 돌아가는 기능을 구현하는 개발자라면 해당 내용을 확인해 보시기 바랍니다.
-=======
-Also, if you're developing for the browser, then there are other specifications covered in the [second part](info:browser-environment) of the tutorial.
->>>>>>> upstream/master
 
 ## 매뉴얼
 
-<<<<<<< HEAD
 - Mozilla 재단이 운영하는 **MDN JavaScript Reference**엔 다양한 예제와 정보가 있습니다. 특정 함수나 메서드에 대한 깊이 있는 정보를 얻고 싶다면 이 사이트가 제격입니다.
 
     링크는 다음과 같습니다. <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>
@@ -41,28 +28,10 @@ Also, if you're developing for the browser, then there are other specifications 
 자바스크립트는 끊임없이 발전하는 언어입니다. 새로운 기능이 정기적으로 추가되죠.
 
 특정 브라우저나 엔진이 내가 사용하려는 기능을 지원하는지 확인할 땐, 아래 두 사이트가 좋습니다.
-=======
-- **MDN (Mozilla) JavaScript Reference** is the main manual with examples and other information. It's great to get in-depth information about individual language functions, methods etc.
-
-    You can find it at <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference>.
-
-Although, it's often best to use an internet search instead. Just use "MDN [term]" in the query, e.g. <https://google.com/search?q=MDN+parseInt> to search for the `parseInt` function.
->>>>>>> upstream/master
 
 - <http://caniuse.com> 에선 브라우저가 특정 기능을 지원하는지 (표 형태로) 확인할 수 있습니다. 암호화 관련 기능인 cryptography를 특정 브라우저에서 사용할 수 있는지 아닌지를 보려면 <http://caniuse.com/#feat=cryptography>를 확인하면 됩니다.
 - <https://kangax.github.io/compat-table> 에선 자바스크립트 기능 목록이 있고, 해당 기능을 특정 엔진이 지원하는지 여부를 거대한 표를 통해 보여줍니다.
 
 실제 개발을 하다 보면 위에 언급 드린 자료가 아주 유용할 겁니다. 메서드나 함수 관련 정보, 브라우저 지원 여부 등은 의사결정을 내릴 때 꼭 필요한 정보이기 때문입니다.
 
-<<<<<<< HEAD
 말씀드린 사이트나 이 페이지를 기억해 놓았다가 특정 기능에 대한 상세한 정보가 필요할 때 방문해 보시길 바랍니다.
-=======
-To see their support among browser-based and other engines, see:
-
-- <https://caniuse.com> - per-feature tables of support, e.g. to see which engines support modern cryptography functions: <https://caniuse.com/#feat=cryptography>.
-- <https://kangax.github.io/compat-table> - a table with language features and engines that support those or don't support.
-
-All these resources are useful in real-life development, as they contain valuable information about language details, their support, etc.
-
-Please remember them (or this page) for the cases when you need in-depth information about a particular feature.
->>>>>>> upstream/master

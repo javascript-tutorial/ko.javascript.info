@@ -49,11 +49,7 @@
 
 Mac 전용 브라우저인 Safari에서 개발자 도구를 사용하려면 '개발자 메뉴(Develop menu)'를 명시적으로 활성화해주어야 합니다.
 
-<<<<<<< HEAD
 환경설정(Preferences)의 '고급(Advanced)' 패널을 클릭한 후 '메뉴 막대에서 개발자용 메뉴 보기' 체크 박스를 체크해 개발자 도구를 활성화해봅시다.
-=======
-Open Settings and go to the "Advanced" pane. There's a checkbox at the bottom:
->>>>>>> upstream/master
 
 ![safari](safari.png)
 
