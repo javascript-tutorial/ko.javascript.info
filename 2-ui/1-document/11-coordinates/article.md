@@ -36,11 +36,7 @@
 ```online
 아래 버튼을 눌러 창 기준 버튼 좌표를 확인해봅시다.
 
-<<<<<<< HEAD
 <p><input id="brTest" type="button" value="button.getBoundingClientRect()로 버튼 좌표 얻기" onclick='showRect(this)'/></p>
-=======
-<p><input id="brTest" type="button" style="max-width: 90vw;" value="Get coordinates using button.getBoundingClientRect() for this button" onclick='showRect(this)'/></p>
->>>>>>> upstream/master
 
 <script>
 function showRect(elem) {
@@ -203,7 +199,7 @@ setTimeout(() => message.remove(), 5000);
 
 CSS와 비교하자면 창 기준 좌표는 `position:fixed`에 해당하고 문서 기준 좌표는 맨 위 기준 `position:absolute`와 비슷합니다.
 
-문서 내 특정 좌표에 무언가를 위치시키고 싶을 땐 `position:absolute`와 `top, `left`를 사용하면 스크롤 이동에 상관없이 해당 요소를 한 좌표에 머물게 할 수 있습니다. 그러려면 우선 정확한 좌표가 필요합니다.
+문서 내 특정 좌표에 무언가를 위치시키고 싶을 땐 `position:absolute`와 `top`, `left`를 사용하면 스크롤 이동에 상관없이 해당 요소를 한 좌표에 머물게 할 수 있습니다. 그러려면 우선 정확한 좌표가 필요합니다.
 
 그런데 요소의 문서 기준 좌표를 제공하는 표준 메서드가 아직 없습니다. 하지만 아주 쉽게 코드를 작성할 수 있습니다.
 
