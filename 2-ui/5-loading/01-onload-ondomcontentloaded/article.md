@@ -2,15 +2,9 @@
 
 HTML 문서의 생명주기엔 다음과 같은 3가지 주요 이벤트가 관여합니다.
 
-<<<<<<< HEAD
 - `DOMContentLoaded` -- 브라우저가 HTML을 전부 읽고 DOM 트리를 완성하는 즉시 발생합니다. 이미지 파일(`<img>`)이나 스타일시트 등의 기타 자원은 기다리지 않습니다.
 - `load` -- HTML로 DOM 트리를 만드는 게 완성되었을 뿐만 아니라 이미지, 스타일시트 같은 외부 자원도 모두 불러오는 것이 끝났을 때 발생합니다.
 - `beforeunload/unload` -- 사용자가 페이지를 떠날 때 발생합니다.
-=======
-- `DOMContentLoaded` -- the browser fully loaded HTML, and the DOM tree is built, but external resources like pictures `<img>` and stylesheets may not yet have loaded.
-- `load` -- not only HTML is loaded, but also all the external resources: images, styles etc.
-- `beforeunload/unload` -- the user is leaving the page.
->>>>>>> upstream/master
 
 세 이벤트는 다음과 같은 상황에서 활용할 수 있습니다.
 
@@ -39,13 +33,8 @@ document.addEventListener("DOMContentLoaded", ready);
   function ready() {
     alert('DOM이 준비되었습니다!');
 
-<<<<<<< HEAD
-    // 이미지가 로드되지 않은 상태이기 때문에 사이즈는 0x0입니다.
+    // 이미지가 아직 로드되지 않았기 때문에(캐시된 경우 제외) 크기는 0x0입니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
-=======
-    // image is not yet loaded (unless it was cached), so the size is 0x0
-    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
->>>>>>> upstream/master
   }
 
 *!*
@@ -56,11 +45,7 @@ document.addEventListener("DOMContentLoaded", ready);
 <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
 ```
 
-<<<<<<< HEAD
 위 예시에서 `DOMContentLoaded` 핸들러는 문서가 로드되었을 때 실행됩니다. 따라서 핸들러 아래쪽에 위치한 `<img>`뿐만 아니라 모든 요소에 접근할 수 있습니다.
-=======
-In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
->>>>>>> upstream/master
 
 그렇지만 이미지가 로드되는 것은 기다리지 않기 때문에 `alert` 창엔 이미지 사이즈가 0이라고 뜹니다. 
 
@@ -103,11 +88,7 @@ In the example, the `DOMContentLoaded` handler runs when the document is loaded,
 ```html run
 <link type="text/css" rel="stylesheet" href="style.css">
 <script>
-<<<<<<< HEAD
   // 이 스크립트는 위 스타일시트가 로드될 때까지 실행되지 않습니다.
-=======
-  // the script doesn't execute until the stylesheet is loaded
->>>>>>> upstream/master
   alert(getComputedStyle(document.body).marginTop);
 </script>
 ```
@@ -133,15 +114,10 @@ Firefox와 Chrome, Opera의 폼 자동완성(form autofill)은 `DOMContentLoaded
 
 ```html run height=200 refresh
 <script>
-<<<<<<< HEAD
   window.onload = function() { // window.addEventListener('load', (event) => {와 동일합니다.
     alert('페이지 전체가 로드되었습니다.');
-=======
-  window.onload = function() { // can also use window.addEventListener('load', (event) => {
-    alert('Page loaded');
->>>>>>> upstream/master
 
-    // 이번엔 이미지가 제대로 불러와 진 후에 얼럿창이 실행됩니다.
+    // 이번엔 이미지가 제대로 불러와진 후에 얼럿창이 실행됩니다.
     alert(`이미지 사이즈: ${img.offsetWidth}x${img.offsetHeight}`);
   };
 </script>
@@ -253,11 +229,7 @@ window.addEventListener("beforeunload", (event) => {
 function work() { /*...*/ }
 
 if (document.readyState == 'loading') {
-<<<<<<< HEAD
   // 아직 로딩 중이므로 이벤트를 기다립니다.
-=======
-  // still loading, wait for the event
->>>>>>> upstream/master
   document.addEventListener('DOMContentLoaded', work);
 } else {
   // DOM이 완성되었습니다!
