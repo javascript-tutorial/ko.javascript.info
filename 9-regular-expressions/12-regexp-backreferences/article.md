@@ -1,33 +1,33 @@
-# Backreferences in pattern: \N and \k<name>
+# 패턴 속 역참조: \N 과 \k<name>
 
-We can use the contents of capturing groups `pattern:(...)` not only in the result or in the replacement string, but also in the pattern itself.
+결과나 대체 문자열에서뿐만 아니라 패턴 자체에서도 콘텐츠의 그룹 캡처링 `pattern:(...)` 을 사용할 수 있습니다.
 
-## Backreference by number: \N
+## 숫자를 통한 역참조: \N
 
-A group can be referenced in the pattern using `pattern:\N`, where `N` is the group number.
+`pattern:\N`을 사용하여 그룹을 패턴에서 참조할 수 있습니다, 여기서 `N` 은 그룹 넘버입니다.
 
-To make clear why that's helpful, let's consider a task.
+이것이 왜 도움이 되는지 명확히 하기 위해 과제를 고려해보죠.
 
-We need to find quoted strings: either single-quoted `subject:'...'` or a double-quoted `subject:"..."` -- both variants should match.
+따옴표로 묶인 문자열을 찾아야 합니다: 작은따옴표 `subject:'...'` 또는 큰따옴표 `subject:"..."` 둘 중 하나 -- 두 변형이 일치해야 합니다.
 
-How to find them?
+어떻게 그것들을 찾을까요?
 
-We can put both kinds of quotes in the square brackets: `pattern:['"](.*?)['"]`, but it would find strings with mixed quotes, like `match:"...'` and `match:'..."`. That would lead to incorrect matches when one quote appears inside other ones, like in the string `subject:"She's the one!"`:
+두 종류의 따옴표 모두 대괄호 안에 넣을 수 있습니다: `pattern:['"](.*?)['"]`, 그러나 이것은 `match:"...'` 와 `match:'..."` 같은 혼용된 따옴표가 있는 문자열을 찾을 수도 있습니다. 이것은 `subject:"She's the one!"`처럼 하나의 따옴표가 다른 인용문 안에 나타날 경우 불일치 항목이 발생시킬 수 있습니다. :
 
 ```js run
 let str = `He said: "She's the one!".`;
 
 let regexp = /['"](.*?)['"]/g;
 
-// The result is not what we'd like to have
+// 원하는 결과가 아닙니다
 alert( str.match(regexp) ); // "She'
 ```
 
-As we can see, the pattern found an opening quote `match:"`, then the text is consumed till the other quote `match:'`, that closes the match.
+보시다시피 패턴은 여는 따옴표 `match:"` 를 발견하고 나서 그 텍스트는 다른 따옴표 `match:'` 까지 소비됩니다, 그것은 일치 항목을 끝냅니다.
 
-To make sure that the pattern looks for the closing quote exactly the same as the opening one, we can wrap it into a capturing group and backreference it: `pattern:(['"])(.*?)\1`.
+패턴이 여는 따옴표와 정확히 같은 닫는 따옴표를 찾는지 확인하세요, 그것을 그룹 캡처링과 역참조를 통해 마무리할 수 있습니다: `pattern:(['"])(.*?)\1`.
 
-Here's the correct code:
+올바른 코드는 다음과 같습니다:
 
 ```js run
 let str = `He said: "She's the one!".`;
@@ -39,27 +39,27 @@ let regexp = /(['"])(.*?)\1/g;
 alert( str.match(regexp) ); // "She's the one!"
 ```
 
-Now it works! The regular expression engine finds the first quote `pattern:(['"])` and memorizes its content. That's the first capturing group.
+이제 잘 됩니다! 정규 표현식 엔진은 첫 번째 따옴표 `pattern:(['"])` 을 찾고 그것의 콘텐츠를 기억합니다. 그것은 첫 번째 캡처링 그룹입니다.
 
-Further in the pattern `pattern:\1` means "find the same text as in the first group", exactly the same quote in our case.
+더 나아가 패턴에서 `pattern:\1` "첫 번째 그룹에서와 같은 텍스트를 찾는다"는 정확히 같은 따옴표를 의미합니다.
 
-Similar to that, `pattern:\2` would mean the contents of the second group, `pattern:\3` - the 3rd group, and so on.
+그것과 비슷하게 `pattern:\2` 는 두 번째 그룹의 콘텐츠를 의미합니다, `pattern:\3` - 3번째 그룹, 기타 등등.
 
-```smart
-If we use `?:` in the group, then we can't reference it. Groups that are excluded from capturing `(?:...)` are not memorized by the engine.
+```smart header="참고하세요:"
+`?:`를 그룹에서 사용하면 그것을 참조할 수 없습니다. 그룹들은 캡처링 `(?:...)` 에서 그것을 제외하고 엔진에서 기억하지 않습니다.
 ```
 
-```warn header="Don't mess up: in the pattern `pattern:\1`, in the replacement: `pattern:$1`"
-In the replacement string we use a dollar sign: `pattern:$1`, while in the pattern - a backslash `pattern:\1`.
+```warn header="망치지 마세요: 패턴에서 `pattern:\1`, 대체물에서: `pattern:$1`"
+대체 문자열에서 달러 기호를 사용합니다: `pattern:$1`, 패턴 속에서 - 역슬래시 `pattern:\1`.
 ```
 
-## Backreference by name: `\k<name>`
+## 이름을 통한 역참조: `\k<name>`
 
-If a regexp has many parentheses, it's convenient to give them names.
+정규식이 많은 괄호를 갖고 있다면 그들에게 이름을 지어주는 게 편합니다.
 
-To reference a named group we can use `pattern:\k<name>`.
+명명된 그룹을 참조하기 위해 `pattern:\k<name>`을 사용할 수 있습니다.
 
-In the example below the group with quotes is named `pattern:?<quote>`, so the backreference is `pattern:\k<quote>`:
+아래 예제에서 따옴표가 있는 그룹의 이름은 `pattern:?<quote>`이므로 역참조는 `pattern:\k<quote>`입니다:
 
 ```js run
 let str = `He said: "She's the one!".`;
