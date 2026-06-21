@@ -1,14 +1,14 @@
-# Shadow DOM and events
+# Shadow DOM 과 이벤트
 
-The idea behind shadow tree is to encapsulate internal implementation details of a component.
+Shadow 트리의 기본 개념은 컴포넌트의 내부 구현 세부 정보를 캡슐화하는 것입니다.
 
-Let's say, a click event happens inside a shadow DOM of `<user-card>` component. But scripts in the main document have no idea about the shadow DOM internals, especially if the component comes from a 3rd-party library.  
+클릭 이벤트가 `<user-card>` 컴포넌트의 Shadow DOM 내부에서 발생한다고 가정하겠습니다. 하지만, 메인 document의 스크립트는 특히 컴포넌트를 써드파티 라이브러리에서 가져온 경우, Shadow DOM 내부에 대해 알지 못합니다.
 
-So, to keep the details encapsulated, the browser *retargets* the event.
+따라서, 세부 정보를 캡슐화하기 위해 브라우저는 이벤트를 _retargets_ 합니다.
 
-**Events that happen in shadow DOM have the host element as the target, when caught outside of the component.**
+**Shadow DOM에서 발생하는 이벤트는 컴포넌트의 외부에서 감지될 때 호스트 요소를 타깃으로 합니다.**
 
-Here's a simple example:
+다음은 간단한 예시입니다.
 
 ```html run autorun="no-epub" untrusted height=60
 <user-card></user-card>
@@ -30,16 +30,16 @@ document.onclick =
 </script>
 ```
 
-If you click on the button, the messages are:
+버튼을 클릭하면, 메시지는 다음과 같습니다.
 
-1. Inner target: `BUTTON` -- internal event handler gets the correct target, the element inside shadow DOM.
-2. Outer target: `USER-CARD` -- document event handler gets shadow host as the target.
+1. 내부 타깃: `BUTTON` -- 내부 이벤트 핸들러가 올바른 타깃인 Shadow DOM 내부에서 요소를 가져옵니다.
+2. 외부 타깃: `USER-CARD` -- document 이벤트 핸들러가 shadow 호스트를 타깃으로 가져옵니다.
 
-Event retargeting is a great thing to have, because the outer document doesn't have to know  about component internals. From its point of view, the event happened on `<user-card>`.
+이벤트 리타깃팅(retargeting)은 외부 문서가 컴포넌트 내부에 대해 알 필요가 없기 때문에 유용한 기능입니다. 이 관점에서 보면, 이벤트는 `<user-card>`에서 발생했습니다.
 
-**Retargeting does not occur if the event occurs on a slotted element, that physically lives in the light DOM.**
+**이벤트가 light DOM에 있는 슬롯 요소에서 발생하면 리타깃팅이 발생하지 않습니다.**
 
-For example, if a user clicks on `<span slot="username">` in the example below, the event target is exactly this `span` element, for both shadow and light handlers:
+예를 들어, 사용자가 아래 예시에서 `<span slot="username">` 을 클릭하면 shadow 및 light 핸들러 모두 이벤트 타깃은 바로 이 `span` 요소입니다.
 
 ```html run autorun="no-epub" untrusted height=60
 <user-card id="userCard">
@@ -65,19 +65,19 @@ userCard.onclick = e => alert(`Outer target: ${e.target.tagName}`);
 </script>
 ```
 
-If a click happens on `"John Smith"`, for both inner and outer handlers the target is `<span slot="username">`. That's an element from the light DOM, so no retargeting.
+`"John Smith"`에서 클릭이 발생하면, 내부 및 외부 핸들러 모두 타깃은 `<span slot="username">`입니다. 이것은 light DOM의 요소이므로 리타깃팅이 없습니다.
 
-On the other hand, if the click occurs on an element originating from shadow DOM, e.g. on `<b>Name</b>`, then, as it bubbles out of the shadow DOM, its `event.target` is reset to `<user-card>`.
+반면에 shadow DOM에서 시작된 요소에서 클릭이 발생하면, 예를 들어 `<b>Name</b>`에서 라면, shadow DOM 밖에서 버블링이 발생하여 event.target은 `<user-card>`로 재설정됩니다.
 
-## Bubbling, event.composedPath()
+## 버블링, event.composedPath()
 
-For purposes of event bubbling, flattened DOM is used.
+이벤트 버블링을 위해 평면화 된 DOM이 사용됩니다.
 
-So, if we have a slotted element, and an event occurs somewhere inside it, then it bubbles up to the `<slot>` and upwards.
+따라서 슬롯 요소가 있고, 내부 어딘가에서 이벤트가 발생하면 `<slot>` 및 위쪽으로 버블링됩니다.
 
-The full path to the original event target, with all the shadow elements, can be obtained using `event.composedPath()`. As we can see from the name of the method, that path is taken after the composition.
+모든 shadow 요소와 원래 이벤트 타깃의 전체 경로는 `event.composedPath()`를 사용하여 얻을 수 있습니다. 메서드 이름에서 알 수 있듯이, 해당 경로는 합성 후에 사용됩니다.
 
-In the example above, the flattened DOM is:
+위의 예시에서, 평면화 된 DOM은 다음과 같습니다.
 
 ```html
 <user-card id="userCard">
@@ -92,22 +92,22 @@ In the example above, the flattened DOM is:
 ```
 
 
-So, for a click on `<span slot="username">`, a call to `event.composedPath()` returns an array: [`span`, `slot`, `div`, `shadow-root`, `user-card`, `body`, `html`, `document`, `window`]. That's exactly the parent chain from the target element in the flattened DOM, after the composition.
+따라서, `<span slot="username">`을 클릭하면 `event.composedPath()`이 호출되고, 배열을 반환합니다: [`span`, `slot`, `div`, `shadow-root`, `user-card`, `body`, `html`, `document`, `window`]. 이것이 바로 합성 후 평면화 된 DOM에 있는 타깃 요소의 부모 체인입니다.
 
-```warn header="Shadow tree details are only provided for `{mode:'open'}` trees"
-If the shadow tree was created with `{mode: 'closed'}`, then the composed path starts from the host: `user-card` and upwards.
+```warn header="Shadow tree 세부 사항은 `{mode:'open'}`트리에만 제공됩니다" 
+shadow 트리가 `{mode: 'closed'}`로 생성 된 경우, 구성된 경로는 호스트인 `user-card` 및 위쪽에서 부터 시작합니다.
 
-That's the similar principle as for other methods that work with shadow DOM. Internals of closed trees are completely hidden.
+이것은 Shadow DOM에서 작동하는 다른 메서드와 유사한 원리입니다. closed 된 트리의 내부는 완전히 숨겨집니다.
 ```
 
 
 ## event.composed
 
-Most events successfully bubble through a shadow DOM boundary. There are few events that do not.
+대부분의 이벤트는 Shadow DOM 경계를 통해 성공적으로 버블링됩니다. 그렇지 않은 이벤트는 거의 없습니다.
 
-This is governed by the `composed` event object property. If it's `true`, then the event does cross the boundary. Otherwise, it only can be caught from inside the shadow DOM.
+이것은 `composed`된 이벤트 객체 속성에 의해 관리됩니다. 만약 `true`이면 이벤트가 경계를 넘습니다. 그렇지 않으면, Shadow DOM 내부에서만 감지될 수 있습니다.
 
-If you take a look at [UI Events specification](https://www.w3.org/TR/uievents), most events have `composed: true`:
+[UI 이벤트 사양](https://www.w3.org/TR/uievents)을 살펴보면, 대부분의 이벤트가 `composed: true` 를 가지고 있습니다.
 
 - `blur`, `focus`, `focusin`, `focusout`,
 - `click`, `dblclick`,
@@ -115,22 +115,22 @@ If you take a look at [UI Events specification](https://www.w3.org/TR/uievents),
 - `wheel`,
 - `beforeinput`, `input`, `keydown`, `keyup`.
 
-All touch events and pointer events also have `composed: true`.
+모든 터치 이벤트와 포인터 이벤트도 `composed: true`를 가집니다.
 
-There are some events that have `composed: false` though:
+`composed: false`를 가지는 몇몇 이벤트들도 있습니다.
 
-- `mouseenter`, `mouseleave` (they do not bubble at all),
+- `mouseenter`, `mouseleave` (전혀 버블링되지 않습니다),
 - `load`, `unload`, `abort`, `error`,
 - `select`,
 - `slotchange`.
 
-These events can be caught only on elements within the same DOM, where the event target resides.
+이러한 이벤트는 이벤트 타깃이 존재하는 동일한 DOM 내의 요소에서만 포착 할 수 있습니다.
 
-## Custom events
+## 사용자 지정 이벤트
 
-When we dispatch custom events, we need to set both `bubbles` and `composed` properties to `true` for it to bubble up and out of the component.
+사용자 지정 이벤트를 전달할 때, `bubbles`과 `composed` 속성을 모두 `true`로 설정해야 컴포넌트 외부로 버블링 됩니다.
 
-For example, here we create `div#inner` in the shadow DOM of `div#outer` and trigger two events on it. Only the one with `composed: true` makes it outside to the document:
+예를 들어, 여기에서는 `div#outer`의 Shadow DOM에 `div#inner`를 만들고 여기에 두 개의 이벤트를 트리거합니다. `composed: true`인 것만 문서 외부에 표시됩니다.
 
 ```html run untrusted height=0
 <div id="outer"></div>
@@ -167,26 +167,26 @@ inner.dispatchEvent(new CustomEvent('test', {
 </script>
 ```
 
-## Summary
+## 요약
 
-Events only cross shadow DOM boundaries if their `composed` flag is set to `true`.
+이벤트는 `composed` 플래그가 `true`로 설정된 경우에만 Shadow DOM 경계를 넘어갑니다.
 
-Built-in events mostly have `composed: true`, as described in the relevant specifications:
+기본 제공 이벤트는 관련 사양에 설명 된대로 대부분 `composed: true`을 가집니다.
 
-- UI Events <https://www.w3.org/TR/uievents>.
-- Touch Events <https://w3c.github.io/touch-events>.
-- Pointer Events <https://www.w3.org/TR/pointerevents>.
-- ...And so on.
+- UI 이벤트 <https://www.w3.org/TR/uievents>.
+- 터치 이벤트 <https://w3c.github.io/touch-events>.
+- 포인터 이벤트 <https://www.w3.org/TR/pointerevents>.
+- 기타
 
-Some built-in events that have `composed: false`:
+`composed: false`를 가지는 몇몇 기본제공 이벤트도 있습니다.
 
-- `mouseenter`, `mouseleave` (also do not bubble),
+- `mouseenter`, `mouseleave` (마찬가지로 버블링되지 않습니다),
 - `load`, `unload`, `abort`, `error`,
 - `select`,
 - `slotchange`.
 
-These events can be caught only on elements within the same DOM.
+이러한 이벤트는 동일한 DOM 내의 요소에서만 포착 될 수 있습니다.
 
-If we dispatch a `CustomEvent`, then we should explicitly set `composed: true`.
+`CustomEvent`를 디스패치하는 경우, `composed: true`를 명시적으로 설정해야합니다.
 
-Please note that in case of nested components, one shadow DOM may be nested into another. In that case composed events bubble through all shadow DOM boundaries. So, if an event is intended only for the immediate enclosing component, we can also dispatch it on the shadow host and set `composed: false`. Then it's out of the component shadow DOM, but won't bubble up to higher-level DOM.
+중첩 된 컴포넌트의 경우, 하나의 Shadow DOM이 다른 컴포넌트에 중첩 될 수 있습니다. 이 경우 composed된 이벤트는 모든 Shadow DOM 경계를 통해 버블 링됩니다. 따라서, 이벤트가 가까이에 둘러싸고 있는 컴포넌트에만 사용되는 경우, shadow 호스트에 이벤트를 전달하고 `composed: false`로 설정할 수도 있습니다. 그렇다면 컴포넌트 Shadow DOM을 벗어나지만, 더 높은 수준의 DOM으로 버블링되지 않습니다.
