@@ -1,5 +1,5 @@
-As we can see from HTML/CSS, the slider is a `<div>` with a colored background, that contains a runner -- another `<div>` with `position:relative`.
+HTML·CSS에서 볼 수 있듯이 슬라이더는 배경색이 있는 `<div>`로 `position:relative`가 있는 또 다른 `<div>` 러너를 포함합니다.
 
-To position the runner we use `position:relative`, to provide the coordinates relative to its parent, here it's more convenient here than `position:absolute`.
+러너의 위치를 지정하려면 `position:relative`를 사용하여 상위에 상대적인 좌표를 제공하는데, 이는 `position:absolute`보다 더 편리합니다.
 
-Then we implement horizontal-only Drag'n'Drop with limitation by width.
+그런 다음 가로 너비를 제한하여 수평 전용 드래그 앤 드롭을 구현합니다.
