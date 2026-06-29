@@ -22,7 +22,7 @@
 
 아래와 같이 말이죠.
 
-![chrome](chrome.png)
+![chrome](chrome.webp)
 
 화면 구성은 사용하고 있는 Chrome 버전에 따라 다릅니다. 버전이 바뀔 때 마다 구성이 조금씩 바뀌긴 하지만 큰 틀은 바뀌지 않습니다.
 
@@ -49,7 +49,11 @@
 
 Mac 전용 브라우저인 Safari에서 개발자 도구를 사용하려면 '개발자 메뉴(Develop menu)'를 명시적으로 활성화해주어야 합니다.
 
+<<<<<<< HEAD
 환경설정(Preferences)의 '고급(Advanced)' 패널을 클릭한 후 '메뉴 막대에서 개발자용 메뉴 보기' 체크 박스를 체크해 개발자 도구를 활성화해봅시다.
+=======
+Open Settings and go to the "Advanced" pane. There's a checkbox at the bottom:
+>>>>>>> 52c1e61915bc8970a950a3f59bd845827e49b4bf
 
 ![safari](safari.png)
 
