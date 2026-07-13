@@ -7,7 +7,7 @@
 
 잠시 개발을 벗어나 현실 세계로 눈을 돌려, 내부 인터페이스와 외부 인터페이스 구분이 무엇을 의미하는지 알아봅시다.
 
-일상생활에서 접하게 되는 기계들은 꽤 복잡한 구조로 되어 있습니다. 하지만 내부인터페이스와 외부 인터페이스가 구분되어있기 때문에 문제없이 기계를 사용할 수 있습니다.
+일상생활에서 접하게 되는 기계들은 꽤 복잡한 구조로 되어 있습니다. 하지만 내부 인터페이스와 외부 인터페이스가 구분되어 있기 때문에 문제없이 기계를 사용할 수 있습니다.
 
 ## 실생활 예제
 
@@ -19,7 +19,7 @@
 
 ![](coffee-inside.jpg)
 
-뭔가 디테일한 것들이 아주 많네요. 하지만 이 모든 것을 알지 못해도 커피 머신을 사용하는 데 지장이 없습니다.
+뭔가 디테일한 것들이 아주 많네요. 하지만, 이 모든 것을 알지 못해도 커피 머신을 사용하는 데 지장이 없습니다.
 
 커피 머신은 꽤 믿음직한 기계입니다. 수년 간 사용할 수 있고, 중간에 고장이 나도 수리를 받으면 됩니다.
 
@@ -42,7 +42,7 @@
 
 내부 인터페이스의 세부사항들은 서로의 정보를 이용하여 객체를 동작시킵니다. 발열 장치에 부착된 관을 통해 뜨거운 물이 이동하는 것처럼 말이죠.
 
-그런데 커피 머신은 보호 커버에 둘러싸여 있기 때문에 보호 커버를 벗기지 않고는 커피머신 외부에서 내부로 접근할 수 없습니다. 밖에선 세부 요소를 알 수 없고, 접근도 불가능합니다. 내부 인터페이스의 기능은 외부 인터페이스를 통해야만 사용할 수 있습니다.
+그런데 커피 머신은 보호 커버에 둘러싸여 있기 때문에 보호 커버를 벗기지 않고는 커피 머신 외부에서 내부로 접근할 수 없습니다. 밖에선 세부 요소를 알 수 없고, 접근도 불가능합니다. 내부 인터페이스의 기능은 외부 인터페이스를 통해야만 사용할 수 있습니다.
 
 이런 특징 때문에 외부 인터페이스만 알아도 객체를 가지고 무언가를 할 수 있습니다. 객체 안이 어떻게 동작하는지 알지 못해도 괜찮다는 점은 큰 장점으로 작용합니다.
 
@@ -96,13 +96,9 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   set waterAmount(value) {
-<<<<<<< HEAD
-    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
-=======
     if (value < 0) {
       value = 0;
     }
->>>>>>> upstream/master
     this._waterAmount = value;
   }
 
@@ -119,19 +115,11 @@ class CoffeeMachine {
 // 커피 머신 생성
 let coffeeMachine = new CoffeeMachine(100);
 
-<<<<<<< HEAD
 // 물 추가
-coffeeMachine.waterAmount = -10; // Error: 물의 양은 음수가 될 수 없습니다.
+coffeeMachine.waterAmount = -10; // _waterAmount는 -10이 아닌 0이 됩니다.
 ```
 
-이제 물의 양을 0 미만으로 설정하면 실패합니다. 
-=======
-// add water
-coffeeMachine.waterAmount = -10; // _waterAmount will become 0, not -10
-```
-
-Now the access is under control, so setting the water amount below zero becomes impossible.
->>>>>>> upstream/master
+이제 접근을 통제할 수 있기 때문에 물의 양을 0 미만으로 설정하는 것은 불가능합니다.
 
 ## 읽기 전용 프로퍼티
 
@@ -173,11 +161,7 @@ class CoffeeMachine {
   _waterAmount = 0;
 
   *!*setWaterAmount(value)*/!* {
-<<<<<<< HEAD
-    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
-=======
     if (value < 0) value = 0;
->>>>>>> upstream/master
     this._waterAmount = value;
   }
 
@@ -191,7 +175,7 @@ new CoffeeMachine().setWaterAmount(100);
 
 다소 길어보이긴 하지만, 이렇게 함수를 선언하면 다수의 인자를 받을 수 있기 때문에 좀 더 유연합니다(위 예시에선 인자가 하나뿐이긴 하지만요). 
 
-반면 get, set 문법을 사용하면 코드가 짧아진다는 장점이 있습니다. 어떤걸 사용해야 한다는 규칙은 없으므로 원하는 방식을 선택해서 사용하세요.
+반면 get, set 문법을 사용하면 코드가 짧아진다는 장점이 있습니다. 어떤 걸 사용해야 한다는 규칙은 없으므로 원하는 방식을 선택해서 사용하세요.
 ````
 
 ```smart header="protected 필드는 상속됩니다."
@@ -208,11 +192,7 @@ private 프로퍼티와 메서드는 제안(proposal) 목록에 등재된 문법
 
 private 프로퍼티와 메서드는 `#`으로 시작합니다. `#`이 붙으면 클래스 안에서만 접근할 수 있습니다.
 
-<<<<<<< HEAD
-물 용량 한도를 나타내는 private 프로퍼티 `#waterLimit`과 남아있는 물의 양을 확인해주는 private 메서드 `#checkWater`를 구현해봅시다.
-=======
-For instance, here's a private `#waterLimit` property and the water-checking private method `#fixWaterAmount`:
->>>>>>> upstream/master
+예를 들어, 물 용량 한도를 나타내는 private 프로퍼티 `#waterLimit`과 물의 양을 보정해주는 private 메서드 `#fixWaterAmount`가 있습니다.
 
 ```js run
 class CoffeeMachine {
@@ -221,15 +201,9 @@ class CoffeeMachine {
 */!*
 
 *!*
-<<<<<<< HEAD
-  #checkWater(value) {
-    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
-    if (value > this.#waterLimit) throw new Error("물이 용량을 초과합니다.");
-=======
   #fixWaterAmount(value) {
     if (value < 0) return 0;
     if (value > this.#waterLimit) return this.#waterLimit;
->>>>>>> upstream/master
   }
 */!*
 
@@ -242,13 +216,8 @@ class CoffeeMachine {
 let coffeeMachine = new CoffeeMachine();
 
 *!*
-<<<<<<< HEAD
-// 클래스 외부에서 private에 접근할 수 없음
-coffeeMachine.#checkWater(); // Error
-=======
-// can't access privates from outside of the class
+// 클래스 외부에서 private에 접근할 수 없습니다.
 coffeeMachine.#fixWaterAmount(123); // Error
->>>>>>> upstream/master
 coffeeMachine.#waterLimit = 1000; // Error
 */!*
 ```
@@ -269,11 +238,7 @@ class CoffeeMachine {
   }
 
   set waterAmount(value) {
-<<<<<<< HEAD
-    if (value < 0) throw new Error("물의 양은 음수가 될 수 없습니다.");
-=======
     if (value < 0) value = 0;
->>>>>>> upstream/master
     this.#waterAmount = value;
   }
 }
@@ -322,12 +287,12 @@ class User {
 
 객체 지향 프로그래밍에선 내부 인터페이스와 외부 인터페이스를 구분하는 것을 [캡슐화(encapsulation)]라는 용어를 사용해 설명합니다.
 
-캡슐화는 이점은 다음과 같습니다.
+캡슐화의 이점은 다음과 같습니다.
 
 사용자가 자신의 발등을 찍지 않도록 보호
-: 커피 머신를 함께 사용하는 개발팀이 있다고 상상해봅시다. "Best CoffeeMachine"이라는 회사에서 만든 이 커피 머신은 현재 잘 작동하고 있지만, 보호 커버가 없어서 내부 인터페이스가 노출되어있는 상황입니다.
+: 커피 머신을 함께 사용하는 개발팀이 있다고 상상해봅시다. "Best CoffeeMachine"이라는 회사에서 만든 이 커피 머신은 현재 잘 작동하고 있지만, 보호 커버가 없어서 내부 인터페이스가 노출되어 있는 상황입니다.
 
-    교양있는 팀원들은 모두 설계 의도에 맞게 커피 머신을 사용합니다. 그런데 어느 날 John이라는 개발자가 자신의 능력을 과신하며 커피 머신 내부를 살짝 만지게 됩니다. 이틀 후, 커피 머신은 고장이 나버렸죠.
+    교양 있는 팀원들은 모두 설계 의도에 맞게 커피 머신을 사용합니다. 그런데 어느 날 John이라는 개발자가 자신의 능력을 과신하며 커피 머신 내부를 살짝 만지게 됩니다. 이틀 후, 커피 머신은 고장이 나버렸죠.
 
     커피 머신이 고장 난 건 John의 잘못이라기보다는, 보호 커버를 없애고 John이 마음대로 조작하도록 내버려 둔 사람의 잘못입니다.
 
