@@ -1,11 +1,6 @@
 importance: 5
 
-<<<<<<< HEAD
 # if 문 안의 함수
-=======
----
-# Function in if
->>>>>>> upstream/master
 
 아래 예시의 실행 결과를 예측해보세요.
 
