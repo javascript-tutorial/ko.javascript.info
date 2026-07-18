@@ -2,23 +2,18 @@
 
 따라서 2월은 숫자 1을 사용해 만듭니다.
 
-Here's an example with numbers as date components:
-
-Here's an example with numbers as date components:
+숫자로 날짜를 생성하는 예제는 다음과 같습니다.
 
 ```js run
 //new Date(year, month, date, hour, minute, second, millisecond)
 let d1 = new Date(2012, 1, 20, 3, 12);
 alert( d1 );
 ```
-We could also create a date from a string, like this:
+
+문자열로도 다음과 같이 날짜를 만들 수 있습니다.
 
 ```js run
 //new Date(datastring)
-<<<<<<< HEAD
-let d2 = new Date("February 20, 2012 03:12:00");
-=======
 let d2 = new Date("2012-02-20T03:12");
->>>>>>> upstream/master
 alert( d2 );
 ```
