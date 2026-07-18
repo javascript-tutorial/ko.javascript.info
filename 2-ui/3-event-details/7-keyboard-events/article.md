@@ -1,140 +1,140 @@
-# Keyboard: keydown and keyup
+# keydown과 keyup 이벤트
 
-Before we get to keyboard, please note that on modern devices there are other ways to "input something". For instance, people use speech recognition (especially on mobile devices) or copy/paste with the mouse.
+키보드 이야기를 시작하기 전에 먼저 알아 둘 점이 있습니다. 모던 디바이스에선 키보드 말고도 '무언가를 입력'하는 다양한 수단이 있습니다. 음성 인식(특히 모바일 기기)이나 마우스를 사용한 복사·붙여넣기가 그 예입니다.
 
-So if we want to track any input into an `<input>` field, then keyboard events are not enough. There's another event named `input` to track changes of an `<input>` field, by any means. And it may be a better choice for such task. We'll cover it later in the chapter <info:events-change-input>.
+따라서 `<input>` 필드에 들어오는 입력 전부를 추적하려면 키보드 이벤트만으론 부족합니다. 이를 보완하는 수단으론 입력 수단과 관계없이 `<input>` 필드의 변경을 추적하는 `input`이라는 이벤트가 따로 존재합니다. 입력 추적이 목적이라면 `input` 이벤트가 더 나은 선택일 수 있습니다. `input` 이벤트는 <info:events-change-input> 챕터에서 다루겠습니다.
 
-Keyboard events should be used when we want to handle keyboard actions (virtual keyboard also counts). For instance, to react on arrow keys `key:Up` and `key:Down` or hotkeys (including combinations of keys).
+키보드 이벤트는 키보드 동작 자체를 다루고 싶을 때 사용해야 합니다(가상 키보드 포함). 방향키 `key:Up`·`key:Down` 입력이나 단축키(키 조합 포함)에 반응하는 경우가 그 예입니다.
 
 
-## Teststand [#keyboard-test-stand]
+## 실험용 미니 데모 [#keyboard-test-stand]
 
 ```offline
-To better understand keyboard events, you can use the [teststand](sandbox:keyboard-dump).
+[실험용 미니 데모](sandbox:keyboard-dump)를 돌려보면 키보드 이벤트를 더 잘 이해할 수 있습니다.
 ```
 
 ```online
-To better understand keyboard events, you can use the teststand below.
+실험용 미니 데모를 돌려보면 키보드 이벤트를 더 잘 이해할 수 있습니다.
 
-Try different key combinations in the text field.
+텍스트 필드에 다양한 키 조합을 입력해 봅시다.
 
 [codetabs src="keyboard-dump" height=480]
 ```
 
 
-## Keydown and keyup
+## keydown과 keyup
 
-The `keydown` events happens when a key is pressed down, and then `keyup` -- when it's released.
+키를 누르면 `keydown` 이벤트가 발생합니다. 눌렀던 키에서 손을 떼면 `keyup` 이벤트가 발생합니다.
 
-### event.code and event.key
+### event.code와 event.key
 
-The `key` property of the event object allows to get the character, while the `code` property of the event object allows to get the "physical key code".
+이벤트 객체의 `key` 프로퍼티로는 입력된 글자를, `code` 프로퍼티로는 '물리적인 키 코드'를 알아낼 수 있습니다.
 
-For instance, the same key `key:Z` can be pressed with or without `key:Shift`. That gives us two different characters: lowercase `z` and uppercase `Z`.
+같은 키 `key:Z`를 눌러도 `key:Shift`와 함께 누르는지에 따라 소문자 `z`와 대문자 `Z`라는 서로 다른 두 글자가 입력됩니다.
 
-The `event.key` is exactly the character, and it will be different. But `event.code` is the same:
+`event.key`는 입력된 글자 그 자체를 파악하기 때문에 두 경우에 값이 다릅니다. 반면 `event.code`는 같습니다.
 
-| Key          | `event.key` | `event.code` |
+| 키          | `event.key` | `event.code` |
 |--------------|-------------|--------------|
-| `key:Z`      |`z` (lowercase)         |`KeyZ`        |
-| `key:Shift+Z`|`Z` (uppercase)          |`KeyZ`        |
+| `key:Z`      |`z` (소문자)         |`KeyZ`        |
+| `key:Shift+Z`|`Z` (대문자)          |`KeyZ`        |
 
 
-If a user works with different languages, then switching to another language would make a totally different character instead of `"Z"`. That will become the value of `event.key`, while `event.code` is always the same: `"KeyZ"`.
+여러 언어를 오가며 작업하는 사용자라면 다른 언어로 전환하고 `key:Z`를 누르면 `"Z"`와 전혀 다른 글자가 입력됩니다. 이때는 실제 입력된 글자가 `event.key` 값이 됩니다. 반면 `event.code`는 언제나 `"KeyZ"`로 같습니다.
 
-```smart header="\"KeyZ\" and other key codes"
-Every key has the code that depends on its location on the keyboard. Key codes described in the [UI Events code specification](https://www.w3.org/TR/uievents-code/).
+```smart header="\"KeyZ\"와 그 밖의 키 코드"
+모든 키에는 키보드 위치에 따라 정해지는 코드가 있습니다. 키 코드는 [UI 이벤트 코드 명세](https://www.w3.org/TR/uievents-code/)에 기술되어 있습니다.
 
-For instance:
-- Letter keys have codes `"Key<letter>"`: `"KeyA"`, `"KeyB"` etc.
-- Digit keys have codes: `"Digit<number>"`: `"Digit0"`, `"Digit1"` etc.
-- Special keys are coded by their names: `"Enter"`, `"Backspace"`, `"Tab"` etc.
+예시를 살펴봅시다.
+- 글자 키의 코드는 `"Key<글자>"` 형태입니다. `"KeyA"`, `"KeyB"` 등이 있습니다.
+- 숫자 키의 코드는 `"Digit<숫자>"` 형태입니다. `"Digit0"`, `"Digit1"` 등이 있습니다.
+- 특수 키의 코드는 키 이름 그대로입니다. `"Enter"`, `"Backspace"`, `"Tab"` 등이 있습니다.
 
-There are several widespread keyboard layouts, and the specification gives key codes for each of them.
+널리 쓰이는 키보드 자판 배열 몇 가지에 대한 키 코드는 명세에서 확인할 수 있습니다.
 
-Read the [alphanumeric section of the spec](https://www.w3.org/TR/uievents-code/#key-alphanumeric-section) for more codes, or just press a key in the [teststand](#keyboard-test-stand) above.
+더 많은 코드가 궁금하다면 [명세의 알파벳·숫자 절](https://www.w3.org/TR/uievents-code/#key-alphanumeric-section)을 읽거나 위 [실험용 미니 데모](#keyboard-test-stand)에서 직접 키를 눌러 보세요.
 ```
 
-```warn header="Case matters: `\"KeyZ\"`, not `\"keyZ\"`"
-Seems obvious, but people still make mistakes.
+```warn header="대·소문자 구분: `\"keyZ\"`가 아니라 `\"KeyZ\"`"
+당연해 보이지만 여전히 많은 사람이 실수하는 부분입니다.
 
-Please evade mistypes: it's `KeyZ`, not `keyZ`. The check like `event.code=="keyZ"` won't work: the first letter of `"Key"` must be uppercase.
+`keyZ`가 아니라 `KeyZ`라는 점에 유의하세요. `event.code=="keyZ"` 같은 비교는 동작하지 않습니다. `"Key"`의 첫 글자는 반드시 대문자여야 합니다.
 ```
 
-What if a key does not give any character? For instance, `key:Shift` or `key:F1` or others. For those keys, `event.key` is approximately the same as `event.code`:
+그럼 `key:Shift`나 `key:F1`처럼 아무 글자도 입력하지 않는 키는 어떨까요? 이런 키는 `event.key` 값이 `event.code` 값과 거의 같습니다.
 
-| Key          | `event.key` | `event.code` |
+| 키          | `event.key` | `event.code` |
 |--------------|-------------|--------------|
 | `key:F1`      |`F1`          |`F1`        |
 | `key:Backspace`      |`Backspace`          |`Backspace`        |
-| `key:Shift`|`Shift`          |`ShiftRight` or `ShiftLeft`        |
+| `key:Shift`|`Shift`          |`ShiftRight` 또는 `ShiftLeft`        |
 
-Please note that `event.code` specifies exactly which key is pressed. For instance, most keyboards have two `key:Shift` keys: on the left and on the right side. The `event.code` tells us exactly which one was pressed, and `event.key` is responsible for the "meaning" of the key: what it is (a "Shift").
+`event.code`는 정확히 어떤 키가 눌렸는지 특정한다는 점에 주목하세요. 예를 들어 대부분의 키보드엔 `key:Shift` 키가 왼쪽과 오른쪽에 하나씩 있습니다. `event.code`는 둘 중 어느 쪽이 눌렸는지 알려주고 `event.key`는 그 키의 '의미'('Shift'라는 사실)를 담당합니다.
 
-Let's say, we want to handle a hotkey: `key:Ctrl+Z` (or `key:Cmd+Z` for Mac). Most text editors hook the "Undo" action on it. We can set a listener on `keydown` and check which key is pressed.
+단축키 `key:Ctrl+Z`(Mac에선 `key:Cmd+Z`)를 처리하고 싶다고 가정하겠습니다. 대부분의 텍스트 에디터는 이 단축키를 누르면 '실행 취소'가 되게 해줍니다. `keydown`에 리스너를 설정하고 어떤 키가 눌렸는지 검사하면 우리도 단축키를 처리해 실행 취소 기능을 구현할 수 있습니다.
 
-There's a dilemma here: in such a listener, should we check the value of `event.key` or `event.code`?
+여기서 고민이 하나 생깁니다. 리스너에서 검사해야 할 값은 `event.key`일까요, `event.code`일까요?
 
-On one hand, the value of `event.key` is a character, it changes depending on the language. If the visitor has several languages in OS and switches between them, the same key gives different characters. So it makes sense to check `event.code`, it's always the same.
+`event.key` 값은 글자라서 언어에 따라 달라집니다. 사용자가 OS에 여러 언어를 설정해 놓고 전환하면 같은 키를 눌러도 다른 글자가 입력됩니다. 그러니 값이 언제나 같은 `event.code`를 검사하는 편이 타당해 보입니다.
 
-Like this:
+다음처럼 말이죠.
 
 ```js run
 document.addEventListener('keydown', function(event) {
   if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
-    alert('Undo!')
+    alert('실행 취소!')
   }
 });
 ```
 
-On the other hand, there's a problem with `event.code`. For different keyboard layouts, the same key may have different characters.
+그런데 `event.code`엔 문제가 하나 있습니다. 자판 배열이 다르면 같은 키에서 다른 글자가 입력되는 경우가 있습니다.
 
-For example, here are US layout ("QWERTY") and German layout ("QWERTZ") under it (from Wikipedia):
+미국식 배열('QWERTY')과 그 아래 독일식 배열('QWERTZ')을 비교해 봅시다(위키피디아 출처).
 
 ![](us-layout.svg)
 
 ![](german-layout.svg)
 
-For the same key, US layout has "Z", while German layout has "Y" (letters are swapped).
+같은 키인데 미국식 배열에선 'Z'가, 독일식 배열에선 'Y'가 입력됩니다(각 배열에서 두 글자의 위치가 서로 바뀌어 있습니다).
 
-Literally, `event.code` will equal `KeyZ` for people with German layout when they press `key:Y`.
+말 그대로 독일식 배열 사용자가 `key:Y`를 누르면 `event.code`가 `KeyZ`가 됩니다.
 
-If we check `event.code == 'KeyZ'` in our code, then for people with German layout such test will pass when they press `key:Y`.
+코드에서 `event.code == 'KeyZ'`를 검사한다면 독일식 배열 사용자가 `key:Y`를 누를 때도 검사를 통과해 버립니다.
 
-That sounds really odd, but so it is. The [specification](https://www.w3.org/TR/uievents-code/#table-key-code-alphanumeric-writing-system) explicitly mentions such behavior.
+정말 이상하게 들리지만 실제로 그렇습니다. [명세](https://www.w3.org/TR/uievents-code/#table-key-code-alphanumeric-writing-system)에 이런 동작이 명시되어 있습니다.
 
-So, `event.code` may match a wrong character for unexpected layout. Same letters in different layouts may map to different physical keys, leading to different codes. Luckily, that happens only with several codes, e.g. `keyA`, `keyQ`, `keyZ` (as we've seen), and doesn't happen with special keys such as `Shift`. You can find the list in the [specification](https://www.w3.org/TR/uievents-code/#table-key-code-alphanumeric-writing-system).
+이렇게 `event.code`는 예상치 못한 자판 배열에서 엉뚱한 글자와 연결될 수 있습니다. 배열이 다르면 같은 글자가 서로 다른 물리 키에 자리해 코드도 달라지기 때문입니다. 다행히 이런 일은 앞서 본 `keyA`·`keyQ`·`keyZ` 등 몇몇 코드에서만 일어나고 `Shift` 같은 특수 키에선 일어나지 않습니다. 해당 목록은 [명세](https://www.w3.org/TR/uievents-code/#table-key-code-alphanumeric-writing-system)에서 확인할 수 있습니다.
 
-To reliably track layout-dependent characters, `event.key` may be a better way.
+자판 배열에 따라 달라지는 글자를 안정적으로 추적해야 한다면 `event.key`가 더 나은 방법일 수 있습니다.
 
-On the other hand, `event.code` has the benefit of staying always the same, bound to the physical key location, even if the visitor changes languages. So hotkeys that rely on it work well even in case of a language switch.
+반면 `event.code`는 물리적인 키 위치에 묶여 있어 사용자가 언어를 바꿔도 값이 언제나 같다는 장점이 있습니다. 그래서 `event.code`에 의존하는 단축키는 언어를 전환해도 잘 동작합니다.
 
-Do we want to handle layout-dependant keys? Then `event.key` is the way to go.
+자판 배열에 따라 글자가 달라지는 키를 다루고 싶나요? 그렇다면 `event.key`가 좋은 선택입니다.
 
-Or we want a hotkey to work even after a language switch? Then `event.code` may be better.
+언어를 전환해도 동작하는 단축키를 만들고 싶나요? 그렇다면 `event.code`가 더 나을 수 있습니다.
 
-## Auto-repeat
+## 자동 반복
 
-If a key is being pressed for a long enough time, it starts to "auto-repeat": the `keydown` triggers again and again, and then when it's released we finally get `keyup`. So it's kind of normal to have many `keydown` and a single `keyup`.
+키를 충분히 오래 누르고 있으면 '자동 반복(auto-repeat)'이 시작됩니다. `keydown` 이벤트가 계속해서 다시 발생하다가 키에서 손을 떼는 순간 마지막으로 `keyup` 이벤트가 한 번 발생합니다. 그래서 `keydown`은 여러 번 발생하고 `keyup`은 한 번만 발생하는 일이 꽤 흔합니다.
 
-For events triggered by auto-repeat, the event object has `event.repeat` property set to `true`.
+자동 반복으로 발생한 이벤트는 이벤트 객체의 `event.repeat` 프로퍼티가 `true`로 설정됩니다.
 
 
-## Default actions
+## 기본 동작
 
-Default actions vary, as there are many possible things that may be initiated by the keyboard.
+키보드는 그 조합이 다양한 만큼 기본 동작도 다양합니다.
 
-For instance:
+예시를 살펴봅시다.
 
-- A character appears on the screen (the most obvious outcome).
-- A character is deleted (`key:Delete` key).
-- The page is scrolled (`key:PageDown` key).
-- The browser opens the "Save Page" dialog (`key:Ctrl+S`)
--  ...and so on.
+- 글자 키를 누르면 화면에 글자가 나타납니다(가장 대표적인 결과입니다).
+- `key:Delete` 키를 누르면 글자가 삭제됩니다.
+- `key:PageDown` 키를 누르면 페이지가 스크롤됩니다.
+- `key:Ctrl+S`를 누르면 브라우저가 '페이지 저장' 대화상자를 엽니다.
+- 이 외에도 브라우저가 기본적으로 지원하는 기능은 다양합니다.
 
-Preventing the default action on `keydown` can cancel most of them, with the exception of OS-based special keys. For instance, on Windows `key:Alt+F4` closes the current browser window. And there's no way to stop it by preventing the default action in JavaScript.
+`keydown` 핸들러를 통해 기본 동작을 막으면 OS 기반 특수 키를 제외한 대부분의 기본 동작을 취소할 수 있습니다. 예를 들어 Windows에선 `key:Alt+F4`를 누르면 현재 브라우저 창이 닫히는데 자바스크립트에서 기본 동작을 막게 코딩해도 창을 닫는 것을 막을 수 없습니다.
 
-For instance, the `<input>` below expects a phone number, so it does not accept keys except digits, `+`, `()` or `-`:
+또 다른 예시를 살펴봅시다. 아래 `<input>`은 전화번호를 입력받는 필드라서 숫자와 `+`, `()`, `-` 이외의 키는 받아들이지 않습니다(다만 한글은 입력기(IME, Input Method Editor)가 여러 키를 조합해 글자를 만들어 넣기 때문에 `keydown`에서 기본 동작을 막아도 입력됩니다 - 옮긴이).
 
 ```html autorun height=60 run
 <script>
@@ -142,12 +142,12 @@ function checkPhoneKey(key) {
   return (key >= '0' && key <= '9') || key == '+' || key == '(' || key == ')' || key == '-';
 }
 </script>
-<input *!*onkeydown="return checkPhoneKey(event.key)"*/!* placeholder="Phone, please" type="tel">
+<input *!*onkeydown="return checkPhoneKey(event.key)"*/!* placeholder="전화번호를 입력해 주세요" type="tel">
 ```
 
-Please note that special keys, such as `key:Backspace`, `key:Left`, `key:Right`, `key:Ctrl+V`, do not work in the input. That's a side-effect of the strict filter `checkPhoneKey`.
+그런데 이 예시는 `key:Backspace`·`key:Left`·`key:Right`·`key:Ctrl+V` 같은 특수 키도 동작하지 않는다는 점에 주목하세요. 필터 `checkPhoneKey`가 지나치게 엄격해서 생긴 부작용입니다.
 
-Let's relax it a little bit:
+필터를 조금 느슨하게 만들어 봅시다.
 
 
 ```html autorun height=60 run
@@ -157,33 +157,33 @@ function checkPhoneKey(key) {
     key == 'ArrowLeft' || key == 'ArrowRight' || key == 'Delete' || key == 'Backspace';
 }
 </script>
-<input onkeydown="return checkPhoneKey(event.key)" placeholder="Phone, please" type="tel">
+<input onkeydown="return checkPhoneKey(event.key)" placeholder="전화번호를 입력해 주세요" type="tel">
 ```
 
-Now arrows and deletion works well.
+이제 화살표 키와 삭제 키가 잘 동작합니다.
 
-...But we still can enter anything by using a mouse and right-click + Paste. So the filter is not 100% reliable. We can just let it be like that, because most of time it works. Or an alternative approach would be to track the `input` event -- it triggers after any modification. There we can check the new value and highlight/modify it when it's invalid.
+그런데 여전히 마우스 우클릭과 '붙여넣기'를 사용하면 아무 값이나 입력할 수 있습니다. 필터가 100% 신뢰할 만한 수단은 아닌 셈이죠. 이 코드는 대부분의 경우엔 잘 동작하니 이대로 둬도 괜찮습니다. 하지만 좀 더 보완하고 싶다면 어떤 수정이든 일어난 뒤에 트리거되는 `input` 이벤트를 추적하는 방식을 쓰면 됩니다. `input` 이벤트 핸들러에선 새 값을 검사해 유효하지 않은 값일 때 강조 표시하거나 고칠 수 있습니다.
 
-## Legacy
+## 레거시
 
-In the past, there was a `keypress` event, and also `keyCode`, `charCode`, `which` properties of the event object.
+과거엔 `keypress`라는 이벤트가 있었고 이벤트 객체엔 `keyCode`·`charCode`·`which` 프로퍼티도 있었습니다.
 
-There were so many browser incompatibilities while working with them, that developers of the specification had no way, other than deprecating all of them and creating new, modern events (described above in this chapter). The old code still works, as browsers keep supporting them, but there's totally no need to use those any more.
+이 이벤트와 프로퍼티는 브라우저 간 비호환 문제가 아주 많았습니다. 그래서 레거시 이벤트와 프로퍼티를 전부 폐기(deprecate)하고 새로운 모던 이벤트(위에서 설명한 이벤트)에 대한 명세를 만드는 것 외엔 다른 도리가 없었습니다. 레거시 이벤트도 브라우저가 계속 지원하고 있어 옛 코드도 여전히 동작하지만 지금은 옛 이벤트와 프로퍼티를 사용할 필요가 전혀 없습니다.
 
-## Summary
+## 요약
 
-Pressing a key always generates a keyboard event, be it symbol keys or special keys like `key:Shift` or `key:Ctrl` and so on. The only exception is `key:Fn` key that sometimes presents on a laptop keyboard. There's no keyboard event for it, because it's often implemented on lower level than OS.
+글자 키를 비롯해 `key:Shift`·`key:Ctrl` 같은 특수 키를 누르면 항상 키보드 이벤트가 발생합니다. 유일한 예외는 노트북용 키보드에 종종 있는 `key:Fn` 키입니다. `key:Fn`은 OS보다 낮은 레벨에서 구현될 때가 많아 키보드 이벤트가 발생하지 않습니다.
 
-Keyboard events:
+키보드 이벤트는 두 가지가 있습니다.
 
-- `keydown` -- on pressing the key (auto-repeats if the key is pressed for long),
-- `keyup` -- on releasing the key.
+- `keydown` -- 키를 누를 때 발생(키를 오래 누르고 있으면 자동 반복)
+- `keyup` -- 키에서 손을 뗄 때 발생
 
-Main keyboard event properties:
+키보드 이벤트의 주요 프로퍼티는 다음과 같습니다.
 
-- `code` -- the "key code" (`"KeyA"`, `"ArrowLeft"` and so on), specific to the physical location of the key on keyboard.
-- `key` -- the character (`"A"`, `"a"` and so on), for non-character keys, such as `key:Esc`, usually has the same value  as `code`.
+- `code` -- 키보드에서 키가 자리한 물리적 위치에 따라 정해지는 '키 코드'(`"KeyA"`, `"ArrowLeft"` 등)
+- `key` -- 입력된 글자(`"A"`, `"a"` 등). `key:Esc`처럼 글자가 없는 키에선 대개 `code`와 값이 같음
 
-In the past, keyboard events were sometimes used to track user input in form fields. That's not reliable, because the input can come from various sources. We have `input` and `change` events to handle any input (covered later in the chapter <info:events-change-input>). They trigger after any kind of input, including copy-pasting or speech recognition.
+과거엔 폼 필드의 사용자 입력을 추적할 때 키보드 이벤트를 쓰기도 했습니다. 하지만 입력은 다양한 경로로 들어올 수 있어 이 방법은 신뢰하기 어렵습니다. 모든 입력을 다루는 `input`·`change` 이벤트를 사용하는 게 더 신뢰하기 좋습니다(<info:events-change-input> 챕터에서 다룹니다). 두 이벤트는 복사·붙여넣기나 음성 인식을 포함해 어떤 종류의 입력이든 일어난 뒤에 트리거됩니다.
 
-We should use keyboard events when we really want keyboard. For example, to react on hotkeys or special keys.
+키보드 이벤트는 정말로 키보드를 다루고 싶을 때 사용해야 합니다. 단축키나 특수 키에 반응해야 하는 경우가 그 예입니다.
