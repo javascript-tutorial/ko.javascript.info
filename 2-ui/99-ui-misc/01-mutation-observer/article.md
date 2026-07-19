@@ -84,11 +84,11 @@ mutationRecords = [{
   target: <div#elem>,
   removedNodes: [<b>],
   nextSibling: <text node>,
-  previousSibling: <text node>
+  previousSibling: <text node>,
   // 다른 프로퍼티는 비어 있음
 }, {
-  type: "characterData"
-  target: <text node>
+  type: "characterData",
+  target: <text node>,
   // ...뮤테이션의 세부 내용은 브라우저가 이런 삭제를 어떻게 처리하는지에 따라 다릅니다.
   // 인접한 두 텍스트 노드 '여기를 클릭해 '와 '해 보세요'를 하나로 합칠 수도 있고
   // 별개의 텍스트 노드로 남겨둘 수도 있습니다.
@@ -128,13 +128,13 @@ mutationRecords = [{
 ...
 ```
 
-가독성을 높이는 동시에 보기 좋게 꾸미기 위해 [Prism.js](https://prismjs.com/) 같은 자바스크립트 구문 강조(syntax highlighting) 라이브러리를 사이트에 사용해 본다고 가정하겠습니다. Prism에서 위 예시에 구문 강조를 적용하려면 `Prism.highlightElem(pre)`를 호출합니다. 이 메서드는 `pre` 요소의 내용을 검사해서 색을 입히는 특별한 태그와 스타일을 해당 요소 안에 추가합니다. 지금 보고 있는 이 페이지의 예시 코드와 비슷한 결과물이 만들어지죠.
+가독성을 높이는 동시에 보기 좋게 꾸미기 위해 [Prism.js](https://prismjs.com/) 같은 자바스크립트 구문 강조(syntax highlighting) 라이브러리를 사이트에 사용해 본다고 가정하겠습니다. Prism에서 위 예시에 구문 강조를 적용하려면 `Prism.highlightElement(pre)`를 호출합니다. 이 메서드는 `pre` 요소의 내용을 검사해서 색을 입히는 특별한 태그와 스타일을 해당 요소 안에 추가합니다. 지금 보고 있는 이 페이지의 예시 코드와 비슷한 결과물이 만들어지죠.
 
-그렇다면 구문 강조 메서드는 정확히 언제 실행해야 할까요? `DOMContentLoaded` 이벤트에서 실행할 수도 있고 스크립트를 페이지 맨 아래에 넣을 수도 있습니다. DOM이 준비되면 `pre[class*="language"]`에 해당하는 요소를 찾아 `Prism.highlightElem`을 호출하면 됩니다.
+그렇다면 구문 강조 메서드는 정확히 언제 실행해야 할까요? `DOMContentLoaded` 이벤트에서 실행할 수도 있고 스크립트를 페이지 맨 아래에 넣을 수도 있습니다. DOM이 준비되면 `pre[class*="language"]`에 해당하는 요소를 찾아 `Prism.highlightElement`를 호출하면 됩니다.
 
 ```js
 // 페이지에 있는 코드 예시를 전부 강조 표시합니다.
-document.querySelectorAll('pre[class*="language"]').forEach(Prism.highlightElem);
+document.querySelectorAll('pre[class*="language"]').forEach(elem => Prism.highlightElement(elem));
 ```
 
 여기까진 문제 될 게 없습니다. HTML에서 코드 예시를 찾아 강조 표시하면 끝이죠.
@@ -146,9 +146,9 @@ let article = /* 서버에서 새 콘텐츠를 가져옴 */
 articleElem.innerHTML = article;
 ```
 
-새로 받아온 `article` HTML엔 코드 예시가 들어 있을 수 있습니다. `Prism.highlightElem`을 호출하지 않으면 이 코드는 강조 표시되지 않습니다.
+새로 받아온 `article` HTML엔 코드 예시가 들어 있을 수 있습니다. `Prism.highlightElement`를 호출하지 않으면 이 코드는 강조 표시되지 않습니다.
 
-**그럼 동적으로 불러온 글엔 `Prism.highlightElem`을 어디서, 언제 호출해야 할까요?**
+**그럼 동적으로 불러온 글엔 `Prism.highlightElement`를 어디서, 언제 호출해야 할까요?**
 
 다음처럼 글을 불러오는 코드 뒤에 호출을 덧붙일 수 있을 겁니다.
 
@@ -158,7 +158,7 @@ articleElem.innerHTML = article;
 
 *!*
 let snippets = articleElem.querySelectorAll('pre[class*="language-"]');
-snippets.forEach(Prism.highlightElem);
+snippets.forEach(elem => Prism.highlightElement(elem));
 */!*
 ```
 
