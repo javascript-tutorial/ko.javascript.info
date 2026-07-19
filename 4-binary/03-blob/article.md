@@ -117,7 +117,7 @@ blob:https://javascript.info/1e67e00e-860d-40a5-89ae-6ab0cbee6273
 
 `URL.createObjectURL`을 쓰는 대신 `Blob`을 base64 인코딩 문자열로 변환하는 방법도 있습니다.
 
-base64 인코딩은 이진 데이터를 0부터 64까지의 ASCII 코드만으로 이루어진 '읽을 수 있는' 안전한 문자열로 표현합니다. 더 중요한 점은 base64로 인코딩한 문자열을 '데이터 URL(data url)'에 쓸 수 있다는 사실입니다.
+base64 인코딩은 이진 데이터를 영문 대·소문자와 숫자, `+`, `/` 등 64개의 안전한 ASCII 문자만으로 이루어진 '읽을 수 있는' 문자열로 표현합니다. 더 중요한 점은 base64로 인코딩한 문자열을 '데이터 URL(data url)'에 쓸 수 있다는 사실입니다.
 
 [Data URL](mdn:/http/Data_URIs)은 `data:[<mediatype>][;base64],<data>` 형태입니다. 이렇게 만든 URL은 '일반' URL과 동등하게 어디에서나 사용할 수 있습니다.
 
@@ -202,7 +202,7 @@ canvas.toBlob(function(blob) {
 
 콜백 대신 `async/await`를 선호한다면 다음처럼 쓸 수 있습니다.
 ```js
-let blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/png'));
+let blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
 ```
 
 페이지 스크린샷을 찍을 땐 <https://github.com/niklasvh/html2canvas> 같은 라이브러리를 사용할 수 있습니다. 이 라이브러리가 하는 일은 페이지를 훑으며 모든 요소를 `<canvas>`에 그대로 그리는 것뿐입니다. 그다음은 위에서 한 방법 그대로 `Blob`을 얻으면 됩니다.
@@ -215,7 +215,7 @@ let blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/png'))
 
 ```js
 // blob에서 arrayBuffer를 얻습니다.
-const bufferPromise = await blob.arrayBuffer();
+const buffer = await blob.arrayBuffer();
 
 // 또는
 blob.arrayBuffer().then(buffer => /* ArrayBuffer를 처리합니다. */);
@@ -245,7 +245,7 @@ while (true) {
     break;
   }
 
-   // blob에서 방금 읽은 데이터 조각을 처리합니다.
+  // blob에서 방금 읽은 데이터 조각을 처리합니다.
   console.log(value);
 }
 ```
@@ -254,7 +254,7 @@ while (true) {
 
 `ArrayBuffer`·`Uint8Array` 등의 `BufferSource`가 '이진 데이터'라면 [Blob](https://www.w3.org/TR/FileAPI/#dfn-Blob)은 '타입이 있는 이진 데이터'를 나타냅니다.
 
-같은 이진 데이터라도 Blob은 타입을 갖고있기 때문에 Blob은 브라우저에서 아주 흔한 작업인 업로드·다운로드에 편리하게 쓰입니다.
+같은 이진 데이터라도 Blob은 타입을 갖고 있기 때문에 브라우저에서 아주 흔한 작업인 업로드·다운로드에 편리하게 쓰입니다.
 
 [XMLHttpRequest](info:xmlhttprequest)·[fetch](info:fetch) 등 웹 요청을 수행하는 메서드는 다른 이진 타입과 마찬가지로 `Blob`도 기본으로 다룰 수 있습니다.
 
