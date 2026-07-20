@@ -1,39 +1,23 @@
 # 쿠키와 document.cookie
 
-<<<<<<< HEAD
 쿠키는 브라우저에 저장되는 작은 크기의 문자열로, [RFC 6265](https://tools.ietf.org/html/rfc6265) 명세에서 정의한 HTTP 프로토콜의 일부입니다.
 
-쿠키는 주로 웹 서버에 의해 만들어집니다. 서버가 HTTP 응답 헤더(header)의 `Set-Cookie`에 내용을 넣어 전달하면, 브라우저는 이 내용을 자체적으로 브라우저에 저장합니다. 이게 바로 쿠키입니다. 브라우저는 사용자가 쿠키를 생성하도록 한 동일 서버(사이트)에 접속할 때마다 쿠키의 내용을 `Cookie` 요청 헤더에 넣어서 함께 전달합니다. 
-=======
-Cookies are small strings of data that are stored directly in the browser. They are a part of the HTTP protocol, defined by the [RFC 6265](https://tools.ietf.org/html/rfc6265) specification.
-
-Cookies are usually set by a web server using the response `Set-Cookie` HTTP header. Then, the browser automatically adds them to (almost) every request to the same domain using the `Cookie` HTTP header.
->>>>>>> upstream/master
+쿠키는 주로 웹 서버에 의해 만들어집니다. 서버가 HTTP 응답 헤더의 `Set-Cookie`에 내용을 넣어 전달하면, 브라우저는 이 내용을 저장합니다. 이게 바로 쿠키입니다. 이후 브라우저는 같은 도메인에 요청을 보낼 때마다 쿠키의 내용을 `Cookie` 요청 헤더에 넣어 함께 전달합니다.
 
 쿠키는 클라이언트 식별과 같은 인증에 가장 많이 쓰입니다.
 
-<<<<<<< HEAD
-1. 사용자가 로그인하면 서버는 HTTP 응답 헤더의 `Set-Cookie`에 담긴 "세션 식별자(session identifier)" 정보를 사용해 쿠키를 설정합니다.
-2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고윳값(세션 식별자)을 함께 실어 서버에 요청을 보냅니다.
+1. 사용자가 로그인하면 서버는 HTTP 응답 헤더의 `Set-Cookie`에 담긴 "세션 식별자" 정보를 사용해 쿠키를 설정합니다.
+2. 사용자가 동일 도메인에 접속하려고 하면 브라우저는 HTTP `Cookie` 헤더에 인증 정보가 담긴 고윳값인 세션 식별자를 함께 실어 서버에 요청을 보냅니다.
 3. 서버는 브라우저가 보낸 요청 헤더의 세션 식별자를 읽어 사용자를 식별합니다.
-=======
-1. Upon sign-in, the server uses the `Set-Cookie` HTTP header in the response to set a cookie with a unique "session identifier".
-2. Next time the request is sent to the same domain, the browser sends the cookie over the net using the `Cookie` HTTP header.
-3. So the server knows who made the request.
->>>>>>> upstream/master
 
 `document.cookie` 프로퍼티를 이용하면 브라우저에서도 쿠키에 접근할 수 있습니다.
 
-<<<<<<< HEAD
 쿠키와 다양한 쿠키의 옵션을 다루는 일은 쉽지 않습니다. 이 챕터에선 이에 대해 자세히 알아보도록 하겠습니다.
-=======
-There are many tricky things about cookies and their attributes. In this chapter, we'll cover them in detail.
->>>>>>> upstream/master
 
 ## 쿠키 읽기
 
 ```online
-지금 보고 있는 이 사이트와 관련된 쿠키가 브라우저에 저장되어있는지 알아봅시다.
+지금 보고 있는 이 사이트와 관련된 쿠키가 브라우저에 저장되어 있는지 알아봅시다.
 ```
 
 ```offline
@@ -41,37 +25,23 @@ There are many tricky things about cookies and their attributes. In this chapter
 ```
 
 ```js run
-// javascript.info에선 Google Analytics(GA)를 사용해 데이터를 수집하고 있습니다.
+// javascript.info에선 Google Analytics를 사용해 데이터를 수집하고 있습니다.
 // 이와 관련된 쿠키를 확인해 봅시다.
 alert( document.cookie ); // cookie1=value1; cookie2=value2;...
 ```
 
 
-<<<<<<< HEAD
-`document.cookie`는 `name=value` 쌍으로 구성되어있고, 각 쌍은 `;`로 구분합니다. 이때, 쌍 하나는 하나의 독립된 쿠키를 나타냅니다.
+`document.cookie`는 `name=value` 쌍으로 구성되어 있고, 각 쌍은 `;`로 구분합니다. 이때, 쌍 하나는 하나의 독립된 쿠키를 나타냅니다.
 
 `;`을 기준으로 `document.cookie`의 값을 분리하면 원하는 쿠키를 찾을 수 있습니다. 정규 표현식이나 배열 관련 함수를 함께 사용해서 말이죠.
 
-이에 관한 연습문제를 아래에서 풀어보길 권유합니다. 쿠키 조작에 쓰이는 몇 가지 헬퍼(도우미) 함수를 챕터 끝에 명시해 놓았으니, 이를 참고하셔도 좋습니다.
-=======
-The value of `document.cookie` consists of `name=value` pairs, delimited by `; `. Each one is a separate cookie.
-
-To find a particular cookie, we can split `document.cookie` by `; `, and then find the right name. We can use either a regular expression or array functions to do that.
-
-We leave it as an exercise for the reader. Also, at the end of the chapter, you'll find helper functions to manipulate cookies.
->>>>>>> upstream/master
+이에 관한 연습문제를 아래에서 풀어보길 권유합니다. 쿠키 조작에 쓰이는 몇 가지 도우미 함수를 챕터 끝에 명시해 놓았으니, 이를 참고하셔도 좋습니다.
 
 ## 쿠키 쓰기
 
-<<<<<<< HEAD
-`document.cookie`에 직접 값을 쓸 수 있습니다. 이때 `cookie`는 데이터 프로퍼티가 아닌 접근자(accessor) 프로퍼티입니다. 앞서 <info:property-accessors>에서 학습한 바와 같이, 접근자 프로퍼티에 값을 할당하는 것은 데이터 프로퍼티에 값을 할당하는 것과는 조금 다르게 처리됩니다.
+`document.cookie`에 직접 값을 쓸 수 있습니다. 이때 `cookie`는 데이터 프로퍼티가 아닌 접근자 프로퍼티입니다. 앞서 <info:property-accessors>에서 학습한 바와 같이, 접근자 프로퍼티에 값을 할당하는 것은 데이터 프로퍼티에 값을 할당하는 것과는 조금 다르게 처리됩니다.
 
 **`document.cookie`에 값을 할당하면, 브라우저는 이 값을 받아 해당 쿠키를 갱신합니다. 이때, 다른 쿠키의 값은 변경되지 않습니다.**
-=======
-We can write to `document.cookie`. But it's not a data property, it's an [accessor (getter/setter)](info:property-accessors). An assignment to it is treated specially.
-
-**A write operation to `document.cookie` updates only the cookie mentioned in it and doesn't touch other cookies.**
->>>>>>> upstream/master
 
 아래와 같이 코드를 작성하면 이름이 `user`인 쿠키를 찾아 그 값을 `John`으로 갱신합니다.
 
@@ -80,21 +50,12 @@ document.cookie = "user=John"; // 이름이 'user'인 쿠키의 값만 갱신함
 alert(document.cookie); // 모든 쿠키 보여주기
 ```
 
-<<<<<<< HEAD
 코드를 실행하면 여러 개의 쿠키가 출력되는 것을 확인할 수 있습니다. 이를 통해 `document.cookie=` 연산은 모든 쿠키를 덮어쓰지 않고, 명시된 쿠키인 `user`의 값만 갱신한 것을 알 수 있습니다.
 
 쿠키의 이름과 값엔 특별한 제약이 없기 때문에 모든 글자가 허용됩니다. 하지만 형식의 유효성을 일관성 있게 유지하기 위해 반드시 내장 함수 `encodeURIComponent`를 사용하여 이름과 값을 이스케이프 처리해 줘야 합니다.
 
 ```js run
-// 특수 값(공백)은 인코딩 처리해 줘야 합니다.
-=======
-If you run it, you will likely see multiple cookies. That's because the `document.cookie=` operation does not overwrite all cookies. It only sets the mentioned cookie `user`.
-
-Technically, name and value can have any characters. To keep the valid formatting, they should be escaped using a built-in `encodeURIComponent` function:
-
-```js run
-// special characters (spaces) need encoding
->>>>>>> upstream/master
+// 공백 같은 특수 값은 인코딩 처리해 줘야 합니다.
 let name = "my name";
 let value = "John Smith"
 
@@ -105,9 +66,9 @@ alert(document.cookie); // ...; my%20name=John%20Smith
 ```
 
 
-<<<<<<< HEAD
 ```warn header="쿠키의 한계"
 쿠키엔 몇 가지 제약 사항이 있습니다.
+- `document.cookie`를 사용하면 한 번에 쿠키 하나만 설정하거나 갱신할 수 있습니다.
 - `encodeURIComponent`로 인코딩한 이후의 `name=value` 쌍은 4KB를 넘을 수 없습니다. 이 용량을 넘는 정보는 쿠키에 저장할 수 없습니다.
 - 도메인 하나당 저장할 수 있는 쿠키의 개수는 20여 개 정도로 한정되어 있습니다. 개수는 브라우저에 따라 조금씩 다릅니다.
 ```
@@ -115,95 +76,43 @@ alert(document.cookie); // ...; my%20name=John%20Smith
 쿠키엔 몇 가지 옵션이 있습니다. 몇몇 옵션은 아주 중요하기 때문에 꼭 지정해 줘야 합니다.
 
 옵션은 `key=value` 뒤에 나열하고 `;`로 구분합니다. 아래와 같이 말이죠.
-=======
-```warn header="Limitations"
-There are a few limitations:
-- You can only set/update a single cookie at a time using `document.cookie`.
-- The `name=value` pair, after `encodeURIComponent`, should not exceed 4KB. So we can't store anything huge in a cookie.
-- The total number of cookies per domain is limited to around 20+, the exact limit depends on the browser.
-```
-
-Cookies have several attributes, many of which are important and should be set.
-
-The attributes are listed after `key=value`, delimited by `;`, like this:
->>>>>>> upstream/master
 
 ```js run
 document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
 ```
 
-<<<<<<< HEAD
-## path
-
-- **`path=/mypath`**
-
-URL path(경로)의 접두사로, 이 경로나 이 경로의 하위 경로에 있는 페이지만 쿠키에 접근할 수 있습니다. 절대 경로이어야 하고, (미 지정시) 기본값은 현재 경로입니다.
-
-`path=/admin` 옵션을 사용하여 설정한 쿠키는 `/admin`과 `/admin/something`에선 볼 수 있지만, `/home` 이나 `/adminpage`에선 볼 수 없습니다.
-
-특별한 경우가 아니라면, `path` 옵션을 `path=/`같이 루트로 설정해 웹사이트의 모든 페이지에서 쿠키에 접근할 수 있도록 합시다.
-
-=======
->>>>>>> upstream/master
 ## domain
 
 - **`domain=site.com`**
 
-<<<<<<< HEAD
-쿠키에 접근 가능한 domain(도메인)을 지정합니다. 다만, 몇 가지 제약이 있어서 아무 도메인이나 지정할 수 없습니다. 
+쿠키에 접근 가능한 `domain`을 지정합니다. 다만, 몇 가지 제약이 있어서 아무 도메인이나 지정할 수 없습니다.
 
-`domain` 옵션에 아무 값도 넣지 않았다면, 쿠키를 설정한 도메인에서만 쿠키에 접근할 수 있습니다. `site.com`에서 설정한 쿠키는 `other.com`에서 얻을 수 없죠.
+**다른 2단계 도메인에서 쿠키에 접근하게 할 방법은 없습니다. 따라서 `other.com`은 `site.com`에서 설정한 쿠키를 절대 받지 못합니다.**
 
-이 외에 까다로운 제약사항이 하나 더 있습니다. 서브 도메인(subdomain)인 `forum.site.com`에서도 쿠키 정보를 얻을 수 없다는 점입니다.
+이런 제약사항은 안전성을 높이기 위해 만들어졌습니다. 민감한 데이터가 저장된 쿠키는 관련 페이지에서만 볼 수 있도록 하기 위해서 말이죠.
+
+기본적으로 쿠키는 쿠키를 설정한 도메인에서만 접근할 수 있습니다.
+
+기본적으로 쿠키는 `forum.site.com` 같은 서브 도메인과 공유되지 않는다는 점에 유의하세요.
 
 ```js
 // site.com에서 쿠키를 설정함
 document.cookie = "user=John"
 
-// site.com의 서브도메인인 forum.site.com에서 user 쿠키에 접근하려 함
+// site.com의 서브 도메인인 forum.site.com에서 user 쿠키에 접근하려 함
 alert(document.cookie); // 찾을 수 없음
 ```
-=======
-A domain defines where the cookie is accessible. In practice though, there are limitations. We can't set any domain.
->>>>>>> upstream/master
 
-**서브 도메인이나 다른 도메인에서 쿠키에 접속할 방법은 없습니다. `site.com`에서 생성한 쿠키를 `other.com`에선 절대 전송받을 수 없습니다.**
+...하지만 변경할 수 있습니다. `forum.site.com` 같은 서브 도메인이 `site.com`에서 설정한 쿠키를 가져오도록 허용하고 싶다면 가능합니다.
 
-<<<<<<< HEAD
-이런 제약사항은 안정성을 높이기 위해 만들어졌습니다. 민감한 데이터가 저장된 쿠키는 관련 페이지에서만 볼 수 있도록 하기 위해서 말이죠.
+그렇게 하려면 `site.com`에서 쿠키를 설정할 때 `domain` 속성을 루트 도메인인 `domain=site.com`으로 명시적으로 설정해야 합니다. 그러면 모든 서브 도메인에서 해당 쿠키를 볼 수 있습니다.
 
-그런데 정말 `forum.site.com`과 같은 서브 도메인에서 `site.com`에서 생성한 쿠키 정보를 얻을 방법이 없는 걸까요? 방법이 있습니다. `site.com`에서 쿠키를 설정할 때 `domain` 옵션에 루트 도메인인 `domain=site.com`을 명시적으로 설정해 주면 되죠. 
+예를 들어:
 
 ```js
 // site.com에서
-// 서브 도메인(*.site.com) 어디서든 쿠키에 접속하게 설정할 수 있습니다.
-document.cookie = "user=John; domain=site.com"
-=======
-It's a safety restriction, to allow us to store sensitive data in cookies that should be available only on one site.
-
-By default, a cookie is accessible only at the domain that set it.
-
-Please note, by default, a cookie is not shared with a subdomain, such as `forum.site.com`.
-
-```js
-// if we set a cookie at site.com website...
-document.cookie = "user=John"
-
-// ...we won't see it at forum.site.com
-alert(document.cookie); // no user
-```
-
-...But this can be changed. If we'd like to allow subdomains like `forum.site.com` to get a cookie set at `site.com`, that's possible.
-
-For that to happen, when setting a cookie at `site.com`, we should explicitly set the `domain` attribute to the root domain: `domain=site.com`. Then all subdomains will see such a cookie.
-
-For example:
-
-```js
-// at site.com
-// make the cookie accessible on any subdomain *.site.com:
+// 서브 도메인 *.site.com 어디서든 쿠키에 접근할 수 있게 합니다.
 document.cookie = "user=John; *!*domain=site.com*/!*"
->>>>>>> upstream/master
 
 // 이렇게 설정하면
 
@@ -211,51 +120,33 @@ document.cookie = "user=John; *!*domain=site.com*/!*"
 alert(document.cookie); // user=John 쿠키를 확인할 수 있습니다.
 ```
 
-<<<<<<< HEAD
-하위 호환성 유지를 위해 (`site.com` 앞에 점을 붙인) `domain=.site.com`도 `domain=site.com`과 동일하게 작동합니다. 오래된 표기법이긴 하지만 구식 브라우저를 지원하려면 이 표기법을 사용하는 것이 좋습니다. 
-
-이렇게 `domain` 옵션값을 적절히 사용하면 서브 도메인에서도 쿠키에 접근할 수 있습니다.
-=======
-```warn header="Legacy syntax"
-Historically, `domain=.site.com` (with a dot before `site.com`) used to work the same way, allowing access to the cookie from subdomains. Leading dots in domain names are now ignored, but some browsers may decline to set the cookie containing such dots.
+```warn header="레거시 문법"
+예전에는 (`site.com` 앞에 점을 붙인) `domain=.site.com`도 `domain=site.com`과 동일하게 동작해 서브 도메인에서 쿠키에 접근할 수 있게 했습니다. 이제 도메인 이름 앞의 점은 무시되지만, 일부 브라우저는 이런 점이 포함된 쿠키 설정을 거부할 수 있습니다.
 ```
 
-To summarize, the `domain` attribute allows to make a cookie accessible at subdomains.
+이렇게 `domain` 옵션값을 적절히 사용하면 서브 도메인에서도 쿠키에 접근할 수 있습니다.
 
 ## path
 
 - **`path=/mypath`**
 
-The URL path prefix must be absolute. It makes the cookie accessible for pages under that path. By default, it's the current path.
+URL 경로의 접두사입니다. 이 경로나 이 경로의 하위 경로에 있는 페이지만 쿠키에 접근할 수 있습니다. 절대 경로이어야 하고, 미지정 시 기본값은 현재 경로입니다.
 
-If a cookie is set with `path=/admin`, it's visible on pages `/admin` and `/admin/something`, but not at `/home`, `/home/admin` or `/`.
+`path=/admin` 옵션을 사용하여 설정한 쿠키는 `/admin`과 `/admin/something`에선 볼 수 있지만, `/home`, `/home/admin`, `/`에선 볼 수 없습니다.
 
-Usually, we should set `path` to the root: `path=/` to make the cookie accessible from all website pages. If this attribute is not set the default is calculated using [this method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#path_default_value).
->>>>>>> upstream/master
+특별한 경우가 아니라면, `path` 옵션을 `path=/`같이 루트로 설정해 웹사이트의 모든 페이지에서 쿠키에 접근할 수 있도록 합시다. 이 속성을 설정하지 않으면 기본값은 [이 방식](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#path_default_value)에 따라 계산됩니다.
 
 ## expires와 max-age
 
-<<<<<<< HEAD
-expires(유효 일자)나 max-age(만료 기간) 옵션이 지정되어있지 않으면, 브라우저가 닫힐 때 쿠키도 함께 삭제됩니다. 이런 쿠키를 "세션 쿠키(session cookie)"라고 부릅니다.
+`expires`나 `max-age` 옵션이 지정되어 있지 않으면, 브라우저나 탭이 닫힐 때 쿠키도 함께 삭제됩니다. 이런 쿠키를 "세션 쿠키"라고 부릅니다.
 
-`expires` 나 `max-age` 옵션을 설정하면 브라우저를 닫아도 쿠키가 삭제되지 않습니다.
+브라우저를 닫아도 쿠키가 살아남게 하려면 `expires`나 `max-age` 속성을 설정하면 됩니다. 둘 다 설정되어 있다면 `max-age`가 우선합니다.
 
 - **`expires=Tue, 19 Jan 2038 03:14:07 GMT`**
 
 브라우저는 설정된 유효 일자까지 쿠키를 유지하다가, 해당 일자가 도달하면 쿠키를 자동으로 삭제합니다.
 
-쿠키의 유효 일자는 반드시 GMT(Greenwich Mean Time) 포맷으로 설정해야 합니다. `date.toUTCString`을 사용하면 해당 포맷으로 쉽게 변경할 수 있습니다. 아래는 유효 기간이 하루인 쿠키를 만드는 예시입니다.
-=======
-By default, if a cookie doesn't have one of these attributes, it disappears when the browser/tab is closed. Such cookies are called "session cookies"
-
-To let cookies survive a browser close, we can set either the `expires` or `max-age` attribute. `max-Age` has precedence if both are set.
-
-- **`expires=Tue, 19 Jan 2038 03:14:07 GMT`**
-
-The cookie expiration date defines the time when the browser will automatically delete it (according to the browser's time zone).
-
-The date must be exactly in this format, in the GMT timezone. We can use `date.toUTCString` to get it. For instance, we can set the cookie to expire in 1 day:
->>>>>>> upstream/master
+쿠키의 유효 일자는 반드시 GMT 포맷으로 설정해야 합니다. `date.toUTCString`을 사용하면 해당 포맷으로 쉽게 변경할 수 있습니다. 아래는 유효 기간이 하루인 쿠키를 만드는 예시입니다.
 
 ```js
 // 지금으로부터 하루 후
@@ -266,23 +157,14 @@ document.cookie = "user=John; expires=" + date;
 
 `expires` 옵션값을 과거로 지정하면 쿠키는 삭제됩니다.
 
--  **`max-age=3600`**
+- **`max-age=3600`**
 
-<<<<<<< HEAD
 `max-age`는 `expires` 옵션의 대안으로, 쿠키 만료 기간을 설정할 수 있게 해줍니다. 현재부터 설정하고자 하는 만료일시까지의 시간을 초로 환산한 값을 설정합니다.
 
 0이나 음수값을 설정하면 쿠키는 바로 삭제됩니다.
 
 ```js
 // 1시간 뒤에 쿠키가 삭제됩니다.
-=======
-It's an alternative to `expires` and specifies the cookie's expiration in seconds from the current moment.
-
-If set to zero or a negative value, the cookie is deleted:
-
-```js
-// cookie will die in +1 hour from now
->>>>>>> upstream/master
 document.cookie = "user=John; max-age=3600";
 
 // 만료 기간을 0으로 지정하여 쿠키를 바로 삭제함
@@ -295,155 +177,91 @@ document.cookie = "user=John; max-age=0";
 
 이 옵션을 설정하면 HTTPS로 통신하는 경우에만 쿠키가 전송됩니다.
 
-**`secure` 옵션이 없으면 기본 설정이 적용되어 `http://site.com`에서 설정(생성)한 쿠키를 `https://site.com`에서 읽을 수 있고, `https://site.com`에서 설정(생성)한 쿠키도 `http://site.com`에서 읽을 수 있습니다.**
+**`secure` 옵션이 없으면 기본 설정이 적용되어 `http://site.com`에서 설정한 쿠키를 `https://site.com`에서 읽을 수 있고, `https://site.com`에서 설정한 쿠키도 `http://site.com`에서 읽을 수 있습니다.**
 
 쿠키는 기본적으로 도메인만 확인하지 프로토콜을 따지진 않기 때문입니다.
 
-<<<<<<< HEAD
 하지만 `secure` 옵션이 설정된 경우, `https://site.com`에서 설정한 쿠키는 `http://site.com`에서 접근할 수 없습니다. 쿠키에 민감한 내용이 저장되어 있어 암호화되지 않은 HTTP 연결을 통해 전달되는 걸 원치 않는다면 이 옵션을 사용하면 됩니다.
 
 ```js
-// (https:// 로 통신하고 있다고 가정 중)
+// https:// 로 통신하고 있다고 가정 중
 // 설정한 쿠키는 HTTPS 통신시에만 접근할 수 있음
-=======
-With this attribute, if a cookie is set by `https://site.com`, then it doesn't appear when the same site is accessed by HTTP, as `http://site.com`. So if a cookie has sensitive content that should never be sent over unencrypted HTTP, the `secure` flag is the right thing.
-
-```js
-// assuming we're on https:// now
-// set the cookie to be secure (only accessible over HTTPS)
->>>>>>> upstream/master
 document.cookie = "user=John; secure";
 ```
 
 ## samesite
 
-<<<<<<< HEAD
 또 다른 보안 속성인 `samesite` 옵션은 크로스 사이트 요청 위조(cross-site request forgery, XSRF) 공격을 막기 위해 만들어진 옵션입니다.
-=======
-This is another security attribute `samesite`. It's designed to protect from so-called XSRF (cross-site request forgery) attacks.
->>>>>>> upstream/master
 
 아래 XSRF 공격 시나리오를 통해 이 속성의 동작 방식과 언제 이 속성을 유용하게 사용할 수 있는지 알아보도록 합시다.
 
 ### XSRF 공격
 
-<<<<<<< HEAD
-현재 `bank.com`에 로그인되어있다고 가정해 봅시다. 해당 사이트에서 사용되는 인증 쿠키가 브라우저에 저장되고, 브라우저는 `bank.com`에 요청을 보낼 때마다 인증 쿠키를 함께 전송할 것입니다. 서버는 전송받은 쿠키를 이용해 사용자를 식별하고, 보안이 필요한 재정 거래를 처리합니다.
-=======
-Imagine, you are logged into the site `bank.com`. That is: you have an authentication cookie from that site. Your browser sends it to `bank.com` with every request so that it recognizes you and performs all sensitive financial operations.
->>>>>>> upstream/master
+현재 `bank.com`에 로그인되어 있다고 가정해 봅시다. 해당 사이트에서 사용되는 인증 쿠키가 브라우저에 저장되고, 브라우저는 `bank.com`에 요청을 보낼 때마다 인증 쿠키를 함께 전송할 것입니다. 서버는 전송받은 쿠키를 이용해 사용자를 식별하고, 보안이 필요한 재정 거래를 처리합니다.
 
-이제 (로그아웃하지 않고) 다른 창을 띄워서 웹 서핑을 하던 도중에 뜻하지 않게 `evil.com`에 접속했다 가정해 봅시다. 이 사이트엔 해커에게 송금을 요청하는 폼(form) `<form action="https://bank.com/pay">`이 있고, 이 폼은 자동으로 제출되도록 설정되어 있습니다. 
+이제 로그아웃하지 않고 다른 창을 띄워서 웹 서핑을 하던 도중에 뜻하지 않게 `evil.com`에 접속했다 가정해 봅시다. 이 사이트엔 해커에게 송금을 요청하는 폼 `<form action="https://bank.com/pay">`이 있고, 이 폼은 자동으로 제출되도록 설정되어 있습니다.
 
-<<<<<<< HEAD
-폼이 `evil.com`에서 은행 사이트로 바로 전송될 때 인증 쿠키도 함께 전송됩니다. `bank.com`에 요청을 보낼 때마다 `bank.com`에서 설정한 쿠키가 전송되기 때문입니다. 은행은 전송받은 쿠키를 읽어 (해커가 아닌) 계정 주인이 접속한 것이라 생각하고 해커에게 돈을 송금합니다.
+폼이 `evil.com`에서 은행 사이트로 바로 전송될 때 인증 쿠키도 함께 전송됩니다. `bank.com`에 요청을 보낼 때마다 `bank.com`에서 설정한 쿠키가 전송되기 때문입니다. 은행은 전송받은 쿠키를 읽어 해커가 아니라 계정 주인이 접속한 것이라 생각하고 해커에게 돈을 송금합니다.
 
 ![](cookie-xsrf.svg)
 
 이런 공격을 크로스 사이트 요청 위조라고 부릅니다.
 
-실제 은행은 당연히 이 공격을 막을 수 있도록 시스템을 설계합니다. `bank.com`에서 사용하는 모든 폼에 "XSRF 보호 토큰(protection token)"이라는 특수 필드를 넣어서 말이죠. 이 토큰은 악의적인 페이지에서 만들 수 없고, 원격 페이지에서도 훔쳐 올 수 없도록 구현되어 있습니다. 따라서 악의적인 페이지에서 폼을 전송하더라도 보호 토큰이 없거나 서버에 저장된 값과 일치하지 않기 때문에 요청이 무용지물이 됩니다.
+실제 은행은 당연히 이 공격을 막을 수 있도록 시스템을 설계합니다. `bank.com`에서 사용하는 모든 폼에 "XSRF 보호 토큰"이라는 특수 필드를 넣어서 말이죠. 이 토큰은 악의적인 페이지에서 만들 수 없고, 원격 페이지에서도 훔쳐 올 수 없도록 구현되어 있습니다. 따라서 악의적인 페이지에서 폼을 전송하더라도 보호 토큰이 없거나 서버에 저장된 값과 일치하지 않기 때문에 요청이 무용지물이 됩니다.
 
 하지만 이런 절차는 구현에 시간이 걸린다는 단점을 수반합니다. 모든 폼에 보호 토큰을 세팅해줘야 하죠. 또한 요청 전부를 검수해야 합니다. 
 
 ### samesite 옵션
 
-쿠키의 `samesite` 옵션을 이용하면 "XSRF 보호 토큰" 없이도 (이론상으로) 크로스 사이트 요청 위조를 막을 수 있습니다.
-=======
-The browser sends cookies every time you visit the site `bank.com`, even if the form was submitted from `evil.com`. So the bank recognizes you and performs the payment.
-
-![](cookie-xsrf.svg)
-
-This is a so-called "Cross-Site Request Forgery" (in short, XSRF) attack.
-
-Real banks are protected from it of course. All forms generated by `bank.com` have a special field, a so-called "XSRF protection token", that an evil page can't generate or extract from a remote page. It can submit a form there, but can't get the data back. The site `bank.com` checks for such a token in every form it receives.
-
-Such a protection takes time to implement though. We need to ensure that every form has the required token field, and we must also check all requests.
-
-### Use cookie samesite attribute
-
-The cookie `samesite` attribute provides another way to protect from such attacks, that (in theory) should not require "xsrf protection tokens".
->>>>>>> upstream/master
+쿠키의 `samesite` 옵션을 이용하면 이론상 "XSRF 보호 토큰" 없이도 크로스 사이트 요청 위조를 막을 수 있습니다.
 
 이 옵션엔 두 가지 값을 설정할 수 있습니다.
 
-<<<<<<< HEAD
-- **`samesite=strict`(값을 설정하지 않고 그냥 `samesite` 옵션만 써줘도 동일하게 동작함)**
-=======
 - **`samesite=strict`**
->>>>>>> upstream/master
 
 사용자가 사이트 외부에서 요청을 보낼 때, `samesite=strict` 옵션이 있는 쿠키는 절대로 전송되지 않습니다. 
 
-<<<<<<< HEAD
 메일에 있는 링크를 따라 접속하거나 `evil.com`과 같은 사이트에서 폼을 전송하는 경우 등과 같이 제3의 도메인에서 요청이 이뤄질 땐 쿠키가 전송되지 않죠.
 
 인증 쿠키에 `samesite` 옵션이 있는 경우, XSRF 공격은 절대로 성공하지 못합니다. `evil.com`에서 전송하는 요청엔 쿠키가 없을 것이고, `bank.com`은 미인식 사용자에게 지급을 허용하지 않을 것이기 때문입니다.
 
-이 보호장치는 꽤 믿을 만합니다. `bank.com`에서 수행하는 모든 작업은 samesite 쿠키를 함께 전송하기 때문이죠.
-=======
-In other words, whether a user follows a link from their email, submits a form from `evil.com`, or does any operation that originates from another domain, the cookie is not sent.
-
-If authentication cookies have the `samesite=strict` attribute, then an XSRF attack has no chance of succeeding, because a submission from `evil.com` comes without cookies. So `bank.com` will not recognize the user and will not proceed with the payment.
-
-The protection is quite reliable. Only operations that come from `bank.com` will send the `samesite=strict` cookie, e.g. a form submission from another page at `bank.com`.
->>>>>>> upstream/master
+이 보호장치는 꽤 믿을 만합니다. `bank.com`에서 수행하는 모든 작업은 `samesite=strict` 쿠키를 함께 전송하기 때문이죠.
 
 하지만 약간의 불편함도 감수해야 합니다.
 
-<<<<<<< HEAD
 만약 사용자가 메모장 등에 `bank.com`에 요청을 보낼 수 있는 링크를 기록해 놓았다가 이 링크를 클릭해 접속하면 `bank.com`이 사용자를 인식하지 못하는 상황이 발생하기 때문입니다. 실제로 이런 경우 `samesite=strict` 옵션이 설정된 쿠키는 전송되지 않습니다.
 
-이런 문제는 쿠키 두 개를 함께 사용해 해결할 수 있습니다. "Hello, John"과 같은 환영 메시지를 출력해주는 "일반 인증(general recognition)"용 쿠키, 데이터 교환 시 사용하는 `samesite=strict` 옵션이 있는 쿠키를 따로 둬서 말이죠. 이렇게 하면 외부 사이트를 통해 접근한 사용자도 정상적으로 환영 메시지를 볼 수 있습니다. 지급은 무조건 은행의 사이트를 통해서만 수행되도록 만들면 됩니다.
-=======
-When a user follows a legitimate link to `bank.com`, like from their notes, they'll be surprised that `bank.com` does not recognize them. Indeed, `samesite=strict` cookies are not sent in that case.
+이런 문제는 쿠키 두 개를 함께 사용해 해결할 수 있습니다. "Hello, John"과 같은 환영 메시지를 출력해주는 "일반 인증"용 쿠키와 데이터 교환 시 사용하는 `samesite=strict` 옵션이 있는 쿠키를 따로 둬서 말이죠. 이렇게 하면 외부 사이트를 통해 접근한 사용자도 정상적으로 환영 메시지를 볼 수 있습니다. 결제는 무조건 은행의 사이트를 통해서만 수행되도록 만들면 됩니다.
 
-We could work around that by using two cookies: one for "general recognition", only to say: "Hello, John", and the other one for data-changing operations with `samesite=strict`. Then, a person coming from outside of the site will see a welcome, but payments must be initiated from the bank's website, for the second cookie to be sent.
->>>>>>> upstream/master
+- **`samesite=lax` (값 없이 `samesite`만 쓴 경우와 동일합니다)**
 
-- **`samesite=lax` (same as `samesite` without value)**
-
-<<<<<<< HEAD
 `samesite=lax`는 사용자 경험을 해치지 않으면서 XSRF 공격을 막을 수 있는 느슨한 접근법입니다.
-=======
-A more relaxed approach that also protects from XSRF and doesn't break the user experience.
->>>>>>> upstream/master
 
 `strict`와 마찬가지로 `lax`도 사이트 외부에서 요청을 보낼 때 브라우저가 쿠키를 보내는 걸 막아줍니다. 하지만 예외사항이 존재합니다. 
 
 아래 두 조건을 동시에 만족할 때는 `samesite=lax` 옵션을 설정한 쿠키가 전송됩니다.
-1. "안전한" HTTP 메서드인 경우(예: GET 방식. POST 방식은 해당하지 않음). 
+1. "안전한" HTTP 메서드인 경우입니다. 예를 들어 GET 방식은 해당하지만, POST 방식은 해당하지 않습니다.
 
-<<<<<<< HEAD
-    안전한 HTTP 메서드 목록은 [RFC7231 명세](https://tools.ietf.org/html/rfc7231)에서 확인할 수 있습니다. 안전한 메서드는 읽기 작업만 수행하고 쓰기나 데이터 교환 작업은 수행하지 않습니다. 참고로, 링크를 따라가는 행위는 항상 GET 방식이기 때문에 안전한 메서드만 쓰입니다. 
-    
-2. 작업이 최상위 레벨 탐색에서 이루어질 때(브라우저 주소창에서 URL을 변경하는 경우).
+    안전한 HTTP 메서드 목록은 [RFC7231 명세](https://tools.ietf.org/html/rfc7231)에서 확인할 수 있습니다. 안전한 메서드는 읽기 작업만 수행하고 쓰기나 데이터 교환 작업은 수행하지 않습니다. 참고로, 링크를 따라가는 행위는 항상 GET 방식이기 때문에 안전한 메서드만 쓰입니다.
+
+2. 작업이 최상위 레벨 탐색에서 이루어질 때입니다. 브라우저 주소창에서 URL을 변경하는 경우가 여기에 해당합니다.
 
     대다수의 작업은 이 조건을 충족합니다. 하지만 `<iframe>`안에서 탐색이 일어나는 경우는 최상위 레벨 탐색이 아니기 때문에 이 조건을 충족하지 못합니다. AJAX 요청 또한 탐색 행위가 아니므로 이 조건을 충족하지 못합니다.
-    
+
 브라우저를 이용해 자주 하는 작업인 "특정 URL로 이동하기"를 실행하는 경우, `samesite=lax` 옵션이 설정되어 있으면 쿠키가 서버로 전송됩니다. 노트에 저장된 링크를 여는 것도 특정 URL로 이동하는 행위이므로 위 조건들을 충족합니다.
 
 하지만 외부 사이트에서 AJAX 요청을 보내거나 폼을 전송하는 등의 복잡한 작업을 시도할 때는 쿠키가 전송되지 않습니다.
 
 이런 제약사항이 있어도 괜찮다면, `samesite=lax` 옵션은 사용자 경험을 해치지 않으면서 보안을 강화해주는 방법으로 활용할 수 있을 것입니다.
 
-`samesite`는 좋은 옵션이긴 하지만, 한가지 문제점이 있습니다.
+전반적으로 `samesite`는 좋은 옵션입니다.
+
+그러나 한 가지 단점이 있습니다.
+
 - 오래된 브라우저(2017년 이전 버전)에선 `samesite` 옵션을 지원하지 않습니다.
-=======
-    The full list of safe HTTP methods is in the [RFC7231 specification](https://tools.ietf.org/html/rfc7231#section-4.2.1). These are the methods that should be used for reading, but not writing the data. They must not perform any data-changing operations. Following a link is always GET, the safe method.
-
-2. The operation performs a top-level navigation (changes URL in the browser address bar).
-
-    This is usually true, but if the navigation is performed in an `<iframe>`, then it is not top-level. Additionally, JavaScript methods for network requests do not perform any navigation.
-
-So, what `samesite=lax` does, is to allow the most common "go to URL" operation to have cookies. E.g. opening a website link from notes that satisfy these conditions.
-
-But anything more complicated, like a network request from another site or a form submission, loses cookies.
->>>>>>> upstream/master
 
 **따라서 `samesite` 옵션으로만 보안 처리를 하게 되면, 구식 브라우저에서 보안 문제가 발생할 수 있습니다.**
 
-<<<<<<< HEAD
 구식 브라우저에 대응하지 못한다는 문제가 있긴 하지만, `samesite` 옵션을 XSRF 토큰 같은 다른 보안 기법과 함께 사용하면 보안을 강화할 수 있습니다. 구식 브라우저를 더는 사용하지 않는 때가 오면 XSRF 토큰 역시 필요하지 않겠죠.
 
 ## httpOnly
@@ -458,30 +276,6 @@ But anything more complicated, like a network request from another site or a for
 
 
 이런 상황이 만에 하나 발생하면, 사용자가 웹 페이지에 방문할 때 `document.cookie`를 볼 수 있고 조작도 할 수 있는 해커의 코드도 함께 실행됩니다. 물론 쿠키엔 인증 정보가 있어서 해커가 이 정보를 훔치거나 조작할 수 있게 됩니다. 좋지 않은 상황이 발생하죠.
-=======
-Overall, `samesite` is a great attribute.
-
-There's a drawback:
-
-- `samesite` is ignored (not supported) by very old browsers, the year 2017 or so.
-
-**So if we solely rely on `samesite` to provide protection, then old browsers will be vulnerable.**
-
-But we can use `samesite` together with other protection measures, like xsrf tokens, to add a layer of defence and then, in the future, when old browsers die out, we'll probably be able to drop xsrf tokens.
-
-## httpOnly
-
-This attribute has nothing to do with JavaScript, but we have to mention it for completeness.
-
-The web server uses the `Set-Cookie` header to set a cookie. Also, it may set the `httpOnly` attribute.
-
-This attribute forbids any JavaScript access to the cookie. We can't see such a cookie or manipulate it using `document.cookie`.
-
-This is used as a precautionary measure, to protect from certain attacks when a hacker injects his own JavaScript code into a page and waits for a user to visit that page. That shouldn't be possible at all, hackers should not be able to inject their code into our site, but there may be bugs that let them do it.
-
-
-Normally, if such a thing happens, and a user visits a web-page with a hacker's JavaScript code, then that code executes and gains access to `document.cookie` with user cookies containing authentication information. That's bad.
->>>>>>> upstream/master
 
 하지만 `httpOnly` 옵션이 설정된 쿠키는 `document.cookie`로 쿠키 정보를 읽을 수 없기 때문에 쿠키를 보호할 수 있습니다.
 
@@ -493,11 +287,7 @@ Normally, if such a thing happens, and a user visits a web-page with a hacker's 
 
 ### getCookie(name)
 
-<<<<<<< HEAD
-쿠키에 접근하는 가장 짧은 방법은 [정규 표현식(regular expression)](info:regular-expressions) 을 사용하는 것입니다.
-=======
-The shortest way to access a cookie is to use a [regular expression](info:regular-expressions).
->>>>>>> upstream/master
+쿠키에 접근하는 가장 짧은 방법은 [정규 표현식](info:regular-expressions)을 사용하는 것입니다.
 
 아래 `getCookie(name)` 함수는 주어진 `name`의 쿠키를 반환합니다.
 
@@ -514,28 +304,19 @@ function getCookie(name) {
 
 위 코드에서 `new RegExp`는 `; name=<value>` 패턴을 찾기 위해 동적으로 생성됩니다.
 
-주의할 점은 쿠키값은 인코딩되어있는 상태이기 때문에 `getCookie`는 내장 함수인 `decodeURIComponent`를 이용해 쿠키값을 디코딩한다는 점입니다.
+주의할 점은 쿠키값은 인코딩되어 있는 상태이기 때문에 `getCookie`는 내장 함수인 `decodeURIComponent`를 이용해 쿠키값을 디코딩한다는 점입니다.
 
 ### setCookie(name, value, attributes)
 
-<<<<<<< HEAD
-현재 경로(`path=/`)를 기본으로, 주어진 `name`과 `value`를 가진 쿠키를 설정합니다(다른 기본값을 추가할 수 있습니다).
-=======
-Sets the cookie's `name` to the given `value` with `path=/` by default (can be modified to add other defaults):
->>>>>>> upstream/master
+현재 경로(`path=/`)를 기본으로, 주어진 `name`과 `value`를 가진 쿠키를 설정합니다. 다른 기본값을 추가할 수도 있습니다.
 
 ```js run
 function setCookie(name, value, attributes = {}) {
 
   attributes = {
     path: '/',
-<<<<<<< HEAD
     // 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
-    ...options
-=======
-    // add other defaults here if necessary
     ...attributes
->>>>>>> upstream/master
   };
 
   if (attributes.expires instanceof Date) {
@@ -555,7 +336,7 @@ function setCookie(name, value, attributes = {}) {
   document.cookie = updatedCookie;
 }
 
-// Example of use:
+// 사용 예시:
 setCookie('user', 'John', {secure: true, 'max-age': 3600});
 ```
 
@@ -571,13 +352,8 @@ function deleteCookie(name) {
 }
 ```
 
-<<<<<<< HEAD
-```warn header="갱신이나 삭제는 동일한 도메인과 경로에서만 해야 합니다."
-주의: 쿠키를 갱신하거나 삭제할 때는, 쿠키를 설정할 때 지정했던 도메인이나 경로를 사용해야 합니다. 
-=======
-```warn header="Updating or deleting must use same path and domain"
-Please note: when we update or delete a cookie, we should use exactly the same path and domain attributes as when we set it.
->>>>>>> upstream/master
+```warn header="갱신이나 삭제 시 같은 경로와 도메인을 사용해야 합니다."
+주의: 쿠키를 갱신하거나 삭제할 때는 쿠키를 설정할 때 지정했던 것과 정확히 같은 `path`와 `domain` 속성을 사용해야 합니다.
 ```
 
 함께 보면 좋은 자료: [cookie.js](cookie.js)
@@ -585,19 +361,11 @@ Please note: when we update or delete a cookie, we should use exactly the same p
 
 ## 부록: 서드 파티 쿠키
 
-<<<<<<< HEAD
-사용자가 방문 중인 도메인이 아닌 다른 도메인에서 설정한 쿠키를 "서드 파티 쿠키(third-party cookie)"라고 부릅니다. 
+사용자가 방문 중인 도메인이 아닌 다른 도메인에서 설정한 쿠키를 "서드 파티 쿠키"라고 부릅니다.
 
 예시:
-1. `site.com`의 특정 페이지에서 이미지 배너(banner)를 불러옵니다. 배너는 다른 도메인 `<img src="https://ads.com/banner.png">` 에서 가져옵니다.
+1. `site.com`의 특정 페이지에서 다른 사이트의 이미지 배너를 불러옵니다. 예를 들어 `<img src="https://ads.com/banner.png">`와 같이 말이죠.
 2. `ads.com`에 있는 원격 서버는 배너와 함께 `Set-Cookie` 헤더를 전송해 브라우저가 `id=1234`와 같은 쿠키를 설정하도록 합니다. 이 쿠키는 `ads.com` 도메인에서 설정한 것이기 때문에 `ads.com`에서만 볼 수 있습니다.
-=======
-A cookie is called "third-party" if it's placed by a domain other than the page the user is visiting.
-
-For instance:
-1. A page at `site.com` loads a banner from another site: `<img src="https://ads.com/banner.png">`.
-2. Along with the banner, the remote server at `ads.com` may set the `Set-Cookie` header with a cookie like `id=1234`. Such a cookie originates from the `ads.com` domain, and will only be visible at `ads.com`:
->>>>>>> upstream/master
 
     ![](cookie-third-party.svg)
 
@@ -605,59 +373,39 @@ For instance:
 
     ![](cookie-third-party-2.svg)
 
-<<<<<<< HEAD
 4. 사용자가 `site.com`을 떠나 `other.com`에 접속하고 이 사이트에도 배너가 있으면 `ads.com`은 또 쿠키를 전송받습니다. 이 쿠키는 `ads.com`에서 설정한 것이기 때문이죠. 이를 이용해 `ads.com`은 사용자를 인식하고, 이 사용자가 어떤 사이트로 이동했는지를 추적합니다.
-=======
-4. What's even more important is, when the user moves from `site.com` to another site `other.com`, which also has a banner, then `ads.com` gets the cookie, as it belongs to `ads.com`, thus recognizing the visitor and tracking him as he moves between sites:
->>>>>>> upstream/master
 
     ![](cookie-third-party-3.svg)
 
 
-광고회사는 사용자의 이용 행태를 추적하고, 광고를 제공하기 위해 오래전부터 서드 파티 쿠키를 사용하고 있습니다. 서드파티 쿠키는 쿠키를 설정한 도메인에 종속되기 때문에 `ads.com`은 사용자가 어떤 사이트를 방문했는지 추적할 수 있습니다.
+광고회사는 사용자의 이용 행태를 추적하고, 광고를 제공하기 위해 오래전부터 서드 파티 쿠키를 사용하고 있습니다. 서드 파티 쿠키는 쿠키를 설정한 도메인에 종속되기 때문에 `ads.com`은 사용자가 어떤 사이트를 방문했는지 추적할 수 있습니다.
 
-<<<<<<< HEAD
-그런데 사람들은 누군가 자신을 감시하는 걸 좋아하진 않습니다. 브라우저엔 이런 쿠키를 비활성화 할 수 있는 기능이 있는데, 이 기능을 사용하면 추적을 막을 수 있습니다.
-=======
-Naturally, some people don't like being tracked, so browsers allow them to disable such cookies.
->>>>>>> upstream/master
+그런데 사람들은 누군가 자신을 감시하는 걸 좋아하진 않습니다. 브라우저엔 이런 쿠키를 비활성화할 수 있는 기능이 있는데, 이 기능을 사용하면 추적을 막을 수 있습니다.
 
 여기에 더하여 몇몇 모던 브라우저는 서드 파티 쿠키를 위한 특별한 정책을 도입하여 광고회사의 추적을 막을 수 있게 합니다.
-- Safari는 서드파티 쿠키를 전면적으로 허용하지 않습니다.
-- Firefox는 서드 파티 도메인 "블랙 리스트(black list)"를 만들어 리스트에 오른 도메인의 서드 파티 쿠키를 차단합니다. 
+- Safari는 서드 파티 쿠키를 전면적으로 허용하지 않습니다.
+- Firefox는 서드 파티 도메인 "블랙리스트"를 만들어 리스트에 오른 도메인의 서드 파티 쿠키를 차단합니다.
 
 
 ```smart
-`<script src="https://google-analytics.com/analytics.js">`같은 태그로 서드 파티 도메인에서 스크립트를 읽어오고, 이 스크립트 안에 `document.cookie`로 쿠키를 설정하는 코드가 있다면, 이때 만들어진 쿠키는 서드파티 쿠키가 아닙니다.
+`<script src="https://google-analytics.com/analytics.js">`같은 태그로 서드 파티 도메인에서 스크립트를 읽어오고, 이 스크립트 안에 `document.cookie`로 쿠키를 설정하는 코드가 있다면, 이때 만들어진 쿠키는 서드 파티 쿠키가 아닙니다.
 
 스크립트에서 쿠키를 설정한 경우에 만들어지는 쿠키는 현재 페이지의 도메인에 속하게 됩니다. 스크립트의 유래와 상관없이 말이죠.
 ```
 
 ## 부록: GDPR
 
-<<<<<<< HEAD
 이 주제는 자바스크립트와 전혀 관계가 없지만, 쿠키를 설정할 때 명심해야 할 사항입니다.
 
-EU(유럽연합)에는 사용자 개인 정보 보호를 강제하는 법령인 GDPR이 있습니다. 쿠키를 추적하는 경우 사용자로부터 명시적인 허가를 얻어야 한다는 것이 이 법령의 중요 요건 중 하나입니다. 
-=======
-This topic is not related to JavaScript at all, it is just something to keep in mind when setting cookies.
-
-There's a legislation in Europe called GDPR, that enforces a set of rules for websites to respect the users' privacy. One of these rules is to require explicit permission for tracking cookies from the user.
->>>>>>> upstream/master
+유럽연합에는 사용자 개인 정보 보호를 강제하는 법령인 GDPR이 있습니다. 쿠키를 추적하는 경우 사용자로부터 명시적인 허가를 얻어야 한다는 것이 이 법령의 중요 요건 중 하나입니다.
 
 이 요건은 쿠키를 이용한 사용자 추적, 식별에 관한 내용을 담고 있습니다.
 
 따라서 쿠키를 설정하고, 이 쿠키를 정보 저장의 용도로만 사용한다면 이 법령이 강제하는 사항을 지킬 필요가 없습니다. 사용자를 추적하거나 식별하지 않는다면 말이죠.
 
-<<<<<<< HEAD
 하지만, 인증 세션과 함께 쿠키를 설정하거나 id를 추적한다면 사용자의 동의를 반드시 얻어야 합니다.
 
-웹 사이트는 다음과 같은 방법으로 GDPR에 대응할 수 있습니다. 이 방법이 적용된 사이트를 접속해 보신 경험이 있으리라 생각합니다.
-=======
-But if we are going to set a cookie with an authentication session or a tracking ID, then a user must allow that.
-
-Websites generally have two variants of complying with GDPR. You are likely to have seen them both on the web:
->>>>>>> upstream/master
+웹사이트는 다음과 같은 방법으로 GDPR에 대응할 수 있습니다. 이 방법이 적용된 사이트를 접속해 보신 경험이 있으리라 생각합니다.
 
 1. 인증된 사용자에 대해서만 추적 쿠키를 설정하려는 경우
 
@@ -665,51 +413,26 @@ Websites generally have two variants of complying with GDPR. You are likely to h
 
 2. 모든 사용자를 대상으로 추적 쿠키를 설정하려는 경우
 
-<<<<<<< HEAD
-    최초 방문자에게 쿠키설정에 대한 동의를 요구하는 "작은 창"을 보여주고, 사용자가 이에 동의한 경우에만 콘텐츠를 표시하고, 추적 쿠키를 설정합니다. 새로운 방문자는 이런 절차가 번거롭다고 생각할 수 있습니다. 콘텐츠를 가리면서 "무조건 클릭해야 하는 창"을 그 누구도 달가워하지 않죠. 하지만 GDPR을 준수하려면 이 창이 반드시 있어야 합니다.
+    최초 방문자에게 쿠키 설정에 대한 동의를 요구하는 "작은 창"을 보여주고, 사용자가 이에 동의한 경우에만 콘텐츠를 표시하고, 추적 쿠키를 설정합니다. 새로운 방문자는 이런 절차가 번거롭다고 생각할 수 있습니다. 콘텐츠를 가리면서 "무조건 클릭해야 하는 창"을 그 누구도 달가워하지 않죠. 하지만 GDPR을 준수하려면 이 창이 반드시 있어야 합니다.
 
 
 GDPR은 쿠키에 대해서만 다루진 않고, 전반적인 보안 이슈에 관한 내용을 다룹니다. 자세한 사항은 이 튜토리얼의 범위를 벗어나기 때문에 GDPR에 대한 이야기는 여기서 마치도록 하겠습니다.
-=======
-    To do so legally, a website shows a modal "splash screen" for newcomers and requires them to agree to the cookies. Then the website can set them and let people see the content. That can be disturbing for new visitors though. No one likes to see such "must-click" modal splash screens instead of the content. But GDPR requires an explicit agreement.
-
-
-GDPR is not only about cookies, it is about other privacy-related issues too, but that is beyond our scope.
->>>>>>> upstream/master
 
 
 ## 요약
 
-<<<<<<< HEAD
 `document.cookie`는 쿠키에 접근할 수 있도록 해줍니다.
 - 쓰기는 해당 쿠키의 값만 갱신합니다.
 - 쿠키 이름과 값은 꼭 인코딩해야 합니다.
-- 쿠키 하나가 차지하는 용량은 최대 4KB까지이고, 사이트 하나당 약 20여 개를 허용합니다(브라우저에 따라 다름).
+- 쿠키 하나가 차지하는 용량은 최대 4KB까지이고, 사이트 하나당 약 20여 개를 허용합니다. 개수는 브라우저에 따라 다릅니다.
 
 쿠키 옵션:
 - `path=/`의 기본값은 현재 경로이고, 설정한 경로나 그 하위 경로에서만 쿠키 정보를 볼 수 있습니다.
 - `domain=site.com` 옵션에 아무런 값을 입력하지 않았다면 쿠키를 설정한 도메인에서만 쿠키 정보를 얻을 수 있습니다. 명시적으로 도메인 주소를 설정한 경우엔, 해당 도메인의 서브 도메인에서도 쿠키 정보를 얻을 수 있습니다.
-- `expires/max-age` 는 쿠키의 만료 시간을 정해줍니다. 이 옵션이 없으면 브라우저가 닫힐 때 쿠키도 같이 삭제됩니다.
-- `secure` 는 HTTPS 연결에서만 쿠키를 사용할 수 있게 합니다.
-- `samesite` 는 요청이 외부 사이트에서 일어날 때, 브라우저가 쿠키를 보내지 못하도록 막아줍니다. XSRF 공격을 막는 데 유용합니다.
+- `expires/max-age`는 쿠키의 만료 시간을 정해줍니다. 이 옵션이 없으면 브라우저가 닫힐 때 쿠키도 같이 삭제됩니다.
+- `secure`는 HTTPS 연결에서만 쿠키를 사용할 수 있게 합니다.
+- `samesite`는 요청이 외부 사이트에서 일어날 때, 브라우저가 쿠키를 보내지 못하도록 막아줍니다. XSRF 공격을 막는 데 유용합니다.
 
 추가 사항:
-- 브라우저에 따라 서드 파티 쿠키를 허용하지 않을 수 있습니다. Safari는 기본적으로 서드 파티 쿠키를 금지합니다.
+- 브라우저에 따라 서드 파티 쿠키를 허용하지 않을 수 있습니다. Safari는 기본적으로 서드 파티 쿠키를 금지하며, Chrome에서도 이를 구현하기 위한 작업이 진행 중입니다.
 - 사용자가 EU 국가 거주자인 경우 GDPR을 준수해야 합니다. 따라서, 사용자 추적 시 반드시 동의를 얻어야 합니다.
-=======
-`document.cookie` provides access to cookies.
-- Write operations modify only the cookie mentioned in it.
-- Name/value must be encoded.
-- One cookie may not exceed 4KB in size. The number of cookies allowed on a domain is around 20+ (varies by browser).
-
-Cookie attributes:
-- `path=/`, by default current path, makes the cookie visible only under that path.
-- `domain=site.com`, by default a cookie is visible on the current domain only. If the domain is set explicitly, the cookie becomes visible on subdomains.
-- `expires` or `max-age` sets the cookie expiration time. Without them, the cookie dies when the browser is closed.
-- `secure` makes the cookie HTTPS-only.
-- `samesite` forbids the browser to send the cookie with requests coming from outside the site. This helps to prevent XSRF attacks.
-
-Additionally:
-- The browser may forbid third-party cookies, e.g. Safari does that by default. There is also work in progress to implement this in Chrome.
-- When setting a tracking cookie for EU citizens, GDPR requires to ask for permission.
->>>>>>> upstream/master
