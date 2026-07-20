@@ -1,7 +1,11 @@
 
 # 뮤테이션 옵저버
 
+<<<<<<< HEAD
 `MutationObserver`는 DOM 요소를 관찰하다가 변경이 감지되면 콜백을 실행하는 내장 객체입니다.
+=======
+`MutationObserver` is a built-in object that observes a DOM element and fires a callback when it detects a change.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 먼저 문법을 알아본 다음 실제 사례를 보면서 뮤테이션 옵저버가 어디에 유용한지 살펴보겠습니다.
 
@@ -128,6 +132,7 @@ mutationRecords = [{
 ...
 ```
 
+<<<<<<< HEAD
 가독성을 높이는 동시에 보기 좋게 꾸미기 위해 [Prism.js](https://prismjs.com/) 같은 자바스크립트 구문 강조(syntax highlighting) 라이브러리를 사이트에 사용해 본다고 가정하겠습니다. Prism에서 위 예시에 구문 강조를 적용하려면 `Prism.highlightElement(pre)`를 호출합니다. 이 메서드는 `pre` 요소의 내용을 검사해서 색을 입히는 특별한 태그와 스타일을 해당 요소 안에 추가합니다. 지금 보고 있는 이 페이지의 예시 코드와 비슷한 결과물이 만들어지죠.
 
 그렇다면 구문 강조 메서드는 정확히 언제 실행해야 할까요? `DOMContentLoaded` 이벤트에서 실행할 수도 있고 스크립트를 페이지 맨 아래에 넣을 수도 있습니다. DOM이 준비되면 `pre[class*="language"]`에 해당하는 요소를 찾아 `Prism.highlightElement`를 호출하면 됩니다.
@@ -138,6 +143,18 @@ document.querySelectorAll('pre[class*="language"]').forEach(elem => Prism.highli
 ```
 
 여기까진 문제 될 게 없습니다. HTML에서 코드 예시를 찾아 강조 표시하면 끝이죠.
+=======
+For better readability and at the same time, to beautify it, we'll be using a JavaScript syntax highlighting library on our site, like [Prism.js](https://prismjs.com/). To get syntax highlighting for above snippet in Prism, `Prism.highlightElement(pre)` is called, which examines the contents of such `pre` elements and adds special tags and styles for colored syntax highlighting into those elements, similar to what you see in examples here, on this page.
+
+When exactly should we run that highlighting method? Well, we can do it on `DOMContentLoaded` event, or put the script at the bottom of the page. The moment our DOM is ready, we can search for elements `pre[class*="language"]` and call `Prism.highlightElement` on them:
+
+```js
+// highlight all code snippets on the page
+document.querySelectorAll('pre[class*="language"]').forEach(elem => Prism.highlightElement(elem));
+```
+
+Everything's simple so far, right? We find code snippets in HTML and highlight them.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 이제 한 걸음 더 나아가 봅시다. 서버에서 자료를 동적으로 가져와야 한다고 해봅시다. 자료를 가져오는 메서드는 [튜토리얼 뒷부분](info:fetch)에서 다룰 예정이라 지금은 웹 서버에서 HTML로 된 글을 받아와 요청이 있을 때 화면에 표시한다는 점만 알면 됩니다.
 
@@ -146,9 +163,15 @@ let article = /* 서버에서 새 콘텐츠를 가져옴 */
 articleElem.innerHTML = article;
 ```
 
+<<<<<<< HEAD
 새로 받아온 `article` HTML엔 코드 예시가 들어 있을 수 있습니다. `Prism.highlightElement`를 호출하지 않으면 이 코드는 강조 표시되지 않습니다.
 
 **그럼 동적으로 불러온 글엔 `Prism.highlightElement`를 어디서, 언제 호출해야 할까요?**
+=======
+The new `article` HTML may contain code snippets. We need to call `Prism.highlightElement` on them, otherwise they won't get highlighted.
+
+**Where and when to call `Prism.highlightElement` for a dynamically loaded article?**
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 다음처럼 글을 불러오는 코드 뒤에 호출을 덧붙일 수 있을 겁니다.
 
@@ -162,13 +185,23 @@ snippets.forEach(elem => Prism.highlightElement(elem));
 */!*
 ```
 
+<<<<<<< HEAD
 그런데 글, 퀴즈, 게시판 글처럼 콘텐츠를 불러오는 곳이 코드 곳곳에 많다고 상상해 봅시다. 불러온 콘텐츠 속 코드를 강조 표시하려고 위와 같은 코드를 모든 곳에 붙여야 할까요? 그다지 편리한 방법이 아닙니다.
 
 콘텐츠를 서드파티 모듈이 불러온다면 어떨까요? 예를 들어 다른 사람이 만든 게시판이 콘텐츠를 동적으로 불러오는데 여기에 구문 강조를 적용하고 싶을 수 있습니다. 서드파티 스크립트에 패치를 덧대는 일은 누구도 반기지 않습니다.
+=======
+...But, imagine if we have many places in the code where we load our content - articles, quizzes, forum posts, etc. Do we need to put the highlighting call everywhere, to highlight the code in content after loading? That's not very convenient.
+
+And what if the content is loaded by a third-party module? For example, we have a forum written by someone else, that loads content dynamically, and we'd like to add syntax highlighting to it. No one likes patching third-party scripts.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 다행히 다른 방법이 있습니다.
 
+<<<<<<< HEAD
 `MutationObserver`를 사용하면 코드 예시가 페이지에 삽입되는 순간을 자동으로 감지해 강조 표시할 수 있습니다.
+=======
+We can use `MutationObserver` to automatically detect when code snippets are inserted into the page and highlight them.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 이렇게 하면 강조 기능을 한곳에서 처리할 수 있어 통합 작업을 일일이 할 필요가 없어집니다.
 
@@ -236,23 +269,48 @@ demoElem.innerHTML = `아래는 코드 예시입니다.
 
 - `observer.disconnect()` -- 관찰을 중단함
 
+<<<<<<< HEAD
 관찰을 중단하는 시점에 옵저버가 아직 처리하지 않은 변경이 남아 있을 수 있습니다. 이럴 땐 다음 메서드를 사용합니다.
 
 - `observer.takeRecords()` -- 처리되지 않은 뮤테이션 레코드 목록을 가져옴. 변경은 일어났지만 콜백이 아직 처리하지 않은 레코드가 대상임
+=======
+When we stop the observing, it might be possible that some changes were not yet processed by the observer. In such cases, we use
+
+- `observer.takeRecords()` -- gets a list of unprocessed mutation records - those that happened, but the callback has not handled them.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 두 메서드는 다음처럼 함께 쓸 수 있습니다.
 
 ```js
+<<<<<<< HEAD
 // 처리되지 않은 뮤테이션 목록을 가져옵니다.
 // 최근 일어난 변경 중 미처리분까지 챙기려면
 // 관찰을 중단하기 전에 takeRecords를 호출해야 합니다.
 let mutationRecords = observer.takeRecords();
 
 // 변경 추적을 중단합니다.
+=======
+// get a list of unprocessed mutations
+// should be called before disconnecting,
+// if you care about possibly unhandled recent mutations
+let mutationRecords = observer.takeRecords();
+
+// stop tracking changes
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 observer.disconnect();
 ...
 ```
 
+<<<<<<< HEAD
+=======
+
+```smart header="Records returned by `observer.takeRecords()` are removed from the processing queue"
+The callback won't be called for records, returned by `observer.takeRecords()`.
+```
+
+```smart header="Garbage collection interaction"
+Observers use weak references to nodes internally. That is, if a node is removed from the DOM, and becomes unreachable, then it can be garbage collected.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 ```smart header="`observer.takeRecords()`가 반환한 레코드는 처리 대기열에서 제거됩니다"
 `observer.takeRecords()`가 반환한 레코드에 대해선 콜백이 호출되지 않습니다.
@@ -261,8 +319,12 @@ observer.disconnect();
 ```smart header="가비지 컬렉션과의 상호작용"
 옵저버는 내부적으로 노드에 대해 약한 참조(weak reference)를 사용합니다. 따라서 노드가 DOM에서 제거되어 도달할 수 없게 되면 가비지 컬렉션의 대상이 됩니다.
 
+<<<<<<< HEAD
 DOM 노드가 관찰되고 있다는 사실만으로는 가비지 컬렉션이 막히지 않습니다.
 ```
+=======
+`MutationObserver` can react to changes in DOM - attributes, text content and adding/removing elements.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 ## 요약  
 

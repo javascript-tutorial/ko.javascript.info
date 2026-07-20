@@ -66,7 +66,11 @@ eventSource.onmessage = function(event) {
 
 ### 크로스 오리진 요청
 
+<<<<<<< HEAD
 `EventSource`는 `fetch`를 비롯한 여타 네트워크 메서드처럼 크로스 오리진 요청을 지원합니다. 어떤 URL이든 사용할 수 있죠.
+=======
+`EventSource` supports cross-origin requests, like `fetch` and any other networking methods. We can use any URL:
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 ```js
 let source = new EventSource("https://another-site.com/events");
@@ -215,7 +219,11 @@ eventSource.addEventListener('leave', event => {
 - 이벤트를 이어받기 위한 메시지 id. 마지막으로 받은 식별자는 재연결 시 `Last-Event-ID` 헤더에 실려 전송됨
 - 프로퍼티 `readyState`를 통한 현재 상태 확인
 
+<<<<<<< HEAD
 이런 내장 기능 덕분에 `EventSource`는 `WebSocket`의 훌륭한 대안이 됩니다. `WebSocket`은 더 저수준이라 이런 기능을 직접 구현해야 하기 때문입니다.
+=======
+That makes `EventSource` a viable alternative to `WebSocket`, as the latter is more low-level and lacks such built-in features (though they can be implemented).
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 실제 애플리케이션 상당수엔 `EventSource`가 제공하는 능력만으로도 충분합니다.
 
