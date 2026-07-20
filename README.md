@@ -14,9 +14,15 @@
 
 ### 번역 스킬 사용(권장)
 
+<<<<<<< HEAD
 앞으로 번역은 **[tech-translation-ko 스킬](https://github.com/Violet-Bora-Lee/tech-translation-ko)** 을 사용해 진행합니다. 이 저장소의 번역 관행(번역 커밋 전수 분석에서 추출한 문장 패턴, 용어집, 서식 규칙, 검수 체크리스트)을 스킬 하나로 옮겨 두었습니다. Claude Code 같은 AI 코딩 에이전트에 스킬을 설치하면 번역 → 구조·용어 린트(`check_translation.py`) → 셀프 리뷰 → 맞춤법 검사 순서의 워크플로우가 적용됩니다. 사람이 직접 번역할 때도 스킬 저장소의 `references/` 문서를 가이드로 활용할 수 있습니다.
 
 ### 프로젝트 정책
+=======
+Something's wrong? A topic is missing? Explain it to people, add it as PR 👏
+
+**You can edit the text in any editor.** The tutorial uses an enhanced "markdown" format, easy to grasp. And if you want to see how it looks on-site, there's a server to run the tutorial locally at <https://github.com/javascript-tutorial/server>.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 스킬 사용 여부와 관계없이 지켜야 하는 PR 수용 기준입니다.
 
@@ -27,13 +33,25 @@
 * 소스 코드 내 공백 등은 원문 병합 시 충돌을 예방하기 위해 되도록 수정하지 않습니다. 자연어(주석)만 번역하도록 합니다.
 * 등록되지 않은 새로운 용어는 [용어집](https://docs.google.com/spreadsheets/u/1/d/1fYaEI8vz26N3R2VaxrlNnk9fMQ8zIy4RpvjRp4jZd0Q/edit#gid=1401860741)에 용어를 등록한 후 번역합니다. 공동작업에선 번역어 통일이 매우 중요합니다.
 
+<<<<<<< HEAD
 위 기준 중 줄 수·특수문자·용어집 위반은 스킬의 린터가 자동으로 검사합니다.
 
 잘못된 번역, 오타 및 기타 개선사항은 [이슈](https://github.com/javascript-tutorial/ko.javascript.info/issues)로 등록 부탁드립니다.
+=======
+Every chapter, article, or task has its folder.
+
+The folder is named like `N-url`, where `N` is a number for the sorting purposes and `URL` is the URL part with the title of the material.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 ### (deprecated) 수기 번역 권고사항
 
+<<<<<<< HEAD
 아래 권고사항은 tech-translation-ko 스킬에 통합되어 더는 개별 항목으로 관리하지 않습니다. 스킬을 사용하면 번역 과정에 자동으로 적용되고, 각 항목의 최신 내용은 스킬 저장소의 `references/` 문서에서 확인할 수 있습니다.
+=======
+  - `index.md` stands for a chapter
+  - `article.md` stands for an article
+  - `task.md` stands for a task (solution must be provided in `solution.md` file as well)
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 <details>
 <summary>스킬로 대체된 항목 펼쳐보기</summary>
@@ -51,7 +69,13 @@
 ## 기여자
 튜토리얼 원문에 기여하신 분들은 <https://javascript.info/about#contributors>에서 확인할 수 있습니다. 한국어 번역에 기여해주신 분들은 <https://ko.javascript.info/about#contributors>에서 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ---
 by the Modern JavaScript Tutorial Project Owner, Ilya Kantor(@iliakan)
 
 모던 JavaScript 튜토리얼 한국어 프로젝트 오너, 이보라(@Violet-Bora-Lee)
+=======
+---  
+♥  
+Ilya Kantor @iliakan
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e

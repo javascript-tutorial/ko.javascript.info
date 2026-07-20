@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 에러는 `ask`가 함수 `loginOk`, `loginFail`을 객체 없이 가지고 오기 때문에 발생합니다.
+=======
+The error occurs because `askPassword` gets functions `loginOk/loginFail` without the object.
+>>>>>>> 725653fd99b19d42195e837ac3bb23c1784f8f6e
 
 ask는 `loginOk`, `loginFail`을 호출할 때 `this=undefined`라고 자연스레 가정합니다.
 
