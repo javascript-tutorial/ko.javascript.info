@@ -1,51 +1,31 @@
-<<<<<<< HEAD
 # 참조에 의한 객체 복사
 
 객체와 원시 타입의 근본적인 차이 중 하나는 객체는 '참조에 의해(by reference)' 저장되고 복사된다는 것입니다.
 
 원시값(문자열, 숫자, 불린 값)은 '값 그대로' 저장·할당되고 복사되는 반면에 말이죠.
 
-예시:
-=======
-# Object references and copying
+값을 복사할 때 내부에서 어떤 일이 일어나는지 살펴보면 이해하기 쉽습니다.
 
-One of the fundamental differences of objects versus primitives is that objects are stored and copied "by reference", whereas primitive values: strings, numbers, booleans, etc -- are always copied "as a whole value".
+먼저 문자열 같은 원시값부터 살펴봅시다.
 
-That's easy to understand if we look a bit under the hood of what happens when we copy a value.
-
-Let's start with a primitive, such as a string.
-
-Here we put a copy of `message` into `phrase`:
->>>>>>> upstream/master
+아래에선 `message`의 복사본을 `phrase`에 넣습니다.
 
 ```js
 let message = "Hello!";
 let phrase = message;
 ```
 
-<<<<<<< HEAD
 예시를 실행하면 두 개의 독립된 변수에 각각 문자열 `"Hello!"`가 저장됩니다.
 
 ![](variable-copy-value.svg)
+
+당연한 결과처럼 보이죠?
 
 그런데 객체의 동작 방식은 이와 다릅니다.
 
 **변수엔 객체가 그대로 저장되는 것이 아니라, 객체가 저장되어있는 '메모리 주소'인 객체에 대한 '참조 값'이 저장됩니다.**
 
 그림을 통해 변수 user에 객체를 할당할 때 무슨 일이 일어나는지 알아봅시다.
-=======
-As a result we have two independent variables, each one storing the string `"Hello!"`.
-
-![](variable-copy-value.svg)
-
-Quite an obvious result, right?
-
-Objects are not like that.
-
-**A variable assigned to an object stores not the object itself, but its "address in memory" -- in other words "a reference" to it.**
-
-Let's look at an example of such a variable:
->>>>>>> upstream/master
 
 ```js
 let user = {
@@ -53,25 +33,19 @@ let user = {
 };
 ```
 
-And here's how it's actually stored in memory:
+실제로는 메모리에 다음과 같이 저장됩니다.
 
 ![](variable-contains-reference.svg)
 
-<<<<<<< HEAD
-객체는 메모리 내 어딘가에 저장되고, 변수 `user`엔 객체를 '참조'할 수 있는 값이 저장됩니다.
+객체는 메모리 어딘가(그림 오른쪽)에 저장되고, 변수 `user`(그림 왼쪽)엔 객체를 '참조'할 수 있는 값이 저장됩니다.
 
-따라서 **객체가 할당된 변수를 복사할 땐 객체의 참조 값이 복사되고 객체는 복사되지 않습니다.**
-=======
-The object is stored somewhere in memory (at the right of the picture), while the `user` variable (at the left) has a "reference" to it.
+객체 변수 `user`는 객체 주소가 적힌 종이 한 장이라고 생각할 수 있습니다.
 
-We may think of an object variable, such as `user`, like a sheet of paper with the address of the object on it.
+`user.name`처럼 객체를 대상으로 작업을 수행하면 자바스크립트 엔진은 그 주소로 이동해 실제 객체에 작업을 수행합니다.
 
-When we perform actions with the object, e.g. take a property `user.name`, the JavaScript engine looks at what's at that address and performs the operation on the actual object.
+이 점이 중요한 이유를 살펴봅시다.
 
-Now here's why it's important.
-
-**When an object variable is copied, the reference is copied, but the object itself is not duplicated.**
->>>>>>> upstream/master
+**객체가 할당된 변수를 복사할 땐 객체의 참조 값이 복사되고 객체는 복사되지 않습니다.**
 
 예시:
 
@@ -81,21 +55,11 @@ let user = { name: "John" };
 let admin = user; // 참조값을 복사함
 ```
 
-<<<<<<< HEAD
 변수는 두 개이지만 각 변수엔 동일 객체에 대한 참조 값이 저장되죠.
 
 ![](variable-copy-reference.svg)
 
 따라서 객체에 접근하거나 객체를 조작할 땐 여러 변수를 사용할 수 있습니다.
-=======
-Now we have two variables, each storing a reference to the same object:
-
-![](variable-copy-reference.svg)
-
-As you can see, there's still one object, but now with two variables that reference it.
-
-We can use either variable to access the object and modify its contents:
->>>>>>> upstream/master
 
 ```js run
 let user = { name: 'John' };
@@ -109,25 +73,17 @@ admin.name = 'Pete'; // 'admin' 참조 값에 의해 변경됨
 alert(*!*user.name*/!*); // 'Pete'가 출력됨. 'user' 참조 값을 이용해 변경사항을 확인함
 ```
 
-<<<<<<< HEAD
-객체를 서랍장에 비유하면 변수는 서랍장을 열 수 있는 열쇠라고 할 수 있습니다. 서랍장은 하나, 서랍장을 열 수 있는 열쇠는 두 개인데, 그중 하나(`admin`)를 사용해 서랍장을 열어 정돈한 후, 또 다른 열쇠로 서랍장을 열면 정돈된 내용을 볼 수 있습니다.
-=======
-It's as if we had a cabinet with two keys and used one of them (`admin`) to get into it and make changes. Then, if we later use another key (`user`), we are still opening the same cabinet and can access the changed contents.
->>>>>>> upstream/master
+객체를 서랍장에 비유하면, 변수는 서랍장을 열 수 있는 열쇠라고 할 수 있습니다. 서랍장은 하나뿐이지만, 이를 여는 열쇠는 두 개 있는 셈입니다. 그중 하나인 `admin`으로 서랍장을 열어 내용을 변경하면, 나중에 다른 열쇠인 `user`로 같은 서랍장을 열었을 때도 변경된 내용을 확인할 수 있습니다.
 
 ### 참조에 의한 비교
 
-<<<<<<< HEAD
 객체 비교 시 동등 연산자 `==`와 일치 연산자 `===`는 동일하게 동작합니다.
 
 **비교 시 피연산자인 두 객체가 동일한 객체인 경우에 참을 반환하죠.**
 
 두 변수가 같은 객체를 참조하는 예시를 살펴봅시다. 일치·동등 비교 모두에서 참이 반환됩니다.
-=======
-Two objects are equal only if they are the same object.
 
-For instance, here `a` and `b` reference the same object, thus they are equal:
->>>>>>> upstream/master
+예를 들어 아래 코드에서 `a`와 `b`는 같은 객체를 참조하므로 동등하다고 평가됩니다.
 
 ```js run
 let a = {};
@@ -137,11 +93,7 @@ alert( a == b ); // true, 두 변수는 같은 객체를 참조합니다.
 alert( a === b ); // true
 ```
 
-<<<<<<< HEAD
 다른 예시를 살펴봅시다. 두 객체 모두 비어있다는 점에서 같아 보이지만, 독립된 객체이기 때문에 일치·동등 비교하면 거짓이 반환됩니다.
-=======
-And here two independent objects are not equal, even though they look alike (both are empty):
->>>>>>> upstream/master
 
 ```js run
 let a = {};
@@ -150,17 +102,12 @@ let b = {}; // 독립된 두 객체
 alert( a == b ); // false
 ```
 
-<<<<<<< HEAD
 `obj1 > obj2` 같은 대소 비교나 `obj == 5` 같은 원시값과의 비교에선 객체가 원시형으로 변환됩니다. 객체가 어떻게 원시형으로 변하는지에 대해선 곧 학습할 예정인데, 이러한 비교(객체끼리의 대소 비교나 원시값과 객체를 비교하는 것)가 필요한 경우는 매우 드물긴 합니다. 대개 코딩 실수 때문에 이런 비교가 발생합니다.
 
-## 객체 복사, 병합과 Object.assign
-=======
-For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, objects are converted to primitives. We'll study how object conversions work very soon, but to tell the truth, such comparisons are needed very rarely -- usually they appear as a result of a programming mistake.
+````smart header="상수 객체는 수정될 수 있습니다."
+객체가 참조로 저장된다는 사실 때문에 생기는 중요한 부수 효과가 있습니다. `const`로 선언된 객체도 *수정할 수 있습니다*.
 
-````smart header="Const objects can be modified"
-An important side effect of storing objects as references is that an object declared as `const` *can* be modified.
-
-For instance:
+예시:
 
 ```js run
 const user = {
@@ -174,29 +121,22 @@ user.name = "Pete"; // (*)
 alert(user.name); // Pete
 ```
 
-It might seem that the line `(*)` would cause an error, but it does not. The value of `user` is constant, it must always reference the same object, but properties of that object are free to change.
+`(*)`로 표시한 줄에서 오류가 발생할 것처럼 보일 수 있지만 그렇지 않습니다. `user`의 값은 상수이므로 항상 같은 객체를 참조해야 하지만, 그 객체의 프로퍼티는 자유롭게 변경할 수 있습니다.
 
-In other words, the `const user` gives an error only if we try to set `user=...` as a whole.
+다시 말해, `const user`는 `user=...`처럼 `user` 전체에 새 값을 대입하려고 할 때만 오류를 일으킵니다.
 
-That said, if we really need to make constant object properties, it's also possible, but using totally different methods. We'll mention that in the chapter <info:property-descriptors>.
+그렇지만 객체 프로퍼티까지 상수로 만들어야 한다면 완전히 다른 방법을 써야 합니다. 이 방법은 <info:property-descriptors> 챕터에서 다룹니다.
 ````
 
-## Cloning and merging, Object.assign [#cloning-and-merging-object-assign]
->>>>>>> upstream/master
+## 객체 복사, 병합과 Object.assign [#cloning-and-merging-object-assign]
 
 객체가 할당된 변수를 복사하면 동일한 객체에 대한 참조 값이 하나 더 만들어진다는 걸 배웠습니다.
 
-<<<<<<< HEAD
 그런데 객체를 복제하고 싶다면 어떻게 해야 할까요? 기존에 있던 객체와 똑같으면서 독립적인 객체를 만들고 싶다면 말이죠.
 
 방법은 있는데 자바스크립트는 객체 복제 내장 메서드를 지원하지 않기 때문에 조금 어렵습니다. 사실 객체를 복제해야 할 일은 거의 없습니다. 참조에 의한 복사로 해결 가능한 일이 대다수이죠.
 
 정말 복제가 필요한 상황이라면 새로운 객체를 만든 다음 기존 객체의 프로퍼티들을 순회해 원시 수준까지 프로퍼티를 복사하면 됩니다.
-=======
-But what if we need to duplicate an object?
-
-We can create a new object and replicate the structure of the existing one, by iterating over its properties and copying them on the primitive level.
->>>>>>> upstream/master
 
 아래와 같이 말이죠.
 
@@ -221,11 +161,7 @@ clone.name = "Pete"; // clone의 데이터를 변경합니다.
 alert( user.name ); // 기존 객체에는 여전히 John이 있습니다.
 ```
 
-<<<<<<< HEAD
 [Object.assign](mdn:js/Object/assign)를 사용하는 방법도 있습니다.
-=======
-We can also use the method [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).
->>>>>>> upstream/master
 
 문법과 동작 방식은 다음과 같습니다.
 
@@ -233,24 +169,13 @@ We can also use the method [Object.assign](https://developer.mozilla.org/en-US/d
 Object.assign(dest, ...sources)
 ```
 
-<<<<<<< HEAD
 - 첫 번째 인수 `dest`는 목표로 하는 객체입니다.
 - 이어지는 인수 `src1, ..., srcN`는 복사하고자 하는 객체입니다. `...`은 필요에 따라 얼마든지 많은 객체를 인수로 사용할 수 있다는 것을 나타냅니다.
 - 객체 `src1, ..., srcN`의 프로퍼티를 `dest`에 복사합니다. `dest`를 제외한 인수(객체)의 프로퍼티 전부가 첫 번째 인수(객체)로 복사됩니다.
 - 마지막으로 `dest`를 반환합니다.
 
 `assign` 메서드를 사용해 여러 객체를 하나로 병합하는 예시를 살펴봅시다.
-```js
-=======
-- The first argument `dest` is a target object.
-- Further arguments is a list of source objects.
-
-It copies the properties of all source objects into the target `dest`, and then returns it as the result.
-
-For example, we have `user` object, let's add a couple of permissions to it:
-
 ```js run
->>>>>>> upstream/master
 let user = { name: "John" };
 
 let permissions1 = { canView: true };
@@ -261,7 +186,7 @@ let permissions2 = { canEdit: true };
 Object.assign(user, permissions1, permissions2);
 */!*
 
-// now user = { name: "John", canView: true, canEdit: true }
+// 이제 user = { name: "John", canView: true, canEdit: true }
 alert(user.name); // John
 alert(user.canView); // true
 alert(user.canEdit); // true
@@ -277,11 +202,7 @@ Object.assign(user, { name: "Pete" });
 alert(user.name); // user = { name: "Pete" }
 ```
 
-<<<<<<< HEAD
 `Object.assign`을 사용하면 반복문 없이도 간단하게 객체를 복사할 수 있습니다.
-=======
-We also can use `Object.assign` to perform a simple object cloning:
->>>>>>> upstream/master
 
 ```js run
 let user = {
@@ -297,21 +218,13 @@ alert(clone.name); // John
 alert(clone.age); // 30
 ```
 
-<<<<<<< HEAD
-예시를 실행하면 `user`에 있는 모든 프로퍼티가 빈 배열에 복사되고 변수에 할당됩니다.
-=======
-Here it copies all properties of `user` into the empty object and returns it.
+예시를 실행하면 `user`에 있는 모든 프로퍼티가 빈 객체에 복사되고, 그 객체가 반환됩니다.
 
-There are also other methods of cloning an object, e.g. using the [spread syntax](info:rest-parameters-spread) `clone = {...user}`, covered later in the tutorial.
->>>>>>> upstream/master
+객체를 복제하는 다른 방법도 있습니다. 예를 들어 튜토리얼 뒷부분에서 다룰 [스프레드 문법](info:rest-parameters-spread)을 사용하면 `clone = {...user}`처럼 객체를 복제할 수 있습니다.
 
 ## 중첩 객체 복사
 
-<<<<<<< HEAD
 지금까진 `user`의 모든 프로퍼티가 원시값인 경우만 가정했습니다. 그런데 프로퍼티는 다른 객체에 대한 참조 값일 수도 있습니다. 이 경우는 어떻게 해야 할까요?
-=======
-Until now we assumed that all properties of `user` are primitive. But properties can be references to other objects.
->>>>>>> upstream/master
 
 아래와 같이 말이죠.
 ```js run
@@ -326,13 +239,9 @@ let user = {
 alert( user.sizes.height ); // 182
 ```
 
-<<<<<<< HEAD
 `clone.sizes = user.sizes`로 프로퍼티를 복사하는 것만으론 객체를 복제할 수 없습니다. `user.sizes`는 객체이기 때문에 참조 값이 복사되기 때문입니다. `clone.sizes = user.sizes`로 프로퍼티를 복사하면 `clone`과 `user`는 같은 sizes를 공유하게 됩니다.
 
 아래와 같이 말이죠.
-=======
-Now it's not enough to copy `clone.sizes = user.sizes`, because `user.sizes` is an object, and will be copied by reference, so `clone` and `user` will share the same sizes:
->>>>>>> upstream/master
 
 ```js run
 let user = {
@@ -347,31 +256,18 @@ let clone = Object.assign({}, user);
 
 alert( user.sizes === clone.sizes ); // true, 같은 객체입니다.
 
-<<<<<<< HEAD
-// user와 clone는 sizes를 공유합니다.
-user.sizes.width++;       // 한 객체에서 프로퍼티를 변경합니다.
-alert(clone.sizes.width); // 51, 다른 객체에서 변경 사항을 확인할 수 있습니다.
+// user와 clone은 sizes를 공유합니다.
+user.sizes.width = 60;    // 한 객체에서 프로퍼티를 변경합니다.
+alert(clone.sizes.width); // 60, 다른 객체에서 변경 사항을 확인할 수 있습니다.
 ```
 
-이 문제를 해결하려면 `user[key]`의 각 값을 검사하면서, 그 값이 객체인 경우 객체의 구조도 복사해주는 반복문을 사용해야 합니다. 이런 방식을 '깊은 복사(deep cloning)'라고 합니다.
-
-깊은 복사 시 사용되는 표준 알고리즘인 [Structured cloning algorithm](https://html.spec.whatwg.org/multipage/structured-data.html#safe-passing-of-structured-data)을 사용하면 위 사례를 비롯한 다양한 상황에서 객체를 복제할 수 있습니다.
-
-자바스크립트 라이브러리 [lodash](https://lodash.com)의 메서드인 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)을 사용하면 이 알고리즘을 직접 구현하지 않고도 깊은 복사를 처리할 수 있으므로 참고하시기 바랍니다.
-=======
-// user and clone share sizes
-user.sizes.width = 60;    // change a property from one place
-alert(clone.sizes.width); // 60, get the result from the other one
-```
-
-To fix that and make `user` and `clone` truly separate objects, we should use a cloning loop that examines each value of `user[key]` and, if it's an object, then replicate its structure as well. That is called a "deep cloning" or "structured cloning". There's [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) method that implements deep cloning.
-
+이 문제를 해결해 `user`와 `clone`을 진짜로 독립된 객체로 만들려면 `user[key]`의 각 값을 검사하면서, 그 값이 객체인 경우 객체의 구조도 복제하는 반복문을 사용해야 합니다. 이런 방식을 '깊은 복사(deep cloning)' 또는 '구조화 복사(structured cloning)'라고 합니다. 깊은 복사를 구현한 [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) 메서드가 있습니다.
 
 ### structuredClone
 
-The call `structuredClone(object)` clones the `object` with all nested properties.
+`structuredClone(object)`을 호출하면 중첩 프로퍼티까지 모두 포함해 `object`가 복제됩니다.
 
-Here's how we can use it in our example:
+앞선 예시에 이 메서드를 적용해 봅시다.
 
 ```js run
 let user = {
@@ -386,59 +282,50 @@ let user = {
 let clone = structuredClone(user);
 */!*
 
-alert( user.sizes === clone.sizes ); // false, different objects
+alert( user.sizes === clone.sizes ); // false, 서로 다른 객체입니다.
 
-// user and clone are totally unrelated now
-user.sizes.width = 60;    // change a property from one place
-alert(clone.sizes.width); // 50, not related
+// 이제 user와 clone은 완전히 독립적입니다.
+user.sizes.width = 60;    // 한 객체에서 프로퍼티를 변경합니다.
+alert(clone.sizes.width); // 50, 다른 객체에는 영향을 주지 않습니다.
 ```
 
-The `structuredClone` method can clone most data types, such as objects, arrays, primitive values.
+`structuredClone` 메서드는 객체, 배열, 원시값 등 대부분의 자료형을 복제할 수 있습니다.
 
-It also supports circular references, when an object property references the object itself (directly or via a chain or references).
+객체 프로퍼티가 객체 자신을 직접 또는 여러 참조를 거쳐 참조하는 순환 참조도 지원합니다.
 
-For instance:
+예시:
 
 ```js run
 let user = {};
-// let's create a circular reference:
-// user.me references the user itself
+// 순환 참조를 만들어 봅시다.
+// user.me는 user 자신을 참조합니다.
 user.me = user;
 
 let clone = structuredClone(user);
 alert(clone.me === clone); // true
 ```
 
-As you can see, `clone.me` references the `clone`, not the `user`! So the circular reference was cloned correctly as well.
+보시다시피 `clone.me`는 `user`가 아니라 `clone`을 참조합니다. 순환 참조도 올바르게 복제된 것입니다.
 
-Although, there are cases when `structuredClone` fails.
+다만 `structuredClone`이 실패하는 경우도 있습니다.
 
-For instance, when an object has a function property:
+예를 들어 객체에 함수 프로퍼티가 있으면 실패합니다.
 
 ```js run
-// error
+// 에러가 발생합니다.
 structuredClone({
   f: function() {}
 });
 ```
 
-Function properties aren't supported.
+함수 프로퍼티는 지원되지 않습니다.
 
-To handle such complex cases we may need to use a combination of cloning methods, write custom code or, to not reinvent the wheel, take an existing implementation, for instance [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) from the JavaScript library [lodash](https://lodash.com).
->>>>>>> upstream/master
+이처럼 복잡한 경우를 처리하려면 여러 복제 방법을 조합하거나 직접 코드를 작성해야 할 수 있습니다. 바퀴를 다시 발명하지 않으려면 자바스크립트 라이브러리 [lodash](https://lodash.com)의 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) 같은 기존 구현을 사용할 수도 있습니다.
 
 ## 요약
 
-<<<<<<< HEAD
 객체는 참조에 의해 할당되고 복사됩니다. 변수엔 '객체' 자체가 아닌 메모리상의 주소인 '참조'가 저장됩니다. 따라서 객체가 할당된 변수를 복사하거나 함수의 인자로 넘길 땐 객체가 아닌 객체의 참조가 복사됩니다.
-=======
-Objects are assigned and copied by reference. In other words, a variable stores not the "object value", but a "reference" (address in memory) for the value. So copying such a variable or passing it as a function argument copies that reference, not the object itself.
->>>>>>> upstream/master
 
 그리고 복사된 참조를 이용한 모든 작업(프로퍼티 추가·삭제 등)은 동일한 객체를 대상으로 이뤄집니다.
 
-<<<<<<< HEAD
-객체의 '진짜 복사본'을 만들려면 '얕은 복사(shallow copy)'를 가능하게 해주는 `Object.assign`이나  '깊은 복사'를 가능하게 해주는 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep)를 사용하면 됩니다. 이때 얕은 복사본은 중첩 객체를 처리하지 못한다는 점을 기억해 두시기 바랍니다.
-=======
-To make a "real copy" (a clone) we can use `Object.assign` for the so-called "shallow copy" (nested objects are copied by reference) or a "deep cloning" function `structuredClone` or use a custom cloning implementation, such as [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
->>>>>>> upstream/master
+객체의 '진짜 복사본'(클론)을 만들려면 '얕은 복사(shallow copy)'를 가능하게 해주는 `Object.assign`을 사용하거나(중첩 객체는 참조로 복사됩니다), '깊은 복사' 함수인 `structuredClone` 혹은 [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep) 같은 기존 구현을 사용할 수 있습니다.
