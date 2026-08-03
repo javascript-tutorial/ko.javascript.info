@@ -24,7 +24,7 @@
 
 1. 첫째, 업로드를 할 파일에 고윳값을 구분할 파일 아이디를 생성하세요.
     ```js
-    let fileId = file.name + '-' + file.size + '-' + +file.lastModifiedDate;
+    let fileId = file.name + '-' + file.size + '-' + file.lastModified;
     ```
     파일 아이디는 파일 업로드를 재개할 때 서버에 어떤 파일을 재개할지 말해주는 데 필요합니다.
 
@@ -48,7 +48,7 @@
 
 3. `startByte`에서 파일을 보내기 위해 `Blob`의 `slice` 메서드를 사용합니다.
     ```js
-    xhr.open("POST", "upload", true);
+    xhr.open("POST", "upload");
 
     // 파일 아이디를 통해 서버는 어떤 파일을 업로드 받을지 알게 됩니다.
     xhr.setRequestHeader('X-File-Id', fileId);
