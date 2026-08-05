@@ -32,7 +32,7 @@ observer.observe(node, config);
 - `attributeOldValue` -- `true`이면 속성의 이전 값과 새 값을 모두 콜백에 전달하고(아래 참고) 그렇지 않으면 새 값만 전달함(`attributes` 옵션 필요)
 - `characterDataOldValue` -- `true`이면 `node.data`의 이전 값과 새 값을 모두 콜백에 전달하고(아래 참고) 그렇지 않으면 새 값만 전달함(`characterData` 옵션 필요)
 
-실제 변경이 생길 때마다 `callback`이 실행됩니다. 이때 콜백 함수의 첫 번째 인수로 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) 객체 목록이, 두 번째 인수로 옵저버 자신이 전달됩니다.
+옵저버를 붙인 DOM 노드에 실제 변경이 생길 때마다 `callback`이 실행됩니다. 이때 콜백 함수의 첫 번째 인수로 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) 객체 목록이, 두 번째 인수로 옵저버 자신이 전달됩니다.
 
 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) 객체에는 다음과 같은 프로퍼티가 있습니다.
 
@@ -176,7 +176,7 @@ snippets.forEach(elem => Prism.highlightElement(elem));
 
 동작하는 예시를 봅시다.
 
-아래 코드를 실행하면 하위 요소를 관찰하기 시작해서 그곳에 나타나는 코드 예시를 강조 표시합니다.
+아래 코드를 실행하면 뮤테이션 옵저버를 등록한 노드의 하위 요소를 관찰하기 시작해서 그곳에 나타나는 코드 예시를 강조해 줍니다.
 
 ```js run
 let observer = new MutationObserver(mutations => {
