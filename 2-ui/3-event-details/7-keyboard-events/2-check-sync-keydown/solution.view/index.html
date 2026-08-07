@@ -2,7 +2,7 @@
 <html>
 <body>
 
-  <p>Press "Q" and "W" together (can be in any language).</p>
+  <p>"Q"와 "W"를 동시에 눌러 보세요(언어 설정과 관계없이 동작합니다).</p>
 
   <script>
     function runOnKeys(func, ...codes) {
@@ -11,19 +11,19 @@
       document.addEventListener('keydown', function(event) {
         pressed.add(event.code);
 
-        for (let code of codes) { // are all keys in the set?
+        for (let code of codes) { // 모든 키가 셋에 들어 있는지 검사합니다.
           if (!pressed.has(code)) {
             return;
           }
         }
 
-        // yes, they are
+        // 모든 키가 눌린 상태입니다.
 
-        // during the alert, if the visitor releases the keys,
-        // JavaScript does not get the "keyup" event
-        // and pressed set will keep assuming that the key is pressed
-        // so, to evade "sticky" keys, we reset the status
-        // if the user wants to run the hotkey again - let them press all keys again
+        // 얼럿 창이 떠 있는 동안 사용자가 키에서 손을 떼면
+        // 자바스크립트는 keyup 이벤트를 받지 못합니다.
+        // 이때 pressed 셋은 키가 계속 눌려 있다고 착각하게 됩니다.
+        // 키가 눌린 상태로 '고정'되는 문제를 피하려면 상태를 초기화해야 합니다.
+        // 단축키를 다시 실행하고 싶다면 모든 키를 다시 누르면 됩니다.
         pressed.clear();
 
         func();
@@ -36,7 +36,7 @@
     }
 
     runOnKeys(
-      () => alert("Hello!"),
+      () => alert("안녕하세요!"),
       "KeyQ",
       "KeyW"
     );

@@ -10,26 +10,26 @@
 
   <form id="form" onsubmit="return false">
 
-    Prevent default for:
+    기본 동작 막기:
     <label>
       <input type="checkbox" name="keydownStop" value="1"> keydown</label>&nbsp;&nbsp;&nbsp;
     <label>
       <input type="checkbox" name="keyupStop" value="1"> keyup</label>
 
     <p>
-      Ignore:
+      무시하기:
       <label>
         <input type="checkbox" name="keydownIgnore" value="1"> keydown</label>&nbsp;&nbsp;&nbsp;
       <label>
         <input type="checkbox" name="keyupIgnore" value="1"> keyup</label>
     </p>
 
-    <p>Focus on the input field and press a key.</p>
+    <p>아래 입력 필드에 포커스를 두고 키를 눌러 보세요.</p>
 
-    <input type="text" placeholder="Press keys here" id="kinput">
+    <input type="text" placeholder="여기에 키를 눌러 보세요" id="kinput">
 
     <textarea id="area"></textarea>
-    <input type="button" value="Clear" onclick="area.value = ''" />
+    <input type="button" value="지우기" onclick="area.value = ''" />
   </form>
   <script src="script.js"></script>
 
