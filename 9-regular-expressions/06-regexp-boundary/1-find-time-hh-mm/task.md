@@ -1,9 +1,9 @@
-# Find the time
+# 시간 찾기
 
-The time has a format: `hours:minutes`. Both hours and minutes has two digits, like `09:00`.
+시간은 형식을 가집니다: `hours:minutes`. 시간과 분은 모두 `09:00`과 같이 두 자릿수를 가집니다.
 
-Make a regexp to find time in the string: `subject:Breakfast at 09:00 in the room 123:456.`
+문자열 내에서 시간을 찾기 위해 정규 표현식을 만들어보세요: `subject:Breakfast at 09:00 in the room 123:456.`
 
-P.S. In this task there's no need to check time correctness yet, so `25:99` can also be a valid result.
+P.S. 이 과제에서는 아직 시간 정확도를 확인할 필요가 없습니다, 따라서 `25:99`도 유효한 결과가 될 수 있습니다.
 
-P.P.S. The regexp shouldn't match `123:456`.
+P.P.S. 정규 표현식은 `123:456` 과 같지 않아야 합니다.
