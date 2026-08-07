@@ -1,221 +1,225 @@
-# Moving the mouse: mouseover/out, mouseenter/leave
+# mouseover/out 이벤트와 mouseenter/leave 이벤트
 
-Let's dive into more details about events that happen when the mouse moves between elements.
+이제 마우스가 요소 사이에서 움직일 때 발생하는 이벤트에 대해 더 자세히 알아보겠습니다.
 
-## Events mouseover/mouseout, relatedTarget
+## mouseover/mouseout 이벤트와 relatedTarget
 
-The `mouseover` event occurs when a mouse pointer comes over an element, and `mouseout` -- when it leaves.
+마우스가 요소 위로 올라갈 때는 `mouseover` 이벤트가 발생하고, 요소 밖으로 나갈 때는 `mouseout` 이벤트가 발생합니다.
 
 ![](mouseover-mouseout.svg)
 
-These events are special, because they have property `relatedTarget`. This property complements `target`. When a mouse leaves one element for another, one of them becomes `target`, and the other one - `relatedTarget`.
+이 이벤트들은 `target` 프로퍼티를 보조할 수 있는 `relatedTarget` 프로퍼티를 갖고 있습니다. 마우스가 어떤 요소에서 다른 요소로 이동할 때, 한 요소는 `target`이 되고 다른 한 요소는 `relatedTarget`이 됩니다.
 
-For `mouseover`:
+`mouseover` 이벤트에서는 아래와 같이 설정됩니다.
 
-- `event.target` -- is the element where the mouse came over.
-- `event.relatedTarget` -- is the element from which the mouse came (`relatedTarget` -> `target`).
+- `event.target`: 마우스가 현재 가리키는 요소
+- `event.relatedTarget`: 기존에 마우스가 가리켰던 요소 (`relatedTarget` -> `target`).
 
-For `mouseout` the reverse:
+`mouseout` 이벤트는 그 반대입니다.
 
-- `event.target` -- is the element that the mouse left.
-- `event.relatedTarget` -- is the new under-the-pointer element, that mouse left for (`target` -> `relatedTarget`).
+- `event.target`: 기존에 마우스가 가리켰던 요소
+- `event.relatedTarget`: 마우스가 현재 가리키는 요소 (`target` -> `relatedTarget`).
 
 ```online
-In the example below each face and its features are separate elements. When you move the mouse, you can see mouse events in the text area.
+아래 예시에서 각 얼굴과 얼굴의 기능은 서로 독립적인 요소입니다. 마우스가 움직임에 따라 어떤 이벤트가 발생하는지 확인할 수 있습니다.
 
-Each event has the information about both `target` and `relatedTarget`:
+각 이벤트는 `target`과  `relatedTarget`에 해당하는 요소를 나타냅니다.
 
 [codetabs src="mouseoverout" height=280]
 ```
 
-```warn header="`relatedTarget` can be `null`"
-The `relatedTarget` property can be `null`.
+```warn header="`relatedTarget`은 `null`이 될 수 있습니다."
+`relatedTarget` 프로퍼티는 `null`이 될 수 있습니다.
 
-That's normal and just means that the mouse came not from another element, but from out of the window. Or that it left the window.
+이는 정상적인 상황이며 윈도우 밖에 있던 마우스가 다른 요소 위로 움직였거나, 요소 위에 있던 마우스가 윈도우를 떠났음을 의미합니다.
 
-We should keep that possibility in mind when using `event.relatedTarget` in our code. If we access `event.relatedTarget.tagName`, then there will be an error.
-```
+따라서 `event.relatedTarget` 프로퍼티가 `null`인 경우에 `event.relatedTarget.tagName`에 접근한다면 에러가 발생할 수 있음을 명심해야 합니다.
 
-## Skipping elements
+````
 
-The `mousemove` event triggers when the mouse moves. But that doesn't mean that every pixel leads to an event.
+## 요소 건너뛰기
 
-The browser checks the mouse position from time to time. And if it notices changes then triggers the events.
+마우스가 움직이면 `mousemove` 이벤트가 발생합니다. 브라우저는 일정 시간 간격으로 마우스 위치를 확인하면서 마우스의 이전 위치와 현재 위치가 다른 경우에 마우스가 움직였다고 판단하고 `mousemove` 이벤트를 발동시킵니다.
 
-That means that if the visitor is moving the mouse very fast then some DOM-elements may be skipped:
+따라서 마우스가 매우 빠르게 움직이게 된다면 브라우저는 마우스가 지나간 요소들 중 일부를 인식하지 못할 수도 있습니다.
 
 ![](mouseover-mouseout-over-elems.svg)
 
-If the mouse moves very fast from `#FROM` to `#TO` elements as painted above, then intermediate `<div>` elements (or some of them) may be skipped. The `mouseout` event may trigger on `#FROM` and then immediately `mouseover` on `#TO`.
+위 그림에서처럼 만약 마우스가 `#FROM`에서 `#TO`까지 아주 빠르게 움직이는 경우 두 요소 사이에 있는 `<div>` 요소들은 무시될 수도 있습니다. 이러한 경우 `#FROM`에서 `mouseout` 이벤트가 발생한 다음 곧바로 `#TO`에서 `mouseover` 이벤트가 발생하게 됩니다.
 
-That's good for performance, because there may be many intermediate elements. We don't really want to process in and out of each one.
+실제로 모든 요소에서 마우스 이벤트가 발생하기를 원하지 않으므로 화면에 많은 요소가 있는 경우 성능 측면에서는 바람직한 현상입니다.
 
-On the other hand, we should keep in mind that the mouse pointer doesn't "visit" all elements along the way. It can "jump".
+따라서 마우스는 움직이는 경로상의 모든 요소를 "방문"하는 것이 아니라 특정 요소를 "건너뛰기" 할 수도 있다는 것을 알고 있어야 합니다.
 
-In particular, it's possible that the pointer jumps right inside the middle of the page from out of the window. In that case `relatedTarget` is `null`, because it came from "nowhere":
+실제로 마우스는 윈도우 바깥에서 곧바로 페이지 중앙으로 건너뛰어 올 수 있습니다. 이러한 경우 마우스가 특정 요소에서부터 이동해 온 것이 아니므로 `relatedTarget`은 `null`이 됩니다.
 
 ![](mouseover-mouseout-from-outside.svg)
 
 ```online
-You can check it out "live" on a teststand below.
+아래 창에서 마우스 이벤트를 실시간으로 확인할 수 있습니다.
 
-Its HTML has two nested elements: the `<div id="child">` is inside the `<div id="parent">`. If you move the mouse fast over them, then maybe only the child div triggers events, or maybe the parent one, or maybe there will be no events at all.
+`<div id="parent">` 안에 `<div id="child">`가 구현되어 있습니다. 만약 마우스가 두 `div` 요소 위를 아주 빠르게 지나가게 된다면 둘 중 한 개 요소에서만 마우스 이벤트가 발생하거나 전혀 발생하지 않을 수도 있습니다.
 
-Also move the pointer into the child `div`, and then move it out quickly down through the parent one. If the movement is fast enough, then the parent element is ignored. The mouse will cross the parent element without noticing it.
+마찬가지로 마우스가 child `div` 위로 아주 빠르게 이동할 경우 parent `div`에서는 마우스 이벤트가 발생하지 않을 수도 있습니다.
 
 [codetabs height=360 src="mouseoverout-fast"]
-```
+````
 
-```smart header="If `mouseover` triggered, there must be `mouseout`"
-In case of fast mouse movements, intermediate elements may be ignored, but one thing we know for sure: if the pointer "officially" entered an element (`mouseover` event generated), then upon leaving it we always get `mouseout`.
-```
+```smart header="`mouseover` 이벤트가 발생한다면, `mouseout` 이벤트도 항상 발생합니다."
+마우스가 아주 빠르게 움직이는 경우에 일부 요소들에서는 마우스 이벤트가 발생하지 않을 수도 있습니다. 하지만 어떤 요소에서 `mouseover` 이벤트가 발생했다면 마우스가 해당 요소를 떠날 때 `mouseout` 이벤트가 반드시 발생하게 됩니다.
 
-## Mouseout when leaving for a child
+````
 
-An important feature of `mouseout` -- it triggers, when the pointer moves from an element to its descendant, e.g. from `#parent` to `#child` in this HTML:
+## 자식 요소로 이동할 때 발생하는 Mouseout 이벤트
+
+`mouseout` 이벤트의 중요한 특징이 있습니다. 이 이벤트는 마우스가 부모 요소에서 자식 요소로 이동하는 상황에서도 발생합니다. 아래 HTML 코드를 예시로 들자면 `#parent`에서 `#child`로 이동하는 상황입니다.
 
 ```html
 <div id="parent">
   <div id="child">...</div>
 </div>
-```
+````
 
-If we're on `#parent` and then move the pointer deeper into `#child`, but we get `mouseout` on `#parent`!
+만약 마우스가 `#parent`로부터 `#child`로 이동하게 된다면 `#parent` 요소에서는 `mouseout` 이벤트가 발생하게 됩니다!
 
 ![](mouseover-to-child.svg)
 
-That may seem strange, but can be easily explained.
+이 현상은 조금 이상하게 보일 수는 있지만 아래와 같이 간단하게 설명될 수 있습니다.
 
-**According to the browser logic, the mouse cursor may be only over a *single* element at any time -- the most nested one and top by z-index.**
+**브라우저 작동 로직에 따라 마우스는 가장 안 쪽에 있는 요소, 즉 z-index 기준으로 가장 위에 위치한 요소 하나에만 위치할 수 있습니다.**
 
-So if it goes to another element (even a descendant), then it leaves the previous one.
+따라서 마우스가 한 요소에서 다른 요소로 이동하게 된다면 그 요소가 설령 자식 요소일지라도 이전의 요소를 떠난 것으로 처리됩니다.
 
-Please note another important detail of event processing.
+이것 말고도 마우스 이벤트 처리에서 중요한 특징이 하나 더 있습니다.
 
-The `mouseover` event on a descendant bubbles up. So, if `#parent` has `mouseover` handler, it triggers:
+자식 요소에서 발생한 `mouseover` 이벤트는 버블링됩니다. 만약 아래 그림에서 `#parent` 요소가 `mouseover` 이벤트 핸들러를 가지고 있다면, `#child` 요소에서 발생한 `mouseover` 이벤트에 의하여 `#parent` 요소에서도 `mouseover` 이벤트가 발생하게 됩니다.
 
 ![](mouseover-bubble-nested.svg)
 
 ```online
-You can see that very well in the example below: `<div id="child">` is inside the `<div id="parent">`. There are `mouseover/out` handlers on `#parent` element that output event details.
+아래 예시에서 위 현상을 아주 쉽게 확인해 볼 수 있습니다. `<div id="parent">` 요소는 내부에 `<div id="child">` 요소를 포함하고 있습니다.
+그리고 `<div id="parent">` 요소에만 이벤트 상세 정보를 표출하는 `mouseover/out` 이벤트 핸들러가 추가되어 있습니다.
 
-If you move the mouse from `#parent` to `#child`, you see two events on `#parent`:
-1. `mouseout [target: parent]` (left the parent), then
-2. `mouseover [target: child]` (came to the child, bubbled).
+마우스를 `#parent`에서 `#child`로 움직이면 `#parent` 요소에서 발생한 이벤트를 두 가지 확인할 수 있습니다.
+1. `mouseout [target: parent]` (parent를 떠날 때)
+2. `mouseover [target: child]` (child로부터 버블링 됨)
 
 [codetabs height=360 src="mouseoverout-child"]
 ```
 
-As shown, when the pointer moves from `#parent` element to `#child`, two handlers trigger on the parent element: `mouseout` and `mouseover`:
+위에서 확인할 수 있듯이 마우스가 `#parent`에서 `#child`로 이동할 때 `mouseout`와 `mouseover` 이벤트가 발생합니다!
 
 ```js
-parent.onmouseout = function(event) {
+parent.onmouseout = function (event) {
   /* event.target: parent element */
 };
-parent.onmouseover = function(event) {
+parent.onmouseover = function (event) {
   /* event.target: child element (bubbled) */
 };
 ```
 
-**If we don't examine `event.target` inside the handlers, then it may seem that the mouse pointer left `#parent` element, and then immediately came back over it.**
+**만약 `event.target`을 이벤트 핸들러 내부에서 확인하지 않는다면 마우스가 `#parent`를 떠나자마자 다시 돌아온 것처럼 보일 수도 있습니다.**
 
-But that's not the case! The pointer is still over the parent, it just moved deeper into the child element.
+하지만 실제로는 그렇지 않습니다! 마우스는 여전히 `#parent` 위에 있으면서 그저 `#child`로 더 깊이 이동하였을 뿐입니다.
 
-If there are some actions upon leaving the parent element, e.g. an animation runs in `parent.onmouseout`, we usually don't want it when the pointer just goes deeper into `#parent`.
+만약 `parent.onmouseout` 이벤트와 같이 `#parent` 요소를 떠날 때 발생하는 이벤트가 있다면, 보통은 마우스가 `#parent` 요소에서 더 깊숙이 이동하는 상황에서는 해당 이벤트가 발생하기를 원하지 않을 것입니다.
 
-To avoid it, we can check `relatedTarget` in the handler and, if the mouse is still inside the element, then ignore such event.
+이를 위하여 이벤트 핸들러에서 `relatedTarget`을 확인하고 만약 마우스가 여전히 기존 요소 내부에 위치한다면 해당 이벤트가 발생하지 않도록 개발할 수 있습니다.
 
-Alternatively we can use other events: `mouseenter` and `mouseleave`, that we'll be covering now, as they don't have such problems.
+다른 대안으로는 상기 문제가 발생하지 않는 `mouseenter` 이벤트와 `mouseleave` 이벤트를 사용할 수 있습니다.
 
-## Events mouseenter and mouseleave
+지금부터 이 두 이벤트들에 관하여 알아보도록 하겠습니다.
 
-Events `mouseenter/mouseleave` are like `mouseover/mouseout`. They trigger when the mouse pointer enters/leaves the element.
+## mouseenter와 mouseleave 이벤트
 
-But there are two important differences:
+`mouseenter/mouseleave` 이벤트는 `mouseover/mouseout` 이벤트와 마찬가지로 마우스가 요소 위로 들어가고 나올 때 발생하는 이벤트입니다.
 
-1. Transitions inside the element, to/from descendants, are not counted.
-2. Events `mouseenter/mouseleave` do not bubble.
+하지만 두 가지 중요한 차이점이 존재합니다.
 
-These events are extremely simple.
+1. 자식 요소 안으로 이동할 때는 발생하지 않습니다.
+2. 이벤트 버블링이 발생하지 않습니다.
 
-When the pointer enters an element -- `mouseenter` triggers. The exact location of the pointer inside the element or its descendants doesn't matter.
+`mouseenter/mouseleave` 이벤트는 매우 단순합니다.
 
-When the pointer leaves an element -- `mouseleave` triggers.
+마우스가 요소 안으로 들어갈 때 `mouseenter` 이벤트가 발생합니다. 마우스가 부모 요소에 있는지 자식 요소에 있는지는 고려하지 않습니다.
+
+그리고 마우스가 요소를 떠날 때 `mouseleave` 이벤트가 발생합니다.
 
 ```online
-This example is similar to the one above, but now the top element has `mouseenter/mouseleave` instead of `mouseover/mouseout`.
+아래 예시는 위의 예시와 유사합니다. 하지만 부모 요소는 `mouseover/mouseout` 이벤트 대신에 `mouseenter/mouseleave` 이벤트 핸들러를 가지고 있습니다.
 
-As you can see, the only generated events are the ones related to moving the pointer in and out of the top element. Nothing happens when the pointer goes to the child and back. Transitions between descendants are ignored
+예시에서 확인할 수 있듯이 부모 요소에 마우스가 들어가고 나올 때만 이벤트가 발생합니다. 마우스가 자식 요소로 들어가고 나올 때에는 아무런 이벤트가 발생하지 않습니다. 자식 요소 간의 마우스 이동은 완전히 무시됩니다.
 
 [codetabs height=340 src="mouseleave"]
 ```
 
-## Event delegation
+## 이벤트 위임
 
-Events `mouseenter/leave` are very simple and easy to use. But they do not bubble. So we can't use event delegation with them.
+`mouseenter/leave` 이벤트는 아주 단순하고 사용하기 쉽습니다. 하지만 이벤트 버블링이 발생하지 않으므로 이벤트 위임을 함께 사용할 수 없습니다.
 
-Imagine we want to handle mouse enter/leave for table cells. And there are hundreds of cells.
+수백 개의 셀이 있는 테이블에서 셀 간의 이동을 관리해야 하는 상황을 가정해 보겠습니다.
 
-The natural solution would be -- to set the handler on `<table>` and process events there. But `mouseenter/leave` don't bubble. So if such event happens on `<td>`, then only a handler on that `<td>` is able to catch it.
+`<table>`에 이벤트 핸들러를 설정하여 관리할 수도 있겠지만 `mouseenter/leave` 이벤트는 버블링을 하지 않습니다. 그래서 만약 해당 이벤트가 어떤 `<td>`에서 발생한다면 그 `<td>`에 설정된 이벤트 핸들러에서만 해당 이벤트를 다룰 수 있을 것입니다.
 
-Handlers for `mouseenter/leave` on `<table>` only trigger when the pointer enters/leaves the table as a whole. It's impossible to get any information about transitions inside it.
+`<table>`에 설정된 `mouseenter/leave` 이벤트 핸들러는 마우스가 `<table>` 안과 밖을 이동할 때만 각 이벤트를 발생시킬 수 있습니다. 따라서 `<table>` 내부에서 발생한 마우스 이동에 관한 어떠한 정보도 알 수 없습니다.
 
-So, let's use `mouseover/mouseout`.
+그러니 여기서는 `mouseover/mouseout` 이벤트를 사용해 보겠습니다.
 
-Let's start with simple handlers that highlight the element under mouse:
+마우스 아래에 있는 요소를 강조하는 단순한 이벤트 핸들러부터 사용해 보겠습니다.
 
 ```js
-// let's highlight an element under the pointer
-table.onmouseover = function(event) {
+// 마우스 아래 요소를 강조합니다.
+table.onmouseover = function (event) {
   let target = event.target;
   target.style.background = 'pink';
 };
 
-table.onmouseout = function(event) {
+table.onmouseout = function (event) {
   let target = event.target;
   target.style.background = '';
 };
 ```
 
 ```online
-Here they are in action. As the mouse travels across the elements of this table, the current one is highlighted:
+아래 예시에서 두 개의 이벤트가 동작하는 것을 확인할 수 있습니다. 마우스가 테이블 내부 요소들 사이를 이동함에 따라 현재 마우스가 위치한 요소가 강조됩니다.
 
 [codetabs height=480 src="mouseenter-mouseleave-delegation"]
 ```
 
-In our case we'd like to handle transitions between table cells `<td>`: entering a cell and leaving it. Other transitions, such as inside the cell or outside of any cells, don't interest us. Let's filter them out.
+우리는 테이블 셀인 `<td>`에 마우스가 들어가고 나오는 것을 이벤트 핸들러로 관리하고 싶습니다. 셀 내부에서의 이동 또는 셀 밖으로의 이동에는 관심이 없습니다. 그러니 위 코드를 고쳐보겠습니다.
 
-Here's what we can do:
+아래 방식을 적용해 볼 수 있습니다.
 
-- Remember the currently highlighted `<td>` in a variable, let's call it `currentElem`.
-- On `mouseover` -- ignore the event if we're still inside the current `<td>`.
-- On `mouseout` -- ignore if we didn't leave the current `<td>`.
+- 현재 강조된 `<td>`를 변수에 저장하고, 이 변수를 `currentElem`로 명명합니다.
+- 만약 마우스가 여전히 `currentElem` 위에 있다면 `mouseover` 이벤트를 무시합니다.
+- 만약 마우스가 `currentElem`를 떠나지 않았다면 `mouseout` 이벤트를 무시합니다.
 
-Here's an example of code that accounts for all possible situations:
+아래는 모든 발생 가능한 상황을 고려한 코드 작성 예시입니다.
 
 [js src="mouseenter-mouseleave-delegation-2/script.js"]
 
-Once again, the important features are:
-1. It uses event delegation to handle entering/leaving of any `<td>` inside the table. So it relies on `mouseover/out` instead of `mouseenter/leave` that don't bubble and hence allow no delegation.
-2. Extra events, such as moving between descendants of `<td>` are filtered out, so that `onEnter/Leave` runs only if the pointer leaves or enters `<td>` as a whole.
+위 코드에서 중요한 점을 다시 한 번 말씀드리겠습니다.
+
+1. 테이블 내부의 `<td>`를 방문하고 떠나는 것을 관리하기 위해 이벤트 위임을 사용했습니다. 이를 위해 이벤트 버블링이 발생하지 않음에 따라 이벤트 위임을 사용할 수 없는 `mouseenter/leave` 이벤트 대신에 `mouseover/out` 이벤트를 사용했습니다.
+2. `<td>`의 자식 요소들 사이에서 발생하는 이벤트와 같은 기타 이벤트들을 걸러냄으로써 `onEnter/Leave` 함수가 다른 `<td>` 요소에 방문하거나 해당 요소를 완전히 떠나는 경우에만 발동하도록 했습니다.
 
 ```online
-Here's the full example with all details:
+아래는 모든 상세 사항이 적용된 예시입니다.
 
 [codetabs height=460 src="mouseenter-mouseleave-delegation-2"]
 
-Try to move the cursor in and out of table cells and inside them. Fast or slow -- doesn't matter. Only `<td>` as a whole is highlighted, unlike the example before.
+마우스를 테이블 셀의 안과 바깥으로 또는 셀 안에서 이동시켜 보세요. 속도는 상관 없습니다. 이전의 예시와 다르게 오직 `<td>`만 강조됩니다.
 ```
 
-## Summary
+## 요약
 
-We covered events `mouseover`, `mouseout`, `mousemove`, `mouseenter` and `mouseleave`.
+우리는  `mouseover`, `mouseout`, `mousemove`, `mouseenter` 그리고 `mouseleave` 이벤트를 다루었습니다.
 
-These things are good to note:
+아래 사항들을 기억해 두세요.
 
-- A fast mouse move may skip intermediate elements.
-- Events `mouseover/out` and `mouseenter/leave` have an additional property: `relatedTarget`. That's the element that we are coming from/to, complementary to `target`.
+- 빠른 마우스 움직임은 마우스 이동 경로 상의 요소들을 건너뛸 수도 있습니다.
+- `mouseover/out`와 `mouseenter/leave` 이벤트는 `relatedTarget` 프로퍼티를 추가로 가지고 있습니다. 이 프로퍼티는 마우스가 어느 요소에서 왔는지 또는 어느 요소로 떠나왔는지를 나타냄으로써 `target` 프로퍼티를 보완하는 역할을 합니다.
 
-Events `mouseover/out` trigger even when we go from the parent element to a child element. The browser assumes that the mouse can be only over one element at one time -- the deepest one.
+`mouseover/out` 이벤트는 부모 요소에서 자식 요소로 이동할 때도 발생합니다. 브라우저는 마우스가 가장 안쪽에 있는 한 개의 요소 위에만 위치할 수 있다고 가정합니다.
 
-Events `mouseenter/leave` are different in that aspect: they only trigger when the mouse comes in and out the element as a whole. Also they do not bubble.
+`mouseenter/leave` 이벤트는 위와는 다르게 마우스가 자식 요소가 아닌 완전히 다른 요소로 들어오거나 특정 요소에서 완전히 빠져나왔을 때만 발생합니다. 그리고 버블링 이벤트를 발생시키지 않습니다.
