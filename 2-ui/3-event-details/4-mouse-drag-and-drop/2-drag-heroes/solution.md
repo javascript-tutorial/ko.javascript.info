@@ -1,5 +1,5 @@
-To drag the element we can use `position:fixed`, it makes coordinates easier to manage. At the end we should switch it back to `position:absolute` to lay the element into the document.
+요소를 드래그하기 위해 `position:fixed`를 사용하면 좌표를 더 쉽게 관리할 수 있습니다. 마지막으로 요소를 문서에 배치하기 위해 다시 `position:absolute`로 전환해야 합니다.
 
-When coordinates are at window top/bottom, we use `window.scrollTo` to scroll it.
+좌표가 창 위·아래쪽에 있으면 `window.scrollTo`를 사용하여 스크롤 합니다.
 
-More details in the code, in comments.
+자세한 내용은 코드에 있는 코멘트를 참조해 주세요.
