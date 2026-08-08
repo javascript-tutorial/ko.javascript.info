@@ -1,60 +1,60 @@
 
 # Fetch: Abort
 
-As we know, `fetch` returns a promise. And JavaScript generally has no concept of "aborting" a promise. So how can we cancel an ongoing `fetch`? E.g. if the user actions on our site indicate that the `fetch` isn't needed any more.
+우리가 알고 있듯이, `fetch`는 프로미스를 반환합니다. 보통 자바스크립트에는 프로미스를 “중단하는” 개념은 없습니다. 그렇다면 진행 중인 `fetch`를 어떻게 취소할 수 있을까요? E.g) 만약 사이트에서 사용자 액션이 `fetch`가 더 이상 필요하지 않다고 판단되는 경우
 
-There's a special built-in object for such purposes: `AbortController`. It can be used to abort not only `fetch`, but other asynchronous tasks as well.
+이러한 경우를 위해 만들어진 특별한 객체가  `AbortController` 입니다. `fetch`를 중단할 때 쓸 수 있을 뿐 아니라, 비동기 작업에도 쓸 수 있습니다. 
 
-The usage is very straightforward:
+사용 방법은 간단합니다.
 
-## The AbortController object
+## AbortController 객체
 
-Create a controller:
+컨트롤러를 생성합니다.
 
 ```js
 let controller = new AbortController();
 ```
 
-A controller is an extremely simple object.
+컨트롤러는 아주 단순한 객체입니다.
 
-- It has a single method `abort()`,
-- And a single property `signal` that allows to set event liseners on it.
+- `abort()` 라는 한가지 메소드를 가지고 있습니다.
+- 그리고 `signal` 라는 한 가지 프로퍼티를 가지며, 이 프로퍼티로 이벤트 리스너를 설정할 수 있습니다.
 
-When `abort()` is called:
-- `controller.signal` emits the `"abort"` event.
-- `controller.signal.aborted` property becomes `true`.
+ `abort()` 가 호출될 때: 
+- `controller.signal` 이 `"abort"` 이벤트를 발생시킵니다. 
+- `controller.signal.aborted` 프로퍼티가 `true`가 됩니다.
 
-Generally, we have two parties in the process: 
-1. The one that performs an cancelable operation, it sets a listener on `controller.signal`.
-2. The one one that cancels: it calls `controller.abort()` when needed.
+일반적으로 이 과정에는 2가지 그룹이 있습니다.
+1. 취소 작업을 실행하는 그룹은 `controller.signal`에 리스너를 설정합니다. 
+2. 취소되는 그룹은 필요시에 `controller.abort()` 를 호출합니다.
 
-Here's the full example (without `fetch` yet):
+전체 예시는 다음과 같습니다 (`fetch` 적용 전).
 
 ```js run
 let controller = new AbortController();
 let signal = controller.signal;
 
-// The party that performs a cancelable operation 
-// gets "signal" object
-// and sets the listener to trigger when controller.abort() is called
+// 취소 작업을 실행하는 그룹이
+// "signal" 오브젝트를 받고
+// controller.abort() 가 호출될 때 리스너가 실행되도록 설정합니다.
 signal.addEventListener('abort', () => alert("abort!"));
 
-// The other party, that cancels (at any point later):
+// 취소되는 다른 그룹 (추후에):
 controller.abort(); // abort!
 
-// The event triggers and signal.aborted becomes true
+// 이벤트가 발생하고 signal.aborted는 true가 됨
 alert(signal.aborted); // true
 ```
 
-As we can see, `AbortController` is just a means to pass `abort` events when `abort()` is called on it.
+여기서 확인할 수 있듯이, `AbortController` 는 `abort()`가 호출될 때 `abort` 를 전달하는 수단입니다. 
 
-We could implement same kind of event listening in our code on our own, without `AbortController` object at all.
+`AbortController` 객체를 전혀 쓰지 않고, 코드를 따로 작성해서 동일한 이벤트 리스너를 구현할 수도 있습니다. 
 
-But what's valuable is that `fetch` knows how to work with `AbortController` object, it's integrated with it. 
+하지만 중요한 점은, `fetch`가  `AbortController`  객체와 어떻게 작동하는지 알고 있으며, 합칠 수 있다는 점입니다.
 
-## Using with fetch
+## fetch와 사용하기
 
-To become able to cancel `fetch`, pass the `signal` property of an `AbortController` as a `fetch` option:
+`fetch`를 취소하려면, `fetch` 옵션으로 `AbortController`의 프로퍼티인  `signal`을 전달합니다.
 
 ```js
 let controller = new AbortController();
@@ -63,22 +63,22 @@ fetch(url, {
 });
 ```
 
-The `fetch` method knows how to work with `AbortController`. It will listen to `abort` events on `signal`.
+`fetch` 메소드는  `AbortController`와 어떻게 작동하는지 알고 있습니다. `signal`에서 `abort` 이벤트를 듣습니다.
 
-Now, to to abort, call `controller.abort()`:
+이제 중단하려면 `controller.abort()`를 호출합니다.
 
 ```js
 controller.abort();
 ```
 
-We're done: `fetch` gets the event from `signal` and aborts the request.
+다 끝났습니다. `fetch` 는 `signal`에서 이벤트를 받고, fetch를 중단합니다.
 
-When a fetch is aborted, its promise rejects with an error `AbortError`, so we should handle it, e.g. in `try..catch`.
+fetch가 중단되면, 프로미스는 `AbortError`에러로 reject됩니다. 그래서 이를 처리해주어야 합니다. e.g)  `try..catch`.
 
-Here's the full example with `fetch` aborted after 1 second:
+1초 뒤에 `fetch` 가 중단되는 전체 예시는 다음과 같습니다.
 
 ```js run async
-// abort in 1 second
+// 1초 뒤에 중단
 let controller = new AbortController();
 setTimeout(() => controller.abort(), 1000);
 
@@ -87,7 +87,7 @@ try {
     signal: controller.signal
   });
 } catch(err) {
-  if (err.name == 'AbortError') { // handle abort()
+  if (err.name == 'AbortError') { // abort() 처리
     alert("Aborted!");
   } else {
     throw err;
@@ -95,37 +95,37 @@ try {
 }
 ```
 
-## AbortController is scalable
+## AbortController는 확장 가능합니다.
 
-`AbortController` is scalable, it allows to cancel multiple fetches at once.
+`AbortController` 는 확장이 가능하기 때문에 한 번에 여러 개의 요청을 취소할 수 있습니다.
 
-Here's a sketch of code that fetches many `urls` in parallel, and uses a single controller to abort them all:
+다음 코드는 많은 `urls`을 병렬 작업으로 요청하고, 한꺼번에 중단하기 위해 하나의 컨트롤러를 사용하고 있습니다.
 
 ```js
-let urls = [...]; // a list of urls to fetch in parallel
+let urls = [...]; // 병렬 작업으로 요청할 url 목록
 
 let controller = new AbortController();
 
-// an array of fetch promises
+// fetch 프로미스 배열 
 let fetchJobs = urls.map(url => fetch(url, {
   signal: controller.signal
 }));
 
 let results = await Promise.all(fetchJobs);
 
-// if controller.abort() is called from elsewhere,
-// it aborts all fetches
+// 만일 controller.abort() 가 다른 곳에서 호출되면,
+// 모든 fetch를 중단합니다.
 ```
 
-If we have our own asynchronous tasks, different from `fetch`, we can use a single `AbortController` to stop those, together with fetches.
+만일 `fetch` 가 아닌 다른 비동기 작업이 있다면, 하나의 `AbortController` 를 사용해서 fetch와 함께 모두 중단할 수 있습니다.
 
-We just need to listen to its `abort` event in our tasks:
+작업시에 해당 `abort` 이벤트를 듣기만 하면 됩니다.
 
 ```js
 let urls = [...];
 let controller = new AbortController();
 
-let ourJob = new Promise((resolve, reject) => { // our task
+let ourJob = new Promise((resolve, reject) => { // 다른 작업
   ...
   controller.signal.addEventListener('abort', reject);
 });
@@ -134,15 +134,15 @@ let fetchJobs = urls.map(url => fetch(url, { // fetches
   signal: controller.signal
 }));
 
-// Wait for fetches and our task in parallel
+// fetch와 다른 작업을 병렬 작업으로 기다림
 let results = await Promise.all([...fetchJobs, ourJob]);
 
-// if controller.abort() is called from elsewhere,
-// it aborts all fetches and ourJob
+// 만일 controller.abort() 가 다른 곳에서 호출되면,
+// 모든 fetch와 작업이 중단됩니다.
 ```
 
-## Summary
+## 요약
 
-- `AbortController` is a simple object that generates `abort` event on it's `signal` property when `abort()` method is called (and also sets `signal.aborted` to `true`).
-- `fetch` integrates with it: we pass `signal` property as the option, and then `fetch` listens to it, so it becomes possible to abort the `fetch`.
-- We can use `AbortController` in our code. The "call `abort()`" -> "listen to `abort` event" interaction is simple and universal. We can use it even without `fetch`.
+- `AbortController` 는 `abort()` 메소드가 호출될 때 `signal` 프로퍼티에 `abort`이벤트를 생성하는(또한 `signal.aborted` 를 `true` 바꾸는) 단순한 객체입니다.
+- `fetch` 와 합칠 수 있습니다. 옵션으로 `signal` 프로퍼티를 전달하면 `fetch` 는 이를 듣고, `fetch`를 중단할 수 있게 됩니다.
+- 코드에 `AbortController` 를 쓸 수 있습니다. "`abort()` 호출” -> " `abort` 이벤트 듣기" 상호작용은 단순하며 범용적입니다. `fetch` 없이도 쓸 수 있습니다.
