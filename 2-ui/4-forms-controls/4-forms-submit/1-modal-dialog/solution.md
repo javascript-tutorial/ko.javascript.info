@@ -1,4 +1,4 @@
-A modal window can be implemented using a half-transparent `<div id="cover-div">` that covers the whole window, like this:
+모달 창은 다음과 같이 전체 창을 덮는 반투명 `<div id="cover-div">`를 사용하여 구현할 수 있습니다.
 
 ```css
 #cover-div {
@@ -13,8 +13,8 @@ A modal window can be implemented using a half-transparent `<div id="cover-div">
 }
 ```
 
-Because the `<div>` covers everything, it gets all clicks, not the page below it.
+`<div>`가 창 전체를 덮기 때문에 아래에 있는 페이지가 아닌 `<div>`가 클릭 됩니다.
 
-Also we can prevent page scroll by setting `body.style.overflowY='hidden'`.
+또한 `body.style.overflowY='hidden'`을 설정하여 페이지 스크롤을 방지할 수 있습니다.
 
-The form should be not in the `<div>`, but next to it, because we don't want it to have `opacity`.
+폼이 투명해지는 것을 원치 않기 때문에 `<div>`의 내부가 아닌 옆에 위치해야 합니다.
