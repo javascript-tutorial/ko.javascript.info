@@ -1,1 +1,1 @@
-Hello from the server!
+서버에서 보낸 인사입니다!

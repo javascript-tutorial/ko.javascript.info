@@ -5,7 +5,7 @@
 </head>
 <body>
 
-  <button onclick="loadPhones()" id="button">Load phones.json!</button>
+  <button onclick="loadPhones()" id="button">phones.json 불러오기!</button>
 
   <script>
     function loadPhones() {
@@ -21,19 +21,19 @@
       xhr.onreadystatechange = function() {
         if (xhr.readyState != 4) return;
 
-        button.innerHTML = 'Complete!';
+        button.innerHTML = '완료!';
 
         if (xhr.status != 200) {
-          // handle error
+          // 에러 처리
           alert(xhr.status + ': ' + xhr.statusText);
         } else {
-          // show result
+          // 결과 표시
           alert(xhr.responseText);
         }
 
       }
 
-      button.innerHTML = 'Loading...';
+      button.innerHTML = '로딩 중...';
       button.disabled = true;
     }
   </script>
