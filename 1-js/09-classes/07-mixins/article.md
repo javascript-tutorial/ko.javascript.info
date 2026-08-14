@@ -69,11 +69,7 @@ let sayMixin = {
 };
 
 let sayHiMixin = {
-<<<<<<< HEAD
-  __proto__: sayMixin, // (Object.create를 사용해 프로토타입을 설정할 수도 있습니다.)
-=======
-  __proto__: sayMixin, // (or we could use Object.setPrototypeOf to set the prototype here)
->>>>>>> upstream/master
+    __proto__: sayMixin, // (Object.setPrototypeOf를 사용해 여기서 프로토타입을 설정할 수도 있습니다.)
 
   sayHi() {
     *!*
@@ -107,17 +103,13 @@ new User("Dude").sayHi(); // Hello Dude!
 
 이는 `sayHi`와 `sayBye`가 생성된 곳이 `sayHiMixin`이기 때문입니다. 따라서 메서드를 복사했더라도, 이 메서드들의 내부 프로퍼티인 `[[HomeObject]]`는 위 그림처럼 `sayHiMixin`을 참조합니다.
 
-<<<<<<< HEAD
-메서드의 `super`가 `[[HomeObject]].[[Prototype]]`내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색합니다. 
-=======
-As `super` looks for parent methods in `[[HomeObject]].[[Prototype]]`, that means it searches `sayHiMixin.[[Prototype]]`.
->>>>>>> upstream/master
+메서드의 `super`가 `[[HomeObject]].[[Prototype]]` 내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색합니다.
 
 ## 이벤트 믹스인
 
 실제로 사용할 수 있는 믹스인을 만들어봅시다.
 
-상당수 브라우저 객체는 이벤트를 생성이라는 중요한 기능을 가지고 있습니다. 이벤트는 정보를 필요로 하는 곳에 '정보를 널리 알리는(broadcast)' 훌륭한 수단입니다. 아래 예시에선 클래스나 객체에 이벤트 관련 함수를 쉽게 추가할 수 있도록 해주는 믹스인을 만들어 보겠습니다.
+상당수 브라우저 객체는 이벤트를 생성하는 중요한 기능을 가지고 있습니다. 이벤트는 정보를 필요로 하는 곳에 '정보를 널리 알리는(broadcast)' 훌륭한 수단입니다. 아래 예시에선 클래스나 객체에 이벤트 관련 함수를 쉽게 추가할 수 있도록 해주는 믹스인을 만들어 보겠습니다.
 
 - 믹스인은 뭔가 중요한 일이 발생했을 때 '이벤트를 생성하는' 메서드, `.trigger(name, [...data])`를 제공합니다. 인수 `name`은 이벤트 이름이고, 뒤따르는 선택 인수는 이벤트 데이터 정보를 담습니다.
 - 메서드 `.on(name, handler)`은 `name`에 해당하는 이벤트에 리스너로 `handler` 함수를 추가합니다. `.on()`은 이벤트(`name`)가 트리거 될 때 호출되고, `.trigger` 호출에서 인수를 얻습니다.
@@ -203,7 +195,7 @@ menu.choose("123");
 
 이제 `menu.on(...)`을 사용해 메뉴 선택이라는 정보를 들을 수 있게 되었고, 이에 반응하는 코드를 추가할 수 있게 되었습니다.
 
-그리고 믹스인 `eventMixin`을 사용하면 이런 동작을 상속 체이닝에 끼어들지 않고도 원하는 클래스에 모두에 추가할 수 있습니다.
+그리고 믹스인 `eventMixin`을 사용하면 이런 동작을 상속 체이닝에 끼어들지 않고도 원하는 클래스 모두에 추가할 수 있습니다.
 
 ## 요약
 
@@ -213,4 +205,4 @@ menu.choose("123");
 
 이벤트 믹스인 예시에서 본 것처럼, 믹스인은 이벤트 핸들링 등의 행동을 추가하여 클래스를 확장하는 용도로 사용할 수 있습니다.
 
-mixin이 실수로 기존 클래스 메서드를 덮어쓰면 충돌이 발생할 수 있습니다. 따라서 mixin을 만들 땐 충돌이 발생하지 않도록 메서드 이름을 신중하게 정하셔야 합니다. 
+믹스인이 실수로 기존 클래스 메서드를 덮어쓰면 충돌이 발생할 수 있습니다. 따라서 믹스인을 만들 땐 충돌이 발생하지 않도록 메서드 이름을 신중하게 정하셔야 합니다. 

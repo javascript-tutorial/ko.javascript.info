@@ -2,11 +2,7 @@
 
 `instanceof` 연산자를 사용하면 객체가 특정 클래스에 속하는지 아닌지를 확인할 수 있습니다. `instanceof`는 상속 관계도 확인해줍니다.
 
-<<<<<<< HEAD
-확인 기능은 다양한 곳에서 쓰이는데, 이번 챕터에선 `instanceof`를 사용해 인수의 타입에 따라 이를 다르게 처리하는 *다형적인(polymorphic)* 함수를 만드는데 사용해보겠습니다.
-=======
-Such a check may be necessary in many cases. For example, it can be used for building a *polymorphic* function, the one that treats arguments differently depending on their type.
->>>>>>> upstream/master
+확인 기능은 다양한 곳에서 쓰이는데, 예를 들어 `instanceof`를 사용하면 인수의 타입에 따라 이를 다르게 처리하는 *다형적인(polymorphic)* 함수를 만들 수 있습니다.
 
 ## instanceof 연산자 [#ref-instanceof]
 
@@ -59,13 +55,8 @@ alert( arr instanceof Object ); // true
     예시:
 
     ```js run
-<<<<<<< HEAD
-    // canEat 프로퍼티가 있으면 animal이라고 판단할 수 있도록
-    // instanceOf의 로직을 직접 설정합니다.
-=======
-    // set up instanceof check that assumes that
-    // anything with canEat property is an animal
->>>>>>> upstream/master
+    // canEat 프로퍼티가 있으면 animal이라고 판단하도록
+    // instanceof 로직을 직접 설정합니다.
     class Animal {
       static [Symbol.hasInstance](obj) {
         if (obj.canEat) return true;
@@ -77,13 +68,9 @@ alert( arr instanceof Object ); // true
     alert(obj instanceof Animal); // true, Animal[Symbol.hasInstance](obj)가 호출됨
     ```
 
-<<<<<<< HEAD
-2. 그런데, 대부분의 클래스엔 `Symbol.hasInstance`가 구현되어있지 않습니다. 이럴 땐 일반적인 로직이 사용됩니다. `obj instanceOf Class`는 `Class.prototype`이 `obj` 프로토타입 체인 상의 프로토타입 중 하나와 일치하는지 확인합니다.
-=======
-2. Most classes do not have `Symbol.hasInstance`. In that case, the standard logic is used: `obj instanceof Class` checks whether `Class.prototype` is equal to one of the prototypes in the `obj` prototype chain.
->>>>>>> upstream/master
+2. 그런데 대부분의 클래스에는 `Symbol.hasInstance`가 구현되어 있지 않습니다. 이 경우 일반적인 로직이 사용됩니다. `obj instanceof Class`는 `Class.prototype`이 `obj` 프로토타입 체인 상의 프로토타입 중 하나와 일치하는지 확인합니다.
 
-    비교는 차례 차례 진행됩니다.
+    비교는 차례차례 진행됩니다.
     ```js
     obj.__proto__ === Class.prototype?
     obj.__proto__.__proto__ === Class.prototype?
@@ -148,7 +135,7 @@ alert(obj); // [object Object]
 alert(obj.toString()); // 같은 결과가 출력됨
 ```
 
-이렇게 `[object Object]`가 되는 이유는 `toString`의 구현방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져 있습니다. `toString`의 숨겨진 기능을 사용하면 확장 `typeof`, `instanceof`의 대안을 만들 수 있습니다.
+이렇게 `[object Object]`가 되는 이유는 `toString`의 구현 방식 때문입니다. 그런데 `toString`엔 `toString`을 더 강력하게 만들어주는 기능이 숨겨져 있습니다. `toString`의 숨겨진 기능을 사용하면 확장 `typeof`, `instanceof`의 대안을 만들 수 있습니다.
 
 아직 감이 안 잡히시겠지만, 구체적으로 설명하겠습니다.
 
@@ -159,7 +146,7 @@ alert(obj.toString()); // 같은 결과가 출력됨
 - `null` --  `[object Null]`
 - `undefined` -- `[object Undefined]`
 - 배열 -- `[object Array]`
-- 그외 -- 커스터마이징 가능
+- 그 외 -- 커스터마이징 가능
 
 예시:
 
@@ -210,7 +197,7 @@ alert( {}.toString.call(window) ); // [object Window]
 alert( {}.toString.call(new XMLHttpRequest()) ); // [object XMLHttpRequest]
 ```
 
-실행 결과에서 보듯이 호스트 환경 고유 객체의 `Symbol.toStringTag` 값은 `[object ...]`로 쌓여진 값과 동일합니다.
+실행 결과에서 보듯이 호스트 환경 고유 객체의 `Symbol.toStringTag` 값은 `[object ...]`로 쌓인 값과 동일합니다.
 
 이처럼 'typeof' 연산자의 강력한 변형들(`toString`과 `toStringTag` - 옮긴이)은 원시 자료형뿐만 아니라 내장 객체에도 사용할 수 있습니다. 그리고 커스터마이징까지 가능합니다. 
 
