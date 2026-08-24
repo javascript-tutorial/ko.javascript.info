@@ -1,10 +1,18 @@
 # 프라미스
 
+<<<<<<< HEAD
 본인을 아주 유명한 가수라고 가정해 봅시다. 그리고 탑 가수인 본인이 밤, 낮으로 다음 싱글 앨범이 언제 나오는지 물어보는 팬들을 상대해야 한다고 해 봅시다. 
+=======
+Imagine that you're a top singer, and fans ask day and night for your upcoming song.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 당신은 앨범이 출시되면 팬들이 자동으로 소식을 받아볼 수 있도록 해 부하를 덜 겁니다. 구독 리스트를 하나 만들어 팬들에게 전달해 이메일 주소를 적게 하고, 앨범이 준비되면 리스트에 있는 팬들에게 메일을 보내 앨범 관련 소식을 바로 받아볼 수 있게 하는 식으로 말이죠. 이렇게 하면 녹음 스튜디오에 화재가 발생해서 출시 예정인 앨범이 취소되는 불상사가 발생해도 관련 소식을 팬들에게 전달 할 수 있습니다.
 
+<<<<<<< HEAD
 이제 모두가 행복해졌습니다. 밤낮으로 질문을 하는 팬이 사라졌고, 팬들은 앨범 출시를 놓치지 않을 수 있게 되었으니까요.
+=======
+Everyone is happy: you, because the people don't crowd you anymore, and fans, because they won't miss the song.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이 비유는 코드를 작성하면서 자주 만나는 상황을 실제 일어날 법한 일로 바꾼 것입니다. 바로 아래 같은 상황 말이죠.
 
@@ -28,15 +36,27 @@ executor의 인수 `resolve`와 `reject`는 자바스크립트에서 자체 제�
 
 대신 executor에선 결과를 즉시 얻든 늦게 얻든 상관없이 상황에 따라 인수로 넘겨준 콜백 중 하나를 반드시 호출해야 합니다.
 
+<<<<<<< HEAD
 - `resolve(value)` — 일이 성공적으로 끝난 경우 그 결과를 나타내는 `value`와 함께 호출
 - `reject(error)` — 에러 발생 시 에러 객체를 나타내는 `error`와 함께 호출
 
 요약하면 다음과 같습니다. executor는 자동으로 실행되는데 여기서 원하는 일이 처리됩니다. 처리가 끝나면 executor는 처리 성공 여부에 따라 `resolve`나 `reject`를 호출합니다.
+=======
+- `resolve(value)` — if the job is finished successfully, with result `value`.
+- `reject(error)` — if an error has occurred, `error` is the error object.
+
+So to summarize: the executor runs automatically and attempts to perform a job. When it is finished with the attempt, it calls `resolve` if it was successful or `reject` if there was an error.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 한편, `new Promise` 생성자가 반환하는 `promise` 객체는 다음과 같은 내부 프로퍼티를 갖습니다.
 
+<<<<<<< HEAD
 - `state` — 처음엔 `"pending"`(보류)이었다 `resolve`가 호출되면 `"fulfilled"`, `reject`가 호출되면 `"rejected"`로 변합니다.
 - `result` — 처음엔 `undefined`이었다 `resolve(value)`가 호출되면 `value`로, `reject(error)`가 호출되면 `error`로 변합니다.
+=======
+- `state` — initially `"pending"`, then changes to either `"fulfilled"` when `resolve` is called or `"rejected"` when `reject` is called.
+- `result` — initially `undefined`, then changes to `value` when `resolve(value)` is called or `error` when `reject(error)` is called.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 따라서 executor는 아래 그림과 같이 `promise`의 상태를 둘 중 하나로 변화시킵니다.
 
@@ -60,7 +80,11 @@ let promise = new Promise(function(resolve, reject) {
 1. executor는 `new Promise`에 의해 자동으로 그리고 즉각적으로 호출됩니다.
 2. executor는 인자로 `resolve`와 `reject` 함수를 받습니다. 이 함수들은 자바스크립트 엔진이 미리 정의한 함수이므로 개발자가 따로 만들 필요가 없습니다. 다만, `resolve`나 `reject` 중 하나는 반드시 호출해야 합니다.
 
+<<<<<<< HEAD
     executor '처리'가 시작 된 지 1초 후, `resolve("완료")`이 호출되고 결과가 만들어집니다. 이때 `promise` 객체의 상태는 다음과 같이 변합니다.
+=======
+    After one second of "processing", the executor calls `resolve("done")` to produce the result. This changes the state of the `promise` object:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
     ![](promise-resolve-1.svg)
 
@@ -127,9 +151,15 @@ let promise = new Promise(function(resolve, reject) {
 프라미스 객체의 `state`, `result` 프로퍼티는 내부 프로퍼티이므로 개발자가 직접 접근할 수 없습니다. `.then`/`.catch`/`.finally` 메서드를 사용하면 접근 가능한데, 자세한 내용은 아래에서 살펴보겠습니다.
 ```
 
+<<<<<<< HEAD
 ## 소비자: then, catch, finally
 
 프라미스 객체는 executor('제작 코드' 혹은 '가수')와 결과나 에러를 받을 소비 함수('팬')를 이어주는 역할을 합니다. 소비함수는 `.then`, `.catch`, `.finally` 메서드를 사용해 등록(구독)됩니다.
+=======
+## Consumers: then, catch
+
+A Promise object serves as a link between the executor (the "producing code" or "singer") and the consuming functions (the "fans"), which will receive the result or error. Consuming functions can be registered (subscribed) using the methods `.then` and `.catch`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ### then
 
@@ -144,9 +174,15 @@ promise.then(
 );
 ```
 
+<<<<<<< HEAD
 `.then`의 첫 번째 인수는 프라미스가 이행되었을 때 실행되는 함수이고, 여기서 실행 결과를 받습니다.
 
 `.then`의 두 번째 인수는 프라미스가 거부되었을 때 실행되는 함수이고, 여기서 에러를 받습니다.
+=======
+The first argument of `.then` is a function that runs when the promise is resolved and receives the result.
+
+The second argument of `.then` is a function that runs when the promise is rejected and receives the error.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 아래 예시는 성공적으로 이행된 프라미스에 어떻게 반응하는지 보여줍니다.
 
@@ -212,10 +248,11 @@ promise.catch(alert); // 1초 뒤 "Error: 에러 발생!" 출력
 
 `.catch(f)`는 문법이 간결하다는 점만 빼고 `.then(null,f)`과 완벽하게 같습니다.
 
-### finally
+## Cleanup: finally
 
 `try {...} catch {...}`에 finally 절이 있는 것처럼, 프라미스에도 `finally`가 있습니다.
 
+<<<<<<< HEAD
 프라미스가 처리되면(이행이나 거부) `f`가 항상 실행된다는 점에서 `.finally(f)` 호출은 `.then(f, f)`과 유사합니다.
 
 쓸모가 없어진 로딩 인디케이터(loading indicator)를 멈추는 경우같이, 결과가 어떻든 마무리가 필요하면 `finally`가 유용합니다.
@@ -229,10 +266,31 @@ new Promise((resolve, reject) => {
 *!*
   // 성공·실패 여부와 상관없이 프라미스가 처리되면 실행됨
   .finally(() => 로딩 인디케이터 중지)
+=======
+The call `.finally(f)` is similar to `.then(f, f)` in the sense that `f` runs always, when the promise is settled: be it resolve or reject.
+
+The idea of `finally` is to set up a handler for performing cleanup/finalizing after the previous operations are complete.
+
+E.g. stopping loading indicators, closing no longer needed connections, etc.
+
+Think of it as a party finisher. Irresepective of whether a party was good or bad, how many friends were in it, we still need (or at least should) do a cleanup after it.
+
+The code may look like this:
+
+```js
+new Promise((resolve, reject) => {
+  /* do something that takes time, and then call resolve or maybe reject */
+})
+*!*
+  // runs when the promise is settled, doesn't matter successfully or not
+  .finally(() => stop loading indicator)
+  // so the loading indicator is always stopped before we go on
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 */!*
   .then(result => result와 err 보여줌 => error 보여줌)
 ```
 
+<<<<<<< HEAD
 그런데 finally는 `.then(f, f)`과 완전히 같진 않습니다. 차이점은 다음과 같습니다.
 
 1. `finally` 핸들러엔 인수가 없습니다. `finally`에선 프라미스가 이행되었는지, 거부되었는지 알 수 없습니다. `finally`에선 절차를 마무리하는 '보편적' 동작을 수행하기 때문에 성공·실패 여부를 몰라도 됩니다.
@@ -248,11 +306,38 @@ new Promise((resolve, reject) => {
     ```
 
     프라미스에서 에러가 발생하고 이 에러가 `finally`를 거쳐 `catch`까지 전달되는 것을 확인해봅시다.
+=======
+Please note that `finally(f)` isn't exactly an alias of `then(f,f)` though.
+
+There are important differences:
+
+1. A `finally` handler has no arguments. In `finally` we don't know whether the promise is successful or not. That's all right, as our task is usually to perform "general" finalizing procedures.
+
+    Please take a look at the example above: as you can see, the `finally` handler has no arguments, and the promise outcome is handled by the next handler.
+2. A `finally` handler "passes through" the result or error to the next suitable handler.
+
+    For instance, here the result is passed through `finally` to `then`:
+
+    ```js run
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("value"), 2000);
+    })
+      .finally(() => alert("Promise ready")) // triggers first
+      .then(result => alert(result)); // <-- .then shows "value"
+    ```
+
+    As you can see, the `value` returned by the first promise is passed through `finally` to the next `then`.
+
+    That's very convenient, because `finally` is not meant to process a promise result. As said, it's a place to do generic cleanup, no matter what the outcome was.
+
+    And here's an example of an error, for us to see how it's passed through `finally` to `catch`:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
     ```js run
     new Promise((resolve, reject) => {
       throw new Error("에러 발생!");
     })
+<<<<<<< HEAD
       .finally(() => alert("프라미스가 준비되었습니다."))
       .catch(err => alert(err)); // <-- .catch에서 에러 객체를 다룰 수 있음
     ```  
@@ -265,6 +350,30 @@ new Promise((resolve, reject) => {
 
 ````smart header="처리된 프라미스의 핸들러는 즉각 실행됩니다."
 프라미스가 대기 상태일 때, `.then/catch/finally` 핸들러는 프라미스가 처리되길 기다립니다. 반면, 프라미스가 이미 처리상태라면 핸들러가 즉각 실행됩니다.
+=======
+      .finally(() => alert("Promise ready")) // triggers first
+      .catch(err => alert(err));  // <-- .catch shows the error
+    ```
+
+3. A `finally` handler also shouldn't return anything. If it does, the returned value is silently ignored.
+
+    The only exception to this rule is when a `finally` handler throws an error. Then this error goes to the next handler, instead of any previous outcome.
+
+To summarize:
+
+- A `finally` handler doesn't get the outcome of the previous handler (it has no arguments). This outcome is passed through instead, to the next suitable handler.
+- If a `finally` handler returns something, it's ignored.
+- When `finally` throws an error, then the execution goes to the nearest error handler.
+
+These features are helpful and make things work just the right way if we use `finally` how it's supposed to be used: for generic cleanup procedures.
+
+````smart header="We can attach handlers to settled promises"
+If a promise is pending, `.then/catch/finally` handlers wait for its outcome.
+
+Sometimes, it might be that a promise is already settled when we add a handler to it.
+
+In such case, these handlers just run immediately:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
 // 아래 프라미스는 생성과 동시에 이행됩니다.
@@ -273,6 +382,7 @@ let promise = new Promise(resolve => resolve("완료!"));
 promise.then(alert); // 완료! (바로 출력됨)
 ```
 
+<<<<<<< HEAD
 가수와 팬, 구독리스트 시나리오보다 프라미스가 더 복잡하다고 말한 이유가 바로 이런 기능 때문입니다. 가수가 신곡을 발표한 이후에 구독 리스트에 이름을 올리는 팬은 신곡 발표 여부를 알 수 없습니다. 구독 리스트에 이름을 올리는 것이 선행되어야 새로운 소식을 받을 수 있기 때문이죠. 
 
 그런데 프라미스는 핸들러를 언제든 추가할 수 있다는 점에서 구독리스트 시나리오보다 더 유연합니다. 결과가 나와 있는 상태에서도 핸들러를 등록하면 결과를 바로 받을 수 있습니다.
@@ -283,6 +393,18 @@ promise.then(alert); // 완료! (바로 출력됨)
 ## 예시: loadScript [#loadscript]
 
 이전 챕터에서 스크립트 로딩에 사용되는 함수 `loadScript`를 작성해 보았습니다.
+=======
+Note that this makes promises more powerful than the real life "subscription list" scenario. If the singer has already released their song and then a person signs up on the subscription list, they probably won't receive that song. Subscriptions in real life must be done prior to the event.
+
+Promises are more flexible. We can add handlers any time: if the result is already there, they just execute.
+````
+
+## Example: loadScript [#loadscript]
+
+Next, let's see more practical examples of how promises can help us write asynchronous code.
+
+We've got the `loadScript` function for loading a script from the previous chapter.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 복습 차원에서 콜백 기반으로 작성한 함수를 다시 살펴봅시다.
 
