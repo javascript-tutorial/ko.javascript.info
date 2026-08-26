@@ -1,35 +1,27 @@
 # localStorage와 sessionStorage
 
-웹 스토리지 객체(web storage object)인 `localStorage`와 `sessionStorage`는 브라우저 내에 키-값 쌍을 저장할 수 있게 해줍니다.
+웹 스토리지 객체인 `localStorage`와 `sessionStorage`는 브라우저 내에 키-값 쌍을 저장할 수 있게 해줍니다.
 
-이 둘을 사용하면 페이지를 새로 고침하고(`sessionStorage`의 경우) 심지어 브라우저를 다시 실행해도(`localStorage`의 경우) 데이터가 사라지지 않고 남아있습니다. 이 부분은 조만간 뒤에서 살펴보기로 합시다.
+`sessionStorage`에 저장한 데이터는 페이지를 새로 고침해도 사라지지 않고, `localStorage`에 저장한 데이터는 심지어 브라우저를 다시 실행해도 남아있습니다. 이 부분은 조만간 뒤에서 살펴보기로 합시다.
 
 그런데 "쿠키를 사용하면 브라우저에 데이터를 저장할 수 있는데, 왜 또 다른 객체를 사용해 데이터를 저장하는 걸까요?"라는 의문이 들 수 있습니다. 쿠키 이외에도 다른 방식을 사용하는 이유는 다음과 같습니다.
 
-<<<<<<< HEAD
-- 쿠키와 다르게 웹 스토리지 객체는 네트워크 요청 시 서버로 전송되지 않습니다. 이런 특징 때문에 쿠키보다 더 많은 자료를 보관할 수 있습니다. 대부분의 브라우저가 최소 2MB 혹은 그 이상의 웹 스토리지 객체를 저장할 수 있도록 해줍니다. 또한 개발자는 브라우저 내 웹 스토리지 구성 방식을 설정할 수 있습니다.
+- 쿠키와 다르게 웹 스토리지 객체는 네트워크 요청 시 서버로 전송되지 않습니다. 이런 특징 때문에 쿠키보다 더 많은 자료를 보관할 수 있습니다. 대부분의 모던 브라우저는 최소 5MB 혹은 그 이상의 데이터를 저장할 수 있도록 해주며, 브라우저 설정에서 이를 조정할 수도 있습니다.
 - 쿠키와 또 다른 점은 서버가 HTTP 헤더를 통해 스토리지 객체를 조작할 수 없다는 것입니다. 웹 스토리지 객체 조작은 모두 자바스크립트 내에서 수행됩니다.
-- 웹 스토리지 객체는 도메인·프로토콜·포트로 정의되는 오리진(origin)에 묶여있습니다. 따라서 프로토콜과 서브 도메인이 다르면 데이터에 접근할 수 없습니다.
+- 웹 스토리지 객체는 도메인·프로토콜·포트로 정의되는 오리진에 묶여있습니다. 따라서 프로토콜과 서브 도메인이 다르면 데이터에 접근할 수 없습니다.
 
 두 스토리지 객체는 동일한 메서드와 프로퍼티를 제공합니다.
-=======
-- Unlike cookies, web storage objects are not sent to server with each request. Because of that, we can store much more. Most modern browsers allow at least 5 megabytes of data (or more) and have settings to configure that.
-- Also unlike cookies, the server can't manipulate storage objects via HTTP headers. Everything's done in JavaScript.
-- The storage is bound to the origin (domain/protocol/port triplet). That is, different protocols or subdomains infer different storage objects, they can't access data from each other.
-
-Both storage objects provide the same methods and properties:
->>>>>>> upstream/master
 
 - `setItem(key, value)` -- 키-값 쌍을 보관합니다.
 - `getItem(key)` -- 키에 해당하는 값을 받아옵니다.
 - `removeItem(key)` -- 키와 해당 값을 삭제합니다.
 - `clear()` -- 모든 것을 삭제합니다.
-- `key(index)` -- 인덱스(`index`)에 해당하는 키를 받아옵니다.
+- `key(index)` -- 인덱스에 해당하는 키를 받아옵니다.
 - `length` -- 저장된 항목의 개수를 얻습니다.
 
 두 스토리지 객체는 `Map`과 유사합니다. `setItem/getItem/removeItem`을 지원하죠. 하지만 인덱스를 사용해 키에 접근할 수 있다는 점(`key(index)`)에서 차이가 있습니다. 
 
-이제 본격적으로 localStorage와 sessionStorage가 어떻게 동작하는지 살펴봅시다.
+이제 본격적으로 `localStorage`와 `sessionStorage`가 어떻게 동작하는지 살펴봅시다.
 
 ## localStorage 데모
 
@@ -50,7 +42,7 @@ localStorage.setItem('test', 1);
 alert( localStorage.getItem('test') ); // 1
 ```
 
-오리진(domain/port/protocol)만 같다면 url 경로는 달라도 동일한 결과를 볼 수 있습니다.
+도메인·포트·프로토콜로 정의되는 오리진만 같다면 URL 경로는 달라도 동일한 결과를 볼 수 있습니다.
 
 `localStorage`는 동일한 오리진을 가진 모든 창에서 공유되기 때문입니다. 따라서 한 창에 데이터를 설정하면 다른 창에서 변동 사항을 볼 수 있습니다.
 
@@ -71,12 +63,8 @@ delete localStorage.test;
 
 하위 호환성 때문에 아직 이런 방법이 지원되기는 하지만, 다음과 같은 이유로 추천하지 않습니다.
 
-<<<<<<< HEAD
 1. 사용자는 `length`나 `toString`, `localStorage`의 내장 메서드를 키로 설정할 수 있습니다. 이렇게 되면 `getItem`, `setItem`은 정상적으로 작동해도, 일반 객체처럼 다룰 때 에러가 발생할 수 있습니다.
-=======
-1. If the key is user-generated, it can be anything, like `length` or `toString`, or another built-in method of `localStorage`. In that case `getItem/setItem` work fine, while object-like access fails:
 
->>>>>>> upstream/master
     ```js run
     let key = 'length';
     localStorage[key] = 5; // TypeError: Cannot assign to read only property 'length'...
@@ -88,7 +76,7 @@ delete localStorage.test;
 
 `localStorage`는 '키'를 사용해 값을 얻고, 설정하고, 삭제할 수 있게 해줍니다. 그렇다면 키나 값 전체는 어떻게 얻을 수 있을까요?
 
-아쉽게도 스토리지 객체는 iterable 객체가 아닙니다.
+아쉽게도 스토리지 객체는 이터러블 객체가 아닙니다.
 
 대신 배열처럼 다루면 전체 키-값을 얻을 수 있습니다.
 
@@ -132,20 +120,11 @@ for(let key of keys) {
 
 `Object.keys`는 해당 객체에서 정의한 키만 반환하고 프로토타입에서 상속받은 키는 무시하기 때문입니다. 
 
-<<<<<<< HEAD
-
 ## 문자열만 사용
-=======
-## Strings only
->>>>>>> upstream/master
 
 `localStorage`의 키와 값은 반드시 문자열이어야 합니다.
 
-<<<<<<< HEAD
 숫자나 객체 등 다른 자료형을 사용하게 되면 문자열로 자동 변환됩니다.
-=======
-If they were any other type, like a number, or an object, they would get converted to a string automatically:
->>>>>>> upstream/master
 
 ```js run
 localStorage.user = {name: "John"};
@@ -157,11 +136,7 @@ alert(localStorage.user); // [object Object]
 ```js run
 localStorage.user = JSON.stringify({name: "John"});
 
-<<<<<<< HEAD
-// 잠시 후 
-=======
-// sometime later
->>>>>>> upstream/master
+// 잠시 후
 let user = JSON.parse( localStorage.user );
 alert( user.name ); // John
 ```
@@ -198,29 +173,25 @@ sessionStorage.setItem('test', 1);
 alert( sessionStorage.getItem('test') ); // 새로 고침 후: 1
 ```
 
-하지만 다른 탭에서 본 페이지를 열고 바로 위 예시만 실행해보면 '아무것도 찾을 수 없다'는 뜻을 가진 `null`이 반환되는것을 확인할 수 있습니다.
+하지만 다른 탭에서 본 페이지를 열고 바로 위 예시만 실행해보면 '아무것도 찾을 수 없다'는 뜻을 가진 `null`이 반환되는 것을 확인할 수 있습니다.
 
 이렇게 `sessionStorage`는 오리진뿐만 아니라 브라우저 탭에도 종속되어 있습니다. 이런 제약 때문에 `sessionStorage`는 잘 사용되지 않습니다.
 
 ## storage 이벤트
 
-<<<<<<< HEAD
-`localStorage`나 `sessionStorage`의 데이터가 갱신될 때, [storage](https://www.w3.org/TR/webstorage/#the-storage-event) 이벤트가 실행됩니다. storage 이벤트는 다음과 같은 프로퍼티를 지원합니다.
-=======
-When the data gets updated in `localStorage` or `sessionStorage`, [storage](https://html.spec.whatwg.org/multipage/webstorage.html#the-storageevent-interface) event triggers, with properties:
->>>>>>> upstream/master
+`localStorage`나 `sessionStorage`의 데이터가 갱신될 때, [storage](https://html.spec.whatwg.org/multipage/webstorage.html#the-storageevent-interface) 이벤트가 실행됩니다. `storage` 이벤트는 다음과 같은 프로퍼티를 지원합니다.
 
 - `key` -- 변경된 데이터의 키(`.clear()`를 호출했다면 `null`)
 - `oldValue` -- 이전 값(키가 새롭게 추가되었다면 `null`)
 - `newValue` -- 새로운 값(키가 삭제되었다면 `null`)
-- `url` -- 갱신이 일어난 문서의 url
+- `url` -- 갱신이 일어난 문서의 URL
 - `storageArea` -- 갱신이 일어난 `localStorage`나 `sessionStorage` 객체
 
 여기서 중요한 점은 storage 이벤트가 이벤트를 발생시킨 스토리지를 제외하고 스토리지에서 접근 가능한 `window` 객체 전부에서 일어난다는 사실입니다.
 
 좀 더 구체적으로 설명을 이어나가 보겠습니다.
 
-두 개의 창에 같은 사이트를 띄워놨다고 가정해봅시다. 창은 다르지만 `localStorage`는 서로 공유됩니다.
+두 개의 창에 같은 사이트를 띄워놨다고 가정해 봅시다. 창은 다르지만 `localStorage`는 서로 공유됩니다.
 
 ```online
 실제 본 페이지를 두 개의 브라우저 창에 띄워 봅시다.
@@ -229,13 +200,8 @@ When the data gets updated in `localStorage` or `sessionStorage`, [storage](http
 두 창에서 모두 `storage` 이벤트를 수신하고 있기 때문에 한 창에서 아래 예시를 실행해 데이터를 갱신하면 다른 창에 해당 사항이 반영되는 것을 확인할 수 있습니다.
 
 ```js run
-<<<<<<< HEAD
 // 문서는 다르지만, 갱신은 같은 스토리지에 반영됩니다.
-window.onstorage = event => { // window.addEventListener('storage', () => {와 같습니다.
-=======
-// triggers on updates made to the same storage from other documents
-window.onstorage = event => { // can also use window.addEventListener('storage', event => {
->>>>>>> upstream/master
+window.onstorage = event => { // window.addEventListener('storage', event => {도 사용할 수 있습니다.
   if (event.key != 'now') return;
   alert(event.key + ':' + event.newValue + " at " + event.url);
 };
@@ -243,34 +209,22 @@ window.onstorage = event => { // can also use window.addEventListener('storage',
 localStorage.setItem('now', Date.now());
 ```
 
-storage 이벤트의 또 다른 중요한 특징은 `event.url`이 있어 데이터가 갱신된 문서의 URL을 알 수 있다는 점입니다.
+`storage` 이벤트의 또 다른 중요한 특징은 `event.url`이 있어 데이터가 갱신된 문서의 URL을 알 수 있다는 점입니다.
 
 또한 `event.storageArea`에는 스토리지 객체가 포함되어 있는데, storage 이벤트는 `sessionStorage`나 `localStorage`가 변경될 때 모두 발생하기 때문에 `event.storageArea`는 스토리지 종류에 상관없이 실제 수정이 일어난 것을 참조한다는 것 역시 중요한 특징입니다. 변경이 일어났을 때 우리는 `event.storageArea`에 무언가를 설정해 '응답'이 가능하도록 할 수 있죠.
 
 **이런 특징을 이용하면 오리진이 같은 창끼리 메시지를 교환하게 할 수 있습니다.**
 
-<<<<<<< HEAD
-모던 브라우저는 오리진이 같은 창끼리 통신할 수 있도록 해주는 [브로드캐스트 채널 API(broadcast channel API)](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)를 지원합니다. 그런데 이 API는 기능은 풍부하지만, 아직 많은 곳에서 지원하지 않는다는 단점이 있습니다. 단점을 극복하게 해주는 `localStorage` 기반한 폴리필들이 있는데, 이런 라이브러리들은 브라우저와 관계없이 어디서든 창 간 메시지를 교환할 수 있게 해준다는 장점이 있습니다.
-=======
-Modern browsers also support [Broadcast channel API](mdn:/api/Broadcast_Channel_API), the special API for same-origin inter-window communication, it's more full featured, but less supported. There are libraries that polyfill that API, based on `localStorage`, that make it available everywhere.
->>>>>>> upstream/master
+모던 브라우저는 오리진이 같은 창끼리 통신할 수 있도록 해주는 특별한 API인 [Broadcast Channel API](mdn:/api/Broadcast_Channel_API)도 지원합니다. 이 API는 기능이 더 풍부하지만 지원 범위는 더 좁습니다. `localStorage` 기반으로 이 API를 폴리필하는 라이브러리도 있어, 어디서든 창 간 메시지를 교환할 수 있게 해줍니다.
 
 ## 요약
 
-<<<<<<< HEAD
-웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다. 이때,
+웹 스토리지 객체 `localStorage`와 `sessionStorage`를 사용하면 브라우저에 키-값 쌍을 저장할 수 있습니다.
+
 - `키`와 `값`은 반드시 문자열이어야 합니다.
 - 제한 용량은 5MB 이상인데, 브라우저에 따라 다를 수 있습니다.
-- 파기되지 않습니다.
-- 오리진(도메인·포트·프로토콜)에 묶여있습니다.
-=======
-Web storage objects `localStorage` and `sessionStorage` allow to store key/value pairs in the browser.
-
-- Both `key` and `value` must be strings.
-- The limit is 5mb+, depends on the browser.
-- They do not expire.
-- The data is bound to the origin (domain/port/protocol).
->>>>>>> upstream/master
+- 데이터는 만료되지 않습니다.
+- 도메인·포트·프로토콜로 정의되는 오리진에 묶여있습니다.
 
 | `localStorage` | `sessionStorage` |
 |--------------|--------------|
@@ -283,13 +237,13 @@ API:
 - `getItem(key)` -- 키에 해당하는 값을 받아옵니다.
 - `removeItem(key)` -- 키와 해당 값을 삭제합니다.
 - `clear()` -- 모든 것을 삭제합니다.
-- `key(index)` -- `인덱스`에 해당하는 키를 받아옵니다.
+- `key(index)` -- 인덱스에 해당하는 키를 받아옵니다.
 - `length` -- 저장된 항목의 개수를 얻습니다.
 - `Object.keys`를 사용해 키 전체를 얻을 수 있습니다.
 - 객체 프로퍼티처럼 키에 접근할 수 있는데, 이 경우 `storage` 이벤트가 발생하지 않습니다.
 
-storage 이벤트:
+`storage` 이벤트:
 
 - `setItem`, `removeItem`, `clear`를 호출할 때 발생합니다.
 - 연산(`key/oldValue/newValue`)과 관련된 데이터 전체와 문서 `url`, 스토리지 객체 `storageArea`를 가지고 있습니다.
-- 이벤트가 생성된 곳을 제외하고 스토리지에 접근하는 모든 `window` 객체에서 일어납니다(`sessionStorage`는 탭 내에서, `localStorage`에서는 전역에서).
+- 이벤트가 생성된 곳을 제외하고 스토리지에 접근하는 모든 `window` 객체에서 일어납니다. `sessionStorage`는 탭 내에서, `localStorage`에서는 전역에서 일어납니다.
