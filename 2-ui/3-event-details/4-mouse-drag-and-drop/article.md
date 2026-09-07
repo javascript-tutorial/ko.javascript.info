@@ -18,11 +18,16 @@
 2. 이후 `mousemove`에서 `position:absolute`의 `left∙top`을 변경합니다.
 3. `mouseup`에서는 드래그 앤 드롭 완료와 관련된 모든 작업을 수행합니다.
 
+<<<<<<< HEAD
 여기까지가 기본 알고리즘입니다. 이후에는 이동 중인 요소 아래에 있는 다른 요소를 강조하는 기능을 알아보겠습니다.
+=======
+These are the basics. Later we'll see how to add other features, such as highlighting current underlying elements while we drag over them.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 공을 드래그하는 구현 방법은 다음과 같습니다.
 
 ```js
+<<<<<<< HEAD
 ball.onmousedown = function(event) { 
   // (1) absolute 속성과 zIndex 프로퍼티를 수정해 공이 제일 위에서 움직이기 위한 준비를 합니다.
   ball.style.position = 'absolute';
@@ -31,6 +36,16 @@ ball.onmousedown = function(event) {
   // 현재 위치한 부모에서 body로 직접 이동하여
   // body를 기준으로 위치를 지정합니다.
   document.body.append(ball);  
+=======
+ball.onmousedown = function(event) {
+  // (1) prepare to moving: make absolute and on top by z-index
+  ball.style.position = 'absolute';
+  ball.style.zIndex = 1000;
+
+  // move it out of any current parents directly into body
+  // to make it positioned relative to the body
+  document.body.append(ball);
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
   // 공을 pageX, pageY 좌표 중앙에 위치하게 합니다.
   function moveAt(pageX, pageY) {
@@ -93,14 +108,22 @@ document의 중간이나 윈도우 어딘가로 점프 되는 현상을 잡기 �
 
 ## 올바른 위치 지정
 
+<<<<<<< HEAD
 위 예제 코드에서 공은 항상 포인터 아래로 이동합니다.
+=======
+In the examples above the ball is always moved so that its center is under the pointer:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
 ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 ```
 
+<<<<<<< HEAD
 나쁘진 않습니다. 다만, 몇 가지 부작용이 있습니다. 드래그 앤 드롭을 시작하기 위해 공 위 어디에서든 `mousedown`을 할 수 있습니다. 공의 가장자리에서 `mousedown`을 하게 되면, 마우스 포인터 아래로 공이 갑자기 점프 되는 부작용이 발생합니다.
+=======
+Not bad, but there's a side effect. To initiate the drag'n'drop, we can `mousedown` anywhere on the ball. But if "take" it from its edge, then the ball suddenly "jumps" to become centered under the mouse pointer.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 포인터를 기준으로 요소의 초기 이동을 유지하는 방법이 포인터 중앙으로 요소를 이동시키는 방법보다 더 좋습니다.
 
@@ -124,7 +147,11 @@ ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
 
     ```js
     // onmousemove
+<<<<<<< HEAD
     // 공은 고정된 포지션을 갖습니다.
+=======
+    // ball has position:absolute
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
     ball.style.left = event.pageX - *!*shiftX*/!* + 'px';
     ball.style.top = event.pageY - *!*shiftY*/!* + 'px';
     ```
@@ -219,7 +246,11 @@ ball.ondragstart = function() {
 
 그러면 무엇을 해야 할까요?
 
+<<<<<<< HEAD
 `document.elementFromPoint(clientX, clientY)`라는 메서드가 있습니다. 주어진 윈도우 기준 좌표에서 가장 많이 중첩된 요소를 반환합니다. (윈도우 밖의 좌표는 null)
+=======
+There's a method called `document.elementFromPoint(clientX, clientY)`. It returns the most nested element on given window-relative coordinates (or `null` if given coordinates are out of the window). If there are multiple overlapping elements on the same coordinates, then the topmost one is returned.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 다음과 같이 마우스 이벤트 핸들러에서 포인터 아래에 드롭 가능성을 감지할 수 있습니다.
 
@@ -276,7 +307,11 @@ function onMouseMove(event) {
 }
 ```
 
+<<<<<<< HEAD
 아래 예시에서 공을 축구 골대 위로 드래그하면 골대가 강조 표시됩니다.
+=======
+In the example below when the ball is dragged over the soccer goal, the goal is highlighted.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 [codetabs height=250 src="ball4"]
 
@@ -300,4 +335,8 @@ function onMouseMove(event) {
 - `mousedown/up`에 이벤트 위임을 사용할 수 있습니다. `event.target`을 확인하는 넓은 영역의 이벤트 핸들러는 수백 개의 요소에 대한 드래그 앤 드롭을 관리할 수 있습니다.
 - 등등
 
+<<<<<<< HEAD
 `DragZone`, `Droppable`, `Draggable` 및 기타 클래스 등 아키텍처를 구축하는 프레임워크가 있습니다. 대부분은 앞서 드래그와 드롭에 대한 설명과 유사한 작업을 하므로 이해하기 쉽습니다. 때로는 제3의 솔루션 적용보다 쉽게 수행할 수 있습니다.
+=======
+There are frameworks that build architecture over it: `DragZone`, `Droppable`, `Draggable` and other classes. Most of them do the similar stuff to what's described above, so it should be easy to understand them now. Or roll your own, as you can see that that's easy enough to do, sometimes easier than adapting a third-party solution.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47

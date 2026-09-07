@@ -21,9 +21,9 @@ let ladder = {
     return this;
 */!*
   }
-}
+};
 
-ladder.up().up().down().up().down().showStep(); // 1
+ladder.up().up().down().showStep().down().showStep(); // shows 1 then 0
 ```
 
 체이닝이 길어질 땐 메서드 호출을 별도의 줄에 작성하면 가독성이 좋아집니다.
@@ -33,7 +33,7 @@ ladder
   .up()
   .up()
   .down()
-  .up()
+  .showStep() // 1
   .down()
-  .showStep(); // 1
+  .showStep(); // 0
 ```
