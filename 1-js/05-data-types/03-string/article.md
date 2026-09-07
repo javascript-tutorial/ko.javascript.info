@@ -48,9 +48,15 @@ let guestList = "손님: // Error: Invalid or unexpected token
   * John";
 ```
 
+<<<<<<< HEAD
 작은따옴표나 큰따옴표로 문자열을 표현하는 방식은 자바스크립트가 만들어졌을 때부터 있었습니다. 이때는 문자열을 여러 줄에 걸쳐 작성할 생각조차 못 했던 시기였죠. 백틱은 그 이후에 등장한 문법이기 때문에 따옴표보다 다양한 기능을 제공합니다.
 
 백틱은 '템플릿 함수(template function)'에서도 사용됩니다. <code>func&#96;string&#96;</code> 같이 첫 번째 백틱 바로 앞에 함수 이름(`func`)을 써주면, 이 함수는 백틱 안의 문자열 조각이나 표현식 평가 결과를 인수로 받아 자동으로 호출됩니다. 이런 기능을 '태그드 템플릿(tagged template)'이라 부르는데, 태그드 템플릿을 사용하면 사용자 지정 템플릿에 맞는 문자열을 쉽게 만들 수 있습니다. 태그드 템플릿과 템플릿 함수에 대한 자세한 내용은 MDN [문서](mdn:/JavaScript/Reference/Template_literals#Tagged_templates)에서 확인해보세요. 참고로 이 기능은 자주 사용되진 않습니다.
+=======
+Single and double quotes come from ancient times of language creation, when the need for multiline strings was not taken into account. Backticks appeared much later and thus are more versatile.
+
+Backticks also allow us to specify a "template function" before the first backtick. The syntax is: <code>func&#96;string&#96;</code>. The function `func` is called automatically, receives the string and embedded expressions and can process them. This feature is called "tagged templates", it's rarely seen, but you can read about it in the MDN: [Template literals](mdn:/JavaScript/Reference/Template_literals#Tagged_templates).
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 특수 기호
 
@@ -59,10 +65,17 @@ let guestList = "손님: // Error: Invalid or unexpected token
 ```js run
 let guestList = "손님:\n * John\n * Pete\n * Mary";
 
+<<<<<<< HEAD
 alert(guestList); // 손님 리스트를 여러 줄에 걸쳐 작성함
 ```
 
 따옴표를 이용해 만든 여러 줄 문자열과 백틱을 이용해 만든 여러 줄 문자열은 표현 방식만 다를 뿐 차이가 없습니다.
+=======
+alert(guestList); // a multiline list of guests, same as above
+```
+
+As a simpler example, these two lines are equal, just written differently:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
 let str1 = "Hello\nWorld"; // '줄 바꿈 기호'를 사용해 두 줄짜리 문자열을 만듦
@@ -74,12 +87,17 @@ World`;
 alert(str1 == str2); // true
 ```
 
+<<<<<<< HEAD
 자바스크립트엔 줄 바꿈 문자를 비롯한 다양한 '특수' 문자들이 있습니다.
 
 특수 문자 목록:
+=======
+There are other, less common special characters:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 | 특수 문자 | 설명 |
 |-----------|-------------|
+<<<<<<< HEAD
 |`\n`|줄 바꿈|
 |`\r`|캐리지 리턴(carriage return). Windows에선 캐리지 리턴과 줄 바꿈 특수 문자를 조합(`\r\n`)해 줄을 바꿉니다. 캐리지 리턴을 단독으론 사용하는 경우는 없습니다. |
 |`\'`, `\"`|따옴표|
@@ -101,6 +119,24 @@ alert( "\u{1F60D}" ); // 😍, 웃는 얼굴 기호(긴 유니코드)
 모든 특수 문자는 '이스케이프 문자(escape character)'라고도 불리는 역슬래시 (backslash character) `\`로 시작합니다.
 
 역슬래시는 문자열 내에 따옴표를 넣을 때도 사용할 수 있습니다.
+=======
+|`\n`|New line|
+|`\r`|In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it's just `\n`. That's for historical reasons, most Windows software also understands `\n`. |
+|`\'`,&nbsp;`\"`,&nbsp;<code>\\`</code>|Quotes|
+|`\\`|Backslash|
+|`\t`|Tab|
+|`\b`, `\f`, `\v`| Backspace, Form Feed, Vertical Tab -- mentioned for completeness, coming from old times, not used nowadays (you can forget them right now). |
+
+As you can see, all special characters start with a backslash character `\`. It is also called an "escape character".
+
+Because it's so special, if we need to show an actual backslash `\` within the string, we need to double it:
+
+```js run
+alert( `The backslash: \\` ); // The backslash: \
+```
+
+So-called "escaped" quotes `\'`, `\"`, <code>\\`</code> are used to insert a quote into the same-quoted string.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
@@ -110,12 +146,17 @@ alert( 'I*!*\'*/!*m the Walrus!' ); // *!*I'm*/!* the Walrus!
 
 위 예시에서 살펴본 바와 같이 문자열 내의 따옴표엔 `\`를 꼭 붙여줘야 합니다. 이렇게 하지 않으면 자바스크립트는 해당 따옴표가 문자열을 닫는 용도로 사용된 것이라 해석하기 때문입니다.
 
+<<<<<<< HEAD
 이스케이프 문자는 문자열을 감쌀 때 사용한 따옴표와 동일한 따옴표에만 붙여주면 됩니다. 문자열 내에서 좀 더 우아하게 따옴표를 사용하려면 아래와 같이 따옴표 대신 백틱으로 문자열을 감싸주면 됩니다.
+=======
+Of course, only the quotes that are the same as the enclosing ones need to be escaped. So, as a more elegant solution, we could switch to double quotes or backticks instead:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
-alert( `I'm the Walrus!` ); // I'm the Walrus!
+alert( "I'm the Walrus!" ); // I'm the Walrus!
 ```
 
+<<<<<<< HEAD
 역슬래시 `\`는 문자열을 정확하게 읽기 위한 용도로 만들어졌으므로 `\`는 제 역할이 끝나면 사라집니다. 메모리에 저장되는 문자열엔 `\`가 없습니다. 앞선 예시들을 실행했을 때 뜨는 `alert` 창을 통해 이를 확인할 수 있습니다.
 
 그렇다면 문자열 안에 역슬래시 `\`를 보여줘야 하는 경우엔 어떻게 해야 할까요?
@@ -125,6 +166,9 @@ alert( `I'm the Walrus!` ); // I'm the Walrus!
 ```js run
 alert( `역슬래시: \\` ); // 역슬래시: \
 ```
+=======
+Besides these special characters, there's also a special notation for Unicode codes `\u…`, it's rarely used and is covered in the optional chapter about [Unicode](info:unicode).
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 문자열의 길이
 
@@ -139,33 +183,55 @@ alert( `My\n`.length ); // 3
 ```warn header="`length`는 프로퍼티입니다."
 자바스크립트 이외의 언어를 사용했던 개발자들은 `str.length`가 아닌 `str.length()`로 문자열의 길이를 알아내려고 하는 경우가 있습니다. 하지만 원하는 대로 동작하지 않습니다.
 
+<<<<<<< HEAD
 `length`는 함수가 아니고, 숫자가 저장되는 프로퍼티라는 점에 주의하시기 바랍니다. 뒤에 괄호를 붙일 필요가 없습니다.
+=======
+Please note that `str.length` is a numeric property, not a function. There is no need to add parenthesis after it. Not `.length()`, but `.length`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 ## 특정 글자에 접근하기
 
+<<<<<<< HEAD
 문자열 내 특정 위치인 `pos`에 있는 글자에 접근하려면 `[pos]`같이 대괄호를 이용하거나 [str.charAt(pos)](mdn:js/String/charAt)라는 메서드를 호출하면 됩니다. 위치는 0부터 시작합니다.
+=======
+To get a character at position `pos`, use square brackets `[pos]` or call the method [str.at(pos)](mdn:js/String/at). The first character starts from the zero position:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
 let str = `Hello`;
 
 // 첫 번째 글자
 alert( str[0] ); // H
-alert( str.charAt(0) ); // H
+alert( str.at(0) ); // H
 
 // 마지막 글자
 alert( str[str.length - 1] ); // o
+alert( str.at(-1) );
 ```
 
+<<<<<<< HEAD
 근래에는 대괄호를 이용하는 방식을 사용합니다. `charAt`은 하위 호환성을 위해 남아있는 메서드라고 생각하시면 됩니다.
 
 두 접근 방식의 차이는 반환할 글자가 없을 때 드러납니다. 접근하려는 위치에 글자가 없는 경우 `[]`는 `undefined`를, `charAt`은 빈 문자열을 반환합니다.
+=======
+As you can see, the `.at(pos)` method has a benefit of allowing negative position. If `pos` is negative, then it's counted from the end of the string.
+
+So `.at(-1)` means the last character, and `.at(-2)` is the one before it, etc.
+
+The square brackets always return `undefined` for negative indexes, for instance:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
 let str = `Hello`;
 
+<<<<<<< HEAD
 alert( str[1000] ); // undefined
 alert( str.charAt(1000) ); // '' (빈 문자열)
+=======
+alert( str[-2] ); // undefined
+alert( str.at(-2) ); // l
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 `for..of`를 사용하면 문자열을 구성하는 글자를 대상으로 반복 작업을 할 수 있습니다.
@@ -214,7 +280,7 @@ alert( 'Interface'.toLowerCase() ); // interface
 
 글자 하나의 케이스만 변경하는 것도 가능합니다.
 
-```js
+```js run
 alert( 'Interface'[0].toLowerCase() ); // 'i'
 ```
 
@@ -239,7 +305,11 @@ alert( str.indexOf('widget') ); // -1, indexOf는 대·소문자를 따지므로
 alert( str.indexOf("id") ); // 1, "id"는 첫 번째 위치에서 발견됨 (Widget에서 id)
 ```
 
+<<<<<<< HEAD
 `str.indexOf(substr, pos)`의 두 번째 매개변수 `pos`는 선택적으로 사용할 수 있는데, 이를 명시하면 검색이 해당 위치부터 시작됩니다.
+=======
+The optional second parameter allows us to start searching from a given position.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 부분 문자열 `"id"`는 위치 `1`에서 처음 등장하는데, 두 번째 인수에 `2`를 넘겨 `"id"`가 두 번째로 등장하는 위치가 어디인지 알아봅시다.
 
@@ -310,6 +380,7 @@ if (str.indexOf("Widget") != -1) {
 }
 ```
 
+<<<<<<< HEAD
 #### 비트 NOT 연산자를 사용한 기법
 
 오래전부터 전해 오는 [비트(bitwise) NOT 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT) `~`를 사용한 기법 하나를 소개해드리겠습니다. 비트 NOT 연산자는 피연산자를 32비트 정수로 바꾼 후(소수부는 모두 버려짐) 모든 비트를 반전합니다. 
@@ -349,6 +420,8 @@ if (~str.indexOf("Widget")) {
 
 모던 자바스크립트에선 `.includes` 메서드(아래에서 배움)를 사용해 부분 문자열 포함 여부를 검사합니다. 이런 기법은 오래된 자바스크립트에서만 볼 수 있습니다.
 
+=======
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ### includes, startsWith, endsWith
 
 비교적 근래에 나온 메서드인 [str.includes(substr, pos)](mdn:js/String/includes)는 `str`에 부분 문자열 `substr`이 있는지에 따라 `true`나 `false`를 반환합니다.
@@ -371,8 +444,13 @@ alert( "Widget".includes("id", 3) ); // false, 세 번째 위치 이후엔 "id"�
 메서드 [str.startsWith](mdn:js/String/startsWith)와 [str.endsWith](mdn:js/String/endsWith)는 메서드 이름 그대로 문자열 `str`이 특정 문자열로 시작하는지(start with) 여부와 특정 문자열로 끝나는지(end with) 여부를 확인할 때 사용할 수 있습니다.
 
 ```js run
+<<<<<<< HEAD
 alert( "Widget".startsWith("Wid") ); // true, "Widget"은 "Wid"로 시작합니다.
 alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다.
+=======
+alert( "*!*Wid*/!*get".startsWith("Wid") ); // true, "Widget" starts with "Wid"
+alert( "Wid*!*get*/!*".endsWith("get") ); // true, "Widget" ends with "get"
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 ## 부분 문자열 추출하기
@@ -407,9 +485,15 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```
 
 `str.substring(start [, end])`
+<<<<<<< HEAD
 : `start`와 `end` *사이*에 있는 문자열을 반환합니다.
 
     `substring`은 `slice`와 아주 유사하지만 `start`가 `end`보다 커도 괜찮다는 데 차이가 있습니다.
+=======
+: Returns the part of the string *between* `start` and `end` (not including `end`).
+
+    This is almost the same as `slice`, but it allows `start` to be greater than `end` (in this case it simply swaps `start` and `end` values).
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
     예시:
 
@@ -445,18 +529,36 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     alert( str.substr(-4, 2) ); // gi, 끝에서 네 번째 위치부터 글자 두 개
     ```
 
+<<<<<<< HEAD
 부분 문자열 추출과 관련된 메서드를 요약해 봅시다.
+=======
+    This method resides in the [Annex B](https://tc39.es/ecma262/#sec-string.prototype.substr) of the language specification. It means that only browser-hosted Javascript engines should support it, and it's not recommended to use it. In practice, it's supported everywhere.
+
+Let's recap these methods to avoid any confusion:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 | 메서드 | 추출할 부분 문자열 | 음수 허용 여부(인수)|
 |--------|-----------|-----------|
+<<<<<<< HEAD
 | `slice(start, end)` | `start`부터 `end`까지(`end`는 미포함) | 음수 허용 |
 | `substring(start, end)` | `start`와 `end` 사이 | 음수는 `0`으로 취급함 |
 | `substr(start, length)` | `start`부터 `length`개의 글자 | 음수 허용 |
+=======
+| `slice(start, end)` | from `start` to `end` (not including `end`) | allows negatives |
+| `substring(start, end)` | between `start` and `end` (not including `end`)| negative values mean `0` |
+| `substr(start, length)` | from `start` get `length` characters | allows negative `start` |
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```smart header="어떤 메서드를 선택해야 하나요?"
 모두 사용해도 괜찮습니다. 그런데 `substr`에는 단점이 하나 있습니다. `substr`는 코어 자바스크립트 명세서(ECMA-262 - 옮긴이)가 아닌, 구식 스크립트에 대응하기 위해 남겨 둔 브라우저 전용 기능들을 명시해 놓은 부록 B(Annex B)에 정의되어있습니다. 거의 모든 곳에서 이 메서드가 동작하긴 하지만 브라우저 이외의 호스트 환경에서는 제대로 동작하지 않을 수 있습니다. 
 
+<<<<<<< HEAD
 남은 두 메서드 중 `slice`는 음수 인수를 허용한다는 측면에서 `substring`보다 좀 더 유연합니다. 메서드 이름도 더 짧죠. 따라서 세 메서드 중 `slice`만 외워놓고 사용해도 충분할 것 같습니다.
+=======
+Of the other two variants, `slice` is a little bit more flexible, it allows negative arguments and shorter to write.
+
+So, for practical use it's enough to remember only `slice`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 ## 문자열 비교하기
@@ -479,6 +581,7 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     이런 예외사항 때문에 이름순으로 국가를 나열할 때 예상치 못한 결과가 나올 수 있습니다. 사람들은 `Österreich`가 `Zealand`보다 앞서 나올 것이라 예상하는데 그렇지 않죠.
 
+<<<<<<< HEAD
 자바스크립트 내부에서 문자열이 어떻게 표시되는지 상기하며 원인을 알아봅시다.
 
 모든 문자열은 [UTF-16](https://en.wikipedia.org/wiki/UTF-16)을 사용해 인코딩되는데, UTF-16에선 모든 글자가 숫자 형식의 코드와 매칭됩니다. 코드로 글자를 얻거나 글자에서 연관 코드를 알아낼 수 있는 메서드는 다음과 같습니다.
@@ -489,7 +592,20 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```js run
     // 글자는 같지만 케이스는 다르므로 반환되는 코드가 다릅니다.
     alert( "z".codePointAt(0) ); // 122
+=======
+To understand what happens, we should be aware that strings in Javascript are encoded using [UTF-16](https://en.wikipedia.org/wiki/UTF-16). That is: each character has a corresponding numeric code.
+
+There are special methods that allow to get the character for the code and back:
+
+`str.codePointAt(pos)`
+: Returns a decimal number representing the code for the character at position `pos`:
+
+    ```js run
+    // different case letters have different codes
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
     alert( "Z".codePointAt(0) ); // 90
+    alert( "z".codePointAt(0) ); // 122
+    alert( "z".codePointAt(0).toString(16) ); // 7a (if we need a hexadecimal value)
     ```
 
 `String.fromCodePoint(code)`
@@ -497,6 +613,7 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
 
     ```js run
     alert( String.fromCodePoint(90) ); // Z
+<<<<<<< HEAD
     ```
 
     `\u` 뒤에 특정 글자에 대응하는 16진수 코드를 붙이는 방식으로도 원하는 글자를 만들 수 있습니다.
@@ -504,6 +621,9 @@ alert( "Widget".endsWith("get") ); // true, "Widget"은 "get"으로 끝납니다
     ```js run
     // 90을 16진수로 변환하면 5a입니다.
     alert( '\u005a' ); // Z
+=======
+    alert( String.fromCodePoint(0x5a) ); // Z (we can also use a hex value as an argument)
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
     ```
 
 이제 이 배경지식을 가지고 코드 `65`와 `220` 사이(라틴계열 알파벳과 기타 글자들이 여기에 포함됨)에 대응하는 글자들을 출력해봅시다.
@@ -515,6 +635,7 @@ for (let i = 65; i <= 220; i++) {
   str += String.fromCodePoint(i);
 }
 alert( str );
+// Output:
 // ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 // ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜ
 ```
@@ -525,16 +646,27 @@ alert( str );
 
 글자는 글자에 대응하는 숫자 형식의 코드를 기준으로 비교됩니다. 코드가 크면 대응하는 글자 역시 크다고 취급되죠. 따라서 `a`(코드:97)는 `Z`(코드:90) 보다 크다는 결론이 도출됩니다.
 
+<<<<<<< HEAD
 - 알파벳 소문자의 코드는 대문자의 코드보다 크므로 소문자는 대문자 뒤에 옵니다.
 - `Ö` 같은 글자는 일반 알파벳과 멀리 떨어져 있습니다. `Ö`의 코드는 알파벳 소문자의 코드보다 훨씬 큽니다.
 
 ### 문자열 제대로 비교하기
+=======
+- All lowercase letters go after uppercase letters because their codes are greater.
+- Some letters like `Ö` stand apart from the main alphabet. Here, its code is greater than anything from `a` to `z`.
+
+### Correct comparisons [#correct-comparisons]
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 언어마다 문자 체계가 다르기 때문에 문자열을 '제대로' 비교하는 알고리즘을 만드는 건 생각보다 간단하지 않습니다.
 
 문자열을 비교하려면 일단 페이지에서 어떤 언어를 사용하고 있는지 브라우저가 알아야 합니다.
 
+<<<<<<< HEAD
 다행히도 모던 브라우저 대부분이 국제화 관련 표준인 [ECMA-402](http://www.ecma-international.org/ecma-402/1.0/ECMA-402.pdf)를 지원합니다(IE10은 아쉽게도 [Intl.js](https://github.com/andyearnshaw/Intl.js/) 라이브러리를 사용해야 합니다).
+=======
+Luckily, modern browsers support the internationalization standard [ECMA-402](https://www.ecma-international.org/publications-and-standards/standards/ecma-402/).
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ECMA-402엔 언어가 다를 때 적용할 수 있는 문자열 비교 규칙과 이를 준수하는 메서드가 정의되어있습니다.
 
@@ -552,6 +684,7 @@ alert( 'Österreich'.localeCompare('Zealand') ); // -1
 
 `localeCompare`엔 선택 인수 두 개를 더 전달할 수 있습니다. 기준이 되는 언어를 지정(아무것도 지정하지 않았으면 호스트 환경의 언어가 기준 언어가 됨)해주는 인수와 대·소문자를 구분할지나 `"a"`와 `"á"`를 다르게 취급할지에 대한 것을 설정해주는 인수가 더 있죠. 자세한 사항은 관련 [페이지](mdn:js/String/localeCompare)에서 확인해 보시기 바랍니다.
 
+<<<<<<< HEAD
 ## 문자열 심화
 
 ```warn header="심화 학습"
@@ -669,6 +802,17 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - 소문자로 바꾸려면 `toLowerCase`, 대문자로 바꾸려면 `toUpperCase`를 사용하세요.
 - `indexOf`를 사용하면 부분 문자열의 위치를 얻을 수 있습니다. 부분 문자열 여부만 알고 싶다면 `includes/startsWith/endsWith`를 사용하면 됩니다.
 - 특정 언어에 적합한 비교 기준 사용해 문자열을 비교하려면 `localeCompare`를 사용하세요. 이 메서드를 사용하지 않으면 글자 코드를 기준으로 문자열이 비교됩니다.
+=======
+## Summary
+
+- There are 3 types of quotes. Backticks allow a string to span multiple lines and embed expressions `${…}`.
+- We can use special characters, such as a line break `\n`.
+- To get a character, use: `[]` or `at` method.
+- To get a substring, use: `slice` or `substring`.
+- To lowercase/uppercase a string, use: `toLowerCase/toUpperCase`.
+- To look for a substring, use: `indexOf`, or `includes/startsWith/endsWith` for simple checks.
+- To compare strings according to the language, use: `localeCompare`, otherwise they are compared by character codes.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이외에도 문자열에 쓸 수 있는 유용한 메서드 몇 가지가 있습니다.
 
@@ -676,4 +820,10 @@ alert( "S\u0307\u0323".normalize() == "\u1e68" ); // true
 - `str.repeat(n)` -- 문자열을 `n`번 반복합니다.
 - 이 외의 메서드는 [MDN 문서](mdn:js/String)에서 확인해보시기 바랍니다.
 
+<<<<<<< HEAD
 정규 표현식을 사용해 문자열을 찾거나 교체해주는 메서드도 여러 개 있는데 이는 아주 큰 주제이기 때문에 별도의 섹션 <info:regular-expressions>에서 다루겠습니다. 
+=======
+Strings also have methods for doing search/replace with regular expressions. But that's big topic, so it's explained in a separate tutorial section <info:regular-expressions>.
+
+Also, as of now it's important to know that strings are based on Unicode encoding, and hence there're issues with comparisons. There's more about Unicode in the chapter <info:unicode>.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
