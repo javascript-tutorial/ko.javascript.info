@@ -8,11 +8,19 @@
 
 폼은 특수한 컬렉션인 `document.forms`의 구성원입니다.
 
+<<<<<<< HEAD
 `document.forms`는 이름과 순서가 있는 '기명 컬렉션(named collection)'입니다. 개발자는 이 이름이나 순서를 사용해 문서 내의 폼에 접근할 수 있습니다.
 
 ```js no-beautify
 document.forms.my - 이름이 'my'인 폼
 document.forms[0] - 문서 내의 첫 번째 폼
+=======
+That's a so-called *"named collection"*: it's both named and ordered. We can use both the name or the number in the document to get the form.
+
+```js no-beautify
+document.forms.my; // the form with name="my"
+document.forms[0]; // the first form in the document
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 이름이나 순서를 사용해 원하는 폼을 가져온 다음에는 기명 컬렉션 `form.elements`를 사용해 폼의 요소를 얻을 수 있습니다.
@@ -36,9 +44,15 @@ document.forms[0] - 문서 내의 첫 번째 폼
 </script>
 ```
 
+<<<<<<< HEAD
 그런데 개발을 하다 보면 이름이 같은 요소 여러 개를 다뤄야 하는 경우가 생기기도 합니다. 라디오 버튼을 다룰 때 이런 상황이 자주 발생하죠.
 
 이때 `form.elements[name]`은 컬렉션이 된다는 사실을 이용할 수 있습니다. 예시를 살펴봅시다.
+=======
+There may be multiple elements with the same name. This is typical with radio buttons and checkboxes.
+
+In that case, `form.elements[name]` is a *collection*. For instance:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run height=40
 <form>
@@ -119,7 +133,11 @@ alert(ageElems[0]); // [object HTMLInputElement]
 </script>
 ```
 
+<<<<<<< HEAD
 그런데 폼 요소의 이름을 변경하는 일은 드물기 때문에 보통은 이런 특징이 문제가 되지 않습니다.
+=======
+That's usually not a problem, however, because we rarely change names of form elements.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ````
 
@@ -155,7 +173,11 @@ alert(ageElems[0]); // [object HTMLInputElement]
 
 ### input과 textarea
 
+<<<<<<< HEAD
 input과 textarea 요소의 값은 `input.value` (string) 또는 `input.checked`(boolean)을 사용해 얻을 수 있습니다.
+=======
+We can access their value as `input.value` (string) or `input.checked` (boolean) for checkboxes and radio buttons.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이렇게 말이죠.
 
@@ -176,12 +198,19 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 
 `<select>` 요소에는 세 가지 중요 프로퍼티가 있습니다.
 
+<<<<<<< HEAD
 1. `select.options` -- `<option>` 하위 요소를 담고 있는 컬렉션
 2. `select.value` -- 현재 선택된 `<option>` 값
 3. `select.selectedIndex` -- 현재 선택된 `<option>`의 번호(인덱스)
+=======
+1. `select.options` -- the collection of `<option>` subelements,
+2. `select.value` -- the *value* of the currently selected `<option>`,
+3. `select.selectedIndex` -- the *number* of the currently selected `<option>`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이 세 프로퍼티를 응용하면 아래와 같은 세 가지 방법으로 `<select>`의 값을 설정할 수 있습니다.
 
+<<<<<<< HEAD
 1. 조건에 맞는 `<option>` 하위 요소를 찾아 `option.selected`속성을 `true`로 설정합니다.
 2. `select.value`를 원하는 값으로 설정합니다.
 3. `select.selectedIndex`를 원하는 option 번호로 설정합니다.
@@ -189,6 +218,13 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 세 방법 중 첫 번째 방법이 가장 확실하지만 두 번째나 세 번째 방법이 대체로 더 편리합니다.
 
 예시:
+=======
+1. Find the corresponding `<option>` element (e.g. among `select.options`) and set its `option.selected` to `true`.
+2. If we know a new value: set `select.value` to the new value.
+3. If we know the new option number: set `select.selectedIndex` to that number.
+
+Here is an example of all three methods:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run
 <select id="select">
@@ -198,16 +234,30 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 </select>
 
 <script>
+<<<<<<< HEAD
   // 세 가지 코드의 실행 결과는 모두 같습니다.
   select.options[2].selected = true;
+=======
+  // all three lines do the same thing
+  select.options[2].selected = true; 
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
   select.selectedIndex = 2;
   select.value = 'banana';
+  // please note: options start from zero, so index 2 means the 3rd option.
 </script>
 ```
 
+<<<<<<< HEAD
 대부분의 다른 폼 조작 요소와 달리 `<select>`는 `multiple` 속성이 있는 경우 option을 다중 선택할 수 있습니다. `multiple` 속성을 쓰는 경우는 아주 드물지만, 쓰게 되다면 첫 번째 방법을 사용해 `<option>` 하위 요소에 있는 `selected` 프로퍼티를 추가·제거해야 합니다. 
 
 선택된 여러 개의 option이 담긴 컬렉션은 다음 예시처럼 `select.options`를 사용해 얻을 수 있습니다. 
+=======
+Unlike most other controls, `<select>` allows to select multiple options at once if it has `multiple` attribute. This attribute is rarely used, though.
+
+For multiple selected values, use the first way of setting values: add/remove the `selected` property from `<option>` subelements.
+
+Here's an example of how to get selected values from a multi-select:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run
 <select id="select" *!*multiple*/!*>
@@ -230,31 +280,51 @@ input.checked = true; // 체크박스나 라디오 버튼에서 쓸 수 있습�
 
 ### Option 생성자
 
+<<<<<<< HEAD
 Option 생성자는 잘 사용되지는 않지만 흥미로운 점이 있습니다.
 
 [명세서](https://html.spec.whatwg.org/multipage/forms.html#the-option-element)를 보면 `<option>` 요소를 생성하는 간단하고 멋진 문법을 찾을 수 있죠.
+=======
+In the [specification](https://html.spec.whatwg.org/multipage/forms.html#the-option-element) there's a nice short syntax to create an `<option>` element:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 option = new Option(text, value, defaultSelected, selected);
 ```
 
+<<<<<<< HEAD
 매개변수:
+=======
+This syntax is optional. We can use `document.createElement('option')` and set attributes manually. Still, it may be shorter, so here are the parameters:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 - `text` -- option 내부의 텍스트
 - `value` -- option의 값
 - `defaultSelected` -- `true`이면 HTML 속성 `selected`가 생성됨
 - `selected` -- `true`이면 해당 option이 선택됨
 
+<<<<<<< HEAD
 `defaultSelected`와 `selected`의 차이가 무엇인지 헷갈릴 수 있습니다. `defaultSelected`는 `option.getAttribute('selected')`를 사용해 얻을 수 있는 HTML 속성을 설정해 줍니다. 반면 `selected` 는 option의 선택 여부를 결정합니다. 그렇기 때문에 당연히 `selected`가 더 중요한 매개변수이죠. Option 생성자를 사용할 때는 대개 두 매개변수 모두를 `true`나 `false`로 설정합니다.
 
 예시:
+=======
+The difference between `defaultSelected` and `selected` is that `defaultSelected` sets the HTML-attribute (that we can get using `option.getAttribute('selected')`), while `selected` sets whether the option is selected or not.
+
+In practice, one should usually set _both_ values to `true` or `false`. (Or, simply omit them; both default to `false`.)
+
+For instance, here's a new "unselected" option:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 let option = new Option("Text", "value");
 // <option value="value">Text</option> 가 생성됩니다.
 ```
 
+<<<<<<< HEAD
 이번엔 같은 요소를 선택된 상태로 생성합니다.
+=======
+The same option, but selected:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 let option = new Option("Text", "value", true, true);
@@ -288,9 +358,15 @@ Option을 사용해 만든 요소에는 다음과 같은 프로퍼티가 있습�
 `element.form`
 : 요소는 `form` 프로퍼티에서 자신이 속한 폼을 참조합니다.
 
+<<<<<<< HEAD
 각 요소의 값은 `input.value`, `textarea.value`, `select.value` 등으로 접근할 수 있습니다. 체크박스와 라디오 버튼에서는 `input.checked`를 사용할 수 있습니다.
 
 `<select>`에서는 인덱스 `select.selectedIndex`나 option 컬렉션 `select.options`을 통해 값을 구할 수도 있습니다.
+=======
+Value is available as `input.value`, `textarea.value`, `select.value`, etc. (For checkboxes and radio buttons, use `input.checked` to determine whether a value is selected.)
+
+For `<select>`, one can also get the value by the index `select.selectedIndex` or through the options collection `select.options`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 지금까지는 폼 관련 기본을 다뤘습니다. 이 튜토리얼에서 앞으로 더 많은 예시를 만날 것입니다.
 

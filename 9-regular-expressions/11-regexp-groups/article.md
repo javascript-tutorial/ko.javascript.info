@@ -209,9 +209,9 @@ alert(results[0]); // <h1>,h1 (1st tag)
 alert(results[1]); // <h2>,h2 (2nd tag)
 ```
 
-As we can see, the first difference is very important, as demonstrated in the line `(*)`. We can't get the match as `results[0]`, because that object isn't pseudoarray. We can turn it into a real `Array` using `Array.from`. There are more details about pseudoarrays and iterables in the article <info:iterable>.
+As we can see, the first difference is very important, as demonstrated in the line `(*)`. We can't get the match as `results[0]`, because that object is a pseudoarray. We can turn it into a real `Array` using `Array.from`. There are more details about pseudoarrays and iterables in the article <info:iterable>.
 
-There's no need in `Array.from` if we're looping over results:
+There's no need for `Array.from` if we're looping over results:
 
 ```js run
 let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
@@ -249,7 +249,7 @@ The call to `matchAll` does not perform the search. Instead, it returns an itera
 
 So, there will be found as many results as needed, not more.
 
-E.g. there are potentially 100 matches in the text, but in a `for..of` loop we found 5 of them, then decided it's enough and make a `break`. Then the engine won't spend time finding other 95 matches.
+E.g. there are potentially 100 matches in the text, but in a `for..of` loop we found 5 of them, then decided it's enough and made a `break`. Then the engine won't spend time finding other 95 matches.
 ```
 
 ## Named groups
@@ -335,7 +335,7 @@ In the example below we only get the name `match:John` as a separate member of t
 let str = "Gogogo John!";
 
 *!*
-// ?: exludes 'go' from capturing
+// ?: excludes 'go' from capturing
 let regexp = /(?:go)+ (\w+)/i;
 */!*
 
