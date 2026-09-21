@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Chrome으로 디버깅하기
+=======
+# Debugging in the browser
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 좀 더 복잡한 코드를 작성하기 전에, 디버깅이란 것에 대해 이야기해봅시다.
 
@@ -38,7 +42,11 @@ Sources 패널은 크게 세 개의 영역으로 구성됩니다.
 
 콘솔 창에 구문(statement)을 입력하고 실행하면 아랫줄에 실행 결과가 출력됩니다.
 
+<<<<<<< HEAD
 `1+2`를 입력하면 `3`이 출력되고, `hello("debugger")`를 입력하면 `undefined`가 출력되죠. `undefined`가 출력되는 이유는 `hello("debugger")`가 아무것도 반환하지 않기 때문입니다.
+=======
+For example, here `1+2` results in `3`, while the function call `hello("debugger")` returns nothing, so the result is `undefined`:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ![](chrome-sources-console.svg)
 
@@ -62,13 +70,22 @@ Sources 패널 우측의 디버깅 영역을 보면 중단점 목록을 확인�
 - 마우스 오른쪽 버튼을 클릭했을 때 나오는 'Remove breakpoint' 옵션을 통해 중단점을 삭제할 수도 있습니다.
 - 이 외에도 다양한 기능이 있습니다.
 
+<<<<<<< HEAD
 ```smart header="조건부 중단점"
 줄 번호에 커서를 옮긴 후 마우스 오른쪽 버튼을 클릭하면 *조건부 중단점(conditional breakpoint)* 을 설정할 수 있습니다. `Add conditional breakpoint`를 클릭했을 때 뜨는 작은 창에 표현식을 입력하면, 표현식이 참인 경우에만 실행을 중지시킬 수 있습니다.
+=======
+```smart header="Conditional breakpoints"
+*Right click* on the line number allows to create a *conditional* breakpoint. It only triggers when the given expression, that you should provide when you create it, is truthy.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 조건부 중단점을 설정하면 변수에 특정 값이 할당될 때나 함수의 매개 변수에 특정 값이 들어올 때만 실행을 중단시킬 수 있어 디버깅 시 유용하게 활용할 수 있습니다. 
 ```
 
+<<<<<<< HEAD
 ## debugger 명령어
+=======
+## The command "debugger"
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 아래 예시처럼 스크립트 내에 `debugger` 명령어를 적어주면 중단점을 설정한 것과 같은 효과를 봅니다.
 
@@ -84,8 +101,12 @@ function hello(name) {
 }
 ```
 
+<<<<<<< HEAD
 debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열고 소스 코드 영역을 띄워 중단점을 설정하는 수고를 하지 않아도 됩니다. 에디터를 떠나지 않고도 중단점을 설정할 수 있기 때문에 편리하죠.
 
+=======
+Such command works only when the development tools are open, otherwise the browser ignores it.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 멈추면 보이는 것들
 
@@ -99,7 +120,11 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 
 1. **`Watch` -- 표현식을 평가하고 결과를 보여줍니다.**
 
+<<<<<<< HEAD
     Add Expression 버튼 `+`를 클릭해 원하는 표현식을 입력한 후 `key:Enter`를 누르면 중단 시점의 값을 보여줍니다. 입력한 표현식은 실행 과정 중에 계속해서 재평가됩니다. 
+=======
+    You can click the plus `+` and input an expression. The debugger will show its value, automatically recalculating it in the process of execution.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 2. **`Call Stack` -- 코드를 해당 중단점으로 안내한 실행 경로를 역순으로 표시합니다.**
 
@@ -137,11 +162,20 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 <span class="devtools" style="background-position:-62px -192px"></span> -- 'Step over': 다음 명령어를 실행하되, *함수 안으로 들어가진 않음* (단축키 `key:F10`)
 : 'Step'과 유사하지만, 다음 문이 함수 호출일 때 'Step'과는 다르게 동작합니다(`alert` 같은 내장함수에는 해당하지 않고, 직접 작성한 함수일 때만 동작이 다릅니다).
 
+<<<<<<< HEAD
     'Step'은 함수 내부로 들어가 함수 본문 첫 번째 줄에서 실행을 멈춥니다. 반면 'Step over'는 보이지 않는 곳에서 중첩 함수를 실행하긴 하지만 함수 내로 진입하지 않습니다.
 
     실행은 함수 실행이 끝난 후에 즉시 멈춥니다.
 
     'Step over'은 함수 호출 시 내부에서 어떤 일이 일어나는지 궁금하지 않을 때 유용합니다.
+=======
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
+: Similar to the previous "Step" command, but behaves differently if the next statement is a function call (not a built-in, like `alert`, but a function of our own).
+
+    If we compare them, the "Step" command goes into a nested function call and pauses the execution at its first line, while "Step over" executes the nested function call invisibly to us, skipping the function internals.
+
+    The execution is then paused immediately after that function call.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 <span class="devtools" style="background-position:-4px -194px"></span> -- 'Step into' (단축키 `key:F11`)
 : 'Step'과 유사한데, 비동기 함수 호출에서 'Step'과는 다르게 동작합니다. 이제 막 자바스크립트를 배우기 시작한 분이라면 비동기 호출에 대해 아직 배우지 않았기 때문에 'Step'과 'Step into'의 차이를 몰라도 괜찮습니다.
@@ -157,8 +191,13 @@ debugger 명령어를 사용하면 브라우저를 켜 개발자 도구를 열�
 <span class="devtools" style="background-position:-90px -146px"></span> -- 예외 발생 시 코드를 자동 중지시켜주는 기능을 활성화/비활성화
 : 활성화되어 있고, 개발자 도구가 열려있는 상태에서 스크립트 실행 중에 에러가 발생하면 실행이 자동으로 멈춥니다. 실행이 중단되었기 때문에 변수 등을 조사해 어디서 에러가 발생했는지 찾을 수 있게 됩니다. 개발하다가 에러와 함께 스크립트가 죽었다면 디버거를 열고 이 옵션을 활성화한 후, 페이지를 새로 고침하면 에러가 발생한 곳과 에러 발생 시점의 컨텍스트를 확인할 수 있습니다.
 
+<<<<<<< HEAD
 ```smart header="Continue to here 옵션"
 특정 줄에서 마우스 오른쪽 버튼을 클릭해 컨텍스트 메뉴를 열면 "Continue to here"라는 옵션을 볼 수 있습니다.
+=======
+<span class="devtools" style="background-position:-90px -146px"></span> -- enable/disable automatic pause in case of an error.
+: When enabled, if the developer tools is open, an error during the script execution automatically pauses it. Then we can analyze variables in the debugger to see what went wrong. So if our script dies with an error, we can open debugger, enable this option and reload the page to see where it dies and what's the context at that moment.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 중단점을 설정하기는 귀찮은데 해당 줄에서 실행을 재개하고 싶을 때 아주 유용한 옵션입니다.
 ```
@@ -187,7 +226,11 @@ for (let i = 0; i < 5; i++) {
 2. `debugger`문 만났을 때
 3. 에러가 발생했을 때(개발자 도구가 열려있고 <span class="devtools" style="background-position:-90px -146px"></span> 버튼이 '활성화'되어있는 경우)
 
+<<<<<<< HEAD
 스크립트 실행이 중지되면 중단 시점을 기준으로 변수에 어떤 값이 들어가 있는지 확인할 수 있습니다. 또한 단계별로 코드를 실행해 가며, 어디서 문제가 발생했는지 추적할 수도 있습니다. 이런 식으로 디버깅이 진행됩니다.
+=======
+When paused, we can debug: examine variables and trace the code to see where the execution goes wrong.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 개발자 도구는 여기서 소개한 기능 이외의 다양한 기능을 지원합니다. Google에서 제공하는 개발자 도구 공식 매뉴얼은 <https://developers.google.com/web/tools/chrome-devtools>에서 확인할 수 있습니다.
 
