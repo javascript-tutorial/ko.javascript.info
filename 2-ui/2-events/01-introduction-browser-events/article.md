@@ -24,7 +24,11 @@
 **CSS 이벤트:**
 - `transitionend` -- CSS 애니메이션이 종료되었을 때 발생합니다.
 
+<<<<<<< HEAD
 이 외에도 다양한 이벤트가 있는데, 몇몇 이벤트는 다음 챕터에서 자세히 다룰 예정입니다.
+=======
+There are many other events. We'll get into more details of particular events in upcoming chapters.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 이벤트 핸들러
 
@@ -160,7 +164,11 @@ button.onclick = sayThanks;
 button.onclick = sayThanks();
 ```
 
+<<<<<<< HEAD
 `sayThanks()` 같이 괄호를 덧붙이는 것은 함수를 호출하겠다는 것을 의미합니다. 위 예시의 마지막 줄처럼 sayThanks()를 프로퍼티에 할당하면 함수 호출의 *결괏(result)값*이 할당되죠. 함수 `sayThanks`가 아무것도 반환하지 않는다면 `onclick` 프로퍼티엔 `undefined`이 할당되므로 이벤트가 원하는 대로 동작하지 않습니다.
+=======
+If we add parentheses, then `sayThanks()` becomes a function call. So the last line actually takes the *result* of the function execution, that is `undefined` (as the function returns nothing), and assigns it to `onclick`. That doesn't work.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 그런데, HTML 속성값에는 괄호가 있어야 합니다.
 
@@ -195,7 +203,11 @@ document.body.setAttribute('onclick', function() { alert(1) });
 
 ## addEventListener
 
+<<<<<<< HEAD
 HTML 속성과 DOM 프로퍼티를 이용한 이벤트 핸들러 할당 방식엔 근본적인 문제가 있습니다. 하나의 이벤트에 복수의 핸들러를 할당할 수 없다는 문제이죠.
+=======
+The fundamental problem of the aforementioned ways to assign handlers is that we *can't assign multiple handlers to one event*.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 버튼을 클릭하면 버튼을 강조하면서 메시지를 보여주고 싶다고 해 봅시다.
 
@@ -207,7 +219,11 @@ input.onclick = function() { alert(1); }
 input.onclick = function() { alert(2); } // 이전 핸들러를 덮어씀
 ```
 
+<<<<<<< HEAD
 웹 표준에 관여하는 개발자들은 오래전부터 이 문제를 인지하고, `addEventListener` 와 `removeEventListener` 라는 특별한 메서드를 이용해 핸들러를 관리하자는 대안을 제시했습니다. 핸들러를 여러 개 할당할 수 있도록 말이죠.
+=======
+Developers of web standards understood that long ago and suggested an alternative way of managing handlers using the special methods `addEventListener` and `removeEventListener` which aren't bound by such constraint.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 문법은 다음과 같습니다.
 
@@ -261,7 +277,11 @@ input.removeEventListener("click", handler);
 변수에 핸들러 함수를 저장해 놓지 않으면 핸들러를 지울 수 없다는 것을 항상 기억해 놓으셔야 합니다. 이렇게 하지 않으면 `addEventListener`로 할당한 핸들러를 '불러올' 수 없습니다.
 ````
 
+<<<<<<< HEAD
 `addEventListener`를 여러 번 호출하면 아래와 같이 핸들러를 여러 개 붙일 수 있습니다.
+=======
+Multiple calls to `addEventListener` allow it to add multiple handlers, like this:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run no-beautify
 <input id="elem" type="button" value="클릭해 주세요."/>
@@ -288,7 +308,11 @@ input.removeEventListener("click", handler);
 ````warn header="어떤 이벤트는 `addEventListener`를 써야만 동작합니다."
 DOM 프로퍼티에 할당할 수 없는 이벤트가 몇몇 있습니다. 이런 이벤트는 무조건 `addEventListener`를 써야 합니다.
 
+<<<<<<< HEAD
 문서를 읽고 DOM 트리 생성이 완료되었을 때 트리거되는 이벤트인 `DOMContentLoaded`가 대표적인 예입니다.
+=======
+For instance, the `DOMContentLoaded` event, that triggers when the document is loaded and the DOM has been built.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 // 이 얼럿창은 절대 뜨지 않습니다.
@@ -334,10 +358,17 @@ document.addEventListener("DOMContentLoaded", function() {
 `event.currentTarget`
 : 이벤트를 처리하는 요소. 화살표 함수를 사용해 핸들러를 만들거나 다른 곳에 바인딩하지 않은 경우엔 `this`가 가리키는 값과 같음, 화살표 함수를 사용했거나 함수를 다른 곳에 바인딩한 경우엔 `event.currentTarget`를 사용해 이벤트가 처리되는 요소 정보를 얻을 수 있음
 
+<<<<<<< HEAD
 `event.clientX / event.clientY`
 : 포인터 관련 이벤트에서, 커서의 상대 좌표(모니터 기준 좌표가 아닌, 브라우저 화면 기준 좌표 - 옮긴이)
 
 이 외에도 다양한 프로퍼티가 있습니다. 이벤트 타입에 따라 이벤트 객체에서 제공하는 프로퍼티는 다릅니다. 추후 다양한 종류의 이벤트를 학습하면서 이벤트별 프로퍼티에 대해서도 상세히 알아보겠습니다.
+=======
+`event.clientX` / `event.clientY`
+: Window-relative coordinates of the cursor, for pointer events.
+
+There are more properties. Many of them depend on the event type: keyboard events have one set of properties, pointer events - another one, we'll study them later when as we move on to the details of different events.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ````smart header="이벤트 객체는 HTML 핸들러 안에서도 접근할 수 있습니다."
 HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체를 사용할 수 있습니다.
@@ -373,7 +404,11 @@ HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체�
 
 보시다시피 `addEventListener`가 인수로 객체 형태의 핸들러를 받으면 이벤트 발생 시 `obj.handleEvent(event)`가 호출됩니다.
 
+<<<<<<< HEAD
 클래스를 사용할 수도 있습니다.
+=======
+We could also use objects of a custom class, like this:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 
 ```html run
@@ -395,6 +430,7 @@ HTML에서 핸들러를 할당한 경우에도 아래와 같이 `event` 객체�
 
 *!*
   let menu = new Menu();
+
   elem.addEventListener('mousedown', menu);
   elem.addEventListener('mouseup', menu);
 */!*
