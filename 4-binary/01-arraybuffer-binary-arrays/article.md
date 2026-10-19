@@ -30,14 +30,25 @@ alert(buffer.byteLength); // 16
 
 **`ArrayBuffer`를 조작하기 위해 '뷰' 객체가 필요합니다.**
 
+<<<<<<< HEAD
 뷰 객체는 자체적으로 어떤 것도 저장하지 않으며 `ArrayBuffer`에 저장된 바이트를 해석하는 '안경' 역할을 수행합니다.
+=======
+A view object does not store anything on its own. It's the "eyeglasses" that give an interpretation of the bytes stored in the `ArrayBuffer`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
+<<<<<<< HEAD
 - **`Uint8Array`** -- `ArrayBuffer`의 각 바이트를 별개의 숫자로 취급합니다. 1바이트는 8비트이므로 0부터 255까지의 값을 가질 수 있으며 이러한 값을 '8비트 부호 없는 정수(8-bit unsigned integer)'라고 부릅니다.
 - **`Uint16Array`** -- 2바이트마다 하나의 정수로 취급합니다. 0부터 65535까지의 값을 가질 수 있으며 이러한 값을 '16비트 부호 없는 정수(16-bit unsigned integer)'라고 부릅니다.
 - **`Uint32Array`** -- 4바이트마다 하나의 정수로 취급합니다. 0부터 4294967295까지의 값을 가질 수 있으며 이러한 값을 '32비트 부호 없는 정수(32-bit unsigned integer)'라고 부릅니다.
 - **`Float64Array`** -- 8바이트마다 하나의 부동 소수점 숫자로 취급합니다. <code>5.0x10<sup>-324</sup></code>부터 <code>1.8x10<sup>308</sup></code>까지의 값을 가질 수 있습니다.
+=======
+- **`Uint8Array`** -- treats each byte in `ArrayBuffer` as a separate number, with possible values from 0 to 255 (a byte is 8-bit, so it can hold only that much). Such value is called a "8-bit unsigned integer".
+- **`Uint16Array`** -- treats every 2 bytes as an integer, with possible values from 0 to 65535. That's called a "16-bit unsigned integer".
+- **`Uint32Array`** -- treats every 4 bytes as an integer, with possible values from 0 to 4294967295. That's called a "32-bit unsigned integer".
+- **`Float64Array`** -- treats every 8 bytes as a floating point number with possible values from <code>5.0x10<sup>-324</sup></code> to <code>1.8x10<sup>308</sup></code>.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 따라서 16바이트 `ArrayBuffer`의 이진 데이터는 16개의 '작은 숫자', 8개의 더 큰 숫자(각 2바이트), 4개의 더 큰 숫자(각 4바이트), 정밀도가 높은 부동 소수점 값 2개(각 8바이트)로 해석할 수 있습니다.
 
@@ -71,13 +82,21 @@ for(let num of view) {
 
 ## TypedArray
 
+<<<<<<< HEAD
 지금까지 살펴본 모든 뷰(`Uint8Array`, `Uint32Array` 등)를 통칭하는 용어는 [TypedArray](https://tc39.github.io/ecma262/#sec-typedarray-objects)입니다. 앞서 살펴본 뷰들은 같은 메서드와 프로퍼티를 공유합니다.
+=======
+The common term for all these views (`Uint8Array`, `Uint32Array`, etc) is [TypedArray](https://tc39.github.io/ecma262/#sec-typedarray-objects). They share the same set of methods and properties.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 참고로 `TypedArray`라는 생성자는 존재하지 않습니다. `TypedArray`는 `ArrayBuffer`의 여러 뷰를 아울러 지칭하는 상위 용어입니다. 예를 들어 `Int8Array`, `Uint8Array` 등이 있으며 전체 목록은 곧 살펴보겠습니다.
 
 `new TypedArray`와 같은 표현을 본다면 `new Int8Array`, `new Uint8Array`와 같은 뷰 중 하나를 뜻한다고 이해하면 됩니다.
 
+<<<<<<< HEAD
 타입이 지정된 배열(typed array)은 일반 배열처럼 인덱스가 있고 반복 가능(iterable, 이터러블)합니다.
+=======
+Typed arrays behave like regular arrays: have indexes and are iterable.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 타입이 지정된 배열의 생성자는 `Int8Array`나 `Float64Array`든 상관없이 주어진 인수 타입에 따라 다르게 동작합니다.
 
@@ -126,9 +145,15 @@ new TypedArray();
 
 `ArrayBuffer` 없이 `TypedArray`를 직접 생성할 수 있습니다. 하지만 뷰는 그 기반이 되는 `ArrayBuffer` 없이 존재할 수 없기 때문에 `ArrayBuffer`를 직접 전달하는 첫 번째 경우를 제외하고는 위 경우 모두 `ArrayBuffer`가 자동으로 생성됩니다.
 
+<<<<<<< HEAD
 기반이 되는 `ArrayBuffer`에 접근하기 위해 `TypedArray`의 프로퍼티를 사용할 수 있습니다.
 - `buffer` -- `ArrayBuffer`의 참조
 - `byteLength` -- `ArrayBuffer`의 길이
+=======
+To access the underlying `ArrayBuffer`, there are following properties in `TypedArray`:
+- `buffer` -- references the `ArrayBuffer`.
+- `byteLength` -- the length of the `ArrayBuffer`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 그렇기에 아래와 같이 하나의 뷰에서 다른 뷰를 만들 수 있습니다.
 ```js
@@ -209,7 +234,11 @@ alert(uint8array[1]); // 1
 
 ## DataView
 
+<<<<<<< HEAD
 [DataView](mdn:/JavaScript/Reference/Global_Objects/DataView)는 `ArrayBuffer` 위에 놓이는 특별하고 매우 유연한 '타입이 없는(untyped)' 뷰입니다. `DataView`는 임의의 오프셋에 있는 데이터를 원하는 형식으로 읽고 쓸 수 있게 합니다.
+=======
+[DataView](mdn:/JavaScript/Reference/Global_Objects/DataView) is a special super-flexible "untyped" view over `ArrayBuffer`. It allows to access the data on any offset in any format.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 - 타입이 지정된 배열에서는 생성자가 데이터 형식을 결정합니다. 배열 전체가 같은 타입이라고 가정하며 i번째 숫자는 `arr[i]`를 통해 접근합니다.
 - `DataView`는 `.getUint8(i)`나 `.getUint16(i)`와 같은 메서드를 사용하여 데이터에 접근합니다. 데이터 형식은 생성 시점이 아닌 메서드 호출 시점에 결정됩니다.
@@ -235,8 +264,13 @@ let dataView = new DataView(buffer);
 // 오프셋 0에서 8비트 숫자를 가져옵니다.
 alert( dataView.getUint8(0) ); // 255
 
+<<<<<<< HEAD
 // 오프셋 0에서 16비트 숫자를 가져옵니다. 이 숫자는 2바이트로 구성되며 두 바이트를 함께 해석하여 65535가 됩니다.
 alert( dataView.getUint16(0) ); // 65535 (16비트 부호 없는 정수 중 가장 큰 값)
+=======
+// now get 16-bit number at offset 0, it consists of 2 bytes, together interpreted as 65535
+alert( dataView.getUint16(0) ); // 65535 (biggest 16-bit unsigned int)
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 // 오프셋 0에서 32비트 숫자를 가져옵니다.
 alert( dataView.getUint32(0) ); // 4294967295 (32비트 부호 없는 정수 중 가장 큰 값)
@@ -244,7 +278,11 @@ alert( dataView.getUint32(0) ); // 4294967295 (32비트 부호 없는 정수 중
 dataView.setUint32(0, 0); // 4바이트 숫자를 0으로 설정하여 모든 바이트를 0으로 만듭니다.
 ```
 
+<<<<<<< HEAD
 `DataView`는 동일한 버퍼에 여러 데이터 형식의 데이터를 저장할 때 유용합니다. 예를 들어 16비트 정수와 32비트 부동 소수점 값을 한 쌍으로 묶어 연속해서 저장할 때, `DataView`를 사용하면 쉽게 데이터에 접근할 수 있습니다.
+=======
+`DataView` is great when we store mixed-format data in the same buffer. For example, when we store a sequence of pairs (16-bit integer, 32-bit float), `DataView` allows to access them easily.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 요약
 
@@ -259,7 +297,11 @@ dataView.setUint32(0, 0); // 4바이트 숫자를 0으로 설정하여 모든 �
     - `Float32Array`, `Float64Array` -- 32비트, 64비트 부호 있는 부동 소수점 숫자에 사용합니다.
 - 또는 `DataView` -- `DataView`는 `getUint8(offset)` 같은 메서드로 형식을 지정하는 뷰입니다.
 
+<<<<<<< HEAD
 대부분의 경우 `ArrayBuffer`를 내부에 감춘 채 타입이 지정된 배열을 직접 생성하고 값을 다룹니다. 이때 `ArrayBuffer`는 '공통분모(common denominator)' 역할을 합니다. 필요하다면 `.buffer`로 `ArrayBuffer`에 접근하여 또 다른 뷰를 만들 수 있습니다.
+=======
+In most cases we create and operate directly on typed arrays, leaving `ArrayBuffer` under cover, as a "common denominator". We can access it as `.buffer` and make another view if needed.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이진 데이터를 다루는 메서드를 설명할 때 사용하는 용어가 두 가지 더 있습니다.
 - `ArrayBufferView`는 이런 모든 종류의 뷰를 아울러 지칭하는 상위 용어입니다.
