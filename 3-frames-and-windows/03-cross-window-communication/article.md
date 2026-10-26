@@ -116,6 +116,13 @@ document.domain = 'site.com';
 
 That's all. Now they can interact without limitations. Again, that's only possible for pages with the same second-level domain.
 
+```warn header="Deprecated, but still working"
+The `document.domain` property is in the process of being removed from the [specification](https://html.spec.whatwg.org/multipage/origin.html#relaxing-the-same-origin-restriction). The cross-window messaging (explained soon below) is the suggested replacement.
+
+That said, as of now all browsers support it. And the support will be kept for the future, not to break old code that relies on `document.domain`.
+```
+
+
 ## Iframe: wrong document pitfall
 
 When an iframe comes from the same origin, and we may access its  `document`, there's a pitfall. It's not related to cross-origin things, but important to know.
@@ -263,7 +270,7 @@ The window that wants to send a message calls [postMessage](mdn:api/Window.postM
 Arguments:
 
 `data`
-: The data to send. Can be any object, the data is cloned using the "structured cloning algorithm". IE supports only strings, so we should `JSON.stringify` complex objects to support that browser.
+: The data to send. Can be any object, the data is cloned using the "structured serialization algorithm". IE supports only strings, so we should `JSON.stringify` complex objects to support that browser.
 
 `targetOrigin`
 : Specifies the origin for the target window, so that only a window from the given origin will get the message.
