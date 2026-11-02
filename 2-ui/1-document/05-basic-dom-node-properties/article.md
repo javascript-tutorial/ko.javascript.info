@@ -10,7 +10,11 @@ DOM 노드는 종류에 따라 각각 다른 프로퍼티를 지원합니다. �
 
 DOM 노드는 종류에 따라 대응하는 내장 클래스가 다릅니다.
 
+<<<<<<< HEAD
 계층 구조 꼭대기엔 [EventTarget](https://dom.spec.whatwg.org/#eventtarget)이 있는데, [Node](http://dom.spec.whatwg.org/#interface-node)는 EventTarget을, 다른 DOM 노드들은 Node 클래스를 상속받습니다.
+=======
+The root of the hierarchy is [EventTarget](https://dom.spec.whatwg.org/#eventtarget), that is inherited by  [Node](https://dom.spec.whatwg.org/#interface-node), and other DOM nodes inherit from it.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이런 관계를 그림으로 나타내면 다음과 같습니다.
 
@@ -18,6 +22,7 @@ DOM 노드는 종류에 따라 대응하는 내장 클래스가 다릅니다.
 
 각 클래스는 다음과 같은 특징을 지닙니다.
 
+<<<<<<< HEAD
 - [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- 루트에 있는 '추상(abstract)' 클래스로, 이 클래스에 대응하는 객체는 실제로 만들어지지 않습니다. EventTarget가 모든 DOM 노드의 베이스에 있기때문에 DOM 노드에서 '이벤트'를 사용할 수 있습니다. 자세한 내용은 곧 다룰 예정입니다.
 - [Node](http://dom.spec.whatwg.org/#interface-node) -- 역시 '추상' 클래스로, DOM 노드의 베이스 역할을 합니다. getter 역할을 하는 `parentNode`, `nextSibling`, `childNodes` 등의 주요 트리 탐색 기능을 제공합니다. `Node` 클래스의 객체는 절대 생성되지 않습니다. 하지만 이 클래스를 상속받는 클래스는 여럿 있습니다. 텍스트 노드를 위한 `Text` 클래스와 요소 노드를 위한 `Element` 클래스, 주석 노드를 위한 `Comment`클래스는 `Node`클래스를 상속받습니다.
 - [Element](http://dom.spec.whatwg.org/#interface-element) -- DOM 요소를 위한 베이스 클래스입니다. `nextElementSibling`, `children` 이나 `getElementsByTagName`, `querySelector` 같이 요소 전용 탐색을 도와주는 프로퍼티나 메서드가 이를 기반으로 합니다. 브라우저는 HTML뿐만 아니라 XML, SVG도 지원하는데 `Element` 클래스는 이와 관련된 `SVGElement`, `XMLElement`, `HTMLElement` 클래스의 베이스 역할을 합니다.
@@ -28,6 +33,41 @@ DOM 노드는 종류에 따라 대응하는 내장 클래스가 다릅니다.
     - 이외에도 다른 클래스가 많은데, 각 태그에 해당하는 클래스는 고유한 프로퍼티와 메서드를 지원합니다.
 
 이렇게 특정 노드에서 사용할 수 있는 프로퍼티와 메서드는 상속을 기반으로 결정됩니다.
+=======
+- [EventTarget](https://dom.spec.whatwg.org/#eventtarget) -- is the root "abstract" class for everything.
+
+    Objects of that class are never created. It serves as a base, so that all DOM nodes support so-called "events", we'll study them later.
+
+- [Node](https://dom.spec.whatwg.org/#interface-node) -- is also an "abstract" class, serving as a base  for DOM nodes.
+
+    It provides the core tree functionality: `parentNode`, `nextSibling`, `childNodes` and so on (they are getters). Objects of `Node` class are never created. But there are other classes that inherit from it (and so inherit the `Node` functionality).
+
+- [Document](https://dom.spec.whatwg.org/#interface-document), for historical reasons often inherited by `HTMLDocument` (though the latest spec doesn't dictate it) -- is a document as a whole.
+
+    The `document` global object belongs exactly to this class. It serves as an entry point to the DOM.
+
+- [CharacterData](https://dom.spec.whatwg.org/#interface-characterdata) -- an "abstract" class, inherited by:
+    - [Text](https://dom.spec.whatwg.org/#interface-text) -- the class corresponding to a text inside elements, e.g. `Hello` in `<p>Hello</p>`.
+    - [Comment](https://dom.spec.whatwg.org/#interface-comment) -- the class for comments. They are not shown, but each comment becomes a member of DOM.
+
+- [Element](https://dom.spec.whatwg.org/#interface-element) -- is the base class for DOM elements.
+
+    It provides element-level navigation like `nextElementSibling`, `children` and searching methods like `getElementsByTagName`, `querySelector`.
+
+    A browser supports not only HTML, but also XML and SVG. So the `Element` class serves as a base for more specific classes: `SVGElement`, `XMLElement` (we don't need them here) and `HTMLElement`.
+
+- Finally, [HTMLElement](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) is the basic class for all HTML elements. We'll work with it most of the time.
+
+    It is inherited by concrete HTML elements:
+    - [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) -- the class for `<input>` elements,
+    - [HTMLBodyElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlbodyelement) -- the class for `<body>` elements,
+    - [HTMLAnchorElement](https://html.spec.whatwg.org/multipage/semantics.html#htmlanchorelement) -- the class for `<a>` elements,
+    - ...and so on.
+
+There are many other tags with their own classes that may have specific properties and methods, while some elements, such as `<span>`, `<section>`, `<article>` do not have any specific properties, so they are instances of `HTMLElement` class.
+
+So, the full set of properties and methods of a given node comes as the result of the chain of inheritance.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 `<input>` 요소에 대응하는 DOM 객체를 예로 들어봅시다. 이 객체는 [HTMLInputElement](https://html.spec.whatwg.org/multipage/forms.html#htmlinputelement) 클래스를 기반으로 만들어집니다.
 
@@ -128,14 +168,22 @@ interface HTMLInputElement: HTMLElement {
 
 ```html run
 <body>
-  <script>  
+  <script>
   let elem = document.body;
 
+<<<<<<< HEAD
   // 타입을 알아봅시다.
   alert(elem.nodeType); // 1 => 요소 노드
 
   // 첫 번째 자식 노드
   alert(elem.firstChild.nodeType); // 3 => 텍스트 노드
+=======
+  // let's examine: what type of node is in elem?
+  alert(elem.nodeType); // 1 => element
+
+  // and its first child is...
+  alert(elem.firstChild.nodeType); // 3 => text
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
   // 문서 객체의 타입 확인
   alert( document.nodeType ); // 9 => 문서 객체
@@ -198,7 +246,11 @@ XML 모드에선 케이스가 '그대로' 유지됩니다. XML 모드는 요즘�
 
 ## innerHTML로 내용 조작하기
 
+<<<<<<< HEAD
 [innerHTML](https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML) 프로퍼티를 사용하면 요소 안의 HTML을 문자열 형태로 받아올 수 있습니다.
+=======
+The [innerHTML](https://w3c.github.io/DOM-Parsing/#the-innerhtml-mixin) property allows to get the HTML inside the element as a string.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 요소 안 HTML을 수정하는 것도 가능합니다. innerHTML은 페이지를 수정하는 데 쓰이는 강력한 방법의 하나입니다.
 
@@ -397,15 +449,24 @@ elem.innerHTML = elem.innerHTML + "..."
 <div id="elem2"></div>
 
 <script>
+<<<<<<< HEAD
   let name = prompt("이름을 알려주세요.", "<b>이보라</b>");
+=======
+  let name = prompt("What's your name?", "<b>Winnie-the-Pooh!</b>");
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
   elem1.innerHTML = name;
   elem2.textContent = name;
 </script>
 ```
 
+<<<<<<< HEAD
 1. 첫 번째 `<div>`엔 이름이 'HTML 형태'로 저장됩니다. 입력한 태그는 태그로 해석되어 굵은 글씨가 출력되네요.
 2. 두 번째 `<div>`엔 이름이 '텍스트 형태'로 저장됩니다. 따라서 입력한 값 그대로 `<b>이보라</b>`가 출력되는 것을 확인할 수 있습니다.
+=======
+1. The first `<div>` gets the name "as HTML": all tags become tags, so we see the bold name.
+2. The second `<div>` gets the name "as text", so we literally see `<b>Winnie-the-Pooh!</b>`.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 개발을 하다보면 사용자의 입력값을 받아 처리해야 하는 경우가 많습니다. 이때 사용자가 입력한 값은 텍스트로 처리되어야 합니다. 예상치 못한 HTML이 사이트에 침투하는 것을 막으려면 `textContent`를 사용합시다.
 
@@ -413,7 +474,11 @@ elem.innerHTML = elem.innerHTML + "..."
 
 hidden 속성과 hidden 프로퍼티는 요소를 보여줄지 말지 지정할 때 사용할 수 있습니다.
 
+<<<<<<< HEAD
 `hidden`은 HTML 안에서 쓸 수도 있고 자바스크립트에서도 쓸 수 있습니다.
+=======
+We can use it in HTML or assign it using JavaScript, like this:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run height="80"
 <div>아래 두 div를 숨겨봅시다.</div>

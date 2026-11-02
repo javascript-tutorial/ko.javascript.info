@@ -3,6 +3,7 @@
 
 이 절의 첫 번째 챕터에서 프로토타입을 설정하기 위한 모던한 방법이 있다고 언급했습니다.
 
+<<<<<<< HEAD
 `__proto__`는 브라우저를 대상으로 개발하고 있다면 다소 구식이기 때문에 더는 사용하지 않는 것이 좋습니다. 표준에도 관련 내용이 명시되어있습니다.
 
 대신 아래와 같은 모던한 메서드들을 사용하는 것이 좋습니다.
@@ -12,6 +13,20 @@
 - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- `obj`의 `[[Prototype]]`이 `proto`가 되도록 설정합니다.
 
 앞으론 아래 예시처럼 `__proto__` 대신 메서드를 사용하도록 합시다. 
+=======
+Setting or reading the prototype with `obj.__proto__` is considered outdated and somewhat deprecated (moved to the so-called "Annex B" of the JavaScript standard, meant for browsers only).
+
+The modern methods to get/set a prototype are:
+
+- [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj`.
+- [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto`.
+
+The only usage of `__proto__`, that's not frowned upon, is as a property when creating a new object: `{ __proto__: ... }`.
+
+Although, there's a special method for this too:
+
+- [Object.create(proto[, descriptors])](mdn:js/Object/create) -- creates an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
@@ -22,7 +37,7 @@ let animal = {
 
 // 프로토타입이 animal인 새로운 객체를 생성합니다.
 *!*
-let rabbit = Object.create(animal);
+let rabbit = Object.create(animal); // same as {__proto__: animal}
 */!*
 
 alert(rabbit.eats); // true
@@ -36,7 +51,13 @@ Object.setPrototypeOf(rabbit, {}); // rabbit의 프로토타입을 {}으로 바�
 */!*
 ```
 
+<<<<<<< HEAD
 메서드를 소개할 때 잠시 언급한 것처럼 `Object.create`에는 프로퍼티 설명자를 선택적으로 전달할 수 있습니다. 설명자를 이용해 새 객체에 프로퍼티를 추가해 보겠습니다.
+=======
+The `Object.create` method is a bit more powerful, as it has an optional second argument: property descriptors.
+
+We can provide additional properties to the new object there, like this:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js run
 let animal = {
@@ -57,19 +78,29 @@ alert(rabbit.jumps); // true
 `Object.create`를 사용하면 `for..in`을 사용해 프로퍼티를 복사하는 것보다 더 효과적으로 객체를 복제할 수 있습니다.
 
 ```js
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+let clone = Object.create(
+  Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj)
+);
 ```
 
 `Object.create`를 호출하면 `obj`의 모든 프로퍼티를 포함한 완벽한 사본이 만들어집니다, 사본엔 열거 가능한 프로퍼티와 불가능한 프로퍼티, 데이터 프로퍼티, getter, setter 등 모든 프로퍼티가 복제됩니다. `[[Prototype]]`도 복제되죠.
 
+<<<<<<< HEAD
 ## 비하인드 스토리
 
 `[[Prototype]]`을 다루는 방법은 다양합니다. 목표는 하나인데 목표를 이루기 위한 수단은 여러 가지이죠.
 
 왜 그럴까요?
+=======
+
+## Brief history
+
+There're so many ways to manage `[[Prototype]]`. How did that happen? Why?
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 역사적인 이유가 있습니다.
 
+<<<<<<< HEAD
 - 생성자 함수의 `"prototype"` 프로퍼티는 아주 오래전부터 사용되고 있었습니다.
 - 그런데 2012년, 명세서에 `Object.create`가 추가되었습니다. `Object.create`를 사용하면 주어진 프로토타입을 사용해 객체를 만들 수 있긴 하지만, 프로토타입을 얻거나 설정하는것은 불가능했습니다. 그래서 브라우저는 비표준 접근자인 `__proto__`를 구현해 언제나 프로토타입을 얻거나 설정할 수 있도록 하였습니다.
 - 이후 2015년에 `Object.setPrototypeOf`와 `Object.getPrototypeOf`가 표준에 추가되면서 `__proto__`와 동일한 기능을 수행할 수 있게 되었습니다. 그런데 이 시점엔 `__proto__`를 사용하는 곳이 너무 많아서 `__proto__`는 사실상 표준(de-facto standard)이 되어버렸죠. 이 내용은 명세서의 부록 B(Annex B)에 추가되어 있습니다. 부록 B의 내용은 브라우저 이외의 호스트 환경에선 선택사항이라는것을 의미합니다.
@@ -77,6 +108,22 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 이런 역사적인 이유 때문에 지금은 여러 방식을 원하는 대로 쓸 수 있게되었습니다.
 
 이쯤되면 "왜 `__proto__`가 함수 `getPrototypeOf`, `setPrototypeOf`로 대체되었을까?"라는 의문이 떠오를 수 있습니다. 흥미로운 질문이죠. 답은 `__proto__`가 왜 나쁜지 이해하면 얻을 수 있습니다. 아래 내용을 계속 읽으면서 답을 찾아봅시다.
+=======
+The prototypal inheritance was in the language since its dawn, but the ways to manage it evolved over time.
+
+- The `prototype` property of a constructor function has worked since very ancient times. It's the oldest way to create objects with a given prototype.
+- Later, in the year 2012, `Object.create` appeared in the standard. It gave the ability to create objects with a given prototype, but did not provide the ability to get/set it. Some browsers implemented the non-standard `__proto__` accessor that allowed the user to get/set a prototype at any time, to give more flexibility to developers.
+- Later, in the year 2015, `Object.setPrototypeOf` and `Object.getPrototypeOf` were added to the standard, to perform the same functionality as `__proto__`. As `__proto__` was de-facto implemented everywhere, it was kind-of deprecated and made its way to the Annex B of the standard, that is: optional for non-browser environments.
+- Later, in the year 2022, it was officially allowed to use `__proto__` in object literals `{...}` (moved out of Annex B), but not as a getter/setter `obj.__proto__` (still in Annex B).
+
+Why was `__proto__` replaced by the functions `getPrototypeOf/setPrototypeOf`?
+
+Why was `__proto__` partially rehabilitated and its usage allowed in `{...}`, but not as a getter/setter?
+
+That's an interesting question, requiring us to understand why `__proto__` is bad.
+
+And soon we'll get the answer.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```warn header="속도가 중요하다면 기존 객체의 `[[Prototype]]`을 변경하지 마세요."
 원한다면 언제나 `[[Prototype]]`을 얻거나 설정할 수 있습니다. 기술적 제약이 있는 건 아니죠. 하지만 대개는 객체를 생성할 때만 `[[Prototype]]`을 설정하고 이후엔 수정하지 않습니다. `rabbit`이 `animal`을 상속받도록 설정하고 난 이후엔 상속 관계를 잘 변경하지 않습니다.
@@ -101,25 +148,58 @@ obj[key] = "...값...";
 alert(obj[key]); // "...값..."이 아닌 [object Object]가 출력됩니다.
 ```
 
+<<<<<<< HEAD
 프롬프트 창에 `__proto__`를 입력하면 값이 제대로 할당되지 않는것을 확인할 수 있습니다.
 
 `__proto__` 프로퍼티는 특별한 프로퍼티라는 것을 이미 알고 있기 때문에 그렇게 놀랄만한 일은 아니긴 합니다. 참고로 `__proto__`는 항상 객체이거나 `null`이어야 합니다. 문자열은 프로토타입이 될 수 없습니다.
+=======
+Here, if the user types in `__proto__`, the assignment in line 4 is ignored!
+
+That could surely be surprising for a non-developer, but pretty understandable for us. The `__proto__` property is special: it must be either an object or `null`. A string can not become a prototype. That's why assigning a string to `__proto__` is ignored.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 개발자가 위 예시와 같은 코드를 작성할 땐 이런 결과를 의도하면서 구현하진 않았을 겁니다. 키가 무엇이 되었든, 키-값 쌍을 저장하려고 하는데 키가 `__proto__`일 때 값이 제대로 저장되지 않는 건 명백한 버그이죠.
 
+<<<<<<< HEAD
 예시에선 이 버그가 그리 치명적이진 않습니다. 그런데 할당 값이 객체일 때는 프로토타입이 바뀔 수 있다는 치명적인 버그가 발생할 수 있습니다. 프로토타입이 바뀌면 예상치 못한 일이 발생할 수 있기 때문입니다.
+=======
+Here the consequences are not terrible. But in other cases we may be storing objects instead of strings in `obj`, and then the prototype will indeed be changed. As a result, the execution will go wrong in totally unexpected ways.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 개발자들은 대개 프로토타입이 중간에 바뀌는 시나리오는 배제한 채 개발을 진행합니다. 이런 고정관념 때문에 프로토타입이 중간에 바뀌면서 발생한 버그는 그 원인을 쉽게 찾지 못합니다. 서버 사이드에서 자바스크립트를 사용 할 땐 이런 버그가 취약점이 되기도 합니다.
 
+<<<<<<< HEAD
 `toString`을 비롯한 내장 메서드에 할당을 할 때도 같은 이유 때문에 예상치 못한 일이 일어날 수 있습니다.
+=======
+Unexpected things also may happen when assigning to `obj.toString`, as it's a built-in object method.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 그럼 우리는 이런 문제를 어떻게 예방할 수 있을까요?
 
+<<<<<<< HEAD
 객체 대신 `맵`을 사용하면 됩니다.
 
 그런데 자바스크립트를 만든 사람들이 아주 오래전부터 이런 문제를 고려했기 때문에 `객체`를 써도 문제를 예방할 수 있습니다. 객체를 써서 문제를 예방하는 방법을 알아봅시다.
 
 아시다시피 `__proto__`는 객체의 프로퍼티가 아니라 `Object.prototype`의 접근자 프로퍼티입니다.
+=======
+First, we can just switch to using `Map` for storage instead of plain objects, then everything's fine:
+
+```js run
+let map = new Map();
+
+let key = prompt("What's the key?", "__proto__");
+map.set(key, "some value");
+
+alert(map.get(key)); // "some value" (as intended)
+```
+
+...But `Object` syntax is often more appealing, as it's more concise.
+
+Fortunately, we *can* use objects, because language creators gave thought to that problem long ago.
+
+As we know, `__proto__` is not a property of an object, but an accessor property of `Object.prototype`:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ![](object-prototype-2.svg)
 
@@ -132,6 +212,7 @@ alert(obj[key]); // "...값..."이 아닌 [object Object]가 출력됩니다.
 ```js run
 *!*
 let obj = Object.create(null);
+// or: obj = { __proto__: null }
 */!*
 
 let key = prompt("입력하고자 하는 key는 무엇인가요?", "__proto__");
@@ -173,6 +254,7 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 
 ## 요약
 
+<<<<<<< HEAD
 프로토타입에 직접 접근할 땐 다음과 같은 모던한 메서드를 사용할 수 있습니다.
 
 - [Object.create(proto, [descriptors])](mdn:js/Object/create) -- `[[Prototype]]`이 `proto`인 객체를 만듭니다. 참조 값은 `null`일 수 있고 프로퍼티 설명자를 넘기는 것도 가능합니다.
@@ -184,11 +266,25 @@ alert(Object.keys(chineseDictionary)); // hello,bye
 이를 방지하려면 `Object.create(null)`을 사용해 `__proto__`가 없는 '아주 단순한 객체'를 만들거나, `맵`을 사용하는게 좋습니다.
 
 한편, `Object.create`를 사용하면 객체의 얕은 복사본(shallow-copy)을 만들 수 있습니다.
+=======
+- To create an object with the given prototype, use:
 
-```js
-let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
-```
+    - literal syntax: `{ __proto__: ... }`, allows to specify multiple properties
+    - or [Object.create(proto[, descriptors])](mdn:js/Object/create), allows to specify property descriptors.
 
+    The `Object.create` provides an easy way to shallow-copy an object with all descriptors:
+
+    ```js
+    let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+    ```
+
+- Modern methods to get/set the prototype are:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
+
+    - [Object.getPrototypeOf(obj)](mdn:js/Object/getPrototypeOf) -- returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+    - [Object.setPrototypeOf(obj, proto)](mdn:js/Object/setPrototypeOf) -- sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+
+<<<<<<< HEAD
 지금까지 우리는 `__proto__`는 `[[Prototype]]`의 getter, setter라는 점과 `__proto__`는 다른 메서드처럼 `Object.prototype`에 정의되어 있다는 것을 확인해 보았습니다.
 
 `Object.create(null)`을 사용하면 프로토타입이 없는 객체를 만들 수 있습니다. 이런 객체는 `"__proto__"`를 키로 사용해도 문제를 일으키지 않기 때문에 커스텀 사전을 만들 때 유용합니다.
@@ -202,3 +298,12 @@ let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescr
 - [obj.hasOwnProperty(key)](mdn:js/Object/hasOwnProperty) -- 상속받지 않고 `obj` 자체에 구현된 키 중 이름이 `key`인 것이 있으면 `true`를 반환합니다.
 
 `Object.keys`를 비롯하여 객체의 프로퍼티를 반환하는 메서드들은 객체가 '직접 소유한' 프로퍼티만 반환합니다. 상속 프로퍼티는 `for..in`을 사용해 얻을 수 있습니다.
+=======
+- Getting/setting the prototype using the built-in `__proto__` getter/setter isn't recommended, it's now in the Annex B of the specification.
+
+- We also covered prototype-less objects, created with `Object.create(null)` or `{__proto__: null}`.
+
+    These objects are used as dictionaries, to store any (possibly user-generated) keys.
+
+    Normally, objects inherit built-in methods and `__proto__` getter/setter from `Object.prototype`, making corresponding keys "occupied" and potentially causing side effects. With `null` prototype, objects are truly empty.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
