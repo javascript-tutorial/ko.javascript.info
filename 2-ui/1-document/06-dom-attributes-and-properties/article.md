@@ -162,7 +162,11 @@ HTML 속성을 어떻게 다루는지에 대한 예시를 살펴봅시다.
 </script>
 ```
 
+<<<<<<< HEAD
 그런데 아래 예시의 `input.value`처럼 동기화가 속성에서 프로퍼티 방향으로만 일어나는 예외상황도 존재합니다. 
+=======
+But there are exclusions, for instance `input.value` synchronizes only from attribute -> property, but not back:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```html run
 <input>
@@ -298,7 +302,11 @@ HTML을 작성할 때 우리는 대부분 표준 속성을 사용합니다. 하�
 </div>
 ```
 
+<<<<<<< HEAD
 이렇게 커스텀 속성을 사용하는 게 `.order-state-new`, `.order-state-pending`, `order-state-canceled`같은 클래스를 사용하는 것보다 왜 선호될까요?
+=======
+Why would using an attribute be preferable to having classes like `.order-state-new`, `.order-state-pending`, `.order-state-canceled`?
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이유는 속성은 클래스보다 다루기 편리하다는 점 때문입니다. 속성의 상태는 아래와 같이 쉽게 변경할 수 있습니다.
 
