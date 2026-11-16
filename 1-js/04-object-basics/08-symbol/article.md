@@ -1,9 +1,22 @@
 
 # 심볼형
 
+<<<<<<< HEAD
 자바스크립트는 객체 프로퍼티 키로 오직 문자형과 심볼형만을 허용합니다. 숫자형, 불린형 모두 불가능하고 오직 문자형과 심볼형만 가능하죠.
 
 지금까지는 프로퍼티 키가 문자형인 경우만 살펴보았습니다. 이번 챕터에선 프로퍼티 키로 심볼값을 사용해 보면서, 심볼형 키를 사용할 때의 이점에 대해 살펴보도록 하겠습니다.
+=======
+By specification, only two primitive types may serve as object property keys:
+
+- string type, or
+- symbol type.
+
+Otherwise, if one uses another type, such as number, it's autoconverted to string. So that `obj[1]` is the same as `obj["1"]`, and `obj[true]` is the same as `obj["true"]`.
+
+Until now we've been using only strings.
+
+Now let's explore symbols, see what they can do for us.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ## 심볼
 
@@ -12,18 +25,29 @@
 `Symbol()`을 사용하면 심볼값을 만들 수 있습니다.
 
 ```js
+<<<<<<< HEAD
 // id는 새로운 심볼이 됩니다.
 let id = Symbol();
 ```
 
 심볼을 만들 때 심볼 이름이라 불리는 설명을 붙일 수도 있습니다. 심볼 이름은 디버깅 시 아주 유용합니다.
+=======
+let id = Symbol();
+```
+
+Upon creation, we can give symbols a description (also called a symbol name), mostly useful for debugging purposes:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 // 심볼 id에는 "id"라는 설명이 붙습니다.
 let id = Symbol("id");
 ```
 
+<<<<<<< HEAD
 심볼은 유일성이 보장되는 자료형이기 때문에, 설명이 동일한 심볼을 여러 개 만들어도 각 심볼값은 다릅니다. 심볼에 붙이는 설명(심볼 이름)은 어떤 것에도 영향을 주지 않는 이름표 역할만을 합니다.
+=======
+Symbols are guaranteed to be unique. Even if we create many symbols with exactly the same description, they are different values. The description is just a label that doesn't affect anything.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 설명이 같은 심볼 두 개를 만들고 이를 비교해보겠습니다. 동일 연산자(`==`)로 비교 시 `false`가 반환되는 것을 확인할 수 있습니다.
 
@@ -38,8 +62,15 @@ alert(id1 == id2); // false
 
 참고로 Ruby 등의 언어에서도 '심볼'과 유사한 개념을 사용하는데, 자바스크립트의 심볼은 이들 언어에 쓰이는 심볼과는 다르기 때문에 혼동하지 마시길 바랍니다.
 
+<<<<<<< HEAD
 ````warn header="심볼은 문자형으로 자동 형 변환되지 않습니다."
 자바스크립트에선 문자형으로의 암시적 형 변환이 비교적 자유롭게 일어나는 편입니다. `alert` 함수가 거의 모든 값을 인자로 받을 수 있는 이유가 이 때문이죠. 그러나 심볼은 예외입니다. 심볼형 값은 다른 자료형으로 암시적 형 변환(자동 형 변환)되지 않습니다.
+=======
+So, to summarize, a symbol is a "primitive unique value" with an optional description. Let's see where we can use them.
+
+````warn header="Symbols don't auto-convert to a string"
+Most values in JavaScript support implicit conversion to a string. For instance, we can `alert` almost any value, and it will work. Symbols are special. They don't auto-convert.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 아래 예시에서 `alert`는 에러를 발생시킵니다.
 
@@ -52,7 +83,12 @@ alert(id); // TypeError: Cannot convert a Symbol value to a string
 
 문자열과 심볼은 근본이 다르기 때문에 우연히라도 서로의 타입으로 변환돼선 안 됩니다. 자바스크립트에선 '언어 차원의 보호장치(language guard)'를 마련해 심볼형이 다른 형으로 변환되지 않게 막아줍니다.
 
+<<<<<<< HEAD
 심볼을 반드시 출력해줘야 하는 상황이라면 아래와 같이 `.toString()` 메서드를 명시적으로 호출해주면 됩니다.
+=======
+If we really want to show a symbol, we need to explicitly call `.toString()` on it, like here:
+
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```js run
 let id = Symbol("id");
 *!*
@@ -60,7 +96,12 @@ alert(id.toString()); // Symbol(id)가 얼럿 창에 출력됨
 */!*
 ```
 
+<<<<<<< HEAD
 `symbol.description` 프로퍼티를 이용하면 설명만 보여주는 것도 가능합니다.
+=======
+Or get `symbol.description` property to show the description only:
+
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```js run
 let id = Symbol("id");
 *!*
@@ -72,7 +113,12 @@ alert(id.description); // id
 
 ## '숨김' 프로퍼티
 
+<<<<<<< HEAD
 심볼을 이용하면 '숨김(hidden)' 프로퍼티를 만들 수 있습니다. 숨김 프로퍼티는 외부 코드에서 접근이 불가능하고 값도 덮어쓸 수 없는 프로퍼티입니다. 
+=======
+
+Symbols allow us to create "hidden" properties of an object, that no other part of code can accidentally access or overwrite.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 서드파티 코드에서 가지고 온 `user`라는 객체가 여러 개 있고, `user`를 이용해 어떤 작업을 해야 하는 상황이라고 가정해 봅시다. `user`에 식별자를 붙여주도록 합시다.
 
@@ -92,9 +138,15 @@ alert( user[id] ); // 심볼을 키로 사용해 데이터에 접근할 수 있�
 
 그런데 문자열 `"id"`를 키로 사용해도 되는데 `Symbol("id")`을 사용한 이유가 무엇일까요?
 
+<<<<<<< HEAD
 `user`는 서드파티 코드에서 가지고 온 객체이므로 함부로 새로운 프로퍼티를 추가할 수 없습니다. 그런데 심볼은 서드파티 코드에서 접근할 수 없기 때문에, 심볼을 사용하면 서드파티 코드가 모르게 `user`에 식별자를 부여할 수 있습니다.
 
 상황 하나를 더 가정해보겠습니다. 제3의 스크립트(자바스크립트 라이브러리 등)에서 `user`를 식별해야 하는 상황이 벌어졌다고 해보죠. `user`의 원천인 서드파티 코드, 현재 작성 중인 스크립트, 제3의 스크립트가 각자 서로의 코드도 모른 채 `user`를 식별해야 하는 상황이 벌어졌습니다.
+=======
+As `user` objects belong to another codebase, it's unsafe to add fields to them, since we might affect pre-defined behavior in that other codebase. However, symbols cannot be accessed accidentally. The third-party code won't be aware of newly defined symbols, so it's safe to add symbols to the `user` objects.
+
+Also, imagine that another script wants to have its own identifier inside `user`, for its own purposes.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 제3의 스크립트에선 아래와 같이 `Symbol("id")`을 이용해 전용 식별자를 만들어 사용할 수 있습니다.
 
@@ -109,7 +161,7 @@ user[id] = "제3 스크립트 id 값";
 
 만약 심볼 대신 문자열 `"id"`를 사용해 식별자를 만들었다면 충돌이 발생할 *가능성이* 있습니다.
 
-```js run
+```js
 let user = { name: "John" };
 
 // 문자열 "id"를 사용해 식별자를 만들었습니다.
@@ -157,11 +209,19 @@ let user = {
 for (let key in user) alert(key); // name과 age만 출력되고, 심볼은 출력되지 않습니다.
 */!*
 
+<<<<<<< HEAD
 // 심볼로 직접 접근하면 잘 작동합니다.
 alert( "직접 접근한 값: " + user[id] );
 ```
 
 `Object.keys(user)`에서도 키가 심볼인 프로퍼티는 배제됩니다. '심볼형 프로퍼티 숨기기(hiding symbolic property)'라 불리는 이런 원칙 덕분에 외부 스크립트나 라이브러리는 심볼형 키를 가진 프로퍼티에 접근하지 못합니다.
+=======
+// the direct access by the symbol works
+alert( "Direct: " + user[id] ); // Direct: 123
+```
+
+[Object.keys(user)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys) also ignores them. That's a part of the general "hiding symbolic properties" principle. If another script or a library loops over our object, it won't unexpectedly access a symbolic property.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 그런데 [Object.assign](mdn:js/Object/assign)은 키가 심볼인 프로퍼티를 배제하지 않고 객체 내 모든 프로퍼티를 복사합니다.
 
@@ -206,12 +266,20 @@ alert( id === idAgain ); // true
 ```smart header="Ruby랑 비슷해 보이네요."
 Ruby 등의 몇몇 언어에선 이름이 같으면 심볼도 같습니다.
 
+<<<<<<< HEAD
 자바스크립트에선 전역 심볼에만 이런 특징이 적용됩니다.
+=======
+In JavaScript, as we can see, that's true for global symbols.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 ### Symbol.keyFor
 
+<<<<<<< HEAD
 전역 심볼을 찾을 때 사용되는 `Symbol.for(key)`에 반대되는 메서드도 있습니다. `Symbol.keyFor(sym)`를 사용하면 이름을 얻을 수 있습니다.
+=======
+We have seen that for global symbols, `Symbol.for(key)` returns a symbol by name. To do the opposite -- return a name by global symbol -- we can use: `Symbol.keyFor(sym)`:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
@@ -227,7 +295,11 @@ alert( Symbol.keyFor(sym2) ); // id
 
 `Symbol.keyFor`는 전역 심볼 레지스트리를 뒤져서 해당 심볼의 이름을 얻어냅니다. 검색 범위가 전역 심볼 레지스트리이기 때문에 전역 심볼이 아닌 심볼에는 사용할 수 없습니다. 전역 심볼이 아닌 인자가 넘어오면 `Symbol.keyFor`는 `undefined`를 반환합니다.
 
+<<<<<<< HEAD
 전역 심볼이 아닌 모든 심볼은 `description` 프로퍼티가 있습니다. 일반 심볼에서 이름을 얻고 싶으면 `description` 프로퍼티를 사용하면 됩니다.
+=======
+That said, all symbols have the `description` property.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
@@ -267,11 +339,21 @@ alert( localSymbol.description ); // name
 
 심볼의 주요 유스 케이스는 다음과 같습니다.
 
+<<<<<<< HEAD
 1. 객체의 '숨김' 프로퍼티 -- 
     외부 스크립트나 라이브러리에 '속한' 객체에 새로운 프로퍼티를 추가해 주고 싶다면 심볼을 만들고, 이를 프로퍼티 키로 사용하면 됩니다. 키가 심볼인 경우엔 `for..in`의 대상이 되지 않아서 의도치 않게 프로퍼티가 수정되는 것을 예방할 수 있습니다. 외부 스크립트나 라이브러리는 심볼 정보를 갖고 있지 않아서 프로퍼티에 직접 접근하는 것도 불가능합니다. 심볼형 키를 사용하면 프로퍼티가 우연히라도 사용되거나 덮어씌워 지는 걸 예방할 수 있습니다.
+=======
+1. "Hidden" object properties.
+
+    If we want to add a property into an object that "belongs" to another script or a library, we can create a symbol and use it as a property key. A symbolic property does not appear in `for..in`, so it won't be accidentally processed together with other properties. Also it won't be accessed directly, because another script does not have our symbol. So the property will be protected from accidental use or overwrite.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
     이런 특징을 이용하면 원하는 것을 객체 안에 '은밀하게' 숨길 수 있습니다. 외부 스크립트에선 우리가 숨긴 것을 절대 볼 수 없습니다.
 
 2. 자바스크립트 내부에서 사용되는 시스템 심볼은 `Symbol.*`로 접근할 수 있습니다. 시스템 심볼을 이용하면 내장 메서드 등의 기본 동작을 입맛대로 변경할 수 있습니다. [iterable 객체](info:iterable)에선 `Symbol.iterator`를, [객체를 원시형으로 변환하기](info:object-toprimitive)에선 `Symbol.toPrimitive`이 어떻게 사용되는지 알아보겠습니다.
 
+<<<<<<< HEAD
 사실 심볼을 완전히 숨길 방법은 없습니다. 내장 메서드 [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols)를 사용하면 모든 심볼을 볼 수 있고, 메서드 [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys)는 심볼형 키를 포함한 객체의 *모든* 키를 반환해줍니다. 그런데 대부분의 라이브러리, 내장 함수 등은 이런 메서드를 사용하지 않습니다.
+=======
+Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](mdn:js/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](mdn:js/Reflect/ownKeys) that returns *all* keys of an object including symbolic ones. But most libraries, built-in functions and syntax constructs don't use these methods.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47

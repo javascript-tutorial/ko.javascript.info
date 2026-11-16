@@ -46,6 +46,7 @@ n = 12.345;
     alert( "숫자가 아님" / 2 ); // NaN, 문자열을 숫자로 나누면 오류가 발생합니다.
     ```
 
+<<<<<<< HEAD
     `NaN`은 여간해선 바뀌지 않습니다. `NaN`에 어떤 추가 연산을 해도 결국 `NaN`이 반환됩니다.
 
     ```js run
@@ -53,6 +54,17 @@ n = 12.345;
     ```
 
     연산 과정 어디에선가 `NaN`이 반환되었다면, 이는 모든 결과에 영향을 미칩니다.
+=======
+    `NaN` is sticky. Any further mathematical operation on `NaN` returns `NaN`:
+
+    ```js run
+    alert( NaN + 1 ); // NaN
+    alert( 3 * NaN ); // NaN
+    alert( "not a number" / 2 - 1 ); // NaN
+    ```
+
+    So, if there's a `NaN` somewhere in a mathematical expression, it propagates to the whole result (there's only one exception to that: `NaN ** 0` is `1`).
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```smart header="수학 연산은 안전합니다."
 자바스크립트에서 행해지는 수학 연산은 '안전'하다고 볼 수 있습니다. 0으로 나눈다거나 숫자가 아닌 문자열을 숫자로 취급하는 등의 이례적인 연산이 자바스크립트에선 가능합니다.
@@ -64,11 +76,28 @@ n = 12.345;
 
 숫자를 다루는 방법에 대해선 <info:number> 챕터에서 자세히 알아보도록 하겠습니다.
 
-## BigInt
+## BigInt [#bigint-type]
 
+<<<<<<< HEAD
 내부 표현 방식 때문에 자바스크립트에선 <code>(2<sup>53</sup>-1)</code>(`9007199254740991`) 보다 큰 값 혹은 <code>-(2<sup>53</sup>-1)</code> 보다 작은 정수는 '숫자형'을 사용해 나타낼 수 없습니다.
 
 사실 대부분의 상황에서 이런 제약사항은 문제가 되지 않습니다. 그렇지만 암호 관련 작업같이 아주 큰 숫자가 필요한 상황이거나 아주 높은 정밀도로 작업을 해야 할 때는 이런 큰 숫자가 필요합니다.
+=======
+In JavaScript, the "number" type cannot safely represent integer values larger than <code>(2<sup>53</sup>-1)</code> (that's `9007199254740991`), or less than <code>-(2<sup>53</sup>-1)</code> for negatives.
+
+To be really precise, the "number" type can store larger integers (up to <code>1.7976931348623157 * 10<sup>308</sup></code>), but outside of the safe integer range <code>±(2<sup>53</sup>-1)</code> there'll be a precision error, because not all digits fit into the fixed 64-bit storage. So an "approximate" value may be stored.
+
+For example, these two numbers (right above the safe range) are the same:
+
+```js
+console.log(9007199254740991 + 1); // 9007199254740992
+console.log(9007199254740991 + 2); // 9007199254740992
+```
+
+So to say, all odd integers greater than <code>(2<sup>53</sup>-1)</code> can't be stored at all in the "number" type.
+
+For most purposes <code>±(2<sup>53</sup>-1)</code> range is quite enough, but sometimes we need the entire range of really big integers, e.g. for cryptography or microsecond-precision timestamps.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 `BigInt`형은 표준으로 채택된 지 얼마 안 된 자료형으로, 길이에 상관없이 정수를 나타낼 수 있습니다.
 
@@ -81,11 +110,15 @@ const bigInt = 1234567890123456789012345678901234567890n;
 
 `BigInt`형 숫자는 자주 쓰이지 않기 때문에 여기서 자세히 다루지 않고 별도의 챕터, <info:bigint>에서 설명드리겠습니다. 아주 큰 숫자를 사용해야 하는 경우라면 해당 챕터를 참고해 주시기 바랍니다.
 
+<<<<<<< HEAD
 ```smart header="호환성 이슈"
 이 글이 작성된 시점엔 Firefox, Chrome, Edge, Safari에서만 `BigInt`를 지원합니다. IE에선 지원하지 않습니다.
 ```
 
 ## 문자형
+=======
+## String
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 자바스크립트에선 문자열(string)을 따옴표로 묶습니다.
 
@@ -127,7 +160,11 @@ alert( "the result is ${1 + 2}" ); // the result is ${1 + 2} (큰따옴표는 �
 ```smart header="*글자형*은 없습니다."
 일부 언어는 글자 하나를 저장할 때 쓰이는 자료형, '글자(character)'형을 따로 지원합니다. C 언어와 Java의 `char`가 대표적인 예입니다.
 
+<<<<<<< HEAD
 자바스크립트는 글자형을 지원하지 않습니다. `문자형`만 있을 뿐입니다. 여기엔 글자가 하나 혹은 여러 개 들어갈 수 있습니다.
+=======
+In JavaScript, there is no such type. There's only one type: `string`. A string may consist of zero characters (be empty), one character or many of them.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 ```
 
 ## 불린형
@@ -208,6 +245,7 @@ alert(age); // "undefined"
 
 ## typeof 연산자 [#type-typeof] 
 
+<<<<<<< HEAD
 `typeof` 연산자는 인수의 자료형을 반환합니다. 자료형에 따라 처리 방식을 다르게 하고 싶거나 변수의 자료형을 빠르게 알아내고자 할 때 유용합니다.
 
 `typeof` 연산자는 두 가지 형태의 문법을 지원합니다.
@@ -218,6 +256,11 @@ alert(age); // "undefined"
 괄호가 있든 없든 결과가 동일합니다.
 
 `typeof x`를 호출하면 인수의 자료형을 나타내는 문자열을 반환합니다.
+=======
+The `typeof` operator returns the type of the operand. It's useful when we want to process values of different types differently or just want to do a quick check.
+
+A call to `typeof x` returns a string with the type name:
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 ```js
 typeof undefined // "undefined"
@@ -247,14 +290,33 @@ typeof alert // "function"  (3)
 
 마지막 세 줄은 약간의 설명이 필요해 보이네요.
 
+<<<<<<< HEAD
 1. `Math`는 수학 연산을 제공하는 내장 객체이므로 `"object"`가 출력됩니다. `Math`에 대해선 <info:number> 챕터에서 학습하도록 하겠습니다. 내장 객체는 객체형이라는 것을 알려주기 위해 이런 예시를 작성해 보았습니다.
 2. `typeof null`의 결과는 `"object"`입니다. `null`은 별도의 고유한 자료형을 가지는 특수 값으로 객체가 아니지만, 하위 호환성을 유지하기 위해 이런 오류를 수정하지 않고 남겨둔 상황입니다. 언어 자체의 오류이므로 `null`이 객체가 아님에 유의하시기 바랍니다.
 3. `typeof`는 피연산자가 함수면 `"function"`을 반환합니다. 그러므로 `typeof alert`는 `"function"`을 출력해줍니다. 그런데 '함수'형은 따로 없습니다. 함수는 객체형에 속합니다. 이런 동작 방식이 형식적으론 잘못되긴 했지만, 아주 오래전에 만들어진 규칙이었기 때문에 하위 호환성 유지를 위해 남겨진 상태입니다. 한편, 실무에선 이런 특징이 매우 유용하게 사용되기도 합니다.
 
 ## 요약
+=======
+1. `Math` is a built-in object that provides mathematical operations. We will learn it in the chapter <info:number>. Here, it serves just as an example of an object.
+2. The result of `typeof null` is `"object"`. That's an officially recognized error in `typeof`, coming from very early days of JavaScript and kept for compatibility. Definitely, `null` is not an object. It is a special value with a separate type of its own. The behavior of `typeof` is wrong here.
+3. The result of `typeof alert` is `"function"`, because `alert` is a function. We'll study functions in the next chapters where we'll also see that there's no special "function" type in JavaScript. Functions belong to the object type. But `typeof` treats them differently, returning `"function"`. That also comes from the early days of JavaScript. Technically, such behavior isn't correct, but can be convenient in practice.
+
+```smart header="The `typeof(x)` syntax"
+You may also come across another syntax: `typeof(x)`. It's the same as `typeof x`.
+
+To put it clear: `typeof` is an operator, not a function. The parentheses here aren't a part of `typeof`. It's the kind of parentheses used for mathematical grouping.
+
+Usually, such parentheses contain a mathematical expression, such as `(2 + 2)`, but here they contain only one argument `(x)`. Syntactically, they allow to avoid a space between the `typeof` operator and its argument, and some people like it.
+
+Some people prefer `typeof(x)`, although the `typeof x` syntax is much more common.
+```
+
+## Summary
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 자바스크립트에는 여덟 가지 기본 자료형이 있습니다.
 
+<<<<<<< HEAD
 - `숫자형` -- 정수, 부동 소수점 숫자 등의 숫자를 나타낼 때 사용합니다. 정수의 한계는 ±2<sup>53</sup> 입니다.
 - `bigint` -- 길이 제약 없이 정수를 나타낼 수 있습니다.
 - `문자형` -- 빈 문자열이나 글자들로 이뤄진 문자열을 나타낼 때 사용합니다. 단일 문자를 나타내는 별도의 자료형은 없습니다.
@@ -263,11 +325,29 @@ typeof alert // "function"  (3)
 - `undefined` -- `undefined` 값만을 위한 독립 자료형입니다. `undefined`는 할당되지 않은 값을 나타냅니다. 
 - `객체형` -- 복잡한 데이터 구조를 표현할 때 사용합니다.
 - `심볼형` -- 객체의 고유 식별자를 만들 때 사용합니다.
+=======
+- Seven primitive data types:
+    - `number` for numbers of any kind: integer or floating-point, integers are limited by <code>±(2<sup>53</sup>-1)</code>.
+    - `bigint` for integer numbers of arbitrary length.
+    - `string` for strings. A string may have zero or more characters, there's no separate single-character type.
+    - `boolean` for `true`/`false`.
+    - `null` for unknown values -- a standalone type that has a single value `null`.
+    - `undefined` for unassigned values -- a standalone type that has a single value `undefined`.
+    - `symbol` for unique identifiers.
+- And one non-primitive data type:
+    - `object` for more complex data structures.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 `typeof` 연산자는 피연산자의 자료형을 알려줍니다.
 
+<<<<<<< HEAD
 - `typeof x` 또는 `typeof(x)` 형태로 사용합니다.
 - 피연산자의 자료형을 문자열 형태로 반환합니다.
 - `null`의 typeof 연산은 `"object"`인데, 이는 언어상 오류입니다. null은 객체가 아닙니다. 
+=======
+- Usually used as `typeof x`, but `typeof(x)` is also possible.
+- Returns a string with the name of the type, like `"string"`.
+- For `null` returns `"object"` -- this is an error in the language, it's not actually an object.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 이어지는 챕터에선 원시 자료형에 대해 학습해 볼 예정입니다. 원시형에 어느 정도 익숙해지면 객체형에 대해 알아보도록 하겠습니다.

@@ -6,8 +6,13 @@
 
 이 외에, 전달받은 값을 의도를 갖고 원하는 타입으로 변환(명시적 변환)해 주는 경우도 형 변환이라고 할 수 있습니다.
 
+<<<<<<< HEAD
 ```smart header="객체의 형변환은 나중에 다룹니다."
 이 챕터에선 객체는 다루지 않겠습니다. 여기선 원시형의 형변환에 대해서만 다룰 예정입니다.
+=======
+```smart header="Not talking about objects yet"
+In this chapter, we won't cover objects. For now, we'll just be talking about primitives.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 객체의 형 변환이 어떻게 이뤄지는지 <info:object-toprimitive>에 대해선 객체에 대한 학습이 끝난 후 알아보겠습니다.
 ```
@@ -34,7 +39,11 @@ alert(typeof value); // string
 
 ## 숫자형으로 변환
 
+<<<<<<< HEAD
 숫자형으로의 변환은 수학과 관련된 함수와 표현식에서 자동으로 일어납니다.
+=======
+Numeric conversion in mathematical functions and expressions happens automatically.
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 숫자형이 아닌 값에 나누기 `/`를 적용한 경우와 같이 말이죠.
 
@@ -69,8 +78,13 @@ alert(age); // NaN, 형 변환이 실패합니다.
 |-------|-------------|
 |`undefined`|`NaN`|
 |`null`|`0`|
+<<<<<<< HEAD
 |<code>true&nbsp;and&nbsp;false</code> | `1` 과 `0` |
 | `string` | 문자열의 처음과 끝 공백이 제거됩니다. 공백 제거 후 남아있는 문자열이 없다면 `0`, 그렇지 않다면 문자열에서 숫자를 읽습니다. 변환에 실패하면 `NaN`이 됩니다.|
+=======
+|<code>true&nbsp;and&nbsp;false</code> | `1` and `0` |
+| `string` | Whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is "read" from the string. An error gives `NaN`. |
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 예시:
 
@@ -130,7 +144,11 @@ alert( Boolean(" ") ); // 공백이 있는 문자열도 비어있지 않은 문�
 |`undefined`|`NaN`|
 |`null`|`0`|
 |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
+<<<<<<< HEAD
 | `string` | 전달받은 문자열을 "그대로" 읽되, 처음과 끝의 공백을 무시합니다. 문자열이 비어있다면 `0`이 되고, 오류 발생 시 `NaN`이 됩니다. |
+=======
+| `string` | The string is read "as is", whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+>>>>>>> 20208769e528337949e946f526534d61d38bac47
 
 **`불린형으로 변환`** 은 논리 연산 시 발생합니다. `Boolean(value)`으로도 변환할 수 있습니다.
 
